@@ -41,6 +41,7 @@
 		899831012183B04100D94369 /* AUPMQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831002183B04100D94369 /* AUPMQueue.m */; };
 		899831052183B18E00D94369 /* AUPMQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831042183B18E00D94369 /* AUPMQueueViewController.m */; };
 		899831082183B24C00D94369 /* AUPMConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831072183B24C00D94369 /* AUPMConsoleViewController.m */; };
+		8998310B2183B46600D94369 /* AUPMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8998310A2183B46600D94369 /* AUPMSearchViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,6 +112,8 @@
 		899831042183B18E00D94369 /* AUPMQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMQueueViewController.m; sourceTree = "<group>"; };
 		899831062183B24C00D94369 /* AUPMConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMConsoleViewController.h; sourceTree = "<group>"; };
 		899831072183B24C00D94369 /* AUPMConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMConsoleViewController.m; sourceTree = "<group>"; };
+		899831092183B46600D94369 /* AUPMSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMSearchViewController.h; sourceTree = "<group>"; };
+		8998310A2183B46600D94369 /* AUPMSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMSearchViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +199,8 @@
 				899830DC218384F600D94369 /* AUPMTabBarController.h */,
 				899830DD218384F600D94369 /* AUPMTabBarController.m */,
 				897537F8218357E6000EB225 /* Main.storyboard */,
+				899831092183B46600D94369 /* AUPMSearchViewController.h */,
+				8998310A2183B46600D94369 /* AUPMSearchViewController.m */,
 				899830EF2183A2EC00D94369 /* AUPMPackageListViewController.h */,
 				899830F02183A2EC00D94369 /* AUPMPackageListViewController.m */,
 				899830F82183A5B500D94369 /* AUPMPackageViewController.h */,
@@ -326,6 +331,7 @@
 				899830E42183883200D94369 /* AUPMPackageManager.m in Sources */,
 				897537F1218357E6000EB225 /* AUPMAppDelegate.m in Sources */,
 				899830DE218384F600D94369 /* AUPMTabBarController.m in Sources */,
+				8998310B2183B46600D94369 /* AUPMSearchViewController.m in Sources */,
 				899831082183B24C00D94369 /* AUPMConsoleViewController.m in Sources */,
 				899830F12183A2EC00D94369 /* AUPMPackageListViewController.m in Sources */,
 				89753802218357E7000EB225 /* main.m in Sources */,

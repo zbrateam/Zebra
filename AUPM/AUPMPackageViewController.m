@@ -114,7 +114,7 @@
         [alert dismissViewControllerAnimated:true completion:nil];
 
         AUPMQueue *queue = [AUPMQueue sharedInstance];
-        [queue addPackage:_package toQueueWithAction:AUPMQueueActionRemove];
+        [queue addPackage:self->_package toQueueWithAction:AUPMQueueActionRemove];
 
         AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
@@ -125,7 +125,7 @@
         [alert dismissViewControllerAnimated:true completion:nil];
 
         AUPMQueue *queue = [AUPMQueue sharedInstance];
-        [queue addPackage:_package toQueueWithAction:AUPMQueueActionReinstall];
+        [queue addPackage:self->_package toQueueWithAction:AUPMQueueActionReinstall];
 
         AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
