@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>AUPM Beta</title>
+
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0">
+
+	<link rel="stylesheet" href="ios7.min.css">
+	<script src="ios7.min.js"></script>
+</head>
+<body>
+	<main id="content">
+		<h2 role="header">Info</h2>
+		<ul>
+			<li>
+				<p>Welcome to the AUPM Beta!</p>
+			</li>
+			<li>
+				<p id="version"></p>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a id="bugReport" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~sendBug');">Report a Bug</a>
+			</li>
+			<li>
+				<a id="nukeDatabase" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~nuke');">Delete Database and Refresh</a>
+			</li>
+	  </ul>
+		<ul>
+			<li class="has-icon">
+				<p id="credits" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/aupm/credits.html');" role="button">
+					<img href="url@2x.png" alt="" srcset="url@2x.png 2x, url@3x.png 3x" class="icon">
+					Credits
+				</p>
+			</li>
+		</ul>
+	</main>
+</body>
+</html>

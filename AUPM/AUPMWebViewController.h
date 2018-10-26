@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AUPMWebViewController : UIViewController <WKNavigationDelegate> // , WKScriptMessageHandler, MFMailComposeViewControllerDelegate>
+@interface AUPMWebViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, MFMailComposeViewControllerDelegate>
 - (id)initWithURL:(NSURL *)url;
 @end
 

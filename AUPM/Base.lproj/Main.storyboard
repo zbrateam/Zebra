@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -68,34 +69,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XzQ-zC-l6J">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ld6-Pk-ZOB">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ld6-Pk-ZOB">
                                 <rect key="frame" x="0.0" y="64" width="375" height="2"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="XzQ-zC-l6J" firstAttribute="leading" secondItem="73C-Ha-tHt" secondAttribute="leading" id="A6l-I1-VLP"/>
-                            <constraint firstItem="XzQ-zC-l6J" firstAttribute="top" secondItem="pzD-DH-H5d" secondAttribute="top" id="Av4-lZ-X3q"/>
-                            <constraint firstItem="XzQ-zC-l6J" firstAttribute="bottom" secondItem="pzD-DH-H5d" secondAttribute="bottom" id="TVe-7x-IeC"/>
-                            <constraint firstItem="XzQ-zC-l6J" firstAttribute="leading" secondItem="ld6-Pk-ZOB" secondAttribute="leading" id="XG6-hZ-Atb"/>
                             <constraint firstAttribute="trailing" secondItem="ld6-Pk-ZOB" secondAttribute="trailing" id="hQb-QG-uLV"/>
-                            <constraint firstItem="XzQ-zC-l6J" firstAttribute="top" secondItem="ld6-Pk-ZOB" secondAttribute="top" id="s6B-6y-7XG"/>
-                            <constraint firstItem="XzQ-zC-l6J" firstAttribute="trailing" secondItem="ld6-Pk-ZOB" secondAttribute="trailing" id="w1T-sY-QDj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pzD-DH-H5d"/>
                     </view>
                     <navigationItem key="navigationItem" title="AUPM Beta" id="8f3-0e-I9R"/>
                     <connections>
                         <outlet property="progressView" destination="ld6-Pk-ZOB" id="QPI-67-ZwG"/>
-                        <outlet property="webView" destination="XzQ-zC-l6J" id="Jnr-MW-8SJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ias-lx-N4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
