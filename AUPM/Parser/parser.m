@@ -19,8 +19,7 @@ bool packages_file_changed(FILE* f1, FILE* f2) {
     }
 }
 
-NSArray *packages_to_array(const char *path)
-{
+NSArray *packages_to_array(const char *path) {
     @autoreleasepool {
         CFMutableArrayRef packages = CFArrayCreateMutable(kCFAllocatorDefault, 10, &kCFTypeArrayCallBacks);
         

@@ -173,54 +173,118 @@
 		897537EE218357E6000EB225 /* AUPM */ = {
 			isa = PBXGroup;
 			children = (
+				899831142183B66300D94369 /* Parser */,
+				899831132183B64C00D94369 /* Resources */,
+				8998310D2183B5CF00D94369 /* Repos */,
+				8998310C2183B59800D94369 /* Packages */,
+				899831112183B61600D94369 /* Search */,
+				899831122183B62300D94369 /* Database */,
+				8998310F2183B5F900D94369 /* Console */,
+				8998310E2183B5E300D94369 /* Queue */,
 				899830F72183A49200D94369 /* MobileGestalt.h */,
-				899830EB21839D1D00D94369 /* parser.m */,
-				899830E72183893200D94369 /* Packages.tx */,
+				899830DB2183838E00D94369 /* NSTask.h */,
 				897537EF218357E6000EB225 /* AUPMAppDelegate.h */,
 				897537F0218357E6000EB225 /* AUPMAppDelegate.m */,
-				899830DB2183838E00D94369 /* NSTask.h */,
-				892BAECC218358CB00CD0AC0 /* AUPMWebViewController.h */,
-				892BAECD218358CB00CD0AC0 /* AUPMWebViewController.m */,
-				899830CF218381C500D94369 /* AUPMDatabaseManager.h */,
-				899830D0218381C500D94369 /* AUPMDatabaseManager.m */,
-				899830D22183820000D94369 /* AUPMPackage.h */,
-				899830D32183820000D94369 /* AUPMPackage.m */,
-				899830D52183820E00D94369 /* AUPMRepo.h */,
-				899830D62183820E00D94369 /* AUPMRepo.m */,
-				899830D8218382C800D94369 /* AUPMRefreshViewController.h */,
-				899830D9218382C800D94369 /* AUPMRefreshViewController.m */,
-				899830DF2183882700D94369 /* AUPMRepoManager.h */,
-				899830E02183882700D94369 /* AUPMRepoManager.m */,
-				899830ED2183A04200D94369 /* status.tx */,
-				899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */,
-				899830E52183886700D94369 /* dpkgver.c */,
-				899830E22183883200D94369 /* AUPMPackageManager.h */,
-				899830E32183883200D94369 /* AUPMPackageManager.m */,
 				899830DC218384F600D94369 /* AUPMTabBarController.h */,
 				899830DD218384F600D94369 /* AUPMTabBarController.m */,
+				892BAECC218358CB00CD0AC0 /* AUPMWebViewController.h */,
+				892BAECD218358CB00CD0AC0 /* AUPMWebViewController.m */,
 				897537F8218357E6000EB225 /* Main.storyboard */,
-				899831092183B46600D94369 /* AUPMSearchViewController.h */,
-				8998310A2183B46600D94369 /* AUPMSearchViewController.m */,
-				899830EF2183A2EC00D94369 /* AUPMPackageListViewController.h */,
-				899830F02183A2EC00D94369 /* AUPMPackageListViewController.m */,
-				899830F82183A5B500D94369 /* AUPMPackageViewController.h */,
-				899830F92183A5B500D94369 /* AUPMPackageViewController.m */,
-				899830F22183A2FB00D94369 /* AUPMRepoListViewController.h */,
-				899830F32183A2FB00D94369 /* AUPMRepoListViewController.m */,
 				897537FB218357E7000EB225 /* Assets.xcassets */,
 				897537FD218357E7000EB225 /* LaunchScreen.storyboard */,
 				89753800218357E7000EB225 /* Info.plist */,
 				89753801218357E7000EB225 /* main.m */,
-				892BAECF21835AE500CD0AC0 /* HTML */,
+			);
+			path = AUPM;
+			sourceTree = "<group>";
+		};
+		8998310C2183B59800D94369 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				899830D22183820000D94369 /* AUPMPackage.h */,
+				899830D32183820000D94369 /* AUPMPackage.m */,
+				899830F82183A5B500D94369 /* AUPMPackageViewController.h */,
+				899830F92183A5B500D94369 /* AUPMPackageViewController.m */,
+				899830E22183883200D94369 /* AUPMPackageManager.h */,
+				899830E32183883200D94369 /* AUPMPackageManager.m */,
+				899830EF2183A2EC00D94369 /* AUPMPackageListViewController.h */,
+				899830F02183A2EC00D94369 /* AUPMPackageListViewController.m */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		8998310D2183B5CF00D94369 /* Repos */ = {
+			isa = PBXGroup;
+			children = (
+				899830D52183820E00D94369 /* AUPMRepo.h */,
+				899830D62183820E00D94369 /* AUPMRepo.m */,
+				899830DF2183882700D94369 /* AUPMRepoManager.h */,
+				899830E02183882700D94369 /* AUPMRepoManager.m */,
+				899830F22183A2FB00D94369 /* AUPMRepoListViewController.h */,
+				899830F32183A2FB00D94369 /* AUPMRepoListViewController.m */,
+			);
+			path = Repos;
+			sourceTree = "<group>";
+		};
+		8998310E2183B5E300D94369 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
 				899830FF2183B04100D94369 /* AUPMQueue.h */,
 				899831002183B04100D94369 /* AUPMQueue.m */,
 				899831022183B14000D94369 /* AUPMQueueAction.h */,
 				899831032183B18E00D94369 /* AUPMQueueViewController.h */,
 				899831042183B18E00D94369 /* AUPMQueueViewController.m */,
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
+		8998310F2183B5F900D94369 /* Console */ = {
+			isa = PBXGroup;
+			children = (
 				899831062183B24C00D94369 /* AUPMConsoleViewController.h */,
 				899831072183B24C00D94369 /* AUPMConsoleViewController.m */,
 			);
-			path = AUPM;
+			path = Console;
+			sourceTree = "<group>";
+		};
+		899831112183B61600D94369 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				899831092183B46600D94369 /* AUPMSearchViewController.h */,
+				8998310A2183B46600D94369 /* AUPMSearchViewController.m */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		899831122183B62300D94369 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				899830CF218381C500D94369 /* AUPMDatabaseManager.h */,
+				899830D0218381C500D94369 /* AUPMDatabaseManager.m */,
+				899830D8218382C800D94369 /* AUPMRefreshViewController.h */,
+				899830D9218382C800D94369 /* AUPMRefreshViewController.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		899831132183B64C00D94369 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				899830E72183893200D94369 /* Packages.tx */,
+				899830ED2183A04200D94369 /* status.tx */,
+				899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */,
+				892BAECF21835AE500CD0AC0 /* HTML */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		899831142183B66300D94369 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				899830EB21839D1D00D94369 /* parser.m */,
+				899830E52183886700D94369 /* dpkgver.c */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -11,8 +11,8 @@
 #import "AUPMPackage.h"
 #import "AUPMRepoManager.h"
 #import "AUPMPackageManager.h"
-#include "dpkgver.c"
 #import "NSTask.h"
+#include "../Parser/dpkgver.c"
 
 @implementation AUPMDatabaseManager
 

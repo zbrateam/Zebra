@@ -9,10 +9,10 @@
 #import "AUPMRepoManager.h"
 #import "AUPMRepo.h"
 #import "AUPMPackage.h"
-#include "dpkgver.c"
 #import "NSTask.h"
 #import "AUPMDatabaseManager.h"
 #import "AUPMAppDelegate.h"
+#include "../Parser/dpkgver.c"
 
 @interface AUPMRepoManager ()
 @property (nonatomic, retain) NSMutableArray *repos;
