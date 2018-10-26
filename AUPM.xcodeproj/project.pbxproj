@@ -33,6 +33,10 @@
 		899830EA21839B5900D94369 /* xtm3x.github.io_repo_._Release.tx in Resources */ = {isa = PBXBuildFile; fileRef = 899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */; };
 		899830EC21839D1D00D94369 /* parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830EB21839D1D00D94369 /* parser.m */; };
 		899830EE2183A04200D94369 /* status.tx in Resources */ = {isa = PBXBuildFile; fileRef = 899830ED2183A04200D94369 /* status.tx */; };
+		899830F12183A2EC00D94369 /* AUPMPackageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830F02183A2EC00D94369 /* AUPMPackageListViewController.m */; };
+		899830F42183A2FB00D94369 /* AUPMRepoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830F32183A2FB00D94369 /* AUPMRepoListViewController.m */; };
+		899830F62183A42C00D94369 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 899830F52183A42C00D94369 /* libMobileGestalt.tbd */; };
+		899830FA2183A5B500D94369 /* AUPMPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830F92183A5B500D94369 /* AUPMPackageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +91,14 @@
 		899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xtm3x.github.io_repo_._Release.tx; sourceTree = "<group>"; };
 		899830EB21839D1D00D94369 /* parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = parser.m; sourceTree = "<group>"; };
 		899830ED2183A04200D94369 /* status.tx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = status.tx; sourceTree = "<group>"; };
+		899830EF2183A2EC00D94369 /* AUPMPackageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackageListViewController.h; sourceTree = "<group>"; };
+		899830F02183A2EC00D94369 /* AUPMPackageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMPackageListViewController.m; sourceTree = "<group>"; };
+		899830F22183A2FB00D94369 /* AUPMRepoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMRepoListViewController.h; sourceTree = "<group>"; };
+		899830F32183A2FB00D94369 /* AUPMRepoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMRepoListViewController.m; sourceTree = "<group>"; };
+		899830F52183A42C00D94369 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
+		899830F72183A49200D94369 /* MobileGestalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobileGestalt.h; path = ../../../../Downloads/MobileGestalt.h; sourceTree = "<group>"; };
+		899830F82183A5B500D94369 /* AUPMPackageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackageViewController.h; sourceTree = "<group>"; };
+		899830F92183A5B500D94369 /* AUPMPackageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMPackageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899830F62183A42C00D94369 /* libMobileGestalt.tbd in Frameworks */,
 				899830CB218380EB00D94369 /* Realm.framework in Frameworks */,
 				892BAED421835BC000CD0AC0 /* WebKit.framework in Frameworks */,
 			);
@@ -117,6 +130,7 @@
 		892BAED221835BC000CD0AC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				899830F52183A42C00D94369 /* libMobileGestalt.tbd */,
 				892BAED321835BC000CD0AC0 /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -143,6 +157,7 @@
 		897537EE218357E6000EB225 /* AUPM */ = {
 			isa = PBXGroup;
 			children = (
+				899830F72183A49200D94369 /* MobileGestalt.h */,
 				899830EB21839D1D00D94369 /* parser.m */,
 				899830E72183893200D94369 /* Packages.tx */,
 				897537EF218357E6000EB225 /* AUPMAppDelegate.h */,
@@ -168,6 +183,12 @@
 				899830DC218384F600D94369 /* AUPMTabBarController.h */,
 				899830DD218384F600D94369 /* AUPMTabBarController.m */,
 				897537F8218357E6000EB225 /* Main.storyboard */,
+				899830EF2183A2EC00D94369 /* AUPMPackageListViewController.h */,
+				899830F02183A2EC00D94369 /* AUPMPackageListViewController.m */,
+				899830F82183A5B500D94369 /* AUPMPackageViewController.h */,
+				899830F92183A5B500D94369 /* AUPMPackageViewController.m */,
+				899830F22183A2FB00D94369 /* AUPMRepoListViewController.h */,
+				899830F32183A2FB00D94369 /* AUPMRepoListViewController.m */,
 				897537FB218357E7000EB225 /* Assets.xcassets */,
 				897537FD218357E7000EB225 /* LaunchScreen.storyboard */,
 				89753800218357E7000EB225 /* Info.plist */,
@@ -284,9 +305,12 @@
 				899830E42183883200D94369 /* AUPMPackageManager.m in Sources */,
 				897537F1218357E6000EB225 /* AUPMAppDelegate.m in Sources */,
 				899830DE218384F600D94369 /* AUPMTabBarController.m in Sources */,
+				899830F12183A2EC00D94369 /* AUPMPackageListViewController.m in Sources */,
 				89753802218357E7000EB225 /* main.m in Sources */,
 				899830E62183886700D94369 /* dpkgver.c in Sources */,
 				899830D1218381C500D94369 /* AUPMDatabaseManager.m in Sources */,
+				899830F42183A2FB00D94369 /* AUPMRepoListViewController.m in Sources */,
+				899830FA2183A5B500D94369 /* AUPMPackageViewController.m in Sources */,
 				899830E12183882700D94369 /* AUPMRepoManager.m in Sources */,
 				899830DA218382C800D94369 /* AUPMRefreshViewController.m in Sources */,
 			);
