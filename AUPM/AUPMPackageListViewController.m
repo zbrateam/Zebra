@@ -52,15 +52,15 @@
     AUPMDatabaseManager *databaseManager = ((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).databaseManager;
     _hasUpdates = [databaseManager hasPackagesThatNeedUpdates];
     _updateObjects = [databaseManager updateObjects];
-//    AUPMQueue *queue = [AUPMQueue sharedInstance];
-//
-//    if ([queue hasObjects]) {
-//        UIBarButtonItem *queueItem = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(viewQueue)];
-//        self.navigationItem.leftBarButtonItem = queueItem;
-//    }
-//    else {
-//        self.navigationItem.leftBarButtonItems = nil;
-//    }
+    AUPMQueue *queue = [AUPMQueue sharedInstance];
+
+    if ([queue hasObjects]) {
+        UIBarButtonItem *queueItem = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(viewQueue)];
+        self.navigationItem.leftBarButtonItem = queueItem;
+    }
+    else {
+        self.navigationItem.leftBarButtonItems = nil;
+    }
     
     if (_hasUpdates) {
         UIBarButtonItem *upgradeItem = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStyleDone target:self action:@selector(upgradeAllPackages)];
@@ -75,20 +75,20 @@
     [self.tableView reloadData];
 }
 
-//- (void)viewQueue {
-//    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-//    [self presentViewController:navController animated:true completion:nil];
-//}
-//
+- (void)viewQueue {
+    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+    [self presentViewController:navController animated:true completion:nil];
+}
+
 - (void)upgradeAllPackages {
-//    AUPMQueue *queue = [AUPMQueue sharedInstance];
-//
-//    [queue addPackages:_updateObjects toQueueWithAction:AUPMQueueActionUpgrade];
-//
-//    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-//    [self presentViewController:navController animated:true completion:nil];
+    AUPMQueue *queue = [AUPMQueue sharedInstance];
+
+    [queue addPackages:_updateObjects toQueueWithAction:AUPMQueueActionUpgrade];
+
+    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+    [self presentViewController:navController animated:true completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -152,11 +152,7 @@
     else if (_repo != NULL) {
         cell.imageView.image = [UIImage imageWithData:[_repo icon]];
     }
-    
-    if (error != nil) {
-        NSLog(@"[AUPM] %@", error);
-    }
-    
+
     if ([package tags] != NULL && [[package tags] rangeOfString:@"cydia::commercial"].location != NSNotFound) {
         cell.textLabel.textColor = [UIColor colorWithRed:0.62 green:0.67 blue:0.90 alpha:1.0];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.62 green:0.67 blue:0.90 alpha:1.0];

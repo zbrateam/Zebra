@@ -32,15 +32,17 @@
 //
     self.databaseManager = [[AUPMDatabaseManager alloc] init];
     
-//    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/aupm/aupm.list"]) {
-//        NSTask *cpTask = [[NSTask alloc] init];
-//        [cpTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
-//        NSArray *cpArgs = [[NSArray alloc] initWithObjects: @"cp", @"-fR", @"/var/lib/aupm/default.list", @"/var/lib/aupm/aupm.list", nil];
-//        [cpTask setArguments:cpArgs];
-//
-//        [cpTask launch];
-//        [cpTask waitUntilExit];
-//    }
+#ifdef RELEASE
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/aupm/aupm.list"]) {
+        NSTask *cpTask = [[NSTask alloc] init];
+        [cpTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
+        NSArray *cpArgs = [[NSArray alloc] initWithObjects: @"cp", @"-fR", @"/var/lib/aupm/default.list", @"/var/lib/aupm/aupm.list", nil];
+        [cpTask setArguments:cpArgs];
+
+        [cpTask launch];
+        [cpTask waitUntilExit];
+    }
+#endif
     
 //    NSError *configError;
     RLMRealm *realm = [RLMRealm defaultRealm];//realmWithConfiguration:config error:&configError];

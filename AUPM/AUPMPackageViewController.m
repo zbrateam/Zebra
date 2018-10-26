@@ -109,56 +109,56 @@
 }
 
 - (void)modifyPackage {
-//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//
-//    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//        [alert dismissViewControllerAnimated:true completion:nil];
-//
-//        AUPMQueue *queue = [AUPMQueue sharedInstance];
-//        [queue addPackage:_package toQueueWithAction:AUPMQueueActionRemove];
-//
-//        AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
-//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-//        [self presentViewController:navController animated:true completion:nil];
-//    }];
-//
-//    UIAlertAction *reinstallAction = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-//        [alert dismissViewControllerAnimated:true completion:nil];
-//
-//        AUPMQueue *queue = [AUPMQueue sharedInstance];
-//        [queue addPackage:_package toQueueWithAction:AUPMQueueActionReinstall];
-//
-//        AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
-//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-//        [self presentViewController:navController animated:true completion:nil];
-//    }];
-//
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-//        [alert dismissViewControllerAnimated:true completion:nil];
-//    }];
-//
-//    [alert addAction:removeAction];
-//    [alert addAction:reinstallAction];
-//    [alert addAction:cancelAction];
-//    [self presentViewController:alert animated:YES completion:nil];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+
+        AUPMQueue *queue = [AUPMQueue sharedInstance];
+        [queue addPackage:_package toQueueWithAction:AUPMQueueActionRemove];
+
+        AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+        [self presentViewController:navController animated:true completion:nil];
+    }];
+
+    UIAlertAction *reinstallAction = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+
+        AUPMQueue *queue = [AUPMQueue sharedInstance];
+        [queue addPackage:_package toQueueWithAction:AUPMQueueActionReinstall];
+
+        AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+        [self presentViewController:navController animated:true completion:nil];
+    }];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+    }];
+
+    [alert addAction:removeAction];
+    [alert addAction:reinstallAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)installPackage {
-//    AUPMQueue *queue = [AUPMQueue sharedInstance];
-//    [queue addPackage:_package toQueueWithAction:AUPMQueueActionInstall];
-//
-//    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-//    [self presentViewController:navController animated:true completion:nil];
+    AUPMQueue *queue = [AUPMQueue sharedInstance];
+    [queue addPackage:_package toQueueWithAction:AUPMQueueActionInstall];
+
+    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+    [self presentViewController:navController animated:true completion:nil];
 }
 
 - (void)removePackage {
-//    AUPMQueue *queue = [AUPMQueue sharedInstance];
-//    [queue addPackage:_package toQueueWithAction:AUPMQueueActionRemove];
-//    
-//    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
-//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-//    [self presentViewController:navController animated:true completion:nil];
+    AUPMQueue *queue = [AUPMQueue sharedInstance];
+    [queue addPackage:_package toQueueWithAction:AUPMQueueActionRemove];
+    
+    AUPMQueueViewController *queueVC = [[AUPMQueueViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+    [self presentViewController:navController animated:true completion:nil];
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {

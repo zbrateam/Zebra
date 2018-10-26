@@ -344,8 +344,8 @@ NSArray *packages_to_array(const char *path);
         [updateListTask launch];
         [updateListTask waitUntilExit];
         
-        completion(true);
 #endif
+        completion(true);
     }
 }
 

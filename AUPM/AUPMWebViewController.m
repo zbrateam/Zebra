@@ -7,6 +7,7 @@
 //
 
 #import "AUPMWebViewController.h"
+#import "AUPMRefreshViewController.h"
 
 @interface AUPMWebViewController () {
     WKWebView *webView;
@@ -107,9 +108,9 @@
 
 - (void)nukeDatabase {
     NSLog(@"Nuke action");
-//    AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] init];
-//
-//    [[UIApplication sharedApplication] keyWindow].rootViewController = refreshViewController;
+    AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] init];
+
+    [[UIApplication sharedApplication] keyWindow].rootViewController = refreshViewController;
 }
 
 - (void)sendBugReport {
