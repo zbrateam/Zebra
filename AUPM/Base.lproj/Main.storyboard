@@ -47,7 +47,7 @@
         <scene sceneID="Gtz-R2-aNf">
             <objects>
                 <navigationController id="vSK-WV-vKm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Beta" id="Lzv-D9-7to"/>
+                    <tabBarItem key="tabBarItem" title="Beta" image="Beta" id="Lzv-D9-7to"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wxg-qw-1Sd">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -103,4 +103,7 @@
             <point key="canvasLocation" x="1584.8" y="-197.45127436281859"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Beta" width="25" height="25"/>
+    </resources>
 </document>

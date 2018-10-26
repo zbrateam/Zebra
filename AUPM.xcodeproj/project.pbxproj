@@ -96,12 +96,12 @@
 				897537F0218357E6000EB225 /* AUPMAppDelegate.m */,
 				892BAECC218358CB00CD0AC0 /* AUPMWebViewController.h */,
 				892BAECD218358CB00CD0AC0 /* AUPMWebViewController.m */,
-				892BAECF21835AE500CD0AC0 /* HTML */,
 				897537F8218357E6000EB225 /* Main.storyboard */,
 				897537FB218357E7000EB225 /* Assets.xcassets */,
 				897537FD218357E7000EB225 /* LaunchScreen.storyboard */,
 				89753800218357E7000EB225 /* Info.plist */,
 				89753801218357E7000EB225 /* main.m */,
+				892BAECF21835AE500CD0AC0 /* HTML */,
 			);
 			path = AUPM;
 			sourceTree = "<group>";
