@@ -37,6 +37,7 @@
 		899830F42183A2FB00D94369 /* AUPMRepoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830F32183A2FB00D94369 /* AUPMRepoListViewController.m */; };
 		899830F62183A42C00D94369 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 899830F52183A42C00D94369 /* libMobileGestalt.tbd */; };
 		899830FA2183A5B500D94369 /* AUPMPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830F92183A5B500D94369 /* AUPMPackageViewController.m */; };
+		899830FE2183AC8B00D94369 /* package_depiction.html in Resources */ = {isa = PBXBuildFile; fileRef = 899830FD2183AC8B00D94369 /* package_depiction.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -99,6 +100,7 @@
 		899830F72183A49200D94369 /* MobileGestalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobileGestalt.h; path = ../../../../Downloads/MobileGestalt.h; sourceTree = "<group>"; };
 		899830F82183A5B500D94369 /* AUPMPackageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackageViewController.h; sourceTree = "<group>"; };
 		899830F92183A5B500D94369 /* AUPMPackageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMPackageViewController.m; sourceTree = "<group>"; };
+		899830FD2183AC8B00D94369 /* package_depiction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = package_depiction.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		892BAECF21835AE500CD0AC0 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				899830FD2183AC8B00D94369 /* package_depiction.html */,
 				892BAEDE21835D1B00CD0AC0 /* ios7.min.css */,
 				892BAEDD21835D1A00CD0AC0 /* ios7.min.js */,
 				892BAED921835D0400CD0AC0 /* url@2x.png */,
@@ -264,6 +267,7 @@
 				892BAEDC21835D0400CD0AC0 /* url@3x.png in Resources */,
 				899830EE2183A04200D94369 /* status.tx in Resources */,
 				897537FC218357E7000EB225 /* Assets.xcassets in Resources */,
+				899830FE2183AC8B00D94369 /* package_depiction.html in Resources */,
 				899830E82183893200D94369 /* Packages.tx in Resources */,
 				892BAEDB21835D0400CD0AC0 /* url@2x.png in Resources */,
 				897537FA218357E6000EB225 /* Main.storyboard in Resources */,

@@ -53,7 +53,8 @@
     _webView.customUserAgent = @"Cydia/ButActuallyAUPM";
     [_webView setNavigationDelegate:self];
     
-    [_webView loadFileURL:[NSURL URLWithString:@"file:///Applications/AUPM.app/html/package_depiction.html"] allowingReadAccessToURL:[NSURL URLWithString:@"file:///Applications/AUPM.app/html/"]];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@".html"];
+    [_webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     _webView.allowsBackForwardNavigationGestures = true;
     _progressBar = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 9)];
@@ -178,7 +179,7 @@
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package packageName], [_package packageIdentifier]] completionHandler:nil];
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = '%@';", [_package packageDescription]] completionHandler:^(id Result, NSError * error) {
-            NSLog(@"[AUPM] Error: %@ Description: %@", error, [_package packageDescription]);
+            NSLog(@"[AUPM] Error: %@ Description: %@", error, [self->_package packageDescription]);
         }];
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
         [_webView evaluateJavaScript:command completionHandler:^(id Result, NSError * error) {
@@ -191,10 +192,10 @@
     if (_isFinishedLoading) {
         if (_progressBar.progress >= 1) {
             [UIView animateWithDuration:0.3 delay:0.3 options:0 animations:^{
-                _progressBar.alpha = 0.0;
+                self->_progressBar.alpha = 0.0;
             } completion:^(BOOL finished) {
-                [_progressTimer invalidate];
-                _progressTimer = nil;
+                [self->_progressTimer invalidate];
+                self->_progressTimer = nil;
             }];
         }
         else {
