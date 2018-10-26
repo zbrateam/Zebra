@@ -1,22 +1,24 @@
 //
-//  AppDelegate.m
+//  AUPMAppDelegate.m
 //  AUPM
 //
 //  Created by Wilson Styres on 10/26/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "AUPMAppDelegate.h"
 
-@interface AppDelegate ()
+@interface AUPMAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation AUPMAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.tintColor = [UIColor colorWithRed:0.62 green:0.67 blue:0.90 alpha:1.0];
+    
     return YES;
 }
 

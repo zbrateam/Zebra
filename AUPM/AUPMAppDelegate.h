@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  AUPMAppDelegate.h
 //  AUPM
 //
 //  Created by Wilson Styres on 10/26/18.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AUPMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
