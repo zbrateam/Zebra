@@ -8,10 +8,9 @@
 
 #import "AUPMPackageViewController.h"
 #import "AUPMPackage.h"
-//#import "AUPMConsoleViewController.h"
-//#import "../AUPMQueue.h"
-//#import "../AUPMQueueAction.h"
-//#import "AUPMQueueViewController.h"
+#import "AUPMConsoleViewController.h"
+#import "AUPMQueue.h"
+#import "AUPMQueueViewController.h"
 #import "MobileGestalt.h"
 #include <sys/sysctl.h>
 

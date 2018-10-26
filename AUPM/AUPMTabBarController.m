@@ -9,6 +9,7 @@
 #import "AUPMTabBarController.h"
 #import "AUPMDatabaseManager.h"
 #import "AUPMAppDelegate.h"
+#import "AUPMPackageListViewController.h"
 
 @interface AUPMTabBarController ()
 
@@ -48,7 +49,7 @@
             AUPMDatabaseManager *databaseManager = ((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).databaseManager;
             [databaseManager updatePopulation:^(BOOL success) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    //[self updatePackageTableView];
+                    [self updatePackageTableView];
                     [sourcesController tabBarItem].badgeValue = nil;
                 });
             }];
@@ -65,18 +66,18 @@
     }
 }
 
-//- (void)updatePackageTableView {
-//    UINavigationController *packageNavController = self.viewControllers[2];
-//    AUPMPackageListViewController *packageVC = packageNavController.viewControllers[0];
-//    AUPMDatabaseManager *databaseManager = ((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).databaseManager;
-//    if ([databaseManager hasPackagesThatNeedUpdates]) {
-//        [packageNavController tabBarItem].badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[databaseManager numberOfPackagesThatNeedUpdates]];
-//        [packageVC refreshTable];
-//    }
-//    else {
-//        [packageNavController tabBarItem].badgeValue = nil;
-//        [packageVC refreshTable];
-//    }
-//}
+- (void)updatePackageTableView {
+    UINavigationController *packageNavController = self.viewControllers[2];
+    AUPMPackageListViewController *packageVC = packageNavController.viewControllers[0];
+    AUPMDatabaseManager *databaseManager = ((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).databaseManager;
+    if ([databaseManager hasPackagesThatNeedUpdates]) {
+        [packageNavController tabBarItem].badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[databaseManager numberOfPackagesThatNeedUpdates]];
+        [packageVC refreshTable];
+    }
+    else {
+        [packageNavController tabBarItem].badgeValue = nil;
+        [packageVC refreshTable];
+    }
+}
 
 @end

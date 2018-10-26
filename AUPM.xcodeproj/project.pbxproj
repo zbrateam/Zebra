@@ -38,6 +38,9 @@
 		899830F62183A42C00D94369 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 899830F52183A42C00D94369 /* libMobileGestalt.tbd */; };
 		899830FA2183A5B500D94369 /* AUPMPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830F92183A5B500D94369 /* AUPMPackageViewController.m */; };
 		899830FE2183AC8B00D94369 /* package_depiction.html in Resources */ = {isa = PBXBuildFile; fileRef = 899830FD2183AC8B00D94369 /* package_depiction.html */; };
+		899831012183B04100D94369 /* AUPMQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831002183B04100D94369 /* AUPMQueue.m */; };
+		899831052183B18E00D94369 /* AUPMQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831042183B18E00D94369 /* AUPMQueueViewController.m */; };
+		899831082183B24C00D94369 /* AUPMConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831072183B24C00D94369 /* AUPMConsoleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +104,13 @@
 		899830F82183A5B500D94369 /* AUPMPackageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackageViewController.h; sourceTree = "<group>"; };
 		899830F92183A5B500D94369 /* AUPMPackageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMPackageViewController.m; sourceTree = "<group>"; };
 		899830FD2183AC8B00D94369 /* package_depiction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = package_depiction.html; sourceTree = "<group>"; };
+		899830FF2183B04100D94369 /* AUPMQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMQueue.h; sourceTree = "<group>"; };
+		899831002183B04100D94369 /* AUPMQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMQueue.m; sourceTree = "<group>"; };
+		899831022183B14000D94369 /* AUPMQueueAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMQueueAction.h; sourceTree = "<group>"; };
+		899831032183B18E00D94369 /* AUPMQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMQueueViewController.h; sourceTree = "<group>"; };
+		899831042183B18E00D94369 /* AUPMQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMQueueViewController.m; sourceTree = "<group>"; };
+		899831062183B24C00D94369 /* AUPMConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMConsoleViewController.h; sourceTree = "<group>"; };
+		899831072183B24C00D94369 /* AUPMConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMConsoleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +207,13 @@
 				89753800218357E7000EB225 /* Info.plist */,
 				89753801218357E7000EB225 /* main.m */,
 				892BAECF21835AE500CD0AC0 /* HTML */,
+				899830FF2183B04100D94369 /* AUPMQueue.h */,
+				899831002183B04100D94369 /* AUPMQueue.m */,
+				899831022183B14000D94369 /* AUPMQueueAction.h */,
+				899831032183B18E00D94369 /* AUPMQueueViewController.h */,
+				899831042183B18E00D94369 /* AUPMQueueViewController.m */,
+				899831062183B24C00D94369 /* AUPMConsoleViewController.h */,
+				899831072183B24C00D94369 /* AUPMConsoleViewController.m */,
 			);
 			path = AUPM;
 			sourceTree = "<group>";
@@ -309,13 +326,16 @@
 				899830E42183883200D94369 /* AUPMPackageManager.m in Sources */,
 				897537F1218357E6000EB225 /* AUPMAppDelegate.m in Sources */,
 				899830DE218384F600D94369 /* AUPMTabBarController.m in Sources */,
+				899831082183B24C00D94369 /* AUPMConsoleViewController.m in Sources */,
 				899830F12183A2EC00D94369 /* AUPMPackageListViewController.m in Sources */,
 				89753802218357E7000EB225 /* main.m in Sources */,
 				899830E62183886700D94369 /* dpkgver.c in Sources */,
+				899831052183B18E00D94369 /* AUPMQueueViewController.m in Sources */,
 				899830D1218381C500D94369 /* AUPMDatabaseManager.m in Sources */,
 				899830F42183A2FB00D94369 /* AUPMRepoListViewController.m in Sources */,
 				899830FA2183A5B500D94369 /* AUPMPackageViewController.m in Sources */,
 				899830E12183882700D94369 /* AUPMRepoManager.m in Sources */,
+				899831012183B04100D94369 /* AUPMQueue.m in Sources */,
 				899830DA218382C800D94369 /* AUPMRefreshViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

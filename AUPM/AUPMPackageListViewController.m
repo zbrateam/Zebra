@@ -10,9 +10,10 @@
 #import "AUPMRepo.h"
 #import "AUPMPackage.h"
 #import "AUPMDatabaseManager.h"
-//#import "AUPMQueue.h"
+#import "AUPMQueue.h"
 #import "AUPMAppDelegate.h"
 #import "AUPMPackageViewController.h"
+#import "AUPMQueueViewController.h"
 
 @interface AUPMPackageListViewController () {
     NSArray *_updateObjects;

@@ -1,5 +1,5 @@
 //
-//  AUPMTabBarController.h
+//  AUPMQueueViewController.h
 //  AUPM
 //
 //  Created by Wilson Styres on 10/26/18.
@@ -10,9 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AUPMTabBarController : UITabBarController
-- (void)performBackgroundRefresh:(BOOL)requested;
-- (void)updatePackageTableView;
+@interface AUPMQueueViewController : UITableViewController
+
 @end
 
 NS_ASSUME_NONNULL_END
