@@ -19,7 +19,23 @@
 		897537FC218357E7000EB225 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897537FB218357E7000EB225 /* Assets.xcassets */; };
 		897537FF218357E7000EB225 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 897537FD218357E7000EB225 /* LaunchScreen.storyboard */; };
 		89753802218357E7000EB225 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89753801218357E7000EB225 /* main.m */; };
+		899830CB218380EB00D94369 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899830CA218380EB00D94369 /* Realm.framework */; };
+		899830CC218380EB00D94369 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 899830CA218380EB00D94369 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		899830CD218380EB00D94369 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				899830CC218380EB00D94369 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		892BAECC218358CB00CD0AC0 /* AUPMWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMWebViewController.h; sourceTree = "<group>"; };
@@ -38,6 +54,7 @@
 		897537FE218357E7000EB225 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89753800218357E7000EB225 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89753801218357E7000EB225 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		899830CA218380EB00D94369 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899830CB218380EB00D94369 /* Realm.framework in Frameworks */,
 				892BAED421835BC000CD0AC0 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,6 +93,7 @@
 		897537E3218357E6000EB225 = {
 			isa = PBXGroup;
 			children = (
+				899830CA218380EB00D94369 /* Realm.framework */,
 				897537EE218357E6000EB225 /* AUPM */,
 				897537ED218357E6000EB225 /* Products */,
 				892BAED221835BC000CD0AC0 /* Frameworks */,
@@ -116,6 +135,8 @@
 				897537E8218357E6000EB225 /* Sources */,
 				897537E9218357E6000EB225 /* Frameworks */,
 				897537EA218357E6000EB225 /* Resources */,
+				899830CD218380EB00D94369 /* Embed Frameworks */,
+				899830CE2183813C00D94369 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -175,6 +196,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		899830CE2183813C00D94369 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		897537E8218357E6000EB225 /* Sources */ = {
@@ -328,6 +369,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = AUPM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -348,6 +393,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = AUPM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

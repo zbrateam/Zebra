@@ -114,15 +114,15 @@
 
 - (void)sendBugReport {
     if ([MFMailComposeViewController canSendMail]) {
-        //NSString *iosVersion = [NSString stringWithFormat:@"%@ running iOS %@", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
-        //RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-        //NSString *databaseLocation = [[config fileURL] absoluteString];
-//        NSString *message = [NSString stringWithFormat:@"iOS Version: %@\nAUPM Version: %@\nAUPM Database Location: %@\n\nPlease describe the bug you are experiencing or feature you are requesting below: \n\n", iosVersion, PACKAGE_VERSION, databaseLocation];
+        NSString *iosVersion = [NSString stringWithFormat:@"%@ running iOS %@", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+        RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+        NSString *databaseLocation = [[config fileURL] absoluteString];
+        NSString *message = [NSString stringWithFormat:@"iOS Version: %@\nAUPM Version: 1.0~beta15\nAUPM Database Location: %@\n\nPlease describe the bug you are experiencing or feature you are requesting below: \n\n", iosVersion, databaseLocation];
 
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail setSubject:@"AUPM Beta Bug Report"];
-        [mail setMessageBody:@"Bug Report" isHTML:NO]; //change this later
+        [mail setMessageBody:message isHTML:NO]; //change this later
         [mail setToRecipients:@[@"wilson@styres.me"]];
 
         [self presentViewController:mail animated:YES completion:NULL];
