@@ -21,6 +21,18 @@
 		89753802218357E7000EB225 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89753801218357E7000EB225 /* main.m */; };
 		899830CB218380EB00D94369 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899830CA218380EB00D94369 /* Realm.framework */; };
 		899830CC218380EB00D94369 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 899830CA218380EB00D94369 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		899830D1218381C500D94369 /* AUPMDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D0218381C500D94369 /* AUPMDatabaseManager.m */; };
+		899830D42183820000D94369 /* AUPMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D32183820000D94369 /* AUPMPackage.m */; };
+		899830D72183820E00D94369 /* AUPMRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D62183820E00D94369 /* AUPMRepo.m */; };
+		899830DA218382C800D94369 /* AUPMRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D9218382C800D94369 /* AUPMRefreshViewController.m */; };
+		899830DE218384F600D94369 /* AUPMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830DD218384F600D94369 /* AUPMTabBarController.m */; };
+		899830E12183882700D94369 /* AUPMRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830E02183882700D94369 /* AUPMRepoManager.m */; };
+		899830E42183883200D94369 /* AUPMPackageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830E32183883200D94369 /* AUPMPackageManager.m */; };
+		899830E62183886700D94369 /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 899830E52183886700D94369 /* dpkgver.c */; };
+		899830E82183893200D94369 /* Packages.tx in Resources */ = {isa = PBXBuildFile; fileRef = 899830E72183893200D94369 /* Packages.tx */; };
+		899830EA21839B5900D94369 /* xtm3x.github.io_repo_._Release.tx in Resources */ = {isa = PBXBuildFile; fileRef = 899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */; };
+		899830EC21839D1D00D94369 /* parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830EB21839D1D00D94369 /* parser.m */; };
+		899830EE2183A04200D94369 /* status.tx in Resources */ = {isa = PBXBuildFile; fileRef = 899830ED2183A04200D94369 /* status.tx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +67,26 @@
 		89753800218357E7000EB225 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89753801218357E7000EB225 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		899830CA218380EB00D94369 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		899830CF218381C500D94369 /* AUPMDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMDatabaseManager.h; sourceTree = "<group>"; };
+		899830D0218381C500D94369 /* AUPMDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMDatabaseManager.m; sourceTree = "<group>"; };
+		899830D22183820000D94369 /* AUPMPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackage.h; sourceTree = "<group>"; };
+		899830D32183820000D94369 /* AUPMPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMPackage.m; sourceTree = "<group>"; };
+		899830D52183820E00D94369 /* AUPMRepo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMRepo.h; sourceTree = "<group>"; };
+		899830D62183820E00D94369 /* AUPMRepo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMRepo.m; sourceTree = "<group>"; };
+		899830D8218382C800D94369 /* AUPMRefreshViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMRefreshViewController.h; sourceTree = "<group>"; };
+		899830D9218382C800D94369 /* AUPMRefreshViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMRefreshViewController.m; sourceTree = "<group>"; };
+		899830DB2183838E00D94369 /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
+		899830DC218384F600D94369 /* AUPMTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMTabBarController.h; sourceTree = "<group>"; };
+		899830DD218384F600D94369 /* AUPMTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMTabBarController.m; sourceTree = "<group>"; };
+		899830DF2183882700D94369 /* AUPMRepoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMRepoManager.h; sourceTree = "<group>"; };
+		899830E02183882700D94369 /* AUPMRepoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMRepoManager.m; sourceTree = "<group>"; };
+		899830E22183883200D94369 /* AUPMPackageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackageManager.h; sourceTree = "<group>"; };
+		899830E32183883200D94369 /* AUPMPackageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMPackageManager.m; sourceTree = "<group>"; };
+		899830E52183886700D94369 /* dpkgver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
+		899830E72183893200D94369 /* Packages.tx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Packages.tx; sourceTree = "<group>"; };
+		899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xtm3x.github.io_repo_._Release.tx; sourceTree = "<group>"; };
+		899830EB21839D1D00D94369 /* parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = parser.m; sourceTree = "<group>"; };
+		899830ED2183A04200D94369 /* status.tx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = status.tx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +143,30 @@
 		897537EE218357E6000EB225 /* AUPM */ = {
 			isa = PBXGroup;
 			children = (
+				899830EB21839D1D00D94369 /* parser.m */,
+				899830E72183893200D94369 /* Packages.tx */,
 				897537EF218357E6000EB225 /* AUPMAppDelegate.h */,
 				897537F0218357E6000EB225 /* AUPMAppDelegate.m */,
+				899830DB2183838E00D94369 /* NSTask.h */,
 				892BAECC218358CB00CD0AC0 /* AUPMWebViewController.h */,
 				892BAECD218358CB00CD0AC0 /* AUPMWebViewController.m */,
+				899830CF218381C500D94369 /* AUPMDatabaseManager.h */,
+				899830D0218381C500D94369 /* AUPMDatabaseManager.m */,
+				899830D22183820000D94369 /* AUPMPackage.h */,
+				899830D32183820000D94369 /* AUPMPackage.m */,
+				899830D52183820E00D94369 /* AUPMRepo.h */,
+				899830D62183820E00D94369 /* AUPMRepo.m */,
+				899830D8218382C800D94369 /* AUPMRefreshViewController.h */,
+				899830D9218382C800D94369 /* AUPMRefreshViewController.m */,
+				899830DF2183882700D94369 /* AUPMRepoManager.h */,
+				899830E02183882700D94369 /* AUPMRepoManager.m */,
+				899830ED2183A04200D94369 /* status.tx */,
+				899830E921839B5800D94369 /* xtm3x.github.io_repo_._Release.tx */,
+				899830E52183886700D94369 /* dpkgver.c */,
+				899830E22183883200D94369 /* AUPMPackageManager.h */,
+				899830E32183883200D94369 /* AUPMPackageManager.m */,
+				899830DC218384F600D94369 /* AUPMTabBarController.h */,
+				899830DD218384F600D94369 /* AUPMTabBarController.m */,
 				897537F8218357E6000EB225 /* Main.storyboard */,
 				897537FB218357E7000EB225 /* Assets.xcassets */,
 				897537FD218357E7000EB225 /* LaunchScreen.storyboard */,
@@ -186,9 +238,12 @@
 			files = (
 				897537FF218357E7000EB225 /* LaunchScreen.storyboard in Resources */,
 				892BAED121835B0E00CD0AC0 /* home.html in Resources */,
+				899830EA21839B5900D94369 /* xtm3x.github.io_repo_._Release.tx in Resources */,
 				892BAEDF21835D1B00CD0AC0 /* ios7.min.js in Resources */,
 				892BAEDC21835D0400CD0AC0 /* url@3x.png in Resources */,
+				899830EE2183A04200D94369 /* status.tx in Resources */,
 				897537FC218357E7000EB225 /* Assets.xcassets in Resources */,
+				899830E82183893200D94369 /* Packages.tx in Resources */,
 				892BAEDB21835D0400CD0AC0 /* url@2x.png in Resources */,
 				897537FA218357E6000EB225 /* Main.storyboard in Resources */,
 				892BAEE021835D1B00CD0AC0 /* ios7.min.css in Resources */,
@@ -213,7 +268,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n\n#RESOURCE_PATH=$SRCROOT/ResourcesCopiedByRunScript\n\n#FILENAME_IN_BUNDLE=Packages.tx\n\n#BUILD_APP_DIR=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\n#if [ \"$CONFIGURATION\" == \"Debug\" ]; then\n#cp $RESOURCE_PATH/Packages.tx $BUILD_APP_DIR/$FILENAME_IN_BUNDLE\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -222,9 +277,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899830EC21839D1D00D94369 /* parser.m in Sources */,
+				899830D72183820E00D94369 /* AUPMRepo.m in Sources */,
 				892BAECE218358CB00CD0AC0 /* AUPMWebViewController.m in Sources */,
+				899830D42183820000D94369 /* AUPMPackage.m in Sources */,
+				899830E42183883200D94369 /* AUPMPackageManager.m in Sources */,
 				897537F1218357E6000EB225 /* AUPMAppDelegate.m in Sources */,
+				899830DE218384F600D94369 /* AUPMTabBarController.m in Sources */,
 				89753802218357E7000EB225 /* main.m in Sources */,
+				899830E62183886700D94369 /* dpkgver.c in Sources */,
+				899830D1218381C500D94369 /* AUPMDatabaseManager.m in Sources */,
+				899830E12183882700D94369 /* AUPMRepoManager.m in Sources */,
+				899830DA218382C800D94369 /* AUPMRefreshViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

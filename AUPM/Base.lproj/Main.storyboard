@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0NJ-TL-ylc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Refresh View Controller-->
+        <scene sceneID="ydj-CX-JYy">
+            <objects>
+                <viewController storyboardIdentifier="refreshController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CrW-5P-2QT" customClass="AUPMRefreshViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hZk-DL-SDp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refreshing Database..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="629-Bb-w2O">
+                                <rect key="frame" x="100" y="323" width="175" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5dw-Da-NEU">
+                                <rect key="frame" x="177" y="295" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5dw-Da-NEU" firstAttribute="leading" secondItem="S3n-2z-nHr" secondAttribute="leading" constant="177" id="NPV-yt-Z6U"/>
+                            <constraint firstItem="629-Bb-w2O" firstAttribute="leading" secondItem="S3n-2z-nHr" secondAttribute="leading" constant="100" id="el1-l0-HdI"/>
+                            <constraint firstItem="5dw-Da-NEU" firstAttribute="centerX" secondItem="629-Bb-w2O" secondAttribute="centerX" id="jA1-O9-KtH"/>
+                            <constraint firstItem="5dw-Da-NEU" firstAttribute="centerX" secondItem="hZk-DL-SDp" secondAttribute="centerX" id="mv3-SR-aNy"/>
+                            <constraint firstItem="629-Bb-w2O" firstAttribute="top" secondItem="5dw-Da-NEU" secondAttribute="bottom" constant="8" symbolic="YES" id="rYC-kY-FYq"/>
+                            <constraint firstItem="629-Bb-w2O" firstAttribute="centerY" secondItem="hZk-DL-SDp" secondAttribute="centerY" id="sZn-ut-CbZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="S3n-2z-nHr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nXn-cj-x0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-881" y="153"/>
+        </scene>
         <!--Item 2-->
         <scene sceneID="yHf-Gp-VW3">
             <objects>
@@ -29,7 +63,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="ZxU-y4-iIq">
             <objects>
-                <tabBarController id="0NJ-TL-ylc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0NJ-TL-ylc" customClass="AUPMTabBarController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dfL-fI-hm9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -69,13 +103,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ld6-Pk-ZOB">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ld6-Pk-ZOB">
                                 <rect key="frame" x="0.0" y="64" width="375" height="2"/>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ld6-Pk-ZOB" secondAttribute="trailing" id="hQb-QG-uLV"/>
+                            <constraint firstItem="ld6-Pk-ZOB" firstAttribute="top" secondItem="pzD-DH-H5d" secondAttribute="top" id="EfG-d8-hIm"/>
+                            <constraint firstAttribute="trailing" secondItem="ld6-Pk-ZOB" secondAttribute="trailing" id="qA7-sL-n2d"/>
+                            <constraint firstItem="ld6-Pk-ZOB" firstAttribute="leading" secondItem="73C-Ha-tHt" secondAttribute="leading" id="tkv-rE-asM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pzD-DH-H5d"/>
                     </view>

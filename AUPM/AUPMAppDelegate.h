@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Realm/Realm.h>
+
+@class AUPMDatabaseManager;
 
 @interface AUPMAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, retain) UITabBarController *tabBarController;
+@property (nonatomic, retain) AUPMDatabaseManager *databaseManager;
 
 @end
 
