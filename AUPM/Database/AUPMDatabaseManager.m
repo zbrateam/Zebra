@@ -42,6 +42,7 @@ bool packages_file_changed(FILE* f1, FILE* f2);
     
     //Update APT
 #if TARGET_CPU_ARM
+    NSLog(@"[AUPM] I'm a real boy!");
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/Applications/AUPM.app/supersling"];
     NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/aupm/aupm.list", @"-o", @"Dir::State::Lists=/var/lib/aupm/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/aupm/lists/partial/false", nil];
@@ -82,9 +83,10 @@ bool packages_file_changed(FILE* f1, FILE* f2);
 }
 
 - (void)updatePopulation:(void (^)(BOOL success))completion {
-    NSLog(@"Performing partial database population...");
+    NSLog(@"[AUPM] Performing partial database population...");
     
 #if TARGET_CPU_ARM
+    NSLog(@"[AUPM] I'm a real boy!");
     NSTask *removeCacheTask = [[NSTask alloc] init];
     [removeCacheTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
     NSArray *rmArgs = [[NSArray alloc] initWithObjects: @"rm", @"-rf", @"/var/mobile/Library/Caches/xyz.willy.aupm/lists", nil];
