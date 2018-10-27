@@ -24,15 +24,13 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.tintColor = [UIColor colorWithRed:0.62 green:0.67 blue:0.90 alpha:1.0];
     
-//    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-//
-//    config.fileURL = [NSURL URLWithString:@"/var/lib/aupm/database/aupm.realm"];
-//    config.deleteRealmIfMigrationNeeded = YES;
-//    [RLMRealmConfiguration setDefaultConfiguration:config];
-//
     self.databaseManager = [[AUPMDatabaseManager alloc] init];
     
-#ifdef TARGET_OS_IPHONE
+
+
+    
+    
+#if TARGET_CPU_ARM
     if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/aupm/aupm.list"]) {
         NSTask *cpTask = [[NSTask alloc] init];
         [cpTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
@@ -42,14 +40,22 @@
         [cpTask launch];
         [cpTask waitUntilExit];
     }
+    
+    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    
+    config.fileURL = [NSURL URLWithString:@"/var/lib/aupm/database/aupm.realm"];
+    config.deleteRealmIfMigrationNeeded = YES;
+    [RLMRealmConfiguration setDefaultConfiguration:config];
+    
+    NSError *configError;
+    RLMRealm *realm = [RLMRealm realmWithConfiguration:config error:&configError];
+    
+    if (configError != nil) {
+        NSLog(@"[AUPM] Error when opening database: %@", configError.localizedDescription);
+    }
+#else
+    RLMRealm *realm = [RLMRealm defaultRealm];
 #endif
-    
-//    NSError *configError;
-    RLMRealm *realm = [RLMRealm defaultRealm];//realmWithConfiguration:config error:&configError];
-    
-//    if (configError != nil) {
-//        NSLog(@"[AUPM] Error when opening database: %@", configError.localizedDescription);
-//    }
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if ([realm isEmpty]) {

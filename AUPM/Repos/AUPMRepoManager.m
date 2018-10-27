@@ -112,6 +112,7 @@ NSArray *packages_to_array(const char *path);
 
 - (NSArray *)managedRepoList {
 #ifdef DEBUG
+    NSLog(@"[AUPM] basic ! debug!");
     return [self basicRelease];
 #endif
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -335,7 +336,7 @@ NSArray *packages_to_array(const char *path);
         completion(false);
     }
     else {
-#ifdef RELEASE
+#if TARGET_CPU_ARM
         NSTask *updateListTask = [[NSTask alloc] init];
         [updateListTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
         NSArray *updateArgs = [[NSArray alloc] initWithObjects:@"cp", filePath, @"/var/lib/aupm/aupm.list", nil];

@@ -16,10 +16,14 @@ package:
 	cd .stage && find . -name '.DS_Store' -type f -delete
 	$(THEOS)/bin/dm.pl .stage xyz.willy.aupm.deb
 	rm -rf .stage
-	tar -czf - xyz.willy.aupm.deb | ssh -p 2222 root@localhost  'tar -xzf  -  -C  /tmp/'
-	ssh root@localhost -p 2222 'apt-get remove xyz.willy.aupm -y --force-yes'
+	tar -czf - xyz.willy.aupm.deb | ssh -p 2222 root@localhost  'tar -xzf  -  -C  /var/root/'
 	ssh root@localhost -p 2222 'dpkg -i /var/root/xyz.willy.aupm.deb'
-	ssh root@localhost -p 2222 'rm -rf /var/root/xyz.willy.aupm.deb'
+	ssh root@localhost -p 2222 'rm /var/root/xyz.willy.aupm.deb'
+	ssh root@localhost -p 2222 'killall AUPM'
+install:
+	tar -czf - xyz.willy.aupm.deb | ssh -p 2222 root@localhost  'tar -xzf  -  -C  /var/root/'
+	ssh root@localhost -p 2222 'dpkg -i /var/root/xyz.willy.aupm.deb'
+	ssh root@localhost -p 2222 'rm /var/root/xyz.willy.aupm.deb'
 	ssh root@localhost -p 2222 'killall AUPM'
 all:
 	test -d ".stage" && package
