@@ -11,9 +11,9 @@
 
 @interface AUPMWebViewController () {
     WKWebView *webView;
+    UIProgressView *progressView;
     NSURL *url;
 }
-@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @end
 
 @implementation AUPMWebViewController
@@ -57,21 +57,24 @@
     }
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    [webView addSubview:_progressView];
+    
+    CGFloat height = [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height;
+    progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, height, [[UIScreen mainScreen] bounds].size.width, 9)];
+    [webView addSubview:progressView];
     
     [self.view addSubview:webView];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
-        [_progressView setAlpha:1.0f];
-        [_progressView setProgress:webView.estimatedProgress animated:YES];
+        [progressView setAlpha:1.0f];
+        [progressView setProgress:webView.estimatedProgress animated:YES];
         
         if (webView.estimatedProgress >= 1.0f) {
             [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                [self.progressView setAlpha:0.0f];
+                [self->progressView setAlpha:0.0f];
             } completion:^(BOOL finished) {
-                [self.progressView setProgress:0.0f animated:NO];
+                [self->progressView setProgress:0.0f animated:NO];
             }];
         }
     }
@@ -129,7 +132,7 @@
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail setSubject:@"AUPM Beta Bug Report"];
-        [mail setMessageBody:message isHTML:NO]; //change this later
+        [mail setMessageBody:message isHTML:NO];
         [mail setToRecipients:@[@"wilson@styres.me"]];
 
         [self presentViewController:mail animated:YES completion:NULL];
