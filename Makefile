@@ -6,7 +6,7 @@ package:
 	xcodebuild -scheme AUPM archive -archivePath .stage/AUPM.xcarchive
 	mv .stage/AUPM.xcarchive/Products/Applications/AUPM.app .stage/Applications/
 	rm -rf .stage/AUPM.xcarchive
-	cd Supersling && make
+	$(MAKE) -C Supersling
 	mv Supersling/.theos/obj/debug/supersling .stage/Applications/AUPM.app/
 	cp -r layout/* .stage/
 	mkdir -p .stage/DEBIAN

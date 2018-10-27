@@ -186,7 +186,14 @@
     if (depictionURL == NULL || loadFailed) {
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package packageName], [_package packageIdentifier]] completionHandler:nil];
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
-        [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = '%@';", [_package packageDescription]] completionHandler:nil];
+        
+        NSLog(@"%@", [_package packageDescription]);
+        if ([_package packageDescription] == NULL || [[_package packageDescription] isEqual:@""])  {
+            [_webView evaluateJavaScript:@"var element = document.getElementById('desc');element.parentNode.removeChild(element);" completionHandler:nil];
+        }
+        else {
+            [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [_package packageDescription]] completionHandler:nil];
+        }
 //        NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
 //        [_webView evaluateJavaScript:command completionHandler:^(id Result, NSError * error) {
 //            NSLog(@"[AUPM] Error: %@", error);
