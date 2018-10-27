@@ -164,8 +164,12 @@
     [request addValue:version forHTTPHeaderField:@"X-Firmware"];
     [request addValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     
+    UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:wait animated:true completion:nil];
+    
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [wait dismissViewControllerAnimated:true completion:nil];
             [self receivedPackageVerification:response error:error];
         });
     }];
