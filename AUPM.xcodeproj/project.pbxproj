@@ -19,8 +19,6 @@
 		897537FC218357E7000EB225 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897537FB218357E7000EB225 /* Assets.xcassets */; };
 		897537FF218357E7000EB225 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 897537FD218357E7000EB225 /* LaunchScreen.storyboard */; };
 		89753802218357E7000EB225 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89753801218357E7000EB225 /* main.m */; };
-		899830CB218380EB00D94369 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899830CA218380EB00D94369 /* Realm.framework */; };
-		899830CC218380EB00D94369 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 899830CA218380EB00D94369 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		899830D1218381C500D94369 /* AUPMDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D0218381C500D94369 /* AUPMDatabaseManager.m */; };
 		899830D42183820000D94369 /* AUPMPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D32183820000D94369 /* AUPMPackage.m */; };
 		899830D72183820E00D94369 /* AUPMRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 899830D62183820E00D94369 /* AUPMRepo.m */; };
@@ -42,21 +40,10 @@
 		899831052183B18E00D94369 /* AUPMQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831042183B18E00D94369 /* AUPMQueueViewController.m */; };
 		899831082183B24C00D94369 /* AUPMConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899831072183B24C00D94369 /* AUPMConsoleViewController.m */; };
 		8998310B2183B46600D94369 /* AUPMSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8998310A2183B46600D94369 /* AUPMSearchViewController.m */; };
+		899831182183C9DA00D94369 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899831172183C9DA00D94369 /* Realm.framework */; };
+		8998311A2183C9F000D94369 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 899831192183C9F000D94369 /* libc++.tbd */; };
+		8998311C2183C9F600D94369 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8998311B2183C9F600D94369 /* libz.tbd */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		899830CD218380EB00D94369 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				899830CC218380EB00D94369 /* Realm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		892BAECC218358CB00CD0AC0 /* AUPMWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMWebViewController.h; sourceTree = "<group>"; };
@@ -75,7 +62,6 @@
 		897537FE218357E7000EB225 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89753800218357E7000EB225 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89753801218357E7000EB225 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		899830CA218380EB00D94369 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		899830CF218381C500D94369 /* AUPMDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMDatabaseManager.h; sourceTree = "<group>"; };
 		899830D0218381C500D94369 /* AUPMDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMDatabaseManager.m; sourceTree = "<group>"; };
 		899830D22183820000D94369 /* AUPMPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMPackage.h; sourceTree = "<group>"; };
@@ -114,6 +100,10 @@
 		899831072183B24C00D94369 /* AUPMConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMConsoleViewController.m; sourceTree = "<group>"; };
 		899831092183B46600D94369 /* AUPMSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUPMSearchViewController.h; sourceTree = "<group>"; };
 		8998310A2183B46600D94369 /* AUPMSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AUPMSearchViewController.m; sourceTree = "<group>"; };
+		899831172183C9DA00D94369 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		899831192183C9F000D94369 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		8998311B2183C9F600D94369 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8998311F2183CF6000D94369 /* AUPM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AUPM.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +111,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8998311C2183C9F600D94369 /* libz.tbd in Frameworks */,
+				8998311A2183C9F000D94369 /* libc++.tbd in Frameworks */,
+				899831182183C9DA00D94369 /* Realm.framework in Frameworks */,
 				899830F62183A42C00D94369 /* libMobileGestalt.tbd in Frameworks */,
-				899830CB218380EB00D94369 /* Realm.framework in Frameworks */,
 				892BAED421835BC000CD0AC0 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,6 +138,9 @@
 		892BAED221835BC000CD0AC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				899831172183C9DA00D94369 /* Realm.framework */,
+				8998311B2183C9F600D94369 /* libz.tbd */,
+				899831192183C9F000D94369 /* libc++.tbd */,
 				899830F52183A42C00D94369 /* libMobileGestalt.tbd */,
 				892BAED321835BC000CD0AC0 /* WebKit.framework */,
 			);
@@ -155,7 +150,6 @@
 		897537E3218357E6000EB225 = {
 			isa = PBXGroup;
 			children = (
-				899830CA218380EB00D94369 /* Realm.framework */,
 				897537EE218357E6000EB225 /* AUPM */,
 				897537ED218357E6000EB225 /* Products */,
 				892BAED221835BC000CD0AC0 /* Frameworks */,
@@ -173,6 +167,7 @@
 		897537EE218357E6000EB225 /* AUPM */ = {
 			isa = PBXGroup;
 			children = (
+				8998311F2183CF6000D94369 /* AUPM.entitlements */,
 				899831142183B66300D94369 /* Parser */,
 				899831132183B64C00D94369 /* Resources */,
 				8998310D2183B5CF00D94369 /* Repos */,
@@ -297,8 +292,6 @@
 				897537E8218357E6000EB225 /* Sources */,
 				897537E9218357E6000EB225 /* Frameworks */,
 				897537EA218357E6000EB225 /* Resources */,
-				899830CD218380EB00D94369 /* Embed Frameworks */,
-				899830CE2183813C00D94369 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -320,6 +313,14 @@
 				TargetAttributes = {
 					897537EB218357E6000EB225 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 0;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -362,26 +363,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		899830CE2183813C00D94369 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n\n#RESOURCE_PATH=$SRCROOT/ResourcesCopiedByRunScript\n\n#FILENAME_IN_BUNDLE=Packages.tx\n\n#BUILD_APP_DIR=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\n#if [ \"$CONFIGURATION\" == \"Debug\" ]; then\n#cp $RESOURCE_PATH/Packages.tx $BUILD_APP_DIR/$FILENAME_IN_BUNDLE\n#fi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		897537E8218357E6000EB225 /* Sources */ = {

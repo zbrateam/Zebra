@@ -53,7 +53,12 @@
 
 - (void)performActions:(NSArray *)actions {
     
-#ifdef RELEASE
+#if TARGET_IPHONE_SIMULATOR
+    UIFont *font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+    NSDictionary *attrs = @{ NSFontAttributeName: font };
+    [_consoleOutputView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"Console actions are not available on the simulator" attributes:attrs]];
+    NSLog(@"Console actions are not available on the simulator.");
+#else
     for (NSArray *command in actions) {
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/Applications/AUPM.app/supersling"];

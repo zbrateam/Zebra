@@ -41,7 +41,7 @@ bool packages_file_changed(FILE* f1, FILE* f2);
     }];
     
     //Update APT
-#ifdef RELEASE
+#ifdef TARGET_OS_IPHONE
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/Applications/AUPM.app/supersling"];
     NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/aupm/aupm.list", @"-o", @"Dir::State::Lists=/var/lib/aupm/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/aupm/lists/partial/false", nil];
@@ -84,7 +84,7 @@ bool packages_file_changed(FILE* f1, FILE* f2);
 - (void)updatePopulation:(void (^)(BOOL success))completion {
     NSLog(@"Performing partial database population...");
     
-#ifdef RELEASE
+#ifdef TARGET_OS_IPHONE
     NSTask *removeCacheTask = [[NSTask alloc] init];
     [removeCacheTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
     NSArray *rmArgs = [[NSArray alloc] initWithObjects: @"rm", @"-rf", @"/var/mobile/Library/Caches/xyz.willy.aupm/lists", nil];
@@ -136,7 +136,7 @@ bool packages_file_changed(FILE* f1, FILE* f2);
     
     NSLog(@"[AUPM] Populating installed database");
     
-#ifdef RELEASE
+#ifdef TARGET_OS_IPHONE
     NSTask *deletePackageCache = [[NSTask alloc] init];
     [deletePackageCache setLaunchPath:@"/Applications/AUPM.app/supersling"];
     NSArray *packageArgs = [[NSArray alloc] initWithObjects: @"rm", @"-rf", @"/var/mobile/Library/Caches/xyz.willy.aupm/lists", nil];
@@ -297,7 +297,7 @@ bool packages_file_changed(FILE* f1, FILE* f2);
     [self populateInstalledDatabase:^(BOOL success) {
         NSLog(@"[AUPM] Deleted repo");
         //quietly update so the old files get deleted
-#ifdef RELEASE
+#ifdef TARGET_OS_IPHONE
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/Applications/AUPM.app/supersling"];
         NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/aupm/aupm.list", @"-o", @"Dir::State::Lists=/var/lib/aupm/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/aupm/lists/partial/false", nil];

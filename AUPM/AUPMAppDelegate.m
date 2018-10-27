@@ -10,7 +10,7 @@
 #import "AUPMDatabaseManager.h"
 #import "AUPMRefreshViewController.h"
 #import "AUPMTabBarController.h"
-//#import "NSTask.h"
+#import "NSTask.h"
 
 @interface AUPMAppDelegate ()
 
@@ -32,7 +32,7 @@
 //
     self.databaseManager = [[AUPMDatabaseManager alloc] init];
     
-#ifdef RELEASE
+#ifdef TARGET_OS_IPHONE
     if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/aupm/aupm.list"]) {
         NSTask *cpTask = [[NSTask alloc] init];
         [cpTask setLaunchPath:@"/Applications/AUPM.app/supersling"];
