@@ -20,6 +20,7 @@
     AUPMPackage *_package;
     UIProgressView *_progressBar;
     NSTimer *_progressTimer;
+    BOOL loadFailed;
 }
 
 @end
@@ -50,10 +51,18 @@
     CGFloat height = [[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height + self.tabBarController.tabBar.frame.size.height;
     _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height - height)];
     _webView.customUserAgent = @"Cydia/ButActuallyAUPM";
+    _webView.opaque = false;
+    _webView.backgroundColor = [UIColor clearColor];
     [_webView setNavigationDelegate:self];
+    NSURL *depictionURL = [NSURL URLWithString: [_package depictionURL]];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@".html"];
-    [_webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    if (depictionURL != NULL) {
+        [_webView loadRequest:[[NSURLRequest alloc] initWithURL:depictionURL]];
+    }
+    else {
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@".html"];
+        [_webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    }
     
     _webView.allowsBackForwardNavigationGestures = true;
     _progressBar = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 9)];
@@ -174,16 +183,14 @@
     _isFinishedLoading = TRUE;
     
     NSURL *depictionURL = [NSURL URLWithString:[_package depictionURL]];
-    if (depictionURL != NULL) {
+    if (depictionURL == NULL || loadFailed) {
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package packageName], [_package packageIdentifier]] completionHandler:nil];
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
-        [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = '%@';", [_package packageDescription]] completionHandler:^(id Result, NSError * error) {
-            NSLog(@"[AUPM] Error: %@ Description: %@", error, [self->_package packageDescription]);
-        }];
-        NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
-        [_webView evaluateJavaScript:command completionHandler:^(id Result, NSError * error) {
-            NSLog(@"[AUPM] Error: %@", error);
-        }];
+        [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = '%@';", [_package packageDescription]] completionHandler:nil];
+//        NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
+//        [_webView evaluateJavaScript:command completionHandler:^(id Result, NSError * error) {
+//            NSLog(@"[AUPM] Error: %@", error);
+//        }];
     }
 }
 
@@ -210,7 +217,9 @@
         }
         
         if (_progressBar.progress == 1.0) {
-            [_webView loadHTMLString:[self generateDepiction] baseURL:nil];
+            loadFailed = true;
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@".html"];
+            [_webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
         }
     }
 }

@@ -45,6 +45,9 @@
     webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:configuration];
     webView.customUserAgent = @"AUPM-1.0~beta15";
     webView.navigationDelegate = self;
+    [webView setBackgroundColor:[UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]];
+    webView.opaque = false;
+    webView.backgroundColor = [UIColor clearColor];
     if (url == NULL) {
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
