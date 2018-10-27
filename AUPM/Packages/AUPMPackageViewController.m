@@ -188,7 +188,7 @@
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
         
         NSLog(@"%@", [_package packageDescription]);
-        if (!([_package packageDescription] == NULL || [[_package packageDescription] isEqual:@""]))  {
+        if ([_package packageDescription] == NULL || [[_package packageDescription] isEqual:@""])  {
             [_webView evaluateJavaScript:@"var element = document.getElementById('desc');element.parentNode.parentNode.outerHTML = '';" completionHandler:nil];
         }
         else {
