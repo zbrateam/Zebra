@@ -188,8 +188,8 @@
         [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
         
         NSLog(@"%@", [_package packageDescription]);
-        if ([_package packageDescription] == NULL || [[_package packageDescription] isEqual:@""])  {
-            [_webView evaluateJavaScript:@"var element = document.getElementById('desc');element.parentNode.removeChild(element);" completionHandler:nil];
+        if (!([_package packageDescription] == NULL || [[_package packageDescription] isEqual:@""]))  {
+            [_webView evaluateJavaScript:@"var element = document.getElementById('desc');element.parentNode.parentNode.outerHTML = '';" completionHandler:nil];
         }
         else {
             [_webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [_package packageDescription]] completionHandler:nil];
