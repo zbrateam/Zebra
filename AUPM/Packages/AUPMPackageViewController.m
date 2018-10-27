@@ -11,6 +11,7 @@
 #import "AUPMConsoleViewController.h"
 #import "AUPMQueue.h"
 #import "AUPMQueueViewController.h"
+#import "AUPMWebViewController.h"
 #import "MobileGestalt.h"
 #include <sys/sysctl.h>
 
@@ -70,6 +71,20 @@
     [self.view addSubview:_webView];
     
     self.title = [_package packageName];
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = [navigationAction request];
+    NSURL *url = [request URL];
+    
+    if ([[url absoluteString] isEqualToString:[_package depictionURL]] || [_package depictionURL] == NULL || loadFailed) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+    else {
+        AUPMWebViewController *webViewController = [[AUPMWebViewController alloc] initWithURL:url];
+        [[self navigationController] pushViewController:webViewController animated:true];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
