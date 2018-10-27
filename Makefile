@@ -8,7 +8,7 @@ after-stage::
 	mv AUPM.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
 	rm -rf AUPM.xcarchive
 	$(MAKE) -C Supersling
-	mv .theos/obj/debug/supersling $(THEOS_STAGING_DIR)/Applications/AUPM.app/
-	
+	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/Applications/AUPM.app/
+
 after-install::
 	install.exec "killall \"AUPM\"" || true
