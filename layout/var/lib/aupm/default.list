@@ -1,0 +1,3 @@
+deb http://apt.saurik.com/ ios/1349.70 main
+deb http://xtm3x.github.io/repo/ ./
+deb http://apt.thebigboss.org/repofiles/cydia/ stable main
