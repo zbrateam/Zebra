@@ -1,0 +1,13 @@
+Origin: BigBoss
+Label: BigBoss
+Suite: stable
+Version: 1.0
+Codename: BigBoss
+Support: https://cydia.saurik.com/api/support/*
+Architectures: iphoneos-arm
+Components: main
+Description: For hosting your apps, see our website.
+MD5Sum:
+ 5d77b5313e4f3aca81352e1f6cf04828 12406801 main/binary-iphoneos-arm/Packages
+ 231c458ff1399ad9541fc728766a1022 1486551 main/binary-iphoneos-arm/Packages.bz2
+ 9afb856aaa04e18c81aec9ce382300c9 26787 main/binary-iphoneos-arm/Packages.diff/Index
