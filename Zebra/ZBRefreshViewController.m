@@ -7,6 +7,8 @@
 //
 
 #import "ZBRefreshViewController.h"
+#import "ZBMainViewController.h"
+
 #import <Database/ZBDatabaseManager.h>
 #import <Parsel/Parsel.h>
 
@@ -38,8 +40,7 @@
 //    sqlite3_open([databasePath UTF8String], &database);
 //    importPackagesToDatabase([testFile UTF8String], database, 0);
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    ZBMainViewController *vc = [[ZBMainViewController alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }
 

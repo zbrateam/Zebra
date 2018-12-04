@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40C6D3BD21B62B5400B31EE9 /* ZBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C6D3BC21B62B5400B31EE9 /* ZBMainViewController.m */; };
 		8944916C21B5A2C500DDDEF2 /* BigBoss.rel in Resources */ = {isa = PBXBuildFile; fileRef = 8944916B21B5A2C500DDDEF2 /* BigBoss.rel */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11B921B2313E0017B581 /* ZBPackage.m */; };
@@ -16,7 +17,6 @@
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
 		89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */; };
-		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */; };
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
@@ -26,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		40C6D3BB21B62B5400B31EE9 /* ZBMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBMainViewController.h; sourceTree = "<group>"; };
+		40C6D3BC21B62B5400B31EE9 /* ZBMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBMainViewController.m; sourceTree = "<group>"; };
 		8944916B21B5A2C500DDDEF2 /* BigBoss.rel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BigBoss.rel; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
@@ -44,7 +46,6 @@
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
 		89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshViewController.h; sourceTree = "<group>"; };
 		89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshViewController.m; sourceTree = "<group>"; };
-		89C5FDE721B1B13700A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89C5FDE921B1B13800A10E58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C5FDEC21B1B13800A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C5FDEE21B1B13800A10E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,8 +147,6 @@
 			children = (
 				8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */,
 				8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */,
-				89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */,
-				89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -173,11 +172,14 @@
 			children = (
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
+				89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */,
+				89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */,
+				40C6D3BB21B62B5400B31EE9 /* ZBMainViewController.h */,
+				40C6D3BC21B62B5400B31EE9 /* ZBMainViewController.m */,
 				8991FFA321B21D26004FCE23 /* Database */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				896F11B321B2309A0017B581 /* Packages */,
 				896F11B421B230A40017B581 /* Repos */,
-				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
@@ -249,7 +251,6 @@
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				8944916C21B5A2C500DDDEF2 /* BigBoss.rel in Resources */,
 				8991FF9F21B21493004FCE23 /* BigBoss.pack in Resources */,
-				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40C6D3BD21B62B5400B31EE9 /* ZBMainViewController.m in Sources */,
 				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
@@ -276,14 +278,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		89C5FDE621B1B13700A10E58 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				89C5FDE721B1B13700A10E58 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
