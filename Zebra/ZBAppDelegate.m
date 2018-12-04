@@ -7,6 +7,7 @@
 //
 
 #import "ZBAppDelegate.h"
+#import "ZBRefreshViewController.h"
 
 @interface ZBAppDelegate ()
 
@@ -17,6 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    ZBRefreshViewController *refreshViewController = [[ZBRefreshViewController alloc] init];
+    self.window.rootViewController = refreshViewController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

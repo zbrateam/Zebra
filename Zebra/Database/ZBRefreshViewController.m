@@ -12,9 +12,17 @@
 
 @interface ZBRefreshViewController ()
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
 @end
 
 @implementation ZBRefreshViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setupView];
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -35,5 +43,21 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+#pragma mark - UI
+
+- (void)setupView {
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.hidesWhenStopped = YES;
+    self.spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.spinner];
+    [self.spinner startAnimating];
+    
+    [self configureLayout];
+}
+
+- (void)configureLayout {
+    [self.spinner.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [self.spinner.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+}
 
 @end
