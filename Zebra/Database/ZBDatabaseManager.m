@@ -141,7 +141,10 @@
     }
     sqlite3_finalize(statement);
     
-    return (NSArray *)sources;
+    NSSortDescriptor *sortByPackageName = [NSSortDescriptor sortDescriptorWithKey:@"origin" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByPackageName];
+    
+    return (NSArray*)[sources sortedArrayUsingDescriptors:sortDescriptors];
 }
 
 - (NSArray <NSDictionary *> *)installedPackages {
@@ -189,7 +192,10 @@
     }
     sqlite3_finalize(statement);
     
-    return (NSArray *)installedPackages;
+    NSSortDescriptor *sortByPackageName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByPackageName];
+    
+    return (NSArray*)[installedPackages sortedArrayUsingDescriptors:sortDescriptors];
 }
 
 @end
