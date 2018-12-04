@@ -118,11 +118,16 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
             char insertStatement[1024];
             
             if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
-#warning should be using sqlite_bind
+                if (package[1][0] == 0) {
+                    strcpy(package[1], package[0]);
+                }
+                
+                #warning should be using sqlite_bind
                 sprintf(insertStatement, "INSERT INTO PACKAGES(PACKAGE, NAME, REPOID) VALUES('%s', '%s', %d);", package[0], package[1], repoID);
                 
                 package[0][0] = 0;
                 package[1][0] = 0;
+                
                 sqlite3_exec(database, insertStatement, NULL, 0, NULL);
             }
             else {
