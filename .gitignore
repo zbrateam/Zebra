@@ -1,3 +1,6 @@
 .theos/
 Supersling/.theos
 /packages/
+xcuserdata
+*.xcuserstate
+.DS_Store
