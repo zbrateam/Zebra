@@ -20,7 +20,12 @@
     [super viewDidLoad];
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    packages = [databaseManager installedPackages];
+    if (_repoID == 0) {
+        packages = [databaseManager installedPackages];
+    }
+    else {
+        packages = [databaseManager packagesForRepo:_repoID];
+    }
 }
 
 #pragma mark - Table view data source

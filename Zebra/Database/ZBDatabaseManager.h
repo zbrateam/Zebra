@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fullRemoteImport;
 - (void)fullLocalImport;
 - (NSArray <NSDictionary *> *)installedPackages;
-//- (NSArray <NSDictionary *> *)packagesForRepo:(ZBRepo *)repo;
+- (NSArray <NSDictionary *> *)packagesForRepo:(int)repoID;
 - (NSArray <NSDictionary *> *)sources;
 @end
 
