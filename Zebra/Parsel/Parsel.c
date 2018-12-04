@@ -90,6 +90,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
             if (strcmp(key, "Package") == 0) {
                 char *value = multi_tok(NULL, &s, ": ");
                 strcpy(package[0], value);
+                
             }
             else if (strcmp(key, "Name") == 0) {
                 char *value = multi_tok(NULL, &s, ": ");
@@ -116,12 +117,17 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
         else {
             char insertStatement[1024];
             
+            if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
 #warning should be using sqlite_bind
-            sprintf(insertStatement, "INSERT INTO PACKAGES(PACKAGE, NAME, REPOID) VALUES('%s', '%s', %d);", package[0], package[1], repoID);
-
-            package[0][0] = 0;
-            package[1][0] = 0;
-            sqlite3_exec(database, insertStatement, NULL, 0, NULL);
+                sprintf(insertStatement, "INSERT INTO PACKAGES(PACKAGE, NAME, REPOID) VALUES('%s', '%s', %d);", package[0], package[1], repoID);
+                
+                package[0][0] = 0;
+                package[1][0] = 0;
+                sqlite3_exec(database, insertStatement, NULL, 0, NULL);
+            }
+            else {
+                continue;
+            }
         }
     }
     

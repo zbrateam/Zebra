@@ -30,7 +30,7 @@
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    sqlite3_exec(database, "DELETE * FROM REPOS", NULL, NULL, NULL);
+    sqlite3_exec(database, "DELETE FROM REPOS", NULL, NULL, NULL);
     int i = 0;
     for (NSString *path in sourceLists) {
         importRepoToDatabase([path UTF8String], database, i);
@@ -54,7 +54,7 @@
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    sqlite3_exec(database, "DELETE * FROM REPOS", NULL, NULL, NULL);
+    sqlite3_exec(database, "DELETE FROM REPOS", NULL, NULL, NULL);
     int i = 0;
     for (NSString *path in sourceLists) {
         importRepoToDatabase([path UTF8String], database, i);
