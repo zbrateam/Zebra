@@ -31,7 +31,6 @@
     sqlite3_open([databasePath UTF8String], &database);
     
     sqlite3_exec(database, "DELETE * FROM REPOS", NULL, NULL, NULL);
-    sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     int i = 0;
     for (NSString *path in sourceLists) {
         importRepoToDatabase([path UTF8String], database, i);
@@ -44,7 +43,6 @@
         importPackagesToDatabase([packageFile UTF8String], database, i);
         i++;
     }
-    sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
 #else
     NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"]];
     NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
@@ -57,14 +55,12 @@
     sqlite3_open([databasePath UTF8String], &database);
     
     sqlite3_exec(database, "DELETE * FROM REPOS", NULL, NULL, NULL);
-    sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     int i = 0;
     for (NSString *path in sourceLists) {
         importRepoToDatabase([path UTF8String], database, i);
         importPackagesToDatabase([packageFile UTF8String], database, i);
         i++;
     }
-    sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
 #endif
 }
 
@@ -105,15 +101,58 @@
     return managedSources;
 }
 
-- (NSArray <NSDictionary *> *)allPackages {
-    NSMutableArray *allPackages = [NSMutableArray new];
+- (NSArray <NSDictionary *> *)sources {
+    NSMutableArray *sources = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    NSString *query = @"SELECT * FROM PACKAGES";
+    NSString *query = @"SELECT * FROM REPOS";
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        const char *originChars = (const char *)sqlite3_column_text(statement, 0);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
+        //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
+        //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
+        //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
+        //        const char *depictionChars = (const char *)sqlite3_column_text(statement, 7);
+        
+        NSString *origin = [[NSString alloc] initWithUTF8String:originChars];
+        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
+        //        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
+        //        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
+        //        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
+        //        NSString *depictionURL;
+        //        if (depictionChars == NULL) {
+        //            depictionURL = NULL;
+        //        }
+        //        else {
+        //            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
+        //        }
+        
+        //NSLog(@"%@: %@", packageID, packageName);
+        NSMutableDictionary *source = [NSMutableDictionary new];
+        [source setObject:origin forKey:@"origin"];
+        [source setObject:description forKey:@"description"];
+        [sources addObject:source];
+    }
+    sqlite3_finalize(statement);
+    
+    return (NSArray *)sources;
+}
+
+- (NSArray <NSDictionary *> *)installedPackages {
+    NSMutableArray *installedPackages = [NSMutableArray new];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0";
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -140,20 +179,17 @@
         //NSLog(@"%@: %@", packageID, packageName);
         NSMutableDictionary *package = [NSMutableDictionary new];
         if (packageName == NULL) {
-            NSLog(@"%@", packageID);
+            NSLog(@"package name: %@", packageName);
             packageName = packageID;
         }
-        if (packageID == NULL) {
-            NSLog(@"%@", packageName);
-            packageName = packageID;
-        }
+        
         [package setObject:packageName forKey:@"name"];
         [package setObject:packageID forKey:@"id"];
-        [allPackages addObject:package];
+        [installedPackages addObject:package];
     }
     sqlite3_finalize(statement);
     
-    return (NSArray *)allPackages;
+    return (NSArray *)installedPackages;
 }
 
 @end

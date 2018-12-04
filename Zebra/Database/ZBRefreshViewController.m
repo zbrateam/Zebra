@@ -31,7 +31,7 @@
 //    importPackagesToDatabase([testFile UTF8String], database, 0);
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"installedPackages"];
+    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"navController"];
     [self presentViewController:vc animated:YES completion:nil];
 }
 

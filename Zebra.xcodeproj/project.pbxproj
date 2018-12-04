@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8944916C21B5A2C500DDDEF2 /* BigBoss.rel in Resources */ = {isa = PBXBuildFile; fileRef = 8944916B21B5A2C500DDDEF2 /* BigBoss.rel */; };
+		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11B921B2313E0017B581 /* ZBPackage.m */; };
 		896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBRepoManager.m */; };
 		896F11C321B231900017B581 /* ZBRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBRepo.m */; };
@@ -26,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		8944916B21B5A2C500DDDEF2 /* BigBoss.rel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BigBoss.rel; sourceTree = "<group>"; };
+		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
+		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
 		896F11B821B2313E0017B581 /* ZBPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackage.h; sourceTree = "<group>"; };
 		896F11B921B2313E0017B581 /* ZBPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackage.m; sourceTree = "<group>"; };
 		896F11BB21B231490017B581 /* ZBRepoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoManager.h; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 		896F11C821B231CF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */,
+				8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* Parsel.c in Sources */,
+				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
