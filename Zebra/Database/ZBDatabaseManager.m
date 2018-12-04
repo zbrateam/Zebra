@@ -54,7 +54,7 @@
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    sqlite3_exec(database, "DELETE FROM REPOS", NULL, NULL, NULL);
+    sqlite3_exec(database, "DELETE FROM REPOS; DELETE FROM PACKAGES", NULL, NULL, NULL);
     int i = 1;
     for (NSString *path in sourceLists) {
         importRepoToDatabase([path UTF8String], database, i);
@@ -79,6 +79,8 @@
     sqlite3_open([databasePath UTF8String], &database);
     //We need to delete the entire list of installed packages
     
+    char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
+    sqlite3_exec(database, sql, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
 }
 
