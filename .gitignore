@@ -4,3 +4,4 @@ Supersling/.theos
 xcuserdata
 *.xcuserstate
 .DS_Store
+.xcworkspace
