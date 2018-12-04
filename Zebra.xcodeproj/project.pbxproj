@@ -66,13 +66,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		896F11B321B2309A0017B581 /* Packages */ = {
+		896F11B321B2309A0017B581 /* Pack */ = {
 			isa = PBXGroup;
 			children = (
 				896F11C621B231B90017B581 /* Helpers */,
 				896F11C521B231AF0017B581 /* Controllers */,
 			);
-			path = Packages;
+			path = Pack;
 			sourceTree = "<group>";
 		};
 		896F11B421B230A40017B581 /* Repos */ = {
@@ -175,7 +175,7 @@
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				8991FFA321B21D26004FCE23 /* Database */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
-				896F11B321B2309A0017B581 /* Packages */,
+				896F11B321B2309A0017B581 /* Pack */,
 				896F11B421B230A40017B581 /* Repos */,
 				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
