@@ -2,7 +2,7 @@
 
 chown root:wheel /Applications/Zebra.app/supersling
 chmod 6755 /Applications/Zebra.app/supersling
-chmod 0777 /var/lib/aupm/database
+chmod 0777 /var/lib/zebra/database
 
 # if [[ -x /usr/libexec/cydia/move.sh ]]; then
 # 	bash /usr/libexec/cydia/move.sh /Applications/Zebra.app

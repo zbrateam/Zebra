@@ -9,6 +9,7 @@
 #import "ZBDatabaseManager.h"
 #import <Parsel/Parsel.h>
 #import <sqlite3.h>
+#import <NSTask.h>
 
 @implementation ZBDatabaseManager
 
@@ -22,33 +23,46 @@
 //Imports packages from repositories located in /var/lib/aupm/lists
 - (void)fullRemoteImport {
 #if TARGET_CPU_ARM
+    NSLog(@"[Zebra] APT Update");
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
+    [task setArguments:arguments];
+    
+    [task launch];
+    [task waitUntilExit];
+    NSLog(@"[Zebra] Update Complete");
+    
     NSArray *sourceLists = [self managedSources];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
     sqlite3_exec(database, "DELETE FROM REPOS", NULL, NULL, NULL);
-    int i = 0;
+    int i = 1;
     for (NSString *path in sourceLists) {
+        NSLog(@"[Zebra] Repo: %@ %d", path, i);
         importRepoToDatabase([path UTF8String], database, i);
         
         NSString *baseFileName = [path stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-        NSString *packageFile = [NSString stringWithFormat:@"/var/lib/aupm/lists/%@_Packages", baseFileName];
+        NSString *packageFile = [NSString stringWithFormat:@"%@_Packages", baseFileName];
         if (![[NSFileManager defaultManager] fileExistsAtPath:packageFile]) {
-            packageFile = [NSString stringWithFormat:@"/var/lib/aupm/lists/%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
+            packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
         }
+        NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
         importPackagesToDatabase([packageFile UTF8String], database, i);
         i++;
     }
+    sqlite3_close(database);
 #else
-    NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"]];
+    NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"], [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"]];
     NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     NSLog(@"Database: %@", databasePath);
     
     sqlite3 *database;
@@ -61,6 +75,7 @@
         importPackagesToDatabase([packageFile UTF8String], database, i);
         i++;
     }
+    sqlite3_close(database);
 #endif
 }
 
@@ -73,7 +88,7 @@
 #endif
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -82,18 +97,19 @@
     char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
+    sqlite3_close(database);
 }
 
-//Gets paths of repo lists that need to be read from /var/lib/aupm/lists
+//Gets paths of repo lists that need to be read from /var/lib/zebra/lists
 - (NSArray <NSString *> *)managedSources {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *aptListDirectory = @"/var/lib/aupm/lists";
+    NSString *aptListDirectory = @"/var/lib/zebra/lists";
     NSArray *listOfFiles = [fileManager contentsOfDirectoryAtPath:aptListDirectory error:nil];
     NSMutableArray *managedSources = [[NSMutableArray alloc] init];
     
     for (NSString *path in listOfFiles) {
         if (([path rangeOfString:@"Release"].location != NSNotFound) && ([path rangeOfString:@".gpg"].location == NSNotFound)) {
-            NSString *fullPath = [NSString stringWithFormat:@"/var/lib/aupm/lists/%@", path];
+            NSString *fullPath = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@", path];
             [managedSources addObject:fullPath];
         }
     }
@@ -104,7 +120,7 @@
 - (NSArray <NSDictionary *> *)sources {
     NSMutableArray *sources = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -150,7 +166,7 @@
 - (NSArray <NSDictionary *> *)packagesForRepo:(int)repoID {
     NSMutableArray *installedPackages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -200,7 +216,7 @@
 - (NSArray <NSDictionary *> *)installedPackages {
     NSMutableArray *installedPackages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"aupm.db"];
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
