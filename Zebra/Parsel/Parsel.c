@@ -67,7 +67,6 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     sqlite3_exec(database, insertStatement, NULL, 0, NULL);
     
     fclose(file);
-    
 }
 
 void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
@@ -138,5 +137,4 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
-    sqlite3_close(database);
 }
