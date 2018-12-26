@@ -53,6 +53,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.61960784310000006" green="0.6705882353" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="whB-F2-t83" kind="relationship" relationship="viewControllers" id="mOi-9K-VaG"/>
@@ -160,7 +161,7 @@
         <scene sceneID="63q-Lg-3xR">
             <objects>
                 <navigationController id="gIv-lu-OI7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Packages" id="LuL-3D-0wp"/>
+                    <tabBarItem key="tabBarItem" title="Packages" image="Packages" selectedImage="Packages" id="LuL-3D-0wp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4AA-LS-GXz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -177,7 +178,7 @@
         <scene sceneID="t83-Qp-Zoh">
             <objects>
                 <navigationController id="whB-F2-t83" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sources" id="P6k-Pc-rHZ"/>
+                    <tabBarItem key="tabBarItem" title="Sources" image="Sources" selectedImage="Sources" id="P6k-Pc-rHZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2cy-lh-7gH">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -191,7 +192,12 @@
             <point key="canvasLocation" x="2398" y="-287"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Packages" width="25" height="25"/>
+        <image name="Sources" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gLM-uz-oyT"/>
+        <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.61960784313725492" green="0.6705882352941176" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
 </document>
