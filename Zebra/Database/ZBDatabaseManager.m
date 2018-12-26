@@ -58,7 +58,7 @@
     }
     sqlite3_close(database);
 #else
-    NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"], [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"]];
+    NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"]];
     NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -131,6 +131,7 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         const char *originChars = (const char *)sqlite3_column_text(statement, 0);
         const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
+        int repoID = sqlite3_column_int(statement, 2);
         //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
         //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
         //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
@@ -153,6 +154,7 @@
         NSMutableDictionary *source = [NSMutableDictionary new];
         [source setObject:origin forKey:@"origin"];
         [source setObject:description forKey:@"description"];
+        [source setObject:[NSNumber numberWithInteger:repoID] forKey:@"repoID"];
         [sources addObject:source];
     }
     sqlite3_finalize(statement);

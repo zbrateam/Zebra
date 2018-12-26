@@ -86,7 +86,9 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageListTableViewController *destination = [segue destinationViewController];
-    destination.repoID = 1;
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSDictionary *source = [sources objectAtIndex:indexPath.row];
+    destination.repoID = [source[@"repoID"] intValue];
 }
 
 @end
