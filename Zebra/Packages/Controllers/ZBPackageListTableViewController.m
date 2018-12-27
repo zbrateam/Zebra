@@ -29,7 +29,6 @@
     else {
         packages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:0];
         numberOfPackages = (int)packages.count;
-        NSLog(@"Done %d", numberOfPackages);
     }
 }
 
@@ -40,28 +39,27 @@
     numberOfPackages = (int)packages.count;
     NSLog(@"Done %d", numberOfPackages);
     
-    NSMutableArray *indexArray = [NSMutableArray new];
-    for (int i = numberOfPackages - 100; i < numberOfPackages; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [indexArray addObject:indexPath];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
-    });
+//    NSMutableArray *indexArray = [NSMutableArray new];
+//    for (int i = numberOfPackages - 100; i < numberOfPackages; i++) {
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//        [indexArray addObject:indexPath];
+//    }
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.tableView beginUpdates];
+//        [self.tableView insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationNone];
+//        [self.tableView endUpdates];
+//    });
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return numberOfPackages;
+    return [databaseManager numberOfPackagesInRepo:_repoID];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,7 +70,7 @@
     cell.textLabel.text = [package objectForKey:@"name"];
     cell.detailTextLabel.text = [package objectForKey:@"id"];
     
-    if (indexPath.row == numberOfPackages - 50) {
+    if ((indexPath.row == numberOfPackages - 25) && (_repoID != 0)) {
         [self loadNextPackages];
     }
     

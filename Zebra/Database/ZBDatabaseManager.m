@@ -100,6 +100,27 @@
     sqlite3_close(database);
 }
 
+//Get number of packages in the database for each repo
+- (int)numberOfPackagesInRepo:(int)repoID {
+    int numberOfPackages = 0;
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(*) FROM PACKAGES WHERE REPOID = %d", repoID];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        numberOfPackages = sqlite3_column_int(statement, 0);
+    }
+    
+    return numberOfPackages;
+}
+
 //Gets paths of repo lists that need to be read from /var/lib/zebra/lists
 - (NSArray <NSString *> *)managedSources {
     NSFileManager *fileManager = [NSFileManager defaultManager];
