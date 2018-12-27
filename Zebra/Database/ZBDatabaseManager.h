@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fullRemoteImport;
 - (void)fullLocalImport;
 - (NSArray <NSDictionary *> *)installedPackages;
-- (NSArray <NSDictionary *> *)packagesForRepo:(int)repoID;
+- (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID startingAt:(int)start goingTo:(int)limit;
 - (NSArray <NSDictionary *> *)sources;
 @end
 

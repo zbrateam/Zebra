@@ -24,7 +24,7 @@
         packages = [databaseManager installedPackages];
     }
     else {
-        packages = [databaseManager packagesForRepo:_repoID];
+        packages = [databaseManager packagesFromRepo:_repoID startingAt:0 goingTo:100];
     }
 }
 
@@ -50,11 +50,11 @@
 }
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
+//
 //    NSDictionary *package = [packages objectAtIndex:indexPath.row];
 //    NSLog(@"Package: %@", package);
 //}
-    
+
 
 /*
 // Override to support conditional editing of the table view.

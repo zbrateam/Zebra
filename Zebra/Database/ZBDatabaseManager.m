@@ -125,7 +125,7 @@
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    NSString *query = @"SELECT * FROM REPOS";
+    NSString *query = @"SELECT * FROM REPOS ORDER BY ORIGIN ASC";
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -162,18 +162,18 @@
     NSSortDescriptor *sortByPackageName = [NSSortDescriptor sortDescriptorWithKey:@"origin" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortByPackageName];
     
-    return (NSArray*)[sources sortedArrayUsingDescriptors:sortDescriptors];
+    return (NSArray*)sources;
 }
 
-- (NSArray <NSDictionary *> *)packagesForRepo:(int)repoID {
-    NSMutableArray *installedPackages = [NSMutableArray new];
+- (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID startingAt:(int)start goingTo:(int)limit {
+    NSMutableArray *packages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d", repoID];
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d ORDER BY NAME ASC LIMIT %d OFFSET %d", repoID, limit, start];
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -205,14 +205,11 @@
         
         [package setObject:packageName forKey:@"name"];
         [package setObject:packageID forKey:@"id"];
-        [installedPackages addObject:package];
+        [packages addObject:package];
     }
     sqlite3_finalize(statement);
     
-    NSSortDescriptor *sortByPackageName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByPackageName];
-    
-    return (NSArray*)[installedPackages sortedArrayUsingDescriptors:sortDescriptors];
+    return (NSArray *)packages;
 }
 
 - (NSArray <NSDictionary *> *)installedPackages {
@@ -223,7 +220,7 @@
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0";
+    NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0 ORDER BY NAME ASC";
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -260,10 +257,7 @@
     }
     sqlite3_finalize(statement);
     
-    NSSortDescriptor *sortByPackageName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByPackageName];
-    
-    return (NSArray*)[installedPackages sortedArrayUsingDescriptors:sortDescriptors];
+    return (NSArray*)installedPackages;
 }
 
 @end
