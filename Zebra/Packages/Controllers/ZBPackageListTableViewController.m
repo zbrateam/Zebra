@@ -27,7 +27,7 @@
         numberOfPackages = (int)packages.count;
     }
     else {
-        packages = [databaseManager packagesFromRepo:_repoID startingAt:0 goingTo:100];
+        packages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:0];
         numberOfPackages = (int)packages.count;
         NSLog(@"Done %d", numberOfPackages);
     }
@@ -35,7 +35,7 @@
 
 - (void)loadNextPackages {
     NSLog(@"Loading next packages! start %d, going %d", numberOfPackages, numberOfPackages + 100);
-    NSArray *nextPackages = [databaseManager packagesFromRepo:_repoID startingAt:numberOfPackages goingTo:100];
+    NSArray *nextPackages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:numberOfPackages];
     packages = [packages arrayByAddingObjectsFromArray:nextPackages];
     numberOfPackages = (int)packages.count;
     NSLog(@"Done %d", numberOfPackages);
@@ -56,6 +56,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 

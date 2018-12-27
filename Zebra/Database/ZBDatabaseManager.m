@@ -165,7 +165,7 @@
     return (NSArray*)sources;
 }
 
-- (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID startingAt:(int)start goingTo:(int)limit {
+- (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start {
     NSMutableArray *packages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
