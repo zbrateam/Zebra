@@ -10,7 +10,9 @@
 #import "ZBDatabaseManager.h"
 
 @interface ZBPackageListTableViewController () {
+    ZBDatabaseManager *databaseManager;
     NSArray *packages;
+    int numberOfPackages;
 }
 @end
 
@@ -19,13 +21,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [[ZBDatabaseManager alloc] init];
     if (_repoID == 0) {
         packages = [databaseManager installedPackages];
+        numberOfPackages = (int)packages.count;
     }
     else {
         packages = [databaseManager packagesFromRepo:_repoID startingAt:0 goingTo:100];
+        numberOfPackages = (int)packages.count;
+        NSLog(@"Done %d", numberOfPackages);
     }
+}
+
+- (void)loadNextPackages {
+    NSLog(@"Loading next packages! start %d, going %d", numberOfPackages, numberOfPackages + 100);
+    NSArray *nextPackages = [databaseManager packagesFromRepo:_repoID startingAt:numberOfPackages goingTo:100];
+    packages = [packages arrayByAddingObjectsFromArray:nextPackages];
+    numberOfPackages = (int)packages.count;
+    NSLog(@"Done %d", numberOfPackages);
+    
+    NSMutableArray *indexArray = [NSMutableArray new];
+    for (int i = numberOfPackages - 100; i < numberOfPackages; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [indexArray addObject:indexPath];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    });
 }
 
 #pragma mark - Table view data source
@@ -35,7 +60,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return packages.count;
+    return numberOfPackages;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -45,6 +70,10 @@
     
     cell.textLabel.text = [package objectForKey:@"name"];
     cell.detailTextLabel.text = [package objectForKey:@"id"];
+    
+    if (indexPath.row == numberOfPackages - 50) {
+        [self loadNextPackages];
+    }
     
     return cell;
 }
