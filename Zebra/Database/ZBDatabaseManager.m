@@ -158,10 +158,7 @@
         [sources addObject:source];
     }
     sqlite3_finalize(statement);
-    
-    NSSortDescriptor *sortByPackageName = [NSSortDescriptor sortDescriptorWithKey:@"origin" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByPackageName];
-    
+
     return (NSArray*)sources;
 }
 
