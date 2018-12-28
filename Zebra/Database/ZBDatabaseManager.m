@@ -117,6 +117,7 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         numberOfPackages = sqlite3_column_int(statement, 0);
     }
+    sqlite3_close(database);
     
     return numberOfPackages;
 }
@@ -276,6 +277,64 @@
     sqlite3_finalize(statement);
     
     return (NSArray*)installedPackages;
+}
+
+- (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
+    NSMutableArray *searchResults = [NSMutableArray new];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSString *query;
+    
+    if (results > 0) {
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' LIMIT %d", name, results];
+    }
+    else {
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\'", name];
+    }
+    
+    NSLog(@"Queyr: %@", query);
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
+        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
+        //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
+        //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
+        //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
+        //        const char *depictionChars = (const char *)sqlite3_column_text(statement, 7);
+        
+        NSString *packageID = [[NSString alloc] initWithUTF8String:packageIDChars];
+        NSString *packageName = [[NSString alloc] initWithUTF8String:packageNameChars];
+        //        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
+        //        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
+        //        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
+        //        NSString *depictionURL;
+        //        if (depictionChars == NULL) {
+        //            depictionURL = NULL;
+        //        }
+        //        else {
+        //            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
+        //        }
+        
+        //NSLog(@"%@: %@", packageID, packageName);
+        NSMutableDictionary *package = [NSMutableDictionary new];
+        if (packageName == NULL) {
+            NSLog(@"package name: %@", packageName);
+            packageName = packageID;
+        }
+        
+        [package setObject:packageName forKey:@"name"];
+        [package setObject:packageID forKey:@"id"];
+        [searchResults addObject:package];
+    }
+    sqlite3_finalize(statement);
+    
+    return searchResults;
 }
 
 @end

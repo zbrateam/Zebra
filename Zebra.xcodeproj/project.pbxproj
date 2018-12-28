@@ -33,6 +33,7 @@
 		89E8638321D5AFAA0081E485 /* url@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637B21D5AFAA0081E485 /* url@3x.png */; };
 		89E8638421D5AFAA0081E485 /* repos@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637C21D5AFAA0081E485 /* repos@3x.png */; };
 		89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7.min.css */; };
+		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,8 @@
 		89E8637B21D5AFAA0081E485 /* url@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "url@3x.png"; sourceTree = "<group>"; };
 		89E8637C21D5AFAA0081E485 /* repos@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repos@3x.png"; sourceTree = "<group>"; };
 		89E8637D21D5AFAA0081E485 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
+		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
+		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +230,8 @@
 		89E8633721D5A1540081E485 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */,
+				89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
 				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,

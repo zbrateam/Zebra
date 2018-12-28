@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSDictionary *> *)installedPackages;
 - (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
 - (NSArray <NSDictionary *> *)sources;
+- (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 @end
 
 NS_ASSUME_NONNULL_END
