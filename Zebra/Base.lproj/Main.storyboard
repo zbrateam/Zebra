@@ -53,7 +53,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.61960784310000006" green="0.6705882353" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Xy5-2Y-w5Q" kind="relationship" relationship="viewControllers" id="3Jq-ha-A6p"/>
@@ -188,11 +188,11 @@
             </objects>
             <point key="canvasLocation" x="3348" y="1068"/>
         </scene>
-        <!--Item-->
+        <!--Search-->
         <scene sceneID="f1N-ci-t5g">
             <objects>
                 <navigationController id="DcK-zy-kXJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="Search" selectedImage="Search" id="7Ob-xQ-Odl"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="Search" selectedImage="Search" id="7Ob-xQ-Odl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8SY-XC-S9b">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -282,5 +282,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="0.61960784313725492" green="0.6705882352941176" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>
