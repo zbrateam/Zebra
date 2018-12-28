@@ -35,11 +35,9 @@
 }
 
 - (void)loadNextPackages {
-    NSLog(@"[Zebra] Loading next packages! start %d, going %d", numberOfPackages, numberOfPackages + 100);
     NSArray *nextPackages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:numberOfPackages];
     packages = [packages arrayByAddingObjectsFromArray:nextPackages];
     numberOfPackages = (int)packages.count;
-    NSLog(@"[Zebra] Done %d", numberOfPackages);
     
     if (numberOfPackages > [self.tableView numberOfRowsInSection:0]) {
         needsExpansion = true;

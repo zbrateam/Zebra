@@ -23,6 +23,16 @@
 		89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */; };
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89C7E49221B240D4003DB4E8 /* Parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* Parsel.c */; };
+		89E8633A21D5A1AA0081E485 /* ZBHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8633921D5A1AA0081E485 /* ZBHomepageViewController.m */; };
+		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
+		89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637621D5AFA90081E485 /* package_depiction.html */; };
+		89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637721D5AFA90081E485 /* ios7.min.js */; };
+		89E8638021D5AFAA0081E485 /* url@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637821D5AFA90081E485 /* url@2x.png */; };
+		89E8638121D5AFAA0081E485 /* repos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637921D5AFAA0081E485 /* repos@2x.png */; };
+		89E8638221D5AFAA0081E485 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637A21D5AFAA0081E485 /* home.html */; };
+		89E8638321D5AFAA0081E485 /* url@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637B21D5AFAA0081E485 /* url@3x.png */; };
+		89E8638421D5AFAA0081E485 /* repos@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637C21D5AFAA0081E485 /* repos@3x.png */; };
+		89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7.min.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +64,17 @@
 		89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListTableViewController.m; sourceTree = "<group>"; };
 		89C7E48F21B23DB1003DB4E8 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
 		89C7E49121B240D4003DB4E8 /* Parsel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Parsel.c; sourceTree = "<group>"; };
+		89E8633821D5A1AA0081E485 /* ZBHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBHomepageViewController.h; sourceTree = "<group>"; };
+		89E8633921D5A1AA0081E485 /* ZBHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomepageViewController.m; sourceTree = "<group>"; };
+		89E8633C21D5A8C00081E485 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		89E8637621D5AFA90081E485 /* package_depiction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = package_depiction.html; sourceTree = "<group>"; };
+		89E8637721D5AFA90081E485 /* ios7.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ios7.min.js; sourceTree = "<group>"; };
+		89E8637821D5AFA90081E485 /* url@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "url@2x.png"; sourceTree = "<group>"; };
+		89E8637921D5AFAA0081E485 /* repos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repos@2x.png"; sourceTree = "<group>"; };
+		89E8637A21D5AFAA0081E485 /* home.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = home.html; sourceTree = "<group>"; };
+		89E8637B21D5AFAA0081E485 /* url@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "url@3x.png"; sourceTree = "<group>"; };
+		89E8637C21D5AFAA0081E485 /* repos@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "repos@3x.png"; sourceTree = "<group>"; };
+		89E8637D21D5AFAA0081E485 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +180,7 @@
 			children = (
 				89C5FDDF21B1B13700A10E58 /* Zebra */,
 				89C5FDDE21B1B13700A10E58 /* Products */,
+				89E8633B21D5A8C00081E485 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,16 +200,66 @@
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				8991FFA321B21D26004FCE23 /* Database */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
-				896F11B321B2309A0017B581 /* Packages */,
+				89E8633621D5A1420081E485 /* Home */,
 				896F11B421B230A40017B581 /* Repos */,
+				896F11B321B2309A0017B581 /* Packages */,
+				89E8633721D5A1540081E485 /* Search */,
 				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
 				89C5FDEF21B1B13800A10E58 /* main.m */,
+				89E8633E21D5A9CE0081E485 /* Resources */,
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 			);
 			path = Zebra;
+			sourceTree = "<group>";
+		};
+		89E8633621D5A1420081E485 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				89E8633821D5A1AA0081E485 /* ZBHomepageViewController.h */,
+				89E8633921D5A1AA0081E485 /* ZBHomepageViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		89E8633721D5A1540081E485 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		89E8633B21D5A8C00081E485 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89E8633C21D5A8C00081E485 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		89E8633E21D5A9CE0081E485 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				89E8637521D5AF920081E485 /* HTML */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		89E8637521D5AF920081E485 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				89E8637A21D5AFAA0081E485 /* home.html */,
+				89E8637D21D5AFAA0081E485 /* ios7.min.css */,
+				89E8637721D5AFA90081E485 /* ios7.min.js */,
+				89E8637621D5AFA90081E485 /* package_depiction.html */,
+				89E8637921D5AFAA0081E485 /* repos@2x.png */,
+				89E8637C21D5AFAA0081E485 /* repos@3x.png */,
+				89E8637821D5AFA90081E485 /* url@2x.png */,
+				89E8637B21D5AFAA0081E485 /* url@3x.png */,
+			);
+			path = HTML;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,12 +319,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89E8638121D5AFAA0081E485 /* repos@2x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
+				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
+				89E8638021D5AFAA0081E485 /* url@2x.png in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				8944916C21B5A2C500DDDEF2 /* BigBoss.rel in Resources */,
+				89E8638421D5AFAA0081E485 /* repos@3x.png in Resources */,
+				89E8638321D5AFAA0081E485 /* url@3x.png in Resources */,
+				89E8638221D5AFAA0081E485 /* home.html in Resources */,
 				8991FF9F21B21493004FCE23 /* BigBoss.pack in Resources */,
+				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
+				89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +350,7 @@
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
+				89E8633A21D5A1AA0081E485 /* ZBHomepageViewController.m in Sources */,
 				896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* Parsel.c in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
