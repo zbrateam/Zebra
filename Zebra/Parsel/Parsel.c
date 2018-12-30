@@ -33,11 +33,26 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
 
 multi_tok_t init() { return NULL; }
 
+int isRepoSecure(char *repoURL) {
+    FILE *file = fopen("/var/lib/zebra/sources.list", "r");
+    char line[256];
+    
+    char *url = strtok(repoURL, "_");
+    
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strcasestr(line, url) != NULL && line[8] == 's') {
+            return 1;
+        }
+    }
+    
+    return 0;
+}
+
 void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEURL STRING, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
     char repo[3][256];
@@ -58,12 +73,19 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
         }
     }
     
-    char *filename = basename((char *)path);
-    strcpy(repo[2], filename);
+    multi_tok_t t = init();
+    char *fullfilename = basename((char *)path);
+    char *baseFilename = multi_tok(fullfilename, &t, "_Release");
+    strcpy(repo[2], baseFilename);
+#if TARGET_CPU_ARM
+    int secure = isRepoSecure(baseFilename);
+#else
+    int secure = 0;
+#endif
     
-    char insertStatement[1024];
+    char insertStatement[2048];
 #warning should be using sqlite_bind
-    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEURL, REPOID) VALUES('%s', '%s', '%s', %d);", repo[0], repo[1], repo[2], repoID);
+    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEURL, SECURE, REPOID) VALUES('%s', '%s', '%s', %d, %d);", repo[0], repo[1], repo[2], secure, repoID);
     
     repo[0][0] = 0;
     repo[1][0] = 0;

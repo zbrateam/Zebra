@@ -41,7 +41,12 @@
     NSDictionary *source = [sources objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [source objectForKey:@"origin"];
-    cell.detailTextLabel.text = [source objectForKey:@"baseURL"];
+    if ([[source objectForKey:@"secure"] boolValue]) {
+        cell.detailTextLabel.text = @"Secure";
+    }
+    else {
+        cell.detailTextLabel.text = @"Not Secure";
+    }
     
     return cell;
 }

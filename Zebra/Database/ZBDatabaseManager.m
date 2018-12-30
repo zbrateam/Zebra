@@ -58,7 +58,7 @@
     }
     sqlite3_close(database);
 #else
-    NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"rel"]];
+    NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"apt.thebigboss.org_repofiles_cydia_dists_stable_Release" ofType:@""]];
     NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -154,7 +154,8 @@
         const char *originChars = (const char *)sqlite3_column_text(statement, 0);
         const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
         const char *baseURLChars = (const char *)sqlite3_column_text(statement, 2);
-        int repoID = sqlite3_column_int(statement, 3);
+        int secure = sqlite3_column_int(statement, 3);
+        int repoID = sqlite3_column_int(statement, 4);
         //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
         //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
         //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
@@ -179,6 +180,7 @@
         [source setObject:origin forKey:@"origin"];
         [source setObject:description forKey:@"description"];
         [source setObject:baseURL forKey:@"baseURL"];
+        [source setObject:[NSNumber numberWithInteger:secure] forKey:@"secure"];
         [source setObject:[NSNumber numberWithInteger:repoID] forKey:@"repoID"];
         [sources addObject:source];
     }
