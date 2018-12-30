@@ -153,7 +153,8 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         const char *originChars = (const char *)sqlite3_column_text(statement, 0);
         const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
-        int repoID = sqlite3_column_int(statement, 2);
+        const char *baseURLChars = (const char *)sqlite3_column_text(statement, 2);
+        int repoID = sqlite3_column_int(statement, 3);
         //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
         //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
         //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
@@ -161,6 +162,7 @@
         
         NSString *origin = [[NSString alloc] initWithUTF8String:originChars];
         NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
+        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
         //        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
         //        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
         //        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
@@ -176,6 +178,7 @@
         NSMutableDictionary *source = [NSMutableDictionary new];
         [source setObject:origin forKey:@"origin"];
         [source setObject:description forKey:@"description"];
+        [source setObject:baseURL forKey:@"baseURL"];
         [source setObject:[NSNumber numberWithInteger:repoID] forKey:@"repoID"];
         [sources addObject:source];
     }

@@ -37,10 +37,10 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEURL STRING, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
-    char repo[2][256];
+    char repo[3][256];
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
         
@@ -58,12 +58,16 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
         }
     }
     
+    char *filename = basename((char *)path);
+    strcpy(repo[2], filename);
+    
     char insertStatement[1024];
 #warning should be using sqlite_bind
-    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, REPOID) VALUES('%s', '%s', %d);", repo[0], repo[1], repoID);
+    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEURL, REPOID) VALUES('%s', '%s', '%s', %d);", repo[0], repo[1], repo[2], repoID);
     
     repo[0][0] = 0;
     repo[1][0] = 0;
+    repo[2][0] = 0;
     sqlite3_exec(database, insertStatement, NULL, 0, NULL);
     
     fclose(file);

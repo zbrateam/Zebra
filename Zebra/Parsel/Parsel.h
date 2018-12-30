@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <sqlite3.h>
 #include <string.h>
+#include <libgen.h>
 
 void importRepoToDatabase(const char *path, sqlite3 *database, int repoID);
 void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);

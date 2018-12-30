@@ -41,7 +41,7 @@
     NSDictionary *source = [sources objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [source objectForKey:@"origin"];
-    cell.detailTextLabel.text = [source objectForKey:@"description"];
+    cell.detailTextLabel.text = [source objectForKey:@"baseURL"];
     
     return cell;
 }
@@ -88,6 +88,7 @@
     ZBPackageListTableViewController *destination = [segue destinationViewController];
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *source = [sources objectAtIndex:indexPath.row];
+    NSLog(@"Setting repo iD: %d", [source[@"repoID"] intValue]);
     destination.repoID = [source[@"repoID"] intValue];
 }
 

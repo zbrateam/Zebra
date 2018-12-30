@@ -24,6 +24,7 @@
     
     needsExpansion = false;
     databaseManager = [[ZBDatabaseManager alloc] init];
+    NSLog(@"Repo ID: %d", _repoID);
     if (_repoID == 0) {
         packages = [databaseManager installedPackages];
         numberOfPackages = (int)packages.count;
