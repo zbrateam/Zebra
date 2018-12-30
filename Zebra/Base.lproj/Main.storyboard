@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,6 +13,10 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ZBRefreshViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NXo-ha-Dcc"/>
+                        <viewControllerLayoutGuide type="bottom" id="mp2-PR-0iu"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,14 +33,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="f7O-Lf-WVY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="177" id="6AV-WI-9WQ"/>
+                            <constraint firstItem="f7O-Lf-WVY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="177" id="6AV-WI-9WQ"/>
                             <constraint firstItem="TvP-0o-CaX" firstAttribute="top" secondItem="f7O-Lf-WVY" secondAttribute="bottom" constant="8" symbolic="YES" id="HIl-uJ-wn6"/>
                             <constraint firstItem="TvP-0o-CaX" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Lds-UA-ZUq"/>
                             <constraint firstItem="f7O-Lf-WVY" firstAttribute="centerX" secondItem="TvP-0o-CaX" secondAttribute="centerX" id="PXR-ZU-79z"/>
-                            <constraint firstItem="TvP-0o-CaX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="136" id="fql-MO-VWN"/>
+                            <constraint firstItem="TvP-0o-CaX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="136" id="fql-MO-VWN"/>
                             <constraint firstItem="f7O-Lf-WVY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p8N-H6-gWf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -259,18 +261,49 @@
         <!--Home-->
         <scene sceneID="gGs-QH-SO6">
             <objects>
-                <viewController id="vXr-io-rHa" customClass="ZBHomepageViewController" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vXr-io-rHa" customClass="ZBHomepageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mIX-qw-b7e"/>
+                        <viewControllerLayoutGuide type="bottom" id="pQQ-dO-Lp1"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Usr-ic-aw1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeN-Wv-VKH">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EUm-Oe-xqt">
+                                <rect key="frame" x="0.0" y="64" width="375" height="2"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
-                        <viewLayoutGuide key="safeArea" id="178-Lq-F5z"/>
+                        <constraints>
+                            <constraint firstItem="EUm-Oe-xqt" firstAttribute="top" secondItem="DeN-Wv-VKH" secondAttribute="top" id="0mb-zu-6SL"/>
+                            <constraint firstItem="DeN-Wv-VKH" firstAttribute="leading" secondItem="EUm-Oe-xqt" secondAttribute="leading" id="QHB-ux-NZ9"/>
+                            <constraint firstItem="EUm-Oe-xqt" firstAttribute="trailing" secondItem="DeN-Wv-VKH" secondAttribute="trailing" id="Uag-3d-1li"/>
+                            <constraint firstAttribute="trailing" secondItem="EUm-Oe-xqt" secondAttribute="trailing" id="VWz-Qt-uij"/>
+                            <constraint firstItem="EUm-Oe-xqt" firstAttribute="leading" secondItem="Usr-ic-aw1" secondAttribute="leading" id="lDh-zx-Kg7"/>
+                            <constraint firstItem="DeN-Wv-VKH" firstAttribute="bottom" secondItem="pQQ-dO-Lp1" secondAttribute="top" id="mUc-r2-ehB"/>
+                            <constraint firstItem="EUm-Oe-xqt" firstAttribute="top" secondItem="mIX-qw-b7e" secondAttribute="bottom" id="yyR-av-23d"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="MpE-w2-Q9V"/>
+                    <navigationItem key="navigationItem" title="Home" id="MpE-w2-Q9V">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="tiQ-9E-V7d">
+                            <connections>
+                                <action selector="refreshPage:" destination="vXr-io-rHa" id="PFc-sM-8kN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="progressView" destination="EUm-Oe-xqt" id="Zle-j6-x0A"/>
+                        <outlet property="webView" destination="DeN-Wv-VKH" id="hbf-Jb-WSd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRu-id-7Cu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3348" y="-976"/>
+            <point key="canvasLocation" x="3348" y="-976.46176911544239"/>
         </scene>
     </scenes>
     <resources>

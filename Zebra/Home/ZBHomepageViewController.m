@@ -9,8 +9,8 @@
 #import "ZBHomepageViewController.h"
 
 @interface ZBHomepageViewController () {
-    WKWebView *webView;
-    UIProgressView *progressView;
+    IBOutlet WKWebView *webView;
+    IBOutlet UIProgressView *progressView;
 }
 @end
 
@@ -19,10 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
-    
-    [self.view setBackgroundColor:[UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]];
-    
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = @"AUPM/BETA";
     
@@ -30,7 +26,7 @@
 //    [controller addScriptMessageHandler:self name:@"observe"];
 //    configuration.userContentController = controller;
     
-    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,0,0) configuration:configuration];
+    webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view addSubview:webView];
@@ -43,9 +39,9 @@
     //Web View Layout
     
     [webView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
-    [webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [webView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
     [webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     
     //Progress View Layout
     
@@ -89,6 +85,10 @@
 #else
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"You are running AUPM Version %@\"", @"BETA"] completionHandler:nil];
 #endif
+}
+
+- (IBAction)refreshPage:(id)sender {
+    [webView reload];
 }
 
 /*
