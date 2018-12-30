@@ -7,6 +7,7 @@
 //
 
 #import "ZBHomepageViewController.h"
+#import <Database/ZBRefreshViewController.h>
 
 @interface ZBHomepageViewController () {
     IBOutlet WKWebView *webView;
@@ -22,9 +23,9 @@
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = @"AUPM/BETA";
     
-//    WKUserContentController *controller = [[WKUserContentController alloc] init];
-//    [controller addScriptMessageHandler:self name:@"observe"];
-//    configuration.userContentController = controller;
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    [controller addScriptMessageHandler:self name:@"observe"];
+    configuration.userContentController = controller;
     
     webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -87,18 +88,68 @@
 #endif
 }
 
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSArray *contents = [message.body componentsSeparatedByString:@"~"];
+    NSString *destination = (NSString *)contents[0];
+    NSString *action = contents[1];
+    
+    if ([destination isEqual:@"local"]) {
+        if ([action isEqual:@"nuke"]) {
+            NSLog(@"war games");
+            [self nukeDatabase];
+        }
+        else if ([action isEqual:@"sendBug"]) {
+            NSLog(@"raid");
+            [self sendBugReport];
+        }
+    }
+    else if ([destination isEqual:@"web"]) {
+        NSLog(@"go somewere else");
+        
+//        AUPMWebViewController *_webViewController = [[AUPMWebViewController alloc] initWithURL:[NSURL URLWithString:action]];
+//        [[self navigationController] pushViewController:_webViewController animated:true];
+    }
+    else if ([destination isEqual:@"repo"]) {
+        NSLog(@"repo yo!");
+//        [self handleRepoAdd:action local:false];
+    }
+    else if ([destination isEqual:@"repo-local"]) {
+        NSLog(@"repo but local yo.");
+//        [self handleRepoAdd:action local:true];
+    }
+}
+
+- (void)nukeDatabase {
+    ZBRefreshViewController *refreshViewController = [[ZBRefreshViewController alloc] init];
+    
+    [[UIApplication sharedApplication] keyWindow].rootViewController = refreshViewController;
+}
+
+- (void)sendBugReport {
+    if ([MFMailComposeViewController canSendMail]) {
+        NSString *iosVersion = [NSString stringWithFormat:@"%@ running iOS %@", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
+        NSString *message = [NSString stringWithFormat:@"iOS Version: %@\nAUPM Version: %@\nAUPM Database Location: %@\n\nPlease describe the bug you are experiencing or feature you are requesting below: \n\n", iosVersion, @"BETA", @"somewhere"];
+        
+        MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+        mail.mailComposeDelegate = self;
+        [mail setSubject:@"AUPM Beta Bug Report"];
+        [mail setMessageBody:message isHTML:NO];
+        [mail setToRecipients:@[@"wilson@styres.me"]];
+        
+        [self presentViewController:mail animated:YES completion:NULL];
+    }
+    else
+    {
+        NSLog(@"[AUPM] This device cannot send email");
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 - (IBAction)refreshPage:(id)sender {
     [webView reload];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
