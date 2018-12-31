@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:status.tx">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/wstyres/Projects/Apps/Zebra/Zebra/Simulator Resources/xtm3x.github.io_repo_._Release.tx">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

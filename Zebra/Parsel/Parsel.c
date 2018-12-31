@@ -33,29 +33,43 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
 
 multi_tok_t init() { return NULL; }
 
+char* replace_char(char* str, char find, char replace){
+    char *current_pos = strchr(str,find);
+    while (current_pos){
+        *current_pos = replace;
+        current_pos = strchr(current_pos,find);
+    }
+    return str;
+}
+
 int isRepoSecure(char *repoURL) {
     FILE *file = fopen("/var/lib/zebra/sources.list", "r");
-    char line[256];
-    
-    char *url = strtok(repoURL, "_");
-    
-    while (fgets(line, sizeof(line), file) != NULL) {
-        if (strcasestr(line, url) != NULL && line[8] == 's') {
-            return 1;
+    if (file != NULL) {
+        char line[256];
+        
+        char *url = strtok(repoURL, "_");
+        
+        while (fgets(line, sizeof(line), file) != NULL) {
+            if (strcasestr(line, url) != NULL && line[8] == 's') {
+                return 1;
+            }
         }
+        
+        return 0;
     }
-    
-    return 0;
+    else {
+        return 0;
+    }
 }
 
 void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
-    char repo[3][256];
+    char repo[4][256];
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
         
@@ -77,19 +91,32 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     char *fullfilename = basename((char *)path);
     char *baseFilename = multi_tok(fullfilename, &t, "_Release");
     strcpy(repo[2], baseFilename);
-#if TARGET_CPU_ARM
-    int secure = isRepoSecure(baseFilename);
-#else
-    int secure = 0;
-#endif
+    int secure = isRepoSecure( baseFilename);
+    
+//    if (strstr(baseFilename, "_dists_") != NULL) {
+//        multi_tok_t u = init();
+//        char *baseURL = multi_tok(baseFilename, &u, "_dists");
+//
+//        replace_char(baseURL, '_', '/');
+//
+//        strcpy(repo[3], baseURL);
+//    }
+//    else {
+        //char *baseURL = strtok(baseFilename, "_");
+        
+        replace_char(baseFilename, '_', '/');
+        
+        strcpy(repo[3], baseFilename);
+//    }
     
     char insertStatement[2048];
 #warning should be using sqlite_bind
-    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEURL, SECURE, REPOID) VALUES('%s', '%s', '%s', %d, %d);", repo[0], repo[1], repo[2], secure, repoID);
+    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES('%s', '%s', '%s', '%s', %d, %d);", repo[0], repo[1], repo[2], repo[3], secure, repoID);
     
     repo[0][0] = 0;
     repo[1][0] = 0;
     repo[2][0] = 0;
+    repo[3][0] = 0;
     sqlite3_exec(database, insertStatement, NULL, 0, NULL);
     
     fclose(file);

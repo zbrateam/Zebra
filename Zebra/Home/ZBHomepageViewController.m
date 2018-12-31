@@ -79,7 +79,6 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSLog(@"nice");
     [self.navigationItem setTitle:[webView title]];
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];

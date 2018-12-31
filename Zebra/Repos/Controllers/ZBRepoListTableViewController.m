@@ -42,10 +42,10 @@
     
     cell.textLabel.text = [source objectForKey:@"origin"];
     if ([[source objectForKey:@"secure"] boolValue]) {
-        cell.detailTextLabel.text = @"Secure";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@/", [source objectForKey:@"baseURL"]];
     }
     else {
-        cell.detailTextLabel.text = @"Not Secure";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@/", [source objectForKey:@"baseURL"]];
     }
     
     return cell;
@@ -93,7 +93,6 @@
     ZBPackageListTableViewController *destination = [segue destinationViewController];
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSDictionary *source = [sources objectAtIndex:indexPath.row];
-    NSLog(@"Setting repo iD: %d", [source[@"repoID"] intValue]);
     destination.repoID = [source[@"repoID"] intValue];
 }
 
