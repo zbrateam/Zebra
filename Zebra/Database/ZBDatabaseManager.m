@@ -155,34 +155,29 @@
         const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
         const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
         const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
-        int secure = sqlite3_column_int(statement, 4);
-        int repoID = sqlite3_column_int(statement, 5);
-        //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
-        //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
-        //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
-        //        const char *depictionChars = (const char *)sqlite3_column_text(statement, 7);
-        
+
         NSString *origin = [[NSString alloc] initWithUTF8String:originChars];
         NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
         NSString *baseFilename = [[NSString alloc] initWithUTF8String:baseFilenameChars];
         NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
-        //        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
-        //        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
-        //        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
-        //        NSString *depictionURL;
-        //        if (depictionChars == NULL) {
-        //            depictionURL = NULL;
-        //        }
-        //        else {
-        //            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
-        //        }
+        int secure = sqlite3_column_int(statement, 4);
+        int repoID = sqlite3_column_int(statement, 5);
         
-        //NSLog(@"%@: %@", packageID, packageName);
+        NSURL *iconURL;
+        NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
+        if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
+            iconURL = [NSURL URLWithString:url] ;
+        }
+        else{
+            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
+        }
+
         NSMutableDictionary *source = [NSMutableDictionary new];
         [source setObject:origin forKey:@"origin"];
         [source setObject:description forKey:@"description"];
         [source setObject:baseFilename forKey:@"baseFilename"];
         [source setObject:baseURL forKey:@"baseURL"];
+        [source setObject:iconURL forKey:@"iconURL"];
         [source setObject:[NSNumber numberWithInteger:secure] forKey:@"secure"];
         [source setObject:[NSNumber numberWithInteger:repoID] forKey:@"repoID"];
         [sources addObject:source];
@@ -274,7 +269,6 @@
         //NSLog(@"%@: %@", packageID, packageName);
         NSMutableDictionary *package = [NSMutableDictionary new];
         if (packageName == NULL) {
-            NSLog(@"package name: %@", packageName);
             packageName = packageID;
         }
         

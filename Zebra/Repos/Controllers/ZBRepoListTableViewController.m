@@ -48,6 +48,24 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@/", [source objectForKey:@"baseURL"]];
     }
     
+    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source objectForKey:@"iconURL"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            UIImage *image = [UIImage imageWithData:data];
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
+                    if (updateCell)
+                        updateCell.imageView.image = image;
+                    [updateCell setNeedsLayout];
+                });
+            }
+        }
+        if (error) {
+            NSLog(@"ERRPR: %@", error);
+        }
+    }];
+    [task resume];
+    
     return cell;
 }
 

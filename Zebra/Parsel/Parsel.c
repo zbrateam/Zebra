@@ -99,21 +99,6 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     replace_char(baseFilename, '_', '/');
     strcpy(repo[3], baseFilename);
     
-//    if (strstr(baseFilename, "_dists_") != NULL) {
-//        multi_tok_t u = init();
-//        char *baseURL = multi_tok(baseFilename, &u, "_dists");
-//
-//        replace_char(baseURL, '_', '/');
-//
-//        strcpy(repo[3], baseURL);
-//    }
-//    else {
-        //char *baseURL = strtok(baseFilename, "_");
-        
-        //replace_char(baseFilename, '_', '/');
-    
-//    }
-    
     char insertStatement[2048];
 #warning should be using sqlite_bind
     sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES('%s', '%s', '%s', '%s', %d, %d);", repo[0], repo[1], repo[2], repo[3], secure, repoID);
