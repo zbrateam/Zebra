@@ -91,7 +91,13 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     char *fullfilename = basename((char *)path);
     char *baseFilename = multi_tok(fullfilename, &t, "_Release");
     strcpy(repo[2], baseFilename);
-    int secure = isRepoSecure( baseFilename);
+    
+    char secureURL[128];
+    strcpy(secureURL, baseFilename);
+    int secure = isRepoSecure(secureURL);
+    
+    replace_char(baseFilename, '_', '/');
+    strcpy(repo[3], baseFilename);
     
 //    if (strstr(baseFilename, "_dists_") != NULL) {
 //        multi_tok_t u = init();
@@ -104,9 +110,8 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
 //    else {
         //char *baseURL = strtok(baseFilename, "_");
         
-        replace_char(baseFilename, '_', '/');
-        
-        strcpy(repo[3], baseFilename);
+        //replace_char(baseFilename, '_', '/');
+    
 //    }
     
     char insertStatement[2048];
