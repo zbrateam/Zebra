@@ -116,11 +116,11 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, REPOID INTEGER);";//, VERSION STRING, DESCRIPTION STRING, SECTION STRING, DEPICTION STRING);";
+    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
-    char package[2][256];
+    char package[6][1024];
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0) {
             char *info = strtok(line, "\n");
@@ -132,28 +132,27 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
             if (strcmp(key, "Package") == 0) {
                 char *value = multi_tok(NULL, &s, ": ");
                 strcpy(package[0], value);
-                
             }
             else if (strcmp(key, "Name") == 0) {
                 char *value = multi_tok(NULL, &s, ": ");
                 strcpy(package[1], value);
             }
-//            else if (strcmp(key, "Version") == 0) {
-//                char *value = multi_tok(NULL, &s, ": ");
-//                strcpy(package[2], value);
-//            }
-//            else if (strcmp(key, "Description") == 0) {
-//                char *value = multi_tok(NULL, &s, ": ");
-//                strcpy(package[3], value);
-//            }
-//            else if (strcmp(key, "Section") == 0) {
-//                char *value = multi_tok(NULL, &s, ": ");
-//                strcpy(package[4], value);
-//            }
-//            else if (strcmp(key, "Depiction") == 0) {
-//                char *value = multi_tok(NULL, &s, ": ");
-//                strcpy(package[5], value);
-//            }
+            else if (strcmp(key, "Version") == 0) {
+                char *value = multi_tok(NULL, &s, ": ");
+                strcpy(package[2], value);
+            }
+            else if (strcmp(key, "Description") == 0) {
+                char *value = multi_tok(NULL, &s, ": ");
+                strcpy(package[3], value);
+            }
+            else if (strcmp(key, "Section") == 0) {
+                char *value = multi_tok(NULL, &s, ": ");
+                strcpy(package[4], value);
+            }
+            else if (strcmp(key, "Depiction") == 0) {
+                char *value = multi_tok(NULL, &s, ": ");
+                strcpy(package[5], value);
+            }
             
         }
         else {
@@ -165,10 +164,14 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 }
                 
                 #warning should be using sqlite_bind
-                sprintf(insertStatement, "INSERT INTO PACKAGES(PACKAGE, NAME, REPOID) VALUES('%s', '%s', %d);", package[0], package[1], repoID);
+                sprintf(insertStatement, "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES('%s', '%s', '%s', '%s', '%s', '%s', %d);", package[0], package[1], package[2], package[3], package[4], package[5], repoID);
                 
                 package[0][0] = 0;
                 package[1][0] = 0;
+                package[2][0] = 0;
+                package[3][0] = 0;
+                package[4][0] = 0;
+                package[5][0] = 0;
                 
                 sqlite3_exec(database, insertStatement, NULL, 0, NULL);
             }
