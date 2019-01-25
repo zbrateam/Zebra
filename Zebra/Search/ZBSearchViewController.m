@@ -39,6 +39,7 @@
     }
     else {
         results = nil;
+        [self.tableView reloadData];
     }
 }
 
