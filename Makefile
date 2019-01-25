@@ -2,13 +2,13 @@ include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/null.mk
 
 all::
-	xcodebuild -scheme AUPM archive -archivePath AUPM.xcarchive
+	xcodebuild -scheme Zebra archive -archivePath Zebra.xcarchive
 
 after-stage::
-	mv AUPM.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
-	rm -rf AUPM.xcarchive
+	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
+	rm -rf Zebra.xcarchive
 	$(MAKE) -C Supersling
-	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/Applications/AUPM.app/
+	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/Applications/Zebra.app/
 
 after-install::
-	install.exec "killall \"AUPM\"" || true
+	install.exec "killall \"Zebra\"" || true

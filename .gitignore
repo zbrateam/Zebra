@@ -1,4 +1,3 @@
 .theos/
 Supersling/.theos
-Realm.framework/
-packages/
+/packages/
