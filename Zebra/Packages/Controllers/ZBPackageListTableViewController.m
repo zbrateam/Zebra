@@ -82,7 +82,7 @@
     NSDictionary *package = [packages objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [package objectForKey:@"name"];
-    cell.detailTextLabel.text = [package objectForKey:@"id"];
+    cell.detailTextLabel.text = [package objectForKey:@"description"];
     
     if ((indexPath.row == numberOfPackages - 25) && (_repoID != 0)) {
         [self loadNextPackages];
