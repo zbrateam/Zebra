@@ -116,6 +116,46 @@
             </objects>
             <point key="canvasLocation" x="3348" y="-287"/>
         </scene>
+        <!--Package Depiction View Controller-->
+        <scene sceneID="gSY-xE-mwM">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9rI-AM-uN9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="ee2-us-Jid" customClass="ZBPackageDepictionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f70-pg-yL6"/>
+                        <viewControllerLayoutGuide type="bottom" id="hmn-37-Q3v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="miv-R0-Mes">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9EH-fN-FbB" customClass="WKWebView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="u7g-nQ-pXB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="2"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="u7g-nQ-pXB" firstAttribute="top" secondItem="f70-pg-yL6" secondAttribute="bottom" id="8ix-kK-DiP"/>
+                            <constraint firstItem="9EH-fN-FbB" firstAttribute="leading" secondItem="miv-R0-Mes" secondAttribute="leading" id="Mlj-Kf-i8O"/>
+                            <constraint firstItem="u7g-nQ-pXB" firstAttribute="leading" secondItem="9EH-fN-FbB" secondAttribute="leading" id="NUG-Oi-TQp"/>
+                            <constraint firstItem="9EH-fN-FbB" firstAttribute="bottom" secondItem="hmn-37-Q3v" secondAttribute="top" id="bfg-1I-zxa"/>
+                            <constraint firstItem="u7g-nQ-pXB" firstAttribute="trailing" secondItem="9EH-fN-FbB" secondAttribute="trailing" id="klJ-TF-gvU"/>
+                            <constraint firstAttribute="trailing" secondItem="9EH-fN-FbB" secondAttribute="trailing" id="oOe-hc-l0n"/>
+                            <constraint firstItem="u7g-nQ-pXB" firstAttribute="top" secondItem="9EH-fN-FbB" secondAttribute="top" id="uRe-zP-y9N"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="progressView" destination="u7g-nQ-pXB" id="tJs-vA-5wI"/>
+                        <outlet property="webView" destination="9EH-fN-FbB" id="I8V-Wc-p00"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="4152.8000000000002" y="26.53673163418291"/>
+        </scene>
         <!--Packages-->
         <scene sceneID="BLO-45-5uX">
             <objects>

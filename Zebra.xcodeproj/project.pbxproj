@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		8944916C21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release in Resources */ = {isa = PBXBuildFile; fileRef = 8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11B921B2313E0017B581 /* ZBPackage.m */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
+		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apt.thebigboss.org_repofiles_cydia_dists_stable_Release; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 			children = (
 				89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */,
 				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
+				89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */,
+				89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
+				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBHomepageViewController.m in Sources */,

@@ -23,15 +23,15 @@
 //Imports packages from repositories located in /var/lib/aupm/lists
 - (void)fullRemoteImport {
 #if TARGET_CPU_ARM
-//    NSLog(@"[Zebra] APT Update");
-//    NSTask *task = [[NSTask alloc] init];
-//    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-//    NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
-//    [task setArguments:arguments];
-//
-//    [task launch];
-//    [task waitUntilExit];
-//    NSLog(@"[Zebra] Update Complete");
+    NSLog(@"[Zebra] APT Update");
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
+    [task setArguments:arguments];
+
+    [task launch];
+    [task waitUntilExit];
+    NSLog(@"[Zebra] Update Complete");
     
     NSDate *methodStart = [NSDate date];
     NSArray *sourceLists = [self managedSources];

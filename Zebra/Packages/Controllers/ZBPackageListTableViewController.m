@@ -91,11 +91,12 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    NSDictionary *package = [packages objectAtIndex:indexPath.row];
-//    NSLog(@"Package: %@", package);
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSDictionary *package = [packages objectAtIndex:indexPath.row];
+    ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+    [[self navigationController] pushViewController:depictionController animated:true];
+}
 
 
 /*
