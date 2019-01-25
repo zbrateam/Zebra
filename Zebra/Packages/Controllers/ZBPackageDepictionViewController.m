@@ -9,8 +9,8 @@
 #import "ZBPackageDepictionViewController.h"
 
 @interface ZBPackageDepictionViewController () {
-    IBOutlet UIProgressView *progressView;
-    IBOutlet WKWebView *webView;
+    UIProgressView *progressView;
+    WKWebView *webView;
 }
 @property (nonatomic, strong) NSDictionary *package;
 @end
@@ -31,6 +31,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = [_package objectForKey:@"name"];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = @"Zebra/BETA";
@@ -66,7 +67,8 @@
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
     
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[self.package objectForKey:@"depictionURL"]]];
+    NSURL *url = [NSURL URLWithString:[self.package objectForKey:@"depictionURL"]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [webView loadRequest:request];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
