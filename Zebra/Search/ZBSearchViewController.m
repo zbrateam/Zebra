@@ -7,6 +7,7 @@
 //
 
 #import "ZBSearchViewController.h"
+#import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
 
 @interface ZBSearchViewController () {
@@ -79,6 +80,13 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary *package = [results objectAtIndex:indexPath.row];
+    ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+    [[self navigationController] pushViewController:depictionController animated:true];
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -108,7 +116,7 @@
 /*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
+    // Return NO if you do not want the item tao be re-orderable.
     return YES;
 }
 */

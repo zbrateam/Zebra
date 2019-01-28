@@ -10,7 +10,6 @@
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		8944916C21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release in Resources */ = {isa = PBXBuildFile; fileRef = 8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
-		896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11B921B2313E0017B581 /* ZBPackage.m */; };
 		896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBRepoManager.m */; };
 		896F11C321B231900017B581 /* ZBRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBRepo.m */; };
 		8991FF9F21B21493004FCE23 /* BigBoss.pack in Resources */ = {isa = PBXBuildFile; fileRef = 8991FF9E21B21492004FCE23 /* BigBoss.pack */; };
@@ -43,8 +42,6 @@
 		8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apt.thebigboss.org_repofiles_cydia_dists_stable_Release; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
-		896F11B821B2313E0017B581 /* ZBPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackage.h; sourceTree = "<group>"; };
-		896F11B921B2313E0017B581 /* ZBPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackage.m; sourceTree = "<group>"; };
 		896F11BB21B231490017B581 /* ZBRepoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoManager.h; sourceTree = "<group>"; };
 		896F11BC21B231490017B581 /* ZBRepoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoManager.m; sourceTree = "<group>"; };
 		896F11C121B231900017B581 /* ZBRepo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepo.h; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		896F11B321B2309A0017B581 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				896F11C621B231B90017B581 /* Helpers */,
 				896F11C521B231AF0017B581 /* Controllers */,
 			);
 			path = Packages;
@@ -122,15 +118,6 @@
 				89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		896F11C621B231B90017B581 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				896F11B821B2313E0017B581 /* ZBPackage.h */,
-				896F11B921B2313E0017B581 /* ZBPackage.m */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		896F11C721B231CB0017B581 /* Helpers */ = {
@@ -363,7 +350,6 @@
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBHomepageViewController.m in Sources */,
-				896F11BA21B2313E0017B581 /* ZBPackage.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* Parsel.c in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
 			);

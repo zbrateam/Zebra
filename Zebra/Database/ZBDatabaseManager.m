@@ -291,6 +291,10 @@
     return (NSArray*)installedPackages;
 }
 
+//- (NSDictionary *)fullPackageForRowID:(int)rowID {
+//    
+//}
+
 - (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
     NSMutableArray *searchResults = [NSMutableArray new];
     
@@ -315,33 +319,35 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
         const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        //        const char *versionChars = (const char *)sqlite3_column_text(statement, 4);
-        //        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 5);
-        //        const char *sectionChars = (const char *)sqlite3_column_text(statement, 6);
-        //        const char *depictionChars = (const char *)sqlite3_column_text(statement, 7);
+        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
+        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
+        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
         
         NSString *packageID = [[NSString alloc] initWithUTF8String:packageIDChars];
         NSString *packageName = [[NSString alloc] initWithUTF8String:packageNameChars];
-        //        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
-        //        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
-        //        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
-        //        NSString *depictionURL;
-        //        if (depictionChars == NULL) {
-        //            depictionURL = NULL;
-        //        }
-        //        else {
-        //            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
-        //        }
+        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
+        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
+        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
+        NSString *depictionURL;
+        if (depictionChars == NULL) {
+            depictionURL = NULL;
+        }
+        else {
+            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
+        }
         
-        //NSLog(@"%@: %@", packageID, packageName);
         NSMutableDictionary *package = [NSMutableDictionary new];
         if (packageName == NULL) {
-            NSLog(@"package name: %@", packageName);
             packageName = packageID;
         }
         
         [package setObject:packageName forKey:@"name"];
         [package setObject:packageID forKey:@"id"];
+        [package setObject:version forKey:@"version"];
+        [package setObject:section forKey:@"section"];
+        [package setObject:description forKey:@"description"];
+        [package setObject:depictionURL forKey:@"depictionURL"];
         [searchResults addObject:package];
     }
     sqlite3_finalize(statement);
