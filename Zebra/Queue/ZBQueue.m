@@ -32,8 +32,8 @@
     return self;
 }
 
-- (void)addPackage:(NSDictionary *)package toQueue:(ZBQueueType)action {
-    switch (action) {
+- (void)addPackage:(NSDictionary *)package toQueue:(ZBQueueType)queue {
+    switch (queue) {
         case ZBQueueTypeInstall: {
             NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
             if (![installArray containsObject:package]) {
@@ -69,9 +69,9 @@
     }
 }
 
-- (void)addPackages:(NSArray<NSDictionary *> *)packages toQueueWithAction:(ZBQueueType)action {
+- (void)addPackages:(NSArray<NSDictionary *> *)packages toQueue:(ZBQueueType)queue {
     for (NSDictionary *package in packages) {
-        switch (action) {
+        switch (queue) {
             case ZBQueueTypeInstall: {
                 NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
                 if (![installArray containsObject:package]) {
@@ -108,8 +108,8 @@
     }
 }
 
-- (void)removePackage:(NSDictionary *)package fromQueue:(ZBQueueType)action {
-    switch (action) {
+- (void)removePackage:(NSDictionary *)package fromQueue:(ZBQueueType)queue {
+    switch (queue) {
         case ZBQueueTypeInstall: {
             NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
             [installArray removeObject:package];
@@ -198,8 +198,8 @@
     return [_managedQueue[queue] count];
 }
 
-- (NSDictionary *)packageInQueueForAction:(ZBQueueType)action atIndex:(int)index {
-    switch (action) {
+- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(int)index {
+    switch (queue) {
         case ZBQueueTypeInstall: {
             return [_managedQueue[@"Install"] objectAtIndex:index];
         }
