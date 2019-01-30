@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removePackage:(NSDictionary *)package fromQueue:(ZBQueueType)queue;
 - (NSArray *)tasksForQueue;
 - (int)numberOfPackagesForQueue:(NSString *)queue;
-- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(int)index;
+- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
 - (void)clearQueue;
 - (NSArray *)actionsToPerform;
 - (BOOL)hasObjects;

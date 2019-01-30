@@ -198,7 +198,7 @@
     return (int)[_managedQueue[queue] count];
 }
 
-- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(int)index {
+- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index {
     switch (queue) {
         case ZBQueueTypeInstall: {
             return [_managedQueue[@"Install"] objectAtIndex:index];
