@@ -191,7 +191,7 @@
     return (NSArray*)sources;
 }
 
-- (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start {
     NSMutableArray *packages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
@@ -210,30 +210,8 @@
         const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
         const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
         
-        NSString *packageID = [[NSString alloc] initWithUTF8String:packageIDChars];
-        NSString *packageName = [[NSString alloc] initWithUTF8String:packageNameChars];
-        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
-        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
-        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
-        NSString *depictionURL;
-        if (depictionChars == NULL) {
-            depictionURL = NULL;
-        }
-        else {
-            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
-        }
+        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:false remote:true];
         
-        NSMutableDictionary *package = [NSMutableDictionary new];
-        if (packageName == NULL) {
-            packageName = packageID;
-        }
-        
-        [package setObject:packageName forKey:@"name"];
-        [package setObject:packageID forKey:@"id"];
-        [package setObject:version forKey:@"version"];
-        [package setObject:section forKey:@"section"];
-        [package setObject:description forKey:@"description"];
-        [package setObject:depictionURL forKey:@"depictionURL"];
         [packages addObject:package];
     }
     sqlite3_finalize(statement);
@@ -260,40 +238,14 @@
         const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
         const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
         
-        NSString *packageID = [[NSString alloc] initWithUTF8String:packageIDChars];
-        NSString *packageName = [[NSString alloc] initWithUTF8String:packageNameChars];
-        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
-        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
-        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
-        NSString *depictionURL;
-        if (depictionChars == NULL) {
-            depictionURL = NULL;
-        }
-        else {
-            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
-        }
+        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:true remote:false];
         
-        NSMutableDictionary *package = [NSMutableDictionary new];
-        if (packageName == NULL) {
-            packageName = packageID;
-        }
-        
-        [package setObject:packageName forKey:@"name"];
-        [package setObject:packageID forKey:@"id"];
-        [package setObject:version forKey:@"version"];
-        [package setObject:section forKey:@"section"];
-        [package setObject:description forKey:@"description"];
-        [package setObject:depictionURL forKey:@"depictionURL"];
         [installedPackages addObject:package];
     }
     sqlite3_finalize(statement);
     
     return (NSArray*)installedPackages;
 }
-
-//- (NSDictionary *)fullPackageForRowID:(int)rowID {
-//    
-//}
 
 - (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
     NSMutableArray *searchResults = [NSMutableArray new];
@@ -324,34 +276,13 @@
         const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
         const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
         
-        NSString *packageID = [[NSString alloc] initWithUTF8String:packageIDChars];
-        NSString *packageName = [[NSString alloc] initWithUTF8String:packageNameChars];
-        NSString *version = [[NSString alloc] initWithUTF8String:versionChars];
-        NSString *section = [[NSString alloc] initWithUTF8String:sectionChars];
-        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
-        NSString *depictionURL;
-        if (depictionChars == NULL) {
-            depictionURL = NULL;
-        }
-        else {
-            depictionURL = [[NSString alloc] initWithUTF8String:depictionChars];
-        }
+        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:false remote:false];
         
-        NSMutableDictionary *package = [NSMutableDictionary new];
-        if (packageName == NULL) {
-            packageName = packageID;
-        }
-        
-        [package setObject:packageName forKey:@"name"];
-        [package setObject:packageID forKey:@"id"];
-        [package setObject:version forKey:@"version"];
-        [package setObject:section forKey:@"section"];
-        [package setObject:description forKey:@"description"];
-        [package setObject:depictionURL forKey:@"depictionURL"];
         [searchResults addObject:package];
     }
     sqlite3_finalize(statement);
     
+    NSLog(@"Done searching");
     return searchResults;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fullLocalImport;
 - (int)numberOfPackagesInRepo:(int)repoID;
 - (NSArray <NSDictionary *> *)installedPackages;
-- (NSArray <NSDictionary *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
+- (NSMutableArray *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
 - (NSArray <NSDictionary *> *)sources;
 - (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 @end

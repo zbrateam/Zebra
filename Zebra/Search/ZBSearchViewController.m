@@ -72,10 +72,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchPackageTableViewCell" forIndexPath:indexPath];
     
-    NSDictionary *package = [results objectAtIndex:indexPath.row];
+    ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [package objectForKey:@"name"];
-    cell.detailTextLabel.text = [package objectForKey:@"id"];
+    cell.textLabel.text = package.identifier;
+    cell.detailTextLabel.text = package.desc;
     
     return cell;
 }

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListTableViewController : UITableViewController
 @property (nonatomic) int repoID;
-
 @end
 
 NS_ASSUME_NONNULL_END

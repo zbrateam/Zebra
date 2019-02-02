@@ -8,6 +8,7 @@
 
 #import "ZBPackageListTableViewController.h"
 #import "ZBDatabaseManager.h"
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBPackageListTableViewController () {
     ZBDatabaseManager *databaseManager;
@@ -79,10 +80,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
-    NSDictionary *package = [packages objectAtIndex:indexPath.row];
+    ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [package objectForKey:@"name"];
-    cell.detailTextLabel.text = [package objectForKey:@"description"];
+    cell.textLabel.text = package.name;
+    cell.detailTextLabel.text = package.desc;
     
     if ((indexPath.row == numberOfPackages - 25) && (_repoID != 0)) {
         [self loadNextPackages];

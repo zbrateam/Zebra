@@ -92,14 +92,20 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)configureNavButton {
+//    if ([_package isInstalled]) {
+//        if ([_package isFromRepo]) {
+//            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+//            self.navigationItem.rightBarButtonItem = removeButton;
+//        }
+//        else {
+//            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+//            self.navigationItem.rightBarButtonItem = removeButton;
+//        }
+//    else {
+//        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+//        self.navigationItem.rightBarButtonItem = installButton;
+//    }
+//}
 
 @end
