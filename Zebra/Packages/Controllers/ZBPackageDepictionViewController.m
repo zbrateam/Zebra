@@ -12,12 +12,12 @@
     UIProgressView *progressView;
     WKWebView *webView;
 }
-@property (nonatomic, strong) NSDictionary *package;
+@property (nonatomic, strong) ZBPackage *package;
 @end
 
 @implementation ZBPackageDepictionViewController
 
-- (id)initWithPackage:(NSDictionary *)package {
+- (id)initWithPackage:(ZBPackage *)package {
     if (!self) {
         self = [super init];
     }
@@ -31,7 +31,10 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = [_package objectForKey:@"name"];
+    self.navigationItem.title = _package.name;
+    
+    self.navigationController.navigationBar.opaque = true;
+    self.tabBarController.tabBar.opaque = true;
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = @"Zebra/BETA";
@@ -67,7 +70,7 @@
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
     
-    NSURL *url = [NSURL URLWithString:[self.package objectForKey:@"depictionURL"]];
+    NSURL *url = _package.depictionURL;
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [webView loadRequest:request];
     
