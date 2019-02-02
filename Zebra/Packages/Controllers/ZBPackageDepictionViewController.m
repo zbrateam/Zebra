@@ -31,10 +31,11 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = _package.name;
     
-    self.navigationController.navigationBar.opaque = true;
-    self.tabBarController.tabBar.opaque = true;
+    self.navigationController.navigationBar.translucent = false;
+    self.tabBarController.tabBar.translucent = false;
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = @"Zebra/BETA";
@@ -65,6 +66,8 @@
     [progressView.trailingAnchor constraintEqualToAnchor:webView.trailingAnchor].active = YES;
     [progressView.leadingAnchor constraintEqualToAnchor:webView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
+    
+    [progressView setTintColor:[UIColor colorWithRed:0.4 green:0.5 blue:0.97 alpha:1.0]];
     
     webView.navigationDelegate = self;
     webView.opaque = false;
