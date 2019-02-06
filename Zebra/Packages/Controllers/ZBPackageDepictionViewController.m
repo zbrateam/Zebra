@@ -116,9 +116,9 @@
     ZBQueue *queue = [ZBQueue sharedInstance];
     [queue addPackage:_package toQueue:ZBQueueTypeInstall];
     
-    ZBQueueViewController *queueVC = [[ZBQueueViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
-    [self presentViewController:navController animated:true completion:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+    [self presentViewController:vc animated:true completion:nil];
 }
 
 - (void)removePackage {
