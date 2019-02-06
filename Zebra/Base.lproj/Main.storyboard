@@ -294,7 +294,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="2"/>
                             </progressView>
                         </subviews>
-                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93751752376556396" green="0.93670934438705444" blue="0.95686620473861694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="EUm-Oe-xqt" firstAttribute="top" secondItem="DeN-Wv-VKH" secondAttribute="top" id="0mb-zu-6SL"/>
                             <constraint firstItem="DeN-Wv-VKH" firstAttribute="leading" secondItem="EUm-Oe-xqt" secondAttribute="leading" id="QHB-ux-NZ9"/>
