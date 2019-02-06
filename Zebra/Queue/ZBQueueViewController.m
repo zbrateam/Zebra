@@ -6,8 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBQueueViewController.h"
 #import "ZBQueue.h"
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -22,25 +22,19 @@
     
     _queue = [ZBQueue sharedInstance];
     
-    UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStyleDone target:self action:@selector(confirm)];
-    self.navigationItem.rightBarButtonItem = confirmButton;
-    
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(cancel)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    
     self.title = @"Queue";
 }
 
-- (void)confirm {
-//    AUPMConsoleViewController *console = [[AUPMConsoleViewController alloc] init];
-//    [[self navigationController] pushViewController:console animated:true];
+- (IBAction)confirm:(id)sender {
+    //    AUPMConsoleViewController *console = [[AUPMConsoleViewController alloc] init];
+    //    [[self navigationController] pushViewController:console animated:true];
 }
 
-- (void)cancel {
-//    AUPMTabBarController *tabController = (AUPMTabBarController *)((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
-//    [tabController updatePackageTableView];
-//
-//    [self dismissViewControllerAnimated:true completion:nil];
+- (IBAction)cancel:(id)sender {
+    //    AUPMTabBarController *tabController = (AUPMTabBarController *)((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+    //    [tabController updatePackageTableView];
+    //
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -62,7 +56,7 @@
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
-    NSDictionary *package;
+    ZBPackage *package;
     
     if ([action isEqual:@"Install"]) {
         package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
@@ -81,7 +75,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    NSString *section = [[package objectForKey:@"section"] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([section characterAtIndex:[section length] - 1] == ')') {
         NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
         section = [items[0] substringToIndex:[items[0] length] - 1];
@@ -98,8 +92,8 @@
         NSLog(@"[Zebra] %@", error);
     }
     
-    cell.textLabel.text = [package objectForKey:@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", [package objectForKey:@"id"], [package objectForKey:@"version"]];
+    cell.textLabel.text = package.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
     
     CGSize itemSize = CGSizeMake(35, 35);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
@@ -122,19 +116,19 @@
         NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
         
         if ([action isEqual:@"Install"]) {
-            NSDictionary *package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
+            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
             [_queue removePackage:package fromQueue:ZBQueueTypeInstall];
         }
         else if ([action isEqual:@"Remove"]) {
-            NSDictionary *package = [_queue packageInQueue:ZBQueueTypeRemove atIndex:indexPath.row];
+            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeRemove atIndex:indexPath.row];
             [_queue removePackage:package fromQueue:ZBQueueTypeRemove];
         }
         else if ([action isEqual:@"Reinstall"]) {
-            NSDictionary *package = [_queue packageInQueue:ZBQueueTypeReinstall atIndex:indexPath.row];
+            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeReinstall atIndex:indexPath.row];
             [_queue removePackage:package fromQueue:ZBQueueTypeReinstall];
         }
         else if ([action isEqual:@"Upgrade"]) {
-            NSDictionary *package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
+            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
             [_queue removePackage:package fromQueue:ZBQueueTypeUpgrade];
         }
         else {

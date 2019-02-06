@@ -7,6 +7,7 @@
 //
 
 #import "ZBQueue.h"
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation ZBQueue
 + (id)sharedInstance {
@@ -32,7 +33,7 @@
     return self;
 }
 
-- (void)addPackage:(NSDictionary *)package toQueue:(ZBQueueType)queue {
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall: {
             NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
@@ -61,7 +62,7 @@
         case ZBQueueTypeUpgrade: {
             NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
             if (![upgradeArray containsObject:package]) {
-                [upgradeArray addObject:[package objectForKey:@"id"]];
+                [upgradeArray addObject:package.identifier];
                 [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
             }
             break;
@@ -69,7 +70,7 @@
     }
 }
 
-- (void)addPackages:(NSArray<NSDictionary *> *)packages toQueue:(ZBQueueType)queue {
+- (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
     for (NSDictionary *package in packages) {
         switch (queue) {
             case ZBQueueTypeInstall: {
@@ -108,7 +109,7 @@
     }
 }
 
-- (void)removePackage:(NSDictionary *)package fromQueue:(ZBQueueType)queue {
+- (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall: {
             NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
@@ -198,7 +199,7 @@
     return (int)[_managedQueue[queue] count];
 }
 
-- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index {
+- (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index {
     switch (queue) {
         case ZBQueueTypeInstall: {
             return [_managedQueue[@"Install"] objectAtIndex:index];

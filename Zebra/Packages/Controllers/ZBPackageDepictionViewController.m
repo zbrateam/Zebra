@@ -7,6 +7,7 @@
 //
 
 #import "ZBPackageDepictionViewController.h"
+#import <Queue/ZBQueue.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -30,6 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureNavButton];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = _package.name;
@@ -38,7 +41,7 @@
     self.tabBarController.tabBar.translucent = false;
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.applicationNameForUserAgent = @"Zebra/BETA";
+    configuration.applicationNameForUserAgent = @"iPhone/Zebra/BETA";
     
 //    WKUserContentController *controller = [[WKUserContentController alloc] init];
 //    [controller addScriptMessageHandler:self name:@"observe"];
@@ -98,20 +101,33 @@
     }
 }
 
-//- (void)configureNavButton {
-//    if ([_package isInstalled]) {
-//        if ([_package isFromRepo]) {
-//            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
-//            self.navigationItem.rightBarButtonItem = removeButton;
-//        }
-//        else {
-//            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
-//            self.navigationItem.rightBarButtonItem = removeButton;
-//        }
-//    else {
-//        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-//        self.navigationItem.rightBarButtonItem = installButton;
-//    }
-//}
+- (void)configureNavButton {
+    if (_package.installed) {
+        UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+        self.navigationItem.rightBarButtonItem = removeButton;
+    }
+    else {
+        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+        self.navigationItem.rightBarButtonItem = installButton;
+    }
+}
+    
+- (void)installPackage {
+    ZBQueue *queue = [ZBQueue sharedInstance];
+    [queue addPackage:_package toQueue:ZBQueueTypeInstall];
+    
+    ZBQueueViewController *queueVC = [[ZBQueueViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:queueVC];
+    [self presentViewController:navController animated:true completion:nil];
+}
+
+- (void)removePackage {
+    ZBQueue *queue = [ZBQueue sharedInstance];
+    [queue addPackage:_package toQueue:ZBQueueTypeRemove];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+    [self presentViewController:vc animated:true completion:nil];
+}
 
 @end

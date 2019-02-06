@@ -8,18 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "ZBQueueType.h"
+#import "ZBQueueViewController.h"
+
+@class ZBPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSArray *> *managedQueue;
 + (id)sharedInstance;
-- (void)addPackage:(NSDictionary *)package toQueue:(ZBQueueType)queue;
-- (void)addPackages:(NSArray<NSDictionary *> *)packages toQueue:(ZBQueueType)queue;
-- (void)removePackage:(NSDictionary *)package fromQueue:(ZBQueueType)queue;
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
+- (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
+- (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue;
 - (NSArray *)tasksForQueue;
 - (int)numberOfPackagesForQueue:(NSString *)queue;
-- (NSDictionary *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
+- (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
 - (void)clearQueue;
 - (NSArray *)actionsToPerform;
 - (BOOL)hasObjects;
