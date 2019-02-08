@@ -2,7 +2,7 @@ include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/null.mk
 
 all::
-	xcodebuild -scheme Zebra archive -archivePath Zebra.xcarchive
+	xcodebuild -quiet -scheme Zebra archive -archivePath Zebra.xcarchive
 
 after-stage::
 	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
