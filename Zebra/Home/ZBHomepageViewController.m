@@ -151,4 +151,8 @@
     [webView reload];
 }
 
+- (void)dealloc {
+    [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
+}
+
 @end

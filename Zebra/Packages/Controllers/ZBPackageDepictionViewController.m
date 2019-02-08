@@ -130,4 +130,8 @@
     [self presentViewController:vc animated:true completion:nil];
 }
 
+- (void)dealloc {
+    [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
+}
+
 @end
