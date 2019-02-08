@@ -390,22 +390,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpS-Lu-3mG">
-                                <rect key="frame" x="0.0" y="20" width="375" height="575"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="16" y="20" width="343" height="569"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwm-vr-TSr">
-                                <rect key="frame" x="16" y="603" width="343" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="16" y="597" width="343" height="50"/>
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="ZXr-v5-Edj"/>
+                                    <constraint firstAttribute="height" constant="50" id="ooQ-Vc-CWb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -419,13 +419,13 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Dwm-vr-TSr" secondAttribute="bottom" constant="20" symbolic="YES" id="0T7-9u-iHb"/>
-                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="centerX" secondItem="Dwm-vr-TSr" secondAttribute="centerX" id="9CT-CU-y7g"/>
-                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="4S3-dv-b0f" secondAttribute="leading" id="DGj-kT-cCa"/>
-                            <constraint firstAttribute="trailing" secondItem="lpS-Lu-3mG" secondAttribute="trailing" id="GUD-yM-5iP"/>
-                            <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="bottom" constant="8" symbolic="YES" id="a28-mE-myb"/>
-                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="top" secondItem="Usc-o9-c3X" secondAttribute="bottom" id="bAt-Rc-zPz"/>
-                            <constraint firstItem="Dwm-vr-TSr" firstAttribute="leading" secondItem="4S3-dv-b0f" secondAttribute="leadingMargin" id="up6-7S-7Up"/>
+                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="4S3-dv-b0f" secondAttribute="leadingMargin" id="2v5-vY-QpG"/>
+                            <constraint firstAttribute="bottom" secondItem="Dwm-vr-TSr" secondAttribute="bottom" constant="20" symbolic="YES" id="GFc-1d-ylJ"/>
+                            <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="bottom" constant="8" symbolic="YES" id="dLm-pz-YuW"/>
+                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="4S3-dv-b0f" secondAttribute="trailingMargin" id="dw5-Fn-xq2"/>
+                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="Dwm-vr-TSr" secondAttribute="trailing" id="j1R-Vb-nye"/>
+                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="top" secondItem="Usc-o9-c3X" secondAttribute="bottom" id="ucy-iv-78D"/>
+                            <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="z04-f8-CeN"/>
                         </constraints>
                     </view>
                     <connections>

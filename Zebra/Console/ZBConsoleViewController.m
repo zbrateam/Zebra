@@ -48,7 +48,9 @@
 
 - (void)performActions:(NSArray *)actions {
     
-    NSLog(@"[Zebra] Performing actions!");
+#if TARGET_OS_SIMULATOR
+    [self writeToConsole:@"Console actions are not available on the simulator."];
+#else
     for (NSArray *command in actions) {
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
@@ -73,9 +75,9 @@
         [task waitUntilExit];
     }
     
-    _completeButton.hidden = false;
-    
     [_queue clearQueue];
+#endif
+    _completeButton.hidden = false;
 }
 
 - (void)receivedData:(NSNotification *)notif {
@@ -85,9 +87,7 @@
     if (data.length > 0) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        UIFont *font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-        NSDictionary *attrs = @{ NSFontAttributeName: font };
-        [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+        [self writeToConsole:str];
         
         if (_consoleView.text.length > 0 ) {
             NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
@@ -114,6 +114,13 @@
 //        }
 //    }
 //}
+
+- (void)writeToConsole:(NSString *)str {
+    UIColor *color = [UIColor whiteColor];
+    UIFont *font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+    NSDictionary *attrs = @{ NSForegroundColorAttributeName : color, NSFontAttributeName: font };
+    [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+}
 
 - (IBAction)complete:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
