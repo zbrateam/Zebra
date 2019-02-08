@@ -139,7 +139,7 @@
     }
     else
     {
-        NSLog(@"[AUPM] This device cannot send email");
+        NSLog(@"[Zebra] This device cannot send email");
     }
 }
 
