@@ -8,6 +8,7 @@
 
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
+#import <Console/ZBConsoleViewController.h>
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -26,8 +27,9 @@
 }
 
 - (IBAction)confirm:(id)sender {
-    //    AUPMConsoleViewController *console = [[AUPMConsoleViewController alloc] init];
-    //    [[self navigationController] pushViewController:console animated:true];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
+    [[self navigationController] pushViewController:vc animated:true];
 }
 
 - (IBAction)cancel:(id)sender {
