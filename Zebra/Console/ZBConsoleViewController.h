@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    ZBLogLevelDescript,
+    ZBLogLevelInfo,
+    ZBLogLevelWarning,
+    ZBLogLevelError
+} ZBLogLevel;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBConsoleViewController : UIViewController

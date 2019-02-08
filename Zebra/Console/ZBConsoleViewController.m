@@ -49,7 +49,7 @@
 - (void)performActions:(NSArray *)actions {
     
 #if TARGET_OS_SIMULATOR
-    [self writeToConsole:@"Console actions are not available on the simulator."];
+    [self writeToConsole:@"Console actions are not available on the simulator." atLevel:ZBLogLevelError];
 #else
     for (NSArray *command in actions) {
         NSTask *task = [[NSTask alloc] init];
@@ -87,7 +87,7 @@
     if (data.length > 0) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self writeToConsole:str];
+        [self writeToConsole:str atLevel:ZBLogLevelInfo];
         
         if (_consoleView.text.length > 0 ) {
             NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
@@ -115,10 +115,34 @@
 //    }
 //}
 
-- (void)writeToConsole:(NSString *)str {
-    UIColor *color = [UIColor whiteColor];
-    UIFont *font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-    NSDictionary *attrs = @{ NSForegroundColorAttributeName : color, NSFontAttributeName: font };
+- (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
+    
+    UIColor *color;
+    UIFont *font;
+    switch(level) {
+        case ZBLogLevelDescript:
+            color = [UIColor whiteColor];
+            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+            break;
+        case ZBLogLevelInfo:
+            color = [UIColor whiteColor];
+            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+            break;
+        case ZBLogLevelError:
+            color = [UIColor redColor];
+            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+            break;
+        case ZBLogLevelWarning:
+            color = [UIColor yellowColor];
+            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+            break;
+        default:
+            color = [UIColor whiteColor];
+            break;
+    }
+    
+    NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
+    
     [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 }
 
