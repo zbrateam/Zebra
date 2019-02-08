@@ -42,7 +42,7 @@
 - (void)performActions:(NSArray *)actions {
     
 #if TARGET_OS_SIMULATOR
-    [self writeToConsole:@"Console actions are not available on the simulator." atLevel:ZBLogLevelError];
+    [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
 #else
     for (NSArray *command in actions) {
         if ([command count] == 1) {
