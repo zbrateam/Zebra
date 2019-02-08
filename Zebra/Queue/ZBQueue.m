@@ -139,7 +139,7 @@
 }
 
 - (NSArray *)tasksForQueue {
-    NSMutableArray<NSMutableArray *> *commands = [NSMutableArray new];
+    NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = [[NSArray alloc] initWithObjects:@"apt-get", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", @"-y", @"--force-yes", nil];
     
     NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
@@ -148,6 +148,7 @@
     NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
     
     if ([installArray count] > 0) {
+        [commands addObject:@[@0]];
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
         [installCommand insertObject:@"install" atIndex:1];
@@ -159,6 +160,7 @@
     }
     
     if ([removeArray count] > 0) {
+        [commands addObject:@[@1]];
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
         [removeCommand insertObject:@"remove" atIndex:1];
@@ -170,6 +172,7 @@
     }
     
     if ([reinstallArray count] > 0) {
+        [commands addObject:@[@2]];
         NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
         
         [reinstallCommand insertObject:@"install" atIndex:1];
@@ -182,6 +185,7 @@
     }
     
     if ([upgradeArray count] > 0) {
+        [commands addObject:@[@3]];
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
         
         [upgradeCommand insertObject:@"upgrade" atIndex:1];

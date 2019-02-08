@@ -10,7 +10,9 @@
 #import <Queue/ZBQueue.h>
 #import <NSTask.h>
 
-@interface ZBConsoleViewController ()
+@interface ZBConsoleViewController () {
+    int stage;
+}
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) ZBQueue *queue;
@@ -18,24 +20,15 @@
 
 @implementation ZBConsoleViewController
 
-- (id)init {
-    self = [super init];
-    
-    if (self) {
-        _queue = [ZBQueue sharedInstance];
-    }
-    
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     if (_queue == NULL) {
         _queue = [ZBQueue sharedInstance];
     }
+    stage = -1;
     
-    [self setTitle:@""];
+    [self setTitle:@"Console"];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self.navigationItem setHidesBackButton:true animated:true];
 }
@@ -52,32 +45,71 @@
     [self writeToConsole:@"Console actions are not available on the simulator." atLevel:ZBLogLevelError];
 #else
     for (NSArray *command in actions) {
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-        [task setArguments:command];
-        
-        NSLog(@"[Zebra] Performing actions: %@", command);
-        
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        
-//        NSPipe *errorPipe = [[NSPipe alloc] init];
-//        NSFileHandle *error = [errorPipe fileHandleForReading];
-//        [error waitForDataInBackgroundAndNotify];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        
-        [task setStandardOutput:outputPipe];
-//        [task setStandardError:errorPipe];
-        
-        [task launch];
-        [task waitUntilExit];
+        if ([command count] == 1) {
+            [self updateStatus:[command[0] intValue]];
+        }
+        else {
+            NSTask *task = [[NSTask alloc] init];
+            [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+            [task setArguments:command];
+            
+            NSLog(@"[Zebra] Performing actions: %@", command);
+            
+            NSPipe *outputPipe = [[NSPipe alloc] init];
+            NSFileHandle *output = [outputPipe fileHandleForReading];
+            [output waitForDataInBackgroundAndNotify];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+            
+            NSPipe *errorPipe = [[NSPipe alloc] init];
+            NSFileHandle *error = [errorPipe fileHandleForReading];
+            [error waitForDataInBackgroundAndNotify];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+            
+            [task setStandardOutput:outputPipe];
+            [task setStandardError:errorPipe];
+            
+            [task launch];
+            [task waitUntilExit];
+        }
     }
     
     [_queue clearQueue];
 #endif
+    [self updateStatus:4];
     _completeButton.hidden = false;
+}
+
+- (void)updateStatus:(int)s {
+    switch (s) {
+        case 0:
+            stage = 0;
+            [self setTitle:@"Installing"];
+            [self writeToConsole:@"Installing Packages...\n" atLevel:ZBLogLevelInfo];
+            break;
+        case 1:
+            stage = 1;
+            [self setTitle:@"Removing"];
+            [self writeToConsole:@"Removing Packages...\n" atLevel:ZBLogLevelInfo];
+            break;
+        case 2:
+            stage = 2;
+            [self setTitle:@"Reinstalling"];
+            [self writeToConsole:@"Reinstalling Packages...\n" atLevel:ZBLogLevelInfo];
+            break;
+        case 3:
+            stage = 3;
+            [self setTitle:@"Upgrading"];
+            [self writeToConsole:@"Upgrading Packages...\n" atLevel:ZBLogLevelInfo];
+            break;
+        case 4:
+            stage = 4;
+            [self setTitle:@"Done!"];
+            [self writeToConsole:@"Done!\n" atLevel:ZBLogLevelInfo];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)receivedData:(NSNotification *)notif {
@@ -87,7 +119,7 @@
     if (data.length > 0) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self writeToConsole:str atLevel:ZBLogLevelInfo];
+        [self writeToConsole:str atLevel:ZBLogLevelDescript];
         
         if (_consoleView.text.length > 0 ) {
             NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
@@ -96,24 +128,21 @@
     }
 }
 
-//- (void)receivedErrorData:(NSNotification *)notif {
-//    NSFileHandle *fh = [notif object];
-//    NSData *data = [fh availableData];
-//
-//    if (data.length > 0) {
-//        [fh waitForDataInBackgroundAndNotify];
-//        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        UIColor *color = [UIColor redColor];
-//        UIFont *font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-//        NSDictionary *attrs = @{ NSForegroundColorAttributeName : color, NSFontAttributeName: font };
-//        [_consoleOutputView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
-//
-//        if (_consoleOutputView.text.length > 0 ) {
-//            NSRange bottom = NSMakeRange(_consoleOutputView.text.length -1, 1);
-//            [_consoleOutputView scrollRangeToVisible:bottom];
-//        }
-//    }
-//}
+- (void)receivedErrorData:(NSNotification *)notif {
+    NSFileHandle *fh = [notif object];
+    NSData *data = [fh availableData];
+    
+    if (data.length > 0) {
+        [fh waitForDataInBackgroundAndNotify];
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [self writeToConsole:str atLevel:ZBLogLevelError];
+        
+        if (_consoleView.text.length > 0 ) {
+            NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
+            [_consoleView scrollRangeToVisible:bottom];
+        }
+    }
+}
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
     
