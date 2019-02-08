@@ -31,6 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (_queue == NULL) {
+        _queue = [ZBQueue sharedInstance];
+    }
+    
     [self setTitle:@""];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self.navigationItem setHidesBackButton:true animated:true];
@@ -44,10 +48,13 @@
 
 - (void)performActions:(NSArray *)actions {
     
+    NSLog(@"[Zebra] Performing actions!");
     for (NSArray *command in actions) {
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
         [task setArguments:command];
+        
+        NSLog(@"[Zebra] Performing actions: %@", command);
         
         NSPipe *outputPipe = [[NSPipe alloc] init];
         NSFileHandle *output = [outputPipe fileHandleForReading];

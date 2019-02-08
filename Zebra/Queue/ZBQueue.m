@@ -151,8 +151,8 @@
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
         [installCommand insertObject:@"install" atIndex:1];
-        for (NSDictionary *package in installArray) {
-            [installCommand insertObject:[NSString stringWithFormat:@"%@=%@", [package objectForKey:@"id"], [package objectForKey:@"version"]] atIndex:2]; //Needs to be in the format packageID=version
+        for (ZBPackage *package in installArray) {
+            [installCommand insertObject:[NSString stringWithFormat:@"%@=%@", [package identifier], [package version]] atIndex:2]; //Needs to be in the format packageID=version
         }
         
         [commands addObject:installCommand];
@@ -162,8 +162,8 @@
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
         [removeCommand insertObject:@"remove" atIndex:1];
-        for (NSDictionary *package in removeArray) {
-            [removeCommand insertObject:[package objectForKey:@"id"] atIndex:2];
+        for (ZBPackage *package in removeArray) {
+            [removeCommand insertObject:[package identifier] atIndex:2];
         }
         
         [commands addObject:removeCommand];
@@ -174,8 +174,8 @@
         
         [reinstallCommand insertObject:@"install" atIndex:1];
         [reinstallCommand insertObject:@"--reinstall" atIndex:2];
-        for (NSDictionary *package in reinstallArray) {
-            [reinstallCommand insertObject:[package objectForKey:@"id"] atIndex:3];
+        for (ZBPackage *package in reinstallArray) {
+            [reinstallCommand insertObject:[package identifier] atIndex:3];
         }
         
         [commands addObject:reinstallCommand];
@@ -185,8 +185,8 @@
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
         
         [upgradeCommand insertObject:@"upgrade" atIndex:1];
-        for (NSDictionary *package in reinstallArray) {
-            [upgradeCommand insertObject:[package objectForKey:@"id"] atIndex:2];
+        for (ZBPackage *package in reinstallArray) {
+            [upgradeCommand insertObject:[package identifier] atIndex:2];
         }
         
         [commands addObject:upgradeCommand];
