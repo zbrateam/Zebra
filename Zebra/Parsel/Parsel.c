@@ -99,15 +99,26 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     replace_char(baseFilename, '_', '/');
     strcpy(repo[3], baseFilename);
     
-    char insertStatement[2048];
-#warning should be using sqlite_bind
-    sprintf(insertStatement, "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES('%s', '%s', '%s', '%s', %d, %d);", repo[0], repo[1], repo[2], repo[3], secure, repoID);
+    sqlite3_stmt *insertStatement;
+    char *insertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES(?, ?, ?, ?, ?, ?);";
+    
+    if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
+        sqlite3_bind_text(insertStatement, 1, repo[0], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 2, repo[1], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 3, repo[2], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 4, repo[3], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 5, secure);
+        sqlite3_bind_int(insertStatement, 6, repoID);
+        sqlite3_step(insertStatement);
+    }
+    else {
+        printf("sql error: %s", sqlite3_errmsg(database));
+    }
     
     repo[0][0] = 0;
     repo[1][0] = 0;
     repo[2][0] = 0;
     repo[3][0] = 0;
-    sqlite3_exec(database, insertStatement, NULL, 0, NULL);
     
     fclose(file);
 }
@@ -156,15 +167,28 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
             
         }
         else {
-            char insertStatement[1024];
             
             if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
                 if (package[1][0] == 0) {
                     strcpy(package[1], package[0]);
                 }
                 
-                #warning should be using sqlite_bind
-                sprintf(insertStatement, "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES('%s', '%s', '%s', '%s', '%s', '%s', %d);", package[0], package[1], package[2], package[3], package[4], package[5], repoID);
+                sqlite3_stmt *insertStatement;
+                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?);";
+                
+                if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
+                    sqlite3_bind_text(insertStatement, 1, package[0], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 2, package[1], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 3, package[2], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 4, package[3], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 5, package[4], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 6, package[5], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(insertStatement, 7, repoID);
+                    sqlite3_step(insertStatement);
+                }
+                else {
+                    printf("database error: %s", sqlite3_errmsg(database));
+                }
                 
                 package[0][0] = 0;
                 package[1][0] = 0;
@@ -172,8 +196,6 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 package[3][0] = 0;
                 package[4][0] = 0;
                 package[5][0] = 0;
-                
-                sqlite3_exec(database, insertStatement, NULL, 0, NULL);
             }
             else {
                 continue;
