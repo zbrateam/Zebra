@@ -119,9 +119,11 @@
 }
 
 - (void)nukeDatabase {
-    ZBRefreshViewController *refreshViewController = [[ZBRefreshViewController alloc] init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
     
-    [[UIApplication sharedApplication] keyWindow].rootViewController = refreshViewController;
+    [[UIApplication sharedApplication] keyWindow].rootViewController = initialController;
+    [[[UIApplication sharedApplication] keyWindow] makeKeyAndVisible];
 }
 
 - (void)sendBugReport {
