@@ -74,7 +74,7 @@
     
     ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = package.identifier;
+    cell.textLabel.text = package.name;
     cell.detailTextLabel.text = package.desc;
     
     return cell;
