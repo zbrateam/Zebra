@@ -33,8 +33,8 @@
     
     [self configureNavButton];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
+    self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationItem.title = _package.name;
     
     self.navigationController.navigationBar.translucent = false;
