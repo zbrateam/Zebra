@@ -136,9 +136,11 @@
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
+            str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
         }
         else if ([str rangeOfString:@"error"].location != NSNotFound) {
+            str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
         
