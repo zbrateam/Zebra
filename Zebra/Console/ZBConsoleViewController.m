@@ -135,7 +135,12 @@
     if (data.length > 0) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self writeToConsole:str atLevel:ZBLogLevelError];
+        if ([str rangeOfString:@"warning"].location != NSNotFound) {
+            [self writeToConsole:str atLevel:ZBLogLevelError];
+        }
+        else if ([str rangeOfString:@"error"].location != NSNotFound) {
+            [self writeToConsole:str atLevel:ZBLogLevelWarning];
+        }
         
         if (_consoleView.text.length > 0 ) {
             NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
