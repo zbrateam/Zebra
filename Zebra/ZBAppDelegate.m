@@ -16,7 +16,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    UIViewController *initialController;
+    
+    BOOL needsFullImport = true;
+    
+    if (needsFullImport) {
+        initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+    }
+    else {
+        initialController = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    }
+    
+    self.window.rootViewController = initialController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

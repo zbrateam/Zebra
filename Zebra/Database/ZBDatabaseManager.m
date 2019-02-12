@@ -16,7 +16,9 @@
 - (void)fullImport {
     //Refresh repos
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
     [self fullRemoteImport];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Local Packages...\n"}];
     [self fullLocalImport];
 }
 
@@ -24,14 +26,29 @@
 - (void)fullRemoteImport {
 #if TARGET_CPU_ARM
     NSLog(@"[Zebra] APT Update");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Updating APT Repositories...\n"}];
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
     NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
     [task setArguments:arguments];
+    
+    NSPipe *outputPipe = [[NSPipe alloc] init];
+    NSFileHandle *output = [outputPipe fileHandleForReading];
+    [output waitForDataInBackgroundAndNotify];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+    
+    NSPipe *errorPipe = [[NSPipe alloc] init];
+    NSFileHandle *error = [errorPipe fileHandleForReading];
+    [error waitForDataInBackgroundAndNotify];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+    
+    [task setStandardOutput:outputPipe];
+    [task setStandardError:errorPipe];
 
     [task launch];
     [task waitUntilExit];
     NSLog(@"[Zebra] Update Complete");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"APT Repository Update Complete.\n"}];
     
     NSDate *methodStart = [NSDate date];
     NSArray *sourceLists = [self managedSources];
@@ -46,6 +63,7 @@
     int i = 1;
     for (NSString *path in sourceLists) {
         NSLog(@"[Zebra] Repo: %@ %d", path, i);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
         importRepoToDatabase([path UTF8String], database, i);
         
         NSString *baseFileName = [path stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
@@ -61,7 +79,9 @@
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
     NSLog(@"[Zebra] Time to parse and import %d repos = %f", i - 1, executionTime);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
 #else
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing sample BigBoss repo.\n"}];
     NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"apt.thebigboss.org_repofiles_cydia_dists_stable_Release" ofType:@""]];
     NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
     
@@ -81,6 +101,29 @@
     }
     sqlite3_close(database);
 #endif
+}
+- (void)receivedData:(NSNotification *)notif {
+    NSFileHandle *fh = [notif object];
+    NSData *data = [fh availableData];
+    
+    if (data.length > 0) {
+        [fh waitForDataInBackgroundAndNotify];
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": str}];
+    }
+}
+
+- (void)receivedErrorData:(NSNotification *)notif {
+    NSFileHandle *fh = [notif object];
+    NSData *data = [fh availableData];
+    
+    if (data.length > 0) {
+        [fh waitForDataInBackgroundAndNotify];
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @2, @"message": str}];
+    }
 }
 
 //Imports packages in /var/lib/dpkg/status into AUPM's database with a repoValue of '0' to indicate that the package is installed
