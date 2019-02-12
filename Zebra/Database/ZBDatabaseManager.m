@@ -17,13 +17,16 @@
     //Refresh repos
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
-    [self fullRemoteImport];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Local Packages...\n"}];
-    [self fullLocalImport];
+    [self fullRemoteImport:^(BOOL success) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Local Packages...\n"}];
+        [self fullLocalImport:^(BOOL success) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Done.\n"}];
+        }];
+    }];
 }
 
 //Imports packages from repositories located in /var/lib/aupm/lists
-- (void)fullRemoteImport {
+- (void)fullRemoteImport:(void (^)(BOOL success))completion {
 #if TARGET_CPU_ARM
     NSLog(@"[Zebra] APT Update");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Updating APT Repositories...\n"}];
@@ -101,7 +104,9 @@
     }
     sqlite3_close(database);
 #endif
+    completion(true);
 }
+
 - (void)receivedData:(NSNotification *)notif {
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
@@ -127,7 +132,7 @@
 }
 
 //Imports packages in /var/lib/dpkg/status into AUPM's database with a repoValue of '0' to indicate that the package is installed
-- (void)fullLocalImport {
+- (void)fullLocalImport:(void (^)(BOOL success))completion {
 #if TARGET_OS_SIMULATOR //If the target is a simlator, load a demo list of installed packages
     NSString *installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
 #else //Otherwise, load the actual file
@@ -145,6 +150,7 @@
     sqlite3_exec(database, sql, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
+    completion(true);
 }
 
 //Get number of packages in the database for each repo
@@ -327,6 +333,53 @@
     
     NSLog(@"Done searching");
     return searchResults;
+}
+
+- (void)updateEssentials:(void (^)(BOOL success))completion {
+    [self fullLocalImport:^(BOOL installedSuccess) {
+        if (installedSuccess) {
+            [self getPackagesThatNeedUpdates:^(NSArray *updates, BOOL hasUpdates) {
+//                if (hasUpdates) {
+//                    _updateObjects = updates;
+//                    _numberOfPackagesThatNeedUpdates = updates.count;
+//                    NSLog(@"[AUPM] I have %d updates! %@", _numberOfPackagesThatNeedUpdates, _updateObjects);
+//                }
+//                _hasPackagesThatNeedUpdates = hasUpdates;
+                completion(true);
+            }];
+        }
+    }];
+}
+
+- (void)getPackagesThatNeedUpdates:(void (^)(NSArray *updates, BOOL hasUpdates))completion {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        NSMutableArray *updates = [NSMutableArray new];
+//        RLMResults<AUPMPackage *> *installedPackages = [AUPMPackage objectsWhere:@"installed = true"];
+//
+//        for (AUPMPackage *package in installedPackages) {
+//            RLMResults<AUPMPackage *> *otherVersions = [AUPMPackage objectsWhere:@"packageIdentifier == %@", [package packageIdentifier]];
+//            if ([otherVersions count] != 1) {
+//                for (AUPMPackage *otherPackage in otherVersions) {
+//                    if (otherPackage != package) {
+//                        int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
+//
+//                        if (result < 0) {
+//                            [updates addObject:otherPackage];
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        NSArray *updateObjects = [self cleanUpDuplicatePackages:updates];
+//        if (updateObjects.count > 0) {
+//            completion(updateObjects, true);
+//        }
+//        else {
+//            completion(NULL, false);
+//        }
+//    });
+    completion(NULL, true);
 }
 
 @end
