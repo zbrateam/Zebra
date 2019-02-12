@@ -136,10 +136,10 @@
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
-            [self writeToConsole:str atLevel:ZBLogLevelError];
+            [self writeToConsole:str atLevel:ZBLogLevelWarning];
         }
         else if ([str rangeOfString:@"error"].location != NSNotFound) {
-            [self writeToConsole:str atLevel:ZBLogLevelWarning];
+            [self writeToConsole:str atLevel:ZBLogLevelError];
         }
         
         if (_consoleView.text.length > 0 ) {
