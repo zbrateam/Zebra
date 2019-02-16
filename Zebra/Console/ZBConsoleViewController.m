@@ -9,6 +9,7 @@
 #import "ZBConsoleViewController.h"
 #import <Queue/ZBQueue.h>
 #import <NSTask.h>
+#import <Database/ZBDatabaseManager.h>
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -73,10 +74,19 @@
         }
     }
     
-    [_queue clearQueue];
+    [self performPostActions:^(BOOL success) {
+        [self->_queue clearQueue];
+    }];
 #endif
     [self updateStatus:4];
     _completeButton.hidden = false;
+}
+
+- (void)performPostActions:(void (^)(BOOL success))completion  {
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    [databaseManager updateEssentials:^(BOOL success) {
+        completion(success);
+    }];
 }
 
 - (void)updateStatus:(int)s {

@@ -23,7 +23,7 @@
     
     UIViewController *initialController;
     
-    BOOL needsFullImport = true;
+    BOOL needsFullImport = false;
     
     if (needsFullImport) {
         initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
