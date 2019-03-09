@@ -545,6 +545,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";
 				INFOPLIST_FILE = Zebra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -552,6 +557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PACKAGE_VERSION = "@\"1.0\"";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -564,6 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
+				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
 				HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";
 				INFOPLIST_FILE = Zebra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -571,6 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PACKAGE_VERSION = "@\"1.0\"";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
