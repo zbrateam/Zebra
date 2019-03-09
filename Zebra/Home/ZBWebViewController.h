@@ -1,5 +1,5 @@
 //
-//  ZBHomepageViewController.h
+//  ZBWebViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 12/27/18.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBHomepageViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, MFMailComposeViewControllerDelegate>
+@interface ZBWebViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, MFMailComposeViewControllerDelegate>
 
 @end
 

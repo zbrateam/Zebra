@@ -1,21 +1,21 @@
 //
-//  ZBHomepageViewController.m
+//  ZBWebViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 12/27/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBHomepageViewController.h"
+#import "ZBWebViewController.h"
 #import <Database/ZBRefreshViewController.h>
 
-@interface ZBHomepageViewController () {
+@interface ZBWebViewController () {
     IBOutlet WKWebView *webView;
     IBOutlet UIProgressView *progressView;
 }
 @end
 
-@implementation ZBHomepageViewController
+@implementation ZBWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

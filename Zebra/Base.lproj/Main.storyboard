@@ -276,7 +276,7 @@
         <!--Home-->
         <scene sceneID="gGs-QH-SO6">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vXr-io-rHa" customClass="ZBHomepageViewController" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vXr-io-rHa" customClass="ZBWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mIX-qw-b7e"/>
                         <viewControllerLayoutGuide type="bottom" id="pQQ-dO-Lp1"/>
