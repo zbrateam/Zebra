@@ -98,6 +98,10 @@
     NSArray *contents = [message.body componentsSeparatedByString:@"~"];
     NSString *destination = (NSString *)contents[0];
     NSString *action = contents[1];
+    NSString *url;
+    if ([contents count] == 3) {
+        url = contents[2];
+    }
     
     if ([destination isEqual:@"local"]) {
         if ([action isEqual:@"nuke"]) {
@@ -117,12 +121,34 @@
         [[self navigationController] pushViewController:webController animated:true];
     }
     else if ([destination isEqual:@"repo"]) {
-        NSLog(@"repo yo!");
-//        [self handleRepoAdd:action local:false];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //        [self handleRepoAdd:url local:false];
+        }];
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [controller dismissViewControllerAnimated:true completion:nil];
+        }];
+        
+        [controller addAction:yes];
+        [controller addAction:no];
+        
+        [self presentViewController:controller animated:true completion:nil];
     }
     else if ([destination isEqual:@"repo-local"]) {
-        NSLog(@"repo but local yo.");
-//        [self handleRepoAdd:action local:true];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //        [self handleRepoAdd:action local:true];
+        }];
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [controller dismissViewControllerAnimated:true completion:nil];
+        }];
+        
+        [controller addAction:yes];
+        [controller addAction:no];
+        
+        [self presentViewController:controller animated:true completion:nil];
     }
 }
 
