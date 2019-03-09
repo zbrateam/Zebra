@@ -10,6 +10,7 @@
 #import <Database/ZBRefreshViewController.h>
 
 @interface ZBWebViewController () {
+    NSURL *_url;
     IBOutlet WKWebView *webView;
     IBOutlet UIProgressView *progressView;
 }
@@ -21,7 +22,7 @@
     [super viewDidLoad];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.applicationNameForUserAgent = @"AUPM/BETA";
+    configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"AUPM/Zebra - %@", PACKAGE_VERSION];
     
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
@@ -54,8 +55,14 @@
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
-    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    if (_url != NULL) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:_url];
+        [webView loadRequest:request];
+    }
+    else {
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
+        [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    }
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
@@ -103,10 +110,11 @@
         }
     }
     else if ([destination isEqual:@"web"]) {
-        NSLog(@"go somewere else");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+        webController->_url = [NSURL URLWithString:action];
         
-//        AUPMWebViewController *_webViewController = [[AUPMWebViewController alloc] initWithURL:[NSURL URLWithString:action]];
-//        [[self navigationController] pushViewController:_webViewController animated:true];
+        [[self navigationController] pushViewController:webController animated:true];
     }
     else if ([destination isEqual:@"repo"]) {
         NSLog(@"repo yo!");
