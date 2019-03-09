@@ -136,19 +136,36 @@
         [self presentViewController:controller animated:true completion:nil];
     }
     else if ([destination isEqual:@"repo-local"]) {
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //        [self handleRepoAdd:action local:true];
-        }];
-        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [controller dismissViewControllerAnimated:true completion:nil];
-        }];
-        
-        [controller addAction:yes];
-        [controller addAction:no];
-        
-        [self presentViewController:controller animated:true completion:nil];
+        if ([contents count] == 2) {
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories from Cydia?" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //        [self handleRepoAdd:action local:true];
+            }];
+            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [controller dismissViewControllerAnimated:true completion:nil];
+            }];
+            
+            [controller addAction:yes];
+            [controller addAction:no];
+            
+            [self presentViewController:controller animated:true completion:nil];
+        }
+        else {
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //        [self handleRepoAdd:action local:true];
+            }];
+            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [controller dismissViewControllerAnimated:true completion:nil];
+            }];
+            
+            [controller addAction:yes];
+            [controller addAction:no];
+            
+            [self presentViewController:controller animated:true completion:nil];
+        }
     }
 }
 
