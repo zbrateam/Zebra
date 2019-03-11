@@ -109,7 +109,18 @@
                             <outlet property="delegate" destination="I9F-aa-gKA" id="SIt-7t-Ey1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sources" id="LAP-SG-gaJ"/>
+                    <navigationItem key="navigationItem" title="Sources" id="LAP-SG-gaJ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="kmQ-5t-fIg">
+                            <connections>
+                                <action selector="addSource:" destination="I9F-aa-gKA" id="tKU-W6-rWX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="r1m-Kg-nbD">
+                            <connections>
+                                <action selector="refreshSources:" destination="I9F-aa-gKA" id="D7y-jY-s98"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YkN-4W-m9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -460,7 +471,7 @@
         <image name="Sources" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hk8-hZ-Cdu"/>
+        <segue reference="gLM-uz-oyT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>
