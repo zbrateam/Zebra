@@ -1723,7 +1723,7 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: xyz.willy.aupm
+Package: xyz.willy.zebra
 Status: install ok installed
 Section: Packaging
 Installed-Size: 13728
@@ -1732,7 +1732,7 @@ Architecture: iphoneos-arm
 Version: 1.0~supercool
 Depends: dpkg, cydia, apt7
 Description: A Useless Package Manager
-Name: AUPM (BETA)
+Name: Zebra (BETA)
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://xtm3x.github.io/aupm/index.html
 Tag: purpose::x

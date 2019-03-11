@@ -180,11 +180,11 @@
 - (void)sendBugReport {
     if ([MFMailComposeViewController canSendMail]) {
         NSString *iosVersion = [NSString stringWithFormat:@"%@ running iOS %@", [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion]];
-        NSString *message = [NSString stringWithFormat:@"iOS Version: %@\nAUPM Version: %@\nAUPM Database Location: %@\n\nPlease describe the bug you are experiencing or feature you are requesting below: \n\n", iosVersion, PACKAGE_VERSION, @"somewhere"];
+        NSString *message = [NSString stringWithFormat:@"iOS Version: %@\nZebra Version: %@\nDatabase Location: %@\n\nPlease describe the bug you are experiencing or feature you are requesting below: \n\n", iosVersion, PACKAGE_VERSION, @"somewhere"];
         
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
-        [mail setSubject:@"AUPM Beta Bug Report"];
+        [mail setSubject:@"Zebra Beta Bug Report"];
         [mail setMessageBody:message isHTML:NO];
         [mail setToRecipients:@[@"wilson@styres.me"]];
         

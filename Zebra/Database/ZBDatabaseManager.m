@@ -25,7 +25,7 @@
     }];
 }
 
-//Imports packages from repositories located in /var/lib/aupm/lists
+//Imports packages from repositories located in /var/lib/zebra/lists
 - (void)fullRemoteImport:(void (^)(BOOL success))completion {
 #if TARGET_CPU_ARM
     NSLog(@"[Zebra] APT Update");
@@ -131,7 +131,7 @@
     }
 }
 
-//Imports packages in /var/lib/dpkg/status into AUPM's database with a repoValue of '0' to indicate that the package is installed
+//Imports packages in /var/lib/dpkg/status into Zebra's database with a repoValue of '0' to indicate that the package is installed
 - (void)fullLocalImport:(void (^)(BOOL success))completion {
 #if TARGET_OS_SIMULATOR //If the target is a simlator, load a demo list of installed packages
     NSString *installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
