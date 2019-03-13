@@ -14,6 +14,9 @@
 
 @implementation ZBAppDelegate
 
++ (BOOL)needsSimulation {
+    return ![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Zebra.app/supersling"];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     

@@ -10,6 +10,7 @@
 #import <Queue/ZBQueue.h>
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
+#import <ZBAppDelegate.h>
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -41,43 +42,44 @@
 }
 
 - (void)performActions:(NSArray *)actions {
-    
-#if TARGET_OS_SIMULATOR
-    [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
-#else
-    for (NSArray *command in actions) {
-        if ([command count] == 1) {
-            [self updateStatus:[command[0] intValue]];
-        }
-        else {
-            NSTask *task = [[NSTask alloc] init];
-            [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-            [task setArguments:command];
-            
-            NSLog(@"[Zebra] Performing actions: %@", command);
-            
-            NSPipe *outputPipe = [[NSPipe alloc] init];
-            NSFileHandle *output = [outputPipe fileHandleForReading];
-            [output waitForDataInBackgroundAndNotify];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-            
-            NSPipe *errorPipe = [[NSPipe alloc] init];
-            NSFileHandle *error = [errorPipe fileHandleForReading];
-            [error waitForDataInBackgroundAndNotify];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-            
-            [task setStandardOutput:outputPipe];
-            [task setStandardError:errorPipe];
-            
-            [task launch];
-            [task waitUntilExit];
-        }
+    if ([ZBAppDelegate needsSimulation]) {
+        NSLog(@"sim");
+        [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
     }
-    
-    [self performPostActions:^(BOOL success) {
-        [self->_queue clearQueue];
-    }];
-#endif
+    else {
+        for (NSArray *command in actions) {
+            if ([command count] == 1) {
+                [self updateStatus:[command[0] intValue]];
+            }
+            else {
+                NSTask *task = [[NSTask alloc] init];
+                [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                [task setArguments:command];
+                
+                NSLog(@"[Zebra] Performing actions: %@", command);
+                
+                NSPipe *outputPipe = [[NSPipe alloc] init];
+                NSFileHandle *output = [outputPipe fileHandleForReading];
+                [output waitForDataInBackgroundAndNotify];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+                
+                NSPipe *errorPipe = [[NSPipe alloc] init];
+                NSFileHandle *error = [errorPipe fileHandleForReading];
+                [error waitForDataInBackgroundAndNotify];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+                
+                [task setStandardOutput:outputPipe];
+                [task setStandardError:errorPipe];
+                
+                [task launch];
+                [task waitUntilExit];
+            }
+        }
+        
+        [self performPostActions:^(BOOL success) {
+            [self->_queue clearQueue];
+        }];
+    }
     [self updateStatus:4];
     _completeButton.hidden = false;
 }

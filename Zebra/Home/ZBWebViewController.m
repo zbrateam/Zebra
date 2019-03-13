@@ -8,6 +8,7 @@
 
 #import "ZBWebViewController.h"
 #import <Database/ZBRefreshViewController.h>
+#import <ZBAppDelegate.h>
 
 @interface ZBWebViewController () {
     NSURL *_url;
