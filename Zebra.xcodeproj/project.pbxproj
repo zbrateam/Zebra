@@ -50,6 +50,7 @@
 		8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_Release */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apt.thebigboss.org_repofiles_cydia_dists_stable_Release; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
+		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		896F11BB21B231490017B581 /* ZBRepoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoManager.h; sourceTree = "<group>"; };
 		896F11BC21B231490017B581 /* ZBRepoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoManager.m; sourceTree = "<group>"; };
 		896F11C121B231900017B581 /* ZBRepo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepo.h; sourceTree = "<group>"; };
@@ -223,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				89B20FD121B7635300F7EEFE /* NSTask.h */,
+				895071972239E2FD004AE338 /* MobileGestalt.h */,
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
