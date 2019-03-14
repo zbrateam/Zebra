@@ -6,8 +6,10 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+@class ZBPackage;
+@class ZBRepo;
+
 #import <Foundation/Foundation.h>
-#import <Packages/Helpers/ZBPackage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fullRemoteImport:(void (^)(BOOL success))completion;
 - (void)fullLocalImport:(void (^)(BOOL success))completion;
 - (int)numberOfPackagesInRepo:(int)repoID;
-- (NSArray <NSDictionary *> *)installedPackages;
-- (NSMutableArray *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
-- (NSArray <NSDictionary *> *)sources;
-- (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
+- (NSArray <ZBPackage *> *)installedPackages;
+- (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBRepo *> *)sources;
+- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)updateEssentials:(void (^)(BOOL success))completion;
 @end
 

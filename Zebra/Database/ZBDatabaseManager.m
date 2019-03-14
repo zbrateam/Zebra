@@ -11,6 +11,8 @@
 #import <sqlite3.h>
 #import <NSTask.h>
 #import <ZBAppDelegate.h>
+#import <Repos/Helpers/ZBRepo.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation ZBDatabaseManager
 
@@ -196,7 +198,7 @@
     return managedSources;
 }
 
-- (NSArray <NSDictionary *> *)sources {
+- (NSArray <ZBRepo *> *)sources {
     NSMutableArray *sources = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
@@ -213,14 +215,8 @@
         const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
         const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
 
-        NSString *origin = [[NSString alloc] initWithUTF8String:originChars];
-        NSString *description = [[NSString alloc] initWithUTF8String:descriptionChars];
-        NSString *baseFilename = [[NSString alloc] initWithUTF8String:baseFilenameChars];
-        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
-        int secure = sqlite3_column_int(statement, 4);
-        int repoID = sqlite3_column_int(statement, 5);
-        
         NSURL *iconURL;
+        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
             iconURL = [NSURL URLWithString:url] ;
@@ -228,15 +224,9 @@
         else{
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
         }
-
-        NSMutableDictionary *source = [NSMutableDictionary new];
-        [source setObject:origin forKey:@"origin"];
-        [source setObject:description forKey:@"description"];
-        [source setObject:baseFilename forKey:@"baseFilename"];
-        [source setObject:baseURL forKey:@"baseURL"];
-        [source setObject:iconURL forKey:@"iconURL"];
-        [source setObject:[NSNumber numberWithInteger:secure] forKey:@"secure"];
-        [source setObject:[NSNumber numberWithInteger:repoID] forKey:@"repoID"];
+        
+        ZBRepo *source = [[ZBRepo alloc] initWithOrigin:[[NSString alloc] initWithUTF8String:originChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] baseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars] baseURL:baseURL secure:sqlite3_column_int(statement, 4) repoID:sqlite3_column_int(statement, 5) iconURL:iconURL];
+        
         [sources addObject:source];
     }
     sqlite3_finalize(statement);
@@ -244,7 +234,7 @@
     return (NSArray*)sources;
 }
 
-- (NSArray *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start {
     NSMutableArray *packages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
@@ -272,7 +262,7 @@
     return (NSArray *)packages;
 }
 
-- (NSArray <NSDictionary *> *)installedPackages {
+- (NSArray <ZBPackage *> *)installedPackages {
     NSMutableArray *installedPackages = [NSMutableArray new];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
@@ -300,7 +290,7 @@
     return (NSArray*)installedPackages;
 }
 
-- (NSArray <NSDictionary *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
+- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
     NSMutableArray *searchResults = [NSMutableArray new];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

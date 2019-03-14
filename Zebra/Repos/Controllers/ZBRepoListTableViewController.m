@@ -10,6 +10,7 @@
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -108,18 +109,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    NSDictionary *source = [sources objectAtIndex:indexPath.row];
+    ZBRepo *source = [sources objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [source objectForKey:@"origin"];
-    if ([[source objectForKey:@"secure"] boolValue]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@/", [source objectForKey:@"baseURL"]];
+    cell.textLabel.text = [source origin];
+    if ([source isSecure]) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@/", [source baseURL]];
     }
     else {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@/", [source objectForKey:@"baseURL"]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@/", [source baseURL]];
     }
     
     
-    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source objectForKey:@"iconURL"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
             UIImage *image = [UIImage imageWithData:data];
             if (image) {
@@ -189,8 +190,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageListTableViewController *destination = [segue destinationViewController];
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    NSDictionary *source = [sources objectAtIndex:indexPath.row];
-    destination.repoID = [source[@"repoID"] intValue];
+    ZBRepo *source = [sources objectAtIndex:indexPath.row];
+    destination.repoID = [source repoID];
 }
 
 @end

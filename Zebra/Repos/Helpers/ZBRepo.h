@@ -11,7 +11,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepo : NSObject
+@property (nonatomic, strong) NSString *origin;
+@property (nonatomic, strong) NSString *desc;
+@property (nonatomic, strong) NSString *baseFileName;
+@property (nonatomic, strong) NSString *baseURL;
+@property (nonatomic) BOOL secure;
+@property (nonatomic) int repoID;
+@property (nonatomic, strong) NSURL *iconURL;
 
+- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL;
+- (BOOL)isSecure;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -93,19 +93,19 @@
     NSString *URL = [sourceURL absoluteString];
     NSString *output = @"";
     
-    for (AUPMRepo *repo in _repos) {
-        if ([repo defaultRepo]) {
-            if ([[repo repoName] isEqual:@"Cydia/Telesphoreo"]) {
-                output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
-            }
-            else {
-                output = [output stringByAppendingFormat:@"deb %@ %@ %@\n", [repo repoURL], [repo suite], [repo components]];
-            }
-        }
-        else {
-            output = [output stringByAppendingFormat:@"deb %@ ./\n", [repo repoURL]];
-        }
-    }
+//    for (ZBRepo *repo in _repos) {
+//        if ([repo defaultRepo]) {
+//            if ([[repo repoName] isEqual:@"Cydia/Telesphoreo"]) {
+//                output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
+//            }
+//            else {
+//                output = [output stringByAppendingFormat:@"deb %@ %@ %@\n", [repo repoURL], [repo suite], [repo components]];
+//            }
+//        }
+//        else {
+//            output = [output stringByAppendingFormat:@"deb %@ ./\n", [repo repoURL]];
+//        }
+//    }
     output = [output stringByAppendingFormat:@"deb %@ ./\n", URL];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
