@@ -70,7 +70,7 @@
             textField.text = [url absoluteString];
         }
         else {
-            textField.text = @"http://";
+            textField.text = @"https://";
         }
         textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
