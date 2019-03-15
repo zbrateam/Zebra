@@ -107,7 +107,10 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     replace_char(baseFilename, '_', '/');
     strcpy(repo[3], baseFilename);
     
-    int def = 1;
+    int def = 0;
+    if(strstr(baseFilename, "main_binary-iphoneos-arm") != NULL) {
+        def = 1;
+    }
     
     sqlite3_stmt *insertStatement;
     char *insertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
