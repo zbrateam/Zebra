@@ -102,7 +102,9 @@
                 output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
             }
             else {
-                output = [output stringByAppendingFormat:@"deb %@ %@ %@\n", [source baseURL], [source suite], [source components]];
+                NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
+                sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
+                output = [output stringByAppendingFormat:@"deb %@ %@ %@\n", sourceURL, [source suite], [source components]];
             }
         }
         else {

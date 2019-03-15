@@ -180,10 +180,8 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 char *value = multi_tok(NULL, &s, ": ");
                 strcpy(package[5], value);
             }
-            
         }
         else {
-            
             if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
                 if (package[1][0] == 0) {
                     strcpy(package[1], package[0]);
