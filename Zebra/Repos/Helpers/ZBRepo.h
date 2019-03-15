@@ -18,8 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL secure;
 @property (nonatomic) int repoID;
 @property (nonatomic, strong) NSURL *iconURL;
+@property (nonatomic) BOOL defaultRepo;
+@property (nonatomic, strong) NSString *suite;
+@property (nonatomic, strong) NSString *components;
 
-- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL;
+- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp;
 - (BOOL)isSecure;
 @end
 

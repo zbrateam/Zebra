@@ -17,8 +17,11 @@
 @synthesize secure;
 @synthesize repoID;
 @synthesize iconURL;
+@synthesize defaultRepo;
+@synthesize suite;
+@synthesize components;
 
-- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL {
+- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp {
     
     self = [super init];
     
@@ -30,6 +33,9 @@
         [self setSecure:sec];
         [self setRepoID:repoIdentifier];
         [self setIconURL:icoURL];
+        [self setDefaultRepo:isDefault];
+        [self setSuite:sweet];
+        [self setComponents:comp];
     }
     
     return self;

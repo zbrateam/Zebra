@@ -10,6 +10,8 @@
 #import "MobileGestalt.h"
 #import <sys/sysctl.h>
 #import <UIKit/UIDevice.h>
+#import <Repos/Helpers/ZBRepo.h>
+#import <Database/ZBDatabaseManager.h>
 
 @implementation ZBRepoManager
 
@@ -93,25 +95,27 @@
     NSString *URL = [sourceURL absoluteString];
     NSString *output = @"";
     
-//    for (ZBRepo *repo in _repos) {
-//        if ([repo defaultRepo]) {
-//            if ([[repo repoName] isEqual:@"Cydia/Telesphoreo"]) {
-//                output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
-//            }
-//            else {
-//                output = [output stringByAppendingFormat:@"deb %@ %@ %@\n", [repo repoURL], [repo suite], [repo components]];
-//            }
-//        }
-//        else {
-//            output = [output stringByAppendingFormat:@"deb %@ ./\n", [repo repoURL]];
-//        }
-//    }
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    for (ZBRepo *source in [databaseManager sources]) {
+        if ([source defaultRepo]) {
+            if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
+                output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
+            }
+            else {
+                output = [output stringByAppendingFormat:@"deb %@ %@ %@\n", [source baseURL], [source suite], [source components]];
+            }
+        }
+        else {
+            output = [output stringByAppendingFormat:@"deb %@ ./\n", [source baseURL]];
+        }
+    }
     output = [output stringByAppendingFormat:@"deb %@ ./\n", URL];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = [paths objectAtIndex:0];
     
     NSString *filePath;
+    NSLog(@"Cache Directory: %@", cacheDirectory);
     if ([cacheDirectory isEqualToString:@"/var/mobile/Library/Caches"])
         filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.zebra/zebra.list"];
     else

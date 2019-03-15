@@ -66,10 +66,10 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
-    char repo[4][256];
+    char repo[6][256];
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
         
@@ -85,6 +85,14 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
             char *value = multi_tok(NULL, &s, ": ");
             strcpy(repo[1], value);
         }
+        else if (strcmp(key, "Suite") == 0) {
+            char *value = multi_tok(NULL, &s, ": ");
+            strcpy(repo[4], value);
+        }
+        else if (strcmp(key, "Components") == 0) {
+            char *value = multi_tok(NULL, &s, ": ");
+            strcpy(repo[5], value);
+        }
     }
     
     multi_tok_t t = init();
@@ -99,8 +107,10 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     replace_char(baseFilename, '_', '/');
     strcpy(repo[3], baseFilename);
     
+    int def = 1;
+    
     sqlite3_stmt *insertStatement;
-    char *insertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES(?, ?, ?, ?, ?, ?);";
+    char *insertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
         sqlite3_bind_text(insertStatement, 1, repo[0], -1, SQLITE_TRANSIENT);
@@ -109,6 +119,9 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
         sqlite3_bind_text(insertStatement, 4, repo[3], -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 5, secure);
         sqlite3_bind_int(insertStatement, 6, repoID);
+        sqlite3_bind_int(insertStatement, 7, def);
+        sqlite3_bind_text(insertStatement, 8, repo[4], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 9, repo[5], -1, SQLITE_TRANSIENT);
         sqlite3_step(insertStatement);
     }
     else {
