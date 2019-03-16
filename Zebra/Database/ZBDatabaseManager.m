@@ -424,9 +424,9 @@
             aptPackagesFile = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
         }
         
-        NSString *cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.zebra/lists/%@_Packages", [repo baseFileName]];
+        NSString *cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.Zebra/lists/%@_Packages", [repo baseFileName]];
         if (![[NSFileManager defaultManager] fileExistsAtPath:cachedPackagesFile]) {
-            cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
+            cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.Zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
             if (![[NSFileManager defaultManager] fileExistsAtPath:cachedPackagesFile]) {
                 NSLog(@"[Zebra] There is no cache file for %@ so it needs an update", [repo origin]);
                 needsUpdate = true; //There isn't a cache for this so we need to parse it
