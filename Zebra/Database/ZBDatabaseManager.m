@@ -31,6 +31,20 @@
     }];
 }
 
+- (void)partialImport:(void (^)(BOOL success))completion {
+    if ([ZBAppDelegate needsSimulation]) {
+        [self fullImport];
+        completion(true);
+    }
+    else {
+        NSLog(@"Beginning to partiall import repositories");
+        [self partialRemoteImport:^(BOOL success) {
+            NSLog(@"Done partially importing");
+            completion(true);
+        }];
+    }
+}
+
 //Imports packages from repositories located in /var/lib/zebra/lists
 - (void)fullRemoteImport:(void (^)(BOOL success))completion {
     if ([ZBAppDelegate needsSimulation]) {
@@ -160,6 +174,67 @@
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
     completion(true);
+}
+
+- (void)partialRemoteImport:(void (^)(BOOL success))completion {
+    NSTask *removeCacheTask = [[NSTask alloc] init];
+    [removeCacheTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    NSArray *rmArgs = [[NSArray alloc] initWithObjects: @"rm", @"-rf", @"/var/mobile/Library/Caches/xyz.willy.Zebra/lists", nil];
+    [removeCacheTask setArguments:rmArgs];
+    
+    [removeCacheTask launch];
+    [removeCacheTask waitUntilExit];
+    
+    NSTask *cpTask = [[NSTask alloc] init];
+    [cpTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    NSArray *cpArgs = [[NSArray alloc] initWithObjects: @"cp", @"-fR", @"/var/lib/zebra/lists", @"/var/mobile/Library/Caches/xyz.willy.Zebra/", nil];
+    [cpTask setArguments:cpArgs];
+    
+    [cpTask launch];
+    [cpTask waitUntilExit];
+    
+    NSTask *refreshTask = [[NSTask alloc] init];
+    [refreshTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
+    [refreshTask setArguments:arguments];
+    
+    [refreshTask launch];
+    [refreshTask waitUntilExit];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSArray *bill = [self billOfReposToUpdate];
+    for (ZBRepo *repo in bill) {
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Parsing %@\n", [repo baseFileName]]}];
+        NSString *release = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_Release", [repo baseFileName]];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:release]) {
+            release = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_main_binary-iphoneos-arm_Release", [repo baseFileName]]; //Do some funky package file with the default repos
+        }
+        NSLog(@"[Zebra] Repo: %@ %d", release, [repo repoID]);
+        updateRepoInDatabase([release UTF8String], database, [repo repoID]);
+            
+        NSString *baseFileName = [release stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
+        NSString *packageFile = [NSString stringWithFormat:@"%@_Packages", baseFileName];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:packageFile]) {
+            packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
+        }
+        NSLog(@"[Zebra] Repo: %@ %d", packageFile, [repo repoID]);
+        updatePackagesInDatabase([packageFile UTF8String], database, [repo repoID]);
+    }
+    
+    NSLog(@"[Zebra] Populating installed database");
+    
+    NSDate *newUpdateDate = [NSDate date];
+    [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
+
+    completion(true);
+//    [self updateEssentials:^(BOOL success) {
+//        completion(true);
+//    }];
 }
 
 //Get number of packages in the database for each repo
@@ -337,6 +412,47 @@
     
     NSLog(@"[Zebra] Done searching");
     return searchResults;
+}
+
+- (NSArray <ZBRepo *> *)billOfReposToUpdate {
+    NSMutableArray *bill = [NSMutableArray new];
+    
+    for (ZBRepo *repo in [self sources]) {
+        BOOL needsUpdate = false;
+        NSString *aptPackagesFile = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_Packages", [repo baseFileName]];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:aptPackagesFile]) {
+            aptPackagesFile = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
+        }
+        
+        NSString *cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.zebra/lists/%@_Packages", [repo baseFileName]];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:cachedPackagesFile]) {
+            cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
+            if (![[NSFileManager defaultManager] fileExistsAtPath:cachedPackagesFile]) {
+                NSLog(@"[Zebra] There is no cache file for %@ so it needs an update", [repo origin]);
+                needsUpdate = true; //There isn't a cache for this so we need to parse it
+            }
+        }
+        
+        if (!needsUpdate) {
+            FILE *aptFile = fopen([aptPackagesFile UTF8String], "r");
+            FILE *cachedFile = fopen([cachedPackagesFile UTF8String], "r");
+            needsUpdate = packages_file_changed(aptFile, cachedFile);
+        }
+        
+        if (needsUpdate) {
+            [bill addObject:repo];
+        }
+    }
+    
+    if ([bill count] > 0) {
+        NSLog(@"[Zebra] Bill of Repositories that require an update: %@", bill);
+    }
+    else {
+        NSLog(@"[Zebra] No repositories need an update");
+    }
+    
+    
+    return (NSArray *)bill;
 }
 
 - (void)updateEssentials:(void (^)(BOOL success))completion {

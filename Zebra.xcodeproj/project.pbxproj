@@ -18,6 +18,7 @@
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
 		8991FF9F21B21493004FCE23 /* BigBoss.pack in Resources */ = {isa = PBXBuildFile; fileRef = 8991FF9E21B21492004FCE23 /* BigBoss.pack */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
+		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
 		89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */; };
 		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
@@ -63,6 +64,8 @@
 		8991FF9E21B21492004FCE23 /* BigBoss.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BigBoss.pack; sourceTree = "<group>"; };
 		8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDatabaseManager.h; sourceTree = "<group>"; };
 		8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDatabaseManager.m; sourceTree = "<group>"; };
+		89A1B733223C97210053D0E2 /* ZBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
+		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
@@ -230,6 +233,8 @@
 				895071972239E2FD004AE338 /* MobileGestalt.h */,
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
+				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
+				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				8991FFA321B21D26004FCE23 /* Database */,
 				893952FC220B5CE400995109 /* Console */,
@@ -399,6 +404,7 @@
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
+				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,

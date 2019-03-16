@@ -11,6 +11,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <ZBTabBarController.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -28,7 +29,8 @@
 }
 
 - (IBAction)refreshSources:(id)sender {
-    NSLog(@"[Zebra] Refreshing sources");
+    ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
+    [tabController performBackgroundRefresh:true];
 }
 
 - (IBAction)addSource:(id)sender {

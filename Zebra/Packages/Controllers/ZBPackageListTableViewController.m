@@ -58,6 +58,10 @@
 
 #pragma mark - Table view data source
 
+- (void)refreshTable {
+    [self.tableView reloadData];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }

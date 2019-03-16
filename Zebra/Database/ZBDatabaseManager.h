@@ -15,8 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject
 - (void)fullImport;
+- (void)partialImport:(void (^)(BOOL success))completion;
 - (void)fullRemoteImport:(void (^)(BOOL success))completion;
 - (void)fullLocalImport:(void (^)(BOOL success))completion;
+- (void)partialRemoteImport:(void (^)(BOOL success))completion;
 - (int)numberOfPackagesInRepo:(int)repoID;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
