@@ -12,6 +12,7 @@
 #import <UIKit/UIDevice.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Database/ZBDatabaseManager.h>
+#import <NSTask.h>
 
 @implementation ZBRepoManager
 
@@ -117,7 +118,7 @@
     NSString *cacheDirectory = [paths objectAtIndex:0];
     
     NSString *filePath;
-    NSLog(@"Cache Directory: %@", cacheDirectory);
+    NSLog(@"[Zebra] Cache Directory: %@", cacheDirectory);
     if ([cacheDirectory isEqualToString:@"/var/mobile/Library/Caches"])
         filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.zebra/zebra.list"];
     else

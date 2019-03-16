@@ -106,11 +106,11 @@
     
     if ([destination isEqual:@"local"]) {
         if ([action isEqual:@"nuke"]) {
-            NSLog(@"war games");
+            NSLog(@"[Zebra] war games");
             [self nukeDatabase];
         }
         else if ([action isEqual:@"sendBug"]) {
-            NSLog(@"raid");
+            NSLog(@"[Zebra] raid");
             [self sendBugReport];
         }
     }

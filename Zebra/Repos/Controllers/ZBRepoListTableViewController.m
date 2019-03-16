@@ -28,7 +28,7 @@
 }
 
 - (IBAction)refreshSources:(id)sender {
-    NSLog(@"Refreshing sources");
+    NSLog(@"[Zebra] Refreshing sources");
 }
 
 - (IBAction)addSource:(id)sender {
@@ -113,12 +113,13 @@
     
     cell.textLabel.text = [source origin];
     if ([source isSecure]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@/", [source baseURL]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
     }
     else {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@/", [source baseURL]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     
+    NSLog(@"[Zebra] Icon URL: %@", [source iconURL]);
     
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
@@ -141,7 +142,7 @@
             }
         }
         if (error) {
-            NSLog(@"ERRPR: %@", error);
+            NSLog(@"[Zebra] ERRPR: %@", error);
         }
     }];
     [task resume];

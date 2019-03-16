@@ -17,10 +17,9 @@
 @implementation ZBDatabaseManager
 
 - (void)fullImport {
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-    NSLog(@"Database: %@", databasePath);
+    NSLog(@"[Zebra] Database: %@", databasePath);
     //Refresh repos
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
@@ -36,12 +35,12 @@
 - (void)fullRemoteImport:(void (^)(BOOL success))completion {
     if ([ZBAppDelegate needsSimulation]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing sample BigBoss repo.\n"}];
-        NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"apt.thebigboss.org_repofiles_cydia_dists_stable_Release" ofType:@""]];
+        NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"apt.thebigboss.org_repofiles_cydia_dists_stable_._Release" ofType:@""]];
         NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-        NSLog(@"Database: %@", databasePath);
+        NSLog(@"[Zebra] Database: %@", databasePath);
         
         sqlite3 *database;
         sqlite3_open([databasePath UTF8String], &database);
@@ -219,12 +218,15 @@
         const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
         const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
         const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
-        NSLog(@"Suite: %s", suiteChars);
+        NSLog(@"[Zebra] Suite: %s", suiteChars);
         const char *compChars = (const char *)sqlite3_column_text(statement, 8);
-        NSLog(@"Component: %s", compChars);
+        NSLog(@"[Zebra] Component: %s", compChars);
         
         NSURL *iconURL;
         NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
+        NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
+        NSString *shortURL = separate[0];
+        
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
             iconURL = [NSURL URLWithString:url] ;
@@ -233,7 +235,7 @@
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
         }
         
-        ZBRepo *source = [[ZBRepo alloc] initWithOrigin:[[NSString alloc] initWithUTF8String:originChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] baseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars] baseURL:baseURL secure:sqlite3_column_int(statement, 4) repoID:sqlite3_column_int(statement, 5) iconURL:iconURL isDefault:sqlite3_column_int(statement, 6) suite:[[NSString alloc] initWithUTF8String:suiteChars] components:[[NSString alloc] initWithUTF8String:compChars]];
+        ZBRepo *source = [[ZBRepo alloc] initWithOrigin:[[NSString alloc] initWithUTF8String:originChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] baseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars] baseURL:baseURL secure:sqlite3_column_int(statement, 4) repoID:sqlite3_column_int(statement, 5) iconURL:iconURL isDefault:sqlite3_column_int(statement, 6) suite:[[NSString alloc] initWithUTF8String:suiteChars] components:[[NSString alloc] initWithUTF8String:compChars] shortURL:shortURL];
         
         [sources addObject:source];
     }
@@ -316,7 +318,7 @@
         query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\'", name];
     }
     
-    NSLog(@"Queyr: %@", query);
+    NSLog(@"[Zebra] Queyr: %@", query);
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -333,7 +335,7 @@
     }
     sqlite3_finalize(statement);
     
-    NSLog(@"Done searching");
+    NSLog(@"[Zebra] Done searching");
     return searchResults;
 }
 

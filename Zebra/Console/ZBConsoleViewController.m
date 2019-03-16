@@ -43,7 +43,7 @@
 
 - (void)performActions:(NSArray *)actions {
     if ([ZBAppDelegate needsSimulation]) {
-        NSLog(@"sim");
+        NSLog(@"[Zebra] sim");
         [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
     }
     else {

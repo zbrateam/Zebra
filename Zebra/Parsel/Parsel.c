@@ -105,10 +105,15 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     int secure = isRepoSecure(secureURL);
     
     replace_char(baseFilename, '_', '/');
+    if (baseFilename[strlen(baseFilename) - 1] == '.') {
+        baseFilename[strlen(baseFilename) - 1] = 0;
+    }
+    
     strcpy(repo[3], baseFilename);
     
     int def = 0;
-    if(strstr(baseFilename, "main_binary-iphoneos-arm") != NULL) {
+    printf("%s\n", baseFilename);
+    if(strstr(baseFilename, "dists") != NULL) {
         def = 1;
     }
     
