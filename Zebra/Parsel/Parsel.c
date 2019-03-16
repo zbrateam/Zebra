@@ -195,7 +195,7 @@ void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID) {
     }
     
     sqlite3_stmt *insertStatement;
-    char *insertQuery = "UPDATE REPOS SET (ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) = (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    char *insertQuery = "UPDATE REPOS SET (ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, DEF, SUITE, COMPONENTS) = (?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
     
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
         sqlite3_bind_text(insertStatement, 1, repo[0], -1, SQLITE_TRANSIENT);
@@ -203,10 +203,10 @@ void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID) {
         sqlite3_bind_text(insertStatement, 3, repo[2], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 4, repo[3], -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 5, secure);
-        sqlite3_bind_int(insertStatement, 6, repoID);
-        sqlite3_bind_int(insertStatement, 7, def);
-        sqlite3_bind_text(insertStatement, 8, repo[4], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 9, repo[5], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 6, def);
+        sqlite3_bind_text(insertStatement, 7, repo[4], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 8, repo[5], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 9, repoID);
         sqlite3_step(insertStatement);
     }
     else {
