@@ -144,7 +144,7 @@
             }
         }
         if (error) {
-            NSLog(@"[Zebra] ERRPR: %@", error);
+            NSLog(@"[Zebra] Error while getting icon URL: %@", error);
         }
     }];
     [task resume];

@@ -34,9 +34,9 @@
         completion(true);
     }
     else {
-        NSLog(@"Beginning to partiall import repositories");
+        NSLog(@"Beginning partial import of repos");
         [self partialRemoteImport:^(BOOL success) {
-            NSLog(@"Done partially importing");
+            NSLog(@"Done.");
             completion(true);
         }];
     }
@@ -290,9 +290,7 @@
         const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
         const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
         const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
-        NSLog(@"[Zebra] Suite: %s", suiteChars);
         const char *compChars = (const char *)sqlite3_column_text(statement, 8);
-        NSLog(@"[Zebra] Component: %s", compChars);
         
         NSURL *iconURL;
         NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
@@ -390,7 +388,6 @@
         query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\'", name];
     }
     
-    NSLog(@"[Zebra] Queyr: %@", query);
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -407,7 +404,6 @@
     }
     sqlite3_finalize(statement);
     
-    NSLog(@"[Zebra] Done searching");
     return searchResults;
 }
 

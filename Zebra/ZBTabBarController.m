@@ -44,14 +44,12 @@
     if (requested || timePassed) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             UINavigationController *sourcesController = self.viewControllers[1];
-            NSLog(@"Start!");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [sourcesController tabBarItem].badgeValue = @"Up!";
             });
             ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
             [databaseManager partialImport:^(BOOL success) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"Finish!");
                     [self updatePackageTableView];
                     [sourcesController tabBarItem].badgeValue = nil;
                 });
