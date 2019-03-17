@@ -9,6 +9,7 @@
 #import "ZBPackageListTableViewController.h"
 #import "ZBDatabaseManager.h"
 #import <Packages/Helpers/ZBPackage.h>
+#import <Queue/ZBQueue.h>
 
 @interface ZBPackageListTableViewController () {
     ZBDatabaseManager *databaseManager;
@@ -20,6 +21,14 @@
 
 @implementation ZBPackageListTableViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    if (_repoID == 0) {
+        [self queueButton];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,6 +37,8 @@
     if (_repoID == 0) {
         packages = [databaseManager installedPackages];
         numberOfPackages = (int)packages.count;
+        
+        [self queueButton];
     }
     else {
         packages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:0];
@@ -54,6 +65,22 @@
             [self.tableView endUpdates];
         });
     }
+}
+
+- (void)queueButton {
+    if ([[ZBQueue sharedInstance] hasObjects]) {
+        UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+        self.navigationItem.leftBarButtonItem = queueButton;
+    }
+    else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
+
+- (void)presentQueue {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+    [self presentViewController:vc animated:true completion:nil];
 }
 
 #pragma mark - Table view data source
