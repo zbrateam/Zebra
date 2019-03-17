@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"AUPM/Zebra - %@", PACKAGE_VERSION];
+    configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
     
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
