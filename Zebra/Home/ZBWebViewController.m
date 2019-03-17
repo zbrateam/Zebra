@@ -10,6 +10,7 @@
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
 #import <sys/utsname.h>
+#import <Repos/Helpers/ZBRepoManager.h>
 
 @interface ZBWebViewController () {
     NSURL *_url;
@@ -136,7 +137,7 @@
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //        [self handleRepoAdd:url local:false];
+            [self handleRepoAdd:url local:false];
         }];
         UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [controller dismissViewControllerAnimated:true completion:nil];
@@ -152,7 +153,7 @@
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories from Cydia?" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //        [self handleRepoAdd:action local:true];
+                [self handleRepoAdd:url local:true];
             }];
             UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [controller dismissViewControllerAnimated:true completion:nil];
@@ -167,7 +168,7 @@
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //        [self handleRepoAdd:action local:true];
+                [self handleRepoAdd:url local:true];
             }];
             UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [controller dismissViewControllerAnimated:true completion:nil];
@@ -178,6 +179,59 @@
             
             [self presentViewController:controller animated:true completion:nil];
         }
+    }
+}
+
+- (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
+    NSLog(@"[Zebra] Handling repo add");
+    ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+    if (local) {
+        NSArray *options = @[
+                             @"transfer",
+                             @"cydia",
+                             @"electra",
+                             @"uncover",
+                             @"bigboss",
+                             @"modmyi",
+                             ];
+        
+        switch ([options indexOfObject:repo]) {
+            case 0:
+                //[repoManager transferFromCydia];
+                break;
+            case 1:
+                [repoManager addDebLine:@"deb http://apt.saurik.com/ ios/1349.70 main\n"];
+                break;
+            case 2:
+                [repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\ndeb https://electrarepo64.coolstar.org/substrate-shim/ ./\n"];
+                break;
+            case 3:
+                [repoManager addDebLine:@"deb http://repo.bingner.com/ ./\n"];
+                break;
+            case 4:
+                [repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
+                break;
+            case 5:
+                [repoManager addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
+                break;
+            default:
+                return;
+        }
+        
+//        AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] initWithAction:1];
+//        [self presentViewController:refreshViewController animated:true completion:nil];
+    }
+    else {
+        [repoManager addSourceWithURL:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
+            if (!success) {
+                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+            }
+            else {
+                NSLog(@"[Zebra] Added source.");
+//                AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] initWithAction:1];
+//                [self presentViewController:refreshViewController animated:true completion:nil];
+            }
+        }];
     }
 }
 

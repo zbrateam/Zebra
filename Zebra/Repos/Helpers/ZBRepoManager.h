@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoManager : NSObject
 - (void)addSourceWithURL:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
+- (void)addDebLine:(NSString *)sourceLine;
 @end
 
 NS_ASSUME_NONNULL_END

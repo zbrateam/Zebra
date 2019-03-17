@@ -13,6 +13,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Database/ZBDatabaseManager.h>
 #import <NSTask.h>
+#import <ZBAppDelegate.h>
 
 @implementation ZBRepoManager
 
@@ -119,10 +120,10 @@
     
     NSString *filePath;
     NSLog(@"[Zebra] Cache Directory: %@", cacheDirectory);
-    if ([cacheDirectory isEqualToString:@"/var/mobile/Library/Caches"])
-        filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.zebra/zebra.list"];
+    if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
+        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
     else
-        filePath = [cacheDirectory stringByAppendingString:@"/zebra.list"];
+        filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.Zebra/sources.list"];
     
     NSError *error;
     [output writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
@@ -141,6 +142,44 @@
         [updateListTask waitUntilExit];
 #endif
         completion(true, NULL);
+    }
+}
+
+- (void)addDebLine:(NSString *)sourceLine {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDirectory = [paths objectAtIndex:0];
+    NSString *filePath;
+    if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
+        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.kist"];
+    else
+        filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.Zebra/sources.list"];
+    
+    NSString *output;
+    if ([ZBAppDelegate needsSimulation]) {
+        output = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    }
+    else {
+        output = [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil];
+    }
+    
+    output = [output stringByAppendingString:sourceLine];
+    
+    NSLog(@"Output %@", output);
+    
+    NSError *error;
+    [output writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
+    if (error != NULL) {
+        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
+    }
+    
+    if (![ZBAppDelegate needsSimulation]) {
+        NSTask *updateListTask = [[NSTask alloc] init];
+        [updateListTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        NSArray *updateArgs = [[NSArray alloc] initWithObjects:@"cp", filePath, @"/var/lib/zebra/sources.list", nil];
+        [updateListTask setArguments:updateArgs];
+        
+        [updateListTask launch];
+        [updateListTask waitUntilExit];
     }
 }
 
