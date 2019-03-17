@@ -12,6 +12,7 @@
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
+#import <Database/ZBRefreshViewController.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -61,8 +62,8 @@
             else {
                 [wait dismissViewControllerAnimated:true completion:^{
                     NSLog(@"[Zebra] Added source.");
-//                    AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] initWithAction:1];
-//                    [self presentViewController:refreshViewController animated:true completion:nil];
+                    ZBRefreshViewController *refreshViewController = [[ZBRefreshViewController alloc] init];
+                    [self presentViewController:refreshViewController animated:true completion:nil];
                 }];
             }
         }];
