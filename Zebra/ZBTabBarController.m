@@ -22,7 +22,7 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)performBackgroundRefresh:(BOOL)requested {
+- (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion {
     BOOL timePassed = false;
     
     if (!requested) {
@@ -52,6 +52,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self updatePackageTableView];
                     [sourcesController tabBarItem].badgeValue = nil;
+                    completion(true);
                 });
             }];
         });
@@ -62,6 +63,7 @@
             if (success) {
                 [self updatePackageTableView];
             }
+            completion(true);
         }];
     }
 }

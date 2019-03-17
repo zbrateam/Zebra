@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTabBarController : UITabBarController
-- (void)performBackgroundRefresh:(BOOL)requested;
+- (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion;
 @end
 
 NS_ASSUME_NONNULL_END
