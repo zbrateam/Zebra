@@ -17,9 +17,6 @@
 @implementation ZBDatabaseManager
 
 - (void)fullImport {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-    NSLog(@"[Zebra] Database: %@", databasePath);
     //Refresh repos
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
