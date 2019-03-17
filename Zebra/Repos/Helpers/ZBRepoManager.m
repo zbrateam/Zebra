@@ -32,7 +32,6 @@
             NSLog(@"[Zebra] Error verifying repository: %@", error);
             NSURL *url = [(NSURL *)[error.userInfo objectForKey:@"NSErrorFailingURLKey"] URLByDeletingLastPathComponent];
             respond(false, error.localizedDescription, url);
-            return;
         }
         
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -42,7 +41,6 @@
             NSString *errorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
             NSLog(@"[Zebra] %@", errorMessage);
             respond(false, errorMessage, url);
-            return;
         }
         
         NSLog(@"[Zebra] Verified source %@", url);
