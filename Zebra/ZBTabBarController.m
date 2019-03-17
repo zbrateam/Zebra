@@ -45,7 +45,24 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             UINavigationController *sourcesController = self.viewControllers[1];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [sourcesController tabBarItem].badgeValue = @"Up!";
+                UITabBarItem *sourcesItem = [sourcesController tabBarItem];
+                sourcesItem.badgeValue = @"";
+                
+                //for badgeView in self.tabBarController!.tabBar.subviews[tabIndex].subviews {
+                for (int i = 0; i < self.tabBar.subviews[2].subviews.count; i++) {
+                    
+                    if ([NSStringFromClass([self.tabBar.subviews[2].subviews[i] class]) isEqualToString:@"_UIBadgeView"]) {
+                        UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:5];
+//                        CGAffineTransform transform = CGAffineTransformMakeScale(0.70f, 0.70f);
+//                        loadingView.transform = transform;
+                        
+                        _UIBadgeView *badge = self.tabBar.subviews[2].subviews[i];
+                        NSLog(@"Badge: %@", badge);
+                        [loadingView setCenter:badge.center];
+                        [loadingView startAnimating];
+                        [badge addSubview:loadingView];
+                    }
+                }
             });
             ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
             [databaseManager partialImport:^(BOOL success) {
