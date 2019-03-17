@@ -9,6 +9,7 @@
 #import "ZBWebViewController.h"
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
+#import <sys/utsname.h>
 
 @interface ZBWebViewController () {
     NSURL *_url;
@@ -61,6 +62,8 @@
         [webView loadRequest:request];
     }
     else {
+        self.title = @"Home";
+        
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     }
@@ -91,7 +94,11 @@
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"You are running Zebra Version %@\"", PACKAGE_VERSION] completionHandler:nil];
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"%@ - iOS %@ - Zebra %@\"", model, [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION] completionHandler:nil];
 #endif
 }
 

@@ -1729,12 +1729,12 @@ Section: Packaging
 Installed-Size: 13728
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.0~supercool
-Depends: dpkg, cydia, apt7
+Version: 1.0
+Depends: dpkg, apt7
 Description: A Useless Package Manager
 Name: Zebra (BETA)
 Author: Wilson Styres <wilson@styres.me>
-Depiction: https://xtm3x.github.io/aupm/index.html
+Depiction: https://xtm3x.github.io/zebra/
 Tag: purpose::x
 
 Package: com.saurik.patcyh
