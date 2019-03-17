@@ -32,7 +32,7 @@
     [super viewDidLoad];
     
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = false;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
     [self configureNavButton];

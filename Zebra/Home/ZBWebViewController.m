@@ -58,6 +58,10 @@
     webView.backgroundColor = [UIColor clearColor];
     
     if (_url != NULL) {
+        if (@available(iOS 11.0, *)) {
+            self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        }
+        
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
     }
