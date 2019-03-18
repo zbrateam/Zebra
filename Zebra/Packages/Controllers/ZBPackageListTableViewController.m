@@ -186,7 +186,12 @@
     if (_repoID == 0 && needsSecondSection && section == 0) {
         return @"Available Upgrades";
     }
-    return @"Installed Packages";
+    
+    if (needsSecondSection) {
+        return @"Installed Packages";
+    }
+    
+    return @"";
 }
 
 

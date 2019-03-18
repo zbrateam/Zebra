@@ -526,7 +526,6 @@
 }
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database {
-    NSLog(@"other versions");
     NSMutableArray *otherVersions = [NSMutableArray new];
     
     NSString *query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?";
