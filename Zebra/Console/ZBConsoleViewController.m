@@ -86,6 +86,7 @@
 - (void)performPostActions:(void (^)(BOOL success))completion  {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager updateEssentials:^(BOOL success) {
+        NSLog(@"[Zebra] Updating essentials");
         completion(success);
     }];
 }

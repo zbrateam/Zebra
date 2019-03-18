@@ -26,6 +26,7 @@
 
     if (_repoID == 0) {
         [self queueButton];
+        [self refreshTable];
     }
 }
 
@@ -43,6 +44,15 @@
     else {
         packages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:0];
         numberOfPackages = (int)packages.count;
+    }
+}
+
+- (void)refreshTable {
+    if (packages) {
+        packages = [databaseManager installedPackages];
+        numberOfPackages = (int)packages.count;
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -84,10 +94,6 @@
 }
 
 #pragma mark - Table view data source
-
-- (void)refreshTable {
-    [self.tableView reloadData];
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

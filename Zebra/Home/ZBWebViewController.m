@@ -200,13 +200,13 @@
                 //[repoManager transferFromCydia];
                 break;
             case 1:
-                [repoManager addDebLine:@"deb http://apt.saurik.com/ ios/1349.70 main\n"];
+                [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
             case 2:
                 [repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\ndeb https://electrarepo64.coolstar.org/substrate-shim/ ./\n"];
                 break;
             case 3:
-                [repoManager addDebLine:@"deb http://repo.bingner.com/ ./\n"];
+                [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
             case 4:
                 [repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
@@ -218,8 +218,9 @@
                 return;
         }
         
-//        AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] initWithAction:1];
-//        [self presentViewController:refreshViewController animated:true completion:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        [self presentViewController:console animated:true completion:nil];
     }
     else {
         [repoManager addSourceWithURL:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
@@ -228,8 +229,9 @@
             }
             else {
                 NSLog(@"[Zebra] Added source.");
-//                AUPMRefreshViewController *refreshViewController = [[AUPMRefreshViewController alloc] initWithAction:1];
-//                [self presentViewController:refreshViewController animated:true completion:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                [self presentViewController:console animated:true completion:nil];
             }
         }];
     }

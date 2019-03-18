@@ -101,6 +101,9 @@
             if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
                 output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
             }
+            else if ([[source origin] isEqual:@"Bingner/Elucubratus"]) {
+                output = [output stringByAppendingFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
+            }
             else {
                 NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
                 sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
