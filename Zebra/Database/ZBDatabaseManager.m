@@ -13,6 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Parsel/dpkgver.h>
 
 @implementation ZBDatabaseManager
 
@@ -228,10 +229,9 @@
     NSDate *newUpdateDate = [NSDate date];
     [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
 
-    completion(true);
-//    [self updateEssentials:^(BOOL success) {
-//        completion(true);
-//    }];
+    [self updateEssentials:^(BOOL success) {
+        completion(true);
+    }];
 }
 
 //Get number of packages in the database for each repo
@@ -469,12 +469,12 @@
 - (void)updateEssentials:(void (^)(BOOL success))completion {
     [self fullLocalImport:^(BOOL installedSuccess) {
         if (installedSuccess) {
-            [self getPackagesThatNeedUpdates:^(NSArray *updates, BOOL hasUpdates) {
-//                if (hasUpdates) {
+            [self getPackagesThatNeedUpdates:^(NSArray <ZBPackage *> *updates, BOOL hasUpdates) {
+                if (hasUpdates) {
 //                    _updateObjects = updates;
 //                    _numberOfPackagesThatNeedUpdates = updates.count;
-//                    NSLog(@"[AUPM] I have %d updates! %@", _numberOfPackagesThatNeedUpdates, _updateObjects);
-//                }
+                    NSLog(@"[Zebra] I have %d updates! %@ %@", updates.count, [updates[0] name], [updates[1] name]);
+                }
 //                _hasPackagesThatNeedUpdates = hasUpdates;
                 completion(true);
             }];
@@ -483,34 +483,64 @@
 }
 
 - (void)getPackagesThatNeedUpdates:(void (^)(NSArray *updates, BOOL hasUpdates))completion {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        NSMutableArray *updates = [NSMutableArray new];
-//        RLMResults<AUPMPackage *> *installedPackages = [AUPMPackage objectsWhere:@"installed = true"];
-//
-//        for (AUPMPackage *package in installedPackages) {
-//            RLMResults<AUPMPackage *> *otherVersions = [AUPMPackage objectsWhere:@"packageIdentifier == %@", [package packageIdentifier]];
-//            if ([otherVersions count] != 1) {
-//                for (AUPMPackage *otherPackage in otherVersions) {
-//                    if (otherPackage != package) {
-//                        int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
-//
-//                        if (result < 0) {
-//                            [updates addObject:otherPackage];
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        NSArray *updateObjects = [self cleanUpDuplicatePackages:updates];
-//        if (updateObjects.count > 0) {
-//            completion(updateObjects, true);
-//        }
-//        else {
-//            completion(NULL, false);
-//        }
-//    });
-    completion(NULL, true);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableArray *updates = [NSMutableArray new];
+        NSArray *installedPackages = [self installedPackages];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
+        
+        sqlite3 *database;
+        sqlite3_open([databasePath UTF8String], &database);
+
+        for (ZBPackage *package in installedPackages) {
+            NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+            if ([otherVersions count] > 1) {
+                for (ZBPackage *otherPackage in otherVersions) {
+                    if (otherPackage != package) {
+                        int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
+
+                        if (result < 0) {
+                            [updates addObject:otherPackage];
+                        }
+                    }
+                }
+            }
+        }
+
+        //NSArray *updateObjects = [self cleanUpDuplicatePackages:updates];
+        if (updates.count > 0) {
+            completion(updates, true);
+        }
+        else {
+            completion(NULL, false);
+        }
+    });
+}
+
+- (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database {
+    NSMutableArray *otherVersions = [NSMutableArray new];
+    
+    NSString *query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        sqlite3_bind_text(statement, 1, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
+    }
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
+        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
+        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
+        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
+        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
+        
+        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:true remote:false];
+        
+        [otherVersions addObject:package];
+    }
+    sqlite3_finalize(statement);
+    
+    return (NSArray*)otherVersions;
 }
 
 @end
