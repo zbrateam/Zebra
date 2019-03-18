@@ -10,10 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface _UIBadgeView : UIView
-
-@end
-
 @interface ZBTabBarController : UITabBarController
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion;
 @end

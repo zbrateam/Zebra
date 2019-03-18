@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion {
@@ -48,16 +47,12 @@
                 UITabBarItem *sourcesItem = [sourcesController tabBarItem];
                 sourcesItem.badgeValue = @"";
                 
-                //for badgeView in self.tabBarController!.tabBar.subviews[tabIndex].subviews {
-                for (int i = 0; i < self.tabBar.subviews[2].subviews.count; i++) {
-                    
-                    if ([NSStringFromClass([self.tabBar.subviews[2].subviews[i] class]) isEqualToString:@"_UIBadgeView"]) {
+                for (UIView *badge in self.tabBar.subviews[2].subviews) {
+                    if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {
                         UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:5];
-//                        CGAffineTransform transform = CGAffineTransformMakeScale(0.70f, 0.70f);
-//                        loadingView.transform = transform;
                         
-                        _UIBadgeView *badge = self.tabBar.subviews[2].subviews[i];
-                        NSLog(@"Badge: %@", badge);
+                        [badge setBackgroundColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
+                        
                         [loadingView setCenter:badge.center];
                         [loadingView startAnimating];
                         [badge addSubview:loadingView];
