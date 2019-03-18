@@ -110,15 +110,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sources" id="LAP-SG-gaJ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="kmQ-5t-fIg">
-                            <connections>
-                                <action selector="addSource:" destination="I9F-aa-gKA" id="tKU-W6-rWX"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="rVC-pW-946"/>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="PXO-at-COz">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <action selector="refreshSources:" destination="I9F-aa-gKA" eventType="valueChanged" id="bAe-th-V0W"/>
                         </connections>

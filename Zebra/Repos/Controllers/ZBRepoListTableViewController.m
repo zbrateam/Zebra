@@ -17,7 +17,6 @@
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
 }
-
 @end
 
 @implementation ZBRepoListTableViewController
@@ -27,6 +26,27 @@
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sources = [databaseManager sources];
+    
+    self.editButtonItem.action = @selector(editMode:);
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)editMode:(id)sender {
+    if (self.editing) {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        self.navigationItem.leftBarButtonItem = nil;
+        
+        [self setEditing:false animated:true];
+    }
+    else {
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+        self.navigationItem.leftBarButtonItem = addButton;
+        
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        
+        [self setEditing:true animated:true];
+    }
 }
 
 - (IBAction)refreshSources:(id)sender {
@@ -36,7 +56,7 @@
     }];
 }
 
-- (IBAction)addSource:(id)sender {
+- (void)addSource:(id)sender {
     [self showAddRepoAlert:NULL];
 }
 
@@ -155,25 +175,15 @@
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
+     return !([[[sources objectAtIndex:indexPath.row] origin] isEqualToString:@"xTM3x Repo"]);
  }
- */
 
-/*
- // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
  }
- }
- */
 
 /*
  // Override to support rearranging the table view.
