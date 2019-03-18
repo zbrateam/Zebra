@@ -141,8 +141,67 @@
         
         [updateListTask launch];
         [updateListTask waitUntilExit];
-#endif
         completion(true, NULL);
+#else
+        completion(true, NULL);
+#endif
+    }
+}
+
+- (void)deleteSource:(ZBRepo *)delRepo {
+    NSString *output = @"";
+    NSLog(@"[Zebra] Repo to delete: %@", [delRepo baseFileName]);
+    
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    for (ZBRepo *source in [databaseManager sources]) {
+        if (![[delRepo baseFileName] isEqualToString:[source baseFileName]]) {
+            NSLog(@"[Zebra] delRepo %@ repo %@", [delRepo baseFileName], [source baseFileName]);
+            if ([source defaultRepo]) {
+                if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
+                    output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
+                }
+                else if ([[source origin] isEqual:@"Bingner/Elucubratus"]) {
+                    output = [output stringByAppendingFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
+                }
+                else {
+                    NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
+                    sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
+                    output = [output stringByAppendingFormat:@"deb %@%@ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
+                }
+            }
+            else {
+                output = [output stringByAppendingFormat:@"deb %@%@ ./\n", [source isSecure] ? @"https://" : @"http://", [source baseURL]];
+            }
+        }
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDirectory = [paths objectAtIndex:0];
+    
+    NSString *filePath;
+    NSLog(@"[Zebra] Cache Directory: %@", cacheDirectory);
+    if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
+        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
+    else
+        filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.Zebra/sources.list"];
+    
+    NSError *error;
+    [output writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
+    if (error != NULL) {
+        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
+    }
+    else {
+#if TARGET_CPU_ARM
+        NSTask *updateListTask = [[NSTask alloc] init];
+        [updateListTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        NSArray *updateArgs = [[NSArray alloc] initWithObjects:@"cp", filePath, @"/var/lib/zebra/sources.list", nil];
+        [updateListTask setArguments:updateArgs];
+        
+        [updateListTask launch];
+        [updateListTask waitUntilExit];
+#endif
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        [databaseManager deleteRepo:delRepo];
     }
 }
 

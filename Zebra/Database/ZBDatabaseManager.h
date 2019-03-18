@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
 - (NSArray <ZBRepo *> *)sources;
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
+- (void)deleteRepo:(ZBRepo *)repo;
 - (void)updateEssentials:(void (^)(BOOL success))completion;
 @end
 

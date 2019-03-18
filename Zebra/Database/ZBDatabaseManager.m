@@ -448,6 +448,24 @@
     return (NSArray *)bill;
 }
 
+- (void)deleteRepo:(ZBRepo *)repo {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSString *query = @"DELETE FROM PACKAGES WHERE REPOID = ?; DELETE FROM REPOS WHERE REPOID = ?;";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, 0) == SQLITE_OK) {
+        sqlite3_bind_int(statement, 1, [repo repoID]);
+        sqlite3_bind_int(statement, 2, [repo repoID]);
+        sqlite3_step(statement);
+    }
+    
+    sqlite3_close(database);
+}
+
 - (void)updateEssentials:(void (^)(BOOL success))completion {
     [self fullLocalImport:^(BOOL installedSuccess) {
         if (installedSuccess) {
