@@ -17,7 +17,7 @@
 
 @implementation ZBDatabaseManager
 
-- (void)fullImport {
+- (void)fullImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
     //Refresh repos
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
@@ -25,20 +25,29 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Local Packages...\n"}];
         [self fullLocalImport:^(BOOL success) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Done.\n"}];
+            [self getPackagesThatNeedUpdates:^(NSArray <ZBPackage *> *updateObjects, BOOL has) {
+                if (has) {
+                    NSLog(@"[Zebra] Has %d Updates!", (int)[updateObjects count]);
+                }
+                completion(true, updateObjects, has);
+            }];
         }];
     }];
 }
 
-- (void)partialImport:(void (^)(BOOL success))completion {
+- (void)partialImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
     if ([ZBAppDelegate needsSimulation]) {
-        [self fullImport];
-        completion(true);
+        [self fullImport:^(BOOL success, NSArray *updates, BOOL hasUpdates) {
+            completion(success, updates, hasUpdates);
+        }];
     }
     else {
         NSLog(@"Beginning partial import of repos");
         [self partialRemoteImport:^(BOOL success) {
             NSLog(@"Done.");
-            completion(true);
+            [self updateEssentials:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
+                completion(success, updates, hasUpdates);
+            }];
         }];
     }
 }
@@ -229,9 +238,7 @@
     NSDate *newUpdateDate = [NSDate date];
     [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
 
-    [self updateEssentials:^(BOOL success) {
-        completion(true);
-    }];
+    completion(true);
 }
 
 //Get number of packages in the database for each repo
@@ -466,23 +473,23 @@
     sqlite3_close(database);
 }
 
-- (void)updateEssentials:(void (^)(BOOL success))completion {
+- (void)updateEssentials:(void (^)(BOOL success, NSArray *updates, BOOL hasUpdates))completion {
     [self fullLocalImport:^(BOOL installedSuccess) {
+        NSLog(@"Completed local import");
         if (installedSuccess) {
-            [self getPackagesThatNeedUpdates:^(NSArray <ZBPackage *> *updates, BOOL hasUpdates) {
-                if (hasUpdates) {
-//                    _updateObjects = updates;
-//                    _numberOfPackagesThatNeedUpdates = updates.count;
-                    NSLog(@"[Zebra] I have %d updates! %@ %@", updates.count, [updates[0] name], [updates[1] name]);
+            NSLog(@"getting update packages");
+            [self getPackagesThatNeedUpdates:^(NSArray <ZBPackage *> *updateObjects, BOOL has) {
+                if (has) {
+                    NSLog(@"[Zebra] Has %d Updates!", (int)[updateObjects count]);
                 }
-//                _hasPackagesThatNeedUpdates = hasUpdates;
-                completion(true);
+                completion(true, updateObjects, has);
             }];
         }
     }];
 }
 
 - (void)getPackagesThatNeedUpdates:(void (^)(NSArray *updates, BOOL hasUpdates))completion {
+    NSLog(@"pcakages need updates");
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *updates = [NSMutableArray new];
         NSArray *installedPackages = [self installedPackages];
@@ -519,6 +526,7 @@
 }
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database {
+    NSLog(@"other versions");
     NSMutableArray *otherVersions = [NSMutableArray new];
     
     NSString *query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?";

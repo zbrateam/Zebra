@@ -14,8 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject
-- (void)fullImport;
-- (void)partialImport:(void (^)(BOOL success))completion;
+- (void)fullImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion;
+- (void)partialImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion;
 - (void)fullRemoteImport:(void (^)(BOOL success))completion;
 - (void)fullLocalImport:(void (^)(BOOL success))completion;
 - (void)partialRemoteImport:(void (^)(BOOL success))completion;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBRepo *> *)sources;
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)deleteRepo:(ZBRepo *)repo;
-- (void)updateEssentials:(void (^)(BOOL success))completion;
+- (void)updateEssentials:(void (^)(BOOL success, NSArray *updates, BOOL hasUpdates))completion;
 @end
 
 NS_ASSUME_NONNULL_END

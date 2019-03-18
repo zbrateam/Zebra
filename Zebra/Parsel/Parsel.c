@@ -230,7 +230,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
-    char package[6][1024];
+    char package[7][1024];
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0) {
             char *info = strtok(line, "\n");
@@ -263,9 +263,13 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 char *value = multi_tok(NULL, &s, ": ");
                 strcpy(package[5], value);
             }
+            else if (strcmp(key, "Status") == 0) {
+                char *value = multi_tok(NULL, &s, ": ");
+                strcpy(package[6], value);
+            }
         }
         else {
-            if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
+            if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL && strcasestr(package[6], "not-installed") == NULL) {
                 if (package[1][0] == 0) {
                     strcpy(package[1], package[0]);
                 }
@@ -293,6 +297,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 package[3][0] = 0;
                 package[4][0] = 0;
                 package[5][0] = 0;
+                package[6][0] = 0;
             }
             else {
                 continue;

@@ -17,6 +17,9 @@
 
 @implementation ZBTabBarController
 
+@synthesize hasUpdates;
+@synthesize updates;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
@@ -61,8 +64,10 @@
                 }
             });
             ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-            [databaseManager partialImport:^(BOOL success) {
+            [databaseManager partialImport:^(BOOL success, NSArray * _Nonnull up, BOOL has) {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setHasUpdates:has];
+                    [self setUpdates:up];
                     [self updatePackageTableView];
                     [sourcesController tabBarItem].badgeValue = nil;
                     completion(true);
@@ -72,8 +77,10 @@
     }
     else {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-        [databaseManager updateEssentials:^(BOOL success) {
+        [databaseManager updateEssentials:^(BOOL success, NSArray * _Nonnull up, BOOL has) {
             if (success) {
+                [self setHasUpdates:has];
+                [self setUpdates:up];
                 [self updatePackageTableView];
             }
             completion(true);
@@ -84,16 +91,18 @@
 - (void)updatePackageTableView {
     UINavigationController *packageNavController = self.viewControllers[2];
     ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    
     [packageVC refreshTable];
-//    if ([databaseManager hasPackagesThatNeedUpdates]) {
-//        [packageNavController tabBarItem].badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[databaseManager numberOfPackagesThatNeedUpdates]];
-//        [packageVC refreshTable];
-//    }
-//    else {
-//        [packageNavController tabBarItem].badgeValue = nil;
-//        [packageVC refreshTable];
-//    }
+    if ([self hasUpdates]) {
+        NSLog(@"[Zebra] Has Updates!");
+        [packageNavController tabBarItem].badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[[self updates] count]];
+        [packageVC refreshTable];
+    }
+    else {
+        NSLog(@"[Zebra] No Updates :(");
+        [packageNavController tabBarItem].badgeValue = nil;
+        [packageVC refreshTable];
+    }
 }
 
 /*

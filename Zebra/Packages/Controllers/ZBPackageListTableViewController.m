@@ -7,15 +7,18 @@
 //
 
 #import "ZBPackageListTableViewController.h"
-#import "ZBDatabaseManager.h"
+#import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
+#import <ZBTabBarController.h>
 
 @interface ZBPackageListTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *packages;
     int numberOfPackages;
     BOOL needsExpansion;
+    BOOL needsSecondSection;
+    NSArray *updates;
 }
 @end
 
@@ -51,6 +54,10 @@
     if (packages) {
         packages = [databaseManager installedPackages];
         numberOfPackages = (int)packages.count;
+        
+        ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
+        needsSecondSection = [tabController hasUpdates];
+        updates = [tabController updates];
         
         [self.tableView reloadData];
     }
@@ -96,34 +103,50 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (needsSecondSection) {
+        return 2;
+    }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (needsExpansion) {
-        return numberOfPackages;
-    }
-    else if ([databaseManager numberOfPackagesInRepo:_repoID] > 1000) {
-        return 1000;
-    }
-    else if ([databaseManager numberOfPackagesInRepo:_repoID] > 500) {
-        return 500;
+    if (needsSecondSection && section == 0) {
+        return updates.count;
     }
     else {
-        return [databaseManager numberOfPackagesInRepo:_repoID];
+        if (needsExpansion) {
+            return numberOfPackages;
+        }
+        else if ([databaseManager numberOfPackagesInRepo:_repoID] > 1000) {
+            return 1000;
+        }
+        else if ([databaseManager numberOfPackagesInRepo:_repoID] > 500) {
+            return 500;
+        }
+        else {
+            return [databaseManager numberOfPackagesInRepo:_repoID];
+        }
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
-    ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = package.name;
-    cell.detailTextLabel.text = package.desc;
-    
-    if ((indexPath.row == numberOfPackages - 25) && (_repoID != 0)) {
-        [self loadNextPackages];
+    if (indexPath.section == 0) {
+        ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
+        
+        cell.textLabel.text = package.name;
+        cell.detailTextLabel.text = package.desc;
+    }
+    else {
+        ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
+        
+        cell.textLabel.text = package.name;
+        cell.detailTextLabel.text = package.desc;
+        
+        if ((indexPath.row == numberOfPackages - 25) && (_repoID != 0)) {
+            [self loadNextPackages];
+        }
     }
     
     return cell;
@@ -131,9 +154,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    ZBPackage *package = [packages objectAtIndex:indexPath.row];
+    ZBPackage *package;
+    
+    if (indexPath.section == 0) {
+        package = [updates objectAtIndex:indexPath.row];
+    }
+    else {
+        package = [packages objectAtIndex:indexPath.row];
+    }
+    
     ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
     [[self navigationController] pushViewController:depictionController animated:true];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (needsSecondSection && section == 0) {
+        return @"Updates";
+    }
+    return @"Installed Packages";
 }
 
 

@@ -1723,6 +1723,18 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: com.xtm3x.noblur
+Status: install ok installed
+Section: Packaging
+Installed-Size: 13728
+Maintainer: Some genius, idk
+Architecture: iphoneos-arm
+Version: 1.0
+Description: Nobles!
+Name: NoBlur
+Author: Some genius, idk
+Depiction: https://xtm3x.github.io/depictions/com.xtm3x.noblur/
+
 Package: xyz.willy.zebra
 Status: install ok installed
 Section: Packaging

@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTabBarController : UITabBarController
+@property (nonatomic) BOOL hasUpdates;
+@property (nonatomic, strong) NSArray *updates;
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion;
 @end
 
