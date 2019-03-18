@@ -181,7 +181,17 @@
 
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ZBRepo *delRepo = [sources objectAtIndex:indexPath.row];
+        NSMutableArray *mutableSources = [sources mutableCopy];
+        [mutableSources removeObjectAtIndex:indexPath.row];
+        sources = (NSArray *)mutableSources;
+        
+        [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+        
+        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+        [repoManager deleteSource:delRepo];
     }
  }
 
