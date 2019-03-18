@@ -9,6 +9,7 @@
 #import "ZBRefreshViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Parsel/Parsel.h>
+#import <ZBTabBarController.h>
 
 @interface ZBRefreshViewController ()
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
@@ -20,11 +21,13 @@
     [super viewDidAppear:animated];
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager fullImport];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-    [self presentViewController:vc animated:YES completion:nil];
+    [databaseManager fullImport:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+        vc.hasUpdates = hasUpdates;
+        vc.updates = updates;
+        [self presentViewController:vc animated:YES completion:nil];
+    }];
 }
 
 - (void)viewDidLoad {

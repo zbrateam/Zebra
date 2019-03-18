@@ -26,6 +26,12 @@
     if (@available(iOS 10.0, *)) {
         UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
     }
+    
+    [self performBackgroundRefresh:false completion:^(BOOL success) {
+        if (!success) {
+            NSLog(@"Error!");
+        }
+    }];
 }
 
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion {
@@ -67,13 +73,11 @@
             });
             ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
             [databaseManager partialImport:^(BOOL success, NSArray * _Nonnull up, BOOL has) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self setHasUpdates:has];
-                    [self setUpdates:up];
-                    [self updatePackageTableView];
-                    [sourcesController tabBarItem].badgeValue = nil;
-                    completion(true);
-                });
+                [self setHasUpdates:has];
+                [self setUpdates:up];
+                [self updatePackageTableView];
+                [sourcesController tabBarItem].badgeValue = nil;
+                completion(true);
             }];
         });
     }
@@ -114,13 +118,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
