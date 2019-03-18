@@ -115,12 +115,14 @@
                                 <action selector="addSource:" destination="I9F-aa-gKA" id="tKU-W6-rWX"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="r1m-Kg-nbD">
-                            <connections>
-                                <action selector="refreshSources:" destination="I9F-aa-gKA" id="D7y-jY-s98"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="PXO-at-COz">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <action selector="refreshSources:" destination="I9F-aa-gKA" eventType="valueChanged" id="bAe-th-V0W"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YkN-4W-m9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

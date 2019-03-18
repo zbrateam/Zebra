@@ -30,17 +30,9 @@
 }
 
 - (IBAction)refreshSources:(id)sender {
-    UIBarButtonItem *refreshButton = self.navigationItem.rightBarButtonItem;
-    
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    [activityIndicator startAnimating];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-    self.navigationItem.rightBarButtonItem = activityItem;
-    
     ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
     [tabController performBackgroundRefresh:true completion:^(BOOL success) {
-        self.navigationItem.rightBarButtonItem = refreshButton;
+        [self.refreshControl endRefreshing];
     }];
 }
 
