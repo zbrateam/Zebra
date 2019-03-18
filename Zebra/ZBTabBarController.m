@@ -22,6 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (@available(iOS 10.0, *)) {
+        UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+    }
 }
 
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion {
@@ -54,8 +58,6 @@
                     if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
                         UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
                         [loadingView setColor:[UIColor whiteColor]];
-                        
-                        [badge setBackgroundColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
                         
                         [loadingView setCenter:badge.center];
                         [loadingView startAnimating];
@@ -96,6 +98,12 @@
     if ([self hasUpdates]) {
         NSLog(@"[Zebra] Has Updates!");
         [packageNavController tabBarItem].badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[[self updates] count]];
+        for (UIView *badge in self.tabBar.subviews[3].subviews) {
+            if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
+                [badge setBackgroundColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
+            }
+        }
+        
         [packageVC refreshTable];
     }
     else {

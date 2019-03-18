@@ -40,10 +40,9 @@
     needsExpansion = false;
     databaseManager = [[ZBDatabaseManager alloc] init];
     if (_repoID == 0) {
-        packages = [databaseManager installedPackages];
-        numberOfPackages = (int)packages.count;
-        
         [self queueButton];
+        [self upgradeButton];
+        [self refreshTable];
     }
     else {
         packages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:0];
@@ -52,16 +51,14 @@
 }
 
 - (void)refreshTable {
-    if (packages) {
-        packages = [databaseManager installedPackages];
-        numberOfPackages = (int)packages.count;
+    packages = [databaseManager installedPackages];
+    numberOfPackages = (int)packages.count;
         
-        ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
-        needsSecondSection = [tabController hasUpdates];
-        updates = [tabController updates];
+    ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
+    needsSecondSection = [tabController hasUpdates];
+    updates = [tabController updates];
         
-        [self.tableView reloadData];
-    }
+    [self.tableView reloadData];
 }
 
 - (void)loadNextPackages {
@@ -87,7 +84,6 @@
 
 - (void)upgradeButton {
     if (needsSecondSection) {
-        NSLog(@"Upgrade button!");
         UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
         self.navigationItem.rightBarButtonItem = updateButton;
     }
@@ -187,7 +183,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (needsSecondSection && section == 0) {
+    if (_repoID == 0 && needsSecondSection && section == 0) {
         return @"Available Upgrades";
     }
     return @"Installed Packages";
