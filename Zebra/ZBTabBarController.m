@@ -49,7 +49,8 @@
                 
                 for (UIView *badge in self.tabBar.subviews[2].subviews) {
                     if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {
-                        UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:5];
+                        UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+                        [loadingView setColor:[UIColor whiteColor]];
                         
                         [badge setBackgroundColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
                         
@@ -63,7 +64,7 @@
             [databaseManager partialImport:^(BOOL success) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self updatePackageTableView];
-                    [sourcesController tabBarItem].badgeValue = nil;
+                    //[sourcesController tabBarItem].badgeValue = nil;
                     completion(true);
                 });
             }];
