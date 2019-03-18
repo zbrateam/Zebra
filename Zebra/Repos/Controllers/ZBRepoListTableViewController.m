@@ -84,8 +84,13 @@
             else {
                 [wait dismissViewControllerAnimated:true completion:^{
                     NSLog(@"[Zebra] Added source.");
-                    ZBRefreshViewController *refreshViewController = [[ZBRefreshViewController alloc] init];
-                    [self presentViewController:refreshViewController animated:true completion:nil];
+                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        [self presentViewController:console animated:true completion:nil];
+                    });
                 }];
             }
         }];
