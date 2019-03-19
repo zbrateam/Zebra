@@ -11,6 +11,7 @@
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
+#import <ZBTabBarController.h>
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -77,6 +78,9 @@
         
         [self performPostActions:^(BOOL success) {
             [self->_queue clearQueue];
+            
+            ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
+            [tabController updatePackageTableView];
         }];
     }
     [self updateStatus:4];

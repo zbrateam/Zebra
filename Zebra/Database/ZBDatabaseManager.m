@@ -245,7 +245,7 @@
 - (int)numberOfPackagesInRepo:(int)repoID {
     int numberOfPackages = 0;
     
-    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(*) FROM PACKAGES WHERE REPOID = %d", repoID];
+    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(*) FROM PACKAGES WHERE REPOID = %d GROUP BY PACKAGE", repoID];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
@@ -256,7 +256,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        numberOfPackages = sqlite3_column_int(statement, 0);
+        numberOfPackages++;
     }
     sqlite3_close(database);
     
@@ -346,7 +346,7 @@
     }
     sqlite3_finalize(statement);
     
-    return (NSArray *)packages;
+    return (NSArray *)[self cleanUpDuplicatePackages:packages];
 }
 
 - (NSArray <ZBPackage *> *)installedPackages {
@@ -515,7 +515,7 @@
             }
         }
 
-        //NSArray *updateObjects = [self cleanUpDuplicatePackages:updates];
+        updates = [self cleanUpDuplicatePackages:updates];
         if (updates.count > 0) {
             completion(updates, true);
         }
@@ -548,6 +548,31 @@
     sqlite3_finalize(statement);
     
     return (NSArray*)otherVersions;
+}
+
+- (NSMutableArray *)cleanUpDuplicatePackages:(NSArray *)packageList {
+    NSMutableDictionary *packageVersionDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *cleanedPackageList = [packageList mutableCopy];
+    
+    for (ZBPackage *package in packageList) {
+        if (packageVersionDict[[package identifier]] == NULL) {
+            packageVersionDict[[package identifier]] = package;
+        }
+        
+        NSString *arrayVersion = [(ZBPackage *)packageVersionDict[[package identifier]] version];
+        NSString *packageVersion = [package version];
+        int result = verrevcmp([packageVersion UTF8String], [arrayVersion UTF8String]);
+        
+        if (result > 0) {
+            [cleanedPackageList removeObject:packageVersionDict[[package identifier]]];
+            packageVersionDict[[package identifier]] = package;
+        }
+        else if (result < 0) {
+            [cleanedPackageList removeObject:package];
+        }
+    }
+    
+    return cleanedPackageList;
 }
 
 @end

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL hasUpdates;
 @property (nonatomic, strong) NSArray *updates;
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion;
+- (void)updatePackageTableView;
 @end
 
 NS_ASSUME_NONNULL_END
