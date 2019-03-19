@@ -214,7 +214,7 @@
     
     ZBPackage *package;
     
-    if (indexPath.section == 0) {
+    if (needsSecondSection && indexPath.section == 0) {
         package = [updates objectAtIndex:indexPath.row];
     }
     else {
