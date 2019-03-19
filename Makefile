@@ -9,6 +9,7 @@ after-stage::
 	rm -rf Zebra.xcarchive
 	$(MAKE) -C Supersling
 	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/Applications/Zebra.app/
+	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 
 after-install::
 	install.exec "killall \"Zebra\"" || true
