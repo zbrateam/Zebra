@@ -13,6 +13,8 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
 #import <Database/ZBRefreshViewController.h>
+#import <Hyena/Hyena.h>
+#import <ZBAppDelegate.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -24,11 +26,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(repoStatusUpdate:) name:@"repoStatusUpdate" object:nil];
+    
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sources = [databaseManager sources];
     
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)repoStatusUpdate:(NSNotification *)notification {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(repoStatusUpdate:) withObject:notification waitUntilDone:NO];
+        return;
+    }
+    else {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        
+        if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
+            cell.backgroundColor = [UIColor redColor];
+        }
+        else {
+            cell.backgroundColor = [UIColor greenColor];
+        }
+    }
 }
 
 - (void)editMode:(id)sender {
@@ -50,9 +71,11 @@
 }
 
 - (IBAction)refreshSources:(id)sender {
-    ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
-    [tabController performBackgroundRefresh:true completion:^(BOOL success) {
-        [self.refreshControl endRefreshing];
+    NSString *sources = [ZBAppDelegate needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"sources" ofType:@"list"] : @"/var/lib/zebra/sources.list";
+    Hyena *hyena = [[Hyena alloc] initWithSourceListPath:sources];
+    [hyena downloadReposWithCompletion:^(BOOL success) {
+        [[self refreshControl] endRefreshing];
+        NSLog(@"Repo Refresh Complete");
     }];
 }
 

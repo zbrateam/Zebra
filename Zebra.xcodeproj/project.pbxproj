@@ -29,6 +29,8 @@
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89C7E49221B240D4003DB4E8 /* Parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* Parsel.c */; };
 		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
+		89D230162242768500837C3B /* Hyena.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D230152242768500837C3B /* Hyena.m */; };
+		89D230182242B27500837C3B /* sources.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* sources.list */; };
 		89DD26862201571900CD31A0 /* ZBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DD26852201571900CD31A0 /* ZBQueue.m */; };
 		89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8633921D5A1AA0081E485 /* ZBWebViewController.m */; };
 		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
@@ -84,6 +86,9 @@
 		89C7E49121B240D4003DB4E8 /* Parsel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Parsel.c; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* dpkgver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dpkgver.h; sourceTree = "<group>"; };
 		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
+		89D230142242768500837C3B /* Hyena.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hyena.h; sourceTree = "<group>"; };
+		89D230152242768500837C3B /* Hyena.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hyena.m; sourceTree = "<group>"; };
+		89D230172242B27500837C3B /* sources.list */ = {isa = PBXFileReference; lastKnownFileType = text; path = sources.list; sourceTree = "<group>"; };
 		89DD26842201571900CD31A0 /* ZBQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueue.h; sourceTree = "<group>"; };
 		89DD26852201571900CD31A0 /* ZBQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueue.m; sourceTree = "<group>"; };
 		89DD26872201576500CD31A0 /* ZBQueueType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueType.h; sourceTree = "<group>"; };
@@ -188,6 +193,7 @@
 				89C7E48F21B23DB1003DB4E8 /* Installed.pack */,
 				8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release */,
 				8991FF9E21B21492004FCE23 /* BigBoss.pack */,
+				89D230172242B27500837C3B /* sources.list */,
 			);
 			path = "Simulator Resources";
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
+				89D230132242766200837C3B /* Hyena */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				8991FFA321B21D26004FCE23 /* Database */,
 				893952FC220B5CE400995109 /* Console */,
@@ -257,6 +264,15 @@
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 			);
 			path = Zebra;
+			sourceTree = "<group>";
+		};
+		89D230132242766200837C3B /* Hyena */ = {
+			isa = PBXGroup;
+			children = (
+				89D230142242768500837C3B /* Hyena.h */,
+				89D230152242768500837C3B /* Hyena.m */,
+			);
+			path = Hyena;
 			sourceTree = "<group>";
 		};
 		89DD2683220156F800CD31A0 /* Queue */ = {
@@ -383,6 +399,7 @@
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
 				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
 				89E8638021D5AFAA0081E485 /* url@2x.png in Resources */,
+				89D230182242B27500837C3B /* sources.list in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				8944916C21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release in Resources */,
 				89E8638421D5AFAA0081E485 /* repos@3x.png in Resources */,
@@ -411,6 +428,7 @@
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				89CA2139224043D1008F09DB /* dpkgver.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
+				89D230162242768500837C3B /* Hyena.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,

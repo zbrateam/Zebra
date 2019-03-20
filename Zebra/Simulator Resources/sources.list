@@ -1,0 +1,19 @@
+deb https://apt.bingner.com/ ios/1561.00 main
+deb https://skitty.xyz/repo/ ./
+deb https://sparkdev.me/ ./
+deb https://rpetri.ch/repo/ ./
+deb http://apt.modmyi.com/ stable main
+deb http://cydia.zodttd.com/repo/cydia/ stable main
+deb http://ib-soft.net/cydia/beta/ ./
+deb https://creaturesurvive.github.io/ ./
+deb https://dunkston.github.io/repo/ ./
+deb https://repo.dynastic.co/ ./
+deb http://apt.thebigboss.org/repofiles/cydia/ stable main
+deb https://ryleyangus.com/repo/ ./
+deb http://xenpublic.incendo.ws/ ./
+deb https://repo.chariz.io/ ./
+deb https://parrotgeek.com/repo/ ./
+deb https://evynw.github.io/ ./
+deb https://repo.packix.com/ ./
+deb https://exqusic.com/ ./
+deb http://repo.nepeta.me/ ./
