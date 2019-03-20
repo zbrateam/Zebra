@@ -151,7 +151,15 @@
         //this is a mess, probably could do this beter latter
         NSString *schemeless = [[base absoluteString]stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
         NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        NSString *saveName = [NSString stringWithFormat:@"%@._%@", safe, filename];
+        NSString *saveName;
+        
+        if ([baseURL rangeOfString:@"dists"].location == NSNotFound) {
+             saveName = [NSString stringWithFormat:@"%@._%@", safe, filename];
+        }
+        else {
+             saveName = [NSString stringWithFormat:@"%@%@", safe, filename];
+        }
+        
         NSString *finalPath = [documentsPath stringByAppendingPathComponent:saveName];
         
         BOOL success;
