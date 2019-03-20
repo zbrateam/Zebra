@@ -121,7 +121,8 @@
 }
 
 - (void)downloadFromURL:(NSString *)baseURL file:(NSString *)filename row:(int)i completion:(void (^)(NSString *filename, BOOL success))completion {
-    NSURL *url = [[NSURL URLWithString:baseURL] URLByAppendingPathComponent:filename];
+    NSURL *base = [NSURL URLWithString:baseURL];
+    NSURL *url = [base URLByAppendingPathComponent:filename];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
@@ -147,11 +148,10 @@
     
     NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         //NSLog(@"Compltion: %@, Response %@, Error %@", location, response.URL, error);
-        NSString *lastPathLess = [[url absoluteString] stringByDeletingLastPathComponent];
-        NSString *schemeless = [lastPathLess stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-        NSString *slashless = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@""];
-        NSString *safe = [slashless stringByReplacingOccurrencesOfString:@":" withString:@""];
-        NSString *saveName = [NSString stringWithFormat:@"%@_%@", safe, filename];
+        //this is a mess, probably could do this beter latter
+        NSString *schemeless = [[base absoluteString]stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+        NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        NSString *saveName = [NSString stringWithFormat:@"%@._%@", safe, filename];
         NSString *finalPath = [documentsPath stringByAppendingPathComponent:saveName];
         
         BOOL success;
@@ -175,24 +175,28 @@
             
             bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
             if (bzError != BZ_OK) {
-                fprintf(stderr, "E: BZ2_bzReadOpen: %d\n", bzError);
+                fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
             }
+            fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
             
             while (bzError == BZ_OK) {
                 int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
                 if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
                     size_t nwritten = fwrite(buf, 1, nread, output);
                     if (nwritten != (size_t) nread) {
-                        fprintf(stderr, "E: short write\n");
+                        fprintf(stderr, "[Hyena] E: short write\n");
                     }
                 }
             }
             
             if (bzError != BZ_STREAM_END) {
-                fprintf(stderr, "E: bzip error after read: %d\n", bzError);
+                fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
             }
+            fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
             
-            BZ2_bzReadClose(&bzError, bzf);            
+            BZ2_bzReadClose(&bzError, bzf);
+            fclose(f);
+            fclose(output);
         }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @NO}];

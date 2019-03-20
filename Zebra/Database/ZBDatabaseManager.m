@@ -83,7 +83,7 @@
             NSString *packageFile = [NSString stringWithFormat:@"%@_Packages", baseFileName];
             if (![[NSFileManager defaultManager] fileExistsAtPath:packageFile]) {
                 //CHANGE THIS BACK
-                packageFile = [NSString stringWithFormat:@"%@main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
+                packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
             }
             NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
             importPackagesToDatabase([packageFile UTF8String], database, i);
