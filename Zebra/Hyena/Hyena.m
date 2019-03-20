@@ -9,6 +9,7 @@
 #import "Hyena.h"
 #import <UIKit/UIDevice.h>
 #import <sys/sysctl.h>
+#import <bzlib.h>
 
 @implementation Hyena
 
@@ -17,7 +18,6 @@
     
     if (self) {
         repos = [self reposFromSourcePath:trail];
-        NSLog(@"Init Repos: %@", repos);
     }
     
     return self;
@@ -60,36 +60,67 @@
     return urlComponents;
 }
 
-- (void)downloadReposWithCompletion:(void (^)(BOOL success))completion {
-    [self downloadRepos:repos completion:^(BOOL success) {
-        completion(success);
+- (void)downloadReposWithCompletion:(void (^)(NSArray *filenames, BOOL success))completion {
+    NSLog(@"Repos: %@", repos);
+    [self downloadRepos:repos completion:^(NSArray *filenames, BOOL success) {
+        NSLog(@"Filenames: %@", filenames);
+        completion(filenames, true);
     }];
 }
 
 //[[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
-- (void)downloadRepos:(NSArray *)repos completion:(void (^)(BOOL success))completion {
-    int i = 0;
-    NSLog(@"Download repos!!!! %@", repos);
-    for (NSArray *repo in repos) {
+- (void)downloadRepos:(NSArray *)repos completion:(void (^)(NSArray *filenames, BOOL success))completion {
+    
+    NSMutableArray *fnms = [NSMutableArray new];
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    for (int i = 0; i < repos.count; i++) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @YES}];
+        NSArray *repo = repos[i];
         
-        NSLog(@"Downloading %@", repo[0]);
+        //            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @YES}];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
+        NSLog(@"[Hyena] Downloading %@", repo[0]);
         if ([repo count] == 3) { //dist
-            [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] file:@"Release" row:i];
-            [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] file:@"Packages.bz2" row:i];
+            dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+                dispatch_group_enter(downloadGroup);
+                [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] file:@"Release" row:i completion:^(NSString *releaseFilename, BOOL success) {
+                    [fnms addObject:releaseFilename];
+                    [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
+                        NSLog(@"[Hyena] Completed %@", repo[0]);
+                        
+                        dispatch_group_leave(downloadGroup);
+                    }];
+                }];
+            });
         }
         else { //reg
-            [self downloadFromURL:repo[0] file:@"Release" row:i];
-            [self downloadFromURL:repo[0] file:@"Packages.bz2" row:i];
+            dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+                dispatch_group_enter(downloadGroup);
+                [self downloadFromURL:repo[0] file:@"Release" row:i completion:^(NSString *releaseFilename, BOOL success) {
+                    [fnms addObject:releaseFilename];
+                    [self downloadFromURL:repo[0] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
+                        NSLog(@"[Hyena] Completed %@", repo[0]);
+                        
+                        dispatch_group_leave(downloadGroup);
+                    }];
+                }];
+            });
         }
-        NSLog(@"Done %@", repo[0]);
-        i++;
     }
-    completion(true);
+    
+    dispatch_group_wait(downloadGroup, DISPATCH_TIME_FOREVER);
+//    dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+        NSLog(@"[Hyena] Done");
+        completion(fnms, true);
+//    });
 }
 
-- (void)downloadFromURL:(NSString *)baseURL file:(NSString *)filename row:(int)i {
+- (void)downloadFromURL:(NSString *)baseURL file:(NSString *)filename row:(int)i completion:(void (^)(NSString *filename, BOOL success))completion {
     NSURL *url = [[NSURL URLWithString:baseURL] URLByAppendingPathComponent:filename];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
@@ -115,8 +146,12 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        
-        NSString *saveName = [NSString stringWithFormat:@"%@_%@", [[url absoluteString] stringByReplacingOccurrencesOfString:@"/" withString:@"~"], filename];
+        //NSLog(@"Compltion: %@, Response %@, Error %@", location, response.URL, error);
+        NSString *lastPathLess = [[url absoluteString] stringByDeletingLastPathComponent];
+        NSString *schemeless = [lastPathLess stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+        NSString *slashless = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        NSString *safe = [slashless stringByReplacingOccurrencesOfString:@":" withString:@""];
+        NSString *saveName = [NSString stringWithFormat:@"%@_%@", safe, filename];
         NSString *finalPath = [documentsPath stringByAppendingPathComponent:saveName];
         
         BOOL success;
@@ -129,7 +164,39 @@
         success = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
         NSAssert(success, @"moveItemAtURL error: %@", fileManagerError);
         
-       [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @NO}];
+        if ([[filename pathExtension] isEqual:@"bz2"]) {
+            NSLog(@"Location: %@", finalPath);
+            FILE *f = fopen([finalPath UTF8String], "r");
+            FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
+            
+            int bzError;
+            BZFILE *bzf;
+            char buf[4096];
+            
+            bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
+            if (bzError != BZ_OK) {
+                fprintf(stderr, "E: BZ2_bzReadOpen: %d\n", bzError);
+            }
+            
+            while (bzError == BZ_OK) {
+                int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
+                if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
+                    size_t nwritten = fwrite(buf, 1, nread, output);
+                    if (nwritten != (size_t) nread) {
+                        fprintf(stderr, "E: short write\n");
+                    }
+                }
+            }
+            
+            if (bzError != BZ_STREAM_END) {
+                fprintf(stderr, "E: bzip error after read: %d\n", bzError);
+            }
+            
+            BZ2_bzReadClose(&bzError, bzf);            
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @NO}];
+        completion(finalPath, true);
     }];
     
     [downloadTask resume];

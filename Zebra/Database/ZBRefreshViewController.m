@@ -36,6 +36,10 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
+    
+    if (str == NULL)
+        return;
+    
     UIColor *color;
     UIFont *font;
     switch(level) {

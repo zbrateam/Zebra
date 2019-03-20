@@ -71,12 +71,13 @@
 }
 
 - (IBAction)refreshSources:(id)sender {
-    NSString *sources = [ZBAppDelegate needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"sources" ofType:@"list"] : @"/var/lib/zebra/sources.list";
-    Hyena *hyena = [[Hyena alloc] initWithSourceListPath:sources];
-    [hyena downloadReposWithCompletion:^(BOOL success) {
-        [[self refreshControl] endRefreshing];
-        NSLog(@"Repo Refresh Complete");
-    }];
+//    NSString *sources = [ZBAppDelegate needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"sources" ofType:@"list"] : @"/var/lib/zebra/sources.list";
+//    Hyena *hyena = [[Hyena alloc] initWithSourceListPath:sources];
+//    [hyena downloadReposWithCompletion:^(BOOL success) {
+//        [[self refreshControl] endRefreshing];
+//        NSLog(@"Repo Refresh Complete");
+//    }];
+    NSLog(@"Not feeling up to it right now, sorry.");
 }
 
 - (void)addSource:(id)sender {
