@@ -59,12 +59,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Updating Repositories...\n"}];
     
     NSString *sourcePath = [ZBAppDelegate needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"sources" ofType:@"list"] : @"/var/lib/zebra/sources.list";
+    NSDate *methodStart = [NSDate date];
     Hyena *hyena = [[Hyena alloc] initWithSourceListPath:sourcePath];
     [hyena downloadReposWithCompletion:^(NSArray *fileNames, BOOL success) {
         NSLog(@"[Hyena] Update Complete.");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"APT Repository Update Complete.\n"}];
-        
-        NSDate *methodStart = [NSDate date];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
@@ -75,7 +74,7 @@
         sqlite3_exec(database, "DELETE FROM REPOS; DELETE FROM PACKAGES", NULL, NULL, NULL);
         int i = 1;
         for (NSString *path in fileNames) {
-            NSLog(@"[Zebra] Repo: %@ %d", path, i);
+//            NSLog(@"[Zebra] Repo: %@ %d", path, i);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
             importRepoToDatabase([path UTF8String], database, i);
             
@@ -85,14 +84,14 @@
                 //CHANGE THIS BACK
                 packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
             }
-            NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
+//            NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
             importPackagesToDatabase([packageFile UTF8String], database, i);
             i++;
         }
         sqlite3_close(database);
         NSDate *methodFinish = [NSDate date];
         NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-        NSLog(@"[Zebra] Time to parse and import %d repos = %f", i - 1, executionTime);
+        NSLog(@"[Zebra] Time to download, parse, and import %d repos = %f", i - 1, executionTime);
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
         
         completion(true);

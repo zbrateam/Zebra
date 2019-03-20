@@ -18,3 +18,4 @@ deb https://repo.packix.com/ ./
 deb https://exqusic.com/ ./
 deb http://repo.nepeta.me/ ./
 deb https://xtm3x.github.io/repo/ ./
+deb https://xtm3x.github.io/legacy/ ./

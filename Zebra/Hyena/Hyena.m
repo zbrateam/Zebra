@@ -61,9 +61,9 @@
 }
 
 - (void)downloadReposWithCompletion:(void (^)(NSArray *filenames, BOOL success))completion {
-    NSLog(@"Repos: %@", repos);
+//    NSLog(@"Repos: %@", repos);
     [self downloadRepos:repos completion:^(NSArray *filenames, BOOL success) {
-        NSLog(@"Filenames: %@", filenames);
+//        NSLog(@"Filenames: %@", filenames);
         completion(filenames, true);
     }];
 }
@@ -80,7 +80,7 @@
         //            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @YES}];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
-        NSLog(@"[Hyena] Downloading %@", repo[0]);
+//        NSLog(@"[Hyena] Downloading %@", repo[0]);
         if ([repo count] == 3) { //dist
             dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
@@ -89,7 +89,7 @@
                     [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
-                        NSLog(@"[Hyena] Completed %@", repo[0]);
+//                        NSLog(@"[Hyena] Completed %@", repo[0]);
                         
                         dispatch_group_leave(downloadGroup);
                     }];
@@ -104,7 +104,7 @@
                     [self downloadFromURL:repo[0] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
-                        NSLog(@"[Hyena] Completed %@", repo[0]);
+//                        NSLog(@"[Hyena] Completed %@", repo[0]);
                         
                         dispatch_group_leave(downloadGroup);
                     }];
@@ -173,7 +173,7 @@
         NSAssert(success, @"moveItemAtURL error: %@", fileManagerError);
         
         if ([[filename pathExtension] isEqual:@"bz2"]) {
-            NSLog(@"Location: %@", finalPath);
+//            NSLog(@"Location: %@", finalPath);
             FILE *f = fopen([finalPath UTF8String], "r");
             FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
             
@@ -185,7 +185,6 @@
             if (bzError != BZ_OK) {
                 fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
             }
-            fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
             
             while (bzError == BZ_OK) {
                 int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
@@ -200,7 +199,6 @@
             if (bzError != BZ_STREAM_END) {
                 fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
             }
-            fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
             
             BZ2_bzReadClose(&bzError, bzf);
             fclose(f);
