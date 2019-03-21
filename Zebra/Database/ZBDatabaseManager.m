@@ -105,60 +105,6 @@
     return repoID + 1;
 }
 
-//- (void)fullImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
-//    //Refresh repos
-//
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
-//    [self fullRemoteImport:^(BOOL success) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Local Packages...\n"}];
-//        [self fullLocalImport:^(BOOL success) {
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Done.\n"}];
-//            [self getPackagesThatNeedUpdates:^(NSArray <ZBPackage *> *updateObjects, BOOL has) {
-//                if (has) {
-//                    NSLog(@"[Zebra] Has %d Updates!", (int)[updateObjects count]);
-//                }
-//                completion(true, updateObjects, has);
-//            }];
-//        }];
-//    }];
-//}
-//
-//- (void)partialImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
-//    [self fullImport:^(BOOL success, NSArray *updates, BOOL hasUpdates) {
-//        completion(success, updates, hasUpdates);
-//    }];
-//}
-
-////Imports packages from repositories located in /var/lib/zebra/lists
-//- (void)fullRemoteImport:(void (^)(BOOL success))completion {
-//
-//        sqlite3_exec(database, "DELETE FROM REPOS; DELETE FROM PACKAGES", NULL, NULL, NULL);
-//        int i = 1;
-//        for (NSString *path in fileNames) {
-////            NSLog(@"[Zebra] Repo: %@ %d", path, i);
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
-//            importRepoToDatabase([path UTF8String], database, i);
-//
-//            NSString *baseFileName = [path stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-//            NSString *packageFile = [NSString stringWithFormat:@"%@_Packages", baseFileName];
-//            if (![[NSFileManager defaultManager] fileExistsAtPath:packageFile]) {
-//                //CHANGE THIS BACK
-//                packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
-//            }
-////            NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
-//            importPackagesToDatabase([packageFile UTF8String], database, i);
-//            i++;
-//        }
-//        sqlite3_close(database);
-//        NSDate *methodFinish = [NSDate date];
-//        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-//        NSLog(@"[Zebra] Time to download, parse, and import %d repos = %f", i - 1, executionTime);
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
-//
-//        completion(true);
-//    }];
-//}
-
 - (void)receivedData:(NSNotification *)notif {
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
@@ -204,64 +150,6 @@
     sqlite3_exec(database, sql, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
-    completion(true);
-}
-
-- (void)partialRemoteImport:(void (^)(BOOL success))completion {
-    NSTask *removeCacheTask = [[NSTask alloc] init];
-    [removeCacheTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
-    NSArray *rmArgs = [[NSArray alloc] initWithObjects: @"rm", @"-rf", @"/var/mobile/Library/Caches/xyz.willy.Zebra/lists", nil];
-    [removeCacheTask setArguments:rmArgs];
-    
-    [removeCacheTask launch];
-    [removeCacheTask waitUntilExit];
-    
-    NSTask *cpTask = [[NSTask alloc] init];
-    [cpTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
-    NSArray *cpArgs = [[NSArray alloc] initWithObjects: @"cp", @"-fR", @"/var/lib/zebra/lists", @"/var/mobile/Library/Caches/xyz.willy.Zebra/", nil];
-    [cpTask setArguments:cpArgs];
-    
-    [cpTask launch];
-    [cpTask waitUntilExit];
-    
-    NSTask *refreshTask = [[NSTask alloc] init];
-    [refreshTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
-    NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
-    [refreshTask setArguments:arguments];
-    
-    [refreshTask launch];
-    [refreshTask waitUntilExit];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-    
-    sqlite3 *database;
-    sqlite3_open([databasePath UTF8String], &database);
-    
-    NSArray *bill = [self billOfReposToUpdate];
-    for (ZBRepo *repo in bill) {
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Parsing %@\n", [repo baseFileName]]}];
-        NSString *release = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_Release", [repo baseFileName]];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:release]) {
-            release = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_main_binary-iphoneos-arm_Release", [repo baseFileName]]; //Do some funky package file with the default repos
-        }
-        NSLog(@"[Zebra] Repo: %@ %d", release, [repo repoID]);
-        updateRepoInDatabase([release UTF8String], database, [repo repoID]);
-            
-        NSString *baseFileName = [release stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-        NSString *packageFile = [NSString stringWithFormat:@"%@_Packages", baseFileName];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:packageFile]) {
-            packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
-        }
-        NSLog(@"[Zebra] Repo: %@ %d", packageFile, [repo repoID]);
-        updatePackagesInDatabase([packageFile UTF8String], database, [repo repoID]);
-    }
-    
-    NSLog(@"[Zebra] Populating installed database");
-    
-    NSDate *newUpdateDate = [NSDate date];
-    [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
-
     completion(true);
 }
 
