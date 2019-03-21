@@ -32,7 +32,6 @@
             NSLog(@"Create that bus...?");
             [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:nil];
         }
-        NSLog(@"Lists location: %@", lists);
         return lists;
     }
     else {
