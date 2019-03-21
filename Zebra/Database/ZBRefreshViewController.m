@@ -36,24 +36,28 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
+    
+    if (str == NULL)
+        return;
+    
     UIColor *color;
     UIFont *font;
     switch(level) {
         case ZBLogLevelDescript:
             color = [UIColor blackColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
             break;
         case ZBLogLevelInfo:
             color = [UIColor blackColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
             break;
         case ZBLogLevelError:
             color = [UIColor redColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
             break;
         case ZBLogLevelWarning:
             color = [UIColor yellowColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
             break;
         default:
             color = [UIColor whiteColor];
@@ -63,6 +67,11 @@
     NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
     
     [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+    
+    if (_consoleView.text.length > 0 ) {
+        NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
+        [_consoleView scrollRangeToVisible:bottom];
+    }
 }
 
 - (void)databaseStatusUpdate:(NSNotification *)notification {

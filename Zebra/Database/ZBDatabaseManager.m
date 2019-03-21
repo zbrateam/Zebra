@@ -14,6 +14,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Parsel/dpkgver.h>
+#import <Hyena/Hyena.h>
 
 @implementation ZBDatabaseManager
 
@@ -36,74 +37,24 @@
 }
 
 - (void)partialImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
-    if ([ZBAppDelegate needsSimulation]) {
-        [self fullImport:^(BOOL success, NSArray *updates, BOOL hasUpdates) {
-            completion(success, updates, hasUpdates);
-        }];
-    }
-    else {
-        NSLog(@"Beginning partial import of repos");
-        [self partialRemoteImport:^(BOOL success) {
-            NSLog(@"Done.");
-            [self updateEssentials:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
-                completion(success, updates, hasUpdates);
-            }];
-        }];
-    }
+    [self fullImport:^(BOOL success, NSArray *updates, BOOL hasUpdates) {
+        completion(success, updates, hasUpdates);
+    }];
 }
 
 //Imports packages from repositories located in /var/lib/zebra/lists
 - (void)fullRemoteImport:(void (^)(BOOL success))completion {
-    if ([ZBAppDelegate needsSimulation]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing sample BigBoss repo.\n"}];
-        NSArray *sourceLists = @[[[NSBundle mainBundle] pathForResource:@"apt.thebigboss.org_repofiles_cydia_dists_stable_._Release" ofType:@""]];
-        NSString *packageFile = [[NSBundle mainBundle] pathForResource:@"BigBoss" ofType:@"pack"];
-        
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-        NSLog(@"[Zebra] Database: %@", databasePath);
-        
-        sqlite3 *database;
-        sqlite3_open([databasePath UTF8String], &database);
-        
-        sqlite3_exec(database, "DELETE FROM REPOS; DELETE FROM PACKAGES", NULL, NULL, NULL);
-        int i = 1;
-        for (NSString *path in sourceLists) {
-            importRepoToDatabase([path UTF8String], database, i);
-            importPackagesToDatabase([packageFile UTF8String], database, i);
-            i++;
-        }
-        sqlite3_close(database);
-    }
-    else {
-        NSLog(@"[Zebra] APT Update");
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Updating APT Repositories...\n"}];
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-        NSArray *arguments = [[NSArray alloc] initWithObjects: @"apt-get", @"update", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", nil];
-        [task setArguments:arguments];
-        
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        
-        NSPipe *errorPipe = [[NSPipe alloc] init];
-        NSFileHandle *error = [errorPipe fileHandleForReading];
-        [error waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        
-        [task setStandardOutput:outputPipe];
-        [task setStandardError:errorPipe];
-        
-        [task launch];
-        [task waitUntilExit];
-        NSLog(@"[Zebra] Update Complete");
+    NSLog(@"[Hyena] Predatory.");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Updating Repositories...\n"}];
+    
+    NSString *sourcePath = [ZBAppDelegate needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"sources" ofType:@"list"] : @"/var/lib/zebra/sources.list";
+    NSDate *methodStart = [NSDate date];
+    Hyena *hyena = [[Hyena alloc] initWithSourceListPath:sourcePath];
+    [hyena downloadReposWithCompletion:^(NSArray *fileNames, BOOL success) {
+        NSLog(@"[Hyena] Update Complete.");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"APT Repository Update Complete.\n"}];
         
-        NSDate *methodStart = [NSDate date];
-        NSArray *sourceLists = [self managedSources];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Beginning to parse repos into Database.\n"}];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
         
@@ -112,27 +63,29 @@
         
         sqlite3_exec(database, "DELETE FROM REPOS; DELETE FROM PACKAGES", NULL, NULL, NULL);
         int i = 1;
-        for (NSString *path in sourceLists) {
-            NSLog(@"[Zebra] Repo: %@ %d", path, i);
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
+        for (NSString *path in fileNames) {
+//            NSLog(@"[Zebra] Repo: %@ %d", path, i);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
             importRepoToDatabase([path UTF8String], database, i);
             
             NSString *baseFileName = [path stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
             NSString *packageFile = [NSString stringWithFormat:@"%@_Packages", baseFileName];
             if (![[NSFileManager defaultManager] fileExistsAtPath:packageFile]) {
+                //CHANGE THIS BACK
                 packageFile = [NSString stringWithFormat:@"%@_main_binary-iphoneos-arm_Packages", baseFileName]; //Do some funky package file with the default repos
             }
-            NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
+//            NSLog(@"[Zebra] Packages: %@ %d", packageFile, i);
             importPackagesToDatabase([packageFile UTF8String], database, i);
             i++;
         }
         sqlite3_close(database);
         NSDate *methodFinish = [NSDate date];
         NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-        NSLog(@"[Zebra] Time to parse and import %d repos = %f", i - 1, executionTime);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
-    }
-    completion(true);
+        NSLog(@"[Zebra] Time to download, parse, and import %d repos = %f", i - 1, executionTime);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
+        
+        completion(true);
+    }];
 }
 
 - (void)receivedData:(NSNotification *)notif {

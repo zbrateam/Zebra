@@ -27,11 +27,11 @@
         UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
     }
     
-    [self performBackgroundRefresh:false completion:^(BOOL success) {
-        if (!success) {
-            NSLog(@"Error!");
-        }
-    }];
+//    [self performBackgroundRefresh:false completion:^(BOOL success) {
+//        if (!success) {
+//            NSLog(@"Error!");
+//        }
+//    }];
 }
 
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion {

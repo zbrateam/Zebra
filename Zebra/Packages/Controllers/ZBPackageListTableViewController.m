@@ -62,6 +62,7 @@
 }
 
 - (void)loadNextPackages {
+    int before = numberOfPackages;
     NSArray *nextPackages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:numberOfPackages];
     packages = [packages arrayByAddingObjectsFromArray:nextPackages];
     numberOfPackages = (int)packages.count;
@@ -69,7 +70,7 @@
     if (numberOfPackages > [self.tableView numberOfRowsInSection:0]) {
         needsExpansion = true;
         NSMutableArray *indexArray = [NSMutableArray new];
-        for (int i = numberOfPackages - 100; i < numberOfPackages; i++) {
+        for (int i = 0; i < numberOfPackages - before; i++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [indexArray addObject:indexPath];
         }
@@ -167,9 +168,9 @@
             cell.imageView.image = sectionImage;
         }
         
-        if (error != nil) {
-            NSLog(@"[Zebra] %@", error);
-        }
+//        if (error != nil) {
+//            NSLog(@"[Zebra] %@", error);
+//        }
     }
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
@@ -195,9 +196,9 @@
             cell.imageView.image = sectionImage;
         }
         
-        if (error != nil) {
-            NSLog(@"[Zebra] %@", error);
-        }
+//        if (error != nil) {
+//            NSLog(@"[Zebra] %@", error);
+//        }
     }
     
     CGSize itemSize = CGSizeMake(35, 35);

@@ -45,7 +45,7 @@
     self.tabBarController.tabBar.translucent = false;
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.applicationNameForUserAgent = @"iPhone/Zebra/BETA";
+    configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) ~ %@", PACKAGE_VERSION];
     
 //    WKUserContentController *controller = [[WKUserContentController alloc] init];
 //    [controller addScriptMessageHandler:self name:@"observe"];
