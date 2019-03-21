@@ -65,6 +65,7 @@
         NSLog(@"[Hyena] Update Complete.");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"APT Repository Update Complete.\n"}];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Beginning to parse repos into Database.\n"}];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
         
@@ -75,7 +76,7 @@
         int i = 1;
         for (NSString *path in fileNames) {
 //            NSLog(@"[Zebra] Repo: %@ %d", path, i);
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Parsing %@\n", path]}];
             importRepoToDatabase([path UTF8String], database, i);
             
             NSString *baseFileName = [path stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
@@ -92,7 +93,7 @@
         NSDate *methodFinish = [NSDate date];
         NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
         NSLog(@"[Zebra] Time to download, parse, and import %d repos = %f", i - 1, executionTime);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Imported %d repos in %f seconds\n", i - 1, executionTime]}];
         
         completion(true);
     }];
