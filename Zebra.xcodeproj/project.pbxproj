@@ -10,13 +10,11 @@
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
-		8944916C21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release in Resources */ = {isa = PBXBuildFile; fileRef = 8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBRepoManager.m */; };
 		896F11C321B231900017B581 /* ZBRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBRepo.m */; };
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
-		8991FF9F21B21493004FCE23 /* BigBoss.pack in Resources */ = {isa = PBXBuildFile; fileRef = 8991FF9E21B21492004FCE23 /* BigBoss.pack */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
 		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
@@ -53,7 +51,6 @@
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
-		8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apt.thebigboss.org_repofiles_cydia_dists_stable_._Release; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
@@ -65,7 +62,6 @@
 		8977B6922206424B00CBACBB /* ZBPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackage.h; sourceTree = "<group>"; };
 		8977B6932206424B00CBACBB /* ZBPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackage.m; sourceTree = "<group>"; };
 		8991FF9C21B2109E004FCE23 /* Parsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parsel.h; sourceTree = "<group>"; };
-		8991FF9E21B21492004FCE23 /* BigBoss.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BigBoss.pack; sourceTree = "<group>"; };
 		8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDatabaseManager.h; sourceTree = "<group>"; };
 		8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDatabaseManager.m; sourceTree = "<group>"; };
 		8997843F2242D25800C1138C /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
@@ -194,8 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				89C7E48F21B23DB1003DB4E8 /* Installed.pack */,
-				8944916B21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release */,
-				8991FF9E21B21492004FCE23 /* BigBoss.pack */,
 				89D230172242B27500837C3B /* sources.list */,
 			);
 			path = "Simulator Resources";
@@ -405,11 +399,9 @@
 				89E8638021D5AFAA0081E485 /* url@2x.png in Resources */,
 				89D230182242B27500837C3B /* sources.list in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
-				8944916C21B5A2C500DDDEF2 /* apt.thebigboss.org_repofiles_cydia_dists_stable_._Release in Resources */,
 				89E8638421D5AFAA0081E485 /* repos@3x.png in Resources */,
 				89E8638321D5AFAA0081E485 /* url@3x.png in Resources */,
 				89E8638221D5AFAA0081E485 /* home.html in Resources */,
-				8991FF9F21B21493004FCE23 /* BigBoss.pack in Resources */,
 				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */,
