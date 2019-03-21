@@ -34,6 +34,10 @@
     return self;
 }
 
+- (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
+}
+
 - (NSArray *)reposFromSourcePath:(NSString *)path {
     NSMutableArray *repos = [NSMutableArray new];
     
@@ -80,7 +84,7 @@
         
         NSArray *repo = repos[i];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
+        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
         if ([repo count] == 3) { //dist
             dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
@@ -92,7 +96,7 @@
                         if (packageFilename != NULL) {
                             [fnms[@"packages"] addObject:packageFilename];
                         }
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
+                        [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
                         dispatch_group_leave(downloadGroup);
                     }];
                 }];
@@ -109,7 +113,7 @@
                         if (packageFilename != NULL) {
                             [fnms[@"packages"] addObject:packageFilename];
                         }
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
+                        [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
                         dispatch_group_leave(downloadGroup);
                     }];
                 }];
