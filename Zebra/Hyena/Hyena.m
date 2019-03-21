@@ -77,8 +77,6 @@
         
         NSArray *repo = repos[i];
         
-        //            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @YES}];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
 //        NSLog(@"[Hyena] Downloading %@", repo[0]);
         if ([repo count] == 3) { //dist
@@ -205,7 +203,6 @@
             fclose(output);
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @NO}];
         completion(finalPath, true);
     }];
     
