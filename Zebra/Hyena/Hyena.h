@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray *repos;
 }
 - (id)initWithSourceListPath:(NSString *)trail;
-- (void)downloadReposWithCompletion:(void (^)(NSArray *filenames, BOOL success))completion;
+- (void)downloadReposWithCompletion:(void (^)(NSDictionary *fileUpdates, BOOL success))completion ignoreCache:(BOOL)ignore;
 @end
 
 NS_ASSUME_NONNULL_END

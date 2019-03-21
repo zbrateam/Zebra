@@ -72,10 +72,10 @@
                 }
             });
             ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-            [databaseManager partialImport:^(BOOL success, NSArray * _Nonnull up, BOOL has) {
-                [self setHasUpdates:has];
-                [self setUpdates:up];
-                [self updatePackageTableView];
+            [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
+//                [self setHasUpdates:has];
+//                [self setUpdates:up];
+//                [self updatePackageTableView];
                 [sourcesController tabBarItem].badgeValue = nil;
                 completion(true);
             }];

@@ -14,6 +14,16 @@
 
 @implementation Hyena
 
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        repos = [self reposFromSourcePath:[ZBAppDelegate sourceListLocation]];
+    }
+    
+    return self;
+}
+
 - (id)initWithSourceListPath:(NSString *)trail {
     self = [super init];
     
@@ -61,15 +71,10 @@
     return urlComponents;
 }
 
-- (void)downloadReposWithCompletion:(void (^)(NSArray *filenames, BOOL success))completion {
-    [self downloadRepos:repos completion:^(NSArray *filenames, BOOL success) {
-        completion(filenames, true);
-    }];
-}
-
-- (void)downloadRepos:(NSArray *)repos completion:(void (^)(NSArray *filenames, BOOL success))completion {
-    
-    NSMutableArray *fnms = [NSMutableArray new];
+- (void)downloadReposWithCompletion:(void (^)(NSDictionary *fileUpdates, BOOL success))completion ignoreCache:(BOOL)ignore {
+    NSMutableDictionary *fnms = [NSMutableDictionary new];
+    [fnms setObject:[NSMutableArray new] forKey:@"release"];
+    [fnms setObject:[NSMutableArray new] forKey:@"packages"];
     dispatch_group_t downloadGroup = dispatch_group_create();
     for (int i = 0; i < repos.count; i++) {
         
@@ -79,9 +84,14 @@
         if ([repo count] == 3) { //dist
             dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
-                [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] file:@"Release" row:i completion:^(NSString *releaseFilename, BOOL success) {
-                    [fnms addObject:releaseFilename];
-                    [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
+                [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
+                    if (releaseFilename != NULL) {
+                        [fnms[@"release"] addObject:releaseFilename];
+                    }
+                    [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
+                        if (packageFilename != NULL) {
+                            [fnms[@"packages"] addObject:packageFilename];
+                        }
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
                         dispatch_group_leave(downloadGroup);
                     }];
@@ -91,10 +101,14 @@
         else { //reg
             dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
-                [self downloadFromURL:repo[0] file:@"Release" row:i completion:^(NSString *releaseFilename, BOOL success) {
-                    [fnms addObject:releaseFilename];
-                    [self downloadFromURL:repo[0] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
-                        
+                [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
+                    if (releaseFilename != NULL) {
+                        [fnms[@"release"] addObject:releaseFilename];
+                    }
+                    [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
+                        if (packageFilename != NULL) {
+                            [fnms[@"packages"] addObject:packageFilename];
+                        }
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
                         dispatch_group_leave(downloadGroup);
                     }];
@@ -105,15 +119,11 @@
     
     dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
         NSLog(@"[Hyena] Done");
-        completion(fnms, true);
+        completion((NSDictionary *)fnms, true);
     });
 }
 
-- (void)downloadFromURL:(NSString *)baseURL file:(NSString *)filename row:(int)i completion:(void (^)(NSString *filename, BOOL success))completion {
-    NSURL *base = [NSURL URLWithString:baseURL];
-    NSURL *url = [base URLByAppendingPathComponent:filename];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
+- (NSDictionary *)generateHeadersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [[UIDevice currentDevice] identifierForVendor].UUIDString;
     
@@ -125,72 +135,93 @@
     
     NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
     
-    //@"If-Modified-Since": @"Tue, 19 Mar 2019 18:33:49 GMT, "
-    configuration.HTTPAdditionalHeaders = @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    if (path == NULL) {
+        return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    }
+    else {
+        NSError *fileError;
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
+        NSDate *date = fileError != nil ? [NSDate date] : [attributes fileModificationDate];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        [formatter setTimeZone:gmt];
+        [formatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
+        
+        NSString *modificationDate = [NSString stringWithFormat:@"%@ GMT", [formatter stringFromDate:date]];
+        
+        return @{@"If-Modified-Since": modificationDate, @"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    }
+}
+
+- (void)downloadFromURL:(NSString *)baseURL ignoreCache:(BOOL)ignore file:(NSString *)filename completion:(void (^)(NSString *filename, BOOL success))completion {
+    NSURL *base = [NSURL URLWithString:baseURL];
+    NSURL *url = [base URLByAppendingPathComponent:filename];
+    
+    NSString *listsPath = [ZBAppDelegate listsLocation];
+    NSString *schemeless = [[base absoluteString]stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+    NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    NSString *saveName = [NSString stringWithFormat:[baseURL rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+    NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [self generateHeadersForFile:ignore ? NULL : finalPath];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
-    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        //this is a mess, probably could do this beter latter
-        NSString *schemeless = [[base absoluteString]stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-        NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        NSString *saveName;
-        
-        if ([baseURL rangeOfString:@"dists"].location == NSNotFound) {
-             saveName = [NSString stringWithFormat:@"%@._%@", safe, filename];
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if ([httpResponse statusCode] == 304) {
+            NSLog(@"%@ hasn't been modified", url);
+            completion(NULL, true);
         }
         else {
-             saveName = [NSString stringWithFormat:@"%@%@", safe, filename];
-        }
-        
-        NSString *finalPath = [documentsPath stringByAppendingPathComponent:saveName];
-        
-        BOOL success;
-        NSError *fileManagerError;
-        if ([fileManager fileExistsAtPath:finalPath]) {
-            success = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
-            NSAssert(success, @"removeItemAtPath error: %@", fileManagerError);
-        }
-        
-        success = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
-        NSAssert(success, @"moveItemAtURL error: %@", fileManagerError);
-        
-        if ([[filename pathExtension] isEqual:@"bz2"]) {
-            FILE *f = fopen([finalPath UTF8String], "r");
-            FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
-            
-            int bzError;
-            BZFILE *bzf;
-            char buf[4096];
-            
-            bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
-            if (bzError != BZ_OK) {
-                fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
+            BOOL success;
+            NSError *fileManagerError;
+            if ([fileManager fileExistsAtPath:finalPath]) {
+                success = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
+                NSAssert(success, @"removeItemAtPath error: %@", fileManagerError);
             }
             
-            while (bzError == BZ_OK) {
-                int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
-                if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
-                    size_t nwritten = fwrite(buf, 1, nread, output);
-                    if (nwritten != (size_t) nread) {
-                        fprintf(stderr, "[Hyena] E: short write\n");
+            success = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
+            NSAssert(success, @"moveItemAtURL error: %@", fileManagerError);
+            
+            if ([[filename pathExtension] isEqual:@"bz2"]) {
+                FILE *f = fopen([finalPath UTF8String], "r");
+                FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
+                
+                int bzError;
+                BZFILE *bzf;
+                char buf[4096];
+                
+                bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
+                if (bzError != BZ_OK) {
+                    fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
+                }
+                
+                while (bzError == BZ_OK) {
+                    int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
+                    if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
+                        size_t nwritten = fwrite(buf, 1, nread, output);
+                        if (nwritten != (size_t) nread) {
+                            fprintf(stderr, "[Hyena] E: short write\n");
+                        }
                     }
                 }
+                
+                if (bzError != BZ_STREAM_END) {
+                    fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
+                }
+                
+                BZ2_bzReadClose(&bzError, bzf);
+                fclose(f);
+                fclose(output);
             }
             
-            if (bzError != BZ_STREAM_END) {
-                fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
-            }
-            
-            BZ2_bzReadClose(&bzError, bzf);
-            fclose(f);
-            fclose(output);
+            completion(finalPath, success);
         }
-        
-        completion(finalPath, true);
     }];
     
     [downloadTask resume];

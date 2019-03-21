@@ -21,11 +21,11 @@
     [super viewDidAppear:animated];
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager fullImport:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
+    [databaseManager updateDatabaseUsingCaching:false completion:^(BOOL success, NSError * _Nonnull error) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-        vc.hasUpdates = hasUpdates;
-        vc.updates = updates;
+//        vc.hasUpdates = hasUpdates;
+//        vc.updates = updates;
         [self presentViewController:vc animated:YES completion:nil];
     }];
 }

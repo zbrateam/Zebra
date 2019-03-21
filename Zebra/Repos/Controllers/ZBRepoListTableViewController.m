@@ -72,7 +72,7 @@
 
 - (IBAction)refreshSources:(id)sender {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager fullImport:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
+    [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
         [self.refreshControl endRefreshing];
     }];
 }
