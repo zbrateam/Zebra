@@ -147,6 +147,9 @@ void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
+    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING);";
+    sqlite3_exec(database, sql, NULL, 0, NULL);
+    
     char repo[6][256];
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
@@ -316,6 +319,9 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
+    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, REPOID INTEGER);";
+    sqlite3_exec(database, create, NULL, 0, NULL);
+    
     char sql[64];
     sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
     sqlite3_exec(database, sql, NULL, 0, NULL);
@@ -323,7 +329,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     
     char package[6][1024];
     while (fgets(line, sizeof(line), file)) {
-        if (strcmp(line, "\n") != 0) {
+        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
             char *info = strtok(line, "\n");
             
             multi_tok_t s = init();

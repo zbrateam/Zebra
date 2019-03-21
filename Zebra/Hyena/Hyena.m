@@ -86,7 +86,6 @@
         
         [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
         if ([repo count] == 3) { //dist
-            dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
                 [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
                     if (releaseFilename != NULL) {
@@ -94,16 +93,14 @@
                     }
                     [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
                         if (packageFilename != NULL) {
-                            [fnms[@"packages"] addObject:packageFilename];
+                            [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
                         }
                         [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
                         dispatch_group_leave(downloadGroup);
                     }];
                 }];
-            });
         }
         else { //reg
-            dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
                 [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
                     if (releaseFilename != NULL) {
@@ -111,13 +108,12 @@
                     }
                     [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
                         if (packageFilename != NULL) {
-                            [fnms[@"packages"] addObject:packageFilename];
+                            [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
                         }
                         [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
                         dispatch_group_leave(downloadGroup);
                     }];
                 }];
-            });
         }
     }
     
@@ -179,6 +175,7 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if ([httpResponse statusCode] == 304) {
             NSLog(@"%@ hasn't been modified", url);
+            [self postStatusUpdate:@"%@ hasn't been modified" atLevel:1];
             completion(NULL, true);
         }
         else {
@@ -222,6 +219,7 @@
                 BZ2_bzReadClose(&bzError, bzf);
                 fclose(f);
                 fclose(output);
+                
             }
             
             completion(finalPath, success);

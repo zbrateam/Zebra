@@ -19,16 +19,90 @@
 @implementation ZBDatabaseManager
 
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion {
-    NSLog(@"Updating Database from sources list");
+    [self postStatusUpdate:@"Updating Repositories\n" atLevel:1];
     Hyena *predator = [[Hyena alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
     [predator downloadReposWithCompletion:^(NSDictionary * _Nonnull fileUpdates, BOOL success) {
-        NSLog(@"[Hyena] Packages that need updating: %@", fileUpdates[@"packages"]);
-        NSLog(@"[Hyena] Release that need updating: %@", fileUpdates[@"release"]);
+        [self postStatusUpdate:@"Download Complete\n" atLevel:1];
+        
+        NSArray *releaseFiles = fileUpdates[@"release"];
+        NSArray *packageFiles = fileUpdates[@"packages"];
+        
+        [self postStatusUpdate:[NSString stringWithFormat:@"%d Release Files need to be updated\n", (int)[releaseFiles count]] atLevel:1];
+        [self postStatusUpdate:[NSString stringWithFormat:@"%d Package Files need to be updated\n", (int)[packageFiles count]] atLevel:1];
+        
+        NSString *databasePath = [ZBAppDelegate databaseLocation];
+        sqlite3 *database;
+        sqlite3_open([databasePath UTF8String], &database);
+        
+        for (NSString *releasePath in releaseFiles) {
+            NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
+            
+            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing release file %@\n", baseFileName] atLevel:0];
+            
+            int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
+            if (repoID == -1) { //Repo does not exist in database, create it.
+                repoID = [self nextRepoIDInDatabase:database];
+                importRepoToDatabase([releasePath UTF8String], database, repoID);
+            }
+            else {
+                updateRepoInDatabase([releasePath UTF8String], database, repoID);
+            }
+        }
+        
+        for (NSString *packagesPath in packageFiles) {
+            NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
+            baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
+            
+            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing package file %@\n", baseFileName] atLevel:0];
+            
+            int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
+            if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
+                NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
+                repoID = [self nextRepoIDInDatabase:database];
+                updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
+            }
+            else {
+                updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
+            }
+        }
+        
+        [self postStatusUpdate:@"Done!\n" atLevel:1];
+        completion(true, NULL);
+        
     } ignoreCache:!useCaching];
 }
 
 - (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
+}
+
+- (int)repoIDFromBaseFileName:(NSString *)bfn inDatabase:(sqlite3 *)database {
+    NSString *query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEFILENAME = \'%@\'", bfn];
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    int repoID = -1;
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        repoID = sqlite3_column_int(statement, 0);
+    }
+    
+    return repoID;
+}
+
+- (int)nextRepoIDInDatabase:(sqlite3 *)database {
+    NSString *query = @"SELECT REPOID FROM REPOS ORDER BY REPOID DESC LIMIT 1";
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    int repoID = -1;
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        repoID = sqlite3_column_int(statement, 0);
+    }
+    
+    if (repoID == -1)
+        repoID++;
+    
+    return repoID + 1;
 }
 
 //- (void)fullImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
@@ -57,22 +131,6 @@
 
 ////Imports packages from repositories located in /var/lib/zebra/lists
 //- (void)fullRemoteImport:(void (^)(BOOL success))completion {
-//    NSLog(@"[Hyena] Predatory.");
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Updating Repositories...\n"}];
-//
-//    NSString *sourcePath = [ZBAppDelegate needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"sources" ofType:@"list"] : @"/var/lib/zebra/sources.list";
-//    NSDate *methodStart = [NSDate date];
-//    Hyena *hyena = [[Hyena alloc] initWithSourceListPath:sourcePath];
-//    [hyena downloadReposWithCompletion:^(NSArray *fileNames, BOOL success) {
-//        NSLog(@"[Hyena] Update Complete.");
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"APT Repository Update Complete.\n"}];
-//
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Beginning to parse repos into Database.\n"}];
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-//
-//        sqlite3 *database;
-//        sqlite3_open([databasePath UTF8String], &database);
 //
 //        sqlite3_exec(database, "DELETE FROM REPOS; DELETE FROM PACKAGES", NULL, NULL, NULL);
 //        int i = 1;
