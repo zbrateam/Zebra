@@ -45,19 +45,19 @@
     switch(level) {
         case ZBLogLevelDescript:
             color = [UIColor blackColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
             break;
         case ZBLogLevelInfo:
             color = [UIColor blackColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
             break;
         case ZBLogLevelError:
             color = [UIColor redColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
             break;
         case ZBLogLevelWarning:
             color = [UIColor yellowColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+            font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
             break;
         default:
             color = [UIColor whiteColor];
