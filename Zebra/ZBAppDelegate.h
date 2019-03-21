@@ -10,6 +10,11 @@
 
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
++ (NSString *)documentsDirectory;
 + (BOOL)needsSimulation;
++ (NSString *)listsLocation;
++ (BOOL)listsExists;
++ (NSString *)sourceListLocation;
++ (NSString *)databaseLocation;
 @end
 

@@ -14,8 +14,45 @@
 
 @implementation ZBAppDelegate
 
++ (NSString *)documentsDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
+}
+
 + (BOOL)needsSimulation {
     return ![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Zebra.app/supersling"];
+}
+
++ (NSString *)listsLocation {
+    if ([self needsSimulation]) {
+        return [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
+    }
+    else {
+        return @"/var/lib/zebra/lists/";
+    }
+}
+
++ (BOOL)listsExists {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self sourceListLocation]];
+}
+
+
++ (NSString *)sourceListLocation {
+    if ([self needsSimulation]) {
+        return [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
+    }
+    else {
+        return @"/var/lib/zebra/sources.list";
+    }
+}
+
++ (NSString *)databaseLocation {
+    if ([self needsSimulation]) {
+        return [[self documentsDirectory] stringByAppendingPathComponent:@"zebra.db"];
+    }
+    else {
+        return @"/var/lib/zebra/database/zebra.db";
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

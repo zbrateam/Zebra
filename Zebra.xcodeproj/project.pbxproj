@@ -29,7 +29,7 @@
 		89C7E49221B240D4003DB4E8 /* Parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* Parsel.c */; };
 		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
 		89D230162242768500837C3B /* Hyena.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D230152242768500837C3B /* Hyena.m */; };
-		89D230182242B27500837C3B /* sources.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* sources.list */; };
+		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
 		89DD26862201571900CD31A0 /* ZBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DD26852201571900CD31A0 /* ZBQueue.m */; };
 		89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8633921D5A1AA0081E485 /* ZBWebViewController.m */; };
 		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
@@ -86,7 +86,7 @@
 		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
 		89D230142242768500837C3B /* Hyena.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hyena.h; sourceTree = "<group>"; };
 		89D230152242768500837C3B /* Hyena.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hyena.m; sourceTree = "<group>"; };
-		89D230172242B27500837C3B /* sources.list */ = {isa = PBXFileReference; lastKnownFileType = text; path = sources.list; sourceTree = "<group>"; };
+		89D230172242B27500837C3B /* default.list */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.list; sourceTree = "<group>"; };
 		89DD26842201571900CD31A0 /* ZBQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueue.h; sourceTree = "<group>"; };
 		89DD26852201571900CD31A0 /* ZBQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueue.m; sourceTree = "<group>"; };
 		89DD26872201576500CD31A0 /* ZBQueueType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueType.h; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				89C7E48F21B23DB1003DB4E8 /* Installed.pack */,
-				89D230172242B27500837C3B /* sources.list */,
+				89D230172242B27500837C3B /* default.list */,
 			);
 			path = "Simulator Resources";
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
 				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
 				89E8638021D5AFAA0081E485 /* url@2x.png in Resources */,
-				89D230182242B27500837C3B /* sources.list in Resources */,
+				89D230182242B27500837C3B /* default.list in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				89E8638421D5AFAA0081E485 /* repos@3x.png in Resources */,
 				89E8638321D5AFAA0081E485 /* url@3x.png in Resources */,
