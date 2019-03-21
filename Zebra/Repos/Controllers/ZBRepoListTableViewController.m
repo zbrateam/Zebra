@@ -173,7 +173,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     
-    NSLog(@"[Zebra] Icon URL: %@", [source iconURL]);
+//    NSLog(@"[Zebra] Icon URL: %@", [source iconURL]);
     
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
