@@ -25,7 +25,15 @@
 
 + (NSString *)listsLocation {
     if ([self needsSimulation]) {
-        return [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
+        NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
+        BOOL dirExsits;
+        [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
+        if (!dirExsits) {
+            NSLog(@"Create that bus...?");
+            [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:nil];
+        }
+        NSLog(@"Lists location: %@", lists);
+        return lists;
     }
     else {
         return @"/var/lib/zebra/lists/";
@@ -39,7 +47,13 @@
 
 + (NSString *)sourceListLocation {
     if ([self needsSimulation]) {
-        return [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
+        NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
+            NSLog(@"Move that bus!");
+            [[NSFileManager defaultManager] moveItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:nil];
+        }
+        NSLog(@"Lists location: %@", lists);
+        return lists;
     }
     else {
         return @"/var/lib/zebra/sources.list";
