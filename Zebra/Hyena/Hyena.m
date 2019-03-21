@@ -10,6 +10,7 @@
 #import <UIKit/UIDevice.h>
 #import <sys/sysctl.h>
 #import <bzlib.h>
+#import <ZBAppDelegate.h>
 
 @implementation Hyena
 
@@ -61,14 +62,11 @@
 }
 
 - (void)downloadReposWithCompletion:(void (^)(NSArray *filenames, BOOL success))completion {
-//    NSLog(@"Repos: %@", repos);
     [self downloadRepos:repos completion:^(NSArray *filenames, BOOL success) {
-//        NSLog(@"Filenames: %@", filenames);
         completion(filenames, true);
     }];
 }
 
-//[[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": @"Importing Remote APT Repositories...\n"}];
 - (void)downloadRepos:(NSArray *)repos completion:(void (^)(NSArray *filenames, BOOL success))completion {
     
     NSMutableArray *fnms = [NSMutableArray new];
@@ -78,17 +76,13 @@
         NSArray *repo = repos[i];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
-//        NSLog(@"[Hyena] Downloading %@", repo[0]);
         if ([repo count] == 3) { //dist
             dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
                 dispatch_group_enter(downloadGroup);
                 [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] file:@"Release" row:i completion:^(NSString *releaseFilename, BOOL success) {
                     [fnms addObject:releaseFilename];
                     [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
-                        
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
-//                        NSLog(@"[Hyena] Completed %@", repo[0]);
-                        
                         dispatch_group_leave(downloadGroup);
                     }];
                 }];
@@ -102,8 +96,6 @@
                     [self downloadFromURL:repo[0] file:@"Packages.bz2" row:i completion:^(NSString *filename, BOOL success) {
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Completed %@\n", repo[0]]}];
-//                        NSLog(@"[Hyena] Completed %@", repo[0]);
-                        
                         dispatch_group_leave(downloadGroup);
                     }];
                 }];
@@ -111,7 +103,6 @@
         }
     }
     
-//    dispatch_group_wait(downloadGroup, DISPATCH_TIME_FOREVER);
     dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
         NSLog(@"[Hyena] Done");
         completion(fnms, true);
@@ -125,8 +116,6 @@
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [[UIDevice currentDevice] identifierForVendor].UUIDString;
-    //    CFStringRef youDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    //    NSString *udid = (__bridge NSString *)youDID;
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -145,7 +134,6 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        //NSLog(@"Compltion: %@, Response %@, Error %@", location, response.URL, error);
         //this is a mess, probably could do this beter latter
         NSString *schemeless = [[base absoluteString]stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
         NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
@@ -171,7 +159,6 @@
         NSAssert(success, @"moveItemAtURL error: %@", fileManagerError);
         
         if ([[filename pathExtension] isEqual:@"bz2"]) {
-//            NSLog(@"Location: %@", finalPath);
             FILE *f = fopen([finalPath UTF8String], "r");
             FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
             
