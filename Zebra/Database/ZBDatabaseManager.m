@@ -37,20 +37,9 @@
 }
 
 - (void)partialImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion {
-    if ([ZBAppDelegate needsSimulation]) {
-        [self fullImport:^(BOOL success, NSArray *updates, BOOL hasUpdates) {
-            completion(success, updates, hasUpdates);
-        }];
-    }
-    else {
-        NSLog(@"Beginning partial import of repos");
-        [self partialRemoteImport:^(BOOL success) {
-            NSLog(@"Done.");
-            [self updateEssentials:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
-                completion(success, updates, hasUpdates);
-            }];
-        }];
-    }
+    [self fullImport:^(BOOL success, NSArray *updates, BOOL hasUpdates) {
+        completion(success, updates, hasUpdates);
+    }];
 }
 
 //Imports packages from repositories located in /var/lib/zebra/lists
