@@ -79,7 +79,7 @@
         
         //            [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"rowID": @(i), @"busy": @YES}];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @1, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": [NSString stringWithFormat:@"Downloading %@\n", repo[0]]}];
 //        NSLog(@"[Hyena] Downloading %@", repo[0]);
         if ([repo count] == 3) { //dist
             dispatch_group_async(downloadGroup,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
@@ -113,11 +113,11 @@
         }
     }
     
-    dispatch_group_wait(downloadGroup, DISPATCH_TIME_FOREVER);
-//    dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+//    dispatch_group_wait(downloadGroup, DISPATCH_TIME_FOREVER);
+    dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
         NSLog(@"[Hyena] Done");
         completion(fnms, true);
-//    });
+    });
 }
 
 - (void)downloadFromURL:(NSString *)baseURL file:(NSString *)filename row:(int)i completion:(void (^)(NSString *filename, BOOL success))completion {

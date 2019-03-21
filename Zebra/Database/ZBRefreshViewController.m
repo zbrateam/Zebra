@@ -67,6 +67,11 @@
     NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
     
     [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+    
+    if (_consoleView.text.length > 0 ) {
+        NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
+        [_consoleView scrollRangeToVisible:bottom];
+    }
 }
 
 - (void)databaseStatusUpdate:(NSNotification *)notification {
