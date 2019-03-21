@@ -73,7 +73,7 @@
 - (IBAction)refreshSources:(id)sender {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
-        [self.refreshControl endRefreshing];
+        [self.refreshControl performSelectorOnMainThread:@selector(endRefreshing) withObject:NULL waitUntilDone:false];
     }];
 }
 
