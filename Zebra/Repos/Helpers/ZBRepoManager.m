@@ -75,6 +75,7 @@
     sysctlbyname("hw.machine", answer, &size, NULL, 0);
     
     NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
+    free(answer);
     
     [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
