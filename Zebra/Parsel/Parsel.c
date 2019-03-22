@@ -135,6 +135,8 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
+    sqlite3_finalize(insertStatement);
+    
     repo[0][0] = 0;
     repo[1][0] = 0;
     repo[2][0] = 0;
@@ -216,6 +218,8 @@ void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID) {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
+    sqlite3_finalize(insertStatement);
+    
     repo[0][0] = 0;
     repo[1][0] = 0;
     repo[2][0] = 0;
@@ -293,6 +297,8 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 else {
                     printf("database error: %s", sqlite3_errmsg(database));
                 }
+                
+                sqlite3_finalize(insertStatement);
                 
                 package[0][0] = 0;
                 package[1][0] = 0;
@@ -387,6 +393,8 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                 else {
                     printf("database error: %s", sqlite3_errmsg(database));
                 }
+                
+                sqlite3_finalize(insertStatement);
                 
                 package[0][0] = 0;
                 package[1][0] = 0;

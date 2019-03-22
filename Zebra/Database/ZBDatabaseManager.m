@@ -67,6 +67,7 @@
         }
         
         [self postStatusUpdate:@"Done!\n" atLevel:1];
+        sqlite3_close(database);
         completion(true, NULL);
         
     } ignoreCache:!useCaching];
@@ -85,6 +86,7 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         repoID = sqlite3_column_int(statement, 0);
     }
+    sqlite3_finalize(statement);
     
     return repoID;
 }
@@ -101,6 +103,8 @@
     
     if (repoID == -1)
         repoID++;
+    
+    sqlite3_finalize(statement);
     
     return repoID + 1;
 }
@@ -170,6 +174,7 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         numberOfPackages++;
     }
+    sqlite3_finalize(statement);
     sqlite3_close(database);
     
     return numberOfPackages;
@@ -229,6 +234,7 @@
         [sources addObject:source];
     }
     sqlite3_finalize(statement);
+    sqlite3_close(database);
 
     return (NSArray*)sources;
 }
@@ -257,6 +263,7 @@
         [packages addObject:package];
     }
     sqlite3_finalize(statement);
+    sqlite3_close(database);
     
     return (NSArray *)[self cleanUpDuplicatePackages:packages];
 }
@@ -285,6 +292,7 @@
         [installedPackages addObject:package];
     }
     sqlite3_finalize(statement);
+    sqlite3_close(database);
     
     return (NSArray*)installedPackages;
 }
@@ -322,6 +330,7 @@
         [searchResults addObject:package];
     }
     sqlite3_finalize(statement);
+    sqlite3_close(database);
     
     return searchResults;
 }
@@ -382,6 +391,7 @@
         sqlite3_step(statement);
     }
     
+    sqlite3_finalize(statement);
     sqlite3_close(database);
 }
 
@@ -428,6 +438,7 @@
         }
 
         updates = [self cleanUpDuplicatePackages:updates];
+        sqlite3_close(database);
         if (updates.count > 0) {
             completion(updates, true);
         }
