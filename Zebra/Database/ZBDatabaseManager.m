@@ -66,7 +66,9 @@
         
         [self postStatusUpdate:@"Done!\n" atLevel:1];
         sqlite3_close(database);
-        completion(true, NULL);
+        [self updateEssentials:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
+            completion(success, NULL);
+        }];
         
     } ignoreCache:!useCaching];
 }
