@@ -179,8 +179,7 @@
     NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if ([httpResponse statusCode] == 304) {
-            NSLog(@"%@ hasn't been modified", url);
-            [self postStatusUpdate:@"%@ hasn't been modified" atLevel:1];
+            [self postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified\n", url] atLevel:1];
             completion(NULL, true);
         }
         else {

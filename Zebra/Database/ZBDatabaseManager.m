@@ -27,8 +27,8 @@
         NSArray *releaseFiles = fileUpdates[@"release"];
         NSArray *packageFiles = fileUpdates[@"packages"];
         
-        [self postStatusUpdate:[NSString stringWithFormat:@"%d Release Files need to be updated\n", (int)[releaseFiles count]] atLevel:1];
-        [self postStatusUpdate:[NSString stringWithFormat:@"%d Package Files need to be updated\n", (int)[packageFiles count]] atLevel:1];
+        [self postStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:1];
+        [self postStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:1];
         
         NSString *databasePath = [ZBAppDelegate databaseLocation];
         sqlite3 *database;
@@ -37,7 +37,7 @@
         for (NSString *releasePath in releaseFiles) {
             NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
             
-            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing release file %@\n", baseFileName] atLevel:0];
+//            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
             if (repoID == -1) { //Repo does not exist in database, create it.
@@ -53,7 +53,7 @@
             NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
             baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
             
-            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing package file %@\n", baseFileName] atLevel:0];
+            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
             if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
