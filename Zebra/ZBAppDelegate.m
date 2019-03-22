@@ -24,19 +24,24 @@
 }
 
 + (NSString *)listsLocation {
-    if ([self needsSimulation]) {
+//    if ([self needsSimulation]) {
         NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
         BOOL dirExsits;
         [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
         if (!dirExsits) {
             NSLog(@"Create that bus...?");
-            [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:nil];
+            NSError *error;
+            [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
+            
+            if (error != nil) {
+                NSLog(@"Error while creating bus: %@", error);
+            }
         }
         return lists;
-    }
-    else {
-        return @"/var/lib/zebra/lists/";
-    }
+//    }
+//    else {
+//        return @"/var/lib/zebra/lists/";
+//    }
 }
 
 + (BOOL)listsExists {
@@ -45,18 +50,22 @@
 
 
 + (NSString *)sourceListLocation {
-    if ([self needsSimulation]) {
+//    if ([self needsSimulation]) {
         NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
         if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
             NSLog(@"Move that bus!");
-            [[NSFileManager defaultManager] moveItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:nil];
+            NSError *error;
+            [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
+            
+            if (error != nil) {
+                NSLog(@"Error while moving bus: %@", error);
+            }
         }
-        NSLog(@"Lists location: %@", lists);
         return lists;
-    }
-    else {
-        return @"/var/lib/zebra/sources.list";
-    }
+//    }
+//    else {
+//        return @"/var/lib/zebra/sources.list";
+//    }
 }
 
 + (NSString *)databaseLocation {

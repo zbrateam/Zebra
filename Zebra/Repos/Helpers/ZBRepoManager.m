@@ -210,7 +210,7 @@
     NSString *cacheDirectory = [paths objectAtIndex:0];
     NSString *filePath;
     if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
-        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.kist"];
+        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
     else
         filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.Zebra/sources.list"];
     

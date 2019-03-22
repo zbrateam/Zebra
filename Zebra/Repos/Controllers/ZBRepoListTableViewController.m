@@ -40,8 +40,17 @@
         [self performSelectorOnMainThread:@selector(repoStatusUpdate:) withObject:notification waitUntilDone:NO];
         return;
     }
+    else if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {
+        for (int i = 0; i < [self tableView:self.tableView numberOfRowsInSection:0]; i++) {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            
+            [UIView animateWithDuration:0.7 animations:^{
+                cell.backgroundColor = [UIColor whiteColor];
+            }];
+        }
+    }
     else {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[[[notification userInfo] objectForKey:@"row"] integerValue] inSection:0]];
         
         if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
             cell.backgroundColor = [UIColor redColor];
@@ -163,6 +172,7 @@
     ZBRepo *source = [sources objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [source origin];
+    cell.backgroundColor = [UIColor whiteColor];
     if ([source isSecure]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
     }

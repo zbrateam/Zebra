@@ -86,39 +86,44 @@
         
         [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
         if ([repo count] == 3) { //dist
-                dispatch_group_enter(downloadGroup);
-                [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
-                    if (releaseFilename != NULL) {
-                        [fnms[@"release"] addObject:releaseFilename];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
+            dispatch_group_enter(downloadGroup);
+            [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
+                if (releaseFilename != NULL) {
+                    [fnms[@"release"] addObject:releaseFilename];
+                }
+                [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
+                    if (packageFilename != NULL) {
+                        [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
                     }
-                    [self downloadFromURL:[NSString stringWithFormat:@"%@dists/%@/main/binary-iphoneos-arm/", repo[0], repo[1]] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
-                        if (packageFilename != NULL) {
-                            [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
-                        }
-                        [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
-                        dispatch_group_leave(downloadGroup);
-                    }];
+                    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @FALSE, @"row": @(i)}];
+                    dispatch_group_leave(downloadGroup);
                 }];
+            }];
         }
         else { //reg
-                dispatch_group_enter(downloadGroup);
-                [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
-                    if (releaseFilename != NULL) {
-                        [fnms[@"release"] addObject:releaseFilename];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
+            dispatch_group_enter(downloadGroup);
+            [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Release" completion:^(NSString *releaseFilename, BOOL success) {
+                if (releaseFilename != NULL) {
+                    [fnms[@"release"] addObject:releaseFilename];
+                }
+                [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
+                    if (packageFilename != NULL) {
+                        [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
                     }
-                    [self downloadFromURL:repo[0] ignoreCache:ignore file:@"Packages.bz2" completion:^(NSString *packageFilename, BOOL success) {
-                        if (packageFilename != NULL) {
-                            [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
-                        }
-                        [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
-                        dispatch_group_leave(downloadGroup);
-                    }];
+                    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @FALSE, @"row": @(i)}];
+                    dispatch_group_leave(downloadGroup);
                 }];
+            }];
         }
     }
     
     dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
         NSLog(@"[Hyena] Done");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"finished": @TRUE}];
         completion((NSDictionary *)fnms, true);
     });
 }
