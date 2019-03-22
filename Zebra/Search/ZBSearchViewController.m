@@ -77,6 +77,27 @@
     cell.textLabel.text = package.name;
     cell.detailTextLabel.text = package.desc;
     
+    NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    if ([section characterAtIndex:[section length] - 1] == ')') {
+        NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
+        section = [items[0] substringToIndex:[items[0] length] - 1];
+    }
+    
+    NSString *iconPath = [NSString stringWithFormat:@"/Applications/Cydia.app/Sections/%@.png", section];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:iconPath options:0 error:&error];
+    UIImage *sectionImage = [UIImage imageWithData:data];
+    if (sectionImage != NULL) {
+        cell.imageView.image = sectionImage;
+    }
+    
+    CGSize itemSize = CGSizeMake(35, 35);
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
     return cell;
 }
 
