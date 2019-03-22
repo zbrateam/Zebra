@@ -183,7 +183,7 @@
             [self postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified\n", url] atLevel:1];
             completion(NULL, true);
         }
-        else {
+        else if ([httpResponse statusCode] != 404 && location != NULL) {
             BOOL success;
             NSError *fileManagerError;
             if ([fileManager fileExistsAtPath:finalPath]) {
@@ -228,6 +228,10 @@
             }
             
             completion(finalPath, success);
+        }
+        else {
+            NSLog(@"[Hyena] Download failed for %@", url);
+            completion(NULL, false);
         }
     }];
     
