@@ -37,6 +37,12 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self refreshTable];
+}
+
 - (void)repoStatusUpdate:(NSNotification *)notification {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(repoStatusUpdate:) withObject:notification waitUntilDone:NO];
@@ -93,7 +99,15 @@
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
         [self.refreshControl performSelectorOnMainThread:@selector(endRefreshing) withObject:NULL waitUntilDone:false];
+        [self refreshTable];
     }];
+}
+
+- (void)refreshTable {
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    sources = [databaseManager sources];
+    
+    [self.tableView reloadData];
 }
 
 - (void)addSource:(id)sender {
