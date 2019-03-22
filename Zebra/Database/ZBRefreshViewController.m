@@ -22,11 +22,13 @@
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager updateDatabaseUsingCaching:false completion:^(BOOL success, NSError * _Nonnull error) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-//        vc.hasUpdates = hasUpdates;
-//        vc.updates = updates;
-        [self presentViewController:vc animated:YES completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+            //        vc.hasUpdates = hasUpdates;
+            //        vc.updates = updates;
+            [self presentViewController:vc animated:YES completion:nil];
+        });
     }];
 }
 
