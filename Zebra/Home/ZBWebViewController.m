@@ -216,7 +216,7 @@
                 [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
             case 2:
-                [repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\ndeb https://electrarepo64.coolstar.org/substrate-shim/ ./\n"];
+                [repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\n"];
                 break;
             case 3:
                 [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
