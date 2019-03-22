@@ -203,33 +203,48 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     
-//    NSLog(@"[Zebra] Icon URL: %@", [source iconURL]);
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    UIImage *icon = [databaseManager iconForRepo:source];
     
-    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            UIImage *image = [UIImage imageWithData:data];
-            if (image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
-                    if (updateCell) {
-                        updateCell.imageView.image = image;
-                        CGSize itemSize = CGSizeMake(35, 35);
-                        UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-                        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                        [cell.imageView.image drawInRect:imageRect];
-                        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-                        UIGraphicsEndImageContext();
-                        [updateCell setNeedsDisplay];
-                        [updateCell setNeedsLayout];
-                    }
-                });
+    if (icon != NULL) {
+        cell.imageView.image = icon;
+        CGSize itemSize = CGSizeMake(35, 35);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    else { //Download the image
+        NSLog(@"[Zebra] Downloading image for repoID %d", [source repoID]);
+        
+        NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (data) {
+                UIImage *image = [UIImage imageWithData:data];
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
+                        if (updateCell) {
+                            updateCell.imageView.image = image;
+                            CGSize itemSize = CGSizeMake(35, 35);
+                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+                            [cell.imageView.image drawInRect:imageRect];
+                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+                            UIGraphicsEndImageContext();
+                            [updateCell setNeedsDisplay];
+                            [updateCell setNeedsLayout];
+                        }
+                    });
+                    [databaseManager saveIcon:image forRepo:source];
+                }
             }
-        }
-        if (error) {
-            NSLog(@"[Zebra] Error while getting icon URL: %@", error);
-        }
-    }];
-    [task resume];
+            if (error) {
+                NSLog(@"[Zebra] Error while getting icon URL: %@", error);
+            }
+        }];
+        [task resume];
+    }
     
     return cell;
 }

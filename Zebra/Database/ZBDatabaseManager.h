@@ -8,6 +8,7 @@
 
 @class ZBPackage;
 @class ZBRepo;
+@class UIImage;
 
 #import <Foundation/Foundation.h>
 
@@ -28,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteRepo:(ZBRepo *)repo;
 - (void)updateEssentials:(void (^)(BOOL success, NSArray *updates, BOOL hasUpdates))completion;
 - (NSMutableArray *)cleanUpDuplicatePackages:(NSArray *)packageList;
+- (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
+- (UIImage *)iconForRepo:(ZBRepo *)repo;
 @end
 
 NS_ASSUME_NONNULL_END

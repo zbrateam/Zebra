@@ -498,4 +498,50 @@
     return cleanedPackageList;
 }
 
+- (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo {
+    const char* sqliteQuery = "UPDATE REPOS SET (ICON) = (?) WHERE REPOID = ?";
+    sqlite3_stmt* statement;
+    
+    NSString *databasePath = [ZBAppDelegate databaseLocation];
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSData *imgData = UIImagePNGRepresentation(icon);
+    
+    if (sqlite3_prepare_v2(database, sqliteQuery, -1, &statement, NULL) == SQLITE_OK) {
+        sqlite3_bind_blob(statement, 1, [imgData bytes], (int)[imgData length], SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, 2, [repo repoID]);
+        sqlite3_step(statement);
+    }
+    else {
+        NSLog(@"[Zebra] Failed to save icon in database: %s", sqlite3_errmsg(database));
+    }
+
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+}
+
+- (UIImage *)iconForRepo:(ZBRepo *)repo {
+    UIImage* icon = NULL;
+    NSString* sqliteQuery = [NSString stringWithFormat:@"SELECT ICON FROM REPOS WHERE REPOID = %d;", [repo repoID]];
+    sqlite3_stmt* statement;
+    
+    NSString *databasePath = [ZBAppDelegate databaseLocation];
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    if (sqlite3_prepare_v2(database, [sqliteQuery UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            int length = sqlite3_column_bytes(statement, 0);
+            NSData *data = [NSData dataWithBytes:sqlite3_column_blob(statement, 0) length:length];
+            icon = [UIImage imageWithData:data];
+        }
+    }
+    
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return icon;
+}
+
 @end
