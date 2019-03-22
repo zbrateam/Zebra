@@ -22,9 +22,7 @@
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager updateDatabaseUsingCaching:false completion:^(BOOL success, NSError * _Nonnull error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self goodbye];
-        });
+        [self goodbye];
     }];
 }
 
@@ -34,15 +32,20 @@
 }
 
 - (void)goodbye {
-    if ([self presentingViewController] != NULL) {
-        [self dismissViewControllerAnimated:true completion:nil];
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:false];
     }
     else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-        //        vc.hasUpdates = hasUpdates;
-        //        vc.updates = updates;
-        [self presentViewController:vc animated:YES completion:nil];
+        if ([self presentingViewController] != NULL) {
+            [self dismissViewControllerAnimated:true completion:nil];
+        }
+        else {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+            //        vc.hasUpdates = hasUpdates;
+            //        vc.updates = updates;
+            [self presentViewController:vc animated:YES completion:nil];
+        }
     }
 }
 
