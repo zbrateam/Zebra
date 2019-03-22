@@ -219,40 +219,21 @@
 }
 
 - (void)addDebLine:(NSString *)sourceLine {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [paths objectAtIndex:0];
-    NSString *filePath;
-    if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
-        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
-    else
-        filePath = [cacheDirectory stringByAppendingString:@"/xyz.willy.Zebra/sources.list"];
-    
-    NSString *output;
-    if ([ZBAppDelegate needsSimulation]) {
-        output = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    }
-    else {
-        output = [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil];
+    NSString *listsLocation = [ZBAppDelegate sourceListLocation];
+    NSError *readError;
+    NSString *output = [NSString stringWithContentsOfFile:listsLocation encoding:NSUTF8StringEncoding error:&readError];
+    if (readError != NULL) {
+        NSLog(@"[Zebra] Error while writing sources to file: %@", readError);
     }
     
     output = [output stringByAppendingString:sourceLine];
     
-    NSLog(@"Output %@", output);
+    NSLog(@"[Zebra] Output: %@", output);
     
     NSError *error;
-    [output writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
+    [output writeToFile:listsLocation atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-    }
-    
-    if (![ZBAppDelegate needsSimulation]) {
-        NSTask *updateListTask = [[NSTask alloc] init];
-        [updateListTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
-        NSArray *updateArgs = [[NSArray alloc] initWithObjects:@"cp", filePath, @"/var/lib/zebra/sources.list", nil];
-        [updateListTask setArguments:updateArgs];
-        
-        [updateListTask launch];
-        [updateListTask waitUntilExit];
     }
 }
 
