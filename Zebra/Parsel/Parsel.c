@@ -271,7 +271,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 strcpy(package[6], value);
             }
         }
-        else if (package[0][0] != 0){
+        else if (package[0][0] != 0) {
             if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL && strcasestr(package[6], "not-installed") == NULL) {
                 if (package[1][0] == 0) {
                     strcpy(package[1], package[0]);
@@ -361,7 +361,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                 strcpy(package[5], value);
             }
         }
-        else {
+        else if (package[0][0] != 0) {
             if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
                 if (package[1][0] == 0) {
                     strcpy(package[1], package[0]);
@@ -394,6 +394,9 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
             else {
                 continue;
             }
+        }
+        else {
+            continue;
         }
     }
     
