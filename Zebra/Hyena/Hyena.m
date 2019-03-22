@@ -225,6 +225,11 @@
                 fclose(f);
                 fclose(output);
                 
+                NSError *removeError;
+                [[NSFileManager defaultManager] removeItemAtPath:finalPath error:&removeError];
+                if (removeError != NULL) {
+                    NSLog(@"[Hyena] Unable to remove .bz2, %@", removeError.localizedDescription);
+                }
             }
             
             completion(finalPath, success);
