@@ -110,11 +110,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sources" id="LAP-SG-gaJ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="xrB-9a-dvE">
-                            <connections>
-                                <action selector="refreshSources:" destination="I9F-aa-gKA" id="tIt-bU-8gI"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="rVC-pW-946"/>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="PXO-at-COz">

@@ -37,8 +37,6 @@
         for (NSString *releasePath in releaseFiles) {
             NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
             
-//            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
-            
             int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
             if (repoID == -1) { //Repo does not exist in database, create it.
                 repoID = [self nextRepoIDInDatabase:database];
@@ -332,7 +330,7 @@
     sqlite3_finalize(statement);
     sqlite3_close(database);
     
-    return searchResults;
+    return [self cleanUpDuplicatePackages:searchResults];
 }
 
 - (NSArray <ZBRepo *> *)billOfReposToUpdate {
