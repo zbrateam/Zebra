@@ -18,6 +18,7 @@
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
+    NSMutableArray *busyList;
 }
 @end
 
@@ -30,6 +31,7 @@
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sources = [databaseManager sources];
+    busyList = [NSMutableArray new];
     
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -40,22 +42,26 @@
         [self performSelectorOnMainThread:@selector(repoStatusUpdate:) withObject:notification waitUntilDone:NO];
         return;
     }
-    else if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {
+    else if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {\
+        busyList = [NSMutableArray new];
         for (int i = 0; i < [self tableView:self.tableView numberOfRowsInSection:0]; i++) {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            
+
             [UIView animateWithDuration:0.7 animations:^{
                 cell.backgroundColor = [UIColor whiteColor];
             }];
         }
     }
     else {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[[[notification userInfo] objectForKey:@"row"] integerValue] inSection:0]];
+        NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
         
         if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
+            busyList[row] = @TRUE;
             cell.backgroundColor = [UIColor redColor];
         }
         else {
+            busyList[row] = @FALSE;
             cell.backgroundColor = [UIColor greenColor];
         }
     }
@@ -172,7 +178,19 @@
     ZBRepo *source = [sources objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [source origin];
-    cell.backgroundColor = [UIColor whiteColor];
+    
+    if (indexPath.row < [busyList count]) {
+        if ([busyList[indexPath.row] boolValue]) {
+            cell.backgroundColor = [UIColor redColor];
+        }
+        else {
+            cell.backgroundColor = [UIColor greenColor];
+        }
+    }
+    else {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    
     if ([source isSecure]) {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
     }
