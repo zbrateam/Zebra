@@ -58,11 +58,15 @@
         
         if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
             busyList[row] = @TRUE;
-            cell.backgroundColor = [UIColor redColor];
+            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+            [spinner setColor:[UIColor grayColor]];
+            spinner.frame = CGRectMake(0, 0, 24, 24);
+            cell.accessoryView = spinner;
+            [spinner startAnimating];
         }
         else {
             busyList[row] = @FALSE;
-            cell.backgroundColor = [UIColor greenColor];
+            cell.accessoryView = nil;
         }
     }
 }
@@ -181,14 +185,15 @@
     
     if (indexPath.row < [busyList count]) {
         if ([busyList[indexPath.row] boolValue]) {
-            cell.backgroundColor = [UIColor redColor];
+            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+            spinner.frame = CGRectMake(0, 0, 24, 24);
+            [spinner setColor:[UIColor grayColor]];
+            cell.accessoryView = spinner;
+            [spinner startAnimating];
         }
         else {
-            cell.backgroundColor = [UIColor greenColor];
+            cell.accessoryView = nil;
         }
-    }
-    else {
-        cell.backgroundColor = [UIColor whiteColor];
     }
     
     if ([source isSecure]) {
