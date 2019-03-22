@@ -139,6 +139,7 @@
     sysctlbyname("hw.machine", answer, &size, NULL, 0);
     
     NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
+    free(answer);
     
     if (path == NULL) {
         return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
