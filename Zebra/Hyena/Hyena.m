@@ -146,7 +146,7 @@
     else {
         NSError *fileError;
         NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
-        NSDate *date = fileError != nil ? [NSDate date] : [attributes fileModificationDate];
+        NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
