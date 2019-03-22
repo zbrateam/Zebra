@@ -377,21 +377,18 @@
 }
 
 - (void)deleteRepo:(ZBRepo *)repo {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-    
+    NSString *databasePath = [ZBAppDelegate databaseLocation];
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
-    NSString *query = @"DELETE FROM PACKAGES WHERE REPOID = ?; DELETE FROM REPOS WHERE REPOID = ?;";
-    sqlite3_stmt *statement;
-    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, 0) == SQLITE_OK) {
-        sqlite3_bind_int(statement, 1, [repo repoID]);
-        sqlite3_bind_int(statement, 2, [repo repoID]);
-        sqlite3_step(statement);
-    }
+    NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
+    NSString *repoQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [repo repoID]];
     
-    sqlite3_finalize(statement);
+    sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
+    sqlite3_exec(database, [packageQuery UTF8String], NULL, NULL, NULL);
+    sqlite3_exec(database, [repoQuery UTF8String], NULL, NULL, NULL);
+    sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
+    
     sqlite3_close(database);
 }
 
