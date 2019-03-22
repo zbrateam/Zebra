@@ -241,8 +241,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
     
-    [[UIApplication sharedApplication] keyWindow].rootViewController = initialController;
-    [[[UIApplication sharedApplication] keyWindow] makeKeyAndVisible];
+    [self presentViewController:initialController animated:true completion:nil];
 }
 
 - (void)sendBugReport {
