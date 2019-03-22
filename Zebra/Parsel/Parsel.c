@@ -322,12 +322,12 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, REPOID INTEGER);";
     sqlite3_exec(database, create, NULL, 0, NULL);
     
+    sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     char sql[64];
     sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
     sqlite3_exec(database, sql, NULL, 0, NULL);
-    sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
-    char package[6][1024];
+    char package[7][1024];
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
             char *info = strtok(line, "\n");
@@ -360,6 +360,10 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                 char *value = multi_tok(NULL, &s, ": ");
                 strcpy(package[5], value);
             }
+            else if (strcmp(key, "Status") == 0) {
+                char *value = multi_tok(NULL, &s, ": ");
+                strcpy(package[6], value);
+            }
         }
         else if (package[0][0] != 0) {
             if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL) {
@@ -390,6 +394,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                 package[3][0] = 0;
                 package[4][0] = 0;
                 package[5][0] = 0;
+                package[6][0] = 0;
             }
             else {
                 continue;
