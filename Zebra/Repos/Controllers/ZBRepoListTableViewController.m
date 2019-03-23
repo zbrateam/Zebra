@@ -35,6 +35,7 @@
     
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.extendedLayoutIncludesOpaqueBars = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
