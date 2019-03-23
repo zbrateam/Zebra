@@ -14,13 +14,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBDatabaseManager : NSObject
+@interface ZBDatabaseManager : NSObject {
+    NSString *databasePath;
+}
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion;
-//- (void)fullImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion;
-//- (void)partialImport:(void (^)(BOOL success, NSArray* updates, BOOL hasUpdates))completion;
-//- (void)fullRemoteImport:(void (^)(BOOL success))completion;
-//- (void)fullLocalImport:(void (^)(BOOL success))completion;
-//- (void)partialRemoteImport:(void (^)(BOOL success))completion;
 - (int)numberOfPackagesInRepo:(int)repoID;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;

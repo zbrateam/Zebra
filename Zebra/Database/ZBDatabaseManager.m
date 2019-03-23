@@ -18,6 +18,16 @@
 
 @implementation ZBDatabaseManager
 
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        databasePath = [ZBAppDelegate databaseLocation];
+    }
+    
+    return self;
+}
+
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion {
     [self postStatusUpdate:@"Updating Repositories\n" atLevel:1];
     Hyena *predator = [[Hyena alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
@@ -30,9 +40,8 @@
         [self postStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:1];
         [self postStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:1];
         
-        NSString *databasePath = [ZBAppDelegate databaseLocation];
         sqlite3 *database;
-        sqlite3_open([databasePath UTF8String], &database);
+        sqlite3_open([self->databasePath UTF8String], &database);
         
         for (NSString *releasePath in releaseFiles) {
             NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
@@ -96,41 +105,14 @@
     
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-    int repoID = -1;
+    int repoID = 0;
     while (sqlite3_step(statement) == SQLITE_ROW) {
         repoID = sqlite3_column_int(statement, 0);
     }
     
-    if (repoID == -1)
-        repoID++;
-    
     sqlite3_finalize(statement);
     
     return repoID + 1;
-}
-
-- (void)receivedData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
-    
-    if (data.length > 0) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @0, @"message": str}];
-    }
-}
-
-- (void)receivedErrorData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
-    
-    if (data.length > 0) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @2, @"message": str}];
-    }
 }
 
 //Imports packages in /var/lib/dpkg/status into Zebra's database with a repoValue of '0' to indicate that the package is installed
@@ -142,9 +124,6 @@
     else { //Otherwise, load the actual file
         installedPath = @"/var/lib/dpkg/status";
     }
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -163,9 +142,6 @@
     
     NSString *query = [NSString stringWithFormat:@"SELECT COUNT(*) FROM PACKAGES WHERE REPOID = %d GROUP BY PACKAGE", repoID];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-    
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
@@ -180,27 +156,8 @@
     return numberOfPackages;
 }
 
-//Gets paths of repo lists that need to be read from /var/lib/zebra/lists
-- (NSArray <NSString *> *)managedSources {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *aptListDirectory = @"/var/lib/zebra/lists";
-    NSArray *listOfFiles = [fileManager contentsOfDirectoryAtPath:aptListDirectory error:nil];
-    NSMutableArray *managedSources = [[NSMutableArray alloc] init];
-    
-    for (NSString *path in listOfFiles) {
-        if (([path rangeOfString:@"Release"].location != NSNotFound) && ([path rangeOfString:@".gpg"].location == NSNotFound)) {
-            NSString *fullPath = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@", path];
-            [managedSources addObject:fullPath];
-        }
-    }
-    
-    return managedSources;
-}
-
 - (NSArray <ZBRepo *> *)sources {
     NSMutableArray *sources = [NSMutableArray new];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -235,14 +192,12 @@
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
-
+    
     return (NSArray*)sources;
 }
 
 - (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start {
     NSMutableArray *packages = [NSMutableArray new];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -270,8 +225,6 @@
 
 - (NSArray <ZBPackage *> *)installedPackages {
     NSMutableArray *installedPackages = [NSMutableArray new];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -299,9 +252,6 @@
 
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
     NSMutableArray *searchResults = [NSMutableArray new];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -335,49 +285,7 @@
     return [self cleanUpDuplicatePackages:searchResults];
 }
 
-- (NSArray <ZBRepo *> *)billOfReposToUpdate {
-    NSMutableArray *bill = [NSMutableArray new];
-    
-    for (ZBRepo *repo in [self sources]) {
-        BOOL needsUpdate = false;
-        NSString *aptPackagesFile = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_Packages", [repo baseFileName]];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:aptPackagesFile]) {
-            aptPackagesFile = [NSString stringWithFormat:@"/var/lib/zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
-        }
-        
-        NSString *cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.Zebra/lists/%@_Packages", [repo baseFileName]];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:cachedPackagesFile]) {
-            cachedPackagesFile = [NSString stringWithFormat:@"/var/mobile/Library/Caches/xyz.willy.Zebra/lists/%@_main_binary-iphoneos-arm_Packages", [repo baseFileName]]; //Do some funky package file with the default repos
-            if (![[NSFileManager defaultManager] fileExistsAtPath:cachedPackagesFile]) {
-                NSLog(@"[Zebra] There is no cache file for %@ so it needs an update", [repo origin]);
-                needsUpdate = true; //There isn't a cache for this so we need to parse it
-            }
-        }
-        
-        if (!needsUpdate) {
-            FILE *aptFile = fopen([aptPackagesFile UTF8String], "r");
-            FILE *cachedFile = fopen([cachedPackagesFile UTF8String], "r");
-            needsUpdate = packages_file_changed(aptFile, cachedFile);
-        }
-        
-        if (needsUpdate) {
-            [bill addObject:repo];
-        }
-    }
-    
-    if ([bill count] > 0) {
-        NSLog(@"[Zebra] Bill of Repositories that require an update: %@", bill);
-    }
-    else {
-        NSLog(@"[Zebra] No repositories need an update");
-    }
-    
-    
-    return (NSArray *)bill;
-}
-
 - (void)deleteRepo:(ZBRepo *)repo {
-    NSString *databasePath = [ZBAppDelegate databaseLocation];
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
@@ -409,40 +317,35 @@
 
 - (void)getPackagesThatNeedUpdates:(void (^)(NSArray *updates, BOOL hasUpdates))completion {
     NSLog(@"pcakages need updates");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *updates = [NSMutableArray new];
-        NSArray *installedPackages = [self installedPackages];
-        
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *databasePath = [paths[0] stringByAppendingPathComponent:@"zebra.db"];
-        
-        sqlite3 *database;
-        sqlite3_open([databasePath UTF8String], &database);
-
-        for (ZBPackage *package in installedPackages) {
-            NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
-            if ([otherVersions count] > 1) {
-                for (ZBPackage *otherPackage in otherVersions) {
-                    if (otherPackage != package) {
-                        int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
-
-                        if (result < 0) {
-                            [updates addObject:otherPackage];
-                        }
+    NSMutableArray *updates = [NSMutableArray new];
+    NSArray *installedPackages = [self installedPackages];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    for (ZBPackage *package in installedPackages) {
+        NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+        if ([otherVersions count] > 1) {
+            for (ZBPackage *otherPackage in otherVersions) {
+                if (otherPackage != package) {
+                    int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
+                    
+                    if (result < 0) {
+                        [updates addObject:otherPackage];
                     }
                 }
             }
         }
-
-        updates = [self cleanUpDuplicatePackages:updates];
-        sqlite3_close(database);
-        if (updates.count > 0) {
-            completion(updates, true);
-        }
-        else {
-            completion(NULL, false);
-        }
-    });
+    }
+    
+    updates = [self cleanUpDuplicatePackages:updates];
+    sqlite3_close(database);
+    if (updates.count > 0) {
+        completion(updates, true);
+    }
+    else {
+        completion(NULL, false);
+    }
 }
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database {
@@ -499,7 +402,6 @@
     const char* sqliteQuery = "UPDATE REPOS SET (ICON) = (?) WHERE REPOID = ?";
     sqlite3_stmt* statement;
     
-    NSString *databasePath = [ZBAppDelegate databaseLocation];
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
@@ -513,7 +415,7 @@
     else {
         NSLog(@"[Zebra] Failed to save icon in database: %s", sqlite3_errmsg(database));
     }
-
+    
     sqlite3_finalize(statement);
     sqlite3_close(database);
 }
@@ -523,7 +425,6 @@
     NSString* sqliteQuery = [NSString stringWithFormat:@"SELECT ICON FROM REPOS WHERE REPOID = %d;", [repo repoID]];
     sqlite3_stmt* statement;
     
-    NSString *databasePath = [ZBAppDelegate databaseLocation];
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     

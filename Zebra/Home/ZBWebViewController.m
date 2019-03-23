@@ -208,7 +208,6 @@
                              @"modmyi",
                              ];
         
-        NSLog(@"[Zebra] Index of object %d", [options indexOfObject:repo]);
         switch ([options indexOfObject:repo]) {
             case 0:
                 NSLog(@"[Zebra] Transferring repos");
