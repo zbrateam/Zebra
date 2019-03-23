@@ -154,7 +154,7 @@
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories from Cydia?" preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self handleRepoAdd:url local:true];
+                    [self handleRepoAdd:@"transfer" local:true];
                 }];
                 UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [controller dismissViewControllerAnimated:true completion:nil];
@@ -196,7 +196,7 @@
 }
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-    NSLog(@"[Zebra] Handling repo add");
+    NSLog(@"[Zebra] Handling repo add for method %@", repo);
     ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
     if (local) {
         NSArray *options = @[
@@ -208,9 +208,11 @@
                              @"modmyi",
                              ];
         
+        NSLog(@"[Zebra] Index of object %d", [options indexOfObject:repo]);
         switch ([options indexOfObject:repo]) {
             case 0:
-                //[repoManager transferFromCydia];
+                NSLog(@"[Zebra] Transferring repos");
+                [repoManager transferFromCydia];
                 break;
             case 1:
                 [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSourceWithURL:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
 - (void)deleteSource:(ZBRepo *)delRepo;
 - (void)addDebLine:(NSString *)sourceLine;
+- (void)transferFromCydia;
 @end
 
 NS_ASSUME_NONNULL_END
