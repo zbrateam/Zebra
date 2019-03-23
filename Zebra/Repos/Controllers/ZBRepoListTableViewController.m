@@ -97,8 +97,8 @@
 }
 
 - (IBAction)refreshSources:(id)sender {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
+    ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
+    [tabController performBackgroundRefresh:true completion:^(BOOL success) {
         [self.refreshControl performSelectorOnMainThread:@selector(endRefreshing) withObject:NULL waitUntilDone:false];
         [self refreshTable];
     }];

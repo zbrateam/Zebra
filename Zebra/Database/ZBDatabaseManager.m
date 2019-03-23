@@ -101,6 +101,33 @@
     completion(true);
 }
 
+- (NSArray <ZBPackage *> *)packagesWithUpdates {
+    NSMutableArray *updates = [NSMutableArray new];
+    NSArray *installedPackages = [self installedPackages];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    for (ZBPackage *package in installedPackages) {
+        NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+        if ([otherVersions count] > 1) {
+            for (ZBPackage *otherPackage in otherVersions) {
+                if (otherPackage != package) {
+                    int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
+                    
+                    if (result < 0) {
+                        [updates addObject:otherPackage];
+                    }
+                }
+            }
+        }
+    }
+    
+    sqlite3_close(database);
+
+    return [self cleanUpDuplicatePackages:updates];
+}
+
 - (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
 }
@@ -295,39 +322,6 @@
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
     
     sqlite3_close(database);
-}
-
-- (void)getPackagesThatNeedUpdates:(void (^)(NSArray *updates, BOOL hasUpdates))completion {
-    NSLog(@"pcakages need updates");
-    NSMutableArray *updates = [NSMutableArray new];
-    NSArray *installedPackages = [self installedPackages];
-    
-    sqlite3 *database;
-    sqlite3_open([databasePath UTF8String], &database);
-    
-    for (ZBPackage *package in installedPackages) {
-        NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
-        if ([otherVersions count] > 1) {
-            for (ZBPackage *otherPackage in otherVersions) {
-                if (otherPackage != package) {
-                    int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
-                    
-                    if (result < 0) {
-                        [updates addObject:otherPackage];
-                    }
-                }
-            }
-        }
-    }
-    
-    updates = [self cleanUpDuplicatePackages:updates];
-    sqlite3_close(database);
-    if (updates.count > 0) {
-        completion(updates, true);
-    }
-    else {
-        completion(NULL, false);
-    }
 }
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database {

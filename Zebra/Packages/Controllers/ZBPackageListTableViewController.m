@@ -56,7 +56,10 @@
         
     ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
     needsSecondSection = [tabController hasUpdates];
-    updates = [tabController updates];
+    
+    if (needsSecondSection) {
+        updates = [tabController updates];
+    }
         
     [self.tableView reloadData];
 }

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion;
 - (void)importLocalPackages:(void (^)(BOOL success))completion;
+- (NSArray <ZBPackage *> *)packagesWithUpdates;
 - (int)numberOfPackagesInRepo:(int)repoID;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
