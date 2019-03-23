@@ -233,7 +233,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
@@ -325,7 +325,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, REPOID INTEGER);";
+    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, create, NULL, 0, NULL);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
