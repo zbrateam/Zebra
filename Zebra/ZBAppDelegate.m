@@ -24,24 +24,20 @@
 }
 
 + (NSString *)listsLocation {
-//    if ([self needsSimulation]) {
-        NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-        BOOL dirExsits;
-        [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
-        if (!dirExsits) {
-            NSLog(@"Create that bus...?");
-            NSError *error;
-            [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
-            
-            if (error != nil) {
-                NSLog(@"Error while creating bus: %@", error);
-            }
+    NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
+    NSLog(@"[Zebra] lists %@", lists);
+    BOOL dirExsits;
+    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
+    if (!dirExsits) {
+        NSLog(@"[Zebra] Create that bus...?");
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
+        
+        if (error != nil) {
+            NSLog(@"[Zebra] Error while creating bus: %@", error);
         }
-        return lists;
-//    }
-//    else {
-//        return @"/var/lib/zebra/lists/";
-//    }
+    }
+    return lists;
 }
 
 + (BOOL)listsExists {
@@ -50,31 +46,22 @@
 
 
 + (NSString *)sourceListLocation {
-//    if ([self needsSimulation]) {
-        NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
-            NSLog(@"Move that bus!");
-            NSError *error;
-            [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
-            
-            if (error != nil) {
-                NSLog(@"Error while moving bus: %@", error);
-            }
+    NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
+    NSLog(@"[Zebra] lists %@", lists);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
+        NSLog(@"[Zebra] Move that bus!");
+        NSError *error;
+        [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
+        
+        if (error != nil) {
+            NSLog(@"[Zebra] Error while moving bus: %@", error);
         }
-        return lists;
-//    }
-//    else {
-//        return @"/var/lib/zebra/sources.list";
-//    }
+    }
+    return lists;
 }
 
 + (NSString *)databaseLocation {
-    if ([self needsSimulation]) {
-        return [[self documentsDirectory] stringByAppendingPathComponent:@"zebra.db"];
-    }
-    else {
-        return @"/var/lib/zebra/database/zebra.db";
-    }
+    return [[self documentsDirectory] stringByAppendingPathComponent:@"zebra.db"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
