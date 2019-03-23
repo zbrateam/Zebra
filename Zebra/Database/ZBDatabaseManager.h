@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *databasePath;
 }
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)importLocalPackages:(void (^)(BOOL success))completion;
 - (int)numberOfPackagesInRepo:(int)repoID;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID numberOfPackages:(int)limit startingAt:(int)start;
 - (NSArray <ZBRepo *> *)sources;
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)deleteRepo:(ZBRepo *)repo;
-- (void)updateEssentials:(void (^)(BOOL success, NSArray *updates, BOOL hasUpdates))completion;
 - (NSMutableArray *)cleanUpDuplicatePackages:(NSArray *)packageList;
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
 - (UIImage *)iconForRepo:(ZBRepo *)repo;

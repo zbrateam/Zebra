@@ -75,11 +75,30 @@
         
         [self postStatusUpdate:@"Done!\n" atLevel:1];
         sqlite3_close(database);
-        [self updateEssentials:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
+        [self importLocalPackages:^(BOOL success) {
             completion(success, NULL);
         }];
         
     } ignoreCache:!useCaching];
+}
+
+- (void)importLocalPackages:(void (^)(BOOL success))completion {
+    NSString *installedPath;
+    if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
+        installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
+    }
+    else { //Otherwise, load the actual file
+        installedPath = @"/var/lib/dpkg/status";
+    }
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
+    sqlite3_exec(database, sql, NULL, 0, NULL);
+    importPackagesToDatabase([installedPath UTF8String], database, 0);
+    sqlite3_close(database);
+    completion(true);
 }
 
 - (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
@@ -115,28 +134,6 @@
     return repoID + 1;
 }
 
-//Imports packages in /var/lib/dpkg/status into Zebra's database with a repoValue of '0' to indicate that the package is installed
-- (void)fullLocalImport:(void (^)(BOOL success))completion {
-    NSString *installedPath;
-    if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
-        installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
-    }
-    else { //Otherwise, load the actual file
-        installedPath = @"/var/lib/dpkg/status";
-    }
-    
-    sqlite3 *database;
-    sqlite3_open([databasePath UTF8String], &database);
-    //We need to delete the entire list of installed packages
-    
-    char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
-    sqlite3_exec(database, sql, NULL, 0, NULL);
-    importPackagesToDatabase([installedPath UTF8String], database, 0);
-    sqlite3_close(database);
-    completion(true);
-}
-
-//Get number of packages in the database for each repo
 - (int)numberOfPackagesInRepo:(int)repoID {
     int numberOfPackages = 0;
     
@@ -298,21 +295,6 @@
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
     
     sqlite3_close(database);
-}
-
-- (void)updateEssentials:(void (^)(BOOL success, NSArray *updates, BOOL hasUpdates))completion {
-    [self fullLocalImport:^(BOOL installedSuccess) {
-        NSLog(@"Completed local import");
-        if (installedSuccess) {
-            NSLog(@"getting update packages");
-            [self getPackagesThatNeedUpdates:^(NSArray <ZBPackage *> *updateObjects, BOOL has) {
-                if (has) {
-                    NSLog(@"[Zebra] Has %d Updates!", (int)[updateObjects count]);
-                }
-                completion(true, updateObjects, has);
-            }];
-        }
-    }];
 }
 
 - (void)getPackagesThatNeedUpdates:(void (^)(NSArray *updates, BOOL hasUpdates))completion {
