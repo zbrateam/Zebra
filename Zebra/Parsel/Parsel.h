@@ -14,8 +14,8 @@
 #include <string.h>
 #include <libgen.h>
 
-void importRepoToDatabase(const char *path, sqlite3 *database, int repoID);
-void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID);
+void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
+void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID);
 int packages_file_changed(FILE* f1, FILE* f2);

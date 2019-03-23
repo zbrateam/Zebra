@@ -42,8 +42,8 @@ char* replace_char(char* str, char find, char replace){
     return str;
 }
 
-int isRepoSecure(char *repoURL) {
-    FILE *file = fopen("/var/lib/zebra/sources.list", "r");
+int isRepoSecure(const char* sourcePath, char *repoURL) {
+    FILE *file = fopen(sourcePath, "r");
     if (file != NULL) {
         char line[256];
         
@@ -62,7 +62,7 @@ int isRepoSecure(char *repoURL) {
     }
 }
 
-void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
+void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
@@ -102,7 +102,7 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     
     char secureURL[128];
     strcpy(secureURL, baseFilename);
-    int secure = isRepoSecure(secureURL);
+    int secure = isRepoSecure(sourcePath, secureURL);
     
     replace_char(baseFilename, '_', '/');
     if (baseFilename[strlen(baseFilename) - 1] == '.') {
@@ -145,7 +145,7 @@ void importRepoToDatabase(const char *path, sqlite3 *database, int repoID) {
     fclose(file);
 }
 
-void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID) {
+void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
@@ -185,7 +185,7 @@ void updateRepoInDatabase(const char *path, sqlite3 *database, int repoID) {
     
     char secureURL[128];
     strcpy(secureURL, baseFilename);
-    int secure = isRepoSecure(secureURL);
+    int secure = isRepoSecure(sourcePath, secureURL);
     
     replace_char(baseFilename, '_', '/');
     if (baseFilename[strlen(baseFilename) - 1] == '.') {

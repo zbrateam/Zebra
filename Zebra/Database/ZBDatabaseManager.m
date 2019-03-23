@@ -49,10 +49,10 @@
             int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
             if (repoID == -1) { //Repo does not exist in database, create it.
                 repoID = [self nextRepoIDInDatabase:database];
-                importRepoToDatabase([releasePath UTF8String], database, repoID);
+                importRepoToDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
             }
             else {
-                updateRepoInDatabase([releasePath UTF8String], database, repoID);
+                updateRepoInDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
             }
         }
         
