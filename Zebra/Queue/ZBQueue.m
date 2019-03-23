@@ -8,6 +8,7 @@
 
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
+#import <ZBAppDelegate.h>
 
 @implementation ZBQueue
 + (id)sharedInstance {
@@ -140,7 +141,7 @@
 
 - (NSArray *)tasksForQueue {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
-    NSArray *baseCommand = [[NSArray alloc] initWithObjects:@"apt-get", @"-o", @"Dir::Etc::SourceList=/var/lib/zebra/sources.list", @"-o", @"Dir::State::Lists=/var/lib/zebra/lists", @"-o", @"Dir::Etc::SourceParts=/var/lib/zebra/lists/partial/false", @"-y", @"--force-yes", nil];
+    NSArray *baseCommand = [[NSArray alloc] initWithObjects:@"apt-get", @"-o", [NSString stringWithFormat:@"Dir::Etc::SourceList=%@", [ZBAppDelegate sourceListLocation]], @"-o", [NSString stringWithFormat:@"Dir::State::Lists=%@", [ZBAppDelegate listsLocation]], @"-o", [NSString stringWithFormat:@"Dir::Etc::SourceParts=%@", [ZBAppDelegate listsLocation]], @"-y", @"--force-yes", nil];
     
     NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
     NSMutableArray *removeArray = [_managedQueue[@"Remove"] mutableCopy];
