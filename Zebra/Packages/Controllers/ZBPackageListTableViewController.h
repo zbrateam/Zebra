@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListTableViewController : UITableViewController
 @property (nonatomic) int repoID;
+@property (nonatomic, strong) NSString *section;
 - (void)refreshTable;
 @end
 

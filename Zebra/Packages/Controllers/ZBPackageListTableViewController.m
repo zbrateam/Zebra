@@ -24,10 +24,13 @@
 
 @implementation ZBPackageListTableViewController
 
+@synthesize repoID;
+@synthesize section;
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (_repoID == 0) {
+    if (repoID == 0) {
         [self queueButton];
         [self upgradeButton];
         [self refreshTable];
@@ -39,13 +42,13 @@
     
     needsExpansion = false;
     databaseManager = [[ZBDatabaseManager alloc] init];
-    if (_repoID == 0) {
+    if (repoID == 0) {
         [self queueButton];
         [self upgradeButton];
         [self refreshTable];
     }
     else {
-        packages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:0];
+        packages = [databaseManager packagesFromRepo:repoID inSection:section numberOfPackages:100 startingAt:0];
         numberOfPackages = (int)packages.count;
     }
 }
@@ -66,7 +69,7 @@
 
 - (void)loadNextPackages {
     int before = numberOfPackages;
-    NSArray *nextPackages = [databaseManager packagesFromRepo:_repoID numberOfPackages:100 startingAt:numberOfPackages];
+    NSArray *nextPackages = [databaseManager packagesFromRepo:repoID inSection:section numberOfPackages:100 startingAt:numberOfPackages];
     packages = [packages arrayByAddingObjectsFromArray:nextPackages];
     numberOfPackages = (int)packages.count;
     
@@ -136,14 +139,14 @@
         if (needsExpansion) {
             return numberOfPackages;
         }
-        else if ([databaseManager numberOfPackagesInRepo:_repoID] > 1000) {
+        else if ([databaseManager numberOfPackagesInRepo:repoID] > 1000) {
             return 1000;
         }
-        else if ([databaseManager numberOfPackagesInRepo:_repoID] > 500) {
+        else if ([databaseManager numberOfPackagesInRepo:repoID] > 500) {
             return 500;
         }
         else {
-            return [databaseManager numberOfPackagesInRepo:_repoID];
+            return [databaseManager numberOfPackagesInRepo:repoID];
         }
     }
 }
@@ -181,7 +184,7 @@
         cell.textLabel.text = package.name;
         cell.detailTextLabel.text = package.desc;
         
-        if ((indexPath.row == numberOfPackages - 25) && (_repoID != 0)) {
+        if ((indexPath.row == numberOfPackages - 25) && (repoID != 0)) {
             [self loadNextPackages];
         }
         
@@ -230,7 +233,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (_repoID == 0 && needsSecondSection && section == 0) {
+    if (repoID == 0 && needsSecondSection && section == 0) {
         return @"Available Upgrades";
     }
     
