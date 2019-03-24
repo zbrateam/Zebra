@@ -16,10 +16,11 @@
 @interface ZBPackageListTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *packages;
-    int numberOfPackages;
-    BOOL needsExpansion;
-    BOOL needsSecondSection;
     NSArray *updates;
+    BOOL needsUpdatesSection;
+    int totalNumberOfPackages;
+    int numberOfPackages;
+    int databaseRow;
 }
 @end
 
@@ -41,7 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    needsExpansion = false;
     databaseManager = [[ZBDatabaseManager alloc] init];
     if ([repo repoID] == 0) {
         [self queueButton];
@@ -50,23 +50,20 @@
     }
     else {
         packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:100 startingAt:0];
-        if (section == NULL) {
-            numberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
-        }
-        else {
-            numberOfPackages = [databaseManager numberOfPackagesFromRepo:repo inSection:section];
-        }
+        databaseRow = 99;
+        numberOfPackages = (int)[packages count];
+        totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
     }
 }
 
 - (void)refreshTable {
     packages = [databaseManager installedPackages];
-    numberOfPackages = (int)packages.count;
+    numberOfPackages = (int)[packages count];
         
     ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
-    needsSecondSection = [tabController hasUpdates];
+    needsUpdatesSection = [tabController hasUpdates];
     
-    if (needsSecondSection) {
+    if (needsUpdatesSection) {
         updates = [tabController updates];
     }
         
@@ -74,12 +71,25 @@
 }
 
 - (void)loadNextPackages {
-    NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:100 startingAt:numberOfPackages];
-    packages = [packages arrayByAddingObjectsFromArray:nextPackages];
+    if (databaseRow + 200 <= totalNumberOfPackages) {
+        NSLog(@"Loading next 200 packages starting from %d", databaseRow);
+        NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:200 startingAt:databaseRow];
+        packages = [packages arrayByAddingObjectsFromArray:nextPackages];
+        numberOfPackages = (int)[packages count];
+        databaseRow += 199;
+    }
+    else if (totalNumberOfPackages - (databaseRow + 200) != 0) {
+        NSLog(@"Loading next %d packages starting from %d", totalNumberOfPackages - (databaseRow + 200), databaseRow);
+        NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:totalNumberOfPackages - (databaseRow + 200) startingAt:databaseRow];
+        packages = [packages arrayByAddingObjectsFromArray:nextPackages];
+        numberOfPackages = (int)[packages count];
+        databaseRow += 199;
+    }
+    NSLog(@"Done");
 }
 
 - (void)upgradeButton {
-    if (needsSecondSection) {
+    if (needsUpdatesSection) {
         UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
         self.navigationItem.rightBarButtonItem = updateButton;
     }
@@ -114,25 +124,29 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (needsSecondSection) {
+    if (needsUpdatesSection) {
         return 2;
     }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (needsSecondSection && section == 0) {
+    if (needsUpdatesSection && section == 0) {
         return updates.count;
     }
     else {
-        return numberOfPackages;
+        return [databaseManager numberOfPackagesInRepo:repo];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
-    if (needsSecondSection &&  indexPath.section == 0) {
+    if (indexPath.row == 100) {
+        NSLog(@"break");
+    }
+    
+    if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
         
         cell.textLabel.text = package.name;
@@ -158,7 +172,7 @@
         cell.textLabel.text = package.name;
         cell.detailTextLabel.text = package.desc;
         
-        if ((indexPath.row == numberOfPackages - 25) && ([repo repoID] != 0)) {
+        if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
         
@@ -191,7 +205,7 @@
     
     ZBPackage *package;
     
-    if (needsSecondSection && indexPath.section == 0) {
+    if (needsUpdatesSection && indexPath.section == 0) {
         package = [updates objectAtIndex:indexPath.row];
     }
     else {
@@ -203,11 +217,11 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([repo repoID] == 0 && needsSecondSection && section == 0) {
+    if ([repo repoID] == 0 && needsUpdatesSection && section == 0) {
         return @"Available Upgrades";
     }
     
-    if (needsSecondSection) {
+    if (needsUpdatesSection) {
         return @"Installed Packages";
     }
     
