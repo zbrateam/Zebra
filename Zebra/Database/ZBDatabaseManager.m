@@ -476,4 +476,25 @@
     return hasUpgrade;
 }
 
+- (NSArray *)sectionsInRepo:(ZBRepo *)repo {
+    NSMutableArray *sections = [NSMutableArray new];
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT DISTINCT SECTION FROM PACKAGES WHERE REPOID = %d ORDER BY SECTION ASC", [repo repoID]];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
+        NSString *section = [NSString stringWithUTF8String:sectionChars];
+        [sections addObject:section];
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return (NSArray *)sections;
+}
+
 @end

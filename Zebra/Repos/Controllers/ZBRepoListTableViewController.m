@@ -7,7 +7,7 @@
 //
 
 #import "ZBRepoListTableViewController.h"
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Repos/Controllers/ZBRepoSectionsListTableViewController.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -308,10 +308,9 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ZBPackageListTableViewController *destination = [segue destinationViewController];
+    ZBRepoSectionsListTableViewController *destination = (ZBRepoSectionsListTableViewController *)[segue destinationViewController];
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    ZBRepo *source = [sources objectAtIndex:indexPath.row];
-    destination.repoID = [source repoID];
+    destination.repo = [sources objectAtIndex:indexPath.row];
 }
 
 @end
