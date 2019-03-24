@@ -139,11 +139,17 @@
         decisionHandler(WKNavigationActionPolicyAllow);
     }
     else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
-        if (type != -1) {
+        if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
             NSLog(@"[Zebra] %@", navigationAction.request.URL);
             SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
-            sfVC.preferredControlTintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+            if (@available(iOS 10.0, *)) {
+                sfVC.preferredControlTintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+            }
             [self presentViewController:sfVC animated:true completion:nil];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+        else if ([[url scheme] isEqualToString:@"mailto"]) {
+            [[UIApplication sharedApplication] openURL:url];
             decisionHandler(WKNavigationActionPolicyCancel);
         }
         else {
