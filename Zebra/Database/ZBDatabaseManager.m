@@ -8,7 +8,6 @@
 
 #import "ZBDatabaseManager.h"
 #import <Parsel/Parsel.h>
-#import <sqlite3.h>
 #import <NSTask.h>
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>

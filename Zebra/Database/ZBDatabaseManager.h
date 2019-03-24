@@ -11,6 +11,7 @@
 @class UIImage;
 
 #import <Foundation/Foundation.h>
+#import <sqlite3.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBRepo *> *)sources;
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)deleteRepo:(ZBRepo *)repo;
+- (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database;
 - (NSMutableArray *)cleanUpDuplicatePackages:(NSArray *)packageList;
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
 - (UIImage *)iconForRepo:(ZBRepo *)repo;

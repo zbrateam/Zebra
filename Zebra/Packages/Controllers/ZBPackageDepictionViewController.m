@@ -8,10 +8,14 @@
 
 #import "ZBPackageDepictionViewController.h"
 #import <Queue/ZBQueue.h>
+#import <Database/ZBDatabaseManager.h>
+#import <sqlite3.h>
+#import <ZBAppDelegate.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
     WKWebView *webView;
+    NSArray *otherVersions;
 }
 @property (nonatomic, strong) ZBPackage *package;
 @end
@@ -128,8 +132,20 @@
 
 - (void)configureNavButton {
     if (_package.installed) {
-        UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
-        self.navigationItem.rightBarButtonItem = removeButton;
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        
+        sqlite3 *database;
+        sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
+        
+        otherVersions = [databaseManager otherVersionsForPackage:_package inDatabase:database];
+        if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
+            UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+            self.navigationItem.rightBarButtonItem = modifyButton;
+        }
+        else { //Show remove, its just a local package
+            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+            self.navigationItem.rightBarButtonItem = removeButton;
+        }
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -144,6 +160,79 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
     [self presentViewController:vc animated:true completion:nil];
+}
+
+- (void)modifyPackage {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[_package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ZBQueue *queue = [ZBQueue sharedInstance];
+        [queue addPackage:self->_package toQueue:ZBQueueTypeRemove];
+        
+        [alert dismissViewControllerAnimated:true completion:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+        [self presentViewController:vc animated:true completion:nil];
+    }];
+    
+    [alert addAction:remove];
+    
+    UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ZBQueue *queue = [ZBQueue sharedInstance];
+        [queue addPackage:self->_package toQueue:ZBQueueTypeReinstall];
+        
+        [alert dismissViewControllerAnimated:true completion:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+        [self presentViewController:vc animated:true completion:nil];
+    }];
+    
+    [alert addAction:reinstall];
+    
+    if ([otherVersions count] > 2) {
+        UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Downgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+            [self downgradePackage];
+        }];
+        
+        [alert addAction:downgrade];
+    }
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+    }];
+    
+    [alert addAction:cancel];
+    
+    
+    [self presentViewController:alert animated:true completion:nil];
+}
+
+- (void)downgradePackage {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [_package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (ZBPackage *downPackage in otherVersions) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ZBQueue *queue = [ZBQueue sharedInstance];
+            [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
+            
+            [alert dismissViewControllerAnimated:true completion:nil];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+            [self presentViewController:vc animated:true completion:nil];
+        }];
+        
+        [alert addAction:action];
+    }
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+    }];
+    
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 - (void)removePackage {
