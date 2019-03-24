@@ -476,15 +476,17 @@
     return hasUpgrade;
 }
 
-- (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo {
-    NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
+- (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo {
+    NSMutableArray *sectionReadout = [NSMutableArray new];
     
-    NSArray *sections = [self sectionsInRepo:repo];
-    for (NSString *section in sections) {
-        [sectionReadout setObject:[self numberOfPackagesInSection:section fromRepo:repo] forKey:section];
+    [sectionReadout setObject:[self sectionsInRepo:repo] atIndexedSubscript:0];
+    [sectionReadout setObject:[NSMutableArray new] atIndexedSubscript:1];
+    for (int i = 0; i < [sectionReadout[0] count]; i++) {
+        NSNumber *numer = [self numberOfPackagesInSection:sectionReadout[0][i] fromRepo:repo];
+        [sectionReadout[1] setObject:numer atIndexedSubscript:i];
     }
     
-    return (NSDictionary *)sectionReadout;
+    return (NSArray *)sectionReadout;
 }
 
 - (NSArray *)sectionsInRepo:(ZBRepo *)repo {

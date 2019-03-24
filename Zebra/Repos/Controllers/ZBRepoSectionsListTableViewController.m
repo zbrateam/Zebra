@@ -39,15 +39,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[sectionReadout allKeys] count];
+    return [sectionReadout[0] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
-    NSString *section = [[sectionReadout allKeys] objectAtIndex:indexPath.row];
+    NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row];
     cell.textLabel.text = section;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", (NSNumber *)[sectionReadout objectForKey:section]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", (NSNumber *)sectionReadout[1][indexPath.row]];
     
     return cell;
 }

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
 - (UIImage *)iconForRepo:(ZBRepo *)repo;
 - (BOOL)packageIDHasUpgrade:(NSString *)packageID;
-- (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo;
+- (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo;
 @end
 
 NS_ASSUME_NONNULL_END
