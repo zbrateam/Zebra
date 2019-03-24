@@ -18,16 +18,13 @@
 @implementation ZBRepoSectionsListTableViewController
 
 @synthesize repo;
-@synthesize sections;
-@synthesize databaseManager;
+@synthesize sectionReadout;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
-    sections = [databaseManager sectionsInRepo:repo];
-    
-    NSLog(@"[Zebra] Sections in repo %@: %@", [repo origin], sections);
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     
     self.title = [repo origin];
 }
@@ -39,15 +36,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sections.count;
+    return [[sectionReadout allKeys] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
-    NSString *section = [sections objectAtIndex:indexPath.row];
+    NSString *section = [[sectionReadout allKeys] objectAtIndex:indexPath.row];
     cell.textLabel.text = section;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [databaseManager numberOfPackagesInSection:section fromRepo:repo]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", (NSNumber *)[sectionReadout objectForKey:section]];
     
     return cell;
 }
