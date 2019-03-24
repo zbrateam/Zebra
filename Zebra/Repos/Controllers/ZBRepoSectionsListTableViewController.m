@@ -45,9 +45,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
-    NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row];
-    cell.textLabel.text = section;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", (NSNumber *)sectionReadout[1][indexPath.row]];
+    if (indexPath.row == 0) {
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        cell.textLabel.text = @"All Packages";
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [databaseManager numberOfPackagesInRepo:[repo repoID]]];
+    }
+    else {
+        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
+        cell.textLabel.text = section;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", (NSNumber *)sectionReadout[1][indexPath.row - 1]];
+    }
     
     return cell;
 }
@@ -58,8 +65,15 @@
     ZBPackageListTableViewController *destination = [segue destinationViewController];
     destination.repoID = [repo repoID];
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row];
-    destination.section = section;
+    
+    if (indexPath.row != 0) {
+        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row];
+        destination.section = section;
+        destination.title = section;
+    }
+    else {
+        destination.title = @"All Packages";
+    }
 }
 
 @end

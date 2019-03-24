@@ -208,7 +208,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        numberOfPackages++;
+        numberOfPackages = sqlite3_column_int(statement, 0);
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
