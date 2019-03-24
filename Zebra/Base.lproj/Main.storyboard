@@ -43,7 +43,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820" y="26.53673163418291"/>
+            <point key="canvasLocation" x="817" y="61"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="35g-Dk-Ggy">
@@ -65,7 +65,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ijz-tC-LRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1610" y="27"/>
+            <point key="canvasLocation" x="1614" y="61"/>
         </scene>
         <!--Sources-->
         <scene sceneID="l2g-7E-leN">
@@ -168,7 +168,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifh-VS-hNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3348" y="385"/>
+            <point key="canvasLocation" x="4081" y="444"/>
         </scene>
         <!--Search-->
         <scene sceneID="HAh-Vm-r70">
@@ -213,7 +213,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7u-ki-pae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3348" y="1068"/>
+            <point key="canvasLocation" x="3348" y="1127"/>
         </scene>
         <!--Search-->
         <scene sceneID="f1N-ci-t5g">
@@ -230,7 +230,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLV-6P-lLO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2398" y="1068"/>
+            <point key="canvasLocation" x="2398" y="1127"/>
         </scene>
         <!--Packages-->
         <scene sceneID="63q-Lg-3xR">
@@ -247,7 +247,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brW-S9-NfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2398" y="385"/>
+            <point key="canvasLocation" x="2398" y="444"/>
         </scene>
         <!--Home-->
         <scene sceneID="6d4-DX-o8K">
@@ -478,6 +478,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="sCr-no-Q38" kind="show" id="3rJ-40-3gH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -513,5 +516,8 @@
         <image name="Search" width="25" height="25"/>
         <image name="Sources" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hk8-hZ-Cdu"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>

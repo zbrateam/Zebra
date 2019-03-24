@@ -9,6 +9,7 @@
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Packages/Controllers/ZBPackageListTableViewController.h>
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -18,11 +19,12 @@
 
 @synthesize repo;
 @synthesize sections;
+@synthesize databaseManager;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [[ZBDatabaseManager alloc] init];
     sections = [databaseManager sectionsInRepo:repo];
     
     NSLog(@"[Zebra] Sections in repo %@: %@", [repo origin], sections);
@@ -43,7 +45,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = [sections objectAtIndex:indexPath.row];
+    NSString *section = [sections objectAtIndex:indexPath.row];
+    cell.textLabel.text = section;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [databaseManager numberOfPackagesInSection:section fromRepo:repo]];
     
     return cell;
 }
@@ -82,14 +86,12 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    ZBPackageListTableViewController *destination = [segue destinationViewController];
+    destination.repoID = [repo repoID];
 }
-*/
 
 @end

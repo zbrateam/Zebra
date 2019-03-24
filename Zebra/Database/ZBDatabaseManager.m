@@ -497,4 +497,23 @@
     return (NSArray *)sections;
 }
 
+- (int)numberOfPackagesInSection:(NSString *)section fromRepo:(ZBRepo *)repo {
+    int packages = 0;
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND REPOID = %d", section, [repo repoID]];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        packages = sqlite3_column_int(statement, 0);
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return packages;
+}
+
 @end

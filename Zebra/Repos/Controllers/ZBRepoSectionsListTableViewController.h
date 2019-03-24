@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class ZBRepo;
+@class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoSectionsListTableViewController : UITableViewController
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSArray *sections;
+@property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 @end
 
 NS_ASSUME_NONNULL_END
