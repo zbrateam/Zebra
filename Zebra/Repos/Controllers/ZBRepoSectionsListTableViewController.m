@@ -27,6 +27,9 @@
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     
     self.title = [repo origin];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 #pragma mark - Table view data source
