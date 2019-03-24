@@ -121,12 +121,11 @@
                     
                     if (result < 0) {
                         NSLog(@"[Zebra] %@", [otherPackage name]);
-                        NSString *query = [NSString stringWithFormat:@"UPDATE PACKAGES SET (HASUPDATE) = (1) WHERE PACKAGE = \'%@\' AND VERSION = \'%@\'", [otherPackage identifier], [otherPackage version]];
+                        NSString *firstQuery = [NSString stringWithFormat:@"UPDATE PACKAGES SET (HASUPDATE) = (0) WHERE PACKAGE = \'%@\'", [otherPackage identifier]];
+                        NSString *secondQuery = [NSString stringWithFormat:@"UPDATE PACKAGES SET (HASUPDATE) = (1) WHERE PACKAGE = \'%@\' AND VERSION = \'%@\'", [otherPackage identifier], [otherPackage version]];
                         
-                        NSLog(@"[Zebra] Query %s", [query UTF8String]);
-                        
-                        sqlite3_exec(database, [query UTF8String], NULL, NULL, NULL);
-                        NSLog(@"[Zebra] DB Error: %s", sqlite3_errmsg(database));
+                        sqlite3_exec(database, [firstQuery UTF8String], NULL, NULL, NULL);
+                        sqlite3_exec(database, [secondQuery UTF8String], NULL, NULL, NULL);
                     }
                 }
             }
@@ -163,7 +162,7 @@
     sqlite3_close(database);
     
     NSLog(@"[Zebra] Updates: %@", updates);
-    return [self cleanUpDuplicatePackages:updates];
+    return updates;
 }
 
 - (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
