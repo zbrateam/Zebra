@@ -1725,13 +1725,25 @@ Tag: role::cydia
 
 Package: com.xtm3x.noblur
 Status: install ok installed
-Section: Packaging
+Section: Tweaks
 Installed-Size: 13728
 Maintainer: Some genius, idk
 Architecture: iphoneos-arm
 Version: 1.0
 Description: Nobles!
 Name: NoBlur
+Author: Some genius, idk
+Depiction: https://xtm3x.github.io/depictions/com.xtm3x.noblur/
+
+Package: xyz.willy.aupm
+Status: install ok installed
+Section: Packaging
+Installed-Size: 13728
+Maintainer: Some genius, idk
+Architecture: iphoneos-arm
+Version: 2.0
+Description: A Useless Package Manager
+Name: AUPM
 Author: Some genius, idk
 Depiction: https://xtm3x.github.io/depictions/com.xtm3x.noblur/
 
@@ -1742,8 +1754,8 @@ Installed-Size: 13728
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
 Version: 1.0
-Depends: dpkg, apt7
-Description: A Useless Package Manager
+Depends: dpkg
+Description: A Useful Package Manager
 Name: Zebra (BETA)
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://xtm3x.github.io/zebra/

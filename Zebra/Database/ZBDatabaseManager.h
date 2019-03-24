@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)cleanUpDuplicatePackages:(NSArray *)packageList;
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
 - (UIImage *)iconForRepo:(ZBRepo *)repo;
+- (BOOL)packageIDHasUpgrade:(NSString *)packageID;
 @end
 
 NS_ASSUME_NONNULL_END

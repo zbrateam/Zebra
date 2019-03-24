@@ -454,4 +454,26 @@
     return icon;
 }
 
+- (BOOL)packageIDHasUpgrade:(NSString *)packageID {
+    BOOL hasUpgrade = false;
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT HASUPDATE FROM PACKAGES WHERE PACKAGE = \'%@\' AND HASUPDATE = 1", packageID];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        NSLog(@"[Zebra] Pacakge has updat");
+        hasUpgrade = true;
+    }
+    
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return hasUpgrade;
+}
+
 @end

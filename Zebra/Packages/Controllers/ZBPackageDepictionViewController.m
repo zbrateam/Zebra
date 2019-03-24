@@ -16,6 +16,7 @@
     UIProgressView *progressView;
     WKWebView *webView;
     NSArray *otherVersions;
+    BOOL hasUpdate;
 }
 @property (nonatomic, strong) ZBPackage *package;
 @end
@@ -134,6 +135,9 @@
     if (_package.installed) {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         
+        NSLog(@"Package %@", [_package identifier]);
+        hasUpdate = [databaseManager packageIDHasUpgrade:[_package identifier]];
+        
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
         
@@ -196,6 +200,20 @@
         }];
         
         [alert addAction:downgrade];
+    }
+    
+    if (hasUpdate) {
+        UIAlertAction *upgrade = [UIAlertAction actionWithTitle:@"Upgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ZBQueue *queue = [ZBQueue sharedInstance];
+            [queue addPackage:self->_package toQueue:ZBQueueTypeUpgrade];
+            
+            [alert dismissViewControllerAnimated:true completion:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+            [self presentViewController:vc animated:true completion:nil];
+        }];
+        
+        [alert addAction:upgrade];
     }
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

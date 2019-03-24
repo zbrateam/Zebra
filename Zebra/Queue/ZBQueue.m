@@ -63,7 +63,7 @@
         case ZBQueueTypeUpgrade: {
             NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
             if (![upgradeArray containsObject:package]) {
-                [upgradeArray addObject:package.identifier];
+                [upgradeArray addObject:package];
                 [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
             }
             break;
