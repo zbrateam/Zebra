@@ -75,8 +75,12 @@
         
         [self postStatusUpdate:@"Done!\n" atLevel:1];
         sqlite3_close(database);
+        
         [self importLocalPackages:^(BOOL success) {
-            completion(success, NULL);
+            [self checkForPackageUpdates:^(BOOL success) {
+                NSLog(@"[Zebra] Done checking for updates");
+                completion(true, NULL);
+            }];
         }];
         
     } ignoreCache:!useCaching];
@@ -101,8 +105,8 @@
     completion(true);
 }
 
-- (NSArray <ZBPackage *> *)packagesWithUpdates {
-    NSMutableArray *updates = [NSMutableArray new];
+- (void)checkForPackageUpdates:(void (^)(BOOL success))completion {
+    NSLog(@"[Zebra] Checking for updates");
     NSArray *installedPackages = [self installedPackages];
     
     sqlite3 *database;
@@ -116,7 +120,13 @@
                     int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
                     
                     if (result < 0) {
-                        [updates addObject:otherPackage];
+                        NSLog(@"[Zebra] %@", [otherPackage name]);
+                        NSString *query = [NSString stringWithFormat:@"UPDATE PACKAGES SET (HASUPDATE) = (1) WHERE PACKAGE = \'%@\' AND VERSION = \'%@\'", [otherPackage identifier], [otherPackage version]];
+                        
+                        NSLog(@"[Zebra] Query %s", [query UTF8String]);
+                        
+                        sqlite3_exec(database, [query UTF8String], NULL, NULL, NULL);
+                        NSLog(@"[Zebra] DB Error: %s", sqlite3_errmsg(database));
                     }
                 }
             }
@@ -124,7 +134,35 @@
     }
     
     sqlite3_close(database);
+    
+    completion(true);
+}
 
+- (NSArray <ZBPackage *> *)packagesWithUpdates {
+    NSMutableArray *updates = [NSMutableArray new];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSString *query = @"SELECT * FROM PACKAGES WHERE HASUPDATE = 1 ORDER BY NAME COLLATE NOCASE ASC;";
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
+        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
+        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
+        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
+        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
+        
+        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:true remote:false];
+        
+        [updates addObject:package];
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    NSLog(@"[Zebra] Updates: %@", updates);
     return [self cleanUpDuplicatePackages:updates];
 }
 

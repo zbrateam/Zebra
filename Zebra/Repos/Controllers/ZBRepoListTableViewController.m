@@ -105,10 +105,15 @@
 }
 
 - (void)refreshTable {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    sources = [databaseManager sources];
-    
-    [self.tableView reloadData];
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:false];
+    }
+    else {
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        sources = [databaseManager sources];
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (void)addSource:(id)sender {

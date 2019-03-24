@@ -78,9 +78,6 @@
         
         [self performPostActions:^(BOOL success) {
             [self->_queue clearQueue];
-            
-            ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
-            [tabController updatePackageTableView];
         }];
     }
     [self updateStatus:4];
@@ -89,8 +86,7 @@
 
 - (void)performPostActions:(void (^)(BOOL success))completion  {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager updateEssentials:^(BOOL success, NSArray * _Nonnull updates, BOOL hasUpdates) {
-        NSLog(@"[Zebra] Updating essentials");
+    [databaseManager importLocalPackages:^(BOOL success) {
         completion(success);
     }];
 }

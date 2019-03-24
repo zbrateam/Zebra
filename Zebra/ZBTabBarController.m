@@ -78,37 +78,44 @@
                     [sourcesController tabBarItem].badgeValue = nil;
                 });
                 [self checkForPackageUpdates];
+                completion(true);
             }];
         });
     }
     else {
         [databaseManager importLocalPackages:^(BOOL success) {
             [self checkForPackageUpdates];
+            completion(true);
         }];
     }
 }
 
 - (void)checkForPackageUpdates {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    updates = [databaseManager packagesWithUpdates];
-    
-    UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
-    if (updates != NULL) {
-        hasUpdates = TRUE;
-        NSLog(@"Has Updates");
-        [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int)[updates count]]];
-        if (@available(iOS 10.0, *)) {
-            [packagesTabBarItem setBadgeColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
-        }
-        
-        UINavigationController *packageNavController = self.viewControllers[2];
-        ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
-        [packageVC refreshTable];
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(checkForPackageUpdates) withObject:nil waitUntilDone:false];
     }
     else {
-        NSLog(@"No Updates");
-        hasUpdates = FALSE;
-        [packagesTabBarItem setBadgeValue:nil];
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        updates = [databaseManager packagesWithUpdates];
+        
+        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
+        if ([updates count] != 0) {
+            hasUpdates = TRUE;
+            NSLog(@"Has Updates");
+            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int)[updates count]]];
+            if (@available(iOS 10.0, *)) {
+                [packagesTabBarItem setBadgeColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
+            }
+            
+            UINavigationController *packageNavController = self.viewControllers[2];
+            ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
+            [packageVC refreshTable];
+        }
+        else {
+            NSLog(@"No Updates");
+            hasUpdates = FALSE;
+            [packagesTabBarItem setBadgeValue:nil];
+        }
     }
 }
 

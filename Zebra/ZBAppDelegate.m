@@ -82,6 +82,8 @@
     self.window.rootViewController = initialController;
     [self.window makeKeyAndVisible];
     
+    NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    
     return YES;
 }
 
