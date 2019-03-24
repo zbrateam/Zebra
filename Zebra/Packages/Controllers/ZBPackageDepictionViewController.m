@@ -11,6 +11,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <sqlite3.h>
 #import <ZBAppDelegate.h>
+#import <SafariServices/SafariServices.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -51,10 +52,6 @@
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) ~ %@", PACKAGE_VERSION];
-    
-//    WKUserContentController *controller = [[WKUserContentController alloc] init];
-//    [controller addScriptMessageHandler:self name:@"observe"];
-//    configuration.userContentController = controller;
     
     webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -128,6 +125,33 @@
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
+    }
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = [navigationAction request];
+    NSURL *url = [request URL];
+    
+    int type = navigationAction.navigationType;
+    NSLog(@"[Zebra] Navigation Type %d", type);
+    
+    if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[_package depictionURL]])) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+    else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
+        if (type != -1) {
+            NSLog(@"[Zebra] %@", navigationAction.request.URL);
+            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+            sfVC.preferredControlTintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+            [self presentViewController:sfVC animated:true completion:nil];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+        else {
+            decisionHandler(WKNavigationActionPolicyAllow);
+        }
+    }
+    else {
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
 
