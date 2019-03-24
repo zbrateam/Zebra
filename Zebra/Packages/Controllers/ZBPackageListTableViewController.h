@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ZBPackageDepictionViewController.h"
 
+@class ZBRepo;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListTableViewController : UITableViewController
-@property (nonatomic) int repoID;
+@property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *section;
 - (void)refreshTable;
 @end

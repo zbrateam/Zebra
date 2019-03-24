@@ -197,10 +197,10 @@
     return repoID + 1;
 }
 
-- (int)numberOfPackagesInRepo:(int)repoID {
+- (int)numberOfPackagesInRepo:(ZBRepo *)repo {
     int numberOfPackages = 0;
     
-    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(DISTINCT PACKAGE) FROM PACKAGES WHERE REPOID = %d", repoID];
+    NSString *query = [NSString stringWithFormat:@"SELECT COUNT(DISTINCT PACKAGE) FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -256,7 +256,7 @@
     return (NSArray*)sources;
 }
 
-- (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
     NSMutableArray *packages = [NSMutableArray new];
     
     sqlite3 *database;
@@ -265,10 +265,10 @@
     NSString *query;
     
     if (section == NULL) {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d ORDER BY NAME COLLATE NOCASE ASC LIMIT %d OFFSET %d", repoID, limit, start];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d ORDER BY NAME COLLATE NOCASE ASC LIMIT %d OFFSET %d", [repo repoID], limit, start];
     }
     else {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' AND REPOID = %d ORDER BY NAME COLLATE NOCASE ASC LIMIT %d OFFSET %d", section, repoID, limit, start];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' AND REPOID = %d ORDER BY NAME COLLATE NOCASE ASC LIMIT %d OFFSET %d", section, [repo repoID], limit, start];
     }
     
     sqlite3_stmt *statement;
@@ -490,8 +490,8 @@
     [sectionReadout setObject:[self sectionsInRepo:repo] atIndexedSubscript:0];
     [sectionReadout setObject:[NSMutableArray new] atIndexedSubscript:1];
     for (int i = 0; i < [sectionReadout[0] count]; i++) {
-        NSNumber *numer = [self numberOfPackagesFromRepo:repo inSection:sectionReadout[0][i]];
-        [sectionReadout[1] setObject:numer atIndexedSubscript:i];
+        NSNumber *numberOfPackages = [NSNumber numberWithInt:[self numberOfPackagesFromRepo:repo inSection:sectionReadout[0][i]]];
+        [sectionReadout[1] setObject:numberOfPackages atIndexedSubscript:i];
     }
     
     return (NSArray *)sectionReadout;
@@ -518,8 +518,8 @@
     return (NSArray *)sections;
 }
 
-- (NSNumber *)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section {
-    NSNumber *packages = 0;
+- (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section {
+    int packages = 0;
     
     NSString *query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND REPOID = %d", section, [repo repoID]];
     
@@ -529,7 +529,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        packages = [NSNumber numberWithInt:sqlite3_column_int(statement, 0)];
+        packages = sqlite3_column_int(statement, 0);
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);

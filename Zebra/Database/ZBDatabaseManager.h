@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion;
 - (void)importLocalPackages:(void (^)(BOOL success))completion;
 - (NSArray <ZBPackage *> *)packagesWithUpdates;
-- (int)numberOfPackagesInRepo:(int)repoID;
+- (int)numberOfPackagesInRepo:(ZBRepo *)repo;
 - (NSArray <ZBPackage *> *)installedPackages;
-- (NSArray <ZBPackage *> *)packagesFromRepo:(int)repoID inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
 - (NSArray <ZBRepo *> *)sources;
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)deleteRepo:(ZBRepo *)repo;
@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage *)iconForRepo:(ZBRepo *)repo;
 - (BOOL)packageIDHasUpgrade:(NSString *)packageID;
 - (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo;
+- (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 #import <ZBTabBarController.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @interface ZBPackageListTableViewController () {
     ZBDatabaseManager *databaseManager;
@@ -24,13 +25,13 @@
 
 @implementation ZBPackageListTableViewController
 
-@synthesize repoID;
+@synthesize repo;
 @synthesize section;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (repoID == 0) {
+    if ([repo repoID] == 0) {
         [self queueButton];
         [self upgradeButton];
         [self refreshTable];
@@ -42,14 +43,19 @@
     
     needsExpansion = false;
     databaseManager = [[ZBDatabaseManager alloc] init];
-    if (repoID == 0) {
+    if ([repo repoID] == 0) {
         [self queueButton];
         [self upgradeButton];
         [self refreshTable];
     }
     else {
-        packages = [databaseManager packagesFromRepo:repoID inSection:section numberOfPackages:100 startingAt:0];
-        numberOfPackages = (int)packages.count;
+        packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:100 startingAt:0];
+        if (section == NULL) {
+            numberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
+        }
+        else {
+            numberOfPackages = [databaseManager numberOfPackagesFromRepo:repo inSection:section];
+        }
     }
 }
 
@@ -68,25 +74,8 @@
 }
 
 - (void)loadNextPackages {
-    int before = numberOfPackages;
-    NSArray *nextPackages = [databaseManager packagesFromRepo:repoID inSection:section numberOfPackages:100 startingAt:numberOfPackages];
+    NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:100 startingAt:numberOfPackages];
     packages = [packages arrayByAddingObjectsFromArray:nextPackages];
-    numberOfPackages = (int)packages.count;
-    
-    if (numberOfPackages > [self.tableView numberOfRowsInSection:0]) {
-        needsExpansion = true;
-        NSMutableArray *indexArray = [NSMutableArray new];
-        for (int i = 0; i < numberOfPackages - before; i++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            [indexArray addObject:indexPath];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView beginUpdates];
-            [self.tableView insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
-        });
-    }
 }
 
 - (void)upgradeButton {
@@ -136,18 +125,7 @@
         return updates.count;
     }
     else {
-        if (needsExpansion) {
-            return numberOfPackages;
-        }
-        else if ([databaseManager numberOfPackagesInRepo:repoID] > 1000) {
-            return 1000;
-        }
-        else if ([databaseManager numberOfPackagesInRepo:repoID] > 500) {
-            return 500;
-        }
-        else {
-            return [databaseManager numberOfPackagesInRepo:repoID];
-        }
+        return numberOfPackages;
     }
 }
 
@@ -173,10 +151,6 @@
         if (sectionImage != NULL) {
             cell.imageView.image = sectionImage;
         }
-        
-//        if (error != nil) {
-//            NSLog(@"[Zebra] %@", error);
-//        }
     }
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
@@ -184,7 +158,7 @@
         cell.textLabel.text = package.name;
         cell.detailTextLabel.text = package.desc;
         
-        if ((indexPath.row == numberOfPackages - 25) && (repoID != 0)) {
+        if ((indexPath.row == numberOfPackages - 25) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
         
@@ -201,10 +175,6 @@
         if (sectionImage != NULL) {
             cell.imageView.image = sectionImage;
         }
-        
-//        if (error != nil) {
-//            NSLog(@"[Zebra] %@", error);
-//        }
     }
     
     CGSize itemSize = CGSizeMake(35, 35);
@@ -233,7 +203,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (repoID == 0 && needsSecondSection && section == 0) {
+    if ([repo repoID] == 0 && needsSecondSection && section == 0) {
         return @"Available Upgrades";
     }
     
@@ -243,50 +213,5 @@
     
     return @"";
 }
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

@@ -39,7 +39,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sectionReadout[0] count];
+    return [sectionReadout[0] count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -48,7 +48,7 @@
     if (indexPath.row == 0) {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         cell.textLabel.text = @"All Packages";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [databaseManager numberOfPackagesInRepo:[repo repoID]]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [databaseManager numberOfPackagesInRepo:repo]];
     }
     else {
         NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
@@ -63,11 +63,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageListTableViewController *destination = [segue destinationViewController];
-    destination.repoID = [repo repoID];
+    destination.repo = repo;
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     
     if (indexPath.row != 0) {
-        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row];
+        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
         destination.section = section;
         destination.title = section;
     }
