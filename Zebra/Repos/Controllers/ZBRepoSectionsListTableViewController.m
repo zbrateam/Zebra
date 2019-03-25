@@ -25,11 +25,23 @@
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
-    
-    self.title = [repo origin];
+
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    UIImage *image = [databaseManager iconForRepo:repo];
+    if (image != NULL) {
+        UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        imageView.center = self.navigationItem.titleView.center;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.image = image;
+        [container addSubview:imageView];
+        
+        self.navigationItem.titleView = container;
+    }
+    self.title = [repo origin];
 }
 
 #pragma mark - Table view data source
