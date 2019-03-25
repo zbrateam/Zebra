@@ -1,13 +1,13 @@
 //
-//  Parsel.h
+//  parsel.h
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#ifndef Parsel_h
-#define Parsel_h
+#ifndef parsel_h
+#define parsel_h
 
 #include <stdio.h>
 #include <sqlite3.h>
@@ -20,4 +20,4 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID);
 int packages_file_changed(FILE* f1, FILE* f2);
 
-#endif /* parse_h */
+#endif /* parsel_h */

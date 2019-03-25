@@ -1,12 +1,12 @@
 //
-//  Parsel.c
+//  parsel.c
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#include "Parsel.h"
+#include "parsel.h"
 #include "dict.h"
 
 typedef char *multi_tok_t;
