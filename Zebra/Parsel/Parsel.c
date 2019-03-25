@@ -281,6 +281,16 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                     strcpy(package[1], package[0]);
                 }
                 
+                if (strcmp(package[0], "ShortLook") == 0) {
+                    printf("%s\n", package[0]);
+                    printf("%s\n", package[1]);
+                    printf("%s\n", package[2]);
+                    printf("%s\n", package[3]);
+                    printf("%s\n", package[4]);
+                    printf("%s\n", package[5]);
+                    printf("%s\n", package[6]);
+                }
+                
                 sqlite3_stmt *insertStatement;
                 char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?);";
                 
@@ -323,7 +333,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
 
 void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
-    char line[256];
+    char line[512];
     
     char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, create, NULL, 0, NULL);
@@ -332,7 +342,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     char sql[64];
     sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
     sqlite3_exec(database, sql, NULL, 0, NULL);
-    
+
     char package[7][1024];
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
