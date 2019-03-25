@@ -48,12 +48,24 @@
     if (indexPath.row == 0) {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         cell.textLabel.text = @"All Packages";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [databaseManager numberOfPackagesInRepo:repo]];
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
+        numberFormatter.locale = [NSLocale currentLocale];
+        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        numberFormatter.usesGroupingSeparator = YES;
+        
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo]]];
     }
     else {
         NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = section;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", (NSNumber *)sectionReadout[1][indexPath.row - 1]];
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
+        numberFormatter.locale = [NSLocale currentLocale];
+        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        numberFormatter.usesGroupingSeparator = YES;
+        
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)sectionReadout[1][indexPath.row - 1]];
     }
     
     return cell;
