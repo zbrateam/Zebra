@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <sqlite3.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,10 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *section;
 @property (nonatomic, strong) NSURL *depictionURL;
+@property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) NSArray *dependsOn;
+@property (nonatomic, strong) NSArray *conflictsWith;
+@property (nonatomic, strong) NSString *author;
 @property (nonatomic) BOOL installed;
 @property (nonatomic) BOOL remote;
 
-- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote;
+- (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 @end
 
 NS_ASSUME_NONNULL_END

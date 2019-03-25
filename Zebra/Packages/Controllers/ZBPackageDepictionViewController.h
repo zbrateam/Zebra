@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import <Packages/Helpers/ZBPackage.h>
+
+@class ZBPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 

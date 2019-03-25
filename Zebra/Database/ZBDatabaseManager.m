@@ -7,13 +7,14 @@
 //
 
 #import "ZBDatabaseManager.h"
-#import <Parsel/Parsel.h>
+#import <Parsel/parsel.h>
 #import <NSTask.h>
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Parsel/dpkgver.h>
 #import <Hyena/Hyena.h>
+#import <sqlite3.h>
 
 @implementation ZBDatabaseManager
 
@@ -41,6 +42,8 @@
         
         sqlite3 *database;
         sqlite3_open([self->databasePath UTF8String], &database);
+        
+        NSDate *methodStart = [NSDate date];
         
         for (NSString *releasePath in releaseFiles) {
             NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
@@ -73,13 +76,16 @@
         }
         
         [self postStatusUpdate:@"Done!\n" atLevel:1];
+        NSDate *methodFinish = [NSDate date];
+        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+        NSLog(@"[Zebra] executionTime = %f", executionTime);
         sqlite3_close(database);
         
         [self importLocalPackages:^(BOOL success) {
-            [self checkForPackageUpdates:^(BOOL success) {
-                NSLog(@"[Zebra] Done checking for updates");
+//            [self checkForPackageUpdates:^(BOOL success) {
+//                NSLog(@"[Zebra] Done checking for updates");
                 completion(true, NULL);
-            }];
+//            }];
         }];
         
     } ignoreCache:!useCaching];
@@ -272,14 +278,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
-        
-        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:false remote:true];
+        ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
         [packages addObject:package];
     }
@@ -299,14 +298,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
-        
-        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:true remote:false];
+        ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
         [installedPackages addObject:package];
     }
@@ -334,14 +326,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
-        
-        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:false remote:false];
+        ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
         [searchResults addObject:package];
     }
@@ -375,14 +360,7 @@
         sqlite3_bind_text(statement, 1, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
     }
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-        const char *depictionChars = (const char *)sqlite3_column_text(statement, 5);
-        
-        ZBPackage *package = [[ZBPackage alloc] initWithIdentifier:[[NSString alloc] initWithUTF8String:packageIDChars] name:[[NSString alloc] initWithUTF8String:packageNameChars] version:[[NSString alloc] initWithUTF8String:versionChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] section:[[NSString alloc] initWithUTF8String:sectionChars] depictionURL:[[NSString alloc] initWithUTF8String:depictionChars] installed:true remote:false];
+        ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
         [otherVersions addObject:package];
     }
