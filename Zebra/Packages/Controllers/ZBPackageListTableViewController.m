@@ -52,7 +52,13 @@
         packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:100 startingAt:0];
         databaseRow = 99;
         numberOfPackages = (int)[packages count];
-        totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
+        if (section != NULL) {
+            totalNumberOfPackages = [databaseManager numberOfPackagesFromRepo:repo inSection:section];
+        }
+        else {
+            totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
+        }
+        NSLog(@"Loaded Packages %d/%d, Packages: %@", numberOfPackages, totalNumberOfPackages, packages);
     }
 }
 
@@ -135,7 +141,12 @@
         return updates.count;
     }
     else {
-        return [databaseManager numberOfPackagesInRepo:repo];
+        if (self.section != NULL) {
+            return [databaseManager numberOfPackagesFromRepo:repo inSection:self.section];
+        }
+        else {
+            return [databaseManager numberOfPackagesInRepo:repo];
+        }
     }
 }
 
@@ -167,7 +178,9 @@
         }
     }
     else {
+        NSLog(@"Cell %d", indexPath.row);
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
+        NSLog(@"Package: %@", [package name]);
         
         cell.textLabel.text = package.name;
         cell.detailTextLabel.text = package.desc;
