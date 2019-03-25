@@ -18,6 +18,5 @@ void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *dat
 void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID);
-int packages_file_changed(FILE* f1, FILE* f2);
 
 #endif /* parsel_h */

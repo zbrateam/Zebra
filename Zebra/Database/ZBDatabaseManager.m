@@ -7,7 +7,7 @@
 //
 
 #import "ZBDatabaseManager.h"
-#import <Parsel/Parsel.h>
+#import <Parsel/parsel.h>
 #import <NSTask.h>
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>
