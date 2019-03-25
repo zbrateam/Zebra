@@ -8,7 +8,7 @@
 
 #import "ZBRefreshViewController.h"
 #import <Database/ZBDatabaseManager.h>
-#import <Parsel/Parsel.h>
+#include <Parsel/parsel.h>
 #import <ZBTabBarController.h>
 
 @interface ZBRefreshViewController ()

@@ -9,6 +9,7 @@
 #import "ZBSearchViewController.h"
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;

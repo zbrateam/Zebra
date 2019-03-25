@@ -9,9 +9,9 @@
 #import "ZBPackageDepictionViewController.h"
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
-#import <sqlite3.h>
 #import <ZBAppDelegate.h>
 #import <SafariServices/SafariServices.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
