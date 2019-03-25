@@ -17,6 +17,7 @@
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
 		898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
+		899203B722490D4C0098AC7B /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 899203B622490D4C0098AC7B /* dict.c */; };
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
 		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
@@ -67,6 +68,8 @@
 		8991FF9C21B2109E004FCE23 /* Parsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parsel.h; sourceTree = "<group>"; };
 		8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDatabaseManager.h; sourceTree = "<group>"; };
 		8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDatabaseManager.m; sourceTree = "<group>"; };
+		899203B522490D4C0098AC7B /* dict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
+		899203B622490D4C0098AC7B /* dict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
 		8997843F2242D25800C1138C /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		89A1B733223C97210053D0E2 /* ZBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				89C7E49121B240D4003DB4E8 /* Parsel.c */,
 				89CA2137224043D1008F09DB /* dpkgver.h */,
 				89CA2138224043D1008F09DB /* dpkgver.c */,
+				899203B522490D4C0098AC7B /* dict.h */,
+				899203B622490D4C0098AC7B /* dict.c */,
 			);
 			path = Parsel;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
+				899203B722490D4C0098AC7B /* dict.c in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,

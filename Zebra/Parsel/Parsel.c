@@ -7,6 +7,7 @@
 //
 
 #include "Parsel.h"
+#include "dict.h"
 
 typedef char *multi_tok_t;
 
@@ -69,36 +70,40 @@ void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
-    char repo[6][256];
+//    char repo[6][256];
+    dict *repo = dict_new();
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
         
         multi_tok_t s = init();
         
         char *key = multi_tok(info, &s, ": ");
+        char *value = multi_tok(NULL, &s, ": ");
         
-        if (strcmp(key, "Origin") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[0], value);
-        }
-        else if (strcmp(key, "Description") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[1], value);
-        }
-        else if (strcmp(key, "Suite") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[4], value);
-        }
-        else if (strcmp(key, "Components") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[5], value);
-        }
+        dict_add(repo, key, value);
+        
+//        if (strcmp(key, "Origin") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[0], value);
+//        }
+//        else if (strcmp(key, "Description") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[1], value);
+//        }
+//        else if (strcmp(key, "Suite") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[4], value);
+//        }
+//        else if (strcmp(key, "Components") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[5], value);
+//        }
     }
     
     multi_tok_t t = init();
     char *fullfilename = basename((char *)path);
     char *baseFilename = multi_tok(fullfilename, &t, "_Release");
-    strcpy(repo[2], baseFilename);
+    dict_add(repo, "BaseFileName", baseFilename);
     
     char secureURL[128];
     strcpy(secureURL, baseFilename);
@@ -109,7 +114,7 @@ void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *dat
         baseFilename[strlen(baseFilename) - 1] = 0;
     }
     
-    strcpy(repo[3], baseFilename);
+    dict_add(repo, "BaseURL", baseFilename);
     
     int def = 0;
     if(strstr(baseFilename, "dists") != NULL) {
@@ -120,15 +125,15 @@ void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     char *insertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-        sqlite3_bind_text(insertStatement, 1, repo[0], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 2, repo[1], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 3, repo[2], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 4, repo[3], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 2, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 3, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 4, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 5, secure);
         sqlite3_bind_int(insertStatement, 6, repoID);
         sqlite3_bind_int(insertStatement, 7, def);
-        sqlite3_bind_text(insertStatement, 8, repo[4], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 9, repo[5], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 8, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 9, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
         sqlite3_step(insertStatement);
     }
     else {
@@ -137,10 +142,7 @@ void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     
     sqlite3_finalize(insertStatement);
     
-    repo[0][0] = 0;
-    repo[1][0] = 0;
-    repo[2][0] = 0;
-    repo[3][0] = 0;
+    dict_free(repo);
     
     fclose(file);
 }
@@ -152,36 +154,40 @@ void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
-    char repo[6][256];
+//    char repo[6][256];
+    dict *repo = dict_new();
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
         
         multi_tok_t s = init();
         
         char *key = multi_tok(info, &s, ": ");
+        char *value = multi_tok(NULL, &s, ": ");
         
-        if (strcmp(key, "Origin") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[0], value);
-        }
-        else if (strcmp(key, "Description") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[1], value);
-        }
-        else if (strcmp(key, "Suite") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[4], value);
-        }
-        else if (strcmp(key, "Components") == 0) {
-            char *value = multi_tok(NULL, &s, ": ");
-            strcpy(repo[5], value);
-        }
+        dict_add(repo, key, value);
+        
+//        if (strcmp(key, "Origin") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[0], value);
+//        }
+//        else if (strcmp(key, "Description") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[1], value);
+//        }
+//        else if (strcmp(key, "Suite") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[4], value);
+//        }
+//        else if (strcmp(key, "Components") == 0) {
+//            char *value = multi_tok(NULL, &s, ": ");
+//            strcpy(repo[5], value);
+//        }
     }
     
     multi_tok_t t = init();
     char *fullfilename = basename((char *)path);
     char *baseFilename = multi_tok(fullfilename, &t, "_Release");
-    strcpy(repo[2], baseFilename);
+    dict_add(repo, "BaseFileName", baseFilename);
     
     char secureURL[128];
     strcpy(secureURL, baseFilename);
@@ -192,7 +198,7 @@ void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *dat
         baseFilename[strlen(baseFilename) - 1] = 0;
     }
     
-    strcpy(repo[3], baseFilename);
+    dict_add(repo, "BaseURL", baseFilename);
     
     int def = 0;
     if(strstr(baseFilename, "dists") != NULL) {
@@ -203,14 +209,14 @@ void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     char *insertQuery = "UPDATE REPOS SET (ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, DEF, SUITE, COMPONENTS) = (?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
     
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-        sqlite3_bind_text(insertStatement, 1, repo[0], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 2, repo[1], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 3, repo[2], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 4, repo[3], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 2, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 3, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 4, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 5, secure);
         sqlite3_bind_int(insertStatement, 6, def);
-        sqlite3_bind_text(insertStatement, 7, repo[4], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 8, repo[5], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 7, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 8, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 9, repoID);
         sqlite3_step(insertStatement);
     }
@@ -220,10 +226,12 @@ void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     
     sqlite3_finalize(insertStatement);
     
-    repo[0][0] = 0;
-    repo[1][0] = 0;
-    repo[2][0] = 0;
-    repo[3][0] = 0;
+    dict_free(repo);
+    
+//    repo[0][0] = 0;
+//    repo[1][0] = 0;
+//    repo[2][0] = 0;
+//    repo[3][0] = 0;
     
     fclose(file);
 }
@@ -237,7 +245,8 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
-    char package[7][1024];
+    dict *package = dict_new();
+//    char package[7][1024];
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0) {
             char *info = strtok(line, "\n");
@@ -245,52 +254,56 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
             multi_tok_t s = init();
             
             char *key = multi_tok(info, &s, ": ");
+            char *value = multi_tok(NULL, &s, ": ");
             
-            if (strcmp(key, "Package") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[0], value);
-            }
-            else if (strcmp(key, "Name") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[1], value);
-            }
-            else if (strcmp(key, "Version") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[2], value);
-            }
-            else if (strcmp(key, "Description") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[3], value);
-            }
-            else if (strcmp(key, "Section") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[4], value);
-            }
-            else if (strcmp(key, "Depiction") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[5], value);
-            }
-            else if (strcmp(key, "Status") == 0) {
-                char *value = multi_tok(NULL, &s, ": ");
-                strcpy(package[6], value);
-            }
+            dict_add(package, key, value);
+            
+//            if (strcmp(key, "Package") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[0], value);
+//            }
+//            else if (strcmp(key, "Name") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[1], value);
+//            }
+//            else if (strcmp(key, "Version") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[2], value);
+//            }
+//            else if (strcmp(key, "Description") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[3], value);
+//            }
+//            else if (strcmp(key, "Section") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[4], value);
+//            }
+//            else if (strcmp(key, "Depiction") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[5], value);
+//            }
+//            else if (strcmp(key, "Status") == 0) {
+//                char *value = multi_tok(NULL, &s, ": ");
+//                strcpy(package[6], value);
+//            }
         }
-        else if (package[0][0] != 0) {
-            if (strcasestr(package[0], "saffron-jailbreak") == NULL && strcasestr(package[0], "gsc") == NULL && strcasestr(package[0], "cy+") == NULL && strcasestr(package[6], "not-installed") == NULL) {
-                if (package[1][0] == 0) {
-                    strcpy(package[1], package[0]);
+        else if (dict_get(package, "Package") != 0) {
+            const char *packageIdentifier = dict_get(package, "Package");
+            if (strcasestr(packageIdentifier, "saffron-jailbreak") == NULL && strcasestr(packageIdentifier, "gsc") == NULL && strcasestr(packageIdentifier, "cy+") == NULL && strcasestr(dict_get(package, "Status"), "not-installed") == NULL) {
+                if (dict_get(package, "Name") == 0) {
+                    dict_add(package, "Name", packageIdentifier);
                 }
                 
                 sqlite3_stmt *insertStatement;
                 char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?);";
                 
                 if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-                    sqlite3_bind_text(insertStatement, 1, package[0], -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 2, package[1], -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 3, package[2], -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 4, package[3], -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 5, package[4], -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 6, package[5], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 2, dict_get(package, "Name"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 3, dict_get(package, "Version"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 4, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 5, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 6, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_int(insertStatement, 7, repoID);
                     sqlite3_step(insertStatement);
                 }
@@ -300,13 +313,15 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 
                 sqlite3_finalize(insertStatement);
                 
-                package[0][0] = 0;
-                package[1][0] = 0;
-                package[2][0] = 0;
-                package[3][0] = 0;
-                package[4][0] = 0;
-                package[5][0] = 0;
-                package[6][0] = 0;
+                dict_free(package);
+                package = dict_new();
+//                package[0][0] = 0;
+//                package[1][0] = 0;
+//                package[2][0] = 0;
+//                package[3][0] = 0;
+//                package[4][0] = 0;
+//                package[5][0] = 0;
+//                package[6][0] = 0;
             }
             else {
                 continue;
