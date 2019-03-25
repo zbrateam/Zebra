@@ -200,7 +200,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, HASUPDATE INTEGER, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
@@ -225,7 +225,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 }
                 
                 sqlite3_stmt *insertStatement;
-                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?);";
+                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 
                 if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
                     sqlite3_bind_text(insertStatement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
@@ -234,7 +234,11 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                     sqlite3_bind_text(insertStatement, 4, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 5, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 6, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_int(insertStatement, 7, repoID);
+                    sqlite3_bind_text(insertStatement, 7, tags, -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 8, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 9, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 10, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(insertStatement, 11, repoID);
                     sqlite3_step(insertStatement);
                 }
                 else {
@@ -247,10 +251,14 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                 package = dict_new();
             }
             else {
+                dict_free(package);
+                package = dict_new();
                 continue;
             }
         }
         else {
+            dict_free(package);
+            package = dict_new();
             continue;
         }
     }
@@ -263,7 +271,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[512];
     
-    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, HASUPDATE INTEGER, REPOID INTEGER);";
+    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, create, NULL, 0, NULL);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
@@ -292,7 +300,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                 }
                 
                 sqlite3_stmt *insertStatement;
-                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?);";
+                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 
                 if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
                     sqlite3_bind_text(insertStatement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
@@ -301,7 +309,11 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                     sqlite3_bind_text(insertStatement, 4, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 5, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 6, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_int(insertStatement, 7, repoID);
+                    sqlite3_bind_text(insertStatement, 7, dict_get(package, "Tag"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 8, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 9, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(insertStatement, 10, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(insertStatement, 11, repoID);
                     sqlite3_step(insertStatement);
                 }
                 else {
@@ -314,10 +326,14 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
                 package = dict_new();
             }
             else {
+                dict_free(package);
+                package = dict_new();
                 continue;
             }
         }
         else {
+            dict_free(package);
+            package = dict_new();
             continue;
         }
     }
