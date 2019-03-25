@@ -77,7 +77,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    NSLog(@"Package %@", package);
     NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([section characterAtIndex:[section length] - 1] == ')') {
         NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section

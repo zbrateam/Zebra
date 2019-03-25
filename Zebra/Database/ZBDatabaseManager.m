@@ -119,7 +119,6 @@
                     int result = verrevcmp([[package version] UTF8String], [[otherPackage version] UTF8String]);
                     
                     if (result < 0) {
-                        NSLog(@"[Zebra] %@", [otherPackage name]);
                         NSString *firstQuery = [NSString stringWithFormat:@"UPDATE PACKAGES SET (HASUPDATE) = (0) WHERE PACKAGE = \'%@\'", [otherPackage identifier]];
                         NSString *secondQuery = [NSString stringWithFormat:@"UPDATE PACKAGES SET (HASUPDATE) = (1) WHERE PACKAGE = \'%@\' AND VERSION = \'%@\'", [otherPackage identifier], [otherPackage version]];
                         
@@ -160,7 +159,6 @@
     sqlite3_finalize(statement);
     sqlite3_close(database);
     
-    NSLog(@"[Zebra] Updates: %@", updates);
     return updates;
 }
 
@@ -474,7 +472,6 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        NSLog(@"[Zebra] Pacakge has updat");
         hasUpgrade = true;
     }
     

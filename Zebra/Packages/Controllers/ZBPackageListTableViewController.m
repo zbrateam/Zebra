@@ -58,7 +58,6 @@
         else {
             totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
         }
-        NSLog(@"Loaded Packages %d/%d, Packages: %@", numberOfPackages, totalNumberOfPackages, packages);
     }
 }
 
@@ -78,20 +77,17 @@
 
 - (void)loadNextPackages {
     if (databaseRow + 200 <= totalNumberOfPackages) {
-        NSLog(@"Loading next 200 packages starting from %d", databaseRow);
         NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:200 startingAt:databaseRow];
         packages = [packages arrayByAddingObjectsFromArray:nextPackages];
         numberOfPackages = (int)[packages count];
         databaseRow += 199;
     }
     else if (totalNumberOfPackages - (databaseRow + 200) != 0) {
-        NSLog(@"Loading next %d packages starting from %d", totalNumberOfPackages - (databaseRow + 200), databaseRow);
         NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:totalNumberOfPackages - (databaseRow + 200) startingAt:databaseRow];
         packages = [packages arrayByAddingObjectsFromArray:nextPackages];
         numberOfPackages = (int)[packages count];
         databaseRow += 199;
     }
-    NSLog(@"Done");
 }
 
 - (void)upgradeButton {
@@ -153,10 +149,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
-    if (indexPath.row == 100) {
-        NSLog(@"break");
-    }
-    
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
         
@@ -178,9 +170,7 @@
         }
     }
     else {
-        NSLog(@"Cell %d", indexPath.row);
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
-        NSLog(@"Package: %@", [package name]);
         
         cell.textLabel.text = package.name;
         cell.detailTextLabel.text = package.desc;

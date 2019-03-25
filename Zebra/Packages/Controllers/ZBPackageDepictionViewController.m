@@ -112,7 +112,6 @@
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package name], [_package identifier]] completionHandler:nil];
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
     
-    NSLog(@"[Zebra] Package Description: %@, Depiction URL: %@", [_package desc], [_package depictionURL]);
     if ([_package depictionURL] != NULL && ![[[_package depictionURL] absoluteString] isEqualToString:@""])  {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         [webView evaluateJavaScript:@"var element = document.getElementById('main-holder').style.marginBottom = '0px';" completionHandler:nil];
@@ -133,14 +132,12 @@
     NSURL *url = [request URL];
     
     int type = navigationAction.navigationType;
-    NSLog(@"[Zebra] Navigation Type %d", type);
     
     if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[_package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
     else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
-            NSLog(@"[Zebra] %@", navigationAction.request.URL);
             SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
             if (@available(iOS 10.0, *)) {
                 sfVC.preferredControlTintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
@@ -165,7 +162,6 @@
     if (_package.installed) {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         
-        NSLog(@"Package %@", [_package identifier]);
         hasUpdate = [databaseManager packageIDHasUpgrade:[_package identifier]];
         
         sqlite3 *database;
