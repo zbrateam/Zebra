@@ -218,7 +218,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
         }
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
-            if (strcasestr(packageIdentifier, "saffron-jailbreak") == NULL && strcasestr(dict_get(package, "Tag"), "role::cydia") == NULL && strcasestr(dict_get(package, "Status"), "not-installed") == NULL) {
+            if (strcasestr(dict_get(package, "Tag"), "role::cydia") == NULL && strcasestr(dict_get(package, "Status"), "not-installed") == NULL) {
                 if (dict_get(package, "Name") == 0) {
                     dict_add(package, "Name", packageIdentifier);
                 }
@@ -284,7 +284,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
         }
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
-            if (strcasestr(packageIdentifier, "saffron-jailbreak") == NULL && strcasestr(dict_get(package, "Tag"), "role::cydia") == NULL) {
+            if (strcasestr(dict_get(package, "Tag"), "role::cydia") == NULL) {
                 if (dict_get(package, "Name") == 0) {
                     dict_add(package, "Name", packageIdentifier);
                 }
