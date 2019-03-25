@@ -281,16 +281,6 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                     strcpy(package[1], package[0]);
                 }
                 
-                if (strcmp(package[0], "ShortLook") == 0) {
-                    printf("%s\n", package[0]);
-                    printf("%s\n", package[1]);
-                    printf("%s\n", package[2]);
-                    printf("%s\n", package[3]);
-                    printf("%s\n", package[4]);
-                    printf("%s\n", package[5]);
-                    printf("%s\n", package[6]);
-                }
-                
                 sqlite3_stmt *insertStatement;
                 char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?);";
                 
