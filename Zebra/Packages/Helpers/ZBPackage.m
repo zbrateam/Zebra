@@ -61,7 +61,7 @@
         [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
         [self setVersion:[NSString stringWithUTF8String:versionChars]]; //This should never be NULL
         [self setDesc:descriptionChars != 0 ? [NSString stringWithUTF8String:descriptionChars] : NULL];
-        [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
+        [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         [self setDependsOn:dependsChars != 0 ? [[NSString stringWithUTF8String:dependsChars] componentsSeparatedByString:@", "] : NULL];
