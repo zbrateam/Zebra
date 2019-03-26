@@ -82,4 +82,8 @@
     return ([[object identifier] isEqual:[self identifier]] && [[object version] isEqual:[self version]]);
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ (%@) V%@", name, identifier, version];
+}
+
 @end
