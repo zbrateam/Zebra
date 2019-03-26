@@ -46,10 +46,15 @@
         case ZBQueueTypeInstall: {
             NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
             if (![installArray containsObject:package]) {
-                if (!ignore)
-                    [self enqueueDependenciesForPackage:package];
+                NSLog(@"Adding %@ to install queue", package);
                 [installArray addObject:package];
                 [_managedQueue setObject:installArray forKey:@"Install"];
+                if (!ignore) {
+                    [self enqueueDependenciesForPackage:package];
+                }
+            }
+            else {
+                NSLog(@"Package %@ already in Queue %d", package, queue);
             }
             break;
         }
@@ -179,12 +184,8 @@
 }
 
 - (int)numberOfPackagesForQueue:(NSString *)queue {
-    if ([queue isEqual:@"Depends"]) {
-        return (int)[_dependencyQueue count];
-    }
-    else {
-        return (int)[_managedQueue[queue] count];
-    }
+    NSLog(@"%@", _managedQueue[queue]);
+    return (int)[_managedQueue[queue] count];
 }
 
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index {
@@ -230,10 +231,6 @@
         [actions addObject:@"Upgrade"];
     }
     
-    if ([_dependencyQueue count] > 0) {
-        [actions addObject:@"Depends"];
-    }
-    
     return (NSArray *)actions;
 }
 
@@ -261,16 +258,13 @@
     ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] init];
     NSArray *bill = [resolver dependenciesForPackage:package];
     
-    for (NSString *depID in bill) {
-        if (![depID isEqualToString:[package identifier]]) {
-            NSLog(@"Adding %@ to dependency queue", package);
-            [_dependencyQueue addObject:depID];
+    for (ZBPackage *dep in bill) {
+        if (![dep isEqual:package]) {
+            NSLog(@"Adding %@ to %@ dependency queue", dep, package);
+            [dep setDependencyOf:package];
+            [self addPackage:dep toQueue:ZBQueueTypeInstall ignoreDependencies:TRUE];
         }
     }
-}
-
-- (void)enqueueConflictionsForPackage:(ZBPackage *)package {
-    
 }
 
 @end

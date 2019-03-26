@@ -58,7 +58,6 @@
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
-    NSLog(@"Action: %@", action);
     ZBPackage *package;
     
     if (!cell) {
@@ -77,12 +76,6 @@
     else if ([action isEqual:@"Upgrade"]) {
         package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
     }
-    else {
-        NSLog(@"Dpen %@", _queue.dependencyQueue[indexPath.row]);
-        NSLog(@"Q %@", _queue.dependencyQueue);
-        cell.textLabel.text = _queue.dependencyQueue[indexPath.row];
-        return cell;
-    }
     
     NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([section characterAtIndex:[section length] - 1] == ')') {
@@ -96,13 +89,15 @@
     if (sectionImage != NULL) {
         cell.imageView.image = sectionImage;
     }
-    
-    if (error != nil) {
-        NSLog(@"[Zebra] %@", error);
-    }
-    
+
     cell.textLabel.text = package.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
+    
+    if ([package dependencyOf] != NULL) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"dependency of %@", [[package dependencyOf] name]];
+    }
+    else {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
+    }
     
     CGSize itemSize = CGSizeMake(35, 35);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);

@@ -22,7 +22,7 @@
 @synthesize author;
 @synthesize installed;
 @synthesize remote;
-@synthesize packageDependencies;
+@synthesize dependencyOf;
 
 - (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
     
