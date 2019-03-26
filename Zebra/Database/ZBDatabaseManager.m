@@ -14,7 +14,6 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Parsel/dpkgver.h>
 #import <Hyena/Hyena.h>
-#import <sqlite3.h>
 
 @implementation ZBDatabaseManager
 
@@ -515,6 +514,21 @@
     sqlite3_exec(database, repoDel, NULL, 0, NULL);
     
     sqlite3_close(database);
+}
+
+- (BOOL)isPackageInstalled:(ZBPackage *)package inDatabase:(sqlite3 *)database {
+    BOOL installed = false;
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID = 0;", [package identifier], [package version]];
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        installed = TRUE;
+    }
+    sqlite3_finalize(statement);
+    
+    return installed;
 }
 
 @end
