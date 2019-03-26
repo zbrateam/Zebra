@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dropTables;
 - (BOOL)packageIsInstalled:(NSString *)package inDatabase:(sqlite3 *)database;
 - (BOOL)packageIsAvailable:(NSString *)package inDatabase:(sqlite3 *)database;
+- (ZBPackage *)packageForID:(NSString *)identifier version:(NSString * _Nullable)version inDatabase:(sqlite3 *)database;
 @end
 
 NS_ASSUME_NONNULL_END

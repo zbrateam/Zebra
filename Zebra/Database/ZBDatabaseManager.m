@@ -546,4 +546,25 @@
     return available;
 }
 
+- (ZBPackage *)packageForID:(NSString *)identifier version:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
+    ZBPackage *package = NULL;
+    
+    NSString *query;
+    if (version == NULL) {
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
+    }
+    else {
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND VERSION = \'%@\';", identifier, version];
+    }
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+    }
+    sqlite3_finalize(statement);
+    
+    return package;
+}
+
 @end
