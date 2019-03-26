@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSURL *depictionURL;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) NSArray *dependsOn;
+@property (nonatomic, strong) NSArray <ZBPackage *> *packageDependencies;
 @property (nonatomic, strong) NSArray *conflictsWith;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic) BOOL installed;

@@ -22,6 +22,7 @@
 @synthesize author;
 @synthesize installed;
 @synthesize remote;
+@synthesize packageDependencies;
 
 - (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
     
@@ -69,6 +70,16 @@
     }
     
     return self;
+}
+
+- (BOOL)isEqual:(ZBPackage *)object {
+    if (self == object)
+        return TRUE;
+    
+    if (![object isKindOfClass:[ZBPackage class]])
+        return FALSE;
+    
+    return ([[object identifier] isEqual:[self identifier]] && [[object version] isEqual:[self version]]);
 }
 
 @end
