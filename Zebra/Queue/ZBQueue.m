@@ -29,6 +29,8 @@
         [_managedQueue setObject:@[] forKey:@"Remove"];
         [_managedQueue setObject:@[] forKey:@"Reinstall"];
         [_managedQueue setObject:@[] forKey:@"Upgrade"];
+        
+        _dependencyQueue = [NSMutableDictionary new];
     }
     
     return self;

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSArray *> *managedQueue;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSArray *> *dependencyQueue;
 + (id)sharedInstance;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
