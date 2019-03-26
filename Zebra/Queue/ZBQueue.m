@@ -72,41 +72,8 @@
 }
 
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
-    for (NSDictionary *package in packages) {
-        switch (queue) {
-            case ZBQueueTypeInstall: {
-                NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
-                if (![installArray containsObject:package]) {
-                    [installArray addObject:package];
-                    [_managedQueue setObject:installArray forKey:@"Install"];
-                }
-                break;
-            }
-            case ZBQueueTypeRemove: {
-                NSMutableArray *removeArray = [_managedQueue[@"Remove"] mutableCopy];
-                if (![removeArray containsObject:package]) {
-                    [removeArray addObject:package];
-                    [_managedQueue setObject:removeArray forKey:@"Remove"];
-                }
-                break;
-            }
-            case ZBQueueTypeReinstall: {
-                NSMutableArray *reinstallArray = [_managedQueue[@"Reinstall"] mutableCopy];
-                if (![reinstallArray containsObject:package]) {
-                    [reinstallArray addObject:package];
-                    [_managedQueue setObject:reinstallArray forKey:@"Reinstall"];
-                }
-                break;
-            }
-            case ZBQueueTypeUpgrade: {
-                NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
-                if (![upgradeArray containsObject:package]) {
-                    [upgradeArray addObject:package];
-                    [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
-                }
-                break;
-            }
-        }
+    for (ZBPackage *package in packages) {
+        [self addPackage:package toQueue:queue];
     }
 }
 
