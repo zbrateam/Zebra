@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Home</title>
-
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0">
-
-	<link rel="stylesheet" href="ios7.min.css">
-	<script src="ios7.min.js"></script>
-</head>
-<body>
-	<main id="content">
-		<h2 role="header">Info</h2>
-		<ul>
-			<li>
-				<p>Welcome to the Zebra Beta!</p>
-			</li>
-		</ul>
-        <ul>
-            <li class="has-icon">
-                <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/zebra/repos.html');" role="button">
-                <img href="repos@2x.png" alt="" srcset="repos@2x.png 2x, repos@3x.png 3x" class="icon">
-                    Community Repos
-                    </p>
-                    </li>
-            <li class="has-icon">
-                <p id="credits" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/zebra/credits.html');" role="button">
-                <img href="url@2x.png" alt="" srcset="url@2x.png 2x, url@3x.png 3x" class="icon">
-                    Credits
-                    </p>
-                    </li>
-        </ul>
-		<ul style="margin-bottom:0px;">
-			<li>
-				<a id="bugReport" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~sendBug');">Report a Bug</a>
-			</li>
-			<li>
-				<a id="nukeDatabase" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~nuke');">Drop Tables and Refresh</a>
-			</li>
-        </ul>
-	</main>
-    <p style="text-align: center; font-size: 85%; margin-top: 10px;" role="footer" id="neo"></p>
-<!--    <div>-->
-<!--        <iframe src="https://xtm3x.github.io/zebra/changelog.html" frameborder="0" style="overflow: hidden; height: 100%; width: 100%; position: absolute;"></iframe>-->
-<!--    </div>-->
-</body>
+    <head>
+        <meta charset="utf-8">
+            <title>Home</title>
+            <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0">
+                <link rel="stylesheet" href="ios7.min.css">
+                    <script src="ios7.min.js"></script>
+                    </head>
+    <body>
+        <main id="content">
+            <h2 role="header">Info</h2>
+            <ul>
+                <li>
+                    <p>Welcome to the Zebra Beta!</p>
+                </li>
+            </ul>
+            <ul>
+                <li class="has-icon">
+                    <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/zebra/repos.html');" role="button">
+                    <img href="repos@2x.png" alt="" srcset="repos@2x.png 2x, repos@3x.png 3x" class="icon">
+                        Community Repos
+                        </p>
+                        </li>
+                <li class="has-icon">
+                    <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/changelog.html');" role="button">
+                    <img href="changelog@2x.png" alt="" srcset="changelog@2x.png 2x, changelog@3x.png 3x" class="icon">
+                        Changelog
+                        </p>
+                        </li>
+            </ul>
+            <ul>
+                <li>
+                    <a id="bugReport" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~sendBug');">Report a Bug</a>
+                </li>
+                <li>
+                    <a id="nukeDatabase" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~nuke');">Drop Tables and Refresh</a>
+                </li>
+            </ul>
+            <ul style="margin-bottom:0px;">
+                <li class="has-icon">
+                    <p id="credits" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/zebra/credits.html');" role="button">
+                    <img href="url@2x.png" alt="" srcset="url@2x.png 2x, url@3x.png 3x" class="icon">
+                        Credits
+                        </p>
+                        </li>
+            </ul>
+        </main>
+        <p style="text-align: center; font-size: 85%; margin-top: 10px; margin-bottom: 0px;" role="footer" id="neo"></p>
+        <p style="text-align: center; font-size: 75%; margin-top: 4px;" role="footer">Follow <a href="https://twitter.com/xtm3x">@xTM3x</a> for updates</p>
+    </body>
 </html>
