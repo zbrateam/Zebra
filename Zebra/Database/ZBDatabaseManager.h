@@ -35,7 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo;
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section;
 - (void)dropTables;
-- (BOOL)isPackageInstalled:(ZBPackage *)package inDatabase:(sqlite3 *)database;
+- (BOOL)packageIsInstalled:(NSString *)package inDatabase:(sqlite3 *)database;
+- (BOOL)packageIsAvailable:(NSString *)package inDatabase:(sqlite3 *)database;
 @end
 
 NS_ASSUME_NONNULL_END

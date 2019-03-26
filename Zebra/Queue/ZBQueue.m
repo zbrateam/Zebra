@@ -9,6 +9,7 @@
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
+#import <Database/ZBDependencyResolver.h>
 
 @implementation ZBQueue
 + (id)sharedInstance {
@@ -30,17 +31,23 @@
         [_managedQueue setObject:@[] forKey:@"Reinstall"];
         [_managedQueue setObject:@[] forKey:@"Upgrade"];
         
-        _dependencyQueue = [NSMutableDictionary new];
+        _dependencyQueue = [NSMutableArray new];
     }
     
     return self;
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
+    [self addPackage:package toQueue:queue ignoreDependencies:false];
+}
+
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
     switch (queue) {
         case ZBQueueTypeInstall: {
             NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
             if (![installArray containsObject:package]) {
+                if (!ignore)
+                    [self enqueueDependenciesForPackage:package];
                 [installArray addObject:package];
                 [_managedQueue setObject:installArray forKey:@"Install"];
             }
@@ -65,6 +72,8 @@
         case ZBQueueTypeUpgrade: {
             NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
             if (![upgradeArray containsObject:package]) {
+                if (!ignore)
+                    [self enqueueDependenciesForPackage:package];
                 [upgradeArray addObject:package];
                 [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
             }
@@ -75,7 +84,7 @@
 
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
     for (ZBPackage *package in packages) {
-        [self addPackage:package toQueue:queue];
+        [self addPackage:package toQueue:queue ignoreDependencies:false];
     }
 }
 
@@ -170,7 +179,12 @@
 }
 
 - (int)numberOfPackagesForQueue:(NSString *)queue {
-    return (int)[_managedQueue[queue] count];
+    if ([queue isEqual:@"Depends"]) {
+        return (int)[_dependencyQueue count];
+    }
+    else {
+        return (int)[_managedQueue[queue] count];
+    }
 }
 
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index {
@@ -216,6 +230,10 @@
         [actions addObject:@"Upgrade"];
     }
     
+    if ([_dependencyQueue count] > 0) {
+        [actions addObject:@"Depends"];
+    }
+    
     return (NSArray *)actions;
 }
 
@@ -238,4 +256,21 @@
     
     return false;
 }
+
+- (void)enqueueDependenciesForPackage:(ZBPackage *)package {
+    ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] init];
+    NSArray *bill = [resolver dependenciesForPackage:package];
+    
+    for (NSString *depID in bill) {
+        if (![depID isEqualToString:[package identifier]]) {
+            NSLog(@"Adding %@ to dependency queue", package);
+            [_dependencyQueue addObject:depID];
+        }
+    }
+}
+
+- (void)enqueueConflictionsForPackage:(ZBPackage *)package {
+    
+}
+
 @end

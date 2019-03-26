@@ -490,23 +490,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: mobilesubstrate
-Status: install ok installed
-Priority: optional
-Section: System
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.6301
-Replaces: cycript (<= 0.9.594)
-Depends: com.saurik.substrate.safemode
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: uikittools (<< 1.1.1), com.mywi4 (<= 5.03.2), com.phoenix.pandoracontrols (<= 1.1.0-1), com.intelliborn.intelliscreenx (<= 1.0.110), com.evad3rs.evasi0n7 (<< 0.2)
-Conflicts: me.devbug.msreloadfix, com.r3pwn.startsubstrate, com.ragemasta.bootstrap
-Description: powerful code insertion platform
-Name: Cydia Substrate
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Depiction: http://cydia.saurik.com/info/mobilesubstrate/
-
 Package: com.linusyang.localeutf8
 Status: install ok installed
 Section: System
@@ -1034,22 +1017,6 @@ Architecture: iphoneos-arm
 Version: 1136
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
-
-Package: com.saurik.substrate.safemode
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 156
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.6001
-Replaces: safe-mode-fixer-ios7
-Depends: mobilesubstrate (>= 0.9.3367+38)
-Conflicts: safe-mode-fixer-ios7
-Description: safe mode safety extension (safe)
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Name: Substrate Safe Mode
-Depiction: http://cydia.saurik.com/info/com.saurik.substrate.safemode/
 
 Package: gsc.rear-facing-camera
 Essential: yes
@@ -1722,18 +1689,6 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
-
-Package: com.xtm3x.noblur
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 13728
-Maintainer: Some genius, idk
-Architecture: iphoneos-arm
-Version: 1.0
-Description: Nobles!
-Name: NoBlur
-Author: Some genius, idk
-Depiction: https://xtm3x.github.io/depictions/com.xtm3x.noblur/
 
 Package: xyz.willy.aupm
 Status: install ok installed

@@ -58,7 +58,12 @@
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
+    NSLog(@"Action: %@", action);
     ZBPackage *package;
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    }
     
     if ([action isEqual:@"Install"]) {
         package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
@@ -72,9 +77,11 @@
     else if ([action isEqual:@"Upgrade"]) {
         package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
     }
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    else {
+        NSLog(@"Dpen %@", _queue.dependencyQueue[indexPath.row]);
+        NSLog(@"Q %@", _queue.dependencyQueue);
+        cell.textLabel.text = _queue.dependencyQueue[indexPath.row];
+        return cell;
     }
     
     NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
