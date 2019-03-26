@@ -505,4 +505,16 @@
     return packages;
 }
 
+- (void)dropTables {
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    char *packDel = "DROP TABLE PACKAGES;";
+    sqlite3_exec(database, packDel, NULL, 0, NULL);
+    char *repoDel = "DROP TABLE REPOS;";
+    sqlite3_exec(database, repoDel, NULL, 0, NULL);
+    
+    sqlite3_close(database);
+}
+
 @end

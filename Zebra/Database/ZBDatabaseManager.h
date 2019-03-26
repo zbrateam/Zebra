@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)packageIDHasUpgrade:(NSString *)packageID;
 - (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo;
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section;
+- (void)dropTables;
 @end
 
 NS_ASSUME_NONNULL_END

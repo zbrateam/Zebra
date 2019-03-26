@@ -21,6 +21,11 @@
     [super viewDidAppear:animated];
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    
+    if (_dropTables) {
+        [databaseManager dropTables];
+    }
+    
     [databaseManager updateDatabaseUsingCaching:false completion:^(BOOL success, NSError * _Nonnull error) {
         [self goodbye];
     }];

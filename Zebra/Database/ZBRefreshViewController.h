@@ -16,6 +16,6 @@ typedef enum {
 } ZBLogLevel;
 
 @interface ZBRefreshViewController : UIViewController
-
+@property (nonatomic) BOOL dropTables;
 @end
 

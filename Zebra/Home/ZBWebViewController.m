@@ -253,9 +253,10 @@
 
 - (void)nukeDatabase {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+    ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+    refreshController.dropTables = TRUE;
     
-    [self presentViewController:initialController animated:true completion:nil];
+    [self presentViewController:refreshController animated:true completion:nil];
 }
 
 - (void)sendBugReport {
