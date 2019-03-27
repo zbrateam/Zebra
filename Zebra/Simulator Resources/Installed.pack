@@ -1,3 +1,11 @@
+Package: mobilesubstrate
+Status: install ok installed
+Version: 1.0
+
+Package: com.saurik.substrate.safemode
+Status: install ok installed
+Version: 1.0
+
 Package: gsc.main-screen-pitch
 Essential: yes
 Status: install ok installed
@@ -204,20 +212,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: apt7
-Status: install ok installed
-Priority: standard
-Section: Packaging
-Installed-Size: 1152
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.7.25.3-9
-Replaces: apt (<< 1:0-1)
-Depends: apt7-key, apt7-lib (>= 0.7.25.3-7), berkeleydb
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: the advanced packaging tool from Debian
-Name: APT 0.7 Strict
-
 Package: base
 Essential: yes
 Status: install ok installed
@@ -297,20 +291,6 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
-
-Package: apt7-key
-Status: install ok installed
-Priority: standard
-Section: Packaging
-Installed-Size: 28
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.7.25.3-3
-Replaces: apt (<< 1:0-1), apt7 (<< 0.7.20.2-4)
-Depends: apt7-lib (>= 0.7.25.3-7)
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: repository encryption key management tool
-Name: APT 0.7 (apt-key)
 
 Package: gsc.youtube
 Essential: yes
@@ -670,24 +650,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: cydia-lproj
-Status: install ok installed
-Priority: required
-Section: Packaging
-Installed-Size: 712
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1.1.12
-Replaces: cydia, org.thebigboss.russiancydia
-Provides: org.thebigboss.russiancydia
-Depends: cydia
-Conflicts: org.thebigboss.russiancydia
-Description: languages and translations for Cydia
-Name: Cydia Translations
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Depiction: http://cydia.saurik.com/info/cydia-lproj/
-Tag: purpose::uikit, cydia::essential, role::enduser
-
 Package: gnupg
 Status: install ok installed
 Priority: required
@@ -875,26 +837,6 @@ Architecture: iphoneos-arm
 Version: 2
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
-
-Package: cydia
-Status: install ok installed
-Priority: required
-Section: Packaging
-Installed-Size: 7160
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1.1.30
-Replaces: bigboss, bigbossbetarepo, com.sosiphone.addcydia, cydia-sources, ispazio.net, modmyifone, saurik, ste, yellowsn0w.com, zodttd
-Provides: bigbossbetarepo, cydia-sources
-Depends: apt7-lib, apt7-key, cydia-lproj (>= 1.1.10), darwintools, debianutils, dpkg (>= 1.18), org.thebigboss.repo.icons, sed, shell-cmds, system-cmds, uikittools (>= 1.1.4)
-Pre-Depends: debianutils, dpkg (>= 1.14.25-8)
-Conflicts: bigboss, bigbossbetarepo, com.sosiphone.addcydia, cydia-sources, ispazio.net, modmyifone, ste, yellowsn0w.com, zodttd
-Description: graphical iPhone front-end for APT
-Name: Cydia Installer
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Depiction: http://cydia.saurik.com/info/cydia/
-Icon: file:///Applications/Cydia.app/Icon-60.png
-Tag: purpose::uikit, cydia::essential, role::enduser
 
 Package: gsc.gyroscope
 Essential: yes
@@ -1551,24 +1493,6 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
-
-Package: apt7-lib
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: Packaging
-Installed-Size: 1660
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.7.25.3-16
-Replaces: apt (<< 1:0-1), apt7 (<< 0.7.20.2-3), apt7-ssl
-Provides: apt7-ssl
-Depends: bzip2, dpkg (>= 1.14.25-9), gnupg, gzip, lzma
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: cydia (<< 1.1.10), apt7 (<< 0.7.25.3-7), aptitude (<< 0.4.11.11-6)
-Conflicts: apt7-ssl
-Description: the advanced packaging library from Debian
-Name: APT 0.7 Strict (lib)
 
 Package: preferenceloader
 Status: install ok installed
