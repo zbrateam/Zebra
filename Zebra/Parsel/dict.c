@@ -100,6 +100,14 @@ void dict_remove(dict *dictionary, const char *key) {
 void dict_free(dict *dictionary) {
     if(dictionary == NULL)
         return;
+    
+    if (dictionary->head == NULL) {
+        dict *tail = dictionary->tail;
+        free(dictionary);
+        dict_free(tail);
+        return;
+    }
+    
     free(dictionary->head->key);
     free(dictionary->head);
     dict *tail = dictionary->tail;
