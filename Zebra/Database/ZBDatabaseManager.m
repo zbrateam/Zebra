@@ -476,8 +476,10 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
         const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
-        NSString *section = [NSString stringWithUTF8String:sectionChars];
-        [sections addObject:section];
+        if (sectionChars != 0) {
+            NSString *section = [NSString stringWithUTF8String:sectionChars];
+            [sections addObject:section];
+        }
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
