@@ -289,7 +289,15 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            dict_add(package, key, value);
+            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+                key = multi_tok(info, &s, ":");
+                value = multi_tok(NULL, &s, ":");
+                
+                dict_add(package, key, value);
+            }
+            else {
+                dict_add(package, key, value);
+            }
         }
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
