@@ -68,12 +68,12 @@
                     
                     if ([queued containsObject:depPackage]) {
                         NSLog(@"%@ is already queued, skipping", depPackageID);
-                        break;
+                        continue;
                     }
                     
                     if ([databaseManager packageIsInstalled:[depPackage identifier] inDatabase:database]) {
                         NSLog(@"%@ is already installed, skipping", [depPackage identifier]);
-                        break;
+                        continue;
                     }
                     else if ([databaseManager packageIsAvailable:[depPackage identifier] inDatabase:database]) {
                         NSLog(@"%@ is available, adding it to queued packages", [depPackage identifier]);
@@ -86,11 +86,11 @@
                                     [queued addObject:dep];
                                 }
                             }
-                            break;
+                            continue;
                         }
                         else {
                             NSLog(@"%@ is already queued (2), skipping", [depPackage identifier]);
-                            break;
+                            continue;
                         }
                         
                         
@@ -157,12 +157,12 @@
                 
                 if ([queued containsObject:depPackage]) {
                     NSLog(@"%@ is already queued, skipping", depPackageID);
-                    break;
+                    continue;
                 }
                 
                 if ([databaseManager packageIsInstalled:[depPackage identifier] inDatabase:database]) {
                     NSLog(@"%@ is already installed, skipping", [depPackage identifier]);
-                    break;
+                    continue;
                 }
                 else if ([databaseManager packageIsAvailable:[depPackage identifier] inDatabase:database]) {
                     NSLog(@"%@ is available, adding it to queued packages", [depPackage identifier]);
@@ -175,11 +175,11 @@
                                 [queued addObject:dep];
                             }
                         }
-                        break;
+                        continue;
                     }
                     else {
                         NSLog(@"%@ is already queued (2), skipping", [depPackage identifier]);
-                        break;
+                        continue;
                     }
                     
                     
