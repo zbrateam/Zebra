@@ -548,25 +548,184 @@
     return available;
 }
 
-- (ZBPackage *)packageForID:(NSString *)identifier version:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
-    ZBPackage *package = NULL;
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
     
-    NSString *query;
-    if (version == NULL) {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
+    if (version == NULL || comparison == NULL) { //Just get the highest version, doesn't matter what it is
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
+        
+        ZBPackage *package;
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+        }
+        sqlite3_finalize(statement);
+        
+        if (package != NULL) {
+            NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+            if ([otherVersions count] > 1) {
+                NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+                NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+                return sorted[0];
+            }
+            else {
+                return otherVersions[0];
+            }
+        }
+        else {
+            return NULL;
+        }
     }
     else {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND VERSION = \'%@\';", identifier, version];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
+        
+        ZBPackage *package;
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+        }
+        sqlite3_finalize(statement);
+        
+        NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+        
+        int nx = (int)[choices indexOfObject:comparison];
+        switch (nx) {
+            case 0: {
+                NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+                if ([otherVersions count] > 1) {
+                    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+                    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+                    
+                    for (ZBPackage *package in sorted) {
+                        if ([package compare:version] == NSOrderedAscending) {
+                            return package;
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+                    
+                    return sorted[0];
+                }
+                else {
+                    if ([otherVersions[0] compare:version] == NSOrderedAscending) {
+                        return otherVersions[0];
+                    }
+                    else {
+                        return NULL;
+                    }
+                }
+            }
+            case 1: {
+                NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+                if ([otherVersions count] > 1) {
+                    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+                    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+                    
+                    for (ZBPackage *package in sorted) {
+                        if ([package compare:version] == NSOrderedAscending || [package compare:version] == NSOrderedSame) {
+                            return package;
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+                    
+                    return sorted[0];
+                }
+                else {
+                    if ([otherVersions[0] compare:version] == NSOrderedAscending || [otherVersions[0] compare:version] == NSOrderedSame) {
+                        return otherVersions[0];
+                    }
+                    else {
+                        return NULL;
+                    }
+                }
+            }
+            case 2: {
+                NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+                if ([otherVersions count] > 1) {
+                    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+                    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+                    
+                    for (ZBPackage *package in sorted) {
+                        if ([package compare:version] == NSOrderedSame) {
+                            return package;
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+                    
+                    return sorted[0];
+                }
+                else {
+                    if ([otherVersions[0] compare:version] == NSOrderedSame) {
+                        return otherVersions[0];
+                    }
+                    else {
+                        return NULL;
+                    }
+                }
+            }
+            case 3: {
+                NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+                if ([otherVersions count] > 1) {
+                    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+                    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+                    
+                    for (ZBPackage *package in sorted) {
+                        if ([package compare:version] == NSOrderedDescending || [package compare:version] == NSOrderedSame) {
+                            return package;
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+                    
+                    return sorted[0];
+                }
+                else {
+                    if ([otherVersions[0] compare:version] == NSOrderedDescending || [otherVersions[0] compare:version] == NSOrderedSame) {
+                        return otherVersions[0];
+                    }
+                    else {
+                        return NULL;
+                    }
+                }
+            }
+            case 4: {
+                NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+                if ([otherVersions count] > 1) {
+                    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+                    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+                    
+                    for (ZBPackage *package in sorted) {
+                        if ([package compare:version] == NSOrderedDescending) {
+                            return package;
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+                    
+                    return sorted[0];
+                }
+                else {
+                    if ([otherVersions[0] compare:version] == NSOrderedDescending) {
+                        return otherVersions[0];
+                    }
+                    else {
+                        return NULL;
+                    }
+                }
+            }
+            default:
+                NSLog(@"I can't believe you've done this.");
+                return NULL;
+        }
     }
-    
-    sqlite3_stmt *statement;
-    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-    while (sqlite3_step(statement) == SQLITE_ROW) {
-        package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-    }
-    sqlite3_finalize(statement);
-    
-    return package;
 }
 
 @end

@@ -53,13 +53,109 @@
         
         if ([comps count] > 1) { //There is an OR operator, lets try to resolve it one by one
             for (NSString *dPID in comps) {
-                NSArray *removeVersion = [dPID componentsSeparatedByString:@" ("];
-                NSString *depPackageID = removeVersion[0];
-                NSLog(@"Comp line %@", depPackageID);
-                NSString *depPackgageVersion = NULL;
-                ZBPackage *depPackage = [databaseManager packageForID:depPackageID version:depPackgageVersion inDatabase:database];
+                NSArray *version = [dPID componentsSeparatedByString:@" ("];
+                if ([version count] > 1) { //Try to resolve version dependency
+                    NSString *depPackageID = version[0];
+                    NSArray *separate = [version[1] componentsSeparatedByString:@" "];
+                    NSString *comparison = separate[0];
+                    NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
+
+                    NSLog(@"Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+
+                    ZBPackage *depPackage = [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
+                    
+                    NSLog(@"Resolved dependency for %@ needs to be %@ than %@: %@", depPackageID, comparison, version, depPackage);
+                    
+                    if ([queued containsObject:depPackage]) {
+                        NSLog(@"%@ is already queued, skipping", depPackageID);
+                        break;
+                    }
+                    
+                    if ([databaseManager packageIsInstalled:[depPackage identifier] inDatabase:database]) {
+                        NSLog(@"%@ is already installed, skipping", [depPackage identifier]);
+                        break;
+                    }
+                    else if ([databaseManager packageIsAvailable:[depPackage identifier] inDatabase:database]) {
+                        NSLog(@"%@ is available, adding it to queued packages", [depPackage identifier]);
+                        if (![queued containsObject:depPackage]) {
+                            [queued addObject:depPackage];
+                            
+                            NSArray *depsForDep = [self getDependenciesForPackage:depPackage alreadyQueued:queued];
+                            for (ZBPackage *dep in depsForDep) {
+                                if (![queued containsObject:dep]) {
+                                    [queued addObject:dep];
+                                }
+                            }
+                            break;
+                        }
+                        else {
+                            NSLog(@"%@ is already queued (2), skipping", [depPackage identifier]);
+                            break;
+                        }
+                        
+                        
+                    }
+                    else {
+                        NSLog(@"Cannot resolve dependencies for %@ because %@ cannot be found", [package identifier], depPackageID);
+                        continue;
+                    }
+                }
+                else {
+                    NSString *depPackageID = version[0];
+                    NSLog(@"Comp line %@", depPackageID);
+                    ZBPackage *depPackage = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL inDatabase:database];
+                    
+                    if ([queued containsObject:depPackage]) {
+                        NSLog(@"%@ is already queued, skipping", depPackageID);
+                        break;
+                    }
+                    
+                    if ([databaseManager packageIsInstalled:[depPackage identifier] inDatabase:database]) {
+                        NSLog(@"%@ is already installed, skipping", [depPackage identifier]);
+                        break;
+                    }
+                    else if ([databaseManager packageIsAvailable:[depPackage identifier] inDatabase:database]) {
+                        NSLog(@"%@ is available, adding it to queued packages", [depPackage identifier]);
+                        if (![queued containsObject:depPackage]) {
+                            [queued addObject:depPackage];
+                            
+                            NSArray *depsForDep = [self getDependenciesForPackage:depPackage alreadyQueued:queued];
+                            for (ZBPackage *dep in depsForDep) {
+                                if (![queued containsObject:dep]) {
+                                    [queued addObject:dep];
+                                }
+                            }
+                            break;
+                        }
+                        else {
+                            NSLog(@"%@ is already queued (2), skipping", [depPackage identifier]);
+                            break;
+                        }
+                        
+                        
+                    }
+                    else {
+                        NSLog(@"Cannot resolve dependencies for %@ because %@ cannot be found", [package identifier], depPackageID);
+                        continue;
+                    }
+                }
+            }
+        }
+        else { //Continue about your business
+            NSArray *version = [comps[0] componentsSeparatedByString:@" ("];
+            if ([version count] > 1) { //Try to resolve version dependency
+                NSString *depPackageID = version[0];
+                NSArray *separate = [version[1] componentsSeparatedByString:@" "];
+                NSString *comparison = separate[0];
+                NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
+
+                NSLog(@"Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
                 
-                if ([queued containsObject:[depPackage identifier]]) {
+                ZBPackage *depPackage = [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
+                
+                NSLog(@"Resolved dependency for %@ needs to be %@ than %@: %@", depPackageID, comparison, version, depPackage);
+                
+                if ([queued containsObject:depPackage]) {
                     NSLog(@"%@ is already queued, skipping", depPackageID);
                     break;
                 }
@@ -93,42 +189,40 @@
                     continue;
                 }
             }
-        }
-        else { //Continue about your business
-            NSArray *removeVersion = [comps[0] componentsSeparatedByString:@" ("];
-            NSString *depPackageID = removeVersion[0];
-            NSString *depPackgageVersion = NULL;
-            ZBPackage *depPackage = [databaseManager packageForID:depPackageID version:depPackgageVersion inDatabase:database];
-            
-            if ([queued containsObject:[depPackage identifier]]) {
-                NSLog(@"%@ is already queued, skipping", depPackageID);
-                continue;
-            }
-            
-            if ([databaseManager packageIsInstalled:[depPackage identifier] inDatabase:database]) {
-                NSLog(@"%@ is already installed, skipping", [depPackage identifier]);
-                continue;
-            }
-            else if ([databaseManager packageIsAvailable:[depPackage identifier] inDatabase:database]) {
-                NSLog(@"%@ is available, adding it to queued packages", [depPackage identifier]);
-                if (![queued containsObject:depPackage]) {
-                    [queued addObject:depPackage];
-                    
-                    NSArray *depsForDep = [self getDependenciesForPackage:depPackage alreadyQueued:queued];
-                    for (ZBPackage *dep in depsForDep) {
-                        if (![queued containsObject:dep]) {
-                            [queued addObject:dep];
+            else {
+                NSString *depPackageID = version[0];
+                ZBPackage *depPackage = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL inDatabase:database];
+                
+                if ([queued containsObject:depPackage]) {
+                    NSLog(@"%@ is already queued, skipping", depPackageID);
+                    continue;
+                }
+                
+                if ([databaseManager packageIsInstalled:[depPackage identifier] inDatabase:database]) {
+                    NSLog(@"%@ is already installed, skipping", [depPackage identifier]);
+                    continue;
+                }
+                else if ([databaseManager packageIsAvailable:[depPackage identifier] inDatabase:database]) {
+                    NSLog(@"%@ is available, adding it to queued packages", [depPackage identifier]);
+                    if (![queued containsObject:depPackage]) {
+                        [queued addObject:depPackage];
+                        
+                        NSArray *depsForDep = [self getDependenciesForPackage:depPackage alreadyQueued:queued];
+                        for (ZBPackage *dep in depsForDep) {
+                            if (![queued containsObject:dep]) {
+                                [queued addObject:dep];
+                            }
                         }
                     }
+                    else {
+                        NSLog(@"%@ is already queued (2), skipping", [depPackage identifier]);
+                    }
+                    
+                    
                 }
                 else {
-                    NSLog(@"%@ is already queued (2), skipping", [depPackage identifier]);
+                    NSLog(@"Cannot resolve dependencies for %@ because %@ cannot be found", [package identifier], depPackageID);
                 }
-                
-                
-            }
-            else {
-                NSLog(@"Cannot resolve dependencies for %@ because %@ cannot be found", [package identifier], depPackageID);
             }
         }
         
