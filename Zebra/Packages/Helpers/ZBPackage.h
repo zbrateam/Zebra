@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) ZBPackage *dependencyOf;
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
+- (NSComparisonResult)compare:(id)object;
 @end
 
 NS_ASSUME_NONNULL_END

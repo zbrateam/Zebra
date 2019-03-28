@@ -7,6 +7,7 @@
 //
 
 #import "ZBPackage.h"
+#import <Parsel/dpkgver.h>
 
 @implementation ZBPackage
 
@@ -84,6 +85,27 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat: @"%@ (%@) V%@", name, identifier, version];
+}
+
+- (NSComparisonResult)compare:(id)object {
+    if ([object isKindOfClass:[ZBPackage class]]) {
+        ZBPackage *obj = (ZBPackage *)object;
+        if ([self isEqual:obj])
+            return NSOrderedSame;
+        
+        if (verrevcmp([[self version] UTF8String], [[obj version] UTF8String]) < 0)
+            return NSOrderedAscending;
+        else
+            return NSOrderedDescending;
+    }
+    else {
+        if (verrevcmp([[self version] UTF8String], [(NSString *)object UTF8String]) < 0)
+            return NSOrderedAscending;
+        else if (verrevcmp([[self version] UTF8String], [(NSString *)object UTF8String]) > 0)
+            return NSOrderedDescending;
+        else
+            return NSOrderedSame;
+    }
 }
 
 @end
