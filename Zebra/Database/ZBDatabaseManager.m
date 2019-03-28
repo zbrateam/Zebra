@@ -587,6 +587,9 @@
         }
         sqlite3_finalize(statement);
         
+        if (package == NULL)
+            return NULL;
+        
         NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
         
         int nx = (int)[choices indexOfObject:comparison];
