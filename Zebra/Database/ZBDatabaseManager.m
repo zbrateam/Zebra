@@ -519,33 +519,29 @@
 }
 
 - (BOOL)packageIsInstalled:(ZBPackage *)package inDatabase:(sqlite3 *)database {
-    BOOL installed = false;
-    
-    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID = 0;", [package identifier], [package version]];
+    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1;", [package identifier], [package version]];
     
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        installed = TRUE;
+        return true;
     }
     sqlite3_finalize(statement);
     
-    return installed;
+    return false;
 }
 
 - (BOOL)packageIsAvailable:(NSString *)package inDatabase:(sqlite3 *)database {
-    BOOL available = false;
-    
     NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID != 0;", package];
     
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        available = TRUE;
+        return true;
     }
     sqlite3_finalize(statement);
     
-    return available;
+    return false;
 }
 
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
@@ -556,6 +552,7 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
         package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+        break;
     }
     sqlite3_finalize(statement);
     

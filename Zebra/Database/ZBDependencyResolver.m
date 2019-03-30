@@ -33,8 +33,9 @@
 }
 
 - (void)addDependenciesForPackage:(ZBPackage *)package {
-    if ([databaseManager packageIsInstalled:package inDatabase:database] || [queue containsPackage:package inQueue:ZBQueueTypeInstall]) {
+    if ([databaseManager packageIsInstalled:package inDatabase:database]) {
         NSLog(@"%@ (%@) is already installed, dependencies resolved.", [package name], [package identifier]);
+        return;
     }
     
     NSArray *dependencies = [package dependsOn];
@@ -44,8 +45,8 @@
         if (depPackage != NULL && [depPackage name] != NULL) { //Dependency found, all gucci
             [queue addPackage:depPackage toQueue:ZBQueueTypeInstall];
         }
-        else if ([depPackage name] != NULL || [depPackage installed]) { //Package is installed, don't need to resolve any further
-            return;
+        else if ([queue containsPackage:package inQueue:ZBQueueTypeInstall] || ([depPackage name] != NULL || [depPackage installed])) { //Package is installed, don't need to resolve any further
+            continue;
         }
         else { //Failed to find dependency
             NSLog(@"Failed to find dependency for %@ to match %@", package, line);
@@ -86,7 +87,7 @@
     NSArray *comps = [line componentsSeparatedByString:@" | "];
     for (NSString *depPackageID in comps) {
         NSLog(@"Comp line %@", depPackageID);
-        ZBPackage *depPackage = [self packageThatResolvesDependency:line];
+        ZBPackage *depPackage = [self packageThatResolvesDependency:depPackageID];
         
         if (depPackage != NULL) {
             return depPackage;
