@@ -163,6 +163,13 @@
             ZBPackage *package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
             [_queue removePackage:package fromQueue:ZBQueueTypeUpgrade];
         }
+        else if ([action isEqual:@"Unresolved Dependencies"]) {
+            for (NSArray *array in [_queue failedQueue]) {
+                ZBPackage *package = array[1];
+                [_queue removePackage:package fromQueue:ZBQueueTypeInstall];
+            }
+            [_queue.failedQueue removeAllObjects];
+        }
         else {
             NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
