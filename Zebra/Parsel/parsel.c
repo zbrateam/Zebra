@@ -207,15 +207,23 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     dict *package = dict_new();
     int safeID = repoID;
     while (fgets(line, sizeof(line), file)) {
-        if (strcmp(line, "\n") != 0) {
+        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
             char *info = strtok(line, "\n");
-
+            
             multi_tok_t s = init();
             
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            dict_add(package, key, value);
+            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+                key = multi_tok(info, &s, ":");
+                value = multi_tok(NULL, &s, ":");
+                
+                dict_add(package, key, value);
+            }
+            else {
+                dict_add(package, key, value);
+            }
         }
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
@@ -247,6 +255,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                     sqlite3_bind_text(insertStatement, 9, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 10, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_int(insertStatement, 11, repoID);
+                    sqlite3_bind_int(insertStatement, 12, repoID);
                     sqlite3_step(insertStatement);
                 }
                 else {
