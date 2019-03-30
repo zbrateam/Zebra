@@ -518,10 +518,10 @@
     sqlite3_close(database);
 }
 
-- (BOOL)packageIsInstalled:(NSString *)package inDatabase:(sqlite3 *)database {
+- (BOOL)packageIsInstalled:(ZBPackage *)package inDatabase:(sqlite3 *)database {
     BOOL installed = false;
     
-    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID = 0;", package];
+    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID = 0;", [package identifier], [package version]];
     
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
