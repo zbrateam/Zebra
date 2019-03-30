@@ -23,6 +23,13 @@
     
     _queue = [ZBQueue sharedInstance];
     
+    if ([[_queue failedQueue] count] > 0) {
+        self.navigationItem.rightBarButtonItem.enabled = false;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem.enabled = true;
+    }
+    
     self.title = @"Queue";
 }
 
@@ -37,6 +44,17 @@
     //    [tabController updatePackageTableView];
     //
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)refreshTable {
+    if ([[_queue failedQueue] count] > 0) {
+        self.navigationItem.rightBarButtonItem.enabled = false;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem.enabled = true;
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -84,12 +102,8 @@
         cell.textLabel.text = failedQ[indexPath.row][0];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
         
-        self.navigationItem.rightBarButtonItem.enabled = false;
-        
         return cell;
     }
-    
-    self.navigationItem.rightBarButtonItem.enabled = true;
     
     NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([section characterAtIndex:[section length] - 1] == ')') {
@@ -153,7 +167,7 @@
             NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
         
-        [tableView reloadData];
+        [self refreshTable];
         
     }
 }
