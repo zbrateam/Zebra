@@ -11,13 +11,15 @@
 
 @class ZBDatabaseManager;
 @class ZBPackage;
+@class ZBQueue;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDependencyResolver : NSObject
 @property (nonatomic, strong) ZBDatabaseManager *databaseManager;
+@property (nonatomic, strong) ZBQueue *queue;
 @property (nonatomic) sqlite3 *database;
-- (NSArray <NSArray <NSString *> *> *)dependenciesForPackage:(ZBPackage *)package;
+- (void)addDependenciesForPackage:(ZBPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END
