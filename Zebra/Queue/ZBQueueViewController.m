@@ -64,6 +64,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
+    cell.backgroundColor = [UIColor whiteColor];
     if ([action isEqual:@"Install"]) {
         package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
     }
@@ -76,6 +77,19 @@
     else if ([action isEqual:@"Upgrade"]) {
         package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
     }
+    else if ([action isEqual:@"Unresolved Dependencies"]) {
+        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+        
+        NSArray *failedQ = [_queue failedQueue];
+        cell.textLabel.text = failedQ[indexPath.row][0];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
+        
+        self.navigationItem.rightBarButtonItem.enabled = false;
+        
+        return cell;
+    }
+    
+    self.navigationItem.rightBarButtonItem.enabled = true;
     
     NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([section characterAtIndex:[section length] - 1] == ')') {
