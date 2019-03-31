@@ -50,19 +50,19 @@
     [predator downloadDebsFromQueueWithCompletion:^(NSArray * _Nonnull debs, BOOL success) {
         [self writeToConsole:@"Download Complete!\n" atLevel:ZBLogLevelInfo];
         NSArray *actions = [self->_queue tasks:debs];
-        
+        NSLog(@"[Zebra] Actions: %@", actions);
         for (NSArray *command in actions) {
-            NSLog(@"[Zebra] Performing actions: %@", command);
             if (![ZBAppDelegate needsSimulation]) {
                 if ([command count] == 1) {
                     [self updateStatus:[command[0] intValue]];
+                    continue;
                 }
+                
+                NSLog(@"[Zebra] Performing actions: %@", command);
                 
                 NSTask *task = [[NSTask alloc] init];
                 [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
                 [task setArguments:command];
-                
-                NSLog(@"[Zebra] Performing actions: %@", command);
                 
                 NSPipe *outputPipe = [[NSPipe alloc] init];
                 NSFileHandle *output = [outputPipe fileHandleForReading];
