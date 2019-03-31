@@ -12,6 +12,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
+#import <Hyena/Hyena.h>
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -43,45 +44,53 @@
 }
 
 - (void)performActions:(NSArray *)actions {
-    if ([ZBAppDelegate needsSimulation]) {
-        [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
-    }
-    else {
+    [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelWarning];
+    Hyena *predator = [[Hyena alloc] init];
+    [predator downloadDebsFromQueueWithCompletion:^(NSArray * _Nonnull debs, BOOL success) {
         for (NSArray *command in actions) {
-            if ([command count] == 1) {
-                [self updateStatus:[command[0] intValue]];
-            }
-            else {
-                NSTask *task = [[NSTask alloc] init];
-                [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-                [task setArguments:command];
-                
-                NSLog(@"[Zebra] Performing actions: %@", command);
-                
-                NSPipe *outputPipe = [[NSPipe alloc] init];
-                NSFileHandle *output = [outputPipe fileHandleForReading];
-                [output waitForDataInBackgroundAndNotify];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                
-                NSPipe *errorPipe = [[NSPipe alloc] init];
-                NSFileHandle *error = [errorPipe fileHandleForReading];
-                [error waitForDataInBackgroundAndNotify];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                
-                [task setStandardOutput:outputPipe];
-                [task setStandardError:errorPipe];
-                
-                [task launch];
-                [task waitUntilExit];
-            }
+            NSLog(@"command  %@", command);
         }
-        
-        [self performPostActions:^(BOOL success) {
-            [self->_queue clearQueue];
-        }];
-    }
-    [self updateStatus:4];
-    _completeButton.hidden = false;
+    }];
+    
+//    if ([ZBAppDelegate needsSimulation]) {
+//        [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
+//    }
+//    else {
+//        for (NSArray *command in actions) {
+//            if ([command count] == 1) {
+//                [self updateStatus:[command[0] intValue]];
+//            }
+//            else {
+//                NSTask *task = [[NSTask alloc] init];
+//                [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+//                [task setArguments:command];
+//
+//                NSLog(@"[Zebra] Performing actions: %@", command);
+//
+//                NSPipe *outputPipe = [[NSPipe alloc] init];
+//                NSFileHandle *output = [outputPipe fileHandleForReading];
+//                [output waitForDataInBackgroundAndNotify];
+//                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+//
+//                NSPipe *errorPipe = [[NSPipe alloc] init];
+//                NSFileHandle *error = [errorPipe fileHandleForReading];
+//                [error waitForDataInBackgroundAndNotify];
+//                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+//
+//                [task setStandardOutput:outputPipe];
+//                [task setStandardError:errorPipe];
+//
+//                [task launch];
+//                [task waitUntilExit];
+//            }
+//        }
+//
+//        [self performPostActions:^(BOOL success) {
+//            [self->_queue clearQueue];
+//        }];
+//    }
+//    [self updateStatus:4];
+//    _completeButton.hidden = false;
 }
 
 - (void)performPostActions:(void (^)(BOOL success))completion  {

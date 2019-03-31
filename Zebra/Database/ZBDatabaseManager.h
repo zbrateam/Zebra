@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)packageIsAvailable:(ZBPackage *)package inDatabase:(sqlite3 *)database;
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database;
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
+- (ZBRepo *)repoMatchingRepoID:(int)repoID;
 @end
 
 NS_ASSUME_NONNULL_END
