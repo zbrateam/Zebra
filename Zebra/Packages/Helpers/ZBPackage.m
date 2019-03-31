@@ -71,7 +71,7 @@
         [self setDependsOn:dependsChars != 0 ? [[NSString stringWithUTF8String:dependsChars] componentsSeparatedByString:@", "] : NULL];
         [self setConflictsWith:conflictsChars != 0 ? [[NSString stringWithUTF8String:conflictsChars] componentsSeparatedByString:@", "] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
-        [self setFilename:[NSString stringWithUTF8String:filenameChars]]; //This should never be NULL
+        [self setFilename:filenameChars != 0? [NSString stringWithUTF8String:filenameChars] : NULL];
         [self setRepoID:sqlite3_column_int(statement, 13)];
     }
     
