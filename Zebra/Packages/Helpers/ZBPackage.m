@@ -25,6 +25,7 @@
 @synthesize remote;
 @synthesize repo;
 @synthesize filename;
+@synthesize repoID;
 
 - (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
     
@@ -71,6 +72,7 @@
         [self setConflictsWith:conflictsChars != 0 ? [[NSString stringWithUTF8String:conflictsChars] componentsSeparatedByString:@", "] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:[NSString stringWithUTF8String:filenameChars]]; //This should never be NULL
+        [self setRepoID:sqlite3_column_int(statement, 13)];
     }
     
     return self;
