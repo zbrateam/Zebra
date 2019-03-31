@@ -120,12 +120,7 @@
 
     cell.textLabel.text = package.name;
     
-    if ([package dependencyOf] != NULL) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"dependency of %@", [[package dependencyOf] name]];
-    }
-    else {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
-    }
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
     
     CGSize itemSize = CGSizeMake(35, 35);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
