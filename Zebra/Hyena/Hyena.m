@@ -283,14 +283,15 @@
     }
     
     dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-        NSLog(@"[Hyena] Done");
+        NSLog(@"[Hyena] Done. Downloaded debs: %@", debs);
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"finished": @TRUE}];
         completion((NSArray *)debs, true);
     });
 }
 
 - (void)downloadDebFromURL:(NSString *)baseURL file:(NSString *)filename completion:(void (^)(NSString *filename, BOOL success))completion {
-    NSURL *base = [NSURL URLWithString:baseURL];
+    NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
+    NSURL *base = [NSURL URLWithString:comps[0]];
     NSURL *url = [base URLByAppendingPathComponent:filename];
     NSLog(@"base: %@ filename: %@", baseURL, filename);
     
