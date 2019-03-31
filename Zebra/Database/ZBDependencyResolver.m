@@ -34,7 +34,7 @@
 
 - (void)addDependenciesForPackage:(ZBPackage *)package {
     if ([databaseManager packageIsInstalled:package inDatabase:database]) {
-        NSLog(@"%@ (%@) is already installed, dependencies resolved.", [package name], [package identifier]);
+        NSLog(@"[Zebra] %@ (%@) is already installed, dependencies resolved.", [package name], [package identifier]);
         return;
     }
     
@@ -49,7 +49,7 @@
             continue;
         }
         else { //Failed to find dependency
-            NSLog(@"Failed to find dependency for %@ to match %@", package, line);
+            NSLog(@"[Zebra] Failed to find dependency for %@ to match %@", package, line);
             [queue markPackageAsFailed:package forDependency:line];
             return;
         }
@@ -57,7 +57,7 @@
 }
 
 - (ZBPackage *)packageThatResolvesDependency:(NSString *)line {
-    NSLog(@"Package that resolves dependenct %@", line);
+    NSLog(@"[Zebra] Package that resolves dependenct %@", line);
     ZBPackage *package;
     if ([line rangeOfString:@" | "].location != NSNotFound) {
         package = [self packageThatSatisfiesORComparison:line];
@@ -74,7 +74,7 @@
         return NULL;
     
     if ([databaseManager packageIsInstalled:package inDatabase:database]) {
-        NSLog(@"%@ is already installed, skipping", [package identifier]);
+        NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
         ZBPackage *installed = [[ZBPackage alloc] init];
         installed.installed = true;
         return installed; //This could probably done a little better...
@@ -86,7 +86,7 @@
 - (ZBPackage *)packageThatSatisfiesORComparison:(NSString *)line {
     NSArray *comps = [line componentsSeparatedByString:@" | "];
     for (NSString *depPackageID in comps) {
-        NSLog(@"Comp line %@", depPackageID);
+        NSLog(@"[Zebra] Comp line %@", depPackageID);
         ZBPackage *depPackage = [self packageThatResolvesDependency:depPackageID];
         
         if (depPackage != NULL) {
@@ -103,7 +103,7 @@
     NSString *comparison = separate[0];
     NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
     
-    NSLog(@"Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+    NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
     
     return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
 }

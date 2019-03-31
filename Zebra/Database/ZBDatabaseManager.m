@@ -545,7 +545,7 @@
 }
 
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
-    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' OR PROVIDES LIKE \'%%%@\%%\';", identifier, identifier];
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
     
     ZBPackage *package;
     sqlite3_stmt *statement;
@@ -553,6 +553,16 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         break;
+    }
+    
+    //Only try to resolve "Provides" if we can't resolve the normal package.
+    if (package == NULL) {
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\';", identifier];
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            break;
+        }
     }
     sqlite3_finalize(statement);
     
