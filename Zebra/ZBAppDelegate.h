@@ -16,5 +16,6 @@
 + (BOOL)listsExists;
 + (NSString *)sourceListLocation;
 + (NSString *)databaseLocation;
++ (NSString *)debsLocation;
 @end
 
