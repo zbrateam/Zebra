@@ -267,7 +267,7 @@
 }
 
 - (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
-    if ([_managedQueue[@"Installed"] containsObject:package]) {
+    if ([_managedQueue[@"Install"] containsObject:package]) {
         return true;
     }
     
@@ -289,6 +289,16 @@
 - (void)enqueueDependenciesForPackage:(ZBPackage *)package {
     ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] init];
     [resolver addDependenciesForPackage:package];
+}
+
+- (NSArray *)packagesToDownload {
+    NSMutableArray *packages = [NSMutableArray new];
+    
+    [packages addObjectsFromArray:_managedQueue[@"Install"]];
+    [packages addObjectsFromArray:_managedQueue[@"Reinstall"]];
+    [packages addObjectsFromArray:_managedQueue[@"Upgrade"]];
+    
+    return (NSArray *)packages;
 }
 
 @end
