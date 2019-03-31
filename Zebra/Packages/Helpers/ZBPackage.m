@@ -23,7 +23,8 @@
 @synthesize author;
 @synthesize installed;
 @synthesize remote;
-@synthesize dependencyOf;
+@synthesize repo;
+@synthesize filename;
 
 - (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
     
@@ -57,6 +58,7 @@
         const char *dependsChars =     (const char *)sqlite3_column_text(statement, 7);
         const char *conflictsChars =   (const char *)sqlite3_column_text(statement, 8);
         const char *authorChars =      (const char *)sqlite3_column_text(statement, 9);
+        const char *filenameChars =    (const char *)sqlite3_column_text(statement, 11);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
         [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
@@ -68,6 +70,7 @@
         [self setDependsOn:dependsChars != 0 ? [[NSString stringWithUTF8String:dependsChars] componentsSeparatedByString:@", "] : NULL];
         [self setConflictsWith:conflictsChars != 0 ? [[NSString stringWithUTF8String:conflictsChars] componentsSeparatedByString:@", "] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
+        [self setFilename:[NSString stringWithUTF8String:filenameChars]]; //This should never be NULL
     }
     
     return self;

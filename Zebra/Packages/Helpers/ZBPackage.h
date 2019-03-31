@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
+@class ZBRepo;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackage : NSObject
@@ -24,7 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic) BOOL installed;
 @property (nonatomic) BOOL remote;
-@property (nonatomic) ZBPackage *dependencyOf;
+@property (nonatomic, strong) ZBRepo *repo;
+@property (nonatomic, strong) NSString *filename;
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
