@@ -40,17 +40,52 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self performActions:[_queue tasksForQueue]];
+    [self performActions];
 }
 
-- (void)performActions:(NSArray *)actions {
+- (void)performActions {
     [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelWarning];
     Hyena *predator = [[Hyena alloc] init];
     [predator downloadDebsFromQueueWithCompletion:^(NSArray * _Nonnull debs, BOOL success) {
+        NSArray *actions = [self->_queue tasks:debs];
+        
         for (NSArray *command in actions) {
-            NSLog(@"command  %@", command);
+            if ([command count] == 1) {
+                [self updateStatus:[command[0] intValue]];
+            }
+            else {
+                if (![ZBAppDelegate needsSimulation]) {
+                    NSTask *task = [[NSTask alloc] init];
+                    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                    [task setArguments:command];
+                    
+                    NSLog(@"[Zebra] Performing actions: %@", command);
+                    
+                    NSPipe *outputPipe = [[NSPipe alloc] init];
+                    NSFileHandle *output = [outputPipe fileHandleForReading];
+                    [output waitForDataInBackgroundAndNotify];
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+                    
+                    NSPipe *errorPipe = [[NSPipe alloc] init];
+                    NSFileHandle *error = [errorPipe fileHandleForReading];
+                    [error waitForDataInBackgroundAndNotify];
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+                    
+                    [task setStandardOutput:outputPipe];
+                    [task setStandardError:errorPipe];
+                    
+                    [task launch];
+                    [task waitUntilExit];
+                }
+            }
         }
+        [self performPostActions:^(BOOL success) {
+            [self->_queue clearQueue];
+        }];
+        [self updateStatus:4];
+        self->_completeButton.hidden = false;
     }];
+}
     
 //    if ([ZBAppDelegate needsSimulation]) {
 //        [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
@@ -91,7 +126,6 @@
 //    }
 //    [self updateStatus:4];
 //    _completeButton.hidden = false;
-}
 
 - (void)performPostActions:(void (^)(BOOL success))completion  {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];

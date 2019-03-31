@@ -123,9 +123,9 @@
     }
 }
 
-- (NSArray *)tasksForQueue {
+- (NSArray *)tasks:(NSArray *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
-    NSArray *baseCommand = [[NSArray alloc] initWithObjects:@"apt-get", @"-o", [NSString stringWithFormat:@"Dir::Etc::SourceList=%@", [ZBAppDelegate sourceListLocation]], @"-o", [NSString stringWithFormat:@"Dir::State::Lists=%@", [ZBAppDelegate listsLocation]], @"-o", [NSString stringWithFormat:@"Dir::Etc::SourceParts=%@", [ZBAppDelegate listsLocation]], @"-y", @"--force-yes", nil];
+    NSArray *baseCommand = @[@"dpkg"];
     
     NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
     NSMutableArray *removeArray = [_managedQueue[@"Remove"] mutableCopy];
@@ -136,9 +136,14 @@
         [commands addObject:@[@0]];
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
-        [installCommand insertObject:@"install" atIndex:1];
+        [installCommand insertObject:@"-i" atIndex:1];
         for (ZBPackage *package in installArray) {
-            [installCommand insertObject:[NSString stringWithFormat:@"%@=%@", [package identifier], [package version]] atIndex:2]; //Needs to be in the format packageID=version
+            for (NSString *filename in debs) {
+                if ([filename containsString:[[package filename] lastPathComponent]]) {
+                    [installCommand insertObject:filename atIndex:2];
+                    break;
+                }
+            }
         }
         
         [commands addObject:installCommand];

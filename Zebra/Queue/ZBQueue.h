@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)markPackageAsFailed:(ZBPackage *)package forDependency:(NSString *)failedDependency;
 - (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue;
-- (NSArray *)tasksForQueue;
+- (NSArray *)tasks:(NSArray *)debs;
 - (int)numberOfPackagesForQueue:(NSString *)queue;
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
 - (void)clearQueue;
