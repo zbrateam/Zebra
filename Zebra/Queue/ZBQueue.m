@@ -138,8 +138,10 @@
         
         [installCommand insertObject:@"-i" atIndex:1];
         for (ZBPackage *package in installArray) {
+            NSLog(@"[Zebra] Queue Package: %@", package);
             for (NSString *filename in debs) {
                 if ([filename containsString:[[package filename] lastPathComponent]]) {
+                    NSLog(@"[Zebra] Filename: %@", filename);
                     [installCommand insertObject:filename atIndex:2];
                     break;
                 }
@@ -153,7 +155,7 @@
         [commands addObject:@[@1]];
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
-        [removeCommand insertObject:@"remove" atIndex:1];
+        [removeCommand insertObject:@"-r" atIndex:1];
         for (ZBPackage *package in removeArray) {
             [removeCommand insertObject:[package identifier] atIndex:2];
         }

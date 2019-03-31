@@ -40,8 +40,8 @@
     return self;
 }
 
-- (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
+- (void)postStatusUpdate:(NSString *)update toArea:(NSString *)name atLevel:(int)level {
+    [[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:@{@"level": @(level), @"message": update}];
 }
 
 - (NSArray *)reposFromSourcePath:(NSString *)path {
@@ -90,7 +90,7 @@
         
         NSArray *repo = repos[i];
         
-        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
+        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] toArea:@"databaseStatusUpdate" atLevel:0];
         if ([repo count] == 3) { //dist
             [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
             dispatch_group_enter(downloadGroup);
@@ -102,7 +102,7 @@
                     if (packageFilename != NULL) {
                         [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
                     }
-                    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
+                    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] toArea:@"databaseStatusUpdate" atLevel:0];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @FALSE, @"row": @(i)}];
                     dispatch_group_leave(downloadGroup);
                 }];
@@ -119,7 +119,7 @@
                     if (packageFilename != NULL) {
                         [fnms[@"packages"] addObject:[packageFilename stringByDeletingPathExtension]];
                     }
-                    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] atLevel:0];
+                    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", repo[0]] toArea:@"databaseStatusUpdate" atLevel:0];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @FALSE, @"row": @(i)}];
                     dispatch_group_leave(downloadGroup);
                 }];
@@ -186,7 +186,7 @@
     NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if ([httpResponse statusCode] == 304) {
-            [self postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified\n", url] atLevel:1];
+            [self postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified\n", url] toArea:@"databaseStatusUpdate" atLevel:1];
             completion(NULL, true);
         }
         else if ([httpResponse statusCode] != 404 && location != NULL) {
@@ -262,6 +262,7 @@
             repo = [databaseManager repoMatchingRepoID:[package repoID]];
         }
         
+        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", [package filename]] toArea:@"downloadStatusUpdate" atLevel:0];
         //        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
         //        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
         dispatch_group_enter(downloadGroup);
@@ -276,6 +277,7 @@
             if (filename != NULL) {
                 [debs addObject:filename];
             }
+            [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", [package filename]] toArea:@"downloadStatusUpdate" atLevel:0];
             dispatch_group_leave(downloadGroup);
         }];
     }
@@ -318,6 +320,7 @@
             completion(finalPath, success);
         }
         else {
+            [self postStatusUpdate:[NSString stringWithFormat:@"Download failed for %@\n", url] toArea:@"downloadStatusUpdate" atLevel:2];
             NSLog(@"[Hyena] Download failed for %@", url);
             completion(NULL, false);
         }
