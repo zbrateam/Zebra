@@ -620,8 +620,6 @@
 - (ZBRepo *)repoMatchingRepoID:(int)repoID {
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
     
-    NSLog(@"Query: %@", query);
-    
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
     
@@ -653,8 +651,6 @@
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
-    
-    NSLog(@"repo: %@", source);
     
     return source;
 }

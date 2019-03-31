@@ -250,8 +250,7 @@
 }
 
 - (void)downloadDebsFromQueueWithCompletion:(void (^)(NSArray *debs, BOOL success))completion {
-    NSMutableArray *debs = [NSMutableArray new];
-    NSLog(@"[Q] %@", [queue packagesToDownload]);
+    NSMutableArray *debs = [NSMutableArray new];    
     dispatch_group_t downloadGroup = dispatch_group_create();
     for (int i = 0; i < [[queue packagesToDownload] count]; i++) {
         
@@ -262,7 +261,6 @@
             ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
             repo = [databaseManager repoMatchingRepoID:[package repoID]];
         }
-        NSLog(@"Repo: %@, %@, %@", repo.origin, repo.baseURL, repo.baseFileName);
         
         //        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
         //        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
@@ -293,7 +291,6 @@
     NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
     NSURL *base = [NSURL URLWithString:comps[0]];
     NSURL *url = [base URLByAppendingPathComponent:filename];
-    NSLog(@"base: %@ filename: %@", baseURL, filename);
     
     NSString *debsPath = [ZBAppDelegate debsLocation];
     NSString *finalPath = [debsPath stringByAppendingPathComponent:[filename lastPathComponent]];
