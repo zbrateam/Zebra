@@ -200,32 +200,48 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, HASUPDATE INTEGER, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
     dict *package = dict_new();
+    int safeID = repoID;
     while (fgets(line, sizeof(line), file)) {
-        if (strcmp(line, "\n") != 0) {
+        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
             char *info = strtok(line, "\n");
-
+            
             multi_tok_t s = init();
             
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            dict_add(package, key, value);
+            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+                key = multi_tok(info, &s, ":");
+                value = multi_tok(NULL, &s, ":");
+                
+                dict_add(package, key, value);
+            }
+            else {
+                dict_add(package, key, value);
+            }
         }
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
             const char *tags = dict_get(package, "Tag");
-            if ((tags == NULL || strcasestr(tags, "role::cydia") == NULL) && strcasestr(dict_get(package, "Status"), "not-installed") == NULL) {
+            if (strcasestr(dict_get(package, "Status"), "not-installed") == NULL) {
+                if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
+                    repoID = -1;
+                }
+                else if (repoID == -1) {
+                    repoID = safeID;
+                }
+                
                 if (dict_get(package, "Name") == 0) {
                     dict_add(package, "Name", packageIdentifier);
                 }
                 
                 sqlite3_stmt *insertStatement;
-                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, PROVIDES, FILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 
                 if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
                     sqlite3_bind_text(insertStatement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
@@ -238,7 +254,8 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
                     sqlite3_bind_text(insertStatement, 8, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 9, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 10, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_int(insertStatement, 11, repoID);
+                    sqlite3_bind_text(insertStatement, 12, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(insertStatement, 13, repoID);
                     sqlite3_step(insertStatement);
                 }
                 else {
@@ -271,7 +288,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     char line[512];
     
-    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, HASUPDATE INTEGER, REPOID INTEGER);";
+    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, HASUPDATE INTEGER, REPOID INTEGER);";
     sqlite3_exec(database, create, NULL, 0, NULL);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
@@ -280,6 +297,7 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     sqlite3_exec(database, sql, NULL, 0, NULL);
 
     dict *package = dict_new();
+    int safeID = repoID;
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
             char *info = strtok(line, "\n");
@@ -289,47 +307,57 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            dict_add(package, key, value);
+            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+                key = multi_tok(info, &s, ":");
+                value = multi_tok(NULL, &s, ":");
+                
+                dict_add(package, key, value);
+            }
+            else {
+                dict_add(package, key, value);
+            }
         }
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
             const char *tags = dict_get(package, "Tag");
-            if (tags == NULL || strcasestr(tags, "role::cydia") == NULL) {
-                if (dict_get(package, "Name") == 0) {
-                    dict_add(package, "Name", packageIdentifier);
-                }
-                
-                sqlite3_stmt *insertStatement;
-                char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-                
-                if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-                    sqlite3_bind_text(insertStatement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 2, dict_get(package, "Name"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 3, dict_get(package, "Version"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 4, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 5, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 6, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 7, dict_get(package, "Tag"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 8, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 9, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_text(insertStatement, 10, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
-                    sqlite3_bind_int(insertStatement, 11, repoID);
-                    sqlite3_step(insertStatement);
-                }
-                else {
-                    printf("database error: %s", sqlite3_errmsg(database));
-                }
-                
-                sqlite3_finalize(insertStatement);
-                
-                dict_free(package);
-                package = dict_new();
+            if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
+                repoID = -1;
+            }
+            else if (repoID == -1) {
+                repoID = safeID;
+            }
+            
+            if (dict_get(package, "Name") == 0) {
+                dict_add(package, "Name", packageIdentifier);
+            }
+            
+            sqlite3_stmt *insertStatement;
+            char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, PROVIDES, FILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            
+            if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
+                sqlite3_bind_text(insertStatement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 2, dict_get(package, "Name"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 3, dict_get(package, "Version"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 4, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 5, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 6, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 7, dict_get(package, "Tag"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 8, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 9, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 10, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 11, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(insertStatement, 12, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_int(insertStatement, 13, repoID);
+                sqlite3_step(insertStatement);
             }
             else {
-                dict_free(package);
-                package = dict_new();
-                continue;
+                printf("database error: %s", sqlite3_errmsg(database));
             }
+            
+            sqlite3_finalize(insertStatement);
+            
+            dict_free(package);
+            package = dict_new();
         }
         else {
             dict_free(package);

@@ -23,6 +23,13 @@
     
     _queue = [ZBQueue sharedInstance];
     
+    if ([[_queue failedQueue] count] > 0) {
+        self.navigationItem.rightBarButtonItem.enabled = false;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem.enabled = true;
+    }
+    
     self.title = @"Queue";
 }
 
@@ -37,6 +44,17 @@
     //    [tabController updatePackageTableView];
     //
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)refreshTable {
+    if ([[_queue failedQueue] count] > 0) {
+        self.navigationItem.rightBarButtonItem.enabled = false;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem.enabled = true;
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -60,6 +78,11 @@
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
     ZBPackage *package;
     
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    }
+    
+    cell.backgroundColor = [UIColor whiteColor];
     if ([action isEqual:@"Install"]) {
         package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
     }
@@ -72,9 +95,14 @@
     else if ([action isEqual:@"Upgrade"]) {
         package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
     }
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    else if ([action isEqual:@"Unresolved Dependencies"]) {
+        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+        
+        NSArray *failedQ = [_queue failedQueue];
+        cell.textLabel.text = failedQ[indexPath.row][0];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
+        
+        return cell;
     }
     
     NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -89,12 +117,9 @@
     if (sectionImage != NULL) {
         cell.imageView.image = sectionImage;
     }
-    
-    if (error != nil) {
-        NSLog(@"[Zebra] %@", error);
-    }
-    
+
     cell.textLabel.text = package.name;
+    
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
     
     CGSize itemSize = CGSizeMake(35, 35);
@@ -133,11 +158,18 @@
             ZBPackage *package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
             [_queue removePackage:package fromQueue:ZBQueueTypeUpgrade];
         }
+        else if ([action isEqual:@"Unresolved Dependencies"]) {
+            for (NSArray *array in [_queue failedQueue]) {
+                ZBPackage *package = array[1];
+                [_queue removePackage:package fromQueue:ZBQueueTypeInstall];
+            }
+            [_queue.failedQueue removeAllObjects];
+        }
         else {
             NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
         
-        [tableView reloadData];
+        [self refreshTable];
         
     }
 }

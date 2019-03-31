@@ -43,7 +43,6 @@
     return [[NSFileManager defaultManager] fileExistsAtPath:[self sourceListLocation]];
 }
 
-
 + (NSString *)sourceListLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
@@ -60,6 +59,22 @@
 
 + (NSString *)databaseLocation {
     return [[self documentsDirectory] stringByAppendingPathComponent:@"zebra.db"];
+}
+
++ (NSString *)debsLocation {
+    NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
+    BOOL dirExsits;
+    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExsits];
+    if (!dirExsits) {
+        NSLog(@"[Zebra] Creating debs directory.");
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:true attributes:nil error:&error];
+        
+        if (error != NULL) {
+            NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
+        }
+    }
+    return debs;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

@@ -11,6 +11,10 @@
 #import <sys/sysctl.h>
 #import <bzlib.h>
 #import <ZBAppDelegate.h>
+#import <Queue/ZBQueue.h>
+#import <Packages/Helpers/ZBPackage.h>
+#import <Repos/Helpers/ZBRepo.h>
+#import <Database/ZBDatabaseManager.h>
 
 @implementation Hyena
 
@@ -19,6 +23,7 @@
     
     if (self) {
         repos = [self reposFromSourcePath:[ZBAppDelegate sourceListLocation]];
+        queue = [ZBQueue sharedInstance];
     }
     
     return self;
@@ -29,6 +34,7 @@
     
     if (self) {
         repos = [self reposFromSourcePath:trail];
+        queue = [ZBQueue sharedInstance];
     }
     
     return self;
@@ -231,6 +237,83 @@
                     NSLog(@"[Hyena] Unable to remove .bz2, %@", removeError.localizedDescription);
                 }
             }
+            
+            completion(finalPath, success);
+        }
+        else {
+            NSLog(@"[Hyena] Download failed for %@", url);
+            completion(NULL, false);
+        }
+    }];
+    
+    [downloadTask resume];
+}
+
+- (void)downloadDebsFromQueueWithCompletion:(void (^)(NSArray *debs, BOOL success))completion {
+    NSMutableArray *debs = [NSMutableArray new];    
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    for (int i = 0; i < [[queue packagesToDownload] count]; i++) {
+        
+        ZBPackage *package = (ZBPackage *)[[queue packagesToDownload] objectAtIndex:i];
+        
+        ZBRepo *repo = [package repo];
+        if (repo == NULL) {
+            ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+            repo = [databaseManager repoMatchingRepoID:[package repoID]];
+        }
+        
+        //        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
+        //        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
+        dispatch_group_enter(downloadGroup);
+        NSString *baseURL;
+        if ([repo isSecure]) {
+            baseURL = [@"https://" stringByAppendingString:[repo baseURL]];
+        }
+        else {
+            baseURL = [@"http://" stringByAppendingString:[repo baseURL]];
+        }
+        [self downloadDebFromURL:baseURL file:[package filename] completion:^(NSString *filename, BOOL success) {
+            if (filename != NULL) {
+                [debs addObject:filename];
+            }
+            dispatch_group_leave(downloadGroup);
+        }];
+    }
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+        NSLog(@"[Hyena] Done. Downloaded debs: %@", debs);
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"finished": @TRUE}];
+        completion((NSArray *)debs, true);
+    });
+}
+
+- (void)downloadDebFromURL:(NSString *)baseURL file:(NSString *)filename completion:(void (^)(NSString *filename, BOOL success))completion {
+    NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
+    NSURL *base = [NSURL URLWithString:comps[0]];
+    NSURL *url = [base URLByAppendingPathComponent:filename];
+    
+    NSString *debsPath = [ZBAppDelegate debsLocation];
+    NSString *finalPath = [debsPath stringByAppendingPathComponent:[filename lastPathComponent]];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [self generateHeadersForFile:NULL];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if ([httpResponse statusCode] != 404 && location != NULL) {
+            BOOL success;
+            NSError *fileManagerError;
+            if ([fileManager fileExistsAtPath:finalPath]) {
+                success = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
+                NSAssert(success, @"removeItemAtPath error: %@", fileManagerError);
+            }
+            
+            success = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
+            NSAssert(success, @"moveItemAtURL error: %@", fileManagerError);
             
             completion(finalPath, success);
         }

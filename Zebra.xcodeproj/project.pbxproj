@@ -16,6 +16,7 @@
 		896F11C321B231900017B581 /* ZBRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBRepo.m */; };
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
 		898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */; };
+		8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
 		899203B722490D4C0098AC7B /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 899203B622490D4C0098AC7B /* dict.c */; };
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
@@ -67,6 +68,8 @@
 		8977B6932206424B00CBACBB /* ZBPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackage.m; sourceTree = "<group>"; };
 		898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoSectionsListTableViewController.h; sourceTree = "<group>"; };
 		898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoSectionsListTableViewController.m; sourceTree = "<group>"; };
+		8990FF0B224ABE9700190BEB /* ZBDependencyResolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDependencyResolver.h; sourceTree = "<group>"; };
+		8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDependencyResolver.m; sourceTree = "<group>"; };
 		8991FF9C21B2109E004FCE23 /* parsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parsel.h; sourceTree = "<group>"; };
 		8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDatabaseManager.h; sourceTree = "<group>"; };
 		8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDatabaseManager.m; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 				8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */,
 				89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */,
 				89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */,
+				8990FF0B224ABE9700190BEB /* ZBDependencyResolver.h */,
+				8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -447,6 +452,7 @@
 				89D230162242768500837C3B /* Hyena.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
+				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,

@@ -8,13 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class ZBQueue;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Hyena : NSObject {
     NSArray *repos;
+    ZBQueue *queue;
 }
 - (id)initWithSourceListPath:(NSString *)trail;
 - (void)downloadReposWithCompletion:(void (^)(NSDictionary *fileUpdates, BOOL success))completion ignoreCache:(BOOL)ignore;
+- (void)downloadDebsFromQueueWithCompletion:(void (^)(NSArray *debs, BOOL success))completion;
 @end
 
 NS_ASSUME_NONNULL_END

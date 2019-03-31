@@ -14,7 +14,6 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Parsel/dpkgver.h>
 #import <Hyena/Hyena.h>
-#import <sqlite3.h>
 
 @implementation ZBDatabaseManager
 
@@ -273,6 +272,7 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
+        [package setRepo:repo];
         [packages addObject:package];
     }
     sqlite3_finalize(statement);
@@ -310,17 +310,18 @@
     NSString *query;
     
     if (results > 0) {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' LIMIT %d", name, results];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 LIMIT %d;", name, results];
     }
     else {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\'", name];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1;", name];
     }
     
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
         ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-        
+        ZBRepo *repo = [self repoMatchingRepoID:sqlite3_column_int(statement, 13)];
+        [package setRepo:repo];
         [searchResults addObject:package];
     }
     sqlite3_finalize(statement);
@@ -477,8 +478,10 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
         const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
-        NSString *section = [NSString stringWithUTF8String:sectionChars];
-        [sections addObject:section];
+        if (sectionChars != 0) {
+            NSString *section = [NSString stringWithUTF8String:sectionChars];
+            [sections addObject:section];
+        }
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
@@ -515,6 +518,141 @@
     sqlite3_exec(database, repoDel, NULL, 0, NULL);
     
     sqlite3_close(database);
+}
+
+- (BOOL)packageIsInstalled:(ZBPackage *)package inDatabase:(sqlite3 *)database {
+    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1;", [package identifier], [package version]];
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        return true;
+    }
+    sqlite3_finalize(statement);
+    
+    return false;
+}
+
+- (BOOL)packageIsAvailable:(NSString *)package inDatabase:(sqlite3 *)database {
+    NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID != 0;", package];
+    
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        return true;
+    }
+    sqlite3_finalize(statement);
+    
+    return false;
+}
+
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
+    
+    ZBPackage *package;
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+        ZBRepo *repo = [self repoMatchingRepoID:sqlite3_column_int(statement, 13)];
+        [package setRepo:repo];
+        break;
+    }
+    
+    //Only try to resolve "Provides" if we can't resolve the normal package.
+    if (package == NULL) {
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\';", identifier];
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            ZBRepo *repo = [self repoMatchingRepoID:sqlite3_column_int(statement, 13)];
+            [package setRepo:repo];
+            break;
+        }
+    }
+    sqlite3_finalize(statement);
+    
+    if (package != NULL) {
+        NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+        if ([otherVersions count] > 1) {
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+            NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+            
+            for (ZBPackage *package in sorted) {
+                if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                    return package;
+                }
+            }
+            
+            return NULL;
+        }
+        else {
+            return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
+        }
+    }
+    
+    return NULL;
+}
+
+- (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version {
+    NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+    
+    if (version == NULL || comparison == NULL)
+        return true;
+    
+    int nx = (int)[choices indexOfObject:comparison];
+    switch (nx) {
+        case 0:
+            return [package compare:version] == NSOrderedAscending;
+        case 1:
+            return [package compare:version] == NSOrderedAscending || [package compare:version] == NSOrderedSame;
+        case 2:
+            return [package compare:version] == NSOrderedSame;
+        case 3:
+            return [package compare:version] == NSOrderedDescending || [package compare:version] == NSOrderedSame;
+        case 4:
+            return [package compare:version] == NSOrderedDescending;
+        default:
+            return false;
+    }
+}
+
+- (ZBRepo *)repoMatchingRepoID:(int)repoID {
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    ZBRepo *source;
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        const char *originChars = (const char *)sqlite3_column_text(statement, 0);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
+        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
+        const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
+        const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
+        const char *compChars = (const char *)sqlite3_column_text(statement, 8);
+        
+        NSURL *iconURL;
+        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
+        NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
+        NSString *shortURL = separate[0];
+        
+        NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
+        if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
+            iconURL = [NSURL URLWithString:url] ;
+        }
+        else{
+            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
+        }
+        
+        source = [[ZBRepo alloc] initWithOrigin:[[NSString alloc] initWithUTF8String:originChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] baseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars] baseURL:baseURL secure:sqlite3_column_int(statement, 4) repoID:sqlite3_column_int(statement, 5) iconURL:iconURL isDefault:sqlite3_column_int(statement, 6) suite:[[NSString alloc] initWithUTF8String:suiteChars] components:[[NSString alloc] initWithUTF8String:compChars] shortURL:shortURL];
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return source;
 }
 
 @end
