@@ -8,6 +8,7 @@
 
 #import "ZBPackage.h"
 #import <Parsel/dpkgver.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @implementation ZBPackage
 
@@ -25,7 +26,6 @@
 @synthesize remote;
 @synthesize repo;
 @synthesize filename;
-@synthesize repoID;
 
 - (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
     
@@ -72,7 +72,15 @@
         [self setConflictsWith:conflictsChars != 0 ? [[NSString stringWithUTF8String:conflictsChars] componentsSeparatedByString:@", "] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:filenameChars != 0? [NSString stringWithUTF8String:filenameChars] : NULL];
-        [self setRepoID:sqlite3_column_int(statement, 13)];
+        
+        int repoID = sqlite3_column_int(statement, 13);
+        if (repoID > 0) {
+            remote = true;
+            [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
+        }
+        else {
+            installed = true;
+        }
     }
     
     return self;

@@ -257,10 +257,6 @@
         ZBPackage *package = (ZBPackage *)[[queue packagesToDownload] objectAtIndex:i];
         
         ZBRepo *repo = [package repo];
-        if (repo == NULL) {
-            ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-            repo = [databaseManager repoMatchingRepoID:[package repoID]];
-        }
         
         [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", [package filename]] toArea:@"downloadStatusUpdate" atLevel:0];
         //        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];

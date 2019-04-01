@@ -300,8 +300,7 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
         ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-        ZBRepo *repo = [self repoMatchingRepoID:sqlite3_column_int(statement, 13)];
-        [package setRepo:repo];
+        
         [searchResults addObject:package];
     }
     sqlite3_finalize(statement);
@@ -534,8 +533,7 @@
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
         package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-        ZBRepo *repo = [self repoMatchingRepoID:sqlite3_column_int(statement, 13)];
-        [package setRepo:repo];
+        
         break;
     }
     
@@ -545,8 +543,7 @@
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            ZBRepo *repo = [self repoMatchingRepoID:sqlite3_column_int(statement, 13)];
-            [package setRepo:repo];
+            
             break;
         }
     }
@@ -595,24 +592,6 @@
         default:
             return false;
     }
-}
-
-- (ZBRepo *)repoMatchingRepoID:(int)repoID {
-    NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
-    
-    sqlite3 *database;
-    sqlite3_open([databasePath UTF8String], &database);
-    
-    ZBRepo *source;
-    sqlite3_stmt *statement;
-    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-    while (sqlite3_step(statement) == SQLITE_ROW) {
-        source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
-    }
-    sqlite3_finalize(statement);
-    sqlite3_close(database);
-    
-    return source;
 }
 
 @end

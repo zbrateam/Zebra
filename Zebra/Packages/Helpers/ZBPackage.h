@@ -27,7 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL installed;
 @property (nonatomic) BOOL remote;
 @property (nonatomic, strong) ZBRepo *repo;
-@property (nonatomic) int repoID;
 @property (nonatomic, strong) NSString *filename;
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;

@@ -7,6 +7,7 @@
 //
 
 #import "ZBRepo.h"
+#import <ZBAppDelegate.h>
 
 @implementation ZBRepo
 
@@ -21,6 +22,24 @@
 @synthesize suite;
 @synthesize components;
 @synthesize shortURL;
+
++ (ZBRepo *)repoMatchingRepoID:(int)repoID {
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
+    
+    sqlite3 *database;
+    sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
+    
+    ZBRepo *source;
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return source;
+}
 
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA {
     
