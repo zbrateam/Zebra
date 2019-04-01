@@ -222,27 +222,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        const char *originChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
-        const char *compChars = (const char *)sqlite3_column_text(statement, 8);
-        
-        NSURL *iconURL;
-        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
-        NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
-        NSString *shortURL = separate[0];
-        
-        NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
-        if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
-            iconURL = [NSURL URLWithString:url] ;
-        }
-        else{
-            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
-        }
-        
-        ZBRepo *source = [[ZBRepo alloc] initWithOrigin:[[NSString alloc] initWithUTF8String:originChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] baseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars] baseURL:baseURL secure:sqlite3_column_int(statement, 4) repoID:sqlite3_column_int(statement, 5) iconURL:iconURL isDefault:sqlite3_column_int(statement, 6) suite:[[NSString alloc] initWithUTF8String:suiteChars] components:[[NSString alloc] initWithUTF8String:compChars] shortURL:shortURL];
+        ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
         
         [sources addObject:source];
     }
@@ -627,27 +607,7 @@
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        const char *originChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
-        const char *compChars = (const char *)sqlite3_column_text(statement, 8);
-        
-        NSURL *iconURL;
-        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
-        NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
-        NSString *shortURL = separate[0];
-        
-        NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
-        if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
-            iconURL = [NSURL URLWithString:url] ;
-        }
-        else{
-            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
-        }
-        
-        source = [[ZBRepo alloc] initWithOrigin:[[NSString alloc] initWithUTF8String:originChars] description:[[NSString alloc] initWithUTF8String:descriptionChars] baseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars] baseURL:baseURL secure:sqlite3_column_int(statement, 4) repoID:sqlite3_column_int(statement, 5) iconURL:iconURL isDefault:sqlite3_column_int(statement, 6) suite:[[NSString alloc] initWithUTF8String:suiteChars] components:[[NSString alloc] initWithUTF8String:compChars] shortURL:shortURL];
+        source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);

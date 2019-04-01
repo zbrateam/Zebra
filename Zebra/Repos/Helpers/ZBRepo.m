@@ -43,8 +43,62 @@
     return self;
 }
 
+- (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
+    self = [super init];
+    
+    if (self) {
+        const char *originChars = (const char *)sqlite3_column_text(statement, 0);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
+        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
+        const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
+        const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
+        const char *compChars = (const char *)sqlite3_column_text(statement, 8);
+        
+        NSURL *iconURL;
+        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
+        NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
+        NSString *shortURL = separate[0];
+        
+        NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
+        if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
+            iconURL = [NSURL URLWithString:url] ;
+        }
+        else{
+            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
+        }
+        
+        [self setOrigin:[[NSString alloc] initWithUTF8String:originChars]];
+        [self setDesc:[[NSString alloc] initWithUTF8String:descriptionChars]];
+        [self setBaseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars]];
+        [self setBaseURL:baseURL];
+        [self setSecure:sqlite3_column_int(statement, 4)];
+        [self setRepoID:sqlite3_column_int(statement, 5)];
+        [self setIconURL:iconURL];
+        [self setDefaultRepo:sqlite3_column_int(statement, 6)];
+        [self setSuite:[[NSString alloc] initWithUTF8String:suiteChars]];
+        [self setComponents:[[NSString alloc] initWithUTF8String:compChars]];
+        [self setShortURL:shortURL];
+    }
+    
+    return self;
+}
+
 - (BOOL)isSecure {
     return secure;
+}
+
+- (BOOL)isEqual:(ZBRepo *)object {
+    if (self == object)
+        return TRUE;
+    
+    if (![object isKindOfClass:[ZBRepo class]])
+        return FALSE;
+    
+    return ([[object baseFileName] isEqual:[self baseFileName]]);
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ %@", origin, shortURL];
 }
 
 @end
