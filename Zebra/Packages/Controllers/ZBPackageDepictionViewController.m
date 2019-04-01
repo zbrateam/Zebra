@@ -248,6 +248,7 @@
     
     [alert addAction:cancel];
     
+    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     
     [self presentViewController:alert animated:true completion:nil];
 }
@@ -275,6 +276,8 @@
     }];
     
     [alert addAction:cancel];
+    
+    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     
     [self presentViewController:alert animated:true completion:nil];
 }
