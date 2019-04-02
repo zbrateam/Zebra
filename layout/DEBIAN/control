@@ -3,7 +3,7 @@ Name: Zebra (BETA)
 Version: 1.0~beta1
 Architecture: iphoneos-arm
 Depends: dpkg, apt1.4 | apt7
-Description: A Useless Package Manager
+Description: A Useful Package Manager
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
 Section: Packaging
