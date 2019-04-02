@@ -64,7 +64,7 @@
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
         
         if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
-            busyList[row] = @TRUE;
+            [busyList insertObject:@TRUE atIndex:row];
             UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
             [spinner setColor:[UIColor grayColor]];
             spinner.frame = CGRectMake(0, 0, 24, 24);
@@ -72,7 +72,9 @@
             [spinner startAnimating];
         }
         else {
-            busyList[row] = @FALSE;
+            if (!(row > [busyList count])) {
+                [busyList insertObject:@FALSE atIndex:row];
+            }
             cell.accessoryView = nil;
         }
     }
