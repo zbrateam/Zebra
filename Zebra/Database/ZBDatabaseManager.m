@@ -104,6 +104,8 @@
     
     char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
     sqlite3_exec(database, sql, NULL, 0, NULL);
+    char *negativeOne = "DELETE FROM PACKAGES WHERE REPOID = -1";
+    sqlite3_exec(database, negativeOne, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
     completion(true);
@@ -435,8 +437,6 @@
 - (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo {
     NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
     
-    NSDate *methodStart = [NSDate date];
-    
     NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(*) as SECTION_COUNT from packages WHERE repoID = %d GROUP BY SECTION ORDER BY SECTION", [repo repoID]];
     
     sqlite3 *database;
@@ -453,10 +453,6 @@
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
-    
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"executionTime = %f", executionTime);
     
     return (NSDictionary *)sectionReadout;
 }
