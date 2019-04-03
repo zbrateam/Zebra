@@ -81,10 +81,10 @@
         sqlite3_close(database);
         
         [self importLocalPackages:^(BOOL success) {
-//            [self checkForPackageUpdates:^(BOOL success) {
-//                NSLog(@"[Zebra] Done checking for updates");
+            [self checkForPackageUpdates:^(BOOL success) {
+                NSLog(@"[Zebra] Done checking for updates");
                 completion(true, NULL);
-//            }];
+            }];
         }];
         
     } ignoreCache:!useCaching];
@@ -432,23 +432,12 @@
     return hasUpgrade;
 }
 
-- (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo {
-    NSMutableArray *sectionReadout = [NSMutableArray new];
+- (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo {
+    NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
     
-    [sectionReadout setObject:[self sectionsInRepo:repo] atIndexedSubscript:0];
-    [sectionReadout setObject:[NSMutableArray new] atIndexedSubscript:1];
-    for (int i = 0; i < [sectionReadout[0] count]; i++) {
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:[self numberOfPackagesFromRepo:repo inSection:sectionReadout[0][i]]];
-        [sectionReadout[1] setObject:numberOfPackages atIndexedSubscript:i];
-    }
+    NSDate *methodStart = [NSDate date];
     
-    return (NSArray *)sectionReadout;
-}
-
-- (NSArray *)sectionsInRepo:(ZBRepo *)repo {
-    NSMutableArray *sections = [NSMutableArray new];
-    
-    NSString *query = [NSString stringWithFormat:@"SELECT DISTINCT SECTION FROM PACKAGES WHERE REPOID = %d ORDER BY SECTION ASC", [repo repoID]];
+    NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(*) as SECTION_COUNT from packages WHERE repoID = %d GROUP BY SECTION ORDER BY SECTION", [repo repoID]];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -459,13 +448,17 @@
         const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
         if (sectionChars != 0) {
             NSString *section = [NSString stringWithUTF8String:sectionChars];
-            [sections addObject:section];
+            [sectionReadout setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 1)] forKey:section];
         }
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
     
-    return (NSArray *)sections;
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"executionTime = %f", executionTime);
+    
+    return (NSDictionary *)sectionReadout;
 }
 
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section {

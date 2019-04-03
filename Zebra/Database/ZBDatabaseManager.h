@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
 - (UIImage *)iconForRepo:(ZBRepo *)repo;
 - (BOOL)packageIDHasUpgrade:(NSString *)packageID;
-- (NSArray <NSArray *> *)sectionReadoutForRepo:(ZBRepo *)repo;
+- (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo;
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section;
 - (void)dropTables;
 - (BOOL)packageIsInstalled:(ZBPackage *)package inDatabase:(sqlite3 *)database;

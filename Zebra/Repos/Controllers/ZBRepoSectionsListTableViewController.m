@@ -19,12 +19,14 @@
 
 @synthesize repo;
 @synthesize sectionReadout;
+@synthesize sectionNames;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
+    sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -51,7 +53,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sectionReadout[0] count] + 1;
+    return [sectionNames count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,7 +71,7 @@
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo]]];
     }
     else {
-        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
+        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = section;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
@@ -77,7 +79,7 @@
         numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
         numberFormatter.usesGroupingSeparator = YES;
         
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)sectionReadout[1][indexPath.row - 1]];
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
     
     return cell;
@@ -91,7 +93,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     
     if (indexPath.row != 0) {
-        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
+        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         destination.section = section;
         destination.title = section;
     }
