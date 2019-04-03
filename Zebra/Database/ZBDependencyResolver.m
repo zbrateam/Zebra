@@ -100,12 +100,29 @@
     NSArray *components = [line componentsSeparatedByString:@" ("];
     NSString *depPackageID = components[0];
     NSArray *separate = [components[1] componentsSeparatedByString:@" "];
-    NSString *comparison = separate[0];
-    NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
     
-    NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+    if ([separate count] > 1) {
+        NSString *comparison = separate[0];
+        NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
+        
+        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
+    }
+    else { //bad repo mainatiner alert
+        NSString *versionComparison = [components[1] substringToIndex:[components[1] length] - 1];
+        NSString *comparison;
+        NSString *version;
+        
+        NSScanner *scanner = [NSScanner scannerWithString:versionComparison];
+        NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
+        
+        [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
+        [scanner scanCharactersFromSet:versionChars intoString:&version];
+        
+        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
+    }
     
-    return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
 }
 
 @end
