@@ -139,11 +139,6 @@
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self writeToConsole:str atLevel:ZBLogLevelDescript];
-        
-        if (_consoleView.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
-            [_consoleView scrollRangeToVisible:bottom];
-        }
     }
 }
 
@@ -162,43 +157,44 @@
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
-        
-        if (_consoleView.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
-            [_consoleView scrollRangeToVisible:bottom];
-        }
     }
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
-    
-    UIColor *color;
-    UIFont *font;
-    switch(level) {
-        case ZBLogLevelDescript:
-            color = [UIColor whiteColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-            break;
-        case ZBLogLevelInfo:
-            color = [UIColor whiteColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
-            break;
-        case ZBLogLevelError:
-            color = [UIColor redColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
-            break;
-        case ZBLogLevelWarning:
-            color = [UIColor yellowColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-            break;
-        default:
-            color = [UIColor whiteColor];
-            break;
-    }
-    
-    NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-    
-    [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIColor *color;
+        UIFont *font;
+        switch(level) {
+            case ZBLogLevelDescript:
+                color = [UIColor whiteColor];
+                font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+                break;
+            case ZBLogLevelInfo:
+                color = [UIColor whiteColor];
+                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+                break;
+            case ZBLogLevelError:
+                color = [UIColor redColor];
+                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+                break;
+            case ZBLogLevelWarning:
+                color = [UIColor yellowColor];
+                font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+                break;
+            default:
+                color = [UIColor whiteColor];
+                break;
+        }
+        
+        NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
+        
+        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+        
+        if (self->_consoleView.text.length > 0 ) {
+            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
+            [self->_consoleView scrollRangeToVisible:bottom];
+        }
+    });
 }
 
 - (IBAction)complete:(id)sender {
