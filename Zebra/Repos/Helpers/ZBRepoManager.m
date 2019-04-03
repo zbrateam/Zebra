@@ -111,7 +111,7 @@
             else {
                 NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
                 sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
-                output = [output stringByAppendingFormat:@"deb %@%@ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
+                output = [output stringByAppendingFormat:@"deb %@%@/ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
             }
         }
         else {
@@ -175,7 +175,7 @@
                 else {
                     NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
                     sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
-                    output = [output stringByAppendingFormat:@"deb %@/%@ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
+                    output = [output stringByAppendingFormat:@"deb %@%@/ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
                 }
             }
             else {
