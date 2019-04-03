@@ -138,10 +138,8 @@
         
         [installCommand insertObject:@"-i" atIndex:1];
         for (ZBPackage *package in installArray) {
-            NSLog(@"[Zebra] Queue Package: %@", package);
             for (NSString *filename in debs) {
                 if ([filename containsString:[[package filename] lastPathComponent]]) {
-                    NSLog(@"[Zebra] Filename: %@", filename);
                     [installCommand insertObject:filename atIndex:2];
                     break;
                 }
@@ -180,9 +178,14 @@
         [commands addObject:@[@3]];
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
         
-        [upgradeCommand insertObject:@"upgrade" atIndex:1];
-        for (ZBPackage *package in reinstallArray) {
-            [upgradeCommand insertObject:[package identifier] atIndex:2];
+        [upgradeCommand insertObject:@"-i" atIndex:1];
+        for (ZBPackage *package in upgradeArray) {
+            for (NSString *filename in debs) {
+                if ([filename containsString:[[package filename] lastPathComponent]]) {
+                    [upgradeCommand insertObject:filename atIndex:2];
+                    break;
+                }
+            }
         }
         
         [commands addObject:upgradeCommand];
