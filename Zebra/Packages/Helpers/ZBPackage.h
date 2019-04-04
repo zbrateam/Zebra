@@ -24,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *dependsOn;
 @property (nonatomic, strong) NSArray *conflictsWith;
 @property (nonatomic, strong) NSString *author;
-@property (nonatomic) BOOL installed;
-@property (nonatomic) BOOL remote;
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;
 

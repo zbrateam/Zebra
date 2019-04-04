@@ -12,6 +12,7 @@
 #import <ZBAppDelegate.h>
 #import <sqlite3.h>
 #import <Queue/ZBQueue.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @implementation ZBDependencyResolver
 
@@ -45,7 +46,7 @@
         if (depPackage != NULL && [depPackage name] != NULL) { //Dependency found, all gucci
             [queue addPackage:depPackage toQueue:ZBQueueTypeInstall];
         }
-        else if ([queue containsPackage:package inQueue:ZBQueueTypeInstall] || ([depPackage name] != NULL || [depPackage installed])) { //Package is installed, don't need to resolve any further
+        else if ([queue containsPackage:package inQueue:ZBQueueTypeInstall] || ([depPackage name] != NULL || [[depPackage repo] repoID] == 0)) { //Package is installed, don't need to resolve any further
             continue;
         }
         else { //Failed to find dependency
@@ -76,7 +77,7 @@
     if ([databaseManager packageIsInstalled:package inDatabase:database]) {
         NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
         ZBPackage *installed = [[ZBPackage alloc] init];
-        installed.installed = true;
+        installed.repo = [ZBRepo localRepo];
         return installed; //This could probably done a little better...
     }
     

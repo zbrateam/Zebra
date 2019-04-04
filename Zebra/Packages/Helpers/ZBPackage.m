@@ -22,12 +22,10 @@
 @synthesize dependsOn;
 @synthesize conflictsWith;
 @synthesize author;
-@synthesize installed;
-@synthesize remote;
 @synthesize repo;
 @synthesize filename;
 
-- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
+- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url {
     
     self = [super init];
     
@@ -38,8 +36,6 @@
         [self setDesc:desc];
         [self setSection:section];
         [self setDepictionURL:[NSURL URLWithString:url]];
-        [self setInstalled:installed];
-        [self setRemote:remote];
     }
     
     return self;
@@ -75,11 +71,10 @@
         
         int repoID = sqlite3_column_int(statement, 13);
         if (repoID > 0) {
-            remote = true;
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }
         else {
-            installed = true;
+            [self setRepo:[ZBRepo localRepo]];
         }
     }
     

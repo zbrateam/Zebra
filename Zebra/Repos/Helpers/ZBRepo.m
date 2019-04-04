@@ -41,6 +41,16 @@
     return source;
 }
 
++ (ZBRepo *)localRepo {
+    ZBRepo *local = [[ZBRepo alloc] init];
+    [local setOrigin:@"Local Repository"];
+    [local setDesc:@"Locally installed packages"];
+    [local setRepoID:0];
+    [local setBaseFileName:@"/var/lib/dpkg/status"];
+    
+    return local;
+}
+
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA {
     
     self = [super init];

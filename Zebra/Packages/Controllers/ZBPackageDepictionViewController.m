@@ -12,6 +12,7 @@
 #import <ZBAppDelegate.h>
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -159,7 +160,7 @@
 }
 
 - (void)configureNavButton {
-    if (_package.installed) {
+    if ([[_package repo] repoID] == 0) {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         
         hasUpdate = [databaseManager packageIDHasUpgrade:[_package identifier]];
