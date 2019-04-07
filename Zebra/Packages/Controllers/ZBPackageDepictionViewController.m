@@ -160,9 +160,9 @@
 }
 
 - (void)configureNavButton {
-    if ([[_package repo] repoID] == 0) {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-        
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
+    if ([[_package repo] repoID] == 0 || [databaseManager packageIsInstalled:_package]) {
         hasUpdate = [databaseManager packageIDHasUpgrade:[_package identifier]];
         
         sqlite3 *database;

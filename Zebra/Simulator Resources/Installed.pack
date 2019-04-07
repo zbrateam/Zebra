@@ -10,6 +10,22 @@ Version: 326
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: applist
+Status: install ok installed
+Section: System
+Installed-Size: 600
+Maintainer: Ryan Petrich <rpetrich@gmail.com>
+Architecture: iphoneos-arm
+Version: 1.5.14
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 3.0), com.rpetrich.rocketbootstrap (>= 1.0.6~beta) | firmware (<< 7.0)
+Conflicts: com.a3tweaks.polus (<< 2.0.7)
+Description: Allow extensions to read the list of installed apps
+Name: AppList
+Author: Ryan Petrich <rpetrich@gmail.com>
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=AppListDp
+Website: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=AppListDp
+dev: rpetrich
+
 Package: gsc.display-mirroring
 Essential: yes
 Status: install ok installed
@@ -73,6 +89,19 @@ Conflicts: apt7-lib (<< 1:0), com.mc.xz (<< 5.2.4-7)
 Description: the advanced packaging library from Debian
 Name: APT 1.4 Strict (libapt-pkg)
 
+Package: unrar
+Status: install ok installed
+Priority: optional
+Section: Archiving
+Installed-Size: 736
+Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Architecture: iphoneos-arm
+Multi-Arch: foreign
+Version: 5.6.4-1
+Pre-Depends: dpkg (>= 1.14.25-8)
+Description: de-compresses files in rar format
+Homepage: http://www.rarlab.com/rar_add.htm
+
 Package: gsc.panorama-camera-capability
 Essential: yes
 Status: install ok installed
@@ -91,7 +120,7 @@ Section: System
 Installed-Size: 272
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.0~b6
+Version: 1.0~b7
 Depends: firmware (>= 11.0), firmware (<< 12.0) | signing-certificate, trustinjector, mobilesubstrate (>= 0.9.7020), firmware (<< 12.0) | mobilesubstrate (>= 0.9.7031), ldid (>= 2:2.1.1+elucubratus1)
 Pre-Depends: dpkg (>= 1.18.25-9)
 Conflicts: science.xnu.undecimus.resources
@@ -200,6 +229,23 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: com.modmyi.libswift4
+Status: install ok installed
+Section: Development
+Installed-Size: 170211
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 4.2.1-1
+Depends: firmware (>= 7.0)
+Description: libswift dylibs for iOS
+Name: libswift4
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libswift4Dp
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libswift4Dp
+Author: Kabir Oberai <oberai.kabir+libswift@gmail.com>
+Sponsor: thebigboss.org <http://thebigboss.org>
+dev: kabiroberai
+Tag: purpose::extension, compatible::ios10, compatible::ios11
+
 Package: ncurses5-libs
 Status: install ok installed
 Priority: required
@@ -224,6 +270,24 @@ Version: 4.13-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Libtasn1 is the ASN.1 library used by GnuTLS, p11-kit and some other packages
 Homepage: https://www.gnu.org/software/libtasn1
+
+Package: crash-reporter
+Status: install ok installed
+Section: System
+Installed-Size: 1460
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 1.16.0-1
+Depends: coreutils, dpkg, grep, jp.ashikase.libcrashreport (>= 1.1.0), jp.ashikase.libpackageinfo (>= 1.1.0), jp.ashikase.techsupport (>= 1.5.0), mobilesubstrate, preferenceloader
+Pre-Depends: firmware (>= 4.0)
+Description: Send useful crash info to developers.
+Tag: purpose::uikit, role::enduser
+Name: CrashReporter
+Homepage: http://github/ashikase/CrashReporter/
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=crashreporterData
+dev: ashikase
+Author: Lance Fetters (ashikase) <support@ashikase.com>
+Sponsor: thebigboss.org <http://thebigboss.org>
 
 Package: gsc.personal-hotspot
 Essential: yes
@@ -272,6 +336,25 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: jp.ashikase.libcrashreport
+Status: install ok installed
+Section: Development
+Installed-Size: 196
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 1.1.0-1
+Depends: jp.ashikase.libsymbolicate (>= 1.9.0), jp.ashikase.libpackageinfo
+Pre-Depends: firmware (>= 3.0)
+Description: Library to parse and symbolicate crash reports.
+This library is based upon CrashReporter by kennytm.
+Name: libcrashreport
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libcrashreportData
+Homepage: http://github.com/ashikase/libcrashreport
+Author: Lance Fetters (ashikase) <support@ashikase.com>
+Sponsor: thebigboss.org <http://thebigboss.org>
+Tag: role::developer
+dev: ashikase
 
 Package: base
 Essential: yes
@@ -512,12 +595,11 @@ Package: bash
 Status: install ok installed
 Priority: required
 Section: Terminal_Support
-Installed-Size: 5032
+Installed-Size: 5368
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 4.4.23-2
-Depends: grep, ncurses, readline (>= 7.0.5-1), sed
+Version: 5.0.3-1
+Depends: grep, ncurses, readline (>= 8.0), sed
 Description: the best shell ever written by Brian Fox
 Name: Bourne-Again SHell
 Homepage: http://www.gnu.org/software/bash/
@@ -595,6 +677,23 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: mobilesubstrate
+Status: install ok installed
+Priority: optional
+Section: System
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 0.9.7032
+Replaces: cycript (<= 0.9.594)
+Depends: com.saurik.substrate.safemode
+Pre-Depends: dpkg (>= 1.14.25-8)
+Breaks: uikittools (<< 1.1.1), com.mywi4 (<= 5.03.2), com.phoenix.pandoracontrols (<= 1.1.0-1), com.intelliborn.intelliscreenx (<= 1.0.110), com.evad3rs.evasi0n7 (<< 0.2)
+Conflicts: me.devbug.msreloadfix, com.r3pwn.startsubstrate, com.ragemasta.bootstrap
+Description: powerful code insertion platform
+Name: Cydia Substrate
+Author: Jay Freeman (saurik) <saurik@saurik.com>
+Depiction: http://cydia.saurik.com/info/mobilesubstrate/
 
 Package: com.linusyang.localeutf8
 Status: install ok installed
@@ -818,6 +917,24 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: cydia-lproj
+Status: install ok installed
+Priority: required
+Section: Packaging
+Installed-Size: 712
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 1.1.32~b1
+Replaces: cydia, org.thebigboss.russiancydia
+Provides: org.thebigboss.russiancydia
+Depends: cydia
+Conflicts: org.thebigboss.russiancydia
+Description: languages and translations for Cydia
+Name: Cydia Translations
+Author: Jay Freeman (saurik) <saurik@saurik.com>
+Depiction: http://cydia.saurik.com/info/cydia-lproj/
+Tag: purpose::uikit, cydia::essential, role::enduser
+
 Package: gnupg
 Status: install ok installed
 Priority: required
@@ -833,6 +950,18 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: gnupg2
 Description: GNU privacy guard - a free PGP replacement
 Name: GnuPG
+
+Package: unzip
+Status: install ok installed
+Priority: important
+Section: Archiving
+Installed-Size: 728
+Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Architecture: iphoneos-arm
+Multi-Arch: foreign
+Version: 6.0-1
+Pre-Depends: dpkg (>= 1.14.25-8)
+Description: de-compesses files in zip format
 
 Package: gsc.video-camera
 Essential: yes
@@ -881,6 +1010,20 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: com.xtm3x.noblur
+Status: install ok installed
+Section: Tweaks
+Installed-Size: 104
+Maintainer: Wilson Styres <wilson@styres.me>
+Architecture: iphoneos-arm
+Version: 1.7
+Depends: mobilesubstrate
+Conflicts: com.xtm3x.noblurlite
+Description: Remove blurs from UI elements system-wide
+Name: NoBlur
+Author: Wilson Styres <wilson@styres.me>
+Depiction: https://xtm3x.github.io/repo/depictions/com.xtm3x.noblur/
 
 Package: gsc.cellular-data
 Essential: yes
@@ -998,6 +1141,24 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: com.andywiik.nonosim
+Status: install ok installed
+Priority: optional
+Section: Tweaks
+Installed-Size: 9
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 0.0.1-1
+Depends: firmware (>= 5.0), mobilesubstrate (>= 0.9.5000)
+Description: hides "No SIM" in statusbar & lock screen
+Name: nonosim
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=nonosimDp
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=nonosimDp
+Sponsor: thebigboss.org <http://thebigboss.org>
+Author: Andy Wiik <cardflourish101@gmail.com>
+Tag: purpose::extension
+dev: cardflourish101
+
 Package: darwintools
 Status: install ok installed
 Priority: required
@@ -1076,6 +1237,26 @@ Version: 2
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: cydia
+Status: install ok installed
+Priority: required
+Section: Packaging
+Installed-Size: 7592
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 1.1.32~b12
+Replaces: bigboss, bigbossbetarepo, com.sosiphone.addcydia, cydia-sources, ispazio.net, modmyifone, saurik, ste, yellowsn0w.com, zodttd
+Provides: bigbossbetarepo, cydia-sources
+Depends: apt7-lib | libapt, apt7-key | apt-key, cydia-lproj (>= 1.1.10), darwintools, debianutils, dpkg (>= 1.18), org.thebigboss.repo.icons, sed, shell-cmds, system-cmds, uikittools (>= 1.1.4), xz
+Pre-Depends: debianutils, dpkg (>= 1.14.25-8), firmware (>= 5.0)
+Conflicts: bigboss, bigbossbetarepo, com.sosiphone.addcydia, cydia-sources, ispazio.net, modmyifone, ste, yellowsn0w.com, zodttd
+Description: graphical iPhone front-end for APT
+Name: Cydia Installer
+Author: Jay Freeman (saurik) <saurik@saurik.com>
+Depiction: http://cydia.saurik.com/info/cydia/
+Icon: file:///Applications/Cydia.app/Icon-60.png
+Tag: purpose::uikit, cydia::essential, role::enduser
+
 Package: gsc.gyroscope
 Essential: yes
 Status: install ok installed
@@ -1087,6 +1268,18 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: zip
+Status: install ok installed
+Priority: important
+Section: Archiving
+Installed-Size: 728
+Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Architecture: iphoneos-arm
+Multi-Arch: foreign
+Version: 2.32-1
+Pre-Depends: dpkg (>= 1.14.25-8)
+Description: standard Windows compression tool
 
 Package: jp.ashikase.techsupport
 Status: install ok installed
@@ -1101,6 +1294,42 @@ Description: Framework to assist in providing feedback to developers.
 Name: TechSupport Framework
 Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=techsupportData
 Homepage: http://github.com/ashikase/TechSupport
+Author: Lance Fetters (ashikase) <support@ashikase.com>
+Sponsor: thebigboss.org <http://thebigboss.org>
+Tag: role::developer
+dev: ashikase
+
+Package: ws.hbang.common
+Status: install ok installed
+Priority: optional
+Section: Development
+Installed-Size: 830
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 1.12
+Depends: preferenceloader, mobilesubstrate, jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
+Description: Support library for tweak settings
+Name: Cephei
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=hashbangcommonDp
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=hashbangcommonDp
+Sponsor: thebigboss.org <http://thebigboss.org>
+Author: HASHBANG Productions <support@hbang.ws>
+Tag: purpose::extension, cydia::obsolete, role::developer, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11
+dev: hbang
+
+Package: jp.ashikase.libsymbolicate
+Status: install ok installed
+Section: Development
+Installed-Size: 200
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 1.9.0-1
+Pre-Depends: firmware (>= 4.0)
+Description: Library to symbolicate memory addresses.
+This library is based upon CrashReporter by kennytm.
+Name: libsymbolicate
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libsymbolicateData
+Homepage: http://github.com/ashikase/libsymbolicate
 Author: Lance Fetters (ashikase) <support@ashikase.com>
 Sponsor: thebigboss.org <http://thebigboss.org>
 Tag: role::developer
@@ -1243,13 +1472,41 @@ Version: 1334
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: com.saurik.substrate.safemode
+Status: install ok installed
+Priority: optional
+Section: Tweaks
+Installed-Size: 80
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 0.9.6001.1
+Replaces: safe-mode-fixer-ios7
+Depends: mobilesubstrate (>= 0.9.3367+38)
+Conflicts: safe-mode-fixer-ios7
+Description: safe mode safety extension (safe)
+Author: Jay Freeman (saurik) <saurik@saurik.com>
+Name: Substrate Safe Mode
+Depiction: http://cydia.saurik.com/info/com.saurik.substrate.safemode/
+
+Package: me.nepeta.owo
+Status: install ok installed
+Section: Tweaks
+Installed-Size: 156
+Maintainer: Nepeta
+Architecture: iphoneos-arm
+Version: 0.2.1
+Depends: mobilesubstrate, ws.hbang.common (>= 1.11)
+Description: OwO what's this!?
+Name: OwO
+Author: Nepeta
+
 Package: xyz.willy.zebra
 Status: install ok installed
 Section: Packaging
-Installed-Size: 2968
+Installed-Size: 3124
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.0~beta1
+Version: 1.0~beta1-29+debug
 Depends: dpkg, apt1.4 | apt7
 Description: A Useful Package Manager
 Name: Zebra (BETA)
@@ -1282,6 +1539,26 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Description: GMP is a free library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers. There is no practical limit to the precision except the ones implied by the available memory in the machine GMP runs on. GMP has a rich set of functions, and the functions have a regular interface.
 Name: GNU Multiple Precision Arithmetic Library
 Homepage: https://gmplib.org/
+
+Package: ws.hbang.newterm2
+Status: install ok installed
+Section: Terminal Support
+Installed-Size: 2200
+Maintainer: HASHBANG Productions <support@hbang.ws>
+Architecture: iphoneos-arm
+Version: 2.1
+Replaces: ws.hbang.newterm
+Depends: firmware (>= 7.0), com.modmyi.libswift4 (>= 4.2.1-1), ws.hbang.common (>= 1.11.2), bash, coreutils, ncurses, system-cmds, com.linusyang.localeutf8
+Conflicts: ws.hbang.newterm
+Description: A powerful terminal app for iOS
+Name: NewTerm 2 (iOS 7 – 12)
+Author: HASHBANG Productions <support@hbang.ws>
+Icon: https://repo.chariz.io/package/ws.hbang.newterm2/icon@3x.png
+Depiction: https://repo.chariz.io/package/ws.hbang.newterm2/
+Support: https://hbang.ws/support/
+Sponsor: thebigboss.org <http://thebigboss.org>
+Tag: compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
+dev: hbang
 
 Package: gsc.bluetooth-le
 Essential: yes
@@ -1318,6 +1595,26 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: com.tigisoftware.filza
+Status: install ok installed
+Priority: optional
+Section: Utilities
+Installed-Size: 27512
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 3.6.4
+Depends: firmware (>= 7.0), zip, unzip, gzip, unrar, p7zip
+Conflicts: com.tigisoftware.filza64bit
+Description: File Manager for iPhone, iPad, iPod Touch. Supports iOS 7+
+Name: Filza File Manager
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=filzafilemanagerDp
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=filzafilemanagerDp
+Sponsor: thebigboss.org <http://thebigboss.org>
+Author: TIGI Software <satashi2009@gmail.com>
+Tag: purpose::uikit, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
+dev: satashi2009
+Icon: file:///Applications/Filza.app/AppIcon57x57.png
 
 Package: gsc.device-supports-tethering
 Essential: yes
@@ -1477,6 +1774,19 @@ Conflicts: gnupth
 Description: portable threading library used by X
 Name: New GNU Portable Threads
 
+Package: p7zip
+Status: install ok installed
+Priority: optional
+Section: Archiving
+Installed-Size: 9080
+Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Architecture: iphoneos-arm
+Multi-Arch: foreign
+Version: 16.02-1
+Pre-Depends: dpkg (>= 1.14.25-8)
+Description: claims to be a good compressor
+Name: 7-zip (POSIX)
+
 Package: diskdev-cmds
 Essential: yes
 Status: install ok installed
@@ -1525,6 +1835,23 @@ Version: 28672
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: com.rpetrich.rocketbootstrap
+Status: install ok installed
+Section: Tweaks
+Installed-Size: 500
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 1.0.7~beta2
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 3.0)
+Description: Support library allowing tweaks to communicate with sandboxed processes
+Name: RocketBootstrap
+Depiction: https://www.rpetrich.com/cydia/rocketbootstrap/beta/
+Homepage: https://www.rpetrich.com/cydia/rocketbootstrap/beta/
+Author: Ryan Petrich <rpetrich+rocketbootstrap@gmail.com>
+Sponsor: thebigboss.org <http://thebigboss.org>
+dev: rpetrich
+Tag: purpose::extension, role::developer
+
 Package: coreutils-bin
 Essential: yes
 Status: install ok installed
@@ -1572,7 +1899,7 @@ Section: Packaging
 Installed-Size: 4112
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.18.25-10
+Version: 1.18.25-11
 Depends: bash, bzip2, coreutils-bin, diffutils, file, findutils, gzip, ldid (>= 2:2.1.1), lzma, ncurses, tar, xz
 Pre-Depends: tar (>= 1.23)
 Description: package maintainance tools from Debian
@@ -1802,6 +2129,24 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: com.r333d.cylinder
+Status: install ok installed
+Section: Tweaks
+Installed-Size: 899
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Architecture: iphoneos-arm
+Version: 1.0.6
+Depends: firmware (>= 3.0), mobilesubstrate (>= 0.9.5000), preferenceloader
+Description: Make your icons dance
+Author: Reed Weichler <rweichler+cydia@gmail.com>
+Name: Cylinder
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=cylinderDp
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=cylinderDp
+Sponsor: thebigboss.org <http://thebigboss.org>
+Tag: purpose::extension, compatible::ios7, compatible::ios8, compatible::ios9
+dev: rweichler
+Icon: file:///Library/PreferenceBundles/CylinderSettings.bundle/Icon@2x.png
 
 Package: gsc.watch-companion
 Essential: yes
@@ -2076,11 +2421,10 @@ Package: readline
 Status: install ok installed
 Priority: required
 Section: Development
-Installed-Size: 1072
+Installed-Size: 1136
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 7.0.5-2
+Version: 8.0-1
 Depends: ncurses
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: command-line history management

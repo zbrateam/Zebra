@@ -34,7 +34,7 @@
 }
 
 - (void)addDependenciesForPackage:(ZBPackage *)package {
-    if ([databaseManager packageIsInstalled:package inDatabase:database]) {
+    if ([databaseManager packageIsInstalled:package versionStrict:true inDatabase:database]) {
         NSLog(@"[Zebra] %@ (%@) is already installed, dependencies resolved.", [package name], [package identifier]);
         return;
     }
@@ -74,7 +74,7 @@
     if (package == NULL)
         return NULL;
     
-    if ([databaseManager packageIsInstalled:package inDatabase:database]) {
+    if ([databaseManager packageIsInstalled:package versionStrict:true inDatabase:database]) {
         NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
         ZBPackage *installed = [[ZBPackage alloc] init];
         installed.repo = [ZBRepo localRepo];
