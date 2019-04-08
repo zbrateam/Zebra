@@ -177,6 +177,8 @@
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
+        
+        sqlite3_close(database);
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -261,6 +263,8 @@
         UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
+            
+            NSLog(@"Package repoID %d", [[downPackage repo] repoID]);
             
             [alert dismissViewControllerAnimated:true completion:nil];
             

@@ -9,6 +9,7 @@
 #import "ZBTabBarController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <ZBAppDelegate.h>
 
 @interface ZBTabBarController ()
@@ -17,11 +18,14 @@
 
 @implementation ZBTabBarController
 
-@synthesize hasUpdates;
 @synthesize updates;
+@synthesize hasUpdates;
+@synthesize repoBusyList;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(repoStatusUpdate:) name:@"repoStatusUpdate" object:nil];
     
     if (@available(iOS 10.0, *)) {
         UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
@@ -119,6 +123,29 @@
             NSLog(@"No Updates");
             hasUpdates = FALSE;
             [packagesTabBarItem setBadgeValue:nil];
+        }
+    }
+}
+
+- (void)repoStatusUpdate:(NSNotification *)notification {
+    if (!repoBusyList) repoBusyList = [NSMutableArray new];
+    
+    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
+    if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {\
+        repoBusyList = [NSMutableArray new];
+        [sourcesVC clearAllSpinners];
+    }
+    else {
+        NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
+        if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
+            NSLog(@"Row %ld is busy", (long)row);
+            [repoBusyList insertObject:@TRUE atIndex:row];
+            [sourcesVC setSpinnerVisible:true forRow:row];
+        }
+        else {
+            NSLog(@"Row %ld is free", (long)row);
+            [repoBusyList insertObject:@FALSE atIndex:row];
+            [sourcesVC setSpinnerVisible:false forRow:row];
         }
     }
 }

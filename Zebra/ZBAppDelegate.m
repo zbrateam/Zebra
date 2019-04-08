@@ -78,26 +78,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    
-//    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-//    
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    
-//    UIViewController *initialController;
-//    
-//    BOOL needsFullImport = false;
-//    
-//    if (needsFullImport) {
-//        initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-//    }
-//    else {
-//        initialController = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-//    }
-//    
-//    self.window.tintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-//    self.window.rootViewController = initialController;
-//    [self.window makeKeyAndVisible];
-    
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     
     return YES;
@@ -129,6 +109,5 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 @end

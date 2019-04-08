@@ -18,7 +18,6 @@
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
-    NSMutableArray *busyList;
 }
 @end
 
@@ -27,11 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(repoStatusUpdate:) name:@"repoStatusUpdate" object:nil];
-    
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sources = [databaseManager sources];
-    busyList = [NSMutableArray new];
     
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -44,27 +40,12 @@
     [self refreshTable];
 }
 
-- (void)repoStatusUpdate:(NSNotification *)notification {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(repoStatusUpdate:) withObject:notification waitUntilDone:NO];
-        return;
-    }
-    else if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {\
-        busyList = [NSMutableArray new];
-        for (int i = 0; i < [self tableView:self.tableView numberOfRowsInSection:0]; i++) {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-
-            [UIView animateWithDuration:0.7 animations:^{
-                cell.backgroundColor = [UIColor whiteColor];
-            }];
-        }
-    }
-    else {
-        NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
+- (void)setSpinnerVisible:(BOOL)visible forRow:(NSInteger)row {
+    NSLog(@"Setting spinner%@visible for row %ld", visible ? @" " : @" not ", (long)row);
+    dispatch_async(dispatch_get_main_queue(), ^{
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
         
-        if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
-            [busyList insertObject:@TRUE atIndex:row];
+        if (visible) {
             UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
             [spinner setColor:[UIColor grayColor]];
             spinner.frame = CGRectMake(0, 0, 24, 24);
@@ -72,12 +53,20 @@
             [spinner startAnimating];
         }
         else {
-            if (!(row > [busyList count])) {
-                [busyList insertObject:@FALSE atIndex:row];
-            }
             cell.accessoryView = nil;
         }
-    }
+    });
+}
+
+- (void)clearAllSpinners {
+    NSLog(@"Clearning all Spinners");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            
+            cell.accessoryView = nil;
+        }
+    });
 }
 
 - (void)editMode:(id)sender {
@@ -205,6 +194,7 @@
     
     cell.textLabel.text = [source origin];
     
+    NSArray *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
     if (indexPath.row < [busyList count]) {
         if ([busyList[indexPath.row] boolValue]) {
             UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
@@ -291,24 +281,8 @@
     }
  }
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBRepoSectionsListTableViewController *destination = (ZBRepoSectionsListTableViewController *)[segue destinationViewController];
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];

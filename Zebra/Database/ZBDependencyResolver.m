@@ -109,7 +109,7 @@
         NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
         return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
     }
-    else { //bad repo mainatiner alert
+    else { //bad repo maintainer alert
         NSString *versionComparison = [components[1] substringToIndex:[components[1] length] - 1];
         NSString *comparison;
         NSString *version;

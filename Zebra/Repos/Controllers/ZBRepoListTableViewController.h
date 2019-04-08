@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoListTableViewController : UITableViewController
-
+- (void)setSpinnerVisible:(BOOL)visible forRow:(NSInteger)row;
+- (void)clearAllSpinners;
 @end
 
 NS_ASSUME_NONNULL_END
