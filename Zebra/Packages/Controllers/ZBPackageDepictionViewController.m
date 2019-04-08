@@ -13,6 +13,7 @@
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <ZBTabBarController.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -163,7 +164,7 @@
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
     if ([[_package repo] repoID] == 0 || [databaseManager packageIsInstalled:_package]) {
-        hasUpdate = true;
+        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
         
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);

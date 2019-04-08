@@ -10,6 +10,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 
 @interface ZBTabBarController ()
@@ -148,6 +149,15 @@
             [sourcesVC setSpinnerVisible:false forRow:row];
         }
     }
+}
+
+- (BOOL)doesPackageIDHaveUpdate:(NSString *)packageID {
+    for (ZBPackage *package in updates) {
+        if ([[package identifier] isEqual:packageID]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 @end
