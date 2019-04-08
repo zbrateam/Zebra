@@ -531,9 +531,7 @@
     for (ZBPackage *package in installedPackage) {
         ZBPackage *topVersion = [self topVersionForPackage:package];
         
-        NSLog(@"%@ compared to %@", [topVersion version], [package version]);
         if ([topVersion compare:package] == NSOrderedDescending) {
-            NSLog(@"%@ from %@", topVersion, [topVersion repo]);
             [packages addObject:topVersion];
         }
     }
