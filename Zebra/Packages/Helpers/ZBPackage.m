@@ -69,7 +69,7 @@
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:filenameChars != 0? [NSString stringWithUTF8String:filenameChars] : NULL];
         
-        int repoID = sqlite3_column_int(statement, 13);
+        int repoID = sqlite3_column_int(statement, 12);
         if (repoID > 0) {
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }

@@ -163,7 +163,7 @@
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
     if ([[_package repo] repoID] == 0 || [databaseManager packageIsInstalled:_package]) {
-        hasUpdate = [databaseManager packageIDHasUpgrade:[_package identifier]];
+        hasUpdate = true;
         
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);

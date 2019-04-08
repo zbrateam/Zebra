@@ -1017,7 +1017,7 @@ Section: Tweaks
 Installed-Size: 104
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.7
+Version: 1.6.5
 Depends: mobilesubstrate
 Conflicts: com.xtm3x.noblurlite
 Description: Remove blurs from UI elements system-wide

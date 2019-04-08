@@ -127,7 +127,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ %@", origin, shortURL];
+    return [NSString stringWithFormat: @"%@ %@ %d", origin, shortURL, repoID];
 }
 
 @end
