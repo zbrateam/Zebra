@@ -36,10 +36,22 @@ int verrevcmp(const char *val, const char *ref) {
     //Custom, not included in dpkg source, merely a cheap hack to deal with epochs in jailbreak packages, erica utils
     //is the only packages that has an epoch that i've seen so if a version has an epoch version, it is probably greater
     //than the other ones.
-    if (strchr(val, ':') != NULL) {
+    if (strchr(val, ':') != NULL && strchr(ref, ':') != NULL) { //Both packages contain epochs, why? idk.
+        const char *newVal = strtok((char *)val, ":");
+        newVal = strtok(NULL, ":");
+        
+        const char *newRef = strtok((char *)ref, ":");
+        newRef = strtok(NULL, ":");
+        
+        printf("Calling comparison with %s (%s) and %s (%s) because someone likes epochs too much.\n", newVal, val, newRef, ref);
+        if (newVal != NULL && newRef != NULL) {
+            return verrevcmp(newVal, newRef);
+        }
+    }
+    else if (strchr(val, ':') != NULL) { //first version contains epoch, it is greater
         return 1;
     }
-    if (strchr(ref, ':') != NULL) {
+    else if (strchr(ref, ':') != NULL) { //second version contains epoch, it is greater
         return -1;
     }
     
