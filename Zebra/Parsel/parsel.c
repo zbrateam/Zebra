@@ -228,7 +228,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
         else if (dict_get(package, "Package") != 0) {
             const char *packageIdentifier = dict_get(package, "Package");
             const char *tags = dict_get(package, "Tag");
-            if (strcasestr(dict_get(package, "Status"), "not-installed") == NULL) {
+            if (strcasestr(dict_get(package, "Status"), "not-installed") == NULL && strcasestr(dict_get(package, "Status"), "deinstall") == NULL) {
                 if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
                     repoID = -1;
                 }
