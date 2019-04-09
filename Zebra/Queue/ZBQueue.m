@@ -163,15 +163,30 @@
     
     if ([reinstallArray count] > 0) {
         [commands addObject:@[@2]];
-        NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
         
-        [reinstallCommand insertObject:@"install" atIndex:1];
-        [reinstallCommand insertObject:@"--reinstall" atIndex:2];
+        //Remove package first
+        NSMutableArray *removeCommand = [baseCommand mutableCopy];
+        
+        [removeCommand insertObject:@"-r" atIndex:1];
         for (ZBPackage *package in reinstallArray) {
-            [reinstallCommand insertObject:[package identifier] atIndex:3];
+            [removeCommand insertObject:[package identifier] atIndex:2];
+        }
+        [commands addObject:removeCommand];
+        
+        //Install new version
+        NSMutableArray *installCommand = [baseCommand mutableCopy];
+        
+        [installCommand insertObject:@"-i" atIndex:1];
+        for (ZBPackage *package in reinstallArray) {
+            for (NSString *filename in debs) {
+                if ([filename containsString:[[package filename] lastPathComponent]]) {
+                    [installCommand insertObject:filename atIndex:2];
+                    break;
+                }
+            }
         }
         
-        [commands addObject:reinstallCommand];
+        [commands addObject:installCommand];
     }
     
     if ([upgradeArray count] > 0) {

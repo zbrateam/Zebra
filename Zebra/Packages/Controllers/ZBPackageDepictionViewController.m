@@ -114,7 +114,7 @@
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package name], [_package identifier]] completionHandler:nil];
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
     
-    if ([_package depictionURL] != NULL && ![[[_package depictionURL] absoluteString] isEqualToString:@""])  {
+    if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         [webView evaluateJavaScript:@"var element = document.getElementById('main-holder').style.marginBottom = '0px';" completionHandler:nil];
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
