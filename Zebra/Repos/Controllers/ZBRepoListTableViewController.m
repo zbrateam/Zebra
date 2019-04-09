@@ -31,7 +31,11 @@
     
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.extendedLayoutIncludesOpaqueBars = YES;
+    
+    //set up refresh control
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+    self.extendedLayoutIncludesOpaqueBars = true;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,10 +91,16 @@
     }
 }
 
-- (IBAction)refreshSources:(id)sender {
+- (void)refreshSources:(id)sender {
     ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
     [tabController performBackgroundRefresh:true completion:^(BOOL success) {
-        [self.refreshControl performSelectorOnMainThread:@selector(endRefreshing) withObject:NULL waitUntilDone:false];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
+//        [self.refreshControl performSelectorOnMainThread:@selector(endRefreshing) withObject:NULL waitUntilDone:false];
+//        CGFloat top = self.tableView.adjustedContentInset.top
+//        let y = self.refreshControl!.frame.maxY + top
+//        self.tableView.setContentOffset(CGPoint(x: 0, y: -y), animated:true)
         [self refreshTable];
     }];
 }
