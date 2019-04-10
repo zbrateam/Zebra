@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBDatabaseManager : NSObject {
     NSString *databasePath;
 }
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion;
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching singleRepo:(ZBRepo * _Nullable)repo completion:(void (^)(BOOL success, NSError *error))completion;
 - (void)importLocalPackages:(void (^)(BOOL success))completion;
 - (int)numberOfPackagesInRepo:(ZBRepo *)repo;
 - (NSArray <ZBPackage *> *)installedPackages;

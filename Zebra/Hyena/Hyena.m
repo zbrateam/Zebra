@@ -44,6 +44,25 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:@{@"level": @(level), @"message": update}];
 }
 
+- (id)initWithSource:(ZBRepo *)repo {
+    self = [super init];
+    
+    if (self) {
+        NSError *sourceListReadError;
+        NSString *sourceList = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:&sourceListReadError];
+        NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
+        
+        for (NSString *line in debLines) {
+            if ([line rangeOfString:[repo baseURL]].location != NSNotFound) {
+                repos = @[[self baseURLFromDebLine:line]];
+            }
+        }
+        queue = [ZBQueue sharedInstance];
+    }
+    
+    return self;
+}
+
 - (NSArray *)reposFromSourcePath:(NSString *)path {
     NSMutableArray *repos = [NSMutableArray new];
     

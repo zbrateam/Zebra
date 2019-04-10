@@ -82,7 +82,7 @@
                 }
             });
             
-            [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
+            [databaseManager updateDatabaseUsingCaching:true singleRepo:NULL completion:^(BOOL success, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [sourcesController tabBarItem].badgeValue = nil;
                 });

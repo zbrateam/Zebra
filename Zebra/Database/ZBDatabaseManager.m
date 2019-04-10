@@ -27,9 +27,17 @@
     return self;
 }
 
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching singleRepo:(ZBRepo * _Nullable)repo completion:(void (^)(BOOL success, NSError *error))completion {
     [self postStatusUpdate:@"Updating Repositories\n" atLevel:1];
-    Hyena *predator = [[Hyena alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
+    
+    Hyena *predator;
+    if (repo != NULL) {
+        predator = [[Hyena alloc] initWithSource:repo];
+    }
+    else {
+        predator = [[Hyena alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
+    }
+
     [predator downloadReposWithCompletion:^(NSDictionary * _Nonnull fileUpdates, BOOL success) {
         [self postStatusUpdate:@"Download Complete\n" atLevel:1];
         

@@ -26,7 +26,7 @@
         [databaseManager dropTables];
     }
     
-    [databaseManager updateDatabaseUsingCaching:false completion:^(BOOL success, NSError * _Nonnull error) {
+    [databaseManager updateDatabaseUsingCaching:false singleRepo:NULL completion:^(BOOL success, NSError * _Nonnull error) {
         [self goodbye];
     }];
 }
