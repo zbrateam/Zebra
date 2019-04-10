@@ -369,7 +369,7 @@
 - (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo {
     NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
     
-    NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(*) as SECTION_COUNT from packages WHERE repoID = %d GROUP BY SECTION ORDER BY SECTION", [repo repoID]];
+    NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE repoID = %d GROUP BY SECTION ORDER BY SECTION", [repo repoID]];
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
