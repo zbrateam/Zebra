@@ -89,8 +89,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageListTableViewController *destination = [segue destinationViewController];
+    UITableViewCell *cell = (UITableViewCell *)sender;
     destination.repo = repo;
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     if (indexPath.row != 0) {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];

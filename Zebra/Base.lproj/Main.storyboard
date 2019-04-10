@@ -259,7 +259,10 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="bGz-84-RrI" kind="show" id="Fi8-IT-Q36"/>
+                                    <segue destination="bGz-84-RrI" kind="show" id="Fi8-IT-Q36">
+                                        <segue key="commit" inheritsFrom="parent" id="xkZ-eW-rxU"/>
+                                        <segue key="preview" inheritsFrom="commit" id="BYx-Tq-laa"/>
+                                    </segue>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -472,7 +475,10 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="sCr-no-Q38" kind="show" id="3rJ-40-3gH"/>
+                                    <segue destination="sCr-no-Q38" kind="show" id="3rJ-40-3gH">
+                                        <segue key="commit" inheritsFrom="parent" id="TU3-4Y-Pen"/>
+                                        <segue key="preview" inheritsFrom="commit" id="KaG-dg-BtQ"/>
+                                    </segue>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -510,7 +516,8 @@
         <image name="Sources" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hk8-hZ-Cdu"/>
+        <segue reference="Fi8-IT-Q36"/>
+        <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>
