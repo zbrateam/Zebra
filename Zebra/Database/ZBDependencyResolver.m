@@ -43,11 +43,15 @@
     
     for (NSString *line in dependencies) {
         ZBPackage *depPackage = [self packageThatResolvesDependency:line];
-        if (depPackage != NULL && [depPackage name] != NULL) { //Dependency found, all gucci
-            [queue addPackage:depPackage toQueue:ZBQueueTypeInstall];
-        }
-        else if ([queue containsPackage:package inQueue:ZBQueueTypeInstall] || ([depPackage name] != NULL || [[depPackage repo] repoID] == 0)) { //Package is installed, don't need to resolve any further
-            continue;
+        if (depPackage != NULL) {
+            if ([databaseManager packageIsInstalled:depPackage versionStrict:true inDatabase:database]) {
+                NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
+                continue;
+            }
+            else { //Dependency found, all gucci
+                NSLog(@"Resolved: %@", depPackage);
+                [queue addPackage:depPackage toQueue:ZBQueueTypeInstall];
+            }
         }
         else { //Failed to find dependency
             NSLog(@"[Zebra] Failed to find dependency for %@ to match %@", package, line);
@@ -73,13 +77,6 @@
     
     if (package == NULL)
         return NULL;
-    
-    if ([databaseManager packageIsInstalled:package versionStrict:true inDatabase:database]) {
-        NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
-        ZBPackage *installed = [[ZBPackage alloc] init];
-        installed.repo = [ZBRepo localRepo];
-        return installed; //This could probably done a little better...
-    }
     
     return package;
 }
