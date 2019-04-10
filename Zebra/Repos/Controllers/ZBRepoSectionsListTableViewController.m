@@ -10,6 +10,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Repos/Helpers/ZBRepoManager.h>
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -101,6 +102,24 @@
     else {
         destination.title = @"All Packages";
     }
+}
+
+//3D Touch Actions
+
+- (NSArray *)previewActionItems {
+    UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:@"Refresh" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        NSLog(@"Refresh");
+    }];
+    
+    if (![[repo origin] isEqualToString:@"xTM3x Repo"]) {
+        UIPreviewAction *delete = [UIPreviewAction actionWithTitle:@"Delete" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteRepoTouchAction" object:self userInfo:@{@"repo": self->repo}];
+        }];
+        
+        return @[refresh, delete];
+    }
+    
+    return @[refresh];
 }
 
 @end

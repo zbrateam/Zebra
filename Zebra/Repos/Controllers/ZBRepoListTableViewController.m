@@ -36,6 +36,13 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
     self.extendedLayoutIncludesOpaqueBars = true;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -298,6 +305,12 @@
     UITableViewCell *cell = (UITableViewCell *)sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     destination.repo = [sources objectAtIndex:indexPath.row];
+}
+
+- (void)delewhoop:(NSNotification *)notification {
+    ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sources indexOfObject:repo] inSection:0];
+    [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
 }
 
 @end
