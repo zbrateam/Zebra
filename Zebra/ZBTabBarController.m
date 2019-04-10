@@ -124,6 +124,10 @@
             NSLog(@"No Updates");
             hasUpdates = FALSE;
             [packagesTabBarItem setBadgeValue:nil];
+            
+            UINavigationController *packageNavController = self.viewControllers[2];
+            ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
+            [packageVC refreshTable];
         }
     }
 }

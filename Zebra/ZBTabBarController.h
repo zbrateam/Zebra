@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *repoBusyList;
 @property (nonatomic) BOOL hasUpdates;
 - (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion;
+- (void)checkForPackageUpdates;
 - (BOOL)doesPackageIDHaveUpdate:(NSString *)packageID;
 @end
 

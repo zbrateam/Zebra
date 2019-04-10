@@ -13,6 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <Hyena/Hyena.h>
+#import <ZBTabBarController.h>
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -88,6 +89,9 @@
             [self updateStatus:4];
             self->_completeButton.hidden = false;
         });
+    }];
+    [self performPostActions:^(BOOL success) {
+        [(ZBTabBarController *)self.tabBarController checkForPackageUpdates];
     }];
 }
 
