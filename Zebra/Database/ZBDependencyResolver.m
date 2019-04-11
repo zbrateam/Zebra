@@ -123,4 +123,45 @@
     
 }
 
+- (void)conflictionsWithPackage:(ZBPackage *)package state:(int)state {
+    if (state == 0) { //Installing package
+        //First, check if package conflicts with any packages that are currently installed
+        NSArray *conflictions = [package conflictsWith];
+        
+        for (NSString *line in conflictions) {
+            ZBPackage *conf = [self packageThatResolvesDependency:line];
+            if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true inDatabase:database]) {
+                NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
+                [queue markPackageAsFailed:package forConflicts:conf];
+            }
+        }
+        
+        //Then, check if any package that is installed conflicts with package
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@\%%\';", [package identifier]];
+        
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            [queue markPackageAsFailed:package forConflicts:conf];
+        }
+        sqlite3_finalize(statement);
+    }
+    else if (state == 1) { //Removing package
+        //Check if any package that is installed depends on this package
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@\%%\';", [package identifier]];
+        
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            [queue markPackageAsFailed:package forConflicts:conf];
+        }
+        sqlite3_finalize(statement);
+    }
+    else {
+        NSLog(@"MY TIME HAS COME TO BURN");
+    }
+}
+
 @end

@@ -23,7 +23,7 @@
     
     _queue = [ZBQueue sharedInstance];
     
-    if ([[_queue failedQueue] count] > 0) {
+    if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
         self.navigationItem.rightBarButtonItem.enabled = false;
     }
     else {
@@ -47,7 +47,7 @@
 }
 
 - (void)refreshTable {
-    if ([[_queue failedQueue] count] > 0) {
+    if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
         self.navigationItem.rightBarButtonItem.enabled = false;
     }
     else {
@@ -98,9 +98,22 @@
     else if ([action isEqual:@"Unresolved Dependencies"]) {
         cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
         
-        NSArray *failedQ = [_queue failedQueue];
+        NSArray *failedQ = [_queue failedDepQueue];
         cell.textLabel.text = failedQ[indexPath.row][0];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
+        
+        return cell;
+    }
+    else if ([action isEqual:@"Conflictions"]) {
+        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+        
+        NSArray *failedQ = [_queue failedConQueue];
+        
+        ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][0];
+        ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][1];
+        
+        cell.textLabel.text = [confliction name];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@ and cannot be installed", [confliction name], [package name]];
         
         return cell;
     }
@@ -135,7 +148,12 @@
 #pragma mark - Table View Delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
+        return NO;
+    }
+    else {
+        return YES;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -159,12 +177,19 @@
             [_queue removePackage:package fromQueue:ZBQueueTypeUpgrade];
         }
         else if ([action isEqual:@"Unresolved Dependencies"]) {
-            for (NSArray *array in [_queue failedQueue]) {
+            for (NSArray *array in [_queue failedDepQueue]) {
                 ZBPackage *package = array[1];
                 [_queue removePackage:package fromQueue:ZBQueueTypeInstall];
             }
-            [_queue.failedQueue removeAllObjects];
+            [_queue.failedDepQueue removeAllObjects];
         }
+//        else if ([action isEqual:@"Unresolved Dependencies"]) {
+//            for (NSArray *array in [_queue failedQueue]) {
+//                ZBPackage *package = array[1];
+//                [_queue removePackage:package fromQueue:ZBQueueTypeInstall];
+//            }
+//            [_queue.failedDepQueue removeAllObjects];
+//        }
         else {
             NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
