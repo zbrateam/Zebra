@@ -143,8 +143,10 @@
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
-            [queue markPackageAsFailed:package forConflicts:conf];
+            if ([[conf conflictsWith] containsObject:[package identifier]]) {
+                NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
+                [queue markPackageAsFailed:package forConflicts:conf];
+            }
         }
         sqlite3_finalize(statement);
     }
@@ -156,8 +158,10 @@
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
-            [queue markPackageAsFailed:package forConflicts:conf];
+            if ([[conf dependsOn] containsObject:[package identifier]]) {
+                NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
+                [queue markPackageAsFailed:package forConflicts:conf];
+            }
         }
         sqlite3_finalize(statement);
     }
