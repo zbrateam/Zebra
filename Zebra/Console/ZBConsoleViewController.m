@@ -100,6 +100,18 @@
     [databaseManager importLocalPackages:^(BOOL success) {
         completion(success);
     }];
+    
+    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
+    NSString *file;
+    
+    while (file = [enumerator nextObject]) {
+        NSError *error = nil;
+        BOOL result = [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate debsLocation] stringByAppendingPathComponent:file] error:&error];
+        
+        if (!result && error) {
+            NSLog(@"Error: %@", error);
+        }
+    }
 }
 
 - (void)updateStatus:(int)s {
