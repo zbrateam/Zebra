@@ -43,6 +43,7 @@
     //    AUPMTabBarController *tabController = (AUPMTabBarController *)((AUPMAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
     //    [tabController updatePackageTableView];
     //
+    [_queue clearQueue]; //This is annoying but this is how it has to works for now
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
