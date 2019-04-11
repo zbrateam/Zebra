@@ -136,7 +136,7 @@
             ZBPackage *conf = [self packageThatResolvesDependency:line];
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true inDatabase:database]) {
                 NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
-                [queue markPackageAsFailed:package forConflicts:conf];
+                [queue markPackageAsFailed:package forConflicts:conf conflictionType:0];
             }
         }
         
@@ -149,7 +149,7 @@
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             if ([[conf conflictsWith] containsObject:[package identifier]]) {
                 NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
-                [queue markPackageAsFailed:package forConflicts:conf];
+                [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
             }
         }
         sqlite3_finalize(statement);
@@ -164,7 +164,7 @@
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             if ([[conf dependsOn] containsObject:[package identifier]]) {
                 NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
-                [queue markPackageAsFailed:package forConflicts:conf];
+                [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
             }
         }
         sqlite3_finalize(statement);

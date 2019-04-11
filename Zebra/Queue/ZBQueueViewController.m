@@ -109,11 +109,25 @@
         
         NSArray *failedQ = [_queue failedConQueue];
         
-        ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][0];
-        ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][1];
+        int type = [failedQ[indexPath.row][0] intValue];
+        ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][1];
+        ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][2];
         
         cell.textLabel.text = [confliction name];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@ and cannot be installed", [confliction name], [package name]];
+        switch (type) {
+            case 0:
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", [package name], [confliction name]];
+                break;
+            case 1:
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", [confliction name], [package name]];
+                break;
+            case 2:
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ depends on %@", [confliction name], [package name]];
+                break;
+            default:
+                cell.detailTextLabel.text = @"Are you proud of yourself?";
+                break;
+        }
         
         return cell;
     }

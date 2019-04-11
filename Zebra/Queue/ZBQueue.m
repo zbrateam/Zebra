@@ -101,8 +101,8 @@
     [_failedDepQueue addObject:unresolvedDep];
 }
 
-- (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict {
-    NSArray *conflicts = @[conflict, package];
+- (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict conflictionType:(int)type {
+    NSArray *conflicts = @[[NSNumber numberWithInt:type], conflict, package];
     [_failedConQueue addObject:conflicts];
 }
 
