@@ -1,5 +1,12 @@
 #include <unistd.h>
-#import <dlfcn.h>
+#include <dlfcn.h>
+#include <stdio.h>
+#include <sysexits.h>
+#include <sys/stat.h>
+#include <sys/param.h>
+#include <string.h>
+
+int proc_pidpath(int pid, void * buffer, uint32_t  buffersize);
 
 /* Set platform binary flag */
 #define FLAG_PLATFORMIZE (1 << 1)
@@ -32,10 +39,26 @@ void patch_setuidandplatformize() {
 int main(int argc, char ** argv) {
   patch_setuidandplatformize();
 
-  setuid(0);
-  setgid(0);
+  struct stat correct;
+  if (lstat("/Applications/Zebra.app/Zebra", &correct) == -1) {
+    fprintf(stderr, "THE TRUE NEO CHAOS!\n");
+    return EX_NOPERM;
+  }
+  else {
+    pid_t pid = getppid();
+    char buffer[4 * MAXPATHLEN];
+    int ret = proc_pidpath(pid, buffer, sizeof(buffer));
+    if (ret < 1 || strcmp(buffer, "/Applications/Zebra.app/Zebra") != 0) {
+      fprintf(stderr, "CHAOS, CHAOS!\n");
+      return EX_NOPERM;
+    }
+    else {
+      setuid(0);
+      setgid(0);
 
-  int result = execvp(argv[1], &argv[1]);
+      int result = execvp(argv[1], &argv[1]);
 
-  return result;
+      return result;
+    }
+  }
 }
