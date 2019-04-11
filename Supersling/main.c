@@ -2,8 +2,9 @@
 #include <dlfcn.h>
 #include <stdio.h>
 #include <sysexits.h>
+#include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/param.h>
+#include <limits.h>
 #include <string.h>
 
 int proc_pidpath(int pid, void * buffer, uint32_t  buffersize);
@@ -46,7 +47,7 @@ int main(int argc, char ** argv) {
   }
   else {
     pid_t pid = getppid();
-    char buffer[4 * MAXPATHLEN];
+    char buffer[4 * PATH_MAX];
     int ret = proc_pidpath(pid, buffer, sizeof(buffer));
     if (ret < 1 || strcmp(buffer, "/Applications/Zebra.app/Zebra") != 0) {
       fprintf(stderr, "CHAOS, CHAOS!\n");

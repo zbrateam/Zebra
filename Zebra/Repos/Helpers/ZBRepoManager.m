@@ -95,7 +95,7 @@
     NSString *URL = [sourceURL absoluteString];
     NSString *output = @"";
     
-    NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
+//    NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
 //    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
