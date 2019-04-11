@@ -2,18 +2,18 @@
 Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 8 up to iOS 12 and for iPhones and iPads alike.
 
 ## Bug Reports
-The best way to report a bug with Zebra is to open an issue [here](https://github.com/wstyres/Zebra/issues/new/choose).
+The best way to report a bug with Zebra is to open an issue [here](https://github.com/wstyres/Zebra/issues/new?assignees=wstyres&labels=bug&template=bug_report.md&title=).
 
-Pick the "Bug report" option and fill out the required fields as best that you can in order to have a better chance at getting your issue fixed.
+Fill out the required fields as best that you can in order to have a better chance at getting your issue fixed.
 
 I may require some additional information in order to isolate the issue in question and may ask for your response. Your help is appreciated.
 
 You must create a GitHub account to create an issue. If you do not have one, it is free to create one by signing up or you can email me.
 
 ## Feature Requests
-Feature request are welcome as well and are also tracked through GitHub issues [here](https://github.com/wstyres/Zebra/issues/new/choose).
+Feature request are welcome as well and are also tracked through GitHub issues [here](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=).
 
-Pick the "Feature request" option and fill out the required fields to the best of your ability (mockups, screenshots, descriptions, etc.).
+Fill out the required fields to the best of your ability (mockups, screenshots, descriptions, etc.).
 
 You must create a GitHub account to create an issue. If you do not have one, it is free to create one by signing up or you can email me.
 
