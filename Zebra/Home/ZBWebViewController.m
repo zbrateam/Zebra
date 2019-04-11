@@ -123,6 +123,9 @@
         else if ([action isEqual:@"sendBug"]) {
             [self sendBugReport];
         }
+        else if ([action isEqual:@"doc"]) {
+            [self openDocumentsDirectory];
+        }
     }
     else if ([destination isEqual:@"web"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -280,6 +283,11 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)openDocumentsDirectory {
+    NSString *documents = [ZBAppDelegate documentsDirectory];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
 }
 
 - (IBAction)refreshPage:(id)sender {
