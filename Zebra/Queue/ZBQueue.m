@@ -311,7 +311,7 @@
     return false;
 }
 
-- (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
+- (BOOL)containsPackage:(ZBPackage *)package {
     if ([_managedQueue[@"Install"] containsObject:package]) {
         return true;
     }

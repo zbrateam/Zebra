@@ -48,9 +48,13 @@
                 NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
                 continue;
             }
-            else { //Dependency found, all gucci
+            else if (![queue containsPackage:depPackage]){ //Dependency found, all gucci
                 NSLog(@"Resolved: %@", depPackage);
                 [queue addPackage:depPackage toQueue:ZBQueueTypeInstall];
+            }
+            else {
+                NSLog(@"[Zebra] %@ already in queue, skipping", [package identifier]);
+                continue;
             }
         }
         else { //Failed to find dependency

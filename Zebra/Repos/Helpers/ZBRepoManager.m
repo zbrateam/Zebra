@@ -12,7 +12,6 @@
 #import <UIKit/UIDevice.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Database/ZBDatabaseManager.h>
-#import <NSTask.h>
 #import <ZBAppDelegate.h>
 
 @implementation ZBRepoManager
