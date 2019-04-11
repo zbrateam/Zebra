@@ -137,24 +137,26 @@
         }
         
         //Then, check if any package that is installed conflicts with package
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@\%%\';", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
         
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
             [queue markPackageAsFailed:package forConflicts:conf];
         }
         sqlite3_finalize(statement);
     }
     else if (state == 1) { //Removing package
         //Check if any package that is installed depends on this package
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@\%%\';", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
         
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
             [queue markPackageAsFailed:package forConflicts:conf];
         }
         sqlite3_finalize(statement);
