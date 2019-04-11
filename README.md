@@ -1,5 +1,5 @@
 # Zebra
-Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 8 up to iOS 12 and for iPhones and iPads alike. 
+Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 8 up to iOS 12 and for iPhones and iPads alike.
 
 ## Bug Reports
 The best way to report a bug with Zebra is to open an issue [here](https://github.com/wstyres/Zebra/issues/new/choose).
@@ -25,6 +25,9 @@ Pull requests to fix bugs, add new features, and fix awful code (I'm sure there 
 Zebra is available from my personal APT repo for iOS located [here](https://xtm3x.github.io/repo).
 
 This source can be added to Cydia on your iPhone or iPad and it is included by defeault with Zebra to provide future updates.
+
+#### Pre-compiled debs
+Pre-compiled debs are available via GitHub releases, if that is your fancy.
 
 #### Using Xcode & theos
 If you want to compile Zebra yourself, you can use the following steps. A computer running macOS is _required_ and must have Xcode installed.
