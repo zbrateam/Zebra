@@ -49,8 +49,6 @@
         sqlite3 *database;
         sqlite3_open([self->databasePath UTF8String], &database);
         
-        NSDate *methodStart = [NSDate date];
-        
         for (NSString *releasePath in releaseFiles) {
             NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
             
@@ -82,9 +80,6 @@
         }
         
         [self postStatusUpdate:@"Done!\n" atLevel:1];
-        NSDate *methodFinish = [NSDate date];
-        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-        NSLog(@"[Zebra] executionTime = %f", executionTime);
         sqlite3_close(database);
         
         [self importLocalPackages:^(BOOL success) {

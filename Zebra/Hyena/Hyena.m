@@ -147,7 +147,6 @@
     }
     
     dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-        NSLog(@"[Hyena] Done");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"finished": @TRUE}];
         completion((NSDictionary *)fnms, true);
     });
@@ -278,8 +277,6 @@
         ZBRepo *repo = [package repo];
         
         [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", [package filename]] toArea:@"downloadStatusUpdate" atLevel:0];
-        //        [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", repo[0]] atLevel:0];
-        //        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"busy": @TRUE, @"row": @(i)}];
         dispatch_group_enter(downloadGroup);
         NSString *baseURL;
         if ([repo isSecure]) {
@@ -298,8 +295,6 @@
     }
     
     dispatch_group_notify(downloadGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-        NSLog(@"[Hyena] Done. Downloaded debs: %@", debs);
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"finished": @TRUE}];
         completion((NSArray *)debs, true);
     });
 }

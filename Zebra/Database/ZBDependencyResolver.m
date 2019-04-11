@@ -35,7 +35,7 @@
 
 - (void)addDependenciesForPackage:(ZBPackage *)package {
     if ([databaseManager packageIsInstalled:package versionStrict:true inDatabase:database]) {
-        NSLog(@"[Zebra] %@ (%@) is already installed, dependencies resolved.", [package name], [package identifier]);
+//        NSLog(@"[Zebra] %@ (%@) is already installed, dependencies resolved.", [package name], [package identifier]);
         return;
     }
     
@@ -45,20 +45,20 @@
         ZBPackage *depPackage = [self packageThatResolvesDependency:line];
         if (depPackage != NULL) {
             if ([databaseManager packageIsInstalled:depPackage versionStrict:true inDatabase:database]) {
-                NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
+//                NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
                 continue;
             }
             else if (![queue containsPackage:depPackage]){ //Dependency found, all gucci
-                NSLog(@"Resolved: %@", depPackage);
+//                NSLog(@"Resolved: %@", depPackage);
                 [queue addPackage:depPackage toQueue:ZBQueueTypeInstall];
             }
             else {
-                NSLog(@"[Zebra] %@ already in queue, skipping", [package identifier]);
+//                NSLog(@"[Zebra] %@ already in queue, skipping", [package identifier]);
                 continue;
             }
         }
         else { //Failed to find dependency
-            NSLog(@"[Zebra] Failed to find dependency for %@ to match %@", package, line);
+//            NSLog(@"[Zebra] Failed to find dependency for %@ to match %@", package, line);
             [queue markPackageAsFailed:package forDependency:line];
             return;
         }
@@ -66,7 +66,7 @@
 }
 
 - (ZBPackage *)packageThatResolvesDependency:(NSString *)line {
-    NSLog(@"[Zebra] Package that resolves dependenct %@", line);
+//    NSLog(@"[Zebra] Package that resolves dependenct %@", line);
     ZBPackage *package;
     if ([line rangeOfString:@" | "].location != NSNotFound) {
         package = [self packageThatSatisfiesORComparison:line];
@@ -88,7 +88,6 @@
 - (ZBPackage *)packageThatSatisfiesORComparison:(NSString *)line {
     NSArray *comps = [line componentsSeparatedByString:@" | "];
     for (NSString *depPackageID in comps) {
-        NSLog(@"[Zebra] Comp line %@", depPackageID);
         ZBPackage *depPackage = [self packageThatResolvesDependency:depPackageID];
         
         if (depPackage != NULL) {
@@ -107,7 +106,7 @@
         NSString *comparison = separate[0];
         NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
         
-        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+//        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
         return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
     }
     else { //bad repo maintainer alert
@@ -121,7 +120,7 @@
         [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
         [scanner scanCharactersFromSet:versionChars intoString:&version];
         
-        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
+//        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
         return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version inDatabase:database];
     }
     
@@ -135,7 +134,7 @@
         for (NSString *line in conflictions) {
             ZBPackage *conf = [self packageThatResolvesDependency:line];
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true inDatabase:database]) {
-                NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
+//                NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
                 [queue markPackageAsFailed:package forConflicts:conf conflictionType:0];
             }
         }
@@ -148,7 +147,7 @@
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             if ([[conf conflictsWith] containsObject:[package identifier]]) {
-                NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
+//                NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
                 [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
             }
         }
@@ -163,14 +162,14 @@
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             if ([[conf dependsOn] containsObject:[package identifier]]) {
-                NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
+//                NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
                 [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
             }
         }
         sqlite3_finalize(statement);
     }
     else {
-        NSLog(@"MY TIME HAS COME TO BURN");
+        NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
     }
 }
 

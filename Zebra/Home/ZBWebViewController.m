@@ -118,11 +118,9 @@
     
     if ([destination isEqual:@"local"]) {
         if ([action isEqual:@"nuke"]) {
-            NSLog(@"[Zebra] war games");
             [self nukeDatabase];
         }
         else if ([action isEqual:@"sendBug"]) {
-            NSLog(@"[Zebra] raid");
             [self sendBugReport];
         }
     }
@@ -196,7 +194,7 @@
 }
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-    NSLog(@"[Zebra] Handling repo add for method %@", repo);
+//    NSLog(@"[Zebra] Handling repo add for method %@", repo);
     ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
     if (local) {
         NSArray *options = @[
@@ -210,7 +208,7 @@
         
         switch ([options indexOfObject:repo]) {
             case 0:
-                NSLog(@"[Zebra] Transferring repos");
+//                NSLog(@"[Zebra] Transferring repos");
                 [repoManager transferFromCydia];
                 break;
             case 1:

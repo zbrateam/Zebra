@@ -162,7 +162,7 @@
 
 - (void)configureNavButton {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
+//    NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
     if ([[_package repo] repoID] == 0 || [databaseManager packageIsInstalled:_package]) {
         hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
         
@@ -265,7 +265,7 @@
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
             
-            NSLog(@"Package repoID %d", [[downPackage repo] repoID]);
+//            NSLog(@"Package repoID %d", [[downPackage repo] repoID]);
             
             [alert dismissViewControllerAnimated:true completion:nil];
             

@@ -110,7 +110,7 @@
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:@"Refresh" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         [databaseManager updateDatabaseUsingCaching:true singleRepo:self->repo completion:^(BOOL success, NSError * _Nonnull error) {
-            NSLog(@"nice");
+            NSLog(@"Updated repo %@", self->repo);
         }];
     }];
     

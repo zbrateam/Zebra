@@ -96,7 +96,7 @@
     NSString *output = @"";
     
     NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
+//    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     for (ZBRepo *source in [databaseManager sources]) {
@@ -119,13 +119,12 @@
     }
     output = [output stringByAppendingFormat:@"deb %@ ./\n", URL];
     
-    NSLog(@"[Zebra] New sources.list\n%@", output);
+//    NSLog(@"[Zebra] New sources.list\n%@", output);
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = [paths objectAtIndex:0];
     
     NSString *filePath;
-    NSLog(@"[Zebra] Cache Directory: %@", cacheDirectory);
     if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
         filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
     else
@@ -157,9 +156,6 @@
 
 - (void)deleteSource:(ZBRepo *)delRepo {
     NSString *output = @"";
-    NSLog(@"[Zebra] Repo to delete: %@", [delRepo baseFileName]);
-    NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     for (ZBRepo *source in [databaseManager sources]) {
@@ -183,13 +179,10 @@
         }
     }
     
-    NSLog(@"[Zebra] New sources.list\n%@", output);
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = [paths objectAtIndex:0];
     
     NSString *filePath;
-    NSLog(@"[Zebra] Cache Directory: %@", cacheDirectory);
     if ([[cacheDirectory lastPathComponent] isEqualToString:@"xyz.willy.Zebra"])
         filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
     else
@@ -227,8 +220,6 @@
     
     output = [output stringByAppendingString:sourceLine];
     
-    NSLog(@"[Zebra] Output: %@", output);
-    
     NSError *error;
     [output writeToFile:listsLocation atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
@@ -237,7 +228,6 @@
 }
 
 - (void)transferFromCydia {
-    NSLog(@"[Zebra] Transfer");
     NSMutableArray *sources = [NSMutableArray new];
     NSString *listsLocation = [ZBAppDelegate sourceListLocation];
     
@@ -270,8 +260,6 @@
     }
     
     NSString *output = [[sources valueForKey:@"description"] componentsJoinedByString:@"\n"];
-    
-    NSLog(@"[Zebra] Output: %@", output);
     
     NSError *error;
     [output writeToFile:listsLocation atomically:TRUE encoding:NSUTF8StringEncoding error:&error];

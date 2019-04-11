@@ -110,7 +110,7 @@
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
         if ([updates count] != 0) {
             hasUpdates = TRUE;
-            NSLog(@"Has Updates");
+//            NSLog(@"Has Updates");
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int)[updates count]]];
             if (@available(iOS 10.0, *)) {
                 [packagesTabBarItem setBadgeColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
@@ -121,7 +121,7 @@
             [packageVC refreshTable];
         }
         else {
-            NSLog(@"No Updates");
+//            NSLog(@"No Updates");
             hasUpdates = FALSE;
             [packagesTabBarItem setBadgeValue:nil];
             
@@ -143,12 +143,10 @@
     else {
         NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
         if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
-            NSLog(@"Row %ld is busy", (long)row);
             [repoBusyList insertObject:@TRUE atIndex:row];
             [sourcesVC setSpinnerVisible:true forRow:row];
         }
         else {
-            NSLog(@"Row %ld is free", (long)row);
             [repoBusyList insertObject:@FALSE atIndex:row];
             [sourcesVC setSpinnerVisible:false forRow:row];
         }

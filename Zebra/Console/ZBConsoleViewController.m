@@ -51,15 +51,12 @@
     [predator downloadDebsFromQueueWithCompletion:^(NSArray * _Nonnull debs, BOOL success) {
         [self writeToConsole:@"Download Complete!\n" atLevel:ZBLogLevelInfo];
         NSArray *actions = [self->_queue tasks:debs];
-        NSLog(@"[Zebra] Actions: %@", actions);
         for (NSArray *command in actions) {
             if (![ZBAppDelegate needsSimulation]) {
                 if ([command count] == 1) {
                     [self updateStatus:[command[0] intValue]];
                     continue;
                 }
-                
-                NSLog(@"[Zebra] Performing actions: %@", command);
                 
                 NSTask *task = [[NSTask alloc] init];
                 [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
@@ -109,7 +106,7 @@
         BOOL result = [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate debsLocation] stringByAppendingPathComponent:file] error:&error];
         
         if (!result && error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"Error while removing %@: %@", file, error);
         }
     }
 }
