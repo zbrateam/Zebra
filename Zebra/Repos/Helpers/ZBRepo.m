@@ -84,7 +84,7 @@
         const char *compChars = (const char *)sqlite3_column_text(statement, 8);
         
         NSURL *iconURL;
-        NSString *baseURL = [[NSString alloc] initWithUTF8String:baseURLChars];
+        NSString *baseURL = baseURLChars != 0 ? [[NSString alloc] initWithUTF8String:baseURLChars] : NULL;
         NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
         NSString *shortURL = separate[0];
         
@@ -96,16 +96,16 @@
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
         }
         
-        [self setOrigin:[[NSString alloc] initWithUTF8String:originChars]];
-        [self setDesc:[[NSString alloc] initWithUTF8String:descriptionChars]];
-        [self setBaseFileName:[[NSString alloc] initWithUTF8String:baseFilenameChars]];
+        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NULL];
+        [self setDesc:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
+        [self setBaseFileName:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setBaseURL:baseURL];
         [self setSecure:sqlite3_column_int(statement, 4)];
         [self setRepoID:sqlite3_column_int(statement, 5)];
         [self setIconURL:iconURL];
         [self setDefaultRepo:sqlite3_column_int(statement, 6)];
-        [self setSuite:[[NSString alloc] initWithUTF8String:suiteChars]];
-        [self setComponents:[[NSString alloc] initWithUTF8String:compChars]];
+        [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NULL];
+        [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];
     }
     
