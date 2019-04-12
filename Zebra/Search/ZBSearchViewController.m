@@ -31,6 +31,7 @@
     self.definesPresentationContext = YES;
     self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchController.searchBar.placeholder = @"Packages";
+    self.searchController.searchBar.tintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
     [self.searchController.searchBar sizeToFit];
 }
 
