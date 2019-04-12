@@ -53,7 +53,7 @@
         NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
         
         for (NSString *line in debLines) {
-            if ([line rangeOfString:[repo baseURL]].location != NSNotFound) {
+            if (![line isEqualToString:@"\n"] && ![line isEqual:@""] && [line rangeOfString:[repo baseURL]].location != NSNotFound) {
                 repos = @[[self baseURLFromDebLine:line]];
             }
         }
@@ -71,7 +71,7 @@
     NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
     
     for (NSString *line in debLines) {
-        if (![line isEqual:@""]) {
+        if (![line isEqual:@""] && ![line isEqualToString:@"\n"]) {
             NSArray *baseURL = [self baseURLFromDebLine:line];
             [repos addObject:baseURL];
         }
@@ -279,6 +279,7 @@
         [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", [package filename]] toArea:@"downloadStatusUpdate" atLevel:0];
         dispatch_group_enter(downloadGroup);
         NSString *baseURL;
+//        NSLog(@"%@", repo);
         if ([repo isSecure]) {
             baseURL = [@"https://" stringByAppendingString:[repo baseURL]];
         }

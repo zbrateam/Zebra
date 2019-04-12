@@ -254,7 +254,7 @@
     }
     
     for (NSString *line in zebraSources) {
-        if (![sources containsObject:line]) {
+        if (![line isEqual:@""] && ![line isEqual:@"\n"] && ![sources containsObject:line]) {
             [sources addObject:line];
         }
     }
