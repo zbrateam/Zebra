@@ -14,6 +14,8 @@
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *results;
+    UISearchController *searchController;
+    BOOL searching;
 }
 @end
 
@@ -23,16 +25,22 @@
     [super viewDidLoad];
     
     databaseManager = [[ZBDatabaseManager alloc] init];
+    searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.delegate = self;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    searchController.searchBar.delegate = self;
+    searchController.searchBar.tintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+    searchController.searchBar.placeholder = @"Packages";
     self.definesPresentationContext = YES;
-    self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    self.searchController.searchBar.placeholder = @"Packages";
-    self.searchController.searchBar.tintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-    [self.searchController.searchBar sizeToFit];
+    if (@available(iOS 9.1, *)) {
+        searchController.obscuresBackgroundDuringPresentation = false;
+    }
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.searchController = searchController;
+        self.navigationItem.hidesSearchBarWhenScrolling = false;
+    } else {
+        self.tableView.tableHeaderView = searchController.searchBar;
+    }
+    self.tableView.tableFooterView = [UIView new];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -113,49 +121,5 @@
     ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
     [[self navigationController] pushViewController:depictionController animated:true];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item tao be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
