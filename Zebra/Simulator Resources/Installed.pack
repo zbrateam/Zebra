@@ -81,7 +81,7 @@ Section: Packaging
 Installed-Size: 7968
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.4.8-4
+Version: 1.4.9-1
 Provides: libapt-pkg (= 1.4.8)
 Depends: bzip2, lz4, lzma, xz
 Pre-Depends: dpkg (>= 1.14.25-8)
@@ -235,7 +235,7 @@ Section: Development
 Installed-Size: 170211
 Maintainer: BigBoss <bigboss@thebigboss.org>
 Architecture: iphoneos-arm
-Version: 4.2.1-1
+Version: 4.2.1-2
 Depends: firmware (>= 7.0)
 Description: libswift dylibs for iOS
 Name: libswift4
@@ -571,7 +571,7 @@ Section: Packaging
 Installed-Size: 5368
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.4.8-7
+Version: 1.4.9-2
 Depends: bzip2, dpkg (>= 1.14.25-9), gnupg, gzip, lz4, lzma, xz, libapt-pkg (>= 1.4.8)
 Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: apt7-lib (<< 1:0), apt7 (<< 1:0), apt7-key (<< 1:0), com.mc.xz
@@ -1017,7 +1017,7 @@ Section: Tweaks
 Installed-Size: 104
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.6.5
+Version: 1.7
 Depends: mobilesubstrate
 Conflicts: com.xtm3x.noblurlite
 Description: Remove blurs from UI elements system-wide
@@ -1353,7 +1353,7 @@ Section: Packaging
 Installed-Size: 64
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.4.8-3
+Version: 1.4.9-1
 Replaces: apt (<< 1:0-1), apt7 (<< 0.7.20.2-4), apt7-key
 Depends: coreutils, libapt
 Pre-Depends: dpkg (>= 1.14.25-8)
@@ -1506,7 +1506,7 @@ Section: Packaging
 Installed-Size: 3124
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.0~beta1-29+debug
+Version: 1:0
 Depends: dpkg, apt1.4 | apt7
 Description: A Useful Package Manager
 Name: Zebra (BETA)
@@ -2062,7 +2062,7 @@ Section: Packaging
 Installed-Size: 3200
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.4.8-3
+Version: 1.4.9-1
 Depends: apt-key, berkeleydb, libapt (>= 1.4.8)
 Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: apt7 (<< 1:0)
@@ -2192,7 +2192,7 @@ Installed-Size: 1592
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 4.6.0-1
+Version: 4.6.0-2
 Depends: bash, sed
 Description: indexes and searches filesystems
 Name: Find Utilities
@@ -2253,7 +2253,7 @@ Section: Utilities
 Maintainer: Sam Bingner
 Architecture: all
 Multi-Arch: foreign
-Version: 0.0.1-1
+Version: 0.0.2
 Replaces: org.thebigboss.cacerts
 Provides: org.thebigboss.cacerts
 Depends: firmware (>= 2.0)
@@ -2535,7 +2535,7 @@ Section: Security
 Installed-Size: 6088
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 1.0.2q-1
+Version: 1.0.2r-1
 Depends: ca-certificates
 Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: openssl (<< 1.0.2q)
