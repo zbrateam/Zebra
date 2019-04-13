@@ -116,6 +116,8 @@
                 [packagesTabBarItem setBadgeColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
             }
             
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[updates count]];
+            
             UINavigationController *packageNavController = self.viewControllers[2];
             ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
             [packageVC refreshTable];
@@ -125,6 +127,8 @@
             hasUpdates = FALSE;
             [packagesTabBarItem setBadgeValue:nil];
             
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+            
             UINavigationController *packageNavController = self.viewControllers[2];
             ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
             [packageVC refreshTable];
@@ -133,22 +137,31 @@
 }
 
 - (void)repoStatusUpdate:(NSNotification *)notification {
-    if (!repoBusyList) repoBusyList = [NSMutableArray new];
-    
-    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
-    if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {\
-        repoBusyList = [NSMutableArray new];
-        [sourcesVC clearAllSpinners];
+    if ([[[notification userInfo] objectForKey:@"type"] isEqualToString:@"updateCheck"]) {
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        [databaseManager importLocalPackages:^(BOOL success) {
+            NSLog(@"Checking for updates");
+            [self checkForPackageUpdates];
+        }];
     }
     else {
-        NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
-        if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
-            [repoBusyList insertObject:@TRUE atIndex:row];
-            [sourcesVC setSpinnerVisible:true forRow:row];
+        if (!repoBusyList) repoBusyList = [NSMutableArray new];
+        
+        ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
+        if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {\
+            repoBusyList = [NSMutableArray new];
+            [sourcesVC clearAllSpinners];
         }
         else {
-            [repoBusyList insertObject:@FALSE atIndex:row];
-            [sourcesVC setSpinnerVisible:false forRow:row];
+            NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
+            if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
+                [repoBusyList insertObject:@TRUE atIndex:row];
+                [sourcesVC setSpinnerVisible:true forRow:row];
+            }
+            else {
+                [repoBusyList insertObject:@FALSE atIndex:row];
+                [sourcesVC setSpinnerVisible:false forRow:row];
+            }
         }
     }
 }

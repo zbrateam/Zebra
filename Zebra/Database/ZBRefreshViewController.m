@@ -27,6 +27,7 @@
     }
     
     [databaseManager updateDatabaseUsingCaching:false singleRepo:NULL completion:^(BOOL success, NSError * _Nonnull error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"type": @"updateCheck"}];
         [self goodbye];
     }];
 }

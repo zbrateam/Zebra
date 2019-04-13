@@ -7,6 +7,7 @@
 //
 
 #import "ZBAppDelegate.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface ZBAppDelegate ()
 
@@ -80,9 +81,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     
-    UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
-    
-    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    if (@available(iOS 10.0, *)) {
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+            } else if (!granted) {
+                NSLog(@"[Zebra] Authorization was not granted.");
+            }
+            else {
+                NSLog(@"[Zebra] Notification access granted.");
+            }
+        }];
+    } else {
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
+        }
+    }
     
     return YES;
 }

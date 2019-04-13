@@ -109,6 +109,7 @@
             NSLog(@"Error while removing %@: %@", file, error);
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"type": @"updateCheck"}];
 }
 
 - (void)updateStatus:(int)s {
