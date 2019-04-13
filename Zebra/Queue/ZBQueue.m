@@ -78,12 +78,12 @@
         case ZBQueueTypeUpgrade: {
             NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
             if (![upgradeArray containsObject:package]) {
+                [upgradeArray addObject:package];
+                [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
                 if (!ignore) {
                     [self enqueueDependenciesForPackage:package];
                     [self checkForConflictionsWithPackage:package state:0];
                 }
-                [upgradeArray addObject:package];
-                [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
             }
             break;
         }
@@ -92,7 +92,28 @@
 
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
     for (ZBPackage *package in packages) {
-        [self addPackage:package toQueue:queue ignoreDependencies:false];
+        [self addPackage:package toQueue:queue ignoreDependencies:true];
+    }
+    
+    NSString *q;
+    switch (queue) {
+        case ZBQueueTypeInstall: {
+            q = @"Install";
+        }
+        case ZBQueueTypeRemove: {
+            q = @"Remove";
+        }
+        case ZBQueueTypeReinstall: {
+            q = @"Reinstall";
+        }
+        case ZBQueueTypeUpgrade: {
+            q = @"Upgrade";
+        }
+    }
+    
+    for (ZBPackage *package in _managedQueue[q]) {
+        [self enqueueDependenciesForPackage:package];
+        [self checkForConflictionsWithPackage:package state:queue == ZBQueueTypeRemove ? 1 : 0];
     }
 }
 

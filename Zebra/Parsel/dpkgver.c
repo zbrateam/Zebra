@@ -44,7 +44,6 @@ int verrevcmp(const char *val, const char *ref) {
         newRef = strtok(NULL, ":");
         
         if (newVal != NULL && newRef != NULL) {
-            printf("Calling comparison with %s (%s) and %s (%s) because someone likes epochs too much.\n", newVal, val, newRef, ref);
             return verrevcmp(newVal, newRef);
         }
     }

@@ -66,7 +66,7 @@
 }
 
 - (ZBPackage *)packageThatResolvesDependency:(NSString *)line {
-//    NSLog(@"[Zebra] Package that resolves dependenct %@", line);
+//    NSLog(@"[Zebra] Package that resolves dependency %@", line);
     ZBPackage *package;
     if ([line rangeOfString:@" | "].location != NSNotFound) {
         package = [self packageThatSatisfiesORComparison:line];
