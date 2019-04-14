@@ -17,7 +17,27 @@
 
 + (NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return paths[0];
+    
+    if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
+        NSString *path = [paths[0] stringByAppendingPathComponent:@"xyz.willy.Zebra"];
+        
+        BOOL dirExsits;
+        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
+        if (!dirExsits) {
+            NSLog(@"[Zebra] Creating documents directory.");
+            NSError *error;
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
+            
+            if (error != NULL) {
+                NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+            }
+        }
+        
+        return path;
+    }
+    else {
+        return paths[0];
+    }
 }
 
 + (BOOL)needsSimulation {
