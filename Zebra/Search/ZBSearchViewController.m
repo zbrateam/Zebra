@@ -110,9 +110,6 @@
     UIImage *sectionImage = [UIImage imageWithData:data];
     if (sectionImage != NULL) {
         cell.imageView.image = sectionImage;
-    }
-    
-    if (cell.imageView.image != NULL) {
         CGSize itemSize = CGSizeMake(35, 35);
         UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
         CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
