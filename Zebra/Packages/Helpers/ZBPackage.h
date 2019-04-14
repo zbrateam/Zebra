@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
+- (BOOL)isPaid;
 @end
 
 NS_ASSUME_NONNULL_END

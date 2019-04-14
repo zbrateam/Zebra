@@ -116,4 +116,8 @@
     }
 }
 
+- (BOOL)isPaid {
+    return [tags containsObject:@"cydia::commercial"];
+}
+
 @end

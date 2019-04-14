@@ -89,6 +89,15 @@
     cell.textLabel.text = package.name;
     cell.detailTextLabel.text = package.desc;
     
+    if ([package isPaid]) {
+        cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+    }
+    else {
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.textColor = [UIColor blackColor];
+    }
+    
     NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([section characterAtIndex:[section length] - 1] == ')') {
         NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
