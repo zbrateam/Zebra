@@ -291,13 +291,14 @@
     return (NSArray*)otherVersions;
 }
 
-- (NSMutableArray *)cleanUpDuplicatePackages:(NSArray *)packageList {
+- (NSArray *)cleanUpDuplicatePackages:(NSArray *)packageList {
     NSMutableDictionary *packageVersionDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *cleanedPackageList = [packageList mutableCopy];
     
     for (ZBPackage *package in packageList) {
         if (packageVersionDict[[package identifier]] == NULL) {
             packageVersionDict[[package identifier]] = package;
+            continue;
         }
         
         NSString *arrayVersion = [(ZBPackage *)packageVersionDict[[package identifier]] version];
@@ -308,8 +309,11 @@
             [cleanedPackageList removeObject:packageVersionDict[[package identifier]]];
             packageVersionDict[[package identifier]] = package;
         }
-        else if (result < 0) {
-            [cleanedPackageList removeObject:package];
+        else if (result <= 0) {
+            NSUInteger index = [cleanedPackageList indexOfObject:package];
+            if (index != NSNotFound) {
+                [cleanedPackageList removeObjectAtIndex:index];
+            }
         }
     }
     
