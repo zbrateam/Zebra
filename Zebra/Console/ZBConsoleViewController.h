@@ -7,17 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum {
-    ZBLogLevelDescript,
-    ZBLogLevelInfo,
-    ZBLogLevelWarning,
-    ZBLogLevelError
-} ZBLogLevel;
+#import <Downloads/ZBDownloadDelegate.h>
+#import <ZBLogLevel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController
+@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate>
 
 @end
 

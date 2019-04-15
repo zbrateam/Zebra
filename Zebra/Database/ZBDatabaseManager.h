@@ -12,10 +12,11 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
+#import <Downloads/ZBDownloadDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBDatabaseManager : NSObject {
+@interface ZBDatabaseManager : NSObject <ZBDownloadDelegate> {
     NSString *databasePath;
 }
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion;

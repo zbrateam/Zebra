@@ -31,6 +31,7 @@
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89C7E49221B240D4003DB4E8 /* parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* parsel.c */; };
 		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
+		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
 		89D230162242768500837C3B /* Hyena.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D230152242768500837C3B /* Hyena.m */; };
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
 		89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DB3BB02249A74B000F8983 /* repos@2x.png */; };
@@ -95,6 +96,9 @@
 		89C7E49121B240D4003DB4E8 /* parsel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsel.c; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* dpkgver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dpkgver.h; sourceTree = "<group>"; };
 		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
+		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
+		89CADA142263FEF3000101EE /* ZBDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDownloadManager.m; sourceTree = "<group>"; };
+		89CADA162263FF00000101EE /* ZBDownloadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadDelegate.h; sourceTree = "<group>"; };
 		89D230142242768500837C3B /* Hyena.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hyena.h; sourceTree = "<group>"; };
 		89D230152242768500837C3B /* Hyena.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hyena.m; sourceTree = "<group>"; };
 		89D230172242B27500837C3B /* default.list */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.list; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 		89E8637D21D5AFAA0081E485 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
 		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
+		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +149,7 @@
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				89FEA4132264BF68002647A2 /* ZBLogLevel.h */,
 				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
 				893952FE220B5D0100995109 /* ZBConsoleViewController.m */,
 			);
@@ -262,6 +268,7 @@
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
+				89CADA122263FED1000101EE /* Downloads */,
 				89D230132242766200837C3B /* Hyena */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				8991FFA321B21D26004FCE23 /* Database */,
@@ -280,6 +287,16 @@
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 			);
 			path = Zebra;
+			sourceTree = "<group>";
+		};
+		89CADA122263FED1000101EE /* Downloads */ = {
+			isa = PBXGroup;
+			children = (
+				89CADA162263FF00000101EE /* ZBDownloadDelegate.h */,
+				89CADA132263FEF3000101EE /* ZBDownloadManager.h */,
+				89CADA142263FEF3000101EE /* ZBDownloadManager.m */,
+			);
+			path = Downloads;
 			sourceTree = "<group>";
 		};
 		89D230132242766200837C3B /* Hyena */ = {
@@ -447,6 +464,7 @@
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
+				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
 				89CA2139224043D1008F09DB /* dpkgver.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				89D230162242768500837C3B /* Hyena.m in Sources */,

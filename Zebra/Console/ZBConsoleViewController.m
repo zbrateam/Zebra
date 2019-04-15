@@ -12,7 +12,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
-#import <Hyena/Hyena.h>
+#import <Downloads/ZBDownloadManager.h>
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -43,50 +43,50 @@
     [self performActions];
 }
 
-- (void)performActions {
-    [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelWarning];
-    Hyena *predator = [[Hyena alloc] init];
-    [predator downloadDebsFromQueueWithCompletion:^(NSArray * _Nonnull debs, BOOL success) {
-        NSArray *actions = [self->_queue tasks:debs];
-        
-        for (NSArray *command in actions) {
-            if ([command count] == 1) {
-                [self updateStatus:[command[0] intValue]];
-            }
-            else {
-                if (![ZBAppDelegate needsSimulation]) {
-                    NSTask *task = [[NSTask alloc] init];
-                    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-                    [task setArguments:command];
-                    
-                    NSLog(@"[Zebra] Performing actions: %@", command);
-                    
-                    NSPipe *outputPipe = [[NSPipe alloc] init];
-                    NSFileHandle *output = [outputPipe fileHandleForReading];
-                    [output waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                    
-                    NSPipe *errorPipe = [[NSPipe alloc] init];
-                    NSFileHandle *error = [errorPipe fileHandleForReading];
-                    [error waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                    
-                    [task setStandardOutput:outputPipe];
-                    [task setStandardError:errorPipe];
-                    
-                    [task launch];
-                    [task waitUntilExit];
-                }
-            }
-        }
-        [self performPostActions:^(BOOL success) {
-            [self->_queue clearQueue];
-        }];
-        [self updateStatus:4];
-        self->_completeButton.hidden = false;
-    }];
-}
-    
+//- (void)performActions {
+//    [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelWarning];
+//    Hyena *predator = [[Hyena alloc] init];
+//    [predator downloadDebsFromQueueWithCompletion:^(NSArray * _Nonnull debs, BOOL success) {
+//        NSArray *actions = [self->_queue tasks:debs];
+//
+//        for (NSArray *command in actions) {
+//            if ([command count] == 1) {
+//                [self updateStatus:[command[0] intValue]];
+//            }
+//            else {
+//                if (![ZBAppDelegate needsSimulation]) {
+//                    NSTask *task = [[NSTask alloc] init];
+//                    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+//                    [task setArguments:command];
+//
+//                    NSLog(@"[Zebra] Performing actions: %@", command);
+//
+//                    NSPipe *outputPipe = [[NSPipe alloc] init];
+//                    NSFileHandle *output = [outputPipe fileHandleForReading];
+//                    [output waitForDataInBackgroundAndNotify];
+//                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+//
+//                    NSPipe *errorPipe = [[NSPipe alloc] init];
+//                    NSFileHandle *error = [errorPipe fileHandleForReading];
+//                    [error waitForDataInBackgroundAndNotify];
+//                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+//
+//                    [task setStandardOutput:outputPipe];
+//                    [task setStandardError:errorPipe];
+//
+//                    [task launch];
+//                    [task waitUntilExit];
+//                }
+//            }
+//        }
+//        [self performPostActions:^(BOOL success) {
+//            [self->_queue clearQueue];
+//        }];
+//        [self updateStatus:4];
+//        self->_completeButton.hidden = false;
+//    }];
+//}
+
 //    if ([ZBAppDelegate needsSimulation]) {
 //        [self writeToConsole:@"Console actions are not available on the simulator.\n" atLevel:ZBLogLevelError];
 //    }
@@ -207,48 +207,68 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
-    
-    UIColor *color;
-    UIFont *font;
-    switch(level) {
-        case ZBLogLevelDescript:
-            color = [UIColor whiteColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-            break;
-        case ZBLogLevelInfo:
-            color = [UIColor whiteColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
-            break;
-        case ZBLogLevelError:
-            color = [UIColor redColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
-            break;
-        case ZBLogLevelWarning:
-            color = [UIColor yellowColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-            break;
-        default:
-            color = [UIColor whiteColor];
-            break;
-    }
-    
-    NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-    
-    [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"%@", str);
+        UIColor *color;
+        UIFont *font;
+        switch(level) {
+            case ZBLogLevelDescript:
+                color = [UIColor whiteColor];
+                font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+                break;
+            case ZBLogLevelInfo:
+                color = [UIColor whiteColor];
+                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+                break;
+            case ZBLogLevelError:
+                color = [UIColor redColor];
+                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+                break;
+            case ZBLogLevelWarning:
+                color = [UIColor yellowColor];
+                font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+                break;
+            default:
+                color = [UIColor whiteColor];
+                break;
+        }
+        
+        NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
+        
+        [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs]];
+    });
 }
 
 - (IBAction)complete:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)performActions {
+    NSArray *packages = [_queue packagesToDownload];
+    
+    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] init];
+    downloadManager.downloadDelegate = self;
+    
+    [downloadManager downloadPackages:packages];
 }
-*/
+
+- (void)installPackages:(NSArray *)filenames {
+    NSLog(@"%@", filenames);
+}
+
+#pragma mark - Hyena Delegate
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
+    NSArray *debs = [filenames objectForKey:@"debs"];
+    [self installPackages:debs];
+}
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
+    [self writeToConsole:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
+}
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
+    [self writeToConsole:[NSString stringWithFormat:@"Done %@", filename] atLevel:ZBLogLevelDescript];
+}
 
 @end
