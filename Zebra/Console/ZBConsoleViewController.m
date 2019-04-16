@@ -16,6 +16,7 @@
 
 @interface ZBConsoleViewController () {
     int stage;
+    BOOL continueWithInstall;
 }
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
@@ -31,6 +32,7 @@
         _queue = [ZBQueue sharedInstance];
     }
     stage = -1;
+    continueWithInstall = true;
 
     [self setTitle:@"Console"];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
@@ -233,16 +235,21 @@
     if ([ZBAppDelegate needsSimulation]) {
         [self writeToConsole:@"Console actions are not available on the simulator\n" atLevel:ZBLogLevelWarning];
         
-        [self performPostActions:^(BOOL success) {
-            [self->_queue clearQueue];
-        }];
+        [self->_queue clearQueue];
         [self updateStatus:4];
         dispatch_async(dispatch_get_main_queue(), ^{
             self->_completeButton.hidden = false;
         });
     }
-    else {
+    else if (continueWithInstall) {
         [self performActions:debs];
+    }
+    else {
+        [self->_queue clearQueue];
+        [self updateStatus:4];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->_completeButton.hidden = false;
+        });
     }
 }
 
@@ -252,6 +259,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
     if (error != NULL) {
+        continueWithInstall = false;
         [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
     }
     else {
