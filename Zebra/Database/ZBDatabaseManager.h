@@ -13,12 +13,14 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 #import <Downloads/ZBDownloadDelegate.h>
+#import <ZBDatabaseDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate> {
     NSString *databasePath;
 }
+@property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching;
 - (void)importLocalPackages:(void (^)(BOOL success))completion;
 - (int)numberOfPackagesInRepo:(ZBRepo *)repo;

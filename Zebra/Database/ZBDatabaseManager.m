@@ -79,7 +79,8 @@
     sqlite3_close(database);
 
     [self importLocalPackages:^(BOOL success) {
-        NSLog(@"Imported local packages");
+        NSLog(@"Installed Pacakges, Call Completed Next %@", _databaseDelegate);
+        [self->_databaseDelegate databaseCompletedUpdate:true];
     }];
 }
 
@@ -102,10 +103,6 @@
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
     completion(true);
-}
-
-- (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
 }
 
 - (int)repoIDFromBaseFileName:(NSString *)bfn inDatabase:(sqlite3 *)database {
