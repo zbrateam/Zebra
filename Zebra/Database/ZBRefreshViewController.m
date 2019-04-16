@@ -23,6 +23,7 @@
     [super viewDidAppear:animated];
 
     databaseManager = [[ZBDatabaseManager alloc] init];
+    [databaseManager setDatabaseDelegate:self];
 
     if (_dropTables) {
         [databaseManager dropTables];
@@ -108,4 +109,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)databaseCompletedUpdate:(BOOL)success {
+    [self goodbye];
+}
 @end

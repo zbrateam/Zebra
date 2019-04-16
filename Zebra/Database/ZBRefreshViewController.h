@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ZBDatabaseDelegate.h>
 
-@interface ZBRefreshViewController : UIViewController
+@interface ZBRefreshViewController : UIViewController <ZBDatabaseDelegate>
 @property (nonatomic) BOOL dropTables;
 @end
 
