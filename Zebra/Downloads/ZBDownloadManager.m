@@ -17,6 +17,11 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
+@interface ZBDownloadManager () {
+    int tasks;
+}
+@end
+
 @implementation ZBDownloadManager
 
 @synthesize repos;
@@ -133,9 +138,11 @@
         NSURL *packagesURL = dist ? [baseURL URLByAppendingPathComponent:@"main/binary-iphoneos-arm/Packages.bz2"] : [baseURL URLByAppendingPathComponent:@"Packages.bz2"];
         
         NSURLSessionTask *releaseTask = [session downloadTaskWithURL:releaseURL];
+        tasks++;
         [releaseTask resume];
         
         NSURLSessionTask *packagesTask = [session downloadTaskWithURL:packagesURL];
+        tasks++;
         [packagesTask resume];
 
         [downloadDelegate predator:self startedDownloadForFile:repo[0]];
@@ -144,6 +151,10 @@
 
 - (void)downloadRepo:(ZBRepo *)repo {
     [self downloadRepos:@[repo] ignoreCaching:false];
+}
+
+- (void)downloadReposAndIgnoreCaching:(BOOL)ignore {
+    [self downloadRepos:repos ignoreCaching:ignore];
 }
 
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
@@ -166,6 +177,7 @@
         NSURL *url = [base URLByAppendingPathComponent:filename];
     
         NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
+        tasks++;
         
         [downloadDelegate predator:self startedDownloadForFile:filename];
         [downloadTask resume];
@@ -202,7 +214,8 @@
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[url absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+                NSLog(@"%@", [url scheme]);
+                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
                 NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
                 NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
@@ -247,8 +260,11 @@
                         if (removeError != NULL) {
                             NSLog(@"[Hyena] Unable to remove .bz2, %@", removeError.localizedDescription);
                         }
+                        
+                        [self addFile:[finalPath stringByDeletingPathExtension] toArray:@"packages"];
                     }
                 }];
+                [downloadDelegate predator:self finishedDownloadForFile:filename withError:NULL];
             }
         }
         else if ([[filename lastPathComponent] containsString:@"Release"]) {
@@ -257,7 +273,7 @@
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[url absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
                 NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
                 NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
@@ -270,6 +286,7 @@
                         [self addFile:finalPath toArray:@"release"];
                     }
                 }];
+                [downloadDelegate predator:self finishedDownloadForFile:filename withError:NULL];
             }
         }
     }
@@ -302,7 +319,10 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    [downloadDelegate predator:self finishedAllDownloads:filenames];
+    tasks--;
+    if (tasks == 0) {
+        [downloadDelegate predator:self finishedAllDownloads:filenames];
+    }
 }
 
 - (void)addFile:(NSString *)filename toArray:(NSString *)array {
@@ -324,6 +344,15 @@
             [task cancel];
         }
     }];
+}
+
+- (BOOL)isSessionOutOfTasks:(NSURLSession *)sesh {
+    __block BOOL outOfTasks;
+    [sesh getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+        outOfTasks = dataTasks.count == 0;
+    }];
+    
+    return outOfTasks;
 }
 
 @end

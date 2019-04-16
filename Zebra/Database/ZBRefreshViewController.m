@@ -11,7 +11,9 @@
 #include <Parsel/parsel.h>
 #import <ZBTabBarController.h>
 
-@interface ZBRefreshViewController ()
+@interface ZBRefreshViewController () {
+    ZBDatabaseManager *databaseManager;
+}
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @end
 
@@ -20,15 +22,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [[ZBDatabaseManager alloc] init];
     
     if (_dropTables) {
         [databaseManager dropTables];
     }
     
-    [databaseManager updateDatabaseUsingCaching:false completion:^(BOOL success, NSError * _Nonnull error) {
-        [self goodbye];
-    }];
+    [databaseManager updateDatabaseUsingCaching:false];
 }
 
 - (void)viewDidLoad {
@@ -55,69 +55,52 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
-    
-    if (str == NULL)
-        return;
-    
-    UIColor *color;
-    UIFont *font;
-    switch(level) {
-        case ZBLogLevelDescript:
-            color = [UIColor blackColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
-            break;
-        case ZBLogLevelInfo:
-            color = [UIColor blackColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
-            break;
-        case ZBLogLevelError:
-            color = [UIColor redColor];
-            font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
-            break;
-        case ZBLogLevelWarning:
-            color = [UIColor yellowColor];
-            font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
-            break;
-        default:
-            color = [UIColor whiteColor];
-            break;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (str == NULL)
+            return;
         
-    NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-    
-    [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
-    
-    if (_consoleView.text.length > 0 ) {
-        NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
-        [_consoleView scrollRangeToVisible:bottom];
-    }
+        UIColor *color;
+        UIFont *font;
+        switch(level) {
+            case ZBLogLevelDescript:
+                color = [UIColor blackColor];
+                font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
+                break;
+            case ZBLogLevelInfo:
+                color = [UIColor blackColor];
+                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
+                break;
+            case ZBLogLevelError:
+                color = [UIColor redColor];
+                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
+                break;
+            case ZBLogLevelWarning:
+                color = [UIColor yellowColor];
+                font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
+                break;
+            default:
+                color = [UIColor whiteColor];
+                break;
+        }
+        
+        NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
+        
+        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+        
+        if (self->_consoleView.text.length > 0 ) {
+            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
+            [self->_consoleView scrollRangeToVisible:bottom];
+        }
+    });
 }
 
 - (void)databaseStatusUpdate:(NSNotification *)notification {
-    
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(databaseStatusUpdate:) withObject:notification waitUntilDone:NO];
-        return;
-    }
-    else if ([notification.name isEqualToString:@"databaseStatusUpdate"])
-    {
+    if ([notification.name isEqualToString:@"databaseStatusUpdate"]) {
         NSDictionary* userInfo = notification.userInfo;
-        int level = [userInfo[@"level"] intValue];
+        ZBLogLevel level = [userInfo[@"level"] intValue];
         NSString *message = userInfo[@"message"];
         
-        switch (level) {
-            case 0:
-                [self writeToConsole:message atLevel:ZBLogLevelDescript];
-                break;
-            case 1:
-                [self writeToConsole:message atLevel:ZBLogLevelInfo];
-                break;
-            case 2:
-                [self writeToConsole:message atLevel:ZBLogLevelError];
-                break;
-            default:
-                break;
-        }
+        [self writeToConsole:message atLevel:level];
     }
 }
 

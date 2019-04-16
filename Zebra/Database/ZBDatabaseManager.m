@@ -13,7 +13,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Parsel/dpkgver.h>
-#import <Hyena/Hyena.h>
+#import <Downloads/ZBDownloadManager.h>
 
 @implementation ZBDatabaseManager
 
@@ -27,67 +27,61 @@
     return self;
 }
 
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching completion:(void (^)(BOOL success, NSError *error))completion {
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching {
     [self postStatusUpdate:@"Updating Repositories\n" atLevel:1];
-    Hyena *predator = [[Hyena alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
-    [predator downloadReposWithCompletion:^(NSDictionary * _Nonnull fileUpdates, BOOL success) {
-        [self postStatusUpdate:@"Download Complete\n" atLevel:1];
+    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
+    [downloadManager setDownloadDelegate:self];
+    
+    [downloadManager downloadReposAndIgnoreCaching:!useCaching];
+}
+
+- (void)parseRepos:(NSDictionary *)filenames {
+    [self postStatusUpdate:@"Download Complete\n" atLevel:ZBLogLevelInfo];
+    NSArray *releaseFiles = filenames[@"release"];
+    NSArray *packageFiles = filenames[@"packages"];
+    
+    [self postStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
+    [self postStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    for (NSString *releasePath in releaseFiles) {
+        NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
         
-        NSArray *releaseFiles = fileUpdates[@"release"];
-        NSArray *packageFiles = fileUpdates[@"packages"];
-        
-        [self postStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:1];
-        [self postStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:1];
-        
-        sqlite3 *database;
-        sqlite3_open([self->databasePath UTF8String], &database);
-        
-        NSDate *methodStart = [NSDate date];
-        
-        for (NSString *releasePath in releaseFiles) {
-            NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-            
-            int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
-            if (repoID == -1) { //Repo does not exist in database, create it.
-                repoID = [self nextRepoIDInDatabase:database];
-                importRepoToDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
-            }
-            else {
-                updateRepoInDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
-            }
+        int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
+        if (repoID == -1) { //Repo does not exist in database, create it.
+            repoID = [self nextRepoIDInDatabase:database];
+            importRepoToDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
         }
-        
-        for (NSString *packagesPath in packageFiles) {
-            NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
-            baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
-            
-            [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
-            
-            int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
-            if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
-                NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
-                repoID = [self nextRepoIDInDatabase:database];
-                updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
-            }
-            else {
-                updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
-            }
+        else {
+            updateRepoInDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
         }
+    }
+    
+    for (NSString *packagesPath in packageFiles) {
+        NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
+        baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
         
-        [self postStatusUpdate:@"Done!\n" atLevel:1];
-        NSDate *methodFinish = [NSDate date];
-        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-        NSLog(@"[Zebra] executionTime = %f", executionTime);
-        sqlite3_close(database);
+        [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
         
-        [self importLocalPackages:^(BOOL success) {
-//            [self checkForPackageUpdates:^(BOOL success) {
-//                NSLog(@"[Zebra] Done checking for updates");
-                completion(true, NULL);
-//            }];
-        }];
-        
-    } ignoreCache:!useCaching];
+        int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
+        if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
+            NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
+            repoID = [self nextRepoIDInDatabase:database];
+            updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
+        }
+        else {
+            updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
+        }
+    }
+    
+    [self postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
+    sqlite3_close(database);
+    
+    [self importLocalPackages:^(BOOL success) {
+        NSLog(@"Imported local packages");
+    }];
 }
 
 - (void)importLocalPackages:(void (^)(BOOL success))completion {
@@ -158,10 +152,6 @@
     sqlite3_close(database);
     
     return updates;
-}
-
-- (void)postStatusUpdate:(NSString *)update atLevel:(int)level {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
 }
 
 - (int)repoIDFromBaseFileName:(NSString *)bfn inDatabase:(sqlite3 *)database {
@@ -653,6 +643,27 @@
     sqlite3_close(database);
     
     return source;
+}
+
+- (void)postStatusUpdate:(NSString *)update atLevel:(ZBLogLevel)level {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
+}
+
+#pragma mark - Hyena Delegate
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
+    NSLog(@"Parse Repos: %@", filenames);
+    [self parseRepos:filenames];
+}
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
+    NSLog(@"Downloading %@", filename);
+    [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
+}
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
+    NSLog(@"Done %@", filename);
+    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 
 @end

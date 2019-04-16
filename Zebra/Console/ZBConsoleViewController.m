@@ -235,7 +235,7 @@
         
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
         
-        [_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs]];
+        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs]];
     });
 }
 

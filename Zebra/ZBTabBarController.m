@@ -77,13 +77,13 @@
                 }
             });
             
-            [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [sourcesController tabBarItem].badgeValue = nil;
-                });
-                [self checkForPackageUpdates];
-                completion(true);
-            }];
+//            [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [sourcesController tabBarItem].badgeValue = nil;
+//                });
+//                [self checkForPackageUpdates];
+//                completion(true);
+//            }];
         });
     }
     else {

@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    ZBLogLevelDescript,
-    ZBLogLevelInfo,
-    ZBLogLevelWarning,
-    ZBLogLevelError
-} ZBLogLevel;
-
 @interface ZBRefreshViewController : UIViewController
 @property (nonatomic) BOOL dropTables;
 @end
