@@ -62,7 +62,10 @@
         NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
         baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
 
-        [_databaseDelegate setRepo:baseFileName busy:true];
+        if ([_databaseDelegate respondsToSelector:@selector(setRepo:busy:)]) {
+            [_databaseDelegate setRepo:baseFileName busy:true];
+        }
+        
         [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
 
         int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
@@ -75,7 +78,9 @@
             updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
         }
         
-        [_databaseDelegate setRepo:baseFileName busy:false];
+        if ([_databaseDelegate respondsToSelector:@selector(setRepo:busy:)]) {
+            [_databaseDelegate setRepo:baseFileName busy:false];
+        }
     }
 
     [self postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
@@ -561,12 +566,18 @@
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
-    [_databaseDelegate setRepo:filename busy:true];
+    if ([_databaseDelegate respondsToSelector:@selector(setRepo:busy:)]) {
+        [_databaseDelegate setRepo:filename busy:true];
+    }
+    
     [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
-    [_databaseDelegate setRepo:filename busy:false];
+    if ([_databaseDelegate respondsToSelector:@selector(setRepo:busy:)]) {
+        [_databaseDelegate setRepo:filename busy:false];
+    }
+    
     [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 

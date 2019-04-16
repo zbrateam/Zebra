@@ -11,7 +11,7 @@
 #ifndef ZBDatabaseDelegate_h
 #define ZBDatabaseDelegate_h
 
-@protocol ZBDatabaseDelegate
+@protocol ZBDatabaseDelegate <NSObject>
 - (void)databaseCompletedUpdate:(BOOL)success;
 @optional
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy;
