@@ -26,26 +26,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(repoStatusUpdate:) name:@"repoStatusUpdate" object:nil];
-
     if (@available(iOS 10.0, *)) {
         UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
     }
 
-    [self performBackgroundRefresh:false completion:^(BOOL success) {
-        if (!success) {
-            NSLog(@"Error!");
-        }
-        else {
-            NSDate *newUpdateDate = [NSDate date];
-            [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
-        }
-    }];
+//    [self performBackgroundRefresh:false];
+//    [self performBackgroundRefresh:false completion:^(BOOL success) {
+//        if (!success) {
+//            NSLog(@"Error!");
+//        }
+//        else {
+//            NSDate *newUpdateDate = [NSDate date];
+//            [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
+//        }
+//    }];
 }
 
-- (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion {
+- (void)performBackgroundRefresh:(BOOL)requested {
     BOOL timePassed = false;
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    [databaseManager setDatabaseDelegate:self];
 
     if (!requested) {
         NSDate *currentDate = [NSDate date];
@@ -65,38 +65,39 @@
 
     if (requested || timePassed) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-            UINavigationController *sourcesController = self.viewControllers[1];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UITabBarItem *sourcesItem = [sourcesController tabBarItem];
-                sourcesItem.badgeValue = @"";
-
-                for (UIView *badge in self.tabBar.subviews[2].subviews) {
-                    if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
-                        UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-                        [loadingView setColor:[UIColor whiteColor]];
-
-                        [loadingView setCenter:badge.center];
-                        [loadingView startAnimating];
-                        [badge addSubview:loadingView];
-                    }
-                }
-            });
-
-//            [databaseManager updateDatabaseUsingCaching:true completion:^(BOOL success, NSError * _Nonnull error) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [sourcesController tabBarItem].badgeValue = nil;
-//                });
-//                [self checkForPackageUpdates];
-//                completion(true);
-//            }];
+            [self setRepoRefreshIndicatorVisible:true];
+            [databaseManager updateDatabaseUsingCaching:true];
         });
     }
     else {
         [databaseManager importLocalPackages:^(BOOL success) {
             [self checkForPackageUpdates];
-            completion(true);
         }];
     }
+}
+
+- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+    UINavigationController *sourcesController = self.viewControllers[1];
+    UITabBarItem *sourcesItem = [sourcesController tabBarItem];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (visible) {
+            sourcesItem.badgeValue = @"";
+            
+            for (UIView *badge in self.tabBar.subviews[2].subviews) {
+                if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
+                    UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+                    [loadingView setColor:[UIColor whiteColor]];
+                    
+                    [loadingView setCenter:badge.center];
+                    [loadingView startAnimating];
+                    [badge addSubview:loadingView];
+                }
+            }
+        }
+        else {
+            sourcesItem.badgeValue = nil;
+        }
+    });
 }
 
 - (void)checkForPackageUpdates {
@@ -136,33 +137,23 @@
     }
 }
 
-- (void)repoStatusUpdate:(NSNotification *)notification {
-    if ([[[notification userInfo] objectForKey:@"type"] isEqualToString:@"updateCheck"]) {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-        [databaseManager importLocalPackages:^(BOOL success) {
-            NSLog(@"Checking for updates");
-            [self checkForPackageUpdates];
-        }];
-    }
-    else {
-        if (!repoBusyList) repoBusyList = [NSMutableArray new];
+- (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
+    if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
+    
+    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
+    
+    [repoBusyList setObject:@(busy) forKey:bfn];
+    [sourcesVC setSpinnerVisible:busy forRepo:bfn];
+}
 
-        ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
-        if ([[[notification userInfo] objectForKey:@"finished"] boolValue]) {\
-            repoBusyList = [NSMutableArray new];
-            [sourcesVC clearAllSpinners];
-        }
-        else {
-            NSInteger row = [[[notification userInfo] objectForKey:@"row"] integerValue];
-            if ([[[notification userInfo] objectForKey:@"busy"] boolValue]) {
-                [repoBusyList insertObject:@TRUE atIndex:row];
-                [sourcesVC setSpinnerVisible:true forRow:row];
-            }
-            else {
-                [repoBusyList insertObject:@FALSE atIndex:row];
-                [sourcesVC setSpinnerVisible:false forRow:row];
-            }
-        }
+- (void)databaseCompletedUpdate:(BOOL)success {
+    NSLog(@"Database Update Completed Tab");
+    if (success) {
+        NSDate *newUpdateDate = [NSDate date];
+        [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
+        [self setRepoRefreshIndicatorVisible:false];
+        
+//        [self checkForPackageUpdates];
     }
 }
 

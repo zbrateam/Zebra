@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Database/ZBDatabaseDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBTabBarController : UITabBarController
+@interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate>
 @property (nonatomic, strong) NSArray *updates;
-@property (nonatomic, strong) NSMutableArray *repoBusyList;
+@property (nonatomic, strong) NSMutableDictionary *repoBusyList;
 @property (nonatomic) BOOL hasUpdates;
-- (void)performBackgroundRefresh:(BOOL)requested completion:(void (^)(BOOL success))completion;
+- (void)performBackgroundRefresh:(BOOL)requested;
 - (void)checkForPackageUpdates;
 - (BOOL)doesPackageIDHaveUpdate:(NSString *)packageID;
 @end
