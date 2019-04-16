@@ -13,11 +13,12 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
 #import <Database/ZBRefreshViewController.h>
-#import <Hyena/Hyena.h>
 #import <ZBAppDelegate.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
+    NSMutableArray *bfns;
+    ZBDatabaseManager *databaseManager;
 }
 @end
 
@@ -26,8 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [[ZBDatabaseManager alloc] init];
     sources = [databaseManager sources];
+    
+    bfns = [NSMutableArray new];
+    for (ZBRepo *source in sources) {
+        [bfns addObject:[source baseFileName]];
+    }
     
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -51,8 +57,9 @@
     [self refreshTable];
 }
 
-- (void)setSpinnerVisible:(BOOL)visible forRow:(NSInteger)row {
-    NSLog(@"Setting spinner%@visible for row %ld", visible ? @" " : @" not ", (long)row);
+- (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
+    NSLog(@"Setting spinner%@visible for row %@", visible ? @" " : @" not ", bfn);
+    NSInteger row = [bfns indexOfObject:bfn];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
         
@@ -99,17 +106,10 @@
 }
 
 - (void)refreshSources:(id)sender {
-    ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
-    [tabController performBackgroundRefresh:true completion:^(BOOL success) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl endRefreshing];
-        });
-//        [self.refreshControl performSelectorOnMainThread:@selector(endRefreshing) withObject:NULL waitUntilDone:false];
-//        CGFloat top = self.tableView.adjustedContentInset.top
-//        let y = self.refreshControl!.frame.maxY + top
-//        self.tableView.setContentOffset(CGPoint(x: 0, y: -y), animated:true)
-        [self refreshTable];
-    }];
+    [databaseManager setDatabaseDelegate:self];
+    
+    [self setRepoRefreshIndicatorVisible:true];
+    [databaseManager updateDatabaseUsingCaching:true];
 }
 
 - (void)refreshTable {
@@ -119,6 +119,11 @@
     else {
         ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         sources = [databaseManager sources];
+        
+        bfns = [NSMutableArray new];
+        for (ZBRepo *source in sources) {
+            [bfns addObject:[source baseFileName]];
+        }
         
         [self.tableView reloadData];
     }
@@ -211,18 +216,17 @@
     
     cell.textLabel.text = [source origin];
     
-    NSArray *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    if (indexPath.row < [busyList count]) {
-        if ([busyList[indexPath.row] boolValue]) {
-            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-            spinner.frame = CGRectMake(0, 0, 24, 24);
-            [spinner setColor:[UIColor grayColor]];
-            cell.accessoryView = spinner;
-            [spinner startAnimating];
-        }
-        else {
-            cell.accessoryView = nil;
-        }
+    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+    NSString *bfn = bfns[indexPath.row];
+    if ([busyList[bfn] boolValue]) {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+        spinner.frame = CGRectMake(0, 0, 24, 24);
+        [spinner setColor:[UIColor grayColor]];
+        cell.accessoryView = spinner;
+        [spinner startAnimating];
+    }
+    else {
+        cell.accessoryView = nil;
     }
     
     if ([source isSecure]) {
@@ -311,6 +315,45 @@
     ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sources indexOfObject:repo] inSection:0];
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+}
+
+#pragma mark - Database Delegate
+
+- (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
+    [self setSpinnerVisible:true forRepo:bfn];
+}
+
+- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+    UINavigationController *sourcesController = self.tabBarController.viewControllers[1];
+    UITabBarItem *sourcesItem = sourcesController.tabBarItem;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (visible) {
+            sourcesItem.badgeValue = @"";
+            
+            for (UIView *badge in self.tabBarController.tabBar.subviews[2].subviews) {
+                if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
+                    UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+                    [loadingView setColor:[UIColor whiteColor]];
+                    
+                    [loadingView setCenter:badge.center];
+                    [loadingView startAnimating];
+                    [badge addSubview:loadingView];
+                }
+            }
+        }
+        else {
+            sourcesItem.badgeValue = nil;
+        }
+    });
+}
+
+- (void)databaseCompletedUpdate:(BOOL)success { 
+    [self setRepoRefreshIndicatorVisible:false];
+    [self clearAllSpinners];
+    [self refreshTable];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl endRefreshing];
+    });
 }
 
 @end

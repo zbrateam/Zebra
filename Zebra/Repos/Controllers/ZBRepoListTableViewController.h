@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Database/ZBDatabaseDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoListTableViewController : UITableViewController
-- (void)setSpinnerVisible:(BOOL)visible forRow:(NSInteger)row;
+@interface ZBRepoListTableViewController : UITableViewController <ZBDatabaseDelegate>
+- (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn;
 - (void)clearAllSpinners;
 @end
 
