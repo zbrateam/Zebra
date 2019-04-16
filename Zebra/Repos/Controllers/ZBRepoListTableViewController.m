@@ -58,7 +58,6 @@
 }
 
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
-    NSLog(@"Setting spinner%@visible for row %@", visible ? @" " : @" not ", bfn);
     NSInteger row = [bfns indexOfObject:bfn];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
@@ -320,7 +319,7 @@
 #pragma mark - Database Delegate
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
-    [self setSpinnerVisible:true forRepo:bfn];
+    [self setSpinnerVisible:busy forRepo:bfn];
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {

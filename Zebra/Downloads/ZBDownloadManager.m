@@ -145,7 +145,12 @@
         tasks++;
         [packagesTask resume];
 
-        [downloadDelegate predator:self startedDownloadForFile:repo[0]];
+        NSString *schemeless = [[baseURL absoluteString] stringByReplacingOccurrencesOfString:[baseURL scheme] withString:@""];
+        NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        NSString *saveName = [NSString stringWithFormat:[[baseURL absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, @"Release"];
+        NSString *baseFileName = [self baseFileNameFromFullPath:saveName];
+        
+        [downloadDelegate predator:self startedDownloadForFile:baseFileName];
     }
 }
 
@@ -214,7 +219,6 @@
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSLog(@"%@", [url scheme]);
                 NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
                 NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
                 NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
@@ -262,9 +266,9 @@
                         }
                         
                         [self addFile:[finalPath stringByDeletingPathExtension] toArray:@"packages"];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:NULL];
                     }
                 }];
-                [downloadDelegate predator:self finishedDownloadForFile:filename withError:NULL];
             }
         }
         else if ([[filename lastPathComponent] containsString:@"Release"]) {
@@ -286,9 +290,17 @@
                         [self addFile:finalPath toArray:@"release"];
                     }
                 }];
-                [downloadDelegate predator:self finishedDownloadForFile:filename withError:NULL];
             }
         }
+    }
+}
+
+- (NSString *)baseFileNameFromFullPath:(NSString *)path {
+    if ([[path lastPathComponent] containsString:@"Packages"]) {
+        return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
+    }
+    else {
+        return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
     }
 }
 
@@ -353,6 +365,10 @@
     }];
     
     return outOfTasks;
+}
+
+- (void)setRepo:(NSString *)repo downloading:(BOOL)downloading {
+    
 }
 
 @end

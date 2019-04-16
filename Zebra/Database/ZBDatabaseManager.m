@@ -62,6 +62,7 @@
         NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
         baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
 
+        [_databaseDelegate setRepo:baseFileName busy:true];
         [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
 
         int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
@@ -73,13 +74,14 @@
         else {
             updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
         }
+        
+        [_databaseDelegate setRepo:baseFileName busy:false];
     }
 
     [self postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
     sqlite3_close(database);
 
     [self importLocalPackages:^(BOOL success) {
-        NSLog(@"Installed Pacakges, Call Completed Next %@", _databaseDelegate);
         [self->_databaseDelegate databaseCompletedUpdate:true];
     }];
 }
@@ -555,17 +557,18 @@
 #pragma mark - Hyena Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
-    NSLog(@"Parse Repos: %@", filenames);
     [self parseRepos:filenames];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
     NSLog(@"Downloading %@", filename);
+    [_databaseDelegate setRepo:filename busy:true];
     [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
     NSLog(@"Done %@", filename);
+    [_databaseDelegate setRepo:filename busy:false];
     [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 

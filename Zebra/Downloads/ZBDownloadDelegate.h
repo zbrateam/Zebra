@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)predator:(ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames;
 @optional
 - (void)predator:(ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package;
+- (void)setRepo:(NSString *)repo downloading:(BOOL)downloading;
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 @end
 
