@@ -251,7 +251,12 @@
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
-    [self writeToConsole:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
+    if (error != NULL) {
+        [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
+    }
+    else {
+        [self writeToConsole:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
+    }
 }
 
 @end

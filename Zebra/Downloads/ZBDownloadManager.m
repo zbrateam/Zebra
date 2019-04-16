@@ -192,12 +192,16 @@
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)[downloadTask response];
     NSInteger responseCode = [httpResponse statusCode];
+    NSURL *url = [httpResponse URL];
+    NSString *filename = [url lastPathComponent];
     if (responseCode != 200 && responseCode != 304) { //Handle error code
-        
+        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [self error:responseCode forFile:filename]}];
+        if ([[filename lastPathComponent] containsString:@".deb"]) {
+            [self cancelAllTasksForSession:session];
+        }
+        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:error];
     }
     else { //Download success
-        NSURL *url = [httpResponse URL];
-        NSString *filename = [url lastPathComponent];
         if ([[filename lastPathComponent] containsString:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
             NSString *filename = [[[downloadTask currentRequest] URL] lastPathComponent];
@@ -227,6 +231,7 @@
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
                     }
                     else {
                         FILE *f = fopen([finalPath UTF8String], "r");
@@ -365,6 +370,27 @@
     }];
     
     return outOfTasks;
+}
+
+- (NSString *)error:(int)responseCode forFile:(NSString *)filename {
+    switch (responseCode) {
+        case 400:
+            return @"The server cannot process the request due to a bad request.\n";
+        case 401:
+            return [NSString stringWithFormat:@"You are unauthorized to download the file %@\n", filename];
+        case 402:
+            return [NSString stringWithFormat:@"Payment required for %@\nYou might not have paid for this package\nTry contacting the repo maintainer about this issue.\n", filename];
+        case 403:
+            return [NSString stringWithFormat:@"You are forbidden from downloading %@\n", filename];
+        case 404:
+            return [NSString stringWithFormat:@"404 Not Found. Could not locate %@\n", filename];
+        case 408:
+            return @"Timeout while waiting for request, the server might be down.\n";
+        case 500:
+            return @"Internal Server Error. Try contacting the repo maintainer.\n";
+        default:
+            return @"MY TIME HAS COME TO BURN";
+    }
 }
 
 @end
