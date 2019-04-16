@@ -24,14 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *dependsOn;
 @property (nonatomic, strong) NSArray *conflictsWith;
 @property (nonatomic, strong) NSString *author;
-@property (nonatomic) BOOL installed;
-@property (nonatomic) BOOL remote;
 @property (nonatomic, strong) ZBRepo *repo;
-@property (nonatomic) int repoID;
 @property (nonatomic, strong) NSString *filename;
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
+- (BOOL)isPaid;
 @end
 
 NS_ASSUME_NONNULL_END

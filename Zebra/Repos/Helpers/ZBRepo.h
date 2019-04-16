@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <sqlite3.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *components;
 @property (nonatomic, strong) NSString *shortURL;
 
++ (ZBRepo *)repoMatchingRepoID:(int)repoID;
++ (ZBRepo *)localRepo;
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
+- (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isSecure;
 @end
 

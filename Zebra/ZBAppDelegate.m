@@ -7,6 +7,7 @@
 //
 
 #import "ZBAppDelegate.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface ZBAppDelegate ()
 
@@ -16,7 +17,27 @@
 
 + (NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return paths[0];
+    
+    if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
+        NSString *path = [paths[0] stringByAppendingPathComponent:@"xyz.willy.Zebra"];
+        
+        BOOL dirExsits;
+        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
+        if (!dirExsits) {
+            NSLog(@"[Zebra] Creating documents directory.");
+            NSError *error;
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
+            
+            if (error != NULL) {
+                NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+            }
+        }
+        
+        return path;
+    }
+    else {
+        return paths[0];
+    }
 }
 
 + (BOOL)needsSimulation {
@@ -78,27 +99,24 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
-    UIViewController *initialController;
-    
-    BOOL needsFullImport = false;
-    
-    if (needsFullImport) {
-        initialController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    }
-    else {
-        initialController = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-    }
-    
-    self.window.tintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-    self.window.rootViewController = initialController;
-    [self.window makeKeyAndVisible];
-    
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    
+    if (@available(iOS 10.0, *)) {
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+            } else if (!granted) {
+                NSLog(@"[Zebra] Authorization was not granted.");
+            }
+            else {
+                NSLog(@"[Zebra] Notification access granted.");
+            }
+        }];
+    } else {
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
+        }
+    }
     
     return YES;
 }
@@ -129,6 +147,5 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 @end

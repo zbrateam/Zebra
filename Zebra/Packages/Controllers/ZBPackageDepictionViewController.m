@@ -12,6 +12,8 @@
 #import <ZBAppDelegate.h>
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Repos/Helpers/ZBRepo.h>
+#import <ZBTabBarController.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -112,7 +114,7 @@
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package name], [_package identifier]] completionHandler:nil];
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
     
-    if ([_package depictionURL] != NULL && ![[[_package depictionURL] absoluteString] isEqualToString:@""])  {
+    if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         [webView evaluateJavaScript:@"var element = document.getElementById('main-holder').style.marginBottom = '0px';" completionHandler:nil];
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
@@ -159,10 +161,10 @@
 }
 
 - (void)configureNavButton {
-    if (_package.installed) {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-        
-        hasUpdate = [databaseManager packageIDHasUpgrade:[_package identifier]];
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+//    NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
+    if ([[_package repo] repoID] == 0 || [databaseManager packageIsInstalled:_package]) {
+        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
         
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
@@ -176,6 +178,8 @@
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
+        
+        sqlite3_close(database);
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -248,6 +252,7 @@
     
     [alert addAction:cancel];
     
+    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     
     [self presentViewController:alert animated:true completion:nil];
 }
@@ -259,6 +264,8 @@
         UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
+            
+//            NSLog(@"Package repoID %d", [[downPackage repo] repoID]);
             
             [alert dismissViewControllerAnimated:true completion:nil];
             
@@ -275,6 +282,8 @@
     }];
     
     [alert addAction:cancel];
+    
+    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     
     [self presentViewController:alert animated:true completion:nil];
 }

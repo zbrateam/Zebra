@@ -10,6 +10,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Repos/Helpers/ZBRepoManager.h>
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -19,12 +20,14 @@
 
 @synthesize repo;
 @synthesize sectionReadout;
+@synthesize sectionNames;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
+    sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -51,7 +54,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sectionReadout[0] count] + 1;
+    return [sectionNames count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,7 +72,7 @@
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo]]];
     }
     else {
-        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
+        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = section;
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
@@ -77,7 +80,7 @@
         numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
         numberFormatter.usesGroupingSeparator = YES;
         
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)sectionReadout[1][indexPath.row - 1]];
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
     
     return cell;
@@ -87,17 +90,39 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageListTableViewController *destination = [segue destinationViewController];
+    UITableViewCell *cell = (UITableViewCell *)sender;
     destination.repo = repo;
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     if (indexPath.row != 0) {
-        NSString *section = [sectionReadout[0] objectAtIndex:indexPath.row - 1];
+        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         destination.section = section;
         destination.title = section;
     }
     else {
         destination.title = @"All Packages";
     }
+}
+
+//3D Touch Actions
+
+- (NSArray *)previewActionItems {
+    UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:@"Refresh" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        [databaseManager updateDatabaseUsingCaching:true singleRepo:self->repo completion:^(BOOL success, NSError * _Nonnull error) {
+            NSLog(@"Updated repo %@", self->repo);
+        }];
+    }];
+    
+    if (![[repo origin] isEqualToString:@"xTM3x Repo"]) {
+        UIPreviewAction *delete = [UIPreviewAction actionWithTitle:@"Delete" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteRepoTouchAction" object:self userInfo:@{@"repo": self->repo}];
+        }];
+        
+        return @[refresh, delete];
+    }
+    
+    return @[refresh];
 }
 
 @end

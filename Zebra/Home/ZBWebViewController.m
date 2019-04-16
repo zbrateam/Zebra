@@ -118,12 +118,13 @@
     
     if ([destination isEqual:@"local"]) {
         if ([action isEqual:@"nuke"]) {
-            NSLog(@"[Zebra] war games");
             [self nukeDatabase];
         }
         else if ([action isEqual:@"sendBug"]) {
-            NSLog(@"[Zebra] raid");
             [self sendBugReport];
+        }
+        else if ([action isEqual:@"doc"]) {
+            [self openDocumentsDirectory];
         }
     }
     else if ([destination isEqual:@"web"]) {
@@ -196,7 +197,7 @@
 }
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-    NSLog(@"[Zebra] Handling repo add for method %@", repo);
+//    NSLog(@"[Zebra] Handling repo add for method %@", repo);
     ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
     if (local) {
         NSArray *options = @[
@@ -210,7 +211,7 @@
         
         switch ([options indexOfObject:repo]) {
             case 0:
-                NSLog(@"[Zebra] Transferring repos");
+//                NSLog(@"[Zebra] Transferring repos");
                 [repoManager transferFromCydia];
                 break;
             case 1:
@@ -282,6 +283,11 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)openDocumentsDirectory {
+    NSString *documents = [ZBAppDelegate documentsDirectory];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
 }
 
 - (IBAction)refreshPage:(id)sender {

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBQueue *queue;
 @property (nonatomic) sqlite3 *database;
 - (void)addDependenciesForPackage:(ZBPackage *)package;
+- (void)conflictionsWithPackage:(ZBPackage *)package state:(int)state;
 @end
 
 NS_ASSUME_NONNULL_END

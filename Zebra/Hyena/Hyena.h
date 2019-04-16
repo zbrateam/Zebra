@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ZBQueue;
+@class ZBRepo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
     ZBQueue *queue;
 }
 - (id)initWithSourceListPath:(NSString *)trail;
+- (id)initWithSource:(ZBRepo *)repo;
 - (void)downloadReposWithCompletion:(void (^)(NSDictionary *fileUpdates, BOOL success))completion ignoreCache:(BOOL)ignore;
 - (void)downloadDebsFromQueueWithCompletion:(void (^)(NSArray *debs, BOOL success))completion;
 @end

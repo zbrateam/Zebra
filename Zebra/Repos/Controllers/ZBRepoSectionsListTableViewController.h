@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoSectionsListTableViewController : UITableViewController
 @property (nonatomic, strong) ZBRepo *repo;
-@property (nonatomic, strong) NSArray <NSArray *> *sectionReadout;
+@property (nonatomic, strong) NSDictionary *sectionReadout;
+@property (nonatomic, strong) NSArray *sectionNames;
 @end
 
 NS_ASSUME_NONNULL_END

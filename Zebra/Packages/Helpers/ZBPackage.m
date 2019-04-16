@@ -8,6 +8,7 @@
 
 #import "ZBPackage.h"
 #import <Parsel/dpkgver.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @implementation ZBPackage
 
@@ -21,13 +22,10 @@
 @synthesize dependsOn;
 @synthesize conflictsWith;
 @synthesize author;
-@synthesize installed;
-@synthesize remote;
 @synthesize repo;
 @synthesize filename;
-@synthesize repoID;
 
-- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url installed:(BOOL)installed remote:(BOOL)remote {
+- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url {
     
     self = [super init];
     
@@ -38,8 +36,6 @@
         [self setDesc:desc];
         [self setSection:section];
         [self setDepictionURL:[NSURL URLWithString:url]];
-        [self setInstalled:installed];
-        [self setRemote:remote];
     }
     
     return self;
@@ -72,7 +68,14 @@
         [self setConflictsWith:conflictsChars != 0 ? [[NSString stringWithUTF8String:conflictsChars] componentsSeparatedByString:@", "] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:filenameChars != 0? [NSString stringWithUTF8String:filenameChars] : NULL];
-        [self setRepoID:sqlite3_column_int(statement, 13)];
+        
+        int repoID = sqlite3_column_int(statement, 12);
+        if (repoID > 0) {
+            [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
+        }
+        else {
+            [self setRepo:[ZBRepo localRepo]];
+        }
     }
     
     return self;
@@ -111,6 +114,10 @@
         else
             return NSOrderedSame;
     }
+}
+
+- (BOOL)isPaid {
+    return [tags containsObject:@"cydia::commercial"];
 }
 
 @end

@@ -16,11 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSArray *> *managedQueue;
-@property (nonatomic, strong) NSMutableArray<NSArray *> *failedQueue;
+@property (nonatomic, strong) NSMutableArray<NSArray *> *failedDepQueue;
+@property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
 + (id)sharedInstance;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)markPackageAsFailed:(ZBPackage *)package forDependency:(NSString *)failedDependency;
+- (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict conflictionType:(int)type;
 - (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue;
 - (NSArray *)tasks:(NSArray *)debs;
 - (int)numberOfPackagesForQueue:(NSString *)queue;
@@ -28,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clearQueue;
 - (NSArray *)actionsToPerform;
 - (BOOL)hasObjects;
-- (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
+- (BOOL)containsPackage:(ZBPackage *)package;
 - (NSArray *)packagesToDownload;
 @end
 

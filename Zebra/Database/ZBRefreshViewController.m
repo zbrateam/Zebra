@@ -21,9 +21,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     databaseManager = [[ZBDatabaseManager alloc] init];
-    
+
     if (_dropTables) {
         [databaseManager dropTables];
     }
@@ -58,7 +58,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (str == NULL)
             return;
-        
+
         UIColor *color;
         UIFont *font;
         switch(level) {
@@ -82,11 +82,11 @@
                 color = [UIColor whiteColor];
                 break;
         }
-        
+
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-        
+
         [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
-        
+
         if (self->_consoleView.text.length > 0 ) {
             NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
             [self->_consoleView scrollRangeToVisible:bottom];
@@ -99,7 +99,7 @@
         NSDictionary* userInfo = notification.userInfo;
         ZBLogLevel level = [userInfo[@"level"] intValue];
         NSString *message = userInfo[@"message"];
-        
+
         [self writeToConsole:message atLevel:level];
     }
 }

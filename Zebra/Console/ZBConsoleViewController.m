@@ -26,20 +26,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     if (_queue == NULL) {
         _queue = [ZBQueue sharedInstance];
     }
     stage = -1;
-    
+
     [self setTitle:@"Console"];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self.navigationItem setHidesBackButton:true animated:true];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadStatusUpdate:) name:@"downloadStatusUpdate" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     [self performActions];
 }
 
@@ -132,6 +133,19 @@
     [databaseManager importLocalPackages:^(BOOL success) {
         completion(success);
     }];
+
+    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
+    NSString *file;
+
+    while (file = [enumerator nextObject]) {
+        NSError *error = nil;
+        BOOL result = [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate debsLocation] stringByAppendingPathComponent:file] error:&error];
+
+        if (!result && error) {
+            NSLog(@"Error while removing %@: %@", file, error);
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"repoStatusUpdate" object:self userInfo:@{@"type": @"updateCheck"}];
 }
 
 - (void)updateStatus:(int)s {
@@ -161,7 +175,7 @@
             [self setTitle:@"Done!"];
             [self writeToConsole:@"Done!\n" atLevel:ZBLogLevelInfo];
             break;
-            
+
         default:
             break;
     }
@@ -170,23 +184,18 @@
 - (void)receivedData:(NSNotification *)notif {
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
-    
+
     if (data.length > 0) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self writeToConsole:str atLevel:ZBLogLevelDescript];
-        
-        if (_consoleView.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
-            [_consoleView scrollRangeToVisible:bottom];
-        }
     }
 }
 
 - (void)receivedErrorData:(NSNotification *)notif {
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
-    
+
     if (data.length > 0) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -198,17 +207,11 @@
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
-        
-        if (_consoleView.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(_consoleView.text.length -1, 1);
-            [_consoleView scrollRangeToVisible:bottom];
-        }
     }
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"%@", str);
         UIColor *color;
         UIFont *font;
         switch(level) {
@@ -232,10 +235,15 @@
                 color = [UIColor whiteColor];
                 break;
         }
-        
+
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-        
-        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs]];
+
+        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+
+        if (self->_consoleView.text.length > 0 ) {
+            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
+            [self->_consoleView scrollRangeToVisible:bottom];
+        }
     });
 }
 
@@ -245,10 +253,10 @@
 
 - (void)performActions {
     NSArray *packages = [_queue packagesToDownload];
-    
+
     ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] init];
     downloadManager.downloadDelegate = self;
-    
+
     [downloadManager downloadPackages:packages];
 }
 
