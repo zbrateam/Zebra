@@ -372,4 +372,20 @@
     return (NSArray *)packages;
 }
 
+- (BOOL)needsHyena {
+    if ([_managedQueue[@"Install"] count] > 0) {
+        return true;
+    }
+    
+    if ([_managedQueue[@"Reinstall"] count] > 0) {
+        return true;
+    }
+    
+    if ([_managedQueue[@"Upgrade"] count] > 0) {
+        return true;
+    }
+    
+    return false;
+}
+
 @end

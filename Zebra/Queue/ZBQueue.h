@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasObjects;
 - (BOOL)containsPackage:(ZBPackage *)package;
 - (NSArray *)packagesToDownload;
+- (BOOL)needsHyena;
 @end
 
 NS_ASSUME_NONNULL_END
