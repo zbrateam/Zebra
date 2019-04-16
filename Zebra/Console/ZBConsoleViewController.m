@@ -35,7 +35,6 @@
     [self setTitle:@"Console"];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self.navigationItem setHidesBackButton:true animated:true];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadStatusUpdate:) name:@"downloadStatusUpdate" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

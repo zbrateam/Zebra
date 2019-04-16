@@ -561,13 +561,11 @@
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
-    NSLog(@"Downloading %@", filename);
     [_databaseDelegate setRepo:filename busy:true];
     [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
-    NSLog(@"Done %@", filename);
     [_databaseDelegate setRepo:filename busy:false];
     [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
 }

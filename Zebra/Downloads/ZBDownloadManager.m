@@ -367,8 +367,4 @@
     return outOfTasks;
 }
 
-- (void)setRepo:(NSString *)repo downloading:(BOOL)downloading {
-    
-}
-
 @end
