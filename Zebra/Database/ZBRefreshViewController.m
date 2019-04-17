@@ -13,7 +13,9 @@
 
 @interface ZBRefreshViewController () {
     ZBDatabaseManager *databaseManager;
+    BOOL hadAProblem;
 }
+@property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @end
 
@@ -21,6 +23,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    hadAProblem = false;
 
     databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager setDatabaseDelegate:self];
@@ -32,9 +35,9 @@
     [databaseManager updateDatabaseUsingCaching:false];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseStatusUpdate:) name:@"databaseStatusUpdate" object:nil];
+- (IBAction)completeButton:(id)sender {
+    hadAProblem = false;
+    [self goodbye];
 }
 
 - (void)goodbye {
@@ -42,15 +45,19 @@
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:false];
     }
     else {
-        if ([self presentingViewController] != NULL) {
-            [self dismissViewControllerAnimated:true completion:nil];
+        if (hadAProblem) {
+            NSLog(@":(");
+            self.completeButton.hidden = false;
         }
         else {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-            //        vc.hasUpdates = hasUpdates;
-            //        vc.updates = updates;
-            [self presentViewController:vc animated:YES completion:nil];
+            if ([self presentingViewController] != NULL) {
+                [self dismissViewControllerAnimated:true completion:nil];
+            }
+            else {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+                [self presentViewController:vc animated:YES completion:nil];
+            }
         }
     }
 }
@@ -63,25 +70,32 @@
         UIColor *color;
         UIFont *font;
         switch(level) {
-            case ZBLogLevelDescript:
+            case ZBLogLevelDescript: {
                 color = [UIColor blackColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
-            case ZBLogLevelInfo:
+            }
+            case ZBLogLevelInfo: {
                 color = [UIColor blackColor];
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
                 break;
-            case ZBLogLevelError:
+            }
+            case ZBLogLevelError: {
+                self->hadAProblem = true;
                 color = [UIColor redColor];
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
                 break;
-            case ZBLogLevelWarning:
+            }
+            case ZBLogLevelWarning: {
+                self->hadAProblem = true;
                 color = [UIColor yellowColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
-            default:
+            }
+            default: {
                 color = [UIColor whiteColor];
                 break;
+            }
         }
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
@@ -95,21 +109,14 @@
     });
 }
 
-- (void)databaseStatusUpdate:(NSNotification *)notification {
-    if ([notification.name isEqualToString:@"databaseStatusUpdate"]) {
-        NSDictionary* userInfo = notification.userInfo;
-        ZBLogLevel level = [userInfo[@"level"] intValue];
-        NSString *message = userInfo[@"message"];
-
-        [self writeToConsole:message atLevel:level];
-    }
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+#pragma mark - Database Delegate
 
 - (void)databaseCompletedUpdate:(BOOL)success {
     [self goodbye];
 }
+
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    [self writeToConsole:status atLevel:level];
+}
+
 @end

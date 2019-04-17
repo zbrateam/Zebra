@@ -28,16 +28,41 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zte-bN-R1X">
+                                <rect key="frame" x="16" y="597" width="343" height="50"/>
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5yD-bA-svj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="complete:" destination="KgF-4e-H9k" eventType="touchUpInside" id="bgD-fr-hxL"/>
+                                    <action selector="completeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FEk-zx-MhR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="zte-bN-R1X" firstAttribute="centerX" secondItem="wXg-KW-VsH" secondAttribute="centerX" id="CCT-Os-ivi"/>
                             <constraint firstItem="wXg-KW-VsH" firstAttribute="top" secondItem="NXo-ha-Dcc" secondAttribute="bottom" id="Hh5-fY-ONF"/>
                             <constraint firstItem="wXg-KW-VsH" firstAttribute="bottom" secondItem="mp2-PR-0iu" secondAttribute="top" id="QGT-fR-9XT"/>
+                            <constraint firstAttribute="bottom" secondItem="zte-bN-R1X" secondAttribute="bottom" constant="20" symbolic="YES" id="Vye-ft-jVU"/>
                             <constraint firstAttribute="trailing" secondItem="wXg-KW-VsH" secondAttribute="trailing" id="v6t-15-4A1"/>
                             <constraint firstItem="wXg-KW-VsH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vXG-el-yZv"/>
+                            <constraint firstItem="zte-bN-R1X" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="zhs-Ho-CAn"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="completeButton" destination="zte-bN-R1X" id="o17-RO-Zwk"/>
                         <outlet property="consoleView" destination="wXg-KW-VsH" id="lPI-pI-sXG"/>
                     </connections>
                 </viewController>
