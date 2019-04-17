@@ -195,7 +195,8 @@
     NSURL *url = [httpResponse URL];
     NSString *filename = [url lastPathComponent];
     if (responseCode != 200 && responseCode != 304) { //Handle error code
-        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [self error:responseCode forFile:filename]}];
+        NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
+        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
         if ([[filename lastPathComponent] containsString:@".deb"]) {
             [self cancelAllTasksForSession:session];
         }
@@ -336,6 +337,8 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (error != NULL)
+        [self->downloadDelegate predator:self finishedDownloadForFile:[[[task originalRequest] URL] absoluteString] withError:error];
     tasks--;
     if (tasks == 0) {
         [downloadDelegate predator:self finishedAllDownloads:filenames];
@@ -372,25 +375,25 @@
     return outOfTasks;
 }
 
-- (NSString *)error:(int)responseCode forFile:(NSString *)filename {
-    switch (responseCode) {
-        case 400:
-            return @"The server cannot process the request due to a bad request.\n";
-        case 401:
-            return [NSString stringWithFormat:@"You are unauthorized to download the file %@\n", filename];
-        case 402:
-            return [NSString stringWithFormat:@"Payment required for %@\nYou might not have paid for this package\nTry contacting the repo maintainer about this issue.\n", filename];
-        case 403:
-            return [NSString stringWithFormat:@"You are forbidden from downloading %@\n", filename];
-        case 404:
-            return [NSString stringWithFormat:@"404 Not Found. Could not locate %@\n", filename];
-        case 408:
-            return @"Timeout while waiting for request, the server might be down.\n";
-        case 500:
-            return @"Internal Server Error. Try contacting the repo maintainer.\n";
-        default:
-            return @"MY TIME HAS COME TO BURN";
-    }
-}
+//- (NSString *)error:(NSInteger)responseCode forFile:(NSString *)filename {
+//    switch (responseCode) {
+//        case 400:
+//            return @"The server cannot process the request due to a bad request.\n";
+//        case 401:
+//            return [NSString stringWithFormat:@"You are unauthorized to download the file %@\n", filename];
+//        case 402:
+//            return [NSString stringWithFormat:@"Payment required for %@\nYou might not have paid for this package\nTry contacting the repo maintainer about this issue.\n", filename];
+//        case 403:
+//            return [NSString stringWithFormat:@"You are forbidden from downloading %@\n", filename];
+//        case 404:
+//            return [NSString stringWithFormat:@"404 Not Found. Could not locate %@\n", filename];
+//        case 408:
+//            return @"Timeout while waiting for request, the server might be down.\n";
+//        case 500:
+//            return @"Internal Server Error. Try contacting the repo maintainer.\n";
+//        default:
+//            return @"MY TIME HAS COME TO BURN";
+//    }
+//}
 
 @end
