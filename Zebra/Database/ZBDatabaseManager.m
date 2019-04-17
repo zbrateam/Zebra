@@ -27,20 +27,20 @@
 }
 
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching {
-    [self postStatusUpdate:@"Updating Repositories\n" atLevel:1];
     ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
     [downloadManager setDownloadDelegate:self];
+    [_databaseDelegate postStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
 
     [downloadManager downloadReposAndIgnoreCaching:!useCaching];
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
-    [self postStatusUpdate:@"Download Complete\n" atLevel:ZBLogLevelInfo];
+    [_databaseDelegate postStatusUpdate:@"Download Complete\n" atLevel:ZBLogLevelInfo];
     NSArray *releaseFiles = filenames[@"release"];
     NSArray *packageFiles = filenames[@"packages"];
 
-    [self postStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
-    [self postStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
+    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
+    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
 
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
@@ -66,7 +66,7 @@
             [_databaseDelegate setRepo:baseFileName busy:true];
         }
         
-        [self postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
+        [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:0];
 
         int repoID = [self repoIDFromBaseFileName:baseFileName inDatabase:database];
         if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
@@ -83,7 +83,7 @@
         }
     }
 
-    [self postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
+    [_databaseDelegate postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
     sqlite3_close(database);
 
     [self importLocalPackages:^(BOOL success) {
@@ -555,10 +555,6 @@
     return otherVersions[0];
 }
 
-- (void)postStatusUpdate:(NSString *)update atLevel:(ZBLogLevel)level {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"databaseStatusUpdate" object:self userInfo:@{@"level": @(level), @"message": update}];
-}
-
 #pragma mark - Hyena Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
@@ -570,7 +566,7 @@
         [_databaseDelegate setRepo:filename busy:true];
     }
     
-    [self postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
+    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
@@ -578,7 +574,12 @@
         [_databaseDelegate setRepo:filename busy:false];
     }
     
-    [self postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
+    if (error != NULL) {
+        [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ for %@ \n", [error.localizedDescription stringByReplacingOccurrencesOfString:@"." withString:@""], filename] atLevel:ZBLogLevelError];
+    }
+    else {
+        [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
+    }
 }
 
 @end
