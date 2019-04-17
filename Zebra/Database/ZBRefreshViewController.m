@@ -60,7 +60,7 @@
     }
     else {
         if (hadAProblem) {
-            NSLog(@":(");
+            messages = NULL;
             self.completeButton.hidden = false;
         }
         else {
