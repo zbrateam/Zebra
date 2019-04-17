@@ -10,6 +10,7 @@
 #import <ZBDatabaseDelegate.h>
 
 @interface ZBRefreshViewController : UIViewController <ZBDatabaseDelegate>
+@property (nonatomic, strong) NSArray *messages;
 @property (nonatomic) BOOL dropTables;
 @end
 

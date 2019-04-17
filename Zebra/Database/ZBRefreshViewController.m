@@ -21,18 +21,32 @@
 
 @implementation ZBRefreshViewController
 
+@synthesize messages;
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    hadAProblem = false;
-
-    databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager setDatabaseDelegate:self];
-
-    if (_dropTables) {
-        [databaseManager dropTables];
-    }
     
-    [databaseManager updateDatabaseUsingCaching:false];
+    if (!messages) {
+        hadAProblem = false;
+        
+        databaseManager = [[ZBDatabaseManager alloc] init];
+        [databaseManager setDatabaseDelegate:self];
+        
+        if (_dropTables) {
+            [databaseManager dropTables];
+        }
+        
+        [databaseManager updateDatabaseUsingCaching:false];
+    }
+    else {
+        hadAProblem = true;
+        
+        for (NSString *message in messages) {
+            [self writeToConsole:message atLevel:ZBLogLevelError];
+        }
+        
+        [self goodbye];
+    }
 }
 
 - (IBAction)completeButton:(id)sender {

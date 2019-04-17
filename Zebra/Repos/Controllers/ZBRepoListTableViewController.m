@@ -19,6 +19,7 @@
     NSArray *sources;
     NSMutableArray *bfns;
     ZBDatabaseManager *databaseManager;
+    NSMutableArray *errorMessages;
 }
 @end
 
@@ -352,7 +353,21 @@
     [self refreshTable];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
+        if (self->errorMessages) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+            refreshController.messages = self->errorMessages;
+            
+            [self presentViewController:refreshController animated:true completion:nil];
+        }
     });
+}
+
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    if (level == ZBLogLevelError) {
+        if (!errorMessages) errorMessages = [NSMutableArray new];
+        [errorMessages addObject:status];
+    }
 }
 
 @end
