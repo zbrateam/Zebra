@@ -27,8 +27,6 @@
     [super viewDidAppear:animated];
     
     if (!messages) {
-        hadAProblem = false;
-        
         databaseManager = [[ZBDatabaseManager alloc] init];
         [databaseManager setDatabaseDelegate:self];
         
@@ -36,7 +34,7 @@
             [databaseManager dropTables];
         }
         
-        [databaseManager updateDatabaseUsingCaching:false];
+        [databaseManager updateDatabaseUsingCaching:false requested:true];
     }
     else {
         hadAProblem = true;
@@ -125,7 +123,11 @@
 
 #pragma mark - Database Delegate
 
-- (void)databaseCompletedUpdate:(BOOL)success {
+- (void)databaseStartedUpdate {
+    hadAProblem = false;
+}
+
+- (void)databaseCompletedUpdate {
     [self goodbye];
 }
 

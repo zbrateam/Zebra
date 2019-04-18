@@ -64,14 +64,15 @@
 - (void)refreshTable {
     packages = [databaseManager installedPackages];
     numberOfPackages = (int)[packages count];
-        
-    ZBTabBarController *tabController = (ZBTabBarController *)self.tabBarController;
-    needsUpdatesSection = [tabController hasUpdates];
     
+    NSArray *_updates = [databaseManager packagesWithUpdates];
+    NSLog(@"updates: %@", _updates);
+    needsUpdatesSection = [updates count] > 0;
+
     if (needsUpdatesSection) {
-        updates = [tabController updates];
+        updates = _updates;
     }
-        
+    
     [self.tableView reloadData];
 }
 

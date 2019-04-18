@@ -16,6 +16,11 @@
 
 @implementation ZBDatabaseManager
 
++ (NSDate *)lastUpdated {
+    NSDate *lastUpdatedDate = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedDate"];
+    return lastUpdatedDate != NULL ? lastUpdatedDate : [NSDate distantPast];
+}
+
 - (id)init {
     self = [super init];
 
@@ -26,12 +31,35 @@
     return self;
 }
 
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching {
-    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
-    [downloadManager setDownloadDelegate:self];
-    [_databaseDelegate postStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
-
-    [downloadManager downloadReposAndIgnoreCaching:!useCaching];
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested {
+    BOOL needsUpdate = false;
+    if (!requested) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
+        
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+            
+            needsUpdate = ([components minute] >= 30); //might need to be less
+        }
+        else {
+            needsUpdate = true;
+        }
+    }
+    
+    if (requested || needsUpdate) {
+        [self->_databaseDelegate databaseStartedUpdate];
+        ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
+        [downloadManager setDownloadDelegate:self];
+        [_databaseDelegate postStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
+        
+        [downloadManager downloadReposAndIgnoreCaching:!useCaching];
+    }
+    else {
+        [self importLocalPackages];
+    }
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
@@ -86,12 +114,12 @@
     [_databaseDelegate postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
     sqlite3_close(database);
 
-    [self importLocalPackages:^(BOOL success) {
-        [self->_databaseDelegate databaseCompletedUpdate:true];
-    }];
+    [self importLocalPackages];
+    [self updateLastUpdated];
+    [self->_databaseDelegate databaseCompletedUpdate];
 }
 
-- (void)importLocalPackages:(void (^)(BOOL success))completion {
+- (void)importLocalPackages {
     NSString *installedPath;
     if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
@@ -107,9 +135,36 @@
     sqlite3_exec(database, sql, NULL, 0, NULL);
     char *negativeOne = "DELETE FROM PACKAGES WHERE REPOID = -1";
     sqlite3_exec(database, negativeOne, NULL, 0, NULL);
+    char *updates = "DELETE FROM UPDATES";
+    sqlite3_exec(database, updates, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
-    completion(true);
+    
+    [self checkForUpdates];
+}
+
+- (void)checkForUpdates {
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    NSArray *installedPackages = [self installedPackages];
+    NSMutableArray *found = [NSMutableArray new];
+    
+    char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
+    sqlite3_exec(database, createUpdates, NULL, 0, NULL);
+    
+    for (ZBPackage *package in installedPackages) {
+        if ([found containsObject:[package identifier]]) {
+            continue;
+        }
+        
+        ZBPackage *topPackage = [self topVersionForPackage:package];
+        if (package < topPackage) {
+            NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
+            sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
+        }
+        [found addObject:[package identifier]];
+    }
+    sqlite3_close(database);
 }
 
 - (int)repoIDFromBaseFileName:(NSString *)bfn inDatabase:(sqlite3 *)database {
@@ -528,19 +583,26 @@
 }
 
 - (NSArray <ZBPackage *>*)packagesWithUpdates {
-    NSLog(@"[Zebra] Checking for package udaptes");
-    NSMutableArray *packages = [NSMutableArray new];
+    NSMutableArray *packagesWithUpdates = [NSMutableArray new];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSString *query = @"SELECT * FROM UPDATES;";
 
-    NSArray *installedPackage = [self installedPackages];
-    for (ZBPackage *package in installedPackage) {
-        ZBPackage *topVersion = [self topVersionForPackage:package];
-
-        if ([topVersion compare:package] == NSOrderedDescending) {
-            [packages addObject:topVersion];
-        }
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        NSString *identifier = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+        NSString *version = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+        
+        ZBPackage *package = [self packageForID:identifier thatSatisfiesComparison:@"=" ofVersion:version inDatabase:database];
+        [packagesWithUpdates addObject:package];
     }
-
-    return (NSArray *)packages;
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return packagesWithUpdates;
 }
 
 - (ZBPackage *)topVersionForPackage:(ZBPackage *)package {
@@ -553,6 +615,10 @@
     otherVersions = [otherVersions sortedArrayUsingDescriptors:@[sort]];
 
     return otherVersions[0];
+}
+
+- (void)updateLastUpdated {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedDate"];
 }
 
 #pragma mark - Hyena Delegate

@@ -19,8 +19,6 @@
 
 @implementation ZBTabBarController
 
-@synthesize updates;
-@synthesize hasUpdates;
 @synthesize repoBusyList;
 
 - (void)viewDidLoad {
@@ -30,50 +28,23 @@
         UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
     }
 
-//    [self performBackgroundRefresh:false];
-//    [self performBackgroundRefresh:false completion:^(BOOL success) {
-//        if (!success) {
-//            NSLog(@"Error!");
-//        }
-//        else {
-//            NSDate *newUpdateDate = [NSDate date];
-//            [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
-//        }
-//    }];
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    [databaseManager updateDatabaseUsingCaching:true requested:false];
 }
 
-- (void)performBackgroundRefresh:(BOOL)requested {
-    BOOL timePassed = false;
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager setDatabaseDelegate:self];
-
-    if (!requested) {
-        NSDate *currentDate = [NSDate date];
-        NSDate *lastUpdatedDate = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedDate"];
-
-        if (lastUpdatedDate != nil) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSUInteger unitFlags = NSCalendarUnitMinute;
-            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
-
-            timePassed = ([components minute] >= 30); //might need to be less
+- (void)setPackageUpdateBadgeValue:(int)updates {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
+        
+        if (updates == 0) {
+            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
         }
         else {
-            timePassed = true;
+            [packagesTabBarItem setBadgeValue:nil];
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         }
-    }
-
-    if (requested || timePassed) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-            [self setRepoRefreshIndicatorVisible:true];
-            [databaseManager updateDatabaseUsingCaching:true];
-        });
-    }
-    else {
-        [databaseManager importLocalPackages:^(BOOL success) {
-            [self checkForPackageUpdates];
-        }];
-    }
+    });
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
@@ -100,42 +71,7 @@
     });
 }
 
-- (void)checkForPackageUpdates {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(checkForPackageUpdates) withObject:nil waitUntilDone:false];
-    }
-    else {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-        updates = [databaseManager packagesWithUpdates];
-
-        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
-        if ([updates count] != 0) {
-            hasUpdates = TRUE;
-//            NSLog(@"Has Updates");
-            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", (int)[updates count]]];
-            if (@available(iOS 10.0, *)) {
-                [packagesTabBarItem setBadgeColor:[UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0]];
-            }
-
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[updates count]];
-
-            UINavigationController *packageNavController = self.viewControllers[2];
-            ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
-            [packageVC refreshTable];
-        }
-        else {
-//            NSLog(@"No Updates");
-            hasUpdates = FALSE;
-            [packagesTabBarItem setBadgeValue:nil];
-
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-
-            UINavigationController *packageNavController = self.viewControllers[2];
-            ZBPackageListTableViewController *packageVC = packageNavController.viewControllers[0];
-            [packageVC refreshTable];
-        }
-    }
-}
+#pragma mark - Database Delegate
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
     if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
@@ -146,24 +82,12 @@
     [sourcesVC setSpinnerVisible:busy forRepo:bfn];
 }
 
-- (void)databaseCompletedUpdate:(BOOL)success {
-    NSLog(@"Database Update Completed Tab");
-    if (success) {
-        NSDate *newUpdateDate = [NSDate date];
-        [[NSUserDefaults standardUserDefaults] setObject:newUpdateDate forKey:@"lastUpdatedDate"];
-        [self setRepoRefreshIndicatorVisible:false];
-        
-//        [self checkForPackageUpdates];
-    }
+- (void)databaseStartedUpdate {
+    [self setRepoRefreshIndicatorVisible:true];
 }
 
-- (BOOL)doesPackageIDHaveUpdate:(NSString *)packageID {
-    for (ZBPackage *package in updates) {
-        if ([[package identifier] isEqual:packageID]) {
-            return true;
-        }
-    }
-    return false;
+- (void)databaseCompletedUpdate {
+    [self setRepoRefreshIndicatorVisible:false];
 }
 
 @end

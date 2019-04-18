@@ -21,8 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *databasePath;
 }
 @property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching;
-- (void)importLocalPackages:(void (^)(BOOL success))completion;
++ (NSDate *)lastUpdated;
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested;
+- (void)importLocalPackages;
 - (int)numberOfPackagesInRepo:(ZBRepo *)repo;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
@@ -42,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database;
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
 - (NSArray <ZBPackage *>*)packagesWithUpdates;
+- (void)updateLastUpdated;
 @end
 
 NS_ASSUME_NONNULL_END

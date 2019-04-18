@@ -12,12 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate>
-@property (nonatomic, strong) NSArray *updates;
 @property (nonatomic, strong) NSMutableDictionary *repoBusyList;
-@property (nonatomic) BOOL hasUpdates;
-- (void)performBackgroundRefresh:(BOOL)requested;
-- (void)checkForPackageUpdates;
-- (BOOL)doesPackageIDHaveUpdate:(NSString *)packageID;
+- (void)setPackageUpdateBadgeValue:(int)updates;
+- (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
 @end
 
 NS_ASSUME_NONNULL_END

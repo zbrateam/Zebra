@@ -109,7 +109,7 @@
     [databaseManager setDatabaseDelegate:self];
     
     [self setRepoRefreshIndicatorVisible:true];
-    [databaseManager updateDatabaseUsingCaching:true];
+    [databaseManager updateDatabaseUsingCaching:true requested:true];
 }
 
 - (void)refreshTable {
@@ -317,37 +317,21 @@
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
 }
 
+- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+    [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+}
+
 #pragma mark - Database Delegate
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
     [self setSpinnerVisible:busy forRepo:bfn];
 }
 
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    UINavigationController *sourcesController = self.tabBarController.viewControllers[1];
-    UITabBarItem *sourcesItem = sourcesController.tabBarItem;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (visible) {
-            sourcesItem.badgeValue = @"";
-            
-            for (UIView *badge in self.tabBarController.tabBar.subviews[2].subviews) {
-                if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
-                    UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-                    [loadingView setColor:[UIColor whiteColor]];
-                    
-                    [loadingView setCenter:badge.center];
-                    [loadingView startAnimating];
-                    [badge addSubview:loadingView];
-                }
-            }
-        }
-        else {
-            sourcesItem.badgeValue = nil;
-        }
-    });
+- (void)databaseStartedUpdate {
+    [self setRepoRefreshIndicatorVisible:true];
 }
 
-- (void)databaseCompletedUpdate:(BOOL)success { 
+- (void)databaseCompletedUpdate {
     [self setRepoRefreshIndicatorVisible:false];
     [self clearAllSpinners];
     [self refreshTable];
