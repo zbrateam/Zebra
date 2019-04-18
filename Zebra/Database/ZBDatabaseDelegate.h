@@ -12,7 +12,8 @@
 #define ZBDatabaseDelegate_h
 
 @protocol ZBDatabaseDelegate <NSObject>
-- (void)databaseCompletedUpdate:(BOOL)success;
+- (void)databaseStartedUpdate;
+- (void)databaseCompletedUpdate;
 @optional
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy;
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
