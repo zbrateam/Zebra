@@ -58,7 +58,7 @@
         [downloadManager downloadReposAndIgnoreCaching:!useCaching];
     }
     else {
-        [self importLocalPackages];
+        [self importLocalPackages:true];
     }
 }
 
@@ -114,12 +114,12 @@
     [_databaseDelegate postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
     sqlite3_close(database);
 
-    [self importLocalPackages];
+    [self importLocalPackages:true];
     [self updateLastUpdated];
     [self->_databaseDelegate databaseCompletedUpdate];
 }
 
-- (void)importLocalPackages {
+- (void)importLocalPackages:(BOOL)checkForUpdates {
     NSString *installedPath;
     if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
@@ -138,32 +138,35 @@
     char *updates = "DELETE FROM UPDATES";
     sqlite3_exec(database, updates, NULL, 0, NULL);
     importPackagesToDatabase([installedPath UTF8String], database, 0);
-    sqlite3_close(database);
     
-    [self checkForUpdates];
+    if (checkForUpdates) {
+        //Check for updates
+        NSArray *installedPackages = [self installedPackages];
+        NSMutableArray *found = [NSMutableArray new];
+        
+        char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
+        sqlite3_exec(database, createUpdates, NULL, 0, NULL);
+        
+        for (ZBPackage *package in installedPackages) {
+            if ([found containsObject:[package identifier]]) {
+                continue;
+            }
+            
+            ZBPackage *topPackage = [self topVersionForPackage:package];
+            if ([package compare:topPackage] == NSOrderedAscending) {
+                NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
+                sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
+            }
+            [found addObject:[package identifier]];
+        }
+    }
+    
+    sqlite3_close(database);
 }
 
 - (void)checkForUpdates {
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
-    NSArray *installedPackages = [self installedPackages];
-    NSMutableArray *found = [NSMutableArray new];
-    
-    char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
-    sqlite3_exec(database, createUpdates, NULL, 0, NULL);
-    
-    for (ZBPackage *package in installedPackages) {
-        if ([found containsObject:[package identifier]]) {
-            continue;
-        }
-        
-        ZBPackage *topPackage = [self topVersionForPackage:package];
-        if (package < topPackage) {
-            NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
-            sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
-        }
-        [found addObject:[package identifier]];
-    }
     sqlite3_close(database);
 }
 
@@ -513,6 +516,26 @@
     return false;
 }
 
+- (ZBPackage *)packageForID:(NSString *)identifier equalVersion:(NSString *)version {
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND VERSION = \'%@\';", identifier, version];
+    
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    ZBPackage *package;
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+        
+        break;
+    }
+    sqlite3_finalize(statement);
+    sqlite3_close(database);
+    
+    return package;
+}
+
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database {
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\';", identifier];
 
@@ -596,7 +619,7 @@
         NSString *identifier = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
         NSString *version = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
         
-        ZBPackage *package = [self packageForID:identifier thatSatisfiesComparison:@"=" ofVersion:version inDatabase:database];
+        ZBPackage *package = [self packageForID:identifier equalVersion:version];
         [packagesWithUpdates addObject:package];
     }
     sqlite3_finalize(statement);

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
 + (NSDate *)lastUpdated;
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested;
-- (void)importLocalPackages;
+- (void)importLocalPackages:(BOOL)checkForUpdates;
 - (int)numberOfPackagesInRepo:(ZBRepo *)repo;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;

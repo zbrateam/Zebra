@@ -106,7 +106,7 @@
 
 - (void)performPostActions:(void (^)(BOOL success))completion  {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-    [databaseManager importLocalPackages];
+    [databaseManager importLocalPackages:true];
 
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
     NSString *file;
