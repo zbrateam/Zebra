@@ -14,6 +14,11 @@
 #import <Parsel/dpkgver.h>
 #import <Downloads/ZBDownloadManager.h>
 
+@interface ZBDatabaseManager () {
+    int numberOfUpdates;
+}
+@end
+
 @implementation ZBDatabaseManager
 
 + (NSDate *)lastUpdated {
@@ -25,6 +30,7 @@
     self = [super init];
 
     if (self) {
+        numberOfUpdates = 0;
         databasePath = [ZBAppDelegate databaseLocation];
     }
 
@@ -116,7 +122,7 @@
 
     [self importLocalPackages:true];
     [self updateLastUpdated];
-    [self->_databaseDelegate databaseCompletedUpdate];
+    [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
 }
 
 - (void)importLocalPackages:(BOOL)checkForUpdates {
@@ -154,6 +160,7 @@
             
             ZBPackage *topPackage = [self topVersionForPackage:package];
             if ([package compare:topPackage] == NSOrderedAscending) {
+                numberOfUpdates++;
                 NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
                 sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
             }
