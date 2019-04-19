@@ -28,6 +28,8 @@
         UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
     }
 
+    NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    [self setPackageUpdateBadgeValue:(int)badgeValue];
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager updateDatabaseUsingCaching:true requested:false];
 }
@@ -36,7 +38,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
         
-        if (updates == 0) {
+        if (updates > 0) {
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
         }
@@ -86,7 +88,8 @@
     [self setRepoRefreshIndicatorVisible:true];
 }
 
-- (void)databaseCompletedUpdate {
+- (void)databaseCompletedUpdate:(int)packageUpdates {
+    [self setPackageUpdateBadgeValue:packageUpdates];
     [self setRepoRefreshIndicatorVisible:false];
 }
 
