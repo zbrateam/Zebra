@@ -67,7 +67,7 @@
     
     NSArray *_updates = [databaseManager packagesWithUpdates];
     NSLog(@"updates: %@", _updates);
-    needsUpdatesSection = [updates count] > 0;
+    needsUpdatesSection = [_updates count] > 0;
 
     if (needsUpdatesSection) {
         updates = _updates;
