@@ -30,7 +30,9 @@
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
+    
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    [databaseManager setDatabaseDelegate:self];
     [databaseManager updateDatabaseUsingCaching:true requested:false];
 }
 

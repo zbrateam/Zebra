@@ -65,6 +65,7 @@
     }
     else {
         [self importLocalPackages:true];
+        [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
     }
 }
 
