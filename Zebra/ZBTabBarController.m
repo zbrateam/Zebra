@@ -12,9 +12,11 @@
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
+#import <Database/ZBRefreshViewController.h>
 
-@interface ZBTabBarController ()
-
+@interface ZBTabBarController () {
+    NSMutableArray *errorMessages;
+}
 @end
 
 @implementation ZBTabBarController
@@ -93,6 +95,22 @@
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     [self setPackageUpdateBadgeValue:packageUpdates];
     [self setRepoRefreshIndicatorVisible:false];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->errorMessages) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+            refreshController.messages = self->errorMessages;
+            
+            [self presentViewController:refreshController animated:true completion:nil];
+        }
+    });
+}
+
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    if (level == ZBLogLevelError) {
+        if (!errorMessages) errorMessages = [NSMutableArray new];
+        [errorMessages addObject:status];
+    }
 }
 
 @end
