@@ -79,6 +79,7 @@
 
 - (void)clearAllSpinners {
     NSLog(@"Clearning all Spinners");
+    ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
     dispatch_async(dispatch_get_main_queue(), ^{
         for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
