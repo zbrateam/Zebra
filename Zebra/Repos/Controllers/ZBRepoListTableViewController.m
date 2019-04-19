@@ -14,6 +14,7 @@
 #import <ZBTabBarController.h>
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
+#import <ZBTabBarController.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -331,7 +332,8 @@
     [self setRepoRefreshIndicatorVisible:true];
 }
 
-- (void)databaseCompletedUpdate {
+- (void)databaseCompletedUpdate:(int)packageUpdates {
+    [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
     [self setRepoRefreshIndicatorVisible:false];
     [self clearAllSpinners];
     [self refreshTable];

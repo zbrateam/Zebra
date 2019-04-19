@@ -127,7 +127,8 @@
     hadAProblem = false;
 }
 
-- (void)databaseCompletedUpdate {
+- (void)databaseCompletedUpdate:(int)packageUpdates {
+    [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
     [self goodbye];
 }
 
