@@ -126,6 +126,12 @@
     [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
 }
 
+- (void)justImportLocal {
+    [self->_databaseDelegate databaseStartedUpdate];
+    [self importLocalPackages:true];
+    [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
+}
+
 - (void)importLocalPackages:(BOOL)checkForUpdates {
     NSString *installedPath;
     if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
@@ -169,12 +175,6 @@
         }
     }
     
-    sqlite3_close(database);
-}
-
-- (void)checkForUpdates {
-    sqlite3 *database;
-    sqlite3_open([databasePath UTF8String], &database);
     sqlite3_close(database);
 }
 
