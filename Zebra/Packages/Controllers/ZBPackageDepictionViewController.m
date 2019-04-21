@@ -261,6 +261,10 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [_package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (ZBPackage *downPackage in otherVersions) {
+        if ([[downPackage repo] repoID] == 0 || [[downPackage version] isEqualToString:[_package version]]) {
+            continue;
+        }
+        
         UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
