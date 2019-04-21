@@ -263,10 +263,10 @@
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     [self writeToConsole:@"Finished importing local packages.\n" atLevel:ZBLogLevelInfo];
     
-    if (packageUpdates != 0) {
-        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:packageUpdates];
-    }
+    NSLog(@"[Zebra] %d updates available.", packageUpdates);
+    
+    ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+    [tabController setPackageUpdateBadgeValue:packageUpdates];
     
     [self finishUp];
 }
