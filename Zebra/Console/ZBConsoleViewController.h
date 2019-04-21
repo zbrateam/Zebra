@@ -6,14 +6,19 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBQueue;
+
 #import <UIKit/UIKit.h>
 #import <Downloads/ZBDownloadDelegate.h>
+#import <Database/ZBDatabaseDelegate.h>
 #import <ZBLogLevel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate>
-
+@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate>
+@property (strong, nonatomic) IBOutlet UITextView *consoleView;
+@property (strong, nonatomic) IBOutlet UIButton *completeButton;
+@property (strong, nonatomic) ZBQueue *queue;
 @end
 
 NS_ASSUME_NONNULL_END
