@@ -127,6 +127,7 @@
     
 }
 
+//TODO: make this recursive
 - (void)conflictionsWithPackage:(ZBPackage *)package state:(int)state {
     if (state == 0) { //Installing package
         //First, check if package conflicts with any packages that are currently installed
@@ -147,9 +148,10 @@
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            if ([[conf conflictsWith] containsObject:[package identifier]]) {
-//                NSLog(@"%@ conflicts with %@, cannot install %@", conf, package, package);
-                [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
+            for (NSString *dep in [conf conflictsWith]) {
+                if ([dep containsString:[package identifier]]) {
+                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
+                }
             }
         }
         sqlite3_finalize(statement);
@@ -162,9 +164,10 @@
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            if ([[conf dependsOn] containsObject:[package identifier]]) {
-//                NSLog(@"%@ depends on %@, cannot remove %@", conf, package, package);
-                [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
+            for (NSString *dep in [conf dependsOn]) {
+                if ([dep containsString:[package identifier]]) {
+                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
+                }
             }
         }
         sqlite3_finalize(statement);
