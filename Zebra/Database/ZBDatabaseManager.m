@@ -387,8 +387,11 @@
         [otherVersions addObject:package];
     }
     sqlite3_finalize(statement);
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
 
-    return (NSArray*)otherVersions;
+    return sorted;
 }
 
 - (NSArray *)cleanUpDuplicatePackages:(NSArray *)packageList {
@@ -612,10 +615,7 @@
     if (package != NULL) {
         NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
         if ([otherVersions count] > 1) {
-            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-            NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
-
-            for (ZBPackage *package in sorted) {
+            for (ZBPackage *package in otherVersions) {
                 if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
                     return package;
                 }
@@ -682,9 +682,6 @@
     sqlite3_open([databasePath UTF8String], &database);
     NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
     sqlite3_close(database);
-
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    otherVersions = [otherVersions sortedArrayUsingDescriptors:@[sort]];
 
     return otherVersions[0];
 }
