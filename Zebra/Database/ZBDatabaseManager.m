@@ -148,14 +148,11 @@
     
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
-    NSLog(@"err: %s", sqlite3_errmsg(database));
     
     char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
     sqlite3_exec(database, sql, NULL, 0, NULL);
-    NSLog(@"err: %s", sqlite3_errmsg(database));
     char *negativeOne = "DELETE FROM PACKAGES WHERE REPOID = -1";
     sqlite3_exec(database, negativeOne, NULL, 0, NULL);
-    NSLog(@"err: %s", sqlite3_errmsg(database));
     importPackagesToDatabase([installedPath UTF8String], database, 0);
     sqlite3_close(database);
 }
@@ -172,10 +169,6 @@
     while (sqlite3_step(statement) == SQLITE_ROW) {
         ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
-        if ([[package identifier] isEqualToString:@"com.xtm3x.noblur"]) {
-            NSLog(@"%@", package);
-        }
-        
         [installedPackages addObject:package];
     }
     sqlite3_finalize(statement);
@@ -186,14 +179,10 @@
     
     char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
     sqlite3_exec(database, createUpdates, NULL, 0, NULL);
-    NSLog(@"err: %s", sqlite3_errmsg(database));
     
-    NSLog(@"[Zebra] Deleting from UPDATES");
     char *updates = "DELETE FROM UPDATES;";
     sqlite3_exec(database, updates, NULL, 0, NULL);
-    NSLog(@"err: %s", sqlite3_errmsg(database));
     
-    NSLog(@"[Zebra] Beginning update loop...");
     for (ZBPackage *package in installedPackages) {
         if ([found containsObject:[package identifier]]) {
             NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
