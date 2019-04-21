@@ -64,7 +64,8 @@
         [downloadManager downloadReposAndIgnoreCaching:!useCaching];
     }
     else {
-        [self importLocalPackages:true];
+        [self importLocalPackages];
+        [self checkForPackageUpdates];
         [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
     }
 }
@@ -117,22 +118,26 @@
             [_databaseDelegate setRepo:baseFileName busy:false];
         }
     }
-
+    
     [_databaseDelegate postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
     sqlite3_close(database);
-
-    [self importLocalPackages:true];
+    
+    [self importLocalPackages];
+    [self checkForPackageUpdates];
     [self updateLastUpdated];
     [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
 }
 
 - (void)justImportLocal {
     [self->_databaseDelegate databaseStartedUpdate];
-    [self importLocalPackages:true];
+    NSLog(@"[Zebra] Importing local packages and checking for updates");
+    [self importLocalPackages];
+    [self checkForPackageUpdates];
+    NSLog(@"[Zebra] Calling database delegate %d", numberOfUpdates);
     [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
 }
 
-- (void)importLocalPackages:(BOOL)checkForUpdates {
+- (void)importLocalPackages {
     NSString *installedPath;
     if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
@@ -140,41 +145,70 @@
     else { //Otherwise, load the actual file
         installedPath = @"/var/lib/dpkg/status";
     }
-
+    
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
-
+    NSLog(@"err: %s", sqlite3_errmsg(database));
+    
     char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
     sqlite3_exec(database, sql, NULL, 0, NULL);
+    NSLog(@"err: %s", sqlite3_errmsg(database));
     char *negativeOne = "DELETE FROM PACKAGES WHERE REPOID = -1";
     sqlite3_exec(database, negativeOne, NULL, 0, NULL);
-    char *updates = "DELETE FROM UPDATES";
-    sqlite3_exec(database, updates, NULL, 0, NULL);
+    NSLog(@"err: %s", sqlite3_errmsg(database));
     importPackagesToDatabase([installedPath UTF8String], database, 0);
+    sqlite3_close(database);
+}
+
+- (void)checkForPackageUpdates {
+    NSMutableArray *installedPackages = [NSMutableArray new];
     
-    if (checkForUpdates) {
-        //Check for updates
-        NSArray *installedPackages = [self installedPackages];
-        NSMutableArray *found = [NSMutableArray new];
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    
+    NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0;";
+    sqlite3_stmt *statement;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+    while (sqlite3_step(statement) == SQLITE_ROW) {
+        ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
         
-        char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
-        sqlite3_exec(database, createUpdates, NULL, 0, NULL);
-        
-        for (ZBPackage *package in installedPackages) {
-            if ([found containsObject:[package identifier]]) {
-                continue;
-            }
-            
-            ZBPackage *topPackage = [self topVersionForPackage:package];
-            if ([package compare:topPackage] == NSOrderedAscending) {
-                numberOfUpdates++;
-                NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
-                sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
-            }
-            [found addObject:[package identifier]];
+        if ([[package identifier] isEqualToString:@"com.xtm3x.noblur"]) {
+            NSLog(@"%@", package);
         }
+        
+        [installedPackages addObject:package];
     }
+    sqlite3_finalize(statement);
     
+    //Check for updates
+    NSLog(@"[Zebra] Checking for updates...");
+    NSMutableArray *found = [NSMutableArray new];
+    
+    char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
+    sqlite3_exec(database, createUpdates, NULL, 0, NULL);
+    NSLog(@"err: %s", sqlite3_errmsg(database));
+    
+    NSLog(@"[Zebra] Deleting from UPDATES");
+    char *updates = "DELETE FROM UPDATES;";
+    sqlite3_exec(database, updates, NULL, 0, NULL);
+    NSLog(@"err: %s", sqlite3_errmsg(database));
+    
+    NSLog(@"[Zebra] Beginning update loop...");
+    for (ZBPackage *package in installedPackages) {
+        if ([found containsObject:[package identifier]]) {
+            NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
+            continue;
+        }
+        
+        ZBPackage *topPackage = [self topVersionForPackage:package];
+        if ([package compare:topPackage] == NSOrderedAscending) {
+            NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
+            numberOfUpdates++;
+            NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
+            sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
+        }
+        [found addObject:[package identifier]];
+    }
     sqlite3_close(database);
 }
 
@@ -186,6 +220,7 @@
     int repoID = -1;
     while (sqlite3_step(statement) == SQLITE_ROW) {
         repoID = sqlite3_column_int(statement, 0);
+        break;
     }
     sqlite3_finalize(statement);
 
@@ -200,6 +235,7 @@
     int repoID = 0;
     while (sqlite3_step(statement) == SQLITE_ROW) {
         repoID = sqlite3_column_int(statement, 0);
+        break;
     }
 
     sqlite3_finalize(statement);
@@ -501,27 +537,32 @@
         query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID < 1;", [package identifier]];
     }
 
+    
+    BOOL packageIsInstalled = false;
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        return true;
+        packageIsInstalled = true;
+        break;
     }
     sqlite3_finalize(statement);
 
-    return false;
+    return packageIsInstalled;
 }
 
 - (BOOL)packageIsAvailable:(NSString *)package inDatabase:(sqlite3 *)database {
     NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID != 0;", package];
 
+    BOOL packageIsAvailable = false;
     sqlite3_stmt *statement;
     sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
     while (sqlite3_step(statement) == SQLITE_ROW) {
-        return true;
+        packageIsAvailable = true;
+        break;
     }
     sqlite3_finalize(statement);
 
-    return false;
+    return packageIsAvailable;
 }
 
 - (ZBPackage *)packageForID:(NSString *)identifier equalVersion:(NSString *)version {

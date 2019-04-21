@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDate *)lastUpdated;
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested;
 - (void)justImportLocal;
-- (void)importLocalPackages:(BOOL)checkForUpdates;
+- (void)importLocalPackages;
 - (int)numberOfPackagesInRepo:(ZBRepo *)repo;
 - (NSArray <ZBPackage *> *)installedPackages;
 - (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;

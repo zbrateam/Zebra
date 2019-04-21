@@ -63,6 +63,7 @@
             return;
         }
     }
+    sqlite3_close(database);
 }
 
 - (ZBPackage *)packageThatResolvesDependency:(NSString *)line {
@@ -171,6 +172,7 @@
     else {
         NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
     }
+    sqlite3_close(database);
 }
 
 @end
