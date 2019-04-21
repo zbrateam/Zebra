@@ -16,6 +16,7 @@
 
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
+    ZBDatabaseManager *databaseManager;
 }
 @end
 
@@ -33,12 +34,13 @@
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [[ZBDatabaseManager alloc] init];
     [databaseManager setDatabaseDelegate:self];
     [databaseManager updateDatabaseUsingCaching:true requested:false];
 }
 
 - (void)setPackageUpdateBadgeValue:(int)updates {
+    [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
         
@@ -51,6 +53,13 @@
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         }
     });
+}
+
+- (void)updatePackagesTableView {
+    UINavigationController *navController = self.viewControllers[2];
+    ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
+    
+    [packagesController refreshTable];
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
@@ -75,6 +84,7 @@
             sourcesItem.badgeValue = nil;
         }
     });
+    [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
 }
 
 #pragma mark - Database Delegate

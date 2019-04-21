@@ -62,18 +62,19 @@
 }
 
 - (void)refreshTable {
-    packages = [databaseManager installedPackages];
-    numberOfPackages = (int)[packages count];
-    
-    NSArray *_updates = [databaseManager packagesWithUpdates];
-    NSLog(@"updates: %@", _updates);
-    needsUpdatesSection = [_updates count] > 0;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->packages = [self->databaseManager installedPackages];
+        self->numberOfPackages = (int)[self->packages count];
+        
+        NSArray *_updates = [self->databaseManager packagesWithUpdates];
+        self->needsUpdatesSection = [_updates count] > 0;
 
-    if (needsUpdatesSection) {
-        updates = _updates;
-    }
-    
-    [self.tableView reloadData];
+        if (self->needsUpdatesSection) {
+            self->updates = _updates;
+        }
+        
+        [self.tableView reloadData];
+    });
 }
 
 - (void)loadNextPackages {
