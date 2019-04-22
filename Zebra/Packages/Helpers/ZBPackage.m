@@ -9,6 +9,7 @@
 #import "ZBPackage.h"
 #import <Parsel/dpkgver.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <ZBAppDelegate.h>
 
 @implementation ZBPackage
 
@@ -130,6 +131,48 @@
 
 - (BOOL)isPaid {
     return [tags containsObject:@"cydia::commercial"];
+}
+
+- (NSString *)getField:(NSString *)field {
+    NSString *value;
+    
+    ZBRepo *repo = [self repo];
+    
+    if (repo == NULL) return NULL;
+    
+    NSString *listsLocation = [ZBAppDelegate listsLocation];
+    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_Packages"];
+    NSFileManager *filemanager = [NSFileManager defaultManager];
+    
+    if (![filemanager fileExistsAtPath:filename]) {
+        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_main_binary-iphoneos-arm_Packages"];
+        
+        if (![filemanager fileExistsAtPath:filename]) {
+            return NULL;
+        }
+    }
+    
+    NSString *packageIdentifier = [[self identifier] stringByAppendingString:@"\n"];
+    
+    NSError *readError;
+    NSString *contents = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&readError];
+    
+    if (readError != NULL) {
+        NSLog(@"Error: %@", readError);
+        
+        return readError.localizedDescription;
+    }
+    
+    NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
+    [scanner scanUpToString:packageIdentifier intoString:NULL];
+    NSString *packageInfo;
+    [scanner scanUpToString:@"\n\n" intoString:&packageInfo];
+    if (packageInfo == NULL) return NULL;
+    scanner = [[NSScanner alloc] initWithString:packageInfo];
+    [scanner scanUpToString:[field stringByAppendingString:@": "] intoString:NULL];
+    [scanner scanUpToString:@"\n" intoString:&value];
+    
+    return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
 @end
