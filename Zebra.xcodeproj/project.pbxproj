@@ -14,6 +14,8 @@
 		893A17E5225FC24200E253CD /* report@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893A17E3225FC24200E253CD /* report@2x.png */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
+		896BAC3F226D587E0020AC3C /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 896BAC3E226D587E0020AC3C /* utiicon.png */; };
+		896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */; };
 		896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBRepoManager.m */; };
 		896F11C321B231900017B581 /* ZBRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBRepo.m */; };
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
@@ -64,6 +66,9 @@
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
+		896BAC3E226D587E0020AC3C /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
+		896BAC40226D5C440020AC3C /* ZBExternalPackageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBExternalPackageTableViewController.h; sourceTree = "<group>"; };
+		896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBExternalPackageTableViewController.m; sourceTree = "<group>"; };
 		896F11BB21B231490017B581 /* ZBRepoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoManager.h; sourceTree = "<group>"; };
 		896F11BC21B231490017B581 /* ZBRepoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoManager.m; sourceTree = "<group>"; };
 		896F11C121B231900017B581 /* ZBRepo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepo.h; sourceTree = "<group>"; };
@@ -183,6 +188,8 @@
 				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
 				89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */,
 				89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */,
+				896BAC40226D5C440020AC3C /* ZBExternalPackageTableViewController.h */,
+				896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -344,6 +351,7 @@
 		89E8633E21D5A9CE0081E485 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				896BAC3E226D587E0020AC3C /* utiicon.png */,
 				89E8637521D5AF920081E485 /* HTML */,
 			);
 			path = Resources;
@@ -432,6 +440,7 @@
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
 				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
 				89E8638021D5AFAA0081E485 /* url@2x.png in Resources */,
+				896BAC3F226D587E0020AC3C /* utiicon.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
 				893A17E4225FC24200E253CD /* report@3x.png in Resources */,
 				89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */,
@@ -464,6 +473,7 @@
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
 				89CA2139224043D1008F09DB /* dpkgver.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
+				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,

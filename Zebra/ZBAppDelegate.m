@@ -8,6 +8,7 @@
 
 #import "ZBAppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
+#import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 
 @interface ZBAppDelegate ()
 
@@ -121,12 +122,24 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (![ZBAppDelegate needsSimulation]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
+        
+        ZBExternalPackageTableViewController *external = vc.viewControllers[0];
+        external.fileURL = url;
+        
+        [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+    }
+    
+    return true;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

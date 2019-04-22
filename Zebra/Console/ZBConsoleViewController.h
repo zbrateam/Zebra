@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) ZBQueue *queue;
+@property (nonatomic) BOOL externalInstall;
+@property (strong, nonatomic) NSString *externalFilePath;
 @end
 
 NS_ASSUME_NONNULL_END

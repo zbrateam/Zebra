@@ -17,6 +17,7 @@
 @interface ZBConsoleViewController () {
     int stage;
     BOOL continueWithInstall;
+    NSArray *akton;
 }
 @end
 
@@ -34,8 +35,16 @@
     queue = [ZBQueue sharedInstance];
     stage = -1;
     continueWithInstall = true;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    if ([queue needsHyena]) {
+    if (_externalInstall) {
+        akton = @[@[@0], @[@"dpkg", @"-i", _externalFilePath]];
+        [self performActions];
+    }
+    else if ([queue needsHyena]) {
         [self downloadPackages];
     }
     else {
@@ -58,14 +67,8 @@
 }
 
 - (void)performActions:(NSArray *)debs {
-    if ([ZBAppDelegate needsSimulation]) {
-        [self writeToConsole:@"Console actions are not available on the simulator\n" atLevel:ZBLogLevelWarning];
-        [self refreshLocalPackages];
-    }
-    else if (continueWithInstall) {
-        NSArray *actions = [queue tasks:debs];
-        
-        for (NSArray *command in actions) {
+    if (akton != NULL) {
+        for (NSArray *command in akton) {
             if ([command count] == 1) {
                 [self updateStatus:[command[0] intValue]];
             }
@@ -96,6 +99,47 @@
             }
         }
         [self refreshLocalPackages];
+    }
+    else {
+        if ([ZBAppDelegate needsSimulation]) {
+            [self writeToConsole:@"Console actions are not available on the simulator\n" atLevel:ZBLogLevelWarning];
+            [self refreshLocalPackages];
+        }
+        else if (continueWithInstall) {
+            NSArray *actions = [queue tasks:debs];
+            
+            for (NSArray *command in actions) {
+                if ([command count] == 1) {
+                    [self updateStatus:[command[0] intValue]];
+                }
+                else {
+                    if (![ZBAppDelegate needsSimulation]) {
+                        NSTask *task = [[NSTask alloc] init];
+                        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                        [task setArguments:command];
+                        
+                        NSLog(@"[Zebra] Performing actions: %@", command);
+                        
+                        NSPipe *outputPipe = [[NSPipe alloc] init];
+                        NSFileHandle *output = [outputPipe fileHandleForReading];
+                        [output waitForDataInBackgroundAndNotify];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+                        
+                        NSPipe *errorPipe = [[NSPipe alloc] init];
+                        NSFileHandle *error = [errorPipe fileHandleForReading];
+                        [error waitForDataInBackgroundAndNotify];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+                        
+                        [task setStandardOutput:outputPipe];
+                        [task setStandardError:errorPipe];
+                        
+                        [task launch];
+                        [task waitUntilExit];
+                    }
+                }
+            }
+            [self refreshLocalPackages];
+        }
     }
 }
 

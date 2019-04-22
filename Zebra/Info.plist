@@ -2,10 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SBAppUsesLocalNotifications</key>
-	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.debian.deb-archive</string>
+			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>utiicon</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Debian Package</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,6 +42,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>SBAppUsesLocalNotifications</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -47,6 +64,37 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.archive</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Debian Package</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>utiicon.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>org.debian.deb-archive</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>deb</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-debian-package</string>
+					<string>application/x-deb</string>
+					<string>application/vnd.debian.binary-package</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
