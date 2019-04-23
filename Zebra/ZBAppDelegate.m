@@ -9,6 +9,7 @@
 #import "ZBAppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
+#import <ZBTabBarController.h>
 
 @interface ZBAppDelegate ()
 
@@ -138,12 +139,61 @@
                 
                 [self.window.rootViewController presentViewController:vc animated:true completion:nil];
             }
+            break;
         }
         case 1: { //zbra
-            NSLog(@"URL: %@", url);
+            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+            NSLog(@"%@", [url host]);
+            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+            choices = @[@"home", @"sources", @"packages", @"search"];
+            index = (int)[choices indexOfObject:components[0]];
+            
+            switch (index) {
+                case 0: {
+                    [tabController setSelectedIndex:0];
+                    break;
+                }
+                case 1: {
+                    [tabController setSelectedIndex:1];
+                    break;
+                }
+                case 2: {
+                    [tabController setSelectedIndex:2];
+                    break;
+                }
+                case 3: {
+                    [tabController setSelectedIndex:3];
+                    break;
+                }
+            }
+            break;
         }
         case 2: { //cydia
-            NSLog(@"URL: %@", url);
+            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+            NSLog(@"%@", [url host]);
+            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+            choices = @[@"home", @"sources", @"package", @"search"];
+            index = (int)[choices indexOfObject:components[0]];
+            
+            switch (index) {
+                case 0: {
+                    [tabController setSelectedIndex:0];
+                    break;
+                }
+                case 1: {
+                    [tabController setSelectedIndex:1];
+                    break;
+                }
+                case 2: {
+                    [tabController setSelectedIndex:2];
+                    break;
+                }
+                case 3: {
+                    [tabController setSelectedIndex:3];
+                    break;
+                }
+            }
+            break;
         }
         default: { //WHO ARE YOU????
             return false;
