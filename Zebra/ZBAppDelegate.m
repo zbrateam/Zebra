@@ -123,14 +123,31 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if (![ZBAppDelegate needsSimulation]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
-        
-        ZBExternalPackageTableViewController *external = vc.viewControllers[0];
-        external.fileURL = url;
-        
-        [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+    
+    NSArray *choices = @[@"file", @"zbra", @"cydia"];
+    int index = (int)[choices indexOfObject:[url scheme]];
+    
+    switch (index) {
+        case 0: { //file
+            if (![ZBAppDelegate needsSimulation]) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
+                
+                ZBExternalPackageTableViewController *external = vc.viewControllers[0];
+                external.fileURL = url;
+                
+                [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+            }
+        }
+        case 1: { //zbra
+            NSLog(@"URL: %@", url);
+        }
+        case 2: { //cydia
+            NSLog(@"URL: %@", url);
+        }
+        default: { //WHO ARE YOU????
+            return false;
+        }
     }
     
     return true;

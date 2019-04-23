@@ -7,18 +7,18 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.debian.deb-archive</string>
-			</array>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
 				<string>utiicon</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Debian Package</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.debian.deb-archive</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -33,6 +33,22 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>utiicon</string>
+			<key>CFBundleURLName</key>
+			<string>Zebra</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>zbra</string>
+				<string>cydia</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
