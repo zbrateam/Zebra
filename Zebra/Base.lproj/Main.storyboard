@@ -74,7 +74,6 @@
         <scene sceneID="35g-Dk-Ggy">
             <objects>
                 <tabBarController storyboardIdentifier="tabController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hO2-4F-c4Y" customClass="ZBTabBarController" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="U5u-DW-jYm"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NHP-Wb-N30">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -307,7 +306,7 @@
         <!--Web View Controller-->
         <scene sceneID="gGs-QH-SO6">
             <objects>
-                <viewController storyboardIdentifier="webController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXr-io-rHa" customClass="ZBWebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXr-io-rHa" customClass="ZBWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mIX-qw-b7e"/>
                         <viewControllerLayoutGuide type="bottom" id="pQQ-dO-Lp1"/>
