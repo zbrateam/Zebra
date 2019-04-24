@@ -256,9 +256,9 @@
         NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 UIImage *image = [UIImage imageWithData:data];
+                UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
                         if (updateCell) {
                             updateCell.imageView.image = image;
                             CGSize itemSize = CGSizeMake(35, 35);
@@ -272,6 +272,13 @@
                         }
                     });
                     [databaseManager saveIcon:image forRepo:source];
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (updateCell) {
+                            updateCell.imageView.image = [UIImage imageNamed:@"Unknown"];
+                        }
+                    });
                 }
             }
             if (error) {
