@@ -192,7 +192,7 @@
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)[downloadTask response];
     NSInteger responseCode = [httpResponse statusCode];
-    NSURL *url = [httpResponse URL];
+    NSURL *url = [[downloadTask originalRequest] URL];
     NSString *filename = [url lastPathComponent];
     if (responseCode != 200 && responseCode != 304) { //Handle error code
         if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
@@ -222,7 +222,7 @@
     else { //Download success
         if ([[filename lastPathComponent] containsString:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
-            NSString *filename = [[[downloadTask currentRequest] URL] lastPathComponent];
+            NSString *filename = [[[downloadTask originalRequest] URL] lastPathComponent];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
             
             [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
