@@ -183,6 +183,7 @@
     char *updates = "DELETE FROM UPDATES;";
     sqlite3_exec(database, updates, NULL, 0, NULL);
     
+    numberOfUpdates = 0;
     for (ZBPackage *package in installedPackages) {
         if ([found containsObject:[package identifier]]) {
             NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
