@@ -10,4 +10,6 @@
 
 @interface UIColor (GlobalColors)
 +(UIColor*)tintColor;
++(UIColor*)navBarTintColor;
++(UIColor*)badgeColor;
 @end

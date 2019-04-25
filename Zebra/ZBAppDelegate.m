@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <ZBTabBarController.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBAppDelegate ()
 
@@ -119,6 +120,8 @@
             [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
         }
     }
+    
+    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     
     return YES;
 }

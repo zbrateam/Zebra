@@ -9,6 +9,7 @@
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -22,6 +23,8 @@
     [super loadView];
     
     _queue = [ZBQueue sharedInstance];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
         self.navigationItem.rightBarButtonItem.enabled = false;

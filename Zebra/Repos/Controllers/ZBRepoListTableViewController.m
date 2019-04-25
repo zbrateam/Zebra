@@ -15,6 +15,7 @@
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -36,7 +37,7 @@
     for (ZBRepo *source in sources) {
         [bfns addObject:[source baseFileName]];
     }
-    
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -137,6 +138,7 @@
 
 - (void)showAddRepoAlert:(NSURL *)url {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter URL" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tintColor = [UIColor tintColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -190,7 +192,7 @@
 - (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Unable to verify Repo" message:message preferredStyle:UIAlertControllerStyleAlert];
-        
+        alertController.view.tintColor = [UIColor tintColor];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [alertController dismissViewControllerAnimated:true completion:nil];
             [self showAddRepoAlert:url];

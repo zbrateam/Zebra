@@ -10,6 +10,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
@@ -28,7 +29,7 @@
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
     searchController.searchBar.delegate = self;
-    searchController.searchBar.tintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+    searchController.searchBar.tintColor = [UIColor tintColor];
     searchController.searchBar.placeholder = @"Packages";
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
