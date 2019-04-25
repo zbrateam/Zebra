@@ -11,6 +11,7 @@
 #import <ZBAppDelegate.h>
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBWebViewController () {
     NSURL *_url;
@@ -23,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
@@ -57,6 +60,7 @@
     webView.navigationDelegate = self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
+    webView.tintColor = [UIColor tintColor];
     
     if (_url != NULL) {
         if (@available(iOS 11.0, *)) {

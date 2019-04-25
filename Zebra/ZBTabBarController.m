@@ -13,6 +13,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBRefreshViewController.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
@@ -28,7 +29,8 @@
     [super viewDidLoad];
 
     if (@available(iOS 10.0, *)) {
-        UITabBarItem.appearance.badgeColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+        UITabBar.appearance.tintColor = [UIColor navBarTintColor];
+        UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];

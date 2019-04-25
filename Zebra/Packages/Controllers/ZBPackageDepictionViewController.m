@@ -14,6 +14,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -52,6 +53,8 @@
     self.navigationController.navigationBar.translucent = false;
     self.tabBarController.tabBar.translucent = false;
     
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) ~ %@", PACKAGE_VERSION];
     
@@ -78,7 +81,7 @@
     [progressView.leadingAnchor constraintEqualToAnchor:webView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
     
-    [progressView setTintColor:[UIColor colorWithRed:0.4 green:0.5 blue:0.97 alpha:1.0]];
+    [progressView setTintColor:[UIColor tintColor]];
     
     webView.navigationDelegate = self;
     webView.opaque = false;
@@ -142,7 +145,7 @@
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
             SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
             if (@available(iOS 10.0, *)) {
-                sfVC.preferredControlTintColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+                sfVC.preferredControlTintColor = [UIColor tintColor];
             }
             [self presentViewController:sfVC animated:true completion:nil];
             decisionHandler(WKNavigationActionPolicyCancel);

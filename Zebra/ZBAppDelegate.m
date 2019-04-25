@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <ZBTabBarController.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBAppDelegate ()
 
@@ -120,6 +121,8 @@
         }
     }
     
+    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+    
     return YES;
 }
 
@@ -201,6 +204,16 @@
     }
     
     return true;
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    // TODO: Make these actually work
+    if ([shortcutItem.type isEqualToString:@"Search"]) {
+        NSLog(@"Search Action Selected");
+    }
+    else if ([shortcutItem.type isEqualToString:@"Add"]) {
+        NSLog(@"Add Repo Action Selected");
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
