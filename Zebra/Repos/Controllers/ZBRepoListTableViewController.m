@@ -16,13 +16,18 @@
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBAddRepoViewController.h"
+#import "ZBAddRepoDelegate.h"
 
-@interface ZBRepoListTableViewController () {
+@interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
     NSArray *sources;
     NSMutableArray *bfns;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
 }
+
+@property (nonatomic, retain) ZBRepoManager *repoManager;
+
 @end
 
 @implementation ZBRepoListTableViewController
@@ -32,6 +37,7 @@
     
     databaseManager = [[ZBDatabaseManager alloc] init];
     sources = [databaseManager sources];
+    self.repoManager = [[ZBRepoManager alloc] init];
     
     bfns = [NSMutableArray new];
     for (ZBRepo *source in sources) {
@@ -137,56 +143,7 @@
 }
 
 - (void)showAddRepoAlert:(NSURL *)url {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter URL" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    alertController.view.tintColor = [UIColor tintColor];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:true completion:nil];
-        
-        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
-        NSString *sourceURL = alertController.textFields[0].text;
-        
-        UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:wait animated:true completion:nil];
-        
-        [repoManager addSourceWithURL:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
-            if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-                
-                [wait dismissViewControllerAnimated:true completion:^{
-                    [self presentVerificationFailedAlert:error url:url];
-                }];
-            }
-            else {
-                [wait dismissViewControllerAnimated:true completion:^{
-                    NSLog(@"[Zebra] Added source.");
-                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                        [self presentViewController:console animated:true completion:nil];
-                    });
-                }];
-            }
-        }];
-    }]];
-    
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        if (url != NULL) {
-            textField.text = [url absoluteString];
-        }
-        else {
-            textField.text = @"https://";
-        }
-        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        textField.keyboardType = UIKeyboardTypeURL;
-        textField.returnKeyType = UIReturnKeyNext;
-    }];
-    
-    [self presentViewController:alertController animated:true completion:nil];
+    [self performSegueWithIdentifier:@"showAddSources" sender:self];
 }
 
 - (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url {
@@ -201,6 +158,52 @@
         
         [self presentViewController:alertController animated:true completion:nil];
     });
+}
+
+-(void)addReposWithText:(NSString *)text {
+    UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:wait animated:true completion:nil];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self.repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            if (!success) {
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
+                
+                if (failedURLs.count > 0) {
+                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [weakSelf addReposWithText:text];
+                    }];
+                    
+                    [errorAlert addAction:retryAction];
+                }
+                
+                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
+                    addRepo.delegate = weakSelf;
+                    addRepo.text = text;
+                    
+                    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
+                    
+                    [weakSelf presentViewController:navCon animated:true completion:nil];
+                }];
+                
+                [errorAlert addAction:editAction];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                
+                [errorAlert addAction:cancelAction];
+                
+                [weakSelf presentViewController:errorAlert animated:true completion:nil];
+            } else {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                [weakSelf presentViewController:console animated:true completion:nil];
+            }
+        }];
+    }];
 }
 
 #pragma mark - Table view data source
@@ -308,18 +311,26 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
         
-        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
-        [repoManager deleteSource:delRepo];
+        [self.repoManager deleteSource:delRepo];
     }
  }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ZBRepoSectionsListTableViewController *destination = (ZBRepoSectionsListTableViewController *)[segue destinationViewController];
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    destination.repo = [sources objectAtIndex:indexPath.row];
+    UIViewController *destination = [segue destinationViewController];
+    
+    if ([destination isKindOfClass:[ZBRepoSectionsListTableViewController class]]) {
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        ((ZBRepoSectionsListTableViewController *)destination).repo = [sources objectAtIndex:indexPath.row];
+    } else if ([destination isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navCon = (UINavigationController *)destination;
+        UIViewController *firstVC = navCon.viewControllers.firstObject;
+        if ([firstVC isKindOfClass:[ZBAddRepoViewController class]]) {
+            ((ZBAddRepoViewController *)firstVC).delegate = self;
+        }
+    }
 }
 
 - (void)delewhoop:(NSNotification *)notification {
@@ -330,6 +341,12 @@
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
     [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+}
+
+#pragma mark - ZBAddRepoDelegate
+
+-(void)didAddReposWithText:(NSString *)text {
+    [self addReposWithText:text];
 }
 
 #pragma mark - Database Delegate
