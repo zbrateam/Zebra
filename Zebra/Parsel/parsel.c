@@ -209,6 +209,7 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
             char *info = strtok(line, "\n");
+            info = strtok(line, "\r");
             
             multi_tok_t s = init();
             
@@ -299,8 +300,9 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     dict *package = dict_new();
     int safeID = repoID;
     while (fgets(line, sizeof(line), file)) {
-        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
+        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\r") != 0) {
             char *info = strtok(line, "\n");
+            info = strtok(line, "\r");
             
             multi_tok_t s = init();
             
