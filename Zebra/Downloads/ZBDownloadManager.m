@@ -202,12 +202,12 @@
             
             if (readError) {
                 NSLog(@"%@", readError);
-                [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:readError];
+                [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
             }
             else {
                 NSLog(@"Response: %@", contents);
                 NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
-                [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:error];
+                [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
             }
         }
         else {
@@ -216,7 +216,7 @@
             if ([[filename lastPathComponent] containsString:@".deb"]) {
                 [self cancelAllTasksForSession:session];
             }
-            [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:error];
+            [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
         }
     }
     else { //Download success

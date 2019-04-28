@@ -153,8 +153,8 @@
 		8900FA512201EC6800476310 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				49F13DA622750C7C00609786 /* PackageTableViewCell.m */,
 				49F13DA522750C7C00609786 /* PackageTableViewCell.h */,
+				49F13DA622750C7C00609786 /* PackageTableViewCell.m */,
 				8977B6922206424B00CBACBB /* ZBPackage.h */,
 				8977B6932206424B00CBACBB /* ZBPackage.m */,
 			);
