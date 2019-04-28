@@ -9,19 +9,15 @@
 #import "UIColor+GlobalColors.h"
 
 @implementation UIColor (GlobalColors)
-+(UIColor*)tintColor
-{
-    UIColor *color = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-    return color;
++ (UIColor*)tintColor {
+    return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
-+(UIColor*)navBarTintColor
-{
-    UIColor *color = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
-    return color;
+
++ (UIColor*)navBarTintColor {
+    return [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
 }
-+(UIColor*)badgeColor
-{
-    UIColor *color = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-    return color;
+
++ (UIColor*)badgeColor {
+    return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }
 @end
