@@ -12,6 +12,8 @@
 #import <Queue/ZBQueue.h>
 #import <ZBTabBarController.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Packages/Helpers/PackageTableViewCell.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBPackageListTableViewController () {
     ZBDatabaseManager *databaseManager;
@@ -59,6 +61,11 @@
             totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
         }
     }
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView setContentInset:UIEdgeInsetsMake(10,0,5,0)];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+
 }
 
 - (void)refreshTable {
@@ -149,21 +156,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+    PackageTableViewCell *cell = (PackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
         
-        cell.textLabel.text = package.name;
-        cell.detailTextLabel.text = package.desc;
+        cell.packageLabel.text = package.name;
+        cell.descriptionLabel.text = package.desc;
         
         if ([package isPaid]) {
             cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
             cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-        }
-        else {
-            cell.textLabel.textColor = [UIColor blackColor];
-            cell.detailTextLabel.textColor = [UIColor blackColor];
         }
         
         NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -183,20 +186,20 @@
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
         
-        cell.textLabel.text = package.name;
-        cell.detailTextLabel.text = package.desc;
+        cell.packageLabel.text = package.name;
+        cell.descriptionLabel.text = package.desc;
         
         if ([package isPaid]) {
             cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
             cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
         }
-        else {
-            cell.textLabel.textColor = [UIColor blackColor];
-            cell.detailTextLabel.textColor = [UIColor blackColor];
-        }
         
         if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
+        }
+        
+        if ([databaseManager packageIsInstalled:package]) {
+            cell.isInstalledImageView.hidden = NO;
         }
         
         NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -239,6 +242,11 @@
     
     ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
     [[self navigationController] pushViewController:depictionController animated:true];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 65;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
