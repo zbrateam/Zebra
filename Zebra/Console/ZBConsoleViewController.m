@@ -140,6 +140,9 @@
             }
             [self refreshLocalPackages];
         }
+        else {
+            [self finishUp];
+        }
     }
 }
 
