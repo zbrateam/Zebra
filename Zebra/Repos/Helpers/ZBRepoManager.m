@@ -61,7 +61,6 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    request.HTTPMethod = @"HEAD";
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
     CFStringRef youDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
