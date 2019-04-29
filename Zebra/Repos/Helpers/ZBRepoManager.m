@@ -88,7 +88,17 @@
     [request setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        completion(response, error);
+        if ([(NSHTTPURLResponse *)response statusCode] != 200 || error != NULL) {
+            NSMutableURLRequest *gzRequest = [request copy];
+            [gzRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages.gz"]];
+            NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                completion(response, error);
+            }];
+            [gzTask resume];
+        }
+        else {
+            completion(response, error);
+        }
     }];
     [task resume];
 }
