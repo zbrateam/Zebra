@@ -216,7 +216,13 @@
             if ([[filename lastPathComponent] containsString:@".deb"]) {
                 [self cancelAllTasksForSession:session];
             }
-            [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+            
+            if ([[[[downloadTask originalRequest] URL] lastPathComponent] containsString:@".deb"]) {
+                [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+            }
+            else {
+                [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] absoluteString] withError:error];
+            }
         }
     }
     else { //Download success
