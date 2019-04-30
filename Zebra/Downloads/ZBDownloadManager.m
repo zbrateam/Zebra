@@ -10,14 +10,15 @@
 
 #import <UIKit/UIDevice.h>
 #import <sys/sysctl.h>
-#import <bzlib.h>
 
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
+#import <bzlib.h>
 #import <zlib.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -350,6 +351,12 @@
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
                     }
                     else {
+                        NSString *fileExtension = [finalPath pathExtension];
+                        NSString *UTI = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)fileExtension, NULL);
+                        NSString *contentType = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
+                        NSLog(@"Content Type: %@", [httpResponse MIMEType]);
+                        NSLog(@"[Zebra] %@, %@, %@", finalPath, UTI, contentType);
+                        
                         FILE *f = fopen([finalPath UTF8String], "r");
                         FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
                         
@@ -374,6 +381,9 @@
                         
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
+                            [self moveFileFromLocation:[NSURL URLWithString:[@"file://" stringByAppendingString:finalPath]] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
+                                NSLog(@"Moved");
+                            }];
                         }
                         
                         BZ2_bzReadClose(&bzError, bzf);
