@@ -700,7 +700,7 @@
     }
     
     if (error != NULL) {
-        [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ for %@ \n", [error.localizedDescription stringByReplacingOccurrencesOfString:@"." withString:@""], filename] atLevel:ZBLogLevelError];
+        [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ for %@ \n", error.localizedDescription, filename] atLevel:ZBLogLevelError];
     }
     else {
         [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
