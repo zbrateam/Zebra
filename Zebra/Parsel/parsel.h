@@ -16,6 +16,7 @@
 
 void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
+void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID);
 

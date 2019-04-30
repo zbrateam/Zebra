@@ -222,33 +222,35 @@
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
         }
         else {
-            if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
-                //Allows custom error message to be displayed by the repository using the body
-                NSError *readError;
-                NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
-                
-                if (readError) {
-                    NSLog(@"%@", readError);
-                    [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
+            if (![filename isEqualToString:@"Release"]) {
+                if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
+                    //Allows custom error message to be displayed by the repository using the body
+                    NSError *readError;
+                    NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
+                    
+                    if (readError) {
+                        NSLog(@"%@", readError);
+                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
+                    }
+                    else {
+                        NSLog(@"Response: %@", contents);
+                        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
+                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                    }
                 }
                 else {
-                    NSLog(@"Response: %@", contents);
-                    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
-                    [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
-                }
-            }
-            else {
-                NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
-                NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
-                if ([[filename lastPathComponent] containsString:@".deb"]) {
-                    [self cancelAllTasksForSession:session];
-                }
-                
-                if ([[[[downloadTask originalRequest] URL] lastPathComponent] containsString:@".deb"]) {
-                    [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
-                }
-                else {
-                    [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] absoluteString] withError:error];
+                    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
+                    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
+                    if ([[filename lastPathComponent] containsString:@".deb"]) {
+                        [self cancelAllTasksForSession:session];
+                    }
+                    
+                    if ([[[[downloadTask originalRequest] URL] lastPathComponent] containsString:@".deb"]) {
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                    }
+                    else {
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] absoluteString] withError:error];
+                    }
                 }
             }
         }

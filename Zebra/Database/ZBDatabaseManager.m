@@ -108,6 +108,7 @@
         if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
             NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
             repoID = [self nextRepoIDInDatabase:database];
+            createDummyRepo([[ZBAppDelegate sourceListLocation] UTF8String], [packagesPath UTF8String], database, repoID); //For repos with no release file (notably junesiphone)
             updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
         }
         else {
