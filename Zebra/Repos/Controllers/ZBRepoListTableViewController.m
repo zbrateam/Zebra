@@ -279,6 +279,14 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (updateCell) {
                             updateCell.imageView.image = [UIImage imageNamed:@"Unknown"];
+                            CGSize itemSize = CGSizeMake(35, 35);
+                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+                            [cell.imageView.image drawInRect:imageRect];
+                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+                            UIGraphicsEndImageContext();
+                            [updateCell setNeedsDisplay];
+                            [updateCell setNeedsLayout];
                         }
                     });
                 }
