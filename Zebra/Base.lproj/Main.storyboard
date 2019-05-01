@@ -236,6 +236,12 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="B5D-p6-E07" kind="show" id="z6v-6S-9G2">
+                                        <segue key="commit" inheritsFrom="parent" id="rVb-fb-vGF"/>
+                                        <segue key="preview" inheritsFrom="commit" id="0y0-j6-8U4"/>
+                                    </segue>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -706,7 +712,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="Pv2-GJ-f5b"/>
+        <segue reference="z6v-6S-9G2"/>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

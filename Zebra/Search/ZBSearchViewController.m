@@ -122,12 +122,14 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+    UITableViewCell *cell = (UITableViewCell *)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    ZBPackage *package = [results objectAtIndex:indexPath.row];
-    ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] init];
-    depictionController.package = package;
-    [[self navigationController] pushViewController:depictionController animated:true];
+    destination.package = [results objectAtIndex:indexPath.row];
 }
 
 @end
