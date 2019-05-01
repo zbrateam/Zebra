@@ -63,7 +63,6 @@
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView setContentInset:UIEdgeInsetsMake(10,0,5,0)];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 
 }
@@ -81,6 +80,7 @@
         }
         
         [self.tableView reloadData];
+        
     });
 }
 
@@ -198,16 +198,49 @@
     return 65;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
+
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
     if ([repo repoID] == 0 && needsUpdatesSection && section == 0) {
-        return @"Available Upgrades";
+        [label setText:@"Available Upgrades"];
     }
-    
-    if (needsUpdatesSection) {
-        return @"Installed Packages";
+    else if (needsUpdatesSection) {
+        [label setText:@"Installed Packages"];
     }
+    else {
+        [label setText:@""];
+    }
+    [view addSubview:label];
     
-    return @"";
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    // align label from the left and right
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    
+    // align label from the bottom
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+
+    
+    return view;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (([repo repoID] == 0 && needsUpdatesSection && section == 0)){
+        return 35;
+    }
+    else if (needsUpdatesSection) {
+        return 25;
+    }
+    else {
+        return 10;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
+}
+
 
 @end
