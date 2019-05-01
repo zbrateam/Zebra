@@ -112,7 +112,7 @@
                                             <rect key="frame" x="10" y="0.0" width="355" height="59.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOy-iL-BrR">
-                                                    <rect key="frame" x="60" y="10" width="285" height="20.5"/>
+                                                    <rect key="frame" x="60" y="10" width="247" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -130,10 +130,10 @@
                                                     <color key="textColor" red="0.43137254901960786" green="0.43137254901960786" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="77D-vl-t29">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="77D-vl-t29">
                                                     <rect key="frame" x="331" y="10" width="14" height="14"/>
                                                 </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="cqP-w8-LF1">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="cqP-w8-LF1">
                                                     <rect key="frame" x="312" y="10" width="14" height="14"/>
                                                 </imageView>
                                             </subviews>
@@ -146,9 +146,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="77D-vl-t29" secondAttribute="trailing" constant="10" id="R9A-tP-5Ha"/>
                                                 <constraint firstItem="NOy-iL-BrR" firstAttribute="top" secondItem="PAS-Sg-FcR" secondAttribute="top" constant="10" id="UeW-Rp-tC6"/>
                                                 <constraint firstItem="77D-vl-t29" firstAttribute="leading" secondItem="cqP-w8-LF1" secondAttribute="trailing" constant="5" id="UoO-iV-haB"/>
-                                                <constraint firstAttribute="trailing" secondItem="NOy-iL-BrR" secondAttribute="trailing" constant="10" id="XWR-Vo-IMH"/>
                                                 <constraint firstItem="RvR-Lj-vbv" firstAttribute="leading" secondItem="PAS-Sg-FcR" secondAttribute="leading" constant="10" id="c47-fO-87L"/>
                                                 <constraint firstItem="o8t-Jy-zLi" firstAttribute="leading" secondItem="RvR-Lj-vbv" secondAttribute="trailing" constant="10" id="p9v-NL-VPk"/>
+                                                <constraint firstItem="cqP-w8-LF1" firstAttribute="leading" secondItem="NOy-iL-BrR" secondAttribute="trailing" constant="5" id="uFM-Oy-cIQ"/>
                                                 <constraint firstItem="cqP-w8-LF1" firstAttribute="top" secondItem="PAS-Sg-FcR" secondAttribute="top" constant="10" id="xDQ-Cx-3tb"/>
                                                 <constraint firstItem="RvR-Lj-vbv" firstAttribute="top" secondItem="PAS-Sg-FcR" secondAttribute="top" constant="10" id="zQR-IA-uce"/>
                                             </constraints>
