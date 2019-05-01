@@ -1,5 +1,5 @@
 //
-//  PackageTableViewCell.h
+//  ZBPackageTableViewCell.h
 //  Zebra
 //
 //  Created by Andrew Abosh on 2019-04-27.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PackageTableViewCell : UITableViewCell
+@interface ZBPackageTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *packageLabel;

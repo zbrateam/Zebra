@@ -12,7 +12,7 @@
 #import <Queue/ZBQueue.h>
 #import <ZBTabBarController.h>
 #import <Repos/Helpers/ZBRepo.h>
-#import <Packages/Helpers/PackageTableViewCell.h>
+#import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 
 @interface ZBPackageListTableViewController () {
@@ -156,7 +156,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PackageTableViewCell *cell = (PackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];

@@ -1,16 +1,16 @@
 //
-//  PackageTableViewCell.m
+//  ZBPackageTableViewCell.m
 //  Zebra
 //
 //  Created by Andrew Abosh on 2019-04-27.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "PackageTableViewCell.h"
+#import "ZBPackageTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
 
-@implementation PackageTableViewCell
+@implementation ZBPackageTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
