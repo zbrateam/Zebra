@@ -178,21 +178,6 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    ZBPackage *package;
-    
-    if (needsUpdatesSection && indexPath.section == 0) {
-        package = [updates objectAtIndex:indexPath.row];
-    }
-    else {
-        package = [packages objectAtIndex:indexPath.row];
-    }
-    
-    ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
-    [[self navigationController] pushViewController:depictionController animated:true];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 65;
@@ -242,5 +227,22 @@
     return 5;
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+    UITableViewCell *cell = (UITableViewCell *)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ZBPackage *package;
+    if (needsUpdatesSection && indexPath.section == 0) {
+        package = [updates objectAtIndex:indexPath.row];
+    }
+    else {
+        package = [packages objectAtIndex:indexPath.row];
+    }
+    
+    destination.package = package;
+}
 
 @end

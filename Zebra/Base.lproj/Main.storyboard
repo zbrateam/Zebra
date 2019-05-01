@@ -168,6 +168,10 @@
                                     <outlet property="isInstalledImageView" destination="77D-vl-t29" id="EiI-8t-xiL"/>
                                     <outlet property="isPaidImageView" destination="cqP-w8-LF1" id="9o4-DE-pTK"/>
                                     <outlet property="packageLabel" destination="NOy-iL-BrR" id="Seh-OB-FCq"/>
+                                    <segue destination="B5D-p6-E07" kind="show" id="Pv2-GJ-f5b">
+                                        <segue key="commit" inheritsFrom="parent" id="ytY-fu-pms"/>
+                                        <segue key="preview" inheritsFrom="commit" id="VR3-sc-q6S"/>
+                                    </segue>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -181,6 +185,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifh-VS-hNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4277.6000000000004" y="443.92803598200902"/>
+        </scene>
+        <!--Package Depiction View Controller-->
+        <scene sceneID="aSD-cr-vZv">
+            <objects>
+                <viewController id="B5D-p6-E07" customClass="ZBPackageDepictionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="j8g-ah-bgN"/>
+                        <viewControllerLayoutGuide type="bottom" id="lyr-cW-NJO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o1A-46-hKa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7jM-DB-51u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5286" y="444"/>
         </scene>
         <!--Search-->
         <scene sceneID="HAh-Vm-r70">
@@ -684,6 +706,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
+        <segue reference="Pv2-GJ-f5b"/>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

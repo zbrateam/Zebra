@@ -100,7 +100,7 @@
 
 - (ZBPackage *)packageThatSatisfiesVersionComparison:(NSString *)line {
     NSArray *components = [line componentsSeparatedByString:@" ("];
-    if ([components count] == 1) {
+    if ([components count] == 1) { //Bad package maker alert
         components = [line componentsSeparatedByString:@"("];
     }
     

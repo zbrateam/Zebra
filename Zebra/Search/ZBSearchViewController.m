@@ -125,7 +125,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     ZBPackage *package = [results objectAtIndex:indexPath.row];
-    ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+    ZBPackageDepictionViewController *depictionController = [[ZBPackageDepictionViewController alloc] init];
+    depictionController.package = package;
     [[self navigationController] pushViewController:depictionController animated:true];
 }
 
