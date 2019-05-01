@@ -34,6 +34,15 @@
         self.iconImageView.image = sectionImage;
     }
     
+    self.isInstalledImageView.hidden = ![package isInstalled];
+    self.isPaidImageView.hidden = ![package isPaid];
+
+    if ([package isPaid] && ![package isInstalled]) {
+        self.isInstalledImageView.image = [UIImage imageNamed:@"Paid"];
+        self.isInstalledImageView.hidden = NO;
+        self.isPaidImageView.hidden = YES;
+    }
+    
 }
 
 - (void)layoutSubviews {
