@@ -18,6 +18,7 @@
 @synthesize version;
 @synthesize desc;
 @synthesize section;
+@synthesize sectionImageName;
 @synthesize depictionURL;
 @synthesize tags;
 @synthesize dependsOn;
@@ -89,6 +90,15 @@
         else {
             [self setRepo:[ZBRepo localRepo]];
         }
+        
+        NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+        if ([section characterAtIndex:[section length] - 1] == ')') {
+            NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
+            sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
+        }
+        [self setSectionImageName:sectionStripped];
+
+        
     }
     
     return self;

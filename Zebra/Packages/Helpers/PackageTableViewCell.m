@@ -8,6 +8,7 @@
 
 #import "PackageTableViewCell.h"
 #import <UIColor+GlobalColors.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation PackageTableViewCell
 
@@ -18,8 +19,24 @@
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
     self.backgroundContainerView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.backgroundContainerView.layer.cornerRadius = 5;
+    self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)updateData:(ZBPackage *)package {
+    self.packageLabel.text = package.name;
+    self.descriptionLabel.text = package.desc;
+    
+    if ([package isPaid]) {
+        self.packageLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+        self.descriptionLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+    }
+    
+    UIImage* sectionImage = [UIImage imageNamed:package.sectionImageName];
+    if (sectionImage != NULL) {
+        self.iconImageView.image = sectionImage;
+    }
 }
 
 - (void)layoutSubviews {
@@ -37,5 +54,4 @@
     }
     
 }
-
 @end

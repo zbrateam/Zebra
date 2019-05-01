@@ -161,54 +161,18 @@
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
         
-        cell.packageLabel.text = package.name;
-        cell.descriptionLabel.text = package.desc;
+        [cell updateData:package];
         
-        if ([package isPaid]) {
-            cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-            cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-        }
-        
-        NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        if ([section characterAtIndex:[section length] - 1] == ')') {
-            NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
-            section = [items[0] substringToIndex:[items[0] length] - 1];
-        }
-        
-        UIImage* sectionImage = [UIImage imageNamed:section];
-        if (sectionImage != NULL) {
-            cell.iconImageView.image = sectionImage;
-        }
     }
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
         
-        cell.packageLabel.text = package.name;
-        cell.descriptionLabel.text = package.desc;
-        
-        if ([package isPaid]) {
-            cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-            cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-        }
+        [cell updateData:package];
         
         if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
         
-        if ([databaseManager packageIsInstalled:package]) {
-            cell.isInstalledImageView.hidden = NO;
-        }
-        
-        NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        if ([section characterAtIndex:[section length] - 1] == ')') {
-            NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
-            section = [items[0] substringToIndex:[items[0] length] - 1];
-        }
-        
-        UIImage* sectionImage = [UIImage imageNamed:section];
-        if (sectionImage != NULL) {
-            cell.iconImageView.image = sectionImage;
-        }
     }
     
     if (cell.imageView.image != NULL) {

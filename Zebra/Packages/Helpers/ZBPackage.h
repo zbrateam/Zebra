@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *version;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *section;
+@property (nonatomic, strong) NSString *sectionImageName;
 @property (nonatomic, strong) NSURL *depictionURL;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) NSArray *dependsOn;
