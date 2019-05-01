@@ -33,6 +33,9 @@
     if (sectionImage != NULL) {
         self.iconImageView.image = sectionImage;
     }
+    else {
+        self.iconImageView.image = [UIImage imageNamed:@"Other"];
+    }
     
     self.isInstalledImageView.hidden = ![package isInstalled];
     self.isPaidImageView.hidden = ![package isPaid];
