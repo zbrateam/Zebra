@@ -660,7 +660,7 @@
         NSString *version = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
         
         ZBPackage *package = [self packageForID:identifier equalVersion:version];
-        [packagesWithUpdates addObject:package];
+        if (package != NULL) [packagesWithUpdates addObject:package];
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
