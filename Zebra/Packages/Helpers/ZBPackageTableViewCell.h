@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 
-- (void)updateData:(ZBPackage*)package;
+- (void)updateData:(ZBPackage*)package isInstalled:(BOOL)isInstalled;
 @end
 
 NS_ASSUME_NONNULL_END

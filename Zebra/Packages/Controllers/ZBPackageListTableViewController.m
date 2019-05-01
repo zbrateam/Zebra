@@ -160,15 +160,14 @@
     
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
-        
-        [cell updateData:package];
+        [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
         
     }
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
         
-        [cell updateData:package];
-        
+        [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
+
         if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
