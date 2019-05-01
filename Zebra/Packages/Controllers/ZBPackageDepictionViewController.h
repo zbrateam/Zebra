@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate>
 @property (nonatomic, strong) ZBPackage *package;
+@property (nonatomic, weak) UIViewController *parent;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -243,6 +243,7 @@
     }
     
     destination.package = package;
+    destination.parent = self;
 }
 
 @end

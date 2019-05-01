@@ -156,14 +156,9 @@
 
 - (void)configureNavButton {
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-//    NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
     if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package]) {
 //        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
-        
-        sqlite3 *database;
-        sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
-        
-        otherVersions = [databaseManager otherVersionsForPackage:package inDatabase:database];
+        otherVersions = [databaseManager otherVersionsForPackage:package];
         if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
@@ -172,8 +167,6 @@
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
-        
-        sqlite3_close(database);
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -185,9 +178,7 @@
     ZBQueue *queue = [ZBQueue sharedInstance];
     [queue addPackage:package toQueue:ZBQueueTypeInstall];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    [self presentViewController:vc animated:true completion:nil];
+    [self presentQueue];
 }
 
 - (void)modifyPackage {
@@ -198,9 +189,7 @@
         [queue addPackage:self->package toQueue:ZBQueueTypeRemove];
         
         [alert dismissViewControllerAnimated:true completion:nil];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-        [self presentViewController:vc animated:true completion:nil];
+        [self presentQueue];
     }];
     
     [alert addAction:remove];
@@ -210,9 +199,7 @@
         [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
         
         [alert dismissViewControllerAnimated:true completion:nil];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-        [self presentViewController:vc animated:true completion:nil];
+        [self presentQueue];
     }];
     
     [alert addAction:reinstall];
@@ -232,9 +219,7 @@
             [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
             
             [alert dismissViewControllerAnimated:true completion:nil];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-            [self presentViewController:vc animated:true completion:nil];
+            [self presentQueue];
         }];
         
         [alert addAction:upgrade];
@@ -263,13 +248,8 @@
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
             
-//            NSLog(@"Package repoID %d", [[downPackage repo] repoID]);
-            
             [alert dismissViewControllerAnimated:true completion:nil];
-            
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-            [self presentViewController:vc animated:true completion:nil];
+            [self presentQueue];
         }];
         
         [alert addAction:action];
@@ -289,14 +269,61 @@
 - (void)removePackage {
     ZBQueue *queue = [ZBQueue sharedInstance];
     [queue addPackage:package toQueue:ZBQueueTypeRemove];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    [self presentViewController:vc animated:true completion:nil];
+    [self presentQueue];
 }
 
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
 }
+
+- (void)presentQueue {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+    
+    if (self.navigationController == NULL && _parent != NULL) {
+        [_parent presentViewController:vc animated:true completion:nil];
+    }
+    else {
+        [self presentViewController:vc animated:true completion:nil];
+    }
+}
+
+//3D Touch Actions
+
+- (NSArray *)previewActionItems {
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package]) {
+        otherVersions = [databaseManager otherVersionsForPackage:package];
+        if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
+            UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                [self removePackage];
+            }];
+            
+            UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                ZBQueue *queue = [ZBQueue sharedInstance];
+                [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
+                
+                [self presentQueue];
+            }];
+            
+            return @[remove, reinstall];
+        }
+        else { //Show remove, its just a local package
+            UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                [self removePackage];
+            }];
+            
+            return @[remove];
+        }
+    }
+    else {
+        UIPreviewAction *install = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [self installPackage];
+        }];
+        
+        return @[install];
+    }
+}
+
 
 @end
