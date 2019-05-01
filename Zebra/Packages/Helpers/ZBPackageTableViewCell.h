@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *packageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 
 - (void)updateData:(ZBPackage*)package;
 @end

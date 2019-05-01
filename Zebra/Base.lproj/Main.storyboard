@@ -133,6 +133,9 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="77D-vl-t29">
                                                     <rect key="frame" x="331" y="10" width="14" height="14"/>
                                                 </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="cqP-w8-LF1">
+                                                    <rect key="frame" x="312" y="10" width="14" height="14"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -142,9 +145,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="o8t-Jy-zLi" secondAttribute="trailing" constant="10" id="PgS-t0-TsU"/>
                                                 <constraint firstAttribute="trailing" secondItem="77D-vl-t29" secondAttribute="trailing" constant="10" id="R9A-tP-5Ha"/>
                                                 <constraint firstItem="NOy-iL-BrR" firstAttribute="top" secondItem="PAS-Sg-FcR" secondAttribute="top" constant="10" id="UeW-Rp-tC6"/>
+                                                <constraint firstItem="77D-vl-t29" firstAttribute="leading" secondItem="cqP-w8-LF1" secondAttribute="trailing" constant="5" id="UoO-iV-haB"/>
                                                 <constraint firstAttribute="trailing" secondItem="NOy-iL-BrR" secondAttribute="trailing" constant="10" id="XWR-Vo-IMH"/>
                                                 <constraint firstItem="RvR-Lj-vbv" firstAttribute="leading" secondItem="PAS-Sg-FcR" secondAttribute="leading" constant="10" id="c47-fO-87L"/>
                                                 <constraint firstItem="o8t-Jy-zLi" firstAttribute="leading" secondItem="RvR-Lj-vbv" secondAttribute="trailing" constant="10" id="p9v-NL-VPk"/>
+                                                <constraint firstItem="cqP-w8-LF1" firstAttribute="top" secondItem="PAS-Sg-FcR" secondAttribute="top" constant="10" id="xDQ-Cx-3tb"/>
                                                 <constraint firstItem="RvR-Lj-vbv" firstAttribute="top" secondItem="PAS-Sg-FcR" secondAttribute="top" constant="10" id="zQR-IA-uce"/>
                                             </constraints>
                                         </view>
@@ -161,6 +166,7 @@
                                     <outlet property="descriptionLabel" destination="o8t-Jy-zLi" id="ZGF-P9-lRO"/>
                                     <outlet property="iconImageView" destination="RvR-Lj-vbv" id="GBp-Xx-tQb"/>
                                     <outlet property="isInstalledImageView" destination="77D-vl-t29" id="EiI-8t-xiL"/>
+                                    <outlet property="isPaidImageView" destination="cqP-w8-LF1" id="9o4-DE-pTK"/>
                                     <outlet property="packageLabel" destination="NOy-iL-BrR" id="Seh-OB-FCq"/>
                                 </connections>
                             </tableViewCell>
@@ -672,6 +678,7 @@
         <image name="Home" width="25" height="25"/>
         <image name="Installed" width="14" height="14"/>
         <image name="Packages" width="25" height="25"/>
+        <image name="Paid" width="14" height="14"/>
         <image name="Search" width="25" height="25"/>
         <image name="Sources" width="25" height="25"/>
     </resources>
