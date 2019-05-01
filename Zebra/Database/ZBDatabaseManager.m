@@ -512,10 +512,10 @@
     sqlite3_close(database);
 }
 
-- (BOOL)packageIsInstalled:(ZBPackage *)package {
+- (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict {
     sqlite3 *database;
     sqlite3_open([databasePath UTF8String], &database);
-    BOOL isInstalled = [self packageIsInstalled:package versionStrict:false inDatabase:database];
+    BOOL isInstalled = [self packageIsInstalled:package versionStrict:strict inDatabase:database];
     sqlite3_close(database);
 
     return isInstalled;

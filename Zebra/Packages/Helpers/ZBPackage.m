@@ -10,6 +10,7 @@
 #import <Parsel/dpkgver.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBAppDelegate.h>
+#import <Database/ZBDatabaseManager.h>
 
 @implementation ZBPackage
 
@@ -183,6 +184,13 @@
     [scanner scanUpToString:@"\n" intoString:&value];
     
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
+}
+
+- (BOOL)isInstalled {
+    if ([repo repoID] == 0) return true;
+    
+    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    return [databaseManager packageIsInstalled:self versionStrict:false];
 }
 
 @end
