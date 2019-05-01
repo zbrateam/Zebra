@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo;
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section;
 - (void)dropTables;
-- (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict;
+- (BOOL)packageIsInstalled:(ZBPackage *)package;
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict inDatabase:(sqlite3 *)database;
 - (BOOL)packageIsAvailable:(ZBPackage *)package inDatabase:(sqlite3 *)database;
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database;
