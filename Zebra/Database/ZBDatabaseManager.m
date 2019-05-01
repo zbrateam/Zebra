@@ -364,6 +364,15 @@
     sqlite3_close(database);
 }
 
+- (NSArray *)otherVersionsForPackage:(ZBPackage *)package {
+    sqlite3 *database;
+    sqlite3_open([databasePath UTF8String], &database);
+    NSArray *otherVersions = [self otherVersionsForPackage:package inDatabase:database];
+    sqlite3_close(database);
+    
+    return otherVersions;
+}
+
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database {
     NSMutableArray *otherVersions = [NSMutableArray new];
 

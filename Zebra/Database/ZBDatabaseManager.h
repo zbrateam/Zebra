@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBRepo *> *)sources;
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)deleteRepo:(ZBRepo *)repo;
+- (NSArray *)otherVersionsForPackage:(ZBPackage *)package;
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database;
 - (NSArray *)cleanUpDuplicatePackages:(NSArray *)packageList;
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
