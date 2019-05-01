@@ -708,4 +708,8 @@
     }
 }
 
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    [_databaseDelegate postStatusUpdate:status atLevel:level];
+}
+
 @end
