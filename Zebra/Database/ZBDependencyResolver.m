@@ -100,6 +100,10 @@
 
 - (ZBPackage *)packageThatSatisfiesVersionComparison:(NSString *)line {
     NSArray *components = [line componentsSeparatedByString:@" ("];
+    if ([components count] == 1) {
+        components = [line componentsSeparatedByString:@"("];
+    }
+    
     NSString *depPackageID = components[0];
     NSArray *separate = [components[1] componentsSeparatedByString:@" "];
     
