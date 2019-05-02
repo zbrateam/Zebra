@@ -146,4 +146,26 @@
     destination.package = [results objectAtIndex:indexPath.row];
 }
 
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView
+                              indexPathForRowAtPoint:location];
+    
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    previewingContext.sourceRect = cell.frame;
+    
+    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    
+    packageDepictionVC.package = [results objectAtIndex:indexPath.row];
+
+    return packageDepictionVC;
+    
+}
+
+- (void)previewingContext:
+(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController *)viewControllerToCommit {
+    
+    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
 @end
