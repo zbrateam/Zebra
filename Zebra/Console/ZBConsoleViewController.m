@@ -46,8 +46,8 @@
     bundlePaths = [NSMutableArray new];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     if (_externalInstall) {
         akton = @[@[@0], @[@"dpkg", @"-i", _externalFilePath]];
