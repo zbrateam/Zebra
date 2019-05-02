@@ -81,8 +81,21 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if ((results.count > 0) || (results == nil)) {
+        tableView.backgroundView = nil;
+        return 1;
+    }
+    else {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height)];
+        label.text = @"No search results found.";
+        label.textColor = [UIColor cellSecondaryTextColor];
+        label.textAlignment = NSTextAlignmentCenter;
+        tableView.backgroundView = label;
+        return 0;
+    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
