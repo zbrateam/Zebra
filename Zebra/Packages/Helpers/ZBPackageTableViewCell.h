@@ -2,7 +2,7 @@
 //  ZBPackageTableViewCell.h
 //  Zebra
 //
-//  Created by Andrew Abosh on 2019-04-27.
+//  Created by Andrew Abosh on 2019-05-01.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
@@ -16,10 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *packageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 
 - (void)updateData:(ZBPackage*)package isInstalled:(BOOL)isInstalled;
+
 @end
 
 NS_ASSUME_NONNULL_END

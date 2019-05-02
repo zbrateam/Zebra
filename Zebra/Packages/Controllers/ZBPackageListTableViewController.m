@@ -64,7 +64,8 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
+         forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
 - (void)refreshTable {
@@ -178,6 +179,10 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 65;
@@ -230,20 +235,21 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    ZBPackage *package;
-    if (needsUpdatesSection && indexPath.section == 0) {
-        package = [updates objectAtIndex:indexPath.row];
+    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
+        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+        NSIndexPath *indexPath = sender;
+        
+        ZBPackage *package;
+        if (needsUpdatesSection && indexPath.section == 0) {
+            package = [updates objectAtIndex:indexPath.row];
+        }
+        else {
+            package = [packages objectAtIndex:indexPath.row];
+        }
+        
+        destination.package = package;
+        destination.parent = self;
     }
-    else {
-        package = [packages objectAtIndex:indexPath.row];
-    }
-    
-    destination.package = package;
-    destination.parent = self;
 }
 
 @end

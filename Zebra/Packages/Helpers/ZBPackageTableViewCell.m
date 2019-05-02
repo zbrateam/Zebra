@@ -2,7 +2,7 @@
 //  ZBPackageTableViewCell.m
 //  Zebra
 //
-//  Created by Andrew Abosh on 2019-04-27.
+//  Created by Andrew Abosh on 2019-05-01.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
@@ -39,7 +39,7 @@
     
     self.isInstalledImageView.hidden = !isInstalled;
     self.isPaidImageView.hidden = ![package isPaid];
-
+    
     if ([package isPaid] && !isInstalled) {
         self.isInstalledImageView.image = [UIImage imageNamed:@"Paid"];
         self.isInstalledImageView.hidden = NO;
