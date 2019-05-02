@@ -66,6 +66,13 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"packageTableViewCell"];
+    
+    if ([self.traitCollection
+        (self.traitCollection.forceTouchCapability ==
+         UIForceTouchCapabilityAvailable))
+    {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 - (void)refreshTable {
@@ -234,22 +241,50 @@
 
 #pragma mark - Navigation
 
+- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
+    
+    ZBPackage *package;
+    if (needsUpdatesSection && indexPath.section == 0) {
+        package = [updates objectAtIndex:indexPath.row];
+    }
+    else {
+        package = [packages objectAtIndex:indexPath.row];
+    }
+    
+    destination.package = package;
+    destination.parent = self;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         
-        ZBPackage *package;
-        if (needsUpdatesSection && indexPath.section == 0) {
-            package = [updates objectAtIndex:indexPath.row];
-        }
-        else {
-            package = [packages objectAtIndex:indexPath.row];
-        }
-        
-        destination.package = package;
-        destination.parent = self;
+        [self setDestinationVC:indexPath destination:destination];
     }
+}
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView
+                              indexPathForRowAtPoint:location];
+    
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    previewingContext.sourceRect = cell.frame;
+    
+    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    
+    
+    [self setDestinationVC:indexPath destination:packageDepictionVC];
+
+    return packageDepictionVC;
+    
+}
+
+- (void)previewingContext:
+(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController *)viewControllerToCommit {
+    
+    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
 @end
