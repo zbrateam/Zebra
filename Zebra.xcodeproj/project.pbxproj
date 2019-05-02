@@ -38,6 +38,10 @@
 		89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */; };
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89C7E49221B240D4003DB4E8 /* parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* parsel.c */; };
+		89C90FE0227B760B00325AAD /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FDE227B760B00325AAD /* twitter@2x.png */; };
+		89C90FE3227B767900325AAD /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE2227B767900325AAD /* twitter@3x.png */; };
+		89C90FE6227B770500325AAD /* discord@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE4227B770500325AAD /* discord@2x.png */; };
+		89C90FE7227B770500325AAD /* discord@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE5227B770500325AAD /* discord@3x.png */; };
 		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
@@ -113,6 +117,10 @@
 		89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListTableViewController.m; sourceTree = "<group>"; };
 		89C7E48F21B23DB1003DB4E8 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
 		89C7E49121B240D4003DB4E8 /* parsel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsel.c; sourceTree = "<group>"; };
+		89C90FDE227B760B00325AAD /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
+		89C90FE2227B767900325AAD /* twitter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@3x.png"; sourceTree = "<group>"; };
+		89C90FE4227B770500325AAD /* discord@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@2x.png"; sourceTree = "<group>"; };
+		89C90FE5227B770500325AAD /* discord@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@3x.png"; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* dpkgver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dpkgver.h; sourceTree = "<group>"; };
 		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
 		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
@@ -377,6 +385,10 @@
 		89E8637521D5AF920081E485 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				89C90FE4227B770500325AAD /* discord@2x.png */,
+				89C90FE5227B770500325AAD /* discord@3x.png */,
+				89C90FDE227B760B00325AAD /* twitter@2x.png */,
+				89C90FE2227B767900325AAD /* twitter@3x.png */,
 				893A17E3225FC24200E253CD /* report@2x.png */,
 				893A17E2225FC24200E253CD /* report@3x.png */,
 				89E8637A21D5AFAA0081E485 /* home.html */,
@@ -450,8 +462,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89C90FE3227B767900325AAD /* twitter@3x.png in Resources */,
 				893A17E5225FC24200E253CD /* report@2x.png in Resources */,
 				89DB3BB32249A74B000F8983 /* repos@3x.png in Resources */,
+				89C90FE7227B770500325AAD /* discord@3x.png in Resources */,
 				89E8638121D5AFAA0081E485 /* changelog@2x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
@@ -460,6 +474,7 @@
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
 				893A17E4225FC24200E253CD /* report@3x.png in Resources */,
+				89C90FE0227B760B00325AAD /* twitter@2x.png in Resources */,
 				89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */,
@@ -469,6 +484,7 @@
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
+				89C90FE6227B770500325AAD /* discord@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
