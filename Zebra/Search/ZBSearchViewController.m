@@ -11,6 +11,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <UIColor+GlobalColors.h>
+#import <Packages/Helpers/ZBPackageTableViewCell.h>
 
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
@@ -42,6 +43,12 @@
         self.tableView.tableHeaderView = searchController.searchBar;
     }
     self.tableView.tableFooterView = [UIView new];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
+         forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -83,51 +90,45 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchPackageTableViewCell" forIndexPath:indexPath];
-    
+    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+
     ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = package.name;
-    cell.detailTextLabel.text = package.desc;
-    
-    if ([package isPaid]) {
-        cell.textLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-    }
-    else {
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.detailTextLabel.textColor = [UIColor blackColor];
-    }
-    
-    NSString *section = [package.section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    if ([section characterAtIndex:[section length] - 1] == ')') {
-        NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
-        section = [items[0] substringToIndex:[items[0] length] - 1];
-    }
-    
-    NSString *iconPath = [NSString stringWithFormat:@"/Applications/Cydia.app/Sections/%@.png", section];
-    NSError *error;
-    NSData *data = [NSData dataWithContentsOfFile:iconPath options:0 error:&error];
-    UIImage *sectionImage = [UIImage imageWithData:data];
-    if (sectionImage != NULL) {
-        cell.imageView.image = sectionImage;
-        CGSize itemSize = CGSizeMake(35, 35);
-        UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-        [cell.imageView.image drawInRect:imageRect];
-        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
+    [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 65;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = sender;
     
     destination.package = [results objectAtIndex:indexPath.row];
 }

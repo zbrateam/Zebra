@@ -140,44 +140,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SearchPackageTableViewCell" textLabel="XGk-sN-X2g" detailTextLabel="8Oo-DL-WVO" style="IBUITableViewCellStyleSubtitle" id="mIE-Uo-Gr4">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mIE-Uo-Gr4" id="2hE-tM-Wf4">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XGk-sN-X2g">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Oo-DL-WVO">
-                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="B5D-p6-E07" kind="show" id="z6v-6S-9G2">
-                                        <segue key="commit" inheritsFrom="parent" id="rVb-fb-vGF"/>
-                                        <segue key="preview" inheritsFrom="commit" id="0y0-j6-8U4"/>
-                                    </segue>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="GZt-zM-RLB" id="e1P-2f-a5x"/>
                             <outlet property="delegate" destination="GZt-zM-RLB" id="Icn-39-XQL"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Search" id="31H-5B-Xgc"/>
+                    <connections>
+                        <segue destination="B5D-p6-E07" kind="show" identifier="segueSearchToPackageDepiction" id="iGF-3v-Rr4"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7u-ki-pae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -638,7 +609,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="jak-5S-xzd"/>
+        <segue reference="iGF-3v-Rr4"/>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
