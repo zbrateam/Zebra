@@ -23,7 +23,7 @@
     
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
-    [task setArguments:@[@"/usr/bin/dpkg-deb", @"-I", [_fileURL path], @"control"]];
+    [task setArguments:@[@"/usr/bin/dpkg", @"-I", [_fileURL path], @"control"]];
     
     NSPipe *pipe = [NSPipe pipe];
     [task setStandardOutput:pipe];

@@ -13,11 +13,16 @@
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBConsoleViewController () {
     int stage;
-    BOOL continueWithInstall;
+    BOOL continueWithActions;
     NSArray *akton;
+    BOOL needsIconCacheUpdate;
+    BOOL needsRespring;
+    NSMutableArray *installedIDs;
+    NSMutableArray *bundlePaths;
 }
 @end
 
@@ -34,7 +39,11 @@
     
     queue = [ZBQueue sharedInstance];
     stage = -1;
-    continueWithInstall = true;
+    continueWithActions = true;
+    needsIconCacheUpdate = false;
+    needsRespring = false;
+    installedIDs = [NSMutableArray new];
+    bundlePaths = [NSMutableArray new];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,6 +83,26 @@
             }
             else {
                 if (![ZBAppDelegate needsSimulation]) {
+                    for (int i = 2; i < [command count]; i++) {
+                        NSString *packageID = command[i];
+                        NSLog(@"[Zebra] Package ID %@", packageID);
+                        if (stage == 1) {
+                            BOOL update = [ZBPackage containsApp:packageID];
+                            if (update) {
+                                NSLog(@"[Zebra] Needs update for %@", packageID);
+                                needsIconCacheUpdate = true;
+                                [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
+                            }
+                            
+                            if (!needsRespring) {
+                                needsRespring = [ZBPackage containsTweak:packageID];
+                            }
+                        }
+                        else {
+                            [installedIDs addObject:packageID];
+                        }
+                    }
+                    
                     NSTask *task = [[NSTask alloc] init];
                     [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
                     [task setArguments:command];
@@ -105,7 +134,7 @@
             [self writeToConsole:@"Console actions are not available on the simulator\n" atLevel:ZBLogLevelWarning];
             [self refreshLocalPackages];
         }
-        else if (continueWithInstall) {
+        else if (continueWithActions) {
             NSArray *actions = [queue tasks:debs];
             
             for (NSArray *command in actions) {
@@ -114,6 +143,26 @@
                 }
                 else {
                     if (![ZBAppDelegate needsSimulation]) {
+                        for (int i = 2; i < [command count]; i++) {
+                            NSString *packageID = command[i];
+                            NSLog(@"[Zebra] Package ID %@", packageID);
+                            if (stage == 1) {
+                                BOOL update = [ZBPackage containsApp:packageID];
+                                if (update) {
+                                    NSLog(@"[Zebra] Needs update for %@", packageID);
+                                    needsIconCacheUpdate = true;
+                                    [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
+                                }
+                                
+                                if (!needsRespring) {
+                                    needsRespring = [ZBPackage containsTweak:packageID];
+                                }
+                            }
+                            else {
+                                [installedIDs addObject:packageID];
+                            }
+                        }
+                        
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
                         [task setArguments:command];
@@ -147,13 +196,94 @@
 }
 
 - (void)finishUp {
-    [self removeAllDebs];
     [queue clearQueue];
+    
+    NSMutableArray *uicaches = [NSMutableArray new];
+    if (![ZBAppDelegate needsSimulation]) {
+        for (NSString *packageID in installedIDs) {
+            NSLog(@"[Zebra] Checking %@ for tweaks and apps", packageID);
+            
+            BOOL update = [ZBPackage containsApp:packageID];
+            if (update) {
+                needsIconCacheUpdate = true;
+                [uicaches addObject:packageID];
+            }
+            
+            if (!needsRespring) {
+                needsRespring = [ZBPackage containsTweak:packageID] ? true : needsRespring;
+            }
+        }
+        NSLog(@"[Zebra] Done with that nonsense");
+    }
+    
+    if (needsIconCacheUpdate) {
+        [self writeToConsole:@"Updating icon cache...\n" atLevel:ZBLogLevelInfo];
+        NSLog(@"[Zebra] I need a cache update");
+        NSLog(@"[Zebra] None of that messing around, I have %@", uicaches);
+        NSMutableArray *arguments = [NSMutableArray new];
+        NSLog(@"[Zebra] uicaches %@", uicaches);
+        NSLog(@"[Zebra] bundlePaths %@", bundlePaths);
+        if ([uicaches count] + [bundlePaths count] > 1) {
+            [arguments addObject:@"-a"];
+            [self writeToConsole:@"This may take awhile and Zebra may crash. It is okay if it does.\n" atLevel:ZBLogLevelWarning];
+        }
+        else {
+            [arguments addObject:@"-p"];
+            for (NSString *packageID in uicaches) {
+                if ([packageID isEqualToString:@"-p"]) continue;
+                NSString *bundlePath = [ZBPackage pathForApplication:packageID];
+                NSLog(@"[Zebra] Bundle Path for %@ is %@", packageID, bundlePath);
+                if (bundlePath != NULL) [bundlePaths addObject:bundlePath];
+            }
+            [arguments addObjectsFromArray:bundlePaths];
+        }
+        
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/bin/uicache"];
+        [task setArguments:arguments];
+        
+        NSLog(@"[Zebra] Running uicache %@", arguments);
+        
+        NSPipe *outputPipe = [[NSPipe alloc] init];
+        NSFileHandle *output = [outputPipe fileHandleForReading];
+        [output waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+        
+        NSPipe *errorPipe = [[NSPipe alloc] init];
+        NSFileHandle *error = [errorPipe fileHandleForReading];
+        [error waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+        
+        [task setStandardOutput:outputPipe];
+        [task setStandardError:errorPipe];
+        
+        [task launch];
+        [task waitUntilExit];
+    }
+    
+    [self removeAllDebs];
     [self updateStatus:4];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = false;
+        
+        if (self->needsRespring) {
+            [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
+            [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else {
+            [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
+        }
     });
+}
+
+- (void)restartSpringBoard {
+    //Bye!
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/usr/bin/killall"];
+    [task setArguments:@[@"-9", @"backboardd"]];
+    
+    [task launch];
 }
 
 - (void)refreshLocalPackages {
@@ -165,11 +295,11 @@
 - (void)removeAllDebs {
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
     NSString *file;
-    
+
     while (file = [enumerator nextObject]) {
         NSError *error = nil;
         BOOL result = [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate debsLocation] stringByAppendingPathComponent:file] error:&error];
-        
+
         if (!result && error) {
             NSLog(@"Error while removing %@: %@", file, error);
         }
@@ -293,7 +423,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
     if (error != NULL) {
-        continueWithInstall = false;
+        continueWithActions = false;
         [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
     }
     else {

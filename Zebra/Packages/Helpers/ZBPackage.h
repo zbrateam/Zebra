@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;
 
++ (NSArray *)filesInstalled:(NSString *)packageID;
++ (BOOL)containsTweak:(NSString *)packageID;
++ (BOOL)containsApp:(NSString *)packageID;
++ (NSString *)pathForApplication:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)isPaid;
