@@ -86,6 +86,18 @@
     [searchBar setShowsCancelButton:NO animated:YES];
 }
 
+#pragma mark - UISearchControllerDelegate
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    [self unregisterForPreviewingWithContext:previewing];
+    previewing = [searchController registerForPreviewingWithDelegate:self sourceView:self.tableView];
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    [searchController unregisterForPreviewingWithContext:previewing];
+    previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
