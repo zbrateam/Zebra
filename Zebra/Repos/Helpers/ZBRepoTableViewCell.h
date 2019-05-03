@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *accessoryZBView;
 
 - (void)clearAccessoryView;
-
+- (void)hideChevron;
 @end
 
 NS_ASSUME_NONNULL_END

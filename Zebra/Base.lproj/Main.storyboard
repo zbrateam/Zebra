@@ -242,7 +242,7 @@
                                             <rect key="frame" x="10" y="0.0" width="355" height="59.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ux4-DQ-4Xp">
-                                                    <rect key="frame" x="59.5" y="10" width="285.5" height="21"/>
+                                                    <rect key="frame" x="59.5" y="10" width="267.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -254,32 +254,41 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqU-Fo-9Nw">
-                                                    <rect key="frame" x="59.5" y="33.5" width="285.5" height="16"/>
+                                                    <rect key="frame" x="59.5" y="33.5" width="267.5" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCh-RS-Jsb">
-                                                    <rect key="frame" x="321" y="18" width="24" height="24"/>
+                                                    <rect key="frame" x="337" y="23.5" width="8" height="13"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Chevron" translatesAutoresizingMaskIntoConstraints="NO" id="dmv-kY-E0Y">
+                                                            <rect key="frame" x="0.0" y="0.0" width="8" height="13"/>
+                                                        </imageView>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="24" id="GNj-af-vk6"/>
-                                                        <constraint firstAttribute="height" constant="24" id="aw4-Fh-eWG"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dmv-kY-E0Y" secondAttribute="bottom" id="9nT-s2-Nmz"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dmv-kY-E0Y" secondAttribute="trailing" id="BYT-Ua-N7r"/>
+                                                        <constraint firstAttribute="width" constant="8" id="GNj-af-vk6"/>
+                                                        <constraint firstItem="dmv-kY-E0Y" firstAttribute="top" secondItem="VCh-RS-Jsb" secondAttribute="top" id="Zwr-Kq-Z5O"/>
+                                                        <constraint firstAttribute="height" constant="13" id="aw4-Fh-eWG"/>
+                                                        <constraint firstItem="dmv-kY-E0Y" firstAttribute="leading" secondItem="VCh-RS-Jsb" secondAttribute="leading" id="dPH-0m-JEk"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="OqU-Fo-9Nw" secondAttribute="trailing" constant="10" id="6ut-pw-xde"/>
+                                                <constraint firstItem="dmv-kY-E0Y" firstAttribute="leading" secondItem="OqU-Fo-9Nw" secondAttribute="trailing" constant="10" id="2Uu-fp-hI1"/>
                                                 <constraint firstItem="sMy-YZ-mRh" firstAttribute="leading" secondItem="dBv-iS-UtP" secondAttribute="leading" constant="10" id="9ff-fJ-V0K"/>
                                                 <constraint firstItem="VCh-RS-Jsb" firstAttribute="centerY" secondItem="dBv-iS-UtP" secondAttribute="centerY" id="9vp-dz-CiP"/>
                                                 <constraint firstAttribute="trailing" secondItem="VCh-RS-Jsb" secondAttribute="trailing" constant="10" id="E6U-xb-omG"/>
-                                                <constraint firstAttribute="trailing" secondItem="ux4-DQ-4Xp" secondAttribute="trailing" constant="10" id="FbM-Al-vLz"/>
                                                 <constraint firstAttribute="bottom" secondItem="sMy-YZ-mRh" secondAttribute="bottom" constant="10" id="QGd-gs-6b1"/>
                                                 <constraint firstItem="ux4-DQ-4Xp" firstAttribute="top" secondItem="dBv-iS-UtP" secondAttribute="top" constant="10" id="QUx-Zl-eWb"/>
                                                 <constraint firstItem="ux4-DQ-4Xp" firstAttribute="leading" secondItem="sMy-YZ-mRh" secondAttribute="trailing" constant="10" id="dLI-gN-WZH"/>
                                                 <constraint firstAttribute="bottom" secondItem="OqU-Fo-9Nw" secondAttribute="bottom" constant="10" id="fkx-x2-N3u"/>
                                                 <constraint firstItem="sMy-YZ-mRh" firstAttribute="top" secondItem="dBv-iS-UtP" secondAttribute="top" constant="10" id="lqd-mf-7iN"/>
                                                 <constraint firstItem="OqU-Fo-9Nw" firstAttribute="leading" secondItem="sMy-YZ-mRh" secondAttribute="trailing" constant="10" id="vCx-uU-FzH"/>
+                                                <constraint firstItem="dmv-kY-E0Y" firstAttribute="leading" secondItem="ux4-DQ-4Xp" secondAttribute="trailing" constant="10" id="zsg-1d-cbO"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -643,6 +652,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Chevron" width="8" height="13"/>
         <image name="Home" width="25" height="25"/>
         <image name="Packages" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>

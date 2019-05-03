@@ -75,7 +75,9 @@
         if (visible) {
             UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
             [spinner setColor:[UIColor grayColor]];
-            spinner.frame = CGRectMake(0, 0, 24, 24);
+            spinner.frame = CGRectMake(0, 7, 0, 0);
+            [cell clearAccessoryView];
+            [cell hideChevron];
             [cell.accessoryZBView addSubview:spinner];
             [spinner startAnimating];
         }
@@ -231,8 +233,10 @@
     NSString *bfn = bfns[indexPath.row];
     if ([busyList[bfn] boolValue]) {
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-        spinner.frame = CGRectMake(0, 0, 24, 24);
+        spinner.frame = CGRectMake(0, 7, 0, 0);
         [spinner setColor:[UIColor grayColor]];
+        [cell clearAccessoryView];
+        [cell hideChevron];
         [cell.accessoryZBView addSubview:spinner];
         [spinner startAnimating];
     }

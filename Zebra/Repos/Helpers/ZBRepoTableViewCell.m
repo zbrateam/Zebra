@@ -42,10 +42,20 @@
 }
 
 - (void)clearAccessoryView {
+    UIView *chevron;
     for (UIView *subview in [self.accessoryZBView subviews]) {
-        [subview removeFromSuperview];
+        if (![subview isKindOfClass: [UIImageView class]]) {
+            [subview removeFromSuperview];
+        }
+        else {
+            chevron = subview;
+        }
     }
+    chevron.hidden = NO;
 }
 
+- (void)hideChevron {
+    [self.accessoryZBView subviews][0].hidden = YES;
+}
 
 @end
