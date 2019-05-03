@@ -29,7 +29,7 @@
     [super viewDidLoad];
 
     if (@available(iOS 10.0, *)) {
-        UITabBar.appearance.tintColor = [UIColor navBarTintColor];
+        UITabBar.appearance.tintColor = [UIColor tintColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
 
