@@ -53,7 +53,7 @@
 
 - (int)openDatabase {
     if (![self isDatabaseOpen]) {
-        NSLog(@"Opening Database");
+//        NSLog(@"Opening Database");
         
         sqlite3_shutdown();
         sqlite3_config(SQLITE_CONFIG_SERIALIZED);
@@ -62,12 +62,12 @@
         if (result == SQLITE_OK) {
             numberOfDatabaseUsers++;
         }
-        NSLog(@"%d current users", numberOfDatabaseUsers);
+//        NSLog(@"%d current users", numberOfDatabaseUsers);
         return result;
     }
     else {
         numberOfDatabaseUsers++;
-        NSLog(@"%d current users", numberOfDatabaseUsers);
+//        NSLog(@"%d current users", numberOfDatabaseUsers);
         return SQLITE_OK;
     }
 }
@@ -78,9 +78,9 @@
     }
     
     numberOfDatabaseUsers--;
-    NSLog(@"%d current users", numberOfDatabaseUsers);
+//    NSLog(@"%d current users", numberOfDatabaseUsers);
     if (numberOfDatabaseUsers == 0 && [self isDatabaseOpen]) {
-        NSLog(@"Closing Database");
+//        NSLog(@"Closing Database");
         int result = sqlite3_close(database);
         database = NULL;
         return result;
