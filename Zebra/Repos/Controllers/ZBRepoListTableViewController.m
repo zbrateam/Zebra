@@ -70,17 +70,17 @@
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
     NSInteger row = [bfns indexOfObject:bfn];
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
         
         if (visible) {
             UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
             [spinner setColor:[UIColor grayColor]];
             spinner.frame = CGRectMake(0, 0, 24, 24);
-            cell.accessoryView = spinner;
+            [cell.accessoryZBView addSubview:spinner];
             [spinner startAnimating];
         }
         else {
-            cell.accessoryView = nil;
+            [cell clearAccessoryView];
         }
     });
 }
@@ -90,9 +90,9 @@
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
     dispatch_async(dispatch_get_main_queue(), ^{
         for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             
-            cell.accessoryView = nil;
+            [cell clearAccessoryView];
         }
     });
 }
@@ -233,11 +233,11 @@
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
         spinner.frame = CGRectMake(0, 0, 24, 24);
         [spinner setColor:[UIColor grayColor]];
-        cell.accessoryView = spinner;
+        [cell.accessoryZBView addSubview:spinner];
         [spinner startAnimating];
     }
     else {
-        cell.accessoryView = nil;
+        [cell clearAccessoryView];
     }
     
     if ([source isSecure]) {

@@ -241,6 +241,12 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBv-iS-UtP">
                                             <rect key="frame" x="10" y="0.0" width="355" height="59.5"/>
                                             <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ux4-DQ-4Xp">
+                                                    <rect key="frame" x="59.5" y="10" width="285.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sMy-YZ-mRh">
                                                     <rect key="frame" x="10" y="10" width="39.5" height="39.5"/>
                                                     <constraints>
@@ -253,17 +259,20 @@
                                                     <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ux4-DQ-4Xp">
-                                                    <rect key="frame" x="59.5" y="10" width="285.5" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCh-RS-Jsb">
+                                                    <rect key="frame" x="321" y="18" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="GNj-af-vk6"/>
+                                                        <constraint firstAttribute="height" constant="24" id="aw4-Fh-eWG"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="OqU-Fo-9Nw" secondAttribute="trailing" constant="10" id="6ut-pw-xde"/>
                                                 <constraint firstItem="sMy-YZ-mRh" firstAttribute="leading" secondItem="dBv-iS-UtP" secondAttribute="leading" constant="10" id="9ff-fJ-V0K"/>
+                                                <constraint firstItem="VCh-RS-Jsb" firstAttribute="centerY" secondItem="dBv-iS-UtP" secondAttribute="centerY" id="9vp-dz-CiP"/>
+                                                <constraint firstAttribute="trailing" secondItem="VCh-RS-Jsb" secondAttribute="trailing" constant="10" id="E6U-xb-omG"/>
                                                 <constraint firstAttribute="trailing" secondItem="ux4-DQ-4Xp" secondAttribute="trailing" constant="10" id="FbM-Al-vLz"/>
                                                 <constraint firstAttribute="bottom" secondItem="sMy-YZ-mRh" secondAttribute="bottom" constant="10" id="QGd-gs-6b1"/>
                                                 <constraint firstItem="ux4-DQ-4Xp" firstAttribute="top" secondItem="dBv-iS-UtP" secondAttribute="top" constant="10" id="QUx-Zl-eWb"/>
@@ -282,6 +291,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="accessoryZBView" destination="VCh-RS-Jsb" id="lAN-DV-IQL"/>
                                     <outlet property="backgroundContainerView" destination="dBv-iS-UtP" id="XdD-iz-R8m"/>
                                     <outlet property="iconImageView" destination="sMy-YZ-mRh" id="rlc-KP-D8q"/>
                                     <outlet property="repoLabel" destination="ux4-DQ-4Xp" id="TS8-uz-cp8"/>

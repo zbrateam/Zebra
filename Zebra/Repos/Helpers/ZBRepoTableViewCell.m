@@ -41,4 +41,11 @@
     
 }
 
+- (void)clearAccessoryView {
+    for (UIView *subview in [self.accessoryZBView subviews]) {
+        [subview removeFromSuperview];
+    }
+}
+
+
 @end
