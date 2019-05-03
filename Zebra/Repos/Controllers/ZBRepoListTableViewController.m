@@ -23,6 +23,8 @@
     NSMutableArray *bfns;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
+    BOOL askedToAddFromClipboard;
+    NSString *lastPaste;
 }
 @end
 
@@ -52,13 +54,29 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
 
+}
+
+-(void)checkClipboard {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSURL *url = [NSURL URLWithString:pasteboard.string];
+    if ((url && url.scheme && url.host))
+    {
+        if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
+            [self showAddRepoFromClipboardAlert:url];
+        }
+        askedToAddFromClipboard = YES;
+        lastPaste = pasteboard.string;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    [self checkClipboard];
     [self refreshTable];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,7 +182,7 @@
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
                 
                 [wait dismissViewControllerAnimated:true completion:^{
-                    [self presentVerificationFailedAlert:error url:url];
+                    [self presentVerificationFailedAlert:error url:url present:YES];
                 }];
             }
             else {
@@ -198,16 +216,57 @@
     [self presentViewController:alertController animated:true completion:nil];
 }
 
-- (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url {
+- (void)showAddRepoFromClipboardAlert:(NSURL *)url {
+//    NSString *message = [NSString stringWithFormat:@"Would you like to add %@?", url.absoluteString];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to add the URL from your clipboard?" message:url.absoluteString preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tintColor = [UIColor tintColor];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+        
+        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+        NSString *sourceURL = url.absoluteString;
+        
+        UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:wait animated:true completion:nil];
+        
+        [repoManager addSourceWithURL:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
+            if (!success) {
+                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+                [wait dismissViewControllerAnimated:true completion:^{
+                    [self presentVerificationFailedAlert:error url:url present:NO];
+                }];
+            }
+            else {
+                [wait dismissViewControllerAnimated:true completion:^{
+                    NSLog(@"[Zebra] Added source.");
+                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        [self presentViewController:console animated:true completion:nil];
+                    });
+                }];
+            }
+        }];
+    }]];
+    
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+- (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url present:(BOOL)present {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Unable to verify Repo" message:message preferredStyle:UIAlertControllerStyleAlert];
         alertController.view.tintColor = [UIColor tintColor];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [alertController dismissViewControllerAnimated:true completion:nil];
-            [self showAddRepoAlert:url];
+            if (present) {
+                [self showAddRepoAlert:url];
+            }
         }];
         [alertController addAction:okAction];
-        
         [self presentViewController:alertController animated:true completion:nil];
     });
 }
