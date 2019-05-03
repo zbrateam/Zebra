@@ -721,13 +721,16 @@
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {
                     if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                        [self closeDatabase];
                         return package;
                     }
                 }
                 
+                [self closeDatabase];
                 return NULL;
             }
             else {
+                [self closeDatabase];
                 return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
             }
         }
