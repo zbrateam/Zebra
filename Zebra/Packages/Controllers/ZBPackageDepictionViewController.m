@@ -155,7 +155,7 @@
 }
 
 - (void)configureNavButton {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package]) {
 //        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
         otherVersions = [databaseManager otherVersionsForPackage:package];
@@ -291,7 +291,7 @@
 //3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package]) {
         otherVersions = [databaseManager otherVersionsForPackage:package];
         if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)

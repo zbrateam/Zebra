@@ -24,7 +24,7 @@
     self = [super init];
     
     if (self) {
-        databaseManager = [[ZBDatabaseManager alloc] init];
+        databaseManager = [ZBDatabaseManager sharedInstance];
         queue = [ZBQueue sharedInstance];
         
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);

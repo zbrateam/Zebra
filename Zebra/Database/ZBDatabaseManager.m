@@ -21,6 +21,15 @@
 
 @implementation ZBDatabaseManager
 
++ (id)sharedInstance {
+    static ZBDatabaseManager *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [ZBDatabaseManager new];
+    });
+    return instance;
+}
+
 + (NSDate *)lastUpdated {
     NSDate *lastUpdatedDate = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedDate"];
     return lastUpdatedDate != NULL ? lastUpdatedDate : [NSDate distantPast];

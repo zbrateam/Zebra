@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
     searchController.delegate = self;

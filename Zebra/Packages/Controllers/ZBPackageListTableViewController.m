@@ -37,7 +37,7 @@
     
     if (self) {
         if (!databaseManager) {
-            databaseManager = [[ZBDatabaseManager alloc] init];
+            databaseManager = [ZBDatabaseManager sharedInstance];
         }
     }
     
@@ -49,7 +49,7 @@
     
     if (self) {
         if (!databaseManager) {
-            databaseManager = [[ZBDatabaseManager alloc] init];
+            databaseManager = [ZBDatabaseManager sharedInstance];
         }
     }
     

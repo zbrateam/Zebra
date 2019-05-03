@@ -27,7 +27,7 @@
     [super viewDidAppear:animated];
     
     if (!messages) {
-        databaseManager = [[ZBDatabaseManager alloc] init];
+        databaseManager = [ZBDatabaseManager sharedInstance];
         [databaseManager setDatabaseDelegate:self];
         
         if (_dropTables) {

@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *databasePath;
 }
 @property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
++ (id)sharedInstance;
 + (NSDate *)lastUpdated;
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested;
 - (void)justImportLocal;

@@ -21,11 +21,12 @@
 @synthesize repo;
 @synthesize sectionReadout;
 @synthesize sectionNames;
+@synthesize databaseManager;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
@@ -61,7 +62,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
     if (indexPath.row == 0) {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         cell.textLabel.text = @"All Packages";
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
