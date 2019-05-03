@@ -135,14 +135,8 @@
         return cell;
     }
     
-    NSString *section = [[package section] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    if ([section characterAtIndex:[section length] - 1] == ')') {
-        NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
-        section = [items[0] substringToIndex:[items[0] length] - 1];
-    }
-    NSString *iconPath = [NSString stringWithFormat:@"/Applications/Cydia.app/Sections/%@.png", section];
-    NSError *error;
-    NSData *data = [NSData dataWithContentsOfFile:iconPath options:0 error:&error];
+    NSString *section = [package sectionImageName];
+    
     UIImage *sectionImage = [UIImage imageNamed:section];
     if (sectionImage != NULL) {
         cell.imageView.image = sectionImage;
