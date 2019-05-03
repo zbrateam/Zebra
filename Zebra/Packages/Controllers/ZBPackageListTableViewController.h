@@ -10,10 +10,12 @@
 #import "ZBPackageDepictionViewController.h"
 
 @class ZBRepo;
+@class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListTableViewController : UITableViewController <UIViewControllerPreviewingDelegate>
+@property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *section;
 - (void)refreshTable;

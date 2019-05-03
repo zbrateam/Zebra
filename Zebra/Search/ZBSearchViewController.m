@@ -93,7 +93,7 @@
     }
     else {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height)];
-        label.text = @"No search results found.";
+        label.text = @"No Results Found";
         label.textColor = [UIColor cellSecondaryTextColor];
         label.textAlignment = NSTextAlignmentCenter;
         tableView.backgroundView = label;
