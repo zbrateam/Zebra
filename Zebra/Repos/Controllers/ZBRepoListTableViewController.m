@@ -44,6 +44,9 @@
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+    self.navigationItem.leftBarButtonItem = addButton;
+    
     //set up refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
@@ -120,14 +123,10 @@
 - (void)editMode:(id)sender {
     if (self.editing) {
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
-        self.navigationItem.leftBarButtonItem = nil;
         
         [self setEditing:false animated:true];
     }
     else {
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-        self.navigationItem.leftBarButtonItem = addButton;
-        
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
         self.navigationItem.rightBarButtonItem = doneButton;
         
