@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
 + (id)sharedInstance;
 + (NSDate *)lastUpdated;
+- (int)openDatabase;
+- (int)closeDatabase;
+- (BOOL)isDatabaseOpen;
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested;
 - (void)justImportLocal;
 - (void)importLocalPackages;
