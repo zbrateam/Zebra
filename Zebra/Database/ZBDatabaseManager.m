@@ -594,7 +594,7 @@
 }
 
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section {
-    if ([self openDatabase]) {
+    if ([self openDatabase] == SQLITE_OK) {
         int packages = 0;
         NSString *query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND REPOID = %d", section, [repo repoID]];
         
