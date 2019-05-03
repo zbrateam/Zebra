@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSearchViewController : UITableViewController <UISearchBarDelegate, UIViewControllerPreviewingDelegate>
+@interface ZBSearchViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate, UIViewControllerPreviewingDelegate>
 
 @end
 

@@ -326,4 +326,12 @@
 }
 
 
+@synthesize delegate;
+
+@synthesize sourceView;
+
+@synthesize previewingGestureRecognizerForFailureRelationship;
+
+@synthesize sourceRect;
+
 @end

@@ -18,6 +18,7 @@
     NSArray *results;
     UISearchController *searchController;
     BOOL searching;
+    id<UIViewControllerPreviewing> previewing;
 }
 @end
 
@@ -29,6 +30,7 @@
     databaseManager = [[ZBDatabaseManager alloc] init];
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
+    searchController.delegate = self;
     searchController.searchBar.delegate = self;
     searchController.searchBar.tintColor = [UIColor tintColor];
     searchController.searchBar.placeholder = @"Packages";
@@ -49,6 +51,8 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"packageTableViewCell"];
+    
+    previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -116,8 +120,7 @@
     [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -158,14 +161,20 @@
     packageDepictionVC.package = [results objectAtIndex:indexPath.row];
 
     return packageDepictionVC;
-    
 }
 
-- (void)previewingContext:
-(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(UIViewController *)viewControllerToCommit {
-    
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    [self unregisterForPreviewingWithContext:previewing];
+    previewing = [searchController registerForPreviewingWithDelegate:self sourceView:self.tableView];
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    [searchController unregisterForPreviewingWithContext:previewing];
+    previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
 }
 
 @end
