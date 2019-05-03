@@ -41,6 +41,8 @@
         imageView.center = self.navigationItem.titleView.center;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.image = image;
+        imageView.layer.cornerRadius = 5;
+        imageView.layer.masksToBounds = YES;
         [container addSubview:imageView];
         
         self.navigationItem.titleView = container;
