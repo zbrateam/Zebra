@@ -143,7 +143,7 @@
     NSString *iconPath = [NSString stringWithFormat:@"/Applications/Cydia.app/Sections/%@.png", section];
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:iconPath options:0 error:&error];
-    UIImage *sectionImage = [UIImage imageWithData:data];
+    UIImage *sectionImage = [UIImage imageNamed:section];
     if (sectionImage != NULL) {
         cell.imageView.image = sectionImage;
     }
