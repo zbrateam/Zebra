@@ -11,6 +11,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBRepoTableViewCell.h>
 #import <ZBTabBarController.h>
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
@@ -46,6 +47,9 @@
     [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
     self.extendedLayoutIncludesOpaqueBars = true;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
 
@@ -217,11 +221,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
     ZBRepo *source = [sources objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [source origin];
+    cell.repoLabel.text = [source origin];
     
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
     NSString *bfn = bfns[indexPath.row];
@@ -237,22 +241,22 @@
     }
     
     if ([source isSecure]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
+        cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
     }
     else {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
+        cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     
     ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
     UIImage *icon = [databaseManager iconForRepo:source];
     
     if (icon != NULL) {
-        cell.imageView.image = icon;
+        cell.iconImageView.image = icon;
         CGSize itemSize = CGSizeMake(35, 35);
         UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
         CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-        [cell.imageView.image drawInRect:imageRect];
-        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        [cell.iconImageView.image drawInRect:imageRect];
+        cell.iconImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
     else { //Download the image
@@ -261,16 +265,16 @@
         NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 UIImage *image = [UIImage imageWithData:data];
-                UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
+                ZBRepoTableViewCell *updateCell = (ZBRepoTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (updateCell) {
-                            updateCell.imageView.image = image;
+                            updateCell.iconImageView.image = image;
                             CGSize itemSize = CGSizeMake(35, 35);
                             UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
                             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+                            [cell.iconImageView.image drawInRect:imageRect];
+                            cell.iconImageView.image = UIGraphicsGetImageFromCurrentImageContext();
                             UIGraphicsEndImageContext();
                             [updateCell setNeedsDisplay];
                             [updateCell setNeedsLayout];
@@ -281,12 +285,12 @@
                 else {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (updateCell) {
-                            updateCell.imageView.image = [UIImage imageNamed:@"Unknown"];
+                            updateCell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
                             CGSize itemSize = CGSizeMake(35, 35);
                             UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
                             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+                            [cell.iconImageView.image drawInRect:imageRect];
+                            cell.iconImageView.image = UIGraphicsGetImageFromCurrentImageContext();
                             UIGraphicsEndImageContext();
                             [updateCell setNeedsDisplay];
                             [updateCell setNeedsLayout];
@@ -323,6 +327,18 @@
         [repoManager deleteSource:delRepo];
     }
  }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
+}
 
 #pragma mark - Navigation
 

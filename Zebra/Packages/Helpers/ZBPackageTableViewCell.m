@@ -17,7 +17,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.backgroundContainerView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     self.backgroundContainerView.layer.cornerRadius = 5;
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
