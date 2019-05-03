@@ -13,10 +13,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageListTableViewController : UITableViewController
+@interface ZBPackageListTableViewController : UITableViewController <UIViewControllerPreviewingDelegate>
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *section;
 - (void)refreshTable;
+- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination;
 @end
 
 NS_ASSUME_NONNULL_END
