@@ -271,6 +271,7 @@
         }
         sqlite3_finalize(statement);
         
+        [self closeDatabase];
         return repoID;
     }
     else {
@@ -293,6 +294,7 @@
         
         sqlite3_finalize(statement);
         
+        [self closeDatabase];
         return repoID + 1;
     }
     else {
