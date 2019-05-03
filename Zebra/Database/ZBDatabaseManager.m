@@ -66,6 +66,10 @@
 }
 
 - (int)closeDatabase {
+    if (numberOfDatabaseUsers == 0) {
+        return SQLITE_ERROR;
+    }
+    
     numberOfDatabaseUsers--;
     NSLog(@"%d current users", numberOfDatabaseUsers);
     if (numberOfDatabaseUsers == 0 && [self isDatabaseOpen]) {
