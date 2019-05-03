@@ -111,7 +111,7 @@
 
     ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
     
-    [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
+    [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package versionStrict:false]];
     
     return cell;
 }

@@ -156,7 +156,7 @@
 
 - (void)configureNavButton {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package]) {
+    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
 //        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
         otherVersions = [databaseManager otherVersionsForPackage:package];
         if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
@@ -292,7 +292,7 @@
 
 - (NSArray *)previewActionItems {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package]) {
+    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
         otherVersions = [databaseManager otherVersionsForPackage:package];
         if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
             UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
