@@ -16,8 +16,11 @@
 
 @interface ZBDatabaseManager () {
     sqlite3 *database;
-    int numberOfUpdates;
     int numberOfDatabaseUsers;
+    
+    int numberOfUpdates;
+    NSMutableArray *installedPackageIDs;
+    NSMutableArray *upgradePackageIDs;
 }
 @end
 
@@ -216,9 +219,9 @@
 }
 
 - (void)checkForPackageUpdates {
-    NSMutableArray *installedPackages = [NSMutableArray new];
-    
     if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *installedPackages = [NSMutableArray new];
+        
         NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0;";
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
@@ -240,6 +243,7 @@
         sqlite3_exec(database, updates, NULL, 0, NULL);
         
         numberOfUpdates = 0;
+        upgradePackageIDs = [NSMutableArray new];
         for (ZBPackage *package in installedPackages) {
             if ([found containsObject:[package identifier]]) {
                 NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
@@ -251,6 +255,7 @@
                 NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 numberOfUpdates++;
                 NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
+                [upgradePackageIDs addObject:[topPackage identifier]];
                 sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
             }
             [found addObject:[package identifier]];
@@ -383,6 +388,7 @@
 
 - (NSArray <ZBPackage *> *)installedPackages {
     if ([self openDatabase] == SQLITE_OK) {
+        installedPackageIDs = [NSMutableArray new];
         NSMutableArray *installedPackages = [NSMutableArray new];
         
         NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0 ORDER BY NAME COLLATE NOCASE ASC;";
@@ -391,6 +397,7 @@
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             
+            [installedPackageIDs addObject:[package identifier]];
             [installedPackages addObject:package];
         }
         sqlite3_finalize(statement);
