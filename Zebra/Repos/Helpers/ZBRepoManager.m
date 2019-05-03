@@ -109,7 +109,7 @@
 //    NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
 //    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *source in [databaseManager sources]) {
         if ([source defaultRepo]) {
             if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
@@ -168,7 +168,7 @@
 - (void)deleteSource:(ZBRepo *)delRepo {
     NSString *output = @"";
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *source in [databaseManager sources]) {
         if (![[delRepo baseFileName] isEqualToString:[source baseFileName]]) {
             if ([source defaultRepo]) {
@@ -216,7 +216,7 @@
             NSLog(@"[Zebra] Error while moving sources to file: %@", error);
         }
         
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         [databaseManager deleteRepo:delRepo];
     }
 }

@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
     searchController.delegate = self;
@@ -70,15 +70,18 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+    [databaseManager closeDatabase];
     results = [databaseManager searchForPackageName:[searchBar text] numberOfResults:-1];
     [self.tableView reloadData];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [databaseManager openDatabase];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [databaseManager closeDatabase];
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
 }
@@ -93,7 +96,7 @@
     }
     else {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height)];
-        label.text = @"No search results found.";
+        label.text = @"No Results Found";
         label.textColor = [UIColor cellSecondaryTextColor];
         label.textAlignment = NSTextAlignmentCenter;
         tableView.backgroundView = label;
@@ -111,7 +114,7 @@
 
     ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
     
-    [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
+    [cell updateData:package];
     
     return cell;
 }
@@ -147,6 +150,8 @@
     NSIndexPath *indexPath = sender;
     
     destination.package = [results objectAtIndex:indexPath.row];
+    
+    [databaseManager closeDatabase];
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
@@ -167,14 +172,8 @@
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
-- (void)didPresentSearchController:(UISearchController *)searchController {
-    [self unregisterForPreviewingWithContext:previewing];
-    previewing = [searchController registerForPreviewingWithDelegate:self sourceView:self.tableView];
-}
-
-- (void)didDismissSearchController:(UISearchController *)searchController {
-    [searchController unregisterForPreviewingWithContext:previewing];
-    previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+- (void)dealloc {
+    [databaseManager closeDatabase];
 }
 
 @end

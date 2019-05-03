@@ -14,9 +14,9 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
+#import <ZBAppDelegate.h>
 
 @interface ZBPackageListTableViewController () {
-    ZBDatabaseManager *databaseManager;
     NSArray *packages;
     NSArray *updates;
     BOOL needsUpdatesSection;
@@ -30,13 +30,37 @@
 
 @synthesize repo;
 @synthesize section;
+@synthesize databaseManager;
+
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        if (!databaseManager) {
+            databaseManager = [ZBDatabaseManager sharedInstance];
+        }
+    }
+    
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        if (!databaseManager) {
+            databaseManager = [ZBDatabaseManager sharedInstance];
+        }
+    }
+    
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     if ([repo repoID] == 0) {
-        [self queueButton];
-        [self upgradeButton];
+        [self configureNavigationButtons];
         [self refreshTable];
     }
 }
@@ -44,10 +68,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
     if ([repo repoID] == 0) {
-        [self queueButton];
-        [self upgradeButton];
+        [self configureNavigationButtons];
         [self refreshTable];
     }
     else {
@@ -69,6 +91,24 @@
     
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+}
+
+- (void)configureNavigationButtons {
+    if (needsUpdatesSection) {
+        UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
+        self.navigationItem.rightBarButtonItem = updateButton;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    
+    if ([[ZBQueue sharedInstance] hasObjects]) {
+        UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+        self.navigationItem.leftBarButtonItem = queueButton;
+    }
+    else {
+        self.navigationItem.leftBarButtonItem = nil;
     }
 }
 
@@ -137,7 +177,7 @@
     [self presentQueue];
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (needsUpdatesSection) {
@@ -160,25 +200,25 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
-        [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
         
+        [cell updateData:package];
     }
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
         
-        [cell updateData:package isInstalled:[databaseManager packageIsInstalled:package]];
-
+        [cell updateData:package];
+        
         if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
-        
-        
     }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
     return cell;
 }
@@ -187,8 +227,7 @@
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -277,10 +316,7 @@
     
 }
 
-- (void)previewingContext:
-(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(UIViewController *)viewControllerToCommit {
-    
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 

@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [databaseManager sources];
     
     bfns = [NSMutableArray new];
@@ -129,7 +129,7 @@
         [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:false];
     }
     else {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         sources = [databaseManager sources];
         
         bfns = [NSMutableArray new];
@@ -251,7 +251,7 @@
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     UIImage *icon = [databaseManager iconForRepo:source];
     
     if (icon != NULL) {

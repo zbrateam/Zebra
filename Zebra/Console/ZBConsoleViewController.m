@@ -287,7 +287,7 @@
 }
 
 - (void)refreshLocalPackages {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager setDatabaseDelegate:self];
     [databaseManager justImportLocal];
 }

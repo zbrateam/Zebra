@@ -21,7 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *databasePath;
 }
 @property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
++ (id)sharedInstance;
 + (NSDate *)lastUpdated;
+- (int)openDatabase;
+- (int)closeDatabase;
+- (BOOL)isDatabaseOpen;
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching requested:(BOOL)requested;
 - (void)justImportLocal;
 - (void)importLocalPackages;
@@ -32,17 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 - (void)deleteRepo:(ZBRepo *)repo;
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package;
-- (NSArray *)otherVersionsForPackage:(ZBPackage *)package inDatabase:(sqlite3 *)database;
 - (NSArray *)cleanUpDuplicatePackages:(NSArray *)packageList;
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
 - (UIImage *)iconForRepo:(ZBRepo *)repo;
 - (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo;
 - (int)numberOfPackagesFromRepo:(ZBRepo *)repo inSection:(NSString *)section;
 - (void)dropTables;
-- (BOOL)packageIsInstalled:(ZBPackage *)package;
-- (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict inDatabase:(sqlite3 *)database;
-- (BOOL)packageIsAvailable:(ZBPackage *)package inDatabase:(sqlite3 *)database;
-- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version inDatabase:(sqlite3 *)database;
+- (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict;
+- (BOOL)packageIsAvailable:(ZBPackage *)package;
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
 - (NSArray <ZBPackage *>*)packagesWithUpdates;
 - (void)updateLastUpdated;
