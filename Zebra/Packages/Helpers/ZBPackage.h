@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)isPaid;
 - (NSString *)getField:(NSString *)field;
+- (BOOL)isStrictlyInstalled;
+- (BOOL)isInstalled;
 @end
 
 NS_ASSUME_NONNULL_END

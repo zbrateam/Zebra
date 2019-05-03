@@ -11,6 +11,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
+#import <Database/ZBDatabaseManager.h>
 
 @implementation ZBPackage
 
@@ -339,6 +340,16 @@
     [scanner scanUpToString:@"\n" intoString:&value];
     
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
+}
+
+- (BOOL)isStrictlyInstalled {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageIsInstalled:self versionStrict:true];
+}
+
+- (BOOL)isInstalled {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [repo repoID] == 0 || [repo repoID] == -1 || [databaseManager packageIsInstalled:self versionStrict:false];
 }
 
 @end

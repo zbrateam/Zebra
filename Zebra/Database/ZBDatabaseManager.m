@@ -625,31 +625,36 @@
 }
 
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict {
-    if ([self openDatabase] == SQLITE_OK) {
-        NSString *query;
-        
-        if (strict) {
-            query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1;", [package identifier], [package version]];
-        }
-        else {
-            query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID < 1;", [package identifier]];
-        }
-        
-        BOOL packageIsInstalled = false;
-        sqlite3_stmt *statement;
-        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            packageIsInstalled = true;
-            break;
-        }
-        sqlite3_finalize(statement);
-        [self closeDatabase];
-        
-        return packageIsInstalled;
+    if (!strict && [installedPackageIDs count] != 0) {
+        return [installedPackageIDs containsObject:[package identifier]];
     }
     else {
-        [self printDatabaseError];
-        return false;
+        if ([self openDatabase] == SQLITE_OK) {
+            NSString *query;
+            
+            if (strict) {
+                query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1;", [package identifier], [package version]];
+            }
+            else {
+                query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID < 1;", [package identifier]];
+            }
+            
+            BOOL packageIsInstalled = false;
+            sqlite3_stmt *statement;
+            sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                packageIsInstalled = true;
+                break;
+            }
+            sqlite3_finalize(statement);
+            [self closeDatabase];
+            
+            return packageIsInstalled;
+        }
+        else {
+            [self printDatabaseError];
+            return false;
+        }
     }
 }
 

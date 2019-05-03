@@ -25,7 +25,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)updateData:(ZBPackage *)package isInstalled:(BOOL)isInstalled {
+- (void)updateData:(ZBPackage *)package{
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.desc;
     
@@ -37,15 +37,18 @@
         self.iconImageView.image = [UIImage imageNamed:@"Other"];
     }
     
-    self.isInstalledImageView.hidden = !isInstalled;
-    self.isPaidImageView.hidden = ![package isPaid];
+    BOOL installed = [package isInstalled];
+    BOOL paid = [package isPaid];
     
-    if ([package isPaid] && !isInstalled) {
+    self.isInstalledImageView.hidden = !installed;
+    self.isPaidImageView.hidden = !paid;
+    
+    if (paid && !installed) {
         self.isInstalledImageView.image = [UIImage imageNamed:@"Paid"];
         self.isInstalledImageView.hidden = NO;
         self.isPaidImageView.hidden = YES;
     }
-    else if ([package isPaid] && isInstalled) {
+    else if (paid && installed) {
         self.isInstalledImageView.image = [UIImage imageNamed:@"Installed"];
     }
     

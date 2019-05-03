@@ -203,13 +203,14 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (needsUpdatesSection &&  indexPath.section == 0) {
         ZBPackage *package = (ZBPackage *)[updates objectAtIndex:indexPath.row];
-        [cell updateData:package isInstalled:false];
         
+        [cell updateData:package];
     }
     else {
         ZBPackage *package = (ZBPackage *)[packages objectAtIndex:indexPath.row];
         
-        [cell updateData:package isInstalled:false];
+        [cell updateData:package];
+        
         if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
