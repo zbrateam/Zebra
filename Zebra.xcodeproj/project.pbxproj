@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
+		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
@@ -65,6 +66,8 @@
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
+		49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRepoTableViewCell.h; sourceTree = "<group>"; };
+		49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRepoTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 		896F11C721B231CB0017B581 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */,
+				49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */,
 				896F11C121B231900017B581 /* ZBRepo.h */,
 				896F11C221B231900017B581 /* ZBRepo.m */,
 				896F11BB21B231490017B581 /* ZBRepoManager.h */,
@@ -516,6 +521,7 @@
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */,
+				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
