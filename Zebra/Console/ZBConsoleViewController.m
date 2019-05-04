@@ -281,8 +281,7 @@
     //Bye!
     NSTask *task = [[NSTask alloc] init];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if([fileManager fileExistsAtPath:@"/usr/bin/sbreload"]){
+    if([fileManager fileExistsAtPath:@"/chimera"]){
         [task setLaunchPath:@"/usr/bin/sbreload"];
     } else {
         [task setLaunchPath:@"/usr/bin/killall"];
