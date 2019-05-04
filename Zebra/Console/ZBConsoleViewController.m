@@ -280,8 +280,13 @@
 - (void)restartSpringBoard {
     //Bye!
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/killall"];
-    [task setArguments:@[@"-9", @"backboardd"]];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if([fileManager fileExistsAtPath:@"/chimera"]){
+        [task setLaunchPath:@"/usr/bin/sbreload"];
+    } else {
+        [task setLaunchPath:@"/usr/bin/killall"];
+        [task setArguments:@[@"-9", @"backboardd"]];
+    }
     
     [task launch];
 }
