@@ -63,8 +63,12 @@ int isRepoSecure(const char* sourcePath, char *repoURL) {
     }
 }
 
-void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
+enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
+    if (file == NULL) {
+        return PARSEL_FILENOTFOUND;
+    }
+    
     char line[256];
     
     char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
@@ -127,10 +131,15 @@ void importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     dict_free(repo);
     
     fclose(file);
+    return PARSEL_OK;
 }
 
-void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
+enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
+    if (file == NULL) {
+        return PARSEL_FILENOTFOUND;
+    }
+    
     char line[256];
     
     char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
@@ -193,6 +202,7 @@ void updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *dat
     dict_free(repo);
     
     fclose(file);
+    return PARSEL_OK;
 }
 
 void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
@@ -250,8 +260,12 @@ void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *databas
     dict_free(repo);
 }
 
-void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
+enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
+    if (file == NULL) {
+        return PARSEL_FILENOTFOUND;
+    }
+    
     char line[256];
     
     char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
@@ -337,10 +351,14 @@ void importPackagesToDatabase(const char *path, sqlite3 *database, int repoID) {
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
+    return PARSEL_OK;
 }
 
-void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
+enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
+    if (file == NULL) {
+        return PARSEL_FILENOTFOUND;
+    }
     char line[512];
     
     char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
@@ -424,4 +442,5 @@ void updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
+    return PARSEL_OK;
 }
