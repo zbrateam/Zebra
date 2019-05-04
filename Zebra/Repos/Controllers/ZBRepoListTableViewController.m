@@ -443,7 +443,7 @@
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
             refreshController.messages = self->errorMessages;
             
-            self->errorMessages = [NSMutableArray new];
+            self->errorMessages = NULL;
             
             [self presentViewController:refreshController animated:true completion:nil];
         }
