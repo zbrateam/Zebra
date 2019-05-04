@@ -144,10 +144,14 @@
             int repoID = [self repoIDFromBaseFileName:baseFileName];
             if (repoID == -1) { //Repo does not exist in database, create it.
                 repoID = [self nextRepoID];
-                importRepoToDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
+                if (importRepoToDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
+                    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
+                }
             }
             else {
-                updateRepoInDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID);
+                if (updateRepoInDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
+                    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
+                }
             }
         }
         
@@ -166,10 +170,14 @@
                 NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
                 repoID = [self nextRepoID];
                 createDummyRepo([[ZBAppDelegate sourceListLocation] UTF8String], [packagesPath UTF8String], database, repoID); //For repos with no release file (notably junesiphone)
-                updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
+                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID) != PARSEL_OK) {
+                    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
+                }
             }
             else {
-                updatePackagesInDatabase([packagesPath UTF8String], database, repoID);
+                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID) != PARSEL_OK) {
+                    [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
+                }
             }
             
             if ([_databaseDelegate respondsToSelector:@selector(setRepo:busy:)]) {

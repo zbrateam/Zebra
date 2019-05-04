@@ -48,6 +48,7 @@
 }
 
 - (IBAction)completeButton:(id)sender {
+    messages = NULL;
     hadAProblem = false;
     [self goodbye];
 }
