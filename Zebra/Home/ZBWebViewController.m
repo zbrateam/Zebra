@@ -12,6 +12,9 @@
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
+#import <Database/ZBDatabaseManager.h>
+#import <Packages/Helpers/ZBPackage.h>
+#import <Repos/Helpers/ZBRepo.h>
 
 @interface ZBWebViewController () {
     NSURL *_url;
@@ -62,6 +65,8 @@
     webView.backgroundColor = [UIColor clearColor];
     webView.tintColor = [UIColor tintColor];
     
+    UIBarButtonItem *export = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export:)];
+    
     if (_url != NULL) {
         if (@available(iOS 11.0, *)) {
             self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -69,17 +74,73 @@
         
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
+        self.navigationItem.leftBarButtonItem = nil;
     }
     else {
         self.title = @"Home";
         
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+        self.navigationItem.leftBarButtonItem = export;
     }
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
+- (void) export:(id) sender {
+    __block UIActivityViewController *activityViewController;
+    ZBDatabaseManager *manager = [[ZBDatabaseManager alloc] init];
+
+    UIAlertController *actions = [UIAlertController alertControllerWithTitle:@"export" message:@"Choose what to export" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *exportSources = [UIAlertAction actionWithTitle:@"Sources" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *sources = manager.sources;
+        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Sources:\n", nil];
+        for (int i = 0; i < [sources count]; i++) {
+            ZBRepo *repo = [sources objectAtIndex:i];
+            [list addObject:[repo.baseURL stringByAppendingString: @"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *exportPackages = [UIAlertAction actionWithTitle:@"Packages" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *packages = manager.installedPackages;
+        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
+        for (NSInteger i = 0; i < [packages count]; i++) {
+            ZBPackage *package = [packages objectAtIndex:i];
+            [list addObject: [package.name stringByAppendingString: @"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *exportBoth = [UIAlertAction actionWithTitle:@"Both" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *packages = manager.installedPackages;
+        NSArray *sources = manager.sources;
+        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
+        for (int i = 0; i < [packages count]; i++) {
+            ZBPackage *package = [packages objectAtIndex:i];
+            [list addObject: [package.name stringByAppendingString: @"\n"]];
+        }
+        [list addObject:@"\nSources:\n"];
+        for (int i = 0; i < [sources count]; i++) {
+            ZBRepo *repo = [sources objectAtIndex:i];
+            [list addObject:[repo.baseURL stringByAppendingString: @"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * cancel) {
+        
+    }];
+    [actions addAction:exportSources];
+    [actions addAction:exportPackages];
+    [actions addAction:exportBoth];
+    [actions addAction:cancel];
+    [self presentViewController:actions animated:YES completion:nil];
+
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
         [progressView setAlpha:1.0f];
