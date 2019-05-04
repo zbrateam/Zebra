@@ -88,19 +88,23 @@
         NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
         NSString *shortURL = separate[0];
         
+        BOOL secure = sqlite3_column_int(statement, 4);
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
             iconURL = [NSURL URLWithString:url] ;
         }
-        else{
-            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]] ;
+        else if (secure) {
+            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]];
+        }
+        else {
+            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]];
         }
         
         [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NULL];
         [self setDesc:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setBaseFileName:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setBaseURL:baseURL];
-        [self setSecure:sqlite3_column_int(statement, 4)];
+        [self setSecure:secure];
         [self setRepoID:sqlite3_column_int(statement, 5)];
         [self setIconURL:iconURL];
         [self setDefaultRepo:sqlite3_column_int(statement, 6)];
