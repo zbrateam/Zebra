@@ -86,7 +86,10 @@
         NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Sources:\n", nil];
         for (int i = 0; i < [sources count]; i++) {
             ZBRepo *repo = [sources objectAtIndex:i];
-            [list addObject:[repo.shortURL stringByAppendingString: @"\n"]];
+            if (![repo defaultRepo]) {
+                NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
+                [list addObject:repoURL];
+            }
         }
         activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
         activityViewController.excludedActivityTypes = @[];
@@ -114,7 +117,10 @@
         [list addObject:@"\nSources:\n"];
         for (int i = 0; i < [sources count]; i++) {
             ZBRepo *repo = [sources objectAtIndex:i];
-            [list addObject:[repo.shortURL stringByAppendingString: @"\n"]];
+            if (![repo defaultRepo]) {
+                NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
+                [list addObject:repoURL];
+            }
         }
         activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
         activityViewController.excludedActivityTypes = @[];
