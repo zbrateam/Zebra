@@ -318,6 +318,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sources" id="08I-GH-0Ip">
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="add" id="pUF-me-IKN"/>
+                            <barButtonItem systemItem="action" id="KpP-hO-rze">
+                                <connections>
+                                    <action selector="exportSources:" destination="Ty6-FV-h0G" id="oyK-LY-XCj"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="3Qt-UF-amb"/>
                     </navigationItem>
                 </tableViewController>

@@ -17,6 +17,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBRepoListTableViewController () {
     NSArray *sources;
@@ -73,6 +74,60 @@
         askedToAddFromClipboard = YES;
         lastPaste = pasteboard.string;
     }
+}
+
+- (IBAction)exportSources:(id)sender {
+    __block UIActivityViewController *activityViewController;
+    ZBDatabaseManager *manager = [[ZBDatabaseManager alloc] init];
+    
+    UIAlertController *actions = [UIAlertController alertControllerWithTitle:@"export" message:@"Choose what to export" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *exportSources = [UIAlertAction actionWithTitle:@"Sources" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *sources = manager.sources;
+        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Sources:\n", nil];
+        for (int i = 0; i < [sources count]; i++) {
+            ZBRepo *repo = [sources objectAtIndex:i];
+            [list addObject:[repo.shortURL stringByAppendingString: @"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *exportPackages = [UIAlertAction actionWithTitle:@"Packages" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *packages = manager.installedPackages;
+        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
+        for (NSInteger i = 0; i < [packages count]; i++) {
+            ZBPackage *package = [packages objectAtIndex:i];
+            [list addObject: [package.name stringByAppendingString: @"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *exportBoth = [UIAlertAction actionWithTitle:@"Both" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *packages = manager.installedPackages;
+        NSArray *sources = manager.sources;
+        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
+        for (int i = 0; i < [packages count]; i++) {
+            ZBPackage *package = [packages objectAtIndex:i];
+            [list addObject: [package.name stringByAppendingString: @"\n"]];
+        }
+        [list addObject:@"\nSources:\n"];
+        for (int i = 0; i < [sources count]; i++) {
+            ZBRepo *repo = [sources objectAtIndex:i];
+            [list addObject:[repo.shortURL stringByAppendingString: @"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * cancel) {
+        
+    }];
+    [actions addAction:exportSources];
+    [actions addAction:exportPackages];
+    [actions addAction:exportBoth];
+    [actions addAction:cancel];
+    [self presentViewController:actions animated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
