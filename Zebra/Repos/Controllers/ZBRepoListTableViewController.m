@@ -100,7 +100,7 @@
         NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
         for (NSInteger i = 0; i < [packages count]; i++) {
             ZBPackage *package = [packages objectAtIndex:i];
-            [list addObject: [package.name stringByAppendingString: @"\n"]];
+            [list addObject:[[package description] stringByAppendingString: @"\n"]];
         }
         activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
         activityViewController.excludedActivityTypes = @[];
@@ -112,7 +112,7 @@
         NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
         for (int i = 0; i < [packages count]; i++) {
             ZBPackage *package = [packages objectAtIndex:i];
-            [list addObject: [package.name stringByAppendingString: @"\n"]];
+            [list addObject: [[package description] stringByAppendingString: @"\n"]];
         }
         [list addObject:@"\nSources:\n"];
         for (int i = 0; i < [sources count]; i++) {
