@@ -80,49 +80,50 @@
     __block UIActivityViewController *activityViewController;
     ZBDatabaseManager *manager = [[ZBDatabaseManager alloc] init];
     
+    NSMutableString *export = [NSMutableString new];
     UIAlertController *actions = [UIAlertController alertControllerWithTitle:@"export" message:@"Choose what to export" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *exportSources = [UIAlertAction actionWithTitle:@"Sources" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         NSArray *sources = manager.sources;
-        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Sources:\n", nil];
+        [export appendString:@"Sources:\n"];
         for (int i = 0; i < [sources count]; i++) {
             ZBRepo *repo = [sources objectAtIndex:i];
             if (![repo defaultRepo]) {
                 NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
-                [list addObject:repoURL];
+                [export appendString:repoURL];
             }
         }
-        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
         activityViewController.excludedActivityTypes = @[];
         [self presentViewController:activityViewController animated:true completion:nil];
     }];
     UIAlertAction *exportPackages = [UIAlertAction actionWithTitle:@"Packages" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         NSArray *packages = manager.installedPackages;
-        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
+        [export appendString:@"Packages:\n"];
         for (NSInteger i = 0; i < [packages count]; i++) {
             ZBPackage *package = [packages objectAtIndex:i];
-            [list addObject:[[package description] stringByAppendingString: @"\n"]];
+            [export appendString:[[package description] stringByAppendingString:@"\n"]];
         }
-        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
         activityViewController.excludedActivityTypes = @[];
         [self presentViewController:activityViewController animated:true completion:nil];
     }];
     UIAlertAction *exportBoth = [UIAlertAction actionWithTitle:@"Both" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         NSArray *packages = manager.installedPackages;
         NSArray *sources = manager.sources;
-        NSMutableArray *list = [NSMutableArray arrayWithObjects:@"Tweaks:\n", nil];
+        [export appendString:@"Packages:\n"];
         for (int i = 0; i < [packages count]; i++) {
             ZBPackage *package = [packages objectAtIndex:i];
-            [list addObject: [[package description] stringByAppendingString: @"\n"]];
+            [export appendString:[[package description] stringByAppendingString:@"\n"]];
         }
-        [list addObject:@"\nSources:\n"];
+        [export appendString:@"\nSources:\n"];
         for (int i = 0; i < [sources count]; i++) {
             ZBRepo *repo = [sources objectAtIndex:i];
             if (![repo defaultRepo]) {
                 NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
-                [list addObject:repoURL];
+                [export appendString:repoURL];
             }
         }
-        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:list applicationActivities:nil];
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
         activityViewController.excludedActivityTypes = @[];
         [self presentViewController:activityViewController animated:true completion:nil];
     }];
