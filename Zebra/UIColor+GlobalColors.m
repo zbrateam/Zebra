@@ -9,42 +9,36 @@
 #import "UIColor+GlobalColors.h"
 
 @implementation UIColor (GlobalColors)
-+ (UIColor*)tintColor {
++ (UIColor *)tintColor {
     return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
 
-+ (UIColor*)navBarTintColor {
++ (UIColor *)navBarTintColor {
     return [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
 }
 
-+ (UIColor*)badgeColor {
++ (UIColor *)badgeColor {
     return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }
 
 // Table View Colors
-+(UIColor*)tableViewBackgroundColor
-{
-    UIColor *color = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
-    return color;
++ (UIColor *)tableViewBackgroundColor {
+    return [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];;
 }
-+(UIColor*)cellBackgroundColor
-{
-    UIColor *color = UIColor.whiteColor;
-    return color;
+
++ (UIColor *)cellBackgroundColor {
+    return [UIColor whiteColor];
 }
-+(UIColor*)selectedCellBackgroundColor
-{
-    UIColor *color = [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0];
-    return color;
+
++ (UIColor *)selectedCellBackgroundColor {
+    return [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0];
 }
-+(UIColor*)cellPrimaryTextColor
-{
-    UIColor *color = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
-    return color;
+
++ (UIColor *)cellPrimaryTextColor {
+    return [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
 }
-+(UIColor*)cellSecondaryTextColor
-{
-    UIColor *color = [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
-    return color;
+
++ (UIColor *)cellSecondaryTextColor {
+    return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
 }
 @end
