@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
+		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
+		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
-		49F13DA722750C7C00609786 /* PackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F13DA622750C7C00609786 /* PackageTableViewCell.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
@@ -17,6 +19,7 @@
 		893A17E4225FC24200E253CD /* report@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893A17E2225FC24200E253CD /* report@3x.png */; };
 		893A17E5225FC24200E253CD /* report@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893A17E3225FC24200E253CD /* report@2x.png */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
+		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */; };
 		896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBRepoManager.m */; };
@@ -37,6 +40,10 @@
 		89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */; };
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89C7E49221B240D4003DB4E8 /* parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* parsel.c */; };
+		89C90FE0227B760B00325AAD /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FDE227B760B00325AAD /* twitter@2x.png */; };
+		89C90FE3227B767900325AAD /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE2227B767900325AAD /* twitter@3x.png */; };
+		89C90FE6227B770500325AAD /* discord@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE4227B770500325AAD /* discord@2x.png */; };
+		89C90FE7227B770500325AAD /* discord@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE5227B770500325AAD /* discord@3x.png */; };
 		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
@@ -57,10 +64,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
+		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
+		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
+		49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRepoTableViewCell.h; sourceTree = "<group>"; };
+		49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRepoTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
-		49F13DA522750C7C00609786 /* PackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackageTableViewCell.h; sourceTree = "<group>"; };
-		49F13DA622750C7C00609786 /* PackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackageTableViewCell.m; sourceTree = "<group>"; };
 		7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddRepoViewController.m; sourceTree = "<group>"; };
 		7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoViewController.h; sourceTree = "<group>"; };
 		7821AF702275F3B2006C0315 /* ZBAddRepoDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoDelegate.h; sourceTree = "<group>"; };
@@ -75,6 +85,7 @@
 		893A17E3225FC24200E253CD /* report@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report@2x.png"; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
+		89463CDF2277B5C300A92FC5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
 		896BAC40226D5C440020AC3C /* ZBExternalPackageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBExternalPackageTableViewController.h; sourceTree = "<group>"; };
@@ -113,6 +124,10 @@
 		89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListTableViewController.m; sourceTree = "<group>"; };
 		89C7E48F21B23DB1003DB4E8 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
 		89C7E49121B240D4003DB4E8 /* parsel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsel.c; sourceTree = "<group>"; };
+		89C90FDE227B760B00325AAD /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
+		89C90FE2227B767900325AAD /* twitter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@3x.png"; sourceTree = "<group>"; };
+		89C90FE4227B770500325AAD /* discord@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@2x.png"; sourceTree = "<group>"; };
+		89C90FE5227B770500325AAD /* discord@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@3x.png"; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* dpkgver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dpkgver.h; sourceTree = "<group>"; };
 		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
 		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
@@ -145,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
@@ -157,10 +173,11 @@
 		8900FA512201EC6800476310 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				49F13DA622750C7C00609786 /* PackageTableViewCell.m */,
-				49F13DA522750C7C00609786 /* PackageTableViewCell.h */,
 				8977B6922206424B00CBACBB /* ZBPackage.h */,
 				8977B6932206424B00CBACBB /* ZBPackage.m */,
+				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
+				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
+				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -209,6 +226,8 @@
 		896F11C721B231CB0017B581 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */,
+				49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */,
 				896F11C121B231900017B581 /* ZBRepo.h */,
 				896F11C221B231900017B581 /* ZBRepo.m */,
 				896F11BB21B231490017B581 /* ZBRepoManager.h */,
@@ -358,6 +377,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89463CDF2277B5C300A92FC5 /* libz.tbd */,
 				8997843F2242D25800C1138C /* libbz2.tbd */,
 				895071982239E414004AE338 /* libMobileGestalt.tbd */,
 				89E8633C21D5A8C00081E485 /* WebKit.framework */,
@@ -377,6 +397,10 @@
 		89E8637521D5AF920081E485 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				89C90FE4227B770500325AAD /* discord@2x.png */,
+				89C90FE5227B770500325AAD /* discord@3x.png */,
+				89C90FDE227B760B00325AAD /* twitter@2x.png */,
+				89C90FE2227B767900325AAD /* twitter@3x.png */,
 				893A17E3225FC24200E253CD /* report@2x.png */,
 				893A17E2225FC24200E253CD /* report@3x.png */,
 				89E8637A21D5AFAA0081E485 /* home.html */,
@@ -450,8 +474,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89C90FE3227B767900325AAD /* twitter@3x.png in Resources */,
 				893A17E5225FC24200E253CD /* report@2x.png in Resources */,
 				89DB3BB32249A74B000F8983 /* repos@3x.png in Resources */,
+				89C90FE7227B770500325AAD /* discord@3x.png in Resources */,
 				89E8638121D5AFAA0081E485 /* changelog@2x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
@@ -460,6 +486,7 @@
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
 				893A17E4225FC24200E253CD /* report@3x.png in Resources */,
+				89C90FE0227B760B00325AAD /* twitter@2x.png in Resources */,
 				89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */,
@@ -468,6 +495,8 @@
 				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */,
+				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
+				89C90FE6227B770500325AAD /* discord@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,12 +525,13 @@
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
-				49F13DA722750C7C00609786 /* PackageTableViewCell.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */,
+				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
+				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
 			);

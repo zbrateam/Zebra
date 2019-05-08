@@ -21,11 +21,12 @@
 @synthesize repo;
 @synthesize sectionReadout;
 @synthesize sectionNames;
+@synthesize databaseManager;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
@@ -40,6 +41,8 @@
         imageView.center = self.navigationItem.titleView.center;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.image = image;
+        imageView.layer.cornerRadius = 5;
+        imageView.layer.masksToBounds = YES;
         [container addSubview:imageView];
         
         self.navigationItem.titleView = container;
@@ -61,7 +64,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
     if (indexPath.row == 0) {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
         cell.textLabel.text = @"All Packages";
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];

@@ -10,6 +10,8 @@
 #import <Parsel/dpkgver.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBAppDelegate.h>
+#import <NSTask.h>
+#import <Database/ZBDatabaseManager.h>
 
 @implementation ZBPackage
 
@@ -18,6 +20,7 @@
 @synthesize version;
 @synthesize desc;
 @synthesize section;
+@synthesize sectionImageName;
 @synthesize depictionURL;
 @synthesize tags;
 @synthesize dependsOn;
@@ -25,6 +28,161 @@
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
+
++ (NSArray *)filesInstalled:(NSString *)packageID {
+    NSTask *checkFilesTask = [[NSTask alloc] init];
+    [checkFilesTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"dpkg", @"-L", packageID, nil];
+    [checkFilesTask setArguments:filesArgs];
+    
+    NSPipe *outPipe = [NSPipe pipe];
+    [checkFilesTask setStandardOutput:outPipe];
+    
+    [checkFilesTask launch];
+    [checkFilesTask waitUntilExit];
+    
+    NSFileHandle *read = [outPipe fileHandleForReading];
+    NSData *dataRead = [read readDataToEndOfFile];
+    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+    
+    return [stringRead componentsSeparatedByString:@"\n"];
+}
+
++ (BOOL)containsTweak:(NSString *)packageID {
+    NSLog(@"[Zebra] Searching %@ for tweak", packageID);
+    if ([packageID containsString:@".deb"]) {
+        NSLog(@"[Zebra] Tring to find package id");
+        //do the ole dpkg -I
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
+        
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+        
+        [task launch];
+        [task waitUntilExit];
+        
+        NSFileHandle *read = [pipe fileHandleForReading];
+        NSData *dataRead = [read readDataToEndOfFile];
+        NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        
+        __block BOOL contains;
+        [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSLog(@"[Zebra] %@", pair);
+            if ([key isEqualToString:@"Package"]) {
+                contains = [self containsTweak:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                return;
+            }
+        }];
+        
+        return contains;
+    }
+    
+    NSArray *files = [self filesInstalled:packageID];
+    
+    for (NSString *path in files) {
+        if ([path rangeOfString:@"/Library/MobileSubstrate/DynamicLibraries"].location != NSNotFound) {
+            if ([path rangeOfString:@".dylib"].location != NSNotFound) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
++ (BOOL)containsApp:(NSString *)packageID {
+    NSLog(@"[Zebra] Searching %@ for app bundle", packageID);
+    if ([packageID containsString:@".deb"]) {
+        NSLog(@"[Zebra] Tring to find package id");
+        //do the ole dpkg -I
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
+        
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+        
+        [task launch];
+        [task waitUntilExit];
+        
+        NSFileHandle *read = [pipe fileHandleForReading];
+        NSData *dataRead = [read readDataToEndOfFile];
+        NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        
+        __block BOOL contains;
+        [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSLog(@"[Zebra] %@", pair);
+            if ([key isEqualToString:@"Package"]) {
+                contains = [self containsApp:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                return;
+            }
+        }];
+        
+        return contains;
+    }
+    
+    NSArray *files = [self filesInstalled:packageID];
+    
+    for (NSString *path in files) {
+        if ([path rangeOfString:@".app/Info.plist"].location != NSNotFound) {
+            return true;
+        }
+    }
+    return false;
+}
+
++ (NSString *)pathForApplication:(NSString *)packageID {
+    if ([packageID containsString:@".deb"]) {
+        //do the ole dpkg -I
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
+        
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+        
+        [task launch];
+        [task waitUntilExit];
+        
+        NSFileHandle *read = [pipe fileHandleForReading];
+        NSData *dataRead = [read readDataToEndOfFile];
+        NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        
+        __block NSString *path;
+        [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            if ([key isEqualToString:@"Package"]) {
+                path = [self pathForApplication:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                return;
+            }
+        }];
+        
+        return path;
+    }
+    
+    NSArray *files = [self filesInstalled:packageID];
+    
+    NSString *appPath;
+    for (NSString *path in files) {
+        if ([path rangeOfString:@".app/Info.plist"].location != NSNotFound) {
+            appPath = path;
+            break;
+        }
+    }
+    return appPath != NULL ? [appPath stringByDeletingLastPathComponent] : NULL;
+}
 
 - (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url {
     
@@ -89,6 +247,15 @@
         else {
             [self setRepo:[ZBRepo localRepo]];
         }
+        
+        NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+        if ([section characterAtIndex:[section length] - 1] == ')') {
+            NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
+            sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
+        }
+        [self setSectionImageName:sectionStripped];
+
+        
     }
     
     return self;
@@ -173,6 +340,16 @@
     [scanner scanUpToString:@"\n" intoString:&value];
     
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
+}
+
+- (BOOL)isStrictlyInstalled {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageIsInstalled:self versionStrict:true];
+}
+
+- (BOOL)isInstalled {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [repo repoID] == 0 || [repo repoID] == -1 || [databaseManager packageIsInstalled:self versionStrict:false];
 }
 
 @end

@@ -160,7 +160,6 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    request.HTTPMethod = @"HEAD";
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
     CFStringRef youDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
@@ -184,6 +183,8 @@
         [request setValue:udid forHTTPHeaderField:@"X-Cydia-Id"];
     }
     
+    [request setHTTPMethod:@"HEAD"];
+    
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSURL *responseURL = [httpResponse.URL URLByDeletingLastPathComponent];
@@ -192,11 +193,16 @@
             NSLog(@"[Zebra] Error verifying repository: %@", error);
             NSURL *url = [(NSURL *)[error.userInfo objectForKey:@"NSErrorFailingURLKey"] URLByDeletingLastPathComponent];
             completion(error.localizedDescription, url, responseURL);
-        } else if (httpResponse.statusCode != 200) {
-            NSString *errorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
-            NSLog(@"[Zebra] %@", errorMessage);
-            completion(errorMessage, url, responseURL);
-        } else {
+        } 
+        else if (httpResponse.statusCode != 200 || error != NULL ) {
+            NSMutableURLRequest *gzRequest = [request copy];
+            [gzRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages.gz"]];
+            NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                completion(response, error);
+            }];
+            [gzTask resume];
+        } 
+        else {
             completion(nil, nil, responseURL);
         }
     }];
@@ -209,7 +215,7 @@
     //    NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
     //    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *source in [databaseManager sources]) {
         if ([source defaultRepo]) {
             if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
@@ -273,7 +279,7 @@
 - (void)deleteSource:(ZBRepo *)delRepo {
     NSString *output = @"";
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *source in [databaseManager sources]) {
         if (![[delRepo baseFileName] isEqualToString:[source baseFileName]]) {
             if ([source defaultRepo]) {
@@ -322,7 +328,7 @@
             NSLog(@"[Zebra] Error while moving sources to file: %@", error);
         }
         
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         [databaseManager deleteRepo:delRepo];
     }
 }

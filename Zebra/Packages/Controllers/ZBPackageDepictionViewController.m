@@ -22,20 +22,11 @@
     NSArray *otherVersions;
     BOOL hasUpdate;
 }
-@property (nonatomic, strong) ZBPackage *package;
 @end
 
 @implementation ZBPackageDepictionViewController
 
-- (id)initWithPackage:(ZBPackage *)package {
-    if (!self) {
-        self = [super init];
-    }
-    
-    self.package = package;
-    
-    return self;
-}
+@synthesize package;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +39,7 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
-    self.navigationItem.title = _package.name;
+    self.navigationItem.title = package.name;
     
     self.navigationController.navigationBar.translucent = false;
     self.tabBarController.tabBar.translucent = false;
@@ -112,10 +103,10 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSURL *depictionURL = [_package depictionURL];
+    NSURL *depictionURL = [package depictionURL];
     
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [_package name], [_package identifier]] completionHandler:nil];
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [_package version]] completionHandler:nil];
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [package version]] completionHandler:nil];
     
     if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
@@ -123,9 +114,9 @@
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
         [webView evaluateJavaScript:command completionHandler:nil];
     }
-    else if (![[_package desc] isEqualToString:@""] && [_package desc] != NULL) {
+    else if (![[package desc] isEqualToString:@""] && [package desc] != NULL) {
         [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [_package desc]] completionHandler:nil];
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [package desc]] completionHandler:nil];
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
@@ -138,7 +129,7 @@
     
     int type = navigationAction.navigationType;
     
-    if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[_package depictionURL]])) {
+    if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
     else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
@@ -164,15 +155,10 @@
 }
 
 - (void)configureNavButton {
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-//    NSLog(@"Package is installed %@ repoID %d", [databaseManager packageIsInstalled:_package] ? @"true" : @"false", [[_package repo] repoID]);
-    if ([[_package repo] repoID] == 0 || [databaseManager packageIsInstalled:_package]) {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
 //        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
-        
-        sqlite3 *database;
-        sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
-        
-        otherVersions = [databaseManager otherVersionsForPackage:_package inDatabase:database];
+        otherVersions = [databaseManager otherVersionsForPackage:package];
         if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
@@ -181,8 +167,6 @@
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
-        
-        sqlite3_close(database);
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -192,36 +176,30 @@
     
 - (void)installPackage {
     ZBQueue *queue = [ZBQueue sharedInstance];
-    [queue addPackage:_package toQueue:ZBQueueTypeInstall];
+    [queue addPackage:package toQueue:ZBQueueTypeInstall];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    [self presentViewController:vc animated:true completion:nil];
+    [self presentQueue];
 }
 
 - (void)modifyPackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[_package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ZBQueue *queue = [ZBQueue sharedInstance];
-        [queue addPackage:self->_package toQueue:ZBQueueTypeRemove];
+        [queue addPackage:self->package toQueue:ZBQueueTypeRemove];
         
         [alert dismissViewControllerAnimated:true completion:nil];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-        [self presentViewController:vc animated:true completion:nil];
+        [self presentQueue];
     }];
     
     [alert addAction:remove];
     
     UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ZBQueue *queue = [ZBQueue sharedInstance];
-        [queue addPackage:self->_package toQueue:ZBQueueTypeReinstall];
+        [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
         
         [alert dismissViewControllerAnimated:true completion:nil];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-        [self presentViewController:vc animated:true completion:nil];
+        [self presentQueue];
     }];
     
     [alert addAction:reinstall];
@@ -238,12 +216,10 @@
     if (hasUpdate) {
         UIAlertAction *upgrade = [UIAlertAction actionWithTitle:@"Upgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:self->_package toQueue:ZBQueueTypeUpgrade];
+            [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
             
             [alert dismissViewControllerAnimated:true completion:nil];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-            [self presentViewController:vc animated:true completion:nil];
+            [self presentQueue];
         }];
         
         [alert addAction:upgrade];
@@ -261,10 +237,10 @@
 }
 
 - (void)downgradePackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [_package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (ZBPackage *downPackage in otherVersions) {
-        if ([[downPackage repo] repoID] == 0 || [[downPackage version] isEqualToString:[_package version]]) {
+        if ([[downPackage repo] repoID] == 0 || [[downPackage version] isEqualToString:[package version]]) {
             continue;
         }
         
@@ -272,13 +248,8 @@
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
             
-//            NSLog(@"Package repoID %d", [[downPackage repo] repoID]);
-            
             [alert dismissViewControllerAnimated:true completion:nil];
-            
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-            [self presentViewController:vc animated:true completion:nil];
+            [self presentQueue];
         }];
         
         [alert addAction:action];
@@ -297,15 +268,66 @@
 
 - (void)removePackage {
     ZBQueue *queue = [ZBQueue sharedInstance];
-    [queue addPackage:_package toQueue:ZBQueueTypeRemove];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    [self presentViewController:vc animated:true completion:nil];
+    [queue addPackage:package toQueue:ZBQueueTypeRemove];
+    [self presentQueue];
 }
 
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
 }
+
+- (void)presentQueue {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+    
+    if (self.navigationController == NULL && _parent != NULL) {
+        [_parent presentViewController:vc animated:true completion:nil];
+    }
+    else {
+        [self presentViewController:vc animated:true completion:nil];
+    }
+}
+
+//3D Touch Actions
+
+- (NSArray *)previewActionItems {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
+        otherVersions = [databaseManager otherVersionsForPackage:package];
+        if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
+            UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                [self removePackage];
+            }];
+            
+            UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                ZBQueue *queue = [ZBQueue sharedInstance];
+                [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
+                
+                [self presentQueue];
+            }];
+            
+            return @[remove, reinstall];
+        }
+        else { //Show remove, its just a local package
+            UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                [self removePackage];
+            }];
+            
+            return @[remove];
+        }
+    }
+    else {
+        UIPreviewAction *install = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [self installPackage];
+        }];
+        
+        return @[install];
+    }
+}
+
+@synthesize delegate;
+@synthesize sourceView;
+@synthesize previewingGestureRecognizerForFailureRelationship;
+@synthesize sourceRect;
 
 @end

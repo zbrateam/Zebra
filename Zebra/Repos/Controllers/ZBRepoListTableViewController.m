@@ -11,6 +11,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBRepoTableViewCell.h>
 #import <ZBTabBarController.h>
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
@@ -18,12 +19,15 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBAddRepoViewController.h"
 #import "ZBAddRepoDelegate.h"
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
     NSArray *sources;
     NSMutableArray *bfns;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
+    BOOL askedToAddFromClipboard;
+    NSString *lastPaste;
 }
 
 @property (nonatomic, retain) ZBRepoManager *repoManager;
@@ -35,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [databaseManager sources];
     self.repoManager = [[ZBRepoManager alloc] init];
     
@@ -47,17 +51,103 @@
     self.editButtonItem.action = @selector(editMode:);
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+    self.navigationItem.leftBarButtonItem = addButton;
+    
     //set up refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
     self.extendedLayoutIncludesOpaqueBars = true;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
+
+}
+
+-(void)checkClipboard {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSURL *url = [NSURL URLWithString:pasteboard.string];
+    if ((url && url.scheme && url.host))
+    {
+        if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
+            [self showAddRepoFromClipboardAlert:url];
+        }
+        askedToAddFromClipboard = YES;
+        lastPaste = pasteboard.string;
+    }
+}
+
+- (IBAction)exportSources:(id)sender {
+    __block UIActivityViewController *activityViewController;
+    ZBDatabaseManager *manager = [[ZBDatabaseManager alloc] init];
+    
+    NSMutableString *export = [NSMutableString new];
+    UIAlertController *actions = [UIAlertController alertControllerWithTitle:@"export" message:@"Choose what to export" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *exportSources = [UIAlertAction actionWithTitle:@"Sources" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *sources = manager.sources;
+        [export appendString:@"Sources:\n"];
+        for (int i = 0; i < [sources count]; i++) {
+            ZBRepo *repo = [sources objectAtIndex:i];
+            if (![repo defaultRepo]) {
+                NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
+                [export appendString:repoURL];
+            }
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *exportPackages = [UIAlertAction actionWithTitle:@"Packages" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *packages = manager.installedPackages;
+        [export appendString:@"Packages:\n"];
+        for (NSInteger i = 0; i < [packages count]; i++) {
+            ZBPackage *package = [packages objectAtIndex:i];
+            [export appendString:[[package description] stringByAppendingString:@"\n"]];
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *exportBoth = [UIAlertAction actionWithTitle:@"Both" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        NSArray *packages = manager.installedPackages;
+        NSArray *sources = manager.sources;
+        [export appendString:@"Packages:\n"];
+        for (int i = 0; i < [packages count]; i++) {
+            ZBPackage *package = [packages objectAtIndex:i];
+            [export appendString:[[package description] stringByAppendingString:@"\n"]];
+        }
+        [export appendString:@"\nSources:\n"];
+        for (int i = 0; i < [sources count]; i++) {
+            ZBRepo *repo = [sources objectAtIndex:i];
+            if (![repo defaultRepo]) {
+                NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
+                [export appendString:repoURL];
+            }
+        }
+        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
+        activityViewController.excludedActivityTypes = @[];
+        [self presentViewController:activityViewController animated:true completion:nil];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * cancel) {
+        
+    }];
+    [actions addAction:exportSources];
+    [actions addAction:exportPackages];
+    [actions addAction:exportBoth];
+    [actions addAction:cancel];
+    [self presentViewController:actions animated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    [self checkClipboard];
     [self refreshTable];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,17 +159,19 @@
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
     NSInteger row = [bfns indexOfObject:bfn];
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
         
         if (visible) {
             UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
             [spinner setColor:[UIColor grayColor]];
-            spinner.frame = CGRectMake(0, 0, 24, 24);
-            cell.accessoryView = spinner;
+            spinner.frame = CGRectMake(0, 7, 0, 0);
+            [cell clearAccessoryView];
+            [cell hideChevron];
+            [cell.accessoryZBView addSubview:spinner];
             [spinner startAnimating];
         }
         else {
-            cell.accessoryView = nil;
+            [cell clearAccessoryView];
         }
     });
 }
@@ -89,9 +181,9 @@
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
     dispatch_async(dispatch_get_main_queue(), ^{
         for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             
-            cell.accessoryView = nil;
+            [cell clearAccessoryView];
         }
     });
 }
@@ -99,14 +191,10 @@
 - (void)editMode:(id)sender {
     if (self.editing) {
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
-        self.navigationItem.leftBarButtonItem = nil;
         
         [self setEditing:false animated:true];
     }
     else {
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-        self.navigationItem.leftBarButtonItem = addButton;
-        
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
         self.navigationItem.rightBarButtonItem = doneButton;
         
@@ -126,7 +214,7 @@
         [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:false];
     }
     else {
-        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         sources = [databaseManager sources];
         
         bfns = [NSMutableArray new];
@@ -144,18 +232,109 @@
 
 - (void)showAddRepoAlert:(NSURL *)url {
     [self performSegueWithIdentifier:@"showAddSources" sender:self];
+    /* UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter URL" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tintColor = [UIColor tintColor];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+        
+        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+        NSString *sourceURL = alertController.textFields[0].text;
+        
+        UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:wait animated:true completion:nil];
+        
+        [repoManager addSourceWithURL:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
+            if (!success) {
+                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+                
+                [wait dismissViewControllerAnimated:true completion:^{
+                    [self presentVerificationFailedAlert:error url:url present:YES];
+                }];
+            }
+            else {
+                [wait dismissViewControllerAnimated:true completion:^{
+                    NSLog(@"[Zebra] Added source.");
+                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        [self presentViewController:console animated:true completion:nil];
+                    });
+                }];
+            }
+        }];
+    }]];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        if (url != NULL) {
+            textField.text = [url absoluteString];
+        }
+        else {
+            textField.text = @"https://";
+        }
+        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        textField.keyboardType = UIKeyboardTypeURL;
+        textField.returnKeyType = UIReturnKeyNext;
+    }];
+    
+    [self presentViewController:alertController animated:true completion:nil]; */
 }
 
-- (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url {
+- (void)showAddRepoFromClipboardAlert:(NSURL *)url {
+//    NSString *message = [NSString stringWithFormat:@"Would you like to add %@?", url.absoluteString];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to add the URL from your clipboard?" message:url.absoluteString preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tintColor = [UIColor tintColor];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+        
+        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+        NSString *sourceURL = url.absoluteString;
+        
+        UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:wait animated:true completion:nil];
+        
+        [repoManager addSourceWithURL:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
+            if (!success) {
+                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+                [wait dismissViewControllerAnimated:true completion:^{
+                    [self presentVerificationFailedAlert:error url:url present:NO];
+                }];
+            }
+            else {
+                [wait dismissViewControllerAnimated:true completion:^{
+                    NSLog(@"[Zebra] Added source.");
+                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        [self presentViewController:console animated:true completion:nil];
+                    });
+                }];
+            }
+        }];
+    }]];
+    
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+- (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url present:(BOOL)present {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Unable to verify Repo" message:message preferredStyle:UIAlertControllerStyleAlert];
         alertController.view.tintColor = [UIColor tintColor];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [alertController dismissViewControllerAnimated:true completion:nil];
-            [self showAddRepoAlert:url];
+            if (present) {
+                [self showAddRepoAlert:url];
+            }
         }];
         [alertController addAction:okAction];
-        
         [self presentViewController:alertController animated:true completion:nil];
     });
 }
@@ -217,42 +396,44 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
     ZBRepo *source = [sources objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [source origin];
+    cell.repoLabel.text = [source origin];
     
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
     NSString *bfn = bfns[indexPath.row];
     if ([busyList[bfn] boolValue]) {
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-        spinner.frame = CGRectMake(0, 0, 24, 24);
+        spinner.frame = CGRectMake(0, 7, 0, 0);
         [spinner setColor:[UIColor grayColor]];
-        cell.accessoryView = spinner;
+        [cell clearAccessoryView];
+        [cell hideChevron];
+        [cell.accessoryZBView addSubview:spinner];
         [spinner startAnimating];
     }
     else {
-        cell.accessoryView = nil;
+        [cell clearAccessoryView];
     }
     
     if ([source isSecure]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
+        cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
     }
     else {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
+        cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     
-    ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     UIImage *icon = [databaseManager iconForRepo:source];
     
     if (icon != NULL) {
-        cell.imageView.image = icon;
+        cell.iconImageView.image = icon;
         CGSize itemSize = CGSizeMake(35, 35);
         UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
         CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-        [cell.imageView.image drawInRect:imageRect];
-        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        [cell.iconImageView.image drawInRect:imageRect];
+        cell.iconImageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
     else { //Download the image
@@ -261,16 +442,16 @@
         NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:[source iconURL] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 UIImage *image = [UIImage imageWithData:data];
-                UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
+                ZBRepoTableViewCell *updateCell = (ZBRepoTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (updateCell) {
-                            updateCell.imageView.image = image;
+                            updateCell.iconImageView.image = image;
                             CGSize itemSize = CGSizeMake(35, 35);
                             UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
                             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+                            [cell.iconImageView.image drawInRect:imageRect];
+                            cell.iconImageView.image = UIGraphicsGetImageFromCurrentImageContext();
                             UIGraphicsEndImageContext();
                             [updateCell setNeedsDisplay];
                             [updateCell setNeedsLayout];
@@ -281,7 +462,15 @@
                 else {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (updateCell) {
-                            updateCell.imageView.image = [UIImage imageNamed:@"Unknown"];
+                            updateCell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
+                            CGSize itemSize = CGSizeMake(35, 35);
+                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+                            [cell.iconImageView.image drawInRect:imageRect];
+                            cell.iconImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+                            UIGraphicsEndImageContext();
+                            [updateCell setNeedsDisplay];
+                            [updateCell setNeedsLayout];
                         }
                     });
                 }
@@ -314,6 +503,18 @@
         [self.repoManager deleteSource:delRepo];
     }
  }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
+}
 
 #pragma mark - Navigation
 
@@ -371,7 +572,7 @@
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
             refreshController.messages = self->errorMessages;
             
-            self->errorMessages = [NSMutableArray new];
+            self->errorMessages = NULL;
             
             [self presentViewController:refreshController animated:true completion:nil];
         }

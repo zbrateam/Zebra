@@ -29,14 +29,14 @@
     [super viewDidLoad];
 
     if (@available(iOS 10.0, *)) {
-        UITabBar.appearance.tintColor = [UIColor navBarTintColor];
+        UITabBar.appearance.tintColor = [UIColor tintColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
     
-    databaseManager = [[ZBDatabaseManager alloc] init];
+    databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager setDatabaseDelegate:self];
     [databaseManager updateDatabaseUsingCaching:true requested:false];
 }

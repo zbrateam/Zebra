@@ -10,14 +10,18 @@
 
 #import <UIKit/UIDevice.h>
 #import <sys/sysctl.h>
-#import <bzlib.h>
 
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
+#import <bzlib.h>
+#import <zlib.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
 @interface ZBDownloadManager () {
+    BOOL ignore;
     int tasks;
 }
 @end
@@ -127,6 +131,7 @@
 }
 
 - (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore {
+    self->ignore = ignore;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = ignore ? [self headers] : [self headersForFile:@"file"];
 
@@ -152,6 +157,24 @@
         
         [downloadDelegate predator:self startedDownloadForFile:baseFileName];
     }
+}
+
+- (void)downloadFromURL:(NSURL *)url ignoreCaching:(BOOL)ignore {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = ignore ? [self headers] : [self headersForFile:@"file"];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    
+    NSURLSessionTask *task = [session downloadTaskWithURL:url];
+    tasks++;
+    [task resume];
+    
+    NSString *schemeless = [[url absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+    NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, @"_Release"];
+    NSString *baseFileName = [self baseFileNameFromFullPath:saveName];
+    
+    [downloadDelegate predator:self startedDownloadForFile:baseFileName];
 }
 
 - (void)downloadRepo:(ZBRepo *)repo {
@@ -195,28 +218,41 @@
     NSURL *url = [[downloadTask originalRequest] URL];
     NSString *filename = [url lastPathComponent];
     if (responseCode != 200 && responseCode != 304) { //Handle error code
-        if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
-            //Allows custom error message to be displayed by the repository using the body
-            NSError *readError;
-            NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
-            
-            if (readError) {
-                NSLog(@"%@", readError);
-                [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:readError];
-            }
-            else {
-                NSLog(@"Response: %@", contents);
-                NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
-                [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:error];
-            }
+        if ([[filename lastPathComponent] containsString:@".bz2"]) { //Try to download .gz
+            [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
         }
         else {
-            NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
-            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
-            if ([[filename lastPathComponent] containsString:@".deb"]) {
-                [self cancelAllTasksForSession:session];
+            if (![filename isEqualToString:@"Release"]) {
+                if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
+                    //Allows custom error message to be displayed by the repository using the body
+                    NSError *readError;
+                    NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
+                    
+                    if (readError) {
+                        NSLog(@"%@", readError);
+                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
+                    }
+                    else {
+                        NSLog(@"Response: %@", contents);
+                        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
+                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                    }
+                }
+                else {
+                    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
+                    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
+                    if ([[filename lastPathComponent] containsString:@".deb"]) {
+                        [self cancelAllTasksForSession:session];
+                    }
+                    
+                    if ([[[[downloadTask originalRequest] URL] lastPathComponent] containsString:@".deb"]) {
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                    }
+                    else {
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] absoluteString] withError:error];
+                    }
+                }
             }
-            [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask currentRequest] URL] lastPathComponent] withError:error];
         }
     }
     else { //Download success
@@ -235,7 +271,7 @@
                 }
             }];
         }
-        else if ([[filename lastPathComponent] containsString:@".bz2"]) {
+        else if ([[filename lastPathComponent] containsString:@".gz"]) {
             if (responseCode == 304) {
                 [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
@@ -252,6 +288,71 @@
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
                     }
                     else {
+                        NSData *data = [NSData dataWithContentsOfFile:finalPath];
+                        
+                        z_stream stream;
+                        stream.zalloc = Z_NULL;
+                        stream.zfree = Z_NULL;
+                        stream.avail_in = (uint)data.length;
+                        stream.next_in = (Bytef *)data.bytes;
+                        stream.total_out = 0;
+                        stream.avail_out = 0;
+                        
+                        NSMutableData *output = nil;
+                        if (inflateInit2(&stream, 47) == Z_OK)
+                        {
+                            int status = Z_OK;
+                            output = [NSMutableData dataWithCapacity:data.length * 2];
+                            while (status == Z_OK)
+                            {
+                                if (stream.total_out >= output.length)
+                                {
+                                    output.length += data.length / 2;
+                                }
+                                stream.next_out = (uint8_t *)output.mutableBytes + stream.total_out;
+                                stream.avail_out = (uInt)(output.length - stream.total_out);
+                                status = inflate (&stream, Z_SYNC_FLUSH);
+                            }
+                            if (inflateEnd(&stream) == Z_OK)
+                            {
+                                if (status == Z_STREAM_END)
+                                {
+                                    output.length = stream.total_out;
+                                }
+                            }
+                        }
+                        
+                        [output writeToFile:[finalPath stringByDeletingPathExtension] atomically:false];
+
+                        NSError *removeError;
+                        [[NSFileManager defaultManager] removeItemAtPath:finalPath error:&removeError];
+                        if (removeError != NULL) {
+                            NSLog(@"[Hyena] Unable to remove .gz, %@", removeError.localizedDescription);
+                        }
+                        
+                        [self addFile:[finalPath stringByDeletingPathExtension] toArray:@"packages"];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:NULL];
+                    }
+                }];
+            }
+        }
+        else if ([[filename lastPathComponent] containsString:@".bz2"]) {
+            if (responseCode == 304) {
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+            }
+            else {
+                NSString *listsPath = [ZBAppDelegate listsLocation];
+                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
+                
+                [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
+                    if (!success && error != NULL) {
+                        NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
+                    }
+                    else {                        
                         FILE *f = fopen([finalPath UTF8String], "r");
                         FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
                         
@@ -276,6 +377,9 @@
                         
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
+                            [self moveFileFromLocation:[NSURL URLWithString:[@"file://" stringByAppendingString:finalPath]] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
+                                NSLog(@"Moved");
+                            }];
                         }
                         
                         BZ2_bzReadClose(&bzError, bzf);
