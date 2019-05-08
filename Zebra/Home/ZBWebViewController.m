@@ -18,12 +18,17 @@
     IBOutlet WKWebView *webView;
     IBOutlet UIProgressView *progressView;
 }
+
+@property (nonatomic, retain) ZBRepoManager *repoManager;
+
 @end
 
 @implementation ZBWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.repoManager = [[ZBRepoManager alloc] init];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
@@ -202,7 +207,6 @@
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
 //    NSLog(@"[Zebra] Handling repo add for method %@", repo);
-    ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
     if (local) {
         NSArray *options = @[
                              @"transfer",
@@ -216,22 +220,22 @@
         switch ([options indexOfObject:repo]) {
             case 0:
 //                NSLog(@"[Zebra] Transferring repos");
-                [repoManager transferFromCydia];
+                [self.repoManager transferFromCydia];
                 break;
             case 1:
-                [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
+                [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
             case 2:
-                [repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\n"];
+                [self.repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\n"];
                 break;
             case 3:
-                [repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
+                [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
             case 4:
-                [repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
+                [self.repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
                 break;
             case 5:
-                [repoManager addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
+                [self.repoManager addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
                 break;
             default:
                 return;
@@ -242,7 +246,9 @@
         [self presentViewController:console animated:true completion:nil];
     }
     else {
-        [repoManager addSourceWithURL:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
+        __weak typeof(self) weakSelf = self;
+        
+        [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
             if (!success) {
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
             }
@@ -250,7 +256,7 @@
                 NSLog(@"[Zebra] Added source.");
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                [self presentViewController:console animated:true completion:nil];
+                [weakSelf presentViewController:console animated:true completion:nil];
             }
         }];
     }

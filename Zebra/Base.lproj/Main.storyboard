@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -328,6 +328,9 @@
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="3Qt-UF-amb"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="n6O-pv-GKg" kind="presentation" identifier="showAddSources" id="mMn-Mh-gpg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V71-ax-BZA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,6 +382,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRu-id-7Cu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3348" y="-976.46176911544239"/>
+        </scene>
+        <!--Add Repo(s)-->
+        <scene sceneID="jHF-9m-BGG">
+            <objects>
+                <viewController storyboardIdentifier="addSourcesController" id="Mqk-oQ-y2I" customClass="ZBAddRepoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bei-qm-3Ke"/>
+                        <viewControllerLayoutGuide type="bottom" id="FVe-i1-bxw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZET-rm-6Wq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="https://" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Ww-bu-v6H">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0Ww-bu-v6H" firstAttribute="leading" secondItem="ZET-rm-6Wq" secondAttribute="leading" id="2OG-VB-0Ya"/>
+                            <constraint firstAttribute="bottom" secondItem="0Ww-bu-v6H" secondAttribute="bottom" id="Aln-YW-2yT"/>
+                            <constraint firstItem="0Ww-bu-v6H" firstAttribute="top" secondItem="ZET-rm-6Wq" secondAttribute="top" id="nWK-gU-x0m"/>
+                            <constraint firstAttribute="trailing" secondItem="0Ww-bu-v6H" secondAttribute="trailing" id="t0p-dF-xgw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Repo(s)" id="mbr-uZ-nXO">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="X8m-Fw-84j">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="Mqk-oQ-y2I" id="nnQ-h2-AgJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Add" style="done" id="6kO-W0-z9d">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="Mqk-oQ-y2I" id="Gcv-Ki-Je6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="6kO-W0-z9d" id="qKt-EN-a8x"/>
+                        <outlet property="addRepoTextView" destination="0Ww-bu-v6H" id="ULM-QN-HA2"/>
+                        <outlet property="textFieldBottomConstraint" destination="Aln-YW-2yT" id="rcI-HR-p5X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9iZ-1A-1gq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5216.8000000000002" y="-976.46176911544239"/>
         </scene>
         <!--Queue-->
         <scene sceneID="WI4-4c-3EM">
@@ -514,7 +566,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJv-RK-hrE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7222" y="-1029"/>
+            <point key="canvasLocation" x="8160.8000000000002" y="-1029.5352323838081"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sBn-mO-9Zr">
@@ -530,7 +582,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2R-47-z2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6241" y="-1029"/>
+            <point key="canvasLocation" x="7180" y="-1029.5352323838081"/>
         </scene>
         <!--Console View Controller-->
         <scene sceneID="A6v-hn-Vlw">
@@ -657,6 +709,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gJG-sK-gP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5287" y="-287"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cw0-RB-gPf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="n6O-pv-GKg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nnj-H5-Xt4">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Mqk-oQ-y2I" kind="relationship" relationship="rootViewController" id="XWc-7J-sDw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OxQ-bF-YbT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4277.6000000000004" y="-976.46176911544239"/>
         </scene>
     </scenes>
     <resources>
