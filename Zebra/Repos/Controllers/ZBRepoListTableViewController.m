@@ -299,7 +299,7 @@
         UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:wait animated:true completion:nil];
         
-        [repoManager addSourceWithURL:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
+        [repoManager addSourceWithString:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
             if (!success) {
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
                 [wait dismissViewControllerAnimated:true completion:^{

@@ -189,16 +189,19 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSURL *responseURL = [httpResponse.URL URLByDeletingLastPathComponent];
         
-        if (error) {
-            NSLog(@"[Zebra] Error verifying repository: %@", error);
-            NSURL *url = [(NSURL *)[error.userInfo objectForKey:@"NSErrorFailingURLKey"] URLByDeletingLastPathComponent];
-            completion(error.localizedDescription, url, responseURL);
-        } 
-        else if (httpResponse.statusCode != 200 || error != NULL ) {
+        if (httpResponse.statusCode != 200 || error != NULL ) {
             NSMutableURLRequest *gzRequest = [request copy];
             [gzRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages.gz"]];
-            NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                completion(response, error);
+            NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable gzdata, NSURLResponse * _Nullable gzresponse, NSError * _Nullable gzerror) {
+                NSHTTPURLResponse *gzhttpResponse = (NSHTTPURLResponse *)gzresponse;
+                if (gzhttpResponse.statusCode != 200 || gzerror != NULL ) {
+                    NSString *gzerrorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
+                    NSLog(@"[Zebra] %@", gzerrorMessage);
+                    completion(gzerrorMessage, [sourceURL URLByAppendingPathComponent:@"Packages.gz"], [gzhttpResponse.URL URLByDeletingLastPathComponent]);
+                }
+                else {
+                    completion(nil, nil, responseURL);
+                }
             }];
             [gzTask resume];
         } 
