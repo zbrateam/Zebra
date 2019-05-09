@@ -256,7 +256,7 @@
         filePath = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/sources.list", bundleID]];
     
     NSError *removeError;
-    NSString *listLocation = [ZBAppDelegate sourceListLocation];
+    NSString *listLocation = [ZBAppDelegate sourcesListPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:listLocation]) {
         [[NSFileManager defaultManager] removeItemAtPath:listLocation error:&removeError];
     }
@@ -315,7 +315,7 @@
         filePath = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/sources.list", bundleID]];
     
     NSError *removeError;
-    NSString *listLocation = [ZBAppDelegate sourceListLocation];
+    NSString *listLocation = [ZBAppDelegate sourcesListPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:listLocation]) {
         [[NSFileManager defaultManager] removeItemAtPath:listLocation error:&removeError];
     }
@@ -337,7 +337,7 @@
 }
 
 - (void)addDebLine:(NSString *)sourceLine {
-    NSString *listsLocation = [ZBAppDelegate sourceListLocation];
+    NSString *listsLocation = [ZBAppDelegate sourcesListPath];
     NSError *readError;
     NSString *output = [NSString stringWithContentsOfFile:listsLocation encoding:NSUTF8StringEncoding error:&readError];
     if (readError != NULL) {
@@ -355,7 +355,7 @@
 
 - (void)transferFromCydia {
     NSMutableArray *sources = [NSMutableArray new];
-    NSString *listsLocation = [ZBAppDelegate sourceListLocation];
+    NSString *listsLocation = [ZBAppDelegate sourcesListPath];
     
     NSError *readCydiaError;
     NSArray *cydiaSources = [[NSString stringWithContentsOfFile:@"/var/mobile/Library/Caches/com.saurik.Cydia/sources.list" encoding:NSUTF8StringEncoding error:&readCydiaError] componentsSeparatedByString:@"\n"];

@@ -101,71 +101,10 @@
 }
 
 - (void)exportSources {
-    NSURL *sourcesList = [NSURL URLWithString:[@"file://" stringByAppendingString:[ZBAppDelegate sourceListLocation]]];
+    NSURL *sourcesList = [ZBAppDelegate sourcesListURL];
     
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[sourcesList] applicationActivities:nil];
     [self presentViewController:shareSheet animated:true completion:nil];
-}
-
-- (IBAction)exportSources:(id)sender {
-    __block UIActivityViewController *activityViewController;
-    ZBDatabaseManager *manager = [[ZBDatabaseManager alloc] init];
-    
-    NSMutableString *export = [NSMutableString new];
-    UIAlertController *actions = [UIAlertController alertControllerWithTitle:@"export" message:@"Choose what to export" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *exportSources = [UIAlertAction actionWithTitle:@"Sources" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        NSArray *sources = manager.sources;
-        [export appendString:@"Sources:\n"];
-        for (int i = 0; i < [sources count]; i++) {
-            ZBRepo *repo = [sources objectAtIndex:i];
-            if (![repo defaultRepo]) {
-                NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
-                [export appendString:repoURL];
-            }
-        }
-        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
-        activityViewController.excludedActivityTypes = @[];
-        [self presentViewController:activityViewController animated:true completion:nil];
-    }];
-    UIAlertAction *exportPackages = [UIAlertAction actionWithTitle:@"Packages" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        NSArray *packages = manager.installedPackages;
-        [export appendString:@"Packages:\n"];
-        for (NSInteger i = 0; i < [packages count]; i++) {
-            ZBPackage *package = [packages objectAtIndex:i];
-            [export appendString:[[package description] stringByAppendingString:@"\n"]];
-        }
-        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
-        activityViewController.excludedActivityTypes = @[];
-        [self presentViewController:activityViewController animated:true completion:nil];
-    }];
-    UIAlertAction *exportBoth = [UIAlertAction actionWithTitle:@"Both" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        NSArray *packages = manager.installedPackages;
-        NSArray *sources = manager.sources;
-        [export appendString:@"Packages:\n"];
-        for (int i = 0; i < [packages count]; i++) {
-            ZBPackage *package = [packages objectAtIndex:i];
-            [export appendString:[[package description] stringByAppendingString:@"\n"]];
-        }
-        [export appendString:@"\nSources:\n"];
-        for (int i = 0; i < [sources count]; i++) {
-            ZBRepo *repo = [sources objectAtIndex:i];
-            if (![repo defaultRepo]) {
-                NSString *repoURL = [NSString stringWithFormat:@"%@%@\n", [repo isSecure] ? @"https://" : @"http://", [repo shortURL]];
-                [export appendString:repoURL];
-            }
-        }
-        activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[export] applicationActivities:nil];
-        activityViewController.excludedActivityTypes = @[];
-        [self presentViewController:activityViewController animated:true completion:nil];
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * cancel) {
-        
-    }];
-    [actions addAction:exportSources];
-    [actions addAction:exportPackages];
-    [actions addAction:exportBoth];
-    [actions addAction:cancel];
-    [self presentViewController:actions animated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

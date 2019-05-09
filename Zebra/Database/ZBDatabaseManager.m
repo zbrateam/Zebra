@@ -116,7 +116,7 @@
     
     if (requested || needsUpdate) {
         [self->_databaseDelegate databaseStartedUpdate];
-        ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourceListLocation]];
+        ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourcesListPath]];
         [downloadManager setDownloadDelegate:self];
         [_databaseDelegate postStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
         
@@ -144,12 +144,12 @@
             int repoID = [self repoIDFromBaseFileName:baseFileName];
             if (repoID == -1) { //Repo does not exist in database, create it.
                 repoID = [self nextRepoID];
-                if (importRepoToDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
+                if (importRepoToDatabase([[ZBAppDelegate sourcesListPath] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
                     [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
                 }
             }
             else {
-                if (updateRepoInDatabase([[ZBAppDelegate sourceListLocation] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
+                if (updateRepoInDatabase([[ZBAppDelegate sourcesListPath] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
                     [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
                 }
             }
@@ -169,7 +169,7 @@
             if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
                 NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
                 repoID = [self nextRepoID];
-                createDummyRepo([[ZBAppDelegate sourceListLocation] UTF8String], [packagesPath UTF8String], database, repoID); //For repos with no release file (notably junesiphone)
+                createDummyRepo([[ZBAppDelegate sourcesListPath] UTF8String], [packagesPath UTF8String], database, repoID); //For repos with no release file (notably junesiphone)
                 if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID) != PARSEL_OK) {
                     [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
                 }

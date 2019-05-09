@@ -64,10 +64,14 @@
 }
 
 + (BOOL)listsExists {
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self sourceListLocation]];
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self sourcesListPath]];
 }
 
-+ (NSString *)sourceListLocation {
++ (NSURL *)sourcesListURL {
+    return [NSURL URLWithString:[@"file://" stringByAppendingString:[self sourcesListPath]]];
+}
+
++ (NSString *)sourcesListPath {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
         NSLog(@"[Zebra] Creating sources.list.");

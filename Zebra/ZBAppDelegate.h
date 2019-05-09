@@ -13,8 +13,8 @@
 + (NSString *)documentsDirectory;
 + (BOOL)needsSimulation;
 + (NSString *)listsLocation;
-+ (BOOL)listsExists;
-+ (NSString *)sourceListLocation;
++ (NSURL *)sourcesListURL;
++ (NSString *)sourcesListPath;
 + (NSString *)databaseLocation;
 + (NSString *)debsLocation;
 @end
