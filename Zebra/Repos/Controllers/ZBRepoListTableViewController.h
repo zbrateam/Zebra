@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBRepoListTableViewController : UITableViewController <ZBDatabaseDelegate>
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn;
 - (void)clearAllSpinners;
+- (void)handleImportOf:(NSURL *)url;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
+#import <Repos/Controllers/ZBRepoListTableViewController.h>
 
 @interface ZBAppDelegate ()
 
@@ -61,10 +62,6 @@
         }
     }
     return lists;
-}
-
-+ (BOOL)listsExists {
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self sourcesListPath]];
 }
 
 + (NSURL *)sourcesListURL {
@@ -151,6 +148,10 @@
             else if ([[url pathExtension] isEqualToString:@"list"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:1];
+                
+                ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                NSLog(@"[Zebra] %@", repoController);
+                [repoController handleImportOf:url];
             }
             break;
         }

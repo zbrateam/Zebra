@@ -394,5 +394,62 @@
     }
 }
 
+- (BOOL)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL {
+    if (![[destinationURL pathExtension] isEqualToString:@"list"] || ![[destinationURL pathExtension] isEqualToString:@"list"]) return FALSE; //Check to be sure both urls of are type sources.list
+    
+    NSError *readError;
+    NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
+    NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];
+    NSArray *sourcesContents = [[NSString stringWithContentsOfURL:fromURL encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
+    if (readError != NULL) {
+        NSLog(@"[Zebra] Error while reading: %@", readError.localizedDescription);
+        return FALSE;
+    }
+
+    NSMutableArray *linesToAdd = [NSMutableArray new];
+    NSMutableArray *baseURLs = [NSMutableArray new];
+    for (NSString *line in destinationContents) {
+        NSArray *contents = [line componentsSeparatedByString:@" "];
+        if ([contents count] == 0 || [contents count] == 4) continue;
+        
+        if ([contents[0] isEqualToString:@"deb"]) {
+            NSURL *url = [NSURL URLWithString:contents[1]];
+            NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+            
+            [baseURLs addObject:urlString];
+        }
+    }
+    
+    for (NSString *line in sourcesContents) {
+        NSArray *contents = [line componentsSeparatedByString:@" "];
+        if ([contents count] == 0 || [contents count] == 4) continue;
+        
+        if ([contents[0] isEqualToString:@"deb"]) {
+            NSURL *url = [NSURL URLWithString:contents[1]];
+            NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+            
+            if (![baseURLs containsObject:urlString]) {
+                [linesToAdd addObject:[line stringByAppendingString:@"\n"]];
+            }
+        }
+    }
+    
+    if ([linesToAdd count] != 0) {
+        NSMutableString *finalContents = [destinationString mutableCopy];
+        [finalContents appendString:[NSString stringWithFormat:@"#Imported at %@\n", [NSDate date]]];
+        for (NSString *line in linesToAdd) {
+            NSLog(@"[Zebra] Adding %@ to sources.list", line);
+            [finalContents appendString:line];
+        }
+        
+        NSError *writeError;
+        [finalContents writeToURL:destinationURL atomically:false encoding:NSUTF8StringEncoding error:&writeError];
+        if (writeError != NULL) {
+            NSLog(@"[Zebra] Error while writing to %@: %@", destinationURL, writeError.localizedDescription);
+        }
+    }
+    
+    return TRUE;
+}
 
 @end
