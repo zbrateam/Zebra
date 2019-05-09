@@ -354,44 +354,10 @@
 }
 
 - (void)transferFromCydia {
-    NSMutableArray *sources = [NSMutableArray new];
-    NSString *listsLocation = [ZBAppDelegate sourcesListPath];
+    NSURL *listsURL = [ZBAppDelegate sourcesListURL];
+    NSURL *cydiaListsURL = [NSURL URLWithString:@"file:///var/mobile/Library/Caches/com.saurik.Cydia/sources.list"];
     
-    NSError *readCydiaError;
-    NSArray *cydiaSources = [[NSString stringWithContentsOfFile:@"/var/mobile/Library/Caches/com.saurik.Cydia/sources.list" encoding:NSUTF8StringEncoding error:&readCydiaError] componentsSeparatedByString:@"\n"];
-    
-    if (readCydiaError != nil) {
-        NSLog(@"[Zebra] Error while reading Cydia sources: %@", readCydiaError.localizedDescription);
-        return;
-    }
-    
-    for (NSString *line in cydiaSources) {
-        if (![sources containsObject:line]) {
-            [sources addObject:line];
-        }
-    }
-    
-    NSError *readZebraError;
-    NSArray *zebraSources = [[NSString stringWithContentsOfFile:listsLocation encoding:NSUTF8StringEncoding error:&readZebraError] componentsSeparatedByString:@"\n"];
-    
-    if (readZebraError != nil) {
-        NSLog(@"[Zebra] Error while reading Zebra sources: %@", readZebraError.localizedDescription);
-        return;
-    }
-    
-    for (NSString *line in zebraSources) {
-        if (![line isEqual:@""] && ![line isEqual:@"\n"] && ![sources containsObject:line]) {
-            [sources addObject:line];
-        }
-    }
-    
-    NSString *output = [[sources valueForKey:@"description"] componentsJoinedByString:@"\n"];
-    
-    NSError *error;
-    [output writeToFile:listsLocation atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
-    if (error != NULL) {
-        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-    }
+    [self mergeSourcesFrom:cydiaListsURL into:listsURL];
 }
 
 - (BOOL)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL {
