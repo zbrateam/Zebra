@@ -66,6 +66,7 @@
     
     for (NSString *line in debLines) {
         if (![line isEqual:@""]) {
+            if ([line characterAtIndex:0] == '#') continue;
             NSArray *baseURL = [self baseURLFromDebLine:line];
             [repos addObject:baseURL];
         }
