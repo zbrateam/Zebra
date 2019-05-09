@@ -47,12 +47,9 @@
     for (ZBRepo *source in sources) {
         [bfns addObject:[source baseFileName]];
     }
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    self.editButtonItem.action = @selector(editMode:);
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-    self.navigationItem.leftBarButtonItem = addButton;
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    [self layoutNavigationButtons];
     
     //set up refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -69,7 +66,25 @@
 
 }
 
--(void)checkClipboard {
+- (void)layoutNavigationButtons {
+    if (self.editing) {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        
+        UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export:)];
+        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(import:)];
+        self.navigationItem.leftBarButtonItems = @[exportButton, importButton];
+    }
+    else {
+        self.editButtonItem.action = @selector(editMode:);
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+        self.navigationItem.leftBarButtonItems = @[addButton];
+    }
+}
+
+- (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
     if ((url && url.scheme && url.host))
@@ -189,17 +204,8 @@
 }
 
 - (void)editMode:(id)sender {
-    if (self.editing) {
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
-        
-        [self setEditing:false animated:true];
-    }
-    else {
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
-        self.navigationItem.rightBarButtonItem = doneButton;
-        
-        [self setEditing:true animated:true];
-    }
+    [self setEditing:!self.editing animated:true];
+    [self layoutNavigationButtons];
 }
 
 - (void)refreshSources:(id)sender {

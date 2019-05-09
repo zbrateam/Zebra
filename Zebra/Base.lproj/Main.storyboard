@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -317,17 +317,7 @@
                             <outlet property="delegate" destination="Ty6-FV-h0G" id="jxa-T0-NvU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sources" id="08I-GH-0Ip">
-                        <leftBarButtonItems>
-                            <barButtonItem systemItem="add" id="pUF-me-IKN"/>
-                            <barButtonItem systemItem="action" id="KpP-hO-rze">
-                                <connections>
-                                    <action selector="exportSources:" destination="Ty6-FV-h0G" id="oyK-LY-XCj"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="3Qt-UF-amb"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Sources" id="08I-GH-0Ip"/>
                     <connections>
                         <segue destination="n6O-pv-GKg" kind="presentation" identifier="showAddSources" id="mMn-Mh-gpg"/>
                     </connections>
