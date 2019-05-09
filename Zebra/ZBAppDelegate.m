@@ -137,14 +137,20 @@
     
     switch (index) {
         case 0: { //file
-            if (![ZBAppDelegate needsSimulation]) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
-                
-                ZBExternalPackageTableViewController *external = vc.viewControllers[0];
-                external.fileURL = url;
-                
-                [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+            if ([[url pathExtension] isEqualToString:@"deb"]) {
+                if (![ZBAppDelegate needsSimulation]) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
+                    
+                    ZBExternalPackageTableViewController *external = vc.viewControllers[0];
+                    external.fileURL = url;
+                    
+                    [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+                }
+            }
+            else if ([[url pathExtension] isEqualToString:@"list"]) {
+                ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+                [tabController setSelectedIndex:1];
             }
             break;
         }
