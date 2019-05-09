@@ -357,11 +357,18 @@
     NSURL *listsURL = [ZBAppDelegate sourcesListURL];
     NSURL *cydiaListsURL = [NSURL URLWithString:@"file:///var/mobile/Library/Caches/com.saurik.Cydia/sources.list"];
     
-    [self mergeSourcesFrom:cydiaListsURL into:listsURL];
+    [self mergeSourcesFrom:cydiaListsURL into:listsURL completion:^(NSError * _Nonnull error) {
+        if (error != NULL) {
+            NSLog(@"[Zebra] Error merging sources: %@", error);
+        }
+    }];
 }
 
-- (BOOL)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL {
-    if (![[destinationURL pathExtension] isEqualToString:@"list"] || ![[destinationURL pathExtension] isEqualToString:@"list"]) return FALSE; //Check to be sure both urls of are type sources.list
+- (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion {
+    if (![[destinationURL pathExtension] isEqualToString:@"list"] || ![[destinationURL pathExtension] isEqualToString:@"list"]) { //Check to be sure both urls of are type .list
+        NSError *error = [NSError errorWithDomain:NSArgumentDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Both files aren't .list"}];
+        completion(error);
+    }
     
     NSError *readError;
     NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
@@ -369,7 +376,7 @@
     NSArray *sourcesContents = [[NSString stringWithContentsOfURL:fromURL encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
     if (readError != NULL) {
         NSLog(@"[Zebra] Error while reading: %@", readError.localizedDescription);
-        return FALSE;
+        completion(readError);
     }
 
     NSMutableArray *linesToAdd = [NSMutableArray new];
@@ -415,7 +422,7 @@
         }
     }
     
-    return TRUE;
+    completion(NULL);
 }
 
 @end

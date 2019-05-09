@@ -518,12 +518,14 @@
 - (void)handleImportOf:(NSURL *)url {
     ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
     
-    if ([repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL]]) {
-        NSLog(@"[Zebra] Successfully imported");
-    }
-    else {
-        NSLog(@"[Zebra] idk what went wrong");
-    }
+    [repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
+        if (error != NULL) {
+            NSLog(@"[Zebra] Error when merging sources rom %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
+        }
+        else {
+            NSLog(@"[Zebra] Successfully merged sources");
+        }
+    }];
 }
 
 @end
