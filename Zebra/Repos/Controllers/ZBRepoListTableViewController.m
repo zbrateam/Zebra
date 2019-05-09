@@ -192,8 +192,6 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:true completion:nil];
-        
-        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
         NSString *sourceURL = alertController.textFields[0].text;
         
         [self addReposWithText:sourceURL];
