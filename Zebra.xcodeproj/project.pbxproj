@@ -240,12 +240,12 @@
 		896F11C821B231CF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
+				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
 				8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */,
 				8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */,
 				898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */,
-				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
-				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

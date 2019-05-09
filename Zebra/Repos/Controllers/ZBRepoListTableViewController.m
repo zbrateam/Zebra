@@ -71,8 +71,8 @@
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
         self.navigationItem.rightBarButtonItem = doneButton;
         
-        UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export:)];
-        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(import:)];
+        UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
+        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(importSources)];
         self.navigationItem.leftBarButtonItems = @[exportButton, importButton];
     }
     else {
@@ -87,14 +87,24 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
-    if ((url && url.scheme && url.host))
-    {
+    if ((url && url.scheme && url.host)) {
         if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
             [self showAddRepoFromClipboardAlert:url];
         }
         askedToAddFromClipboard = YES;
         lastPaste = pasteboard.string;
     }
+}
+
+- (void)importSources {
+    [self performSegueWithIdentifier:@"showAddSources" sender:self];
+}
+
+- (void)exportSources {
+    NSURL *sourcesList = [NSURL URLWithString:[@"file://" stringByAppendingString:[ZBAppDelegate sourceListLocation]]];
+    
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[sourcesList] applicationActivities:nil];
+    [self presentViewController:shareSheet animated:true completion:nil];
 }
 
 - (IBAction)exportSources:(id)sender {
@@ -237,8 +247,7 @@
 }
 
 - (void)showAddRepoAlert:(NSURL *)url {
-    [self performSegueWithIdentifier:@"showAddSources" sender:self];
-    /* UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter URL" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter URL" message:nil preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor tintColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
@@ -248,30 +257,7 @@
         ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
         NSString *sourceURL = alertController.textFields[0].text;
         
-        UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:wait animated:true completion:nil];
-        
-        [repoManager addSourceWithURL:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
-            if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-                
-                [wait dismissViewControllerAnimated:true completion:^{
-                    [self presentVerificationFailedAlert:error url:url present:YES];
-                }];
-            }
-            else {
-                [wait dismissViewControllerAnimated:true completion:^{
-                    NSLog(@"[Zebra] Added source.");
-                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                        [self presentViewController:console animated:true completion:nil];
-                    });
-                }];
-            }
-        }];
+        [self addReposWithText:sourceURL];
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -287,7 +273,7 @@
         textField.returnKeyType = UIReturnKeyNext;
     }];
     
-    [self presentViewController:alertController animated:true completion:nil]; */
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 - (void)showAddRepoFromClipboardAlert:(NSURL *)url {
