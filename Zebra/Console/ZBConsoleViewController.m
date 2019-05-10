@@ -51,13 +51,13 @@
     
     if (_externalInstall) {
         akton = @[@[@0], @[@"dpkg", @"-i", _externalFilePath]];
-        [self performActions];
+        [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
     else if ([queue needsHyena]) {
         [self downloadPackages];
     }
     else {
-        [self performActions];
+        [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
 
@@ -420,7 +420,7 @@
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
     NSArray *debs = [filenames objectForKey:@"debs"];
     
-    [self performActions:debs];
+    [self performSelectorInBackground:@selector(performActions:) withObject:debs];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
