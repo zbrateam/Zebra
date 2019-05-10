@@ -516,16 +516,32 @@
 }
 
 - (void)handleImportOf:(NSURL *)url {
-    ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:@"Would you like to import these sources into Zebra?" preferredStyle:UIAlertControllerStyleAlert];
     
-    [repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
-        if (error != NULL) {
-            NSLog(@"[Zebra] Error when merging sources rom %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
-        }
-        else {
-            NSLog(@"[Zebra] Successfully merged sources");
-        }
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+        
+        [repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
+            if (error != NULL) {
+                NSLog(@"[Zebra] Error when merging sources rom %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
+            }
+            else {
+                NSLog(@"[Zebra] Successfully merged sources");
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                [self presentViewController:console animated:true completion:nil];
+            }
+        }];
     }];
+    
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alertController dismissViewControllerAnimated:true completion:nil];
+    }];
+    
+    [alertController addAction:yesAction];
+    [alertController addAction:noAction];
+    
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 @end
