@@ -75,7 +75,7 @@
     }
     else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-        cell.textLabel.text = section;
+        cell.textLabel.text = [section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
         
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
         numberFormatter.locale = [NSLocale currentLocale];
