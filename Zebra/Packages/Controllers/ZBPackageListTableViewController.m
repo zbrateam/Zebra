@@ -211,7 +211,7 @@
         
         [cell updateData:package];
         
-        if ((indexPath.row > [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
+        if ((indexPath.row >= [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
     }
