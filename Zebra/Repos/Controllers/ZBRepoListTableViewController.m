@@ -516,7 +516,29 @@
 }
 
 - (void)handleImportOf:(NSURL *)url {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:@"Would you like to import these sources into Zebra?" preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
+    
+    NSError *readError;
+    NSArray *contents = [[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
+    if (readError != NULL) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:readError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [alertController dismissViewControllerAnimated:true completion:nil];
+        }];
+        
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:true completion:nil];
+    }
+    
+    for (NSString *line in contents) {
+        NSArray *components = [line componentsSeparatedByString:@" "];
+        if ([components count] == 3) {
+            [urls appendString:[components[1] stringByAppendingString:@"\n"]];
+        }
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
