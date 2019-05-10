@@ -409,7 +409,7 @@
     
     if ([linesToAdd count] != 0) {
         NSMutableString *finalContents = [destinationString mutableCopy];
-        [finalContents appendString:[NSString stringWithFormat:@"#Imported at %@\n", [NSDate date]]];
+        [finalContents appendString:[NSString stringWithFormat:@"\n# Imported at %@\n", [NSDate date]]];
         for (NSString *line in linesToAdd) {
             NSLog(@"[Zebra] Adding %@ to sources.list", line);
             [finalContents appendString:line];
