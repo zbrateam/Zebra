@@ -213,12 +213,12 @@
 		896F11C521B231AF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				896BAC40226D5C440020AC3C /* ZBExternalPackageTableViewController.h */,
+				896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */,
 				89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */,
 				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
 				89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */,
 				89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */,
-				896BAC40226D5C440020AC3C /* ZBExternalPackageTableViewController.h */,
-				896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
