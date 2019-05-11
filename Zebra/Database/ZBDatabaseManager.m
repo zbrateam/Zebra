@@ -640,6 +640,10 @@
     }
 }
 
+- (BOOL)packageHasUpdate:(ZBPackage *)package {
+    return [upgradePackageIDs containsObject:[package identifier]];
+}
+
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict {
     if (!strict && [installedPackageIDs count] != 0) {
         return [installedPackageIDs containsObject:[package identifier]];

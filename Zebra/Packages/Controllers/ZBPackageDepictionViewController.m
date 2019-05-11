@@ -182,7 +182,7 @@
 - (void)configureNavButton {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
-//        hasUpdate = [(ZBTabBarController *)self.tabBarController doesPackageIDHaveUpdate:[_package identifier]];
+        hasUpdate = [databaseManager packageHasUpdate:package];
         otherVersions = [databaseManager otherVersionsForPackage:package];
         if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
