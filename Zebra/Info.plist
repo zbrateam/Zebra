@@ -34,6 +34,20 @@
 				<string>org.debian.sources-list</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>utiicon.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Sileo Sources List</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.coolstar.sileo-sources</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -168,6 +182,27 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>list</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Sileo Sources List</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>utiicon.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>org.coolstar.sileo-sources</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sources</string>
 				</array>
 			</dict>
 		</dict>
