@@ -471,13 +471,17 @@
 }
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package {
+    return [self otherVersionsForPackageID:[package identifier]];
+}
+
+- (NSArray *)otherVersionsForPackageID:(NSString *)packageIdentifier {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *otherVersions = [NSMutableArray new];
         
         NSString *query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -818,6 +822,12 @@
 
 - (ZBPackage *)topVersionForPackage:(ZBPackage *)package {
     NSArray *otherVersions = [self otherVersionsForPackage:package];
+    
+    return otherVersions[0];
+}
+
+- (ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier {
+    NSArray *otherVersions = [self otherVersionsForPackageID:packageIdentifier];
     
     return otherVersions[0];
 }

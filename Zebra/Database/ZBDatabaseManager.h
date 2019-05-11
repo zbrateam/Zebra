@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
 - (NSArray <ZBPackage *>*)packagesWithUpdates;
 - (void)updateLastUpdated;
+- (ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
 @end
 
 NS_ASSUME_NONNULL_END
