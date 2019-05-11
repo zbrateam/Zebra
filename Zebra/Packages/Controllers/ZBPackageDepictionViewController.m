@@ -331,6 +331,17 @@
                 [self presentQueue];
             }];
             
+            if ([databaseManager packageHasUpdate:package]) {
+                UIPreviewAction *upgrade = [UIPreviewAction actionWithTitle:@"Upgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+                    ZBQueue *queue = [ZBQueue sharedInstance];
+                    [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
+                    
+                    [self presentQueue];
+                }];
+                
+                return @[upgrade, remove, reinstall];
+            }
+            
             return @[remove, reinstall];
         }
         else { //Show remove, its just a local package
