@@ -232,6 +232,9 @@
                 }
                 case 5: {
                     [tabController setSelectedIndex:3];
+                    
+                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [searchController handleURL:url];
                     break;
                 }
                 case 6: {

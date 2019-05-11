@@ -16,7 +16,6 @@
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *results;
-    UISearchController *searchController;
     BOOL searching;
     id<UIViewControllerPreviewing> previewing;
 }
@@ -24,11 +23,18 @@
 
 @implementation ZBSearchViewController
 
+@synthesize searchController;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [ZBDatabaseManager sharedInstance];
-    searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    if (!databaseManager) {
+        databaseManager = [ZBDatabaseManager sharedInstance];
+    }
+    
+    if (!searchController) {
+        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    }
     
     searchController.delegate = self;
     searchController.searchBar.delegate = self;
@@ -53,6 +59,23 @@
          forCellReuseIdentifier:@"packageTableViewCell"];
     
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+}
+
+- (void)handleURL:(NSURL *)url {
+    NSArray *path = [url pathComponents];
+    if ([path count] == 2) {
+        if (!databaseManager) {
+            databaseManager = [ZBDatabaseManager sharedInstance];
+        }
+        
+        if (!searchController) {
+            searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        }
+        
+        NSString *searchTerm = path[1];
+        [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
+        [self searchBarSearchButtonClicked:self.searchController.searchBar];
+    }
 }
 
 #pragma mark - UISearchBarDelegate
