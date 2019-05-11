@@ -267,11 +267,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = false;
         
-        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
-        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-        self.navigationItem.rightBarButtonItem = closeButton;
-        
         if (self->needsRespring) {
+            UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+            self.navigationItem.rightBarButtonItem = closeButton;
+            
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
         }
