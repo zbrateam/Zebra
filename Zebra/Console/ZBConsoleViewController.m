@@ -85,11 +85,10 @@
                 if (![ZBAppDelegate needsSimulation]) {
                     for (int i = 2; i < [command count]; i++) {
                         NSString *packageID = command[i];
-                        NSLog(@"[Zebra] Package ID %@", packageID);
+                        
                         if (stage == 1) {
                             BOOL update = [ZBPackage containsApp:packageID];
                             if (update) {
-                                NSLog(@"[Zebra] Needs update for %@", packageID);
                                 needsIconCacheUpdate = true;
                                 [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
                             }
@@ -106,8 +105,6 @@
                     NSTask *task = [[NSTask alloc] init];
                     [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
                     [task setArguments:command];
-                    
-                    NSLog(@"[Zebra] Performing actions: %@", command);
                     
                     NSPipe *outputPipe = [[NSPipe alloc] init];
                     NSFileHandle *output = [outputPipe fileHandleForReading];
@@ -145,11 +142,9 @@
                     if (![ZBAppDelegate needsSimulation]) {
                         for (int i = 2; i < [command count]; i++) {
                             NSString *packageID = command[i];
-                            NSLog(@"[Zebra] Package ID %@", packageID);
                             if (stage == 1) {
                                 BOOL update = [ZBPackage containsApp:packageID];
                                 if (update) {
-                                    NSLog(@"[Zebra] Needs update for %@", packageID);
                                     needsIconCacheUpdate = true;
                                     [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
                                 }
@@ -166,8 +161,6 @@
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
                         [task setArguments:command];
-                        
-                        NSLog(@"[Zebra] Performing actions: %@", command);
                         
                         NSPipe *outputPipe = [[NSPipe alloc] init];
                         NSFileHandle *output = [outputPipe fileHandleForReading];
@@ -201,8 +194,6 @@
     NSMutableArray *uicaches = [NSMutableArray new];
     if (![ZBAppDelegate needsSimulation]) {
         for (NSString *packageID in installedIDs) {
-            NSLog(@"[Zebra] Checking %@ for tweaks and apps", packageID);
-            
             BOOL update = [ZBPackage containsApp:packageID];
             if (update) {
                 needsIconCacheUpdate = true;
@@ -213,16 +204,11 @@
                 needsRespring = [ZBPackage containsTweak:packageID] ? true : needsRespring;
             }
         }
-        NSLog(@"[Zebra] Done with that nonsense");
     }
     
     if (needsIconCacheUpdate) {
         [self writeToConsole:@"Updating icon cache...\n" atLevel:ZBLogLevelInfo];
-        NSLog(@"[Zebra] I need a cache update");
-        NSLog(@"[Zebra] None of that messing around, I have %@", uicaches);
         NSMutableArray *arguments = [NSMutableArray new];
-        NSLog(@"[Zebra] uicaches %@", uicaches);
-        NSLog(@"[Zebra] bundlePaths %@", bundlePaths);
         if ([uicaches count] + [bundlePaths count] > 1) {
             [arguments addObject:@"-a"];
             [self writeToConsole:@"This may take awhile and Zebra may crash. It is okay if it does.\n" atLevel:ZBLogLevelWarning];
@@ -231,8 +217,8 @@
             [arguments addObject:@"-p"];
             for (NSString *packageID in uicaches) {
                 if ([packageID isEqualToString:@"-p"]) continue;
+                
                 NSString *bundlePath = [ZBPackage pathForApplication:packageID];
-                NSLog(@"[Zebra] Bundle Path for %@ is %@", packageID, bundlePath);
                 if (bundlePath != NULL) [bundlePaths addObject:bundlePath];
             }
             [arguments addObjectsFromArray:bundlePaths];
@@ -241,8 +227,6 @@
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/uicache"];
         [task setArguments:arguments];
-        
-        NSLog(@"[Zebra] Running uicache %@", arguments);
         
         NSPipe *outputPipe = [[NSPipe alloc] init];
         NSFileHandle *output = [outputPipe fileHandleForReading];
