@@ -1,0 +1,57 @@
+body {
+    background: #E5E5E5;
+    background-color: rgba(245, 245, 245, 1);
+    overflow: hidden;
+}
+
+.firstZebraTitle {
+
+    overflow: visible;
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 50px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.zebraSubstitle {
+    overflow: visible;
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: rgba(112, 112, 112, 1);
+}
+
+.zebraLogo {
+    overflow: visible;
+}
+
+.zebraScreenshot {
+    overflow: visible;
+    max-width:50%;
+    max-height:50%;
+}
+
+.zebraFeatures {
+    overflow: visible;
+    white-space: nowrap;
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    color: rgba(112, 112, 112, 1);
+}
+
+.button {
+    opacity: 0.654;
+    background-color: rgba(203, 203, 203, 1);
+    border: none;
+    color: rgba(112, 112, 112, 1);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+}
