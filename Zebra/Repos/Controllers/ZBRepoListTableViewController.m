@@ -72,7 +72,7 @@
         self.navigationItem.rightBarButtonItem = doneButton;
         
         UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(importSources)];
+        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithTitle:@"Import" style:UIBarButtonItemStylePlain target:self action:@selector(importSources)];
         self.navigationItem.leftBarButtonItems = @[exportButton, importButton];
     }
     else {
