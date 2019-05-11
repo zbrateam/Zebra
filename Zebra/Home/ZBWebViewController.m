@@ -153,9 +153,9 @@
             [controller dismissViewControllerAnimated:true completion:nil];
         }];
         
-        [controller addAction:yes];
         [controller addAction:no];
-        
+        [controller addAction:yes];
+
         [self presentViewController:controller animated:true completion:nil];
     }
     else if ([destination isEqual:@"repo-local"]) {
@@ -169,9 +169,8 @@
                 UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [controller dismissViewControllerAnimated:true completion:nil];
                 }];
-                
-                [controller addAction:yes];
                 [controller addAction:no];
+                [controller addAction:yes];
                 
                 [self presentViewController:controller animated:true completion:nil];
             }
@@ -197,9 +196,9 @@
                 [controller dismissViewControllerAnimated:true completion:nil];
             }];
             
-            [controller addAction:yes];
             [controller addAction:no];
-            
+            [controller addAction:yes];
+
             [self presentViewController:controller animated:true completion:nil];
         }
     }
