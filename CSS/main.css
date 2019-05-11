@@ -2,6 +2,7 @@ body {
     background: #E5E5E5;
     background-color: rgba(245, 245, 245, 1);
     overflow: hidden;
+    text-align: center;
 }
 
 .firstZebraTitle {
@@ -28,7 +29,6 @@ body {
 }
 
 .zebraScreenshot {
-    overflow: visible;
     max-width:50%;
     max-height:50%;
 }
