@@ -238,7 +238,17 @@
                     break;
                 }
                 case 6: {
-                    
+                    NSArray *components = [[url absoluteString] componentsSeparatedByString:@"share#?source="];
+                    if ([components count] == 2) {
+                        NSString *sourceURL = [components[1] componentsSeparatedByString:@"&package"][0];
+                        [tabController setSelectedIndex:1];
+                        
+                        ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                        
+                        NSURL *url = [NSURL URLWithString:[@"zbra://sources/add/" stringByAppendingString:sourceURL]];
+                        [repoController handleURL:url];
+                    }
+                    break;
                 }
             }
             break;
