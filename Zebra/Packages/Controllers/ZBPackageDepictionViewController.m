@@ -21,6 +21,7 @@
     WKWebView *webView;
     NSArray *otherVersions;
     BOOL hasUpdate;
+    BOOL presented;
 }
 @end
 
@@ -28,8 +29,26 @@
 
 @synthesize package;
 
+- (id)initWithPackageID:(NSString *)packageID {
+    self = [super init];
+    
+    if (self) {
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        
+        presented = true;
+        self.package = [databaseManager topVersionForPackageID:packageID];
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (presented) {
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+        self.navigationItem.leftBarButtonItem = closeButton;
+    }
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -99,6 +118,12 @@
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)goodbye {
+    if ([self presentingViewController]) {
+        [self dismissViewControllerAnimated:true completion:nil];
     }
 }
 

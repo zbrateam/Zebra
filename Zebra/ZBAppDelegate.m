@@ -12,6 +12,8 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Search/ZBSearchViewController.h>
+#import <Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBAppDelegate ()
 
@@ -175,11 +177,24 @@
                     break;
                 }
                 case 2: {
-                    [tabController setSelectedIndex:2];
+                    if (![[url path] isEqual:@""]) {
+                        NSString *packageID = [[url path] substringFromIndex:1];
+                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                        
+                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                        
+                        [tabController presentViewController:navController animated:true completion:nil];
+                    }
+                    else {
+                        [tabController setSelectedIndex:2];
+                    }
                     break;
                 }
                 case 3: {
                     [tabController setSelectedIndex:3];
+                    
+                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [searchController handleURL:url];
                     break;
                 }
             }
@@ -189,7 +204,7 @@
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
             NSLog(@"%@", [url host]);
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-            choices = @[@"home", @"sources", @"package", @"search"];
+            choices = @[@"home", @"sources", @"changes", @"installed", @"package", @"search", @"url"];
             index = (int)[choices indexOfObject:components[0]];
             
             switch (index) {
@@ -201,13 +216,26 @@
                     [tabController setSelectedIndex:1];
                     break;
                 }
-                case 2: {
+                case 2:
+                case 3: {
                     [tabController setSelectedIndex:2];
                     break;
                 }
-                case 3: {
+                case 4: {
+                    NSString *packageID = [[url path] substringFromIndex:1];
+                    ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                    
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                    
+                    [tabController presentViewController:navController animated:true completion:nil];
+                    break;
+                }
+                case 5: {
                     [tabController setSelectedIndex:3];
                     break;
+                }
+                case 6: {
+                    
                 }
             }
             break;
