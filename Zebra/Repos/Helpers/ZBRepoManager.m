@@ -365,64 +365,128 @@
 }
 
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion {
-    if (![[destinationURL pathExtension] isEqualToString:@"list"] || ![[destinationURL pathExtension] isEqualToString:@"list"]) { //Check to be sure both urls of are type .list
+    if ([[fromURL pathExtension] isEqualToString:@"list"] && [[destinationURL pathExtension] isEqualToString:@"list"]) { //Check to be sure both urls of are type .list
+        NSError *readError;
+        NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
+        NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];
+        NSArray *sourcesContents = [[NSString stringWithContentsOfURL:fromURL encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
+        if (readError != NULL) {
+            NSLog(@"[Zebra] Error while reading: %@", readError.localizedDescription);
+            completion(readError);
+        }
+        
+        NSMutableArray *linesToAdd = [NSMutableArray new];
+        NSMutableArray *baseURLs = [NSMutableArray new];
+        for (NSString *line in destinationContents) {
+            NSArray *contents = [line componentsSeparatedByString:@" "];
+            if ([contents count] == 0 || [contents count] == 4) continue;
+            
+            if ([contents[0] isEqualToString:@"deb"]) {
+                NSURL *url = [NSURL URLWithString:contents[1]];
+                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                
+                [baseURLs addObject:urlString];
+            }
+        }
+        
+        for (NSString *line in sourcesContents) {
+            NSArray *contents = [line componentsSeparatedByString:@" "];
+            if ([contents count] == 0 || [contents count] == 4) continue;
+            
+            if ([contents[0] isEqualToString:@"deb"]) {
+                NSURL *url = [NSURL URLWithString:contents[1]];
+                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                
+                if (![baseURLs containsObject:urlString]) {
+                    [linesToAdd addObject:[line stringByAppendingString:@"\n"]];
+                }
+            }
+        }
+        
+        if ([linesToAdd count] != 0) {
+            NSMutableString *finalContents = [destinationString mutableCopy];
+            [finalContents appendString:[NSString stringWithFormat:@"\n# Imported at %@\n", [NSDate date]]];
+            for (NSString *line in linesToAdd) {
+                NSLog(@"[Zebra] Adding %@ to sources.list", line);
+                [finalContents appendString:line];
+            }
+            
+            NSError *writeError;
+            [finalContents writeToURL:destinationURL atomically:false encoding:NSUTF8StringEncoding error:&writeError];
+            if (writeError != NULL) {
+                NSLog(@"[Zebra] Error while writing to %@: %@", destinationURL, writeError.localizedDescription);
+            }
+        }
+        
+        completion(NULL);
+    }
+    else if ([[fromURL pathExtension] isEqualToString:@"sources"] && [[destinationURL pathExtension] isEqualToString:@"list"]) {
+        NSError *readError;
+        NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
+        NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];
+        NSArray *sourcesContents = [[NSString stringWithContentsOfURL:fromURL encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n\n"];
+        if (readError != NULL) {
+            NSLog(@"[Zebra] Error while reading: %@", readError.localizedDescription);
+            completion(readError);
+        }
+        
+        NSMutableArray *linesToAdd = [NSMutableArray new];
+        NSMutableArray *baseURLs = [NSMutableArray new];
+        for (NSString *line in destinationContents) {
+            NSArray *contents = [line componentsSeparatedByString:@" "];
+            if ([contents count] == 0 || [contents count] == 4) continue;
+            
+            if ([contents[0] isEqualToString:@"deb"]) {
+                NSURL *url = [NSURL URLWithString:contents[1]];
+                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                
+                [baseURLs addObject:urlString];
+            }
+        }
+        
+        for (NSString *line in sourcesContents) {
+            NSMutableDictionary *info = [NSMutableDictionary new];
+            [line enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+                NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+                if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+                if (pair.count != 2) return;
+                NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                info[key] = value;
+            }];
+            
+            if ([[info allKeys] count] == 4) {
+                NSURL *url = [NSURL URLWithString:(NSString *)[info objectForKey:@"URIs"]];
+                NSString *urlString = [[(NSString *)[info objectForKey:@"URIs"] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                
+                if (![baseURLs containsObject:urlString]) {
+                    NSString *converted = [NSString stringWithFormat:@"%@ %@ %@%@\n", (NSString *)[info objectForKey:@"Types"], (NSString *)[info objectForKey:@"URIs"], (NSString *)[info objectForKey:@"Suites"], (NSString *)[info objectForKey:@"Components"]];
+                    [linesToAdd addObject:converted];
+                }
+            }
+        }
+        
+        if ([linesToAdd count] != 0) {
+            NSMutableString *finalContents = [destinationString mutableCopy];
+            [finalContents appendString:[NSString stringWithFormat:@"\n# Imported at %@\n", [NSDate date]]];
+            for (NSString *line in linesToAdd) {
+                NSLog(@"[Zebra] Adding %@ to sources.list", line);
+                [finalContents appendString:line];
+            }
+            
+            NSError *writeError;
+            [finalContents writeToURL:destinationURL atomically:false encoding:NSUTF8StringEncoding error:&writeError];
+            if (writeError != NULL) {
+                NSLog(@"[Zebra] Error while writing to %@: %@", destinationURL, writeError.localizedDescription);
+            }
+        }
+        
+        completion(NULL);
+    }
+    else {
         NSError *error = [NSError errorWithDomain:NSArgumentDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Both files aren't .list"}];
         completion(error);
     }
-    
-    NSError *readError;
-    NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
-    NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];
-    NSArray *sourcesContents = [[NSString stringWithContentsOfURL:fromURL encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
-    if (readError != NULL) {
-        NSLog(@"[Zebra] Error while reading: %@", readError.localizedDescription);
-        completion(readError);
-    }
-
-    NSMutableArray *linesToAdd = [NSMutableArray new];
-    NSMutableArray *baseURLs = [NSMutableArray new];
-    for (NSString *line in destinationContents) {
-        NSArray *contents = [line componentsSeparatedByString:@" "];
-        if ([contents count] == 0 || [contents count] == 4) continue;
-        
-        if ([contents[0] isEqualToString:@"deb"]) {
-            NSURL *url = [NSURL URLWithString:contents[1]];
-            NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
-            
-            [baseURLs addObject:urlString];
-        }
-    }
-    
-    for (NSString *line in sourcesContents) {
-        NSArray *contents = [line componentsSeparatedByString:@" "];
-        if ([contents count] == 0 || [contents count] == 4) continue;
-        
-        if ([contents[0] isEqualToString:@"deb"]) {
-            NSURL *url = [NSURL URLWithString:contents[1]];
-            NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
-            
-            if (![baseURLs containsObject:urlString]) {
-                [linesToAdd addObject:[line stringByAppendingString:@"\n"]];
-            }
-        }
-    }
-    
-    if ([linesToAdd count] != 0) {
-        NSMutableString *finalContents = [destinationString mutableCopy];
-        [finalContents appendString:[NSString stringWithFormat:@"\n# Imported at %@\n", [NSDate date]]];
-        for (NSString *line in linesToAdd) {
-            NSLog(@"[Zebra] Adding %@ to sources.list", line);
-            [finalContents appendString:line];
-        }
-        
-        NSError *writeError;
-        [finalContents writeToURL:destinationURL atomically:false encoding:NSUTF8StringEncoding error:&writeError];
-        if (writeError != NULL) {
-            NSLog(@"[Zebra] Error while writing to %@: %@", destinationURL, writeError.localizedDescription);
-        }
-    }
-    
-    completion(NULL);
 }
 
 @end

@@ -147,12 +147,11 @@
                     [self.window.rootViewController presentViewController:vc animated:true completion:nil];
                 }
             }
-            else if ([[url pathExtension] isEqualToString:@"list"]) {
+            else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:1];
                 
                 ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                NSLog(@"[Zebra] %@", repoController);
                 [repoController handleImportOf:url];
             }
             break;
