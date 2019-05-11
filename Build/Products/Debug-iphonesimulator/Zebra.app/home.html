@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0">
+        <link rel="stylesheet" href="ios7.min.css">
+        <script src="ios7.min.js"></script>
+    </head>
+    <body>
+        <main id="content">
+            <h2 role="header">Info</h2>
+            <ul>
+                <li>
+                    <p>Welcome to the Zebra Beta!</p>
+                </li>
+            </ul>
+            <ul>
+                <li class="has-icon">
+                    <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/changelog.html');" role="button">
+                        <img href="changelog@2x.png" alt="" srcset="changelog@2x.png 2x, changelog@3x.png 3x" class="icon">
+                        Changelog
+                    </p>
+                </li>
+                <li class="has-icon">
+                    <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/zebra/repos.html');" role="button">
+                        <img href="repos@2x.png" alt="" srcset="repos@2x.png 2x, repos@3x.png 3x" class="icon">
+                        Community Repos
+                    </p>
+                </li>
+                <li class="has-icon">
+                    <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html');" role="button">
+                        <img href="report@2x.png" alt="" srcset="report@2x.png 2x, report@3x.png 3x" class="icon">
+                        Report a Bug
+                    </p>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a id="nukeDatabase" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~nuke');">Drop Tables and Refresh</a>
+                </li>
+                <li>
+                    <a id="documentsDir" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~doc');">Open Documents Directory</a>
+                </li>
+            </ul>
+            <h2 role="header">Community</h2>
+            <ul>
+                <li class="has-icon">
+                    <p id="credits" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://discord.gg/6CPtHBU');" role="button">
+                    <img href="discord@2x.png" alt="" srcset="discord@2x.png 2x, discord@3x.png 3x" class="icon">
+                        Join our Discord
+                        </p>
+                        </li>
+                <li class="has-icon">
+                    <a id="credits" href="https://twitter.com/xtm3x" target="_blank" role="button" style="color:black;">
+                        <img href="twitter@2x.png" alt="" srcset="twitter@2x.png 2x, twitter@3x.png 3x" class="icon">
+                            Follow me on Twitter
+                            </a>
+                </li>
+            </ul>
+            <ul style="margin-bottom:0px;">
+                <li class="has-icon">
+                    <p id="credits" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/zebra/credits.html');" role="button">
+                        <img href="url@2x.png" alt="" srcset="url@2x.png 2x, url@3x.png 3x" class="icon">
+                        Credits
+                    </p>
+                </li>
+            </ul>
+        </main>
+        <p style="text-align: center; font-size: 85%; margin-top: 10px;" role="footer" id="neo"></p>
+    </body>
+</html>

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UICKeyChainStore.h"
+#import <SafariServices/SafariServices.h>
 
 @class ZBRepo;
 @class ZBDatabaseManager;
@@ -18,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
 @property (nonatomic, strong) NSArray *sectionNames;
+@property (nonatomic, strong) NSString *repoEndpoint;
+@property SFAuthenticationSession *session;
+@property UICKeyChainStore *keychain;
+@property UIBarButtonItem *purchased;
+@property UIBarButtonItem *login;
 @end
 
 NS_ASSUME_NONNULL_END
