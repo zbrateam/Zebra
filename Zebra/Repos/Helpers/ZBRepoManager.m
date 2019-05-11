@@ -364,6 +364,17 @@
     }];
 }
 
+- (void)transferFromSileo {
+    NSURL *listsURL = [ZBAppDelegate sourcesListURL];
+    NSURL *sileoListsURL = [NSURL URLWithString:@"file:///etc/apt/sources.list.d/sileo.sources"];
+    
+    [self mergeSourcesFrom:sileoListsURL into:listsURL completion:^(NSError * _Nonnull error) {
+        if (error != NULL) {
+            NSLog(@"[Zebra] Error merging sources: %@", error);
+        }
+    }];
+}
+
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion {
     if ([[fromURL pathExtension] isEqualToString:@"list"] && [[destinationURL pathExtension] isEqualToString:@"list"]) { //Check to be sure both urls of are type .list
         NSError *readError;

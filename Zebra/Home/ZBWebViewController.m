@@ -209,7 +209,8 @@
 //    NSLog(@"[Zebra] Handling repo add for method %@", repo);
     if (local) {
         NSArray *options = @[
-                             @"transfer",
+                             @"transfercydia",
+                             @"transfersileo",
                              @"cydia",
                              @"electra",
                              @"uncover",
@@ -219,8 +220,10 @@
         
         switch ([options indexOfObject:repo]) {
             case 0:
-//                NSLog(@"[Zebra] Transferring repos");
                 [self.repoManager transferFromCydia];
+                break;
+            case 0:
+                [self.repoManager transferFromSileo];
                 break;
             case 1:
                 [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
