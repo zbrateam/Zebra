@@ -87,12 +87,15 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
+    
     if ((url && url.scheme && url.host)) {
-        if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
-            [self showAddRepoFromClipboardAlert:url];
+        if ([[url scheme] isEqual:@"https:"] || [[url scheme] isEqual:@"https:"]) {
+            if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
+                [self showAddRepoFromClipboardAlert:url];
+            }
+            askedToAddFromClipboard = YES;
+            lastPaste = pasteboard.string;
         }
-        askedToAddFromClipboard = YES;
-        lastPaste = pasteboard.string;
     }
 }
 
@@ -178,6 +181,35 @@
         }
         
         [self.tableView reloadData];
+    }
+}
+
+- (void)handleURL:(NSURL *)url {
+    NSString *path = [url path];
+    
+    if (![path isEqualToString:@""]) {
+        NSArray *components = [path pathComponents];
+        if ([components count] == 2) {
+            [self showAddRepoAlert:NULL];
+        }
+        else if ([components count] >= 4) {
+            NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
+            
+            NSURL *url;
+            if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
+                url = [NSURL URLWithString:urlString];
+            }
+            else {
+                url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
+            }
+            
+            if (url && url.scheme && url.host) {
+                [self showAddRepoAlert:url];
+            }
+            else {
+                [self showAddRepoAlert:NULL];
+            }
+        }
     }
 }
 

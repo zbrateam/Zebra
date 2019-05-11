@@ -169,6 +169,9 @@
                 }
                 case 1: {
                     [tabController setSelectedIndex:1];
+                    
+                    ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [repoController handleURL:url];
                     break;
                 }
                 case 2: {
