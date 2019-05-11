@@ -161,10 +161,10 @@
     else if ([destination isEqual:@"repo-local"]) {
         if ([contents count] == 2) {
             if (![ZBAppDelegate needsSimulation]) {
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories from Cydia?" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories?" preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self handleRepoAdd:@"transfer" local:true];
+                    [self handleRepoAdd:contents[1] local:true];
                 }];
                 UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [controller dismissViewControllerAnimated:true completion:nil];
@@ -222,22 +222,22 @@
             case 0:
                 [self.repoManager transferFromCydia];
                 break;
-            case 0:
+            case 1:
                 [self.repoManager transferFromSileo];
                 break;
-            case 1:
+            case 2:
                 [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
-            case 2:
+            case 3:
                 [self.repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\n"];
                 break;
-            case 3:
+            case 4:
                 [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                 break;
-            case 4:
+            case 5:
                 [self.repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
                 break;
-            case 5:
+            case 6:
                 [self.repoManager addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
                 break;
             default:
