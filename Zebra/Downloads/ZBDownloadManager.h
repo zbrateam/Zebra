@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBQueue *queue;
 @property (nonatomic, weak) id <ZBDownloadDelegate> downloadDelegate;
 @property (nonatomic, strong) NSDictionary <NSString *, NSArray *> *filenames;
+- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail;
 - (id)initWithSourceListPath:(NSString *)trail;
 - (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore;
 - (void)downloadRepo:(ZBRepo *)repo;

@@ -87,6 +87,8 @@
             }
             break;
         }
+        default:
+            break;
     }
 }
 
@@ -95,7 +97,7 @@
         [self addPackage:package toQueue:queue ignoreDependencies:true];
     }
     
-    NSString *q;
+    NSString *q = nil;
     switch (queue) {
         case ZBQueueTypeInstall: {
             q = @"Install";
@@ -109,11 +111,15 @@
         case ZBQueueTypeUpgrade: {
             q = @"Upgrade";
         }
+        default:
+            break;
     }
     
-    for (ZBPackage *package in _managedQueue[q]) {
-        [self enqueueDependenciesForPackage:package];
-        [self checkForConflictionsWithPackage:package state:queue == ZBQueueTypeRemove ? 1 : 0];
+    if (q) {
+        for (ZBPackage *package in _managedQueue[q]) {
+            [self enqueueDependenciesForPackage:package];
+            [self checkForConflictionsWithPackage:package state:queue == ZBQueueTypeRemove ? 1 : 0];
+        }
     }
 }
 
@@ -153,6 +159,8 @@
             [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
             break;
         }
+        default:
+            break;
     }
 }
 
@@ -268,6 +276,8 @@
         case ZBQueueTypeUpgrade: {
             return [_managedQueue[@"Upgrade"] objectAtIndex:index];
         }
+        default:
+            return nil;
     }
 }
 

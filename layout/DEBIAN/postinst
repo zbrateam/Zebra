@@ -2,3 +2,7 @@
 
 chown root:wheel /Applications/Zebra.app/supersling
 chmod 6755 /Applications/Zebra.app/supersling
+
+#I don't like this but why are people's doc directory owned by root??
+chown mobile:mobile /var/mobile/Documents
+chmod 0755 /var/mobile/Documents

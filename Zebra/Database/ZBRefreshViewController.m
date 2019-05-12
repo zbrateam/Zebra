@@ -94,13 +94,11 @@
                 break;
             }
             case ZBLogLevelError: {
-                self->hadAProblem = true;
                 color = [UIColor redColor];
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
             case ZBLogLevelWarning: {
-                self->hadAProblem = true;
                 color = [UIColor yellowColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
@@ -134,6 +132,10 @@
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    if (level == ZBLogLevelError || level == ZBLogLevelWarning) {
+        hadAProblem = true;
+    }
+    
     [self writeToConsole:status atLevel:level];
 }
 
