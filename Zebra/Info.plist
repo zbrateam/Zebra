@@ -72,6 +72,7 @@
 			<string>Zebra</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>sileo</string>
 				<string>zbra</string>
 				<string>cydia</string>
 			</array>

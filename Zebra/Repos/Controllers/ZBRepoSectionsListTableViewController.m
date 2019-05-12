@@ -27,9 +27,15 @@
 @synthesize sectionNames;
 @synthesize databaseManager;
 
+//static SFAuthenticationSession *session;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.zebra"];
+    
+    //For iOS 9 and 10 Sileo Purchases
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
@@ -104,36 +110,75 @@
         }
     }
 }
+
 -(void)setupRepoLogin{
     if(self.repoEndpoint){
         NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@",self.repoEndpoint,[self deviceUDID], [self deviceModelID]]];
-        self.session = [[SFAuthenticationSession alloc]
-                        initWithURL:destinationUrl
-                        callbackURLScheme:@"sileo"
-                        completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                            // TODO: Nothing to do here?
-                            if(callbackURL){
-                                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                                NSArray *queryItems = urlComponents.queryItems;
-                                NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                                for (NSURLQueryItem *q in queryItems) {
-                                    [queryByKeys setValue:[q value] forKey:[q name]];
+        if (@available(iOS 11.0, *)) {
+        static SFAuthenticationSession *session;
+           session = [[SFAuthenticationSession alloc]
+                            initWithURL:destinationUrl
+                            callbackURLScheme:@"sileo"
+                            completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                                // TODO: Nothing to do here?
+                                NSLog(@"URL %@", callbackURL);
+                                if(callbackURL){
+                                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+                                    NSArray *queryItems = urlComponents.queryItems;
+                                    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+                                    for (NSURLQueryItem *q in queryItems) {
+                                        [queryByKeys setValue:[q value] forKey:[q name]];
+                                    }
+                                    NSString *token = queryByKeys[@"token"];
+                                    NSString *payment = queryByKeys[@"payment_secret"];
+                                    self->_keychain[self.repoEndpoint] = token;
+                                    self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+                                    [self.navigationItem setRightBarButtonItem:self.purchased];
+                                }else{
+                                    return;
                                 }
-                                NSString *token = queryByKeys[@"token"];
-                                NSString *payment = queryByKeys[@"payment_secret"];
-                                NSLog(@"TOKEN %@", token);
-                                NSLog(@"PAYMENT %@", payment);
-                                self->_keychain[self.repoEndpoint] = token;
-                                self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
-                                [self.navigationItem setRightBarButtonItem:self.purchased];
-                            }else{
-                                return;
-                            }
                                 
                                 
-                        }];
-        [self.session start];
+                            }];
+            [session start];
+        }else{
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
+            safariVC.delegate = self;
+            [self presentViewController:safariVC animated:TRUE completion:nil];
+        }
+        
     }
+}
+
+-(void)dealloc{
+    
+}
+
+- (void)authenticationCallBack:(NSNotification *)notif{
+    [self dismissViewControllerAnimated:TRUE completion:nil];
+    NSLog(@"OUTPUTFROMSAFARI %@", notif.userInfo);
+    NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+    NSArray *queryItems = urlComponents.queryItems;
+    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+    for (NSURLQueryItem *q in queryItems) {
+        [queryByKeys setValue:[q value] forKey:[q name]];
+    }
+    NSString *token = queryByKeys[@"token"];
+    NSString *payment = queryByKeys[@"payment_secret"];
+    self->_keychain[self.repoEndpoint] = token;
+    self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+    [self.navigationItem setRightBarButtonItem:self.purchased];
+}
+
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    // Load finished
+    NSLog(@"Load finished");
+}
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    // Done button pressed
+    NSLog(@"Done button pressed");
 }
 
 -(NSString *)deviceUDID {

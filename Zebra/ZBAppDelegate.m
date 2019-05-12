@@ -131,7 +131,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
-    NSArray *choices = @[@"file", @"zbra", @"cydia"];
+    NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
     switch (index) {
@@ -251,6 +251,16 @@
                 }
             }
             break;
+        }
+        case 3: { //sileo
+            NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
+            if([sourceApplication isEqualToString:@"com.apple.SafariViewService"]){
+                NSLog(@"SILEO OUTPUT %@", url);
+                NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
+            }
+            break;
+            
         }
         default: { //WHO ARE YOU????
             return false;
