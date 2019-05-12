@@ -114,6 +114,45 @@
     
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"%@ - iOS %@ - Zebra %@\"", model, [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION] completionHandler:nil];
 #endif
+    
+    if ([[[webView URL] lastPathComponent] isEqualToString:@"repos.html"]) {
+        NSLog(@"Hi Everybody!");
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"] && ![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
+            [webView evaluateJavaScript:@"document.getElementById('transfergroup').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('transferfooter').outerHTML = \'\'" completionHandler:nil];
+        }
+        else {
+            if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"]) {
+                [webView evaluateJavaScript:@"document.getElementById('sileotransfer').outerHTML = \'\'" completionHandler:nil];
+            }
+            
+            if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
+                [webView evaluateJavaScript:@"document.getElementById('cydiatransfer').outerHTML = \'\'" completionHandler:nil];
+            }
+        }
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) {
+            [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //uncover
+            [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //electra
+            [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]){ //cydia
+            [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
+            [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
+        }
+    }
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
