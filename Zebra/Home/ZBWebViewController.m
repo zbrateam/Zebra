@@ -137,17 +137,17 @@
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //uncover
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/jb"]) { //uncover
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //electra
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]){ //cydia
+        else { //cydia
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
