@@ -20,6 +20,8 @@
 #import <bzlib.h>
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "UICKeyChainStore.h"
+#import <sys/utsname.h>
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -204,9 +206,39 @@
         
         NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
         NSURL *base = [NSURL URLWithString:comps[0]];
-        NSURL *url;
+        __block NSURL *url;
         if(package.sileoDownload){
-            url = [NSURL URLWithString:filename];
+                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+                UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+                NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                                        @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                                        @"device":[self deviceModelID],
+                                        @"version": package.version,
+                                        @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL]};
+                NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
+                
+                NSMutableURLRequest *request = [NSMutableURLRequest new];
+                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/authorize_download", [keychain stringForKey:[package repo].baseURL], package.identifier]]];
+                [request setHTTPMethod:@"POST"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+                [request setHTTPBody: requestData];
+                [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                    if(data){
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        NSLog(@"Response %@", json);
+                        if([json valueForKey:@"url"]){
+                            //self->package.filename = json[@"url"];
+                           url = [NSURL URLWithString:json[@"url"]];
+                        }
+                        
+                    }
+                    if(error){
+                        NSLog(@"ERROR %@", error.localizedDescription);
+                    }
+                }] resume];
+            
         }else{
             url = [base URLByAppendingPathComponent:filename];
             NSLog(@"Download %@", url.absoluteString);
@@ -217,6 +249,13 @@
         [downloadDelegate predator:self startedDownloadForFile:filename];
         [downloadTask resume];
     }
+}
+
+- (NSString *)deviceModelID {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
