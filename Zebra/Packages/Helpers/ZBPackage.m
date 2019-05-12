@@ -9,6 +9,7 @@
 #import "ZBPackage.h"
 #import <Parsel/dpkgver.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Queue/ZBQueueType.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
@@ -350,6 +351,42 @@
 - (BOOL)isInstalled {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     return [repo repoID] == 0 || [repo repoID] == -1 || [databaseManager packageIsInstalled:self versionStrict:false];
+}
+
+- (NSMutableArray *)otherVersions {
+    NSMutableArray *versions = [NSMutableArray array];
+    
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    NSArray *otherVersions = [databaseManager otherVersionsForPackage:self];
+    for (ZBPackage *downPackage in otherVersions) {
+        if ([[downPackage repo] repoID] == 0 || [[downPackage version] isEqualToString:[self version]]) {
+            continue;
+        }
+        [versions addObject:downPackage];
+    }
+    
+    return versions;
+}
+
+- (NSUInteger)possibleActions {
+    NSUInteger actions = 0;
+    // Bits order: Downgrade - Upgrade - Reinstall - Remove - Install
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    if ([self isInstalled]) {
+        actions |= 1 << ZBQueueTypeReinstall;
+        if ([databaseManager packageHasUpdate:self]) {
+            actions |= 1 << ZBQueueTypeUpgrade;
+        }
+    }
+    else {
+        actions |= 1 << ZBQueueTypeInstall; // Install
+    }
+    actions |= 1 << ZBQueueTypeRemove; // Remove
+    NSArray *otherVersions = [self otherVersions];
+    if (otherVersions.count > 1) {
+        actions |= 1 << ZBQueueTypeDowngrade; // Downgrade
+    }
+    return actions;
 }
 
 @end

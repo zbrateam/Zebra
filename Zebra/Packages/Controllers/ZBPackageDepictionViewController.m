@@ -180,20 +180,18 @@
 }
 
 - (void)configureNavButton {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
-        hasUpdate = [databaseManager packageHasUpdate:package];
-        otherVersions = [databaseManager otherVersionsForPackage:package];
-        if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
+    NSUInteger possibleActions = [package possibleActions];
+    otherVersions = [package otherVersions];
+    if ([package isInstalled]) {
+        if (possibleActions & (1 << ZBQueueTypeDowngrade)) { //Modify, reinstall, remove, downgrade (maybe)
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
-        }
-        else { //Show remove, its just a local package
+        } else { //Show remove, its just a local package
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
-    }
-    else {
+        hasUpdate = possibleActions & (1 << ZBQueueTypeUpgrade);
+    } else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
         self.navigationItem.rightBarButtonItem = installButton;
     }
@@ -207,29 +205,34 @@
 }
 
 - (void)modifyPackage {
+    NSUInteger possibleActions = [package possibleActions];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ZBQueue *queue = [ZBQueue sharedInstance];
-        [queue addPackage:self->package toQueue:ZBQueueTypeRemove];
+    if (possibleActions & (1 << ZBQueueTypeRemove)) {
+        UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ZBQueue *queue = [ZBQueue sharedInstance];
+            [queue addPackage:self->package toQueue:ZBQueueTypeRemove];
+            
+            [alert dismissViewControllerAnimated:true completion:nil];
+            [self presentQueue];
+        }];
+    
+        [alert addAction:remove];
+    }
+    
+    if (possibleActions & (1 << ZBQueueTypeReinstall)) {
+        UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ZBQueue *queue = [ZBQueue sharedInstance];
+            [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
+            
+            [alert dismissViewControllerAnimated:true completion:nil];
+            [self presentQueue];
+        }];
         
-        [alert dismissViewControllerAnimated:true completion:nil];
-        [self presentQueue];
-    }];
+        [alert addAction:reinstall];
+    }
     
-    [alert addAction:remove];
-    
-    UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ZBQueue *queue = [ZBQueue sharedInstance];
-        [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
-        
-        [alert dismissViewControllerAnimated:true completion:nil];
-        [self presentQueue];
-    }];
-    
-    [alert addAction:reinstall];
-    
-    if ([otherVersions count] > 2) {
+    if (possibleActions & (1 << ZBQueueTypeDowngrade)) {
         UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Downgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
             [self downgradePackage];
@@ -265,9 +268,6 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (ZBPackage *downPackage in otherVersions) {
-        if ([[downPackage repo] repoID] == 0 || [[downPackage version] isEqualToString:[package version]]) {
-            continue;
-        }
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];

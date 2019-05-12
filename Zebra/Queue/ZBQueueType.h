@@ -13,7 +13,8 @@ typedef enum {
     ZBQueueTypeInstall,
     ZBQueueTypeRemove,
     ZBQueueTypeReinstall,
-    ZBQueueTypeUpgrade
+    ZBQueueTypeUpgrade,
+    ZBQueueTypeDowngrade // Note: Not really used directly, this is to make code less complicated - PoomSmart
 } ZBQueueType;
 
 #endif /* ZBQueueType_h */

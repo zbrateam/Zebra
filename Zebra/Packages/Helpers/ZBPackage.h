@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getField:(NSString *)field;
 - (BOOL)isStrictlyInstalled;
 - (BOOL)isInstalled;
+- (NSMutableArray *)otherVersions;
+- (NSUInteger)possibleActions;
 @end
 
 NS_ASSUME_NONNULL_END
