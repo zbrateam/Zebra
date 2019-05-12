@@ -182,16 +182,18 @@
 - (void)configureNavButton {
     NSUInteger possibleActions = [package possibleActions];
     otherVersions = [package otherVersions];
-    if ([package isInstalled]) {
-        if (possibleActions & (1 << ZBQueueTypeDowngrade)) { //Modify, reinstall, remove, downgrade (maybe)
+    if ([package isInstalledRepoZero]) {
+        if ([[package repo] repoID] != -1) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
-        } else { //Show remove, its just a local package
+        }
+        else { //Show remove, its just a local package
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
         hasUpdate = possibleActions & (1 << ZBQueueTypeUpgrade);
-    } else {
+    }
+    else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
         self.navigationItem.rightBarButtonItem = installButton;
     }
@@ -205,8 +207,9 @@
 }
 
 - (void)modifyPackage {
-    NSUInteger possibleActions = [package possibleActions];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSUInteger possibleActions = [package possibleActions];
     
     if (possibleActions & (1 << ZBQueueTypeRemove)) {
         UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -216,7 +219,7 @@
             [alert dismissViewControllerAnimated:true completion:nil];
             [self presentQueue];
         }];
-    
+        
         [alert addAction:remove];
     }
     
@@ -316,49 +319,48 @@
 //3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([[package repo] repoID] == 0 || [databaseManager packageIsInstalled:package versionStrict:false]) {
-        otherVersions = [databaseManager otherVersionsForPackage:package];
-        if ([otherVersions count] > 1) { //Modify, reinstall, remove, downgrade (maybe)
-            UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-                [self removePackage];
-            }];
-            
-            UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-                ZBQueue *queue = [ZBQueue sharedInstance];
-                [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
-                
-                [self presentQueue];
-            }];
-            
-            if ([databaseManager packageHasUpdate:package]) {
-                UIPreviewAction *upgrade = [UIPreviewAction actionWithTitle:@"Upgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-                    ZBQueue *queue = [ZBQueue sharedInstance];
-                    [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
-                    
-                    [self presentQueue];
-                }];
-                
-                return @[upgrade, remove, reinstall];
-            }
-            
-            return @[remove, reinstall];
-        }
-        else { //Show remove, its just a local package
-            UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-                [self removePackage];
-            }];
-            
-            return @[remove];
-        }
-    }
-    else {
-        UIPreviewAction *install = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-            [self installPackage];
+    NSUInteger possibleActions = [package possibleActions];
+    NSMutableArray *actions = [NSMutableArray array];
+    
+    if (possibleActions & (1 << ZBQueueTypeRemove)) {
+        UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [self removePackage];
         }];
         
-        return @[install];
+        [actions addObject:remove];
     }
+    
+    if (possibleActions & (1 << ZBQueueTypeReinstall)) {
+        UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            ZBQueue *queue = [ZBQueue sharedInstance];
+            [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
+            
+            [self presentQueue];
+        }];
+        
+        [actions addObject:reinstall];
+    }
+    
+    if (possibleActions & (1 << ZBQueueTypeDowngrade)) {
+        UIPreviewAction *downgrade = [UIPreviewAction actionWithTitle:@"Downgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [self downgradePackage];
+        }];
+        
+        [actions addObject:downgrade];
+    }
+    
+    if (hasUpdate) {
+        UIPreviewAction *upgrade = [UIPreviewAction actionWithTitle:@"Upgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            ZBQueue *queue = [ZBQueue sharedInstance];
+            [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
+            
+            [self presentQueue];
+        }];
+        
+        [actions addObject:upgrade];
+    }
+    
+    return actions;
 }
 
 @synthesize delegate;

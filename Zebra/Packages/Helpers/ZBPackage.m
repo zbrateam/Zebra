@@ -348,9 +348,13 @@
     return [databaseManager packageIsInstalled:self versionStrict:true];
 }
 
-- (BOOL)isInstalled {
+- (BOOL)isInstalledRepoZero {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [repo repoID] == 0 || [repo repoID] == -1 || [databaseManager packageIsInstalled:self versionStrict:false];
+    return [repo repoID] == 0 || [databaseManager packageIsInstalled:self versionStrict:false];
+}
+
+- (BOOL)isInstalled {
+    return [repo repoID] == -1 || [self isInstalledRepoZero];
 }
 
 - (NSMutableArray *)otherVersions {
@@ -372,7 +376,7 @@
     NSUInteger actions = 0;
     // Bits order: Downgrade - Upgrade - Reinstall - Remove - Install
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([self isInstalled]) {
+    if ([self isInstalledRepoZero]) {
         actions |= 1 << ZBQueueTypeReinstall;
         if ([databaseManager packageHasUpdate:self]) {
             actions |= 1 << ZBQueueTypeUpgrade;
