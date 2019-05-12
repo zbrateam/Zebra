@@ -323,7 +323,7 @@
     }];
     [actions addObject:deleteAction];
     
-    if (possibleActions & (1 << ZBQueueTypeInstall)) {
+    if (possibleActions & ZBQueueTypeInstall) {
         UITableViewRowAction *installAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Install" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeInstall];
         }];
@@ -331,7 +331,7 @@
         [actions addObject:installAction];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeReinstall)) {
+    if (possibleActions & ZBQueueTypeReinstall) {
         UITableViewRowAction *reinstallAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Reinstall" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeReinstall];
         }];
@@ -339,7 +339,7 @@
         [actions addObject:reinstallAction];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeDowngrade)) {
+    if (possibleActions & ZBQueueTypeDowngrade) {
         UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Downgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [self downgradePackage:package tableView:tableView indexPath:indexPath versions:[package otherVersions]];
         }];
@@ -347,7 +347,7 @@
         [actions addObject:downgradeAction];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeUpgrade)) {
+    if (possibleActions & ZBQueueTypeUpgrade) {
         UITableViewRowAction *upgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Upgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
         }];

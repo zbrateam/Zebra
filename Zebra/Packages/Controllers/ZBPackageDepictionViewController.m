@@ -191,7 +191,7 @@
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
-        hasUpdate = possibleActions & (1 << ZBQueueTypeUpgrade);
+        hasUpdate = possibleActions & ZBQueueTypeUpgrade;
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -211,7 +211,7 @@
     
     NSUInteger possibleActions = [package possibleActions];
     
-    if (possibleActions & (1 << ZBQueueTypeRemove)) {
+    if (possibleActions & ZBQueueTypeRemove) {
         UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:self->package toQueue:ZBQueueTypeRemove];
@@ -223,7 +223,7 @@
         [alert addAction:remove];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeReinstall)) {
+    if (possibleActions & ZBQueueTypeReinstall) {
         UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
@@ -235,7 +235,7 @@
         [alert addAction:reinstall];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeDowngrade)) {
+    if (possibleActions & ZBQueueTypeDowngrade) {
         UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Downgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
             [self downgradePackage];
@@ -322,7 +322,7 @@
     NSUInteger possibleActions = [package possibleActions];
     NSMutableArray *actions = [NSMutableArray array];
     
-    if (possibleActions & (1 << ZBQueueTypeRemove)) {
+    if (possibleActions & ZBQueueTypeRemove) {
         UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [self removePackage];
         }];
@@ -330,7 +330,7 @@
         [actions addObject:remove];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeReinstall)) {
+    if (possibleActions & ZBQueueTypeReinstall) {
         UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
@@ -341,7 +341,7 @@
         [actions addObject:reinstall];
     }
     
-    if (possibleActions & (1 << ZBQueueTypeDowngrade)) {
+    if (possibleActions & ZBQueueTypeDowngrade) {
         UIPreviewAction *downgrade = [UIPreviewAction actionWithTitle:@"Downgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [self downgradePackage];
         }];
