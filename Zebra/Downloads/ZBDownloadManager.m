@@ -260,7 +260,8 @@
                         NSLog(@"Response %@", json);
                         if([json valueForKey:@"url"]){
                             //self->package.filename = json[@"url"];
-                           url = [NSURL URLWithString:json[@"url"]];
+                            url = [NSURL URLWithString:json[@"url"]];
+                            NSLog(@"DYNASTICOMEON %@", url.absoluteString);
                         }
                         
                     }
@@ -278,6 +279,7 @@
         
         [downloadDelegate predator:self startedDownloadForFile:filename];
         [downloadTask resume];
+        NSLog(@"DYNOMITE %@", downloadTask.error);
     }
 }
 

@@ -19,7 +19,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^UIBarButtonItemActionHandler)();
+typedef void (^UIBarButtonItemActionHandler)(void);
 
 @interface UIBarButtonItem (blocks)
 
