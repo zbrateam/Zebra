@@ -14,7 +14,7 @@
 #import <sys/utsname.h>
 #import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
-
+#import "ZBRepoPurchases.h"
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -44,6 +44,12 @@
     }];
     
     self.purchased = [[UIBarButtonItem alloc] initWithTitle:@"Purchased" style:UIBarButtonItemStylePlain actionHandler:^{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBRepoPurchases *ivc = (ZBRepoPurchases *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
+        ivc.repoName = self.repo.origin;
+        ivc.repoEndpoint = self.repoEndpoint;
+        ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
+        [self.navigationController pushViewController:ivc animated:YES];
         
     }];
     
@@ -89,6 +95,12 @@
                     [self.navigationItem setRightBarButtonItem:self.purchased];
                 }
             }
+        }
+    }else{
+        if(![self checkAuthenticated]){
+            [self.navigationItem setRightBarButtonItem:self.login];
+        }else{
+            [self.navigationItem setRightBarButtonItem:self.purchased];
         }
     }
 }
@@ -190,7 +202,16 @@
 
 #pragma mark - Navigation
 
+
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    /*`if([segue.identifier isEqualToString:@"purchasedNavController"]){
+        ZBRepoPurchases *ivc = (ZBRepoPurchases *)segue.destinationViewController;
+        ivc.repoName = self->repo.origin;
+        ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
+        ivc.repoEndpoint = self.repoEndpoint;
+    }*/
     ZBPackageListTableViewController *destination = [segue destinationViewController];
     UITableViewCell *cell = (UITableViewCell *)sender;
     destination.repo = repo;
@@ -226,5 +247,7 @@
     
     return @[refresh];
 }
+
+
 
 @end
