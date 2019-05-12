@@ -79,7 +79,7 @@
     NSError *sourceListReadError;
     NSString *sourceList = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&sourceListReadError];
     
-    if (sourceListReadError == NULL) { 
+    if (sourceListReadError != NULL) { 
         [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening sources.list: %@\n", sourceListReadError.localizedDescription] atLevel:ZBLogLevelError];
         
         return NULL;
