@@ -20,6 +20,8 @@
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
+#import "MobileGestalt.h"
+
 @interface ZBDownloadManager () {
     BOOL ignore;
     int tasks;
@@ -101,7 +103,9 @@
 
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    
+    CFStringRef UDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
+    NSString *udid = (__bridge NSString *)UDID;
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
