@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.zebra"];
+    _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.zebra" accessGroup:nil];
     
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -131,6 +131,13 @@
                                     }
                                     NSString *token = queryByKeys[@"token"];
                                     NSString *payment = queryByKeys[@"payment_secret"];
+                                    
+                                    /*NSError *error;
+                                    [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
+                                    if (error) {
+                                        NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
+                                     
+                                    }*/
                                     self->_keychain[self.repoEndpoint] = token;
                                     self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
                                     [self.navigationItem setRightBarButtonItem:self.purchased];
