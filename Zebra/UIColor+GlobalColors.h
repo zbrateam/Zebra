@@ -18,3 +18,7 @@
 +(UIColor*)cellPrimaryTextColor;
 +(UIColor*)cellSecondaryTextColor;
 @end
+
+@interface UIColor (Private)
++(UIColor*)systemBlueColor;
+@end
