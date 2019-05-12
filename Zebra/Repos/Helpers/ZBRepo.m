@@ -129,7 +129,7 @@
                         NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         if([endpoint length] != 0){
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
-                            keychain[baseURL] = url.absoluteString;
+                            keychain[baseURL] = endpoint;
                         }
                         
                     }] resume];
