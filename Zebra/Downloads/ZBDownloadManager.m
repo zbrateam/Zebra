@@ -16,6 +16,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
+#import "MobileGestalt.h"
 #import <bzlib.h>
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -101,7 +102,7 @@
 
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);

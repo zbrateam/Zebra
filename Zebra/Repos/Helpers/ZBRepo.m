@@ -7,7 +7,9 @@
 //
 
 #import "ZBRepo.h"
+#import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
+
 
 @implementation ZBRepo
 
@@ -111,6 +113,27 @@
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NULL];
         [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];
+        if(secure){
+            NSString *requestURL;
+            if([baseURL hasSuffix:@"/"]){
+                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint",baseURL];
+            }else{
+                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint",baseURL];
+            }
+            NSURL *url = [NSURL URLWithString:requestURL];
+            NSURLSession *session = [NSURLSession sharedSession];
+            [[session dataTaskWithURL:url
+                    completionHandler:^(NSData *data,
+                                        NSURLResponse *response,
+                                        NSError *error) {
+                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        if([endpoint length] != 0){
+                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+                            keychain[baseURL] = url.absoluteString;
+                        }
+                        
+                    }] resume];
+        }
     }
     
     return self;

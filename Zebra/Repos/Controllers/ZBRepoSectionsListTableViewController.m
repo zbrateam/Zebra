@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.zebra" accessGroup:nil];
+    _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
     
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -79,29 +79,14 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     if(!self.repoEndpoint){
-        if(repo.isSecure){
-            NSString *requestURL;
-            if([repo.baseURL hasSuffix:@"/"]){
-                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint",repo.baseURL];
-            }else{
-                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint",repo.baseURL];
-            }
-            NSURL *url = [NSURL URLWithString:requestURL];
-            NSError *error = nil;
-            NSString *endpoint = [[NSString alloc] initWithContentsOfURL: url
-                                                                encoding: NSUTF8StringEncoding
-                                                                   error: &error];
-            NSLog(@"Endpoint %@", endpoint);
-            if([endpoint length] != 0){
-               //[_keychain removeItemForKey:endpoint];
-                self.repoEndpoint = endpoint;
+        if([_keychain stringForKey:repo.baseURL]){
+                self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
                 if(![self checkAuthenticated]){
                     [self.navigationItem setRightBarButtonItem:self.login];
                 }else{
                     [self.navigationItem setRightBarButtonItem:self.purchased];
                 }
             }
-        }
     }else{
         if(![self checkAuthenticated]){
             [self.navigationItem setRightBarButtonItem:self.login];
