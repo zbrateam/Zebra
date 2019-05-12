@@ -24,6 +24,7 @@
 @synthesize suite;
 @synthesize components;
 @synthesize shortURL;
+@synthesize supportSileoPay;
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID {
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
@@ -130,6 +131,7 @@
                         if([endpoint length] != 0){
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
                             keychain[baseURL] = endpoint;
+                            [self setSupportSileoPay:TRUE];
                         }
                         
                     }] resume];

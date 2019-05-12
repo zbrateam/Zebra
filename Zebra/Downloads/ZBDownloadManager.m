@@ -204,8 +204,13 @@
         
         NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
         NSURL *base = [NSURL URLWithString:comps[0]];
-        NSURL *url = [base URLByAppendingPathComponent:filename];
-    
+        NSURL *url;
+        if(package.sileoDownload){
+            url = [NSURL URLWithString:filename];
+        }else{
+            url = [base URLByAppendingPathComponent:filename];
+            NSLog(@"Download %@", url.absoluteString);
+        }
         NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
         tasks++;
         

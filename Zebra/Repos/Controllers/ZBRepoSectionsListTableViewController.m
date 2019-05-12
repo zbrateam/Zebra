@@ -81,7 +81,6 @@
     if(!self.repoEndpoint){
         if([_keychain stringForKey:repo.baseURL]){
                 self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
-            NSLog(@"HIZEBRA %@", self.repoEndpoint);
                 if(![self checkAuthenticated]){
                     [self.navigationItem setRightBarButtonItem:self.login];
                 }else{

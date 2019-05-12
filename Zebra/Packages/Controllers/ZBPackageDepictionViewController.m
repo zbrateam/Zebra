@@ -15,6 +15,9 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
+#import "UICKeyChainStore.h"
+#import "MobileGestalt.h"
+#import <sys/utsname.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -102,6 +105,43 @@
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:TRUE];
+    
+    if([package repo].supportSileoPay && [package isPaid]){
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+        
+        NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                                @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                                @"device":[self deviceModelID]};
+        NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody: requestData];
+        [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSLog(@"Response %@", json);
+            if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
+                self.purchased = TRUE;
+            }
+        }] resume];
+    }
+}
+
+
+- (NSString *)deviceModelID {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
@@ -200,11 +240,53 @@
 }
     
 - (void)installPackage {
-    ZBQueue *queue = [ZBQueue sharedInstance];
-    [queue addPackage:package toQueue:ZBQueueTypeInstall];
+    if(self.purchased){
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+        NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                                @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                                @"device":[self deviceModelID],
+                                @"version": package.version,
+                                @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL]};
+        NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/authorize_download", [keychain stringForKey:[package repo].baseURL], package.identifier]]];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody: requestData];
+        [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if(data){
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                NSLog(@"Response %@", json);
+                if([json valueForKey:@"url"]){
+                    self->package.filename = json[@"url"];
+                    self->package.sileoDownload = TRUE;
+                    ZBQueue *queue = [ZBQueue sharedInstance];
+                    [queue addPackage:self->package toQueue:ZBQueueTypeInstall];
+                    
+                    [self presentQueue];
+                }
+            
+            }/*else{
+              
+            }*/
+            //NSLog(@"CALLBACK %@", response.description);
+            if(error){
+                NSLog(@"ERROR %@", error.localizedDescription);
+            }
+        }] resume];
+    }else{
+        ZBQueue *queue = [ZBQueue sharedInstance];
+        [queue addPackage:package toQueue:ZBQueueTypeInstall];
+        
+        [self presentQueue];
+    }
     
-    [self presentQueue];
 }
+
 
 - (void)modifyPackage {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
