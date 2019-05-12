@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UICKeyChainStore.h"
+#import <Database/ZBDatabaseManager.h>
+#import "ZBPackage.h"
 
 @interface ZBRepoPurchases : UITableViewController
 @property NSString *repoName;
@@ -15,7 +17,8 @@
 @property NSString *userName;
 @property NSString *userEmail;
 @property UIImage *repoImage;
-@property NSArray *packages;
+@property NSMutableArray *packages;
 @property UICKeyChainStore *keychain;
 @property UIBarButtonItem *logOut;
+@property ZBDatabaseManager *databaseManager;
 @end

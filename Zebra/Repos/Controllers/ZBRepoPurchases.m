@@ -10,6 +10,8 @@
 #import <sys/utsname.h>
 #import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackageDepictionViewController.h"
 
 @interface ZBRepoPurchases ()
 
@@ -19,7 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.databaseManager = [ZBDatabaseManager sharedInstance];
     _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.zebra"];
+    self.packages = [NSMutableArray new];
     if (self.repoImage != NULL) {
         UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -37,6 +42,8 @@
         [self logoutRepo];
     }];
     [self.navigationItem setRightBarButtonItem:self.logOut];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
+         forCellReuseIdentifier:@"packageTableViewCell"];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -70,7 +77,18 @@
     [request setHTTPBody: requestData];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        self.packages = json[@"items"];
+        //self.packages = json[@"items"];
+        [self.packages removeAllObjects];
+        for(NSString *packageID in json[@"items"]){
+            @try{
+                ZBPackage *package = [self.databaseManager topVersionForPackageID:packageID];
+                [self.packages addObject:package];
+            }
+            @catch (NSException *exception){
+                NSLog(@"Package Unavailable %@ %@", exception.reason, packageID);
+            }
+            
+        }
         if(json[@"user"]){
             if([json valueForKeyPath:@"user.name"]){
                 self.userName = [json valueForKeyPath:@"user.name"];
@@ -130,9 +148,10 @@
     if(section == 0){
         return 2;
     }else{
-        return [_packages count];
+        return [self.packages count];
     }
 }
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -153,18 +172,35 @@
         }
         return cell;
     }else{
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Packages"];
+        /*UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Packages"];
         if (cell == nil) {
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Packages"];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            //cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-        }
-        cell.textLabel.text = [_packages objectAtIndex:indexPath.row];
+        }*/
+        //ZBPackage *package = [self.databaseManager topVersionForPackageID:[self.packages objectAtIndex:indexPath.row]];
+           //ZBPackage *package = [self.databaseManager topVersionForPackageID:[self.packages objectAtIndex:indexPath.row]];
+            //cell.textLabel.text = package.name;
+        
+        /*ZBPackage *package = [self.packages objectAtIndex:indexPath.row];
+        cell.textLabel.text = package.name;
+        return cell;*/
+        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        
+        ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
+        
+        [cell updateData:package];
         return cell;
     }
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 1){
+        [self performSegueWithIdentifier:@"seguePurchasesToPackageDepiction" sender:indexPath];
+    }
 }
 
 
@@ -202,14 +238,18 @@
 }
 */
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
+        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+        NSIndexPath *indexPath = sender;
+        
+        destination.package = [_packages objectAtIndex:indexPath.row];
+        
+        [_databaseManager closeDatabase];
+    }
 }
-*/
+
 
 @end
