@@ -116,8 +116,7 @@
     
     if (requested || needsUpdate) {
         [self->_databaseDelegate databaseStartedUpdate];
-        ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithSourceListPath:[ZBAppDelegate sourcesListPath]];
-        [downloadManager setDownloadDelegate:self];
+        ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
         [_databaseDelegate postStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
         
         [downloadManager downloadReposAndIgnoreCaching:!useCaching];
@@ -868,6 +867,7 @@
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    NSLog(@"[Zebra] I'll forward your request... %@", status);
     [_databaseDelegate postStatusUpdate:status atLevel:level];
 }
 

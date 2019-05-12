@@ -35,6 +35,7 @@
             [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
             
             if (error != NULL) {
+                [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
                 NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
             }
         }
@@ -60,6 +61,7 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
         
         if (error != NULL) {
+            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating lists directory: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
         }
     }
@@ -78,6 +80,7 @@
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
         
         if (error != NULL) {
+            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating sources.list: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating sources.list: %@.", error.localizedDescription);
         }
     }
@@ -98,10 +101,28 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:true attributes:nil error:&error];
         
         if (error != NULL) {
+            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating debs directory: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
         }
     }
     return debs;
+}
+
++ (void)sendErrorToTabController:(NSString *)error {
+    ZBTabBarController *tabController = (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+    if (tabController != NULL) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"An Error Occured" message:error preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [errorAlert dismissViewControllerAnimated:true completion:nil];
+            }];
+            
+            [errorAlert addAction:okAction];
+            
+            [tabController presentViewController:errorAlert animated:true completion:nil];
+        });
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

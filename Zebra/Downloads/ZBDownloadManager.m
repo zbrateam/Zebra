@@ -46,6 +46,20 @@
     return self;
 }
 
+- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
+    self = [super init];
+    
+    if (self) {
+        downloadDelegate = delegate;
+        repos = [self reposFromSourcePath:trail];
+        
+        queue = [ZBQueue sharedInstance];
+        filenames = [NSMutableDictionary new];
+    }
+    
+    return self;
+}
+
 - (id)initWithSourceListPath:(NSString *)trail {
     self = [super init];
     
@@ -64,6 +78,13 @@
     
     NSError *sourceListReadError;
     NSString *sourceList = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&sourceListReadError];
+    
+    if (sourceListReadError == NULL) { 
+        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening sources.list: %@\n", sourceListReadError.localizedDescription] atLevel:ZBLogLevelError];
+        
+        return NULL;
+    }
+    
     NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
     
     for (NSString *line in debLines) {
@@ -136,6 +157,11 @@
 }
 
 - (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore {
+    if (repos == NULL) {
+        [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
+        [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
+    }
+    
     self->ignore = ignore;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = ignore ? [self headers] : [self headersForFile:@"file"];
