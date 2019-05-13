@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isStrictlyInstalled;
 - (BOOL)isInstalled;
 - (BOOL)isInstalledRepoZero;
-- (NSMutableArray *)otherVersions;
+- (NSMutableArray <ZBPackage *> *)otherVersions;
 - (NSUInteger)possibleActions;
 @end
 

@@ -357,8 +357,8 @@
     return [repo repoID] == -1 || [self isInstalledRepoZero];
 }
 
-- (NSMutableArray *)otherVersions {
-    NSMutableArray *versions = [NSMutableArray array];
+- (NSMutableArray <ZBPackage *> *)otherVersions {
+    NSMutableArray <ZBPackage *> *versions = [NSMutableArray array];
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSArray *otherVersions = [databaseManager otherVersionsForPackage:self];
