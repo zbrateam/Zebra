@@ -107,9 +107,9 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
     if([[keychain stringForKey:[package repo].baseURL] length] != 0){
         if([package repo].supportSileoPay && [package isPaid]){
-            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
         
             NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
