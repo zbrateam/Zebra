@@ -17,6 +17,7 @@
 #import <UIColor+GlobalColors.h>
 #import "UICKeyChainStore.h"
 #import "MobileGestalt.h"
+#import <sys/sysctl.h>
 #import <sys/utsname.h>
 
 @interface ZBPackageDepictionViewController () {
@@ -101,7 +102,30 @@
     webView.backgroundColor = [UIColor clearColor];
     
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
-    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    
+    CFStringRef UDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
+    NSString *udid = (__bridge NSString *)UDID;
+    
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    
+    char *answer = malloc(size);
+    sysctlbyname("hw.machine", answer, &size, NULL, 0);
+    
+    NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
+    free(answer);
+    
+    [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
+    [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+    [request setValue:version forHTTPHeaderField:@"X-Firmware"];
+    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
+    [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
+    
+    [webView loadRequest:request];
+//    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
