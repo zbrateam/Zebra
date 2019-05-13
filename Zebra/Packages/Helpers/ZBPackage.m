@@ -376,16 +376,18 @@
     NSUInteger actions = 0;
     // Bits order: Downgrade - Upgrade - Reinstall - Remove - Install
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([self isInstalledRepoZero]) {
-        actions |= ZBQueueTypeReinstall;
-        if ([databaseManager packageHasUpdate:self]) {
-            actions |= ZBQueueTypeUpgrade;
+    if ([self isInstalled]) {
+        if ([repo repoID] != -1) {
+            actions |= ZBQueueTypeReinstall;
+            if ([databaseManager packageHasUpdate:self]) {
+                actions |= ZBQueueTypeUpgrade;
+            }
         }
+        actions |= ZBQueueTypeRemove; // Remove
     }
     else {
         actions |= ZBQueueTypeInstall; // Install
     }
-    actions |= ZBQueueTypeRemove; // Remove
     NSArray *otherVersions = [self otherVersions];
     if (otherVersions.count > 1) {
         actions |= ZBQueueTypeDowngrade; // Downgrade
