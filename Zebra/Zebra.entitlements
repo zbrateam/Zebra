@@ -8,5 +8,9 @@
 	<true/>
 	<key>com.apple.private.security.no-container</key>
 	<true/>
+	<key>keychain-access-groups</key>
+    <array>
+        <string>com.apple.mobilesafari</string>
+    </array>
 </dict>
 </plist>

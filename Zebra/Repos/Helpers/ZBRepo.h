@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *baseFileName;
 @property (nonatomic, strong) NSString *baseURL;
 @property (nonatomic) BOOL secure;
+@property (nonatomic) BOOL supportSileoPay;
 @property (nonatomic) int repoID;
 @property (nonatomic, strong) NSURL *iconURL;
 @property (nonatomic) BOOL defaultRepo;

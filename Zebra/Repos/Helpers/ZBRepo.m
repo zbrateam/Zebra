@@ -7,7 +7,9 @@
 //
 
 #import "ZBRepo.h"
+#import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
+
 
 @implementation ZBRepo
 
@@ -22,6 +24,7 @@
 @synthesize suite;
 @synthesize components;
 @synthesize shortURL;
+@synthesize supportSileoPay;
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID {
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
@@ -111,6 +114,43 @@
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NULL];
         [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];
+        if(secure){
+            /*for (id secclass in @[
+                                  (__bridge id)kSecClassGenericPassword,
+                                  (__bridge id)kSecClassInternetPassword,
+                                  (__bridge id)kSecClassCertificate,
+                                  (__bridge id)kSecClassKey,
+                                  (__bridge id)kSecClassIdentity]) {
+                NSMutableDictionary *query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                              secclass, (__bridge id)kSecClass,
+                                              nil];
+                
+                SecItemDelete((__bridge CFDictionaryRef)query);
+            }*/
+            NSString *requestURL;
+            if([baseURL hasSuffix:@"/"]){
+                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint",baseURL];
+            }else{
+                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint",baseURL];
+            }
+            NSURL *url = [NSURL URLWithString:requestURL];
+            NSURLSession *session = [NSURLSession sharedSession];
+            [[session dataTaskWithURL:url
+                    completionHandler:^(NSData *data,
+                                        NSURLResponse *response,
+                                        NSError *error) {
+                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                        NSLog(@"response status code: %ld %@", (long)[httpResponse statusCode] , url.absoluteString);
+                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        NSLog(@"endpointHere %@ %@", url.absoluteString ,endpoint);
+                        if([endpoint length] != 0 && (long)[httpResponse statusCode] != 404){
+                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+                            keychain[baseURL] = endpoint;
+                            [self setSupportSileoPay:TRUE];
+                        }
+                        
+                    }] resume];
+        }
     }
     
     return self;
