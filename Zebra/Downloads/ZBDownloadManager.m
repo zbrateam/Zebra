@@ -234,21 +234,28 @@
         
         NSString *baseURL = [repo isSecure] ? [@"https://" stringByAppendingString:[repo baseURL]] : [@"http://" stringByAppendingString:[repo baseURL]];
         NSString *filename = [package filename];
+        NSURL *url = [NSURL URLWithString:filename];
         
         NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
         NSURL *base = [NSURL URLWithString:comps[0]];
-        NSURL *url;
-        if(package.sileoDownload){
+        
+        if (url && url.host && url.scheme) {
+            NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
+            tasks++;
+            
+            [downloadDelegate predator:self startedDownloadForFile:package.name];
+            [downloadTask resume];
+        }
+        else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url){
-                
                 NSURLSessionTask *downloadTask = [session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
                 [self->downloadDelegate predator:self startedDownloadForFile:package.name];
                 [downloadTask resume];
             }];
-            
-        }else{
+        }
+        else {
             url = [base URLByAppendingPathComponent:filename];
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
             tasks++;
@@ -258,9 +265,8 @@
         }
     }
 }
-//+ (void)confirmDelete:(NSString *)snapName onFS:(NSString*)fileSystem WithCompletion:(void (^)(void))handler;
+
 - (void)realLinkWithPackage:(ZBPackage *)package withCompletion:(void (^)(NSString *url))completionHandler{
-    //__block NSString *returnString;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
@@ -280,16 +286,14 @@
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if(data){
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"Response %@", json);
-            if([json valueForKey:@"url"]){
-                //self->package.filename = json[@"url"];
+            if ([json valueForKey:@"url"]) {
                 NSString *returnString = json[@"url"];
                 completionHandler(returnString);
             }
             
         }
         if(error){
-            NSLog(@"ERROR %@", error.localizedDescription);
+            NSLog(@"[Zebra] Error: %@", error.localizedDescription);
         }
     }] resume];
     
