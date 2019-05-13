@@ -115,6 +115,18 @@
         [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];
         if(secure){
+            /*for (id secclass in @[
+                                  (__bridge id)kSecClassGenericPassword,
+                                  (__bridge id)kSecClassInternetPassword,
+                                  (__bridge id)kSecClassCertificate,
+                                  (__bridge id)kSecClassKey,
+                                  (__bridge id)kSecClassIdentity]) {
+                NSMutableDictionary *query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                              secclass, (__bridge id)kSecClass,
+                                              nil];
+                
+                SecItemDelete((__bridge CFDictionaryRef)query);
+            }*/
             NSString *requestURL;
             if([baseURL hasSuffix:@"/"]){
                 requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint",baseURL];
@@ -127,8 +139,11 @@
                     completionHandler:^(NSData *data,
                                         NSURLResponse *response,
                                         NSError *error) {
+                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                        NSLog(@"response status code: %ld %@", (long)[httpResponse statusCode] , url.absoluteString);
                         NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        if([endpoint length] != 0){
+                        NSLog(@"endpointHere %@ %@", url.absoluteString ,endpoint);
+                        if([endpoint length] != 0 && (long)[httpResponse statusCode] != 404){
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
                             keychain[baseURL] = endpoint;
                             [self setSupportSileoPay:TRUE];

@@ -79,7 +79,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     if(!self.repoEndpoint){
-        if([_keychain stringForKey:repo.baseURL]){
+        if([[_keychain stringForKey:repo.baseURL] length] != 0){
                 self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
                 if(![self checkAuthenticated]){
                     [self.navigationItem setRightBarButtonItem:self.login];
@@ -191,7 +191,7 @@
 }
 
 -(BOOL)checkAuthenticated{
-    if([_keychain stringForKey:self.repoEndpoint]){
+    if([[_keychain stringForKey:self.repoEndpoint]length] != 0){
         return TRUE;
     }else{
         return FALSE;
