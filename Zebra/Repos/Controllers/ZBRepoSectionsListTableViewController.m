@@ -148,7 +148,6 @@
 
 - (void)authenticationCallBack:(NSNotification *)notif{
     [self dismissViewControllerAnimated:TRUE completion:nil];
-    NSLog(@"OUTPUTFROMSAFARI %@", notif.userInfo);
     NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
     NSArray *queryItems = urlComponents.queryItems;

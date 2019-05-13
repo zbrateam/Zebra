@@ -244,7 +244,7 @@
                 NSURLSessionTask *downloadTask = [session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
-                [self->downloadDelegate predator:self startedDownloadForFile:url];
+                [self->downloadDelegate predator:self startedDownloadForFile:package.name];
                 [downloadTask resume];
             }];
             
@@ -253,7 +253,7 @@
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
             tasks++;
             
-            [downloadDelegate predator:self startedDownloadForFile:filename];
+            [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
         }
     }
