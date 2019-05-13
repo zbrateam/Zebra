@@ -217,8 +217,9 @@
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
         [removeCommand insertObject:@"-r" atIndex:1];
+        [removeCommand insertObject:@"--force-depends" atIndex:2];
         for (ZBPackage *package in reinstallArray) {
-            [removeCommand insertObject:[package identifier] atIndex:2];
+            [removeCommand insertObject:[package identifier] atIndex:3];
         }
         [commands addObject:removeCommand];
         
