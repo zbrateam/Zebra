@@ -9,6 +9,7 @@
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Queue/ZBQueue.h>
 #import <ZBTabBarController.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -165,9 +166,7 @@
 }
 
 - (void)presentQueue {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    [self presentViewController:vc animated:true completion:nil];
+    [ZBPackageActionsManager presentQueue:self parent:nil];
 }
 
 - (void)upgradeAll {
@@ -184,37 +183,6 @@
     else {
         return (ZBPackage *)[packages objectAtIndex:indexPath.row];
     }
-}
-
-- (void)downgradePackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath {
-    // TODO: I don't exactly like this because it also exists on ZBPackageDepictionViewController, should we somehow combine them - PoomSmart
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (ZBPackage *downPackage in [package otherVersions]) {
-        
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
-            
-            [alert dismissViewControllerAnimated:true completion:nil];
-            [self presentQueue];
-        }];
-        
-        [alert addAction:action];
-    }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
-    }];
-    
-    [alert addAction:cancel];
-    
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    alert.popoverPresentationController.sourceView = cell;
-    alert.popoverPresentationController.sourceRect = cell.bounds;
-    
-    [self presentViewController:alert animated:true completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -314,48 +282,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    NSMutableArray *actions = [NSMutableArray array];
-    NSUInteger possibleActions = [package possibleActions];
-    ZBQueue *queue = [ZBQueue sharedInstance];
-    
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Remove" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        [queue addPackage:package toQueue:ZBQueueTypeRemove];
-    }];
-    [actions addObject:deleteAction];
-    
-    if (possibleActions & ZBQueueTypeInstall) {
-        UITableViewRowAction *installAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Install" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-            [queue addPackage:package toQueue:ZBQueueTypeInstall];
-        }];
-        installAction.backgroundColor = [UIColor systemBlueColor];
-        [actions addObject:installAction];
-    }
-    
-    if (possibleActions & ZBQueueTypeReinstall) {
-        UITableViewRowAction *reinstallAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Reinstall" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-            [queue addPackage:package toQueue:ZBQueueTypeReinstall];
-        }];
-        reinstallAction.backgroundColor = [UIColor orangeColor];
-        [actions addObject:reinstallAction];
-    }
-    
-    if (possibleActions & ZBQueueTypeDowngrade) {
-        UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Downgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-            [self downgradePackage:package indexPath:indexPath];
-        }];
-        downgradeAction.backgroundColor = [UIColor purpleColor];
-        [actions addObject:downgradeAction];
-    }
-    
-    if (possibleActions & ZBQueueTypeUpgrade) {
-        UITableViewRowAction *upgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Upgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-            [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
-        }];
-        upgradeAction.backgroundColor = [UIColor systemBlueColor];
-        [actions addObject:upgradeAction];
-    }
-    
-    return actions;
+    return [ZBPackageActionsManager actionsForPackage:package indexPath:indexPath viewController:self parent:nil];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
