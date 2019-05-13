@@ -178,7 +178,7 @@
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    if (needsUpdatesSection &&  indexPath.section == 0) {
+    if (needsUpdatesSection && indexPath.section == 0) {
         return (ZBPackage *)[updates objectAtIndex:indexPath.row];
     }
     else {
@@ -186,12 +186,12 @@
     }
 }
 
-- (void)downgradePackage:(ZBPackage *)package tableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath versions:(NSArray *)otherVersions {
+- (void)downgradePackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath {
     // TODO: I don't exactly like this because it also exists on ZBPackageDepictionViewController, should we somehow combine them - PoomSmart
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    for (ZBPackage *downPackage in otherVersions) {
+    for (ZBPackage *downPackage in [package otherVersions]) {
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
@@ -210,7 +210,7 @@
     
     [alert addAction:cancel];
     
-    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     alert.popoverPresentationController.sourceView = cell;
     alert.popoverPresentationController.sourceRect = cell.bounds;
     
@@ -341,7 +341,7 @@
     
     if (possibleActions & ZBQueueTypeDowngrade) {
         UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Downgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-            [self downgradePackage:package tableView:tableView indexPath:indexPath versions:[package otherVersions]];
+            [self downgradePackage:package indexPath:indexPath];
         }];
         downgradeAction.backgroundColor = [UIColor purpleColor];
         [actions addObject:downgradeAction];
@@ -366,13 +366,7 @@
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
     
-    ZBPackage *package;
-    if (needsUpdatesSection && indexPath.section == 0) {
-        package = [updates objectAtIndex:indexPath.row];
-    }
-    else {
-        package = [packages objectAtIndex:indexPath.row];
-    }
+    ZBPackage *package = [self packageAtIndexPath:indexPath];
     
     destination.package = package;
     destination.parent = self;
