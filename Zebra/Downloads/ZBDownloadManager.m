@@ -228,7 +228,7 @@
     for (ZBPackage *package in packages) {
         ZBRepo *repo = [package repo];
         
-        if (repo == NULL) {
+        if (repo == NULL || [package filename] == NULL) {
             break;
         }
         
