@@ -73,7 +73,7 @@
     }
     else {
         NSString *depPackageID = line;
-        package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL];
+        package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:true];
     }
     
     if (package == NULL)
@@ -108,7 +108,7 @@
         NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
         
 //        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
-        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version];
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true];
     }
     else { //bad repo maintainer alert
         NSString *versionComparison = [components[1] substringToIndex:[components[1] length] - 1];
@@ -122,7 +122,7 @@
         [scanner scanCharactersFromSet:versionChars intoString:&version];
         
 //        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
-        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version];
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true];
     }
     
 }
