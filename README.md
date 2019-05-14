@@ -11,7 +11,7 @@ The best way to report a bug with Zebra is to open an issue on the original repo
 Fill out the required fields as best that you can in order to have a better chance at getting your issue fixed.
 
 ## Feature Requests
-Feature request are welcome as well and are also tracked through GitHub issues [here](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=)(Original Repo).
+Feature request are welcome as well and are also tracked through GitHub issues [here](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=) (Original Repo).
 
 Fill out the required fields to the best of your ability (mockups, screenshots, descriptions, etc.).
 
