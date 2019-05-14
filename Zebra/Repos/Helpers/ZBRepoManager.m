@@ -109,7 +109,7 @@
                     
                     if (strongSelf) {
                         if ([verifiedURLs count] == 0) {
-                            respond(NO, @"No sources to add.", @[]);
+                            respond(NO, @"You have already added these repositories.", @[]);
                         }
                         else {
                             __block NSError *addError = nil;
