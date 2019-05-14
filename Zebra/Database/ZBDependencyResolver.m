@@ -39,7 +39,7 @@
     NSArray *dependencies = [package dependsOn];
     
     for (NSString *line in dependencies) {
-        ZBPackage *depPackage = [self packageThatResolvesDependency:line];
+        ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:true];
         if (depPackage != NULL) {
             if ([databaseManager packageIsInstalled:depPackage versionStrict:true]) {
 //                NSLog(@"[Zebra] %@ is already installed, skipping", [package identifier]);
@@ -62,18 +62,18 @@
     }
 }
 
-- (ZBPackage *)packageThatResolvesDependency:(NSString *)line {
+- (ZBPackage *)packageThatResolvesDependency:(NSString *)line checkProvides:(BOOL)provides {
 //    NSLog(@"[Zebra] Package that resolves dependency %@", line);
     ZBPackage *package;
     if ([line rangeOfString:@" | "].location != NSNotFound) {
-        package = [self packageThatSatisfiesORComparison:line];
+        package = [self packageThatSatisfiesORComparison:line checkProvides:provides];
     }
     else if ([line rangeOfString:@"("].location != NSNotFound && [line rangeOfString:@")"].location != NSNotFound) {
-        package = [self packageThatSatisfiesVersionComparison:line];
+        package = [self packageThatSatisfiesVersionComparison:line checkProvides:provides];
     }
     else {
         NSString *depPackageID = line;
-        package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:true];
+        package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:true checkProvides:provides];
     }
     
     if (package == NULL)
@@ -82,19 +82,30 @@
     return package;
 }
 
-- (ZBPackage *)packageThatSatisfiesORComparison:(NSString *)line {
+- (ZBPackage *)packageThatSatisfiesORComparison:(NSString *)line checkProvides:(BOOL)provides {
     NSArray *comps = [line componentsSeparatedByString:@" | "];
+    NSMutableArray *results = [NSMutableArray new];
     for (NSString *depPackageID in comps) {
-        ZBPackage *depPackage = [self packageThatResolvesDependency:depPackageID];
+        ZBPackage *depPackage = [self packageThatResolvesDependency:depPackageID checkProvides:provides];
         
         if (depPackage != NULL) {
-            return depPackage;
+            if ([databaseManager packageIsInstalled:depPackage versionStrict:false]) {
+                return depPackage;
+            }
+            else {
+                [results addObject:depPackage];
+            }
         }
     }
+    
+    if ([results count] > 0) {
+        return results[0]; //The first one is probably fine
+    }
+    
     return NULL;
 }
 
-- (ZBPackage *)packageThatSatisfiesVersionComparison:(NSString *)line {
+- (ZBPackage *)packageThatSatisfiesVersionComparison:(NSString *)line checkProvides:(BOOL)provides {
     NSArray *components = [line componentsSeparatedByString:@" ("];
     if ([components count] == 1) { //Bad package maker alert
         components = [line componentsSeparatedByString:@"("];
@@ -108,7 +119,7 @@
         NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
         
 //        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
-        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true];
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true checkProvides:provides];
     }
     else { //bad repo maintainer alert
         NSString *versionComparison = [components[1] substringToIndex:[components[1] length] - 1];
@@ -122,7 +133,7 @@
         [scanner scanCharactersFromSet:versionChars intoString:&version];
         
 //        NSLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
-        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true];
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true checkProvides:provides];
     }
     
 }
@@ -134,7 +145,7 @@
         NSArray *conflictions = [package conflictsWith];
         
         for (NSString *line in conflictions) {
-            ZBPackage *conf = [self packageThatResolvesDependency:line];
+            ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:false];
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
 //                NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
                 [queue markPackageAsFailed:package forConflicts:conf conflictionType:0];

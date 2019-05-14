@@ -10,6 +10,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 
@@ -61,20 +62,29 @@
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
 }
 
-- (void)handleURL:(NSURL *)url {
-    NSArray *path = [url pathComponents];
-    if ([path count] == 2) {
-        if (!databaseManager) {
-            databaseManager = [ZBDatabaseManager sharedInstance];
-        }
-        
+- (void)handleURL:(NSURL *_Nullable)url {
+    if (url == NULL) {
         if (!searchController) {
             searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         }
         
-        NSString *searchTerm = path[1];
-        [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
-        [self searchBarSearchButtonClicked:self.searchController.searchBar];
+        [searchController.searchBar becomeFirstResponder];
+    }
+    else {
+        NSArray *path = [url pathComponents];
+        if ([path count] == 2) {
+            if (!databaseManager) {
+                databaseManager = [ZBDatabaseManager sharedInstance];
+            }
+            
+            if (!searchController) {
+                searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+            }
+            
+            NSString *searchTerm = path[1];
+            [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
+            [self searchBarSearchButtonClicked:self.searchController.searchBar];
+        }
     }
 }
 
@@ -174,8 +184,21 @@
     return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 5;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
+    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView setEditing:NO animated:YES];
 }
 
 #pragma mark - Navigation

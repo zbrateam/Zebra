@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSArray *> *managedQueue;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *managedQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedDepQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
 + (id)sharedInstance;

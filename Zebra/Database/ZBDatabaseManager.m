@@ -15,7 +15,6 @@
 #import <Downloads/ZBDownloadManager.h>
 
 @interface ZBDatabaseManager () {
-    sqlite3 *database;
     int numberOfDatabaseUsers;
     
     int numberOfUpdates;
@@ -26,11 +25,20 @@
 
 @implementation ZBDatabaseManager
 
+@synthesize needsToPresentRefresh;
+@synthesize database;
+
 + (id)sharedInstance {
     static ZBDatabaseManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [ZBDatabaseManager new];
+        
+        [instance openDatabase];
+        if (needsMigration(instance.database, 0) != 0 || needsMigration(instance.database, 1) != 0 || needsMigration(instance.database, 2) != 0) {
+            [instance setNeedsToPresentRefresh:true];
+        }
+        [instance closeDatabase];
     });
     return instance;
 }
@@ -247,8 +255,7 @@
         NSLog(@"[Zebra] Checking for updates...");
         NSMutableArray *found = [NSMutableArray new];
         
-        char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
-        sqlite3_exec(database, createUpdates, NULL, 0, NULL);
+        createTable(database, 2);
         
         char *updates = "DELETE FROM UPDATES;";
         sqlite3_exec(database, updates, NULL, 0, NULL);
@@ -631,6 +638,8 @@
         sqlite3_exec(database, packDel, NULL, 0, NULL);
         char *repoDel = "DROP TABLE REPOS;";
         sqlite3_exec(database, repoDel, NULL, 0, NULL);
+        char *updatesDel = "DROP TABLE UPDATES;";
+        sqlite3_exec(database, updatesDel, NULL, 0, NULL);
         
         [self closeDatabase];
     }
@@ -722,7 +731,7 @@
     }
 }
 
-- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed {
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed checkProvides:(BOOL)provides {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query;
         if (installed) {
@@ -742,7 +751,7 @@
         }
         
         //Only try to resolve "Provides" if we can't resolve the normal package.
-        if (package == NULL) {
+        if (provides && package == NULL) {
             if (installed) {
                 query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' LIMIT 1;", identifier];
             }
@@ -762,7 +771,7 @@
             NSArray *otherVersions = [self otherVersionsForPackage:package];
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {
-                    if ([[package repo] repoID] == 0) continue;
+//                    if ([[package repo] repoID] == 0) continue;
                     if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
                         [self closeDatabase];
                         return package;

@@ -12,6 +12,7 @@
 #import <ZBAppDelegate.h>
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
@@ -23,8 +24,6 @@
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
     WKWebView *webView;
-    NSArray *otherVersions;
-    BOOL hasUpdate;
     BOOL presented;
 }
 @end
@@ -246,10 +245,8 @@
 }
 
 - (void)configureNavButton {
-    NSUInteger possibleActions = [package possibleActions];
-    otherVersions = [package otherVersions];
-    if ([package isInstalledRepoZero]) {
-        if ([[package repo] repoID] != -1) {
+    if ([package isInstalled] || [package otherVersions].count > 1) {
+        if (![package hasNoRepo]) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }
@@ -257,7 +254,6 @@
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
-        hasUpdate = possibleActions & ZBQueueTypeUpgrade;
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -266,104 +262,8 @@
 }
     
 - (void)installPackage {
-    if(self.purchased){
-        package.sileoDownload = TRUE;
-    }
-    
-    ZBQueue *queue = [ZBQueue sharedInstance];
-    [queue addPackage:package toQueue:ZBQueueTypeInstall];
-        
+    [ZBPackageActionsManager installPackage:package purchased:self.purchased];
     [self presentQueue];
-    
-}
-
-
-- (void)modifyPackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    NSUInteger possibleActions = [package possibleActions];
-    
-    if (possibleActions & ZBQueueTypeRemove) {
-        UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:self->package toQueue:ZBQueueTypeRemove];
-            
-            [alert dismissViewControllerAnimated:true completion:nil];
-            [self presentQueue];
-        }];
-        
-        [alert addAction:remove];
-    }
-    
-    if (possibleActions & ZBQueueTypeReinstall) {
-        UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
-            
-            [alert dismissViewControllerAnimated:true completion:nil];
-            [self presentQueue];
-        }];
-        
-        [alert addAction:reinstall];
-    }
-    
-    if (possibleActions & ZBQueueTypeDowngrade) {
-        UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Downgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
-            [self downgradePackage];
-        }];
-        
-        [alert addAction:downgrade];
-    }
-    
-    if (hasUpdate) {
-        UIAlertAction *upgrade = [UIAlertAction actionWithTitle:@"Upgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
-            
-            [alert dismissViewControllerAnimated:true completion:nil];
-            [self presentQueue];
-        }];
-        
-        [alert addAction:upgrade];
-    }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
-    }];
-    
-    [alert addAction:cancel];
-    
-    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    
-    [self presentViewController:alert animated:true completion:nil];
-}
-
-- (void)downgradePackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (ZBPackage *downPackage in otherVersions) {
-        
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[downPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:downPackage toQueue:ZBQueueTypeInstall];
-            
-            [alert dismissViewControllerAnimated:true completion:nil];
-            [self presentQueue];
-        }];
-        
-        [alert addAction:action];
-    }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
-    }];
-    
-    [alert addAction:cancel];
-    
-    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    
-    [self presentViewController:alert animated:true completion:nil];
 }
 
 - (void)removePackage {
@@ -372,67 +272,30 @@
     [self presentQueue];
 }
 
+- (void)modifyPackage {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
+        [alert addAction:action];
+    }
+    
+    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+    
+    [self presentViewController:alert animated:true completion:nil];
+}
+
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
 }
 
 - (void)presentQueue {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    
-    if (self.navigationController == NULL && _parent != NULL) {
-        [_parent presentViewController:vc animated:true completion:nil];
-    }
-    else {
-        [self presentViewController:vc animated:true completion:nil];
-    }
+    [ZBPackageActionsManager presentQueue:self parent:_parent];
 }
 
 //3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    NSUInteger possibleActions = [package possibleActions];
-    NSMutableArray *actions = [NSMutableArray array];
-    
-    if (possibleActions & ZBQueueTypeRemove) {
-        UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-            [self removePackage];
-        }];
-        
-        [actions addObject:remove];
-    }
-    
-    if (possibleActions & ZBQueueTypeReinstall) {
-        UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:self->package toQueue:ZBQueueTypeReinstall];
-            
-            [self presentQueue];
-        }];
-        
-        [actions addObject:reinstall];
-    }
-    
-    if (possibleActions & ZBQueueTypeDowngrade) {
-        UIPreviewAction *downgrade = [UIPreviewAction actionWithTitle:@"Downgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-            [self downgradePackage];
-        }];
-        
-        [actions addObject:downgrade];
-    }
-    
-    if (hasUpdate) {
-        UIPreviewAction *upgrade = [UIPreviewAction actionWithTitle:@"Upgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:self->package toQueue:ZBQueueTypeUpgrade];
-            
-            [self presentQueue];
-        }];
-        
-        [actions addObject:upgrade];
-    }
-    
-    return actions;
+    return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
 }
 
 @synthesize delegate;
