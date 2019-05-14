@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate> {
     NSString *databasePath;
 }
+@property (nonatomic) sqlite3 *database;
+@property (nonatomic) BOOL needsToPresentRefresh;
 @property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
 + (id)sharedInstance;
 + (NSDate *)lastUpdated;

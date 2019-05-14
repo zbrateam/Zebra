@@ -15,7 +15,6 @@
 #import <Downloads/ZBDownloadManager.h>
 
 @interface ZBDatabaseManager () {
-    sqlite3 *database;
     int numberOfDatabaseUsers;
     
     int numberOfUpdates;
@@ -26,11 +25,20 @@
 
 @implementation ZBDatabaseManager
 
+@synthesize needsToPresentRefresh;
+@synthesize database;
+
 + (id)sharedInstance {
     static ZBDatabaseManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [ZBDatabaseManager new];
+        
+        [instance openDatabase];
+        if (needsMigration(instance.database, 0) != 0 || needsMigration(instance.database, 1) != 0 || needsMigration(instance.database, 2) != 0) {
+            [instance setNeedsToPresentRefresh:true];
+        }
+        [instance closeDatabase];
     });
     return instance;
 }
@@ -630,6 +638,8 @@
         sqlite3_exec(database, packDel, NULL, 0, NULL);
         char *repoDel = "DROP TABLE REPOS;";
         sqlite3_exec(database, repoDel, NULL, 0, NULL);
+        char *updatesDel = "DROP TABLE UPDATES;";
+        sqlite3_exec(database, updatesDel, NULL, 0, NULL);
         
         [self closeDatabase];
     }

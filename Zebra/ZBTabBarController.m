@@ -41,6 +41,19 @@
     [databaseManager updateDatabaseUsingCaching:true requested:false];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([databaseManager needsToPresentRefresh]) {
+        [databaseManager setNeedsToPresentRefresh:false];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        refreshController.dropTables = TRUE;
+        
+        [self presentViewController:refreshController animated:true completion:nil];
+    }
+}
+
 - (void)setPackageUpdateBadgeValue:(int)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{

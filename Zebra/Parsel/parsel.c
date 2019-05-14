@@ -37,7 +37,7 @@ multi_tok_t init() { return NULL; }
 
 char* replace_char(char* str, char find, char replace){
     char *current_pos = strchr(str,find);
-    while (current_pos){
+    while (current_pos) {
         *current_pos = replace;
         current_pos = strchr(current_pos,find);
     }
@@ -130,22 +130,6 @@ int needsMigration(sqlite3 *database, int table) {
 }
 
 void createTable(sqlite3 *database, int table) {
-    if (needsMigration(database, table) != 0) {
-        char sql[64] = "DROP TABLE ";
-        switch (table) {
-            case 0:
-                strcat(sql, "REPOS");
-                break;
-            case 1:
-                strcat(sql, "PACKAGES");
-                break;
-            case 2:
-                strcat(sql, "UPDATES");
-                break;
-        }
-        printf("Migrating table %s\n", sql);
-        sqlite3_exec(database, sql, 0, NULL, 0);
-    }
     char sql[512] = "CREATE TABLE IF NOT EXISTS ";
     switch (table) {
         case 0:
