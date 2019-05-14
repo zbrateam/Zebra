@@ -140,9 +140,7 @@
                                         NSURLResponse *response,
                                         NSError *error) {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        NSLog(@"response status code: %ld %@", (long)[httpResponse statusCode] , url.absoluteString);
                         NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        NSLog(@"endpointHere %@ %@", url.absoluteString ,endpoint);
                         if([endpoint length] != 0 && (long)[httpResponse statusCode] != 404){
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
                             keychain[baseURL] = endpoint;
