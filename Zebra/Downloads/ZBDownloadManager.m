@@ -94,11 +94,31 @@
         if (![line isEqual:@""]) {
             if ([line characterAtIndex:0] == '#') continue;
             NSArray *baseURL = [self baseURLFromDebLine:line];
-            [repos addObject:baseURL];
+            if (baseURL != NULL) [repos addObject:baseURL];
         }
     }
     
     return (NSArray *)repos;
+}
+
+- (BOOL)checkForInvalidRepo:(NSString *)baseURL {
+    NSURL *url = [NSURL URLWithString:baseURL];
+    NSString *host = [url host];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //chimera
+        return ([host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
+    }
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/jb"]) { //uncover
+        return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
+    }
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
+        return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){ //cydia
+        return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    
+    return false;
 }
 
 - (NSArray *)baseURLFromDebLine:(NSString *)debLine {
@@ -110,10 +130,18 @@
         NSString *suite = components[2];
         NSString *component = components[3];
         
+        if ([self checkForInvalidRepo:baseURL]) {
+            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
+        }
+        
         urlComponents = @[baseURL, suite, component];
     }
     else { //Normal, non-weird repo
         NSString *baseURL = components[1];
+        
+        if ([self checkForInvalidRepo:baseURL]) {
+            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
+        }
         
         urlComponents = @[baseURL];
     }
