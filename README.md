@@ -1,4 +1,8 @@
 # Zebra-Dark
+![Zebra Dark](https://raw.githubusercontent.com/navanchauhan/Zebra-Dark/master/Zebra/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5%402x.png)
+
+Icon made by @Vastomo
+
 Zebra-Dark is a dark-themed version of Zebra. Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 8 up to iOS 12 and for iPhones and iPads alike.
 
 ## Bug Reports
