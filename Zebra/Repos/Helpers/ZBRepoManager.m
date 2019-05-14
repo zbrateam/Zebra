@@ -53,51 +53,86 @@
                     return;
                 }
                 
+                NSError *readError;
+                NSString *sourcesList = [NSString stringWithContentsOfURL:[ZBAppDelegate sourcesListURL] encoding:NSUTF8StringEncoding error:&readError];
+                NSArray *sourcesListContents = [sourcesList componentsSeparatedByString:@"\n"];
+                
+                if (readError != NULL) {
+                    //rip
+                    respond(false, readError.localizedDescription, @[]);
+                    return;
+                }
+                
+                NSMutableArray *baseURLs = [NSMutableArray new];
+                for (NSString *line in sourcesListContents) {
+                    NSArray *contents = [line componentsSeparatedByString:@" "];
+                    if ([contents count] == 0) continue;
+                    
+                    if ([contents[0] isEqualToString:@"deb"]) {
+                        NSURL *url = [NSURL URLWithString:contents[1]];
+                        NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+                        
+                        [baseURLs addObject:urlString];
+                    }
+                }
+                
                 for (NSURL *detectedURL in detectedURLs) {
                     dispatch_group_enter(group);
                     
-                    [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
-                        if (responseError) {
-                            dispatch_sync(sourcesQueue, ^{
-                                [errors addObject:[NSString stringWithFormat:@"%@: %@", failingURL, responseError]];
-                                [errorURLs addObject:failingURL];
-                                
-                                dispatch_group_leave(group);
-                            });
-                        } else {
-                            dispatch_sync(sourcesQueue, ^{
-                                [verifiedURLs addObject:detectedURL];
-                                
-                                dispatch_group_leave(group);
-                            });
-                        }
-                    }];
+                    NSString *urlString = [[[detectedURL absoluteString] stringByReplacingOccurrencesOfString:[detectedURL scheme] withString:@""] substringFromIndex:3];
+                    if ([baseURLs containsObject:urlString]) {
+                        NSLog(@"[Zebra] %@ is already added.", urlString);
+                        dispatch_group_leave(group);
+                    }
+                    else {
+                        [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
+                            if (responseError) {
+                                dispatch_sync(sourcesQueue, ^{
+                                    [errors addObject:[NSString stringWithFormat:@"%@: %@", failingURL, responseError]];
+                                    [errorURLs addObject:failingURL];
+                                    
+                                    dispatch_group_leave(group);
+                                });
+                            } else {
+                                dispatch_sync(sourcesQueue, ^{
+                                    [verifiedURLs addObject:detectedURL];
+                                    
+                                    dispatch_group_leave(group);
+                                });
+                            }
+                        }];
+                    }
                 }
                 
                 dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        __block NSError *addError = nil;
-                        
-                        [strongSelf addSources:verifiedURLs completion:^(BOOL success, NSError *error) {
-                            addError = error;
-                        }];
-                        
-                        if (errors.count > 0) {
-                            NSString *errorMessage;
+                        if ([verifiedURLs count] == 0) {
+                            respond(NO, @"No sources to add.", @[]);
+                        }
+                        else {
+                            __block NSError *addError = nil;
                             
-                            if (errors.count == 1) {
-                                errorMessage = [NSString stringWithFormat:@"Error verifying repository:\n%@", [errors componentsJoinedByString:@"\n"]];
+                            [strongSelf addSources:verifiedURLs completion:^(BOOL success, NSError *error) {
+                                addError = error;
+                            }];
+                            
+                            if (errors.count > 0) {
+                                NSString *errorMessage;
+                                
+                                if (errors.count == 1) {
+                                    errorMessage = [NSString stringWithFormat:@"Error verifying repository:\n%@", [errors componentsJoinedByString:@"\n"]];
+                                } else {
+                                    errorMessage = [NSString stringWithFormat:@"Error verifying repositories:\n%@", [errors componentsJoinedByString:@"\n"]];
+                                }
+                                if (addError) {
+                                    errorMessage = [NSString stringWithFormat:@"%@\n%@", addError.localizedDescription, errorMessage];
+                                }
+                                respond(NO, errorMessage, errorURLs);
                             } else {
-                                errorMessage = [NSString stringWithFormat:@"Error verifying repositories:\n%@", [errors componentsJoinedByString:@"\n"]];
+                                respond(YES, nil, nil);
                             }
-                            if (addError) {
-                                errorMessage = [NSString stringWithFormat:@"%@\n%@", addError.localizedDescription, errorMessage];
-                            }
-                            respond(NO, errorMessage, errorURLs);
-                        } else {
-                            respond(YES, nil, nil);
                         }
                     } else {
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -449,7 +484,7 @@
             
             if ([contents[0] isEqualToString:@"deb"]) {
                 NSURL *url = [NSURL URLWithString:contents[1]];
-                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
                 
                 [baseURLs addObject:urlString];
             }
@@ -468,7 +503,7 @@
             
             if ([[info allKeys] count] == 4) {
                 NSURL *url = [NSURL URLWithString:(NSString *)[info objectForKey:@"URIs"]];
-                NSString *urlString = [[(NSString *)[info objectForKey:@"URIs"] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                NSString *urlString = [[(NSString *)[info objectForKey:@"URIs"] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
                 
                 if (![baseURLs containsObject:urlString]) {
                     NSString *converted = [NSString stringWithFormat:@"%@ %@ %@%@\n", (NSString *)[info objectForKey:@"Types"], (NSString *)[info objectForKey:@"URIs"], (NSString *)[info objectForKey:@"Suites"], (NSString *)[info objectForKey:@"Components"]];
