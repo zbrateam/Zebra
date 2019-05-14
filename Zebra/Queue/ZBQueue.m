@@ -27,10 +27,10 @@
     
     if (self) {
         _managedQueue = [NSMutableDictionary new];
-        [_managedQueue setObject:@[] forKey:@"Install"];
-        [_managedQueue setObject:@[] forKey:@"Remove"];
-        [_managedQueue setObject:@[] forKey:@"Reinstall"];
-        [_managedQueue setObject:@[] forKey:@"Upgrade"];
+        [_managedQueue setObject:[NSMutableArray array] forKey:@"Install"];
+        [_managedQueue setObject:[NSMutableArray array] forKey:@"Remove"];
+        [_managedQueue setObject:[NSMutableArray array] forKey:@"Reinstall"];
+        [_managedQueue setObject:[NSMutableArray array] forKey:@"Upgrade"];
         
         _failedDepQueue = [NSMutableArray new];
         _failedConQueue = [NSMutableArray new];
@@ -46,10 +46,9 @@
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
     switch (queue) {
         case ZBQueueTypeInstall: {
-            NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
+            NSMutableArray *installArray = _managedQueue[@"Install"];
             if (![installArray containsObject:package]) {                
                 [installArray addObject:package];
-                [_managedQueue setObject:installArray forKey:@"Install"];
                 if (!ignore) {
                     [self enqueueDependenciesForPackage:package];
                     [self checkForConflictionsWithPackage:package state:0];
@@ -58,10 +57,9 @@
             break;
         }
         case ZBQueueTypeRemove: {
-            NSMutableArray *removeArray = [_managedQueue[@"Remove"] mutableCopy];
+            NSMutableArray *removeArray = _managedQueue[@"Remove"];
             if (![removeArray containsObject:package]) {
                 [removeArray addObject:package];
-                [_managedQueue setObject:removeArray forKey:@"Remove"];
                 if (!ignore) {
                     [self checkForConflictionsWithPackage:package state:1];
                 }
@@ -69,7 +67,7 @@
             break;
         }
         case ZBQueueTypeReinstall: {
-            NSMutableArray *reinstallArray = [_managedQueue[@"Reinstall"] mutableCopy];
+            NSMutableArray *reinstallArray = _managedQueue[@"Reinstall"];
             if (![reinstallArray containsObject:package]) {
                 if ([package filename] == NULL) { //Check to see if the package has a filename to download, if there isn't then we should try to find one
                     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -79,15 +77,13 @@
                 }
                 
                 [reinstallArray addObject:package];
-                [_managedQueue setObject:reinstallArray forKey:@"Reinstall"];
             }
             break;
         }
         case ZBQueueTypeUpgrade: {
-            NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
+            NSMutableArray *upgradeArray = _managedQueue[@"Upgrade"];
             if (![upgradeArray containsObject:package]) {
                 [upgradeArray addObject:package];
-                [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
                 if (!ignore) {
                     [self enqueueDependenciesForPackage:package];
                     [self checkForConflictionsWithPackage:package state:0];
@@ -144,27 +140,23 @@
 - (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall: {
-            NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
+            NSMutableArray *installArray = _managedQueue[@"Install"];
             [installArray removeObject:package];
-            [_managedQueue setObject:installArray forKey:@"Install"];
             break;
         }
         case ZBQueueTypeRemove: {
-            NSMutableArray *removeArray = [_managedQueue[@"Remove"] mutableCopy];
+            NSMutableArray *removeArray = _managedQueue[@"Remove"];
             [removeArray removeObject:package];
-            [_managedQueue setObject:removeArray forKey:@"Remove"];
             break;
         }
         case ZBQueueTypeReinstall: {
-            NSMutableArray *reinstallArray = [_managedQueue[@"Reinstall"] mutableCopy];
+            NSMutableArray *reinstallArray = _managedQueue[@"Reinstall"];
             [reinstallArray removeObject:package];
-            [_managedQueue setObject:reinstallArray forKey:@"Reinstall"];
             break;
         }
         case ZBQueueTypeUpgrade: {
-            NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
+            NSMutableArray *upgradeArray = _managedQueue[@"Upgrade"];
             [upgradeArray removeObject:package];
-            [_managedQueue setObject:upgradeArray forKey:@"Upgrade"];
             break;
         }
         default:
@@ -176,10 +168,10 @@
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = @[@"dpkg"];
     
-    NSMutableArray *installArray = [_managedQueue[@"Install"] mutableCopy];
-    NSMutableArray *removeArray = [_managedQueue[@"Remove"] mutableCopy];
-    NSMutableArray *reinstallArray = [_managedQueue[@"Reinstall"] mutableCopy];
-    NSMutableArray *upgradeArray = [_managedQueue[@"Upgrade"] mutableCopy];
+    NSMutableArray *installArray = _managedQueue[@"Install"];
+    NSMutableArray *removeArray = _managedQueue[@"Remove"];
+    NSMutableArray *reinstallArray = _managedQueue[@"Reinstall"];
+    NSMutableArray *upgradeArray = _managedQueue[@"Upgrade"];
     
     if ([installArray count] > 0) {
         [commands addObject:@[@0]];
@@ -292,10 +284,10 @@
 
 - (void)clearQueue {
     _managedQueue = [NSMutableDictionary new];
-    [_managedQueue setObject:@[] forKey:@"Install"];
-    [_managedQueue setObject:@[] forKey:@"Remove"];
-    [_managedQueue setObject:@[] forKey:@"Reinstall"];
-    [_managedQueue setObject:@[] forKey:@"Upgrade"];
+    [_managedQueue[@"Install"] removeAllObjects];
+    [_managedQueue[@"Remove"] removeAllObjects];
+    [_managedQueue[@"Reinstall"] removeAllObjects];
+    [_managedQueue[@"Upgrade"] removeAllObjects];
     
     _failedDepQueue = [NSMutableArray new];
     _failedConQueue = [NSMutableArray new];

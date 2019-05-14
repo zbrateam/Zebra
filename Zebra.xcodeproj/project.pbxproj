@@ -65,6 +65,7 @@
 		89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637C21D5AFAA0081E485 /* changelog@3x.png */; };
 		89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7.min.css */; };
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
+		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,6 +165,8 @@
 		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
+		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
+		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +202,8 @@
 				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
 				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
+				9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */,
+				9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -555,6 +560,7 @@
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
+				9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,

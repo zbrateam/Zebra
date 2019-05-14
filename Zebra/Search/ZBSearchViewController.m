@@ -10,6 +10,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 
@@ -183,8 +184,21 @@
     return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 5;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
+    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView setEditing:NO animated:YES];
 }
 
 #pragma mark - Navigation
