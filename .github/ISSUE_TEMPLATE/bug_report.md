@@ -21,7 +21,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Device Information (please complete the following information):**
  - iOS Version [e.g. 12.1.2 or 10.3.3]: 
- - AUPM Version [e.g. 1.0~beta1 or beta1]: 
+ - Zebra Version [e.g. 1.0\~beta1 or beta1]: 
  - Device Type [e.g. iPhone or iPad]: 
 
 **Crash Log or System Log**
