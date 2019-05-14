@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSearchViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate, UIViewControllerPreviewingDelegate>
 @property (nonatomic, strong) UISearchController *searchController;
-- (void)handleURL:(NSURL *)url;
+- (void)handleURL:(NSURL *_Nullable)url;
 @end
 
 NS_ASSUME_NONNULL_END

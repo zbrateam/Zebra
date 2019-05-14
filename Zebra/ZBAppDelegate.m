@@ -292,12 +292,18 @@
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    // TODO: Make these actually work
+    ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
-        NSLog(@"Search Action Selected");
+        [tabController setSelectedIndex:3];
+        
+        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [searchController handleURL:NULL];
     }
     else if ([shortcutItem.type isEqualToString:@"Add"]) {
-        NSLog(@"Add Repo Action Selected");
+        [tabController setSelectedIndex:1];
+        
+        ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
     }
 }
 
