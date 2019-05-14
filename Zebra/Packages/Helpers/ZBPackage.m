@@ -384,7 +384,7 @@
 
 - (NSUInteger)possibleActions {
     NSUInteger actions = 0;
-    // Bits order: Downgrade - Upgrade - Reinstall - Remove - Install
+    // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
     if ([self isInstalled]) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         if ([self isReinstallable]) {

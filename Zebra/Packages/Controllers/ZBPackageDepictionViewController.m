@@ -24,7 +24,6 @@
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
     WKWebView *webView;
-    NSArray *otherVersions;
     BOOL presented;
 }
 @end
@@ -246,9 +245,8 @@
 }
 
 - (void)configureNavButton {
-    otherVersions = [package otherVersions];
-    if ([package isInstalled] || otherVersions.count > 1) {
-        if ([[package repo] repoID] != -1) {
+    if ([package isInstalled] || [package otherVersions].count > 1) {
+        if (![package hasNoRepo]) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }
