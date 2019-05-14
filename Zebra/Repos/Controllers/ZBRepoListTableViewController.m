@@ -89,7 +89,7 @@
     NSURL *url = [NSURL URLWithString:pasteboard.string];
     
     if ((url && url.scheme && url.host)) {
-        if ([[url scheme] isEqual:@"https:"] || [[url scheme] isEqual:@"https:"]) {
+        if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
             if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
                 [self showAddRepoFromClipboardAlert:url];
             }
