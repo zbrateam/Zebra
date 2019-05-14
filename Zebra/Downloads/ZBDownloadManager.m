@@ -88,6 +88,11 @@
         return NULL;
     }
     
+    if ([sourceList isEqualToString:@""] || [sourceList isEqualToString:@"\n"]) {
+        sourceList = @"deb https://xtm3x.github.io/repo ./\n";
+        [sourceList writeToFile:path atomically:false encoding:NSUTF8StringEncoding error:nil];
+    }
+    
     NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
     
     for (NSString *line in debLines) {
