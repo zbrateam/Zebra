@@ -68,6 +68,7 @@
     webView.tintColor = [UIColor tintColor];
     
     if (_url != NULL) {
+        [webView setAllowsBackForwardNavigationGestures:true];
         if (@available(iOS 11.0, *)) {
             self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
         }
