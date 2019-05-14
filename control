@@ -1,10 +1,10 @@
-Package: xyz.willy.zebra
+Package: com.navanchauhan.zebradark
 Name: Zebra (BETA)
 Version: 1.0~beta10
 Architecture: iphoneos-arm
 Depends: dpkg
 Description: A Useful Package Manager
-Maintainer: Wilson Styres <wilson@styres.me>
+Maintainer: Navan Chauhan <navanchauhan@gmail.com>
 Author: Wilson Styres <wilson@styres.me>
 Section: Packaging
 Depiction: https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/
