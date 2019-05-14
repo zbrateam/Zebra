@@ -311,32 +311,34 @@
             if (!success) {
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
                 
-                if (failedURLs.count > 0) {
-                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [weakSelf addReposWithText:text];
+                if (failedURLs.count != 0) {
+                    if (failedURLs.count > 0) {
+                        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [weakSelf addReposWithText:text];
+                        }];
+                        
+                        [errorAlert addAction:retryAction];
+                    }
+                    
+                    UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        if ([failedURLs count] > 1) {
+                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                            ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
+                            addRepo.delegate = weakSelf;
+                            addRepo.text = text;
+                            
+                            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
+                            
+                            [weakSelf presentViewController:navCon animated:true completion:nil];
+                        }
+                        else {
+                            NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
+                            [weakSelf showAddRepoAlert:failedURL];
+                        }
                     }];
                     
-                    [errorAlert addAction:retryAction];
+                    [errorAlert addAction:editAction];
                 }
-                
-                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if ([failedURLs count] > 1) {
-                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
-                        addRepo.delegate = weakSelf;
-                        addRepo.text = text;
-                        
-                        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
-                        
-                        [weakSelf presentViewController:navCon animated:true completion:nil];
-                    }
-                    else {
-                        NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
-                        [weakSelf showAddRepoAlert:failedURL];
-                    }
-                }];
-                
-                [errorAlert addAction:editAction];
                 
                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
                 
