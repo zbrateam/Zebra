@@ -158,8 +158,8 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
 }
 
 int compare(const char *A, const char *B) {
-    const char* AEnd = &A[sizeof(A) - 1];
-    const char* BEnd = &B[sizeof(B) - 1];
+    const char* AEnd = &A[strlen(A)];
+    const char* BEnd = &B[strlen(B)];
     
     return compareVersion(A, AEnd, B, BEnd);
 }
