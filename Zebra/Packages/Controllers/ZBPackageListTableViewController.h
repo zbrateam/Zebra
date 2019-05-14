@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *section;
 - (void)refreshTable;
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination;
+- (void)configureNavigationButtons;
 @end
 
 NS_ASSUME_NONNULL_END

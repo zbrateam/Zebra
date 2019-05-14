@@ -199,11 +199,11 @@
 			children = (
 				8977B6922206424B00CBACBB /* ZBPackage.h */,
 				8977B6932206424B00CBACBB /* ZBPackage.m */,
+				9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */,
+				9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */,
 				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
 				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
-				9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */,
-				9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

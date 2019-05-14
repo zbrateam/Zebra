@@ -96,20 +96,24 @@
 }
 
 - (void)configureNavigationButtons {
-    if (needsUpdatesSection) {
-        UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
-        self.navigationItem.rightBarButtonItem = updateButton;
-    }
-    else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-    
-    if ([[ZBQueue sharedInstance] hasObjects]) {
-        UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-        self.navigationItem.leftBarButtonItem = queueButton;
-    }
-    else {
-        self.navigationItem.leftBarButtonItem = nil;
+    if ([repo repoID] == 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self->needsUpdatesSection) {
+                UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
+                self.navigationItem.rightBarButtonItem = updateButton;
+            }
+            else {
+                self.navigationItem.rightBarButtonItem = nil;
+            }
+            
+            if ([[ZBQueue sharedInstance] hasObjects]) {
+                UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+                self.navigationItem.leftBarButtonItem = queueButton;
+            }
+            else {
+                self.navigationItem.leftBarButtonItem = nil;
+            }
+        });
     }
 }
 

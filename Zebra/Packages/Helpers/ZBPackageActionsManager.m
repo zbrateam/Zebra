@@ -12,6 +12,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Queue/ZBQueue.h>
 #import <UIColor+GlobalColors.h>
+#import <Packages/Controllers/ZBPackageListTableViewController.h>
 
 @implementation ZBPackageActionsManager
 
@@ -31,10 +32,15 @@
     NSMutableArray *actions = [NSMutableArray array];
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
+    ZBPackageListTableViewController *controller = (ZBPackageListTableViewController *)vc;
     
     if (possibleActions & ZBQueueTypeRemove) {
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Remove" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeRemove];
+            
+            if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
+                [controller configureNavigationButtons];
+            }
         }];
         [actions addObject:deleteAction];
     }
@@ -42,6 +48,10 @@
     if (possibleActions & ZBQueueTypeInstall) {
         UITableViewRowAction *installAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Install" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeInstall];
+            
+            if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
+                [controller configureNavigationButtons];
+            }
         }];
         installAction.backgroundColor = [UIColor systemBlueColor];
         [actions addObject:installAction];
@@ -50,6 +60,10 @@
     if (possibleActions & ZBQueueTypeReinstall) {
         UITableViewRowAction *reinstallAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Reinstall" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeReinstall];
+            
+            if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
+                [controller configureNavigationButtons];
+            }
         }];
         reinstallAction.backgroundColor = [UIColor orangeColor];
         [actions addObject:reinstallAction];
@@ -58,6 +72,10 @@
     if (possibleActions & ZBQueueTypeSelectable) {
         UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Select Ver." handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [self downgradePackage:package indexPath:indexPath viewController:vc parent:parent];
+            
+            if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
+                [controller configureNavigationButtons];
+            }
         }];
         downgradeAction.backgroundColor = [UIColor purpleColor];
         [actions addObject:downgradeAction];
@@ -66,6 +84,10 @@
     if (possibleActions & ZBQueueTypeUpgrade) {
         UITableViewRowAction *upgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Upgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
+            
+            if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
+                [controller configureNavigationButtons];
+            }
         }];
         upgradeAction.backgroundColor = [UIColor systemBlueColor];
         [actions addObject:upgradeAction];
