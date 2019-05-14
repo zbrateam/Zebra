@@ -8,6 +8,7 @@
 
 #include "parsel.h"
 #include "dict.h"
+#include <ctype.h>
 
 typedef char *multi_tok_t;
 
@@ -295,7 +296,10 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             }
         }
         else if (dict_get(package, "Package") != 0) {
-            const char *packageIdentifier = dict_get(package, "Package");
+            char *packageIdentifier = (char *)dict_get(package, "Package");
+            for(int i = 0; packageIdentifier[i]; i++){
+                packageIdentifier[i] = tolower(packageIdentifier[i]);
+            }
             const char *tags = dict_get(package, "Tag");
             if (strcasestr(dict_get(package, "Status"), "not-installed") == NULL && strcasestr(dict_get(package, "Status"), "deinstall") == NULL) {
                 if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
@@ -392,7 +396,10 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             }
         }
         else if (dict_get(package, "Package") != 0) {
-            const char *packageIdentifier = dict_get(package, "Package");
+            char *packageIdentifier = (char *)dict_get(package, "Package");
+            for(int i = 0; packageIdentifier[i]; i++){
+                packageIdentifier[i] = tolower(packageIdentifier[i]);
+            }
             const char *tags = dict_get(package, "Tag");
             if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
                 repoID = -1;
