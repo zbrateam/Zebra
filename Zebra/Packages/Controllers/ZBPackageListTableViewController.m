@@ -244,7 +244,8 @@
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package];
     if (!needsUpdatesSection || indexPath.section != 0) {
-        if ((indexPath.row >= [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
+        NSLog(@"%d\n%d", indexPath.row, [packages count] - ([packages count] / 10));
+        if ((indexPath.row - 1 >= [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
     }
