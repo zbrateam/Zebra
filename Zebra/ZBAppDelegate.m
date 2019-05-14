@@ -292,9 +292,12 @@
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    // TODO: Make these actually work
     if ([shortcutItem.type isEqualToString:@"Search"]) {
-        NSLog(@"Search Action Selected");
+        ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+        [tabController setSelectedIndex:3];
+        
+        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [searchController handleURL:NULL];
     }
     else if ([shortcutItem.type isEqualToString:@"Add"]) {
         NSLog(@"Add Repo Action Selected");

@@ -61,20 +61,29 @@
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
 }
 
-- (void)handleURL:(NSURL *)url {
-    NSArray *path = [url pathComponents];
-    if ([path count] == 2) {
-        if (!databaseManager) {
-            databaseManager = [ZBDatabaseManager sharedInstance];
-        }
-        
+- (void)handleURL:(NSURL *_Nullable)url {
+    if (url == NULL) {
         if (!searchController) {
             searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         }
         
-        NSString *searchTerm = path[1];
-        [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
-        [self searchBarSearchButtonClicked:self.searchController.searchBar];
+        [searchController.searchBar becomeFirstResponder];
+    }
+    else {
+        NSArray *path = [url pathComponents];
+        if ([path count] == 2) {
+            if (!databaseManager) {
+                databaseManager = [ZBDatabaseManager sharedInstance];
+            }
+            
+            if (!searchController) {
+                searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+            }
+            
+            NSString *searchTerm = path[1];
+            [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
+            [self searchBarSearchButtonClicked:self.searchController.searchBar];
+        }
     }
 }
 
