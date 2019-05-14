@@ -19,6 +19,7 @@ enum PARSEL_RETURN_TYPE {
     PARSEL_FILENOTFOUND
 };
 
+void createTable(sqlite3 *database, int table);
 enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *database, int repoID);

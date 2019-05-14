@@ -247,8 +247,7 @@
         NSLog(@"[Zebra] Checking for updates...");
         NSMutableArray *found = [NSMutableArray new];
         
-        char *createUpdates = "CREATE TABLE IF NOT EXISTS UPDATES(PACKAGE STRING, VERSION STRING);";
-        sqlite3_exec(database, createUpdates, NULL, 0, NULL);
+        createTable(database, 2);
         
         char *updates = "DELETE FROM UPDATES;";
         sqlite3_exec(database, updates, NULL, 0, NULL);

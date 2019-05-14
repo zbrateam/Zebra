@@ -64,6 +64,104 @@ int isRepoSecure(const char* sourcePath, char *repoURL) {
     }
 }
 
+char *reposSchema() {
+    return "REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB)";
+}
+
+char *packagesSchema() {
+    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER)";
+}
+
+char *updatesSchema() {
+    return "UPDATES(PACKAGE STRING, VERSION STRING)";
+}
+
+char *schemaForTable(int table) {
+    switch (table) {
+        case 0:
+            return reposSchema();
+        case 1:
+            return packagesSchema();
+        case 2:
+            return updatesSchema();
+    }
+    
+    return NULL;
+}
+
+int needsMigration(sqlite3 *database, int table) {
+    char *query = "SELECT sql FROM sqlite_master WHERE name = ?;";
+    char *schema = NULL;
+    
+    sqlite3_stmt *statement;
+    
+    if (sqlite3_prepare_v2(database, query, -1, &statement, 0) == SQLITE_OK) {
+        char *tableName;
+        switch (table) {
+            case 0:
+                tableName = "REPOS";
+                break;
+            case 1:
+                tableName = "PACKAGES";
+                break;
+            case 2:
+                tableName = "UPDATES";
+                break;
+        }
+        sqlite3_bind_text(statement, 1, tableName, -1, SQLITE_TRANSIENT);
+    }
+    if (sqlite3_step(statement) == SQLITE_ROW) {
+        schema = (char *)sqlite3_column_text(statement, 0);
+    }
+    
+    if (schema != NULL) {
+        //Remove CREATE TABLE
+        multi_tok_t s = init();
+        multi_tok(schema, &s, "CREATE TABLE ");
+        schema = multi_tok(NULL, &s, "CREATE TABLE ");
+        sqlite3_finalize(statement);
+        
+        int result = strcmp(schema, schemaForTable(table));
+        return result;
+    }
+    else {
+        return 0;
+    }
+}
+
+void createTable(sqlite3 *database, int table) {
+    if (needsMigration(database, table) != 0) {
+        char sql[64] = "DROP TABLE ";
+        switch (table) {
+            case 0:
+                strcat(sql, "REPOS");
+                break;
+            case 1:
+                strcat(sql, "PACKAGES");
+                break;
+            case 2:
+                strcat(sql, "UPDATES");
+                break;
+        }
+        printf("Migrating table %s\n", sql);
+        sqlite3_exec(database, sql, 0, NULL, 0);
+    }
+    char sql[512] = "CREATE TABLE IF NOT EXISTS ";
+    switch (table) {
+        case 0:
+            strcat(sql, reposSchema());
+            break;
+        case 1:
+            strcat(sql, packagesSchema());
+            break;
+        case 2:
+            strcat(sql, updatesSchema());
+            break;
+    }
+    
+    sqlite3_exec(database, sql, NULL, 0, NULL);
+}
+
 enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
     FILE *file = fopen(path, "r");
     if (file == NULL) {
@@ -72,8 +170,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char 
     
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
-    sqlite3_exec(database, sql, NULL, 0, NULL);
+    createTable(database, 0);
     
     dict *repo = dict_new();
     while (fgets(line, sizeof(line), file) != NULL) {
@@ -143,8 +240,7 @@ enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char 
     
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
-    sqlite3_exec(database, sql, NULL, 0, NULL);
+    createTable(database, 0);
     
     dict *repo = dict_new();
     while (fgets(line, sizeof(line), file) != NULL) {
@@ -207,8 +303,7 @@ enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char 
 }
 
 void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
-    char *sql = "CREATE TABLE IF NOT EXISTS REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB);";
-    sqlite3_exec(database, sql, NULL, 0, NULL);
+    createTable(database, 0);
     
     dict *repo = dict_new();
     
@@ -269,8 +364,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
-    sqlite3_exec(database, sql, NULL, 0, NULL);
+    createTable(database, 1);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
     dict *package = dict_new();
@@ -365,8 +459,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     }
     char line[512];
     
-    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
-    sqlite3_exec(database, create, NULL, 0, NULL);
+    createTable(database, 1);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     char sql[64];
