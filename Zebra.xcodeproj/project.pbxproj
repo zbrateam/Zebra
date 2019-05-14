@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		363FE2422287854F00B69929 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
+		363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE245228785AE00B69929 /* UICKeyChainStore.m */; };
+		363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */; };
+		363FE24F2287A1DD00B69929 /* ZBRepoPurchases.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBRepoPurchases.m */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
@@ -44,7 +48,7 @@
 		89C90FE3227B767900325AAD /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE2227B767900325AAD /* twitter@3x.png */; };
 		89C90FE6227B770500325AAD /* discord@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE4227B770500325AAD /* discord@2x.png */; };
 		89C90FE7227B770500325AAD /* discord@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE5227B770500325AAD /* discord@3x.png */; };
-		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
+		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
 		89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DB3BB02249A74B000F8983 /* repos@2x.png */; };
@@ -65,6 +69,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		363FE2412287854E00B69929 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		363FE244228785AD00B69929 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
+		363FE245228785AE00B69929 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
+		363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+blocks.h"; sourceTree = "<group>"; };
+		363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+blocks.m"; sourceTree = "<group>"; };
+		363FE24D2287A1DD00B69929 /* ZBRepoPurchases.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoPurchases.h; sourceTree = "<group>"; };
+		363FE24E2287A1DD00B69929 /* ZBRepoPurchases.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoPurchases.m; sourceTree = "<group>"; };
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
@@ -129,8 +140,8 @@
 		89C90FE2227B767900325AAD /* twitter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@3x.png"; sourceTree = "<group>"; };
 		89C90FE4227B770500325AAD /* discord@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@2x.png"; sourceTree = "<group>"; };
 		89C90FE5227B770500325AAD /* discord@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@3x.png"; sourceTree = "<group>"; };
-		89CA2137224043D1008F09DB /* dpkgver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dpkgver.h; sourceTree = "<group>"; };
-		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
+		89CA2137224043D1008F09DB /* vercmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vercmp.h; sourceTree = "<group>"; };
+		89CA2138224043D1008F09DB /* vercmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vercmp.c; sourceTree = "<group>"; };
 		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
 		89CADA142263FEF3000101EE /* ZBDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDownloadManager.m; sourceTree = "<group>"; };
 		89CADA162263FF00000101EE /* ZBDownloadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadDelegate.h; sourceTree = "<group>"; };
@@ -163,6 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				363FE2422287854F00B69929 /* Security.framework in Frameworks */,
 				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
@@ -173,6 +185,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		363FE2432287858200B69929 /* UICKeyChainStore */ = {
+			isa = PBXGroup;
+			children = (
+				363FE244228785AD00B69929 /* UICKeyChainStore.h */,
+				363FE245228785AE00B69929 /* UICKeyChainStore.m */,
+			);
+			path = UICKeyChainStore;
+			sourceTree = "<group>";
+		};
 		8900FA512201EC6800476310 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +266,8 @@
 		896F11C821B231CF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				363FE24D2287A1DD00B69929 /* ZBRepoPurchases.h */,
+				363FE24E2287A1DD00B69929 /* ZBRepoPurchases.m */,
 				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
 				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
 				8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */,
@@ -269,8 +292,8 @@
 			children = (
 				8991FF9C21B2109E004FCE23 /* parsel.h */,
 				89C7E49121B240D4003DB4E8 /* parsel.c */,
-				89CA2137224043D1008F09DB /* dpkgver.h */,
-				89CA2138224043D1008F09DB /* dpkgver.c */,
+				89CA2137224043D1008F09DB /* vercmp.h */,
+				89CA2138224043D1008F09DB /* vercmp.c */,
 				899203B522490D4C0098AC7B /* dict.h */,
 				899203B622490D4C0098AC7B /* dict.c */,
 			);
@@ -289,6 +312,17 @@
 				8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		89BDCB6F2289FEA800FC1345 /* Exetensions */ = {
+			isa = PBXGroup;
+			children = (
+				49E1304722715EE5006F450A /* UIColor+GlobalColors.h */,
+				49E1304522715DB8006F450A /* UIColor+GlobalColors.m */,
+				363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */,
+				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
+			);
+			path = Exetensions;
 			sourceTree = "<group>";
 		};
 		89C5FDD421B1B13700A10E58 = {
@@ -317,8 +351,6 @@
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
-				49E1304722715EE5006F450A /* UIColor+GlobalColors.h */,
-				49E1304522715DB8006F450A /* UIColor+GlobalColors.m */,
 				89CADA122263FED1000101EE /* Downloads */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				8991FFA321B21D26004FCE23 /* Database */,
@@ -333,6 +365,7 @@
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
 				89C5FDEF21B1B13800A10E58 /* main.m */,
+				89BDCB6F2289FEA800FC1345 /* Exetensions */,
 				89E8633E21D5A9CE0081E485 /* Resources */,
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 			);
@@ -382,6 +415,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				363FE2412287854E00B69929 /* Security.framework */,
 				89463CDF2277B5C300A92FC5 /* libz.tbd */,
 				8997843F2242D25800C1138C /* libbz2.tbd */,
 				895071982239E414004AE338 /* libMobileGestalt.tbd */,
@@ -393,6 +427,7 @@
 		89E8633E21D5A9CE0081E485 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				363FE2432287858200B69929 /* UICKeyChainStore */,
 				8931E4D2226D6E9300F35DFD /* utiicon.png */,
 				89E8637521D5AF920081E485 /* HTML */,
 			);
@@ -513,6 +548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
+				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
 				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
@@ -522,7 +558,7 @@
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
-				89CA2139224043D1008F09DB /* dpkgver.c in Sources */,
+				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
@@ -532,9 +568,11 @@
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
+				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */,
+				363FE24F2287A1DD00B69929 /* ZBRepoPurchases.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,

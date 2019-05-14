@@ -95,7 +95,7 @@
         <!--Packages-->
         <scene sceneID="BLO-45-5uX">
             <objects>
-                <tableViewController id="sCr-no-Q38" customClass="ZBPackageListTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ZBPackageListTableViewController" id="sCr-no-Q38" customClass="ZBPackageListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6QF-YS-9kJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,6 +131,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7jM-DB-51u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5164" y="444"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="MU8-ZF-cnb">
+            <objects>
+                <tableViewController storyboardIdentifier="purchasedController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MIC-s4-hG3" customClass="ZBRepoPurchases" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2pG-Gr-dem">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserInfo" id="iRo-Io-QHC">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iRo-Io-QHC" id="ioU-vV-MiY">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="MIC-s4-hG3" id="pcQ-GF-uYX"/>
+                            <outlet property="delegate" destination="MIC-s4-hG3" id="Yi8-kd-mxn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="qF9-ad-Phi"/>
+                    <connections>
+                        <segue destination="B5D-p6-E07" kind="show" identifier="seguePurchasesToPackageDepiction" id="l9h-er-JrZ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nat-By-CV4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5303" y="1459"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="J4X-bZ-yLz">
+            <objects>
+                <navigationController storyboardIdentifier="purchasedNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qhl-jl-RyM" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JqZ-VY-ihO">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MIC-s4-hG3" kind="relationship" relationship="rootViewController" id="P5H-hk-HUU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GGV-dp-m1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4351" y="1459"/>
         </scene>
         <!--Search-->
         <scene sceneID="HAh-Vm-r70">
@@ -728,7 +777,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="jak-5S-xzd"/>
+        <segue reference="l9h-er-JrZ"/>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
+#import <Database/ZBDatabaseManager.h>
 
 @implementation ZBQueue
 + (id)sharedInstance {
@@ -70,6 +71,13 @@
         case ZBQueueTypeReinstall: {
             NSMutableArray *reinstallArray = [_managedQueue[@"Reinstall"] mutableCopy];
             if (![reinstallArray containsObject:package]) {
+                if ([package filename] == NULL) { //Check to see if the package has a filename to download, if there isn't then we should try to find one
+                    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+                    package = [databaseManager packageForID:[package identifier] thatSatisfiesComparison:@"<=" ofVersion:[package version] checkInstalled:false];
+                    
+                    if (package == NULL) return;
+                }
+                
                 [reinstallArray addObject:package];
                 [_managedQueue setObject:reinstallArray forKey:@"Reinstall"];
             }
@@ -209,8 +217,9 @@
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
         [removeCommand insertObject:@"-r" atIndex:1];
+        [removeCommand insertObject:@"--force-depends" atIndex:2];
         for (ZBPackage *package in reinstallArray) {
-            [removeCommand insertObject:[package identifier] atIndex:2];
+            [removeCommand insertObject:[package identifier] atIndex:3];
         }
         [commands addObject:removeCommand];
         

@@ -11,7 +11,7 @@
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Parsel/dpkgver.h>
+#import <Parsel/vercmp.h>
 #import <Downloads/ZBDownloadManager.h>
 
 @interface ZBDatabaseManager () {
@@ -513,7 +513,7 @@
 
         NSString *arrayVersion = [(ZBPackage *)packageVersionDict[[package identifier]] version];
         NSString *packageVersion = [package version];
-        int result = verrevcmp([packageVersion UTF8String], [arrayVersion UTF8String]);
+        int result = compare([packageVersion UTF8String], [arrayVersion UTF8String]);
 
         if (result > 0) {
             [cleanedPackageList removeObject:packageVersionDict[[package identifier]]];
@@ -722,9 +722,15 @@
     }
 }
 
-- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' LIMIT 1;", identifier];
+        NSString *query;
+        if (installed) {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' LIMIT 1;", identifier];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID > 0 LIMIT 1;", identifier];
+        }
         
         ZBPackage *package;
         sqlite3_stmt *statement;
@@ -737,7 +743,12 @@
         
         //Only try to resolve "Provides" if we can't resolve the normal package.
         if (package == NULL) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' LIMIT 1;", identifier];
+            if (installed) {
+                query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' LIMIT 1;", identifier];
+            }
+            else {
+                query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' WHERE REPOID > 0 LIMIT 1;", identifier];
+            }
             sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -751,6 +762,7 @@
             NSArray *otherVersions = [self otherVersionsForPackage:package];
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {
+                    if ([[package repo] repoID] == 0) continue;
                     if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
                         [self closeDatabase];
                         return package;

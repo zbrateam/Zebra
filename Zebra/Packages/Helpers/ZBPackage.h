@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;
+@property BOOL sileoDownload;
 
 + (NSArray *)filesInstalled:(NSString *)packageID;
 + (BOOL)containsTweak:(NSString *)packageID;

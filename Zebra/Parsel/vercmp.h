@@ -1,16 +1,16 @@
 //
-//  dpkgver.h
+//  vercmp.h
 //  Zebra
 //
 //  Created by Wilson Styres on 3/18/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#ifndef dpkgver_h
-#define dpkgver_h
+#ifndef vercmp_h
+#define vercmp_h
 
 #include <stdio.h>
 
-int verrevcmp(const char *val, const char *ref);
+int compare(const char *A, const char *B);
 
-#endif /* dpkgver_h */
+#endif /* vercmp_h */
