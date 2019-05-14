@@ -1306,7 +1306,7 @@ Section: Development
 Installed-Size: 830
 Maintainer: BigBoss <bigboss@thebigboss.org>
 Architecture: iphoneos-arm
-Version: 1.12
+Version: 1.13.1-2
 Depends: preferenceloader, mobilesubstrate, jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
 Description: Support library for tweak settings
 Name: Cephei

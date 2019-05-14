@@ -11,7 +11,7 @@
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Parsel/dpkgver.h>
+#import <Parsel/vercmp.h>
 #import <Downloads/ZBDownloadManager.h>
 
 @interface ZBDatabaseManager () {
@@ -513,7 +513,7 @@
 
         NSString *arrayVersion = [(ZBPackage *)packageVersionDict[[package identifier]] version];
         NSString *packageVersion = [package version];
-        int result = verrevcmp([packageVersion UTF8String], [arrayVersion UTF8String]);
+        int result = compare([packageVersion UTF8String], [arrayVersion UTF8String]);
 
         if (result > 0) {
             [cleanedPackageList removeObject:packageVersionDict[[package identifier]]];

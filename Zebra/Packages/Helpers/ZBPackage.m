@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackage.h"
-#import <Parsel/dpkgver.h>
+#import <Parsel/vercmp.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Queue/ZBQueueType.h>
 #import <ZBAppDelegate.h>
@@ -282,15 +282,16 @@
         if ([self isEqual:obj])
             return NSOrderedSame;
         
-        if (verrevcmp([[self version] UTF8String], [[obj version] UTF8String]) < 0)
+        if (compare([[self version] UTF8String], [[obj version] UTF8String]) < 0)
             return NSOrderedAscending;
         else
             return NSOrderedDescending;
     }
     else {
-        if (verrevcmp([[self version] UTF8String], [(NSString *)object UTF8String]) < 0)
+        int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
+        if (result < 0)
             return NSOrderedAscending;
-        else if (verrevcmp([[self version] UTF8String], [(NSString *)object UTF8String]) > 0)
+        else if (result > 0)
             return NSOrderedDescending;
         else
             return NSOrderedSame;

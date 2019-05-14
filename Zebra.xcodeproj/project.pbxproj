@@ -48,7 +48,7 @@
 		89C90FE3227B767900325AAD /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE2227B767900325AAD /* twitter@3x.png */; };
 		89C90FE6227B770500325AAD /* discord@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE4227B770500325AAD /* discord@2x.png */; };
 		89C90FE7227B770500325AAD /* discord@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89C90FE5227B770500325AAD /* discord@3x.png */; };
-		89CA2139224043D1008F09DB /* dpkgver.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* dpkgver.c */; };
+		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
 		89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89DB3BB02249A74B000F8983 /* repos@2x.png */; };
@@ -139,8 +139,8 @@
 		89C90FE2227B767900325AAD /* twitter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@3x.png"; sourceTree = "<group>"; };
 		89C90FE4227B770500325AAD /* discord@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@2x.png"; sourceTree = "<group>"; };
 		89C90FE5227B770500325AAD /* discord@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discord@3x.png"; sourceTree = "<group>"; };
-		89CA2137224043D1008F09DB /* dpkgver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dpkgver.h; sourceTree = "<group>"; };
-		89CA2138224043D1008F09DB /* dpkgver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dpkgver.c; sourceTree = "<group>"; };
+		89CA2137224043D1008F09DB /* vercmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vercmp.h; sourceTree = "<group>"; };
+		89CA2138224043D1008F09DB /* vercmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vercmp.c; sourceTree = "<group>"; };
 		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
 		89CADA142263FEF3000101EE /* ZBDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDownloadManager.m; sourceTree = "<group>"; };
 		89CADA162263FF00000101EE /* ZBDownloadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadDelegate.h; sourceTree = "<group>"; };
@@ -287,8 +287,8 @@
 			children = (
 				8991FF9C21B2109E004FCE23 /* parsel.h */,
 				89C7E49121B240D4003DB4E8 /* parsel.c */,
-				89CA2137224043D1008F09DB /* dpkgver.h */,
-				89CA2138224043D1008F09DB /* dpkgver.c */,
+				89CA2137224043D1008F09DB /* vercmp.h */,
+				89CA2138224043D1008F09DB /* vercmp.c */,
 				899203B522490D4C0098AC7B /* dict.h */,
 				899203B622490D4C0098AC7B /* dict.c */,
 			);
@@ -553,7 +553,7 @@
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
-				89CA2139224043D1008F09DB /* dpkgver.c in Sources */,
+				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,
