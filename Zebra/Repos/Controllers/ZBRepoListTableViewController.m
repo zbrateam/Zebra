@@ -320,14 +320,20 @@
                 }
                 
                 UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
-                    addRepo.delegate = weakSelf;
-                    addRepo.text = text;
-                    
-                    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
-                    
-                    [weakSelf presentViewController:navCon animated:true completion:nil];
+                    if ([failedURLs count] > 1) {
+                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                        ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
+                        addRepo.delegate = weakSelf;
+                        addRepo.text = text;
+                        
+                        UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
+                        
+                        [weakSelf presentViewController:navCon animated:true completion:nil];
+                    }
+                    else {
+                        NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
+                        [weakSelf showAddRepoAlert:failedURL];
+                    }
                 }];
                 
                 [errorAlert addAction:editAction];
