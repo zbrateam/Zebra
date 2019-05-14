@@ -42,12 +42,16 @@
     searchController.searchBar.tintColor = [UIColor tintColor];
     searchController.searchBar.placeholder = @"Packages";
     self.definesPresentationContext = YES;
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = false;
     }
     if (@available(iOS 11.0, *)) {
         self.navigationItem.searchController = searchController;
         self.navigationItem.hidesSearchBarWhenScrolling = false;
+        self.navigationController.navigationBar.largeTitleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     } else {
         self.tableView.tableHeaderView = searchController.searchBar;
     }

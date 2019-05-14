@@ -12,6 +12,7 @@
 +(UIColor*)tintColor;
 +(UIColor*)navBarTintColor;
 +(UIColor*)badgeColor;
++(UIColor*)barTintColor;
 +(UIColor*)tableViewBackgroundColor;
 +(UIColor*)cellBackgroundColor;
 +(UIColor*)selectedCellBackgroundColor;

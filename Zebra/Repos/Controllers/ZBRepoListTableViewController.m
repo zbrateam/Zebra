@@ -39,6 +39,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.largeTitleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    } else {
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    }
+
+    
     databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [databaseManager sources];
     self.repoManager = [[ZBRepoManager alloc] init];

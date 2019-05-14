@@ -31,6 +31,13 @@
     self.repoManager = [[ZBRepoManager alloc] init];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.largeTitleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    } else {
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    }
+
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];

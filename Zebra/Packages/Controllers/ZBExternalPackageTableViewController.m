@@ -21,6 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.largeTitleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    } else {
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    }
+
+    
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
     [task setArguments:@[@"/usr/bin/dpkg", @"-I", [_fileURL path], @"control"]];

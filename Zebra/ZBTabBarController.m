@@ -31,6 +31,7 @@
     if (@available(iOS 10.0, *)) {
         UITabBar.appearance.tintColor = [UIColor tintColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
+        UITabBar.appearance.barTintColor = [UIColor barTintColor];
     }
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
