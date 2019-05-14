@@ -269,7 +269,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     char line[256];
     
-    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
+    char *sql = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
     sqlite3_exec(database, sql, NULL, 0, NULL);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     
@@ -311,6 +311,14 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 
                 if (dict_get(package, "Name") == 0) {
                     dict_add(package, "Name", packageIdentifier);
+                }
+                
+                if (strcmp(dict_get(package, "Version"), "1.90") == 0) {
+                    printf("break");
+                }
+                
+                if (strcmp(dict_get(package, "Version"), "1.9") == 0) {
+                    printf("break");
                 }
                 
                 sqlite3_stmt *insertStatement;
@@ -365,7 +373,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     }
     char line[512];
     
-    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION STRING, DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
+    char *create = "CREATE TABLE IF NOT EXISTS PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), DESC STRING, SECTION STRING, DEPICTION STRING, TAG STRING, DEPENDS STRING, CONFLICTS STRING, AUTHOR STRING, PROVIDES STRING, FILENAME STRING, REPOID INTEGER);";
     sqlite3_exec(database, create, NULL, 0, NULL);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);

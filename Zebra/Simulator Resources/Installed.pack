@@ -2566,3 +2566,13 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: org.hacx.volumeamplifier
+Status: install ok installed
+Section: Tweaks
+Installed-Size: 0
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 1.90
+Description: Dummy package
+
