@@ -373,7 +373,7 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSArray *otherVersions = [databaseManager otherVersionsForPackage:self];
     for (ZBPackage *downPackage in otherVersions) {
-        if ([[downPackage repo] repoID] == 0 || [[downPackage version] isEqualToString:[self version]]) {
+        if ([downPackage isLocal] || [[downPackage version] isEqualToString:[self version]]) {
             continue;
         }
         [versions addObject:downPackage];
