@@ -76,6 +76,22 @@
                     }
                 }
                 
+                NSArray *knownDistsURLs = @[
+                                            @"apt.thebigboss.org/repofiles/cydia/",
+                                            @"apt.thebigboss.org/repofiles/cydia",
+                                            @"apt.thebigboss.org/",
+                                            @"apt.thebigboss.org",
+                                            @"apt.modmyi.com/",
+                                            @"apt.modmyi.com",
+                                            @"apt.saurik.com/",
+                                            @"apt.saurik.com",
+                                            @"apt.bingner.com/",
+                                            @"apt.bingner.com",
+                                            @"cydia.zodttd.com/repo/cydia/",
+                                            @"cydia.zodttd.com/repo/cydia",
+                                            @"cydia.zodttd.com/",
+                                            @"cydia.zodttd.com"];
+                
                 for (NSURL *detectedURL in detectedURLs) {
                     dispatch_group_enter(group);
                     
@@ -83,6 +99,28 @@
                     if ([baseURLs containsObject:urlString]) {
                         NSLog(@"[Zebra] %@ is already added.", urlString);
                         dispatch_group_leave(group);
+                    }
+                    else if ([knownDistsURLs containsObject:urlString]) {
+                        switch ([knownDistsURLs indexOfObject:urlString]) {
+                            case 0 ... 3:
+                                [self addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
+                                break;
+                            case 4 ... 5:
+                                [self addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
+                                break;
+                            case 6 ... 7:
+                                [self addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
+                                break;
+                            case 8 ... 9:
+                                [self addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
+                                break;
+                            case 10 ... 13:
+                                [self addDebLine:@"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"];
+                                break;
+                            default:
+                                break;
+                        }
+                        respond(YES, nil, nil);
                     }
                     else {
                         [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
