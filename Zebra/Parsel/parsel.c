@@ -313,14 +313,6 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     dict_add(package, "Name", packageIdentifier);
                 }
                 
-                if (strcmp(dict_get(package, "Version"), "1.90") == 0) {
-                    printf("break");
-                }
-                
-                if (strcmp(dict_get(package, "Version"), "1.9") == 0) {
-                    printf("break");
-                }
-                
                 sqlite3_stmt *insertStatement;
                 char *insertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, DESC, SECTION, DEPICTION, TAG, DEPENDS, CONFLICTS, AUTHOR, PROVIDES, FILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 
