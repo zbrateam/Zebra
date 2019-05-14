@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)packageHasUpdate:(ZBPackage *)package;
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict;
 - (BOOL)packageIsAvailable:(ZBPackage *)package;
-- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed;
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed checkProvides:(BOOL)provides;
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
 - (NSArray <ZBPackage *>*)packagesWithUpdates;
 - (void)updateLastUpdated;

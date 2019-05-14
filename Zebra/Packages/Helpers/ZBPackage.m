@@ -364,7 +364,7 @@
 
 - (BOOL)isReinstallable {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false] != NULL;
+    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true] != NULL;
 }
 
 - (NSMutableArray <ZBPackage *> *)otherVersions {

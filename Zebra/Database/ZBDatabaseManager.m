@@ -731,7 +731,7 @@
     }
 }
 
-- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed {
+- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed checkProvides:(BOOL)provides {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query;
         if (installed) {
@@ -751,7 +751,7 @@
         }
         
         //Only try to resolve "Provides" if we can't resolve the normal package.
-        if (package == NULL) {
+        if (provides && package == NULL) {
             if (installed) {
                 query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' LIMIT 1;", identifier];
             }
@@ -771,7 +771,7 @@
             NSArray *otherVersions = [self otherVersionsForPackage:package];
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {
-                    if ([[package repo] repoID] == 0) continue;
+//                    if ([[package repo] repoID] == 0) continue;
                     if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
                         [self closeDatabase];
                         return package;

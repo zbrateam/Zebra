@@ -71,7 +71,7 @@
             if (![reinstallArray containsObject:package]) {
                 if ([package filename] == NULL) { //Check to see if the package has a filename to download, if there isn't then we should try to find one
                     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-                    package = [databaseManager packageForID:[package identifier] thatSatisfiesComparison:@"<=" ofVersion:[package version] checkInstalled:false];
+                    package = [databaseManager packageForID:[package identifier] thatSatisfiesComparison:@"<=" ofVersion:[package version] checkInstalled:false checkProvides:true];
                     
                     if (package == NULL) return;
                 }
