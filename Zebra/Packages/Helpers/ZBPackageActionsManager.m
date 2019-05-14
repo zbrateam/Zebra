@@ -9,6 +9,7 @@
 #import "ZBPackageActionsManager.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
+#import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Queue/ZBQueue.h>
 #import <UIColor+GlobalColors.h>
 
@@ -26,7 +27,7 @@
     }
 }
 
-+ (NSArray *)actionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent {
++ (NSArray <UITableViewRowAction *> *)actionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent {
     NSMutableArray *actions = [NSMutableArray array];
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
@@ -73,6 +74,119 @@
     return actions;
 }
 
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent {
+    NSUInteger possibleActions = [package possibleActions];
+    NSMutableArray *actions = [NSMutableArray array];
+    ZBQueue *queue = [ZBQueue sharedInstance];
+    
+    if (possibleActions & ZBQueueTypeRemove) {
+        UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [queue addPackage:package toQueue:ZBQueueTypeRemove];
+        }];
+        
+        [actions addObject:remove];
+    }
+    
+    if (possibleActions & ZBQueueTypeInstall) {
+        UIPreviewAction *install = [UIPreviewAction actionWithTitle:@"Install" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
+            [self installPackage:package purchased:purchased];
+        }];
+        
+        [actions addObject:install];
+    }
+    
+    if (possibleActions & ZBQueueTypeReinstall) {
+        UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [queue addPackage:package toQueue:ZBQueueTypeReinstall];
+        }];
+        
+        [actions addObject:reinstall];
+    }
+    
+    if (possibleActions & ZBQueueTypeSelectable) {
+        UIPreviewAction *downgrade = [UIPreviewAction actionWithTitle:@"Select Ver." style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [self downgradePackage:package indexPath:nil viewController:vc parent:parent];
+        }];
+        
+        [actions addObject:downgrade];
+    }
+    
+    if (possibleActions & ZBQueueTypeUpgrade) {
+        UIPreviewAction *upgrade = [UIPreviewAction actionWithTitle:@"Upgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
+        }];
+        
+        [actions addObject:upgrade];
+    }
+    
+    return actions;
+}
+
++ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent {
+    NSUInteger possibleActions = [package possibleActions];
+    NSMutableArray *actions = [NSMutableArray array];
+    ZBQueue *queue = [ZBQueue sharedInstance];
+    
+    if (possibleActions & ZBQueueTypeRemove) {
+        UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [queue addPackage:package toQueue:ZBQueueTypeRemove];
+            [self presentQueue:vc parent:parent];
+        }];
+        
+        [actions addObject:remove];
+    }
+    
+    if (possibleActions & ZBQueueTypeInstall) {
+        UIAlertAction *install = [UIAlertAction actionWithTitle:@"Install" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
+            [self installPackage:package purchased:purchased];
+        }];
+        
+        [actions addObject:install];
+    }
+    
+    if (possibleActions & ZBQueueTypeReinstall) {
+        UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [queue addPackage:package toQueue:ZBQueueTypeReinstall];
+            [self presentQueue:vc parent:parent];
+        }];
+        
+        [actions addObject:reinstall];
+    }
+    
+    if (possibleActions & ZBQueueTypeSelectable) {
+        UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Select Ver." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [ZBPackageActionsManager downgradePackage:package indexPath:nil viewController:vc parent:parent];
+        }];
+        
+        [actions addObject:downgrade];
+    }
+    
+    if (possibleActions & ZBQueueTypeUpgrade) {
+        UIAlertAction *upgrade = [UIAlertAction actionWithTitle:@"Upgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
+            [self presentQueue:vc parent:parent];
+        }];
+        
+        [actions addObject:upgrade];
+    }
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    [actions addObject:cancel];
+    
+    return actions;
+}
+
++ (void)installPackage:(ZBPackage *)package purchased:(BOOL)purchased {
+    if (purchased) {
+        package.sileoDownload = TRUE;
+    }
+    
+    ZBQueue *queue = [ZBQueue sharedInstance];
+    [queue addPackage:package toQueue:ZBQueueTypeInstall];
+}
+
 + (void)downgradePackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -89,10 +203,7 @@
         [alert addAction:action];
     }
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
-    }];
-    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
     [alert addAction:cancel];
     
     if (indexPath) {
