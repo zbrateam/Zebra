@@ -146,7 +146,7 @@
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        if ([verifiedURLs count] == 0) {
+                        if ([verifiedURLs count] == 0 && [errorURLs count] == 0) {
                             respond(NO, @"You have already added these repositories.", @[]);
                         }
                         else {
