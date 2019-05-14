@@ -54,8 +54,8 @@
         [actions addObject:reinstallAction];
     }
     
-    if (possibleActions & ZBQueueTypeDowngrade) {
-        UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Downgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+    if (possibleActions & ZBQueueTypeSelectable) {
+        UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Select Ver." handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [self downgradePackage:package indexPath:indexPath viewController:vc parent:parent];
         }];
         downgradeAction.backgroundColor = [UIColor purpleColor];

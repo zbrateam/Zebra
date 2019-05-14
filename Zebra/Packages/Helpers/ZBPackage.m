@@ -344,18 +344,27 @@
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
+- (BOOL)hasNoRepo {
+    return [repo repoID] == -1;
+}
+
+- (BOOL)isLocal {
+    return [repo repoID] == 0;
+}
+
 - (BOOL)isStrictlyInstalled {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     return [databaseManager packageIsInstalled:self versionStrict:true];
 }
 
-- (BOOL)isInstalledRepoZero {
+- (BOOL)isInstalled {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [repo repoID] == 0 || [databaseManager packageIsInstalled:self versionStrict:false];
+    return [databaseManager packageIsInstalled:self versionStrict:false];
 }
 
-- (BOOL)isInstalled {
-    return [repo repoID] == -1 || [self isInstalledRepoZero];
+- (BOOL)isReinstallable {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false] != NULL;
 }
 
 - (NSMutableArray <ZBPackage *> *)otherVersions {
@@ -376,13 +385,14 @@
 - (NSUInteger)possibleActions {
     NSUInteger actions = 0;
     // Bits order: Downgrade - Upgrade - Reinstall - Remove - Install
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     if ([self isInstalled]) {
-        if ([repo repoID] != -1) {
-            actions |= ZBQueueTypeReinstall;
-            if ([databaseManager packageHasUpdate:self]) {
-                actions |= ZBQueueTypeUpgrade;
-            }
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        if ([self isReinstallable]) {
+            actions |= ZBQueueTypeReinstall; // Reinstall
+        }
+        if ([databaseManager packageHasUpdate:self]) {
+            // A package update is even possible for a package installed from repo A, repo A got deleted, and an update comes from repo B
+            actions |= ZBQueueTypeUpgrade; // Upgrade
         }
         actions |= ZBQueueTypeRemove; // Remove
     }
@@ -391,7 +401,9 @@
     }
     NSArray *otherVersions = [self otherVersions];
     if (otherVersions.count > 1) {
-        actions |= ZBQueueTypeDowngrade; // Downgrade
+        // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
+        // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
+        actions |= ZBQueueTypeSelectable; // Select other versions
     }
     return actions;
 }

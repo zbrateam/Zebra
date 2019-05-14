@@ -247,7 +247,7 @@
 
 - (void)configureNavButton {
     otherVersions = [package otherVersions];
-    if ([package isInstalledRepoZero] || otherVersions.count > 1) {
+    if ([package isInstalled] || otherVersions.count > 1) {
         if ([[package repo] repoID] != -1) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
@@ -311,8 +311,8 @@
         [alert addAction:reinstall];
     }
     
-    if (possibleActions & ZBQueueTypeDowngrade) {
-        UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Downgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    if (possibleActions & ZBQueueTypeSelectable) {
+        UIAlertAction *downgrade = [UIAlertAction actionWithTitle:@"Select Ver." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
             [ZBPackageActionsManager downgradePackage:self->package indexPath:nil viewController:self parent:self->_parent];
         }];
@@ -371,6 +371,14 @@
         [actions addObject:remove];
     }
     
+    if (possibleActions & ZBQueueTypeInstall) {
+        UIPreviewAction *install = [UIPreviewAction actionWithTitle:@"Install" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+            [self installPackage];
+        }];
+        
+        [actions addObject:install];
+    }
+    
     if (possibleActions & ZBQueueTypeReinstall) {
         UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             ZBQueue *queue = [ZBQueue sharedInstance];
@@ -382,8 +390,8 @@
         [actions addObject:reinstall];
     }
     
-    if (possibleActions & ZBQueueTypeDowngrade) {
-        UIPreviewAction *downgrade = [UIPreviewAction actionWithTitle:@"Downgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+    if (possibleActions & ZBQueueTypeSelectable) {
+        UIPreviewAction *downgrade = [UIPreviewAction actionWithTitle:@"Select Ver." style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [ZBPackageActionsManager downgradePackage:self->package indexPath:nil viewController:self parent:self->_parent];
         }];
         

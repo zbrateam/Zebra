@@ -14,7 +14,7 @@ typedef enum {
     ZBQueueTypeRemove       = 1 << 1,
     ZBQueueTypeReinstall    = 1 << 2,
     ZBQueueTypeUpgrade      = 1 << 3,
-    ZBQueueTypeDowngrade    = 1 << 4 // Note: Not really used directly, this is to make code less complicated - PoomSmart
+    ZBQueueTypeSelectable   = 1 << 4 // Note: Not really used directly, this is to make code less complicated - PoomSmart
 } ZBQueueType;
 
 #endif /* ZBQueueType_h */
