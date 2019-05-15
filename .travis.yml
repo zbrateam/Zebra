@@ -5,6 +5,6 @@ script:
 - make do
 
 before_install:
-- echo "export THEOS=~/theos" >> ~/.profile
 - brew install ldid
+- export THEOS=~/theos
 - git clone --recursive https://github.com/theos/theos.git $THEOS
