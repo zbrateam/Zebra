@@ -107,6 +107,9 @@
     NSURL *sourcesList = [ZBAppDelegate sourcesListURL];
     
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[sourcesList] applicationActivities:nil];
+    
+    shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[0];
+    
     [self presentViewController:shareSheet animated:true completion:nil];
 }
 
