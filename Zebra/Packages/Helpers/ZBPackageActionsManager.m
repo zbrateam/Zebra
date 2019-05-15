@@ -163,6 +163,7 @@
         UIAlertAction *install = [UIAlertAction actionWithTitle:@"Install" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
             [self installPackage:package purchased:purchased];
+            [self presentQueue:vc parent:parent];
         }];
         
         [actions addObject:install];
