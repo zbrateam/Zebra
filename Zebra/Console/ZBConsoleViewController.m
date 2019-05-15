@@ -61,6 +61,11 @@
     }
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)downloadPackages {
     NSArray *packages = [queue packagesToDownload];
     
