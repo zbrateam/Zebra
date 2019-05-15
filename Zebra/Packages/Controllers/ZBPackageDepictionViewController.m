@@ -152,6 +152,7 @@
                 NSLog(@"Response %@", json);
                 if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
                     self.purchased = TRUE;
+                    self->package.sileoDownload = TRUE;
                 }
             }] resume];
         }
