@@ -1,10 +1,13 @@
 language: objective-c
 osx_image: xcode10.2
 
+env:
+  global:
+    - THEOS=theos
+
 script:
 - make do
 
 before_install:
 - brew install ldid
-- export THEOS=~/theos
 - git clone --recursive https://github.com/theos/theos.git $THEOS
