@@ -1,13 +1,5 @@
 language: objective-c
 osx_image: xcode10.2
 
-env:
-  global:
-    - THEOS=theos
-
 script:
-- make do
-
-before_install:
-- brew install ldid
-- git clone --recursive https://github.com/theos/theos.git $THEOS
+- xctool -sdk iphonesimulator -project Zebra.xcodeproj -scheme Zebra build test
