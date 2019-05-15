@@ -1,5 +1,4 @@
 language: objective-c
-osx_image: xcode10.2
-
-script:
-- xctool -sdk iphonesimulator -project Zebra.xcodeproj -scheme Zebra build test
+xcode_project: Zebra.xcodeproj
+xcode_scheme: Zebra
+osx_image: xcode8.2
