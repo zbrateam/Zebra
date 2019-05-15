@@ -1,4 +1,7 @@
 language: objective-c
-xcode_project: Zebra.xcodeproj
-xcode_scheme: Zebra
-osx_image: xcode10.2
+#xcode_project: Zebra.xcodeproj
+#xcode_scheme: Zebra
+#osx_image: xcode10.2
+
+script:
+  - set -o pipefail && xcodebuild -project Zebra.xcodeproj -scheme Zebra build | xcpretty
