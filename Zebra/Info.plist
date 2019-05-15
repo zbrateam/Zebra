@@ -135,6 +135,8 @@
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<false/>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
