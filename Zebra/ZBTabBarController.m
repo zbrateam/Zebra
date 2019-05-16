@@ -105,6 +105,7 @@
 #pragma mark - Database Delegate
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
+    if (bfn == NULL) return;
     if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
     
     ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
