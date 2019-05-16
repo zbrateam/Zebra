@@ -205,9 +205,17 @@
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
         [webView evaluateJavaScript:command completionHandler:nil];
     }
-    else if (![[package desc] isEqualToString:@""] && [package desc] != NULL) {
+    else if (![[package longDescription] isEqualToString:@""] && [package longDescription] != NULL) {
         [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [package desc]] completionHandler:nil];
+        
+        NSString *description = [[package longDescription] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+        
+        description = [description stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+        description = [description stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:^(id _Nullable idk, NSError * _Nullable error) {
+            NSLog(@"\n%@\n%@", idk, error);
+        }];
+        NSLog(@"document.getElementById('desc').innerHTML = \"%@\";", [package longDescription]);
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
