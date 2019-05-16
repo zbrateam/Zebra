@@ -5,3 +5,5 @@ Supersling/.theos
 Build/
 Index/
 xcuserdata/
+repo/newpackages
+update.sh
