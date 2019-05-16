@@ -19,7 +19,8 @@
 @synthesize identifier;
 @synthesize name;
 @synthesize version;
-@synthesize desc;
+@synthesize shortDescription;
+@synthesize longDescription;
 @synthesize section;
 @synthesize sectionImageName;
 @synthesize depictionURL;
@@ -193,7 +194,7 @@
         [self setIdentifier:identifier];
         [self setName:name];
         [self setVersion:version];
-        [self setDesc:desc];
+        [self setShortDescription:desc];
         [self setSection:section];
         [self setDepictionURL:[NSURL URLWithString:url]];
     }
@@ -205,22 +206,24 @@
     self = [super init];
     
     if (self) {
-        const char *packageIDChars =   (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars =     (const char *)sqlite3_column_text(statement, 2);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *sectionChars =     (const char *)sqlite3_column_text(statement, 4);
-        const char *depictionChars =   (const char *)sqlite3_column_text(statement, 5);
-        const char *tagChars =         (const char *)sqlite3_column_text(statement, 6);
-        const char *dependsChars =     (const char *)sqlite3_column_text(statement, 7);
-        const char *conflictsChars =   (const char *)sqlite3_column_text(statement, 8);
-        const char *authorChars =      (const char *)sqlite3_column_text(statement, 9);
-        const char *filenameChars =    (const char *)sqlite3_column_text(statement, 11);
+        const char *packageIDChars =        (const char *)sqlite3_column_text(statement, 0);
+        const char *packageNameChars =      (const char *)sqlite3_column_text(statement, 1);
+        const char *versionChars =          (const char *)sqlite3_column_text(statement, 2);
+        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, 3);
+        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, 4);
+        const char *sectionChars =          (const char *)sqlite3_column_text(statement, 5);
+        const char *depictionChars =        (const char *)sqlite3_column_text(statement, 6);
+        const char *tagChars =              (const char *)sqlite3_column_text(statement, 7);
+        const char *dependsChars =          (const char *)sqlite3_column_text(statement, 8);
+        const char *conflictsChars =        (const char *)sqlite3_column_text(statement, 9);
+        const char *authorChars =           (const char *)sqlite3_column_text(statement, 10);
+        const char *filenameChars =         (const char *)sqlite3_column_text(statement, 12);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
         [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
         [self setVersion:[NSString stringWithUTF8String:versionChars]]; //This should never be NULL
-        [self setDesc:descriptionChars != 0 ? [NSString stringWithUTF8String:descriptionChars] : NULL];
+        [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
+        [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
@@ -241,7 +244,7 @@
             conflictsWith = [conflictsWith[0] componentsSeparatedByString:@","];
         }
         
-        int repoID = sqlite3_column_int(statement, 12);
+        int repoID = sqlite3_column_int(statement, 13);
         if (repoID > 0) {
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }
