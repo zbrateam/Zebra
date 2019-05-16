@@ -205,17 +205,19 @@
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
         [webView evaluateJavaScript:command completionHandler:nil];
     }
-    else if (![[package longDescription] isEqualToString:@""] && [package longDescription] != NULL) {
+    else if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
         [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-        
-        NSString *description = [[package longDescription] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
-        
-        description = [description stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-        description = [description stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:^(id _Nullable idk, NSError * _Nullable error) {
-            NSLog(@"\n%@\n%@", idk, error);
-        }];
-        NSLog(@"document.getElementById('desc').innerHTML = \"%@\";", [package longDescription]);
+    
+        if ([package longDescription] != NULL) {
+            NSString *description = [[package longDescription] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+            
+            description = [description stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+            description = [description stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
+        }
+        else {
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [package shortDescription]] completionHandler:nil];
+        }
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
