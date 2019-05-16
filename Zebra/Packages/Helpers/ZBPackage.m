@@ -411,4 +411,8 @@
     return actions;
 }
 
+- (NSString *)longDescription {
+    return longDescription == NULL ? shortDescription : longDescription;
+}
+
 @end
