@@ -188,18 +188,15 @@
 }
 
 - (void)addSourceWithURL:(NSURL *)sourceURL response:(void (^)(BOOL success, NSString *error, NSURL *url))respond {
-    __weak typeof(self) weakSelf = self;
-    
     [self verifySourceExists:sourceURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
-        typeof(self) strongSelf = weakSelf;
         
-        if (strongSelf) {
+        if (self) {
             if (responseError) {
                 respond(NO, responseError, failingURL);
             } else {
                 NSLog(@"[Zebra] Verified source %@", responseURL);
                 
-                [strongSelf addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {
+                [self addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {
                     if (success) {
                         respond(true, NULL, NULL);
                     }
