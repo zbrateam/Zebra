@@ -249,6 +249,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)packageIsAvailable:(ZBPackage *)package versionStrict:(BOOL)strict;
 
+/*!
+ @brief Get a package with equal version from the database.
+ @param identifier The package's identifier.
+ @param version the version.
+ @return A ZBPackage instance that satisfies the parameters.
+ */
+- (ZBPackage *)packageForID:(NSString *)identifier equalVersion:(NSString *)version;
+
 #pragma mark - Package lookup
 
 /*!

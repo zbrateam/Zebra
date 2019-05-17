@@ -35,9 +35,10 @@
         instance = [ZBDatabaseManager new];
         
         [instance openDatabase];
-        if (needsMigration(instance.database, 0) != 0 || needsMigration(instance.database, 1) != 0 || needsMigration(instance.database, 2) != 0) {
-            [instance setNeedsToPresentRefresh:true];
-        }
+        
+        //Checks to see if any of the databases have differing schemes and sets to update them if need be.
+        [instance setNeedsToPresentRefresh:(needsMigration(instance.database, 0) != 0 || needsMigration(instance.database, 1) != 0 || needsMigration(instance.database, 2) != 0)];
+        
         [instance closeDatabase];
     });
     return instance;
