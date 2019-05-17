@@ -38,7 +38,7 @@
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager setDatabaseDelegate:self];
-    [databaseManager updateDatabaseUsingCaching:true requested:false];
+    [databaseManager updateDatabaseUsingCaching:true userRequested:false];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -34,7 +34,7 @@
             [databaseManager dropTables];
         }
         
-        [databaseManager updateDatabaseUsingCaching:false requested:true];
+        [databaseManager updateDatabaseUsingCaching:false userRequested:true];
     }
     else {
         hadAProblem = true;

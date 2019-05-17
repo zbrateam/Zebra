@@ -219,7 +219,8 @@
         numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
         numberFormatter.usesGroupingSeparator = YES;
         
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo]]];
+        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
     }
     else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];

@@ -292,22 +292,22 @@
     //    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBRepo *source in [databaseManager sources]) {
-        if ([source defaultRepo]) {
-            if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
+    for (ZBRepo *repo in [databaseManager repos]) {
+        if ([repo defaultRepo]) {
+            if ([[repo origin] isEqual:@"Cydia/Telesphoreo"]) {
                 output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
             }
-            else if ([[source origin] isEqual:@"Bingner/Elucubratus"]) {
+            else if ([[repo origin] isEqual:@"Bingner/Elucubratus"]) {
                 output = [output stringByAppendingFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
             }
             else {
-                NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
-                sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
-                output = [output stringByAppendingFormat:@"deb %@%@/ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
+                NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
+                repoURL = [repoURL stringByDeletingLastPathComponent]; //Remove last two path components
+                output = [output stringByAppendingFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
             }
         }
         else {
-            output = [output stringByAppendingFormat:@"deb %@%@ ./\n", [source isSecure] ? @"https://" : @"http://", [source baseURL]];
+            output = [output stringByAppendingFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
         }
     }
     
@@ -356,23 +356,23 @@
     NSString *output = @"";
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBRepo *source in [databaseManager sources]) {
-        if (![[delRepo baseFileName] isEqualToString:[source baseFileName]]) {
-            if ([source defaultRepo]) {
-                if ([[source origin] isEqual:@"Cydia/Telesphoreo"]) {
+    for (ZBRepo *repo in [databaseManager repos]) {
+        if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
+            if ([repo defaultRepo]) {
+                if ([[repo origin] isEqual:@"Cydia/Telesphoreo"]) {
                     output = [output stringByAppendingFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
                 }
-                else if ([[source origin] isEqual:@"Bingner/Elucubratus"]) {
+                else if ([[repo origin] isEqual:@"Bingner/Elucubratus"]) {
                     output = [output stringByAppendingFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
                 }
                 else {
-                    NSString *sourceURL = [[source baseURL] stringByDeletingLastPathComponent];
-                    sourceURL = [sourceURL stringByDeletingLastPathComponent]; //Remove last two path components
-                    output = [output stringByAppendingFormat:@"deb %@%@/ %@ %@\n", [source isSecure] ? @"https://" : @"http://", sourceURL, [source suite], [source components]];
+                    NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
+                    repoURL = [repoURL stringByDeletingLastPathComponent]; //Remove last two path components
+                    output = [output stringByAppendingFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
                 }
             }
             else {
-                output = [output stringByAppendingFormat:@"deb %@%@ ./\n", [source isSecure] ? @"https://" : @"http://", [source baseURL]];
+                output = [output stringByAppendingFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
             }
         }
     }

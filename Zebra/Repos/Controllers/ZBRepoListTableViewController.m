@@ -40,7 +40,7 @@
     [super viewDidLoad];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
-    sources = [databaseManager sources];
+    sources = [databaseManager repos];
     self.repoManager = [[ZBRepoManager alloc] init];
     
     bfns = [NSMutableArray new];
@@ -167,7 +167,7 @@
     [databaseManager setDatabaseDelegate:self];
     
     [self setRepoRefreshIndicatorVisible:true];
-    [databaseManager updateDatabaseUsingCaching:true requested:true];
+    [databaseManager updateDatabaseUsingCaching:true userRequested:true];
 }
 
 - (void)refreshTable {
@@ -176,7 +176,7 @@
     }
     else {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        sources = [databaseManager sources];
+        sources = [databaseManager repos];
         
         bfns = [NSMutableArray new];
         for (ZBRepo *source in sources) {

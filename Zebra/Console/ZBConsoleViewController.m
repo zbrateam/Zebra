@@ -292,7 +292,7 @@
 - (void)refreshLocalPackages {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager setDatabaseDelegate:self];
-    [databaseManager justImportLocal];
+    [databaseManager importLocalPackagesAndCheckForUpdates:true sender:self];
 }
 
 - (void)removeAllDebs {
