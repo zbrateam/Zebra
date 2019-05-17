@@ -37,7 +37,7 @@
         self.iconImageView.image = [UIImage imageNamed:@"Other"];
     }
     
-    BOOL installed = [package isInstalled];
+    BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];
     
     self.isInstalledImageView.hidden = !installed;

@@ -253,8 +253,8 @@
 }
 
 - (void)configureNavButton {
-    if ([package isInstalled] || [package otherVersions].count > 1) {
-        if (![package hasNoRepo]) {
+    if ([package isInstalled:false]) {
+        if ([package otherVersions].count > 1) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }

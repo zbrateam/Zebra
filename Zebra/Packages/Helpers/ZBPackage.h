@@ -38,12 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)isPaid;
 - (NSString *)getField:(NSString *)field;
-- (BOOL)hasNoRepo;
-- (BOOL)isLocal;
-- (BOOL)isStrictlyInstalled;
-- (BOOL)isInstalled;
+- (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
-- (NSMutableArray <ZBPackage *> *)otherVersions;
+- (NSArray <ZBPackage *> *)otherVersions;
 - (NSUInteger)possibleActions;
 @end
 

@@ -864,9 +864,12 @@
             sqlite3_bind_text(statement, 1, [version UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            
-            [otherVersions addObject:package];
+            int repoID = sqlite3_column_int(statement, 13);
+            if (repoID > 0) {
+                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                
+                [otherVersions addObject:package];
+            }
         }
         sqlite3_finalize(statement);
         

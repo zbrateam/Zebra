@@ -306,10 +306,10 @@
 				898AAE8C226561C800C38FB1 /* ZBDatabaseDelegate.h */,
 				8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */,
 				8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */,
-				89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */,
-				89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */,
 				8990FF0B224ABE9700190BEB /* ZBDependencyResolver.h */,
 				8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */,
+				89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */,
+				89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";

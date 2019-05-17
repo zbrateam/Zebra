@@ -258,8 +258,6 @@
             sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
         }
         [self setSectionImageName:sectionStripped];
-
-        
     }
     
     return self;
@@ -347,48 +345,30 @@
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
-- (BOOL)hasNoRepo {
-    return [repo repoID] == -1;
-}
-
-- (BOOL)isLocal {
-    return [repo repoID] == 0;
-}
-
-- (BOOL)isStrictlyInstalled {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageIsInstalled:self versionStrict:true];
-}
-
-- (BOOL)isInstalled {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageIsInstalled:self versionStrict:false];
+- (BOOL)isInstalled:(BOOL)strict {
+    if ([repo repoID] <= 0) { //Package is in repoID 0 or -1 and is installed
+        return true;
+    }
+    else {
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        return [databaseManager packageIsInstalled:self versionStrict:strict];
+    }
 }
 
 - (BOOL)isReinstallable {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true] != NULL;
+    return [databaseManager packageIsAvailable:self versionStrict:true];
 }
 
-- (NSMutableArray <ZBPackage *> *)otherVersions {
-    NSMutableArray <ZBPackage *> *versions = [NSMutableArray array];
-    
+- (NSArray <ZBPackage *> *)otherVersions {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    NSArray *otherVersions = [databaseManager otherVersionsForPackage:self];
-    for (ZBPackage *downPackage in otherVersions) {
-        if ([downPackage isLocal] || [[downPackage version] isEqualToString:[self version]]) {
-            continue;
-        }
-        [versions addObject:downPackage];
-    }
-    
-    return versions;
+    return [databaseManager otherVersionsForPackage:self];
 }
 
 - (NSUInteger)possibleActions {
     NSUInteger actions = 0;
     // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
-    if ([self isInstalled]) {
+    if ([self isInstalled:false]) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         if ([self isReinstallable]) {
             actions |= ZBQueueTypeReinstall; // Reinstall
