@@ -1,23 +1,20 @@
 //
-//  ZBRepoPurchases.m
+//  ZBRepoPurchasedPackagesTableViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 5/11/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRepoPurchases.h"
+#import "ZBRepoPurchasedPackagesTableViewController.h"
 #import <sys/utsname.h>
 #import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
+#import <UIColor+GlobalColors.h>
 
-@interface ZBRepoPurchases ()
-
-@end
-
-@implementation ZBRepoPurchases
+@implementation ZBRepoPurchasedPackagesTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,13 +39,11 @@
         [self logoutRepo];
     }];
     [self.navigationItem setRightBarButtonItem:self.logOut];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"packageTableViewCell"];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -136,71 +131,86 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(section == 0){
+    if (section == 0) {
         return 0;
-    }else{
-        return 30;
     }
-    
+    else{
+        return 25;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        return 65;
+    }
+    else {
+        return 44;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0){
-        return 2;
-    }else{
+    if (section == 0) {
+        return 1;
+    }
+    else {
         return [self.packages count];
     }
 }
 
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) { //Account Cell
+        cell.textLabel.text = self.userName;
+        cell.detailTextLabel.text = self.userEmail;
+    }
+    else { //Package Cell
+        ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
+        [(ZBPackageTableViewCell *)cell updateData:package];
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];//[tableView dequeueReusableCellWithIdentifier:@"basicCell" forIndexPath:indexPath];
-    if(indexPath.section == 0){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserInfo"];
-        if (cell == nil) {
-            
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UserInfo"];
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-        }
-        if(indexPath.row == 0){
-            cell.textLabel.text = self.userName;
-        }else{
-            cell.textLabel.text = self.userEmail;
-        }
-        return cell;
-    }else{
-        /*UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Packages"];
-        if (cell == nil) {
-            
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Packages"];
-            
-            //cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-        }*/
-        //ZBPackage *package = [self.databaseManager topVersionForPackageID:[self.packages objectAtIndex:indexPath.row]];
-           //ZBPackage *package = [self.databaseManager topVersionForPackageID:[self.packages objectAtIndex:indexPath.row]];
-            //cell.textLabel.text = package.name;
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"accountCell"];
         
-        /*ZBPackage *package = [self.packages objectAtIndex:indexPath.row];
-        cell.textLabel.text = package.name;
-        return cell;*/
+        return cell;
+    }
+    else {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
-        ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
-        
-        [cell updateData:package];
         return cell;
     }
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 1){
+    if (indexPath.section == 1) {
         [self performSegueWithIdentifier:@"seguePurchasesToPackageDepiction" sender:indexPath];
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
+    
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    [label setText:@"Purchased Packages"];
+    [view addSubview:label];
+    
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    // align label from the left and right
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    
+    // align label from the bottom
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    
+    
+    return view;
 }
 
 

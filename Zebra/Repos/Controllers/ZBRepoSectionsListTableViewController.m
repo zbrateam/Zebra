@@ -14,7 +14,7 @@
 #import <sys/utsname.h>
 #import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
-#import "ZBRepoPurchases.h"
+#import "ZBRepoPurchasedPackagesTableViewController.h"
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -51,7 +51,7 @@
     
     self.purchased = [[UIBarButtonItem alloc] initWithTitle:@"Purchased" style:UIBarButtonItemStylePlain actionHandler:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRepoPurchases *ivc = (ZBRepoPurchases *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
+        ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = self.repo.origin;
         ivc.repoEndpoint = self.repoEndpoint;
         ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
