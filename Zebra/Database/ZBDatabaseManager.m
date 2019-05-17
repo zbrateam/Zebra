@@ -357,7 +357,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         int packages = 0;
         NSString *query;
-        if (section == NULL) {
+        if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND REPOID = %d", section, [repo repoID]];
         }
         else {
