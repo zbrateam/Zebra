@@ -37,8 +37,10 @@
     [self setPackageUpdateBadgeValue:(int)badgeValue];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
-    [databaseManager setDatabaseDelegate:self];
-    [databaseManager updateDatabaseUsingCaching:true userRequested:false];
+    if (![databaseManager needsToPresentRefresh]) {
+        [databaseManager setDatabaseDelegate:self];
+        [databaseManager updateDatabaseUsingCaching:true userRequested:false];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
