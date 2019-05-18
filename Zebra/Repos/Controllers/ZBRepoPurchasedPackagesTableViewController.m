@@ -13,6 +13,7 @@
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
+#import <ZBAppDelegate.h>
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -20,7 +21,7 @@
     [super viewDidLoad];
     
     self.databaseManager = [ZBDatabaseManager sharedInstance];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+    _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     self.packages = [NSMutableArray new];
     if (self.repoImage != NULL) {
         UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];

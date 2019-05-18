@@ -31,7 +31,7 @@
             } else {
                 dispatch_group_t group = dispatch_group_create();
                 
-                dispatch_queue_t sourcesQueue = dispatch_queue_create("xyz.willy.zebra.addsources", NULL);
+                dispatch_queue_t sourcesQueue = dispatch_queue_create("xyz.willy.Zebra.addsources", NULL);
                 
                 NSMutableArray<NSString *> *errors = [NSMutableArray array];
                 NSMutableArray<NSURL *> *errorURLs = [NSMutableArray array];

@@ -23,6 +23,8 @@
 #import "UICKeyChainStore.h"
 #import <sys/utsname.h>
 
+#import <ZBAppDelegate.h>
+
 #import "MobileGestalt.h"
 
 @interface ZBDownloadManager () {
@@ -313,7 +315,7 @@
 
 - (void)realLinkWithPackage:(ZBPackage *)package withCompletion:(void (^)(NSString *url))completionHandler{
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
                             @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
                             @"device":[self deviceModelID],

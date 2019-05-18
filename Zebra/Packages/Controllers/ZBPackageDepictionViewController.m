@@ -130,7 +130,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
         if([package repo].supportSileoPay && [package isPaid]){
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
