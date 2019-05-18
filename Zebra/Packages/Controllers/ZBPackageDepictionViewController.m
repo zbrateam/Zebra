@@ -130,7 +130,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
         if([package repo].supportSileoPay && [package isPaid]){
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -152,6 +152,7 @@
                 NSLog(@"Response %@", json);
                 if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
                     self.purchased = TRUE;
+                    self->package.sileoDownload = TRUE;
                 }
             }] resume];
         }
@@ -204,9 +205,16 @@
         NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
         [webView evaluateJavaScript:command completionHandler:nil];
     }
-    else if (![[package desc] isEqualToString:@""] && [package desc] != NULL) {
+    else if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
         [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", [package desc]] completionHandler:nil];
+    
+        NSString *description = [[package longDescription] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+            
+        description = [description stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+        description = [description stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:^(id _Nullable idk, NSError * _Nullable error) {
+            NSLog(@"%@", error);
+        }];
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
@@ -245,8 +253,8 @@
 }
 
 - (void)configureNavButton {
-    if ([package isInstalled] || [package otherVersions].count > 1) {
-        if (![package hasNoRepo]) {
+    if ([package isInstalled:false]) {
+        if ([package otherVersions].count > 1) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }

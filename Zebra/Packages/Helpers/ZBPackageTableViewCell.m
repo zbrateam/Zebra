@@ -27,7 +27,7 @@
 
 - (void)updateData:(ZBPackage *)package{
     self.packageLabel.text = package.name;
-    self.descriptionLabel.text = package.desc;
+    self.descriptionLabel.text = package.shortDescription;
     
     UIImage* sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage != NULL) {
@@ -37,7 +37,7 @@
         self.iconImageView.image = [UIImage imageNamed:@"Other"];
     }
     
-    BOOL installed = [package isInstalled];
+    BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];
     
     self.isInstalledImageView.hidden = !installed;

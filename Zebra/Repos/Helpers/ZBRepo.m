@@ -10,7 +10,6 @@
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
 
-
 @implementation ZBRepo
 
 @synthesize origin;
@@ -142,7 +141,7 @@
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                         NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         if([endpoint length] != 0 && (long)[httpResponse statusCode] != 404){
-                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                             keychain[baseURL] = endpoint;
                             [self setSupportSileoPay:TRUE];
                         }

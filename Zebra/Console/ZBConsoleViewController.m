@@ -61,6 +61,11 @@
     }
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)downloadPackages {
     NSArray *packages = [queue packagesToDownload];
     
@@ -287,7 +292,7 @@
 - (void)refreshLocalPackages {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager setDatabaseDelegate:self];
-    [databaseManager justImportLocal];
+    [databaseManager importLocalPackagesAndCheckForUpdates:true sender:self];
 }
 
 - (void)removeAllDebs {

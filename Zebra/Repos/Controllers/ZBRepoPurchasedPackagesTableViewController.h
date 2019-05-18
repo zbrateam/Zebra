@@ -1,5 +1,5 @@
 //
-//  ZBRepoPurchases.h
+//  ZBRepoPurchasedPackagesTableViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 5/11/19.
@@ -11,7 +11,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import "ZBPackage.h"
 
-@interface ZBRepoPurchases : UITableViewController
+@interface ZBRepoPurchasedPackagesTableViewController : UITableViewController
 @property NSString *repoName;
 @property NSString *repoEndpoint;
 @property NSString *userName;

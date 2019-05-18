@@ -14,7 +14,8 @@
 #import <sys/utsname.h>
 #import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
-#import "ZBRepoPurchases.h"
+#import "ZBRepoPurchasedPackagesTableViewController.h"
+#import <ZBAppDelegate.h>
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -32,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+    _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -51,7 +52,7 @@
     
     self.purchased = [[UIBarButtonItem alloc] initWithTitle:@"Purchased" style:UIBarButtonItemStylePlain actionHandler:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRepoPurchases *ivc = (ZBRepoPurchases *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
+        ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = self.repo.origin;
         ivc.repoEndpoint = self.repoEndpoint;
         ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
@@ -219,7 +220,8 @@
         numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
         numberFormatter.usesGroupingSeparator = YES;
         
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo]]];
+        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
     }
     else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];

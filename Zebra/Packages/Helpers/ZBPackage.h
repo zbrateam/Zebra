@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *version;
-@property (nonatomic, strong) NSString *desc;
+@property (nonatomic, strong) NSString *shortDescription;
+@property (nonatomic, strong) NSString *longDescription;
 @property (nonatomic, strong) NSString *section;
 @property (nonatomic, strong) NSString *sectionImageName;
 @property (nonatomic, strong) NSURL *depictionURL;
@@ -37,13 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)isPaid;
 - (NSString *)getField:(NSString *)field;
-- (BOOL)hasNoRepo;
-- (BOOL)isLocal;
-- (BOOL)isStrictlyInstalled;
-- (BOOL)isInstalled;
+- (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
-- (NSMutableArray <ZBPackage *> *)otherVersions;
+- (NSArray <ZBPackage *> *)otherVersions;
 - (NSUInteger)possibleActions;
+- (BOOL)ignoreUpdates;
+- (void)setIgnoreUpdates:(BOOL)ignore;
 @end
 
 NS_ASSUME_NONNULL_END

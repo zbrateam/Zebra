@@ -23,6 +23,8 @@
 #import "UICKeyChainStore.h"
 #import <sys/utsname.h>
 
+#import <ZBAppDelegate.h>
+
 #import "MobileGestalt.h"
 
 @interface ZBDownloadManager () {
@@ -161,8 +163,13 @@
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
     
-    CFStringRef UDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    NSString *udid = (__bridge NSString *)UDID;
+    CFStringRef udidCF = (CFStringRef)MGCopyAnswer(kMGUniqueDeviceID);
+    NSString *udid = (__bridge NSString *)udidCF;
+    NSLog(@"%@", udid);
+    
+    if (udid == NULL) {
+        udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString]; // send a fake UDID in case this is a simulator
+    }
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -200,7 +207,14 @@
     
     self->ignore = ignore;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = ignore ? [self headers] : [self headersForFile:@"file"];
+    NSDictionary *headers = ignore ? [self headers] : [self headersForFile:@"file"];
+    if (headers == NULL) {
+        [downloadDelegate postStatusUpdate:@"Could not determine device information.\n" atLevel:ZBLogLevelError];
+        [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
+        
+        return;
+    }
+    configuration.HTTPAdditionalHeaders = headers;
 
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (NSArray *repo in self.repos) {
@@ -301,7 +315,7 @@
 
 - (void)realLinkWithPackage:(ZBPackage *)package withCompletion:(void (^)(NSString *url))completionHandler{
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"xyz.willy.Zebra" accessGroup:nil];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
                             @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
                             @"device":[self deviceModelID],

@@ -163,6 +163,7 @@
         UIAlertAction *install = [UIAlertAction actionWithTitle:@"Install" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
             [self installPackage:package purchased:purchased];
+            [self presentQueue:vc parent:parent];
         }];
         
         [actions addObject:install];
@@ -192,6 +193,21 @@
         }];
         
         [actions addObject:upgrade];
+    }
+    
+    if ([package ignoreUpdates]) {
+        UIAlertAction *unignore = [UIAlertAction actionWithTitle:@"Show Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [package setIgnoreUpdates:false];
+        }];
+        
+        [actions addObject:unignore];
+    }
+    else {
+        UIAlertAction *ignore = [UIAlertAction actionWithTitle:@"Ignore Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [package setIgnoreUpdates:true];
+        }];
+        
+        [actions addObject:ignore];
     }
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];

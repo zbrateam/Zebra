@@ -63,6 +63,19 @@
     if ([repo repoID] == 0) {
         [self configureNavigationButtons];
         [self refreshTable];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
+            
+            if ([self->updates count] > 0) {
+                [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[self->updates count]]];
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self->updates count]];
+            }
+            else {
+                [packagesTabBarItem setBadgeValue:nil];
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+            }
+        });
     }
 }
 
@@ -78,10 +91,10 @@
         databaseRow = 99;
         numberOfPackages = (int)[packages count];
         if (section != NULL) {
-            totalNumberOfPackages = [databaseManager numberOfPackagesFromRepo:repo inSection:section];
+            totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo section:section];
         }
         else {
-            totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo];
+            totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo section:NULL];
         }
     }
     
@@ -204,10 +217,10 @@
     }
     else {
         if (self.section != NULL) {
-            return [databaseManager numberOfPackagesFromRepo:repo inSection:self.section];
+            return [databaseManager numberOfPackagesInRepo:repo section:self.section];
         }
         else {
-            return [databaseManager numberOfPackagesInRepo:repo];
+            return [databaseManager numberOfPackagesInRepo:repo section:NULL];
         }
     }
 }

@@ -283,7 +283,6 @@
 }
 
 - (void)clearQueue {
-    _managedQueue = [NSMutableDictionary new];
     [_managedQueue[@"Install"] removeAllObjects];
     [_managedQueue[@"Remove"] removeAllObjects];
     [_managedQueue[@"Reinstall"] removeAllObjects];

@@ -21,11 +21,15 @@
 
 @implementation ZBAppDelegate
 
++ (NSString *)bundleID {
+    return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 + (NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
     if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
-        NSString *path = [paths[0] stringByAppendingPathComponent:@"xyz.willy.Zebra"];
+        NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
         
         BOOL dirExsits;
         [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
