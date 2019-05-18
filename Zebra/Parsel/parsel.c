@@ -353,26 +353,11 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = repoID;
-    int longDesc = 0;
     
     char longDescription[1024];
     
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
-            if (longDesc && isspace(line[0])) {
-                int i = 0;
-                while (line[i] != '\0' && isspace(line[i])) {
-                    i++;
-                }
-                
-                strcat(longDescription, &line[i]);
-                
-                continue;
-            }
-            else {
-                longDesc = 0;
-            }
-            
             char *info = strtok(line, "\n");
             info = strtok(line, "\r");
             
@@ -392,7 +377,14 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             }
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
-                longDesc = 1;
+                if (isspace(line[0])) {
+                    int i = 0;
+                    while (line[i] != '\0' && isspace(line[i])) {
+                        i++;
+                    }
+                    
+                    strcat(longDescription, &line[i]);
+                }
             }
         }
         else if (dict_get(package, "Package") != 0) {
@@ -479,25 +471,11 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = repoID;
-    int longDesc = 0;
     
     char longDescription[1024];
     
     while (fgets(line, sizeof(line), file)) {
         if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\r") != 0) {
-            if (longDesc && isspace(line[0])) {
-                int i = 0;
-                while (line[i] != '\0' && isspace(line[i])) {
-                    i++;
-                }
-                strcat(longDescription, &line[i]);
-                
-                continue;
-            }
-            else {
-                longDesc = 0;
-            }
-            
             char *info = strtok(line, "\n");
             info = strtok(line, "\r");
             
@@ -517,7 +495,14 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             }
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
-                longDesc = 1;
+                if (isspace(line[0])) {
+                    int i = 0;
+                    while (line[i] != '\0' && isspace(line[i])) {
+                        i++;
+                    }
+                    
+                    strcat(longDescription, &line[i]);
+                }
             }
         }
         else if (dict_get(package, "Package") != 0) {
