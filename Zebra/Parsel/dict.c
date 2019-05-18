@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 dict* dict_new() {
-    dict *dictionary = (dict *)malloc(sizeof(dict));
+    dict *dictionary = malloc(sizeof(dict));
     assert(dictionary != NULL);
     dictionary->head = NULL;
     dictionary->tail = NULL;
@@ -33,10 +33,10 @@ void dict_add(dict *dictionary, const char *key, const char *value) {
         }
         int key_length = (int)strlen(key) + 1;
         int value_length = (int)strlen(value) + 1;
-        dictionary->head = (pair *)malloc(sizeof(pair));
+        dictionary->head = malloc(sizeof(pair));
         assert(dictionary->head != NULL);
-        dictionary->head->key = (char *)malloc(key_length * sizeof(char));
-        dictionary->head->value = (char *)malloc(value_length * sizeof(char));
+        dictionary->head->key = malloc(key_length * sizeof(char));
+        dictionary->head->value = malloc(value_length * sizeof(char));
         assert(dictionary->head->key != NULL);
         strcpy(dictionary->head->key, key);
         assert(dictionary->head->value != NULL);
