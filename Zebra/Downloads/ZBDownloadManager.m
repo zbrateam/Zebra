@@ -168,7 +168,7 @@
     NSLog(@"%@", udid);
     
     if (udid == NULL) {
-        return NULL;
+        udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString]; // send a fake UDID in case this is a simulator
     }
     
     size_t size;
