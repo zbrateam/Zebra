@@ -63,6 +63,19 @@
     if ([repo repoID] == 0) {
         [self configureNavigationButtons];
         [self refreshTable];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
+            
+            if ([self->updates count] > 0) {
+                [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[self->updates count]]];
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self->updates count]];
+            }
+            else {
+                [packagesTabBarItem setBadgeValue:nil];
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+            }
+        });
     }
 }
 
