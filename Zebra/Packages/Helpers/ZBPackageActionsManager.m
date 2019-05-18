@@ -195,6 +195,21 @@
         [actions addObject:upgrade];
     }
     
+    if ([package ignoreUpdates]) {
+        UIAlertAction *unignore = [UIAlertAction actionWithTitle:@"Show Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [package setIgnoreUpdates:false];
+        }];
+        
+        [actions addObject:unignore];
+    }
+    else {
+        UIAlertAction *ignore = [UIAlertAction actionWithTitle:@"Ignore Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [package setIgnoreUpdates:true];
+        }];
+        
+        [actions addObject:ignore];
+    }
+    
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
     [actions addObject:cancel];
     

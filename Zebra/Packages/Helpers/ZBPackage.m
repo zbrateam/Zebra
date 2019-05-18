@@ -362,7 +362,7 @@
 
 - (NSArray <ZBPackage *> *)otherVersions {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager otherVersionsForPackage:self];
+    return [databaseManager allVersionsForPackage:self];
 }
 
 - (NSUInteger)possibleActions {
@@ -393,6 +393,18 @@
 
 - (NSString *)longDescription {
     return longDescription == NULL ? shortDescription : longDescription;
+}
+
+- (BOOL)ignoreUpdates {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    
+    return [databaseManager areUpdatesIgnoredForPackage:self];
+}
+
+- (void)setIgnoreUpdates:(BOOL)ignore {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    
+    return [databaseManager setUpdatesIgnored:ignore forPackage:self];
 }
 
 @end

@@ -257,6 +257,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (ZBPackage *)packageForID:(NSString *)identifier equalVersion:(NSString *)version;
 
+/*!
+ @brief Check to see if the updates are ignored for a package.
+ @param package The package.
+ @return true if user has ignored the updates are ignored, false if otherwise
+ */
+- (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package;
+
+/*!
+ @brief Sets the ignore colum in the UPDATES table for the corresponding package
+ @param ignore whether or want the package needs to be ignored
+ @param package The package.
+ */
+- (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package;
+
 #pragma mark - Package lookup
 
 /*!

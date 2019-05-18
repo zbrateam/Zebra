@@ -73,7 +73,7 @@ char *packagesSchema() {
 }
 
 char *updatesSchema() {
-    return "UPDATES(PACKAGE STRING, VERSION STRING)";
+    return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION STRING, IGNORE INTEGER DEFAULT 0)";
 }
 
 char *schemaForTable(int table) {

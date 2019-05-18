@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isReinstallable;
 - (NSArray <ZBPackage *> *)otherVersions;
 - (NSUInteger)possibleActions;
+- (BOOL)ignoreUpdates;
+- (void)setIgnoreUpdates:(BOOL)ignore;
 @end
 
 NS_ASSUME_NONNULL_END

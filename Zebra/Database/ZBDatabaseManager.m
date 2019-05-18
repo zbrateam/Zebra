@@ -258,7 +258,7 @@
         
         createTable(database, 2);
         
-        char *updates = "DELETE FROM UPDATES;";
+        char *updates = "UPDATE UPDATES SET VERSION = NULL;";
         sqlite3_exec(database, updates, NULL, 0, NULL);
         
         numberOfUpdates = 0;
@@ -273,9 +273,13 @@
             if ([package compare:topPackage] == NSOrderedAscending) {
                 NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 numberOfUpdates++;
-                NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
+                NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\') ON CONFLICT(PACKAGE) DO UPDATE SET VERSION = \'%@\';", [topPackage identifier], [topPackage version], [topPackage version]];
+                
+                sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+                sqlite3_step(statement);
+                sqlite3_finalize(statement);
+                
                 [upgradePackageIDs addObject:[topPackage identifier]];
-                sqlite3_exec(database, [query UTF8String], NULL, 0, NULL);
             }
             [found addObject:[package identifier]];
         }
@@ -559,11 +563,17 @@
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            NSString *identifier = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
-            NSString *version = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-            
-            ZBPackage *package = [self packageForID:identifier equalVersion:version];
-            if (package != NULL) [packagesWithUpdates addObject:package];
+            if (sqlite3_column_int(statement, 2) == 0) {
+                const char *nameChars = (const char *)sqlite3_column_text(statement, 0);
+                const char *versionChars = (const char *)sqlite3_column_text(statement, 1);
+                if (versionChars != 0) {
+                    NSString *identifier = [NSString stringWithUTF8String:nameChars];
+                    NSString *version = [NSString stringWithUTF8String:versionChars];
+                    
+                    ZBPackage *package = [self packageForID:identifier equalVersion:version];
+                    if (package != NULL) [packagesWithUpdates addObject:package];
+                }
+            }
         }
         sqlite3_finalize(statement);
         
@@ -723,6 +733,45 @@
     else {
         [self printDatabaseError];
         return NULL;
+    }
+}
+
+- (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT IGNORE FROM UPDATES WHERE PACKAGE = '\%@\';", [package identifier]];
+        
+        BOOL ignored = false;
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            if (sqlite3_column_int(statement, 0) == 1) ignored = true;
+            
+            break;
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        return ignored;
+    }
+    else {
+        [self printDatabaseError];
+        return false;
+    }
+}
+
+- (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, IGNORE) VALUES(\'%@\', %d) ON CONFLICT(PACKAGE) DO UPDATE SET IGNORE = %d;", [package identifier], ignore ? 1 : 0, ignore ? 1 : 0];
+        
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        sqlite3_step(statement);
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+    }
+    else {
+        [self printDatabaseError]; 
     }
 }
 
