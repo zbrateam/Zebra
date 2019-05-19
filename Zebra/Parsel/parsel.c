@@ -377,8 +377,10 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     i++;
                 }
                 
-                if (strlen(&line[i]) + strlen(longDescription) < 32768)
+                if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
                     strcat(longDescription, &line[i]);
+                    strcat(longDescription, "\n");
+                }
                 
                 continue;
             }
@@ -502,8 +504,10 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                     i++;
                 }
                 
-                if (strlen(&line[i]) + strlen(longDescription) < 32768)
+                if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
                     strcat(longDescription, &line[i]);
+                    strcat(longDescription, "\n");
+                }
                                 
                 continue;
             }
