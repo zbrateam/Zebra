@@ -377,7 +377,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     i++;
                 }
                 
-                strcat(longDescription, &line[i]);
+                if (strlen(&line[i]) + strlen(longDescription) < 16384)
+                    strcat(longDescription, &line[i]);
                 
                 continue;
             }
@@ -397,7 +398,6 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
-            printf("%s %s\n", key, value);
             dict_add(package, key, value);
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
@@ -440,6 +440,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     sqlite3_bind_text(insertStatement, 12, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 13, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_int(insertStatement, 14, repoID);
+                    if (longDescription[0] != '\0')
+                        longDescription[strlen(longDescription) - 1] = '\0';
                     sqlite3_step(insertStatement);
                 }
                 else {
@@ -499,8 +501,10 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 while (line[i] != '\0' && isspace(line[i])) {
                     i++;
                 }
-                strcat(longDescription, &line[i]);
                 
+                if (strlen(&line[i]) + strlen(longDescription) < 16384)
+                    strcat(longDescription, &line[i]);
+                                
                 continue;
             }
             else {
@@ -560,6 +564,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 sqlite3_bind_text(insertStatement, 12, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
                 sqlite3_bind_text(insertStatement, 13, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
                 sqlite3_bind_int(insertStatement, 14, repoID);
+                if (longDescription[0] != '\0')
+                    longDescription[strlen(longDescription) - 1] = '\0';
                 sqlite3_step(insertStatement);
             }
             else {
