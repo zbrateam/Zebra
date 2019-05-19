@@ -358,7 +358,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
         return PARSEL_FILENOTFOUND;
     }
     
-    char line[256];
+    char line[2048];
     
     createTable(database, 1);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
@@ -367,7 +367,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     int safeID = repoID;
     int longDesc = 0;
     
-    char longDescription[16384];
+    char longDescription[32768];
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
@@ -377,7 +377,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     i++;
                 }
                 
-                if (strlen(&line[i]) + strlen(longDescription) < 16384)
+                if (strlen(&line[i]) + strlen(longDescription) < 32768)
                     strcat(longDescription, &line[i]);
                 
                 continue;
@@ -479,7 +479,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
     }
-    char line[512];
+    char line[2048];
     
     createTable(database, 1);
     
@@ -492,7 +492,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     int safeID = repoID;
     int longDesc = 0;
     
-    char longDescription[16384];
+    char longDescription[32768];
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
@@ -502,7 +502,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                     i++;
                 }
                 
-                if (strlen(&line[i]) + strlen(longDescription) < 16384)
+                if (strlen(&line[i]) + strlen(longDescription) < 32768)
                     strcat(longDescription, &line[i]);
                                 
                 continue;
