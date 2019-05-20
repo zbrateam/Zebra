@@ -12,6 +12,7 @@
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
+@import SDWebImage;
 
 @interface ZBWebViewController () {
     NSURL *_url;
@@ -174,6 +175,9 @@
         }
         else if ([action isEqual:@"doc"]) {
             [self openDocumentsDirectory];
+        }
+        else if ([action isEqual:@"cache"]) {
+            [self resetImageCache];
         }
     }
     else if ([destination isEqual:@"web"]) {
@@ -340,6 +344,11 @@
 - (void)openDocumentsDirectory {
     NSString *documents = [ZBAppDelegate documentsDirectory];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
+}
+
+-(void)resetImageCache{
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
 }
 
 - (IBAction)refreshPage:(id)sender {

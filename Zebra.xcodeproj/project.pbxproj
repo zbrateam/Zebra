@@ -11,8 +11,11 @@
 		363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE245228785AE00B69929 /* UICKeyChainStore.m */; };
 		363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */; };
 		363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */; };
-		36D1531922922A0B0010EC5C /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D1531822922A0B0010EC5C /* UIImageView+Network.m */; };
-		36D1531C22922C590010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D1531B22922C590010EC5C /* FTWCache.m */; };
+		36D15327229240F70010EC5C /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15324229240F60010EC5C /* UIImageView+Network.m */; };
+		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
+		36D1533F22924D9F0010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
+		36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
+		36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
@@ -71,6 +74,20 @@
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		36D1532D229249220010EC5C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		363FE2412287854E00B69929 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		363FE244228785AD00B69929 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
@@ -79,10 +96,11 @@
 		363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+blocks.m"; sourceTree = "<group>"; };
 		363FE24D2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoPurchasedPackagesTableViewController.h; sourceTree = "<group>"; };
 		363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoPurchasedPackagesTableViewController.m; sourceTree = "<group>"; };
-		36D1531722922A0A0010EC5C /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
-		36D1531822922A0B0010EC5C /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
-		36D1531A22922C590010EC5C /* FTWCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
-		36D1531B22922C590010EC5C /* FTWCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
+		36D15323229240F60010EC5C /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
+		36D15324229240F60010EC5C /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
+		36D15325229240F60010EC5C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
+		36D15326229240F70010EC5C /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
+		36D1533E22924D9F0010EC5C /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
@@ -187,6 +205,8 @@
 				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
+				36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */,
+				36D1533F22924D9F0010EC5C /* SDWebImage.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,16 +346,16 @@
 		89BDCB6F2289FEA800FC1345 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				36D1531722922A0A0010EC5C /* UIImageView+Network.h */,
-				36D1531822922A0B0010EC5C /* UIImageView+Network.m */,
+				36D15326229240F70010EC5C /* FTWCache.h */,
+				36D15325229240F60010EC5C /* FTWCache.m */,
+				36D15323229240F60010EC5C /* UIImageView+Network.h */,
+				36D15324229240F60010EC5C /* UIImageView+Network.m */,
 				49E1304722715EE5006F450A /* UIColor+GlobalColors.h */,
 				49E1304522715DB8006F450A /* UIColor+GlobalColors.m */,
 				363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */,
 				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
 				8983E19722907228000F6604 /* UIImageView+Async.h */,
 				8983E19822907228000F6604 /* UIImageView+Async.m */,
-				36D1531A22922C590010EC5C /* FTWCache.h */,
-				36D1531B22922C590010EC5C /* FTWCache.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +450,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36D1533E22924D9F0010EC5C /* SDWebImage.framework */,
 				363FE2412287854E00B69929 /* Security.framework */,
 				89463CDF2277B5C300A92FC5 /* libz.tbd */,
 				8997843F2242D25800C1138C /* libbz2.tbd */,
@@ -482,6 +503,7 @@
 				89C5FDD921B1B13700A10E58 /* Sources */,
 				89C5FDDA21B1B13700A10E58 /* Frameworks */,
 				89C5FDDB21B1B13700A10E58 /* Resources */,
+				36D1532D229249220010EC5C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -563,8 +585,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
-				36D1531922922A0B0010EC5C /* UIImageView+Network.m in Sources */,
-				36D1531C22922C590010EC5C /* FTWCache.m in Sources */,
+				36D15327229240F70010EC5C /* UIImageView+Network.m in Sources */,
+				36D15328229240F70010EC5C /* FTWCache.m in Sources */,
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
 				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
@@ -740,6 +762,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9F3ED5X4UJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
 					"DEBUG=1",
@@ -767,6 +793,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9F3ED5X4UJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
 				HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";
 				INFOPLIST_FILE = Zebra/Info.plist;
