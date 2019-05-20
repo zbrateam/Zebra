@@ -218,6 +218,7 @@
         const char *conflictsChars =        (const char *)sqlite3_column_text(statement, 9);
         const char *authorChars =           (const char *)sqlite3_column_text(statement, 10);
         const char *filenameChars =         (const char *)sqlite3_column_text(statement, 12);
+        const char *iconChars =             (const char *)sqlite3_column_text(statement, 13);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
         [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
@@ -227,7 +228,8 @@
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
-        [self setFilename:filenameChars != 0? [NSString stringWithUTF8String:filenameChars] : NULL];
+        [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
+        [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         if ([tags count] == 1 && [tags[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
@@ -244,7 +246,7 @@
             conflictsWith = [conflictsWith[0] componentsSeparatedByString:@","];
         }
         
-        int repoID = sqlite3_column_int(statement, 13);
+        int repoID = sqlite3_column_int(statement, 14);
         if (repoID > 0) {
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }
