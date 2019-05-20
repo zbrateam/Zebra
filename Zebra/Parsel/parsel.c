@@ -9,6 +9,18 @@
 #include "parsel.h"
 #include "dict.h"
 #include <ctype.h>
+#include <stdlib.h>
+
+char *trim(char *s) {
+    size_t size = strlen(s);
+    if (!size)
+        return s;
+    char *end = s + size - 1;
+    while (end >= s && (*end == '\n' || *end == '\r' || isspace(*end)))
+        end--; // remove trailing space
+    *(end + 1) = '\0';
+    return s;
+}
 
 typedef char *multi_tok_t;
 
@@ -346,7 +358,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
         return PARSEL_FILENOTFOUND;
     }
     
-    char line[256];
+    char line[2048];
     
     createTable(database, 1);
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
@@ -355,17 +367,20 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     int safeID = repoID;
     int longDesc = 0;
     
-    char longDescription[1024];
+    char longDescription[32768];
     
     while (fgets(line, sizeof(line), file)) {
-        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0) {
+        if (strlen(trim(line)) != 0) {
             if (longDesc && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
                     i++;
                 }
                 
-                strcat(longDescription, &line[i]);
+                if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
+                    strcat(longDescription, &line[i]);
+                    strcat(longDescription, "\n");
+                }
                 
                 continue;
             }
@@ -384,12 +399,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
-                
-                dict_add(package, key, value);
             }
-            else {
-                dict_add(package, key, value);
-            }
+            dict_add(package, key, value);
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
                 longDesc = 1;
@@ -431,6 +442,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     sqlite3_bind_text(insertStatement, 12, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_text(insertStatement, 13, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
                     sqlite3_bind_int(insertStatement, 14, repoID);
+                    if (longDescription[0] != '\0')
+                        longDescription[strlen(longDescription) - 1] = '\0';
                     sqlite3_step(insertStatement);
                 }
                 else {
@@ -468,7 +481,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
     }
-    char line[512];
+    char line[2048];
     
     createTable(database, 1);
     
@@ -481,17 +494,21 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     int safeID = repoID;
     int longDesc = 0;
     
-    char longDescription[1024];
+    char longDescription[32768];
     
     while (fgets(line, sizeof(line), file)) {
-        if (strcmp(line, "\n") != 0 && strcmp(line, "") != 0 && strcmp(line, "\r\n") != 0 && strcmp(line, "\r") != 0) {
+        if (strlen(trim(line)) != 0) {
             if (longDesc && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
                     i++;
                 }
-                strcat(longDescription, &line[i]);
                 
+                if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
+                    strcat(longDescription, &line[i]);
+                    strcat(longDescription, "\n");
+                }
+                                
                 continue;
             }
             else {
@@ -509,12 +526,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
-                
-                dict_add(package, key, value);
             }
-            else {
-                dict_add(package, key, value);
-            }
+            dict_add(package, key, value);
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
                 longDesc = 1;
@@ -555,6 +568,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 sqlite3_bind_text(insertStatement, 12, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
                 sqlite3_bind_text(insertStatement, 13, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
                 sqlite3_bind_int(insertStatement, 14, repoID);
+                if (longDescription[0] != '\0')
+                    longDescription[strlen(longDescription) - 1] = '\0';
                 sqlite3_step(insertStatement);
             }
             else {
