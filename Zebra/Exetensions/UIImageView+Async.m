@@ -10,6 +10,7 @@
 
 @implementation UIImageView (Async)
 
+// DO NOT USE THIS IN TABLEVIEW
 - (void)setImageFromURL:(NSURL *)url placeHolderImage:(UIImage *)placeholder {
     self.image = placeholder;
     [self resizeImage];

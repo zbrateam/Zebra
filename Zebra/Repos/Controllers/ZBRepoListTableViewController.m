@@ -29,6 +29,7 @@
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
     NSString *lastPaste;
+    UIProgressView *progressView;
 }
 
 @property (nonatomic, retain) ZBRepoManager *repoManager;
@@ -62,7 +63,16 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+    progressView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    [self.tableView addSubview:progressView];
+    [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.trailingAnchor].active = YES;
+    [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.leadingAnchor].active = YES;
+    [progressView.topAnchor constraintEqualToAnchor:self.tableView.topAnchor].active = YES;
+    
+    [progressView setTintColor:[UIColor tintColor]];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
 
 }
@@ -396,8 +406,24 @@
     else {
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
+    cell.tag = indexPath.row;
+    cell.imageView.image = [UIImage imageNamed:@"Unknown"];
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^(void) {
+        NSData *imageData = [NSData dataWithContentsOfURL:source.iconURL];
+        UIImage* image = [[UIImage alloc] initWithData:imageData];
+        if (image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (cell.tag == indexPath.row) {
+                    cell.imageView.image = image;
+                    [cell.imageView resizeImage];
+                    [cell setNeedsLayout];
+                }
+            });
+        }
+    });
     
-    [cell.iconImageView setImageFromURL:[source iconURL] placeHolderImage:[UIImage imageNamed:@"Unknown"]];
+//    [cell.iconImageView setImageFromURL:[source iconURL] placeHolderImage:[UIImage imageNamed:@"Unknown"]];
     
 //    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
 //    UIImage *icon = [databaseManager iconForRepo:source];

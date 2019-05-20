@@ -14,6 +14,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
+#import "UIImageView+Async.h"
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -170,7 +171,29 @@
     }
     else { //Package Cell
         ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
-        [(ZBPackageTableViewCell *)cell updateData:package];
+        ZBPackageTableViewCell *c = (ZBPackageTableViewCell *)cell;
+        [c updateData:package];
+
+        c.imageView.image = [UIImage imageNamed:@"Other"];
+        c.iconPath = @"Other";
+        NSURL *url = [NSURL URLWithString:package.iconPath];
+        if (url && url.scheme && url.host) {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^(void) {
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                UIImage* image = [[UIImage alloc] initWithData:imageData];
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        ZBPackage *package = (ZBPackage *)[self->_packages objectAtIndex:indexPath.row];
+                        if (c.iconPath == package.iconPath) {
+                            cell.imageView.image = image;
+                            [cell.imageView resizeImage];
+                            [cell setNeedsLayout];
+                        }
+                    });
+                }
+            });
+        }
     }
 }
 

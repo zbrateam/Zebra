@@ -16,6 +16,7 @@
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
+#import "UIImageView+Async.h"
 
 @interface ZBPackageListTableViewController () {
     NSArray *packages;
@@ -228,6 +229,28 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package];
+
+    cell.imageView.image = [UIImage imageNamed:@"Other"];
+    cell.iconPath = @"Other";
+    NSURL *url = [NSURL URLWithString:package.iconPath];
+    if (url && url.scheme && url.host) {
+        cell.iconPath = package.iconPath;
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^(void) {
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            UIImage* image = [[UIImage alloc] initWithData:imageData];
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ZBPackage *package = [self packageAtIndexPath:indexPath];
+                    if (cell.iconPath == package.iconPath) {
+                        cell.imageView.image = image;
+                        [cell.imageView resizeImage];
+                        [cell setNeedsLayout];
+                    }
+                });
+            }
+        });
+    }
     if (!needsUpdatesSection || indexPath.section != 0) {
         if ((indexPath.row - 1 >= [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
             [self loadNextPackages];

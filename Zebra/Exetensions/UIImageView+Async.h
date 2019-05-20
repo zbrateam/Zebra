@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (Async)
 - (void)setImageFromURL:(NSURL *)url placeHolderImage:(UIImage *)placeholder;
+- (void)resizeImage;
 @end
 
 NS_ASSUME_NONNULL_END

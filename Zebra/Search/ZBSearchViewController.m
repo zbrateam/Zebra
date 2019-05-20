@@ -13,6 +13,7 @@
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
+#import "UIImageView+Async.h"
 
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
@@ -160,7 +161,28 @@
     ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
     
     [cell updateData:package];
-    
+
+    cell.imageView.image = [UIImage imageNamed:@"Other"];
+    cell.iconPath = @"Other";
+    NSURL *url = [NSURL URLWithString:package.iconPath];
+    if (url && url.scheme && url.host) {
+        cell.iconPath = package.iconPath;
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^(void) {
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            UIImage* image = [[UIImage alloc] initWithData:imageData];
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ZBPackage *package = (ZBPackage *)[self->results objectAtIndex:indexPath.row];
+                    if (cell.iconPath == package.iconPath) {
+                        cell.imageView.image = image;
+                        [cell.imageView resizeImage];
+                        [cell setNeedsLayout];
+                    }
+                });
+            }
+        });
+    }
     return cell;
 }
 

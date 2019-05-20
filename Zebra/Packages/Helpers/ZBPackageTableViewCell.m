@@ -35,13 +35,7 @@
         self.iconImageView.image = sectionImage;
     }
     else {
-        NSURL *url = [NSURL URLWithString:package.iconPath];
-        if (url && url.scheme && url.host) {
-            [self.iconImageView setImageFromURL:url placeHolderImage:[UIImage imageNamed:@"Other"]];
-        }
-        else {
-            self.iconImageView.image = [UIImage imageNamed:@"Other"];
-        }
+        self.iconImageView.image = [UIImage imageNamed:@"Other"];
     }
     
     BOOL installed = [package isInstalled:false];
