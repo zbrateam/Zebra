@@ -9,6 +9,7 @@
 #import "ZBPackageTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import "UIImageView+Async.h"
 
 @implementation ZBPackageTableViewCell
 
@@ -34,7 +35,13 @@
         self.iconImageView.image = sectionImage;
     }
     else {
-        self.iconImageView.image = [UIImage imageNamed:@"Other"];
+        NSURL *url = [NSURL URLWithString:package.iconPath];
+        if (url && url.scheme && url.host) {
+            [self.iconImageView setImageFromURL:url placeHolderImage:[UIImage imageNamed:@"Other"]];
+        }
+        else {
+            self.iconImageView.image = [UIImage imageNamed:@"Other"];
+        }
     }
     
     BOOL installed = [package isInstalled:false];
