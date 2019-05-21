@@ -504,7 +504,9 @@
         int i = 0;
         for (ZBRepo *source in self->sources) {
             if ([[source.origin uppercaseString] hasPrefix:alphabet]) {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                @try {
+                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                } @catch (NSException *e) {}
                 break;
             }
             ++i;

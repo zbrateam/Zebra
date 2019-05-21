@@ -203,7 +203,9 @@
         int i = 0;
         for (ZBPackage *package in self->results) {
             if ([[package.name uppercaseString] hasPrefix:alphabet]) {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                @try {
+                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                } @catch (NSException *e) {}
                 break;
             }
             ++i;
