@@ -501,13 +501,13 @@
         return -1;
     NSString *alphabet = titles[index];
     dispatch_async(dispatch_get_main_queue(), ^{
-        int index = 0;
+        int i = 0;
         for (ZBRepo *source in self->sources) {
             if ([[source.origin uppercaseString] hasPrefix:alphabet]) {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 break;
             }
-            ++index;
+            ++i;
         }
     });
     return -1;

@@ -304,13 +304,13 @@
         return -1;
     NSString *alphabet = titles[index];
     dispatch_async(dispatch_get_main_queue(), ^{
-        int index = 0;
+        int i = 0;
         for (ZBPackage *package in self->packages) {
             if ([[package.name uppercaseString] hasPrefix:alphabet]) {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                 break;
             }
-            ++index;
+            ++i;
         }
     });
     return -1;
