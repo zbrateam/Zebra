@@ -293,6 +293,29 @@
     return 5;
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    NSInteger section = [self numberOfSectionsInTableView:tableView] - 1;
+    NSArray *titles = [self sectionIndexTitlesForTableView:tableView];
+    NSString *alphabet = titles[index];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        int index = 0;
+        for (ZBPackage *package in self->packages) {
+            if ([[package.name uppercaseString] hasPrefix:alphabet]) {
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                break;
+            }
+            ++index;
+        }
+    });
+    return -1;
+}
+
+#pragma mark - Swipe actions
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
