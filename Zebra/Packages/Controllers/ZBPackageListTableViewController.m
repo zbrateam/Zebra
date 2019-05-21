@@ -300,6 +300,8 @@
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     NSInteger section = [self numberOfSectionsInTableView:tableView] - 1;
     NSArray *titles = [self sectionIndexTitlesForTableView:tableView];
+    if (titles.count == 0)
+        return -1;
     NSString *alphabet = titles[index];
     dispatch_async(dispatch_get_main_queue(), ^{
         int index = 0;
