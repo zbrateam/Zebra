@@ -68,6 +68,8 @@
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
 		BF44B4F22293C83A00994EA8 /* NSString+UDID.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44B4F12293C83A00994EA8 /* NSString+UDID.m */; };
+		BF44B4F82294451A00994EA8 /* RepoIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44B4F72294451A00994EA8 /* RepoIconDownloader.m */; };
+		BF44B4FB22944DE000994EA8 /* PackageIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44B4FA22944DE000994EA8 /* PackageIconDownloader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -173,6 +175,10 @@
 		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
 		BF44B4F02293C7F800994EA8 /* NSString+UDID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+UDID.h"; sourceTree = "<group>"; };
 		BF44B4F12293C83A00994EA8 /* NSString+UDID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+UDID.m"; sourceTree = "<group>"; };
+		BF44B4F6229444F500994EA8 /* RepoIconDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepoIconDownloader.h; sourceTree = "<group>"; };
+		BF44B4F72294451A00994EA8 /* RepoIconDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepoIconDownloader.m; sourceTree = "<group>"; };
+		BF44B4F922944DBE00994EA8 /* PackageIconDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackageIconDownloader.h; sourceTree = "<group>"; };
+		BF44B4FA22944DE000994EA8 /* PackageIconDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackageIconDownloader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +337,10 @@
 				8983E19822907228000F6604 /* UIImageView+Async.m */,
 				BF44B4F02293C7F800994EA8 /* NSString+UDID.h */,
 				BF44B4F12293C83A00994EA8 /* NSString+UDID.m */,
+				BF44B4F6229444F500994EA8 /* RepoIconDownloader.h */,
+				BF44B4F72294451A00994EA8 /* RepoIconDownloader.m */,
+				BF44B4F922944DBE00994EA8 /* PackageIconDownloader.h */,
+				BF44B4FA22944DE000994EA8 /* PackageIconDownloader.m */,
 			);
 			path = Exetensions;
 			sourceTree = "<group>";
@@ -562,6 +572,7 @@
 				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
+				BF44B4F82294451A00994EA8 /* RepoIconDownloader.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
@@ -590,6 +601,7 @@
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
+				BF44B4FB22944DE000994EA8 /* PackageIconDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,7 +745,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FNYH7RRK6K;
+				DEVELOPMENT_TEAM = 22N4QGGT9M;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
 					"DEBUG=1",
@@ -760,7 +772,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FNYH7RRK6K;
+				DEVELOPMENT_TEAM = 22N4QGGT9M;
 				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
 				HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";
 				INFOPLIST_FILE = Zebra/Info.plist;

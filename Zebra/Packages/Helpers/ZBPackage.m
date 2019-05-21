@@ -30,6 +30,8 @@
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
+@synthesize iconPath;
+@synthesize iconImage;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     NSTask *checkFilesTask = [[NSTask alloc] init];
@@ -260,6 +262,23 @@
             sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
         }
         [self setSectionImageName:sectionStripped];
+
+        UIImage* sectionImage = [UIImage imageNamed:sectionImageName];
+        if (sectionImage != NULL) {
+            [self setIconImage:sectionImage];
+        }
+        else {
+            NSURL *testURL = [NSURL URLWithString:iconPath];
+            if (testURL && testURL.scheme && testURL.host) {
+                if(testURL.isFileURL) {
+                    NSData *data = [NSData dataWithContentsOfURL:testURL];
+                    UIImage* testImage = [UIImage imageWithData:data];
+                    if (testImage != NULL) {
+                        [self setIconImage:testImage];
+                    }
+                }
+            }
+        }
     }
     
     return self;

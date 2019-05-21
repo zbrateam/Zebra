@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import "RepoIconDownloader.h"
 #import "ZBRepoListTableViewController.h"
 #import <Repos/Controllers/ZBRepoSectionsListTableViewController.h>
 #import <Database/ZBDatabaseManager.h>
@@ -20,9 +21,8 @@
 #import "ZBAddRepoViewController.h"
 #import "ZBAddRepoDelegate.h"
 #import <Packages/Helpers/ZBPackage.h>
-#import "UIImageView+Async.h"
 
-@interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
+@interface ZBRepoListTableViewController () <ZBAddRepoDelegate, UIScrollViewDelegate> {
     NSArray *sources;
     NSMutableArray *bfns;
     ZBDatabaseManager *databaseManager;
@@ -32,6 +32,7 @@
 }
 
 @property (nonatomic, retain) ZBRepoManager *repoManager;
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 
 @end
 
@@ -39,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _imageDownloadsInProgress = [NSMutableDictionary dictionary];
     databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [databaseManager repos];
     self.repoManager = [[ZBRepoManager alloc] init];
@@ -62,7 +63,6 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
 
 }
@@ -396,9 +396,18 @@
     else {
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
-    
-    [cell.iconImageView setImageFromURL:[source iconURL] placeHolderImage:[UIImage imageNamed:@"Unknown"]];
-    
+
+    if (!source.iconImage) {
+        if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
+        {
+            [self startIconDownload:source atIndexPath:indexPath];
+        }
+        cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
+    }
+    else {
+        cell.iconImageView.image = source.iconImage;
+    }
+
 //    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
 //    UIImage *icon = [databaseManager iconForRepo:source];
     
@@ -664,4 +673,71 @@
     }
 }
 
+- (void)startIconDownload:(ZBRepo *)repo atIndexPath: (NSIndexPath *)indexPath
+{
+    RepoIconDownloader *iconDownloader = (self.imageDownloadsInProgress)[indexPath];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[RepoIconDownloader alloc] init];
+        iconDownloader.repo = repo;
+        [iconDownloader setCompletionHandler:^{
+            ZBRepoTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.iconImageView.image = repo.iconImage;
+            [self.imageDownloadsInProgress removeObjectForKey:indexPath];
+            
+        }];
+        (self.imageDownloadsInProgress)[indexPath] = iconDownloader;
+        [iconDownloader startDownload];
+    }
+}
+
+- (void)terminateAllDownloads
+{
+    // terminate all pending download connections
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
+    
+    [self.imageDownloadsInProgress removeAllObjects];
+}
+
+- (void)loadImagesForOnscreenRows
+{
+    if (self->sources.count > 0)
+    {
+        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            ZBRepo *repo = (self->sources)[indexPath.row];
+            
+            if (!repo.iconImage)
+            {
+                [self startIconDownload:repo atIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+    {
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
+
+- (void)dealloc
+{
+    [self terminateAllDownloads];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    [self terminateAllDownloads];
+}
 @end

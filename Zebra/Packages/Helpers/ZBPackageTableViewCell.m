@@ -28,15 +28,7 @@
 - (void)updateData:(ZBPackage *)package{
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    
-    UIImage* sectionImage = [UIImage imageNamed:package.sectionImageName];
-    if (sectionImage != NULL) {
-        self.iconImageView.image = sectionImage;
-    }
-    else {
-        self.iconImageView.image = [UIImage imageNamed:@"Other"];
-    }
-    
+
     BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];
     

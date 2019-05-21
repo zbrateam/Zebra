@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "PackageIconDownloader.h"
 #import "NSString+UDID.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import <sys/utsname.h>
@@ -14,6 +15,10 @@
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
+
+@interface ZBRepoPurchasedPackagesTableViewController ()
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
+@end
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -49,7 +54,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self terminateAllDownloads];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
@@ -164,6 +169,18 @@
     else { //Package Cell
         ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
         [(ZBPackageTableViewCell *)cell updateData:package];
+        if (!package.iconImage) {
+            NSURL *testURL = [NSURL URLWithString:package.iconPath];
+            if (testURL && testURL.scheme && testURL.host && !testURL.isFileURL && self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+                [self startIconDownload:package atIndexPath:indexPath];
+                ((ZBPackageTableViewCell *) cell).iconImageView.image = [UIImage imageNamed:@"Other"];
+            } else {
+                ((ZBPackageTableViewCell *) cell).iconImageView.image = [UIImage imageNamed:@"Other"];
+            }
+        }
+        else {
+            ((ZBPackageTableViewCell *) cell).iconImageView.image = package.iconImage;
+        }
     }
 }
 
@@ -255,5 +272,93 @@
     }
 }
 
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView
+                              indexPathForRowAtPoint:location];
+    
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    previewingContext.sourceRect = cell.frame;
+    
+    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    
+    packageDepictionVC.package = [self.packages objectAtIndex:indexPath.row];
+    
+    return packageDepictionVC;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+- (void)startIconDownload:(ZBPackage *)package atIndexPath: (NSIndexPath *)indexPath
+{
+    if (package.iconImage != NULL) {
+        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.iconImageView.image = package.iconImage;
+    }
+    else {
+        NSURL *testURL = [NSURL URLWithString:package.iconPath];
+        if (testURL && testURL.scheme && testURL.host && !testURL.isFileURL) {
+            PackageIconDownloader *iconDownloader = (self.imageDownloadsInProgress)[indexPath];
+            if (iconDownloader == nil)
+            {
+                iconDownloader = [[PackageIconDownloader alloc] init];
+                iconDownloader.package = package;
+                [iconDownloader setCompletionHandler:^{
+                    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    cell.iconImageView.image = package.iconImage;
+                    [self.imageDownloadsInProgress removeObjectForKey:indexPath];
+                    
+                }];
+                (self.imageDownloadsInProgress)[indexPath] = iconDownloader;
+                [iconDownloader startDownload];
+            }
+        }
+    }
+}
+
+- (void)terminateAllDownloads
+{
+    // terminate all pending download connections
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
+    
+    [self.imageDownloadsInProgress removeAllObjects];
+}
+
+- (void)loadImagesForOnscreenRows
+{
+    if (self.packages.count > 0)
+    {
+        NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            ZBPackage *package = (self.packages)[indexPath.row];
+            
+            if (!package.iconImage)
+            {
+                [self startIconDownload:package atIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+    {
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
+
+- (void)dealloc
+{
+    [self terminateAllDownloads];
+}
 
 @end

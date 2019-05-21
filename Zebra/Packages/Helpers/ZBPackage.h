@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
 @class ZBRepo;
@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *iconPath;
+@property(nonatomic, strong) UIImage *iconImage;
 @property BOOL sileoDownload;
 
 + (NSArray *)filesInstalled:(NSString *)packageID;

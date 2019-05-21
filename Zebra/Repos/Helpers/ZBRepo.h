@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *suite;
 @property (nonatomic, strong) NSString *components;
 @property (nonatomic, strong) NSString *shortURL;
+@property(nonatomic, strong) UIImage *iconImage;
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID;
 + (ZBRepo *)localRepo;

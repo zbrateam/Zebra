@@ -24,6 +24,7 @@
 @synthesize components;
 @synthesize shortURL;
 @synthesize supportSileoPay;
+@synthesize iconImage;
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID {
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
