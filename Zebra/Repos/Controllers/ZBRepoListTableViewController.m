@@ -491,6 +491,28 @@
     return 5;
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return sources.count ? [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles] : nil;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    NSArray *titles = [self sectionIndexTitlesForTableView:tableView];
+    if (titles == nil || titles.count == 0)
+        return -1;
+    NSString *alphabet = titles[index];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        int index = 0;
+        for (ZBRepo *source in self->sources) {
+            if ([[source.origin uppercaseString] hasPrefix:alphabet]) {
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                break;
+            }
+            ++index;
+        }
+    });
+    return -1;
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
