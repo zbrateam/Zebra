@@ -7,8 +7,9 @@
 //
 
 #import "ZBDownloadManager.h"
+#import "UICKeyChainStore.h"
+#import "NSString+UDID.h"
 
-#import <UIKit/UIDevice.h>
 #import <sys/sysctl.h>
 
 #import <Queue/ZBQueue.h>
@@ -16,16 +17,12 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
-#import "MobileGestalt.h"
 #import <bzlib.h>
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "UICKeyChainStore.h"
 #import <sys/utsname.h>
 
 #import <ZBAppDelegate.h>
-
-#import "MobileGestalt.h"
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -162,15 +159,7 @@
 
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    
-    CFStringRef udidCF = (CFStringRef)MGCopyAnswer(kMGUniqueDeviceID);
-    NSString *udid = (__bridge NSString *)udidCF;
-    NSLog(@"%@", udid);
-    
-    if (udid == NULL) {
-        udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString]; // send a fake UDID in case this is a simulator
-    }
-    
+
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     
@@ -181,7 +170,7 @@
     free(answer);
     
     if (path == NULL) {
-        return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+        return @{@"X-Cydia-ID" : NSString.UDID, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : NSString.UDID, @"X-Machine" : machineIdentifier};
     }
     else {
         NSError *fileError;
@@ -195,7 +184,7 @@
         
         NSString *modificationDate = [NSString stringWithFormat:@"%@ GMT", [formatter stringFromDate:date]];
         
-        return @{@"If-Modified-Since": modificationDate, @"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+        return @{@"If-Modified-Since": modificationDate, @"X-Cydia-ID" : NSString.UDID, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : NSString.UDID, @"X-Machine" : machineIdentifier};
     }
 }
 
@@ -317,7 +306,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                            @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                            @"udid": NSString.UDID,
                             @"device":[self deviceModelID],
                             @"version": package.version,
                             @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL]};

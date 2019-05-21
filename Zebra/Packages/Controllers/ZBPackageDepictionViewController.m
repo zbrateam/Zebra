@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "NSString+UDID.h"
 #import "ZBPackageDepictionViewController.h"
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
@@ -17,7 +18,6 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "UICKeyChainStore.h"
-#import "MobileGestalt.h"
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
 
@@ -105,9 +105,6 @@
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
     
-    CFStringRef UDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    NSString *udid = (__bridge NSString *)UDID;
-    
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     
@@ -117,10 +114,10 @@
     NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
     free(answer);
     
-    [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
+    [request setValue:NSString.UDID forHTTPHeaderField:@"X-Cydia-ID"];
     [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
-    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
+    [request setValue:NSString.UDID forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     
     [webView loadRequest:request];
@@ -136,7 +133,7 @@
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
         
             NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                                    @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                                    @"udid": NSString.UDID,
                                     @"device":[self deviceModelID]};
             NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
         

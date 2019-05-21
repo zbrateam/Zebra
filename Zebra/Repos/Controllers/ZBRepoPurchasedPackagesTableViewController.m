@@ -6,9 +6,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "NSString+UDID.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import <sys/utsname.h>
-#import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
@@ -60,7 +60,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     NSDictionary *test = @{ @"token": _keychain[self.repoEndpoint],
-                            @"udid": [self deviceUDID],
+                            @"udid": NSString.UDID,
                             @"device":[self deviceModelID]};
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
     
@@ -106,13 +106,6 @@
     [_keychain removeItemForKey:self.repoEndpoint];
     UINavigationController *navigationController = self.navigationController;
     [navigationController popViewControllerAnimated:YES];
-}
-
--(NSString *)deviceUDID {
-    
-    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    return udid;
-    
 }
 
 - (NSString *)deviceModelID {

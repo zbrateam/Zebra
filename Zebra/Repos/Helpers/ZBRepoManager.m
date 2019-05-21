@@ -6,10 +6,9 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import "NSString+UDID.h"
 #import "ZBRepoManager.h"
-#import "MobileGestalt.h"
 #import <sys/sysctl.h>
-#import <UIKit/UIDevice.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
@@ -232,8 +231,6 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    CFStringRef youDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    NSString *udid = (__bridge NSString *)youDID;
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -246,11 +243,11 @@
     
     [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
-    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
+    [request setValue:NSString.UDID forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     
     if ([[url scheme] isEqualToString:@"https"]) {
-        [request setValue:udid forHTTPHeaderField:@"X-Cydia-Id"];
+        [request setValue:NSString.UDID forHTTPHeaderField:@"X-Cydia-Id"];
     }
     
     [request setHTTPMethod:@"HEAD"];

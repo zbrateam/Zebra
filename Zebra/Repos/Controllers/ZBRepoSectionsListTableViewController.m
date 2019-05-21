@@ -6,13 +6,13 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "NSString+UDID.h"
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <sys/utsname.h>
-#import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import <ZBAppDelegate.h>
@@ -99,7 +99,7 @@
 
 -(void)setupRepoLogin{
     if(self.repoEndpoint){
-        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@",self.repoEndpoint,[self deviceUDID], [self deviceModelID]]];
+        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, NSString.UDID, [self deviceModelID]]];
         if (@available(iOS 11.0, *)) {
         static SFAuthenticationSession *session;
            session = [[SFAuthenticationSession alloc]
@@ -171,13 +171,6 @@
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
     NSLog(@"Done button pressed");
-}
-
--(NSString *)deviceUDID {
-    
-    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    return udid;
-    
 }
 
 - (NSString *)deviceModelID {

@@ -67,6 +67,7 @@
 		89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7.min.css */; };
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
+		BF44B4F22293C83A00994EA8 /* NSString+UDID.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44B4F12293C83A00994EA8 /* NSString+UDID.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,6 +171,8 @@
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
 		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
+		BF44B4F02293C7F800994EA8 /* NSString+UDID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+UDID.h"; sourceTree = "<group>"; };
+		BF44B4F12293C83A00994EA8 /* NSString+UDID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+UDID.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +329,8 @@
 				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
 				8983E19722907228000F6604 /* UIImageView+Async.h */,
 				8983E19822907228000F6604 /* UIImageView+Async.m */,
+				BF44B4F02293C7F800994EA8 /* NSString+UDID.h */,
+				BF44B4F12293C83A00994EA8 /* NSString+UDID.m */,
 			);
 			path = Exetensions;
 			sourceTree = "<group>";
@@ -577,6 +582,7 @@
 				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
+				BF44B4F22293C83A00994EA8 /* NSString+UDID.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
