@@ -60,7 +60,7 @@
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
-
+    [self refreshTable];
 }
 
 - (void)layoutNavigationButtons {
@@ -113,12 +113,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self checkClipboard];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self refreshTable];
 }
 
 - (NSIndexPath *)indexPathForPosition:(NSInteger)pos {
@@ -568,7 +562,7 @@
 
 #pragma mark - ZBAddRepoDelegate
 
--(void)didAddReposWithText:(NSString *)text {
+- (void)didAddReposWithText:(NSString *)text {
     [self addReposWithText:text];
 }
 
