@@ -14,10 +14,15 @@
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <SDWebImage/SDImageCacheConfig.h>
+#import <SDWebImage/SDImageCache.h>
 
 @interface ZBAppDelegate ()
 
 @end
+
+
+static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 @implementation ZBAppDelegate
 
@@ -131,7 +136,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
-    
+    [self setupSDWebImageCache];
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (error) {
@@ -334,6 +339,11 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark Private
+-(void)setupSDWebImageCache {
+    [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
 }
 
 @end
