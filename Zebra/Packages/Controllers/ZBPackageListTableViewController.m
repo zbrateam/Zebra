@@ -220,6 +220,8 @@
 }
 
 - (id)objectAtSection:(NSInteger)section {
+    if ([self.tableData count] == 0)
+        return nil;
     return [self.tableData objectAtIndex:[self trueSection:section]];
 }
 

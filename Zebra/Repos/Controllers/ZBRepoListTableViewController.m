@@ -399,6 +399,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self.tableData count] == 0)
+        return 0;
     return [[self.tableData objectAtIndex:section] count];
 }
 
