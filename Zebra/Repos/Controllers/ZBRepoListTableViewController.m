@@ -398,12 +398,7 @@
     else {
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
-    
-    //[cell.iconImageView setImageFromURL:[source iconURL] placeHolderImage:[UIImage imageNamed:@"Unknown"]];
-    if(cell.iconImageView.image == NULL){
-        //[cell.iconImageView loadImageFromURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] cachingKey:[source iconURL].absoluteString];
-        [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }
+    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     
 //    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
