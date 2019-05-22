@@ -260,7 +260,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
-    BOOL hasDataInSection = [[self objectAtSection:section] count];
+    BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
     if (isUpdateSection || hasDataInSection) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
