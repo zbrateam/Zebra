@@ -116,8 +116,8 @@
 }
 
 - (NSIndexPath *)indexPathForPosition:(NSInteger)pos {
-    NSInteger section = pos >> 32;
-    NSInteger row = pos & 0xFFFF;
+    NSInteger section = pos >> 16;
+    NSInteger row = pos & 0xFF;
     return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
@@ -173,9 +173,8 @@
     else {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         sources = [[databaseManager repos] mutableCopy];
-        
-        [self.tableView reloadData];
         [self updateCollation];
+        [self.tableView reloadData];
     }
 }
 
@@ -367,7 +366,7 @@
         NSUInteger index = [collation sectionForObject:object collationStringSelector:selector];
         NSMutableArray *section = [unsortedSections objectAtIndex:index];
         [section addObject:object];
-        sourceIndexes[[object baseFileName]] = @((index << 32) | (section.count - 1));
+        sourceIndexes[[object baseFileName]] = @((index << 16) | (section.count - 1));
     }
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
     for (NSMutableArray *section in unsortedSections) {
