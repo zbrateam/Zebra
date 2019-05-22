@@ -24,7 +24,6 @@
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
     NSMutableArray *sources;
-    NSMutableDictionary *bfns;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
@@ -43,11 +42,6 @@
     databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [[databaseManager repos] mutableCopy];
     self.repoManager = [[ZBRepoManager alloc] init];
-    
-    bfns = [NSMutableDictionary new];
-    for (ZBRepo *source in sources) {
-        bfns[source.origin] = source.baseFileName;
-    }
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self layoutNavigationButtons];
@@ -188,11 +182,6 @@
     else {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         sources = [[databaseManager repos] mutableCopy];
-        
-        bfns = [NSMutableDictionary new];
-        for (ZBRepo *source in sources) {
-            bfns[source.origin] = source.baseFileName;
-        }
         
         [self.tableView reloadData];
         [self updateCollation];
@@ -394,14 +383,18 @@
     return sections;
 }
 
+- (NSInteger)hasDataInSection:(NSInteger)section {
+    if ([self.tableData count] == 0)
+        return 0;
+    return [[self.tableData objectAtIndex:section] count];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self sectionIndexTitlesForTableView:tableView].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([self.tableData count] == 0)
-        return 0;
-    return [[self.tableData objectAtIndex:section] count];
+    return [self hasDataInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -412,8 +405,7 @@
     cell.repoLabel.text = [source origin];
     
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    NSString *bfn = bfns[source.origin];
-    [self setSpinnerVisible:[busyList[bfn] boolValue] forCell:cell];
+    [self setSpinnerVisible:[busyList[source.origin] boolValue] forCell:cell];
     
     if ([source isSecure]) {
         cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
@@ -509,7 +501,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
+    return [self hasDataInSection:section] ? 30 : 0;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -517,13 +509,13 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([self tableView:tableView numberOfRowsInSection:section] == 0)
+    if (![self hasDataInSection:section])
         return nil;
     return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    if ([[self.tableData objectAtIndex:index] count])
+    if ([self hasDataInSection:index])
         return index;
     return -1;
 }
