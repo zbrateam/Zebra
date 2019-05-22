@@ -106,6 +106,7 @@
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
+    [self updateCollation];
 }
 
 - (void)configureNavigationButtons {
@@ -130,6 +131,10 @@
     }
 }
 
+- (void)updateCollation {
+    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+}
+
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->packages = [self->databaseManager installedPackages];
@@ -143,7 +148,7 @@
         }
         
         [self.tableView reloadData];
-        
+        [self updateCollation];
     });
 }
 
@@ -160,6 +165,7 @@
         numberOfPackages = (int)[packages count];
         databaseRow += 199;
     }
+    [self updateCollation];
 }
 
 - (void)upgradeButton {
@@ -198,17 +204,23 @@
         return (ZBPackage *)[updates objectAtIndex:indexPath.row];
     }
     else {
-        return (ZBPackage *)[packages objectAtIndex:indexPath.row];
+        ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
+        return package;
     }
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (needsUpdatesSection) {
-        return 2;
-    }
-    return 1;
+    return [self sectionIndexTitlesForTableView:tableView].count + (needsUpdatesSection ? 1 : 0);
+}
+
+- (NSInteger)trueSection:(NSInteger)section {
+    return section - (needsUpdatesSection ? 1 : 0);
+}
+
+- (id)objectAtSection:(NSInteger)section {
+    return [self.tableData objectAtIndex:[self trueSection:section]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -216,12 +228,7 @@
         return updates.count;
     }
     else {
-        if (self.section != NULL) {
-            return [databaseManager numberOfPackagesInRepo:repo section:self.section];
-        }
-        else {
-            return [databaseManager numberOfPackagesInRepo:repo section:NULL];
-        }
+        return [[self objectAtSection:section] count];
     }
 }
 
@@ -257,11 +264,11 @@
     if ([repo repoID] == 0 && needsUpdatesSection && section == 0) {
         [label setText:@"Available Upgrades"];
     }
-    else if (needsUpdatesSection) {
-        [label setText:@"Installed Packages"];
+    else if ([[self objectAtSection:section] count]) {
+        [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
     }
     else {
-        [label setText:@""];
+        return nil;
     }
     [view addSubview:label];
     
@@ -281,11 +288,11 @@
     if (([repo repoID] == 0 && needsUpdatesSection && section == 0)){
         return 35;
     }
-    else if (needsUpdatesSection) {
-        return 25;
+    else if ([[self objectAtSection:section] count]) {
+        return 30;
     }
     else {
-        return 10;
+        return 0;
     }
 }
 
@@ -293,28 +300,38 @@
     return 5;
 }
 
+- (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    NSInteger sectionCount = [[collation sectionTitles] count];
+    NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
+    for (int i = 0; i < sectionCount; ++i) {
+        [unsortedSections addObject:[NSMutableArray array]];
+    }
+    for (id object in array) {
+        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        [[unsortedSections objectAtIndex:index] addObject:object];
+    }
+    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
+    for (NSMutableArray *section in unsortedSections) {
+        [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
+    }
+    return sections;
+}
+
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if ([[self objectAtSection:section] count])
+        return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:[self trueSection:section]];
+    return nil;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    NSInteger section = [self numberOfSectionsInTableView:tableView] - 1;
-    NSArray *titles = [self sectionIndexTitlesForTableView:tableView];
-    if (titles.count == 0)
-        return -1;
-    NSString *alphabet = titles[index];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        int i = 0;
-        for (ZBPackage *package in self->packages) {
-            if ([[package.name uppercaseString] hasPrefix:alphabet]) {
-                @try {
-                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                } @catch (NSException *e) {}
-                break;
-            }
-            ++i;
-        }
-    });
+    NSInteger section = [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
+    if ([[self objectAtSection:section] count])
+        return [self trueSection:section];
     return -1;
 }
 

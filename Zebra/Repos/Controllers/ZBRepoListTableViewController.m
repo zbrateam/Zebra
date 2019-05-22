@@ -23,8 +23,8 @@
 #import "UIImageView+Async.h"
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
-    NSArray *sources;
-    NSMutableArray *bfns;
+    NSMutableArray *sources;
+    NSMutableDictionary *bfns;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
@@ -41,12 +41,12 @@
     [super viewDidLoad];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
-    sources = [databaseManager repos];
+    sources = [[databaseManager repos] mutableCopy];
     self.repoManager = [[ZBRepoManager alloc] init];
     
-    bfns = [NSMutableArray new];
+    bfns = [NSMutableDictionary new];
     for (ZBRepo *source in sources) {
-        [bfns addObject:[source baseFileName]];
+        bfns[source.origin] = source.baseFileName;
     }
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
@@ -118,7 +118,6 @@
     [super viewDidAppear:animated];
     [self checkClipboard];
     [self refreshTable];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -127,22 +126,33 @@
     [self refreshTable];
 }
 
+- (void)setSpinnerVisible:(BOOL)visible forCell:(ZBRepoTableViewCell *)cell {
+    if (visible) {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+        [spinner setColor:[UIColor grayColor]];
+        spinner.frame = CGRectMake(0, 7, 0, 0);
+        [cell clearAccessoryView];
+        [cell hideChevron];
+        [cell.accessoryZBView addSubview:spinner];
+        [spinner startAnimating];
+    }
+    else {
+        [cell clearAccessoryView];
+    }
+}
+
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
-    NSInteger row = [bfns indexOfObject:bfn];
     dispatch_async(dispatch_get_main_queue(), ^{
-        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
-        
-        if (visible) {
-            UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-            [spinner setColor:[UIColor grayColor]];
-            spinner.frame = CGRectMake(0, 7, 0, 0);
-            [cell clearAccessoryView];
-            [cell hideChevron];
-            [cell.accessoryZBView addSubview:spinner];
-            [spinner startAnimating];
-        }
-        else {
-            [cell clearAccessoryView];
+        for (int section = 0; section < [self.tableView numberOfSections]; ++section) {
+            for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; ++row) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+                ZBRepo *source = [self sourceAtIndexPath:indexPath];
+                if ([source.baseFileName isEqualToString:bfn]) {
+                    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+                    [self setSpinnerVisible:visible forCell:cell];
+                    break;
+                }
+            }
         }
     });
 }
@@ -150,13 +160,13 @@
 - (void)clearAllSpinners {
     NSLog(@"Clearning all Spinners");
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; i++) {
-            ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+    for (int j = 0; j < [self.tableView numberOfSections]; ++j) {
+        for (int i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i) {
+            ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
             
-            [cell clearAccessoryView];
+            [self setSpinnerVisible:NO forCell:cell];
         }
-    });
+    }
 }
 
 - (void)editMode:(id)sender {
@@ -177,15 +187,20 @@
     }
     else {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        sources = [databaseManager repos];
+        sources = [[databaseManager repos] mutableCopy];
         
-        bfns = [NSMutableArray new];
+        bfns = [NSMutableDictionary new];
         for (ZBRepo *source in sources) {
-            [bfns addObject:[source baseFileName]];
+            bfns[source.origin] = source.baseFileName;
         }
         
         [self.tableView reloadData];
+        [self updateCollation];
     }
+}
+
+- (void)updateCollation {
+    self.tableData = [self partitionObjects:sources collationStringSelector:@selector(origin)];
 }
 
 - (void)handleURL:(NSURL *)url {
@@ -227,7 +242,6 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:true completion:nil];
         NSString *sourceURL = alertController.textFields[0].text;
         
         [self addReposWithText:sourceURL];
@@ -256,8 +270,6 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:true completion:nil];
-        
         ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
         NSString *sourceURL = url.absoluteString;
         
@@ -294,7 +306,6 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Unable to verify Repo" message:message preferredStyle:UIAlertControllerStyleAlert];
         alertController.view.tintColor = [UIColor tintColor];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [alertController dismissViewControllerAnimated:true completion:nil];
             if (present) {
                 [self showAddRepoAlert:url];
             }
@@ -304,7 +315,7 @@
     });
 }
 
--(void)addReposWithText:(NSString *)text {
+- (void)addReposWithText:(NSString *)text {
     UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
     [self presentViewController:wait animated:true completion:nil];
     
@@ -358,37 +369,49 @@
     }];
 }
 
+- (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath {
+    return self.tableData[indexPath.section][indexPath.row];
+}
+
 #pragma mark - Table view data source
 
+- (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    NSInteger sectionCount = [[collation sectionTitles] count];
+    NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
+    for (int i = 0; i < sectionCount; ++i) {
+        [unsortedSections addObject:[NSMutableArray array]];
+    }
+    for (id object in array) {
+        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        [[unsortedSections objectAtIndex:index] addObject:object];
+    }
+    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
+    for (NSMutableArray *section in unsortedSections) {
+        NSArray *data = [collation sortedArrayFromArray:section collationStringSelector:selector];
+        [sections addObject:data];
+    }
+    return sections;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self sectionIndexTitlesForTableView:tableView].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sources.count;
+    return [[self.tableData objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBRepo *source = [sources objectAtIndex:indexPath.row];
+    ZBRepo *source = [self sourceAtIndexPath:indexPath];
     
     cell.repoLabel.text = [source origin];
     
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    NSString *bfn = bfns[indexPath.row];
-    if ([busyList[bfn] boolValue]) {
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-        spinner.frame = CGRectMake(0, 7, 0, 0);
-        [spinner setColor:[UIColor grayColor]];
-        [cell clearAccessoryView];
-        [cell hideChevron];
-        [cell.accessoryZBView addSubview:spinner];
-        [spinner startAnimating];
-    }
-    else {
-        [cell clearAccessoryView];
-    }
+    NSString *bfn = bfns[source.origin];
+    [self setSpinnerVisible:[busyList[bfn] boolValue] forCell:cell];
     
     if ([source isSecure]) {
         cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
@@ -461,57 +484,45 @@
 }
 
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-     return !([[[sources objectAtIndex:indexPath.row] origin] isEqualToString:@"xTM3x Repo"]);
+     return !([[[self sourceAtIndexPath:indexPath] origin] isEqualToString:@"xTM3x Repo"]);
  }
 
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        ZBRepo *delRepo = [sources objectAtIndex:indexPath.row];
-        NSMutableArray *mutableSources = [sources mutableCopy];
-        [mutableSources removeObjectAtIndex:indexPath.row];
-        sources = (NSArray *)mutableSources;
+        ZBRepo *delRepo = [self sourceAtIndexPath:indexPath];
+        [sources removeObject:delRepo];
         
         [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self updateCollation];
         [tableView endUpdates];
         
         [self.repoManager deleteSource:delRepo];
+        // [self.tableView reloadData];
     }
- }
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
+    return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return sources.count ? [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles] : nil;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if ([self tableView:tableView numberOfRowsInSection:section] == 0)
+        return nil;
+    return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    NSArray *titles = [self sectionIndexTitlesForTableView:tableView];
-    if (titles == nil || titles.count == 0)
-        return -1;
-    NSString *alphabet = titles[index];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        int i = 0;
-        for (ZBRepo *source in self->sources) {
-            if ([[source.origin uppercaseString] hasPrefix:alphabet]) {
-                @try {
-                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                } @catch (NSException *e) {}
-                break;
-            }
-            ++i;
-        }
-    });
+    if ([[self.tableData objectAtIndex:index] count])
+        return index;
     return -1;
 }
 
@@ -523,7 +534,7 @@
     if ([destination isKindOfClass:[ZBRepoSectionsListTableViewController class]]) {
         UITableViewCell *cell = (UITableViewCell *)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        ((ZBRepoSectionsListTableViewController *)destination).repo = [sources objectAtIndex:indexPath.row];
+        ((ZBRepoSectionsListTableViewController *)destination).repo = [self sourceAtIndexPath:indexPath];
     } else if ([destination isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navCon = (UINavigationController *)destination;
         UIViewController *firstVC = navCon.viewControllers.firstObject;
@@ -535,8 +546,19 @@
 
 - (void)delewhoop:(NSNotification *)notification {
     ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sources indexOfObject:repo] inSection:0];
-    [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+    NSInteger section = 0;
+    for (NSArray *sources in self.tableData) {
+        NSInteger row = 0;
+        for (ZBRepo *source in sources) {
+            if ([repo isEqual:source]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+                [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+                break;
+            }
+            ++row;
+        }
+        ++section;
+    }
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
@@ -594,9 +616,7 @@
         if (readError != NULL) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:readError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [alertController dismissViewControllerAnimated:true completion:nil];
-            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:NULL];
             
             [alertController addAction:okAction];
             [self presentViewController:alertController animated:true completion:nil];
@@ -627,9 +647,7 @@
             }];
         }];
         
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [alertController dismissViewControllerAnimated:true completion:nil];
-        }];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:NULL];
         
         [alertController addAction:yesAction];
         [alertController addAction:noAction];
@@ -644,9 +662,7 @@
         if (readError != NULL) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:readError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [alertController dismissViewControllerAnimated:true completion:nil];
-            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:NULL];
             
             [alertController addAction:okAction];
             [self presentViewController:alertController animated:true completion:nil];
@@ -677,9 +693,7 @@
             }];
         }];
         
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [alertController dismissViewControllerAnimated:true completion:nil];
-        }];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:NULL];
         
         [alertController addAction:yesAction];
         [alertController addAction:noAction];
