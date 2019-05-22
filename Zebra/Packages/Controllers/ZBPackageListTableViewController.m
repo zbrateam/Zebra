@@ -259,31 +259,33 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
-
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
-    if ([repo repoID] == 0 && needsUpdatesSection && section == 0) {
-        [label setText:@"Available Upgrades"];
-    }
-    else if ([[self objectAtSection:section] count]) {
-        [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
+    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
+    BOOL hasDataInSection = [[self objectAtSection:section] count];
+    if (isUpdateSection || hasDataInSection) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
+        [label setFont:[UIFont boldSystemFontOfSize:15]];
+        if (isUpdateSection) {
+            [label setText:@"Available Upgrades"];
+        }
+        else if (hasDataInSection) {
+            [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
+        }
+        [view addSubview:label];
+        
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        // align label from the left and right
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+        
+        // align label from the bottom
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+        
+        return view;
     }
     else {
         return nil;
     }
-    [view addSubview:label];
-    
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    // align label from the left and right
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    
-    // align label from the bottom
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-
-    
-    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
