@@ -370,7 +370,7 @@
         [unsortedSections addObject:[NSMutableArray array]];
     }
     for (ZBRepo *object in array) {
-        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        NSUInteger index = [collation sectionForObject:object collationStringSelector:selector];
         NSMutableArray *section = [unsortedSections objectAtIndex:index];
         [section addObject:object];
         sourceIndexes[[object baseFileName]] = @((index << 32) | (section.count - 1));
