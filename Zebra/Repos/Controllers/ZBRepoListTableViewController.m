@@ -113,13 +113,18 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self checkClipboard];
-    [self refreshTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self refreshTable];
+}
+
+- (NSIndexPath *)indexPathForPosition:(NSInteger)pos {
+    NSInteger section = pos >> 32;
+    NSInteger row = pos & 0xFFFF;
+    return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
 - (void)setSpinnerVisible:(BOOL)visible forCell:(ZBRepoTableViewCell *)cell {
@@ -140,10 +145,7 @@
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger pos = [self->sourceIndexes[bfn] integerValue];
-        NSInteger section = pos >> 32;
-        NSInteger row = pos & 0xFFFF;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
         [self setSpinnerVisible:visible forCell:cell];
     });
 }
@@ -151,12 +153,10 @@
 - (void)clearAllSpinners {
     NSLog(@"Clearning all Spinners");
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
-    for (int j = 0; j < [self.tableView numberOfSections]; ++j) {
-        for (int i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i) {
-            ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
-            
-            [self setSpinnerVisible:NO forCell:cell];
-        }
+    for (NSString *bfn in sourceIndexes) {
+        NSInteger pos = [sourceIndexes[bfn] integerValue];
+        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
+        [self setSpinnerVisible:NO forCell:cell];
     }
 }
 
@@ -492,6 +492,7 @@
         [tableView endUpdates];
         
         [self.repoManager deleteSource:delRepo];
+        // We should run this, but it kills swipe to delete animation
         // [self.tableView reloadData];
     }
 }
@@ -541,10 +542,7 @@
 - (void)delewhoop:(NSNotification *)notification {
     ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
     NSInteger pos = [sourceIndexes[[repo baseFileName]] integerValue];
-    NSInteger section = pos >> 32;
-    NSInteger row = pos & 0xFFFF;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-    [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+    [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[self indexPathForPosition:pos]];
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
