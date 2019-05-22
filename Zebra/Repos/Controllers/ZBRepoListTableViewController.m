@@ -24,6 +24,7 @@
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
     NSMutableArray *sources;
+    NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
@@ -41,6 +42,7 @@
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [[databaseManager repos] mutableCopy];
+    sourceIndexes = [NSMutableDictionary new];
     self.repoManager = [[ZBRepoManager alloc] init];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
@@ -137,17 +139,12 @@
 
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
     dispatch_async(dispatch_get_main_queue(), ^{
-        for (int section = 0; section < [self.tableView numberOfSections]; ++section) {
-            for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; ++row) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-                ZBRepo *source = [self sourceAtIndexPath:indexPath];
-                if ([source.baseFileName isEqualToString:bfn]) {
-                    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-                    [self setSpinnerVisible:visible forCell:cell];
-                    break;
-                }
-            }
-        }
+        NSInteger pos = [self->sourceIndexes[bfn] integerValue];
+        NSInteger section = pos >> 32;
+        NSInteger row = pos & 0xFFFF;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [self setSpinnerVisible:visible forCell:cell];
     });
 }
 
@@ -365,15 +362,18 @@
 #pragma mark - Table view data source
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
+    [sourceIndexes removeAllObjects];
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
     NSInteger sectionCount = [[collation sectionTitles] count];
     NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
     for (int i = 0; i < sectionCount; ++i) {
         [unsortedSections addObject:[NSMutableArray array]];
     }
-    for (id object in array) {
+    for (ZBRepo *object in array) {
         NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
-        [[unsortedSections objectAtIndex:index] addObject:object];
+        NSMutableArray *section = [unsortedSections objectAtIndex:index];
+        [section addObject:object];
+        sourceIndexes[[object baseFileName]] = @((index << 32) | (section.count - 1));
     }
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
     for (NSMutableArray *section in unsortedSections) {
@@ -540,19 +540,11 @@
 
 - (void)delewhoop:(NSNotification *)notification {
     ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
-    NSInteger section = 0;
-    for (NSArray *sources in self.tableData) {
-        NSInteger row = 0;
-        for (ZBRepo *source in sources) {
-            if ([repo isEqual:source]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-                [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
-                break;
-            }
-            ++row;
-        }
-        ++section;
-    }
+    NSInteger pos = [sourceIndexes[[repo baseFileName]] integerValue];
+    NSInteger section = pos >> 32;
+    NSInteger row = pos & 0xFFFF;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+    [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
