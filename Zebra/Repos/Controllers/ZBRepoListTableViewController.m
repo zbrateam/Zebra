@@ -25,6 +25,7 @@
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
     NSMutableArray *sources;
     NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
+    NSMutableArray *sectionIndexTitles;
     ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
@@ -349,6 +350,8 @@
 }
 
 - (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath {
+    if (![self hasDataInSection:indexPath.section])
+        return nil;
     return self.tableData[indexPath.section][indexPath.row];
 }
 
@@ -356,6 +359,7 @@
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     [sourceIndexes removeAllObjects];
+    sectionIndexTitles = [NSMutableArray arrayWithArray:[[UILocalizedIndexedCollation currentCollation] sectionIndexTitles]];
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
     NSInteger sectionCount = [[collation sectionTitles] count];
     NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
@@ -368,11 +372,22 @@
         [section addObject:object];
         sourceIndexes[[object baseFileName]] = @((index << 16) | (section.count - 1));
     }
+    NSUInteger lastIndex = 0;
+    NSMutableIndexSet *sectionsToRemove = [NSMutableIndexSet indexSet];
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
     for (NSMutableArray *section in unsortedSections) {
-        NSArray *data = [collation sortedArrayFromArray:section collationStringSelector:selector];
-        [sections addObject:data];
+        if ([section count] == 0) {
+            NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
+            [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
+            lastIndex = [sectionsToRemove lastIndex] + 1;
+            
+        }
+        else {
+            NSArray *data = [collation sortedArrayFromArray:section collationStringSelector:selector];
+            [sections addObject:data];
+        }
     }
+    [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
     return sections;
 }
 
@@ -383,7 +398,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self sectionIndexTitlesForTableView:tableView].count;
+    return [sectionIndexTitles count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -498,8 +513,12 @@
     return [self hasDataInSection:section] ? 30 : 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 5;
+}
+
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return sources.count ? [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles] : nil;
+    return sectionIndexTitles;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -509,9 +528,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    if ([self hasDataInSection:index])
-        return index;
-    return -1;
+    return index;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

@@ -20,6 +20,7 @@
 @interface ZBPackageListTableViewController () {
     NSArray *packages;
     NSArray *updates;
+    NSMutableArray *sectionIndexTitles;
     BOOL needsUpdatesSection;
     int totalNumberOfPackages;
     int numberOfPackages;
@@ -212,7 +213,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self sectionIndexTitlesForTableView:tableView].count + (needsUpdatesSection ? 1 : 0);
+    return [sectionIndexTitles count] + (needsUpdatesSection ? 1 : 0);
 }
 
 - (NSInteger)trueSection:(NSInteger)section {
@@ -289,15 +290,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (([repo repoID] == 0 && needsUpdatesSection && section == 0)){
-        return 35;
-    }
-    else if ([[self objectAtSection:section] count]) {
-        return 30;
-    }
-    else {
-        return 0;
-    }
+    return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -306,6 +299,7 @@
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    sectionIndexTitles = [NSMutableArray arrayWithArray:[collation sectionIndexTitles]];
     NSInteger sectionCount = [[collation sectionTitles] count];
     NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
     for (int i = 0; i < sectionCount; ++i) {
@@ -315,28 +309,33 @@
         NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
         [[unsortedSections objectAtIndex:index] addObject:object];
     }
+    NSUInteger lastIndex = 0;
+    NSMutableIndexSet *sectionsToRemove = [NSMutableIndexSet indexSet];
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
     for (NSMutableArray *section in unsortedSections) {
-        [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
+        if ([section count] == 0) {
+            NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
+            [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
+            lastIndex = [sectionsToRemove lastIndex] + 1;
+        }
+        else {
+            [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
+        }
     }
+    [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
     return sections;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+    return sectionIndexTitles;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([[self objectAtSection:section] count])
-        return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:[self trueSection:section]];
-    return nil;
+    return [sectionIndexTitles objectAtIndex:[self trueSection:section]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    NSInteger section = [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
-    if ([[self objectAtSection:section] count])
-        return [self trueSection:section];
-    return -1;
+    return index + (needsUpdatesSection ? 1 : 0);
 }
 
 #pragma mark - Swipe actions
