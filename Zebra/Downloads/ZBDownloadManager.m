@@ -580,10 +580,14 @@
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-    NSLog(@"%lld / %lld", totalBytesWritten, totalBytesExpectedToWrite);
     ZBPackage *package = packageTasksMap[@(downloadTask.taskIdentifier)];
-    if (package)
-        [downloadDelegate predator:self progressUpdate:((double)totalBytesWritten / totalBytesExpectedToWrite) forPackage:package];
+    if (package) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self->downloadDelegate predator:self progressUpdate:((double)totalBytesWritten / totalBytesExpectedToWrite) forPackage:package];
+            });
+        });
+    }
 }
 
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(BOOL success, NSError *error))completion {

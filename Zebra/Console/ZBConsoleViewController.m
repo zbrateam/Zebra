@@ -375,7 +375,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
-        switch(level) {
+        switch (level) {
             case ZBLogLevelDescript:
                 color = [UIColor whiteColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
@@ -415,9 +415,7 @@
 #pragma mark - Hyena Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self->_progressView.progress = progress;
-    });
+    [self->_progressView setProgress:progress animated:YES];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
