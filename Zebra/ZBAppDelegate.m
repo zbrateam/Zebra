@@ -285,9 +285,21 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         case 3: { //sileo
             NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
             if([sourceApplication isEqualToString:@"com.apple.SafariViewService"]){
-                NSLog(@"SILEO OUTPUT %@", url);
-                NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
+                NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+                choices = @[@"authentication_success", @"payment_completed"];
+                index = (int)[choices indexOfObject:components[0]];
+                switch (index) {
+                    case 0: { //Authenticated
+                        NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
+                        break;
+                    }
+                    case 1: { //Purchase
+                        //Reading their documentation, a callback may not be required here. I will leave this case switch for future use however, in case I am proven wrong.
+                        break;
+                    }
+                }
+                
             }
             break;
             
