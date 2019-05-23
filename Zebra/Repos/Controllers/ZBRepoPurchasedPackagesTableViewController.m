@@ -75,7 +75,7 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         //self.packages = json[@"items"];
         [self.packages removeAllObjects];
-        for(NSString *packageID in json[@"items"]){
+        /*for(NSString *packageID in json[@"items"]){
             @try{
                 ZBPackage *package = [self.databaseManager topVersionForPackageID:packageID];
                 [self.packages addObject:package];
@@ -84,7 +84,8 @@
                 NSLog(@"Package Unavailable %@ %@", exception.reason, packageID);
             }
             
-        }
+        }*/
+        self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages: json[@"items"]];
         if(json[@"user"]){
             if([json valueForKeyPath:@"user.name"]){
                 self.userName = [json valueForKeyPath:@"user.name"];
