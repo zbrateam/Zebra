@@ -30,6 +30,10 @@
 
 @implementation ZBPackageDepictionViewController
 
+@synthesize delegate;
+@synthesize previewingGestureRecognizerForFailureRelationship;
+@synthesize sourceRect;
+@synthesize sourceView;
 @synthesize package;
 
 - (id)initWithPackageID:(NSString *)packageID {
@@ -154,9 +158,10 @@
                     self.purchased = TRUE;
                     self->package.sileoDownload = TRUE;
                 }else if(![json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
-                    UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:@"Purchase" style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
-                    //self.navigationItem.rightBarButtonItem = installButton;
-                    [self.navigationItem setRightBarButtonItem:purchaseButton animated:YES];
+                    UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:json[@"price"] style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.navigationItem setRightBarButtonItem:purchaseButton animated:YES];
+                    });
                 }
             }] resume];
         }
@@ -303,9 +308,53 @@
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                NSLog(@"Response %@", json);
+                NSLog(@"%@",json);
+                if([json[@"status"] boolValue]){
+                    [self initPurchaseLink:json[@"url"]];
+                }
             }] resume];
         }
+    }
+}
+
+-(void)initPurchaseLink:(NSString *)link{
+    NSURL *destinationUrl = [NSURL URLWithString:link];
+    if (@available(iOS 11.0, *)) {
+        static SFAuthenticationSession *session;
+        session = [[SFAuthenticationSession alloc]
+                   initWithURL:destinationUrl
+                   callbackURLScheme:@"sileo"
+                   completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                       // TODO: Nothing to do here?
+                       NSLog(@"URL %@", callbackURL);
+                       if(callbackURL){
+                           NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+                           NSArray *queryItems = urlComponents.queryItems;
+                           NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+                           for (NSURLQueryItem *q in queryItems) {
+                               [queryByKeys setValue:[q value] forKey:[q name]];
+                           }
+                           //NSString *token = queryByKeys[@"token"];
+                           //NSString *payment = queryByKeys[@"payment_secret"];
+                           
+                           NSError *error;
+                           //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
+                            if (error) {
+                            NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
+                            
+                            }
+                           
+                       }else{
+                           return;
+                       }
+                       
+                       
+                   }];
+        [session start];
+    }else{
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
+        safariVC.delegate = self;
+        [self presentViewController:safariVC animated:TRUE completion:nil];
     }
 }
 
@@ -340,10 +389,15 @@
 - (NSArray *)previewActionItems {
     return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
 }
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    // Load finished
+    NSLog(@"Load finished");
+}
 
-@synthesize delegate;
-@synthesize sourceView;
-@synthesize previewingGestureRecognizerForFailureRelationship;
-@synthesize sourceRect;
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    // Done button pressed
+    NSLog(@"Done button pressed");
+}
+
 
 @end
