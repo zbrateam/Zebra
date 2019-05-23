@@ -244,6 +244,7 @@
 }
 
 - (void)configureNavButton {
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([package isInstalled:false]) {
         if ([package otherVersions].count > 1) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
@@ -254,7 +255,7 @@
             self.navigationItem.rightBarButtonItem = removeButton;
         }
     }
-    else if([package repo].supportSileoPay && [package isPaid]){
+    else if([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
         [self determinePaidPackage];
     }
     else {
@@ -320,7 +321,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
-        if([package repo].supportSileoPay && [package isPaid]){
+        if([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0 && [package repo].supportSileoPay){
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];

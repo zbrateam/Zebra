@@ -114,18 +114,6 @@
         [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];
         if(secure){
-            /*for (id secclass in @[
-                                  (__bridge id)kSecClassGenericPassword,
-                                  (__bridge id)kSecClassInternetPassword,
-                                  (__bridge id)kSecClassCertificate,
-                                  (__bridge id)kSecClassKey,
-                                  (__bridge id)kSecClassIdentity]) {
-                NSMutableDictionary *query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                              secclass, (__bridge id)kSecClass,
-                                              nil];
-                
-                SecItemDelete((__bridge CFDictionaryRef)query);
-            }*/
             NSString *requestURL;
             if([baseURL hasSuffix:@"/"]){
                 requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint",baseURL];
