@@ -385,7 +385,6 @@
             NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
             [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
             lastIndex = [sectionsToRemove lastIndex] + 1;
-            
         }
         else {
             NSArray *data = [collation sortedArrayFromArray:section collationStringSelector:selector];
@@ -418,7 +417,7 @@
     cell.repoLabel.text = [source origin];
     
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    [self setSpinnerVisible:[busyList[source.origin] boolValue] forCell:cell];
+    [self setSpinnerVisible:[busyList[[source baseFileName]] boolValue] forCell:cell];
     
     if ([source isSecure]) {
         cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
