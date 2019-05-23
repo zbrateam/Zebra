@@ -495,7 +495,12 @@
         [sources removeObject:delRepo];
         
         [tableView beginUpdates];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if ([tableView numberOfRowsInSection:indexPath.section] == 1) {
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
         [self updateCollation];
         [tableView endUpdates];
         
