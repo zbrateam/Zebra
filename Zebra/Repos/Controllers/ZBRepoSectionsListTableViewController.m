@@ -125,7 +125,14 @@
                                      
                                     }*/
                                     self->_keychain[self.repoEndpoint] = token;
-                                    self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+                                    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];;
+                                    securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
+                                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                                        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                                              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+                                        
+                                        securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+                                    });
                                     [self.navigationItem setRightBarButtonItem:self.purchased];
                                 }else{
                                     return;
@@ -143,6 +150,7 @@
     }
 }
 
+
 -(void)dealloc{
     
 }
@@ -159,7 +167,15 @@
     NSString *token = queryByKeys[@"token"];
     NSString *payment = queryByKeys[@"payment_secret"];
     self->_keychain[self.repoEndpoint] = token;
-    self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+    //self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];;
+    securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+        
+        securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+    });
     [self.navigationItem setRightBarButtonItem:self.purchased];
 }
 
