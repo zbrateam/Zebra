@@ -327,35 +327,48 @@
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
             NSLog(@"Token %@", token);
             __block NSString *secret;
+            //Wait on getting key
+            dispatch_semaphore_t sema = dispatch_semaphore_create(0);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                NSError *error = nil;
                 [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                       authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
                 keychain.authenticationPrompt = @"Authenticate to initiate purchase.";
                 secret = keychain[idThing];
-            });
-            NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                                    @"payment_secret": secret,
-                                    @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
-                                    @"device":[self deviceModelID]};
-            NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-            
-            NSMutableURLRequest *request = [NSMutableURLRequest new];
-            [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
-            [request setHTTPMethod:@"POST"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-            [request setHTTPBody: requestData];
-            [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                NSLog(@"%@",json);
-                if([json[@"status"] boolValue]){
-                    [uiBusy stopAnimating];
-                    [self initPurchaseLink:json[@"url"]];
-                }else{
-                    [self configureNavButton];
+                dispatch_semaphore_signal(sema);
+                if(error){
+                    NSLog(@"Canceled %@", error.localizedDescription);
                 }
-            }] resume];
+            });
+            dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+            //Continue
+            if([secret length] != 0){
+                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                                               @"payment_secret": secret,
+                                               @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                                               @"device":[self deviceModelID]};
+                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+                
+                NSMutableURLRequest *request = [NSMutableURLRequest new];
+                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
+                [request setHTTPMethod:@"POST"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+                [request setHTTPBody: requestData];
+                [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                    NSLog(@"%@",json);
+                    if([json[@"status"] boolValue]){
+                        [uiBusy stopAnimating];
+                        [self initPurchaseLink:json[@"url"]];
+                    }else{
+                        [self configureNavButton];
+                    }
+                }] resume];
+            }else{
+                [self configureNavButton];
+            }
         }
     }
 }
