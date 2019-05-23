@@ -20,6 +20,7 @@
 @interface ZBPackageListTableViewController () {
     NSArray *packages;
     NSArray *updates;
+    NSMutableArray *sectionIndexTitles;
     BOOL needsUpdatesSection;
     int totalNumberOfPackages;
     int numberOfPackages;
@@ -106,6 +107,7 @@
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
+    [self updateCollation];
 }
 
 - (void)configureNavigationButtons {
@@ -130,6 +132,10 @@
     }
 }
 
+- (void)updateCollation {
+    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+}
+
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->packages = [self->databaseManager installedPackages];
@@ -143,7 +149,7 @@
         }
         
         [self.tableView reloadData];
-        
+        [self updateCollation];
     });
 }
 
@@ -160,6 +166,7 @@
         numberOfPackages = (int)[packages count];
         databaseRow += 199;
     }
+    [self updateCollation];
 }
 
 - (void)upgradeButton {
@@ -198,17 +205,25 @@
         return (ZBPackage *)[updates objectAtIndex:indexPath.row];
     }
     else {
-        return (ZBPackage *)[packages objectAtIndex:indexPath.row];
+        ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
+        return package;
     }
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (needsUpdatesSection) {
-        return 2;
-    }
-    return 1;
+    return [sectionIndexTitles count] + (needsUpdatesSection ? 1 : 0);
+}
+
+- (NSInteger)trueSection:(NSInteger)section {
+    return section - (needsUpdatesSection ? 1 : 0);
+}
+
+- (id)objectAtSection:(NSInteger)section {
+    if ([self.tableData count] == 0)
+        return nil;
+    return [self.tableData objectAtIndex:[self trueSection:section]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -216,12 +231,7 @@
         return updates.count;
     }
     else {
-        if (self.section != NULL) {
-            return [databaseManager numberOfPackagesInRepo:repo section:self.section];
-        }
-        else {
-            return [databaseManager numberOfPackagesInRepo:repo section:NULL];
-        }
+        return [[self objectAtSection:section] count];
     }
 }
 
@@ -250,48 +260,85 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
-
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
-    if ([repo repoID] == 0 && needsUpdatesSection && section == 0) {
-        [label setText:@"Available Upgrades"];
-    }
-    else if (needsUpdatesSection) {
-        [label setText:@"Installed Packages"];
+    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
+    BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
+    if (isUpdateSection || hasDataInSection) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
+        [label setFont:[UIFont boldSystemFontOfSize:15]];
+        if (isUpdateSection) {
+            [label setText:@"Available Upgrades"];
+        }
+        else if (hasDataInSection) {
+            [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
+        }
+        [view addSubview:label];
+        
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        // align label from the left and right
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+        
+        // align label from the bottom
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+        
+        return view;
     }
     else {
-        [label setText:@""];
+        return nil;
     }
-    [view addSubview:label];
-    
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    // align label from the left and right
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    
-    // align label from the bottom
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-
-    
-    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (([repo repoID] == 0 && needsUpdatesSection && section == 0)){
-        return 35;
-    }
-    else if (needsUpdatesSection) {
-        return 25;
-    }
-    else {
-        return 10;
-    }
+    return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 5;
 }
+
+- (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    sectionIndexTitles = [NSMutableArray arrayWithArray:[collation sectionIndexTitles]];
+    NSInteger sectionCount = [[collation sectionTitles] count];
+    NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
+    for (int i = 0; i < sectionCount; ++i) {
+        [unsortedSections addObject:[NSMutableArray array]];
+    }
+    for (id object in array) {
+        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        [[unsortedSections objectAtIndex:index] addObject:object];
+    }
+    NSUInteger lastIndex = 0;
+    NSMutableIndexSet *sectionsToRemove = [NSMutableIndexSet indexSet];
+    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
+    for (NSMutableArray *section in unsortedSections) {
+        if ([section count] == 0) {
+            NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
+            [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
+            lastIndex = [sectionsToRemove lastIndex] + 1;
+        }
+        else {
+            [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
+        }
+    }
+    [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
+    return sections;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return sectionIndexTitles;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [sectionIndexTitles objectAtIndex:[self trueSection:section]];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return index + (needsUpdatesSection ? 1 : 0);
+}
+
+#pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
