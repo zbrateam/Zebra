@@ -406,7 +406,7 @@
 - (void)setIgnoreUpdates:(BOOL)ignore {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     
-    return [databaseManager setUpdatesIgnored:ignore forPackage:self];
+    [databaseManager setUpdatesIgnored:ignore forPackage:self];
 }
 
 @end

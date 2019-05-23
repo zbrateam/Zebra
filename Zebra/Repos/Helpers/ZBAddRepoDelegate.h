@@ -11,7 +11,7 @@
 
 @protocol ZBAddRepoDelegate <NSObject>
 
--(void)didAddReposWithText:(NSString *)text;
+- (void)didAddReposWithText:(NSString *)text;
 
 @end
 

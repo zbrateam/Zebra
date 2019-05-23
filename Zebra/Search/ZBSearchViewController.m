@@ -188,6 +188,8 @@
     return 5;
 }
 
+#pragma mark - Swipe actions
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }

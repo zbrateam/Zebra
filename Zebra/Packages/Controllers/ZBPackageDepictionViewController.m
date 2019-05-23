@@ -207,11 +207,25 @@
     }
     else if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
         [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-    
-        NSString *description = [[package longDescription] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
-            
-        description = [description stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-        description = [description stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+        
+        NSString *originalDescription = [package longDescription];
+        NSMutableString *description = [NSMutableString stringWithCapacity:originalDescription.length];
+        [description appendString:originalDescription];
+        
+        [description replaceOccurrencesOfString:@"\n" withString:@"<br>" options:NSLiteralSearch range:NSMakeRange(0, description.length)];
+        [description replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, description.length)];
+        [description replaceOccurrencesOfString:@"\'" withString:@"\\\'" options:NSLiteralSearch range:NSMakeRange(0, description.length)];
+        NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+        NSArray *matches = [linkDetector matchesInString:description options:0 range:NSMakeRange(0, description.length)];
+        NSUInteger rangeShift = 0;
+        for (NSTextCheckingResult *result in matches) {
+            NSString *urlString = result.URL.absoluteString;
+            NSUInteger before = result.range.length;
+            NSString *anchor = [NSString stringWithFormat:@"<a href=\\\"%@\\\">%@</a>", urlString, urlString];
+            [description replaceCharactersInRange:NSMakeRange(result.range.location + rangeShift, result.range.length) withString:anchor];
+            rangeShift += anchor.length - before;
+        }
+        
         [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:^(id _Nullable idk, NSError * _Nullable error) {
             NSLog(@"%@", error);
         }];
