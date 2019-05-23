@@ -44,6 +44,7 @@
     needsRespring = false;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
+    self->_progressView.progress = 0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -61,8 +62,7 @@
     }
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
@@ -413,6 +413,12 @@
 }
 
 #pragma mark - Hyena Delegate
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->_progressView.progress = progress;
+    });
+}
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
     NSArray *debs = [filenames objectForKey:@"debs"];

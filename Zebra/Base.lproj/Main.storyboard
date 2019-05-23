@@ -678,14 +678,20 @@
                                     <action selector="complete:" destination="KgF-4e-H9k" eventType="touchUpInside" id="Pai-Bo-GJT"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mo4-QY-oSm">
+                                <rect key="frame" x="16" y="569" width="343" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="2Rr-nE-B89"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="4S3-dv-b0f" secondAttribute="trailingMargin" id="K3p-8W-Ws6"/>
+                            <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="Mo4-QY-oSm" secondAttribute="bottom" constant="26" id="RwY-2U-QLT"/>
+                            <constraint firstItem="Mo4-QY-oSm" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="SIR-yR-ugU"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="top" secondItem="4S3-dv-b0f" secondAttribute="top" id="UGk-yJ-rYb"/>
                             <constraint firstAttribute="bottom" secondItem="Dwm-vr-TSr" secondAttribute="bottom" constant="20" symbolic="YES" id="dTi-2e-qVF"/>
                             <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="bottom" constant="8" symbolic="YES" id="e8g-Cj-Zhy"/>
+                            <constraint firstItem="Mo4-QY-oSm" firstAttribute="trailing" secondItem="Dwm-vr-TSr" secondAttribute="trailing" id="lNa-9u-P54"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="4S3-dv-b0f" secondAttribute="leadingMargin" id="qyI-Ye-Rxh"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="Dwm-vr-TSr" secondAttribute="trailing" id="xNw-tf-P8o"/>
                         </constraints>
@@ -693,11 +699,12 @@
                     <connections>
                         <outlet property="completeButton" destination="Dwm-vr-TSr" id="pUE-50-T7j"/>
                         <outlet property="consoleView" destination="lpS-Lu-3mG" id="HdC-0Y-Hug"/>
+                        <outlet property="progressView" destination="Mo4-QY-oSm" id="Ny2-Rh-LsX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Klv-G8-GIq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8161" y="444"/>
+            <point key="canvasLocation" x="8160.8000000000002" y="443.92803598200902"/>
         </scene>
         <!--Repo Sections List Table View Controller-->
         <scene sceneID="BCS-v4-0OQ">
