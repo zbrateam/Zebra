@@ -153,6 +153,10 @@
                 if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
                     self.purchased = TRUE;
                     self->package.sileoDownload = TRUE;
+                }else if(![json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
+                    UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:@"Purchase" style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
+                    //self.navigationItem.rightBarButtonItem = installButton;
+                    [self.navigationItem setRightBarButtonItem:purchaseButton animated:YES];
                 }
             }] resume];
         }
@@ -272,6 +276,37 @@
 - (void)installPackage {
     [ZBPackageActionsManager installPackage:package purchased:self.purchased];
     [self presentQueue];
+}
+
+-(void)purchasePackage{
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
+        if([package repo].supportSileoPay && [package isPaid]){
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
+            NSString *secret = keychain[idThing];
+            NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
+            NSLog(@"Secret %@", secret);
+            NSLog(@"Token %@", token);
+            NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                                    @"payment_secret": keychain[idThing],
+                                    @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
+                                    @"device":[self deviceModelID]};
+            NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+            
+            NSMutableURLRequest *request = [NSMutableURLRequest new];
+            [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
+            [request setHTTPMethod:@"POST"];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+            [request setHTTPBody: requestData];
+            [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                NSLog(@"Response %@", json);
+            }] resume];
+        }
+    }
 }
 
 - (void)removePackage {
