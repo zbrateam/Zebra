@@ -129,13 +129,14 @@
 - (void)didDismissSearchController:(UISearchController *)searchController {
     [searchController unregisterForPreviewingWithContext:previewing];
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    results = nil;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if ((results.count > 0) || (results == nil)) {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ((results == nil) || (results.count)) {
         tableView.backgroundView = nil;
         return 1;
     }
@@ -157,7 +158,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
 
-    ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
+    ZBPackage *package = [results objectAtIndex:indexPath.row];
     
     [cell updateData:package];
     
