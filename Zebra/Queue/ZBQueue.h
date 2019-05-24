@@ -29,8 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
 - (void)clearQueue;
 - (NSArray *)actionsToPerform;
+- (NSMutableArray *)queueArray:(ZBQueueType)queue;
 - (BOOL)hasObjects;
 - (BOOL)containsPackage:(ZBPackage *)package;
+- (BOOL)containsPackage:(ZBPackage *)package queue:(ZBQueueType)queue;
 - (NSArray *)packagesToDownload;
 - (BOOL)needsHyena;
 @end

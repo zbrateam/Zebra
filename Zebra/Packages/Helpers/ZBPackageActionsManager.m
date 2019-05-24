@@ -28,13 +28,17 @@
     }
 }
 
++ (BOOL)canHaveAction:(NSUInteger)possibleActions forPackage:(ZBPackage *)package queue:(ZBQueueType)q {
+    return (possibleActions & q) && ![[ZBQueue sharedInstance] containsPackage:package queue:q];
+}
+
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent {
     NSMutableArray *actions = [NSMutableArray array];
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
     ZBPackageListTableViewController *controller = (ZBPackageListTableViewController *)vc;
     
-    if (possibleActions & ZBQueueTypeRemove) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeRemove]) {
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Remove" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeRemove];
             
@@ -45,7 +49,7 @@
         [actions addObject:deleteAction];
     }
     
-    if (possibleActions & ZBQueueTypeInstall) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeInstall]) {
         UITableViewRowAction *installAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Install" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeInstall];
             
@@ -57,7 +61,7 @@
         [actions addObject:installAction];
     }
     
-    if (possibleActions & ZBQueueTypeReinstall) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeReinstall]) {
         UITableViewRowAction *reinstallAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Reinstall" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeReinstall];
             
@@ -81,7 +85,7 @@
         [actions addObject:downgradeAction];
     }
     
-    if (possibleActions & ZBQueueTypeUpgrade) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeUpgrade]) {
         UITableViewRowAction *upgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Upgrade" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
             
@@ -101,7 +105,7 @@
     NSMutableArray *actions = [NSMutableArray array];
     ZBQueue *queue = [ZBQueue sharedInstance];
     
-    if (possibleActions & ZBQueueTypeRemove) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeRemove]) {
         UIPreviewAction *remove = [UIPreviewAction actionWithTitle:@"Remove" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [queue addPackage:package toQueue:ZBQueueTypeRemove];
         }];
@@ -109,7 +113,7 @@
         [actions addObject:remove];
     }
     
-    if (possibleActions & ZBQueueTypeInstall) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeInstall]) {
         UIPreviewAction *install = [UIPreviewAction actionWithTitle:@"Install" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
             [self installPackage:package purchased:purchased];
@@ -118,7 +122,7 @@
         [actions addObject:install];
     }
     
-    if (possibleActions & ZBQueueTypeReinstall) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeReinstall]) {
         UIPreviewAction *reinstall = [UIPreviewAction actionWithTitle:@"Reinstall" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [queue addPackage:package toQueue:ZBQueueTypeReinstall];
         }];
@@ -134,7 +138,7 @@
         [actions addObject:downgrade];
     }
     
-    if (possibleActions & ZBQueueTypeUpgrade) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeUpgrade]) {
         UIPreviewAction *upgrade = [UIPreviewAction actionWithTitle:@"Upgrade" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
         }];
@@ -150,7 +154,7 @@
     NSMutableArray *actions = [NSMutableArray array];
     ZBQueue *queue = [ZBQueue sharedInstance];
     
-    if (possibleActions & ZBQueueTypeRemove) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeRemove]) {
         UIAlertAction *remove = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [queue addPackage:package toQueue:ZBQueueTypeRemove];
             [self presentQueue:vc parent:parent];
@@ -159,7 +163,7 @@
         [actions addObject:remove];
     }
     
-    if (possibleActions & ZBQueueTypeInstall) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeInstall]) {
         UIAlertAction *install = [UIAlertAction actionWithTitle:@"Install" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
             [self installPackage:package purchased:purchased];
@@ -169,7 +173,7 @@
         [actions addObject:install];
     }
     
-    if (possibleActions & ZBQueueTypeReinstall) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeReinstall]) {
         UIAlertAction *reinstall = [UIAlertAction actionWithTitle:@"Reinstall" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [queue addPackage:package toQueue:ZBQueueTypeReinstall];
             [self presentQueue:vc parent:parent];
@@ -186,7 +190,7 @@
         [actions addObject:downgrade];
     }
     
-    if (possibleActions & ZBQueueTypeUpgrade) {
+    if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeUpgrade]) {
         UIAlertAction *upgrade = [UIAlertAction actionWithTitle:@"Upgrade" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
             [self presentQueue:vc parent:parent];
