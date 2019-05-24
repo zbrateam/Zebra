@@ -21,4 +21,5 @@
 
 @interface UIColor (Private)
 +(UIColor*)systemBlueColor;
++(UIColor*)systemRedColor;
 @end

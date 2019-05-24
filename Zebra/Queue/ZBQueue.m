@@ -12,6 +12,11 @@
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
 
+@interface ZBQueue () {
+    NSMutableDictionary <NSString *, NSNumber *> *packageQueues;
+}
+@end
+
 @implementation ZBQueue
 + (id)sharedInstance {
     static ZBQueue *instance = nil;
@@ -34,6 +39,8 @@
         
         _failedDepQueue = [NSMutableArray new];
         _failedConQueue = [NSMutableArray new];
+        
+        packageQueues = [NSMutableDictionary new];
     }
     
     return self;
@@ -92,6 +99,7 @@
             package = [databaseManager packageForID:[package identifier] thatSatisfiesComparison:@"<=" ofVersion:[package version] checkInstalled:false checkProvides:true];
             if (package == NULL) return;
         }
+        packageQueues[package.identifier] = @(queue);
         [queueArray addObject:package];
         [self clearPackage:package inOtherQueuesExcept:queue];
         if (!ignore) {
@@ -140,6 +148,7 @@
     NSString *key = [self queueToKey:queue];
     if (key) {
         [_managedQueue[key] removeObject:package];
+        [packageQueues removeObjectForKey:package.identifier];
     }
 }
 
@@ -247,10 +256,15 @@
     return queueArray ? queueArray[index] : nil;
 }
 
+- (ZBQueueType)queueStatusForPackageIdentifier:(NSString *)identifier {
+    return [packageQueues[identifier] intValue];
+}
+
 - (void)clearQueue {
     for (NSString *key in _managedQueue) {
         [_managedQueue[key] removeAllObjects];
     }
+    [packageQueues removeAllObjects];
     
     _failedDepQueue = [NSMutableArray new];
     _failedConQueue = [NSMutableArray new];

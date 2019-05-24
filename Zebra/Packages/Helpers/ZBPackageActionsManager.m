@@ -32,7 +32,23 @@
     return (possibleActions & q) && ![[ZBQueue sharedInstance] containsPackage:package queue:q];
 }
 
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent {
++ (UIColor *)colorForAction:(ZBQueueType)queue {
+    switch (queue) {
+        case ZBQueueTypeInstall:
+        case ZBQueueTypeUpgrade:
+            return [UIColor systemBlueColor];
+        case ZBQueueTypeReinstall:
+            return [UIColor orangeColor];
+        case ZBQueueTypeSelectable:
+            return [UIColor purpleColor];
+        case ZBQueueTypeRemove:
+            return [UIColor systemRedColor];
+        default:
+            return nil;
+    }
+}
+
++ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent completion:(void (^)(ZBQueueType))completion {
     NSMutableArray *actions = [NSMutableArray array];
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
@@ -45,6 +61,9 @@
             if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
                 [controller configureNavigationButtons];
             }
+            if (completion) {
+                completion(ZBQueueTypeRemove);
+            }
         }];
         [actions addObject:deleteAction];
     }
@@ -56,8 +75,11 @@
             if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
                 [controller configureNavigationButtons];
             }
+            if (completion) {
+                completion(ZBQueueTypeInstall);
+            }
         }];
-        installAction.backgroundColor = [UIColor systemBlueColor];
+        installAction.backgroundColor = [self colorForAction:ZBQueueTypeInstall];
         [actions addObject:installAction];
     }
     
@@ -68,21 +90,27 @@
             if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
                 [controller configureNavigationButtons];
             }
+            if (completion) {
+                completion(ZBQueueTypeReinstall);
+            }
         }];
-        reinstallAction.backgroundColor = [UIColor orangeColor];
+        reinstallAction.backgroundColor = [self colorForAction:ZBQueueTypeReinstall];
         [actions addObject:reinstallAction];
     }
     
     if (possibleActions & ZBQueueTypeSelectable) {
-        UITableViewRowAction *downgradeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Select Ver." handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        UITableViewRowAction *selectVerAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Select Ver." handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [self downgradePackage:package indexPath:indexPath viewController:vc parent:parent];
             
             if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
                 [controller configureNavigationButtons];
             }
+            if (completion) {
+                completion(ZBQueueTypeSelectable);
+            }
         }];
-        downgradeAction.backgroundColor = [UIColor purpleColor];
-        [actions addObject:downgradeAction];
+        selectVerAction.backgroundColor = [self colorForAction:ZBQueueTypeSelectable];
+        [actions addObject:selectVerAction];
     }
     
     if ([self canHaveAction:possibleActions forPackage:package queue:ZBQueueTypeUpgrade]) {
@@ -92,8 +120,11 @@
             if ([controller respondsToSelector:@selector(configureNavigationButtons)]) {
                 [controller configureNavigationButtons];
             }
+            if (completion) {
+                completion(ZBQueueTypeUpgrade);
+            }
         }];
-        upgradeAction.backgroundColor = [UIColor systemBlueColor];
+        upgradeAction.backgroundColor = [self colorForAction:ZBQueueTypeUpgrade];
         [actions addObject:upgradeAction];
     }
     
