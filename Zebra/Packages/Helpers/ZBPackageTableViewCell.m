@@ -9,8 +9,8 @@
 #import "ZBPackageTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
-//#import "UIImageView+Async.h"
-//#import "UIImageView+Network.h"
+#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Queue/ZBQueue.h>
 @import SDWebImage;
 
 @implementation ZBPackageTableViewCell
@@ -25,14 +25,16 @@
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
+    self.queueStatusLabel.hidden = YES;
+    self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)updateData:(ZBPackage *)package{
+- (void)updateData:(ZBPackage *)package {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
     
-    UIImage* sectionImage = [UIImage imageNamed:package.sectionImageName];
+    UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage != NULL) {
         if(package.iconPath){
             //[self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
@@ -68,7 +70,22 @@
     else if (paid && installed) {
         self.isInstalledImageView.image = [UIImage imageNamed:@"Installed"];
     }
-    
+    [self updateQueueStatus:package];
+}
+
+- (void)updateQueueStatus:(ZBPackage *)package {
+    ZBQueueType queue = [[ZBQueue sharedInstance] queueStatusForPackageIdentifier:package.identifier];
+    if (queue) {
+        NSString *status = queue == ZBQueueTypeSelectable ? @"Select Ver." : [[ZBQueue sharedInstance] queueToKey:queue];
+        self.queueStatusLabel.hidden = NO;
+        self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
+        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+    }
+    else {
+        self.queueStatusLabel.hidden = YES;
+        self.queueStatusLabel.text = nil;
+        self.queueStatusLabel.backgroundColor = nil;
+    }
 }
 
 - (void)layoutSubviews {

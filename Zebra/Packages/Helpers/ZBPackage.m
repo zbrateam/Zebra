@@ -275,6 +275,10 @@
     return ([[object identifier] isEqual:[self identifier]] && [[object version] isEqual:[self version]]);
 }
 
+- (BOOL)sameAs:(ZBPackage *)package {
+    return [[self identifier] isEqualToString:[package identifier]];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat: @"%@ (%@) V%@", name, identifier, version];
 }
@@ -364,7 +368,9 @@
 
 - (NSArray <ZBPackage *> *)otherVersions {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager allVersionsForPackage:self];
+    NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
+    [versions removeObject:self];
+    return versions;
 }
 
 - (NSUInteger)possibleActions {

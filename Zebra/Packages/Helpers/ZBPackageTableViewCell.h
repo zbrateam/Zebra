@@ -8,6 +8,7 @@
 
 @class ZBPackage;
 #import <UIKit/UIKit.h>
+#import <Queue/ZBQueueType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,8 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+@property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
 
-- (void)updateData:(ZBPackage*)package;
+- (void)updateData:(ZBPackage *)package;
+- (void)updateQueueStatus:(ZBPackage *)package;
 
 @end
 

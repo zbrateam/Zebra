@@ -30,6 +30,7 @@
 @interface ZBDownloadManager () {
     BOOL ignore;
     int tasks;
+    NSMutableDictionary <NSNumber *, ZBPackage *> *packageTasksMap;
 }
 @end
 
@@ -46,6 +47,7 @@
     if (self) {
         queue = [ZBQueue sharedInstance];
         filenames = [NSMutableDictionary new];
+        packageTasksMap = [NSMutableDictionary new];
     }
     
     return self;
@@ -60,6 +62,7 @@
         
         queue = [ZBQueue sharedInstance];
         filenames = [NSMutableDictionary new];
+        packageTasksMap = [NSMutableDictionary new];
     }
     
     return self;
@@ -73,6 +76,7 @@
         
         queue = [ZBQueue sharedInstance];
         filenames = [NSMutableDictionary new];
+        packageTasksMap = [NSMutableDictionary new];
     }
     
     return self;
@@ -266,7 +270,6 @@
     [self downloadRepos:repos ignoreCaching:ignore];
 }
 
-
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [self headers];
@@ -287,17 +290,19 @@
         NSURL *base = [NSURL URLWithString:comps[0]];
         
         if (url && url.host && url.scheme) {
-            NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
+            NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:url];
             tasks++;
             
+            packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
         }
         else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url){
-                NSURLSessionTask *downloadTask = [session downloadTaskWithURL:[NSURL URLWithString:url]];
+                NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
+                self->packageTasksMap[@(downloadTask.taskIdentifier)] = package;
                 [self->downloadDelegate predator:self startedDownloadForFile:package.name];
                 [downloadTask resume];
             }];
@@ -307,6 +312,7 @@
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
             tasks++;
             
+            packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
         }
@@ -574,12 +580,16 @@
     }
 }
 
-/*
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-    NSLog(@"%lld / %lld", totalBytesWritten, totalBytesExpectedToWrite);
-    [downloadDelegate predator:self progressUpdate:(double)(totalBytesWritten / totalBytesExpectedToWrite) forPackage:[[ZBPackage alloc] init]];
+    ZBPackage *package = packageTasksMap[@(downloadTask.taskIdentifier)];
+    if (package) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self->downloadDelegate predator:self progressUpdate:((double)totalBytesWritten / totalBytesExpectedToWrite) forPackage:package];
+            });
+        });
+    }
 }
-*/
 
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(BOOL success, NSError *error))completion {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -627,6 +637,7 @@
         for (NSURLSessionTask *task in dataTasks) {
             [task cancel];
         }
+        [self->packageTasksMap removeAllObjects];
     }];
 }
 
