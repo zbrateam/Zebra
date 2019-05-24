@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate>
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) ZBQueue *queue;
 @property (nonatomic) BOOL externalInstall;
 @property (strong, nonatomic) NSString *externalFilePath;

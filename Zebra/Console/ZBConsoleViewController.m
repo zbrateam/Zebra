@@ -44,6 +44,7 @@
     needsRespring = false;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
+    self->_progressView.progress = 0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -61,8 +62,7 @@
     }
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
@@ -375,7 +375,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
-        switch(level) {
+        switch (level) {
             case ZBLogLevelDescript:
                 color = [UIColor whiteColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
@@ -413,6 +413,10 @@
 }
 
 #pragma mark - Hyena Delegate
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
+    [self->_progressView setProgress:progress animated:YES];
+}
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
     NSArray *debs = [filenames objectForKey:@"debs"];
