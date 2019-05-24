@@ -261,7 +261,7 @@
 }
 
 + (void)downgradePackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@", [package name]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Downgrade %@ (%@)", [package name], [package version]] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (ZBPackage *downPackage in [package otherVersions]) {
         

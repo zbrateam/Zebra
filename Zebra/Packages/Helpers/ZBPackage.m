@@ -368,7 +368,9 @@
 
 - (NSArray <ZBPackage *> *)otherVersions {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager allVersionsForPackage:self];
+    NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
+    [versions removeObject:self];
+    return versions;
 }
 
 - (NSUInteger)possibleActions {
