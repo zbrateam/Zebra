@@ -77,7 +77,12 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         //self.packages = json[@"items"];
         [self.packages removeAllObjects];
-        self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages: json[@"items"]];
+        //Make package ids lowercase so we dont miss any
+        NSMutableArray *loweredPackages = [NSMutableArray new];
+        for(NSString *name in json[@"items"]){
+            [loweredPackages addObject:[name lowercaseString]];
+        }
+        self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages: loweredPackages];
         if(json[@"user"]){
             if([json valueForKeyPath:@"user.name"]){
                 self.userName = [json valueForKeyPath:@"user.name"];
