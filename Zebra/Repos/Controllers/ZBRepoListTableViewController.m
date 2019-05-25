@@ -153,7 +153,7 @@
 }
 
 - (void)clearAllSpinners {
-    NSLog(@"Clearning all Spinners");
+    NSLog(@"Clearing all Spinners");
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
     for (NSString *bfn in sourceIndexes) {
         NSInteger pos = [sourceIndexes[bfn] integerValue];
@@ -181,8 +181,10 @@
     else {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         sources = [[databaseManager repos] mutableCopy];
-        [self updateCollation];
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateCollation];
+            [self.tableView reloadData];
+        });
     }
 }
 
