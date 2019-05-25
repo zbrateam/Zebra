@@ -145,6 +145,10 @@
     return secure;
 }
 
+- (BOOL)canDelete {
+    return ![[self origin] isEqualToString:@"xTM3x Repo"];
+}
+
 - (BOOL)isEqual:(ZBRepo *)object {
     if (self == object)
         return TRUE;

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isSecure;
+- (BOOL)canDelete;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -492,7 +492,7 @@
 }
 
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-     return !([[[self sourceAtIndexPath:indexPath] origin] isEqualToString:@"xTM3x Repo"]);
+     return [[self sourceAtIndexPath:indexPath] canDelete];
  }
 
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

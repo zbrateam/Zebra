@@ -291,7 +291,7 @@
 //        }];
     }];
     
-    if (![[repo origin] isEqualToString:@"xTM3x Repo"]) {
+    if ([repo canDelete]) {
         UIPreviewAction *delete = [UIPreviewAction actionWithTitle:@"Delete" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteRepoTouchAction" object:self userInfo:@{@"repo": self->repo}];
         }];
