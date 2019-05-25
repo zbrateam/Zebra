@@ -272,7 +272,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         if (isUpdateSection) {
-            [label setText:@"Available Upgrades"];
+            [label setText:[NSString stringWithFormat:@"Available Upgrades (%ld)", updates.count]];
         }
         else if (hasDataInSection) {
             [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
