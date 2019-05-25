@@ -284,8 +284,8 @@
     if ([task terminationStatus] != 0) {
         NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
         //Ideally, this is only if sbreload fails
-        [task setLaunchPath:@"/bin/launchctl"];
-        [task setArguments:@[@"stop", @"com.apple.backboardd"]];
+        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setArguments:@[@"/bin/launchctl", @"stop", @"com.apple.backboardd"]];
         
         [task launch];
     }
