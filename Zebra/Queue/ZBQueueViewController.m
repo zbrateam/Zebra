@@ -26,7 +26,7 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
-    if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
+    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
     }
     else {
@@ -50,7 +50,7 @@
 }
 
 - (void)refreshTable {
-    if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
+    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
     }
     else {
@@ -159,7 +159,7 @@
 #pragma mark - Table View Delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([[_queue failedDepQueue] count] > 0 || [[_queue failedConQueue] count] > 0) {
+    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
         return NO;
     }
     else {

@@ -98,7 +98,7 @@
         }
     }
     
-    if ([results count] > 0) {
+    if ([results count]) {
         return results[0]; //The first one is probably fine
     }
     

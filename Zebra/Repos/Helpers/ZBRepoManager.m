@@ -156,7 +156,7 @@
                                 addError = error;
                             }];
                             
-                            if (errors.count > 0) {
+                            if (errors.count) {
                                 NSString *errorMessage;
                                 
                                 if (errors.count == 1) {

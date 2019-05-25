@@ -29,7 +29,7 @@
     if (self.text) {
         self.addRepoTextView.text = self.text;
         
-        self.addButton.enabled = self.addRepoTextView.text.length > 0;
+        self.addButton.enabled = self.addRepoTextView.text.length;
     }
 }
 
@@ -77,7 +77,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    self.addButton.enabled = self.addRepoTextView.text.length > 0;
+    self.addButton.enabled = self.addRepoTextView.text.length != 0;
 }
 
 /*

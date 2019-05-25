@@ -313,14 +313,12 @@
             if (!success) {
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
                 
-                if (failedURLs.count != 0) {
-                    if (failedURLs.count > 0) {
-                        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            [weakSelf addReposWithText:text];
-                        }];
-                        
-                        [errorAlert addAction:retryAction];
-                    }
+                if (failedURLs.count) {
+                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [weakSelf addReposWithText:text];
+                    }];
+                    
+                    [errorAlert addAction:retryAction];
                     
                     UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         if ([failedURLs count] > 1) {

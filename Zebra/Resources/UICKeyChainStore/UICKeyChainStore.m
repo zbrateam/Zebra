@@ -959,7 +959,7 @@ static NSString *_defaultService;
 - (void)sharedPasswordWithCompletion:(void (^)(NSString *account, NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
-    if (domain.length > 0) {
+    if (domain.length) {
         [self.class requestSharedWebCredentialForDomain:domain account:nil completion:^(NSArray *credentials, NSError *error) {
             NSDictionary *credential = credentials.firstObject;
             if (credential) {
@@ -985,7 +985,7 @@ static NSString *_defaultService;
 - (void)sharedPasswordForAccount:(NSString *)account completion:(void (^)(NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
-    if (domain.length > 0) {
+    if (domain.length) {
         [self.class requestSharedWebCredentialForDomain:domain account:account completion:^(NSArray *credentials, NSError *error) {
             NSDictionary *credential = credentials.firstObject;
             if (credential) {
@@ -1010,7 +1010,7 @@ static NSString *_defaultService;
 - (void)setSharedPassword:(NSString *)password forAccount:(NSString *)account completion:(void (^)(NSError *error))completion
 {
     NSString *domain = self.server.host;
-    if (domain.length > 0) {
+    if (domain.length) {
         SecAddSharedWebCredential((__bridge CFStringRef)domain, (__bridge CFStringRef)account, (__bridge CFStringRef)password, ^(CFErrorRef error) {
             if (completion) {
                 completion((__bridge NSError *)error);

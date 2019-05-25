@@ -161,7 +161,7 @@
     NSMutableArray *reinstallArray = _managedQueue[[self queueToKey:ZBQueueTypeReinstall]];
     NSMutableArray *upgradeArray = _managedQueue[[self queueToKey:ZBQueueTypeUpgrade]];
     
-    if ([installArray count] > 0) {
+    if ([installArray count]) {
         [commands addObject:@[@0]];
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
@@ -178,7 +178,7 @@
         [commands addObject:installCommand];
     }
     
-    if ([removeArray count] > 0) {
+    if ([removeArray count]) {
         [commands addObject:@[@1]];
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
@@ -190,7 +190,7 @@
         [commands addObject:removeCommand];
     }
     
-    if ([reinstallArray count] > 0) {
+    if ([reinstallArray count]) {
         [commands addObject:@[@2]];
         
         //Remove package first
@@ -219,7 +219,7 @@
         [commands addObject:installCommand];
     }
     
-    if ([upgradeArray count] > 0) {
+    if ([upgradeArray count]) {
         [commands addObject:@[@3]];
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
         
@@ -273,11 +273,11 @@
 - (NSArray *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
     
-    if ([_failedDepQueue count] > 0) {
+    if ([_failedDepQueue count]) {
         [actions addObject:@"Unresolved Dependencies"];
     }
     
-    if ([_failedConQueue count] > 0) {
+    if ([_failedConQueue count]) {
         [actions addObject:@"Conflictions"];
     }
     

@@ -68,7 +68,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
             
-            if ([self->updates count] > 0) {
+            if ([self->updates count]) {
                 [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[self->updates count]]];
                 [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self->updates count]];
             }
@@ -142,7 +142,7 @@
         self->numberOfPackages = (int)[self->packages count];
         
         NSArray *_updates = [self->databaseManager packagesWithUpdates];
-        self->needsUpdatesSection = [_updates count] > 0;
+        self->needsUpdatesSection = [_updates count] != 0;
 
         if (self->needsUpdatesSection) {
             self->updates = _updates;

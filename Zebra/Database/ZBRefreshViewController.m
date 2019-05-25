@@ -113,7 +113,7 @@
 
         [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
-        if (self->_consoleView.text.length > 0 ) {
+        if (self->_consoleView.text.length) {
             NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
             [self->_consoleView scrollRangeToVisible:bottom];
         }

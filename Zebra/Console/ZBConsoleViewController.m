@@ -346,7 +346,7 @@
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
 
-    if (data.length > 0) {
+    if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self writeToConsole:str atLevel:ZBLogLevelDescript];
@@ -357,7 +357,7 @@
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
 
-    if (data.length > 0) {
+    if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
