@@ -14,6 +14,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -51,12 +52,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
     [self listPurchasedSileoPackages];
 }
 
--(void)listPurchasedSileoPackages{
+- (void)listPurchasedSileoPackages{
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     NSDictionary *test = @{ @"token": _keychain[self.repoEndpoint],
@@ -93,7 +95,7 @@
     }] resume];
 }
 
--(void)logoutRepo{
+- (void)logoutRepo {
     [_keychain removeItemForKey:self.repoEndpoint];
     UINavigationController *navigationController = self.navigationController;
     [navigationController popViewControllerAnimated:YES];
@@ -205,41 +207,24 @@
     return view;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return indexPath.section == 1;
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    [tableView setEditing:NO animated:YES];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return nil;
+    }
+    ZBPackage *package = _packages[indexPath.row];
+    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(ZBQueueType queue) {
+        ZBPackageTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell updateQueueStatus:package];
+    }];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
