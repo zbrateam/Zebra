@@ -277,16 +277,18 @@
 - (void)restartSpringBoard {
     //Bye!
     NSTask *task = [[NSTask alloc] init];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:@"/chimera"]) {
-        [task setLaunchPath:@"/usr/bin/sbreload"];
-    }
-    else {
-        [task setLaunchPath:@"/usr/bin/killall"];
-        [task setArguments:@[@"-9", @"backboardd"]];
-    }
-    
+    [task setLaunchPath:@"/usr/bin/sbreload"];
     [task launch];
+    [task waitUntilExit];
+    
+    if ([task terminationStatus] != 0) {
+        NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
+        //Ideally, this is only if sbreload fails
+        [task setLaunchPath:@"/bin/launchctl"];
+        [task setArguments:@[@"stop", @"com.apple.backboardd"]];
+        
+        [task launch];
+    }
 }
 
 - (void)refreshLocalPackages {
