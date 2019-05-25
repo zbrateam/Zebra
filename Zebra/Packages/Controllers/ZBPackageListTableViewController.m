@@ -154,20 +154,20 @@
 }
 
 - (void)loadNextPackages {
-    if (databaseRow + 200 <= totalNumberOfPackages) {
-        NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:200 startingAt:databaseRow];
-        packages = [packages arrayByAddingObjectsFromArray:nextPackages];
-        numberOfPackages = (int)[packages count];
-        databaseRow += 199;
-    }
-    else if (totalNumberOfPackages - (databaseRow + 200) != 0) {
-        NSArray *nextPackages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:totalNumberOfPackages - (databaseRow + 200) startingAt:databaseRow];
-        packages = [packages arrayByAddingObjectsFromArray:nextPackages];
-        numberOfPackages = (int)[packages count];
-        databaseRow += 199;
-    }
-    [self updateCollation];
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->databaseRow + 200 <= self->totalNumberOfPackages) {
+            NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:200 startingAt:self->databaseRow];
+            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
+            self->numberOfPackages = (int)[self->packages count];
+            self->databaseRow += 199;
+        }
+        else if (self->totalNumberOfPackages - (self->databaseRow + 200) != 0) {
+            NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self->totalNumberOfPackages - (self->databaseRow + 200) startingAt:self->databaseRow];
+            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
+            self->numberOfPackages = (int)[self->packages count];
+            self->databaseRow += 199;
+        }
+        [self updateCollation];
         [self.tableView reloadData];
     });
 }
