@@ -24,6 +24,7 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
+        [databaseManager openDatabase];
         queue = [ZBQueue sharedInstance];
     }
     
@@ -153,39 +154,43 @@
         }
         
         //Then, check if any package that is installed conflicts with package
-//        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
-//
-//        sqlite3_stmt *statement;
-//        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-//        while (sqlite3_step(statement) == SQLITE_ROW) {
-//            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-//            for (NSString *dep in [conf conflictsWith]) {
-//                if ([dep containsString:[package identifier]]) {
-//                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
-//                }
-//            }
-//        }
-//        sqlite3_finalize(statement);
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
+
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2([databaseManager database], [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            for (NSString *dep in [conf conflictsWith]) {
+                if ([dep containsString:[package identifier]]) {
+                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
+                }
+            }
+        }
+        sqlite3_finalize(statement);
     }
     else if (state == 1) { //Removing package
         //Check if any package that is installed depends on this package
-//        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
-//        
-//        sqlite3_stmt *statement;
-//        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-//        while (sqlite3_step(statement) == SQLITE_ROW) {
-//            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-//            for (NSString *dep in [conf dependsOn]) {
-//                if ([dep containsString:[package identifier]]) {
-//                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
-//                }
-//            }
-//        }
-//        sqlite3_finalize(statement);
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
+        
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2([databaseManager database], [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            for (NSString *dep in [conf dependsOn]) {
+                if ([dep containsString:[package identifier]]) {
+                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
+                }
+            }
+        }
+        sqlite3_finalize(statement);
     }
     else {
         NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
     }
+}
+
+- (void)dealloc {
+    [databaseManager closeDatabase];
 }
 
 @end
