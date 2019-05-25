@@ -12,6 +12,7 @@
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
+@import SDWebImage;
 
 @interface ZBWebViewController () {
     NSURL *_url;
@@ -174,6 +175,11 @@
         }
         else if ([action isEqual:@"doc"]) {
             [self openDocumentsDirectory];
+        }
+        else if ([action isEqual:@"cache"]) {
+            [self resetImageCache];
+        }else if([action isEqual:@"keychain"]){
+            [self clearKeychain];
         }
     }
     else if ([destination isEqual:@"web"]) {
@@ -340,6 +346,22 @@
 - (void)openDocumentsDirectory {
     NSString *documents = [ZBAppDelegate documentsDirectory];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
+}
+
+-(void)resetImageCache{
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+}
+-(void)clearKeychain{
+    NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
+                                (__bridge id)kSecClassInternetPassword,
+                                (__bridge id)kSecClassCertificate,
+                                (__bridge id)kSecClassKey,
+                                (__bridge id)kSecClassIdentity];
+    for (id secItemClass in secItemClasses) {
+        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
+        SecItemDelete((__bridge CFDictionaryRef)spec);
+    }
 }
 
 - (IBAction)refreshPage:(id)sender {

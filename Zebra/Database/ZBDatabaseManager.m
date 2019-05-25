@@ -618,6 +618,28 @@
     }
 }
 
+- (NSArray <ZBPackage *> *)purchasedPackages:(NSArray<NSString *> *)requestedPackages {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *packages = [NSMutableArray new];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE IN ('\%@') ORDER BY NAME COLLATE NOCASE ASC", [requestedPackages componentsJoinedByString:@"','"]];
+        sqlite3_stmt *statement;
+        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            
+            [packages addObject:package];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        return (NSArray *)[self cleanUpDuplicatePackages:packages];
+    }
+    else {
+        [self printDatabaseError];
+        return NULL;
+    }
+}
+
 #pragma mark - Package status
 
 - (BOOL)packageIDHasUpdate:(NSString *)packageIdentifier {

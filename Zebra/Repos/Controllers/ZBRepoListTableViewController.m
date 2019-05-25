@@ -20,7 +20,9 @@
 #import "ZBAddRepoViewController.h"
 #import "ZBAddRepoDelegate.h"
 #import <Packages/Helpers/ZBPackage.h>
-#import "UIImageView+Async.h"
+//#import "UIImageView+Async.h"
+//#import "UIImageView+Network.h"
+@import SDWebImage;
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
     NSMutableArray *sources;
@@ -425,8 +427,8 @@
     else {
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
+    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
-    [cell.iconImageView setImageFromURL:[source iconURL] placeHolderImage:[UIImage imageNamed:@"Unknown"]];
     
 //    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
 //    UIImage *icon = [databaseManager iconForRepo:source];

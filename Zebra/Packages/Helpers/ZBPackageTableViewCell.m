@@ -11,6 +11,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Queue/ZBQueue.h>
+@import SDWebImage;
 
 @implementation ZBPackageTableViewCell
 
@@ -35,11 +36,25 @@
     
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage != NULL) {
-        self.iconImageView.image = sectionImage;
+        if(package.iconPath){
+            //[self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
+            //[self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
+            [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
+        }else{
+            self.iconImageView.image = sectionImage;
+        }
     }
     else {
-        self.iconImageView.image = [UIImage imageNamed:@"Other"];
+        if(package.iconPath){
+            //[self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:[UIImage imageNamed:@"Other"]];
+            //[self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
+            [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+        }else{
+            self.iconImageView.image = [UIImage imageNamed:@"Other"];
+        }
     }
+    self.iconImageView.layer.cornerRadius = 10;
+    self.iconImageView.layer.shadowRadius = 3;
     
     BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];

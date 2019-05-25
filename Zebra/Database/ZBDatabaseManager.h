@@ -201,6 +201,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results;
 
+/*!
+ @brief Get a certain number of packages from package identifiers list.
+ @discussion Queries the database for packages from package identifiers list. Will then clean up the packages (remove duplicate packages) and then return an array.
+ @param requestedPackages (Nullable) An array with package identifiers.
+ @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
+ */
+- (NSArray <ZBPackage *> *)purchasedPackages:(NSArray<NSString *> *)requestedPackages;
 #pragma mark - Package status
 
 /*!
