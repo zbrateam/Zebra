@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *iconPath;
+@property (nonatomic, strong) NSString *origBundleID;
 @property BOOL sileoDownload;
 
 + (NSArray *)filesInstalled:(NSString *)packageID;
