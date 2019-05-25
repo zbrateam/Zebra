@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
+		3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */; };
 		363FE2422287854F00B69929 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
 		363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE245228785AE00B69929 /* UICKeyChainStore.m */; };
 		363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */; };
@@ -88,6 +90,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBFeaturedCollectionViewCell.h; sourceTree = "<group>"; };
+		3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBFeaturedCollectionViewCell.m; sourceTree = "<group>"; };
+		3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBFeaturedCollectionViewCell.xib; sourceTree = "<group>"; };
 		363FE2412287854E00B69929 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		363FE244228785AD00B69929 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		363FE245228785AE00B69929 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -301,6 +306,9 @@
 				363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */,
 				898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */,
+				3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */,
+				3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */,
+				3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -549,6 +557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */,
 				89C90FE3227B767900325AAD /* twitter@3x.png in Resources */,
 				893A17E5225FC24200E253CD /* report@2x.png in Resources */,
 				89DB3BB32249A74B000F8983 /* repos@3x.png in Resources */,
@@ -591,6 +600,7 @@
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
+				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,

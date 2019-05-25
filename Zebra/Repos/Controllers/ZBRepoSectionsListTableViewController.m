@@ -15,7 +15,9 @@
 #import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
+#import "ZBFeaturedCollectionViewCell.h"
 #import <ZBAppDelegate.h>
+@import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
 
@@ -79,6 +81,39 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [self.FeaturedContainer removeFromSuperview];
+    UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+    self.tableView.tableHeaderView = blankHeader;
+    [self.tableView layoutIfNeeded];
+    if(repo.supportsFeaturedPackages){
+        NSString *requestURL;
+        if([repo.baseURL hasSuffix:@"/"]){
+            requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json",repo.baseURL];
+        }else{
+            requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json",repo.baseURL];
+        }
+        NSURL *checkingURL = [NSURL URLWithString:requestURL];
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithURL:checkingURL
+                completionHandler:^(NSData *data,
+                                    NSURLResponse *response,
+                                    NSError *error) {
+                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                    if(data != nil && (long)[httpResponse statusCode] != 404){
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                             options:kNilOptions
+                                                                               error:nil];
+                        NSLog(@"Downloaded %@", json);
+                        self.tableView.tableHeaderView = self.FeaturedContainer;
+                        self.fullJSON = json;
+                        self.featuredPackages = json[@"banners"];
+                        NSLog(@"BANNERS %@", self.featuredPackages);
+                        [self setupFeaturedPackages];
+                    }
+                    
+                }] resume];
+
+    }
     if(!self.repoEndpoint){
         if([[_keychain stringForKey:repo.baseURL] length] != 0){
                 self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
@@ -95,6 +130,20 @@
             [self.navigationItem setRightBarButtonItem:self.purchased];
         }
     }
+}
+
+-(void)setupFeaturedPackages{
+    UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.itemSize = CGSizeMake(100, 100);
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    self.featuredCollection = [[UICollectionView alloc] initWithFrame:self.FeaturedContainer.frame collectionViewLayout:flowLayout];
+    self.featuredCollection.delegate = self;
+    self.featuredCollection.dataSource = self;
+    [self.featuredCollection registerClass:[ZBFeaturedCollectionViewCell class] forCellWithReuseIdentifier:@"imageCell"];
+    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 0.f)];
+    [self.FeaturedContainer addSubview:self.featuredCollection];
+    self.featuredCollection.backgroundColor = [UIColor whiteColor];
+    //[self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
 }
 
 -(void)setupRepoLogin{
@@ -300,6 +349,38 @@
     }
     
     return @[refresh];
+}
+
+#pragma mark UICollectionView delegates
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ZBFeaturedCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
+    //imageView.image = [UIImage imageNamed:@"Image"];
+    NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
+    [imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    [cell addSubview:imageView];
+    cell.backgroundColor=[UIColor clearColor];
+    cell.layer.cornerRadius = 10.0f;
+    cell.layer.borderWidth = 1.0f;
+    cell.layer.borderColor = [UIColor clearColor].CGColor;
+    cell.layer.masksToBounds = YES;
+    
+    /*cell.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.layer.shadowOffset = CGSizeMake(0, 2.0f);
+    cell.layer.shadowRadius = 10.0f;
+    cell.layer.shadowOpacity = 0.5f;
+    cell.layer.masksToBounds = NO;
+    cell.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:cell.bounds cornerRadius:cell.contentView.layer.cornerRadius].CGPath;*/
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [_featuredPackages count];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(CGRectGetWidth(collectionView.frame)/1.7, (CGRectGetHeight(collectionView.frame)/1.2));
 }
 
 

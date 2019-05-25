@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -709,14 +712,38 @@
         <!--Repo Sections List Table View Controller-->
         <scene sceneID="BCS-v4-0OQ">
             <objects>
-                <tableViewController id="bGz-84-RrI" customClass="ZBRepoSectionsListTableViewController" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="bGz-84-RrI" customClass="ZBRepoSectionsListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hlV-dP-QmP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Y9c-lv-ObS">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="H0k-XV-qMt">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
+                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qNT-My-hEi">
+                                        <size key="itemSize" width="192" height="127"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <cells/>
+                                </collectionView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.50949435759999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="H0k-XV-qMt" secondAttribute="bottom" id="2aQ-Fg-ZWU"/>
+                                <constraint firstItem="H0k-XV-qMt" firstAttribute="leading" secondItem="Y9c-lv-ObS" secondAttribute="leading" id="8dn-mr-P0K"/>
+                                <constraint firstAttribute="trailing" secondItem="H0k-XV-qMt" secondAttribute="trailing" id="RIn-DR-HFY"/>
+                                <constraint firstItem="H0k-XV-qMt" firstAttribute="top" secondItem="Y9c-lv-ObS" secondAttribute="top" id="ZVm-ol-Fov"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="repoSectionCell" textLabel="rZ1-lO-iJO" detailTextLabel="NsY-iH-dLr" style="IBUITableViewCellStyleValue1" id="gJz-2K-LuO">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="191" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gJz-2K-LuO" id="LQ9-yq-ilC">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -751,10 +778,14 @@
                             <outlet property="delegate" destination="bGz-84-RrI" id="Oi9-g5-dgc"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="FeaturedContainer" destination="Y9c-lv-ObS" id="Wic-Ks-d8E"/>
+                        <outlet property="featuredCollection" destination="H0k-XV-qMt" id="ohM-GF-GcT"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fT-2U-Yfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4279" y="-287"/>
+            <point key="canvasLocation" x="4277.6000000000004" y="-287.40629685157421"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lhh-TD-X9e">
@@ -801,7 +832,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
         <segue reference="l9h-er-JrZ"/>
-        <segue reference="hk8-hZ-Cdu"/>
+        <segue reference="TU3-4Y-Pen"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>

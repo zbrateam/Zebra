@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *suite;
 @property (nonatomic, strong) NSString *components;
 @property (nonatomic, strong) NSString *shortURL;
+@property (nonatomic) BOOL supportsFeaturedPackages;
+@property (nonatomic) BOOL checkedSupportFeaturedPackages;
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID;
 + (ZBRepo *)localRepo;

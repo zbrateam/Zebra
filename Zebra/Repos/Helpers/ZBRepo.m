@@ -136,6 +136,32 @@
                         
                     }] resume];
         }
+        //prevent constant network spam
+        if(!self.checkedSupportFeaturedPackages){
+            //Check for featured string
+            NSString *requestURL;
+            if([baseURL hasSuffix:@"/"]){
+                requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json",baseURL];
+            }else{
+                requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json",baseURL];
+            }
+            NSURL *checkingURL = [NSURL URLWithString:requestURL];
+            NSURLSession *session = [NSURLSession sharedSession];
+            [[session dataTaskWithURL:checkingURL
+                    completionHandler:^(NSData *data,
+                                        NSURLResponse *response,
+                                        NSError *error) {
+                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                        if(data != nil && (long)[httpResponse statusCode] != 404){
+                            [self setSupportsFeaturedPackages:TRUE];
+                        }
+                        
+                    }] resume];
+            [self setCheckedSupportFeaturedPackages:TRUE];
+        }
+        
+        
+        
     }
     
     return self;
