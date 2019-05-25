@@ -93,11 +93,15 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchText isEqualToString:@""]) {
         results = [databaseManager searchForPackageName:searchText numberOfResults:25];
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
     else {
         results = nil;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 }
 
@@ -105,7 +109,9 @@
     [searchBar resignFirstResponder];
     [databaseManager closeDatabase];
     results = [databaseManager searchForPackageName:[searchBar text] numberOfResults:-1];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -130,7 +136,9 @@
     [searchController unregisterForPreviewingWithContext:previewing];
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     results = nil;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - Table view data source
