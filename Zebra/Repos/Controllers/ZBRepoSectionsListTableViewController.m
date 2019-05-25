@@ -360,6 +360,25 @@
     NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
     [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     cell.packageID = currentBanner[@"package"];
+    //Setting up title label
+    if(cell.titleLabel){
+        [cell.titleLabel removeFromSuperview];
+    }
+    cell.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width / 12, cell.frame.size.height / 1.5, 150, 30)];
+    [cell.titleLabel setText:currentBanner[@"title"]];
+    [cell.titleLabel setTextColor:[UIColor whiteColor]];
+    UIFont *currentFont = cell.titleLabel.font;
+    UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",currentFont.fontName] size:currentFont.pointSize];
+    cell.titleLabel.font = newFont;
+    cell.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    cell.titleLabel.layer.shadowRadius = 5.0;
+    cell.titleLabel.layer.shadowOpacity = 1.0;
+    cell.titleLabel.layer.masksToBounds = NO;
+    cell.titleLabel.layer.shouldRasterize = YES;
+    
+    [cell.contentView addSubview:cell.titleLabel];
+    cell.titleLabel.textColor = [UIColor whiteColor];
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     cell.backgroundColor=[UIColor clearColor];
     cell.layer.cornerRadius = 10.0f;

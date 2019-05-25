@@ -24,6 +24,14 @@
     return _imageView;
 }
 
+-(UILabel *) titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] initWithFrame:self.contentView.bounds];
+        [self.contentView addSubview:_titleLabel];
+    }
+    return _titleLabel;
+}
+
 // Here we remove all the custom stuff that we added to our subclassed cell
 -(void)prepareForReuse
 {
