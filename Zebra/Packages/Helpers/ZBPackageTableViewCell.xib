@@ -34,8 +34,8 @@
                                     <constraint firstAttribute="width" secondItem="Lo3-WF-a56" secondAttribute="height" multiplier="1:1" id="ttm-ck-uaj"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dav-QO-F7g">
-                                <rect key="frame" x="61.5" y="35.5" width="323.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dav-QO-F7g">
+                                <rect key="frame" x="61.5" y="35.5" width="287.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.43137254899999999" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -46,8 +46,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="W1V-FN-4oO">
                                 <rect key="frame" x="352" y="10" width="14" height="14"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vR-eE-fuU">
-                                <rect key="frame" x="349.5" y="35.5" width="35.5" height="16"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vR-eE-fuU">
+                                <rect key="frame" x="349" y="35.5" width="36" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -59,12 +59,12 @@
                             <constraint firstAttribute="bottom" secondItem="Lo3-WF-a56" secondAttribute="bottom" constant="10" id="41Q-UR-ub7"/>
                             <constraint firstItem="skW-bn-gqa" firstAttribute="leading" secondItem="Lo3-WF-a56" secondAttribute="trailing" constant="10" id="4L7-bZ-v4O"/>
                             <constraint firstItem="dav-QO-F7g" firstAttribute="leading" secondItem="Lo3-WF-a56" secondAttribute="trailing" constant="10" id="59r-e0-aqO"/>
+                            <constraint firstItem="1vR-eE-fuU" firstAttribute="leading" secondItem="dav-QO-F7g" secondAttribute="trailing" id="7fk-tw-yjY"/>
                             <constraint firstItem="Lo3-WF-a56" firstAttribute="top" secondItem="0QI-X1-meO" secondAttribute="top" constant="10" id="8Wq-ZC-6T0"/>
                             <constraint firstAttribute="bottom" secondItem="dav-QO-F7g" secondAttribute="bottom" constant="10" id="JfO-gP-TbH"/>
                             <constraint firstItem="Lo3-WF-a56" firstAttribute="leading" secondItem="0QI-X1-meO" secondAttribute="leading" constant="10" id="KoI-id-7gc"/>
                             <constraint firstAttribute="trailing" secondItem="Cbc-k7-jYq" secondAttribute="trailing" constant="10" id="LuY-wb-4Wc"/>
                             <constraint firstAttribute="bottom" secondItem="1vR-eE-fuU" secondAttribute="bottom" constant="10" id="Nbu-Go-g8a"/>
-                            <constraint firstAttribute="trailing" secondItem="dav-QO-F7g" secondAttribute="trailing" constant="10" id="PLI-KY-X7f"/>
                             <constraint firstAttribute="trailing" secondItem="1vR-eE-fuU" secondAttribute="trailing" constant="10" id="QEs-Lv-yWf"/>
                             <constraint firstItem="Cbc-k7-jYq" firstAttribute="top" secondItem="0QI-X1-meO" secondAttribute="top" constant="10" id="RL9-bJ-UJV"/>
                             <constraint firstItem="skW-bn-gqa" firstAttribute="top" secondItem="0QI-X1-meO" secondAttribute="top" constant="10" id="TMn-gc-lcf"/>

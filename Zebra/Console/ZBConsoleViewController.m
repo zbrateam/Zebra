@@ -45,6 +45,7 @@
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
     self->_progressView.progress = 0;
+    _progressView.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -55,9 +56,11 @@
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
     else if ([queue needsHyena]) {
+        _progressView.hidden = NO;
         [self downloadPackages];
     }
     else {
+        _progressView.hidden = NO;
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
@@ -277,16 +280,18 @@
 - (void)restartSpringBoard {
     //Bye!
     NSTask *task = [[NSTask alloc] init];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:@"/chimera"]) {
-        [task setLaunchPath:@"/usr/bin/sbreload"];
-    }
-    else {
-        [task setLaunchPath:@"/usr/bin/killall"];
-        [task setArguments:@[@"-9", @"backboardd"]];
-    }
-    
+    [task setLaunchPath:@"/usr/bin/sbreload"];
     [task launch];
+    [task waitUntilExit];
+    
+    if ([task terminationStatus] != 0) {
+        NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
+        //Ideally, this is only if sbreload fails
+        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setArguments:@[@"/bin/launchctl", @"stop", @"com.apple.backboardd"]];
+        
+        [task launch];
+    }
 }
 
 - (void)refreshLocalPackages {
