@@ -10,4 +10,5 @@
 
 @interface ZBFeaturedCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property NSString *packageID;
 @end

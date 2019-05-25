@@ -718,12 +718,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Y9c-lv-ObS">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="H0k-XV-qMt">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
-                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qNT-My-hEi">
                                         <size key="itemSize" width="192" height="127"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -733,7 +732,6 @@
                                     <cells/>
                                 </collectionView>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.50949435759999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="H0k-XV-qMt" secondAttribute="bottom" id="2aQ-Fg-ZWU"/>
                                 <constraint firstItem="H0k-XV-qMt" firstAttribute="leading" secondItem="Y9c-lv-ObS" secondAttribute="leading" id="8dn-mr-P0K"/>
@@ -743,7 +741,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="repoSectionCell" textLabel="rZ1-lO-iJO" detailTextLabel="NsY-iH-dLr" style="IBUITableViewCellStyleValue1" id="gJz-2K-LuO">
-                                <rect key="frame" x="0.0" y="191" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="198" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gJz-2K-LuO" id="LQ9-yq-ilC">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -781,6 +779,7 @@
                     <connections>
                         <outlet property="FeaturedContainer" destination="Y9c-lv-ObS" id="Wic-Ks-d8E"/>
                         <outlet property="featuredCollection" destination="H0k-XV-qMt" id="ohM-GF-GcT"/>
+                        <segue destination="B5D-p6-E07" kind="show" identifier="segueFeaturedToPackageDepiction" id="wqW-Kk-qIz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fT-2U-Yfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -831,7 +830,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="l9h-er-JrZ"/>
+        <segue reference="wqW-Kk-qIz"/>
         <segue reference="TU3-4Y-Pen"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

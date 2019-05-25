@@ -309,24 +309,27 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    /*`if([segue.identifier isEqualToString:@"purchasedNavController"]){
-        ZBRepoPurchases *ivc = (ZBRepoPurchases *)segue.destinationViewController;
-        ivc.repoName = self->repo.origin;
-        ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
-        ivc.repoEndpoint = self.repoEndpoint;
-    }*/
-    ZBPackageListTableViewController *destination = [segue destinationViewController];
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    destination.repo = repo;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    if (indexPath.row != 0) {
-        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-        destination.section = section;
-        destination.title = section;
-    }
-    else {
-        destination.title = @"All Packages";
+    if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
+        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+        NSString *packageID = sender;
+        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
+        destination.package = [databaseManager topVersionForPackageID:packageID];
+        [databaseManager closeDatabase];
+        
+    }else{
+        ZBPackageListTableViewController *destination = [segue destinationViewController];
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        destination.repo = repo;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        
+        if (indexPath.row != 0) {
+            NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+            destination.section = section;
+            destination.title = section;
+        }
+        else {
+            destination.title = @"All Packages";
+        }
     }
 }
 
@@ -353,24 +356,16 @@
 
 #pragma mark UICollectionView delegates
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBFeaturedCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
-    //imageView.image = [UIImage imageNamed:@"Image"];
+    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
-    [imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    [cell addSubview:imageView];
+    [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    cell.packageID = currentBanner[@"package"];
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     cell.backgroundColor=[UIColor clearColor];
     cell.layer.cornerRadius = 10.0f;
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [UIColor clearColor].CGColor;
     cell.layer.masksToBounds = YES;
-    
-    /*cell.layer.shadowColor = [UIColor blackColor].CGColor;
-    cell.layer.shadowOffset = CGSizeMake(0, 2.0f);
-    cell.layer.shadowRadius = 10.0f;
-    cell.layer.shadowOpacity = 0.5f;
-    cell.layer.masksToBounds = NO;
-    cell.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:cell.bounds cornerRadius:cell.contentView.layer.cornerRadius].CGPath;*/
     return cell;
 }
 
@@ -380,7 +375,14 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(CGRectGetWidth(collectionView.frame)/1.7, (CGRectGetHeight(collectionView.frame)/1.2));
+    [self.featuredCollection setContentSize:CGSizeFromString(_fullJSON[@"itemSize"])];
+    [self.FeaturedContainer setFrame:self.featuredCollection.frame];
+    return CGSizeFromString(_fullJSON[@"itemSize"]);
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+   ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
 }
 
 
