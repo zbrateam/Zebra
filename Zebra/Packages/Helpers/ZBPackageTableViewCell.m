@@ -28,6 +28,8 @@
     self.queueStatusLabel.hidden = YES;
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.iconImageView.layer.cornerRadius = 10;
+    self.iconImageView.layer.shadowRadius = 3;
 }
 
 - (void)updateData:(ZBPackage *)package {
@@ -53,8 +55,6 @@
             self.iconImageView.image = [UIImage imageNamed:@"Other"];
         }
     }
-    self.iconImageView.layer.cornerRadius = 10;
-    self.iconImageView.layer.shadowRadius = 3;
     
     BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];
