@@ -13,7 +13,6 @@
 		363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */; };
 		36D15327229240F70010EC5C /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15324229240F60010EC5C /* UIImageView+Network.m */; };
 		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
-		36D1533F22924D9F0010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
 		36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
 		36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
@@ -206,7 +205,6 @@
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */,
-				36D1533F22924D9F0010EC5C /* SDWebImage.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +518,7 @@
 		89C5FDD521B1B13700A10E58 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Wilson Styres";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
