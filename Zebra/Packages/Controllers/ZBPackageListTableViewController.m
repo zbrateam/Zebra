@@ -148,8 +148,8 @@
             self->updates = _updates;
         }
         
-        [self.tableView reloadData];
         [self updateCollation];
+        [self.tableView reloadData];
     });
 }
 
@@ -167,6 +167,9 @@
         databaseRow += 199;
     }
     [self updateCollation];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)upgradeButton {
@@ -239,7 +242,9 @@
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package];
     if (!needsUpdatesSection || indexPath.section != 0) {
-        if ((indexPath.row - 1 >= [packages count] - ([packages count] / 10)) && ([repo repoID] != 0)) {
+        NSInteger sectionsAmount = [tableView numberOfSections];
+        NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
+        if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1) && ([repo repoID] != 0)) {
             [self loadNextPackages];
         }
     }
