@@ -155,20 +155,25 @@
 
 - (void)loadNextPackages {
     dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL hasMore = NO;
         if (self->databaseRow + 200 <= self->totalNumberOfPackages) {
             NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:200 startingAt:self->databaseRow];
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
             self->numberOfPackages = (int)[self->packages count];
             self->databaseRow += 199;
+            hasMore = YES;
         }
         else if (self->totalNumberOfPackages - (self->databaseRow + 200) != 0) {
             NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self->totalNumberOfPackages - (self->databaseRow + 200) startingAt:self->databaseRow];
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
             self->numberOfPackages = (int)[self->packages count];
             self->databaseRow += 199;
+            hasMore = YES;
         }
-        [self updateCollation];
-        [self.tableView reloadData];
+        if (hasMore) {
+            [self updateCollation];
+            [self.tableView reloadData];
+        }
     });
 }
 
@@ -241,7 +246,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package];
-    if (!needsUpdatesSection || indexPath.section != 0) {
+    if ((!needsUpdatesSection || indexPath.section != 0) && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
         if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1) && ([repo repoID] != 0)) {
