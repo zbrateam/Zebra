@@ -45,6 +45,7 @@
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
     self->_progressView.progress = 0;
+    _progressView.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -55,9 +56,11 @@
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
     else if ([queue needsHyena]) {
+        _progressView.hidden = NO;
         [self downloadPackages];
     }
     else {
+        _progressView.hidden = NO;
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
