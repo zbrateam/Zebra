@@ -1013,18 +1013,21 @@
             continue;
         }
         
-        NSString *arrayVersion = [(ZBPackage *)packageVersionDict[[package identifier]] version];
-        NSString *packageVersion = [package version];
-        int result = compare([packageVersion UTF8String], [arrayVersion UTF8String]);
-        
-        if (result > 0) {
-            [cleanedPackageList removeObject:packageVersionDict[[package identifier]]];
-            packageVersionDict[[package identifier]] = package;
-        }
-        else if (result <= 0) {
-            NSUInteger index = [cleanedPackageList indexOfObject:package];
-            if (index != NSNotFound) {
-                [cleanedPackageList removeObjectAtIndex:index];
+        ZBPackage *packageFromDict = packageVersionDict[[package identifier]];
+        if ([package sameAs:packageFromDict]) {
+            NSString *arrayVersion = [packageFromDict version];
+            NSString *packageVersion = [package version];
+            int result = compare([packageVersion UTF8String], [arrayVersion UTF8String]);
+            
+            if (result > 0) {
+                [cleanedPackageList removeObject:packageFromDict];
+                packageVersionDict[[package identifier]] = package;
+            }
+            else if (result <= 0) {
+                NSUInteger index = [cleanedPackageList indexOfObject:package];
+                if (index != NSNotFound) {
+                    [cleanedPackageList removeObjectAtIndex:index];
+                }
             }
         }
     }
