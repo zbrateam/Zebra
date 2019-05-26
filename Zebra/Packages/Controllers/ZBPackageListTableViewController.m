@@ -169,7 +169,7 @@
             self.isPerformingBatchLoad = YES;
             NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
-                self.continueBatchLoad = NO;
+                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
             }
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
