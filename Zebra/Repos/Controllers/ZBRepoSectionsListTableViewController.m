@@ -379,14 +379,17 @@
     cell.titleLabel.layer.masksToBounds = NO;
     cell.titleLabel.layer.shouldRasterize = YES;
     
-    [cell.contentView addSubview:cell.titleLabel];
-    cell.titleLabel.textColor = [UIColor whiteColor];
-    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    cell.backgroundColor=[UIColor clearColor];
-    cell.layer.cornerRadius = 10.0f;
-    cell.layer.borderWidth = 1.0f;
-    cell.layer.borderColor = [UIColor clearColor].CGColor;
-    cell.layer.masksToBounds = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [cell.contentView addSubview:cell.titleLabel];
+        cell.titleLabel.textColor = [UIColor whiteColor];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        cell.backgroundColor=[UIColor clearColor];
+        cell.layer.cornerRadius = 10.0f;
+        cell.layer.borderWidth = 1.0f;
+        cell.layer.borderColor = [UIColor clearColor].CGColor;
+        cell.layer.masksToBounds = YES;
+    });
+    
     return cell;
 }
 
