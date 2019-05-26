@@ -108,7 +108,9 @@
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
                         NSLog(@"BANNERS %@", self.featuredPackages);
-                        [self setupFeaturedPackages];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self setupFeaturedPackages];
+                        });
                     }
                     
                 }] resume];
@@ -394,8 +396,6 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.featuredCollection setContentSize:CGSizeFromString(_fullJSON[@"itemSize"])];
-    [self.FeaturedContainer setFrame:self.featuredCollection.frame];
     return CGSizeFromString(_fullJSON[@"itemSize"]);
 }
 
