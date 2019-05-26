@@ -160,14 +160,15 @@
 }
 
 - (void)loadNextPackages {
-    if (!self.continueBatchLoad) {
+    if (!self.continueBatchLoad || self.isPerformingBatchLoad) {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
+            self.isPerformingBatchLoad = YES;
             NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
-                self.continueBatchLoad = NO;
+                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
             }
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
@@ -175,6 +176,7 @@
             self->databaseRow += nextPackages.count;
             [self updateCollation];
             [self.tableView reloadData];
+            self.isPerformingBatchLoad = NO;
         }
     });
 }
