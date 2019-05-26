@@ -174,7 +174,7 @@
             }
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
             self->numberOfPackages = (int)[self->packages count];
-            self->databaseRow += nextPackages.count;
+            self->databaseRow += self.batchLoadCount;
             [self updateCollation];
             [self.tableView reloadData];
             self.isPerformingBatchLoad = NO;
