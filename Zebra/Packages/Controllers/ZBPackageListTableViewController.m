@@ -79,6 +79,10 @@
     }
 }
 
+- (BOOL)useBatchLoad {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -87,7 +91,8 @@
         [self refreshTable];
     }
     else {
-        packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:100 startingAt:0];
+        self.batchLoadCount = 100;
+        packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
         databaseRow = 99;
         numberOfPackages = (int)[packages count];
         if (section != NULL) {
@@ -96,6 +101,8 @@
         else {
             totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo section:NULL];
         }
+        self.batchLoad = YES;
+        self.continueBatchLoad = self.batchLoad;
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -153,23 +160,19 @@
 }
 
 - (void)loadNextPackages {
+    if (!self.continueBatchLoad) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        BOOL hasMore = NO;
-        if (self->databaseRow + 200 <= self->totalNumberOfPackages) {
-            NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:200 startingAt:self->databaseRow];
+        if (self->databaseRow < self->totalNumberOfPackages) {
+            NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            if (nextPackages.count == 0) {
+                self.continueBatchLoad = NO;
+                return;
+            }
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
             self->numberOfPackages = (int)[self->packages count];
-            self->databaseRow += 199;
-            hasMore = YES;
-        }
-        else if (self->totalNumberOfPackages - (self->databaseRow + 200) != 0) {
-            NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self->totalNumberOfPackages - (self->databaseRow + 200) startingAt:self->databaseRow];
-            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
-            self->numberOfPackages = (int)[self->packages count];
-            self->databaseRow += 199;
-            hasMore = YES;
-        }
-        if (hasMore) {
+            self->databaseRow += nextPackages.count;
             [self updateCollation];
             [self.tableView reloadData];
         }
@@ -245,7 +248,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package];
-    if ((!needsUpdatesSection || indexPath.section != 0) && numberOfPackages != totalNumberOfPackages) {
+    if (self.batchLoad && self.continueBatchLoad && (!needsUpdatesSection || indexPath.section != 0) && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
         if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1) && ([repo repoID] != 0)) {

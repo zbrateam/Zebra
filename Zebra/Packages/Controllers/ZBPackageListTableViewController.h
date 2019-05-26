@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *section;
+@property (nonatomic, assign) BOOL batchLoad;
+@property (nonatomic, assign) BOOL continueBatchLoad;
+@property (nonatomic, assign) int batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray *tableData;
 - (void)refreshTable;
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination;
