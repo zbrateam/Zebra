@@ -142,10 +142,6 @@
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 0.f)];
     self.featuredCollection.backgroundColor = [UIColor clearColor];
     CGFloat height = CGSizeFromString(_fullJSON[@"itemSize"]).height + 10;
-    //self.featuredCollection.collectionViewLayout.collectionViewContentSize.height = height;
-    /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ //objective c
-    //[self.featuredCollection setNeedsLayout];
-    //[self.featuredCollection reloadData];
     self.featuredCollection.showsHorizontalScrollIndicator = false;
     self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
     [self.tableView reloadData];
