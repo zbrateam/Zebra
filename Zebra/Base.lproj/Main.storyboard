@@ -717,28 +717,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Y9c-lv-ObS">
+                        <collectionView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" id="H0k-XV-qMt">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="H0k-XV-qMt">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
-                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qNT-My-hEi">
-                                        <size key="itemSize" width="192" height="127"/>
-                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </collectionViewFlowLayout>
-                                    <cells/>
-                                </collectionView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="H0k-XV-qMt" secondAttribute="bottom" id="2aQ-Fg-ZWU"/>
-                                <constraint firstItem="H0k-XV-qMt" firstAttribute="leading" secondItem="Y9c-lv-ObS" secondAttribute="leading" id="8dn-mr-P0K"/>
-                                <constraint firstAttribute="trailing" secondItem="H0k-XV-qMt" secondAttribute="trailing" id="RIn-DR-HFY"/>
-                                <constraint firstItem="H0k-XV-qMt" firstAttribute="top" secondItem="Y9c-lv-ObS" secondAttribute="top" id="ZVm-ol-Fov"/>
-                            </constraints>
-                        </view>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qNT-My-hEi">
+                                <size key="itemSize" width="192" height="127"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <cells/>
+                        </collectionView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="repoSectionCell" textLabel="rZ1-lO-iJO" detailTextLabel="NsY-iH-dLr" style="IBUITableViewCellStyleValue1" id="gJz-2K-LuO">
                                 <rect key="frame" x="0.0" y="198" width="375" height="44"/>
@@ -777,7 +766,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="FeaturedContainer" destination="Y9c-lv-ObS" id="Wic-Ks-d8E"/>
                         <outlet property="featuredCollection" destination="H0k-XV-qMt" id="ohM-GF-GcT"/>
                         <segue destination="B5D-p6-E07" kind="show" identifier="segueFeaturedToPackageDepiction" id="wqW-Kk-qIz"/>
                     </connections>

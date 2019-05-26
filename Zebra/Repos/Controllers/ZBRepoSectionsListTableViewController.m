@@ -77,11 +77,12 @@
         self.navigationItem.titleView = container;
     }
     self.title = [repo origin];
+    self.automaticallyAdjustsScrollViewInsets = false;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self.FeaturedContainer removeFromSuperview];
+    [self.featuredCollection removeFromSuperview];
     UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.tableHeaderView = blankHeader;
     [self.tableView layoutIfNeeded];
@@ -104,7 +105,7 @@
                                                                              options:kNilOptions
                                                                                error:nil];
                         NSLog(@"Downloaded %@", json);
-                        self.tableView.tableHeaderView = self.FeaturedContainer;
+                        self.tableView.tableHeaderView = self.featuredCollection;
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
                         NSLog(@"BANNERS %@", self.featuredPackages);
@@ -135,17 +136,18 @@
 }
 
 -(void)setupFeaturedPackages{
-    UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(100, 100);
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    self.featuredCollection = [[UICollectionView alloc] initWithFrame:self.FeaturedContainer.frame collectionViewLayout:flowLayout];
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection registerClass:[ZBFeaturedCollectionViewCell class] forCellWithReuseIdentifier:@"imageCell"];
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 0.f)];
-    [self.FeaturedContainer addSubview:self.featuredCollection];
-    self.featuredCollection.backgroundColor = [UIColor whiteColor];
-    //[self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+    self.featuredCollection.backgroundColor = [UIColor clearColor];
+    CGFloat height = CGSizeFromString(_fullJSON[@"itemSize"]).height + 10;
+    //self.featuredCollection.collectionViewLayout.collectionViewContentSize.height = height;
+    /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ //objective c
+    //[self.featuredCollection setNeedsLayout];
+    //[self.featuredCollection reloadData];
+    self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
+    [self.tableView reloadData];
 }
 
 -(void)setupRepoLogin{
@@ -384,7 +386,11 @@
         cell.titleLabel.textColor = [UIColor whiteColor];
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.backgroundColor=[UIColor clearColor];
-        cell.layer.cornerRadius = 10.0f;
+        if([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]){
+            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
+        }else{
+            cell.layer.cornerRadius = 10.0f;
+        }
         cell.layer.borderWidth = 1.0f;
         cell.layer.borderColor = [UIColor clearColor].CGColor;
         cell.layer.masksToBounds = YES;
@@ -401,6 +407,8 @@
 {
     return CGSizeFromString(_fullJSON[@"itemSize"]);
 }
+
+
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
