@@ -146,6 +146,7 @@
     /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ //objective c
     //[self.featuredCollection setNeedsLayout];
     //[self.featuredCollection reloadData];
+    self.featuredCollection.showsHorizontalScrollIndicator = false;
     self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
     [self.tableView reloadData];
 }
