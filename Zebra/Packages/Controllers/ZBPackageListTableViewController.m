@@ -60,7 +60,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     if ([repo repoID] == 0) {
         [self configureNavigationButtons];
         [self refreshTable];
