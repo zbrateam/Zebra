@@ -59,7 +59,7 @@
 - (void)setPackageUpdateBadgeValue:(int)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
+        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:3];
         
         if (updates > 0) {
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
@@ -73,7 +73,7 @@
 }
 
 - (void)updatePackagesTableView {
-    UINavigationController *navController = self.viewControllers[2];
+    UINavigationController *navController = self.viewControllers[3];
     ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
     
     [packagesController refreshTable];
