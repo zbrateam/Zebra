@@ -36,7 +36,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
         NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
         
-        BOOL dirExsits;
+        BOOL dirExsits = FALSE;
         [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
         if (!dirExsits) {
             NSLog(@"[Zebra] Creating documents directory.");
@@ -62,7 +62,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-    BOOL dirExsits;
+    BOOL dirExsits = FALSE;
     [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
     if (!dirExsits) {
         NSLog(@"[Zebra] Creating lists directory.");
@@ -102,7 +102,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)debsLocation {
     NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
-    BOOL dirExsits;
+    BOOL dirExsits = FALSE;
     [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExsits];
     if (!dirExsits) {
         NSLog(@"[Zebra] Creating debs directory.");
