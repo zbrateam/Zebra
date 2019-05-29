@@ -12,35 +12,22 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.imageView.layer.masksToBounds = TRUE;
+    _imageView.layer.masksToBounds = TRUE;
+    _titleLabel.layer.masksToBounds = NO;
+    _titleLabel.layer.shouldRasterize = YES;
+    _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    _titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    _titleLabel.layer.shadowRadius = 5.0;
+    _titleLabel.layer.shadowOpacity = 1.0;
+    [_titleLabel setTextColor:[UIColor whiteColor]];
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.contentView addSubview:_imageView];
+    [self.contentView addSubview:_titleLabel];
+    self.backgroundColor = [UIColor clearColor];
+    self.layer.borderWidth = 1.0f;
+    self.layer.borderColor = [UIColor clearColor].CGColor;
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = 10.0f;
 }
-
-- (UIImageView *) imageView
-{
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.contentView.bounds];
-        [self.contentView addSubview:_imageView];
-    }
-    return _imageView;
-}
-
--(UILabel *) titleLabel{
-    if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:self.contentView.bounds];
-        [self.contentView addSubview:_titleLabel];
-    }
-    return _titleLabel;
-}
-
-// Here we remove all the custom stuff that we added to our subclassed cell
--(void)prepareForReuse
-{
-    [super prepareForReuse];
-    self.imageView.image = nil;
-    self.imageView.frame = self.contentView.bounds;
-    
-}
-
-
 
 @end
