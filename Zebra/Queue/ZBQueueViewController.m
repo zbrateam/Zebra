@@ -110,6 +110,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
+    
     cell.backgroundColor = [UIColor whiteColor];
     if ([action isEqual:@"Install"]) {
         package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
@@ -164,11 +165,15 @@
     
     if (package.iconPath) {
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+        [cell.imageView.layer setCornerRadius:10];
+        [cell.imageView setClipsToBounds:TRUE];
     }
     else {
         UIImage *sectionImage = [UIImage imageNamed:section];
         if (sectionImage != NULL) {
             cell.imageView.image = sectionImage;
+            [cell.imageView.layer setCornerRadius:10];
+            [cell.imageView setClipsToBounds:TRUE];
         }
     }
 
