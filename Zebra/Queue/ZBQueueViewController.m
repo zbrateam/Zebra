@@ -26,12 +26,7 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
-    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
-        self.navigationItem.rightBarButtonItem.enabled = false;
-    }
-    else {
-        self.navigationItem.rightBarButtonItem.enabled = true;
-    }
+    [self refreshBarButtons];
     
     self.title = @"Queue";
 }
@@ -49,14 +44,19 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (void)refreshTable {
+- (void)refreshBarButtons {
     if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
+        self.navigationItem.leftBarButtonItem.title = @"Cancel";
     }
     else {
         self.navigationItem.rightBarButtonItem.enabled = true;
+        self.navigationItem.leftBarButtonItem.title = @"Continue";
     }
-    
+}
+
+- (void)refreshTable {
+    [self refreshBarButtons];
     [self.tableView reloadData];
 }
 
@@ -205,7 +205,12 @@
             NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
         
-        [self refreshTable];
+        if ([_queue hasObjects]) {
+            [self refreshTable];
+        }
+        else {
+            [self cancel:nil];
+        }
         
     }
 }
