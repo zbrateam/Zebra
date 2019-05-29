@@ -93,7 +93,7 @@
     else {
         self.batchLoadCount = 100;
         packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
-        databaseRow = 99;
+        databaseRow = self.batchLoadCount - 1;
         numberOfPackages = (int)[packages count];
         if (section != NULL) {
             totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo section:section];
