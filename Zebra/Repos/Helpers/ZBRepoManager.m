@@ -23,8 +23,9 @@
 }
 
 - (NSString *)normalizedURLString:(NSURL *)url {
-    NSString *urlString = [url absoluteString];
-    return [[urlString stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+    NSURL *normalizedURL = [self normalizedURL:url];
+    NSString *urlString = [normalizedURL absoluteString];
+    return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
 }
 
 -(void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {
