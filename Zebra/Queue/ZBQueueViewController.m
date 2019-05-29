@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
+@import SDWebImage;
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -161,9 +162,14 @@
     
     NSString *section = [package sectionImageName];
     
-    UIImage *sectionImage = [UIImage imageNamed:section];
-    if (sectionImage != NULL) {
-        cell.imageView.image = sectionImage;
+    if (package.iconPath) {
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+    }
+    else {
+        UIImage *sectionImage = [UIImage imageNamed:section];
+        if (sectionImage != NULL) {
+            cell.imageView.image = sectionImage;
+        }
     }
 
     cell.textLabel.text = package.name;
