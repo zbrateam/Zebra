@@ -72,7 +72,31 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[_queue actionsToPerform] objectAtIndex:section];
+    NSString *title = [[_queue actionsToPerform] objectAtIndex:section];
+    if ([title isEqual:@"Install"] || [title isEqual:@"Reinstall"] || [title isEqual:@"Upgrade"]) {
+        ZBQueueType type = [_queue keyToQueue:title];
+        if (type) {
+            double totalDownloadSize = 0;
+            NSArray *packages = [_queue queueArray:type];
+            for (ZBPackage *package in packages) {
+                ZBPackage *truePackage = package;
+                totalDownloadSize += [truePackage numericSize];
+            }
+            if (totalDownloadSize) {
+                NSString *unit = @"bytes";
+                if (totalDownloadSize > 1024 * 1024) {
+                    totalDownloadSize /= 1024 * 1024;
+                    unit = @"MB";
+                }
+                else if (totalDownloadSize > 1024) {
+                    totalDownloadSize /= 1024;
+                    unit = @"KB";
+                }
+                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+            }
+        }
+    }
+    return title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

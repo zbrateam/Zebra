@@ -358,10 +358,14 @@
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
-- (NSString *)size {
+- (int)numericSize {
     NSString *sizeField = [self getField:@"Size"];
-    if (!sizeField) return NULL;
-    int numericSize = [sizeField intValue];
+    if (!sizeField) return 0;
+    return [sizeField intValue];
+}
+
+- (NSString *)size {
+    int numericSize = [self numericSize];
     if (!numericSize) return NULL;
     double size = (double)numericSize;
     if (size > 1024 * 1024) {
@@ -373,10 +377,14 @@
     return [NSString stringWithFormat:@"%d bytes", numericSize];
 }
 
-- (NSString *)installedSize {
+- (int)numericInstalledSize {
     NSString *sizeField = [self getField:@"Installed-Size"];
-    if (!sizeField) return NULL;
-    int numericSize = [sizeField intValue];
+    if (!sizeField) return 0;
+    return [sizeField intValue];
+}
+
+- (NSString *)installedSize {
+    int numericSize = [self numericInstalledSize];
     if (!numericSize) return NULL;
     double size = (double)numericSize;
     if (size > 1024) {
@@ -447,6 +455,11 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     
     [databaseManager setUpdatesIgnored:ignore forPackage:self];
+}
+
+- (ZBPackage *)installableCandidate {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true];
 }
 
 @end
