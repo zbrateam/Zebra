@@ -266,8 +266,14 @@
 - (void)configureNavButton {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([package isInstalled:false]) {
-        UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
-        self.navigationItem.rightBarButtonItem = modifyButton;
+        if ([package isReinstallable]) {
+            UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+            self.navigationItem.rightBarButtonItem = modifyButton;
+        }
+        else {
+            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+            self.navigationItem.rightBarButtonItem = removeButton;
+        }
     }
     else if ([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
         [self determinePaidPackage];
