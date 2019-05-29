@@ -60,7 +60,6 @@
         [self downloadPackages];
     }
     else {
-        _progressView.hidden = NO;
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
