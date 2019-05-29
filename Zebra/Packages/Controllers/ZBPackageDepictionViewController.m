@@ -180,6 +180,22 @@
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [package version]] completionHandler:nil];
     
+    NSMutableArray *sizeString = [NSMutableArray array];
+    NSString *size = [package size];
+    if (size) {
+        [sizeString addObject:[NSString stringWithFormat:@"Size %@", size]];
+    }
+    NSString *installedSize = [package installedSize];
+    if (installedSize) {
+        [sizeString addObject:[NSString stringWithFormat:@"Installed-Size %@", installedSize]];
+    }
+    if (sizeString.count) {
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('size').innerHTML = '%@';", [sizeString componentsJoinedByString:@"<br>"]] completionHandler:nil];
+    }
+    else {
+        [webView evaluateJavaScript:@"document.getElementById('size').parentElement.outerHTML = '';" completionHandler:nil];
+    }
+    
     if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         [webView evaluateJavaScript:@"var element = document.getElementById('main-holder').style.marginBottom = '0px';" completionHandler:nil];
@@ -250,25 +266,26 @@
 - (void)configureNavButton {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([package isInstalled:false]) {
-        if ([package otherVersions].count > 1) {
+        if ([package isReinstallable]) {
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }
-        else { //Show remove, its just a local package
+        else {
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:@"Remove" style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             self.navigationItem.rightBarButtonItem = removeButton;
         }
     }
-    else if([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
+    else if ([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
         [self determinePaidPackage];
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:package queue:ZBQueueTypeInstall];
         self.navigationItem.rightBarButtonItem = installButton;
     }
 }
 
--(void)determinePaidPackage{
+- (void)determinePaidPackage {
     UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     uiBusy.hidesWhenStopped = YES;
     [uiBusy startAnimating];
@@ -297,6 +314,7 @@
                     self.purchased = TRUE;
                     self->package.sileoDownload = TRUE;
                     UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.navigationItem setRightBarButtonItem:installButton animated:YES];
                         [uiBusy stopAnimating];
@@ -425,7 +443,7 @@
 }
 
 - (void)modifyPackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[package name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
         [alert addAction:action];

@@ -328,8 +328,6 @@
         }
     }
     
-    NSString *packageIdentifier = [[self identifier] stringByAppendingString:@"\n"];
-    
     NSError *readError;
     NSString *contents = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&readError];
     
@@ -339,16 +337,52 @@
         return readError.localizedDescription;
     }
     
+    NSString *packageIdentifier = [[self identifier] stringByAppendingString:@"\n"];
+    NSString *packageVersion = [[self version] stringByAppendingString:@"\n"];
+    
     NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
     [scanner scanUpToString:packageIdentifier intoString:NULL];
+    [scanner scanUpToString:packageVersion intoString:NULL];
     NSString *packageInfo;
     [scanner scanUpToString:@"\n\n" intoString:&packageInfo];
     if (packageInfo == NULL) return NULL;
     scanner = [[NSScanner alloc] initWithString:packageInfo];
-    [scanner scanUpToString:[field stringByAppendingString:@": "] intoString:NULL];
+    do {
+        [scanner scanUpToString:[field stringByAppendingString:@": "] intoString:NULL];
+        if ([scanner isAtEnd])
+            break;
+        ++scanner.scanLocation;
+    } while ([packageInfo characterAtIndex:scanner.scanLocation - 2] != '\n');
     [scanner scanUpToString:@"\n" intoString:&value];
     
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
+}
+
+- (NSString *)size {
+    NSString *sizeField = [self getField:@"Size"];
+    if (!sizeField) return NULL;
+    int numericSize = [sizeField intValue];
+    if (!numericSize) return NULL;
+    double size = (double)numericSize;
+    if (size > 1024 * 1024) {
+        return [NSString stringWithFormat:@"%.2f MB", size / 1024 / 1024];
+    }
+    if (size > 1024) {
+        return [NSString stringWithFormat:@"%.2f KB", size / 1024];
+    }
+    return [NSString stringWithFormat:@"%d bytes", numericSize];
+}
+
+- (NSString *)installedSize {
+    NSString *sizeField = [self getField:@"Installed-Size"];
+    if (!sizeField) return NULL;
+    int numericSize = [sizeField intValue];
+    if (!numericSize) return NULL;
+    double size = (double)numericSize;
+    if (size > 1024) {
+        return [NSString stringWithFormat:@"%.2f MB", size / 1024];
+    }
+    return [NSString stringWithFormat:@"%d KB", numericSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {

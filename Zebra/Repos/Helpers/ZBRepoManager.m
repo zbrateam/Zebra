@@ -16,6 +16,18 @@
 
 @implementation ZBRepoManager
 
+- (NSURL *)normalizedURL:(NSURL *)url {
+    NSString *absoluteString = [url absoluteString];
+    char lastChar = [absoluteString characterAtIndex:absoluteString.length - 1];
+    return lastChar == '/' ? url : [url URLByAppendingPathComponent:@"/"];
+}
+
+- (NSString *)normalizedURLString:(NSURL *)url {
+    NSURL *normalizedURL = [self normalizedURL:url];
+    NSString *urlString = [normalizedURL absoluteString];
+    return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+}
+
 -(void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {
     __weak typeof(self) weakSelf = self;
     
@@ -41,9 +53,10 @@
                 
                 [detector enumerateMatchesInString:sourcesString options:0 range:NSMakeRange(0, sourcesString.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
                     if (result.resultType == NSTextCheckingTypeLink) {
-                        NSLog(@"[Zebra] Detected url: %@", result.URL);
+                        NSURL *url = [self normalizedURL:result.URL];
+                        NSLog(@"[Zebra] Detected url: %@", url);
                         
-                        [detectedURLs addObject:result.URL];
+                        [detectedURLs addObject:url];
                     }
                 }];
                 
@@ -70,7 +83,7 @@
                     
                     if ([contents[0] isEqualToString:@"deb"]) {
                         NSURL *url = [NSURL URLWithString:contents[1]];
-                        NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+                        NSString *urlString = [self normalizedURLString:url];
                         
                         [baseURLs addObject:urlString];
                     }
@@ -95,7 +108,7 @@
                 for (NSURL *detectedURL in detectedURLs) {
                     dispatch_group_enter(group);
                     
-                    NSString *urlString = [[[detectedURL absoluteString] stringByReplacingOccurrencesOfString:[detectedURL scheme] withString:@""] substringFromIndex:3];
+                    NSString *urlString = [self normalizedURLString:detectedURL];
                     if ([baseURLs containsObject:urlString]) {
                         NSLog(@"[Zebra] %@ is already added.", urlString);
                         dispatch_group_leave(group);
@@ -464,7 +477,7 @@
             
             if ([contents[0] isEqualToString:@"deb"]) {
                 NSURL *url = [NSURL URLWithString:contents[1]];
-                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                NSString *urlString = [self normalizedURLString:url];
                 
                 [baseURLs addObject:urlString];
             }
@@ -476,7 +489,7 @@
             
             if ([contents[0] isEqualToString:@"deb"]) {
                 NSURL *url = [NSURL URLWithString:contents[1]];
-                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:[url scheme]] substringFromIndex:3]; //Remove http:// or https:// from url
+                NSString *urlString = [self normalizedURLString:url];
                 
                 if (![baseURLs containsObject:urlString]) {
                     [linesToAdd addObject:[line stringByAppendingString:@"\n"]];
@@ -519,7 +532,7 @@
             
             if ([contents[0] isEqualToString:@"deb"]) {
                 NSURL *url = [NSURL URLWithString:contents[1]];
-                NSString *urlString = [[contents[1] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+                NSString *urlString = [self normalizedURLString:url];
                 
                 [baseURLs addObject:urlString];
             }
@@ -538,7 +551,7 @@
             
             if ([[info allKeys] count] == 4) {
                 NSURL *url = [NSURL URLWithString:(NSString *)[info objectForKey:@"URIs"]];
-                NSString *urlString = [[(NSString *)[info objectForKey:@"URIs"] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+                NSString *urlString = [self normalizedURLString:url];
                 
                 if (![baseURLs containsObject:urlString]) {
                     NSString *converted = [NSString stringWithFormat:@"%@ %@ %@%@\n", (NSString *)[info objectForKey:@"Types"], (NSString *)[info objectForKey:@"URIs"], (NSString *)[info objectForKey:@"Suites"], (NSString *)[info objectForKey:@"Components"]];

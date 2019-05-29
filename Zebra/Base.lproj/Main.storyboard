@@ -527,7 +527,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Queue" id="uSZ-TC-nHR">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Bpj-dl-pWU">
+                        <barButtonItem key="leftBarButtonItem" title="Continue" id="Bpj-dl-pWU">
                             <connections>
                                 <action selector="cancel:" destination="Utk-Km-MBH" id="1Kx-d2-EMa"/>
                             </connections>

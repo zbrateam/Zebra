@@ -8,6 +8,7 @@
 
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
@@ -112,6 +113,9 @@
                     break;
                 default:
                     break;
+            }
+            if ([self hasErrors]) {
+                [ZBPackageActionsManager presentQueue:[[[UIApplication sharedApplication] keyWindow] rootViewController] parent:nil];
             }
         }
     }
@@ -350,6 +354,10 @@
         }
     }
     return false;
+}
+
+- (BOOL)hasErrors {
+    return [_failedDepQueue count] || [_failedConQueue count];
 }
 
 @end
