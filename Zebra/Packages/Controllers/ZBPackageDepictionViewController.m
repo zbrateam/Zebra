@@ -180,6 +180,22 @@
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [package version]] completionHandler:nil];
     
+    NSMutableArray *sizeString = [NSMutableArray array];
+    NSString *size = [package size];
+    if (size) {
+        [sizeString addObject:[NSString stringWithFormat:@"Size %@", size]];
+    }
+    NSString *installedSize = [package installedSize];
+    if (installedSize) {
+        [sizeString addObject:[NSString stringWithFormat:@"Installed-Size %@", installedSize]];
+    }
+    if (sizeString.count) {
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('size').innerHTML = '%@';", [sizeString componentsJoinedByString:@"<br>"]] completionHandler:nil];
+    }
+    else {
+        [webView evaluateJavaScript:@"document.getElementById('size').parentElement.outerHTML = '';" completionHandler:nil];
+    }
+    
     if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         [webView evaluateJavaScript:@"var element = document.getElementById('main-holder').style.marginBottom = '0px';" completionHandler:nil];

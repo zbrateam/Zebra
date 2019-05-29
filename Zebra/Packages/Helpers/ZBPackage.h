@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)possibleActions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
+- (NSString *)size;
+- (NSString *)installedSize;
 @end
 
 NS_ASSUME_NONNULL_END
