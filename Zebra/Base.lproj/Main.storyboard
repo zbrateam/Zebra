@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -684,14 +681,25 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mo4-QY-oSm">
                                 <rect key="frame" x="16" y="569" width="343" height="2"/>
                             </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuP-O1-Zgo">
+                                <rect key="frame" x="151.5" y="547.5" width="72" height="13.5"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES" updatesFrequently="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="2Rr-nE-B89"/>
+                            <constraint firstItem="BuP-O1-Zgo" firstAttribute="centerX" secondItem="4S3-dv-b0f" secondAttribute="centerX" id="567-Pm-jsB"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="4S3-dv-b0f" secondAttribute="trailingMargin" id="K3p-8W-Ws6"/>
                             <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="Mo4-QY-oSm" secondAttribute="bottom" constant="26" id="RwY-2U-QLT"/>
                             <constraint firstItem="Mo4-QY-oSm" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="SIR-yR-ugU"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="top" secondItem="4S3-dv-b0f" secondAttribute="top" id="UGk-yJ-rYb"/>
+                            <constraint firstItem="Mo4-QY-oSm" firstAttribute="top" secondItem="BuP-O1-Zgo" secondAttribute="bottom" constant="8" id="c0g-fN-JT3"/>
                             <constraint firstAttribute="bottom" secondItem="Dwm-vr-TSr" secondAttribute="bottom" constant="20" symbolic="YES" id="dTi-2e-qVF"/>
                             <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="bottom" constant="8" symbolic="YES" id="e8g-Cj-Zhy"/>
                             <constraint firstItem="Mo4-QY-oSm" firstAttribute="trailing" secondItem="Dwm-vr-TSr" secondAttribute="trailing" id="lNa-9u-P54"/>
@@ -702,6 +710,7 @@
                     <connections>
                         <outlet property="completeButton" destination="Dwm-vr-TSr" id="pUE-50-T7j"/>
                         <outlet property="consoleView" destination="lpS-Lu-3mG" id="HdC-0Y-Hug"/>
+                        <outlet property="progressText" destination="BuP-O1-Zgo" id="fz7-VU-Op6"/>
                         <outlet property="progressView" destination="Mo4-QY-oSm" id="Ny2-Rh-LsX"/>
                     </connections>
                 </viewController>

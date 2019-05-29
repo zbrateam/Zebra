@@ -44,8 +44,10 @@
     needsRespring = false;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
-    self->_progressView.progress = 0;
+    _progressView.progress = 0;
     _progressView.hidden = YES;
+    _progressText.text = nil;
+    _progressText.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -57,10 +59,12 @@
     }
     else if ([queue needsHyena]) {
         _progressView.hidden = NO;
+        _progressText.hidden = NO;
         [self downloadPackages];
     }
     else {
         _progressView.hidden = NO;
+        _progressText.hidden = NO;
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
@@ -258,6 +262,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = false;
+        self->_progressText.text = nil;
         
         if (self->needsRespring) {
             UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
@@ -420,7 +425,8 @@
 #pragma mark - Hyena Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
-    [self->_progressView setProgress:progress animated:YES];
+    [_progressView setProgress:progress animated:YES];
+    _progressText.text = [NSString stringWithFormat:@"Downloading %@: %.1f%%", package.identifier, progress * 100];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
