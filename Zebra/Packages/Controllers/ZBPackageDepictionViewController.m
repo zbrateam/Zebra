@@ -192,12 +192,15 @@
     if (sizeString.count) {
         [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('size').innerHTML = '%@';", [sizeString componentsJoinedByString:@"<br>"]] completionHandler:nil];
     }
+    else {
+        [webView evaluateJavaScript:@"document.getElementById('size').parentElement.outerHTML = '';" completionHandler:nil];
+    }
     NSString *repoName = [package repo].origin;
     if(repoName){
         [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('repo').innerHTML = 'Source: %@';", repoName] completionHandler:nil];
     }
     else {
-        [webView evaluateJavaScript:@"document.getElementById('size').parentElement.outerHTML = '';" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementById('repo').parentElement.outerHTML = '';" completionHandler:nil];
     }
     
     if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
