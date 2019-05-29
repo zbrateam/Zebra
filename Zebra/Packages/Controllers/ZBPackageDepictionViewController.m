@@ -253,16 +253,17 @@
         UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
         self.navigationItem.rightBarButtonItem = modifyButton;
     }
-    else if([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
+    else if ([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
         [self determinePaidPackage];
     }
     else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:package queue:ZBQueueTypeInstall];
         self.navigationItem.rightBarButtonItem = installButton;
     }
 }
 
--(void)determinePaidPackage{
+- (void)determinePaidPackage {
     UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     uiBusy.hidesWhenStopped = YES;
     [uiBusy startAnimating];
@@ -291,6 +292,7 @@
                     self.purchased = TRUE;
                     self->package.sileoDownload = TRUE;
                     UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.navigationItem setRightBarButtonItem:installButton animated:YES];
                         [uiBusy stopAnimating];
