@@ -30,4 +30,11 @@
     self.layer.cornerRadius = 10.0f;
 }
 
+// Here we remove all the custom stuff that we added to our subclassed cell
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.imageView.image = nil;
+    self.imageView.frame = self.contentView.bounds;
+}
+
 @end
