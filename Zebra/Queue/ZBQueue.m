@@ -90,8 +90,6 @@
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
-    NSString *key = [self queueToKey:queue];
-    if (!key) return;
     NSMutableArray *queueArray = [self queueArray:queue];
     if (![queueArray containsObject:package]) {
         if (queue == ZBQueueTypeReinstall && [package filename] == NULL) { //Check to see if the package has a filename to download, if there isn't then we should try to find one
