@@ -161,7 +161,7 @@
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             for (NSString *dep in [conf conflictsWith]) {
-                if ([dep containsString:[package identifier]]) {
+                if ([dep isEqualToString:[package identifier]]) {
                     [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
                 }
             }
@@ -177,7 +177,7 @@
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             for (NSString *dep in [conf dependsOn]) {
-                if ([dep containsString:[package identifier]]) {
+                if ([dep isEqualToString:[package identifier]]) {
                     [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
                 }
             }
