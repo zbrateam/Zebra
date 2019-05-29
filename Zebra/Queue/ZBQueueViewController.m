@@ -45,7 +45,7 @@
 }
 
 - (void)refreshBarButtons {
-    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
+    if ([_queue hasErrors]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
         self.navigationItem.leftBarButtonItem.title = @"Cancel";
     }
@@ -159,12 +159,7 @@
 #pragma mark - Table View Delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
-        return NO;
-    }
-    else {
-        return YES;
-    }
+    return ![_queue hasErrors];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
