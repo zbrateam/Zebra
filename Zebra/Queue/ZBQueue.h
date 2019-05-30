@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)packagesToDownload;
 - (BOOL)needsHyena;
 - (NSString *)queueToKey:(ZBQueueType)queue;
+- (ZBQueueType)keyToQueue:(NSString *)key;
 - (ZBQueueType)queueStatusForPackageIdentifier:(NSString *)identifier;
 - (BOOL)hasErrors;
 @end

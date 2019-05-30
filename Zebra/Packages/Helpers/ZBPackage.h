@@ -49,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setIgnoreUpdates:(BOOL)ignore;
 - (NSString *)size;
 - (NSString *)installedSize;
+- (int)numericSize;
+- (int)numericInstalledSize;
+- (ZBPackage *)installableCandidate;
 @end
 
 NS_ASSUME_NONNULL_END

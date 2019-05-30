@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
+@import SDWebImage;
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -72,7 +73,31 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[_queue actionsToPerform] objectAtIndex:section];
+    NSString *title = [[_queue actionsToPerform] objectAtIndex:section];
+    if ([title isEqual:@"Install"] || [title isEqual:@"Reinstall"] || [title isEqual:@"Upgrade"]) {
+        ZBQueueType type = [_queue keyToQueue:title];
+        if (type) {
+            double totalDownloadSize = 0;
+            NSArray *packages = [_queue queueArray:type];
+            for (ZBPackage *package in packages) {
+                ZBPackage *truePackage = package;
+                totalDownloadSize += [truePackage numericSize];
+            }
+            if (totalDownloadSize) {
+                NSString *unit = @"bytes";
+                if (totalDownloadSize > 1024 * 1024) {
+                    totalDownloadSize /= 1024 * 1024;
+                    unit = @"MB";
+                }
+                else if (totalDownloadSize > 1024) {
+                    totalDownloadSize /= 1024;
+                    unit = @"KB";
+                }
+                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+            }
+        }
+    }
+    return title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,6 +109,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
+    
     
     cell.backgroundColor = [UIColor whiteColor];
     if ([action isEqual:@"Install"]) {
@@ -137,9 +163,18 @@
     
     NSString *section = [package sectionImageName];
     
-    UIImage *sectionImage = [UIImage imageNamed:section];
-    if (sectionImage != NULL) {
-        cell.imageView.image = sectionImage;
+    if (package.iconPath) {
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+        [cell.imageView.layer setCornerRadius:10];
+        [cell.imageView setClipsToBounds:TRUE];
+    }
+    else {
+        UIImage *sectionImage = [UIImage imageNamed:section];
+        if (sectionImage != NULL) {
+            cell.imageView.image = sectionImage;
+            [cell.imageView.layer setCornerRadius:10];
+            [cell.imageView setClipsToBounds:TRUE];
+        }
     }
 
     cell.textLabel.text = package.name;

@@ -63,8 +63,6 @@
         [self downloadPackages];
     }
     else {
-        _progressView.hidden = NO;
-        _progressText.hidden = NO;
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
@@ -115,7 +113,7 @@
                     }
                     
                     NSTask *task = [[NSTask alloc] init];
-                    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                     [task setArguments:command];
                     
                     NSPipe *outputPipe = [[NSPipe alloc] init];
@@ -171,7 +169,7 @@
                         }
                         
                         NSTask *task = [[NSTask alloc] init];
-                        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
                         
                         NSPipe *outputPipe = [[NSPipe alloc] init];
@@ -292,7 +290,7 @@
     if ([task terminationStatus] != 0) {
         NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
         //Ideally, this is only if sbreload fails
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/bin/launchctl", @"stop", @"com.apple.backboardd"]];
         
         [task launch];

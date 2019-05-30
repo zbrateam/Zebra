@@ -47,6 +47,22 @@
     return self;
 }
 
+- (ZBQueueType)keyToQueue:(NSString *)key {
+    NSArray *keys = @[ @"Install", @"Remove", @"Reinstall", @"Upgrade" ];
+    switch ([keys indexOfObject:key]) {
+        case 0:
+            return ZBQueueTypeInstall;
+        case 1:
+            return ZBQueueTypeRemove;
+        case 2:
+            return ZBQueueTypeReinstall;
+        case 3:
+            return ZBQueueTypeUpgrade;
+        default:
+            return 0;
+    }
+}
+
 - (NSString *)queueToKey:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall:
@@ -93,9 +109,9 @@
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
     NSMutableArray *queueArray = [self queueArray:queue];
     if (![queueArray containsObject:package]) {
-        if (queue == ZBQueueTypeReinstall && [package filename] == NULL) { //Check to see if the package has a filename to download, if there isn't then we should try to find one
-            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            package = [databaseManager packageForID:[package identifier] thatSatisfiesComparison:@"<=" ofVersion:[package version] checkInstalled:false checkProvides:true];
+        if (queue == ZBQueueTypeReinstall && [package filename] == NULL) {
+            //Check to see if the package has a filename to download, if there isn't then we should try to find one
+            package = [package installableCandidate];
             if (package == NULL) return;
         }
         packageQueues[package.identifier] = @(queue);
