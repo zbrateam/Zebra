@@ -376,8 +376,9 @@
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
     
     ZBPackage *package = [self packageAtIndexPath:indexPath];
+    ZBPackage *candidate = [package installableCandidate];
     
-    destination.package = package;
+    destination.package = candidate ? candidate : package;
     destination.parent = self;
 }
 

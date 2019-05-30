@@ -44,6 +44,10 @@
         
         presented = true;
         self.package = [databaseManager topVersionForPackageID:packageID];
+        ZBPackage *candidate = [self.package installableCandidate];
+        if (candidate) {
+            self.package = candidate;
+        }
     }
     
     return self;
@@ -60,8 +64,6 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
-    
     
     self.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
@@ -174,6 +176,13 @@
     }
 }
 
+- (void)escape:(NSMutableString *)s {
+    [s replaceOccurrencesOfString:@"\r" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
+    [s replaceOccurrencesOfString:@"\n" withString:@"<br>" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
+    [s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
+    [s replaceOccurrencesOfString:@"\'" withString:@"\\\'" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
+}
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     NSURL *depictionURL = [package depictionURL];
     
@@ -195,9 +204,11 @@
     else {
         [webView evaluateJavaScript:@"document.getElementById('size').parentElement.outerHTML = '';" completionHandler:nil];
     }
-    NSString *repoName = [package repo].origin;
-    if(repoName){
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('repo').innerHTML = 'Source: %@';", repoName] completionHandler:nil];
+    NSMutableString *repoName = [NSMutableString string];
+    [repoName appendString:[package repo].origin];
+    [self escape:repoName];
+    if (repoName) {
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('repo').innerHTML = \"Source: %@\";", repoName] completionHandler:nil];
     }
     else {
         [webView evaluateJavaScript:@"document.getElementById('repo').parentElement.outerHTML = '';" completionHandler:nil];
@@ -216,9 +227,8 @@
         NSMutableString *description = [NSMutableString stringWithCapacity:originalDescription.length];
         [description appendString:originalDescription];
         
-        [description replaceOccurrencesOfString:@"\n" withString:@"<br>" options:NSLiteralSearch range:NSMakeRange(0, description.length)];
-        [description replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, description.length)];
-        [description replaceOccurrencesOfString:@"\'" withString:@"\\\'" options:NSLiteralSearch range:NSMakeRange(0, description.length)];
+        [self escape:description];
+        
         NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
         NSArray *matches = [linkDetector matchesInString:description options:0 range:NSMakeRange(0, description.length)];
         NSUInteger rangeShift = 0;
