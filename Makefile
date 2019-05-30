@@ -8,7 +8,8 @@ after-stage::
 	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
 	rm -rf Zebra.xcarchive
 	$(MAKE) -C Supersling
-	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/Applications/Zebra.app/
+	mkdir -p $(THEOS_STAGING_DIR)/usr/libexec/zebra
+	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/usr/libexec/zebra
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 

@@ -33,7 +33,7 @@
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     NSTask *checkFilesTask = [[NSTask alloc] init];
-    [checkFilesTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    [checkFilesTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
     NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"dpkg", @"-L", packageID, nil];
     [checkFilesTask setArguments:filesArgs];
     
@@ -56,7 +56,7 @@
         NSLog(@"[Zebra] Tring to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
@@ -103,7 +103,7 @@
         NSLog(@"[Zebra] Tring to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
@@ -146,7 +146,7 @@
     if ([packageID containsString:@".deb"]) {
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
