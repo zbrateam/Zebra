@@ -142,6 +142,7 @@
             [self refreshLocalPackages];
         }
         else if (continueWithActions) {
+            _progressText.text = @"Performing actions...";
             NSArray *actions = [queue tasks:debs];
             
             for (NSArray *command in actions) {
@@ -429,7 +430,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
     NSArray *debs = [filenames objectForKey:@"debs"];
-    
+    _progressText.text = nil;
     [self performSelectorInBackground:@selector(performActions:) withObject:debs];
 }
 
