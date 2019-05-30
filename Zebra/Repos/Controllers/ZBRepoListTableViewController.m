@@ -60,6 +60,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
         
@@ -348,7 +349,8 @@
                 [errorAlert addAction:cancelAction];
                 
                 [weakSelf presentViewController:errorAlert animated:true completion:nil];
-            } else {
+            }
+            else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                 [weakSelf presentViewController:console animated:true completion:nil];
