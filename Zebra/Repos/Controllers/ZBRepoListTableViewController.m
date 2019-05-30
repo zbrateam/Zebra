@@ -514,6 +514,8 @@
         [tableView endUpdates];
         
         [self.repoManager deleteSource:delRepo];
+        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+        [tabController setPackageUpdateBadgeValue:(int)databaseManager.packagesWithUpdates.count];
         // We should run this, but it kills swipe to delete animation
         // [self.tableView reloadData];
     }

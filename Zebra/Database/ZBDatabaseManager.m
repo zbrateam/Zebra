@@ -209,7 +209,7 @@
         NSLog(@"[Zebra] Checking for updates");
         [self checkForPackageUpdates];
     }
-    if (needsDelegateStart)  [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
+    if (needsDelegateStart) [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
 }
 
 - (void)importLocalPackages {
