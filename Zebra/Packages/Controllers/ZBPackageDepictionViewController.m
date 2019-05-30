@@ -55,7 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self configureNavButton];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -140,7 +140,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
-    [self configureNavButton];
 }
 
 
