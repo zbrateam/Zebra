@@ -149,7 +149,7 @@ typedef enum {
             }
             else {
                 UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
-				segmentedControl.selectedSegmentIndex = (NSInteger)selectedSortingType;
+                segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
 				[segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
 				UIBarButtonItem *controlItem = [[UIBarButtonItem alloc]initWithCustomView:segmentedControl];
 				self.navigationItem.leftBarButtonItem = controlItem;
@@ -174,7 +174,7 @@ typedef enum {
             self->updates = _updates;
         }
 
-        sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
 			NSDate *first = [(ZBPackage*)a installedDate];
 			NSDate *second = [(ZBPackage*)b installedDate];
 			return [second compare:first];
@@ -281,7 +281,7 @@ typedef enum {
     if (needsUpdatesSection && section == 0) {
         return updates.count;
     }
-    else if (self.selectedSortingType == ZBSortingTypeABC) {
+    else if (self->selectedSortingType == ZBSortingTypeABC) {
         return [[self objectAtSection:section] count];
     }
     else {
@@ -386,7 +386,7 @@ typedef enum {
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    if (self.selectedSortingType == ZBSortingTypeABC) {
+    if (self->selectedSortingType == ZBSortingTypeABC) {
         return sectionIndexTitles;
     }
     else {
@@ -395,7 +395,7 @@ typedef enum {
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ((section == 0 && needsUpdatesSection) || (self.selectedSortingType == ZBSortingTypeABC)) {
+    if ((section == 0 && needsUpdatesSection) || (self->selectedSortingType == ZBSortingTypeABC)) {
         return [sectionIndexTitles objectAtIndex:[self trueSection:section]];
     }
     else {
