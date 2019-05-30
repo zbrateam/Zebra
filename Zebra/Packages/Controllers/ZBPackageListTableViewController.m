@@ -17,8 +17,15 @@
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 
+typedef enum {
+    ZBSortingTypeABC,
+    ZBSortingTypeDate
+} ZBSortingType;
+
 @interface ZBPackageListTableViewController () {
+    ZBSortingType selectedSortingType;
     NSArray *packages;
+    NSArray *sortedPackages;
     NSArray *updates;
     NSMutableArray *sectionIndexTitles;
     BOOL needsUpdatesSection;
@@ -41,6 +48,7 @@
         if (!databaseManager) {
             databaseManager = [ZBDatabaseManager sharedInstance];
         }
+        selectedSortingType = ZBSortingTypeABC;
     }
     
     return self;
@@ -53,6 +61,7 @@
         if (!databaseManager) {
             databaseManager = [ZBDatabaseManager sharedInstance];
         }
+        selectedSortingType = ZBSortingTypeABC;
     }
     
     return self;
@@ -139,7 +148,11 @@
                 self.navigationItem.leftBarButtonItem = queueButton;
             }
             else {
-                self.navigationItem.leftBarButtonItem = nil;
+                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
+				segmentedControl.selectedSegmentIndex = (NSInteger)selectedSortingType;
+				[segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+				UIBarButtonItem *controlItem = [[UIBarButtonItem alloc]initWithCustomView:segmentedControl];
+				self.navigationItem.leftBarButtonItem = controlItem;
             }
         });
     }
@@ -160,6 +173,12 @@
         if (self->needsUpdatesSection) {
             self->updates = _updates;
         }
+
+        sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+			NSDate *first = [(ZBPackage*)a installedDate];
+			NSDate *second = [(ZBPackage*)b installedDate];
+			return [second compare:first];
+		}];
         
         [self updateCollation];
         [self.tableView reloadData];
@@ -223,16 +242,29 @@
     if (needsUpdatesSection && indexPath.section == 0) {
         return (ZBPackage *)[updates objectAtIndex:indexPath.row];
     }
-    else {
+    else if (selectedSortingType == ZBSortingTypeABC) {
         ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
         return package;
     }
+    else {
+        return sortedPackages[indexPath.row];
+    }
+}
+
+- (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
+	selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
+	[self refreshTable];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [sectionIndexTitles count] + (needsUpdatesSection ? 1 : 0);
+    if (selectedSortingType == ZBSortingTypeABC) {
+        return [sectionIndexTitles count] + (needsUpdatesSection ? 1 : 0);
+    }
+    else {
+        return 1 + needsUpdatesSection;
+    }
 }
 
 - (NSInteger)trueSection:(NSInteger)section {
@@ -249,8 +281,11 @@
     if (needsUpdatesSection && section == 0) {
         return updates.count;
     }
-    else {
+    else if (self.selectedSortingType == ZBSortingTypeABC) {
         return [[self objectAtSection:section] count];
+    }
+    else {
+        return sortedPackages.count;
     }
 }
 
@@ -290,8 +325,11 @@
         if (isUpdateSection) {
             [label setText:[NSString stringWithFormat:@"Available Upgrades (%lu)", (unsigned long)updates.count]];
         }
-        else if (hasDataInSection) {
+        else if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
             [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
+        }
+        else if (selectedSortingType == ZBSortingTypeDate) {
+            [label setText:@"Recent"];
         }
         [view addSubview:label];
         
@@ -348,11 +386,21 @@
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return sectionIndexTitles;
+    if (self.selectedSortingType == ZBSortingTypeABC) {
+        return sectionIndexTitles;
+    }
+    else {
+        return nil;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [sectionIndexTitles objectAtIndex:[self trueSection:section]];
+    if ((section == 0 && needsUpdatesSection) || (self.selectedSortingType == ZBSortingTypeABC)) {
+        return [sectionIndexTitles objectAtIndex:[self trueSection:section]];
+    }
+    else {
+        return @"Recent";
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
