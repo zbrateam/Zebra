@@ -58,11 +58,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self refreshTable];
