@@ -37,23 +37,17 @@
     self.descriptionLabel.text = package.shortDescription;
     
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
-    if (sectionImage != NULL) {
-        if(package.iconPath){
-            //[self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
-            //[self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
-            [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
-        }else{
-            self.iconImageView.image = sectionImage;
-        }
+    if (sectionImage == NULL) {
+        sectionImage = [UIImage imageNamed:@"Other"];
+    }
+    
+    if (package.iconPath) {
+        //[self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
+        //[self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
+        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
     }
     else {
-        if(package.iconPath){
-            //[self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:[UIImage imageNamed:@"Other"]];
-            //[self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
-            [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
-        }else{
-            self.iconImageView.image = [UIImage imageNamed:@"Other"];
-        }
+        self.iconImageView.image = sectionImage;
     }
     
     BOOL installed = [package isInstalled:false];
@@ -62,14 +56,20 @@
     self.isInstalledImageView.hidden = !installed;
     self.isPaidImageView.hidden = !paid;
     
-    if (paid && !installed) {
-        self.isInstalledImageView.image = [UIImage imageNamed:@"Paid"];
-        self.isInstalledImageView.hidden = NO;
-        self.isPaidImageView.hidden = YES;
-    }
-    else if (paid && installed) {
+    if (!self.isInstalledImageView.hidden) {
         self.isInstalledImageView.image = [UIImage imageNamed:@"Installed"];
     }
+    if (!self.isPaidImageView.hidden) {
+        if (!installed) {
+            self.isInstalledImageView.image = self.isPaidImageView.image;
+            self.isInstalledImageView.hidden = NO;
+            self.isPaidImageView.hidden = YES;
+        }
+        else {
+            self.isPaidImageView.image = [UIImage imageNamed:@"Paid"];
+        }
+    }
+    
     [self updateQueueStatus:package];
 }
 
