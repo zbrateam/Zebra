@@ -77,13 +77,19 @@
         self.navigationItem.titleView = container;
     }
     self.title = [repo origin];
-    self.automaticallyAdjustsScrollViewInsets = false;
+    if (@available(iOS 10.0, *)) {
+        self.automaticallyAdjustsScrollViewInsets = false;
+    }
+    else {
+        CGFloat top = self.navigationController.navigationBar.bounds.size.height;
+        self.tableView.contentInset = UIEdgeInsetsMake(top + 20, 0, 64, 0);
+    }
     if (repo.supportsFeaturedPackages) {
         [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self.featuredCollection removeFromSuperview];
     UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
