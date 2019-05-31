@@ -620,7 +620,7 @@
 }
 
 - (void)addFile:(NSString *)filename toArray:(NSString *)array {
-    NSMutableArray *arr = [[filenames objectForKey:array] mutableCopy];
+    NSMutableArray *arr = [filenames objectForKey:array];
     if (arr == NULL) {
         arr = [NSMutableArray new];
     }
