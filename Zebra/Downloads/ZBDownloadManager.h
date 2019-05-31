@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBDownloadManager : NSObject <NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate>
 @property (nonatomic, strong) NSArray *repos;
 @property (nonatomic, strong) ZBQueue *queue;
+@property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, weak) id <ZBDownloadDelegate> downloadDelegate;
 @property (nonatomic, strong) NSDictionary <NSString *, NSMutableArray *> *filenames;
 - (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail;
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)downloadRepo:(ZBRepo *)repo;
 - (void)downloadReposAndIgnoreCaching:(BOOL)ignore;
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages;
+- (void)stopAllDownloads;
 @end
 
 NS_ASSUME_NONNULL_END

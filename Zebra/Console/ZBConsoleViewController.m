@@ -23,6 +23,7 @@
     BOOL needsRespring;
     NSMutableArray *installedIDs;
     NSMutableArray *bundlePaths;
+    ZBDownloadManager *downloadManager;
 }
 @end
 
@@ -48,6 +49,8 @@
     _progressView.hidden = YES;
     _progressText.text = nil;
     _progressText.hidden = YES;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -75,7 +78,7 @@
     NSArray *packages = [queue packagesToDownload];
     
     [self writeToConsole:@"Downloading Packages.\n" atLevel:ZBLogLevelInfo];
-    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] init];
+    downloadManager = [[ZBDownloadManager alloc] init];
     downloadManager.downloadDelegate = self;
     
     [downloadManager downloadPackages:packages];
@@ -278,9 +281,7 @@
         self->_progressText.text = nil;
         
         if (self->needsRespring) {
-            UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
-            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-            self.navigationItem.rightBarButtonItem = closeButton;
+            [self addCloseButton];
             
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
@@ -289,6 +290,19 @@
             [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
         }
     });
+}
+
+- (void)addCloseButton {
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+- (void)cancel {
+    [downloadManager stopAllDownloads];
+    self.navigationItem.leftBarButtonItem = nil;
+    _progressView.progress = 1;
+    [self addCloseButton];
 }
 
 - (void)goodbye {
@@ -455,7 +469,7 @@
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
     if (error != NULL) {
         continueWithActions = false;
-        [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
+        [self writeToConsole:[error.localizedDescription stringByAppendingString:@"\n"] atLevel:ZBLogLevelError];
     }
     else {
         [self writeToConsole:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
