@@ -196,16 +196,16 @@
     NSURL *depictionURL = [package depictionURL];
     
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version %@';", [package version]] completionHandler:nil];
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version: %@';", [package version]] completionHandler:nil];
     
     NSMutableArray *sizeString = [NSMutableArray array];
     NSString *size = [package size];
     if (size) {
-        [sizeString addObject:[NSString stringWithFormat:@"Size %@", size]];
+        [sizeString addObject:[NSString stringWithFormat:@"Size: %@", size]];
     }
     NSString *installedSize = [package installedSize];
     if (installedSize) {
-        [sizeString addObject:[NSString stringWithFormat:@"Installed-Size %@", installedSize]];
+        [sizeString addObject:[NSString stringWithFormat:@"Installed-Size: %@", installedSize]];
     }
     if (sizeString.count) {
         [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('size').innerHTML = '%@';", [sizeString componentsJoinedByString:@"<br>"]] completionHandler:nil];
