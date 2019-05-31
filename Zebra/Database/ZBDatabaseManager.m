@@ -566,15 +566,15 @@
         while (sqlite3_step(statement) == SQLITE_ROW) {
             const char *identifierChars = (const char *)sqlite3_column_text(statement, 0);
             const char *versionChars = (const char *)sqlite3_column_text(statement, 1);
+            NSString *identifier = [NSString stringWithUTF8String:identifierChars];
             if (sqlite3_column_int(statement, 2) == 0 && versionChars != 0) {
-                NSString *identifier = [NSString stringWithUTF8String:identifierChars];
                 NSString *version = [NSString stringWithUTF8String:versionChars];
                 
                 ZBPackage *package = [self packageForID:identifier equalVersion:version];
                 if (package != NULL) [packagesWithUpdates addObject:package];
             }
-            else if ([upgradePackageIDs containsObject:[NSString stringWithUTF8String:identifierChars]]) {
-                [upgradePackageIDs removeObject:[NSString stringWithUTF8String:identifierChars]];
+            else if ([upgradePackageIDs containsObject:identifier]) {
+                [upgradePackageIDs removeObject:identifier];
             }
         }
         sqlite3_finalize(statement);
@@ -934,7 +934,7 @@
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 1, [version UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             int repoID = sqlite3_column_int(statement, 13);
