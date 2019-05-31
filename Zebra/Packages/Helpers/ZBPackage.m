@@ -32,6 +32,9 @@
 @synthesize filename;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
+    if ([ZBAppDelegate needsSimulation]) {
+        return nil;
+    }
     NSTask *checkFilesTask = [[NSTask alloc] init];
     [checkFilesTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
     NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"dpkg", @"-L", packageID, nil];
@@ -52,7 +55,10 @@
 
 + (BOOL)containsTweak:(NSString *)packageID {
     NSLog(@"[Zebra] Searching %@ for tweak", packageID);
-    if ([packageID containsString:@".deb"]) {
+    if ([ZBAppDelegate needsSimulation]) {
+        return true;
+    }
+    if ([packageID hasSuffix:@".deb"]) {
         NSLog(@"[Zebra] Tring to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
@@ -99,7 +105,10 @@
 
 + (BOOL)containsApp:(NSString *)packageID {
     NSLog(@"[Zebra] Searching %@ for app bundle", packageID);
-    if ([packageID containsString:@".deb"]) {
+    if ([ZBAppDelegate needsSimulation]) {
+        return true;
+    }
+    if ([packageID hasSuffix:@".deb"]) {
         NSLog(@"[Zebra] Tring to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
@@ -143,7 +152,7 @@
 }
 
 + (NSString *)pathForApplication:(NSString *)packageID {
-    if ([packageID containsString:@".deb"]) {
+    if ([packageID hasSuffix:@".deb"]) {
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
