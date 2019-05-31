@@ -334,14 +334,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param package The package you want to search for.
  @return A ZBPackage instance representing the highest version in the database.
  */
-- (ZBPackage *)topVersionForPackage:(ZBPackage *)package;
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package;
 
 /*!
  @brief The highest version of a package that exists in the database.
  @param packageIdentifier The package identifier you want to search for.
  @return A ZBPackage instance representing the highest version in the database.
  */
-- (ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
 
 #pragma mark - Helper methods
 

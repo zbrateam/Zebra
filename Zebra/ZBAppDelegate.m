@@ -251,10 +251,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 4: {
                     NSString *packageID = [[url path] substringFromIndex:1];
                     ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                    
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                    
-                    [tabController presentViewController:navController animated:true completion:nil];
+                    if (packageController) {
+                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                        [tabController presentViewController:navController animated:true completion:nil];
+                    }
                     break;
                 }
                 case 5: {

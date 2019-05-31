@@ -44,9 +44,16 @@
         
         presented = true;
         self.package = [databaseManager topVersionForPackageID:packageID];
-        ZBPackage *candidate = [self.package installableCandidate];
-        if (candidate) {
-            self.package = candidate;
+        
+        if (self.package) {
+            ZBPackage *candidate = [self.package installableCandidate];
+            if (candidate) {
+                self.package = candidate;
+            }
+        }
+        else {
+            // Package not found, we resign
+            return nil;
         }
     }
     
@@ -183,6 +190,9 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    if (package == nil)
+        return;
+    
     NSURL *depictionURL = [package depictionURL];
     
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];

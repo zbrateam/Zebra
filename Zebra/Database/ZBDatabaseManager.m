@@ -959,14 +959,14 @@
 }
 
 
-- (ZBPackage *)topVersionForPackage:(ZBPackage *)package {
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package {
     return [self topVersionForPackageID:[package identifier]];
 }
 
-- (ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier {
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier {
     NSArray *allVersions = [self allVersionsForPackageID:packageIdentifier];
     
-    return allVersions[0];
+    return allVersions.count ? allVersions[0] : nil;
 }
 
 #pragma mark - Hyena Delegate
