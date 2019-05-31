@@ -20,6 +20,7 @@
 #import "MobileGestalt.h"
 #import <sys/sysctl.h>
 #import <sys/utsname.h>
+#import <Home/ZBWebViewController.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
