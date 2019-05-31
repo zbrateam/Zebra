@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, UIViewControllerPreviewing, SFSafariViewControllerDelegate>
+@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate>
 @property (nonatomic, strong) ZBPackage *package;
 @property BOOL purchased;
 @property (nonatomic, weak) UIViewController *parent;

@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBWebViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, MFMailComposeViewControllerDelegate>
-
+@property (nonatomic, strong) id<WKNavigationDelegate> navigationDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

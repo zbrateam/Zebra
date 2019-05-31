@@ -77,6 +77,10 @@
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) ~ %@", PACKAGE_VERSION];
     
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    [controller addScriptMessageHandler:self name:@"observe"];
+    configuration.userContentController = controller;
+
     webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -182,6 +186,23 @@
     [s replaceOccurrencesOfString:@"\'" withString:@"\\\'" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
 }
 
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+	NSArray *contents = [message.body componentsSeparatedByString:@"~"];
+    NSString *destination = (NSString *)contents[0];
+	NSString *action = contents[1];
+
+	if ([destination isEqual:@"local"]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+		ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+		filesController.navigationDelegate = self;
+		filesController.navigationItem.title = @"Installed Files";
+		NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
+		[filesController setValue:url forKey:@"_url"];
+        
+        [[self navigationController] pushViewController:filesController animated:true];
+	}
+}
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     NSURL *depictionURL = [package depictionURL];
     
@@ -246,6 +267,23 @@
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
+
+    NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
+	for (int i = 0; i < installedFiles.count; i++) {
+		NSString *file = installedFiles[i];
+		if ([file isEqualToString:@"/."] || file.length == 0) {
+			continue;
+        }
+
+		NSArray *components = [file componentsSeparatedByString:@"/"];
+		NSMutableString *displayStr = [NSMutableString new];
+		for (int b = 0; b < components.count - 2; b++) {
+			[displayStr appendString:@"&emsp;"]; //add tab character
+		}
+		[displayStr appendString:components[components.count - 1]];
+
+		[webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
+	}
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {

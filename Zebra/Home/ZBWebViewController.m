@@ -63,7 +63,7 @@
     [progressView.leadingAnchor constraintEqualToAnchor:webView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
     
-    webView.navigationDelegate = self;
+    webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
     webView.tintColor = [UIColor tintColor];
