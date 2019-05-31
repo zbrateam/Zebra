@@ -274,10 +274,16 @@
                 NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 
                 if (![topPackage ignoreUpdates]) numberOfUpdates++;
-                NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\') ON CONFLICT(PACKAGE) DO UPDATE SET VERSION = \'%@\';", [topPackage identifier], [topPackage version], [topPackage version]];
+                NSString *query = [NSString stringWithFormat:@"INSERT OR REPLACE INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
                 
-                sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-                sqlite3_step(statement);
+                if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+                    while (sqlite3_step(statement) == SQLITE_ROW) {
+                        break;
+                    }
+                }
+                else {
+                    NSLog(@"[Zebra] Error while creating package update entry insertion: %s", sqlite3_errmsg(database));
+                }
                 sqlite3_finalize(statement);
                 
                 [upgradePackageIDs addObject:[topPackage identifier]];
@@ -785,7 +791,7 @@
 
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"INSERT INTO UPDATES(PACKAGE, IGNORE) VALUES(\'%@\', %d) ON CONFLICT(PACKAGE) DO UPDATE SET IGNORE = %d;", [package identifier], ignore ? 1 : 0, ignore ? 1 : 0];
+        NSString *query = [NSString stringWithFormat:@"INSERT OR REPLACE INTO UPDATES(PACKAGE, IGNORE) VALUES(\'%@\', %d);", [package identifier], ignore ? 1 : 0];
         
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
