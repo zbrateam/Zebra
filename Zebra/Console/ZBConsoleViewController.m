@@ -92,26 +92,27 @@
                 [self updateStatus:[command[0] intValue]];
             }
             else {
-                if (![ZBAppDelegate needsSimulation]) {
-                    for (int i = 2; i < [command count]; i++) {
-                        NSString *packageID = command[i];
-                        
-                        if (stage == 1) {
-                            BOOL update = [ZBPackage containsApp:packageID];
-                            if (update) {
-                                needsIconCacheUpdate = true;
-                                [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
-                            }
-                            
-                            if (!needsRespring) {
-                                needsRespring = [ZBPackage containsTweak:packageID];
-                            }
+                int startIndex = [command[2] isEqualToString:@"--force-depends"] ? 3 : 2;
+                for (int i = startIndex; i < [command count]; i++) {
+                    NSString *packageID = command[i];
+                    
+                    if (stage == 1) {
+                        BOOL update = [ZBPackage containsApp:packageID];
+                        if (update) {
+                            needsIconCacheUpdate = true;
+                            [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
                         }
-                        else {
-                            [installedIDs addObject:packageID];
+                        
+                        if (!needsRespring) {
+                            needsRespring = [ZBPackage containsTweak:packageID];
                         }
                     }
-                    
+                    else {
+                        [installedIDs addObject:packageID];
+                    }
+                }
+                
+                if (![ZBAppDelegate needsSimulation]) {
                     NSTask *task = [[NSTask alloc] init];
                     [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                     [task setArguments:command];
@@ -137,11 +138,7 @@
         [self refreshLocalPackages];
     }
     else {
-        if ([ZBAppDelegate needsSimulation]) {
-            [self writeToConsole:@"Console actions are not available on the simulator\n" atLevel:ZBLogLevelWarning];
-            [self refreshLocalPackages];
-        }
-        else if (continueWithActions) {
+        if (continueWithActions) {
             _progressText.text = @"Performing actions...";
             NSArray *actions = [queue tasks:debs];
             
@@ -150,25 +147,26 @@
                     [self updateStatus:[command[0] intValue]];
                 }
                 else {
-                    if (![ZBAppDelegate needsSimulation]) {
-                        for (int i = 2; i < [command count]; i++) {
-                            NSString *packageID = command[i];
-                            if (stage == 1) {
-                                BOOL update = [ZBPackage containsApp:packageID];
-                                if (update) {
-                                    needsIconCacheUpdate = true;
-                                    [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
-                                }
-                                
-                                if (!needsRespring) {
-                                    needsRespring = [ZBPackage containsTweak:packageID];
-                                }
+                    int startIndex = [command[2] isEqualToString:@"--force-depends"] ? 3 : 2;
+                    for (int i = startIndex; i < [command count]; i++) {
+                        NSString *packageID = command[i];
+                        if (stage == 1) {
+                            BOOL update = [ZBPackage containsApp:packageID];
+                            if (update) {
+                                needsIconCacheUpdate = true;
+                                [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
                             }
-                            else {
-                                [installedIDs addObject:packageID];
+                            
+                            if (!needsRespring) {
+                                needsRespring = [ZBPackage containsTweak:packageID];
                             }
                         }
-                        
+                        else {
+                            [installedIDs addObject:packageID];
+                        }
+                    }
+                    
+                    if (![ZBAppDelegate needsSimulation]) {
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
@@ -203,17 +201,28 @@
     [queue clearQueue];
     
     NSMutableArray *uicaches = [NSMutableArray new];
-    if (![ZBAppDelegate needsSimulation]) {
-        for (NSString *packageID in installedIDs) {
-            BOOL update = [ZBPackage containsApp:packageID];
-            if (update) {
-                needsIconCacheUpdate = true;
-                [uicaches addObject:packageID];
+    for (NSString *packageID in installedIDs) {
+        BOOL update = [ZBPackage containsApp:packageID];
+        if (update) {
+            needsIconCacheUpdate = true;
+            NSString *truePackageID = packageID;
+            if ([truePackageID hasSuffix:@".deb"]) {
+                // Transform deb-path-like packageID into actual package ID for checking to prevent duplicates
+                truePackageID = [[packageID lastPathComponent] stringByDeletingPathExtension];
+                // ex., com.xxx.yyy_1.0.0_iphoneos_arm.deb
+                NSRange underscoreRange = [truePackageID rangeOfString:@"_" options:NSLiteralSearch];
+                if (underscoreRange.location != NSNotFound) {
+                    truePackageID = [truePackageID substringToIndex:underscoreRange.location];
+                }
+                if ([uicaches containsObject:truePackageID])
+                    continue;
             }
-            
-            if (!needsRespring) {
-                needsRespring = [ZBPackage containsTweak:packageID] ? true : needsRespring;
-            }
+            if (![uicaches containsObject:truePackageID])
+                [uicaches addObject:truePackageID];
+        }
+        
+        if (!needsRespring) {
+            needsRespring = [ZBPackage containsTweak:packageID] ? true : needsRespring;
         }
     }
     
@@ -235,25 +244,30 @@
             [arguments addObjectsFromArray:bundlePaths];
         }
         
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/uicache"];
-        [task setArguments:arguments];
-        
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        
-        NSPipe *errorPipe = [[NSPipe alloc] init];
-        NSFileHandle *error = [errorPipe fileHandleForReading];
-        [error waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        
-        [task setStandardOutput:outputPipe];
-        [task setStandardError:errorPipe];
-        
-        [task launch];
-        [task waitUntilExit];
+        if (![ZBAppDelegate needsSimulation]) {
+            NSTask *task = [[NSTask alloc] init];
+            [task setLaunchPath:@"/usr/bin/uicache"];
+            [task setArguments:arguments];
+            
+            NSPipe *outputPipe = [[NSPipe alloc] init];
+            NSFileHandle *output = [outputPipe fileHandleForReading];
+            [output waitForDataInBackgroundAndNotify];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+            
+            NSPipe *errorPipe = [[NSPipe alloc] init];
+            NSFileHandle *error = [errorPipe fileHandleForReading];
+            [error waitForDataInBackgroundAndNotify];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+            
+            [task setStandardOutput:outputPipe];
+            [task setStandardError:errorPipe];
+            
+            [task launch];
+            [task waitUntilExit];
+        }
+        else {
+            [self writeToConsole:@"uicache is not available on the simulator\n" atLevel:ZBLogLevelWarning];
+        }
     }
     
     [self removeAllDebs];
