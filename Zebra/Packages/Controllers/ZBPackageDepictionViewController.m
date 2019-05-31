@@ -270,7 +270,9 @@
     }
 
     NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
-	for (int i = 0; i < installedFiles.count; i++) {
+    installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
+
+    for (int i = 0; i < installedFiles.count; i++) {
 		NSString *file = installedFiles[i];
 		if ([file isEqualToString:@"/."] || file.length == 0) {
 			continue;
