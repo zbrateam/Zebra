@@ -97,7 +97,7 @@
         [self refreshTable];
     }
     else {
-        self.batchLoadCount = 100;
+        self.batchLoadCount = 500;
         packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
         databaseRow = self.batchLoadCount - 1;
         numberOfPackages = (int)[packages count];

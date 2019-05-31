@@ -184,14 +184,14 @@ NS_ASSUME_NONNULL_BEGIN
  @brief A list of packages that the user has installed on their device.
  @return An array of packages from repoID 0 (installed).
  */
-- (NSArray <ZBPackage *> *)installedPackages;
+- (NSMutableArray <ZBPackage *> *)installedPackages;
 
 /*!
  @brief A list of packages that have updates available.
  @remark Packages that have updates ignored will not be present in this array
  @return An array of packages that have updates.
  */
-- (NSArray <ZBPackage *>*)packagesWithUpdates;
+- (NSMutableArray <ZBPackage *>*)packagesWithUpdates;
 
 /*!
  @brief A list of packages that have a name similar to the search term.
@@ -351,7 +351,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param packageList A list of packages that need to be cleaned.
  @return An array of every other version of a package in the database.
  */
-- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList;
+- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSMutableArray <ZBPackage *> *)packageList;
 
 @end
 

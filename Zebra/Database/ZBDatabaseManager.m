@@ -507,10 +507,10 @@
         NSString *query;
         
         if (section == NULL) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d ORDER BY NAME COLLATE NOCASE ASC LIMIT %d OFFSET %d", [repo repoID], limit, start];
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d LIMIT %d OFFSET %d", [repo repoID], limit, start];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' AND REPOID = %d ORDER BY NAME COLLATE NOCASE ASC LIMIT %d OFFSET %d", section, [repo repoID], limit, start];
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' AND REPOID = %d LIMIT %d OFFSET %d", section, [repo repoID], limit, start];
         }
         
         sqlite3_stmt *statement;
@@ -523,7 +523,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return (NSArray *)[self cleanUpDuplicatePackages:packages];
+        return [self cleanUpDuplicatePackages:packages];
     }
     else {
         [self printDatabaseError];
@@ -531,7 +531,7 @@
     }
 }
 
-- (NSArray <ZBPackage *> *)installedPackages {
+- (NSMutableArray <ZBPackage *> *)installedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         installedPackageIDs = [NSMutableArray new];
         NSMutableArray *installedPackages = [NSMutableArray new];
@@ -548,7 +548,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return (NSArray*)installedPackages;
+        return installedPackages;
     }
     else {
         [self printDatabaseError];
@@ -556,7 +556,7 @@
     }
 }
 
-- (NSArray <ZBPackage *>*)packagesWithUpdates {
+- (NSMutableArray <ZBPackage *>*)packagesWithUpdates {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packagesWithUpdates = [NSMutableArray new];
         NSString *query = @"SELECT * FROM UPDATES;";
@@ -618,7 +618,7 @@
     }
 }
 
-- (NSArray <ZBPackage *> *)purchasedPackages:(NSArray<NSString *> *)requestedPackages {
+- (NSArray <ZBPackage *> *)purchasedPackages:(NSArray <NSString *> *)requestedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE IN ('\%@') ORDER BY NAME COLLATE NOCASE ASC", [requestedPackages componentsJoinedByString:@"','"]];
@@ -632,7 +632,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return (NSArray *)[self cleanUpDuplicatePackages:packages];
+        return [self cleanUpDuplicatePackages:packages];
     }
     else {
         [self printDatabaseError];
@@ -1003,36 +1003,28 @@
 
 #pragma mark - Helper methods
 
-- (NSArray *)cleanUpDuplicatePackages:(NSArray *)packageList {
+- (NSArray *)cleanUpDuplicatePackages:(NSMutableArray *)packageList {
     NSMutableDictionary *packageVersionDict = [[NSMutableDictionary alloc] init];
-    NSMutableArray *cleanedPackageList = [packageList mutableCopy];
     
     for (ZBPackage *package in packageList) {
-        if (packageVersionDict[[package identifier]] == NULL) {
+        ZBPackage *packageFromDict = packageVersionDict[[package identifier]];
+        if (packageFromDict == NULL) {
             packageVersionDict[[package identifier]] = package;
             continue;
         }
         
-        ZBPackage *packageFromDict = packageVersionDict[[package identifier]];
         if ([package sameAs:packageFromDict]) {
-            NSString *arrayVersion = [packageFromDict version];
+            NSString *packageDictVersion = [packageFromDict version];
             NSString *packageVersion = [package version];
-            int result = compare([packageVersion UTF8String], [arrayVersion UTF8String]);
+            int result = compare([packageVersion UTF8String], [packageDictVersion UTF8String]);
             
             if (result > 0) {
-                [cleanedPackageList removeObject:packageFromDict];
                 packageVersionDict[[package identifier]] = package;
-            }
-            else if (result <= 0) {
-                NSUInteger index = [cleanedPackageList indexOfObject:package];
-                if (index != NSNotFound) {
-                    [cleanedPackageList removeObjectAtIndex:index];
-                }
             }
         }
     }
     
-    return cleanedPackageList;
+    return [packageVersionDict allValues];
 }
 
 @end
