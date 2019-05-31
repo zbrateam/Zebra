@@ -103,43 +103,36 @@ char *schemaForTable(int table) {
 }
 
 int needsMigration(sqlite3 *database, int table) {
-    char *query = "SELECT sql FROM sqlite_master WHERE name = ?;";
+    if (table < 0 || table > 2)
+        return 0;
+    char query[65];
+    char *tableNames[10] = { "REPOS", "PACKAGES", "UPDATES" };
+    sprintf(query, "SELECT sql FROM sqlite_master WHERE name = \"%s\";", tableNames[table]);
     char *schema = NULL;
     
     sqlite3_stmt *statement;
     
     if (sqlite3_prepare_v2(database, query, -1, &statement, 0) == SQLITE_OK) {
-        char *tableName;
-        switch (table) {
-            case 0:
-                tableName = "REPOS";
-                break;
-            case 1:
-                tableName = "PACKAGES";
-                break;
-            case 2:
-                tableName = "UPDATES";
-                break;
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            schema = (char *)sqlite3_column_text(statement, 0);
+            break;
         }
-        sqlite3_bind_text(statement, 1, tableName, -1, SQLITE_TRANSIENT);
-    }
-    if (sqlite3_step(statement) == SQLITE_ROW) {
-        schema = (char *)sqlite3_column_text(statement, 0);
-    }
-    
-    if (schema != NULL) {
-        //Remove CREATE TABLE
-        multi_tok_t s = init();
-        multi_tok(schema, &s, "CREATE TABLE ");
-        schema = multi_tok(NULL, &s, "CREATE TABLE ");
-        sqlite3_finalize(statement);
         
-        int result = strcmp(schema, schemaForTable(table));
-        return result;
+        if (schema != NULL) {
+            //Remove CREATE TABLE
+            multi_tok_t s = init();
+            multi_tok(schema, &s, "CREATE TABLE ");
+            schema = multi_tok(NULL, &s, "CREATE TABLE ");
+            
+            int result = strcmp(schema, schemaForTable(table));
+            sqlite3_finalize(statement);
+            return result;
+        }
     }
     else {
-        return 0;
+        printf("[Zebra] Error creating migration check statement: %s\n", sqlite3_errmsg(database));
     }
+    return 0;
 }
 
 void createTable(sqlite3 *database, int table) {
