@@ -138,10 +138,13 @@
             switch (queue) {
                 case ZBQueueTypeInstall:
                     if (requiredPackage) {
-                        if (requiredPackages[package.identifier] == nil) {
-                            requiredPackages[package.identifier] = [NSMutableArray new];
+                        NSMutableArray *packages = requiredPackages[package.identifier];
+                        if (packages == nil) {
+                            packages = requiredPackages[package.identifier] = [NSMutableArray new];
                         }
-                        [requiredPackages[package.identifier] addObject:requiredPackage.name];
+                        if (![packages containsObject:requiredPackage.name]) {
+                            [packages addObject:requiredPackage.name];
+                        }
                     }
                     if (oldPackage) {
                         replacedPackages[package.identifier] = oldPackage;
