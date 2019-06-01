@@ -32,7 +32,6 @@
 
 //static SFAuthenticationSession *session;
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
@@ -89,36 +88,35 @@
     [self checkFeaturedPackages];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (BOOL)checkAuthenticated {
+    return [[_keychain stringForKey:self.repoEndpoint] length];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    if(!self.repoEndpoint){
-        if([[_keychain stringForKey:repo.baseURL] length] != 0){
-                self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
-                if(![self checkAuthenticated]){
-                    [self.navigationItem setRightBarButtonItem:self.login];
-                }else{
-                    [self.navigationItem setRightBarButtonItem:self.purchased];
-                }
-            }
-    }else{
-        if(![self checkAuthenticated]){
-            [self.navigationItem setRightBarButtonItem:self.login];
-        }else{
-            [self.navigationItem setRightBarButtonItem:self.purchased];
-        }
+    if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
+        self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
+    }
+    if (![self checkAuthenticated]) {
+        [self.navigationItem setRightBarButtonItem:self.login];
+    }
+    else {
+        [self.navigationItem setRightBarButtonItem:self.purchased];
     }
 }
--(void)checkFeaturedPackages{
+
+- (void)checkFeaturedPackages {
     [self.featuredCollection removeFromSuperview];
     UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.tableHeaderView = blankHeader;
     [self.tableView layoutIfNeeded];
-    if(repo.supportsFeaturedPackages){
+    if (repo.supportsFeaturedPackages) {
         NSString *requestURL;
-        if([repo.baseURL hasSuffix:@"/"]){
-            requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json",repo.baseURL];
-        }else{
-            requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json",repo.baseURL];
+        if ([repo.baseURL hasSuffix:@"/"]) {
+            requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", repo.baseURL];
+        }
+        else {
+            requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", repo.baseURL];
         }
         NSURL *checkingURL = [NSURL URLWithString:requestURL];
         NSURLSession *session = [NSURLSession sharedSession];
@@ -127,7 +125,7 @@
                                     NSURLResponse *response,
                                     NSError *error) {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                    if(data != nil && (long)[httpResponse statusCode] != 404){
+                    if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                              options:kNilOptions
                                                                                error:nil];
@@ -145,7 +143,8 @@
         
     }
 }
--(void)setupFeaturedPackages{
+
+- (void)setupFeaturedPackages {
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
@@ -159,18 +158,18 @@
     [self.tableView reloadData];
 }
 
--(void)setupRepoLogin{
-    if(self.repoEndpoint){
+- (void)setupRepoLogin {
+    if (self.repoEndpoint) {
         NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@",self.repoEndpoint,[self deviceUDID], [self deviceModelID]]];
         if (@available(iOS 11.0, *)) {
-        static SFAuthenticationSession *session;
-           session = [[SFAuthenticationSession alloc]
+            static SFAuthenticationSession *session;
+            session = [[SFAuthenticationSession alloc]
                             initWithURL:destinationUrl
                             callbackURLScheme:@"sileo"
                             completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                                 // TODO: Nothing to do here?
                                 //NSLog(@"URL %@", callbackURL);
-                                if(callbackURL){
+                                if (callbackURL) {
                                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                     NSArray *queryItems = urlComponents.queryItems;
                                     NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
@@ -197,14 +196,15 @@
                                     });
                                     //[self.repo setLoggedIn:TRUE];
                                     [self.navigationItem setRightBarButtonItem:self.purchased];
-                                }else{
+                                }else {
                                     return;
                                 }
                                 
                                 
                             }];
             [session start];
-        }else{
+        }
+        else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
             [self presentViewController:safariVC animated:TRUE completion:nil];
@@ -213,12 +213,7 @@
     }
 }
 
-
--(void)dealloc{
-    
-}
-
-- (void)authenticationCallBack:(NSNotification *)notif{
+- (void)authenticationCallBack:(NSNotification *)notif {
     [self dismissViewControllerAnimated:TRUE completion:nil];
     
     NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
@@ -254,7 +249,7 @@
     NSLog(@"Done button pressed");
 }
 
--(NSString *)deviceUDID {
+- (NSString *)deviceUDID {
     
     NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
     return udid;
@@ -270,15 +265,6 @@
                               encoding:NSUTF8StringEncoding];
     
 }
-
--(BOOL)checkAuthenticated{
-    if([[_keychain stringForKey:self.repoEndpoint]length] != 0){
-        return TRUE;
-    }else{
-        return FALSE;
-    }
-}
-
 
 #pragma mark - Table view data source
 
@@ -328,8 +314,8 @@
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
-        
-    }else{
+    }
+    else {
         ZBPackageListTableViewController *destination = [segue destinationViewController];
         UITableViewCell *cell = (UITableViewCell *)sender;
         destination.repo = repo;
@@ -388,18 +374,13 @@
     return [_featuredPackages count];
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeFromString(_fullJSON[@"itemSize"]);
 }
 
-
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
 }
-
-
 
 @end
