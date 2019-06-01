@@ -62,7 +62,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureNavButton];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -147,6 +146,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
+    [self configureNavButton];
 }
 
 
@@ -318,7 +318,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
-        if([package repo].supportSileoPay && [package isPaid]){
+        NSLog(@"Here first %@", keychain[[keychain stringForKey:[package repo].baseURL]]);
+        if([package isPaid]){
+            NSLog(@"We are Paid");
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             
             NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
@@ -334,24 +336,41 @@
             [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                NSLog(@"Response %@", json);
-                if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
-                    self.purchased = TRUE;
-                    self->package.sileoDownload = TRUE;
+                if(data){
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                    NSLog(@"Response %@", json);
+                    if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
+                        self.purchased = TRUE;
+                        self->package.sileoDownload = TRUE;
+                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationItem setRightBarButtonItem:installButton animated:YES];
+                            [uiBusy stopAnimating];
+                        });
+                    }else if(![json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
+                        UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:json[@"price"] style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationItem setRightBarButtonItem:purchaseButton animated:YES];
+                            [uiBusy stopAnimating];
+                        });
+                    }else{
+                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.navigationItem setRightBarButtonItem:installButton animated:YES];
+                            [uiBusy stopAnimating];
+                        });
+                    }
+                }else{
                     UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
                     installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.navigationItem setRightBarButtonItem:installButton animated:YES];
                         [uiBusy stopAnimating];
                     });
-                }else if(![json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
-                    UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:json[@"price"] style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationItem setRightBarButtonItem:purchaseButton animated:YES];
-                        [uiBusy stopAnimating];
-                    });
                 }
+                
             }] resume];
         }
     }
