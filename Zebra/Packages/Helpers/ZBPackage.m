@@ -486,4 +486,10 @@
     return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true];
 }
 
+- (NSDate *)installedDate {
+	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
+	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
+	return attributes[NSFileModificationDate];
+}
+
 @end

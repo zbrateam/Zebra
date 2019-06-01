@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)numericSize;
 - (int)numericInstalledSize;
 - (ZBPackage *)installableCandidate;
+- (NSDate *)installedDate;
 @end
 
 NS_ASSUME_NONNULL_END
