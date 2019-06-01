@@ -134,9 +134,9 @@
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
                         //NSLog(@"BANNERS %@", self.featuredPackages);
-                        //dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setupFeaturedPackages];
-                        //});
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self setupFeaturedPackages];
+                        });
                     }
                     
                 }] resume];
