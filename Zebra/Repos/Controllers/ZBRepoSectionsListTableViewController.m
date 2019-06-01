@@ -36,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     
@@ -87,10 +86,29 @@
     if (repo.supportsFeaturedPackages) {
         [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     }
+    [self checkFeaturedPackages];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    if(!self.repoEndpoint){
+        if([[_keychain stringForKey:repo.baseURL] length] != 0){
+                self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
+                if(![self checkAuthenticated]){
+                    [self.navigationItem setRightBarButtonItem:self.login];
+                }else{
+                    [self.navigationItem setRightBarButtonItem:self.purchased];
+                }
+            }
+    }else{
+        if(![self checkAuthenticated]){
+            [self.navigationItem setRightBarButtonItem:self.login];
+        }else{
+            [self.navigationItem setRightBarButtonItem:self.purchased];
+        }
+    }
+}
+-(void)checkFeaturedPackages{
     [self.featuredCollection removeFromSuperview];
     UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.tableHeaderView = blankHeader;
@@ -113,37 +131,20 @@
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                              options:kNilOptions
                                                                                error:nil];
-                        NSLog(@"Downloaded %@", json);
+                        //NSLog(@"Downloaded %@", json);
                         self.tableView.tableHeaderView = self.featuredCollection;
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
-                        NSLog(@"BANNERS %@", self.featuredPackages);
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self setupFeaturedPackages];
-                        });
+                        //NSLog(@"BANNERS %@", self.featuredPackages);
+                        //dispatch_async(dispatch_get_main_queue(), ^{
+                        [self setupFeaturedPackages];
+                        //});
                     }
                     
                 }] resume];
-
-    }
-    if(!self.repoEndpoint){
-        if([[_keychain stringForKey:repo.baseURL] length] != 0){
-                self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
-                if(![self checkAuthenticated]){
-                    [self.navigationItem setRightBarButtonItem:self.login];
-                }else{
-                    [self.navigationItem setRightBarButtonItem:self.purchased];
-                }
-            }
-    }else{
-        if(![self checkAuthenticated]){
-            [self.navigationItem setRightBarButtonItem:self.login];
-        }else{
-            [self.navigationItem setRightBarButtonItem:self.purchased];
-        }
+        
     }
 }
-
 -(void)setupFeaturedPackages{
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
@@ -168,7 +169,7 @@
                             callbackURLScheme:@"sileo"
                             completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                                 // TODO: Nothing to do here?
-                                NSLog(@"URL %@", callbackURL);
+                                //NSLog(@"URL %@", callbackURL);
                                 if(callbackURL){
                                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                     NSArray *queryItems = urlComponents.queryItems;
@@ -374,11 +375,11 @@
     cell.packageID = currentBanner[@"package"];
     [cell.titleLabel setText:currentBanner[@"title"]];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    //dispatch_async(dispatch_get_main_queue(), ^{
         if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
             cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
         }
-    });
+    //});
     
     return cell;
 }
