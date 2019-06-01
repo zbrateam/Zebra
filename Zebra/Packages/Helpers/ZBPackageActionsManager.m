@@ -80,7 +80,7 @@
     return action;
 }
 
-+ (void (^)(void))getHandler:(int)type package:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath queue:(ZBQueueType)q to:(ZBQueue *)queue viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(ZBQueueType))completion {
++ (void (^)(void))getHandler:(int)type package:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath queue:(ZBQueueType)q to:(ZBQueue *)queue viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     switch (type) {
         case 0: { // rowAction
             return ^(void) {
@@ -95,7 +95,7 @@
                     [(ZBPackageListTableViewController *)vc configureNavigationButtons];
                 }
                 if (completion) {
-                    completion(q);
+                    completion();
                 }
             };
         }
@@ -134,7 +134,7 @@
     }
 }
 
-+ (NSMutableArray *)actions:(int)type forPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(ZBQueueType))completion {
++ (NSMutableArray *)actions:(int)type forPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     NSMutableArray *actions = [NSMutableArray array];
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
@@ -151,7 +151,7 @@
     return actions;
 }
 
-+ (NSMutableArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent completion:(void (^)(ZBQueueType))completion {
++ (NSMutableArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UITableViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     ZBPackageListTableViewController *controller = (ZBPackageListTableViewController *)vc;
     return [self actions:0 forPackage:package indexPath:indexPath viewController:controller parent:parent completion:completion];
 }

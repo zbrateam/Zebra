@@ -230,9 +230,8 @@
         return nil;
     }
     ZBPackage *package = _packages[indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(ZBQueueType queue) {
-        ZBPackageTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        [cell updateQueueStatus:package];
+    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+        [tableView reloadData];
     }];
 }
 

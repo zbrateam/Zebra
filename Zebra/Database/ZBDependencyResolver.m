@@ -175,12 +175,9 @@
         sqlite3_stmt *statement;
         sqlite3_prepare_v2([databaseManager database], [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            for (NSString *dep in [conf dependsOn]) {
-                if ([dep isEqualToString:[package identifier]]) {
-                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
-                }
-            }
+            ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            // [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
+            [queue addPackage:package toQueue:ZBQueueTypeRemove];
         }
         sqlite3_finalize(statement);
     }
