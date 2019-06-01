@@ -105,8 +105,35 @@
     }
 }
 
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = [navigationAction request];
+    NSURL *url = [request URL];
+    
+    int type = navigationAction.navigationType;
+    
+    if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
+        if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+            if (@available(iOS 10.0, *)) {
+                sfVC.preferredControlTintColor = [UIColor tintColor];
+            }
+            [self presentViewController:sfVC animated:true completion:nil];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+        else {
+            decisionHandler(WKNavigationActionPolicyAllow);
+        }
+    }
+    else {
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+}
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
+    if (_url != NULL) {
+        return;
+    }
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else

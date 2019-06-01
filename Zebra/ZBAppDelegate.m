@@ -356,7 +356,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 #pragma mark Private
--(void)setupSDWebImageCache {
+- (void)setupSDWebImageCache {
     [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
 }
 
