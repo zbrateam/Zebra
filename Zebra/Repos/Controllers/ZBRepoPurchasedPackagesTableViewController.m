@@ -44,8 +44,7 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
-         forCellReuseIdentifier:@"packageTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,12 +52,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:TRUE];
     [self listPurchasedSileoPackages];
 }
 
-- (void)listPurchasedSileoPackages{
+- (void)listPurchasedSileoPackages {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     NSDictionary *test = @{ @"token": _keychain[self.repoEndpoint],
@@ -80,15 +79,15 @@
         //self.packages = nil
         //Make package ids lowercase so we dont miss any
         NSMutableArray *loweredPackages = [NSMutableArray new];
-        for(NSString *name in json[@"items"]){
+        for(NSString *name in json[@"items"]) {
             [loweredPackages addObject:[name lowercaseString]];
         }
-        self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages: loweredPackages];
-        if(json[@"user"]){
-            if([json valueForKeyPath:@"user.name"]){
+        self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages:loweredPackages];
+        if (json[@"user"]) {
+            if ([json valueForKeyPath:@"user.name"]) {
                 self.userName = [json valueForKeyPath:@"user.name"];
             }
-            if([json valueForKeyPath:@"user.email"]){
+            if ([json valueForKeyPath:@"user.email"]) {
                 self.userEmail = [json valueForKeyPath:@"user.email"];
             }
             
@@ -134,7 +133,7 @@
     if (section == 0) {
         return 0;
     }
-    else{
+    else {
         return 25;
     }
 }
@@ -166,7 +165,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.section == 0) { //Account Cell
         cell.textLabel.text = self.userName;
         cell.detailTextLabel.text = self.userEmail;

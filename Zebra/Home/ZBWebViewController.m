@@ -178,7 +178,8 @@
         }
         else if ([action isEqual:@"cache"]) {
             [self resetImageCache];
-        }else if([action isEqual:@"keychain"]){
+        }
+        else if ([action isEqual:@"keychain"]) {
             [self clearKeychain];
         }
     }
@@ -195,9 +196,7 @@
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self handleRepoAdd:url local:false];
         }];
-        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [controller dismissViewControllerAnimated:true completion:nil];
-        }];
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
         
         [controller addAction:no];
         [controller addAction:yes];
@@ -212,9 +211,7 @@
                 UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self handleRepoAdd:contents[1] local:true];
                 }];
-                UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [controller dismissViewControllerAnimated:true completion:nil];
-                }];
+                UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
                 [controller addAction:no];
                 [controller addAction:yes];
                 
@@ -223,9 +220,7 @@
             else {
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Error" message:@"This action is not supported on non-jailbroken devices" preferredStyle:UIAlertControllerStyleAlert];
                 
-                UIAlertAction *ok = [UIAlertAction actionWithTitle:@"😢" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [controller dismissViewControllerAnimated:true completion:nil];
-                }];
+                UIAlertAction *ok = [UIAlertAction actionWithTitle:@"😢" style:UIAlertActionStyleDefault handler:NULL];
                 
                 [controller addAction:ok];
                 
@@ -238,9 +233,7 @@
             UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self handleRepoAdd:url local:true];
             }];
-            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [controller dismissViewControllerAnimated:true completion:nil];
-            }];
+            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
             
             [controller addAction:no];
             [controller addAction:yes];
@@ -348,11 +341,12 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
 }
 
--(void)resetImageCache{
+- (void)resetImageCache {
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
 }
--(void)clearKeychain{
+
+- (void)clearKeychain {
     NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
                                 (__bridge id)kSecClassInternetPassword,
                                 (__bridge id)kSecClassCertificate,

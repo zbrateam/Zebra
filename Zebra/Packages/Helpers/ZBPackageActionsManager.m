@@ -201,8 +201,6 @@
         UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedInstance];
             [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-            
-            [alert dismissViewControllerAnimated:true completion:nil];
             [self presentQueue:vc parent:parent];
         }];
         
