@@ -449,12 +449,13 @@
                            NSError *error;
                            //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                             if (error) {
-                            NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
+                            NSLog(@"[ZEBRA] %@", error.localizedDescription);
                             
                             }
                            
                        }
                        else {
+                           [self configureNavButton];
                            return;
                        }
                        
