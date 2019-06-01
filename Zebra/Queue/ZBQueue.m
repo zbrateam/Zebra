@@ -16,6 +16,7 @@
 @interface ZBQueue () {
     NSMutableDictionary <NSString *, NSNumber *> *packageQueues;
     NSMutableDictionary <NSString *, NSMutableArray <NSString *> *> *requiredPackages;
+    NSMutableDictionary <NSString *, ZBPackage *> *replacedPackages;
 }
 @end
 
@@ -43,6 +44,7 @@
         
         packageQueues = [NSMutableDictionary new];
         requiredPackages = [NSMutableDictionary new];
+        replacedPackages = [NSMutableDictionary new];
     }
     
     return self;
@@ -109,11 +111,19 @@
     [self addPackage:package toQueue:queue ignoreDependencies:false];
 }
 
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
-    [self addPackage:package toQueue:queue ignoreDependencies:ignore requiredBy:nil];
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue replace:(ZBPackage *)oldPackage {
+    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:nil replace:oldPackage];
 }
 
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage {
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue requiredBy:(nullable ZBPackage *)requiredPackage {
+    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:requiredPackage replace:nil];
+}
+
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
+    [self addPackage:package toQueue:queue ignoreDependencies:ignore requiredBy:nil replace:nil];
+}
+
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage {
     NSMutableArray *queueArray = [self queueArray:queue];
     if (![queueArray containsObject:package]) {
         if (queue == ZBQueueTypeReinstall && [package filename] == NULL) {
@@ -132,6 +142,9 @@
                             requiredPackages[package.identifier] = [NSMutableArray new];
                         }
                         [requiredPackages[package.identifier] addObject:requiredPackage.name];
+                    }
+                    if (oldPackage) {
+                        replacedPackages[package.identifier] = oldPackage;
                     }
                     [self enqueueDependenciesForPackage:package];
                 case ZBQueueTypeUpgrade:
@@ -287,6 +300,10 @@
     return queueArray ? queueArray[index] : nil;
 }
 
+- (nullable ZBPackage *)packageReplacedBy:(ZBPackage *)package {
+    return replacedPackages[package.identifier];
+}
+
 - (nullable NSMutableArray <NSString *> *)packagesRequiredBy:(ZBPackage *)package {
     return requiredPackages[package.identifier];
 }
@@ -301,6 +318,7 @@
     }
     [packageQueues removeAllObjects];
     [requiredPackages removeAllObjects];
+    [replacedPackages removeAllObjects];
     
     _failedDepQueue = [NSMutableArray new];
     _failedConQueue = [NSMutableArray new];

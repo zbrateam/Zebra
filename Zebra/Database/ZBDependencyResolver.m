@@ -48,7 +48,7 @@
             }
             else if (![queue containsPackage:depPackage]){ //Dependency found, all gucci
 //                NSLog(@"Resolved: %@", depPackage);
-                [queue addPackage:depPackage toQueue:ZBQueueTypeInstall ignoreDependencies:false requiredBy:package];
+                [queue addPackage:depPackage toQueue:ZBQueueTypeInstall requiredBy:package];
             }
             else {
 //                NSLog(@"[Zebra] %@ already in queue, skipping", [package identifier]);

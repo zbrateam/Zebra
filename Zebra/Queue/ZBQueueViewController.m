@@ -175,7 +175,13 @@
     cell.textLabel.text = package.name;
     
     NSMutableString *details = [NSMutableString string];
-    [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
+    ZBPackage *replacedPackage = [_queue packageReplacedBy:package];
+    if (replacedPackage) {
+        [details appendString:[NSString stringWithFormat:@"%@ (%@ -> %@)", package.identifier, replacedPackage.version, package.version]];
+    }
+    else {
+        [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
+    }
     NSMutableArray <NSString *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {
         [details appendString:[NSString stringWithFormat:@" (Required by %@)", [requiredPackages componentsJoinedByString:@", "]]];
