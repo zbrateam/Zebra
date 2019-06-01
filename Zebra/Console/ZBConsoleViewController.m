@@ -143,6 +143,7 @@
     else {
         if (continueWithActions) {
             _progressText.text = @"Performing actions...";
+            self.navigationItem.leftBarButtonItem = nil;
             NSArray *actions = [queue tasks:debs];
             
             for (NSArray *command in actions) {
