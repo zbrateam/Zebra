@@ -17,6 +17,7 @@
 		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
 		36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
 		36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADC22A2C89A00A4604C /* installed_files.html */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
@@ -479,6 +480,7 @@
 		89E8637521D5AF920081E485 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				36F77ADC22A2C89A00A4604C /* installed_files.html */,
 				89C90FE4227B770500325AAD /* discord@2x.png */,
 				89C90FE5227B770500325AAD /* discord@3x.png */,
 				89C90FDE227B760B00325AAD /* twitter@2x.png */,
@@ -580,6 +582,7 @@
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
+				36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */,
 				89C90FE6227B770500325AAD /* discord@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
