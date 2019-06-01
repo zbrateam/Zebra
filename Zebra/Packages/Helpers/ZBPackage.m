@@ -457,7 +457,7 @@
         actions |= ZBQueueTypeInstall; // Install
     }
     NSArray *otherVersions = [self otherVersions];
-    if (otherVersions.count > 1) {
+    if (otherVersions.count) {
         // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
         // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
         actions |= ZBQueueTypeSelectable; // Select other versions
