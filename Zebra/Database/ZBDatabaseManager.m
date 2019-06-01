@@ -259,9 +259,6 @@
         
         createTable(database, 2);
         
-        char *updates = "UPDATE UPDATES SET VERSION = NULL;";
-        sqlite3_exec(database, updates, NULL, 0, NULL);
-        
         numberOfUpdates = 0;
         upgradePackageIDs = [NSMutableArray new];
         for (ZBPackage *package in installedPackages) {
@@ -274,8 +271,9 @@
             if ([package compare:topPackage] == NSOrderedAscending) {
                 NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 
-                if (![topPackage ignoreUpdates]) numberOfUpdates++;
-                NSString *query = [NSString stringWithFormat:@"INSERT OR REPLACE INTO UPDATES(PACKAGE, VERSION) VALUES(\'%@\', \'%@\');", [topPackage identifier], [topPackage version]];
+                BOOL ignoreUpdates = [topPackage ignoreUpdates];
+                if (!ignoreUpdates) numberOfUpdates++;
+                NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [topPackage identifier], [topPackage version], ignoreUpdates ? 1 : 0];
                 
                 if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
                     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -792,11 +790,17 @@
 
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"INSERT OR REPLACE INTO UPDATES(PACKAGE, IGNORE) VALUES(\'%@\', %d);", [package identifier], ignore ? 1 : 0];
+        NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [package identifier], [package version], ignore ? 1 : 0];
         
         sqlite3_stmt *statement;
-        sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-        sqlite3_step(statement);
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                break;
+            }
+        }
+        else {
+            NSLog(@"[Zebra] Error preparing setting package ignore updates statement: %s", sqlite3_errmsg(database));
+        }
         sqlite3_finalize(statement);
         
         [self closeDatabase];
