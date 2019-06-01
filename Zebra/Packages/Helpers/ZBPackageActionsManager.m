@@ -140,7 +140,7 @@
     ZBQueue *queue = [ZBQueue sharedInstance];
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeSelectable; q <<= 1) {
-        if (q == ZBQueueTypeSelectable || [self canHaveAction:possibleActions forPackage:package queue:q]) {
+        if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
             NSString *title = [queue queueToKey:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
