@@ -76,7 +76,7 @@
 - (void)updateQueueStatus:(ZBPackage *)package {
     ZBQueueType queue = [[ZBQueue sharedInstance] queueStatusForPackageIdentifier:package.identifier];
     if (queue) {
-        NSString *status = queue == ZBQueueTypeSelectable ? @"Select Ver." : [[ZBQueue sharedInstance] queueToKey:queue];
+        NSString *status = [[ZBQueue sharedInstance] queueToKey:queue];
         self.queueStatusLabel.hidden = NO;
         self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
         self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
