@@ -20,12 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
 + (id)sharedInstance;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore;
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage;
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)markPackageAsFailed:(ZBPackage *)package forDependency:(NSString *)failedDependency;
 - (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict conflictionType:(int)type;
 - (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue;
 - (NSArray *)tasks:(NSArray *)debs;
 - (int)numberOfPackagesForQueue:(NSString *)queue;
+- (nullable NSMutableArray <NSString *> *)packagesRequiredBy:(ZBPackage *)package;
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
 - (void)clearQueue;
 - (NSArray *)actionsToPerform;
@@ -33,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasObjects;
 - (BOOL)containsPackage:(ZBPackage *)package;
 - (BOOL)containsPackage:(ZBPackage *)package queue:(ZBQueueType)queue;
+- (BOOL)containsPackageName:(NSString *)packageName queue:(ZBQueueType)queue;
 - (NSArray *)packagesToDownload;
 - (BOOL)needsHyena;
 - (NSString *)queueToKey:(ZBQueueType)queue;

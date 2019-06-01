@@ -15,6 +15,7 @@
 
 @interface ZBQueue () {
     NSMutableDictionary <NSString *, NSNumber *> *packageQueues;
+    NSMutableDictionary <NSString *, NSMutableArray <NSString *> *> *requiredPackages;
 }
 @end
 
@@ -41,6 +42,7 @@
         _failedConQueue = [NSMutableArray new];
         
         packageQueues = [NSMutableDictionary new];
+        requiredPackages = [NSMutableDictionary new];
     }
     
     return self;
@@ -108,6 +110,10 @@
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
+    [self addPackage:package toQueue:queue ignoreDependencies:ignore requiredBy:nil];
+}
+
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage {
     NSMutableArray *queueArray = [self queueArray:queue];
     if (![queueArray containsObject:package]) {
         if (queue == ZBQueueTypeReinstall && [package filename] == NULL) {
@@ -121,6 +127,12 @@
         if (!ignore) {
             switch (queue) {
                 case ZBQueueTypeInstall:
+                    if (requiredPackage) {
+                        if (requiredPackages[package.identifier] == nil) {
+                            requiredPackages[package.identifier] = [NSMutableArray new];
+                        }
+                        [requiredPackages[package.identifier] addObject:requiredPackage.identifier];
+                    }
                     [self enqueueDependenciesForPackage:package];
                 case ZBQueueTypeUpgrade:
                     [self checkForConflictionsWithPackage:package state:0];
@@ -275,6 +287,10 @@
     return queueArray ? queueArray[index] : nil;
 }
 
+- (nullable NSMutableArray <NSString *> *)packagesRequiredBy:(ZBPackage *)package {
+    return requiredPackages[package.identifier];
+}
+
 - (ZBQueueType)queueStatusForPackageIdentifier:(NSString *)identifier {
     return [packageQueues[identifier] intValue];
 }
@@ -284,6 +300,7 @@
         [_managedQueue[key] removeAllObjects];
     }
     [packageQueues removeAllObjects];
+    [requiredPackages removeAllObjects];
     
     _failedDepQueue = [NSMutableArray new];
     _failedConQueue = [NSMutableArray new];
@@ -313,6 +330,28 @@
     for (NSString *key in _managedQueue) {
         if ([_managedQueue[key] count]) {
             return true;
+        }
+    }
+    return false;
+}
+
+- (BOOL)containsPackageName:(NSString *)packageName queue:(ZBQueueType)queue {
+    if (queue == 0) {
+        for (NSString *key in _managedQueue) {
+            for (ZBPackage *package in _managedQueue[key]) {
+                if ([packageName isEqualToString:package.identifier]) {
+                    return true;
+                }
+            }
+        }
+    }
+    else {
+        NSMutableArray *queueArray = [self queueArray:queue];
+        if (!queueArray) return false;
+        for (ZBPackage *p in queueArray) {
+            if ([packageName isEqualToString:p.identifier]) {
+                return true;
+            }
         }
     }
     return false;
