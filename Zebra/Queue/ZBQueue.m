@@ -33,10 +33,9 @@
     
     if (self) {
         _managedQueue = [NSMutableDictionary new];
-        [_managedQueue setObject:[NSMutableArray array] forKey:@"Install"];
-        [_managedQueue setObject:[NSMutableArray array] forKey:@"Remove"];
-        [_managedQueue setObject:[NSMutableArray array] forKey:@"Reinstall"];
-        [_managedQueue setObject:[NSMutableArray array] forKey:@"Upgrade"];
+        for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeUpgrade; q <<= 1) {
+            [_managedQueue setObject:[NSMutableArray array] forKey:[self queueToKey:q]];
+        }
         
         _failedDepQueue = [NSMutableArray new];
         _failedConQueue = [NSMutableArray new];
@@ -73,6 +72,8 @@
             return @"Upgrade";
         case ZBQueueTypeReinstall:
             return @"Reinstall";
+        case ZBQueueTypeSelectable:
+            return @"Select Ver.";
         default:
             break;
     }
