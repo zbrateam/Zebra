@@ -196,6 +196,8 @@
     if (key) {
         [_managedQueue[key] removeObject:package];
         [packageQueues removeObjectForKey:package.identifier];
+        [replacedPackages removeObjectForKey:package.identifier];
+        [requiredPackages removeObjectForKey:package.identifier];
     }
 }
 
