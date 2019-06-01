@@ -97,11 +97,13 @@
     if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
         self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
     }
-    if (![self checkAuthenticated]) {
-        [self.navigationItem setRightBarButtonItem:self.login];
-    }
-    else {
-        [self.navigationItem setRightBarButtonItem:self.purchased];
+    if (self.repoEndpoint) {
+        if (![self checkAuthenticated]) {
+            [self.navigationItem setRightBarButtonItem:self.login];
+        }
+        else {
+            [self.navigationItem setRightBarButtonItem:self.purchased];
+        }
     }
 }
 
