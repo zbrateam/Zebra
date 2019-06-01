@@ -8,11 +8,12 @@
 
 #import "ZBDatabaseManager.h"
 #import <Parsel/parsel.h>
+#import <Parsel/vercmp.h>
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Parsel/vercmp.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <Database/ZBColumn.h>
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
@@ -570,10 +571,10 @@
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            const char *identifierChars = (const char *)sqlite3_column_text(statement, 0);
-            const char *versionChars = (const char *)sqlite3_column_text(statement, 1);
+            const char *identifierChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnID);
+            const char *versionChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnVersion);
             NSString *identifier = [NSString stringWithUTF8String:identifierChars];
-            if (sqlite3_column_int(statement, 2) == 0 && versionChars != 0) {
+            if (sqlite3_column_int(statement, ZBUpdateColumnIgnore) == 0 && versionChars != 0) {
                 NSString *version = [NSString stringWithUTF8String:versionChars];
                 
                 ZBPackage *package = [self packageForID:identifier equalVersion:version];
@@ -822,7 +823,6 @@
         sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            
             break;
         }
         
@@ -837,7 +837,6 @@
             if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
                 while (sqlite3_step(statement) == SQLITE_ROW) {
                     package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                    
                     break;
                 }
             }
@@ -947,7 +946,7 @@
             sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            int repoID = sqlite3_column_int(statement, 13);
+            int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
             if (repoID > 0) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 

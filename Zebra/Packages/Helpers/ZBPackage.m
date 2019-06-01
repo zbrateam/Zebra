@@ -13,6 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Database/ZBColumn.h>
 
 @implementation ZBPackage
 
@@ -27,6 +28,8 @@
 @synthesize tags;
 @synthesize dependsOn;
 @synthesize conflictsWith;
+@synthesize provides;
+@synthesize replaces;
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
@@ -215,19 +218,21 @@
     self = [super init];
     
     if (self) {
-        const char *packageIDChars =        (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars =      (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars =          (const char *)sqlite3_column_text(statement, 2);
-        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, 4);
-        const char *sectionChars =          (const char *)sqlite3_column_text(statement, 5);
-        const char *depictionChars =        (const char *)sqlite3_column_text(statement, 6);
-        const char *tagChars =              (const char *)sqlite3_column_text(statement, 7);
-        const char *dependsChars =          (const char *)sqlite3_column_text(statement, 8);
-        const char *conflictsChars =        (const char *)sqlite3_column_text(statement, 9);
-        const char *authorChars =           (const char *)sqlite3_column_text(statement, 10);
-        const char *filenameChars =         (const char *)sqlite3_column_text(statement, 12);
-        const char *iconChars =             (const char *)sqlite3_column_text(statement, 13);
+        const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
+        const char *packageNameChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnName);
+        const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
+        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnShortDescription);
+        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnLongDescription);
+        const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
+        const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
+        const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
+        const char *authorChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthor);
+        const char *dependsChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
+        const char *conflictsChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
+        const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
+        const char *replacesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
+        const char *filenameChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
+        const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
         [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
@@ -255,7 +260,17 @@
             conflictsWith = [conflictsWith[0] componentsSeparatedByString:@","];
         }
         
-        int repoID = sqlite3_column_int(statement, 14);
+        [self setProvides:providesChars != 0 ? [[NSString stringWithUTF8String:providesChars] componentsSeparatedByString:@", "] : NULL];
+        if ([provides count] == 1 && [provides[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
+            provides = [provides[0] componentsSeparatedByString:@","];
+        }
+        
+        [self setProvides:replacesChars != 0 ? [[NSString stringWithUTF8String:replacesChars] componentsSeparatedByString:@", "] : NULL];
+        if ([replaces count] == 1 && [replaces[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
+            replaces = [replaces[0] componentsSeparatedByString:@","];
+        }
+        
+        int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }
