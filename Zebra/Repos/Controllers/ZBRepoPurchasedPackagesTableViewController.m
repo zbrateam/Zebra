@@ -76,7 +76,8 @@
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         //self.packages = json[@"items"];
-        [self.packages removeAllObjects];
+        //[self.packages removeAllObjects];
+        //self.packages = nil
         //Make package ids lowercase so we dont miss any
         NSMutableArray *loweredPackages = [NSMutableArray new];
         for(NSString *name in json[@"items"]){
