@@ -317,9 +317,9 @@
     [uiBusy startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
+    if ([keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
         NSLog(@"Here first %@", keychain[[keychain stringForKey:[package repo].baseURL]]);
-        if([package isPaid]){
+        if ([package isPaid]) {
             NSLog(@"We are Paid");
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             
@@ -329,47 +329,31 @@
             NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
             
             NSMutableURLRequest *request = [NSMutableURLRequest new];
-            [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
+            [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info", [keychain stringForKey:[package repo].baseURL], package.identifier]]];
             [request setHTTPMethod:@"POST"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                if(data){
+                NSString *title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeInstall];
+                SEL selector = @selector(installPackage);
+                if (data) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                     NSLog(@"Response %@", json);
-                    if([json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
-                        self.purchased = TRUE;
-                        self->package.sileoDownload = TRUE;
-                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.navigationItem setRightBarButtonItem:installButton animated:YES];
-                            [uiBusy stopAnimating];
-                        });
-                    }else if(![json[@"purchased"] boolValue] && [json[@"available"] boolValue]){
-                        UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:json[@"price"] style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.navigationItem setRightBarButtonItem:purchaseButton animated:YES];
-                            [uiBusy stopAnimating];
-                        });
-                    }else{
-                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.navigationItem setRightBarButtonItem:installButton animated:YES];
-                            [uiBusy stopAnimating];
-                        });
+                    BOOL purchased = [json[@"purchased"] boolValue];
+                    BOOL available = [json[@"available"] boolValue];
+                    if (!purchased && available) {
+                        title = json[@"price"];
+                        selector = @selector(purchasePackage);
                     }
-                }else{
-                    UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:@"Install" style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                    installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationItem setRightBarButtonItem:installButton animated:YES];
-                        [uiBusy stopAnimating];
-                    });
                 }
+                UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
+                button.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationItem setRightBarButtonItem:button animated:YES];
+                    [uiBusy stopAnimating];
+                });
                 
             }] resume];
         }
@@ -381,14 +365,14 @@
     [self presentQueue];
 }
 
--(void)purchasePackage{
+- (void)purchasePackage {
     UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     uiBusy.hidesWhenStopped = YES;
     [uiBusy startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if([keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0){
-        if([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length]!= 0 && [package repo].supportSileoPay){
+    if ([keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
+        if ([package isPaid] && [package repo].supportSileoPay) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
@@ -403,13 +387,13 @@
                 keychain.authenticationPrompt = @"Authenticate to initiate purchase.";
                 secret = keychain[idThing];
                 dispatch_semaphore_signal(sema);
-                if(error){
+                if (error) {
                     NSLog(@"Canceled %@", error.localizedDescription);
                 }
             });
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
             //Continue
-            if([secret length] != 0){
+            if ([secret length] != 0) {
                 NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
                                                @"payment_secret": secret,
                                                @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
@@ -426,21 +410,23 @@
                 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                     NSLog(@"%@",json);
-                    if([json[@"status"] boolValue]){
+                    if ([json[@"status"] boolValue]) {
                         [uiBusy stopAnimating];
                         [self initPurchaseLink:json[@"url"]];
-                    }else{
+                    }
+                    else {
                         [self configureNavButton];
                     }
                 }] resume];
-            }else{
+            }
+            else {
                 [self configureNavButton];
             }
         }
     }
 }
 
--(void)initPurchaseLink:(NSString *)link{
+- (void)initPurchaseLink:(NSString *)link {
     NSURL *destinationUrl = [NSURL URLWithString:link];
     if (@available(iOS 11.0, *)) {
         static SFAuthenticationSession *session;
@@ -450,7 +436,7 @@
                    completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                        // TODO: Nothing to do here?
                        NSLog(@"URL %@", callbackURL);
-                       if(callbackURL){
+                       if (callbackURL) {
                            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                            NSArray *queryItems = urlComponents.queryItems;
                            NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
@@ -467,14 +453,16 @@
                             
                             }
                            
-                       }else{
+                       }
+                       else {
                            return;
                        }
                        
                        
                    }];
         [session start];
-    }else{
+    }
+    else {
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
         safariVC.delegate = self;
         [self presentViewController:safariVC animated:TRUE completion:nil];
