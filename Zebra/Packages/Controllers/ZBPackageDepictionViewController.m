@@ -269,6 +269,12 @@
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
 
+    if ([package isInstalled:YES]) {
+		[webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
+		[webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
+		[webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function (){ window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
+	}
+
     NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
 
