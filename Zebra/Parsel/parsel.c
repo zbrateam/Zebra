@@ -379,8 +379,8 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_bind_text(insertStatement, 8, tags, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 9, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 10, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 11, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 12, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 11, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 12, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 13, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 14, dict_get(package, "Icon"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_int(insertStatement, 15, repoID);
@@ -469,7 +469,6 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
-            continue;
         }
     }
     if (dict_get(package, "Package") != 0) {
@@ -545,7 +544,6 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
-            continue;
         }
     }
     if (dict_get(package, "Package") != 0) {

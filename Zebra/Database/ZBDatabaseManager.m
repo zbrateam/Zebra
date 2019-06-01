@@ -834,11 +834,15 @@
             else {
                 query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' WHERE REPOID > 0 LIMIT 1;", identifier];
             }
-            sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                
-                break;
+            if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+                while (sqlite3_step(statement) == SQLITE_ROW) {
+                    package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                    
+                    break;
+                }
+            }
+            else {
+                NSLog(@"[Zebra] Error preparing statement for finding Provides substitute: %s", sqlite3_errmsg(database));
             }
         }
         sqlite3_finalize(statement);
