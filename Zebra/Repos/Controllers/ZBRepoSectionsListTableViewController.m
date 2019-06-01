@@ -148,7 +148,7 @@
 -(void)setupFeaturedPackages{
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
-    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 0.f)];
+    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     self.featuredCollection.backgroundColor = [UIColor clearColor];
     CGFloat height = CGSizeFromString(_fullJSON[@"itemSize"]).height + 10;
     //self.featuredCollection.collectionViewLayout.collectionViewContentSize.height = height;
