@@ -131,9 +131,6 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
-    if (_url != NULL) {
-        return;
-    }
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else
