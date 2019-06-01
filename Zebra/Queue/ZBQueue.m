@@ -131,7 +131,7 @@
                         if (requiredPackages[package.identifier] == nil) {
                             requiredPackages[package.identifier] = [NSMutableArray new];
                         }
-                        [requiredPackages[package.identifier] addObject:requiredPackage.identifier];
+                        [requiredPackages[package.identifier] addObject:requiredPackage.name];
                     }
                     [self enqueueDependenciesForPackage:package];
                 case ZBQueueTypeUpgrade:
