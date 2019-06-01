@@ -422,7 +422,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     int safeID = repoID;
     int longDesc = 0;
     
-    char longDescription[32768];
+    char longDescription[32768] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
@@ -498,7 +498,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     int safeID = repoID;
     int longDesc = 0;
     
-    char longDescription[32768];
+    char longDescription[32768] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
