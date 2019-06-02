@@ -136,10 +136,6 @@
     return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
-}
-
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     NSMutableDictionary <NSDate *, NSMutableArray *> *partitions = [NSMutableDictionary new];
     for (ZBPackage *package in packages) {
