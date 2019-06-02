@@ -32,15 +32,18 @@ void dict_add(dict *dictionary, const char *key, const char *value) {
             dictionary = dictionary->tail;
         }
         int key_length = (int)strlen(key) + 1;
-        int value_length = (int)strlen(value) + 1;
         dictionary->head = malloc(sizeof(pair));
         assert(dictionary->head != NULL);
         dictionary->head->key = malloc(key_length * sizeof(char));
-        dictionary->head->value = malloc(value_length * sizeof(char));
         assert(dictionary->head->key != NULL);
         strcpy(dictionary->head->key, key);
-        assert(dictionary->head->value != NULL);
-        strcpy(dictionary->head->value, value);
+        dictionary->head->value = NULL;
+        if (value) {
+            int value_length = (int)strlen(value) + 1;
+            dictionary->head->value = malloc(value_length * sizeof(char));
+            assert(dictionary->head->value != NULL);
+            strcpy(dictionary->head->value, strdup(value));
+        }
     }
 }
 

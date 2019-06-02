@@ -13,6 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Database/ZBColumn.h>
 
 @implementation ZBPackage
 
@@ -27,13 +28,18 @@
 @synthesize tags;
 @synthesize dependsOn;
 @synthesize conflictsWith;
+@synthesize provides;
+@synthesize replaces;
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
+    if ([ZBAppDelegate needsSimulation]) {
+        return nil;
+    }
     NSTask *checkFilesTask = [[NSTask alloc] init];
-    [checkFilesTask setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    [checkFilesTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
     NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"dpkg", @"-L", packageID, nil];
     [checkFilesTask setArguments:filesArgs];
     
@@ -52,11 +58,14 @@
 
 + (BOOL)containsTweak:(NSString *)packageID {
     NSLog(@"[Zebra] Searching %@ for tweak", packageID);
-    if ([packageID containsString:@".deb"]) {
+    if ([ZBAppDelegate needsSimulation]) {
+        return true;
+    }
+    if ([packageID hasSuffix:@".deb"]) {
         NSLog(@"[Zebra] Tring to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
@@ -99,11 +108,14 @@
 
 + (BOOL)containsApp:(NSString *)packageID {
     NSLog(@"[Zebra] Searching %@ for app bundle", packageID);
-    if ([packageID containsString:@".deb"]) {
+    if ([ZBAppDelegate needsSimulation]) {
+        return true;
+    }
+    if ([packageID hasSuffix:@".deb"]) {
         NSLog(@"[Zebra] Tring to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
@@ -143,10 +155,10 @@
 }
 
 + (NSString *)pathForApplication:(NSString *)packageID {
-    if ([packageID containsString:@".deb"]) {
+    if ([packageID hasSuffix:@".deb"]) {
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
         [task setArguments:@[@"/usr/bin/dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
@@ -206,19 +218,21 @@
     self = [super init];
     
     if (self) {
-        const char *packageIDChars =        (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars =      (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars =          (const char *)sqlite3_column_text(statement, 2);
-        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, 4);
-        const char *sectionChars =          (const char *)sqlite3_column_text(statement, 5);
-        const char *depictionChars =        (const char *)sqlite3_column_text(statement, 6);
-        const char *tagChars =              (const char *)sqlite3_column_text(statement, 7);
-        const char *dependsChars =          (const char *)sqlite3_column_text(statement, 8);
-        const char *conflictsChars =        (const char *)sqlite3_column_text(statement, 9);
-        const char *authorChars =           (const char *)sqlite3_column_text(statement, 10);
-        const char *filenameChars =         (const char *)sqlite3_column_text(statement, 12);
-        const char *iconChars =             (const char *)sqlite3_column_text(statement, 13);
+        const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
+        const char *packageNameChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnName);
+        const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
+        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnShortDescription);
+        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnLongDescription);
+        const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
+        const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
+        const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
+        const char *authorChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthor);
+        const char *dependsChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
+        const char *conflictsChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
+        const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
+        const char *replacesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
+        const char *filenameChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
+        const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
         [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
@@ -246,7 +260,17 @@
             conflictsWith = [conflictsWith[0] componentsSeparatedByString:@","];
         }
         
-        int repoID = sqlite3_column_int(statement, 14);
+        [self setProvides:providesChars != 0 ? [[NSString stringWithUTF8String:providesChars] componentsSeparatedByString:@", "] : NULL];
+        if ([provides count] == 1 && [provides[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
+            provides = [provides[0] componentsSeparatedByString:@","];
+        }
+        
+        [self setProvides:replacesChars != 0 ? [[NSString stringWithUTF8String:replacesChars] componentsSeparatedByString:@", "] : NULL];
+        if ([replaces count] == 1 && [replaces[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
+            replaces = [replaces[0] componentsSeparatedByString:@","];
+        }
+        
+        int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }
@@ -328,8 +352,6 @@
         }
     }
     
-    NSString *packageIdentifier = [[self identifier] stringByAppendingString:@"\n"];
-    
     NSError *readError;
     NSString *contents = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&readError];
     
@@ -339,16 +361,60 @@
         return readError.localizedDescription;
     }
     
+    NSString *packageIdentifier = [[self identifier] stringByAppendingString:@"\n"];
+    NSString *packageVersion = [[self version] stringByAppendingString:@"\n"];
+    
     NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
     [scanner scanUpToString:packageIdentifier intoString:NULL];
+    [scanner scanUpToString:packageVersion intoString:NULL];
     NSString *packageInfo;
     [scanner scanUpToString:@"\n\n" intoString:&packageInfo];
     if (packageInfo == NULL) return NULL;
     scanner = [[NSScanner alloc] initWithString:packageInfo];
-    [scanner scanUpToString:[field stringByAppendingString:@": "] intoString:NULL];
+    do {
+        [scanner scanUpToString:[field stringByAppendingString:@": "] intoString:NULL];
+        if ([scanner isAtEnd])
+            break;
+        ++scanner.scanLocation;
+    } while ([packageInfo characterAtIndex:scanner.scanLocation - 2] != '\n');
     [scanner scanUpToString:@"\n" intoString:&value];
     
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
+}
+
+- (int)numericSize {
+    NSString *sizeField = [self getField:@"Size"];
+    if (!sizeField) return 0;
+    return [sizeField intValue];
+}
+
+- (NSString *)size {
+    int numericSize = [self numericSize];
+    if (!numericSize) return NULL;
+    double size = (double)numericSize;
+    if (size > 1024 * 1024) {
+        return [NSString stringWithFormat:@"%.2f MB", size / 1024 / 1024];
+    }
+    if (size > 1024) {
+        return [NSString stringWithFormat:@"%.2f KB", size / 1024];
+    }
+    return [NSString stringWithFormat:@"%d bytes", numericSize];
+}
+
+- (int)numericInstalledSize {
+    NSString *sizeField = [self getField:@"Installed-Size"];
+    if (!sizeField) return 0;
+    return [sizeField intValue];
+}
+
+- (NSString *)installedSize {
+    int numericSize = [self numericInstalledSize];
+    if (!numericSize) return NULL;
+    double size = (double)numericSize;
+    if (size > 1024) {
+        return [NSString stringWithFormat:@"%.2f MB", size / 1024];
+    }
+    return [NSString stringWithFormat:@"%d KB", numericSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
@@ -391,7 +457,7 @@
         actions |= ZBQueueTypeInstall; // Install
     }
     NSArray *otherVersions = [self otherVersions];
-    if (otherVersions.count > 1) {
+    if (otherVersions.count) {
         // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
         // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
         actions |= ZBQueueTypeSelectable; // Select other versions
@@ -413,6 +479,17 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     
     [databaseManager setUpdatesIgnored:ignore forPackage:self];
+}
+
+- (ZBPackage *)installableCandidate {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true];
+}
+
+- (NSDate *)installedDate {
+	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
+	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
+	return attributes[NSFileModificationDate];
 }
 
 @end

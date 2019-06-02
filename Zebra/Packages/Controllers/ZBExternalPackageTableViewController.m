@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
     [task setArguments:@[@"/usr/bin/dpkg", @"-I", [_fileURL path], @"control"]];
     
     NSPipe *pipe = [NSPipe pipe];

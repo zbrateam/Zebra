@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
+@import SDWebImage;
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -26,12 +27,7 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
-    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
-        self.navigationItem.rightBarButtonItem.enabled = false;
-    }
-    else {
-        self.navigationItem.rightBarButtonItem.enabled = true;
-    }
+    [self refreshBarButtons];
     
     self.title = @"Queue";
 }
@@ -49,14 +45,19 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (void)refreshTable {
-    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
+- (void)refreshBarButtons {
+    if ([_queue hasErrors]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
+        self.navigationItem.leftBarButtonItem.title = @"Cancel";
     }
     else {
         self.navigationItem.rightBarButtonItem.enabled = true;
+        self.navigationItem.leftBarButtonItem.title = @"Continue";
     }
-    
+}
+
+- (void)refreshTable {
+    [self refreshBarButtons];
     [self.tableView reloadData];
 }
 
@@ -72,79 +73,120 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[_queue actionsToPerform] objectAtIndex:section];
+    NSString *title = [[_queue actionsToPerform] objectAtIndex:section];
+    if ([title isEqual:@"Install"] || [title isEqual:@"Reinstall"] || [title isEqual:@"Upgrade"]) {
+        ZBQueueType type = [_queue keyToQueue:title];
+        if (type) {
+            double totalDownloadSize = 0;
+            NSArray *packages = [_queue queueArray:type];
+            for (ZBPackage *package in packages) {
+                ZBPackage *truePackage = package;
+                totalDownloadSize += [truePackage numericSize];
+            }
+            if (totalDownloadSize) {
+                NSString *unit = @"bytes";
+                if (totalDownloadSize > 1024 * 1024) {
+                    totalDownloadSize /= 1024 * 1024;
+                    unit = @"MB";
+                }
+                else if (totalDownloadSize > 1024) {
+                    totalDownloadSize /= 1024;
+                    unit = @"KB";
+                }
+                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+            }
+        }
+    }
+    return title;
+}
+
+- (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
+    ZBQueueType queue = [_queue keyToQueue:action];
+    return queue ? [_queue packageInQueue:queue atIndex:indexPath.row] : nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
-    ZBPackage *package;
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
     cell.backgroundColor = [UIColor whiteColor];
-    if ([action isEqual:@"Install"]) {
-        package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
-    }
-    else if ([action isEqual:@"Remove"]) {
-        package = [_queue packageInQueue:ZBQueueTypeRemove atIndex:indexPath.row];
-    }
-    else if ([action isEqual:@"Reinstall"]) {
-        package = [_queue packageInQueue:ZBQueueTypeReinstall atIndex:indexPath.row];
-    }
-    else if ([action isEqual:@"Upgrade"]) {
-        package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
-    }
-    else if ([action isEqual:@"Unresolved Dependencies"]) {
-        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-        
-        NSArray *failedQ = [_queue failedDepQueue];
-        cell.textLabel.text = failedQ[indexPath.row][0];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
-        
-        return cell;
-    }
-    else if ([action isEqual:@"Conflictions"]) {
-        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-        
-        NSArray *failedQ = [_queue failedConQueue];
-        
-        int type = [failedQ[indexPath.row][0] intValue];
-        ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][1];
-        ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][2];
-        
-        cell.textLabel.text = [confliction name];
-        switch (type) {
-            case 0:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", [package name], [confliction name]];
-                break;
-            case 1:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", [confliction name], [package name]];
-                break;
-            case 2:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ depends on %@", [confliction name], [package name]];
-                break;
-            default:
-                cell.detailTextLabel.text = @"Are you proud of yourself?";
-                break;
+    ZBPackage *package = [self packageAtIndexPath:indexPath];
+    if (package == nil) {
+        if ([action isEqual:@"Unresolved Dependencies"]) {
+            cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+            
+            NSArray *failedQ = [_queue failedDepQueue];
+            cell.textLabel.text = failedQ[indexPath.row][0];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
+            
+            return cell;
         }
-        
-        return cell;
+        else if ([action isEqual:@"Conflictions"]) {
+            cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
+            
+            NSArray *failedQ = [_queue failedConQueue];
+            
+            int type = [failedQ[indexPath.row][0] intValue];
+            ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][1];
+            ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][2];
+            
+            cell.textLabel.text = [confliction name];
+            switch (type) {
+                case 0:
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", [package name], [confliction name]];
+                    break;
+                case 1:
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", [confliction name], [package name]];
+                    break;
+                case 2:
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ depends on %@", [confliction name], [package name]];
+                    break;
+                default:
+                    cell.detailTextLabel.text = @"Are you proud of yourself?";
+                    break;
+            }
+            
+            return cell;
+        }
     }
     
     NSString *section = [package sectionImageName];
     
-    UIImage *sectionImage = [UIImage imageNamed:section];
-    if (sectionImage != NULL) {
-        cell.imageView.image = sectionImage;
+    if (package.iconPath) {
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+        [cell.imageView.layer setCornerRadius:10];
+        [cell.imageView setClipsToBounds:TRUE];
+    }
+    else {
+        UIImage *sectionImage = [UIImage imageNamed:section];
+        if (sectionImage != NULL) {
+            cell.imageView.image = sectionImage;
+            [cell.imageView.layer setCornerRadius:10];
+            [cell.imageView setClipsToBounds:TRUE];
+        }
     }
 
     cell.textLabel.text = package.name;
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
+    NSMutableString *details = [NSMutableString string];
+    ZBPackage *replacedPackage = [_queue packageReplacedBy:package];
+    if (replacedPackage) {
+        [details appendString:[NSString stringWithFormat:@"%@ (%@ -> %@)", package.identifier, replacedPackage.version, package.version]];
+    }
+    else {
+        [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
+    }
+    NSMutableArray <NSString *> *requiredPackages = [_queue packagesRequiredBy:package];
+    if (requiredPackages) {
+        [details appendString:[NSString stringWithFormat:@" (Required by %@)", [requiredPackages componentsJoinedByString:@", "]]];
+    }
+    cell.detailTextLabel.text = details;
     
     CGSize itemSize = CGSizeMake(35, 35);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
@@ -159,33 +201,27 @@
 #pragma mark - Table View Delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([[_queue failedDepQueue] count] || [[_queue failedConQueue] count]) {
-        return NO;
+    if ([_queue hasErrors]) return NO;
+    ZBPackage *package = [self packageAtIndexPath:indexPath];
+    NSMutableArray <NSString *> *requiredPackages = [_queue packagesRequiredBy:package];
+    if (requiredPackages) {
+        for (NSString *requiredPackage in requiredPackages) {
+            if ([_queue containsPackageName:requiredPackage queue:ZBQueueTypeInstall]) {
+                return NO;
+            }
+        }
     }
-    else {
-        return YES;
-    }
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
+        ZBQueueType queue = [_queue keyToQueue:action];
+        ZBPackage *package = [self packageAtIndexPath:indexPath];
         
-        if ([action isEqual:@"Install"]) {
-            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeInstall atIndex:indexPath.row];
-            [_queue removePackage:package fromQueue:ZBQueueTypeInstall];
-        }
-        else if ([action isEqual:@"Remove"]) {
-            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeRemove atIndex:indexPath.row];
-            [_queue removePackage:package fromQueue:ZBQueueTypeRemove];
-        }
-        else if ([action isEqual:@"Reinstall"]) {
-            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeReinstall atIndex:indexPath.row];
-            [_queue removePackage:package fromQueue:ZBQueueTypeReinstall];
-        }
-        else if ([action isEqual:@"Upgrade"]) {
-            ZBPackage *package = [_queue packageInQueue:ZBQueueTypeUpgrade atIndex:indexPath.row];
-            [_queue removePackage:package fromQueue:ZBQueueTypeUpgrade];
+        if (package) {
+            [_queue removePackage:package fromQueue:queue];
         }
         else if ([action isEqual:@"Unresolved Dependencies"]) {
             for (NSArray *array in [_queue failedDepQueue]) {
@@ -205,7 +241,12 @@
             NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
         
-        [self refreshTable];
+        if ([_queue hasObjects]) {
+            [self refreshTable];
+        }
+        else {
+            [self cancel:nil];
+        }
         
     }
 }

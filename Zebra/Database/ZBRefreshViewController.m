@@ -127,7 +127,8 @@
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+    ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+    [tabController setPackageUpdateBadgeValue:packageUpdates];
     [self goodbye];
 }
 

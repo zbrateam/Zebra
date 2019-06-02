@@ -58,10 +58,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self refreshTable];
@@ -348,7 +348,8 @@
                 [errorAlert addAction:cancelAction];
                 
                 [weakSelf presentViewController:errorAlert animated:true completion:nil];
-            } else {
+            }
+            else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                 [weakSelf presentViewController:console animated:true completion:nil];
@@ -512,8 +513,8 @@
         [tableView endUpdates];
         
         [self.repoManager deleteSource:delRepo];
-        // We should run this, but it kills swipe to delete animation
-        // [self.tableView reloadData];
+        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+        [tabController setPackageUpdateBadgeValue:(int)databaseManager.packagesWithUpdates.count];
     }
 }
 

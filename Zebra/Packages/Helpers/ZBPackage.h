@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) NSArray *dependsOn;
 @property (nonatomic, strong) NSArray *conflictsWith;
+@property (nonatomic, strong) NSArray *provides;
+@property (nonatomic, strong) NSArray *replaces;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;
@@ -47,6 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)possibleActions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
+- (NSString *)size;
+- (NSString *)installedSize;
+- (int)numericSize;
+- (int)numericInstalledSize;
+- (ZBPackage *)installableCandidate;
+- (NSDate *)installedDate;
 @end
 
 NS_ASSUME_NONNULL_END

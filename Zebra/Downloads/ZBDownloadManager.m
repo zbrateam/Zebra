@@ -40,6 +40,7 @@
 @synthesize queue;
 @synthesize downloadDelegate;
 @synthesize filenames;
+@synthesize session;
 
 - (id)init {
     self = [super init];
@@ -220,7 +221,7 @@
     }
     configuration.HTTPAdditionalHeaders = headers;
 
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (NSArray *repo in self.repos) {
         BOOL dist = [repo count] == 3;
         NSURL *baseURL = dist ? [NSURL URLWithString:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]]] : [NSURL URLWithString:repo[0]];
@@ -274,7 +275,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [self headers];
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
         ZBRepo *repo = [package repo];
         
@@ -299,7 +300,7 @@
         }
         else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url){
-                NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:[NSURL URLWithString:url]];
+                NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
                 self->packageTasksMap[@(downloadTask.taskIdentifier)] = package;
@@ -620,7 +621,7 @@
 }
 
 - (void)addFile:(NSString *)filename toArray:(NSString *)array {
-    NSMutableArray *arr = [[filenames objectForKey:array] mutableCopy];
+    NSMutableArray *arr = [filenames objectForKey:array];
     if (arr == NULL) {
         arr = [NSMutableArray new];
     }
@@ -637,8 +638,13 @@
         for (NSURLSessionTask *task in dataTasks) {
             [task cancel];
         }
-        [self->packageTasksMap removeAllObjects];
     }];
+    [packageTasksMap removeAllObjects];
+    [session invalidateAndCancel];
+}
+
+- (void)stopAllDownloads {
+    [self cancelAllTasksForSession:session];
 }
 
 - (BOOL)isSessionOutOfTasks:(NSURLSession *)sesh {

@@ -36,7 +36,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
         NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
         
-        BOOL dirExsits;
+        BOOL dirExsits = FALSE;
         [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
         if (!dirExsits) {
             NSLog(@"[Zebra] Creating documents directory.");
@@ -57,12 +57,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (BOOL)needsSimulation {
-    return ![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Zebra.app/supersling"];
+    return ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
 }
 
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-    BOOL dirExsits;
+    BOOL dirExsits = FALSE;
     [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
     if (!dirExsits) {
         NSLog(@"[Zebra] Creating lists directory.");
@@ -102,7 +102,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)debsLocation {
     NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
-    BOOL dirExsits;
+    BOOL dirExsits = FALSE;
     [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExsits];
     if (!dirExsits) {
         NSLog(@"[Zebra] Creating debs directory.");
@@ -204,13 +204,14 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     break;
                 }
                 case 2: {
-                    if (![[url path] isEqual:@""]) {
-                        NSString *packageID = [[url path] substringFromIndex:1];
+                    NSString *path = [url path];
+                    if (path.length > 1) {
+                        NSString *packageID = [path substringFromIndex:1];
                         ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                        
-                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                        
-                        [tabController presentViewController:navController animated:true completion:nil];
+                        if (packageController) {
+                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                            [tabController presentViewController:navController animated:true completion:nil];
+                        }
                     }
                     else {
                         [tabController setSelectedIndex:2];
@@ -249,12 +250,15 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     break;
                 }
                 case 4: {
-                    NSString *packageID = [[url path] substringFromIndex:1];
-                    ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                    
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                    
-                    [tabController presentViewController:navController animated:true completion:nil];
+                    NSString *path = [url path];
+                    if (path.length > 1) {
+                        NSString *packageID = [path substringFromIndex:1];
+                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                        if (packageController) {
+                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                            [tabController presentViewController:navController animated:true completion:nil];
+                        }
+                    }
                     break;
                 }
                 case 5: {
@@ -352,7 +356,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 #pragma mark Private
--(void)setupSDWebImageCache {
+- (void)setupSDWebImageCache {
     [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
 }
 
