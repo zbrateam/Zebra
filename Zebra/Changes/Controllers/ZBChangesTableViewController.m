@@ -142,12 +142,10 @@
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     NSMutableDictionary <NSDate *, NSMutableArray *> *partitions = [NSMutableDictionary new];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
     for (ZBPackage *package in packages) {
         if (package.lastSeenDate == nil)
             continue;
-        NSDateComponents *dateComps = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:package.lastSeenDate];
-        NSDate *groupedDate = [calendar dateFromComponents:dateComps];
+        NSDate *groupedDate = package.lastSeenDate;
         if (partitions[groupedDate] == nil) {
             partitions[groupedDate] = [NSMutableArray array];
         }
