@@ -183,7 +183,7 @@
             ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:false];
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
                 //                NSLog(@"%@ replaces %@, will remove %@", package, conf, conf);
-                 [queue addPackage:package toQueue:ZBQueueTypeRemove];
+                 [queue addPackage:conf toQueue:ZBQueueTypeRemove requiredBy:package];
             }
         }
         
