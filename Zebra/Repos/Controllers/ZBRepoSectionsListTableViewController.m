@@ -132,13 +132,12 @@
                                                                              options:kNilOptions
                                                                                error:nil];
                         //NSLog(@"Downloaded %@", json);
-                        self.tableView.tableHeaderView = self.featuredCollection;
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
                         //NSLog(@"BANNERS %@", self.featuredPackages);
-                        //dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setupFeaturedPackages];
-                        //});
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self setupFeaturedPackages];
+                        });
                     }
                     
                 }] resume];
@@ -147,6 +146,9 @@
 }
 
 - (void)setupFeaturedPackages {
+    [self.tableView beginUpdates];
+    self.tableView.tableHeaderView = self.featuredCollection;
+    self.tableView.tableHeaderView.frame = CGRectZero;
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
@@ -156,8 +158,12 @@
     /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ //objective c
     //[self.featuredCollection setNeedsLayout];
     //[self.featuredCollection reloadData];
-    self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
-    [self.tableView reloadData];
+    [UIView animateWithDuration:.25f animations:^{
+        
+        self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
+    }];
+    [self.tableView endUpdates];
+    //[self.tableView reloadData];
 }
 
 - (void)setupRepoLogin {
