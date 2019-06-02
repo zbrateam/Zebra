@@ -119,6 +119,15 @@
         else {
             needsUpdate = true;
         }
+        
+        if (!useCaching) {
+            // All tables are dropped here, add indexes here
+            if ([self openDatabase] == SQLITE_OK) {
+                char *updateIndex = "CREATE INDEX tag_PACKAGE ON UPDATES(PACKAGE);";
+                sqlite3_exec(database, updateIndex, NULL, 0, NULL);
+                [self closeDatabase];
+            }
+        }
     }
     
     if (requested || needsUpdate) {
@@ -506,16 +515,19 @@
 
 #pragma mark - Package management
 
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query;
         
         if (section == NULL) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = %d LIMIT %d OFFSET %d", [repo repoID], limit, start];
+            NSString *orderPart = self.orderByLastSeen && repo == NULL ? @"ORDER BY LASTSEEN DESC" : @"";
+            NSString *repoPart = repo ? [NSString stringWithFormat:@"WHERE REPOID = %d", [repo repoID]] : @"WHERE REPOID > 0";
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ %@ LIMIT %d OFFSET %d", repoPart, orderPart, limit, start];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' AND REPOID = %d LIMIT %d OFFSET %d", section, [repo repoID], limit, start];
+            NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' %@ LIMIT %d OFFSET %d", section, repoPart, limit, start];
         }
         
         sqlite3_stmt *statement;
