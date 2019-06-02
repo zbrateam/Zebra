@@ -16,6 +16,7 @@
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
+#import <ZBTab.h>
 
 typedef enum {
     ZBSortingTypeABC,
@@ -74,7 +75,7 @@ typedef enum {
         [self refreshTable];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
+            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
             
             int totalUpdates = 0;
             for (ZBPackage *package in self->updates) {
@@ -150,9 +151,9 @@ typedef enum {
             else {
                 UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
                 segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
-				[segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-				UIBarButtonItem *controlItem = [[UIBarButtonItem alloc]initWithCustomView:segmentedControl];
-				self.navigationItem.leftBarButtonItem = controlItem;
+                [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+                UIBarButtonItem *controlItem = [[UIBarButtonItem alloc]initWithCustomView:segmentedControl];
+                self.navigationItem.leftBarButtonItem = controlItem;
             }
         });
     }
@@ -169,16 +170,16 @@ typedef enum {
         
         NSArray *_updates = [self->databaseManager packagesWithUpdates];
         self->needsUpdatesSection = [_updates count] != 0;
-
+        
         if (self->needsUpdatesSection) {
             self->updates = _updates;
         }
-
+        
         self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-			NSDate *first = [(ZBPackage*)a installedDate];
-			NSDate *second = [(ZBPackage*)b installedDate];
-			return [second compare:first];
-		}];
+            NSDate *first = [(ZBPackage*)a installedDate];
+            NSDate *second = [(ZBPackage*)b installedDate];
+            return [second compare:first];
+        }];
         
         [self updateCollation];
         [self.tableView reloadData];
@@ -252,8 +253,8 @@ typedef enum {
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-	selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
-	[self refreshTable];
+    selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
+    [self refreshTable];
 }
 
 #pragma mark - UITableViewDataSource
@@ -350,10 +351,6 @@ typedef enum {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
 }
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
@@ -455,7 +452,7 @@ typedef enum {
     
     
     [self setDestinationVC:indexPath destination:packageDepictionVC];
-
+    
     return packageDepictionVC;
     
 }

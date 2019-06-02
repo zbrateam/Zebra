@@ -158,7 +158,10 @@
                             BOOL update = [ZBPackage containsApp:packageID];
                             if (update) {
                                 needsIconCacheUpdate = true;
-                                [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
+                                NSString *path = [ZBPackage pathForApplication:packageID];
+                                if (path) {
+                                    [bundlePaths addObject:path];
+                                }
                             }
                             
                             if (!needsRespring) {
