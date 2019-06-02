@@ -64,7 +64,6 @@
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [self refreshTable];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -524,10 +523,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [self hasDataInSection:section] ? 30 : 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
