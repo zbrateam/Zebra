@@ -15,7 +15,7 @@
 
 @interface ZBQueue () {
     NSMutableDictionary <NSString *, NSNumber *> *packageQueues;
-    NSMutableDictionary <NSString *, NSMutableArray <NSString *> *> *requiredPackages;
+    NSMutableDictionary <NSString *, NSMutableArray <ZBPackage *> *> *requiredPackages;
     NSMutableDictionary <NSString *, ZBPackage *> *replacedPackages;
 }
 @end
@@ -135,20 +135,20 @@
         [queueArray addObject:package];
         [self clearPackage:package inOtherQueuesExcept:queue];
         if (!ignore) {
+            if (requiredPackage) {
+                NSMutableArray *packages = requiredPackages[package.identifier];
+                if (packages == nil) {
+                    packages = requiredPackages[package.identifier] = [NSMutableArray new];
+                }
+                if (![packages containsObject:requiredPackage]) {
+                    [packages addObject:requiredPackage];
+                }
+            }
+            if (oldPackage) {
+                replacedPackages[package.identifier] = oldPackage;
+            }
             switch (queue) {
                 case ZBQueueTypeInstall:
-                    if (requiredPackage) {
-                        NSMutableArray *packages = requiredPackages[package.identifier];
-                        if (packages == nil) {
-                            packages = requiredPackages[package.identifier] = [NSMutableArray new];
-                        }
-                        if (![packages containsObject:requiredPackage.name]) {
-                            [packages addObject:requiredPackage.name];
-                        }
-                    }
-                    if (oldPackage) {
-                        replacedPackages[package.identifier] = oldPackage;
-                    }
                     [self enqueueDependenciesForPackage:package];
                 case ZBQueueTypeUpgrade:
                     [self checkForConflictionsWithPackage:package state:0];
@@ -309,7 +309,7 @@
     return replacedPackages[package.identifier];
 }
 
-- (nullable NSMutableArray <NSString *> *)packagesRequiredBy:(ZBPackage *)package {
+- (nullable NSMutableArray <ZBPackage *> *)packagesRequiredBy:(ZBPackage *)package {
     return requiredPackages[package.identifier];
 }
 
