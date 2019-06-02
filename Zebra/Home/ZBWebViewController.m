@@ -206,6 +206,9 @@
         else if ([action isEqual:@"keychain"]) {
             [self clearKeychain];
         }
+        else if ([action isEqual:@"icon"]) {
+            [self changeIcon];
+        }
     }
     else if ([destination isEqual:@"web"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -379,6 +382,20 @@
     for (id secItemClass in secItemClasses) {
         NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
         SecItemDelete((__bridge CFDictionaryRef)spec);
+    }
+}
+
+- (void)changeIcon {
+    if (@available(iOS 10.3, *)) {
+        if([[UIApplication sharedApplication] supportsAlternateIcons]){
+            [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
+                }
+                }];
+        }
+    } else {
+        return;
     }
 }
 
