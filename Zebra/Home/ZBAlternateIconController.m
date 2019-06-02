@@ -58,11 +58,18 @@
     }
     NSLog(@"INDEXPATH %ld", (long)indexPath.row);
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
+    
     if(indexPath.row != 0){
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
     }else{
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
     }
+    CGSize itemSize = CGSizeMake(40, 40);
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     [cell.imageView.layer setCornerRadius:10];
     [cell.imageView setClipsToBounds:TRUE];
     
