@@ -3,6 +3,9 @@
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
 
+# Create Documents directory if it does not already exist
+mkdir -p /var/mobile/Documents
+
 #I don't like this but why are people's doc directory owned by root??
 chown mobile:mobile /var/mobile/Documents
 chmod 0755 /var/mobile/Documents
