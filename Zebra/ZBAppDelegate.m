@@ -136,6 +136,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     [self setupSDWebImageCache];
+    [self configureViewColors];
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (error) {
@@ -355,6 +356,30 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 #pragma mark Private
+
+- (void)configureViewColors{
+    //Nav bar
+    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    if (@available(iOS 11.0, *)) {
+        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    } else {
+    }
+    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+    //Light Status bar
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    
+    //Tab
+    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
+    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+    
+    //Tables
+    [[UITableView appearance] setBackgroundColor:[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1.0]];
+    [[UITableView appearance] setTintColor:[UIColor tintColor]];
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor grayColor]];
+}
+
 - (void)setupSDWebImageCache {
     [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
 }

@@ -15,9 +15,9 @@
     [super awakeFromNib];
     
     self.backgroundColor = [UIColor clearColor];
-    self.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    self.urlLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    self.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+    self.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+    self.backgroundContainerView.backgroundColor = [UIColor darkGrayColor];//[UIColor cellBackgroundColor];
     self.backgroundContainerView.layer.cornerRadius = 5;
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.iconImageView.layer.cornerRadius = 5;
@@ -36,7 +36,7 @@
         self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
     }
     else {
-        self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        self.backgroundContainerView.backgroundColor = [UIColor darkGrayColor];
     }
     
 }

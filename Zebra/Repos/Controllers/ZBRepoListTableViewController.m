@@ -58,7 +58,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
@@ -545,6 +545,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[self sectionIndexTitlesForTableView:tableView][section]];
+        [label setTextColor:[UIColor whiteColor]];
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];

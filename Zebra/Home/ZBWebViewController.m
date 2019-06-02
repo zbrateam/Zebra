@@ -32,7 +32,7 @@
     
     self.repoManager = [[ZBRepoManager alloc] init];
     
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    //self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
