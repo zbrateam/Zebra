@@ -86,10 +86,10 @@ char *reposSchema() {
 const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *packagesSchema() {
-    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, PRIMARY KEY (PACKAGE, VERSION, REPOID))";
+    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, PRIMARY KEY (PACKAGE, VERSION))";
 }
 
-const char *packageInsertQuery = "REPLACE INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *updatesSchema() {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION STRING NOT NULL, IGNORE INTEGER DEFAULT 0)";
@@ -156,6 +156,10 @@ void createTable(sqlite3 *database, int table) {
     }
     
     sqlite3_exec(database, sql, NULL, 0, NULL);
+    if (table == 2) {
+        char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
+        sqlite3_exec(database, updateIndex, NULL, 0, NULL);
+    }
 }
 
 enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
@@ -470,9 +474,9 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     createTable(database, 1);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
-//    char sql[64];
-//    sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
-//    sqlite3_exec(database, sql, NULL, 0, NULL);
+    char sql[64];
+    sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
+    sqlite3_exec(database, sql, NULL, 0, NULL);
     
     dict *package = dict_new();
     int safeID = repoID;

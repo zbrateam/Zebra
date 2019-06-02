@@ -120,14 +120,7 @@
             needsUpdate = true;
         }
         
-        if (!useCaching) {
-            // All tables are dropped here, add indexes here
-            if ([self openDatabase] == SQLITE_OK) {
-                char *updateIndex = "CREATE INDEX tag_PACKAGE ON UPDATES(PACKAGE);";
-                sqlite3_exec(database, updateIndex, NULL, 0, NULL);
-                [self closeDatabase];
-            }
-        }
+        
     }
     
     if (requested || needsUpdate) {
