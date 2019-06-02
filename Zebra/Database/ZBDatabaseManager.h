@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
+@property (nonatomic, assign) BOOL orderByLastSeen;
+
 /*! @brief A reference to the database. */
 @property (nonatomic) sqlite3 *database;
 
@@ -171,14 +173,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Get a certain number of packages from a corresponding repo.
- @discussion Queries the database for packages from a repo in a section. Use limit and start to specify which portion of the database you want the packages from. Will then clean up the packages (remove duplicate packages) and then return an array.
+ @discussion Queries the database for packages from a repo in a section. Use limit and start to specify which portion of the database you want the packages from. If no repo is provided, all packages are retrieved. Will then clean up the packages (remove duplicate packages) and then return an array.
  @param repo The corresponding repo.
  @param section (Nullable) A specific section to get a list of packages from (NULL if you want all packages from that repo).
  @param limit The number of packages that you want to grab from the database (does not correspond to the number of packages returned).
  @param start An offset from row zero in the database.
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
 
 /*!
  @brief A list of packages that the user has installed on their device.

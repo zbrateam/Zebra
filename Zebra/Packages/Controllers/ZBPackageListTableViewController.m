@@ -16,6 +16,7 @@
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
+#import <ZBTab.h>
 
 typedef enum {
     ZBSortingTypeABC,
@@ -74,7 +75,7 @@ typedef enum {
         [self refreshTable];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:2];
+            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
             
             int totalUpdates = 0;
             for (ZBPackage *package in self->updates) {
