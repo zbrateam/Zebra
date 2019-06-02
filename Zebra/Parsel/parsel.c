@@ -328,7 +328,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
 bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
-    for (int i = 0; packageIdentifier[i]; i++){
+    for (int i = 0; packageIdentifier[i]; ++i) {
         packageIdentifier[i] = tolower(packageIdentifier[i]);
     }
     const char *tags = dict_get(package, "Tag");
@@ -413,7 +413,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             if (longDesc && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
-                    i++;
+                    ++i;
                 }
                 
                 if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
@@ -491,7 +491,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             if (longDesc && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
-                    i++;
+                    ++i;
                 }
                 
                 if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
