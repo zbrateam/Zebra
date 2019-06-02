@@ -84,12 +84,12 @@
         UIFont *font;
         switch(level) {
             case ZBLogLevelDescript: {
-                color = [UIColor blackColor];
+                color = [UIColor whiteColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
             }
             case ZBLogLevelInfo: {
-                color = [UIColor blackColor];
+                color = [UIColor whiteColor];
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
