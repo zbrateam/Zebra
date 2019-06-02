@@ -71,27 +71,6 @@ typedef enum {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigationButtons];
-    if ([repo repoID] == 0) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
-            
-            int totalUpdates = 0;
-            for (ZBPackage *package in self->updates) {
-                if (![package ignoreUpdates]) {
-                    ++totalUpdates;
-                }
-            }
-            if (totalUpdates) {
-                [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", totalUpdates]];
-                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self->updates count]];
-            }
-            else {
-                [packagesTabBarItem setBadgeValue:nil];
-                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-            }
-        });
-    }
     [self refreshTable];
 }
 
@@ -152,6 +131,16 @@ typedef enum {
             
             if (self->needsUpdatesSection) {
                 self->updates = _updates;
+                UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
+                
+                int totalUpdates = 0;
+                for (ZBPackage *package in self->updates) {
+                    if (![package ignoreUpdates]) {
+                        ++totalUpdates;
+                    }
+                }
+                [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : 0];
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             }
             
             self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
