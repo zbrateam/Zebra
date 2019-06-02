@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -312,7 +315,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XFS-4z-Jnp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4287" y="-1633"/>
+            <point key="canvasLocation" x="5224.8000000000002" y="-1633.1334332833585"/>
         </scene>
         <!--Home-->
         <scene sceneID="6d4-DX-o8K">
@@ -493,7 +496,7 @@
                     <connections>
                         <outlet property="progressView" destination="EUm-Oe-xqt" id="Zle-j6-x0A"/>
                         <outlet property="webView" destination="DeN-Wv-VKH" id="hbf-Jb-WSd"/>
-                        <segue destination="OXs-bf-eX2" kind="show" identifier="segueHomeToAltIcons" id="WTa-hY-0WN"/>
+                        <segue destination="jcS-1C-r5p" kind="show" identifier="segueHomeToAltIcons" id="DT9-z1-try"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRu-id-7Cu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -683,7 +686,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJv-RK-hrE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9100" y="-1029.5352323838081"/>
+            <point key="canvasLocation" x="10039.200000000001" y="-1029.5352323838081"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sBn-mO-9Zr">
@@ -699,7 +702,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2R-47-z2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8119.1999999999998" y="-1029.5352323838081"/>
+            <point key="canvasLocation" x="9058.3999999999996" y="-1029.5352323838081"/>
         </scene>
         <!--Console View Controller-->
         <scene sceneID="A6v-hn-Vlw">
@@ -897,6 +900,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Psa-hG-k9I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2398" y="1791"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IXC-bt-X2d">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jcS-1C-r5p" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wfa-1i-NZM">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ojD-HV-OBz" kind="relationship" relationship="rootViewController" id="nAK-bg-vrM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sb0-bD-Uk3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4285.6000000000004" y="-1633.1334332833585"/>
         </scene>
     </scenes>
     <resources>
