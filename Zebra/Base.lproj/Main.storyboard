@@ -235,7 +235,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Changes" id="eZC-Ua-ycq"/>
                     <connections>
-                        <segue destination="B5D-p6-E07" kind="show" id="BH1-Y9-UJa"/>
+                        <segue destination="B5D-p6-E07" kind="show" identifier="seguePackagesToPackageDepiction" id="jak-5S-dzd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cur-Um-L2Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -870,7 +870,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="BH1-Y9-UJa"/>
+        <segue reference="jak-5S-dzd"/>
         <segue reference="TU3-4Y-Pen"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

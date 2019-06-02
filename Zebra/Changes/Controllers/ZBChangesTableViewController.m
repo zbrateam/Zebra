@@ -143,9 +143,9 @@
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     NSMutableDictionary <NSDate *, NSMutableArray *> *partitions = [NSMutableDictionary new];
     for (ZBPackage *package in packages) {
-        if (package.lastSeenDate == nil)
-            continue;
         NSDate *groupedDate = package.lastSeenDate;
+        if (groupedDate == nil)
+            continue;
         if (partitions[groupedDate] == nil) {
             partitions[groupedDate] = [NSMutableArray array];
         }
