@@ -25,11 +25,13 @@ typedef enum {
 
 @interface ZBPackageListTableViewController () {
     ZBSortingType selectedSortingType;
-    NSArray *packages;
-    NSArray *sortedPackages;
-    NSArray *updates;
+    NSArray <ZBPackage *> *packages;
+    NSArray <ZBPackage *> *sortedPackages;
+    NSMutableArray <ZBPackage *> *updates;
+    NSMutableArray <ZBPackage *> *ignoredUpdates;
     NSMutableArray *sectionIndexTitles;
     BOOL needsUpdatesSection;
+    BOOL needsIgnoredUpdatesSection;
     int totalNumberOfPackages;
     int numberOfPackages;
     int databaseRow;
@@ -95,25 +97,8 @@ typedef enum {
 - (void)configureNavigationButtons {
     if ([repo repoID] == 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self->needsUpdatesSection) {
-                UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
-                self.navigationItem.rightBarButtonItem = updateButton;
-            }
-            else {
-                self.navigationItem.rightBarButtonItem = nil;
-            }
-            
-            if ([[ZBQueue sharedInstance] hasObjects]) {
-                UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-                self.navigationItem.leftBarButtonItem = queueButton;
-            }
-            else {
-                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
-                segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
-                [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-                UIBarButtonItem *controlItem = [[UIBarButtonItem alloc]initWithCustomView:segmentedControl];
-                self.navigationItem.leftBarButtonItem = controlItem;
-            }
+            [self addUpgradeButton];
+            [self addQueueButtonOrSegmented];
         });
     }
 }
@@ -126,19 +111,27 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->packages = [self->databaseManager installedPackages];
-            NSArray *_updates = [self->databaseManager packagesWithUpdates];
-            self->needsUpdatesSection = [_updates count] != 0;
+            NSArray *_updates = [self->databaseManager packagesWithUpdatesIncludingIgnored:YES];
+            self->needsUpdatesSection = NO;
+            self->needsIgnoredUpdatesSection = NO;
             
-            if (self->needsUpdatesSection) {
-                self->updates = _updates;
-                UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
-                
-                int totalUpdates = 0;
-                for (ZBPackage *package in self->updates) {
-                    if (![package ignoreUpdates]) {
-                        ++totalUpdates;
-                    }
+            self->updates = [NSMutableArray array];
+            self->ignoredUpdates = [NSMutableArray array];
+            
+            int totalUpdates = 0;
+            for (ZBPackage *package in _updates) {
+                if ([package ignoreUpdates]) {
+                    self->needsIgnoredUpdatesSection = YES;
+                    [self->ignoredUpdates addObject:package];
                 }
+                else {
+                    self->needsUpdatesSection = YES;
+                    ++totalUpdates;
+                    [self->updates addObject:package];
+                }
+            }
+            if (self->needsUpdatesSection) {
+                UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
                 [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : 0];
                 [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             }
@@ -191,7 +184,7 @@ typedef enum {
     });
 }
 
-- (void)upgradeButton {
+- (void)addUpgradeButton {
     if (needsUpdatesSection) {
         UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
         self.navigationItem.rightBarButtonItem = updateButton;
@@ -201,13 +194,17 @@ typedef enum {
     }
 }
 
-- (void)queueButton {
+- (void)addQueueButtonOrSegmented {
     if ([[ZBQueue sharedInstance] hasObjects]) {
         UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
         self.navigationItem.leftBarButtonItem = queueButton;
     }
     else {
-        self.navigationItem.leftBarButtonItem = nil;
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
+        segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+        UIBarButtonItem *controlItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+        self.navigationItem.leftBarButtonItem = controlItem;
     }
 }
 
@@ -224,15 +221,16 @@ typedef enum {
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
     if (needsUpdatesSection && indexPath.section == 0) {
-        return (ZBPackage *)[updates objectAtIndex:indexPath.row];
+        return [updates objectAtIndex:indexPath.row];
     }
-    else if (selectedSortingType == ZBSortingTypeABC) {
+    if (needsIgnoredUpdatesSection && indexPath.section == needsUpdatesSection) {
+        return [ignoredUpdates objectAtIndex:indexPath.row];
+    }
+    if (selectedSortingType == ZBSortingTypeABC) {
         ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
         return package;
     }
-    else {
-        return sortedPackages[indexPath.row];
-    }
+    return sortedPackages[indexPath.row];
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
@@ -244,15 +242,13 @@ typedef enum {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedSortingType == ZBSortingTypeABC) {
-        return [sectionIndexTitles count] + (needsUpdatesSection ? 1 : 0);
+        return [sectionIndexTitles count] + needsUpdatesSection + needsIgnoredUpdatesSection;
     }
-    else {
-        return 1 + needsUpdatesSection;
-    }
+    return 1 + needsUpdatesSection + needsIgnoredUpdatesSection;
 }
 
 - (NSInteger)trueSection:(NSInteger)section {
-    return section - (needsUpdatesSection ? 1 : 0);
+    return section - needsUpdatesSection - needsIgnoredUpdatesSection;
 }
 
 - (id)objectAtSection:(NSInteger)section {
@@ -265,21 +261,22 @@ typedef enum {
     if (needsUpdatesSection && section == 0) {
         return updates.count;
     }
-    else if (self->selectedSortingType == ZBSortingTypeABC) {
+    if (needsIgnoredUpdatesSection && section == needsUpdatesSection) {
+        return ignoredUpdates.count;
+    }
+    if (self->selectedSortingType == ZBSortingTypeABC) {
         return [[self objectAtSection:section] count];
     }
-    else {
-        return sortedPackages.count;
-    }
+    return sortedPackages.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package];
-    if (self.batchLoad && self.continueBatchLoad && (!needsUpdatesSection || indexPath.section != 0) && numberOfPackages != totalNumberOfPackages) {
+    if ([repo repoID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
-        if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1) && ([repo repoID] != 0)) {
+        if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1)) {
             [self loadNextPackages];
         }
     }
@@ -301,13 +298,17 @@ typedef enum {
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
-    BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
-    if (isUpdateSection || hasDataInSection) {
+    BOOL isIgnoredUpdateSection = [repo repoID] == 0 && needsIgnoredUpdatesSection && section == needsUpdatesSection;
+    BOOL hasDataInSection = !isUpdateSection && !isIgnoredUpdateSection && [[self objectAtSection:section] count];
+    if (isUpdateSection || isIgnoredUpdateSection || hasDataInSection) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         if (isUpdateSection) {
             [label setText:[NSString stringWithFormat:@"Available Upgrades (%lu)", (unsigned long)updates.count]];
+        }
+        else if (isIgnoredUpdateSection) {
+            [label setText:[NSString stringWithFormat:@"Ignored Upgrades (%lu)", (unsigned long)ignoredUpdates.count]];
         }
         else if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
             [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
@@ -369,22 +370,11 @@ typedef enum {
     if (self->selectedSortingType == ZBSortingTypeABC) {
         return sectionIndexTitles;
     }
-    else {
-        return nil;
-    }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ((section == 0 && needsUpdatesSection) || (self->selectedSortingType == ZBSortingTypeABC)) {
-        return [sectionIndexTitles objectAtIndex:[self trueSection:section]];
-    }
-    else {
-        return @"Recent";
-    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index + (needsUpdatesSection ? 1 : 0);
+    return index + needsUpdatesSection + needsIgnoredUpdatesSection;
 }
 
 #pragma mark - Swipe actions
