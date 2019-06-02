@@ -149,8 +149,14 @@
         for (NSString *line in conflictions) {
             ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:false];
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
-//                NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
-                [queue markPackageAsFailed:package forConflicts:conf conflictionType:0];
+                if ([[package provides] containsObject:conf.identifier] || [[package replaces] containsObject:conf.identifier]) {
+                    // If this package can provide or replace this conflicting package, we can remove this conflicting package
+                    [queue addPackage:conf toQueue:ZBQueueTypeRemove requiredBy:package];
+                }
+                else {
+//                  NSLog(@"%@ conflicts with %@, cannot install %@", package, conf, package);
+                    [queue markPackageAsFailed:package forConflicts:conf conflictionType:0];
+                }
             }
         }
         
@@ -177,7 +183,7 @@
             ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:false];
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
                 //                NSLog(@"%@ replaces %@, will remove %@", package, conf, conf);
-                 [queue addPackage:package toQueue:ZBQueueTypeRemove];
+                 [queue addPackage:conf toQueue:ZBQueueTypeRemove requiredBy:package];
             }
         }
         

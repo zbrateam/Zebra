@@ -16,6 +16,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDWebImage/SDImageCacheConfig.h>
 #import <SDWebImage/SDImageCache.h>
+#import "ZBTab.h"
 
 @interface ZBAppDelegate ()
 
@@ -177,7 +178,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-                [tabController setSelectedIndex:1];
+                [tabController setSelectedIndex:ZBTabSources];
                 
                 ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 [repoController handleImportOf:url];
@@ -188,22 +189,26 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
             NSLog(@"%@", [url host]);
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-            choices = @[@"home", @"sources", @"packages", @"search"];
+            choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
             index = (int)[choices indexOfObject:components[0]];
             
             switch (index) {
                 case 0: {
-                    [tabController setSelectedIndex:0];
+                    [tabController setSelectedIndex:ZBTabHome];
                     break;
                 }
                 case 1: {
-                    [tabController setSelectedIndex:1];
+                    [tabController setSelectedIndex:ZBTabSources];
                     
                     ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [repoController handleURL:url];
                     break;
                 }
                 case 2: {
+                    [tabController setSelectedIndex:ZBTabChanges];
+                    break;
+                }
+                case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
                         NSString *packageID = [path substringFromIndex:1];
@@ -214,12 +219,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                         }
                     }
                     else {
-                        [tabController setSelectedIndex:2];
+                        [tabController setSelectedIndex:ZBTabPackages];
                     }
                     break;
                 }
-                case 3: {
-                    [tabController setSelectedIndex:3];
+                case 4: {
+                    [tabController setSelectedIndex:ZBTabSearch];
                     
                     ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [searchController handleURL:url];
@@ -236,17 +241,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             index = (int)[choices indexOfObject:components[0]];
             
             switch (index) {
-                case 0: {
-                    [tabController setSelectedIndex:0];
-                    break;
-                }
-                case 1: {
-                    [tabController setSelectedIndex:1];
-                    break;
-                }
+                case 0:
+                case 1:
                 case 2:
                 case 3: {
-                    [tabController setSelectedIndex:2];
+                    [tabController setSelectedIndex:index];
                     break;
                 }
                 case 4: {
@@ -262,7 +261,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     break;
                 }
                 case 5: {
-                    [tabController setSelectedIndex:3];
+                    [tabController setSelectedIndex:ZBTabSearch];
                     
                     ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [searchController handleURL:url];
@@ -272,7 +271,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     NSArray *components = [[url absoluteString] componentsSeparatedByString:@"share#?source="];
                     if ([components count] == 2) {
                         NSString *sourceURL = [components[1] componentsSeparatedByString:@"&package"][0];
-                        [tabController setSelectedIndex:1];
+                        [tabController setSelectedIndex:ZBTabSources];
                         
                         ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                         
@@ -317,13 +316,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
-        [tabController setSelectedIndex:3];
+        [tabController setSelectedIndex:ZBTabSearch];
         
         ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [searchController handleURL:NULL];
     }
     else if ([shortcutItem.type isEqualToString:@"Add"]) {
-        [tabController setSelectedIndex:1];
+        [tabController setSelectedIndex:ZBTabSources];
         
         ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 

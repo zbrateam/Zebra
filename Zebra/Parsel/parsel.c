@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 #include <Database/ZBColumn.h>
 
 char *trim(char *s) {
@@ -85,10 +86,10 @@ char *reposSchema() {
 const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *packagesSchema() {
-    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER)";
+    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, PRIMARY KEY (PACKAGE, VERSION))";
 }
 
-const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *updatesSchema() {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION STRING NOT NULL, IGNORE INTEGER DEFAULT 0)";
@@ -155,6 +156,10 @@ void createTable(sqlite3 *database, int table) {
     }
     
     sqlite3_exec(database, sql, NULL, 0, NULL);
+    if (table == 2) {
+        char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
+        sqlite3_exec(database, updateIndex, NULL, 0, NULL);
+    }
 }
 
 enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
@@ -303,6 +308,23 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
     dict_free(repo);
 }
 
+sqlite3_int64 currentDate = -1;
+
+sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int repoID) {
+    char query[200];
+    sprintf(query, "SELECT LASTSEEN FROM PACKAGES WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
+    sqlite3_stmt *statement;
+    sqlite3_int64 timestamp = 0;
+    if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            timestamp = sqlite3_column_int64(statement, 0);
+            break;
+        }
+    }
+    sqlite3_finalize(statement);
+    return timestamp;
+}
+
 bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
@@ -344,6 +366,8 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnFilename, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnIconURL, dict_get(package, "Icon"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnRepoID, repoID);
+            sqlite3_int64 previousTimestamp = import ? -1 : getCurrentPackageTimestamp(database, packageIdentifier, dict_get(package, "Version"), repoID);
+            sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, import ? 0 : (previousTimestamp == 0 ? currentDate : previousTimestamp));
             if (longDescription[0] != '\0')
                 longDescription[strlen(longDescription) - 1] = '\0';
             sqlite3_step(insertStatement);
@@ -459,6 +483,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     int longDesc = 0;
     
     char longDescription[32768] = "";
+    
+    currentDate = (int)time(NULL);
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {

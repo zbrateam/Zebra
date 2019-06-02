@@ -14,6 +14,7 @@
 #import <ZBAppDelegate.h>
 #import <Database/ZBRefreshViewController.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBTab.h"
 
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
@@ -59,7 +60,7 @@
 - (void)setPackageUpdateBadgeValue:(int)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
+        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
         if (updates > 0) {
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
@@ -73,7 +74,7 @@
 }
 
 - (void)updatePackagesTableView {
-    UINavigationController *navController = self.viewControllers[2];
+    UINavigationController *navController = self.viewControllers[ZBTabPackages];
     ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
     
     [packagesController refreshTable];

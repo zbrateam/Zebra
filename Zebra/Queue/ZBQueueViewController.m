@@ -182,9 +182,13 @@
     else {
         [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
     }
-    NSMutableArray <NSString *> *requiredPackages = [_queue packagesRequiredBy:package];
+    NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {
-        [details appendString:[NSString stringWithFormat:@" (Required by %@)", [requiredPackages componentsJoinedByString:@", "]]];
+        NSMutableArray <NSString *> *requiredPackageNames = [NSMutableArray array];
+        for (ZBPackage *package in requiredPackages) {
+            [requiredPackageNames addObject:package.name];
+        }
+        [details appendString:[NSString stringWithFormat:@" (Required by %@)", [requiredPackageNames componentsJoinedByString:@", "]]];
     }
     cell.detailTextLabel.text = details;
     
@@ -203,10 +207,10 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([_queue hasErrors]) return NO;
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    NSMutableArray <NSString *> *requiredPackages = [_queue packagesRequiredBy:package];
+    NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {
-        for (NSString *requiredPackage in requiredPackages) {
-            if ([_queue containsPackageName:requiredPackage queue:ZBQueueTypeInstall]) {
+        for (ZBPackage *requiredPackage in requiredPackages) {
+            if ([_queue containsPackage:requiredPackage queue:ZBQueueTypeInstall]) {
                 return NO;
             }
         }
