@@ -12,6 +12,7 @@
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBAlternateIconController.h"
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -206,6 +207,9 @@
         else if ([action isEqual:@"keychain"]) {
             [self clearKeychain];
         }
+        else if ([action isEqual:@"icon"]) {
+            [self changeIcon];
+        }
     }
     else if ([destination isEqual:@"web"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -379,6 +383,22 @@
     for (id secItemClass in secItemClasses) {
         NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
         SecItemDelete((__bridge CFDictionaryRef)spec);
+    }
+}
+
+- (void)changeIcon {
+    if (@available(iOS 10.3, *)) {
+        [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
+        /*if([[UIApplication sharedApplication] supportsAlternateIcons]){
+            [[UIApplication sharedApplication] alternateIconName];
+            [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
+                }
+                }];
+        }*/
+    } else {
+        return;
     }
 }
 
