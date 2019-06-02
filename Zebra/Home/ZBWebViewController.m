@@ -12,6 +12,7 @@
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBAlternateIconController.h"
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -387,13 +388,15 @@
 
 - (void)changeIcon {
     if (@available(iOS 10.3, *)) {
-        if([[UIApplication sharedApplication] supportsAlternateIcons]){
+        [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
+        /*if([[UIApplication sharedApplication] supportsAlternateIcons]){
+            [[UIApplication sharedApplication] alternateIconName];
             [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
                 }
                 }];
-        }
+        }*/
     } else {
         return;
     }
