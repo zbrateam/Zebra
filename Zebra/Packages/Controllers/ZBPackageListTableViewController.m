@@ -70,9 +70,8 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self configureNavigationButtons];
     if ([repo repoID] == 0) {
-        [self configureNavigationButtons];
-        [self refreshTable];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
@@ -93,6 +92,7 @@ typedef enum {
             }
         });
     }
+    [self refreshTable];
 }
 
 - (BOOL)useBatchLoad {
@@ -101,25 +101,6 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if ([repo repoID] == 0) {
-        [self configureNavigationButtons];
-        [self refreshTable];
-    }
-    else {
-        self.batchLoadCount = 500;
-        packages = [databaseManager packagesFromRepo:repo inSection:section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
-        databaseRow = self.batchLoadCount - 1;
-        numberOfPackages = (int)[packages count];
-        if (section != NULL) {
-            totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo section:section];
-        }
-        else {
-            totalNumberOfPackages = [databaseManager numberOfPackagesInRepo:repo section:NULL];
-        }
-        self.batchLoad = YES;
-        self.continueBatchLoad = self.batchLoad;
-    }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -130,7 +111,6 @@ typedef enum {
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
-    [self updateCollation];
 }
 
 - (void)configureNavigationButtons {
@@ -165,21 +145,35 @@ typedef enum {
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->packages = [self->databaseManager installedPackages];
-        self->numberOfPackages = (int)[self->packages count];
-        
-        NSArray *_updates = [self->databaseManager packagesWithUpdates];
-        self->needsUpdatesSection = [_updates count] != 0;
-        
-        if (self->needsUpdatesSection) {
-            self->updates = _updates;
+        if ([self->repo repoID] == 0) {
+            self->packages = [self->databaseManager installedPackages];
+            NSArray *_updates = [self->databaseManager packagesWithUpdates];
+            self->needsUpdatesSection = [_updates count] != 0;
+            
+            if (self->needsUpdatesSection) {
+                self->updates = _updates;
+            }
+            
+            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                NSDate *first = [(ZBPackage*)a installedDate];
+                NSDate *second = [(ZBPackage*)b installedDate];
+                return [second compare:first];
+            }];
         }
-        
-        self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            NSDate *first = [(ZBPackage*)a installedDate];
-            NSDate *second = [(ZBPackage*)b installedDate];
-            return [second compare:first];
-        }];
+        else {
+            self.batchLoadCount = 500;
+            self->packages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+            self->databaseRow = self.batchLoadCount - 1;
+            if (self->section != NULL) {
+                self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:self->repo section:self->section];
+            }
+            else {
+                self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:self->repo section:NULL];
+            }
+            self.batchLoad = YES;
+            self.continueBatchLoad = self.batchLoad;
+        }
+        self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
         [self.tableView reloadData];
