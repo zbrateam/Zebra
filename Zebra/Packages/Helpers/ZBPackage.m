@@ -236,8 +236,8 @@
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
-        [self setName:[NSString stringWithUTF8String:packageNameChars]]; //This should never be NULL
-        [self setVersion:[NSString stringWithUTF8String:versionChars]]; //This should never be NULL
+        [self setName:packageNameChars != 0 ? [NSString stringWithUTF8String:packageNameChars] : self.identifier]; // fall back to ID if NULL
+        [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
         [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
