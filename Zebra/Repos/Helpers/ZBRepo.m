@@ -104,10 +104,10 @@
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]];
         }
         
-        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NULL];
         [self setDesc:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setBaseFileName:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setBaseURL:baseURL];
+        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : (baseURL ?: @"Unknown")];
         [self setSecure:secure];
         [self setRepoID:sqlite3_column_int(statement, ZBRepoColumnRepoID)];
         [self setIconURL:iconURL];
