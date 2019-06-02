@@ -58,7 +58,8 @@
     }
     NSLog(@"INDEXPATH %ld", (long)indexPath.row);
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
-    
+#warning color
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
     if(indexPath.row != 0){
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
     }else{
@@ -72,6 +73,7 @@
     UIGraphicsEndImageContext();
     [cell.imageView.layer setCornerRadius:10];
     [cell.imageView setClipsToBounds:TRUE];
+    
     
     return cell;
 }

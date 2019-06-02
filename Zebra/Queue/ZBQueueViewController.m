@@ -99,6 +99,16 @@
     }
     return title;
 }
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+#warning color
+{
+    // Text Color
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
+        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+        [header.textLabel setTextColor:[UIColor whiteColor]];
+    }
+    
+}
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
@@ -115,7 +125,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    cell.backgroundColor = [UIColor whiteColor];
+    //cell.backgroundColor = [UIColor whiteColor];
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     if (package == nil) {
         if ([action isEqual:@"Unresolved Dependencies"]) {

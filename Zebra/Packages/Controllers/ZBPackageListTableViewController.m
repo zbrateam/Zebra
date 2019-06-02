@@ -316,6 +316,7 @@ typedef enum {
         else if (selectedSortingType == ZBSortingTypeDate) {
             [label setText:@"Recent"];
         }
+        [label setTextColor:[UIColor whiteColor]];
         [view addSubview:label];
         
         label.translatesAutoresizingMaskIntoConstraints = NO;

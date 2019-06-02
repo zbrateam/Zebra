@@ -201,6 +201,7 @@
     
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:@"Purchased Packages"];
+    [label setTextColor:[UIColor whiteColor]];
     [view addSubview:label];
     
     label.translatesAutoresizingMaskIntoConstraints = NO;
