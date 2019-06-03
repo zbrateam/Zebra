@@ -479,8 +479,8 @@
 
 - (void)setIgnoreUpdates:(BOOL)ignore {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    
     [databaseManager setUpdatesIgnored:ignore forPackage:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 - (ZBPackage *)installableCandidate {
