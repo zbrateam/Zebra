@@ -65,9 +65,10 @@
     [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
     
     webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
-    webView.opaque = false;
-    webView.backgroundColor = [UIColor clearColor];
     webView.tintColor = [UIColor tintColor];
+    
+#warning color
+    webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
