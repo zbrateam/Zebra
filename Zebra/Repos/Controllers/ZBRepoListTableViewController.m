@@ -608,7 +608,6 @@
     [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
     [self setRepoRefreshIndicatorVisible:false];
     [self clearAllSpinners];
-    [self refreshTable];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
         if (self->errorMessages) {
