@@ -130,17 +130,16 @@ typedef enum {
                     [self->updates addObject:package];
                 }
             }
-            if (self->needsUpdatesSection) {
-                UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
-                [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : 0];
-                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
-            }
+            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
+            [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : nil];
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             
             self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
                 NSDate *first = [(ZBPackage*)a installedDate];
                 NSDate *second = [(ZBPackage*)b installedDate];
                 return [second compare:first];
             }];
+            [self configureNavigationButtons];
         }
         else {
             self.batchLoadCount = 500;
