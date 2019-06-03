@@ -283,7 +283,7 @@
                     }
                 }
                 else {
-                    NSLog(@"[Zebra] Error while creating package update entry insertion: %s", sqlite3_errmsg(database));
+                    [self printDatabaseError];
                 }
                 sqlite3_finalize(statement);
                 
@@ -365,15 +365,16 @@
     }
 }
 
-- (int)numberOfPackagesInRepo:(ZBRepo *)repo section:(NSString *_Nullable)section {
+- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section {
     if ([self openDatabase] == SQLITE_OK) {
         int packages = 0;
         NSString *query;
+        NSString *repoPart = repo ? [NSString stringWithFormat:@"REPOID = %d", [repo repoID]] : @"REPOID > 0";
         if (section != NULL) {
-            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND REPOID = %d", section, [repo repoID]];
+            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
+            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE %@", repoPart];
         }
         
         sqlite3_stmt *statement;
@@ -821,6 +822,35 @@
 
 #pragma mark - Package lookup
 
+- (ZBPackage *)packageThatProvides:(NSString *)identifier checkInstalled:(BOOL)installed {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query;
+        if (installed) {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' LIMIT 1;", identifier];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' WHERE REPOID > 0 LIMIT 1;", identifier];
+        }
+        ZBPackage *package;
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                break;
+            }
+        }
+        else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        return package;
+    }
+    else {
+        [self printDatabaseError];
+        return NULL;
+    }
+}
+
 - (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed checkProvides:(BOOL)provides {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query;
@@ -841,21 +871,7 @@
         
         //Only try to resolve "Provides" if we can't resolve the normal package.
         if (provides && package == NULL) {
-            if (installed) {
-                query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' LIMIT 1;", identifier];
-            }
-            else {
-                query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' WHERE REPOID > 0 LIMIT 1;", identifier];
-            }
-            if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-                while (sqlite3_step(statement) == SQLITE_ROW) {
-                    package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                    break;
-                }
-            }
-            else {
-                NSLog(@"[Zebra] Error preparing statement for finding Provides substitute: %s", sqlite3_errmsg(database));
-            }
+            package = [self packageThatProvides:identifier checkInstalled:installed];
         }
         sqlite3_finalize(statement);
         

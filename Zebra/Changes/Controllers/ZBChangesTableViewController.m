@@ -73,9 +73,6 @@
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     
-    self.batchLoadCount = 500;
-    self.batchLoad = YES;
-    self.continueBatchLoad = self.batchLoad;
     [self refreshTable];
 }
 
@@ -85,11 +82,15 @@
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.batchLoadCount = 500;
         self->databaseManager.orderByLastSeen = YES;
         self->packages = [self->databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
         self->databaseManager.orderByLastSeen = NO;
         self->databaseRow = self.batchLoadCount - 1;
+        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:NULL section:NULL];
         self->numberOfPackages = (int)[self->packages count];
+        self.batchLoad = YES;
+        self.continueBatchLoad = self.batchLoad;
         [self updateSections];
         [self.tableView reloadData];
     });
