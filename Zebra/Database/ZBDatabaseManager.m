@@ -287,6 +287,7 @@
                 NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
                 continue;
             }
+            BOOL packageIgnoreUpdates = [package ignoreUpdates];
             
             ZBPackage *topPackage = [self topVersionForPackage:package];
             NSComparisonResult compare = [package compare:topPackage];
@@ -310,8 +311,14 @@
                 [upgradePackageIDs addObject:[topPackage identifier]];
             }
             else if (compare == NSOrderedSame) {
-                // This package has no update, we update the latest version here
-                if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [package identifier], [package version], [package ignoreUpdates]] UTF8String], -1, &statement, nil) == SQLITE_OK) {
+                NSString *query;
+                if (packageIgnoreUpdates)
+                    // This package has no update and the user actively ignores updates from it, we update the latest version here
+                    query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', 1);", [package identifier], [package version]];
+                else
+                    // This package has no update and the user does not ignore updates from it, having the record in the database is waste of space
+                    query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", [package identifier]];
+                if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
                     while (sqlite3_step(statement) == SQLITE_ROW) {
                         break;
                     }
