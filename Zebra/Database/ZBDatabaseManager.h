@@ -19,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
-@property (nonatomic, assign) BOOL orderByLastSeen;
-
 /*! @brief A reference to the database. */
 @property (atomic) sqlite3 *database;
 

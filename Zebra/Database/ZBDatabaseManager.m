@@ -67,6 +67,7 @@
         sqlite3_shutdown();
         sqlite3_config(SQLITE_CONFIG_SERIALIZED);
         sqlite3_initialize();
+        assert(sqlite3_threadsafe());
         int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
         if (result == SQLITE_OK) {
             numberOfDatabaseUsers++;
@@ -549,9 +550,8 @@
         NSString *query;
         
         if (section == NULL) {
-            NSString *orderPart = self.orderByLastSeen && repo == NULL ? @"ORDER BY LASTSEEN DESC" : @"";
             NSString *repoPart = repo ? [NSString stringWithFormat:@"WHERE REPOID = %d", [repo repoID]] : @"WHERE REPOID > 0";
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ %@ LIMIT %d OFFSET %d", repoPart, orderPart, limit, start];
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ LIMIT %d OFFSET %d", repoPart, limit, start];
         }
         else {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";
