@@ -151,11 +151,6 @@
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:TRUE];
-}
-
-
 - (NSString *)deviceModelID {
     struct utsname systemInfo;
     uname(&systemInfo);
