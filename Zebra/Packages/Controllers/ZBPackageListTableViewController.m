@@ -134,11 +134,16 @@ typedef enum {
             [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             
-            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                NSDate *first = [(ZBPackage*)a installedDate];
-                NSDate *second = [(ZBPackage*)b installedDate];
-                return [second compare:first];
-            }];
+            if (self->selectedSortingType == ZBSortingTypeDate) {
+                self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                    NSDate *first = [(ZBPackage*)a installedDate];
+                    NSDate *second = [(ZBPackage*)b installedDate];
+                    return [second compare:first];
+                }];
+            }
+            else {
+                self->sortedPackages = nil;
+            }
             [self configureNavigationButtons];
         }
         else {
