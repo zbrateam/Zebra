@@ -32,6 +32,7 @@ typedef enum {
     NSMutableArray *sectionIndexTitles;
     BOOL needsUpdatesSection;
     BOOL needsIgnoredUpdatesSection;
+    BOOL isRefreshingTable;
     int totalNumberOfPackages;
     int numberOfPackages;
     int databaseRow;
@@ -108,8 +109,11 @@ typedef enum {
 }
 
 - (void)refreshTable {
+    if (isRefreshingTable)
+        return;
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
+            self->isRefreshingTable = YES;
             self->packages = [self->databaseManager installedPackages];
             NSArray *_updates = [self->databaseManager packagesWithUpdatesIncludingIgnored:YES];
             self->needsUpdatesSection = NO;
@@ -120,7 +124,8 @@ typedef enum {
             
             int totalUpdates = 0;
             for (ZBPackage *package in _updates) {
-                if ([package ignoreUpdates]) {
+                BOOL ignoreUpdate = [package ignoreUpdates];
+                if (ignoreUpdate) {
                     self->needsIgnoredUpdatesSection = YES;
                     [self->ignoredUpdates addObject:package];
                 }
@@ -136,8 +141,8 @@ typedef enum {
             
             if (self->selectedSortingType == ZBSortingTypeDate) {
                 self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                    NSDate *first = [(ZBPackage*)a installedDate];
-                    NSDate *second = [(ZBPackage*)b installedDate];
+                    NSDate *first = [(ZBPackage *)a installedDate];
+                    NSDate *second = [(ZBPackage *)b installedDate];
                     return [second compare:first];
                 }];
             }
@@ -145,6 +150,7 @@ typedef enum {
                 self->sortedPackages = nil;
             }
             [self configureNavigationButtons];
+            self->isRefreshingTable = NO;
         }
         else {
             self.batchLoadCount = 500;
