@@ -34,7 +34,6 @@
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
 
-    // TODO: This value setting can be wrong because it is not up-to-date ?
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
     
@@ -59,6 +58,7 @@
 }
 
 - (void)setPackageUpdateBadgeValue:(int)updates {
+    [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
