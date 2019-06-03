@@ -382,6 +382,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0]];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
+    [[WKWebView appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
+    [[WKWebView appearance] setOpaque:FALSE];
 }
 
 - (void)setupSDWebImageCache {
