@@ -98,7 +98,10 @@
 }
 
 - (void)printDatabaseError {
-    NSLog(@"[Zebra] Database Error: %s", sqlite3_errmsg(database));
+    const char *error = sqlite3_errmsg(database);
+    if (error) {
+        NSLog(@"[Zebra] Database Error: %s", error);
+    }
 }
 
 #pragma mark - Populating the database

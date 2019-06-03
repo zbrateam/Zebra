@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL orderByLastSeen;
 
 /*! @brief A reference to the database. */
-@property (nonatomic) sqlite3 *database;
+@property (atomic) sqlite3 *database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
 @property (nonatomic) BOOL needsToPresentRefresh;

@@ -325,6 +325,9 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
             break;
         }
     }
+    else {
+        printf("[Parsel] Error preparing current package timestamp statement: %s\n", sqlite3_errmsg(database));
+    }
     sqlite3_finalize(statement);
     return timestamp;
 }
@@ -377,7 +380,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_step(insertStatement);
         }
         else {
-            printf("database error: %s", sqlite3_errmsg(database));
+            printf("[Parsel] Error preparing package binding statement: %s", sqlite3_errmsg(database));
         }
         
         sqlite3_finalize(insertStatement);
