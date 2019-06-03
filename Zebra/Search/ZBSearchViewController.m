@@ -93,16 +93,13 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchText isEqualToString:@""]) {
         results = [databaseManager searchForPackageName:searchText numberOfResults:25];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     }
     else {
         results = nil;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -191,10 +188,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
 }
 
 #pragma mark - Swipe actions

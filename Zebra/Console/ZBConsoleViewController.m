@@ -307,6 +307,8 @@
     self.navigationItem.leftBarButtonItem = nil;
     _progressView.progress = 1;
     [self addCloseButton];
+    [queue clearQueue];
+    [self removeAllDebs];
 }
 
 - (void)goodbye {

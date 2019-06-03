@@ -30,8 +30,6 @@
 @synthesize sectionNames;
 @synthesize databaseManager;
 
-//static SFAuthenticationSession *session;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
@@ -86,14 +84,6 @@
         [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     }
     [self checkFeaturedPackages];
-}
-
-- (BOOL)checkAuthenticated {
-    return [[_keychain stringForKey:self.repoEndpoint] length];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
     if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
         self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
     }
@@ -105,6 +95,14 @@
             [self.navigationItem setRightBarButtonItem:self.purchased];
         }
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AuthenticationCallBack" object:nil];
+}
+
+- (BOOL)checkAuthenticated {
+    return [[_keychain stringForKey:self.repoEndpoint] length];
 }
 
 - (void)checkFeaturedPackages {
@@ -128,9 +126,7 @@
                                     NSError *error) {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                             options:kNilOptions
-                                                                               error:nil];
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                         //NSLog(@"Downloaded %@", json);
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
@@ -168,7 +164,7 @@
 
 - (void)setupRepoLogin {
     if (self.repoEndpoint) {
-        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@",self.repoEndpoint,[self deviceUDID], [self deviceModelID]]];
+        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [self deviceUDID], [self deviceModelID]]];
         if (@available(iOS 11.0, *)) {
             static SFAuthenticationSession *session;
             session = [[SFAuthenticationSession alloc]
@@ -204,7 +200,8 @@
                                     });
                                     //[self.repo setLoggedIn:TRUE];
                                     [self.navigationItem setRightBarButtonItem:self.purchased];
-                                }else {
+                                }
+                                else {
                                     return;
                                 }
                                 
@@ -287,13 +284,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    numberFormatter.locale = [NSLocale currentLocale];
+    numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    numberFormatter.usesGroupingSeparator = YES;
+    
     if (indexPath.row == 0) {
         cell.textLabel.text = @"All Packages";
-        
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
-        numberFormatter.locale = [NSLocale currentLocale];
-        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        numberFormatter.usesGroupingSeparator = YES;
         
         NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
@@ -301,11 +298,6 @@
     else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = [section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc]init];
-        numberFormatter.locale = [NSLocale currentLocale];
-        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        numberFormatter.usesGroupingSeparator = YES;
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }

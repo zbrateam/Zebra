@@ -316,7 +316,7 @@ sqlite3_int64 currentDate = -1;
 
 sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int repoID) {
     char query[200];
-    sprintf(query, "SELECT LASTSEEN FROM PACKAGES WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
+    sprintf(query, "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
     sqlite3_stmt *statement;
     sqlite3_int64 timestamp = 0;
     if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) == SQLITE_OK) {
@@ -324,6 +324,9 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
             timestamp = sqlite3_column_int64(statement, 0);
             break;
         }
+    }
+    else {
+        printf("[Parsel] Error preparing current package timestamp statement: %s\n", sqlite3_errmsg(database));
     }
     sqlite3_finalize(statement);
     return timestamp;
@@ -377,7 +380,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_step(insertStatement);
         }
         else {
-            printf("database error: %s", sqlite3_errmsg(database));
+            printf("[Parsel] Error preparing package binding statement: %s", sqlite3_errmsg(database));
         }
         
         sqlite3_finalize(insertStatement);
@@ -477,6 +480,9 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     createTable(database, 1);
     
+    sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
+    sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
+    
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     char sql[64];
     sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
@@ -539,6 +545,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     if (dict_get(package, "Package") != 0) {
         bindPackage(&package, repoID, safeID, longDescription, database, false);
     }
+    
+    sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);

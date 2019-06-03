@@ -174,6 +174,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     ZBExternalPackageTableViewController *external = vc.viewControllers[0];
                     external.fileURL = url;
                     
+                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                     [self.window.rootViewController presentViewController:vc animated:true completion:nil];
                 }
             }
