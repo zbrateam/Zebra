@@ -289,7 +289,8 @@
             }
             
             ZBPackage *topPackage = [self topVersionForPackage:package];
-            if ([package compare:topPackage] == NSOrderedAscending) {
+            NSComparisonResult compare = [package compare:topPackage];
+            if (compare == NSOrderedAscending) {
                 NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 
                 BOOL ignoreUpdates = [topPackage ignoreUpdates];
@@ -308,9 +309,9 @@
                 
                 [upgradePackageIDs addObject:[topPackage identifier]];
             }
-            else {
-                // This package has no update, we must remove it from UPDATES
-                if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", [package identifier]] UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            else if (compare == NSOrderedSame) {
+                // This package has no update, we update the latest version here
+                if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [package identifier], [package version], [package ignoreUpdates]] UTF8String], -1, &statement, nil) == SQLITE_OK) {
                     while (sqlite3_step(statement) == SQLITE_ROW) {
                         break;
                     }
