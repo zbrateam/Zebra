@@ -289,6 +289,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Package lookup
 
 /*!
+ @brief Mainly used in dependency resolution, this will return whether or not there is a package that provides the same functionality as the given one.
+ @param identifier The identifier of the package in question.
+ @param installed Whether or not to check the installed database for this package
+ @return A ZBPackage instance that matches the parameters.
+ */
+- (ZBPackage *)packageThatProvides:(NSString *)identifier checkInstalled:(BOOL)installed;
+
+/*!
  @brief Mainly used in dependency resolution, this will return a ZBPackage instance that matches the parameters.
  @param identifier The identifier of the package in question.
  @param comparison (Nullable) Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>". Pass NULL if no comparison needed.
