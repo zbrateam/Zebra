@@ -156,7 +156,11 @@ void createTable(sqlite3 *database, int table) {
     }
     
     sqlite3_exec(database, sql, NULL, 0, NULL);
-    if (table == 2) {
+    if (table == 1) {
+        char *packageIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGEVERSION ON PACKAGES (PACKAGE, VERSION);";
+        sqlite3_exec(database, packageIndex, NULL, 0, NULL);
+    }
+    else if (table == 2) {
         char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
         sqlite3_exec(database, updateIndex, NULL, 0, NULL);
     }
