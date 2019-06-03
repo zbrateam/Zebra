@@ -226,8 +226,8 @@
     }
     if (needsDelegateStart) {
         [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 - (void)importLocalPackages {
@@ -307,6 +307,18 @@
                 sqlite3_finalize(statement);
                 
                 [upgradePackageIDs addObject:[topPackage identifier]];
+            }
+            else {
+                // This package has no update, we must remove it from UPDATES
+                if (sqlite3_prepare_v2(database, [[NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", [package identifier]] UTF8String], -1, &statement, nil) == SQLITE_OK) {
+                    while (sqlite3_step(statement) == SQLITE_ROW) {
+                        break;
+                    }
+                }
+                else {
+                    [self printDatabaseError];
+                }
+                sqlite3_finalize(statement);
             }
             [found addObject:[package identifier]];
         }
