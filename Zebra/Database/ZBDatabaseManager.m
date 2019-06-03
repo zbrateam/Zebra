@@ -207,6 +207,7 @@
         [self importLocalPackagesAndCheckForUpdates:true sender:self];
         [self updateLastUpdated];
         [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
         [self closeDatabase];
     }
     else {
@@ -223,7 +224,10 @@
         NSLog(@"[Zebra] Checking for updates");
         [self checkForPackageUpdates];
     }
-    if (needsDelegateStart) [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
+    if (needsDelegateStart) {
+        [self->_databaseDelegate databaseCompletedUpdate:numberOfUpdates];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
+    }
 }
 
 - (void)importLocalPackages {
