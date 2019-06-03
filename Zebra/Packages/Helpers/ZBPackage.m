@@ -62,7 +62,7 @@
         return true;
     }
     if ([packageID hasSuffix:@".deb"]) {
-        NSLog(@"[Zebra] Tring to find package id");
+        NSLog(@"[Zebra] Trying to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
@@ -112,7 +112,7 @@
         return true;
     }
     if ([packageID hasSuffix:@".deb"]) {
-        NSLog(@"[Zebra] Tring to find package id");
+        NSLog(@"[Zebra] Trying to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
