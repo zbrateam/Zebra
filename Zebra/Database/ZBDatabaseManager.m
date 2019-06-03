@@ -365,15 +365,16 @@
     }
 }
 
-- (int)numberOfPackagesInRepo:(ZBRepo *)repo section:(NSString *_Nullable)section {
+- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section {
     if ([self openDatabase] == SQLITE_OK) {
         int packages = 0;
         NSString *query;
+        NSString *repoPart = repo ? [NSString stringWithFormat:@"REPOID = %d", [repo repoID]] : @"REPOID > 0";
         if (section != NULL) {
-            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND REPOID = %d", section, [repo repoID]];
+            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
+            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE %@", repoPart];
         }
         
         sqlite3_stmt *statement;

@@ -135,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param section (Nullable) A subsection of the repo to count the number of packages in.
  @return The number of packages in that repo/section.
  */
-- (int)numberOfPackagesInRepo:(ZBRepo *)repo section:(NSString *_Nullable)section;
+- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
  @brief All of the repos that are in the database.
