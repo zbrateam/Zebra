@@ -323,20 +323,26 @@
             }
             else {
                 NSLog(@"[Zebra] Added source.");
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                [weakSelf presentViewController:console animated:true completion:nil];
+                [weakSelf showRefreshView:@(NO)];
             }
         }];
     }
 }
 
+- (void)showRefreshView:(NSNumber *)dropTables {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:false];
+    }
+    else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        console.dropTables = [dropTables boolValue];
+        [self presentViewController:console animated:true completion:nil];
+    }
+}
+
 - (void)nukeDatabase {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    refreshController.dropTables = TRUE;
-    
-    [self presentViewController:refreshController animated:true completion:nil];
+    [self showRefreshView:@(YES)];
 }
 
 - (void)sendBugReport {
