@@ -258,6 +258,10 @@
 
 - (void)checkForPackageUpdates {
     if ([self openDatabase] == SQLITE_OK) {
+        //drop previous updates table:
+        const char *updatesDel = "DROP TABLE UPDATES;";
+        sqlite3_exec(database, updatesDel, NULL, 0, NULL);
+
         NSMutableArray *installedPackages = [NSMutableArray new];
         
         NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0;";
