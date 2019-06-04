@@ -93,16 +93,13 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchText isEqualToString:@""]) {
         results = [databaseManager searchForPackageName:searchText numberOfResults:25];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     }
     else {
         results = nil;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -193,10 +190,6 @@
     return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
-}
-
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,9 +198,8 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(ZBQueueType queue) {
-        ZBPackageTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        [cell updateQueueStatus:package];
+    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+        [tableView reloadData];
     }];
 }
 

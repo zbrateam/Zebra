@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
 /*! @brief A reference to the database. */
-@property (nonatomic) sqlite3 *database;
+@property (atomic) sqlite3 *database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
 @property (nonatomic) BOOL needsToPresentRefresh;
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param section (Nullable) A subsection of the repo to count the number of packages in.
  @return The number of packages in that repo/section.
  */
-- (int)numberOfPackagesInRepo:(ZBRepo *)repo section:(NSString *_Nullable)section;
+- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
  @brief All of the repos that are in the database.
@@ -171,27 +171,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Get a certain number of packages from a corresponding repo.
- @discussion Queries the database for packages from a repo in a section. Use limit and start to specify which portion of the database you want the packages from. Will then clean up the packages (remove duplicate packages) and then return an array.
+ @discussion Queries the database for packages from a repo in a section. Use limit and start to specify which portion of the database you want the packages from. If no repo is provided, all packages are retrieved. Will then clean up the packages (remove duplicate packages) and then return an array.
  @param repo The corresponding repo.
  @param section (Nullable) A specific section to get a list of packages from (NULL if you want all packages from that repo).
  @param limit The number of packages that you want to grab from the database (does not correspond to the number of packages returned).
  @param start An offset from row zero in the database.
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo *)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
 
 /*!
  @brief A list of packages that the user has installed on their device.
  @return An array of packages from repoID 0 (installed).
  */
-- (NSArray <ZBPackage *> *)installedPackages;
+- (NSMutableArray <ZBPackage *> *)installedPackages;
+
+/*!
+ @brief A list of packages that have updates available, ignored will be included if the developer explicity specified.
+ @return An array of packages that have updates.
+ */
+- (NSMutableArray <ZBPackage *>*)packagesWithUpdatesIncludingIgnored:(BOOL)ignored;
 
 /*!
  @brief A list of packages that have updates available.
  @remark Packages that have updates ignored will not be present in this array
  @return An array of packages that have updates.
  */
-- (NSArray <ZBPackage *>*)packagesWithUpdates;
+- (NSMutableArray <ZBPackage *>*)packagesWithUpdates;
 
 /*!
  @brief A list of packages that have a name similar to the search term.
@@ -281,6 +287,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Package lookup
 
 /*!
+ @brief Mainly used in dependency resolution, this will return whether or not there is a package that provides the same functionality as the given one.
+ @param identifier The identifier of the package in question.
+ @param installed Whether or not to check the installed database for this package
+ @return A ZBPackage instance that matches the parameters.
+ */
+- (ZBPackage *)packageThatProvides:(NSString *)identifier checkInstalled:(BOOL)installed;
+
+/*!
  @brief Mainly used in dependency resolution, this will return a ZBPackage instance that matches the parameters.
  @param identifier The identifier of the package in question.
  @param comparison (Nullable) Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>". Pass NULL if no comparison needed.
@@ -334,14 +348,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param package The package you want to search for.
  @return A ZBPackage instance representing the highest version in the database.
  */
-- (ZBPackage *)topVersionForPackage:(ZBPackage *)package;
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package;
 
 /*!
  @brief The highest version of a package that exists in the database.
  @param packageIdentifier The package identifier you want to search for.
  @return A ZBPackage instance representing the highest version in the database.
  */
-- (ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
 
 #pragma mark - Helper methods
 
@@ -351,7 +365,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param packageList A list of packages that need to be cleaned.
  @return An array of every other version of a package in the database.
  */
-- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList;
+- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSMutableArray <ZBPackage *> *)packageList;
 
 @end
 

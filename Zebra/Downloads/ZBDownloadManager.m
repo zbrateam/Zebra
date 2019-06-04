@@ -40,6 +40,7 @@
 @synthesize queue;
 @synthesize downloadDelegate;
 @synthesize filenames;
+@synthesize session;
 
 - (id)init {
     self = [super init];
@@ -88,7 +89,7 @@
     NSError *sourceListReadError;
     NSString *sourceList = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&sourceListReadError];
     
-    if (sourceListReadError != NULL) { 
+    if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && sourceListReadError != NULL) {
         [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening sources.list: %@\n", sourceListReadError.localizedDescription] atLevel:ZBLogLevelError];
         
         return NULL;
@@ -141,7 +142,7 @@
         NSString *suite = components[2];
         NSString *component = components[3];
         
-        if ([self checkForInvalidRepo:baseURL]) {
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
             [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
         }
         
@@ -150,7 +151,7 @@
     else { //Normal, non-weird repo
         NSString *baseURL = components[1];
         
-        if ([self checkForInvalidRepo:baseURL]) {
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
             [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
         }
         
@@ -205,7 +206,8 @@
 
 - (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore {
     if (repos == NULL) {
-        [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+            [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
         [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
     }
     
@@ -213,14 +215,15 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSDictionary *headers = ignore ? [self headers] : [self headersForFile:@"file"];
     if (headers == NULL) {
-        [downloadDelegate postStatusUpdate:@"Could not determine device information.\n" atLevel:ZBLogLevelError];
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+            [downloadDelegate postStatusUpdate:@"Could not determine device information.\n" atLevel:ZBLogLevelError];
         [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
         
         return;
     }
     configuration.HTTPAdditionalHeaders = headers;
 
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (NSArray *repo in self.repos) {
         BOOL dist = [repo count] == 3;
         NSURL *baseURL = dist ? [NSURL URLWithString:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]]] : [NSURL URLWithString:repo[0]];
@@ -274,7 +277,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [self headers];
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
         ZBRepo *repo = [package repo];
         
@@ -299,7 +302,7 @@
         }
         else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url){
-                NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:[NSURL URLWithString:url]];
+                NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
                 self->packageTasksMap[@(downloadTask.taskIdentifier)] = package;
@@ -422,7 +425,8 @@
         }
         else if ([[filename lastPathComponent] containsString:@".gz"]) {
             if (responseCode == 304) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -487,7 +491,8 @@
         }
         else if ([[filename lastPathComponent] containsString:@".bz2"]) {
             if (responseCode == 304) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -549,7 +554,8 @@
         }
         else if ([[filename lastPathComponent] containsString:@"Release"]) {
             if (responseCode == 304) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -620,7 +626,7 @@
 }
 
 - (void)addFile:(NSString *)filename toArray:(NSString *)array {
-    NSMutableArray *arr = [[filenames objectForKey:array] mutableCopy];
+    NSMutableArray *arr = [filenames objectForKey:array];
     if (arr == NULL) {
         arr = [NSMutableArray new];
     }
@@ -637,8 +643,13 @@
         for (NSURLSessionTask *task in dataTasks) {
             [task cancel];
         }
-        [self->packageTasksMap removeAllObjects];
     }];
+    [packageTasksMap removeAllObjects];
+    [session invalidateAndCancel];
+}
+
+- (void)stopAllDownloads {
+    [self cancelAllTasksForSession:session];
 }
 
 - (BOOL)isSessionOutOfTasks:(NSURLSession *)sesh {

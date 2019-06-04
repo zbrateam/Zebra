@@ -9,6 +9,8 @@
 #import "ZBRepo.h"
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
+#import <Database/ZBDatabaseManager.h>
+#import <Database/ZBColumn.h>
 
 @implementation ZBRepo
 
@@ -33,9 +35,14 @@
     
     ZBRepo *source;
     sqlite3_stmt *statement;
-    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil);
-    while (sqlite3_step(statement) == SQLITE_ROW) {
-        source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+            break;
+        }
+    }
+    else {
+        [[ZBDatabaseManager sharedInstance] printDatabaseError];
     }
     sqlite3_finalize(statement);
     sqlite3_close(database);
@@ -78,19 +85,19 @@
     self = [super init];
     
     if (self) {
-        const char *originChars = (const char *)sqlite3_column_text(statement, 0);
-        const char *descriptionChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, 2);
-        const char *baseURLChars = (const char *)sqlite3_column_text(statement, 3);
-        const char *suiteChars = (const char *)sqlite3_column_text(statement, 7);
-        const char *compChars = (const char *)sqlite3_column_text(statement, 8);
+        const char *originChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnOrigin);
+        const char *descriptionChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnDescription);
+        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnBaseFilename);
+        const char *baseURLChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnBaseURL);
+        const char *suiteChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnSuite);
+        const char *compChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnComponents);
         
         NSURL *iconURL;
         NSString *baseURL = baseURLChars != 0 ? [[NSString alloc] initWithUTF8String:baseURLChars] : NULL;
         NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
         NSString *shortURL = separate[0];
         
-        BOOL secure = sqlite3_column_int(statement, 4);
+        BOOL secure = sqlite3_column_int(statement, ZBRepoColumnSecure);
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
             iconURL = [NSURL URLWithString:url] ;
@@ -102,23 +109,24 @@
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]];
         }
         
-        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NULL];
         [self setDesc:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setBaseFileName:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setBaseURL:baseURL];
+        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : (baseURL ?: @"Unknown")];
         [self setSecure:secure];
-        [self setRepoID:sqlite3_column_int(statement, 5)];
+        [self setRepoID:sqlite3_column_int(statement, ZBRepoColumnRepoID)];
         [self setIconURL:iconURL];
-        [self setDefaultRepo:sqlite3_column_int(statement, 6)];
+        [self setDefaultRepo:sqlite3_column_int(statement, ZBRepoColumnDef)];
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NULL];
         [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];
-        if(secure){
+        if (secure) {
             NSString *requestURL;
-            if([baseURL hasSuffix:@"/"]){
-                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint",baseURL];
-            }else{
-                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint",baseURL];
+            if ([baseURL hasSuffix:@"/"]) {
+                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint", baseURL];
+            }
+            else {
+                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint", baseURL];
             }
             NSURL *url = [NSURL URLWithString:requestURL];
             NSURLSession *session = [NSURLSession sharedSession];
@@ -128,7 +136,7 @@
                                         NSError *error) {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                         NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        if([endpoint length] != 0 && (long)[httpResponse statusCode] != 404){
+                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] != 404) {
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                             keychain[baseURL] = endpoint;
                             [self setSupportSileoPay:TRUE];
@@ -137,13 +145,14 @@
                     }] resume];
         }
         //prevent constant network spam
-        if(!self.checkedSupportFeaturedPackages){
+        if (!self.checkedSupportFeaturedPackages) {
             //Check for featured string
             NSString *requestURL;
-            if([baseURL hasSuffix:@"/"]){
-                requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json",baseURL];
-            }else{
-                requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json",baseURL];
+            if ([baseURL hasSuffix:@"/"]) {
+                requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", baseURL];
+            }
+            else {
+                requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", baseURL];
             }
             NSURL *checkingURL = [NSURL URLWithString:requestURL];
             NSURLSession *session = [NSURLSession sharedSession];
@@ -152,7 +161,7 @@
                                         NSURLResponse *response,
                                         NSError *error) {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        if(data != nil && (long)[httpResponse statusCode] != 404){
+                        if (data != nil && (long)[httpResponse statusCode] != 404) {
                             [self setSupportsFeaturedPackages:TRUE];
                         }
                         

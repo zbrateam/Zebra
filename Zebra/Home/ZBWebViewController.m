@@ -12,6 +12,7 @@
 #import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBAlternateIconController.h"
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -63,7 +64,7 @@
     [progressView.leadingAnchor constraintEqualToAnchor:webView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
     
-    webView.navigationDelegate = self;
+    webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
     webView.tintColor = [UIColor tintColor];
@@ -102,6 +103,30 @@
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = [navigationAction request];
+    NSURL *url = [request URL];
+    
+    int type = navigationAction.navigationType;
+    
+    if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
+        if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+            if (@available(iOS 10.0, *)) {
+                sfVC.preferredControlTintColor = [UIColor tintColor];
+            }
+            [self presentViewController:sfVC animated:true completion:nil];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+        else {
+            decisionHandler(WKNavigationActionPolicyAllow);
+        }
+    }
+    else {
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
 
@@ -178,8 +203,12 @@
         }
         else if ([action isEqual:@"cache"]) {
             [self resetImageCache];
-        }else if([action isEqual:@"keychain"]){
+        }
+        else if ([action isEqual:@"keychain"]) {
             [self clearKeychain];
+        }
+        else if ([action isEqual:@"icon"]) {
+            [self changeIcon];
         }
     }
     else if ([destination isEqual:@"web"]) {
@@ -195,9 +224,7 @@
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self handleRepoAdd:url local:false];
         }];
-        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [controller dismissViewControllerAnimated:true completion:nil];
-        }];
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
         
         [controller addAction:no];
         [controller addAction:yes];
@@ -212,9 +239,7 @@
                 UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self handleRepoAdd:contents[1] local:true];
                 }];
-                UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [controller dismissViewControllerAnimated:true completion:nil];
-                }];
+                UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
                 [controller addAction:no];
                 [controller addAction:yes];
                 
@@ -223,9 +248,7 @@
             else {
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Error" message:@"This action is not supported on non-jailbroken devices" preferredStyle:UIAlertControllerStyleAlert];
                 
-                UIAlertAction *ok = [UIAlertAction actionWithTitle:@"😢" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [controller dismissViewControllerAnimated:true completion:nil];
-                }];
+                UIAlertAction *ok = [UIAlertAction actionWithTitle:@"😢" style:UIAlertActionStyleDefault handler:NULL];
                 
                 [controller addAction:ok];
                 
@@ -238,9 +261,7 @@
             UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self handleRepoAdd:url local:true];
             }];
-            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [controller dismissViewControllerAnimated:true completion:nil];
-            }];
+            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
             
             [controller addAction:no];
             [controller addAction:yes];
@@ -302,20 +323,26 @@
             }
             else {
                 NSLog(@"[Zebra] Added source.");
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                [weakSelf presentViewController:console animated:true completion:nil];
+                [weakSelf showRefreshView:@(NO)];
             }
         }];
     }
 }
 
+- (void)showRefreshView:(NSNumber *)dropTables {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:false];
+    }
+    else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        console.dropTables = [dropTables boolValue];
+        [self presentViewController:console animated:true completion:nil];
+    }
+}
+
 - (void)nukeDatabase {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    refreshController.dropTables = TRUE;
-    
-    [self presentViewController:refreshController animated:true completion:nil];
+    [self showRefreshView:@(YES)];
 }
 
 - (void)sendBugReport {
@@ -348,11 +375,12 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
 }
 
--(void)resetImageCache{
+- (void)resetImageCache {
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
 }
--(void)clearKeychain{
+
+- (void)clearKeychain {
     NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
                                 (__bridge id)kSecClassInternetPassword,
                                 (__bridge id)kSecClassCertificate,
@@ -361,6 +389,22 @@
     for (id secItemClass in secItemClasses) {
         NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
         SecItemDelete((__bridge CFDictionaryRef)spec);
+    }
+}
+
+- (void)changeIcon {
+    if (@available(iOS 10.3, *)) {
+        [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
+        /*if([[UIApplication sharedApplication] supportsAlternateIcons]){
+            [[UIApplication sharedApplication] alternateIconName];
+            [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
+                }
+                }];
+        }*/
+    } else {
+        return;
     }
 }
 

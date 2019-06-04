@@ -64,12 +64,16 @@
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseCompletedUpdate) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)databaseCompletedUpdate {
     [self refreshTable];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 - (void)layoutNavigationButtons {
@@ -170,7 +174,6 @@
 
 - (void)refreshSources:(id)sender {
     [databaseManager setDatabaseDelegate:self];
-    
     [self setRepoRefreshIndicatorVisible:true];
     [databaseManager updateDatabaseUsingCaching:true userRequested:true];
 }
@@ -514,9 +517,7 @@
         
         [self.repoManager deleteSource:delRepo];
         ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:(int)databaseManager.packagesWithUpdates.count];
-        // We should run this, but it kills swipe to delete animation
-        // [self.tableView reloadData];
+        [tabController setPackageUpdateBadgeValue:(int)[databaseManager packagesWithUpdatesIncludingIgnored:NO].count];
     }
 }
 
@@ -526,10 +527,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return [self hasDataInSection:section] ? 30 : 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -611,7 +608,6 @@
     [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
     [self setRepoRefreshIndicatorVisible:false];
     [self clearAllSpinners];
-    [self refreshTable];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
         if (self->errorMessages) {

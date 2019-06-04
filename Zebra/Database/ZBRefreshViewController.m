@@ -76,13 +76,12 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
+    if (str == NULL)
+        return;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (str == NULL)
-            return;
-
         UIColor *color;
         UIFont *font;
-        switch(level) {
+        switch (level) {
             case ZBLogLevelDescript: {
                 color = [UIColor blackColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];

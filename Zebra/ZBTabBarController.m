@@ -14,6 +14,7 @@
 #import <ZBAppDelegate.h>
 #import <Database/ZBRefreshViewController.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBTab.h"
 
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
@@ -59,7 +60,7 @@
 - (void)setPackageUpdateBadgeValue:(int)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:2];
+        UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
         if (updates > 0) {
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
@@ -73,21 +74,21 @@
 }
 
 - (void)updatePackagesTableView {
-    UINavigationController *navController = self.viewControllers[2];
+    UINavigationController *navController = self.viewControllers[ZBTabPackages];
     ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
     
     [packagesController refreshTable];
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    UINavigationController *sourcesController = self.viewControllers[1];
+    UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
     UITabBarItem *sourcesItem = [sourcesController tabBarItem];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (visible) {
             sourcesItem.badgeValue = @"";
             
             for (UIView *badge in self.tabBar.subviews[2].subviews) {
-                if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {\
+                if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {
                     UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
                     [loadingView setColor:[UIColor whiteColor]];
                     
@@ -110,7 +111,7 @@
     if (bfn == NULL) return;
     if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
     
-    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[1]).viewControllers[0];
+    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
     
     [repoBusyList setObject:@(busy) forKey:bfn];
     [sourcesVC setSpinnerVisible:busy forRepo:bfn];
