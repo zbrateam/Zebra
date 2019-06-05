@@ -50,13 +50,13 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *altIcon = @"AltIcon";
+    static NSString *altIcon = @"alternateIconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:altIcon];
     
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:altIcon];
     }
-    NSLog(@"INDEXPATH %ld", (long)indexPath.row);
+    
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
     
     if(indexPath.row != 0){
