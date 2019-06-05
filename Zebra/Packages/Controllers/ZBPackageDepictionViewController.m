@@ -213,7 +213,29 @@
     
     NSURL *depictionURL = [package depictionURL];
     
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
+        if (sectionImage == NULL) {
+            sectionImage = [UIImage imageNamed:@"Other"];
+        }
+        
+        NSString *iconURL = @"";
+        if (self.package.iconPath) {
+            iconURL = [self.package iconPath];
+        }
+        else {
+            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
+        }
+        
+        if (iconURL.length > 0) {
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package-icon').src = \"%@\";", iconURL] completionHandler:nil];
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package-name').innerHTML = '%@';", [self.package name]] completionHandler:nil];
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@';", [self.package identifier]] completionHandler:nil];
+        } else {
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [self.package name], [self.package identifier]] completionHandler:nil];
+        }
+    });
+    
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version: %@';", [package version]] completionHandler:nil];
     
     NSMutableArray *sizeString = [NSMutableArray array];

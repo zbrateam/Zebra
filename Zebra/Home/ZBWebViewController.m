@@ -13,6 +13,7 @@
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBAlternateIconController.h"
+#import <Stores/Controllers/ZBStoresListTableViewController.h>
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -209,6 +210,10 @@
         }
         else if ([action isEqual:@"icon"]) {
             [self changeIcon];
+        } else if ([action isEqual:@"stores"]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
+            [[self navigationController] pushViewController:webController animated:true];
         }
     }
     else if ([destination isEqual:@"web"]) {
