@@ -7,20 +7,18 @@
 //
 
 #import "ZBPackageDepictionViewController.h"
+#import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
-#import <ZBAppDelegate.h>
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
-#import "UICKeyChainStore.h"
-#import "MobileGestalt.h"
-#import <sys/sysctl.h>
-#import <sys/utsname.h>
 #import <Home/ZBWebViewController.h>
+#import <ZBAppDelegate.h>
+#import <ZBDeviceHelper.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -124,18 +122,8 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    
-    CFStringRef UDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    NSString *udid = (__bridge NSString *)UDID;
-    
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    
-    char *answer = malloc(size);
-    sysctlbyname("hw.machine", answer, &size, NULL, 0);
-    
-    NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-    free(answer);
+    NSString *udid = [ZBDeviceHelper UDID];
+    NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
@@ -152,14 +140,6 @@
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
-
-- (NSString *)deviceModelID {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
-}
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
@@ -215,7 +195,29 @@
     
     NSURL *depictionURL = [package depictionURL];
     
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [package name], [package identifier]] completionHandler:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
+        if (sectionImage == NULL) {
+            sectionImage = [UIImage imageNamed:@"Other"];
+        }
+        
+        NSString *iconURL = @"";
+        if (self.package.iconPath) {
+            iconURL = [self.package iconPath];
+        }
+        else {
+            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
+        }
+        
+        if (iconURL.length > 0) {
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package-icon').src = \"%@\";", iconURL] completionHandler:nil];
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package-name').innerHTML = '%@';", [self.package name]] completionHandler:nil];
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@';", [self.package identifier]] completionHandler:nil];
+        } else {
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [self.package name], [self.package identifier]] completionHandler:nil];
+        }
+    });
+    
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version: %@';", [package version]] completionHandler:nil];
     
     NSMutableArray *sizeString = [NSMutableArray array];
@@ -369,8 +371,8 @@
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             
             NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                                    @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
-                                    @"device":[self deviceModelID]};
+                                    @"udid": [ZBDeviceHelper UDID],
+                                    @"device": [ZBDeviceHelper deviceModelID] };
             NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
             
             NSMutableURLRequest *request = [NSMutableURLRequest new];
@@ -441,8 +443,8 @@
             if ([secret length] != 0) {
                 NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
                                                @"payment_secret": secret,
-                                               @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
-                                               @"device":[self deviceModelID]};
+                                               @"udid": [ZBDeviceHelper UDID],
+                                               @"device": [ZBDeviceHelper deviceModelID] };
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
                 
                 NSMutableURLRequest *request = [NSMutableURLRequest new];

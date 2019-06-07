@@ -11,12 +11,11 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Repos/Helpers/ZBRepoManager.h>
-#import <sys/utsname.h>
-#import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import <ZBAppDelegate.h>
+#import <ZBDeviceHelper.h>
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
@@ -164,7 +163,7 @@
 
 - (void)setupRepoLogin {
     if (self.repoEndpoint) {
-        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [self deviceUDID], [self deviceModelID]]];
+        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDeviceHelper UDID], [ZBDeviceHelper deviceModelID]]];
         if (@available(iOS 11.0, *)) {
             static SFAuthenticationSession *session;
             session = [[SFAuthenticationSession alloc]
@@ -252,23 +251,6 @@
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
     NSLog(@"Done button pressed");
-}
-
-- (NSString *)deviceUDID {
-    
-    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    return udid;
-    
-}
-
-- (NSString *)deviceModelID {
-    
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
-    
 }
 
 #pragma mark - Table view data source
