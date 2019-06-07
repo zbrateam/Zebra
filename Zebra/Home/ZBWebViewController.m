@@ -7,12 +7,13 @@
 //
 
 #import "ZBWebViewController.h"
+#import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBAlternateIconController.h"
 #import <Stores/Controllers/ZBStoresListTableViewController.h>
+#import <ZBDeviceHelper.h>
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -135,11 +136,7 @@
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"%@ - iOS %@ - Zebra %@\"", model, [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION] completionHandler:nil];
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"%@ - iOS %@ - Zebra %@\"", [ZBDeviceHelper deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION] completionHandler:nil];
 #endif
     
     if ([[[webView URL] lastPathComponent] isEqualToString:@"repos.html"]) {
