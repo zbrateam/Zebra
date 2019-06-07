@@ -168,13 +168,11 @@
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    // Load finished
-    NSLog(@"Load finished");
+    
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
-    NSLog(@"Done button pressed");
+    [self refreshTable];
 }
 
 - (void)authenticationCallBack:(NSNotification *)notif {
