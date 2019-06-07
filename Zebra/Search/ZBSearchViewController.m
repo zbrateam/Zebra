@@ -60,6 +60,14 @@
          forCellReuseIdentifier:@"packageTableViewCell"];
     
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [self refreshTable];
+}
+
+- (void)refreshTable {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {
@@ -97,18 +105,14 @@
     else {
         results = nil;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+    [self refreshTable];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     [databaseManager closeDatabase];
     results = [databaseManager searchForPackageName:[searchBar text] numberOfResults:-1];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+    [self refreshTable];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -133,9 +137,7 @@
     [searchController unregisterForPreviewingWithContext:previewing];
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     results = nil;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+    [self refreshTable];
 }
 
 #pragma mark - Table view data source
@@ -182,12 +184,8 @@
     return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
 #pragma mark - Swipe actions
