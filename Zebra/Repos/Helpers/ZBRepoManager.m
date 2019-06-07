@@ -7,12 +7,11 @@
 //
 
 #import "ZBRepoManager.h"
-#import "MobileGestalt.h"
-#import <sys/sysctl.h>
 #import <UIKit/UIDevice.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
+#import <ZBDeviceHelper.h>
 
 @implementation ZBRepoManager
 
@@ -245,17 +244,8 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    CFStringRef youDID = MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    NSString *udid = (__bridge NSString *)youDID;
-    
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    
-    char *answer = malloc(size);
-    sysctlbyname("hw.machine", answer, &size, NULL, 0);
-    
-    NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-    free(answer);
+    NSString *udid = [ZBDeviceHelper UDID];
+    NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];

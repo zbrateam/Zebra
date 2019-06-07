@@ -84,6 +84,7 @@
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
+		9EC4A24F22AABBC8005DDBC7 /* ZBDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDeviceHelper.m */; };
 		D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */; };
 		D1BF9C7422A826BF00DD9266 /* stores@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1BF9C7222A826BF00DD9266 /* stores@2x.png */; };
 		D1BF9C7522A826BF00DD9266 /* stores@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1BF9C7322A826BF00DD9266 /* stores@3x.png */; };
@@ -227,6 +228,8 @@
 		9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangesTableViewController.m; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
 		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
+		9EC4A24D22AABBC8005DDBC7 /* ZBDeviceHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDeviceHelper.h; sourceTree = "<group>"; };
+		9EC4A24E22AABBC8005DDBC7 /* ZBDeviceHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDeviceHelper.m; sourceTree = "<group>"; };
 		D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStoresListTableViewController.m; sourceTree = "<group>"; };
 		D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStoresListTableViewController.h; sourceTree = "<group>"; };
 		D1BF9C7222A826BF00DD9266 /* stores@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stores@2x.png"; sourceTree = "<group>"; };
@@ -461,6 +464,8 @@
 				89BDCB6F2289FEA800FC1345 /* Extensions */,
 				89E8633E21D5A9CE0081E485 /* Resources */,
 				896F11C921B236AC0017B581 /* Simulator Resources */,
+				9EC4A24D22AABBC8005DDBC7 /* ZBDeviceHelper.h */,
+				9EC4A24E22AABBC8005DDBC7 /* ZBDeviceHelper.m */,
 			);
 			path = Zebra;
 			sourceTree = "<group>";
@@ -702,6 +707,7 @@
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */,
+				9EC4A24F22AABBC8005DDBC7 /* ZBDeviceHelper.m in Sources */,
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,

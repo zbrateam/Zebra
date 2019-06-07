@@ -13,8 +13,8 @@
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
 #import <ZBAppDelegate.h>
-#import <sys/utsname.h>
-#import "MobileGestalt.h"
+#import <ZBDeviceHelper.h>
+
 @import SDWebImage;
 
 @interface ZBStoresListTableViewController () {
@@ -74,7 +74,6 @@
     return self.tableData.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
@@ -97,7 +96,7 @@
     ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
     currentRepoEndpoint = [_keychain stringForKey:[source baseURL]];
     if (![self checkAuthenticatedRepo:currentRepoEndpoint]) {
-        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [self deviceUDID], [self deviceModelID]];
+        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [ZBDeviceHelper UDID], [ZBDeviceHelper deviceModelID]];
         NSURL *destinationUrl = [NSURL URLWithString:urlString];
         if (destinationUrl == nil) {
             return;
@@ -166,18 +165,6 @@
 
 - (BOOL)checkAuthenticatedRepo:(NSString *)repo {
     return [[_keychain stringForKey:repo] length];
-}
-
-- (NSString *)deviceUDID {
-    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    return udid;
-    
-}
-
-- (NSString *)deviceModelID {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {

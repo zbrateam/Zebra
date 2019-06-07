@@ -7,25 +7,17 @@
 //
 
 #import "ZBDownloadManager.h"
-
-#import <UIKit/UIDevice.h>
-#import <sys/sysctl.h>
+#import "UICKeyChainStore.h"
+#import <ZBDeviceHelper.h>
 
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
-#import "MobileGestalt.h"
 #import <bzlib.h>
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "UICKeyChainStore.h"
-#import <sys/utsname.h>
-
-#import <ZBAppDelegate.h>
-
-#import "MobileGestalt.h"
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -167,23 +159,8 @@
 
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    
-    CFStringRef udidCF = (CFStringRef)MGCopyAnswer(kMGUniqueDeviceID);
-    NSString *udid = (__bridge NSString *)udidCF;
-    NSLog(@"%@", udid);
-    
-    if (udid == NULL) {
-        udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString]; // send a fake UDID in case this is a simulator
-    }
-    
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    
-    char *answer = malloc(size);
-    sysctlbyname("hw.machine", answer, &size, NULL, 0);
-    
-    NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-    free(answer);
+    NSString *udid = [ZBDeviceHelper UDID];
+    NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     if (path == NULL) {
         return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
@@ -326,10 +303,10 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                            @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
-                            @"device":[self deviceModelID],
+                            @"udid": [ZBDeviceHelper UDID],
+                            @"device": [ZBDeviceHelper deviceModelID],
                             @"version": package.version,
-                            @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL]};
+                            @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL] };
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest new];
@@ -354,14 +331,6 @@
         }
     }] resume];
     
-}
-
-
-- (NSString *)deviceModelID {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
