@@ -35,13 +35,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self refreshTable];
 }
-
 
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
@@ -98,11 +93,15 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
     currentRepoEndpoint = [_keychain stringForKey:[source baseURL]];
     if (![self checkAuthenticatedRepo:currentRepoEndpoint]) {
-        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@",currentRepoEndpoint,[self deviceUDID], [self deviceModelID]]];
+        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [self deviceUDID], [self deviceModelID]];
+        NSURL *destinationUrl = [NSURL URLWithString:urlString];
+        if (destinationUrl == nil) {
+            return;
+        }
         if (@available(iOS 11.0, *)) {
             static SFAuthenticationSession *session;
             session = [[SFAuthenticationSession alloc]
@@ -136,7 +135,8 @@
                                    
                                    securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
                                });
-                           }else {
+                           }
+                           else {
                                return;
                            }
                            
@@ -149,7 +149,8 @@
             safariVC.delegate = self;
             [self presentViewController:safariVC animated:TRUE completion:nil];
         }
-    } else {
+    }
+    else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = source.origin;
@@ -207,10 +208,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-
         securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
-
     });
+    [self refreshTable];
 }
 
 /*
@@ -230,20 +230,6 @@
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
 }
 */
 
