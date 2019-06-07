@@ -9,7 +9,6 @@
 #import "ZBWebViewController.h"
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
-#import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBAlternateIconController.h"
