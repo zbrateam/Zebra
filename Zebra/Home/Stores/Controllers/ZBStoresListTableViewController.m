@@ -39,6 +39,11 @@
     [self refreshTable];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:TRUE];
+    [self refreshTable];
+}
+
 
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
@@ -120,7 +125,6 @@
                                }
                                NSString *token = queryByKeys[@"token"];
                                NSString *payment = queryByKeys[@"payment_secret"];
-                               
                                /*NSError *error;
                                 [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                                 if (error) {
@@ -136,6 +140,7 @@
                                    
                                    securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
                                });
+                               [self refreshTable];
                            }
                            else {
                                return;
