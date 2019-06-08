@@ -130,12 +130,18 @@
     NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+    }else{
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
+    }
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-    [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
+    
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
     
