@@ -30,6 +30,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
     self.defaults = [NSUserDefaults standardUserDefaults];
     self.repoManager = [[ZBRepoManager alloc] init];
     
@@ -38,7 +40,6 @@
     }else{
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
-
     //self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
@@ -96,6 +97,7 @@
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
@@ -483,6 +485,12 @@
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
         
+    }
+    
+    if([self.defaults boolForKey:@"darkMode"]){
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    }else{
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
 }
 
