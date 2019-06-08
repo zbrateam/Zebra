@@ -39,6 +39,12 @@
     [self refreshTable];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:TRUE];
+    [self refreshTable];
+}
+
+
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:false];
@@ -135,6 +141,7 @@
                                    
                                    securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
                                });
+                               [self refreshTable];
                            }
                            else {
                                return;
