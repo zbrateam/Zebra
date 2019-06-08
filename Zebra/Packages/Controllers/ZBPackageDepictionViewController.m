@@ -62,6 +62,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavButton];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"lightMode" object:nil];
     self.defaults = [NSUserDefaults standardUserDefaults];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
@@ -194,8 +196,22 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
+    //DarkMode
+    if([self.defaults boolForKey:@"darkMode"]){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            if(error){
+                NSLog(@"EROOR %@", error.localizedDescription);
+            }
+        }];
+    }
     
     NSURL *depictionURL = [package depictionURL];
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
@@ -560,5 +576,7 @@
     NSLog(@"Done button pressed");
 }
 
-
+-(void)reloadDepiction{
+    [webView reloadFromOrigin];
+}
 @end

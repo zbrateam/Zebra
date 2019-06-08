@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.defaults = [NSUserDefaults standardUserDefaults];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     if (!databaseManager) {
         databaseManager = [ZBDatabaseManager sharedInstance];
     }
@@ -240,6 +242,10 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+-(void)darkMode:(NSNotification *)notif{
+    [self.tableView reloadData];
 }
 
 - (void)dealloc {
