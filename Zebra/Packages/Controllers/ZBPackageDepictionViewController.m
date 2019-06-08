@@ -221,7 +221,7 @@
         versionString = [NSString stringWithFormat:@"Version: %@", [package version]];
     }
     else {
-        versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installPackage]];
+        versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installedVersion]];
     }
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = '%@';", versionString] completionHandler:nil];
 
