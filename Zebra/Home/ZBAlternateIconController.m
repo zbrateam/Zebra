@@ -19,8 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin"];
-    betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern"];
+    icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
+    betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -97,10 +97,11 @@
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@ %@",error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
                 }
+                [self dismissViewControllerAnimated:TRUE completion:nil];
             }];
         }
     } else {
-        return;
+        [self dismissViewControllerAnimated:TRUE completion:nil];
     }
 }
 
