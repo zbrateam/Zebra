@@ -99,13 +99,18 @@
     }
     return title;
 }
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-#warning color
-{
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     // Text Color
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        [header.textLabel setTextColor:[UIColor whiteColor]];
+        if([defaults boolForKey:@"darkMode"]){
+            [header.textLabel setTextColor:[UIColor whiteColor]];
+        }else{
+            [header.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        }
+        
     }
     
 }

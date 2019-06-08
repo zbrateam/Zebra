@@ -19,7 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.databaseManager = [ZBDatabaseManager sharedInstance];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     self.packages = [NSMutableArray new];
@@ -157,6 +159,16 @@
     else {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
+        if([self.defaults boolForKey:@"darkMode"]){
+            cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        }else{
+            cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        }
+        
         return cell;
     }
     
@@ -219,5 +231,7 @@
     }
 }
 
-
+-(void)darkMode:(NSNotification *)notif{
+    [self.tableView reloadData];
+}
 @end

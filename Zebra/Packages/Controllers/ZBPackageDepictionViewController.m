@@ -62,6 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavButton];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -115,8 +116,9 @@
     webView.navigationDelegate = self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
-#warning color
-    webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    if([self.defaults boolForKey:@"darkMode"]){
+        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    }
     
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];

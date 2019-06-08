@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.defaults = [NSUserDefaults standardUserDefaults];
     if (!databaseManager) {
         databaseManager = [ZBDatabaseManager sharedInstance];
     }
@@ -168,7 +168,15 @@
     ZBPackage *package = [results objectAtIndex:indexPath.row];
     
     [cell updateData:package];
-    
+    if([self.defaults boolForKey:@"darkMode"]){
+        cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+        cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    }else{
+        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    }
     return cell;
 }
 

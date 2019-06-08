@@ -394,7 +394,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (void)configureLight{
-    [[UINavigationBar appearance] setTintColor:nil];
+    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:nil];
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:nil];
@@ -402,23 +402,23 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     [[UINavigationBar appearance] setBarTintColor:nil];
     [[UINavigationBar appearance] setBackgroundColor:nil];
-    [[UINavigationBar appearance] setTranslucent:nil];
+    [[UINavigationBar appearance] setTranslucent:TRUE];
     //Light Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     
     //Tab
-    [[UITabBar appearance] setTintColor:nil];
+    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
     [[UITabBar appearance] setBackgroundColor:nil];
     [[UITabBar appearance] setBarTintColor:nil];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
     
     //Tables
-    [[UITableView appearance] setBackgroundColor:nil];
+    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[UITableView appearance] setTintColor:nil];
-    [[UITableViewCell appearance] setBackgroundColor:nil];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = nil;
-    [[WKWebView appearance] setBackgroundColor:nil];
-    [[WKWebView appearance] setOpaque:nil];
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[WKWebView appearance] setOpaque:TRUE];
     
 }
 

@@ -68,8 +68,9 @@
     webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
     webView.tintColor = [UIColor tintColor];
     
-#warning color
-    webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    if([self.defaults boolForKey:@"darkMode"]){
+        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    }
     
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
@@ -427,21 +428,23 @@
 }
 
 - (void)darkMode{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
     [self.defaults setBool:TRUE forKey:@"darkMode"];
+    [self.defaults synchronize];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
     [ZBAppDelegate configureDark];
     [ZBAppDelegate refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
 }
 
 - (void)lightMode{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
     [self.defaults setBool:FALSE forKey:@"darkMode"];
+    [self.defaults synchronize];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     [ZBAppDelegate configureLight];
     [ZBAppDelegate refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

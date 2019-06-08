@@ -7,7 +7,7 @@
 //
 
 #import "ZBAlternateIconController.h"
-
+#import "UIColor+GlobalColors.h"
 @interface ZBAlternateIconController ()
 
 @end
@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
     betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
     
@@ -58,8 +59,13 @@
     }
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
-#warning color
-    [cell.textLabel setTextColor:[UIColor whiteColor]];
+    
+    if([self.defaults boolForKey:@"darkMode"]){
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
+    }else{
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+    }
+    
     if(indexPath.row != 0){
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
     }

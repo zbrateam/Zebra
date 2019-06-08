@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
-
+@property NSUserDefaults *defaults;
 - (void)updateData:(ZBPackage *)package;
 - (void)updateQueueStatus:(ZBPackage *)package;
 

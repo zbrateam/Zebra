@@ -13,12 +13,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.backgroundColor = [UIColor clearColor];
-    self.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-    self.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-#warning color
-    self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    
     self.backgroundContainerView.layer.cornerRadius = 5;
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.iconImageView.layer.cornerRadius = 5;
@@ -37,8 +34,12 @@
         self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
     }
     else {
-#warning color
-        self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+        if([self.defaults boolForKey:@"darkMode"]){
+            self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+        }else{
+            self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        }
+        
     }
     
 }
@@ -59,5 +60,6 @@
 - (void)hideChevron {
     [self.accessoryZBView subviews][0].hidden = YES;
 }
+
 
 @end

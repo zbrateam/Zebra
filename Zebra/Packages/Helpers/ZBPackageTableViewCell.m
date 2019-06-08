@@ -17,11 +17,17 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.backgroundColor = [UIColor clearColor];
-#warning color
-    self.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-    self.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-    self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    /*if([self.defaults boolForKey:@"darkMode"]){
+        self.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+        self.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+        self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    }else{
+        self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+        self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+        self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    }*/
     self.backgroundContainerView.layer.cornerRadius = 5;
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
@@ -100,8 +106,11 @@
         self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
     }
     else {
-#warning COLOR
-        self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        if([self.defaults boolForKey:@"darkMode"]){
+            self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        }else{
+            self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        }
     }
     
 }

@@ -58,10 +58,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.defaults = [NSUserDefaults standardUserDefaults];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lightMode:) name:@"lightMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
@@ -206,6 +204,8 @@
         
         if([self.defaults boolForKey:@"darkMode"]){
             [label setTextColor: [UIColor whiteColor]];
+        }else{
+            [label setTextColor: [UIColor cellPrimaryTextColor]];
         }
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -279,16 +279,8 @@
     [self refreshTable];
 }
 
--(void)darkMode:(NSNotification *) notification{
-    NSLog(@"We CAlled Dark");
-    [ZBAppDelegate refreshViews];
+-(void)darkMode:(NSNotification *)notif{
     [self.tableView reloadData];
 }
 
--(void)lightMode:(NSNotification *) notification{
-    NSLog(@"We CAlled Light");
-    [ZBAppDelegate refreshViews];
-    [self.tableView setBackgroundColor:nil];
-    [self.tableView reloadData];
-}
 @end
