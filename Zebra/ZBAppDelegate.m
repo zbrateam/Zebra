@@ -136,7 +136,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     [self setupSDWebImageCache];
-    [self configureViewColors];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if([defaults boolForKey:@"darkMode"]){
+        [ZBAppDelegate configureDark];
+    }else{
+        [ZBAppDelegate configureLight];
+    }
+    
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (error) {
@@ -358,8 +364,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 #pragma mark Private
 
-- (void)configureViewColors{
-    //Nav bar
++ (void)configureDark{
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     if (@available(iOS 11.0, *)) {
@@ -385,6 +390,49 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
     [[WKWebView appearance] setOpaque:FALSE];
+    
+}
+
++ (void)configureLight{
+    [[UINavigationBar appearance] setTintColor:nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:nil];
+    if (@available(iOS 11.0, *)) {
+        [[UINavigationBar appearance] setLargeTitleTextAttributes:nil];
+    } else {
+    }
+    [[UINavigationBar appearance] setBarTintColor:nil];
+    [[UINavigationBar appearance] setBackgroundColor:nil];
+    [[UINavigationBar appearance] setTranslucent:nil];
+    //Light Status bar
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+    
+    //Tab
+    [[UITabBar appearance] setTintColor:nil];
+    [[UITabBar appearance] setBackgroundColor:nil];
+    [[UITabBar appearance] setBarTintColor:nil];
+    [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
+    
+    //Tables
+    [[UITableView appearance] setBackgroundColor:nil];
+    [[UITableView appearance] setTintColor:nil];
+    [[UITableViewCell appearance] setBackgroundColor:nil];
+    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = nil;
+    [[WKWebView appearance] setBackgroundColor:nil];
+    [[WKWebView appearance] setOpaque:nil];
+    
+}
+
++ (void)refreshViews{
+    //[[NSNotificationCenter defaultCenter] postNotificationName:UISSWillRefreshViewsNotification object:self];
+    
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        for (UIView *view in window.subviews) {
+            [view removeFromSuperview];
+            [window addSubview:view];
+        }
+    }
+    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:UISSDidRefreshViewsNotification object:self];
 }
 
 - (void)setupSDWebImageCache {

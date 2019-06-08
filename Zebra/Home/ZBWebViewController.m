@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.repoManager = [[ZBRepoManager alloc] init];
     
     //self.navigationController.navigationBar.tintColor = [UIColor tintColor];
@@ -412,6 +412,44 @@
 
 - (IBAction)refreshPage:(id)sender {
     [webView reload];
+}
+
+- (IBAction)toggleDarkMode:(id)sender {
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (![self.defaults boolForKey:@"darkMode"]) {
+            //Want Darkmode
+            [self darkMode];
+        } else {
+            //Want Light
+            [self lightMode];
+        }
+    } completion:nil];
+}
+
+- (void)darkMode{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+    [self.defaults setBool:TRUE forKey:@"darkMode"];
+    [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    [ZBAppDelegate configureDark];
+    [ZBAppDelegate refreshViews];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)lightMode{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
+    [self.defaults setBool:FALSE forKey:@"darkMode"];
+    [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+    [ZBAppDelegate configureLight];
+    [ZBAppDelegate refreshViews];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if([self.defaults boolForKey:@"darkMode"]){
+        return UIStatusBarStyleLightContent;
+    }else{
+        return UIStatusBarStyleDefault;
+    }
 }
 
 - (void)dealloc {
