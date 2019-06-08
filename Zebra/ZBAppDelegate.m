@@ -137,9 +137,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     [self setupSDWebImageCache];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if([defaults boolForKey:@"darkMode"]){
+    if ([defaults boolForKey:@"darkMode"]) {
         [ZBAppDelegate configureDark];
-    }else{
+    }
+    else {
         [ZBAppDelegate configureLight];
     }
     
@@ -364,12 +365,14 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 #pragma mark Private
 
-+ (void)configureDark{
++ (void)configureDark {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    } else {
+    }
+    else {
+        
     }
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
@@ -390,15 +393,16 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
     [[WKWebView appearance] setOpaque:FALSE];
-    
 }
 
-+ (void)configureLight{
++ (void)configureLight {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:nil];
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:nil];
-    } else {
+    }
+    else {
+        
     }
     [[UINavigationBar appearance] setBarTintColor:nil];
     [[UINavigationBar appearance] setBackgroundColor:nil];
@@ -419,10 +423,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:TRUE];
-    
 }
 
-+ (void)refreshViews{
++ (void)refreshViews {
     //[[NSNotificationCenter defaultCenter] postNotificationName:UISSWillRefreshViewsNotification object:self];
     
     for (UIWindow *window in [UIApplication sharedApplication].windows) {

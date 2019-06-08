@@ -116,7 +116,7 @@
     webView.navigationDelegate = self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
     
@@ -311,7 +311,7 @@
     NSURLRequest *request = [navigationAction request];
     NSURL *url = [request URL];
     
-    int type = navigationAction.navigationType;
+    WKNavigationType type = navigationAction.navigationType;
     
     if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
