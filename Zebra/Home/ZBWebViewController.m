@@ -121,7 +121,7 @@
     NSURLRequest *request = [navigationAction request];
     NSURL *url = [request URL];
     
-    int type = navigationAction.navigationType;
+    WKNavigationType type = navigationAction.navigationType;
     
     if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
