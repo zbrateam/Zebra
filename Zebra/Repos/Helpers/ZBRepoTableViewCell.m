@@ -31,7 +31,11 @@
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     if (highlighted) {
-        self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
+        if([self.defaults boolForKey:@"darkMode"]){
+            self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+        }else{
+            self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
+        }
     }
     else {
         if([self.defaults boolForKey:@"darkMode"]){

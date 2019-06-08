@@ -16,6 +16,7 @@
 #import "ZBFeaturedCollectionViewCell.h"
 #import <ZBAppDelegate.h>
 #import <ZBDeviceHelper.h>
+#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
@@ -33,6 +34,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -285,7 +287,11 @@
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
-    
+    if([self.defaults boolForKey:@"darkMode"]){
+        UIView *dark = [[UIView alloc] init];
+        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+        [cell setSelectedBackgroundView:dark];
+    }
     return cell;
 }
 
