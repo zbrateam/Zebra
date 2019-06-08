@@ -30,10 +30,16 @@
                 </li>
                 <li class="has-icon">
                     <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~stores');" role="button">
-                    <img href="stores@2x.png" alt="" srcset="stores@2x.png 2x, stores@3x.png 3x" class="icon">
+                        <img href="stores@2x.png" alt="" srcset="stores@2x.png 2x, stores@3x.png 3x" class="icon">
                         Stores
-                        </p>
-                        </li>
+                    </p>
+                </li>
+                <li class="has-icon">
+                    <p id="change-icon" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~icon');" role="button">
+                        <img style = "border-radius: 20%;" href="icon@2x.png" alt="" srcset="icon@2x.png 2x, icon@3x.png 3x" class="icon">
+                        Change Icon
+                    </p>
+                </li>
                 <li class="has-icon">
                     <p id="add-repo" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('web~https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html');" role="button">
                         <img href="report@2x.png" alt="" srcset="report@2x.png 2x, report@3x.png 3x" class="icon">
@@ -53,9 +59,6 @@
                 </li>
                 <li>
                     <a id="clearKeychain" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~keychain');">Clear Keychain</a>
-                </li>
-                <li>
-                    <a id="clearKeychain" href="#" onclick="window.webkit.messageHandlers.observe.postMessage('local~icon');">Select Alternate Icon</a>
                 </li>
             </ul>
             <h2 role="header">Community</h2>

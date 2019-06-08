@@ -7,14 +7,13 @@
 //
 
 #import "ZBRepoPurchasedPackagesTableViewController.h"
-#import <sys/utsname.h>
-#import "MobileGestalt.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <ZBDeviceHelper.h>
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -45,15 +44,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:TRUE];
     [self listPurchasedSileoPackages];
 }
 
@@ -61,8 +51,8 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     NSDictionary *test = @{ @"token": _keychain[self.repoEndpoint],
-                            @"udid": [self deviceUDID],
-                            @"device":[self deviceModelID]};
+                            @"udid": [ZBDeviceHelper UDID],
+                            @"device": [ZBDeviceHelper deviceModelID] };
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest new];
@@ -79,7 +69,7 @@
         //self.packages = nil
         //Make package ids lowercase so we dont miss any
         NSMutableArray *loweredPackages = [NSMutableArray new];
-        for(NSString *name in json[@"items"]) {
+        for (NSString *name in json[@"items"]) {
             [loweredPackages addObject:[name lowercaseString]];
         }
         self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages:loweredPackages];
@@ -104,23 +94,6 @@
     [_keychain removeItemForKey:self.repoEndpoint];
     UINavigationController *navigationController = self.navigationController;
     [navigationController popViewControllerAnimated:YES];
-}
-
--(NSString *)deviceUDID {
-    
-    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    return udid;
-    
-}
-
-- (NSString *)deviceModelID {
-    
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
-    
 }
 
 #pragma mark - Table view data source

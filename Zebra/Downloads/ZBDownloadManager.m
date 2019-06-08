@@ -7,25 +7,17 @@
 //
 
 #import "ZBDownloadManager.h"
-
-#import <UIKit/UIDevice.h>
-#import <sys/sysctl.h>
+#import "UICKeyChainStore.h"
+#import <ZBDeviceHelper.h>
 
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
 
-#import "MobileGestalt.h"
 #import <bzlib.h>
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "UICKeyChainStore.h"
-#import <sys/utsname.h>
-
-#import <ZBAppDelegate.h>
-
-#import "MobileGestalt.h"
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -89,7 +81,7 @@
     NSError *sourceListReadError;
     NSString *sourceList = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&sourceListReadError];
     
-    if (sourceListReadError != NULL) { 
+    if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && sourceListReadError != NULL) {
         [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening sources.list: %@\n", sourceListReadError.localizedDescription] atLevel:ZBLogLevelError];
         
         return NULL;
@@ -142,7 +134,7 @@
         NSString *suite = components[2];
         NSString *component = components[3];
         
-        if ([self checkForInvalidRepo:baseURL]) {
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
             [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
         }
         
@@ -151,7 +143,7 @@
     else { //Normal, non-weird repo
         NSString *baseURL = components[1];
         
-        if ([self checkForInvalidRepo:baseURL]) {
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
             [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
         }
         
@@ -167,23 +159,8 @@
 
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    
-    CFStringRef udidCF = (CFStringRef)MGCopyAnswer(kMGUniqueDeviceID);
-    NSString *udid = (__bridge NSString *)udidCF;
-    NSLog(@"%@", udid);
-    
-    if (udid == NULL) {
-        udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString]; // send a fake UDID in case this is a simulator
-    }
-    
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    
-    char *answer = malloc(size);
-    sysctlbyname("hw.machine", answer, &size, NULL, 0);
-    
-    NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-    free(answer);
+    NSString *udid = [ZBDeviceHelper UDID];
+    NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     if (path == NULL) {
         return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
@@ -206,7 +183,8 @@
 
 - (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore {
     if (repos == NULL) {
-        [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+            [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
         [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
     }
     
@@ -214,7 +192,8 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSDictionary *headers = ignore ? [self headers] : [self headersForFile:@"file"];
     if (headers == NULL) {
-        [downloadDelegate postStatusUpdate:@"Could not determine device information.\n" atLevel:ZBLogLevelError];
+        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+            [downloadDelegate postStatusUpdate:@"Could not determine device information.\n" atLevel:ZBLogLevelError];
         [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
         
         return;
@@ -324,10 +303,10 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                            @"udid": (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID")),
-                            @"device":[self deviceModelID],
+                            @"udid": [ZBDeviceHelper UDID],
+                            @"device": [ZBDeviceHelper deviceModelID],
                             @"version": package.version,
-                            @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL]};
+                            @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL] };
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest new];
@@ -352,14 +331,6 @@
         }
     }] resume];
     
-}
-
-
-- (NSString *)deviceModelID {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
@@ -423,7 +394,8 @@
         }
         else if ([[filename lastPathComponent] containsString:@".gz"]) {
             if (responseCode == 304) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -488,7 +460,8 @@
         }
         else if ([[filename lastPathComponent] containsString:@".bz2"]) {
             if (responseCode == 304) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -550,7 +523,8 @@
         }
         else if ([[filename lastPathComponent] containsString:@"Release"]) {
             if (responseCode == 304) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];

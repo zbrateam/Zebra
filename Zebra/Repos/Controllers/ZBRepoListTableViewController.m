@@ -64,11 +64,16 @@
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseCompletedUpdate) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [self refreshTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)databaseCompletedUpdate {
     [self refreshTable];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 - (void)layoutNavigationButtons {
@@ -169,7 +174,6 @@
 
 - (void)refreshSources:(id)sender {
     [databaseManager setDatabaseDelegate:self];
-    
     [self setRepoRefreshIndicatorVisible:true];
     [databaseManager updateDatabaseUsingCaching:true userRequested:true];
 }
@@ -604,7 +608,6 @@
     [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
     [self setRepoRefreshIndicatorVisible:false];
     [self clearAllSpinners];
-    [self refreshTable];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
         if (self->errorMessages) {

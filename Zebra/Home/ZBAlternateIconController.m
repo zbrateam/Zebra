@@ -19,8 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin"];
-    betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern"];
+    icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
+    betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -34,6 +34,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)closeButtonPressed:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:TRUE completion:nil];
 }
@@ -48,20 +49,20 @@
     return [icons count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *altIcon = @"AltIcon";
+    static NSString *altIcon = @"alternateIconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:altIcon];
     
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:altIcon];
     }
-    NSLog(@"INDEXPATH %ld", (long)indexPath.row);
+    
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
     
-    if(indexPath.row != 0){
+    if (indexPath.row != 0) {
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
-    }else{
+    }
+    else {
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
     }
     CGSize itemSize = CGSizeMake(40, 40);
@@ -76,10 +77,11 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == 0){
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
         [self setIconWithName:nil fromIndex:indexPath];
-    }else{
+    }
+    else {
         [self setIconWithName:[icons objectAtIndex:indexPath.row] fromIndex:indexPath];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -93,10 +95,11 @@
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@ %@",error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
                 }
+                [self dismissViewControllerAnimated:TRUE completion:nil];
             }];
         }
     } else {
-        return;
+        [self dismissViewControllerAnimated:TRUE completion:nil];
     }
 }
 

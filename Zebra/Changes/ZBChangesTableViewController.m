@@ -55,11 +55,6 @@
     return YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self refreshTable];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -72,11 +67,12 @@
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
-    
-    self.batchLoadCount = 500;
-    self.batchLoad = YES;
-    self.continueBatchLoad = self.batchLoad;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseCompletedUpdate) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 - (void)updateSections {
@@ -85,11 +81,13 @@
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->databaseManager.orderByLastSeen = YES;
+        self.batchLoadCount = 500;
         self->packages = [self->databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
-        self->databaseManager.orderByLastSeen = NO;
         self->databaseRow = self.batchLoadCount - 1;
+        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:NULL section:NULL];
         self->numberOfPackages = (int)[self->packages count];
+        self.batchLoad = YES;
+        self.continueBatchLoad = self.batchLoad;
         [self updateSections];
         [self.tableView reloadData];
     });
@@ -102,9 +100,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            self->databaseManager.orderByLastSeen = YES;
             NSArray *nextPackages = [self->databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
-            self->databaseManager.orderByLastSeen = NO;
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
@@ -269,6 +265,10 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+- (void)databaseCompletedUpdate {
+    [self refreshTable];
 }
 
 @end

@@ -13,8 +13,8 @@
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
 #import <ZBAppDelegate.h>
-#import <sys/utsname.h>
-#import "MobileGestalt.h"
+#import <ZBDeviceHelper.h>
+
 @import SDWebImage;
 
 @interface ZBStoresListTableViewController () {
@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     currentRepoEndpoint = @"";
@@ -35,13 +36,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self refreshTable];
 }
-
 
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
@@ -79,7 +75,6 @@
     return self.tableData.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
@@ -98,11 +93,15 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
     currentRepoEndpoint = [_keychain stringForKey:[source baseURL]];
     if (![self checkAuthenticatedRepo:currentRepoEndpoint]) {
-        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@",currentRepoEndpoint,[self deviceUDID], [self deviceModelID]]];
+        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [ZBDeviceHelper UDID], [ZBDeviceHelper deviceModelID]];
+        NSURL *destinationUrl = [NSURL URLWithString:urlString];
+        if (destinationUrl == nil) {
+            return;
+        }
         if (@available(iOS 11.0, *)) {
             static SFAuthenticationSession *session;
             session = [[SFAuthenticationSession alloc]
@@ -136,7 +135,8 @@
                                    
                                    securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
                                });
-                           }else {
+                           }
+                           else {
                                return;
                            }
                            
@@ -149,7 +149,8 @@
             safariVC.delegate = self;
             [self presentViewController:safariVC animated:TRUE completion:nil];
         }
-    } else {
+    }
+    else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = source.origin;
@@ -167,26 +168,12 @@
     return [[_keychain stringForKey:repo] length];
 }
 
-- (NSString *)deviceUDID {
-    NSString *udid = (__bridge NSString*)MGCopyAnswer(CFSTR("UniqueDeviceID"));
-    return udid;
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     
 }
 
-- (NSString *)deviceModelID {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-}
-
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    // Load finished
-    NSLog(@"Load finished");
-}
-
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
-    NSLog(@"Done button pressed");
+    [self refreshTable];
 }
 
 - (void)authenticationCallBack:(NSNotification *)notif {
@@ -207,10 +194,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-
         securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
-
     });
+    [self refreshTable];
 }
 
 /*
@@ -230,20 +216,6 @@
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
 }
 */
 

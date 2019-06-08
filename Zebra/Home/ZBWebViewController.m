@@ -7,13 +7,13 @@
 //
 
 #import "ZBWebViewController.h"
+#import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
 #import <ZBAppDelegate.h>
-#import <sys/utsname.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBAlternateIconController.h"
 #import <Stores/Controllers/ZBStoresListTableViewController.h>
+#import <ZBDeviceHelper.h>
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -136,11 +136,7 @@
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"%@ - iOS %@ - Zebra %@\"", model, [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION] completionHandler:nil];
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('neo').innerHTML = \"%@ - iOS %@ - Zebra %@\"", [ZBDeviceHelper deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION] completionHandler:nil];
 #endif
     
     if ([[[webView URL] lastPathComponent] isEqualToString:@"repos.html"]) {
@@ -328,20 +324,26 @@
             }
             else {
                 NSLog(@"[Zebra] Added source.");
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                [weakSelf presentViewController:console animated:true completion:nil];
+                [weakSelf showRefreshView:@(NO)];
             }
         }];
     }
 }
 
+- (void)showRefreshView:(NSNumber *)dropTables {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:false];
+    }
+    else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        console.dropTables = [dropTables boolValue];
+        [self presentViewController:console animated:true completion:nil];
+    }
+}
+
 - (void)nukeDatabase {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    refreshController.dropTables = TRUE;
-    
-    [self presentViewController:refreshController animated:true completion:nil];
+    [self showRefreshView:@(YES)];
 }
 
 - (void)sendBugReport {

@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *sectionImageName;
 @property (nonatomic, strong) NSURL *depictionURL;
 @property (nonatomic, strong) NSArray *tags;
-@property (nonatomic, strong) NSArray *dependsOn;
-@property (nonatomic, strong) NSArray *conflictsWith;
-@property (nonatomic, strong) NSArray *provides;
-@property (nonatomic, strong) NSArray *replaces;
+@property (nonatomic, strong) NSArray <NSString *> *dependsOn;
+@property (nonatomic, strong) NSArray <NSString *> *conflictsWith;
+@property (nonatomic, strong) NSArray <NSString *> *provides;
+@property (nonatomic, strong) NSArray <NSString *> *replaces;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) ZBRepo *repo;
 @property (nonatomic, strong) NSString *filename;

@@ -19,10 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
-@property (nonatomic, assign) BOOL orderByLastSeen;
-
 /*! @brief A reference to the database. */
-@property (nonatomic) sqlite3 *database;
+@property (atomic) sqlite3 *database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
 @property (nonatomic) BOOL needsToPresentRefresh;
@@ -135,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param section (Nullable) A subsection of the repo to count the number of packages in.
  @return The number of packages in that repo/section.
  */
-- (int)numberOfPackagesInRepo:(ZBRepo *)repo section:(NSString *_Nullable)section;
+- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
  @brief All of the repos that are in the database.
@@ -287,6 +285,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package;
 
 #pragma mark - Package lookup
+
+/*!
+ @brief Mainly used in dependency resolution, this will return whether or not there is a package that provides the same functionality as the given one.
+ @param identifier The identifier of the package in question.
+ @param installed Whether or not to check the installed database for this package
+ @return A ZBPackage instance that matches the parameters.
+ */
+- (ZBPackage *)packageThatProvides:(NSString *)identifier checkInstalled:(BOOL)installed;
 
 /*!
  @brief Mainly used in dependency resolution, this will return a ZBPackage instance that matches the parameters.
