@@ -136,7 +136,7 @@
                                         NSError *error) {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                         NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] != 404) {
+                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                             keychain[baseURL] = endpoint;
                             [self setSupportSileoPay:TRUE];

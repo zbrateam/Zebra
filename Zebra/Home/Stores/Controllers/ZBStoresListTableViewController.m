@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     currentRepoEndpoint = @"";
@@ -37,6 +38,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self refreshTable];
 }
+
 
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
