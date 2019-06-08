@@ -33,6 +33,12 @@
     self.defaults = [NSUserDefaults standardUserDefaults];
     self.repoManager = [[ZBRepoManager alloc] init];
     
+    if([self.defaults boolForKey:@"darkMode"]){
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    }else{
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+    }
+
     //self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
@@ -83,9 +89,9 @@
     }
     else {
         self.title = @"Home";
-        
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+
     }
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
@@ -135,6 +141,19 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
+    if([self.defaults boolForKey:@"darkMode"]){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            if(error){
+                NSLog(@"EROOR %@", error.localizedDescription);
+            }
+        }];
+    }
+    
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else
@@ -430,6 +449,7 @@
 - (void)darkMode{
     [self.defaults setBool:TRUE forKey:@"darkMode"];
     [self.defaults synchronize];
+    [self resetWebView];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
     [ZBAppDelegate configureDark];
     [ZBAppDelegate refreshViews];
@@ -440,11 +460,30 @@
 - (void)lightMode{
     [self.defaults setBool:FALSE forKey:@"darkMode"];
     [self.defaults synchronize];
+    [self resetWebView];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     [ZBAppDelegate configureLight];
     [ZBAppDelegate refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
+}
+
+-(void)resetWebView{
+    if (_url != NULL) {
+        [webView setAllowsBackForwardNavigationGestures:true];
+        if (@available(iOS 11.0, *)) {
+            self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        }
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:_url];
+        [webView loadRequest:request];
+    }
+    else {
+        self.title = @"Home";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
+        [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+        
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

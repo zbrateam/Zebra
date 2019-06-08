@@ -23,6 +23,7 @@
 		36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7022AB30E9004C2332 /* zBlack~ipad@2x.png */; };
 		36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7522AB3545004C2332 /* icon@3x.png */; };
 		36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7622AB3545004C2332 /* icon@2x.png */; };
+		36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7922AB6F66004C2332 /* ios7.min.css */; };
 		36D15327229240F70010EC5C /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15324229240F60010EC5C /* UIImageView+Network.m */; };
 		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
 		36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
@@ -90,7 +91,7 @@
 		89E8638221D5AFAA0081E485 /* home.html in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637A21D5AFAA0081E485 /* home.html */; };
 		89E8638321D5AFAA0081E485 /* url@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637B21D5AFAA0081E485 /* url@3x.png */; };
 		89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637C21D5AFAA0081E485 /* changelog@3x.png */; };
-		89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7.min.css */; };
+		89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7dark.css */; };
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
@@ -135,6 +136,7 @@
 		36AC5A7022AB30E9004C2332 /* zBlack~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zBlack~ipad@2x.png"; sourceTree = "<group>"; };
 		36AC5A7522AB3545004C2332 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
 		36AC5A7622AB3545004C2332 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		36AC5A7922AB6F66004C2332 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
 		36D15323229240F60010EC5C /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
 		36D15324229240F60010EC5C /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
 		36D15325229240F60010EC5C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
@@ -238,7 +240,7 @@
 		89E8637A21D5AFAA0081E485 /* home.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = home.html; sourceTree = "<group>"; };
 		89E8637B21D5AFAA0081E485 /* url@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "url@3x.png"; sourceTree = "<group>"; };
 		89E8637C21D5AFAA0081E485 /* changelog@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "changelog@3x.png"; sourceTree = "<group>"; };
-		89E8637D21D5AFAA0081E485 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
+		89E8637D21D5AFAA0081E485 /* ios7dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7dark.css; sourceTree = "<group>"; };
 		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
@@ -580,7 +582,8 @@
 				893A17E2225FC24200E253CD /* report@3x.png */,
 				89E8637A21D5AFAA0081E485 /* home.html */,
 				89E8637621D5AFA90081E485 /* package_depiction.html */,
-				89E8637D21D5AFAA0081E485 /* ios7.min.css */,
+				89E8637D21D5AFAA0081E485 /* ios7dark.css */,
+				36AC5A7922AB6F66004C2332 /* ios7.min.css */,
 				89E8637721D5AFA90081E485 /* ios7.min.js */,
 				89E8637921D5AFAA0081E485 /* changelog@2x.png */,
 				89E8637C21D5AFAA0081E485 /* changelog@3x.png */,
@@ -687,6 +690,7 @@
 				89E8638121D5AFAA0081E485 /* changelog@2x.png in Resources */,
 				36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */,
 				36F77AE622A3414B00A4604C /* darkZebraSkin~ipad@3x.png in Resources */,
+				36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */,
 				36AC5A7222AB30E9004C2332 /* zBlack~ipad@3x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */,
@@ -716,7 +720,7 @@
 				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
-				89E8638521D5AFAA0081E485 /* ios7.min.css in Resources */,
+				89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
 				36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */,
 				89C90FE6227B770500325AAD /* discord@2x.png in Resources */,
