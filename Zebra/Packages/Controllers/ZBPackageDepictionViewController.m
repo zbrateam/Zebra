@@ -133,9 +133,11 @@
     if([self.defaults boolForKey:@"darkMode"]){
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
     }else{
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
     }
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
