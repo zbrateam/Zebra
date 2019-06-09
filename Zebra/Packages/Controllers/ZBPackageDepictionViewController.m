@@ -216,8 +216,15 @@
         }
     });
     
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version: %@';", [package version]] completionHandler:nil];
-    
+    NSString *versionString;
+    if (![package isInstalled:NO]) {
+        versionString = [NSString stringWithFormat:@"Version: %@", [package version]];
+    }
+    else {
+        versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installedVersion]];
+    }
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = '%@';", versionString] completionHandler:nil];
+
     NSMutableArray *sizeString = [NSMutableArray array];
     NSString *size = [package size];
     if (size) {
@@ -277,7 +284,7 @@
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
 
-    if ([package isInstalled:YES]) {
+    if ([package isInstalled:NO]) {
 		[webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
 		[webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
 		[webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function (){ window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
