@@ -39,11 +39,10 @@
     [self refreshTable];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
     [self refreshTable];
 }
-
 
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
