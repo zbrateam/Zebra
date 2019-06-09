@@ -307,7 +307,7 @@
     NSURLRequest *request = [navigationAction request];
     NSURL *url = [request URL];
     
-    int type = navigationAction.navigationType;
+    WKNavigationType type = navigationAction.navigationType;
     
     if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
