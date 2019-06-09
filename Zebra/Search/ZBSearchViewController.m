@@ -19,6 +19,8 @@
     NSArray *results;
     BOOL searching;
     id<UIViewControllerPreviewing> previewing;
+    NSUserDefaults *defaults;
+    NSMutableArray *searches;
 }
 @end
 
@@ -28,9 +30,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    defaults = [NSUserDefaults standardUserDefaults];
+    searches = [[defaults arrayForKey:@"searches"] mutableCopy];
+    if(!searches){
+        searches = [NSMutableArray new];
+    }
     if (!databaseManager) {
         databaseManager = [ZBDatabaseManager sharedInstance];
     }
@@ -67,9 +73,14 @@
 }
 
 - (void)refreshTable {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+    [UIView transitionWithView: self.tableView
+                      duration: 0.35f
+                      options: UIViewAnimationOptionTransitionCrossDissolve
+                      animations: ^(void){
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+                        });
+                      }completion: nil];
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {
@@ -115,6 +126,13 @@
     [databaseManager closeDatabase];
     results = [databaseManager searchForPackageName:[searchBar text] numberOfResults:-1];
     [self refreshTable];
+    if([searches containsObject:searchBar.text]){
+        [searches removeObject:searchBar.text];
+    }
+    [searches insertObject:searchBar.text atIndex:0];
+    NSLog(@"Searches %@", searches);
+    [defaults setObject:searches forKey:@"searches"];
+    [defaults synchronize];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -133,6 +151,7 @@
 - (void)didPresentSearchController:(UISearchController *)searchController {
     [self unregisterForPreviewingWithContext:previewing];
     previewing = [searchController registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    [self refreshTable];
 }
 
 - (void)didDismissSearchController:(UISearchController *)searchController {
@@ -161,7 +180,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return results.count;
+    if(!searchController.active){
+        return [searches count];
+    }else{
+        return results.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,10 +203,36 @@
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     }
     return cell;
+    if(searchController.active){
+        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        
+        ZBPackage *package = [results objectAtIndex:indexPath.row];
+        
+        [cell updateData:package];
+        
+        return cell;
+    }else{
+        static NSString *recentSearches = @"recentSearches";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recentSearches];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
+        }
+        
+        cell.textLabel.text = [searches objectAtIndex:indexPath.row];
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
+    if(searchController.active){
+        [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
+    }else{
+        searchController.active = YES;
+        searchController.searchBar.text = [searches objectAtIndex:indexPath.row];
+        [self searchBar:searchController.searchBar textDidChange:[searches objectAtIndex:indexPath.row]];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
