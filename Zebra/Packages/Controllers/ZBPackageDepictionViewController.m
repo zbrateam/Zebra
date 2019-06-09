@@ -217,7 +217,7 @@
     });
     
     NSString *versionString;
-    if (![package isInstalled:NO]) {
+    if (![package isInstalled:NO] || [package installedVersion] == nil) {
         versionString = [NSString stringWithFormat:@"Version: %@", [package version]];
     }
     else {

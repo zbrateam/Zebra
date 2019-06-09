@@ -495,6 +495,9 @@
 }
 
 - (NSString *)installedVersion {
+#if TARGET_OS_SIMULATOR
+    return self.version;
+#else
 	NSTask *installedVersionTask = [[NSTask alloc] init];
     [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
     NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"dpkg", @"-s", self.identifier, nil];
@@ -511,7 +514,7 @@
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     
     __block NSString *version = @"0.0";
-	[stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop){
+	[stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
 		if ([line hasPrefix:@"Version:"]) {
             line = [line stringByReplacingOccurrencesOfString:@" " withString:@""];
             version = [line substringFromIndex:8];
@@ -520,6 +523,7 @@
 	}];
 
     return version;
+#endif
 }
 
 @end
