@@ -65,7 +65,9 @@
 
 - (void)refreshTable {
     [self refreshBarButtons];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - Table view data source
