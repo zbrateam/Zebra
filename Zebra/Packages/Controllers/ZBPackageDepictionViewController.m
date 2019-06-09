@@ -116,7 +116,15 @@
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+    NSURL *url;
+    if ([[package tags] containsObject:@"zebra::depiction"]) {
+        url = [[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[package repo] secure] ? @"https://" : @"http://",  [[package repo] baseURL]]] URLByAppendingPathComponent:@"zebra_depiction"];
+    } else {
+        url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+    }
+    
+    NSLog(@"[va2ron1] %@", [url absoluteURL]);
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
