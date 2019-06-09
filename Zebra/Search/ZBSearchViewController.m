@@ -79,6 +79,7 @@
                       animations: ^(void){
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
+                            [self setNeedsStatusBarAppearanceUpdate];
                         });
                       }completion: nil];
 }
@@ -188,28 +189,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-
-    ZBPackage *package = [results objectAtIndex:indexPath.row];
-    
-    [cell updateData:package];
-    if([self.defaults boolForKey:@"darkMode"]){
-        cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-    }else{
-        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    }
-    return cell;
     if(searchController.active){
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
         ZBPackage *package = [results objectAtIndex:indexPath.row];
         
         [cell updateData:package];
-        
+        if([defaults boolForKey:@"darkMode"]){
+            cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        }else{
+            cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        }
         return cell;
     }else{
         static NSString *recentSearches = @"recentSearches";
@@ -219,8 +213,19 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
         }
-        
         cell.textLabel.text = [searches objectAtIndex:indexPath.row];
+        if([defaults boolForKey:@"darkMode"]){
+            UIView *dark = [[UIView alloc] init];
+            dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+            [[UITableViewCell appearance] setSelectedBackgroundView:dark];
+            [cell.textLabel setTextColor:[UIColor whiteColor]];
+        }else{
+            UIView *light = [[UIView alloc] init];
+            light.backgroundColor = [UIColor selectedCellBackgroundColor];
+            [[UITableViewCell appearance] setSelectedBackgroundView:light];
+            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        }
+            
         return cell;
     }
 }
@@ -294,7 +299,15 @@
 }
 
 -(void)darkMode:(NSNotification *)notif{
-    [self.tableView reloadData];
+    [self refreshTable];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if([defaults boolForKey:@"darkMode"]){
+        return UIStatusBarStyleLightContent;
+    }else{
+        return UIStatusBarStyleDefault;
+    }
 }
 
 - (void)dealloc {
