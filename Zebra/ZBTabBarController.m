@@ -76,7 +76,6 @@
 - (void)updatePackagesTableView {
     UINavigationController *navController = self.viewControllers[ZBTabPackages];
     ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
-    
     [packagesController refreshTable];
 }
 

@@ -494,4 +494,36 @@
 	return attributes[NSFileModificationDate];
 }
 
+- (NSString *)installedVersion {
+#if TARGET_OS_SIMULATOR
+    return self.version;
+#else
+	NSTask *installedVersionTask = [[NSTask alloc] init];
+    [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
+    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"dpkg", @"-s", self.identifier, nil];
+    [installedVersionTask setArguments:versionArgs];
+    
+    NSPipe *outPipe = [NSPipe pipe];
+    [installedVersionTask setStandardOutput:outPipe];
+    
+    [installedVersionTask launch];
+    [installedVersionTask waitUntilExit];
+    
+    NSFileHandle *read = [outPipe fileHandleForReading];
+    NSData *dataRead = [read readDataToEndOfFile];
+    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+    
+    __block NSString *version = @"0.0";
+	[stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+		if ([line hasPrefix:@"Version:"]) {
+            line = [line stringByReplacingOccurrencesOfString:@" " withString:@""];
+            version = [line substringFromIndex:8];
+            *stop = YES;
+        }
+	}];
+
+    return version;
+#endif
+}
+
 @end
