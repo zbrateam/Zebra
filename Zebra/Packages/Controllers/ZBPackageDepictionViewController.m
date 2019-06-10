@@ -113,7 +113,7 @@
     [progressView setTintColor:[UIColor tintColor]];
     
     webView.navigationDelegate = self;
-    webView.opaque = false;
+    webView.opaque = true;
     webView.backgroundColor = [UIColor clearColor];
     
     NSURL *url;
@@ -122,8 +122,6 @@
     } else {
         url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     }
-    
-    NSLog(@"[va2ron1] %@", [url absoluteURL]);
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
@@ -140,7 +138,13 @@
 
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
+    if ([[package tags] containsObject:@"zebra::depiction"]) {
+        NSData *package_data = [NSJSONSerialization dataWithJSONObject:[package data] options:0 error:nil];
+        [request setValue:[[NSString alloc] initWithData:package_data encoding:NSUTF8StringEncoding] forHTTPHeaderField:@"zebra"];
+        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
+    }
     
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [webView loadRequest:request];
 //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
@@ -199,8 +203,6 @@
     if (package == nil)
         return;
     
-    NSURL *depictionURL = [package depictionURL];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
         if (sectionImage == NULL) {
@@ -223,6 +225,11 @@
             [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [self.package name], [self.package identifier]] completionHandler:nil];
         }
     });
+    
+    if ([[package tags] containsObject:@"zebra::depiction"])
+        return;
+    
+    NSURL *depictionURL = [package depictionURL];
     
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version: %@';", [package version]] completionHandler:nil];
     
