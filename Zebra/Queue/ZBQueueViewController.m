@@ -11,6 +11,7 @@
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
 @import SDWebImage;
+@import LNPopupController;
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -22,11 +23,7 @@
 
 - (void)loadView {
     [super loadView];
-    
     _queue = [ZBQueue sharedInstance];
-    
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    
     [self refreshBarButtons];
     
     self.title = @"Queue";
