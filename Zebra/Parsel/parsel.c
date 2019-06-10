@@ -317,9 +317,11 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     sprintf(query, "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
     sqlite3_stmt *statement;
     sqlite3_int64 timestamp = 0;
+    bool found = false;
     if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
             timestamp = sqlite3_column_int64(statement, 0);
+            found = true;
             break;
         }
     }
@@ -327,7 +329,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
         printf("[Parsel] Error preparing current package timestamp statement: %s\n", sqlite3_errmsg(database));
     }
     sqlite3_finalize(statement);
-    return timestamp;
+    return found ? timestamp : -1;
 }
 
 bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
@@ -374,11 +376,11 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_int64 previousTimestamp = import ? -1 : getCurrentPackageTimestamp(database, packageIdentifier, dict_get(package, "Version"), repoID);
             sqlite3_int64 newTimestamp = 0;
             if (!import) {
-                if (previousTimestamp) {
-                    newTimestamp = currentDate > previousTimestamp ? currentDate : previousTimestamp;
+                if (previousTimestamp == -1) {
+                    newTimestamp = currentDate;
                 }
                 else {
-                    newTimestamp = currentDate;
+                    newTimestamp = previousTimestamp;
                 }
             }
             sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
