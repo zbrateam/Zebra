@@ -518,6 +518,7 @@
         [self.repoManager deleteSource:delRepo];
         ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
         [tabController setPackageUpdateBadgeValue:(int)[databaseManager packagesWithUpdatesIncludingIgnored:NO].count];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     }
 }
 
