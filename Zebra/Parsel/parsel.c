@@ -312,8 +312,6 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
     dict_free(repo);
 }
 
-sqlite3_int64 currentDate = -1;
-
 sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int repoID) {
     char query[200];
     sprintf(query, "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
@@ -332,7 +330,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return timestamp;
 }
 
-bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import) {
+bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
     for (int i = 0; packageIdentifier[i]; ++i) {
@@ -374,7 +372,16 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnIconURL, dict_get(package, "Icon"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnRepoID, repoID);
             sqlite3_int64 previousTimestamp = import ? -1 : getCurrentPackageTimestamp(database, packageIdentifier, dict_get(package, "Version"), repoID);
-            sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, import ? 0 : (previousTimestamp == 0 ? currentDate : previousTimestamp));
+            sqlite3_int64 newTimestamp = 0;
+            if (!import) {
+                if (previousTimestamp) {
+                    newTimestamp = currentDate > previousTimestamp ? currentDate : previousTimestamp;
+                }
+                else {
+                    newTimestamp = currentDate;
+                }
+            }
+            sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
             if (longDescription[0] != '\0')
                 longDescription[strlen(longDescription) - 1] = '\0';
             sqlite3_step(insertStatement);
@@ -453,7 +460,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             }
         }
         else if (dict_get(package, "Package") != 0) {
-            if (bindPackage(&package, repoID, safeID, longDescription, database, true))
+            if (bindPackage(&package, repoID, safeID, longDescription, database, true, 0))
                 continue;
         }
         else {
@@ -463,7 +470,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, repoID, safeID, longDescription, database, true);
+        bindPackage(&package, repoID, safeID, longDescription, database, true, 0);
     }
     
     fclose(file);
@@ -471,17 +478,12 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     return PARSEL_OK;
 }
 
-enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID) {
+enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID, sqlite3_int64 currentDate) {
     FILE *file = fopen(path, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
     }
     char line[2048];
-    
-    createTable(database, 1);
-    
-    sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
-    sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     char sql[64];
@@ -493,8 +495,6 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     int longDesc = 0;
     
     char longDescription[32768] = "";
-    
-    currentDate = (int)time(NULL);
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
@@ -534,7 +534,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             }
         }
         else if (dict_get(package, "Package") != 0) {
-            bindPackage(&package, repoID, safeID, longDescription, database, false);
+            bindPackage(&package, repoID, safeID, longDescription, database, false, currentDate);
         }
         else {
             dict_free(package);
@@ -543,10 +543,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, repoID, safeID, longDescription, database, false);
+        bindPackage(&package, repoID, safeID, longDescription, database, false, currentDate);
     }
-    
-    sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
