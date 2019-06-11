@@ -184,7 +184,6 @@
                             callbackURLScheme:@"sileo"
                             completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                                 // TODO: Nothing to do here?
-                                //NSLog(@"URL %@", callbackURL);
                                 if (callbackURL) {
                                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                     NSArray *queryItems = urlComponents.queryItems;
@@ -258,12 +257,10 @@
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
-    NSLog(@"Load finished");
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    NSLog(@"Done button pressed");
 }
 
 #pragma mark - Table view data source

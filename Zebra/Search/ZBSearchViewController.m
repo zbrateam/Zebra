@@ -131,7 +131,7 @@
         [searches removeObject:searchBar.text];
     }
     [searches insertObject:searchBar.text atIndex:0];
-    NSLog(@"Searches %@", searches);
+    NSLog(@"[Zebra] Searches: %@", searches);
     [defaults setObject:searches forKey:@"searches"];
     [defaults synchronize];
 }

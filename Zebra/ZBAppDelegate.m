@@ -196,7 +196,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         }
         case 1: { //zbra
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-            NSLog(@"%@", [url host]);
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
             index = (int)[choices indexOfObject:components[0]];
@@ -244,7 +243,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         }
         case 2: { //cydia
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-            NSLog(@"%@", [url host]);
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"installed", @"package", @"search", @"url"];
             index = (int)[choices indexOfObject:components[0]];

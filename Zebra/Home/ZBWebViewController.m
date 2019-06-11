@@ -151,7 +151,7 @@
         NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
         [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             if(error){
-                NSLog(@"EROOR %@", error.localizedDescription);
+                NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
             }
         }];
     }

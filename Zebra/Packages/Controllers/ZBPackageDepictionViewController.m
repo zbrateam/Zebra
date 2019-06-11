@@ -213,7 +213,7 @@
         NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
         [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             if(error){
-                NSLog(@"EROOR %@", error.localizedDescription);
+                NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
             }
         }];
     }
@@ -304,9 +304,7 @@
             rangeShift += anchor.length - before;
         }
         
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:^(id _Nullable idk, NSError * _Nullable error) {
-            NSLog(@"%@", error);
-        }];
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
@@ -398,9 +396,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
-        NSLog(@"Here first %@", keychain[[keychain stringForKey:[package repo].baseURL]]);
         if ([package isPaid]) {
-            NSLog(@"We are Paid");
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             
             NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
@@ -420,7 +416,7 @@
                 SEL selector = @selector(installPackage);
                 if (data) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    NSLog(@"Response %@", json);
+                    NSLog(@"[Zebra] Package purchase status response: %@", json);
                     BOOL purchased = [json[@"purchased"] boolValue];
                     BOOL available = [json[@"available"] boolValue];
                     if (!purchased && available) {
@@ -456,7 +452,7 @@
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
-            NSLog(@"Token %@", token);
+            NSLog(@"[Zebra] Package purchase token: %@", token);
             __block NSString *secret;
             //Wait on getting key
             dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -468,7 +464,7 @@
                 secret = keychain[idThing];
                 dispatch_semaphore_signal(sema);
                 if (error) {
-                    NSLog(@"Canceled %@", error.localizedDescription);
+                    NSLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
                 }
             });
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -489,7 +485,7 @@
                 [request setHTTPBody: requestData];
                 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    NSLog(@"%@",json);
+                    NSLog(@"[Zebra] Package purchase response: %@",json);
                     if ([json[@"status"] boolValue]) {
                         [uiBusy stopAnimating];
                         [self initPurchaseLink:json[@"url"]];
@@ -515,7 +511,7 @@
                    callbackURLScheme:@"sileo"
                    completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                        // TODO: Nothing to do here?
-                       NSLog(@"URL %@", callbackURL);
+                       NSLog(@"[Zebra] Purchase callback URL: %@", callbackURL);
                        if (callbackURL) {
                            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                            NSArray *queryItems = urlComponents.queryItems;
@@ -529,8 +525,7 @@
                            NSError *error;
                            //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                             if (error) {
-                            NSLog(@"[ZEBRA] %@", error.localizedDescription);
-                            
+                                NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
                             }
                            
                        }
@@ -583,12 +578,10 @@
 }
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
-    NSLog(@"Load finished");
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    NSLog(@"Done button pressed");
 }
 
 -(void)reloadDepiction{

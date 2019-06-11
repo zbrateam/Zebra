@@ -319,7 +319,7 @@
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if(data){
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"DICT %@", json);
+            NSLog(@"[Zebra] Real package data: %@", json);
             if ([json valueForKey:@"url"]) {
                 NSString *returnString = json[@"url"];
                 completionHandler(returnString);
@@ -350,11 +350,11 @@
                     NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
                     
                     if (readError) {
-                        NSLog(@"%@", readError);
+                        NSLog(@"[Zebra] Read error: %@", readError);
                         [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
                     }
                     else {
-                        NSLog(@"Response: %@", contents);
+                        NSLog(@"[Zebra] Download response: %@", contents);
                         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
                         [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
                     }
@@ -501,7 +501,7 @@
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
                             [self moveFileFromLocation:[NSURL URLWithString:[@"file://" stringByAppendingString:finalPath]] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
-                                NSLog(@"Moved");
+                                NSLog(@"[Hyena] File moved");
                             }];
                         }
                         

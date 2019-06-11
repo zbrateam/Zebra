@@ -160,7 +160,6 @@
 }
 
 - (void)clearAllSpinners {
-    NSLog(@"Clearing all Spinners");
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
     for (NSString *bfn in sourceIndexes) {
         NSInteger pos = [sourceIndexes[bfn] integerValue];
@@ -741,7 +740,6 @@
 }
 
 -(void)darkMode:(NSNotification *) notification{
-    NSLog(@"We CAlled");
     [ZBAppDelegate refreshViews];
     [self.tableView reloadData];
 }

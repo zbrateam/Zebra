@@ -347,7 +347,7 @@
         BOOL result = [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate debsLocation] stringByAppendingPathComponent:file] error:&error];
 
         if (!result && error) {
-            NSLog(@"Error while removing %@: %@", file, error);
+            NSLog(@"[Zebra] Error while removing %@: %@", file, error);
         }
     }
 }
