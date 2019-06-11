@@ -10,7 +10,11 @@
 
 @implementation UIColor (GlobalColors)
 + (UIColor *)tintColor {
-    return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"]){
+        return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
+    }else{
+        return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+    }
 }
 
 + (UIColor *)navBarTintColor {
