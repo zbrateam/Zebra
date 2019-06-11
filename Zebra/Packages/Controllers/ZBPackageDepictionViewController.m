@@ -153,9 +153,11 @@
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
     if ([[package tags] containsObject:@"zebra::depiction"]) {
-        NSData *package_data = [NSJSONSerialization dataWithJSONObject:[package data] options:0 error:nil];
+        NSMutableDictionary *packageData = [[NSMutableDictionary alloc] initWithDictionary:[package data]];
+        [packageData setValue:[NSNumber numberWithBool:[self.defaults boolForKey:@"darkMode"]] forKey:@"darkMode"];
+        NSData *package_data = [NSJSONSerialization dataWithJSONObject:packageData options:0 error:nil];
         [request setValue:[[NSString alloc] initWithData:package_data encoding:NSUTF8StringEncoding] forHTTPHeaderField:@"zebra"];
-        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
+//        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
     }
     
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
