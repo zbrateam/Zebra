@@ -42,7 +42,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [[databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
@@ -58,7 +60,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
@@ -492,7 +494,15 @@
 //        }];
 //        [task resume];
 //    }
-    
+    if([self.defaults boolForKey:@"darkMode"]){
+        cell.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+        cell.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    }else{
+        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    }
     return cell;
 }
 
@@ -550,6 +560,11 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[self sectionIndexTitlesForTableView:tableView][section]];
+        if([self.defaults boolForKey:@"darkMode"]){
+            [label setTextColor:[UIColor whiteColor]];
+        }else{
+            [label setTextColor:[UIColor cellPrimaryTextColor]];
+        }
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
@@ -724,5 +739,12 @@
         [self presentViewController:alertController animated:true completion:nil];
     }
 }
+
+-(void)darkMode:(NSNotification *) notification{
+    NSLog(@"We CAlled");
+    [ZBAppDelegate refreshViews];
+    [self.tableView reloadData];
+}
+
 
 @end

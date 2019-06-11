@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoListTableViewController : UITableViewController <ZBDatabaseDelegate>
 @property (readwrite, copy, nonatomic) NSArray *tableData;
+@property NSUserDefaults *defaults;
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn;
 - (void)handleURL:(NSURL *)url;
 - (void)addSource:(id)sender;

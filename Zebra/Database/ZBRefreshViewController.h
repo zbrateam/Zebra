@@ -12,5 +12,6 @@
 @interface ZBRefreshViewController : UIViewController <ZBDatabaseDelegate>
 @property (nonatomic, strong) NSArray *messages;
 @property (nonatomic) BOOL dropTables;
+@property NSUserDefaults *defaults;
 @end
 

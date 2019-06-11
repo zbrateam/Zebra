@@ -19,7 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.databaseManager = [ZBDatabaseManager sharedInstance];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     self.packages = [NSMutableArray new];
@@ -42,7 +44,7 @@
     [self.navigationItem setRightBarButtonItem:self.logOut];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self listPurchasedSileoPackages];
 }
@@ -157,6 +159,16 @@
     else {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
+        if([self.defaults boolForKey:@"darkMode"]){
+            cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        }else{
+            cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        }
+        
         return cell;
     }
     
@@ -174,6 +186,7 @@
     
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:@"Purchased Packages"];
+    [label setTextColor:[UIColor whiteColor]];
     [view addSubview:label];
     
     label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -218,5 +231,7 @@
     }
 }
 
-
+-(void)darkMode:(NSNotification *)notif{
+    [self.tableView reloadData];
+}
 @end

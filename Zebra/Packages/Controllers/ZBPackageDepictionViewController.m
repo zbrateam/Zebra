@@ -62,6 +62,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavButton];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -115,6 +118,9 @@
     webView.navigationDelegate = self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    }
     
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -124,12 +130,20 @@
     NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
+    }else{
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
+    }
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-
+    
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
     
@@ -190,8 +204,22 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
+    //DarkMode
+    if([self.defaults boolForKey:@"darkMode"]){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            if(error){
+                NSLog(@"EROOR %@", error.localizedDescription);
+            }
+        }];
+    }
     
     NSURL *depictionURL = [package depictionURL];
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
@@ -563,5 +591,7 @@
     NSLog(@"Done button pressed");
 }
 
-
+-(void)reloadDepiction{
+    [webView reloadFromOrigin];
+}
 @end

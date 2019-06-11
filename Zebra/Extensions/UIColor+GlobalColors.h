@@ -17,6 +17,7 @@
 +(UIColor*)selectedCellBackgroundColor;
 +(UIColor*)cellPrimaryTextColor;
 +(UIColor*)cellSecondaryTextColor;
++(UIColor *)selectedCellBackgroundColorDark;
 @end
 
 @interface UIColor (Private)

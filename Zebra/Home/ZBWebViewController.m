@@ -30,10 +30,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.repoManager = [[ZBRepoManager alloc] init];
     
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    }else{
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+    }
+    //self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
@@ -66,9 +73,11 @@
     [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
     
     webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
-    webView.opaque = false;
-    webView.backgroundColor = [UIColor clearColor];
     webView.tintColor = [UIColor tintColor];
+    
+    if([self.defaults boolForKey:@"darkMode"]){
+        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    }
     
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
@@ -81,13 +90,14 @@
     }
     else {
         self.title = @"Home";
-        
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+
     }
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
@@ -133,6 +143,19 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
+    if([self.defaults boolForKey:@"darkMode"]){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            if(error){
+                NSLog(@"EROOR %@", error.localizedDescription);
+            }
+        }];
+    }
+    
 #if TARGET_OS_SIMULATOR
     [webView evaluateJavaScript:@"document.getElementById('neo').innerHTML = 'Wake up, Neo...'" completionHandler:nil];
 #else
@@ -411,6 +434,72 @@
 
 - (IBAction)refreshPage:(id)sender {
     [webView reload];
+}
+
+- (IBAction)toggleDarkMode:(id)sender {
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (![self.defaults boolForKey:@"darkMode"]) {
+            //Want Darkmode
+            [self darkMode];
+        } else {
+            //Want Light
+            [self lightMode];
+        }
+    } completion:nil];
+}
+
+- (void)darkMode{
+    [self.defaults setBool:TRUE forKey:@"darkMode"];
+    [self.defaults synchronize];
+    [self resetWebView];
+    [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    [ZBAppDelegate configureDark];
+    [ZBAppDelegate refreshViews];
+    [self setNeedsStatusBarAppearanceUpdate];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+}
+
+- (void)lightMode{
+    [self.defaults setBool:FALSE forKey:@"darkMode"];
+    [self.defaults synchronize];
+    [self resetWebView];
+    [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+    [ZBAppDelegate configureLight];
+    [ZBAppDelegate refreshViews];
+    [self setNeedsStatusBarAppearanceUpdate];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
+}
+
+-(void)resetWebView{
+    if (_url != NULL) {
+        [webView setAllowsBackForwardNavigationGestures:true];
+        if (@available(iOS 11.0, *)) {
+            self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        }
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:_url];
+        [webView loadRequest:request];
+    }
+    else {
+        self.title = @"Home";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
+        [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+        
+    }
+    
+    if([self.defaults boolForKey:@"darkMode"]){
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    }else{
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if([self.defaults boolForKey:@"darkMode"]){
+        return UIStatusBarStyleLightContent;
+    }else{
+        return UIStatusBarStyleDefault;
+    }
 }
 
 - (void)dealloc {

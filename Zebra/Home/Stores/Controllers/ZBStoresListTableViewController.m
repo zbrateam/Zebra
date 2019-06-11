@@ -124,7 +124,6 @@
                                }
                                NSString *token = queryByKeys[@"token"];
                                NSString *payment = queryByKeys[@"payment_secret"];
-                               
                                /*NSError *error;
                                 [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                                 if (error) {

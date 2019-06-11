@@ -30,6 +30,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     defaults = [NSUserDefaults standardUserDefaults];
     searches = [[defaults arrayForKey:@"searches"] mutableCopy];
     if(!searches){
@@ -60,7 +62,7 @@
     self.tableView.tableFooterView = [UIView new];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"packageTableViewCell"];
@@ -77,6 +79,7 @@
                       animations: ^(void){
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
+                            [self setNeedsStatusBarAppearanceUpdate];
                         });
                       }completion: nil];
 }
@@ -192,7 +195,15 @@
         ZBPackage *package = [results objectAtIndex:indexPath.row];
         
         [cell updateData:package];
-        
+        if([defaults boolForKey:@"darkMode"]){
+            cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        }else{
+            cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        }
         return cell;
     }else{
         static NSString *recentSearches = @"recentSearches";
@@ -202,8 +213,19 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
         }
-        
         cell.textLabel.text = [searches objectAtIndex:indexPath.row];
+        if([defaults boolForKey:@"darkMode"]){
+            UIView *dark = [[UIView alloc] init];
+            dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+            [[UITableViewCell appearance] setSelectedBackgroundView:dark];
+            [cell.textLabel setTextColor:[UIColor whiteColor]];
+        }else{
+            UIView *light = [[UIView alloc] init];
+            light.backgroundColor = [UIColor selectedCellBackgroundColor];
+            [[UITableViewCell appearance] setSelectedBackgroundView:light];
+            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        }
+            
         return cell;
     }
 }
@@ -274,6 +296,18 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+-(void)darkMode:(NSNotification *)notif{
+    [self refreshTable];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if([defaults boolForKey:@"darkMode"]){
+        return UIStatusBarStyleLightContent;
+    }else{
+        return UIStatusBarStyleDefault;
+    }
 }
 
 - (void)dealloc {

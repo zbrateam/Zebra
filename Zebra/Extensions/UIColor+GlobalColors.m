@@ -34,6 +34,10 @@
     return [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0];
 }
 
++ (UIColor *)selectedCellBackgroundColorDark {
+    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+}
+
 + (UIColor *)cellPrimaryTextColor {
     return [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
 }
