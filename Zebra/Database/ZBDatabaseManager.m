@@ -170,6 +170,11 @@
             }
         }
         
+        createTable(database, 1);
+        sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
+        sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
+        sqlite3_int64 currentDate = (int)time(NULL);
+        
         for (NSString *packagesPath in packageFiles) {
             NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
             baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
@@ -186,12 +191,12 @@
                 NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
                 repoID = [self nextRepoID];
                 createDummyRepo([[ZBAppDelegate sourcesListPath] UTF8String], [packagesPath UTF8String], database, repoID); //For repos with no release file (notably junesiphone)
-                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID) != PARSEL_OK && canPostStatus) {
+                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID, currentDate) != PARSEL_OK && canPostStatus) {
                     [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
                 }
             }
             else {
-                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID) != PARSEL_OK && canPostStatus) {
+                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID, currentDate) != PARSEL_OK && canPostStatus) {
                     [_databaseDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
                 }
             }
@@ -200,6 +205,8 @@
                 [_databaseDelegate setRepo:baseFileName busy:false];
             }
         }
+        
+        sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
         
         if (canPostStatus)
             [_databaseDelegate postStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];

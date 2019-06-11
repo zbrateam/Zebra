@@ -62,6 +62,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavButton];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -115,6 +118,9 @@
     webView.navigationDelegate = self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    }
     
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -124,12 +130,20 @@
     NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
+    }else{
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
+    }
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-
+    
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
     
@@ -190,8 +204,22 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
+    //DarkMode
+    if([self.defaults boolForKey:@"darkMode"]){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            if(error){
+                NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+            }
+        }];
+    }
     
     NSURL *depictionURL = [package depictionURL];
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
@@ -216,8 +244,15 @@
         }
     });
     
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = 'Version: %@';", [package version]] completionHandler:nil];
-    
+    NSString *versionString;
+    if (![package isInstalled:NO] || [package installedVersion] == nil) {
+        versionString = [NSString stringWithFormat:@"Version: %@", [package version]];
+    }
+    else {
+        versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installedVersion]];
+    }
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = '%@';", versionString] completionHandler:nil];
+
     NSMutableArray *sizeString = [NSMutableArray array];
     NSString *size = [package size];
     if (size) {
@@ -269,15 +304,13 @@
             rangeShift += anchor.length - before;
         }
         
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:^(id _Nullable idk, NSError * _Nullable error) {
-            NSLog(@"%@", error);
-        }];
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
     }
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
 
-    if ([package isInstalled:YES]) {
+    if ([package isInstalled:NO]) {
 		[webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
 		[webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
 		[webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function (){ window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
@@ -307,7 +340,7 @@
     NSURLRequest *request = [navigationAction request];
     NSURL *url = [request URL];
     
-    int type = navigationAction.navigationType;
+    WKNavigationType type = navigationAction.navigationType;
     
     if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
@@ -363,9 +396,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
-        NSLog(@"Here first %@", keychain[[keychain stringForKey:[package repo].baseURL]]);
         if ([package isPaid]) {
-            NSLog(@"We are Paid");
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             
             NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
@@ -385,7 +416,7 @@
                 SEL selector = @selector(installPackage);
                 if (data) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    NSLog(@"Response %@", json);
+                    NSLog(@"[Zebra] Package purchase status response: %@", json);
                     BOOL purchased = [json[@"purchased"] boolValue];
                     BOOL available = [json[@"available"] boolValue];
                     if (!purchased && available) {
@@ -421,7 +452,7 @@
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
-            NSLog(@"Token %@", token);
+            NSLog(@"[Zebra] Package purchase token: %@", token);
             __block NSString *secret;
             //Wait on getting key
             dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -433,7 +464,7 @@
                 secret = keychain[idThing];
                 dispatch_semaphore_signal(sema);
                 if (error) {
-                    NSLog(@"Canceled %@", error.localizedDescription);
+                    NSLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
                 }
             });
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -454,7 +485,7 @@
                 [request setHTTPBody: requestData];
                 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    NSLog(@"%@",json);
+                    NSLog(@"[Zebra] Package purchase response: %@",json);
                     if ([json[@"status"] boolValue]) {
                         [uiBusy stopAnimating];
                         [self initPurchaseLink:json[@"url"]];
@@ -480,7 +511,7 @@
                    callbackURLScheme:@"sileo"
                    completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                        // TODO: Nothing to do here?
-                       NSLog(@"URL %@", callbackURL);
+                       NSLog(@"[Zebra] Purchase callback URL: %@", callbackURL);
                        if (callbackURL) {
                            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                            NSArray *queryItems = urlComponents.queryItems;
@@ -494,8 +525,7 @@
                            NSError *error;
                            //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                             if (error) {
-                            NSLog(@"[ZEBRA] %@", error.localizedDescription);
-                            
+                                NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
                             }
                            
                        }
@@ -548,13 +578,13 @@
 }
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
-    NSLog(@"Load finished");
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    NSLog(@"Done button pressed");
 }
 
-
+-(void)reloadDepiction{
+    [webView reloadFromOrigin];
+}
 @end

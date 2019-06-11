@@ -16,6 +16,7 @@
 #import "ZBFeaturedCollectionViewCell.h"
 #import <ZBAppDelegate.h>
 #import <ZBDeviceHelper.h>
+#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
@@ -31,6 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -93,6 +97,15 @@
         else {
             [self.navigationItem setRightBarButtonItem:self.purchased];
         }
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:TRUE];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    }else{
+        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
     }
 }
 
@@ -171,7 +184,6 @@
                             callbackURLScheme:@"sileo"
                             completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                                 // TODO: Nothing to do here?
-                                //NSLog(@"URL %@", callbackURL);
                                 if (callbackURL) {
                                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                     NSArray *queryItems = urlComponents.queryItems;
@@ -245,12 +257,10 @@
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
-    NSLog(@"Load finished");
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    NSLog(@"Done button pressed");
 }
 
 #pragma mark - Table view data source
@@ -283,7 +293,11 @@
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
-    
+    if([self.defaults boolForKey:@"darkMode"]){
+        UIView *dark = [[UIView alloc] init];
+        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+        [cell setSelectedBackgroundView:dark];
+    }
     return cell;
 }
 
@@ -363,6 +377,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
+}
+
+-(void)darkMode:(NSNotification *)notif{
+    [self.tableView reloadData];
 }
 
 @end
