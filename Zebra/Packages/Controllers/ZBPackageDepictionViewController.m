@@ -116,13 +116,19 @@
     [progressView setTintColor:[UIColor tintColor]];
     
     webView.navigationDelegate = self;
-    webView.opaque = false;
+    webView.opaque = true;
     webView.backgroundColor = [UIColor clearColor];
     if ([self.defaults boolForKey:@"darkMode"]) {
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+    NSURL *url;
+    if ([[package tags] containsObject:@"zebra::depiction"]) {
+        url = [[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[package repo] secure] ? @"https://" : @"http://",  [[package repo] baseURL]]] URLByAppendingPathComponent:@"zebra_depiction"];
+    } else {
+        url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+    }
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
@@ -146,7 +152,13 @@
     
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
+    if ([[package tags] containsObject:@"zebra::depiction"]) {
+        NSData *package_data = [NSJSONSerialization dataWithJSONObject:[package data] options:0 error:nil];
+        [request setValue:[[NSString alloc] initWithData:package_data encoding:NSUTF8StringEncoding] forHTTPHeaderField:@"zebra"];
+        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
+    }
     
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [webView loadRequest:request];
 //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
@@ -204,23 +216,7 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
-    //DarkMode
-    if([self.defaults boolForKey:@"darkMode"]){
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
-        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
-        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            if(error){
-                NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-            }
-        }];
-    }
-    
-    NSURL *depictionURL = [package depictionURL];
 
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
         if (sectionImage == NULL) {
@@ -243,6 +239,26 @@
             [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [self.package name], [self.package identifier]] completionHandler:nil];
         }
     });
+    
+
+    if ([[package tags] containsObject:@"zebra::depiction"])
+        return;
+  
+      //DarkMode
+    if([self.defaults boolForKey:@"darkMode"]){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            if(error){
+                NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+            }
+        }];
+    }
+    
+    NSURL *depictionURL = [package depictionURL];
     
     NSString *versionString;
     if (![package isInstalled:NO] || [package installedVersion] == nil) {

@@ -494,6 +494,7 @@
 	return attributes[NSFileModificationDate];
 }
 
+
 - (NSString *)installedVersion {
 #if TARGET_OS_SIMULATOR
     return self.version;
@@ -524,6 +525,20 @@
 
     return version;
 #endif
+}
+
+- (NSDictionary *)data {
+    NSMutableDictionary *_data = [[NSMutableDictionary alloc] init];
+    [_data setValue:self.name forKey:@"name"];
+    [_data setValue:self.identifier forKey:@"identifier"];
+    [_data setValue:self.version forKey:@"version"];
+    [_data setValue:self.size forKey:@"size"];
+    [_data setValue:self.installedSize forKey:@"installedSize"];
+    [_data setValue:self.shortDescription forKey:@"shortDescription"];
+    [_data setValue:self.longDescription forKey:@"longDescription"];
+    [_data setValue:self.section forKey:@"section"];
+    [_data setValue:self.author forKey:@"author"];
+    return _data;
 }
 
 @end

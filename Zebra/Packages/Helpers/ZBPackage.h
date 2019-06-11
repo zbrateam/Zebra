@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *)installableCandidate;
 - (NSDate *)installedDate;
 - (NSString *)installedVersion;
+- (NSDictionary *)data;
 @end
 
 NS_ASSUME_NONNULL_END
