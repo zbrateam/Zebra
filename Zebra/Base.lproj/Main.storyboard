@@ -810,6 +810,40 @@
             </objects>
             <point key="canvasLocation" x="9058.3999999999996" y="-1029.5352323838081"/>
         </scene>
+        <!--Cancel Button View Controller-->
+        <scene sceneID="2Or-7P-bWW">
+            <objects>
+                <viewController storyboardIdentifier="cancelButton" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EbD-e1-VVa" customClass="CancelButtonViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TBF-OR-q1P"/>
+                        <viewControllerLayoutGuide type="bottom" id="pBW-wV-SLf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4Jp-87-dKR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqe-lm-apU">
+                                <rect key="frame" x="160.5" y="14.5" width="53" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rqe-lm-apU" firstAttribute="centerX" secondItem="4Jp-87-dKR" secondAttribute="centerX" id="8aD-pQ-e8z"/>
+                            <constraint firstItem="rqe-lm-apU" firstAttribute="centerY" secondItem="4Jp-87-dKR" secondAttribute="centerY" id="Djw-Dd-ypE"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="50"/>
+                    <connections>
+                        <outlet property="cancelTextButton" destination="rqe-lm-apU" id="X9X-5n-qb1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VFL-QY-xHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7278" y="928"/>
+        </scene>
         <!--Console View Controller-->
         <scene sceneID="A6v-hn-Vlw">
             <objects>

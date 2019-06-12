@@ -557,6 +557,14 @@
     for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
         [alert addAction:action];
     }
+    //Yes I realise how stupid this looks
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"]){
+        UIView *alertContentBackground = alert.view.subviews.firstObject.subviews.firstObject;
+        for (UIView *subView in alertContentBackground.subviews){
+            subView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1];
+        }
+    }
+    
     
     alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     

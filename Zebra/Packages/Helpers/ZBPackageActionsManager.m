@@ -13,6 +13,7 @@
 #import <Queue/ZBQueue.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import "CancelButtonViewController.h"
 
 @implementation ZBPackageActionsManager
 
@@ -179,6 +180,14 @@
     }
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        CancelButtonViewController *backgroundView = [storyboard instantiateViewControllerWithIdentifier:@"cancelButton"];
+        backgroundView.view.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1];
+        [backgroundView.cancelTextButton setTextColor:[UIColor tintColor]];
+        [backgroundView.cancelTextButton setText:@"Cancel"];
+        [cancel setValue:backgroundView forKey:@"contentViewController"];
+    }
     [actions addObject:cancel];
     
     return actions;
@@ -208,7 +217,24 @@
     }
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    //Yes I realise how stupid this looks
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        CancelButtonViewController *backgroundView = [storyboard instantiateViewControllerWithIdentifier:@"cancelButton"];
+        backgroundView.view.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1];
+        [backgroundView.cancelTextButton setTextColor:[UIColor tintColor]];
+        [backgroundView.cancelTextButton setText:@"Cancel"];
+        [cancel setValue:backgroundView forKey:@"contentViewController"];
+        
+        UIView *alertContentBackground = alert.view.subviews.firstObject.subviews.firstObject;
+        for (UIView *subView in alertContentBackground.subviews){
+            subView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1];
+        }
+       
+    }
     [alert addAction:cancel];
+    
+    
     
     if (indexPath) {
         ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
