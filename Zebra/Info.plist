@@ -55,24 +55,6 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>zWhite</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zWhite</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zBlack</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -87,6 +69,24 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>lightZebraSkin</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>zBlack</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zBlack</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>zWhite</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zWhite</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -117,24 +117,6 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>zWhite</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zWhite</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zBlack</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -149,6 +131,24 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>lightZebraSkin</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>zBlack</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zBlack</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>zWhite</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zWhite</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>

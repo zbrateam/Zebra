@@ -124,44 +124,12 @@
     
     NSURL *url;
     if ([[package tags] containsObject:@"zebra::depiction"]) {
-        url = [[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[package repo] secure] ? @"https://" : @"http://",  [[package repo] baseURL]]] URLByAppendingPathComponent:@"zebra_depiction"];
+        url = [self customZebraDepiction];
     } else {
-        url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+        url = [self basicZebraDepiction];
     }
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDeviceHelper UDID];
-    NSString *machineIdentifier = [ZBDeviceHelper machineID];
-    
-    [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    if([self.defaults boolForKey:@"darkMode"]){
-        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
-        [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
-    }else{
-        [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
-        [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
-    }
-    [request setValue:version forHTTPHeaderField:@"X-Firmware"];
-    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
-    [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
-    [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-    
-    [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
-    
-    if ([[package tags] containsObject:@"zebra::depiction"]) {
-        NSMutableDictionary *packageData = [[NSMutableDictionary alloc] initWithDictionary:[package data]];
-        [packageData setValue:[NSNumber numberWithBool:[self.defaults boolForKey:@"darkMode"]] forKey:@"darkMode"];
-        NSData *package_data = [NSJSONSerialization dataWithJSONObject:packageData options:0 error:nil];
-        [request setValue:[[NSString alloc] initWithData:package_data encoding:NSUTF8StringEncoding] forHTTPHeaderField:@"zebra"];
-//        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
-    }
-    
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [webView loadRequest:request];
+    [webView loadRequest:[self packageViewRequestWithURL:url]];
 //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
@@ -213,6 +181,12 @@
         
         [[self navigationController] pushViewController:filesController animated:true];
 	}
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    if ([[package tags] containsObject:@"zebra::depiction"] && error.code == -1009) {
+        [webView loadRequest:[self packageViewRequestWithURL:[self basicZebraDepiction]]];
+    }
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -357,6 +331,7 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURLRequest *request = [navigationAction request];
     NSURL *url = [request URL];
+    NSString *customDepiction = @"";
     
     WKNavigationType type = navigationAction.navigationType;
     
@@ -364,7 +339,11 @@
         decisionHandler(WKNavigationActionPolicyAllow);
     }
     else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
-        if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+        if ([[package tags] containsObject:@"zebra::depiction"]) {
+            customDepiction = [[self customZebraDepiction] absoluteString];
+        }
+        
+        if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"]) && ![[url absoluteString] hasPrefix:customDepiction]) {
             SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
             if (@available(iOS 10.0, *)) {
                 sfVC.preferredControlTintColor = [UIColor tintColor];
@@ -605,4 +584,49 @@
 -(void)reloadDepiction{
     [webView reloadFromOrigin];
 }
+
+- (NSMutableURLRequest*)packageViewRequestWithURL:(NSURL*)url {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    NSString *udid = [ZBDeviceHelper UDID];
+    NSString *machineIdentifier = [ZBDeviceHelper machineID];
+    
+    [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
+    }else{
+        [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
+    }
+    [request setValue:version forHTTPHeaderField:@"X-Firmware"];
+    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
+    [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
+    [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
+    
+    [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
+    
+    if ([[package tags] containsObject:@"zebra::depiction"]) {
+        NSMutableDictionary *packageData = [[NSMutableDictionary alloc] initWithDictionary:[package data]];
+        [packageData setValue:[NSNumber numberWithBool:[self.defaults boolForKey:@"darkMode"]] forKey:@"darkMode"];
+        NSData *package_data = [NSJSONSerialization dataWithJSONObject:packageData options:0 error:nil];
+        [request setValue:[[NSString alloc] initWithData:package_data encoding:NSUTF8StringEncoding] forHTTPHeaderField:@"zebra"];
+        //        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
+    }
+    
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    return request;
+}
+
+- (NSURL*)basicZebraDepiction {
+    return [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+}
+
+- (NSURL*)customZebraDepiction {
+    return [[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[package repo] secure] ? @"https://" : @"http://",  [[package repo] baseURL]]] URLByAppendingPathComponent:@"zebra_depiction"];
+}
+
 @end
