@@ -300,6 +300,9 @@
 
 -(void)darkMode:(NSNotification *)notif{
     [self refreshTable];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    searchController.searchBar.tintColor = [UIColor tintColor];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

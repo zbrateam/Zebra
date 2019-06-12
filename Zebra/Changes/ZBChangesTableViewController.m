@@ -282,6 +282,8 @@
 
 -(void)darkMode:(NSNotification *)notif{
     [self.tableView reloadData];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
 
 @end
