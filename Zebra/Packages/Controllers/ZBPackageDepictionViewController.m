@@ -419,6 +419,8 @@
                     if (!purchased && available) {
                         title = json[@"price"];
                         selector = @selector(purchasePackage);
+                    }else if (purchased && available){
+                        self->package.sileoDownload = TRUE;
                     }
                 }
                 UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
