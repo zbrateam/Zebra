@@ -186,7 +186,11 @@
     
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:@"Purchased Packages"];
-    [label setTextColor:[UIColor whiteColor]];
+    if([self.defaults boolForKey:@"darkMode"]){
+        [label setTextColor:[UIColor whiteColor]];
+    }else{
+        [label setTextColor:[UIColor cellPrimaryTextColor]];
+    }
     [view addSubview:label];
     
     label.translatesAutoresizingMaskIntoConstraints = NO;
