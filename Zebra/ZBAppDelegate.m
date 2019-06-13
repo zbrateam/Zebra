@@ -292,7 +292,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         }
         case 3: { //sileo
             NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
-            if([sourceApplication isEqualToString:@"com.apple.SafariViewService"]){
+            if ([sourceApplication isEqualToString:@"com.apple.SafariViewService"]) {
                 NSArray *components = [[url host] componentsSeparatedByString:@"/"];
                 choices = @[@"authentication_success", @"payment_completed"];
                 index = (int)[choices indexOfObject:components[0]];

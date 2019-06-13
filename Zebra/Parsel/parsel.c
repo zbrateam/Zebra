@@ -50,7 +50,7 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
 
 multi_tok_t init() { return NULL; }
 
-char* replace_char(char* str, char find, char replace){
+char* replace_char(char* str, char find, char replace) {
     char *current_pos = strchr(str,find);
     while (current_pos) {
         *current_pos = replace;

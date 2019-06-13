@@ -31,16 +31,16 @@
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     if (highlighted) {
-        if([self.defaults boolForKey:@"darkMode"]){
+        if ([self.defaults boolForKey:@"darkMode"]) {
             self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColorDark];
-        }else{
+        } else {
             self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
         }
     }
     else {
-        if([self.defaults boolForKey:@"darkMode"]){
+        if ([self.defaults boolForKey:@"darkMode"]) {
             self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-        }else{
+        } else {
             self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         }
         

@@ -26,7 +26,7 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.defaults = [NSUserDefaults standardUserDefaults];
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         [self setNeedsStatusBarAppearanceUpdate];
         [self.view setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
         [_consoleView setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
@@ -34,9 +34,9 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         return UIStatusBarStyleLightContent;
-    }else{
+    } else {
         return UIStatusBarStyleDefault;
     }
 }
@@ -101,18 +101,18 @@
         UIFont *font;
         switch (level) {
             case ZBLogLevelDescript: {
-                if([self.defaults boolForKey:@"darkMode"]){
+                if ([self.defaults boolForKey:@"darkMode"]) {
                     color = [UIColor whiteColor];
-                }else{
+                } else {
                     color = [UIColor blackColor];
                 }
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
             }
             case ZBLogLevelInfo: {
-                if([self.defaults boolForKey:@"darkMode"]){
+                if ([self.defaults boolForKey:@"darkMode"]) {
                     color = [UIColor whiteColor];
-                }else{
+                } else {
                     color = [UIColor blackColor];
                 }
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];

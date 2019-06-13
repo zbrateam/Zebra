@@ -34,7 +34,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     defaults = [NSUserDefaults standardUserDefaults];
     searches = [[defaults arrayForKey:@"searches"] mutableCopy];
-    if(!searches){
+    if (!searches) {
         searches = [NSMutableArray new];
     }
     if (!databaseManager) {
@@ -76,7 +76,7 @@
     [UIView transitionWithView: self.tableView
                       duration: 0.35f
                       options: UIViewAnimationOptionTransitionCrossDissolve
-                      animations: ^(void){
+                      animations: ^(void) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
                             [self setNeedsStatusBarAppearanceUpdate];
@@ -127,7 +127,7 @@
     [databaseManager closeDatabase];
     results = [databaseManager searchForPackageName:[searchBar text] numberOfResults:-1];
     [self refreshTable];
-    if([searches containsObject:searchBar.text]){
+    if ([searches containsObject:searchBar.text]) {
         [searches removeObject:searchBar.text];
     }
     [searches insertObject:searchBar.text atIndex:0];
@@ -181,31 +181,31 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(!searchController.active){
+    if (!searchController.active) {
         return [searches count];
-    }else{
+    } else {
         return results.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(searchController.active){
+    if (searchController.active) {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
         ZBPackage *package = [results objectAtIndex:indexPath.row];
         
         [cell updateData:package];
-        if([defaults boolForKey:@"darkMode"]){
+        if ([defaults boolForKey:@"darkMode"]) {
             cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
             cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
             cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-        }else{
+        } else {
             cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
             cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
             cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         }
         return cell;
-    }else{
+    } else {
         static NSString *recentSearches = @"recentSearches";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recentSearches];
@@ -214,12 +214,12 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
         }
         cell.textLabel.text = [searches objectAtIndex:indexPath.row];
-        if([defaults boolForKey:@"darkMode"]){
+        if ([defaults boolForKey:@"darkMode"]) {
             UIView *dark = [[UIView alloc] init];
             dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
             [[UITableViewCell appearance] setSelectedBackgroundView:dark];
             [cell.textLabel setTextColor:[UIColor whiteColor]];
-        }else{
+        } else {
             UIView *light = [[UIView alloc] init];
             light.backgroundColor = [UIColor selectedCellBackgroundColor];
             [[UITableViewCell appearance] setSelectedBackgroundView:light];
@@ -231,9 +231,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(searchController.active){
+    if (searchController.active) {
         [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
-    }else{
+    } else {
         searchController.active = YES;
         searchController.searchBar.text = [searches objectAtIndex:indexPath.row];
         [self searchBar:searchController.searchBar textDidChange:[searches objectAtIndex:indexPath.row]];
@@ -306,9 +306,9 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if([defaults boolForKey:@"darkMode"]){
+    if ([defaults boolForKey:@"darkMode"]) {
         return UIStatusBarStyleLightContent;
-    }else{
+    } else {
         return UIStatusBarStyleDefault;
     }
 }

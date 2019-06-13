@@ -1,3 +1,5 @@
+
+
 //
 //  ZBPackageDepictionViewController.m
 //  Zebra
@@ -89,7 +91,7 @@
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
-
+    
     webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -130,11 +132,11 @@
     NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
         [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
-    }else{
+    } else {
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
         [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
@@ -148,7 +150,7 @@
     
     
     [webView loadRequest:request];
-//    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
@@ -185,41 +187,45 @@
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-	NSArray *contents = [message.body componentsSeparatedByString:@"~"];
+    NSArray *contents = [message.body componentsSeparatedByString:@"~"];
     NSString *destination = (NSString *)contents[0];
-	NSString *action = contents[1];
-
-	if ([destination isEqual:@"local"]) {
+    NSString *action = contents[1];
+    
+    if ([destination isEqual:@"local"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-		ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-		filesController.navigationDelegate = self;
-		filesController.navigationItem.title = @"Installed Files";
-		NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
-		[filesController setValue:url forKey:@"_url"];
+        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+        filesController.navigationDelegate = self;
+        filesController.navigationItem.title = @"Installed Files";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
+        [filesController setValue:url forKey:@"_url"];
         
         [[self navigationController] pushViewController:filesController animated:true];
-	}
+    }
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
-    //DarkMode
-    if([self.defaults boolForKey:@"darkMode"]){
+    // DarkMode
+    if ([self.defaults boolForKey:@"darkMode"]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
-        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            if(error){
-                NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-            }
-        }];
+        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
+                              style.innerHTML = '%@'; \
+                              document.head.appendChild(style)",
+                              cssData];
+        [webView evaluateJavaScript:jsString
+                  completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                      if (error) {
+                          NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+                      }
+                  }];
     }
     
     NSURL *depictionURL = [package depictionURL];
-
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
@@ -252,7 +258,7 @@
         versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installedVersion]];
     }
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = '%@';", versionString] completionHandler:nil];
-
+    
     NSMutableArray *sizeString = [NSMutableArray array];
     NSString *size = [package size];
     if (size) {
@@ -309,31 +315,31 @@
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
-
+    
     if ([package isInstalled:NO]) {
-		[webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
-		[webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
-		[webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function (){ window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
-	}
-
+        [webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function () { window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
+    }
+    
     NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-
+    
     for (int i = 0; i < installedFiles.count; i++) {
-		NSString *file = installedFiles[i];
-		if ([file isEqualToString:@"/."] || file.length == 0) {
-			continue;
+        NSString *file = installedFiles[i];
+        if ([file isEqualToString:@"/."] || file.length == 0) {
+            continue;
         }
-
-		NSArray *components = [file componentsSeparatedByString:@"/"];
-		NSMutableString *displayStr = [NSMutableString new];
-		for (int b = 0; b < components.count - 2; b++) {
-			[displayStr appendString:@"&emsp;"]; //add tab character
-		}
-		[displayStr appendString:components[components.count - 1]];
-
-		[webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
-	}
+        
+        NSArray *components = [file componentsSeparatedByString:@"/"];
+        NSMutableString *displayStr = [NSMutableString new];
+        for (int b = 0; b < components.count - 2; b++) {
+            [displayStr appendString:@"&emsp;"]; //add tab character
+        }
+        [displayStr appendString:components[components.count - 1]];
+        
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
+    }
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -422,7 +428,7 @@
                     if (!purchased && available) {
                         title = json[@"price"];
                         selector = @selector(purchasePackage);
-                    }else if (purchased && available){
+                    } else if (purchased && available) {
                         self->package.sileoDownload = TRUE;
                     }
                 }
@@ -437,7 +443,7 @@
         }
     }
 }
-    
+
 - (void)installPackage {
     [ZBPackageActionsManager installPackage:package purchased:self.purchased];
     [self presentQueue];
@@ -526,9 +532,9 @@
                            
                            NSError *error;
                            //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                            if (error) {
-                                NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
-                            }
+                           if (error) {
+                               NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
+                           }
                            
                        }
                        else {
@@ -586,7 +592,7 @@
     // Done button pressed
 }
 
--(void)reloadDepiction{
+- (void)reloadDepiction {
     [webView reloadFromOrigin];
 }
 @end

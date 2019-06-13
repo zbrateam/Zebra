@@ -102,9 +102,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
-    }else{
+    } else {
         [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
     }
 }
@@ -293,7 +293,7 @@
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         UIView *dark = [[UIView alloc] init];
         dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
         [cell setSelectedBackgroundView:dark];

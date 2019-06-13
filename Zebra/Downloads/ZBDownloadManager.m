@@ -118,7 +118,7 @@
     else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){ //cydia
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { //cydia
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     
@@ -278,7 +278,7 @@
             [downloadTask resume];
         }
         else if (package.sileoDownload) {
-            [self realLinkWithPackage:package withCompletion:^(NSString *url){
+            [self realLinkWithPackage:package withCompletion:^(NSString *url) {
                 NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
@@ -317,7 +317,7 @@
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if(data){
+        if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             NSLog(@"[Zebra] Real package data: %@", json);
             if ([json valueForKey:@"url"]) {
@@ -326,7 +326,7 @@
             }
             
         }
-        if(error){
+        if (error) {
             NSLog(@"[Zebra] Error: %@", error.localizedDescription);
         }
     }] resume];

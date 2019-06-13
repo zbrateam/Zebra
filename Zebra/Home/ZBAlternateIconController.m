@@ -54,19 +54,19 @@
     static NSString *altIcon = @"alternateIconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:altIcon];
     
-    if (cell == nil){
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:altIcon];
     }
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
     
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         [cell.textLabel setTextColor:[UIColor whiteColor]];
-    }else{
+    } else {
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
     }
     
-    if(indexPath.row != 0){
+    if (indexPath.row != 0) {
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
     }
     else {
@@ -97,7 +97,7 @@
 
 - (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath{
     if (@available(iOS 10.3, *)) {
-        if([[UIApplication sharedApplication] supportsAlternateIcons]){
+        if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
             [[UIApplication sharedApplication] alternateIconName];
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
@@ -127,7 +127,7 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 */
 

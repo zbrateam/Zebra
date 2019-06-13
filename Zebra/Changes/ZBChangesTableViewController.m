@@ -203,9 +203,9 @@
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle]];
         
-        if([self.defaults boolForKey:@"darkMode"]){
+        if ([self.defaults boolForKey:@"darkMode"]) {
             [label setTextColor: [UIColor whiteColor]];
-        }else{
+        } else {
             [label setTextColor: [UIColor cellPrimaryTextColor]];
         }
         [view addSubview:label];

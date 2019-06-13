@@ -296,11 +296,11 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
         cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-    }else{
+    } else {
         cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
@@ -337,9 +337,9 @@ typedef enum {
             [label setText:@"Recent"];
         }
         
-        if([self.defaults boolForKey:@"darkMode"]){
+        if ([self.defaults boolForKey:@"darkMode"]) {
             [label setTextColor:[UIColor whiteColor]];
-        }else{
+        } else {
             [label setTextColor:[UIColor cellPrimaryTextColor]];
         }
         
@@ -465,7 +465,7 @@ typedef enum {
     [self refreshTable];
 }
 
--(void)darkMode:(NSNotification *)notif{
+- (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
