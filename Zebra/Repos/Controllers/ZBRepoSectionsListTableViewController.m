@@ -83,9 +83,8 @@
         CGFloat top = self.navigationController.navigationBar.bounds.size.height;
         self.tableView.contentInset = UIEdgeInsetsMake(top + 20, 0, 64, 0);
     }
-    if (repo.supportsFeaturedPackages) {
-        [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
-    }
+    // This has to be registered anyway due to repo payment support late check
+    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     [self checkFeaturedPackages];
     if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
         self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
@@ -167,7 +166,6 @@
     //[self.featuredCollection setNeedsLayout];
     //[self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        
         self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
     }];
     [self.tableView endUpdates];
