@@ -84,8 +84,7 @@
         self.navigationItem.rightBarButtonItem = doneButton;
         
         UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithTitle:@"Import" style:UIBarButtonItemStylePlain target:self action:@selector(importSources)];
-        self.navigationItem.leftBarButtonItems = @[exportButton, importButton];
+        self.navigationItem.leftBarButtonItem = exportButton;
     }
     else {
         self.editButtonItem.action = @selector(editMode:);
@@ -109,10 +108,6 @@
             lastPaste = pasteboard.string;
         }
     }
-}
-
-- (void)importSources {
-    [self performSegueWithIdentifier:@"showAddSources" sender:self];
 }
 
 - (void)exportSources {
@@ -239,6 +234,9 @@
         NSString *sourceURL = alertController.textFields[0].text;
         
         [self addReposWithText:sourceURL];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add Multiple" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self performSegueWithIdentifier:@"showAddSources" sender:self];
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
