@@ -18,7 +18,7 @@ typedef struct {
 
 typedef struct dict_t {
     pair *head;
-    struct dict_t *tail;
+    struct dict_t *next;
 } dict;
 
 dict* dict_new(void);
