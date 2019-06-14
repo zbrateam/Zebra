@@ -28,9 +28,9 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     defaults = [NSUserDefaults standardUserDefaults];
-    if([defaults boolForKey:@"darkMode"]){
+    if ([defaults boolForKey:@"darkMode"]) {
         [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
-    }else{
+    } else {
         [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
     }
     
@@ -56,8 +56,7 @@
     if ([_queue hasErrors]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
         self.navigationItem.leftBarButtonItem.title = @"Cancel";
-    }
-    else {
+    } else {
         self.navigationItem.rightBarButtonItem.enabled = true;
         self.navigationItem.leftBarButtonItem.title = @"Continue";
     }
@@ -112,11 +111,11 @@
     // Text Color
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        if([defaults boolForKey:@"darkMode"]){
+        if ([defaults boolForKey:@"darkMode"]) {
             [header.textLabel setTextColor:[UIColor whiteColor]];
-        }else{
+        } else {
             [header.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         }
         

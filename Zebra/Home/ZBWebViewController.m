@@ -34,17 +34,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
     self.defaults = [NSUserDefaults standardUserDefaults];
     self.repoManager = [[ZBRepoManager alloc] init];
-    
-    if([self.defaults boolForKey:@"darkMode"]){
+
+    if ([self.defaults boolForKey:@"darkMode"]) {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    }else{
+    } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
-    //self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    
+    // self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
-    
+
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
@@ -60,7 +60,7 @@
     [webView addSubview:progressView];
     
     //Web View Layout
-    
+
     [webView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
     [webView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
     [webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
@@ -75,7 +75,7 @@
     webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
     webView.tintColor = [UIColor tintColor];
     
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
     
@@ -92,7 +92,6 @@
         self.title = @"Home";
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
-
     }
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
@@ -143,14 +142,14 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
         [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            if(error){
+            if (error) {
                 NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
             }
         }];
@@ -252,7 +251,7 @@
         
         [controller addAction:no];
         [controller addAction:yes];
-
+        
         [self presentViewController:controller animated:true completion:nil];
     }
     else if ([destination isEqual:@"repo-local"]) {
@@ -289,14 +288,14 @@
             
             [controller addAction:no];
             [controller addAction:yes];
-
+            
             [self presentViewController:controller animated:true completion:nil];
         }
     }
 }
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-//    NSLog(@"[Zebra] Handling repo add for method %@", repo);
+    //    NSLog(@"[Zebra] Handling repo add for method %@", repo);
     if (local) {
         NSArray *options = @[
                              @"transfercydia",
@@ -419,14 +418,14 @@
 - (void)changeIcon {
     if (@available(iOS 10.3, *)) {
         [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
-        /*if([[UIApplication sharedApplication] supportsAlternateIcons]){
-            [[UIApplication sharedApplication] alternateIconName];
-            [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
-                if (error) {
-                    NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
-                }
-                }];
-        }*/
+        /*if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
+         [[UIApplication sharedApplication] alternateIconName];
+         [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
+         if (error) {
+         NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
+         }
+         }];
+         }*/
     } else {
         return;
     }
@@ -487,17 +486,17 @@
         
     }
     
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    }else{
+    } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         return UIStatusBarStyleLightContent;
-    }else{
+    } else {
         return UIStatusBarStyleDefault;
     }
 }

@@ -161,7 +161,7 @@
 }
 
 + (NSMutableArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent {
-    NSMutableArray *actions = [self actions:2 forPackage:package indexPath:nil viewController:vc parent:parent completion:NULL];;
+    NSMutableArray *actions = [self actions:2 forPackage:package indexPath:nil viewController:vc parent:parent completion:NULL];
     
     if ([package ignoreUpdates]) {
         UIAlertAction *unignore = [UIAlertAction actionWithTitle:@"Show Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

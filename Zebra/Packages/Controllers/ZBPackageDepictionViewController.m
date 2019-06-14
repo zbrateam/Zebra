@@ -1,3 +1,5 @@
+
+
 //
 //  ZBPackageDepictionViewController.m
 //  Zebra
@@ -89,7 +91,7 @@
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
-
+    
     webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -130,8 +132,6 @@
     }
     
     [webView loadRequest:[self packageViewRequestWithURL:url]];
-//    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
-    
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
@@ -167,20 +167,20 @@
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-	NSArray *contents = [message.body componentsSeparatedByString:@"~"];
+    NSArray *contents = [message.body componentsSeparatedByString:@"~"];
     NSString *destination = (NSString *)contents[0];
-	NSString *action = contents[1];
-
-	if ([destination isEqual:@"local"]) {
+    NSString *action = contents[1];
+    
+    if ([destination isEqual:@"local"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-		ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-		filesController.navigationDelegate = self;
-		filesController.navigationItem.title = @"Installed Files";
-		NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
-		[filesController setValue:url forKey:@"_url"];
+        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+        filesController.navigationDelegate = self;
+        filesController.navigationItem.title = @"Installed Files";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
+        [filesController setValue:url forKey:@"_url"];
         
         [[self navigationController] pushViewController:filesController animated:true];
-	}
+    }
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -193,7 +193,6 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
-
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
         if (sectionImage == NULL) {
@@ -220,8 +219,8 @@
     // If package has custom package viewer tag, stop from changing other data from the package viewer
     if ([[package tags] containsObject:@"zebra::depiction"])
         return;
-  
-      //DarkMode
+    
+    //DarkMode
     if([self.defaults boolForKey:@"darkMode"]){
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
@@ -245,7 +244,7 @@
         versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installedVersion]];
     }
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = '%@';", versionString] completionHandler:nil];
-
+    
     NSMutableArray *sizeString = [NSMutableArray array];
     NSString *size = [package size];
     if (size) {
@@ -302,31 +301,31 @@
     else {
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
-
+    
     if ([package isInstalled:NO]) {
-		[webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
-		[webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
-		[webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function (){ window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
-	}
-
+        [webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function () { window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
+    }
+    
     NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-
+    
     for (int i = 0; i < installedFiles.count; i++) {
-		NSString *file = installedFiles[i];
-		if ([file isEqualToString:@"/."] || file.length == 0) {
-			continue;
+        NSString *file = installedFiles[i];
+        if ([file isEqualToString:@"/."] || file.length == 0) {
+            continue;
         }
-
-		NSArray *components = [file componentsSeparatedByString:@"/"];
-		NSMutableString *displayStr = [NSMutableString new];
-		for (int b = 0; b < components.count - 2; b++) {
-			[displayStr appendString:@"&emsp;"]; //add tab character
-		}
-		[displayStr appendString:components[components.count - 1]];
-
-		[webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
-	}
+        
+        NSArray *components = [file componentsSeparatedByString:@"/"];
+        NSMutableString *displayStr = [NSMutableString new];
+        for (int b = 0; b < components.count - 2; b++) {
+            [displayStr appendString:@"&emsp;"]; //add tab character
+        }
+        [displayStr appendString:components[components.count - 1]];
+        
+        [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
+    }
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -420,7 +419,7 @@
                     if (!purchased && available) {
                         title = json[@"price"];
                         selector = @selector(purchasePackage);
-                    }else if (purchased && available){
+                    } else if (purchased && available) {
                         self->package.sileoDownload = TRUE;
                     }
                 }
@@ -435,7 +434,7 @@
         }
     }
 }
-    
+
 - (void)installPackage {
     [ZBPackageActionsManager installPackage:package purchased:self.purchased];
     [self presentQueue];
@@ -524,9 +523,9 @@
                            
                            NSError *error;
                            //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                            if (error) {
-                                NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
-                            }
+                           if (error) {
+                               NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
+                           }
                            
                        }
                        else {
@@ -584,7 +583,7 @@
     // Done button pressed
 }
 
--(void)reloadDepiction{
+- (void)reloadDepiction {
     [webView reloadFromOrigin];
 }
 
@@ -632,7 +631,7 @@
     NSString *repoURL = [[package repo] baseURL];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"/$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSString *cleanURL = [regex stringByReplacingMatchesInString:repoURL options:0 range:NSMakeRange(0, [repoURL length]) withTemplate:@""];
-
+    
     // Composing URL
     NSURLComponents *urlComponents = [[NSURLComponents alloc] init];
     urlComponents.scheme = [[package repo] secure] ? @"https" : @"http";

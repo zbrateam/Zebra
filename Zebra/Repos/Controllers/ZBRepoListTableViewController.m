@@ -493,11 +493,11 @@
 //        }];
 //        [task resume];
 //    }
-    if([self.defaults boolForKey:@"darkMode"]){
+    if ([self.defaults boolForKey:@"darkMode"]) {
         cell.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
         cell.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-    }else{
+    } else {
         cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
@@ -559,9 +559,9 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[self sectionIndexTitlesForTableView:tableView][section]];
-        if([self.defaults boolForKey:@"darkMode"]){
+        if ([self.defaults boolForKey:@"darkMode"]) {
             [label setTextColor:[UIColor whiteColor]];
-        }else{
+        } else {
             [label setTextColor:[UIColor cellPrimaryTextColor]];
         }
         [view addSubview:label];
@@ -742,6 +742,8 @@
 -(void)darkMode:(NSNotification *) notification{
     [ZBAppDelegate refreshViews];
     [self.tableView reloadData];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
 
 

@@ -280,7 +280,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         //Check for updates
         NSLog(@"[Zebra] Checking for updates...");
         NSMutableArray *found = [NSMutableArray new];
@@ -921,7 +921,7 @@
         [self closeDatabase];
     }
     else {
-        [self printDatabaseError]; 
+        [self printDatabaseError];
     }
 }
 

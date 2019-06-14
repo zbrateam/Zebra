@@ -398,7 +398,6 @@
 			isa = PBXGroup;
 			children = (
 				89C7E48F21B23DB1003DB4E8 /* Installed.pack */,
-				89D230172242B27500837C3B /* default.list */,
 			);
 			path = "Simulator Resources";
 			sourceTree = "<group>";
@@ -560,8 +559,9 @@
 			isa = PBXGroup;
 			children = (
 				363FE2432287858200B69929 /* UICKeyChainStore */,
-				8931E4D2226D6E9300F35DFD /* utiicon.png */,
 				89E8637521D5AF920081E485 /* HTML */,
+				89D230172242B27500837C3B /* default.list */,
+				8931E4D2226D6E9300F35DFD /* utiicon.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
