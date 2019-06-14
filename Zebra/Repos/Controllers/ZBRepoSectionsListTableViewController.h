@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *repoEndpoint;
 @property (nonatomic, strong) NSArray *featuredPackages;
 @property (nonatomic, strong) NSDictionary *fullJSON;
-@property NSUserDefaults *defaults;
 @property UICKeyChainStore *keychain;
 @property UIBarButtonItem *purchased;
 @property UIBarButtonItem *login;

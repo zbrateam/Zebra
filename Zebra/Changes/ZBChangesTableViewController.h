@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL continueBatchLoad;
 @property (nonatomic, assign) int batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray *tableData;
-@property NSUserDefaults *defaults;
 - (void)refreshTable;
 @end
 

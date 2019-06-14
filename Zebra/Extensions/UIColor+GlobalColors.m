@@ -6,11 +6,13 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
 #import "UIColor+GlobalColors.h"
 
 @implementation UIColor (GlobalColors)
+
 + (UIColor *)tintColor {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
     } else {
         return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];

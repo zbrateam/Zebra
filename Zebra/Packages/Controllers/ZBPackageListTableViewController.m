@@ -6,6 +6,9 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBAppDelegate.h>
+#import <ZBTab.h>
+#import <ZBDarkModeHelper.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -15,8 +18,6 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
-#import <ZBAppDelegate.h>
-#import <ZBTab.h>
 
 typedef enum {
     ZBSortingTypeABC,
@@ -79,7 +80,6 @@ typedef enum {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
@@ -296,7 +296,7 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
         cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
@@ -337,7 +337,7 @@ typedef enum {
             [label setText:@"Recent"];
         }
         
-        if ([self.defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             [label setTextColor:[UIColor whiteColor]];
         } else {
             [label setTextColor:[UIColor cellPrimaryTextColor]];

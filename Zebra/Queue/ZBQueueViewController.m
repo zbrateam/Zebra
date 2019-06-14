@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
@@ -14,7 +15,6 @@
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
-    NSUserDefaults *defaults;
 }
 
 @end
@@ -27,8 +27,7 @@
     _queue = [ZBQueue sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
     } else {
         [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
@@ -110,11 +109,9 @@
 }
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     // Text Color
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        if ([defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             [header.textLabel setTextColor:[UIColor whiteColor]];
         } else {
             [header.textLabel setTextColor:[UIColor cellPrimaryTextColor]];

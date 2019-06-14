@@ -6,14 +6,15 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDeviceHelper.h>
+#import <ZBDarkModeHelper.h>
+#import <ZBAppDelegate.h>
 #import "ZBWebViewController.h"
 #import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <ZBAppDelegate.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Stores/Controllers/ZBStoresListTableViewController.h>
-#import <ZBDeviceHelper.h>
 @import SDWebImage;
 
 @interface ZBWebViewController () {
@@ -32,15 +33,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     self.repoManager = [[ZBRepoManager alloc] init];
-
-    if ([self.defaults boolForKey:@"darkMode"]) {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    } else {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-    }
-    // self.navigationController.navigationBar.tintColor = [UIColor tintColor];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
@@ -75,9 +68,13 @@
     webView.navigationDelegate = self.navigationDelegate ? self.navigationDelegate : self;
     webView.tintColor = [UIColor tintColor];
     
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    } else {
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
+    // self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
@@ -142,7 +139,7 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -437,8 +434,8 @@
 
 - (IBAction)toggleDarkMode:(id)sender {
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        if (![self.defaults boolForKey:@"darkMode"]) {
-            //Want Darkmode
+        if (![ZBDarkModeHelper darkModeEnabled]) {
+            //Want Dark mode
             [self darkMode];
         } else {
             //Want Light
@@ -447,29 +444,27 @@
     } completion:nil];
 }
 
-- (void)darkMode{
-    [self.defaults setBool:TRUE forKey:@"darkMode"];
-    [self.defaults synchronize];
+- (void)darkMode {
+    [ZBDarkModeHelper setDarkModeEnabled:YES];
     [self resetWebView];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    [ZBAppDelegate configureDark];
-    [ZBAppDelegate refreshViews];
+    [ZBDarkModeHelper configureDark];
+    [ZBDarkModeHelper refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
 }
 
-- (void)lightMode{
-    [self.defaults setBool:FALSE forKey:@"darkMode"];
-    [self.defaults synchronize];
+- (void)lightMode {
+    [ZBDarkModeHelper setDarkModeEnabled:NO];
     [self resetWebView];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-    [ZBAppDelegate configureLight];
-    [ZBAppDelegate refreshViews];
+    [ZBDarkModeHelper configureLight];
+    [ZBDarkModeHelper refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
 }
 
--(void)resetWebView{
+- (void)resetWebView {
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
         if (@available(iOS 11.0, *)) {
@@ -486,7 +481,7 @@
         
     }
     
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
     } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
@@ -494,7 +489,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;

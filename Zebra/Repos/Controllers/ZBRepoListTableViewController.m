@@ -6,16 +6,16 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
+#import <ZBAppDelegate.h>
+#import <ZBTabBarController.h>
 #import "ZBRepoListTableViewController.h"
 #import <Repos/Controllers/ZBRepoSectionsListTableViewController.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Repos/Helpers/ZBRepoTableViewCell.h>
-#import <ZBTabBarController.h>
 #import <Database/ZBRefreshViewController.h>
-#import <ZBAppDelegate.h>
-#import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBAddRepoViewController.h"
 #import "ZBAddRepoDelegate.h"
@@ -42,7 +42,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     databaseManager = [ZBDatabaseManager sharedInstance];
@@ -493,7 +492,7 @@
 //        }];
 //        [task resume];
 //    }
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         cell.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
         cell.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
@@ -559,7 +558,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[self sectionIndexTitlesForTableView:tableView][section]];
-        if ([self.defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             [label setTextColor:[UIColor whiteColor]];
         } else {
             [label setTextColor:[UIColor cellPrimaryTextColor]];
@@ -739,8 +738,8 @@
     }
 }
 
--(void)darkMode:(NSNotification *) notification{
-    [ZBAppDelegate refreshViews];
+- (void)darkMode:(NSNotification *)notification {
+    [ZBDarkModeHelper refreshViews];
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];

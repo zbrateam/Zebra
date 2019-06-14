@@ -8,6 +8,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBAppDelegate.h>
+#import <ZBDeviceHelper.h>
+#import <ZBDarkModeHelper.h>
 #import "ZBPackageDepictionViewController.h"
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
@@ -19,8 +22,6 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Home/ZBWebViewController.h>
-#import <ZBAppDelegate.h>
-#import <ZBDeviceHelper.h>
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
@@ -66,7 +67,6 @@
     [self configureNavButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"lightMode" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -120,9 +120,6 @@
     webView.navigationDelegate = self;
     webView.opaque = false;
     webView.backgroundColor = [UIColor clearColor];
-    if ([self.defaults boolForKey:@"darkMode"]) {
-        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
-    }
     
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -132,7 +129,8 @@
     NSString *machineIdentifier = [ZBDeviceHelper machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
         [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
@@ -207,7 +205,7 @@
     if (package == nil)
         return;
     // DarkMode
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

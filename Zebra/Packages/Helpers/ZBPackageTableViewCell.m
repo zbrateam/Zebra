@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
 #import "ZBPackageTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -17,9 +18,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     self.backgroundColor = [UIColor clearColor];
-    /*if ([self.defaults boolForKey:@"darkMode"]) {
+    /*if ([ZBDarkModeHelper darkModeEnabled]) {
         self.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
         self.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
         self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
@@ -102,20 +102,11 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    if (highlighted) {
-        if ([self.defaults boolForKey:@"darkMode"]) {
-            self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColorDark];
-        } else {
-            self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor];
-        }
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        self.backgroundContainerView.backgroundColor = highlighted ? [UIColor selectedCellBackgroundColorDark] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
     }
     else {
-        if ([self.defaults boolForKey:@"darkMode"]) {
-            self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-        } else {
-            self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-        }
+        self.backgroundContainerView.backgroundColor = highlighted ? [UIColor selectedCellBackgroundColor] : [UIColor cellBackgroundColor];
     }
-    
 }
 @end

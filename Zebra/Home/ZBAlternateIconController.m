@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
 #import "ZBAlternateIconController.h"
 #import "UIColor+GlobalColors.h"
 @interface ZBAlternateIconController ()
@@ -19,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
     betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
     
@@ -60,7 +60,7 @@
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
     
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         [cell.textLabel setTextColor:[UIColor whiteColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
@@ -95,13 +95,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath{
+- (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {
     if (@available(iOS 10.3, *)) {
         if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
             [[UIApplication sharedApplication] alternateIconName];
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
-                    NSLog(@"[Zebra Icon Error] %@ %@",error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
+                    NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
                 }
                 [self dismissViewControllerAnimated:TRUE completion:nil];
             }];

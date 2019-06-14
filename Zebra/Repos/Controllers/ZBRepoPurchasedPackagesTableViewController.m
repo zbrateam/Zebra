@@ -6,14 +6,17 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDeviceHelper.h>
+#import <ZBAppDelegate.h>
+#import <ZBDarkModeHelper.h>
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
-#import <ZBAppDelegate.h>
+
 #import <Packages/Helpers/ZBPackageActionsManager.h>
-#import <ZBDeviceHelper.h>
+
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -21,7 +24,6 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     self.databaseManager = [ZBDatabaseManager sharedInstance];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     self.packages = [NSMutableArray new];
@@ -159,7 +161,7 @@
     else {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
-        if ([self.defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
             cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
             cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
@@ -186,7 +188,7 @@
     
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:@"Purchased Packages"];
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         [label setTextColor:[UIColor whiteColor]];
     } else {
         [label setTextColor:[UIColor cellPrimaryTextColor]];
@@ -235,7 +237,7 @@
     }
 }
 
--(void)darkMode:(NSNotification *)notif{
+- (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
