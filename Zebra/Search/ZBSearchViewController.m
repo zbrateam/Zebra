@@ -49,6 +49,9 @@
     searchController.searchBar.delegate = self;
     searchController.searchBar.tintColor = [UIColor tintColor];
     searchController.searchBar.placeholder = @"Packages";
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"]) {
+        searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
+    }
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = false;
@@ -298,11 +301,12 @@
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
--(void)darkMode:(NSNotification *)notif{
+- (void)darkMode:(NSNotification *)notif {
     [self refreshTable];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     searchController.searchBar.tintColor = [UIColor tintColor];
+    searchController.searchBar.keyboardAppearance = [[notif name] isEqualToString:@"darkMode"] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
