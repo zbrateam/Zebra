@@ -123,7 +123,7 @@
     if ([self.defaults boolForKey:@"darkMode"]) {
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
-    
+
     NSURL *url;
     if ([[package tags] containsObject:@"zebra::depiction"]) {
         url = [self customZebraDepiction];
