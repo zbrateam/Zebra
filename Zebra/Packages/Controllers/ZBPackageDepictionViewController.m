@@ -184,6 +184,7 @@
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    // If package has custom package viewer tag and the device doesn't have internet connection, fallback to basic zebra depiction
     if ([[package tags] containsObject:@"zebra::depiction"] && error.code == -1009) {
         [webView loadRequest:[self packageViewRequestWithURL:[self basicZebraDepiction]]];
     }
@@ -216,7 +217,7 @@
         }
     });
     
-
+    // If package has custom package viewer tag, stop from changing other data from the package viewer
     if ([[package tags] containsObject:@"zebra::depiction"])
         return;
   
@@ -611,15 +612,14 @@
     
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
+    // If package has custom package viewer tag, will send package data through headers
     if ([[package tags] containsObject:@"zebra::depiction"]) {
         NSMutableDictionary *packageData = [[NSMutableDictionary alloc] initWithDictionary:[package data]];
         [packageData setValue:[NSNumber numberWithBool:[self.defaults boolForKey:@"darkMode"]] forKey:@"darkMode"];
         NSData *package_data = [NSJSONSerialization dataWithJSONObject:packageData options:0 error:nil];
         [request setValue:[[NSString alloc] initWithData:package_data encoding:NSUTF8StringEncoding] forHTTPHeaderField:@"zebra"];
-        //        NSLog(@"[va2ron1] %@", [request allHTTPHeaderFields]);
     }
     
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     return request;
 }
 
@@ -628,7 +628,20 @@
 }
 
 - (NSURL*)customZebraDepiction {
-    return [[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[package repo] secure] ? @"https://" : @"http://",  [[package repo] baseURL]]] URLByAppendingPathComponent:@"zebra_depiction"];
+    // Cleaning Url
+    NSString *repoURL = [[package repo] baseURL];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"/$" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSString *cleanURL = [regex stringByReplacingMatchesInString:repoURL options:0 range:NSMakeRange(0, [repoURL length]) withTemplate:@""];
+
+    // Composing URL
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] init];
+    urlComponents.scheme = [[package repo] secure] ? @"https" : @"http";
+    urlComponents.host = cleanURL;
+    urlComponents.path = @"/zebra_depiction";
+    
+    // This will help for caching the custom package viewer in the future
+    urlComponents.queryItems = [NSArray arrayWithObject:[NSURLQueryItem queryItemWithName:@"package" value:[self.package identifier]]];
+    return [urlComponents URL];
 }
 
 @end
