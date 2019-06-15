@@ -23,6 +23,7 @@
     BOOL needsRespring;
     NSMutableArray *installedIDs;
     NSMutableArray *bundlePaths;
+    NSMutableDictionary <NSString *, NSNumber *> *downloadingMap;
     ZBDownloadManager *downloadManager;
 }
 @end
@@ -45,6 +46,7 @@
     needsRespring = false;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
+    downloadingMap = [NSMutableDictionary new];
     _progressView.progress = 0;
     _progressView.hidden = YES;
     _progressText.text = nil;
@@ -206,6 +208,7 @@
 
 - (void)finishUp {
     [queue clearQueue];
+    [downloadingMap removeAllObjects];
     
     NSMutableArray *uicaches = [NSMutableArray new];
     for (NSString *packageID in installedIDs) {
@@ -304,6 +307,7 @@
 
 - (void)cancel {
     [downloadManager stopAllDownloads];
+    [downloadingMap removeAllObjects];
     self.navigationItem.leftBarButtonItem = nil;
     _progressView.progress = 1;
     [self addCloseButton];
@@ -444,8 +448,8 @@
 
         [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
-        if (self->_consoleView.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
+        if (self->_consoleView.text.length) {
+            NSRange bottom = NSMakeRange(self->_consoleView.text.length - 1, 1);
             [self->_consoleView scrollRangeToVisible:bottom];
         }
     });
@@ -458,8 +462,14 @@
 #pragma mark - Hyena Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
-    [_progressView setProgress:progress animated:YES];
-    _progressText.text = [NSString stringWithFormat:@"Downloading %@: %.1f%%", package.identifier, progress * 100];
+    downloadingMap[package.identifier] = @(progress);
+    CGFloat totalProgress = 0;
+    for (NSString *packageID in downloadingMap) {
+        totalProgress += [downloadingMap[packageID] doubleValue];
+    }
+    totalProgress /= downloadingMap.count;
+    [_progressView setProgress:totalProgress animated:YES];
+    _progressText.text = [NSString stringWithFormat:@"Downloading: %.1f%%", totalProgress * 100];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
