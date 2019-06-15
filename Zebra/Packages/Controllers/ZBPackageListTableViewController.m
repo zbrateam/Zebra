@@ -131,7 +131,7 @@ typedef enum {
                     self->needsIgnoredUpdatesSection = YES;
                     [self->ignoredUpdates addObject:package];
                 }
-                else {
+                else if ([self->databaseManager packageHasUpdate:package]) {
                     self->needsUpdatesSection = YES;
                     ++totalUpdates;
                     [self->updates addObject:package];

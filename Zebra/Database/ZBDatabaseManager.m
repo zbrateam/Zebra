@@ -294,7 +294,6 @@
                 NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
                 continue;
             }
-            BOOL packageIgnoreUpdates = [package ignoreUpdates];
             
             ZBPackage *topPackage = [self topVersionForPackage:package];
             NSComparisonResult compare = [package compare:topPackage];
@@ -319,6 +318,7 @@
             }
             else if (compare == NSOrderedSame) {
                 NSString *query;
+                BOOL packageIgnoreUpdates = [package ignoreUpdates];
                 if (packageIgnoreUpdates)
                     // This package has no update and the user actively ignores updates from it, we update the latest version here
                     query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', 1);", [package identifier], [package version]];
@@ -650,8 +650,9 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *identifierChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnID);
                 const char *versionChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnVersion);
+                BOOL ignoreUpdates = sqlite3_column_int(statement, ZBUpdateColumnIgnore) == 0;
                 NSString *identifier = [NSString stringWithUTF8String:identifierChars];
-                if ((ignored || sqlite3_column_int(statement, ZBUpdateColumnIgnore) == 0) && versionChars != 0) {
+                if ((ignored || ignoreUpdates) && versionChars != 0) {
                     NSString *version = [NSString stringWithUTF8String:versionChars];
                     
                     ZBPackage *package = [self packageForID:identifier equalVersion:version];
