@@ -49,6 +49,7 @@
     if (!self.navigationItem.rightBarButtonItem.enabled) {
         [_queue clearQueue];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
