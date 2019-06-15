@@ -40,9 +40,11 @@
 }
 
 - (IBAction)confirm:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [[self navigationController] pushViewController:vc animated:true];
+    [self.delegate dismissPopupBarAnimated:true completion:^(void) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
+        [self.delegate presentViewController:vc animated:true completion:nil];
+    }];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -50,7 +52,7 @@
         [_queue clearQueue];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self.delegate closePopupAnimated:true completion:nil];
 }
 
 - (void)refreshBarButtons {
@@ -108,7 +110,8 @@
     }
     return title;
 }
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     // Text Color
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -121,7 +124,6 @@
         }
         
     }
-    
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {

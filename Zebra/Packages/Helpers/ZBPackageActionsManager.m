@@ -19,28 +19,28 @@
 
 + (void)presentQueue:(UIViewController *)vc parent:(UIViewController *)parent {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UIViewController *queue = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
+    ZBQueueViewController *queue = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
     
     //ZBQueueViewController *queue = [ZBQueueViewController new];
     int totalPackages = 0;
     NSArray *actions = [[ZBQueue sharedInstance] actionsToPerform];
-    for(NSString *string in actions){
+    for (NSString *string in actions) {
         totalPackages = totalPackages + [[ZBQueue sharedInstance] numberOfPackagesForQueue:string];
     }
     queue.popupItem.title = [NSString stringWithFormat:@"%d Actions",totalPackages];
     queue.popupItem.subtitle = @"I should say something useful";
     //queue.popupItem.progress = 0.34;
     
-    
     if (vc.navigationController == NULL && parent != NULL) {
         parent.tabBarController.popupInteractionStyle = LNPopupInteractionStyleSnap;
         parent.tabBarController.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
-        
+        queue.delegate = parent.tabBarController;
         [parent.tabBarController presentPopupBarWithContentViewController:queue openPopup:YES animated:YES completion:nil];
     }
     else {
         vc.tabBarController.popupInteractionStyle = LNPopupInteractionStyleSnap;
         vc.tabBarController.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+        queue.delegate = vc.tabBarController;
         [vc.tabBarController presentPopupBarWithContentViewController:queue openPopup:YES animated:YES completion:nil];
     }
 }

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueueViewController : UITableViewController
-
+@property(retain, nonatomic) UIViewController *_Nullable delegate;
 @end
 
 NS_ASSUME_NONNULL_END
