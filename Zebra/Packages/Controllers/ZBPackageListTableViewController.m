@@ -117,28 +117,14 @@ typedef enum {
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
             self->packages = [self->databaseManager installedPackages];
-            NSArray *_updates = [self->databaseManager packagesWithUpdatesIncludingIgnored:YES];
-            self->needsUpdatesSection = NO;
-            self->needsIgnoredUpdatesSection = NO;
+            self->updates = [self->databaseManager packagesWithUpdates];
+            self->ignoredUpdates = [self->databaseManager packagesWithIgnoredUpdates];
             
-            self->updates = [NSMutableArray array];
-            self->ignoredUpdates = [NSMutableArray array];
-            
-            int totalUpdates = 0;
-            for (ZBPackage *package in _updates) {
-                BOOL ignoreUpdate = [package ignoreUpdates];
-                if (ignoreUpdate) {
-                    self->needsIgnoredUpdatesSection = YES;
-                    [self->ignoredUpdates addObject:package];
-                }
-                else if ([self->databaseManager packageHasUpdate:package]) {
-                    self->needsUpdatesSection = YES;
-                    ++totalUpdates;
-                    [self->updates addObject:package];
-                }
-            }
+            NSUInteger totalUpdates = self->updates.count;
+            self->needsUpdatesSection = totalUpdates != 0;
+            self->needsIgnoredUpdatesSection = self->ignoredUpdates.count != 0;
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
-            [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : nil];
+            [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             
             if (self->selectedSortingType == ZBSortingTypeDate) {
