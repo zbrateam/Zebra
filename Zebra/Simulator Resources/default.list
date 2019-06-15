@@ -1,8 +1,0 @@
-# Zebra Sources List
-deb https://xtm3x.github.io/repo/ ./
-deb https://repo.chariz.io/ ./
-deb https://repo.dynastic.co/ ./
-deb https://repo.nepeta.me/ ./
-deb https://poomsmart.github.io/repo/ ./
-deb https://rpetri.ch/repo/ ./
-deb https://repounclutter.coolstar.org/ ./

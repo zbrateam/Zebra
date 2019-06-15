@@ -124,7 +124,6 @@
                                }
                                NSString *token = queryByKeys[@"token"];
                                NSString *payment = queryByKeys[@"payment_secret"];
-                               
                                /*NSError *error;
                                 [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                                 if (error) {
@@ -132,7 +131,7 @@
                                 
                                 }*/
                                self->_keychain[self->currentRepoEndpoint] = token;
-                               UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];;
+                               UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                                securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = nil;
                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                                    [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
@@ -195,7 +194,7 @@
     NSString *token = queryByKeys[@"token"];
     NSString *payment = queryByKeys[@"payment_secret"];
     self->_keychain[currentRepoEndpoint] = token;
-    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];;
+    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     securedKeychain[[currentRepoEndpoint stringByAppendingString:@"payment"]] = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
@@ -221,7 +220,7 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 */
 

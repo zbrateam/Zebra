@@ -1,5 +1,5 @@
 # Zebra
-Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 8 up to iOS 12 and for iPhones and iPads alike.
+Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 9 up to iOS 12 and for iPhones and iPads alike.
 
 ## Bug Reports
 The best way to report a bug with Zebra is to open an issue [here](https://github.com/wstyres/Zebra/issues/new?assignees=wstyres&labels=bug&template=bug_report.md&title=).

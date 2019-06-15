@@ -15,6 +15,7 @@
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
+    NSUserDefaults *defaults;
 }
 
 @end
@@ -24,6 +25,15 @@
 - (void)loadView {
     [super loadView];
     _queue = [ZBQueue sharedInstance];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"darkMode"]) {
+        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    } else {
+        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
+    }
+    
     [self refreshBarButtons];
     
     self.title = @"Queue";
@@ -39,6 +49,7 @@
     if (!self.navigationItem.rightBarButtonItem.enabled) {
         [_queue clearQueue];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
@@ -46,8 +57,7 @@
     if ([_queue hasErrors]) {
         self.navigationItem.rightBarButtonItem.enabled = false;
         self.navigationItem.leftBarButtonItem.title = @"Cancel";
-    }
-    else {
+    } else {
         self.navigationItem.rightBarButtonItem.enabled = true;
         self.navigationItem.leftBarButtonItem.title = @"Continue";
     }
@@ -98,6 +108,21 @@
     }
     return title;
 }
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    // Text Color
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+        if ([defaults boolForKey:@"darkMode"]) {
+            [header.textLabel setTextColor:[UIColor whiteColor]];
+        } else {
+            [header.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        }
+        
+    }
+    
+}
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
     NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
@@ -114,7 +139,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    cell.backgroundColor = [UIColor whiteColor];
+    //cell.backgroundColor = [UIColor whiteColor];
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     if (package == nil) {
         if ([action isEqual:@"Unresolved Dependencies"]) {

@@ -42,7 +42,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [[databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
@@ -58,7 +60,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
@@ -82,8 +84,7 @@
         self.navigationItem.rightBarButtonItem = doneButton;
         
         UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-        UIBarButtonItem *importButton = [[UIBarButtonItem alloc] initWithTitle:@"Import" style:UIBarButtonItemStylePlain target:self action:@selector(importSources)];
-        self.navigationItem.leftBarButtonItems = @[exportButton, importButton];
+        self.navigationItem.leftBarButtonItem = exportButton;
     }
     else {
         self.editButtonItem.action = @selector(editMode:);
@@ -107,10 +108,6 @@
             lastPaste = pasteboard.string;
         }
     }
-}
-
-- (void)importSources {
-    [self performSegueWithIdentifier:@"showAddSources" sender:self];
 }
 
 - (void)exportSources {
@@ -158,7 +155,6 @@
 }
 
 - (void)clearAllSpinners {
-    NSLog(@"Clearing all Spinners");
     ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
     for (NSString *bfn in sourceIndexes) {
         NSInteger pos = [sourceIndexes[bfn] integerValue];
@@ -238,6 +234,9 @@
         NSString *sourceURL = alertController.textFields[0].text;
         
         [self addReposWithText:sourceURL];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add Multiple" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self performSegueWithIdentifier:@"showAddSources" sender:self];
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -492,7 +491,15 @@
 //        }];
 //        [task resume];
 //    }
-    
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        cell.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+        cell.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    } else {
+        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    }
     return cell;
 }
 
@@ -517,7 +524,8 @@
         
         [self.repoManager deleteSource:delRepo];
         ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:(int)[databaseManager packagesWithUpdatesIncludingIgnored:NO].count];
+        [tabController setPackageUpdateBadgeValue:(int)[databaseManager packagesWithUpdates].count];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     }
 }
 
@@ -549,6 +557,11 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[self sectionIndexTitlesForTableView:tableView][section]];
+        if ([self.defaults boolForKey:@"darkMode"]) {
+            [label setTextColor:[UIColor whiteColor]];
+        } else {
+            [label setTextColor:[UIColor cellPrimaryTextColor]];
+        }
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
@@ -723,5 +736,13 @@
         [self presentViewController:alertController animated:true completion:nil];
     }
 }
+
+-(void)darkMode:(NSNotification *) notification{
+    [ZBAppDelegate refreshViews];
+    [self.tableView reloadData];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+}
+
 
 @end

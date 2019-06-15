@@ -187,10 +187,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray <ZBPackage *> *)installedPackages;
 
 /*!
- @brief A list of packages that have updates available, ignored will be included if the developer explicity specified.
- @return An array of packages that have updates.
+ @brief A list of packages that their updates have been ignored, installed or not.
+ @return An array of packages that their updates have been ignored.
  */
-- (NSMutableArray <ZBPackage *>*)packagesWithUpdatesIncludingIgnored:(BOOL)ignored;
+- (NSMutableArray <ZBPackage *>*)packagesWithIgnoredUpdates;
 
 /*!
  @brief A list of packages that have updates available.

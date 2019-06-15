@@ -16,6 +16,7 @@
 #import "ZBFeaturedCollectionViewCell.h"
 #import <ZBAppDelegate.h>
 #import <ZBDeviceHelper.h>
+#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
@@ -31,6 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -79,9 +83,8 @@
         CGFloat top = self.navigationController.navigationBar.bounds.size.height;
         self.tableView.contentInset = UIEdgeInsetsMake(top + 20, 0, 64, 0);
     }
-    if (repo.supportsFeaturedPackages) {
-        [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
-    }
+    // This has to be registered anyway due to repo payment support late check
+    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     [self checkFeaturedPackages];
     if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
         self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
@@ -93,6 +96,15 @@
         else {
             [self.navigationItem setRightBarButtonItem:self.purchased];
         }
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:TRUE];
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+    } else {
+        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
     }
 }
 
@@ -154,7 +166,6 @@
     //[self.featuredCollection setNeedsLayout];
     //[self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        
         self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
     }];
     [self.tableView endUpdates];
@@ -171,7 +182,6 @@
                             callbackURLScheme:@"sileo"
                             completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                                 // TODO: Nothing to do here?
-                                //NSLog(@"URL %@", callbackURL);
                                 if (callbackURL) {
                                     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                     NSArray *queryItems = urlComponents.queryItems;
@@ -189,7 +199,7 @@
                                      
                                     }*/
                                     self->_keychain[self.repoEndpoint] = token;
-                                    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];;
+                                    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                                     securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
                                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                                         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
@@ -231,7 +241,7 @@
     NSString *payment = queryByKeys[@"payment_secret"];
     self->_keychain[self.repoEndpoint] = token;
     //self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
-    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];;
+    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
@@ -245,12 +255,10 @@
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
-    NSLog(@"Load finished");
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    NSLog(@"Done button pressed");
 }
 
 #pragma mark - Table view data source
@@ -283,7 +291,11 @@
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
-    
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        UIView *dark = [[UIView alloc] init];
+        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+        [cell setSelectedBackgroundView:dark];
+    }
     return cell;
 }
 
@@ -363,6 +375,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
+}
+
+-(void)darkMode:(NSNotification *)notif{
+    [self.tableView reloadData];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
 
 @end

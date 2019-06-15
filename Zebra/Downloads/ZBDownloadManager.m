@@ -118,7 +118,7 @@
     else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){ //cydia
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { //cydia
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     
@@ -278,7 +278,7 @@
             [downloadTask resume];
         }
         else if (package.sileoDownload) {
-            [self realLinkWithPackage:package withCompletion:^(NSString *url){
+            [self realLinkWithPackage:package withCompletion:^(NSString *url) {
                 NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
                 self->tasks++;
                 
@@ -317,16 +317,16 @@
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if(data){
+        if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"DICT %@", json);
+            NSLog(@"[Zebra] Real package data: %@", json);
             if ([json valueForKey:@"url"]) {
                 NSString *returnString = json[@"url"];
                 completionHandler(returnString);
             }
             
         }
-        if(error){
+        if (error) {
             NSLog(@"[Zebra] Error: %@", error.localizedDescription);
         }
     }] resume];
@@ -350,11 +350,11 @@
                     NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
                     
                     if (readError) {
-                        NSLog(@"%@", readError);
+                        NSLog(@"[Zebra] Read error: %@", readError);
                         [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
                     }
                     else {
-                        NSLog(@"Response: %@", contents);
+                        NSLog(@"[Zebra] Download response: %@", contents);
                         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
                         [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
                     }
@@ -501,7 +501,7 @@
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
                             [self moveFileFromLocation:[NSURL URLWithString:[@"file://" stringByAppendingString:finalPath]] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
-                                NSLog(@"Moved");
+                                NSLog(@"[Hyena] File moved");
                             }];
                         }
                         

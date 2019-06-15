@@ -18,5 +18,8 @@
 + (NSString *)sourcesListPath;
 + (NSString *)databaseLocation;
 + (NSString *)debsLocation;
++ (void)configureDark;
++ (void)configureLight;
++ (void)refreshViews;
 @end
 

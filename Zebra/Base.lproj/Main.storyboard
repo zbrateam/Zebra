@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -584,13 +585,21 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MpE-w2-Q9V">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="tiQ-9E-V7d">
-                            <connections>
-                                <action selector="refreshPage:" destination="vXr-io-rHa" id="PFc-sM-8kN"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="tiQ-9E-V7d">
+                                <connections>
+                                    <action selector="refreshPage:" destination="vXr-io-rHa" id="PFc-sM-8kN"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="DarkMode" image="Dark" landscapeImage="Dark" id="hXW-6i-kIV">
+                                <connections>
+                                    <action selector="toggleDarkMode:" destination="vXr-io-rHa" id="Ph3-XQ-Jkd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="darkModeButton" destination="hXW-6i-kIV" id="rn3-3z-HqM"/>
                         <outlet property="progressView" destination="EUm-Oe-xqt" id="Zle-j6-x0A"/>
                         <outlet property="webView" destination="DeN-Wv-VKH" id="hbf-Jb-WSd"/>
                         <segue destination="jcS-1C-r5p" kind="show" identifier="segueHomeToAltIcons" id="DT9-z1-try"/>
@@ -1015,6 +1024,7 @@
     <resources>
         <image name="Changes" width="30" height="30"/>
         <image name="Chevron" width="8" height="13"/>
+        <image name="Dark" width="24" height="24"/>
         <image name="Home" width="25" height="25"/>
         <image name="Packages" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>

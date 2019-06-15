@@ -25,6 +25,6 @@ enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char 
 enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
-enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID);
+enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID, sqlite3_int64 currentDate);
 
 #endif /* parsel_h */

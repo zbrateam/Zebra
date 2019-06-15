@@ -23,6 +23,24 @@
 
 @synthesize messages;
 
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+        [self.view setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
+        [_consoleView setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        return UIStatusBarStyleLightContent;
+    } else {
+        return UIStatusBarStyleDefault;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -83,12 +101,20 @@
         UIFont *font;
         switch (level) {
             case ZBLogLevelDescript: {
-                color = [UIColor blackColor];
+                if ([self.defaults boolForKey:@"darkMode"]) {
+                    color = [UIColor whiteColor];
+                } else {
+                    color = [UIColor blackColor];
+                }
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
             }
             case ZBLogLevelInfo: {
-                color = [UIColor blackColor];
+                if ([self.defaults boolForKey:@"darkMode"]) {
+                    color = [UIColor whiteColor];
+                } else {
+                    color = [UIColor blackColor];
+                }
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
@@ -109,7 +135,7 @@
         }
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-
+        
         [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
         if (self->_consoleView.text.length) {

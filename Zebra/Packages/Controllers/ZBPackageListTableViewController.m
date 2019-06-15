@@ -77,9 +77,11 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -115,28 +117,14 @@ typedef enum {
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
             self->packages = [self->databaseManager installedPackages];
-            NSArray *_updates = [self->databaseManager packagesWithUpdatesIncludingIgnored:YES];
-            self->needsUpdatesSection = NO;
-            self->needsIgnoredUpdatesSection = NO;
+            self->updates = [self->databaseManager packagesWithUpdates];
+            self->ignoredUpdates = [self->databaseManager packagesWithIgnoredUpdates];
             
-            self->updates = [NSMutableArray array];
-            self->ignoredUpdates = [NSMutableArray array];
-            
-            int totalUpdates = 0;
-            for (ZBPackage *package in _updates) {
-                BOOL ignoreUpdate = [package ignoreUpdates];
-                if (ignoreUpdate) {
-                    self->needsIgnoredUpdatesSection = YES;
-                    [self->ignoredUpdates addObject:package];
-                }
-                else {
-                    self->needsUpdatesSection = YES;
-                    ++totalUpdates;
-                    [self->updates addObject:package];
-                }
-            }
+            NSUInteger totalUpdates = self->updates.count;
+            self->needsUpdatesSection = totalUpdates != 0;
+            self->needsIgnoredUpdatesSection = self->ignoredUpdates.count != 0;
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
-            [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%d", totalUpdates] : nil];
+            [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             
             if (self->selectedSortingType == ZBSortingTypeDate) {
@@ -294,7 +282,15 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    
+    if ([self.defaults boolForKey:@"darkMode"]) {
+        cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+        cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+    } else {
+        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    }
     return cell;
 }
 
@@ -326,6 +322,13 @@ typedef enum {
         else if (selectedSortingType == ZBSortingTypeDate) {
             [label setText:@"Recent"];
         }
+        
+        if ([self.defaults boolForKey:@"darkMode"]) {
+            [label setTextColor:[UIColor whiteColor]];
+        } else {
+            [label setTextColor:[UIColor cellPrimaryTextColor]];
+        }
+        
         [view addSubview:label];
         
         label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -442,6 +445,16 @@ typedef enum {
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+- (void)databaseCompletedUpdate {
+    [self refreshTable];
+}
+
+- (void)darkMode:(NSNotification *)notif {
+    [self.tableView reloadData];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
 
 @end
