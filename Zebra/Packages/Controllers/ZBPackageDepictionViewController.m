@@ -133,10 +133,18 @@
     [packageInfoView.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
     [packageInfoView.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
     [packageInfoView.leadingAnchor constraintEqualToAnchor:webView.scrollView.leadingAnchor].active = YES;
+    [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     
     webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
     webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
     
+    
+    //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
+    [self prepDepictionLoading];
+    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+-(void)prepDepictionLoading{
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
     
@@ -149,11 +157,8 @@
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
-        [request setValue:@"dark" forHTTPHeaderField:@"prefers-color-scheme"];
     } else {
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"FALSE" forHTTPHeaderField:@"Dark"];
-        [request setValue:@"light" forHTTPHeaderField:@"prefers-color-scheme"];
     }
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
@@ -164,9 +169,6 @@
     
     
     [webView loadRequest:request];
-    //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
-    
-    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -549,6 +551,9 @@
 }
 
 - (void)reloadDepiction {
-    [webView reloadFromOrigin];
+    [self prepDepictionLoading];
+    [packageInfoView.tableView reloadData];
+    [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [packageInfoView.packageName setTextColor:[UIColor cellPrimaryTextColor]];
 }
 @end

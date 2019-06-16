@@ -10,6 +10,8 @@
 #import "ZBPackageInfoView.h"
 #import <UIColor+GlobalColors.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import "ZBWebViewController.h"
+#import "ZBPackageDepictionViewController.h"
 @import SDWebImage;
 
 enum ZBPackageInfoOrder {
@@ -35,7 +37,8 @@ enum ZBPackageInfoOrder {
         packageInfoOrder = @[
             @"Version",
             @"Size",
-            @"Repo"
+            @"Repo",
+            @"Installed Files"
         ];
     });
     return packageInfoOrder;
@@ -50,12 +53,8 @@ enum ZBPackageInfoOrder {
 
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        self.packageName.textColor = [UIColor whiteColor];
-    }
-    else {
-        self.packageName.textColor = [UIColor cellPrimaryTextColor];
-    }
+    self.packageName.textColor = [UIColor cellPrimaryTextColor];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
         if (sectionImage == NULL) {
@@ -109,11 +108,20 @@ enum ZBPackageInfoOrder {
     }
 }
 
+-(void)readFiles:(ZBPackage *)package{
+    if([package isInstalled:NO]){
+        infos[@"Installed Files"] = @"TRUE";
+    }else{
+        [infos removeObjectForKey:@"Installed Files"];
+    }
+}
+
 - (void)setPackage:(ZBPackage *)package {
     [self readIcon:package];
     [self readVersion:package];
     [self readSize:package];
     [self readRepo:package];
+    [self readFiles:package];
     [self.tableView reloadData];
 }
 
@@ -134,30 +142,36 @@ enum ZBPackageInfoOrder {
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
-    }
-    
     NSString *property = [[self class] packageInfoOrder][indexPath.row];
     NSString *value = infos[property];
-    
-    if (value) {
+    if([value isEqualToString:@"TRUE"]){
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = property;
-        cell.detailTextLabel.text = infos[property];
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            cell.textLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-            cell.detailTextLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-        } else {
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        return cell;
+    }else{
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
+        }
+        
+        
+        if (value) {
+            cell.textLabel.text = property;
+            cell.detailTextLabel.text = infos[property];
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+            
         }
+        else {
+            cell.textLabel.text = nil;
+            cell.detailTextLabel.text = nil;
+        }
+        
+        return cell;
     }
-    else {
-        cell.textLabel.text = nil;
-        cell.detailTextLabel.text = nil;
-    }
-    
-    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -166,6 +180,21 @@ enum ZBPackageInfoOrder {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[self class] packageInfoOrder].count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"View is tapped");
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if([cell.textLabel.text isEqualToString:@"Installed Files"]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+        filesController.navigationDelegate = (ZBPackageDepictionViewController *)self.superview;
+        filesController.navigationItem.title = @"Installed Files";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"installed_files" withExtension:@".html"];
+        [filesController setValue:url forKey:@"_url"];
+        
+        [[(ZBPackageDepictionViewController *)self.superview navigationController] pushViewController:filesController animated:true];
+    }
 }
 
 @end
