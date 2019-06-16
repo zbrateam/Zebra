@@ -10,16 +10,25 @@
 
 @implementation ZBPackageInfoView
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    [self commonInit];
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
+    [self commonInit];
+    return self;
+}
+
+- (void)commonInit {
     if (self) {
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self.tableView reloadData];
     }
-    return self;
 }
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

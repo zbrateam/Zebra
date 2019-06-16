@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import <Packages/Helpers/ZBPackageInfoView.h>
 @import SafariServices;
 
 @class ZBPackage;
@@ -16,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate>
 @property (nonatomic, strong) ZBPackage *package;
+@property (strong, nonatomic) IBOutlet ZBPackageInfoView *packageInfoView;
 @property BOOL purchased;
 @property (nonatomic, weak) UIViewController *parent;
 @property NSUserDefaults *defaults;

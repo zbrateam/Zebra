@@ -26,7 +26,6 @@
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
     WKWebView *webView;
-    UIView *packageInfo;
     BOOL presented;
 }
 @end
@@ -37,6 +36,7 @@
 @synthesize previewingGestureRecognizerForFailureRelationship;
 @synthesize sourceRect;
 @synthesize sourceView;
+@synthesize packageInfoView;
 @synthesize package;
 
 - (id)initWithPackageID:(NSString *)packageID {
@@ -126,14 +126,14 @@
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
     
-    packageInfo = [[ZBPackageInfoView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    packageInfo.translatesAutoresizingMaskIntoConstraints = NO;
-    [webView.scrollView addSubview:packageInfo];
-    [packageInfo.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-300].active = YES;
-    [packageInfo.heightAnchor constraintEqualToConstant:300].active = YES;
-    [packageInfo.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
-    [packageInfo.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
-    [packageInfo.leadingAnchor constraintEqualToAnchor:webView.scrollView.leadingAnchor].active = YES;
+    packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
+    packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
+    [webView.scrollView addSubview:packageInfoView];
+    [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-300].active = YES;
+    [packageInfoView.heightAnchor constraintEqualToConstant:300].active = YES;
+    [packageInfoView.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
+    [packageInfoView.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
+    [packageInfoView.leadingAnchor constraintEqualToAnchor:webView.scrollView.leadingAnchor].active = YES;
     
     webView.scrollView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0);
     webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(300, 0, 0, 0);
@@ -167,13 +167,6 @@
     //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    CGRect f = packageInfo.frame;
-    f.size.width = webView.bounds.size.width;
-    packageInfo.frame = f;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
