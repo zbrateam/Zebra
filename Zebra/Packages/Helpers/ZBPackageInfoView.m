@@ -35,6 +35,7 @@ enum ZBPackageInfoOrder {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         packageInfoOrder = @[
+            @"packageID",
             @"Version",
             @"Size",
             @"Repo",
@@ -76,6 +77,14 @@ enum ZBPackageInfoOrder {
             [self.packageIcon.layer setMasksToBounds:TRUE];
         }
     });
+}
+
+- (void)readPackageID:(ZBPackage *)package{
+    if(package.identifier) {
+        infos[@"packageID"] = package.identifier;
+    }else{
+        [infos removeObjectForKey:@"packageID"];
+    }
 }
 
 - (void)readVersion:(ZBPackage *)package {
@@ -125,6 +134,7 @@ enum ZBPackageInfoOrder {
     [self readSize:package];
     [self readRepo:package];
     [self readFiles:package];
+    [self readPackageID:package];
     [self.tableView reloadData];
 }
 
@@ -153,6 +163,13 @@ enum ZBPackageInfoOrder {
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = property;
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        return cell;
+    }else if([property isEqualToString:@"packageID"]){
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.textLabel.text = value;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
     }else{
