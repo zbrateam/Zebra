@@ -9,7 +9,29 @@
 #import "ZBPackageInfoView.h"
 @import SDWebImage;
 
+enum ZBPackageInfoOrder {
+    ZBPackageInfoVersion = 0,
+    ZBPackageInfoSize
+};
+
+@interface ZBPackageInfoView () {
+    NSMutableDictionary *infos;
+}
+@end
+
 @implementation ZBPackageInfoView
+
++ (NSArray *)packageInfoOrder {
+    static NSArray *packageInfoOrder = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        packageInfoOrder = @[
+            @"Version",
+            @"Size"
+        ];
+    });
+    return packageInfoOrder;
+}
 
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
@@ -28,6 +50,7 @@
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self.tableView reloadData];
+        infos = [NSMutableDictionary new];
     }
 }
 
@@ -51,9 +74,15 @@
             [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
         }
     });
+    if (![package isInstalled:NO] || [package installedVersion] == nil) {
+        infos[@"Version"] = [package version];
+    }
+    else {
+        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed: %@)", [package version], [package installedVersion]];
+    }
 }
 
-- (UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
@@ -62,13 +91,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = @"HI";
-    cell.textLabel.backgroundColor = [UIColor whiteColor];
+    NSString *property = [[self class] packageInfoOrder][indexPath.row];
+    
+    cell.textLabel.text = property;
+    cell.detailTextLabel.text = infos[property];
+    
     return cell;
 }
 
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return infos.count;
 }
 
 @end

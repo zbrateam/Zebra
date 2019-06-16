@@ -241,15 +241,6 @@
     
     NSURL *depictionURL = [package depictionURL];
     
-    NSString *versionString;
-    if (![package isInstalled:NO] || [package installedVersion] == nil) {
-        versionString = [NSString stringWithFormat:@"Version: %@", [package version]];
-    }
-    else {
-        versionString = [NSString stringWithFormat:@"Version: %@<br\\>Installed Version: %@", [package version], [package installedVersion]];
-    }
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('version').innerHTML = '%@';", versionString] completionHandler:nil];
-    
     NSMutableArray *sizeString = [NSMutableArray array];
     NSString *size = [package size];
     if (size) {

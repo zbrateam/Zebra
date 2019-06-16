@@ -21,12 +21,12 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="package-name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAB-wV-MNH">
-                    <rect key="frame" x="16" y="121" width="343" height="21"/>
+                    <rect key="frame" x="130" y="121" width="115" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-GJ-Lrh">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-GJ-Lrh">
                     <rect key="frame" x="0.0" y="150" width="375" height="517"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
@@ -40,11 +40,9 @@
                 <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="9nt-hU-g72"/>
                 <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="Drd-wt-54t"/>
                 <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="top" secondItem="cAB-wV-MNH" secondAttribute="bottom" constant="8" symbolic="YES" id="GYU-mA-V6m"/>
-                <constraint firstItem="cAB-wV-MNH" firstAttribute="centerX" secondItem="GKg-PO-Vdu" secondAttribute="centerX" id="PSe-vE-i43"/>
-                <constraint firstItem="cAB-wV-MNH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="cTK-mW-TDy"/>
-                <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="centerX" secondItem="GKg-PO-Vdu" secondAttribute="centerX" id="iwy-LC-4Df"/>
+                <constraint firstItem="cAB-wV-MNH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PSe-vE-i43"/>
+                <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iwy-LC-4Df"/>
                 <constraint firstItem="GKg-PO-Vdu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="kfI-if-ZAY"/>
-                <constraint firstItem="cAB-wV-MNH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="ksV-l9-5AA"/>
                 <constraint firstItem="GKg-PO-Vdu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vj0-Ko-3Sf"/>
                 <constraint firstItem="cAB-wV-MNH" firstAttribute="top" secondItem="GKg-PO-Vdu" secondAttribute="bottom" constant="8" symbolic="YES" id="whM-WB-shf"/>
                 <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="y4B-6j-gaq"/>
