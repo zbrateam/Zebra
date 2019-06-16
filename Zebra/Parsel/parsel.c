@@ -113,7 +113,7 @@ int needsMigration(sqlite3 *database, int table) {
         return 0;
     char query[65];
     char *tableNames[10] = { "REPOS", "PACKAGES", "UPDATES" };
-    sprintf(query, "SELECT sql FROM sqlite_master WHERE name = \"%s\";", tableNames[table]);
+    snprintf(query, sizeof(query), "SELECT sql FROM sqlite_master WHERE name = \"%s\";", tableNames[table]);
     char *schema = NULL;
     
     sqlite3_stmt *statement;
@@ -313,8 +313,8 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
 }
 
 sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int repoID) {
-    char query[200];
-    sprintf(query, "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
+    char query[250];
+    snprintf(query, sizeof(query), "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
     sqlite3_stmt *statement;
     sqlite3_int64 timestamp = 0;
     bool found = false;
@@ -489,7 +489,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
     char sql[64];
-    sprintf(sql, "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
+    snprintf(sql, sizeof(sql), "DELETE FROM PACKAGES WHERE REPOID = %d", repoID);
     sqlite3_exec(database, sql, NULL, 0, NULL);
     
     dict *package = dict_new();
