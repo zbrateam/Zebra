@@ -7,6 +7,7 @@
 //
 
 #import "ZBPackageInfoView.h"
+#import <Repos/Helpers/ZBRepo.h>
 @import SDWebImage;
 
 enum ZBPackageInfoOrder {
@@ -27,7 +28,8 @@ enum ZBPackageInfoOrder {
     dispatch_once(&onceToken, ^{
         packageInfoOrder = @[
             @"Version",
-            @"Size"
+            @"Size",
+            @"Repo"
         ];
     });
     return packageInfoOrder;
@@ -50,7 +52,7 @@ enum ZBPackageInfoOrder {
     self.tableView.dataSource = self;
 }
 
-- (void)setPackage:(ZBPackage *)package {
+- (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
@@ -70,16 +72,48 @@ enum ZBPackageInfoOrder {
             [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
         }
     });
+}
+
+- (void)readVersion:(ZBPackage *)package {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
         infos[@"Version"] = [package version];
     }
     else {
-        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed: %@)", [package version], [package installedVersion]];
+        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", [package version], [package installedVersion]];
     }
+}
+
+- (void)readSize:(ZBPackage *)package {
+    NSString *size = [package size];
+    NSString *installedSize = [package installedSize];
+    if (size && installedSize) {
+        infos[@"Size"] = [NSString stringWithFormat:@"%@ (Installed Size: %@)", size, installedSize];
+    }
+    else if (size) {
+        infos[@"Size"] = size;
+    }
+}
+
+- (void)readRepo:(ZBPackage *)package {
+    NSString *repoName = [[package repo] origin];
+    if (repoName) {
+        infos[@"Repo"] = repoName;
+    }
+}
+
+- (void)setPackage:(ZBPackage *)package {
+    [self readIcon:package];
+    [self readVersion:package];
+    [self readSize:package];
+    [self readRepo:package];
     [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 45;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
@@ -87,7 +121,7 @@ enum ZBPackageInfoOrder {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
     NSString *property = [[self class] packageInfoOrder][indexPath.row];
