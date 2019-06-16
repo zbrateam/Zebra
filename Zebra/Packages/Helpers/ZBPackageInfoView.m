@@ -6,7 +6,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
 #import "ZBPackageInfoView.h"
+#import <UIColor+GlobalColors.h>
 #import <Repos/Helpers/ZBRepo.h>
 @import SDWebImage;
 
@@ -48,6 +50,12 @@ enum ZBPackageInfoOrder {
 
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        self.packageName.textColor = [UIColor whiteColor];
+    }
+    else {
+        self.packageName.textColor = [UIColor cellPrimaryTextColor];
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
         if (sectionImage == NULL) {
@@ -136,6 +144,13 @@ enum ZBPackageInfoOrder {
     if (value) {
         cell.textLabel.text = property;
         cell.detailTextLabel.text = infos[property];
+        if ([ZBDarkModeHelper darkModeEnabled]) {
+            cell.textLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
+            cell.detailTextLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
+        } else {
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+        }
     }
     else {
         cell.textLabel.text = nil;

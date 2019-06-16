@@ -28,14 +28,15 @@
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Yt-GJ-Lrh">
                     <rect key="frame" x="0.0" y="150" width="375" height="517"/>
-                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="UQV-hj-Dgf"/>
                         <outlet property="delegate" destination="-1" id="oOI-5c-dDq"/>
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="9nt-hU-g72"/>
                 <constraint firstItem="9Yt-GJ-Lrh" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="Drd-wt-54t"/>
