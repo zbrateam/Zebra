@@ -183,17 +183,16 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"View is tapped");
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if([cell.textLabel.text isEqualToString:@"Installed Files"]){
+    if(indexPath.row == infos.count - 1){
+        NSLog(@"View is tapped");
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-        filesController.navigationDelegate = (ZBPackageDepictionViewController *)self.superview;
+        filesController.navigationDelegate = (ZBPackageDepictionViewController *)self.parentVC;
         filesController.navigationItem.title = @"Installed Files";
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"installed_files" withExtension:@".html"];
         [filesController setValue:url forKey:@"_url"];
         
-        [[(ZBPackageDepictionViewController *)self.superview navigationController] pushViewController:filesController animated:true];
+        [[self.parentVC navigationController] pushViewController:filesController animated:true];
     }
 }
 

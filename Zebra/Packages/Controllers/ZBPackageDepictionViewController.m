@@ -125,6 +125,7 @@
     
     packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
     [packageInfoView setPackage:package];
+    [packageInfoView setParentVC:self];
     packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
     [webView.scrollView addSubview:packageInfoView];
     CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
@@ -220,26 +221,8 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    /*if (package == nil)
+    if (package == nil)
         return;
-    // DarkMode
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
-        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
-                              style.innerHTML = '%@'; \
-                              document.head.appendChild(style)",
-                              cssData];
-        [webView evaluateJavaScript:jsString
-                  completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                      if (error) {
-                          NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-                      }
-                  }];
-    }
-    
     NSURL *depictionURL = [package depictionURL];
     
     if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
@@ -274,11 +257,6 @@
         [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
     }
     
-    if ([package isInstalled:NO]) {
-        [webView evaluateJavaScript:@"document.getElementById('installed-files').innerHTML = 'Installed Files';" completionHandler:nil];
-        [webView evaluateJavaScript:@"document.getElementById('installed-files').setAttribute('role', 'button');" completionHandler:nil];
-        [webView evaluateJavaScript:@"document.getElementById('installed-files').onclick = function () { window.webkit.messageHandlers.observe.postMessage('local~installed_files'); };" completionHandler:nil];
-    }
     
     NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
@@ -297,7 +275,7 @@
         [displayStr appendString:components[components.count - 1]];
         
         [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
-    }*/
+    }
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
