@@ -35,23 +35,19 @@ enum ZBPackageInfoOrder {
 
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
-    [self commonInit];
     return self;
 }
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    [self commonInit];
     return self;
 }
 
-- (void)commonInit {
-    if (self) {
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        [self.tableView reloadData];
-        infos = [NSMutableDictionary new];
-    }
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    infos = [NSMutableDictionary new];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 - (void)setPackage:(ZBPackage *)package {
@@ -80,7 +76,10 @@ enum ZBPackageInfoOrder {
     else {
         infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed: %@)", [package version], [package installedVersion]];
     }
+    [self.tableView reloadData];
 }
+
+#pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
@@ -88,7 +87,7 @@ enum ZBPackageInfoOrder {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:simpleTableIdentifier];
     }
     
     NSString *property = [[self class] packageInfoOrder][indexPath.row];
