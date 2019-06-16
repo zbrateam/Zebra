@@ -582,7 +582,7 @@
         
         if (section == NULL) {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"WHERE REPOID = %d", [repo repoID]] : @"WHERE REPOID > 0";
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ LIMIT %d OFFSET %d", repoPart, limit, start];
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ ORDER BY LASTSEEN DESC LIMIT %d OFFSET %d", repoPart, limit, start];
         }
         else {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";
