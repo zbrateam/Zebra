@@ -27,11 +27,7 @@
     _queue = [ZBQueue sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
-    } else {
-        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
-    }
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     
     [self refreshBarButtons];
     

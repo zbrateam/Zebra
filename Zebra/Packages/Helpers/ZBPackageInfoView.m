@@ -49,6 +49,7 @@ enum ZBPackageInfoOrder {
     infos = [NSMutableDictionary new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorColor = [UIColor clearColor];
 }
 
 - (void)readIcon:(ZBPackage *)package {
@@ -71,6 +72,8 @@ enum ZBPackageInfoOrder {
         
         if (iconURL.length) {
             [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
+            [self.packageIcon.layer setCornerRadius:20];
+            [self.packageIcon.layer setMasksToBounds:TRUE];
         }
     });
 }
@@ -156,6 +159,7 @@ enum ZBPackageInfoOrder {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
         }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         
         if (value) {
@@ -193,6 +197,7 @@ enum ZBPackageInfoOrder {
         [filesController setValue:url forKey:@"_url"];
         
         [[self.parentVC navigationController] pushViewController:filesController animated:true];
+        [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
     }
 }
 

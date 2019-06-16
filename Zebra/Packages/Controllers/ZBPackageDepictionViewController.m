@@ -147,7 +147,14 @@
 
 -(void)prepDepictionLoading{
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
+    NSMutableURLRequest *request;
+    if([package depictionURL]){
+        request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
+    }else{
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+        request = [[NSMutableURLRequest alloc] initWithURL:url];
+    }
+    
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDeviceHelper UDID];
@@ -223,59 +230,93 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
-    NSURL *depictionURL = [package depictionURL];
-    
-    if (depictionURL != NULL && ![[depictionURL absoluteString] isEqualToString:@""])  {
-        [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
-        [webView evaluateJavaScript:@"var element = document.getElementById('main-holder').style.marginBottom = '0px';" completionHandler:nil];
-        NSString *command = [NSString stringWithFormat:@"document.getElementById('depiction-src').src = '%@';", [depictionURL absoluteString]];
-        [webView evaluateJavaScript:command completionHandler:nil];
-    }
-    else if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
-        [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
+    if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
         
-        NSString *originalDescription = [package longDescription];
-        NSMutableString *description = [NSMutableString stringWithCapacity:originalDescription.length];
-        [description appendString:originalDescription];
-        
-        [self escape:description];
-        
-        NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-        NSArray *matches = [linkDetector matchesInString:description options:0 range:NSMakeRange(0, description.length)];
-        NSUInteger rangeShift = 0;
-        for (NSTextCheckingResult *result in matches) {
-            NSString *urlString = result.URL.absoluteString;
-            NSUInteger before = result.range.length;
-            NSString *anchor = [NSString stringWithFormat:@"<a href=\\\"%@\\\">%@</a>", urlString, urlString];
-            [description replaceCharactersInRange:NSMakeRange(result.range.location + rangeShift, result.range.length) withString:anchor];
-            rangeShift += anchor.length - before;
+        if ([ZBDarkModeHelper darkModeEnabled]) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
+                                  style.innerHTML = '%@'; \
+                                  document.head.appendChild(style)",
+                                  cssData];
+            [webView evaluateJavaScript:jsString
+                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                          if (error) {
+                              NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+                          }
+                      }];
         }
         
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
+        if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
+            [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
+            
+            NSString *originalDescription = [package longDescription];
+            NSMutableString *description = [NSMutableString stringWithCapacity:originalDescription.length];
+            [description appendString:originalDescription];
+            
+            [self escape:description];
+            
+            NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+            NSArray *matches = [linkDetector matchesInString:description options:0 range:NSMakeRange(0, description.length)];
+            NSUInteger rangeShift = 0;
+            for (NSTextCheckingResult *result in matches) {
+                NSString *urlString = result.URL.absoluteString;
+                NSUInteger before = result.range.length;
+                NSString *anchor = [NSString stringWithFormat:@"<a href=\\\"%@\\\">%@</a>", urlString, urlString];
+                [description replaceCharactersInRange:NSMakeRange(result.range.location + rangeShift, result.range.length) withString:anchor];
+                rangeShift += anchor.length - before;
+            }
+            
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
+        }
+        else {
+            [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
+        }
     }
-    else {
-        [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
-    }
     
     
-    NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
-    installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-    
-    for (int i = 0; i < installedFiles.count; i++) {
-        NSString *file = installedFiles[i];
-        if ([file isEqualToString:@"/."] || file.length == 0) {
-            continue;
+    if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"installed_files" withExtension:@".html"].absoluteString]) {
+        //Darkmode etc for installed files
+        
+        if ([ZBDarkModeHelper darkModeEnabled]) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
+                                  style.innerHTML = '%@'; \
+                                  document.head.appendChild(style)",
+                                  cssData];
+            [webView evaluateJavaScript:jsString
+                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                          if (error) {
+                              NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+                          }
+                      }];
         }
         
-        NSArray *components = [file componentsSeparatedByString:@"/"];
-        NSMutableString *displayStr = [NSMutableString new];
-        for (int b = 0; b < components.count - 2; b++) {
-            [displayStr appendString:@"&emsp;"]; //add tab character
+        NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
+        installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
+        NSLog(@"installed FILES %@", installedFiles);
+        for (int i = 0; i < installedFiles.count; i++) {
+            NSString *file = installedFiles[i];
+            if ([file isEqualToString:@"/."] || file.length == 0) {
+                continue;
+            }
+            
+            NSArray *components = [file componentsSeparatedByString:@"/"];
+            NSMutableString *displayStr = [NSMutableString new];
+            for (int b = 0; b < components.count - 2; b++) {
+                [displayStr appendString:@"&emsp;"]; //add tab character
+            }
+            [displayStr appendString:components[components.count - 1]];
+            
+            [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
         }
-        [displayStr appendString:components[components.count - 1]];
-        
-        [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
     }
+    
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
