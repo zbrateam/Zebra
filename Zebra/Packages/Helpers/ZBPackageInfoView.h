@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (assign) int rowCount;
 + (CGFloat)rowHeight;
+- (NSUInteger)rowCount;
 - (void)setPackage:(ZBPackage *)package;
 @end

@@ -71,11 +71,9 @@ enum ZBPackageInfoOrder {
 - (void)readVersion:(ZBPackage *)package {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
         infos[@"Version"] = [package version];
-        ++self.rowCount;
     }
     else {
         infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", [package version], [package installedVersion]];
-        ++self.rowCount;
     }
 }
 
@@ -84,11 +82,9 @@ enum ZBPackageInfoOrder {
     NSString *installedSize = [package installedSize];
     if (size && installedSize) {
         infos[@"Size"] = [NSString stringWithFormat:@"%@ (Installed Size: %@)", size, installedSize];
-        ++self.rowCount;
     }
     else if (size) {
         infos[@"Size"] = size;
-        ++self.rowCount;
     }
 }
 
@@ -96,17 +92,19 @@ enum ZBPackageInfoOrder {
     NSString *repoName = [[package repo] origin];
     if (repoName) {
         infos[@"Repo"] = repoName;
-        ++self.rowCount;
     }
 }
 
 - (void)setPackage:(ZBPackage *)package {
     [self readIcon:package];
-    self.rowCount = 0;
     [self readVersion:package];
     [self readSize:package];
     [self readRepo:package];
     [self.tableView reloadData];
+}
+
+- (NSUInteger)rowCount {
+    return infos.count;
 }
 
 #pragma mark - UITableViewDataSource

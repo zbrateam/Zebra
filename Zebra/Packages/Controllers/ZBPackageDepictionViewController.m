@@ -130,7 +130,7 @@
     [packageInfoView setPackage:package];
     packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
     [webView.scrollView addSubview:packageInfoView];
-    CGFloat pad = 165 + packageInfoView.rowCount * [ZBPackageInfoView rowHeight];
+    CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
     [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
     [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
     [packageInfoView.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
