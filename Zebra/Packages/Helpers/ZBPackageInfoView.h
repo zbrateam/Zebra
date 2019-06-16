@@ -8,11 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZBPackageInfoView : UIView <UITableViewDelegate, UITableViewDataSource>{
-    UITableView *testTable;
-}
+@interface ZBPackageInfoView : UIView <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @end

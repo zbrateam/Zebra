@@ -10,12 +10,9 @@
 
 @implementation ZBPackageInfoView
 
--(id)initWithFrame:(CGRect)frame{
-    NSLog(@"ZBPACKAGEINFO ACTIATED");
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if(self){
-        self.tableView = [[UITableView alloc] initWithFrame:frame];
-        [self addSubview:self.tableView];
+    if (self) {
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self.tableView reloadData];
@@ -49,8 +46,5 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
-
-
-
 
 @end

@@ -126,6 +126,17 @@
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
     
+    packageInfo = [[ZBPackageInfoView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    packageInfo.translatesAutoresizingMaskIntoConstraints = NO;
+    [webView.scrollView addSubview:packageInfo];
+    [packageInfo.heightAnchor constraintEqualToConstant:300].active = YES;
+    [packageInfo.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
+    [packageInfo.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
+    [packageInfo.leadingAnchor constraintEqualToAnchor:webView.scrollView.leadingAnchor].active = YES;
+    
+    webView.scrollView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0);
+    webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(300, 0, 0, 0);
+    
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
     
@@ -155,14 +166,10 @@
     //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    packageInfo = [[ZBPackageInfoView alloc] initWithFrame: CGRectMake(0, -300, 375, 300)];
-    [webView.scrollView setContentInset: UIEdgeInsetsMake(300, 0, 0, 0)];
-    [packageInfo setBackgroundColor:[UIColor greenColor]];
-    [webView.scrollView addSubview:packageInfo];
 }
--(void)viewDidLayoutSubviews{
+
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    webView.frame = self.view.bounds;
     CGRect f = packageInfo.frame;
     f.size.width = webView.bounds.size.width;
     packageInfo.frame = f;
