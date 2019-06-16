@@ -141,19 +141,24 @@
     
     
     //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
-    [self prepDepictionLoading];
+    
+    if([package depictionURL]){
+        [self prepDepictionLoading:[package depictionURL]];
+    }else{
+        [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
+    }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
--(void)prepDepictionLoading{
+-(void)prepDepictionLoading:(NSURL *)url{
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
-    NSMutableURLRequest *request;
-    if([package depictionURL]){
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    /*if([package depictionURL]){
         request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
     }else{
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
         request = [[NSMutableURLRequest alloc] initWithURL:url];
-    }
+    }*/
     
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
@@ -348,6 +353,10 @@
     else {
         decisionHandler(WKNavigationActionPolicyCancel);
     }
+}
+
+- (void) webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
+    [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
 }
 
 - (void)configureNavButton {
@@ -570,7 +579,7 @@
 }
 
 - (void)reloadDepiction {
-    [self prepDepictionLoading];
+    [self prepDepictionLoading:webView.URL];
     [packageInfoView.tableView reloadData];
     [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [packageInfoView.packageName setTextColor:[UIColor cellPrimaryTextColor]];
