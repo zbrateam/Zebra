@@ -127,6 +127,7 @@
     }
     
     packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
+    [packageInfoView setPackage:package];
     packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
     [webView.scrollView addSubview:packageInfoView];
     [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-300].active = YES;
@@ -239,30 +240,6 @@
     }
     
     NSURL *depictionURL = [package depictionURL];
-    
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIImage *sectionImage = [UIImage imageNamed:self.package.sectionImageName];
-        if (sectionImage == NULL) {
-            sectionImage = [UIImage imageNamed:@"Other"];
-        }
-        
-        NSString *iconURL = @"";
-        if (self.package.iconPath) {
-            iconURL = [self.package iconPath];
-        }
-        else {
-            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
-        }
-        
-        if (iconURL.length > 0) {
-            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package-icon').src = \"%@\";", iconURL] completionHandler:nil];
-            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package-name').innerHTML = '%@';", [self.package name]] completionHandler:nil];
-            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@';", [self.package identifier]] completionHandler:nil];
-        } else {
-            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('package').innerHTML = '%@ (%@)';", [self.package name], [self.package identifier]] completionHandler:nil];
-        }
-    });
     
     NSString *versionString;
     if (![package isInstalled:NO] || [package installedVersion] == nil) {

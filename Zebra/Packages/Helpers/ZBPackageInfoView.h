@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBPackageInfoView : UIView <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+- (void)setPackage:(ZBPackage *)package;
 @end

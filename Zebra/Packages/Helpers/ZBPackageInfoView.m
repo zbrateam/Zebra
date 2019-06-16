@@ -7,6 +7,7 @@
 //
 
 #import "ZBPackageInfoView.h"
+@import SDWebImage;
 
 @implementation ZBPackageInfoView
 
@@ -30,16 +31,30 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)setPackage:(ZBPackage *)package {
+    self.packageName.text = package.name;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
+        if (sectionImage == NULL) {
+            sectionImage = [UIImage imageNamed:@"Other"];
+        }
+        
+        NSString *iconURL = @"";
+        if (package.iconPath) {
+            iconURL = [package iconPath];
+        }
+        else {
+            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
+        }
+        
+        if (iconURL.length) {
+            [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
+        }
+    });
 }
-*/
 
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+- (UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
     
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
