@@ -86,12 +86,18 @@ enum ZBPackageInfoOrder {
     else if (size) {
         infos[@"Size"] = size;
     }
+    else {
+        [infos removeObjectForKey:@"Size"];
+    }
 }
 
 - (void)readRepo:(ZBPackage *)package {
     NSString *repoName = [[package repo] origin];
     if (repoName) {
         infos[@"Repo"] = repoName;
+    }
+    else {
+        [infos removeObjectForKey:@"Repo"];
     }
 }
 
@@ -110,7 +116,9 @@ enum ZBPackageInfoOrder {
 #pragma mark - UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self class] rowHeight];
+    NSString *property = [[self class] packageInfoOrder][indexPath.row];
+    NSString *value = infos[property];
+    return value ? [[self class] rowHeight] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -123,9 +131,16 @@ enum ZBPackageInfoOrder {
     }
     
     NSString *property = [[self class] packageInfoOrder][indexPath.row];
+    NSString *value = infos[property];
     
-    cell.textLabel.text = property;
-    cell.detailTextLabel.text = infos[property];
+    if (value) {
+        cell.textLabel.text = property;
+        cell.detailTextLabel.text = infos[property];
+    }
+    else {
+        cell.textLabel.text = nil;
+        cell.detailTextLabel.text = nil;
+    }
     
     return cell;
 }
@@ -135,7 +150,7 @@ enum ZBPackageInfoOrder {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return infos.count;
+    return [[self class] packageInfoOrder].count;
 }
 
 @end
