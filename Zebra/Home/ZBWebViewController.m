@@ -418,24 +418,18 @@
 - (void)changeIcon {
     if (@available(iOS 10.3, *)) {
         [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
-        /*if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
-         [[UIApplication sharedApplication] alternateIconName];
-         [[UIApplication sharedApplication] setAlternateIconName:@"darkZebraSkin" completionHandler:^(NSError * _Nullable error) {
-         if (error) {
-         NSLog(@"[Zebra Icon Error] %@",error.localizedDescription);
-         }
-         }];
-         }*/
     } else {
         return;
     }
 }
 
 - (IBAction)refreshPage:(id)sender {
+    [self hapticButton];
     [webView reload];
 }
 
 - (IBAction)toggleDarkMode:(id)sender {
+    [self hapticButton];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (![self.defaults boolForKey:@"darkMode"]) {
             //Want Darkmode
@@ -445,6 +439,17 @@
             [self lightMode];
         }
     } completion:nil];
+}
+
+-(void)hapticButton{
+    if (@available(iOS 10.0, *)) {
+        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
+        [feedback prepare];
+        [feedback selectionChanged];
+        feedback = nil;
+    } else {
+        return;// Fallback on earlier versions
+    }
 }
 
 - (void)darkMode{
