@@ -130,14 +130,15 @@
     [packageInfoView setPackage:package];
     packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
     [webView.scrollView addSubview:packageInfoView];
-    [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-300].active = YES;
-    [packageInfoView.heightAnchor constraintEqualToConstant:300].active = YES;
+    CGFloat pad = 165 + packageInfoView.rowCount * [ZBPackageInfoView rowHeight];
+    [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
+    [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
     [packageInfoView.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
     [packageInfoView.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
     [packageInfoView.leadingAnchor constraintEqualToAnchor:webView.scrollView.leadingAnchor].active = YES;
     
-    webView.scrollView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0);
-    webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(300, 0, 0, 0);
+    webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
+    webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
     
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
