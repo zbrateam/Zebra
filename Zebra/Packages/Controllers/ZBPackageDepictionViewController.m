@@ -129,6 +129,7 @@
     packageInfo = [[ZBPackageInfoView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     packageInfo.translatesAutoresizingMaskIntoConstraints = NO;
     [webView.scrollView addSubview:packageInfo];
+    [packageInfo.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-300].active = YES;
     [packageInfo.heightAnchor constraintEqualToConstant:300].active = YES;
     [packageInfo.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
     [packageInfo.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
