@@ -21,10 +21,12 @@
 #import <Home/ZBWebViewController.h>
 #import <ZBAppDelegate.h>
 #import <ZBDeviceHelper.h>
+#import "ZBPackageInfoView.h"
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
     WKWebView *webView;
+    UIView *packageInfo;
     BOOL presented;
 }
 @end
@@ -124,8 +126,8 @@
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     }
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
     
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDeviceHelper UDID];
@@ -153,6 +155,17 @@
     //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    packageInfo = [[ZBPackageInfoView alloc] initWithFrame: CGRectMake(0, -300, 375, 300)];
+    [webView.scrollView setContentInset: UIEdgeInsetsMake(300, 0, 0, 0)];
+    [packageInfo setBackgroundColor:[UIColor greenColor]];
+    [webView.scrollView addSubview:packageInfo];
+}
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    webView.frame = self.view.bounds;
+    CGRect f = packageInfo.frame;
+    f.size.width = webView.bounds.size.width;
+    packageInfo.frame = f;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -204,7 +217,7 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    if (package == nil)
+    /*if (package == nil)
         return;
     // DarkMode
     if ([self.defaults boolForKey:@"darkMode"]) {
@@ -339,7 +352,7 @@
         [displayStr appendString:components[components.count - 1]];
         
         [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
-    }
+    }*/
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
