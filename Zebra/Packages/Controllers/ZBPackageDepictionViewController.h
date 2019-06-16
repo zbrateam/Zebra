@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet ZBPackageInfoView *packageInfoView;
 @property BOOL purchased;
 @property (nonatomic, weak) UIViewController *parent;
-@property NSUserDefaults *defaults;
 - (id)initWithPackageID:(NSString *)packageID;
 @end
 

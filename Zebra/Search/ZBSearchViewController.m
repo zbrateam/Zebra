@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
 #import "ZBSearchViewController.h"
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
@@ -19,7 +20,6 @@
     NSArray *results;
     BOOL searching;
     id<UIViewControllerPreviewing> previewing;
-    NSUserDefaults *defaults;
     NSMutableArray *searches;
 }
 @end
@@ -32,8 +32,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    defaults = [NSUserDefaults standardUserDefaults];
-    searches = [[defaults arrayForKey:@"searches"] mutableCopy];
+    searches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
     if (!searches) {
         searches = [NSMutableArray new];
     }
@@ -49,6 +48,9 @@
     searchController.searchBar.delegate = self;
     searchController.searchBar.tintColor = [UIColor tintColor];
     searchController.searchBar.placeholder = @"Packages";
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
+    }
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = false;
@@ -132,8 +134,8 @@
     }
     [searches insertObject:searchBar.text atIndex:0];
     NSLog(@"[Zebra] Searches: %@", searches);
-    [defaults setObject:searches forKey:@"searches"];
-    [defaults synchronize];
+    [[NSUserDefaults standardUserDefaults] setObject:searches forKey:@"searches"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -195,7 +197,7 @@
         ZBPackage *package = [results objectAtIndex:indexPath.row];
         
         [cell updateData:package];
-        if ([defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
             cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
             cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
@@ -214,7 +216,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
         }
         cell.textLabel.text = [searches objectAtIndex:indexPath.row];
-        if ([defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             UIView *dark = [[UIView alloc] init];
             dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
             [[UITableViewCell appearance] setSelectedBackgroundView:dark];
@@ -298,15 +300,16 @@
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
--(void)darkMode:(NSNotification *)notif{
+- (void)darkMode:(NSNotification *)notif {
     [self refreshTable];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     searchController.searchBar.tintColor = [UIColor tintColor];
+    searchController.searchBar.keyboardAppearance = [[notif name] isEqualToString:@"darkMode"] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;

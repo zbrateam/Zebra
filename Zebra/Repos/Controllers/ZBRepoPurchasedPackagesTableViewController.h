@@ -21,5 +21,4 @@
 @property UICKeyChainStore *keychain;
 @property UIBarButtonItem *logOut;
 @property ZBDatabaseManager *databaseManager;
-@property NSUserDefaults *defaults;
 @end

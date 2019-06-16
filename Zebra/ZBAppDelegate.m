@@ -7,16 +7,17 @@
 //
 
 #import "ZBAppDelegate.h"
+#import "ZBTabBarController.h"
+#import "ZBTab.h"
+#import "ZBDarkModeHelper.h"
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
-#import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDWebImage/SDImageCacheConfig.h>
 #import <SDWebImage/SDImageCache.h>
-#import "ZBTab.h"
 
 @interface ZBAppDelegate ()
 
@@ -63,9 +64,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-    BOOL dirExsits = FALSE;
-    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
-    if (!dirExsits) {
+    BOOL dirExists = FALSE;
+    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
+    if (!dirExists) {
         NSLog(@"[Zebra] Creating lists directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
@@ -103,9 +104,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)debsLocation {
     NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
-    BOOL dirExsits = FALSE;
-    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExsits];
-    if (!dirExsits) {
+    BOOL dirExists = FALSE;
+    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
+    if (!dirExists) {
         NSLog(@"[Zebra] Creating debs directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:true attributes:nil error:&error];
@@ -136,13 +137,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     [self setupSDWebImageCache];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"darkMode"]) {
-        [ZBAppDelegate configureDark];
-    }
-    else {
-        [ZBAppDelegate configureLight];
-    }
+    [ZBDarkModeHelper applySettings];
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -359,84 +354,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-#pragma mark Private
-
-+ (void)configureDark {
-    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    }
-    else {
-        
-    }
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
-    [[UINavigationBar appearance] setTranslucent:TRUE];
-    //Light Status bar
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    
-    //Tab
-    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor colorWithRed:0.11 green:0.11 blue:0.11 alpha:1.0]];
-    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:0.11 green:0.11 blue:0.11 alpha:1.0]];
-    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
-    
-    //Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
-    [[UITableView appearance] setTintColor:[UIColor tintColor]];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0]];
-    UIView *dark = [[UIView alloc] init];
-    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
-    [[UITableViewCell appearance] setSelectedBackgroundView:dark];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
-    [[WKWebView appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
-    [[WKWebView appearance] setOpaque:FALSE];
-}
-
-+ (void)configureLight {
-    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:nil];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:nil];
-    }
-    else {
-        
-    }
-    [[UINavigationBar appearance] setBarTintColor:nil];
-    [[UINavigationBar appearance] setBackgroundColor:nil];
-    [[UINavigationBar appearance] setTranslucent:TRUE];
-    //Light Status bar
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
-    
-    //Tab
-    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
-    [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
-    
-    //Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITableView appearance] setTintColor:nil];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
-    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:TRUE];
-}
-
-+ (void)refreshViews {
-    //[[NSNotificationCenter defaultCenter] postNotificationName:UISSWillRefreshViewsNotification object:self];
-    
-    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-        for (UIView *view in window.subviews) {
-            [view removeFromSuperview];
-            [window addSubview:view];
-        }
-    }
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:UISSDidRefreshViewsNotification object:self];
 }
 
 - (void)setupSDWebImageCache {

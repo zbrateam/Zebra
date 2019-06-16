@@ -10,5 +10,4 @@
 
 @interface ZBAlternateIconController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
-@property NSUserDefaults *defaults;
 @end

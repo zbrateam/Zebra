@@ -98,6 +98,7 @@
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
 		9EC4A24F22AABBC8005DDBC7 /* ZBDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDeviceHelper.m */; };
+		9EDC64AF22B3E349004DCBB6 /* ZBDarkModeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC64AE22B3E349004DCBB6 /* ZBDarkModeHelper.m */; };
 		D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */; };
 		D1BF9C7422A826BF00DD9266 /* stores@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1BF9C7222A826BF00DD9266 /* stores@2x.png */; };
 		D1BF9C7522A826BF00DD9266 /* stores@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1BF9C7322A826BF00DD9266 /* stores@3x.png */; };
@@ -257,6 +258,8 @@
 		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
 		9EC4A24D22AABBC8005DDBC7 /* ZBDeviceHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDeviceHelper.h; sourceTree = "<group>"; };
 		9EC4A24E22AABBC8005DDBC7 /* ZBDeviceHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDeviceHelper.m; sourceTree = "<group>"; };
+		9EDC64AD22B3E349004DCBB6 /* ZBDarkModeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDarkModeHelper.h; sourceTree = "<group>"; };
+		9EDC64AE22B3E349004DCBB6 /* ZBDarkModeHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDarkModeHelper.m; sourceTree = "<group>"; };
 		D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStoresListTableViewController.m; sourceTree = "<group>"; };
 		D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStoresListTableViewController.h; sourceTree = "<group>"; };
 		D1BF9C7222A826BF00DD9266 /* stores@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stores@2x.png"; sourceTree = "<group>"; };
@@ -503,6 +506,8 @@
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 				9EC4A24D22AABBC8005DDBC7 /* ZBDeviceHelper.h */,
 				9EC4A24E22AABBC8005DDBC7 /* ZBDeviceHelper.m */,
+				9EDC64AD22B3E349004DCBB6 /* ZBDarkModeHelper.h */,
+				9EDC64AE22B3E349004DCBB6 /* ZBDarkModeHelper.m */,
 			);
 			path = Zebra;
 			sourceTree = "<group>";
@@ -744,6 +749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EDC64AF22B3E349004DCBB6 /* ZBDarkModeHelper.m in Sources */,
 				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
 				36D15327229240F70010EC5C /* UIImageView+Network.m in Sources */,
 				36D15328229240F70010EC5C /* FTWCache.m in Sources */,
