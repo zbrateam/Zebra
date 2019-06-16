@@ -121,7 +121,7 @@
     
     webView.navigationDelegate = self;
     webView.opaque = false;
-    webView.backgroundColor = [UIColor clearColor];
+    webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
     [packageInfoView setPackage:package];
