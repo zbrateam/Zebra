@@ -171,6 +171,7 @@ enum ZBPackageInfoOrder {
         }
         cell.textLabel.text = value;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return cell;
     }else{
         if (cell == nil) {
