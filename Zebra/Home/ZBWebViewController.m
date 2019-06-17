@@ -300,8 +300,7 @@
                              @"cydia",
                              @"electra",
                              @"uncover",
-                             @"
-            ",
+                             @"bigboss",
                              @"modmyi",
                              @"zodttd",
                              ];
