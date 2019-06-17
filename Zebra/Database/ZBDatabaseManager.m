@@ -718,7 +718,7 @@
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *query;
         
-        if (results > 0) {
+        if (results) {
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 LIMIT %d;", name, results];
         }
         else {
