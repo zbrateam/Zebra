@@ -300,8 +300,10 @@
                              @"cydia",
                              @"electra",
                              @"uncover",
-                             @"bigboss",
+                             @"
+            ",
                              @"modmyi",
+                             @"zodttd",
                              ];
         
         switch ([options indexOfObject:repo]) {
@@ -325,6 +327,9 @@
                 break;
             case 6:
                 [self.repoManager addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
+                break;
+            case 7:
+                [self.repoManager addDebLine:@"deb http://zodttd.cydia.com/repo/cydia/ stable main\n"];
                 break;
             default:
                 return;
