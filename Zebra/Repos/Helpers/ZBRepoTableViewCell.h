@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel;
 @property (weak, nonatomic) IBOutlet UIView *accessoryZBView;
-@property NSUserDefaults *defaults;
 
 - (void)clearAccessoryView;
 - (void)hideChevron;

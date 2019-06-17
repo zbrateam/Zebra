@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBWebViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) id<WKNavigationDelegate> navigationDelegate;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
-@property NSUserDefaults *defaults;
 @end
 
 NS_ASSUME_NONNULL_END

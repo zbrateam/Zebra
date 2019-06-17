@@ -5,7 +5,9 @@
 //  Created by Wilson Styres on 3/24/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
-
+#import <ZBAppDelegate.h>
+#import <ZBDeviceHelper.h>
+#import <ZBDarkModeHelper.h>
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -14,8 +16,7 @@
 #import "UIBarButtonItem+blocks.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
-#import <ZBAppDelegate.h>
-#import <ZBDeviceHelper.h>
+
 #import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
@@ -34,7 +35,6 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     //For iOS 9 and 10 Sileo Purchases
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -99,13 +99,9 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:TRUE];
-    if ([self.defaults boolForKey:@"darkMode"]) {
-        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
-    } else {
-        [self.tableView setSeparatorColor:[UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0]];
-    }
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
 }
 
 - (void)dealloc {
@@ -291,7 +287,7 @@
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         UIView *dark = [[UIView alloc] init];
         dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
         [cell setSelectedBackgroundView:dark];
@@ -377,7 +373,7 @@
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
 }
 
--(void)darkMode:(NSNotification *)notif{
+- (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];

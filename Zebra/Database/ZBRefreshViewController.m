@@ -6,10 +6,11 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBTabBarController.h>
+#import <ZBDarkModeHelper.h>
 #import "ZBRefreshViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #include <Parsel/parsel.h>
-#import <ZBTabBarController.h>
 
 @interface ZBRefreshViewController () {
     ZBDatabaseManager *databaseManager;
@@ -23,10 +24,9 @@
 
 @synthesize messages;
 
--(void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.defaults = [NSUserDefaults standardUserDefaults];
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         [self setNeedsStatusBarAppearanceUpdate];
         [self.view setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
         [_consoleView setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
@@ -34,7 +34,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([self.defaults boolForKey:@"darkMode"]) {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;
@@ -99,9 +99,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
+        BOOL isDark = [ZBDarkModeHelper darkModeEnabled];
         switch (level) {
             case ZBLogLevelDescript: {
-                if ([self.defaults boolForKey:@"darkMode"]) {
+                if (isDark) {
                     color = [UIColor whiteColor];
                 } else {
                     color = [UIColor blackColor];
@@ -110,7 +111,7 @@
                 break;
             }
             case ZBLogLevelInfo: {
-                if ([self.defaults boolForKey:@"darkMode"]) {
+                if (isDark) {
                     color = [UIColor whiteColor];
                 } else {
                     color = [UIColor blackColor];

@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBDarkModeHelper.h>
+#import <ZBAppDelegate.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -13,7 +15,6 @@
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBAppDelegate.h"
 
 @interface ZBChangesTableViewController () {
     NSArray *packages;
@@ -60,7 +61,6 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
@@ -203,7 +203,7 @@
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle]];
         
-        if ([self.defaults boolForKey:@"darkMode"]) {
+        if ([ZBDarkModeHelper darkModeEnabled]) {
             [label setTextColor: [UIColor whiteColor]];
         } else {
             [label setTextColor: [UIColor cellPrimaryTextColor]];
@@ -276,11 +276,7 @@
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
-- (void)databaseCompletedUpdate {
-    [self refreshTable];
-}
-
--(void)darkMode:(NSNotification *)notif{
+- (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
