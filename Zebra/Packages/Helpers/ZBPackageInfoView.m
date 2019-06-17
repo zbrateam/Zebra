@@ -203,8 +203,8 @@ enum ZBPackageInfoOrder {
     return [[self class] packageInfoOrder].count;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == infos.count - 1){
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath == [self lastObjectInIndexPath]){
         NSLog(@"View is tapped");
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
@@ -214,8 +214,20 @@ enum ZBPackageInfoOrder {
         [filesController setValue:url forKey:@"_url"];
         
         [[self.parentVC navigationController] pushViewController:filesController animated:true];
-        [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+}
+
+- (NSIndexPath *)lastObjectInIndexPath {
+    // First figure out how many sections there are
+    NSInteger lastSectionIndex = [self.tableView numberOfSections] - 1;
+    
+    // Then grab the number of rows in the last section
+    NSInteger lastRowIndex = [self.tableView numberOfRowsInSection:lastSectionIndex] - 1;
+    
+    // Now just construct the index path
+    NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+    return pathToLastRow;
 }
 
 @end
