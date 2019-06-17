@@ -14,6 +14,11 @@
 #import "ZBPackageDepictionViewController.h"
 @import SDWebImage;
 
+enum ZBPackageInfoOrder {
+    ZBPackageInfoVersion = 0,
+    ZBPackageInfoSize
+};
+
 @interface ZBPackageInfoView () {
     NSMutableDictionary *infos;
 }
