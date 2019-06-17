@@ -26,10 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL needsToPresentRefresh;
 
 /*!
- @brief The database delegate
- @discussion Used to communicate with the presented view controller the status of many database operations.
+ @brief The database delegates
+ @discussion Used to communicate with the view controllers the status of many database operations.
  */
-@property (nonatomic, weak) id <ZBDatabaseDelegate> databaseDelegate;
+@property (nonatomic, strong) NSMutableArray <id <ZBDatabaseDelegate>> *databaseDelegates;
 
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
@@ -107,6 +107,12 @@ NS_ASSUME_NONNULL_BEGIN
  @brief Drops all of the tables in the database.
  */
 - (void)dropTables;
+
+/*!
+ @brief Add database delegate.
+ @param delegate A database delegate to be added.
+ */
+- (void)addDatabaseDelegate:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
  @brief Saves the current date and time into NSUseDefaults.

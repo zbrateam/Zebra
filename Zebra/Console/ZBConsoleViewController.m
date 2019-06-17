@@ -338,7 +338,7 @@
 
 - (void)refreshLocalPackages {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    [databaseManager setDatabaseDelegate:self];
+    [databaseManager addDatabaseDelegate:self];
     [databaseManager importLocalPackagesAndCheckForUpdates:true sender:self];
 }
 

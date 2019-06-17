@@ -162,7 +162,7 @@
     //[self.featuredCollection setNeedsLayout];
     //[self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);
+        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, height);
     }];
     [self.tableView endUpdates];
     //[self.tableView reloadData];

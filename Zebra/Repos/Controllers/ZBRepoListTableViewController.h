@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <Database/ZBDatabaseDelegate.h>
+#import <ZBRefreshableTableViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoListTableViewController : UITableViewController <ZBDatabaseDelegate>
+@interface ZBRepoListTableViewController : ZBRefreshableTableViewController
 @property (readwrite, copy, nonatomic) NSArray *tableData;
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn;
 - (void)handleURL:(NSURL *)url;

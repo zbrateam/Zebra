@@ -21,10 +21,14 @@
     UINavigationController *qvc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
     
     if (vc.navigationController == NULL && parent != NULL) {
-        [parent presentViewController:qvc animated:true completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [parent presentViewController:qvc animated:true completion:nil];
+        });
     }
     else {
-        [vc presentViewController:qvc animated:true completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [vc presentViewController:qvc animated:true completion:nil];
+        });
     }
 }
 

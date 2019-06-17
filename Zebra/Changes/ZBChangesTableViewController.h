@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ZBRefreshableTableViewController.h>
 
 @class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBChangesTableViewController : UITableViewController <UIViewControllerPreviewingDelegate>
-@property (nonatomic, strong) ZBDatabaseManager *databaseManager;
+@interface ZBChangesTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate>
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;
 @property (nonatomic, assign) BOOL continueBatchLoad;

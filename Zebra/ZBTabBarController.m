@@ -39,7 +39,7 @@
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     if (![databaseManager needsToPresentRefresh]) {
-        [databaseManager setDatabaseDelegate:self];
+        [databaseManager addDatabaseDelegate:self];
         [databaseManager updateDatabaseUsingCaching:true userRequested:false];
     }
 }

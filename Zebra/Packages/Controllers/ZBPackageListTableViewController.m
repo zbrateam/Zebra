@@ -44,33 +44,6 @@ typedef enum {
 
 @synthesize repo;
 @synthesize section;
-@synthesize databaseManager;
-
-- (id)init {
-    self = [super init];
-    
-    if (self) {
-        if (!databaseManager) {
-            databaseManager = [ZBDatabaseManager sharedInstance];
-        }
-        selectedSortingType = ZBSortingTypeABC;
-    }
-    
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        if (!databaseManager) {
-            databaseManager = [ZBDatabaseManager sharedInstance];
-        }
-        selectedSortingType = ZBSortingTypeABC;
-    }
-    
-    return self;
-}
 
 - (BOOL)useBatchLoad {
     return YES;
@@ -78,10 +51,10 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    selectedSortingType = ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -116,9 +89,9 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self->databaseManager installedPackages];
-            self->updates = [self->databaseManager packagesWithUpdates];
-            self->ignoredUpdates = [self->databaseManager packagesWithIgnoredUpdates];
+            self->packages = [self.databaseManager installedPackages];
+            self->updates = [self.databaseManager packagesWithUpdates];
+            self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
             NSUInteger totalUpdates = self->updates.count;
             self->needsUpdatesSection = totalUpdates != 0;
@@ -142,13 +115,13 @@ typedef enum {
         }
         else {
             self.batchLoadCount = 500;
-            self->packages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+            self->packages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
             if (self->section != NULL) {
-                self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:self->repo section:self->section];
+                self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:self->section];
             }
             else {
-                self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:self->repo section:NULL];
+                self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:NULL];
             }
             self.batchLoad = YES;
             self.continueBatchLoad = self.batchLoad;
@@ -167,7 +140,7 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self->databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            NSArray *nextPackages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
@@ -212,7 +185,6 @@ typedef enum {
 
 - (void)upgradeAll {
     ZBQueue *queue = [ZBQueue sharedInstance];
-    
     [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
     [self presentQueue];
 }
@@ -283,10 +255,11 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-    } else {
+        cell.packageLabel.textColor = [UIColor whiteColor];
+        cell.descriptionLabel.textColor = [UIColor lightGrayColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+    }
+    else {
         cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
@@ -445,10 +418,6 @@ typedef enum {
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-}
-
-- (void)databaseCompletedUpdate {
-    [self refreshTable];
 }
 
 - (void)darkMode:(NSNotification *)notif {

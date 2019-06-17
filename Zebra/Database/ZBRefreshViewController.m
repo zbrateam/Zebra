@@ -46,7 +46,7 @@
     
     if (!messages) {
         databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager setDatabaseDelegate:self];
+        [databaseManager addDatabaseDelegate:self];
         
         if (_dropTables) {
             [databaseManager dropTables];

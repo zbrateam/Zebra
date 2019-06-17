@@ -27,32 +27,6 @@
 
 @implementation ZBChangesTableViewController
 
-@synthesize databaseManager;
-
-- (id)init {
-    self = [super init];
-    
-    if (self) {
-        if (!databaseManager) {
-            databaseManager = [ZBDatabaseManager sharedInstance];
-        }
-    }
-    
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        if (!databaseManager) {
-            databaseManager = [ZBDatabaseManager sharedInstance];
-        }
-    }
-    
-    return self;
-}
-
 - (BOOL)useBatchLoad {
     return YES;
 }
@@ -62,7 +36,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -85,9 +58,9 @@
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.batchLoadCount = 500;
-        self->packages = [self->databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+        self->packages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
         self->databaseRow = self.batchLoadCount - 1;
-        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInRepo:NULL section:NULL];
+        self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:NULL section:NULL];
         self->numberOfPackages = (int)[self->packages count];
         self.batchLoad = YES;
         self.continueBatchLoad = self.batchLoad;
@@ -103,7 +76,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self->databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            NSArray *nextPackages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
@@ -150,9 +123,8 @@
     sectionIndexTitles = [[partitions allKeys] sortedArrayUsingDescriptors:@[dateDescriptor]];
     NSUInteger sectionCount = [sectionIndexTitles count];
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
-    NSArray *sectionDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
     for (NSDate *date in sectionIndexTitles) {
-        [sections addObject:[partitions[date] sortedArrayUsingDescriptors:sectionDescriptors]];
+        [sections addObject:partitions[date]];
     }
     return sections;
 }

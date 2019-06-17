@@ -44,7 +44,6 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [[databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     self.repoManager = [[ZBRepoManager alloc] init];
@@ -52,24 +51,16 @@
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self layoutNavigationButtons];
     
-    //set up refresh control
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
     self.extendedLayoutIncludesOpaqueBars = true;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseCompletedUpdate) name:@"ZBDatabaseCompletedUpdate" object:nil];
-    [self refreshTable];
-}
-
-- (void)databaseCompletedUpdate {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
 }
 
@@ -100,7 +91,7 @@
     
     if ((url && url.scheme && url.host)) {
         if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
-            if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
+            if (!askedToAddFromClipboard || ![lastPaste isEqualToString:pasteboard.string]) {
                 [self showAddRepoFromClipboardAlert:url];
             }
             askedToAddFromClipboard = YES;
@@ -165,12 +156,6 @@
 - (void)editMode:(id)sender {
     [self setEditing:!self.editing animated:true];
     [self layoutNavigationButtons];
-}
-
-- (void)refreshSources:(id)sender {
-    [databaseManager setDatabaseDelegate:self];
-    [self setRepoRefreshIndicatorVisible:true];
-    [databaseManager updateDatabaseUsingCaching:true userRequested:true];
 }
 
 - (void)refreshTable {
@@ -255,7 +240,6 @@
 }
 
 - (void)showAddRepoFromClipboardAlert:(NSURL *)url {
-//    NSString *message = [NSString stringWithFormat:@"Would you like to add %@?", url.absoluteString];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to add the URL from your clipboard?" message:url.absoluteString preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor tintColor];
     
@@ -491,9 +475,9 @@
 //        [task resume];
 //    }
     if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.repoLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-        cell.urlLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        cell.repoLabel.textColor = [UIColor whiteColor];
+        cell.urlLabel.textColor = [UIColor lightGrayColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
     } else {
         cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
@@ -581,8 +565,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    if (action == @selector(copy:))
-    {
+    if (action == @selector(copy:)) {
         ZBRepoTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
         [pasteBoard setString:cell.urlLabel.text];
@@ -613,10 +596,6 @@
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[self indexPathForPosition:pos]];
 }
 
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
-}
-
 #pragma mark - ZBAddRepoDelegate
 
 - (void)didAddReposWithText:(NSString *)text {
@@ -625,20 +604,10 @@
 
 #pragma mark - Database Delegate
 
-- (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
-    [self setSpinnerVisible:busy forRepo:bfn];
-}
-
-- (void)databaseStartedUpdate {
-    [self setRepoRefreshIndicatorVisible:true];
-}
-
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
-    [self setRepoRefreshIndicatorVisible:false];
+    [super databaseCompletedUpdate:packageUpdates];
     [self clearAllSpinners];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.refreshControl endRefreshing];
         if (self->errorMessages) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
@@ -759,6 +728,5 @@
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
-
 
 @end
