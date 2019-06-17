@@ -15,8 +15,11 @@
 @import SDWebImage;
 
 enum ZBPackageInfoOrder {
-    ZBPackageInfoVersion = 0,
-    ZBPackageInfoSize
+    ZBPackageInfoID = 0,
+    ZBPackageInfoVersion,
+    ZBPackageInfoSize,
+    ZBPackageInfoRepo,
+    ZBPackageInfoInstalledFiles
 };
 
 @interface ZBPackageInfoView () {
@@ -51,6 +54,8 @@ enum ZBPackageInfoOrder {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorColor = [UIColor clearColor];
+    [self.packageIcon.layer setCornerRadius:20];
+    [self.packageIcon.layer setMasksToBounds:TRUE];
 }
 
 - (void)readIcon:(ZBPackage *)package {
@@ -73,16 +78,15 @@ enum ZBPackageInfoOrder {
         
         if (iconURL.length) {
             [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
-            [self.packageIcon.layer setCornerRadius:20];
-            [self.packageIcon.layer setMasksToBounds:TRUE];
         }
     });
 }
 
-- (void)readPackageID:(ZBPackage *)package{
-    if(package.identifier) {
+- (void)readPackageID:(ZBPackage *)package {
+    if (package.identifier) {
         infos[@"packageID"] = package.identifier;
-    }else{
+    }
+    else {
         [infos removeObjectForKey:@"packageID"];
     }
 }
@@ -120,10 +124,11 @@ enum ZBPackageInfoOrder {
     }
 }
 
--(void)readFiles:(ZBPackage *)package{
-    if([package isInstalled:NO]){
-        infos[@"Installed Files"] = @"TRUE";
-    }else{
+- (void)readFiles:(ZBPackage *)package {
+    if ([package isInstalled:NO]) {
+        infos[@"Installed Files"] = @"";
+    }
+    else {
         [infos removeObjectForKey:@"Installed Files"];
     }
 }
@@ -157,43 +162,41 @@ enum ZBPackageInfoOrder {
     
     NSString *property = [[self class] packageInfoOrder][indexPath.row];
     NSString *value = infos[property];
-    if([value isEqualToString:@"TRUE"]){
+    
+    if (indexPath.row == ZBPackageInfoInstalledFiles) {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = property;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-        return cell;
-    }else if([property isEqualToString:@"packageID"]){
+    }
+    else if (indexPath.row == ZBPackageInfoID) {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         }
         cell.textLabel.text = value;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        return cell;
-    }else{
+    }
+    else {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
-        
         if (value) {
             cell.textLabel.text = property;
-            cell.detailTextLabel.text = infos[property];
+            cell.detailTextLabel.text = value;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
-            
         }
         else {
             cell.textLabel.text = nil;
             cell.detailTextLabel.text = nil;
         }
-        
-        return cell;
     }
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -205,8 +208,7 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath == [self lastObjectInIndexPath]){
-        NSLog(@"View is tapped");
+    if (indexPath.row == ZBPackageInfoInstalledFiles) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
         filesController.navigationDelegate = (ZBPackageDepictionViewController *)self.parentVC;
@@ -217,18 +219,6 @@ enum ZBPackageInfoOrder {
         [[self.parentVC navigationController] pushViewController:filesController animated:true];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
-}
-
-- (NSIndexPath *)lastObjectInIndexPath {
-    // First figure out how many sections there are
-    NSInteger lastSectionIndex = [self.tableView numberOfSections] - 1;
-    
-    // Then grab the number of rows in the last section
-    NSInteger lastRowIndex = [self.tableView numberOfRowsInSection:lastSectionIndex] - 1;
-    
-    // Now just construct the index path
-    NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
-    return pathToLastRow;
 }
 
 @end
