@@ -158,6 +158,7 @@
 }
 
 - (void)refreshTable {
+    [self clearAllSpinners];
     self->sources = [[self.databaseManager repos] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateCollation];
@@ -598,7 +599,6 @@
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     [super databaseCompletedUpdate:packageUpdates];
-    [self clearAllSpinners];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
