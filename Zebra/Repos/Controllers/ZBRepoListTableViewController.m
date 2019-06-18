@@ -28,7 +28,6 @@
     NSMutableArray *sources;
     NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
     NSMutableArray *sectionIndexTitles;
-    ZBDatabaseManager *databaseManager;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
     NSString *lastPaste;
@@ -44,7 +43,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
-    sources = [[databaseManager repos] mutableCopy];
+    sources = [[self.databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     self.repoManager = [[ZBRepoManager alloc] init];
     
@@ -159,17 +158,11 @@
 }
 
 - (void)refreshTable {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:false];
-    }
-    else {
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        sources = [[databaseManager repos] mutableCopy];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateCollation];
-            [self.tableView reloadData];
-        });
-    }
+    self->sources = [[self.databaseManager repos] mutableCopy];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateCollation];
+        [self.tableView reloadData];
+    });
 }
 
 - (void)updateCollation {
@@ -417,8 +410,7 @@
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     
-//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-//    UIImage *icon = [databaseManager iconForRepo:source];
+//    UIImage *icon = [self.databaseManager iconForRepo:source];
     
 //    if (icon != NULL) {
 //        cell.iconImageView.image = icon;
@@ -450,7 +442,7 @@
 //                            [updateCell setNeedsLayout];
 //                        }
 //                    });
-//                    [databaseManager saveIcon:image forRepo:source];
+//                    [self.databaseManager saveIcon:image forRepo:source];
 //                }
 //                else {
 //                    dispatch_async(dispatch_get_main_queue(), ^{
@@ -507,7 +499,7 @@
         
         [self.repoManager deleteSource:delRepo];
         ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:(int)[databaseManager packagesWithUpdates].count];
+        [tabController setPackageUpdateBadgeValue:(int)[self.databaseManager packagesWithUpdates].count];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     }
 }
