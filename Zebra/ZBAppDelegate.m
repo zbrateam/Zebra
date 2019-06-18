@@ -10,6 +10,7 @@
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
 #import "ZBDarkModeHelper.h"
+#import "ZBDeviceHelper.h"
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
@@ -22,7 +23,6 @@
 @interface ZBAppDelegate ()
 
 @end
-
 
 static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
@@ -38,9 +38,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
         NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
         
-        BOOL dirExsits = FALSE;
-        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
-        if (!dirExsits) {
+        BOOL dirExists = FALSE;
+        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
+        if (!dirExists) {
             NSLog(@"[Zebra] Creating documents directory.");
             NSError *error;
             [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
@@ -119,23 +119,45 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     return debs;
 }
 
-+ (void)sendErrorToTabController:(NSString *)error {
++ (void)sendErrorToTabController:(NSString *)error blockAction:(NSString *)action block:(void (^)(void))block {
     ZBTabBarController *tabController = (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
     if (tabController != NULL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"An Error Occured" message:error preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
-            
+            if (action != nil && block != NULL) {
+                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:action style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
+                    block();
+                }];
+                [errorAlert addAction:blockAction];
+            }
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil];
             [errorAlert addAction:okAction];
-            
             [tabController presentViewController:errorAlert animated:true completion:nil];
         });
     }
 }
 
++ (void)sendErrorToTabController:(NSString *)error {
+    [self sendErrorToTabController:error blockAction:nil block:NULL];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
+    NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
+    if (![[self class] needsSimulation] && ![documentsDirectory isEqualToString:@"/var/mobile/Documents"]) {
+        // Zebra is sandboxed, warn user and let them run uicache again
+        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), please run uicache to make Zebra root and working as intended, several issues otherwise. Your device will respring after a while.", documentsDirectory] blockAction:@"Run uicache" block:^(void) {
+            // TODO: Better jailbreak tool detection
+            NSMutableArray *arguments = [NSMutableArray array];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) {
+                [arguments addObject:@"-a"];
+            }
+            [ZBDeviceHelper uicache:arguments observer:nil];
+            [ZBDeviceHelper sbreload];
+        }];
+        return NO;
+    }
     [self setupSDWebImageCache];
     [ZBDarkModeHelper applySettings];
     

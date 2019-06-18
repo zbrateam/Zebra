@@ -7,8 +7,9 @@
 //
 
 #import "ZBConsoleViewController.h"
-#import <Queue/ZBQueue.h>
 #import <NSTask.h>
+#import <ZBDeviceHelper.h>
+#import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
@@ -255,25 +256,7 @@
         }
         
         if (![ZBAppDelegate needsSimulation]) {
-            NSTask *task = [[NSTask alloc] init];
-            [task setLaunchPath:@"/usr/bin/uicache"];
-            [task setArguments:arguments];
-            
-            NSPipe *outputPipe = [[NSPipe alloc] init];
-            NSFileHandle *output = [outputPipe fileHandleForReading];
-            [output waitForDataInBackgroundAndNotify];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-            
-            NSPipe *errorPipe = [[NSPipe alloc] init];
-            NSFileHandle *error = [errorPipe fileHandleForReading];
-            [error waitForDataInBackgroundAndNotify];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-            
-            [task setStandardOutput:outputPipe];
-            [task setStandardError:errorPipe];
-            
-            [task launch];
-            [task waitUntilExit];
+            [ZBDeviceHelper uicache:arguments observer:self];
         }
         else {
             [self writeToConsole:@"uicache is not available on the simulator\n" atLevel:ZBLogLevelWarning];
@@ -316,24 +299,13 @@
 }
 
 - (void)goodbye {
+    [self clearConsole];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)restartSpringBoard {
     //Bye!
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/sbreload"];
-    [task launch];
-    [task waitUntilExit];
-    
-    if ([task terminationStatus] != 0) {
-        NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
-        //Ideally, this is only if sbreload fails
-        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-        [task setArguments:@[@"/bin/launchctl", @"stop", @"com.apple.backboardd"]];
-        
-        [task launch];
-    }
+    [ZBDeviceHelper sbreload];
 }
 
 - (void)refreshLocalPackages {
@@ -455,8 +427,12 @@
     });
 }
 
+- (void)clearConsole {
+    _consoleView.text = nil;
+}
+
 - (IBAction)complete:(id)sender {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self goodbye];
 }
 
 #pragma mark - Hyena Delegate

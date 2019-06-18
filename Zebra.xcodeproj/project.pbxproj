@@ -257,6 +257,7 @@
 		9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangesTableViewController.m; sourceTree = "<group>"; };
 		9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshableTableViewController.h; sourceTree = "<group>"; };
 		9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshableTableViewController.m; sourceTree = "<group>"; };
+		9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleCommandDelegate.h; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
 		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
 		9EC4A24D22AABBC8005DDBC7 /* ZBDeviceHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDeviceHelper.h; sourceTree = "<group>"; };
@@ -513,6 +514,7 @@
 				9EDC64AE22B3E349004DCBB6 /* ZBDarkModeHelper.m */,
 				9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */,
 				9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */,
+				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
 			);
 			path = Zebra;
 			sourceTree = "<group>";

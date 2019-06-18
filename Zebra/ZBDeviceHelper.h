@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import <ZBConsoleCommandDelegate.h>
 
 @interface ZBDeviceHelper : NSObject
-+ (NSString *)UDID;
-+ (NSString *)deviceModelID;
-+ (NSString *)machineID;
++ (NSString *_Nullable)UDID;
++ (NSString *_Nullable)deviceModelID;
++ (NSString *_Nullable)machineID;
++ (void)sbreload;
++ (void)uicache:(NSArray *_Nonnull)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
 @end
-
-NS_ASSUME_NONNULL_END
