@@ -21,6 +21,7 @@
     [super viewDidLoad];
     defaults = [NSUserDefaults standardUserDefaults];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -31,7 +32,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
     if(!wishedPackages){
         wishedPackages = [NSMutableArray new];
