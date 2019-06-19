@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property UIViewController *parentVC;
+@property ZBPackage *depictionPackage;
 + (CGFloat)rowHeight;
 - (NSUInteger)rowCount;
 - (void)setPackage:(ZBPackage *)package;

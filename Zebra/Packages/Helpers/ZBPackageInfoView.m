@@ -19,6 +19,8 @@ enum ZBPackageInfoOrder {
     ZBPackageInfoVersion,
     ZBPackageInfoSize,
     ZBPackageInfoRepo,
+    ZBPackageInfoWishList,
+    ZBPackageInfoMoreBy,
     ZBPackageInfoInstalledFiles
 };
 
@@ -42,6 +44,8 @@ enum ZBPackageInfoOrder {
             @"Version",
             @"Size",
             @"Repo",
+            @"wishList",
+            @"moreBy",
             @"Installed Files"
         ];
     });
@@ -91,6 +95,19 @@ enum ZBPackageInfoOrder {
     }
 }
 
+- (void)checkWishList:(ZBPackage *)package {
+    NSArray *wishList = [[NSUserDefaults standardUserDefaults] objectForKey:@"wishList"];
+    if([wishList containsObject:package.identifier]){
+        infos[@"wishList"] = @"Remove from Wishlist";
+    }else{
+        infos[@"wishList"] = @"Add to Wishlist";
+    }
+}
+
+- (void)setMoreByText:(ZBPackage *)package {
+    infos[@"moreBy"] = @"More by this Developer";
+}
+
 - (void)readVersion:(ZBPackage *)package {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
         infos[@"Version"] = [package version];
@@ -134,17 +151,44 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)setPackage:(ZBPackage *)package {
+    self.depictionPackage = package;
     [self readIcon:package];
     [self readVersion:package];
     [self readSize:package];
     [self readRepo:package];
     [self readFiles:package];
     [self readPackageID:package];
+    [self checkWishList:package];
+    [self setMoreByText:package];
     [self.tableView reloadData];
 }
 
 - (NSUInteger)rowCount {
     return infos.count;
+}
+
+- (void)generateWishlist{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *wishList = [[defaults objectForKey:@"wishList"] mutableCopy];
+    if(!wishList){
+        wishList = [NSMutableArray new];
+    }
+    NSLog(@"WISHLIST %@", wishList);
+    if([wishList containsObject:self.depictionPackage.identifier]){
+        [wishList removeObject:self.depictionPackage.identifier];
+        [defaults setObject:wishList forKey:@"wishList"];
+        [defaults synchronize];
+        [self checkWishList:self.depictionPackage];
+        NSLog(@"WISHLIST yer %@", wishList);
+        [self.tableView reloadData];
+    }else{
+        [wishList addObject:self.depictionPackage.identifier];
+        [defaults setObject:wishList forKey:@"wishList"];
+        [defaults synchronize];
+        [self checkWishList:self.depictionPackage];
+        NSLog(@"WISHLIST YEET %@", wishList);
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -169,6 +213,14 @@ enum ZBPackageInfoOrder {
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = property;
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+    }
+    else if (indexPath.row == ZBPackageInfoMoreBy || indexPath.row == ZBPackageInfoWishList) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = value;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
     }
     else if (indexPath.row == ZBPackageInfoID) {
@@ -218,7 +270,13 @@ enum ZBPackageInfoOrder {
         
         [[self.parentVC navigationController] pushViewController:filesController animated:true];
     }
+    else if (indexPath.row == ZBPackageInfoWishList) {
+        [self generateWishlist];
+    }
+        
+    
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    
 }
 
 @end

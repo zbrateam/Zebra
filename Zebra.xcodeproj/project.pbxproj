@@ -40,6 +40,7 @@
 		36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AEB22A34F1300A4604C /* lightZebraSkin~ipad@2x.png */; };
 		36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AED22A34F2700A4604C /* lightZebraSkin~ipad@3x.png */; };
 		36F77AF122A350BE00A4604C /* ZBAlternateIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F77AF022A350BE00A4604C /* ZBAlternateIconController.m */; };
+		36FBA3DB22B9FACC004F5093 /* ZBWishListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36FBA3DA22B9FACC004F5093 /* ZBWishListTableViewController.m */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
@@ -160,6 +161,8 @@
 		36F77AED22A34F2700A4604C /* lightZebraSkin~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin~ipad@3x.png"; sourceTree = "<group>"; };
 		36F77AEF22A350BE00A4604C /* ZBAlternateIconController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconController.h; sourceTree = "<group>"; };
 		36F77AF022A350BE00A4604C /* ZBAlternateIconController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconController.m; sourceTree = "<group>"; };
+		36FBA3D922B9FACC004F5093 /* ZBWishListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWishListTableViewController.h; sourceTree = "<group>"; };
+		36FBA3DA22B9FACC004F5093 /* ZBWishListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWishListTableViewController.m; sourceTree = "<group>"; };
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
@@ -317,6 +320,16 @@
 				36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */,
 			);
 			path = AltIcons;
+			sourceTree = "<group>";
+		};
+		36FBA3DC22B9FAD5004F5093 /* WishList */ = {
+			isa = PBXGroup;
+			children = (
+				36FBA3D922B9FACC004F5093 /* ZBWishListTableViewController.h */,
+				36FBA3DA22B9FACC004F5093 /* ZBWishListTableViewController.m */,
+			);
+			name = WishList;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		8900FA512201EC6800476310 /* Helpers */ = {
@@ -545,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				D1BF9C6D22A826B300DD9266 /* Stores */,
+				36FBA3DC22B9FAD5004F5093 /* WishList */,
 				89E8633821D5A1AA0081E485 /* ZBWebViewController.h */,
 				89E8633921D5A1AA0081E485 /* ZBWebViewController.m */,
 				36F77AEF22A350BE00A4604C /* ZBAlternateIconController.h */,
@@ -757,6 +771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EDC64AF22B3E349004DCBB6 /* ZBDarkModeHelper.m in Sources */,
+				36FBA3DB22B9FACC004F5093 /* ZBWishListTableViewController.m in Sources */,
 				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
 				36D15327229240F70010EC5C /* UIImageView+Network.m in Sources */,
 				36D15328229240F70010EC5C /* FTWCache.m in Sources */,

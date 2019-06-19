@@ -456,6 +456,27 @@
             </objects>
             <point key="canvasLocation" x="3348" y="-287.40629685157421"/>
         </scene>
+        <!--Wish List-->
+        <scene sceneID="OSK-WG-rrU">
+            <objects>
+                <tableViewController storyboardIdentifier="wishListController" title="Wish List" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EZp-oK-GMJ" customClass="ZBWishListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6SK-PC-Jh7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="EZp-oK-GMJ" id="f2U-sA-jqO"/>
+                            <outlet property="delegate" destination="EZp-oK-GMJ" id="bff-Wh-OMx"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="B5D-p6-E07" kind="show" identifier="segueWishToPackageDepiction" id="zKt-1l-gI8"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yz5-O4-SaC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3356" y="-2346"/>
+        </scene>
         <!--Stores-->
         <scene sceneID="uaX-zg-faQ">
             <objects>
@@ -1037,7 +1058,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="jak-5S-dzd"/>
+        <segue reference="zKt-1l-gI8"/>
         <segue reference="TU3-4Y-Pen"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
