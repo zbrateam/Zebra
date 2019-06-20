@@ -6,9 +6,7 @@
 * classdump-dyld is licensed under GPLv3, Copyright © 2013-2016 by Elias Limneos.
 */
 
-
-//#import <Foundation/Foundation-Structs.h>
-@class NSURL, NSArray, NSDictionary;
+#import <Foundation/Foundation.h>
 
 @interface NSTask : NSObject
 

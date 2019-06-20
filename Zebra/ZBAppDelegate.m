@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import "NSTask.h"
 #import "ZBAppDelegate.h"
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
@@ -145,15 +146,24 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-    if (![[self class] needsSimulation] && ![documentsDirectory isEqualToString:@"/var/mobile/Documents"]) {
+    if (![[self class] needsSimulation] && ![documentsDirectory hasPrefix:@"/var/mobile/Documents"] && [documentsDirectory hasPrefix:@"/var/mobile/Containers/Data/Application/"]) {
         // Zebra is sandboxed, warn user and let them run uicache again
-        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), please run uicache to make Zebra root and working as intended, several issues otherwise. Your device will respring after a while.", documentsDirectory] blockAction:@"Run uicache" block:^(void) {
-            // TODO: Better jailbreak tool detection
-            NSMutableArray *arguments = [NSMutableArray array];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) {
-                [arguments addObject:@"-a"];
-            }
-            [ZBDeviceHelper uicache:arguments observer:nil];
+        NSTask *task = [[NSClassFromString(@"NSTask") alloc] init];
+        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and Zebra needs to be killed. If you ignore this, you may have several issues using Zebra. Proceed?", documentsDirectory] blockAction:@"Yes" block:^(void) {
+            [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+            [task setArguments:@[@"rm", @"-rf", documentsDirectory]];
+            
+            NSPipe *outputPipe = [[NSPipe alloc] init];
+            NSFileHandle *output = [outputPipe fileHandleForReading];
+            [output waitForDataInBackgroundAndNotify];
+            NSPipe *errorPipe = [[NSPipe alloc] init];
+            NSFileHandle *error = [errorPipe fileHandleForReading];
+            [error waitForDataInBackgroundAndNotify];
+            [task setStandardOutput:outputPipe];
+            [task setStandardError:errorPipe];
+            
+            [task launch];
+            [task waitUntilExit];
             [ZBDeviceHelper sbreload];
         }];
         return NO;

@@ -3,6 +3,14 @@
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
 
+# Prevent Zebra from choosing a sandbox path for its directory
+if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
+    DBPATH=$(ls /var/mobile/Containers/Data/Application/*/Documents/zebra.db)
+    ZBPATH=${DBPATH/Documents\/zebra.db/}
+    rm -rf ${ZBPATH}
+    echo "Removed sandboxed Zebra document directory"
+fi
+
 # Create Documents directory if it does not already exist
 mkdir -p /var/mobile/Documents
 
