@@ -356,7 +356,11 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
         if (sqlite3_prepare_v2(database, packageInsertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPackage, packageIdentifier, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnName, dict_get(package, "Name"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, dict_get(package, "Version"), -1, SQLITE_TRANSIENT);
+            const char *packageVersion = dict_get(package, "Version");
+            if (packageVersion == NULL) {
+                dict_add(package, "Version", packageVersion = "1.0");
+            }
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, packageVersion, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnShortDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
             if (longDescription[0] == '\0' || isspace(longDescription[0]))
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, NULL, -1, SQLITE_TRANSIENT);
