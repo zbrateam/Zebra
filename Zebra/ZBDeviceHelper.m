@@ -42,12 +42,16 @@
 }
 
 + (void)sbreload {
+#if !TARGET_OS_SIMULATOR
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/sbreload"];
-    [task launch];
-    [task waitUntilExit];
+    BOOL hasSbreload = [[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/sbreload"];
+    if (hasSbreload) {
+        [task setLaunchPath:@"/usr/bin/sbreload"];
+        [task launch];
+        [task waitUntilExit];
+    }
     
-    if ([task terminationStatus] != 0) {
+    if (!hasSbreload || [task terminationStatus] != 0) {
         NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
         //Ideally, this is only if sbreload fails
         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
@@ -55,9 +59,11 @@
         
         [task launch];
     }
+#endif
 }
 
 + (void)uicache:(NSArray *)arguments observer:(NSObject <ZBConsoleCommandDelegate> *)observer {
+#if !TARGET_OS_SIMULATOR
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
     [task setArguments:[@[@"/usr/bin/uicache"] arrayByAddingObjectsFromArray:arguments]];
@@ -77,6 +83,7 @@
     
     [task launch];
     [task waitUntilExit];
+#endif
 }
 
 @end
