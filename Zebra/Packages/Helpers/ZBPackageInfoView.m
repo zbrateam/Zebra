@@ -99,17 +99,17 @@ enum ZBPackageInfoOrder {
 
 - (void)checkWishList:(ZBPackage *)package {
     NSArray *wishList = [[NSUserDefaults standardUserDefaults] objectForKey:@"wishList"];
-    if([wishList containsObject:package.identifier]){
+    if ([wishList containsObject:package.identifier]) {
         infos[@"wishList"] = @"Remove from Wishlist";
-    }else{
+    } else {
         infos[@"wishList"] = @"Add to Wishlist";
     }
 }
 
 - (void)setMoreByText:(ZBPackage *)package {
-    if(package.author){
+    if (package.author) {
         infos[@"moreBy"] = @"More by this Developer";
-    }else{
+    } else {
         [infos removeObjectForKey:@"moreBy"];
     }
 }
@@ -158,9 +158,9 @@ enum ZBPackageInfoOrder {
 
 - (void)readAuthor:(ZBPackage *)package {
     NSString *authorName = [package author];
-    if (authorName){
+    if (authorName) {
         infos[@"Author"] = [self stripEmailFromAuthor];
-    }else{
+    } else {
         [infos removeObjectForKey:@"Author"];
     }
 }
@@ -183,21 +183,21 @@ enum ZBPackageInfoOrder {
     return infos.count;
 }
 
-- (void)generateWishlist{
+- (void)generateWishlist {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *wishList = [[defaults objectForKey:@"wishList"] mutableCopy];
-    if(!wishList){
+    if (!wishList) {
         wishList = [NSMutableArray new];
     }
     NSLog(@"WISHLIST %@", wishList);
-    if([wishList containsObject:self.depictionPackage.identifier]){
+    if ([wishList containsObject:self.depictionPackage.identifier]) {
         [wishList removeObject:self.depictionPackage.identifier];
         [defaults setObject:wishList forKey:@"wishList"];
         [defaults synchronize];
         [self checkWishList:self.depictionPackage];
         NSLog(@"WISHLIST yer %@", wishList);
         [self.tableView reloadData];
-    }else{
+    } else {
         [wishList addObject:self.depictionPackage.identifier];
         [defaults setObject:wishList forKey:@"wishList"];
         [defaults synchronize];
@@ -210,13 +210,13 @@ enum ZBPackageInfoOrder {
 - (NSString *)stripEmailFromAuthor {
     NSArray *authorName = [self.depictionPackage.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName){
-        if(![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]){
+    for(NSString *cut in authorName) {
+        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
             [cleanedStrings addObject:cut];
-        }else{
+        } else {
             NSString *cutCopy = [cut copy];
-            cutCopy = [cut substringFromIndex:[@"<" length]];
-            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length-@">".length)];
+            cutCopy = [cut substringFromIndex:1];
+            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
             self.authorEmail = cutCopy;
         }
     }
@@ -224,7 +224,7 @@ enum ZBPackageInfoOrder {
     return [cleanedStrings componentsJoinedByString:@" "];
 }
 
-- (void)sendEmailToDeveloper{
+- (void)sendEmailToDeveloper {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
@@ -236,7 +236,7 @@ enum ZBPackageInfoOrder {
         [mail setToRecipients:@[self.authorEmail]];
         
         [self.parentVC presentViewController:mail animated:YES completion:NULL];
-    }else{
+    } else {
         NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@ Support Zebra %@", self.authorEmail, self.depictionPackage.name, @"Arbitrary Number"];
         NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         if (@available(iOS 10.0, *)) {
@@ -298,9 +298,9 @@ enum ZBPackageInfoOrder {
         }
         cell.textLabel.text = value;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-        if(self.authorEmail){
+        if (self.authorEmail) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }else {
+        } else {
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
     }
@@ -345,9 +345,9 @@ enum ZBPackageInfoOrder {
     }
     else if (indexPath.row == ZBPackageInfoWishList) {
         [self generateWishlist];
-    }else if(indexPath.row == ZBPackageInfoMoreBy) {
+    } else if (indexPath.row == ZBPackageInfoMoreBy) {
         [self.parentVC performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
-    }else if(indexPath.row == ZBPackageInfoAuthor && self.authorEmail){
+    } else if (indexPath.row == ZBPackageInfoAuthor && self.authorEmail) {
         [self sendEmailToDeveloper];
     }
         

@@ -1176,7 +1176,7 @@
             int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
             if (repoID > 0) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                if(![packageIdentifiers containsObject:package.identifier]){
+                if (![packageIdentifiers containsObject:package.identifier]) {
                     [packageIdentifiers addObject:package.identifier];
                 }
             }

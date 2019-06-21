@@ -31,7 +31,7 @@
 + (UIColor *)tableViewBackgroundColor {
     if ([ZBDarkModeHelper darkModeEnabled]) {
         return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
-    }else{
+    } else {
         return [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     }
 }
@@ -51,7 +51,7 @@
 + (UIColor *)cellPrimaryTextColor {
     if ([ZBDarkModeHelper darkModeEnabled]) {
         return [UIColor whiteColor];
-    }else{
+    } else {
         return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     }
 }
@@ -59,7 +59,7 @@
 + (UIColor *)cellSecondaryTextColor {
     if ([ZBDarkModeHelper darkModeEnabled]) {
         return [UIColor lightGrayColor];
-    }else{
+    } else {
         return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
     }
     
@@ -68,7 +68,7 @@
 + (UIColor *)cellSeparatorColor {
     if ([ZBDarkModeHelper darkModeEnabled]) {
         return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
-    }else{
+    } else {
         return [UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0];
     }
 }

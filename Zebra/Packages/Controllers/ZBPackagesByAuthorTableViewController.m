@@ -8,7 +8,7 @@
 
 #import "ZBPackagesByAuthorTableViewController.h"
 
-@interface ZBPackagesByAuthorTableViewController (){
+@interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
 }
 

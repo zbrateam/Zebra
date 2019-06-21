@@ -33,7 +33,7 @@
     [super viewWillAppear:TRUE];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
-    if(!wishedPackages){
+    if (!wishedPackages) {
         wishedPackages = [NSMutableArray new];
     }
     [self.tableView reloadData];
@@ -59,9 +59,9 @@
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
     if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
+        cell.packageLabel.textColor = [UIColor whiteColor];
+        cell.descriptionLabel.textColor = [UIColor lightGrayColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
     } else {
         cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];

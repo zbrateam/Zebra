@@ -90,7 +90,7 @@
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     if ([ZBDarkModeHelper darkModeEnabled]) {
         configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
-    }else {
+    } else {
         configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
     }
     
@@ -146,9 +146,9 @@
     
     //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     
-    if([package depictionURL]){
+    if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
-    }else{
+    } else {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
@@ -158,9 +158,9 @@
 - (void)prepDepictionLoading:(NSURL *)url {
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    /*if([package depictionURL]){
+    /*if ([package depictionURL]) {
         request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
-    }else{
+    } else {
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
         request = [[NSMutableURLRequest alloc] initWithURL:url];
     }*/
@@ -373,7 +373,7 @@
         if ([package isReinstallable]) {
             if ([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
                 [self determinePaidPackage];
-            }else{
+            } else {
                 UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
                 self.navigationItem.rightBarButtonItem = modifyButton;
             }
@@ -430,12 +430,12 @@
                         self->package.sileoDownload = TRUE;
                         self.purchased = TRUE;
                         
-                    }else if (purchased && available && [self->package isInstalled:false] && [self->package isReinstallable]){
+                    } else if (purchased && available && [self->package isInstalled:false] && [self->package isReinstallable]) {
                         self->package.sileoDownload = TRUE;
                         self.purchased = TRUE;
                         title = @"Modify";
                         selector = @selector(modifyPackage);
-                    }else if (purchased && available && [self->package isInstalled:false] && ![self->package isReinstallable]){
+                    } else if (purchased && available && [self->package isInstalled:false] && ![self->package isReinstallable]) {
                         self->package.sileoDownload = TRUE;
                         self.purchased = TRUE;
                         title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
@@ -611,7 +611,7 @@
 
 //More By author button;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePackageDepictionToMorePackages"]){
+    if ([[segue identifier] isEqualToString:@"seguePackageDepictionToMorePackages"]) {
         ZBPackagesByAuthorTableViewController *destination = (ZBPackagesByAuthorTableViewController *)[segue destinationViewController];
         NSString *authorName = sender;
         destination.package = self.package;
