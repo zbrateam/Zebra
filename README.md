@@ -24,7 +24,7 @@ Pull requests to fix bugs, add new features, and fix awful code (I'm sure there 
 #### From an APT Repo
 Zebra is available from my personal APT repo for iOS located [here](https://xtm3x.github.io/repo).
 
-This source can be added to Cydia on your iPhone or iPad and it is included by defeault with Zebra to provide future updates.
+This source can be added to Cydia on your iPhone or iPad and it is included by default with Zebra to provide future updates.
 
 #### Pre-compiled debs
 Pre-compiled debs are available via GitHub releases, if that is your fancy.
@@ -33,8 +33,7 @@ Pre-compiled debs are available via GitHub releases, if that is your fancy.
 If you want to compile Zebra yourself, you can use the following steps. A computer running macOS is _required_ and must have Xcode installed.
 
 1. Clone this repository using `git clone https://github.com/wstyres/Zebra.git`
-2. Open the Zebra.xcodeproj and configure the signing identities so that it will compile properly
-3. `cd` into the `Zebra` folder
-4. run `make do`
+2. `cd` into the `Zebra` folder
+3. run `make do`
    1. If you don't have `theos` already installed on your computer, follow the steps located [here](https://github.com/theos/theos/wiki/Installation).
-5. Done!
+4. Done!
