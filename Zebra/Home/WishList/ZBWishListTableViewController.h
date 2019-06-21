@@ -13,6 +13,7 @@
 #import "UIColor+GlobalColors.h"
 #import "ZBDatabaseManager.h"
 #import "ZBPackageDepictionViewController.h"
+#import "ZBPackageActionsManager.h"
 
 @interface ZBWishListTableViewController : UITableViewController
 @property NSUserDefaults *defaults;
