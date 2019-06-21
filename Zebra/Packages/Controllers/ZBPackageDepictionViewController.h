@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import <Packages/Helpers/ZBPackageInfoView.h>
+#import <Packages/Controllers/ZBPackagesByAuthorTableViewController.h>
 @import SafariServices;
 
 @class ZBPackage;

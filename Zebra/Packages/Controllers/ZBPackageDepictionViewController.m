@@ -152,9 +152,10 @@
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    
 }
 
--(void)prepDepictionLoading:(NSURL *)url{
+- (void)prepDepictionLoading:(NSURL *)url {
     //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     /*if([package depictionURL]){
@@ -370,8 +371,12 @@
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([package isInstalled:false]) {
         if ([package isReinstallable]) {
-            UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
-            self.navigationItem.rightBarButtonItem = modifyButton;
+            if ([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
+                [self determinePaidPackage];
+            }else{
+                UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+                self.navigationItem.rightBarButtonItem = modifyButton;
+            }
         }
         else {
             UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
@@ -421,8 +426,20 @@
                     if (!purchased && available) {
                         title = json[@"price"];
                         selector = @selector(purchasePackage);
-                    } else if (purchased && available) {
+                    } else if (purchased && available && ![self->package isInstalled:false]) {
                         self->package.sileoDownload = TRUE;
+                        self.purchased = TRUE;
+                        
+                    }else if (purchased && available && [self->package isInstalled:false] && [self->package isReinstallable]){
+                        self->package.sileoDownload = TRUE;
+                        self.purchased = TRUE;
+                        title = @"Modify";
+                        selector = @selector(modifyPackage);
+                    }else if (purchased && available && [self->package isInstalled:false] && ![self->package isReinstallable]){
+                        self->package.sileoDownload = TRUE;
+                        self.purchased = TRUE;
+                        title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
+                        selector = @selector(removePackage);
                     }
                 }
                 UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
@@ -591,4 +608,15 @@
     [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [packageInfoView.packageName setTextColor:[UIColor cellPrimaryTextColor]];
 }
+
+//More By author button;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"seguePackageDepictionToMorePackages"]){
+        ZBPackagesByAuthorTableViewController *destination = (ZBPackagesByAuthorTableViewController *)[segue destinationViewController];
+        NSString *authorName = sender;
+        destination.package = self.package;
+        destination.developerName = authorName;
+    }
+}
+
 @end
