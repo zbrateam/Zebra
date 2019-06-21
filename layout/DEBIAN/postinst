@@ -26,6 +26,9 @@ fi
 # Create Documents directory if it does not already exist
 mkdir -p /var/mobile/Documents
 
-#I don't like this but why are people's doc directory owned by root??
+# I don't like this but why are people's doc directory owned by root??
 chown mobile:mobile /var/mobile/Documents
 chmod 0755 /var/mobile/Documents
+
+# I really don't like this, but its the only way to ensure alternate icons are available -MNC
+uicache -p /Applications/Zebra.app
