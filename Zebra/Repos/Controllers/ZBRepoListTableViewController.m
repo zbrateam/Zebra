@@ -87,11 +87,14 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
+    NSArray *urlBlacklist = @[@"youtube.com", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
     
     if ((url && url.scheme && url.host)) {
         if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
-            if (!askedToAddFromClipboard || ![lastPaste isEqualToString:pasteboard.string]) {
-                [self showAddRepoFromClipboardAlert:url];
+            if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
+                if (![urlBlacklist containsObject:url.host]) {
+                    [self showAddRepoFromClipboardAlert:url];
+                }
             }
             askedToAddFromClipboard = YES;
             lastPaste = pasteboard.string;
