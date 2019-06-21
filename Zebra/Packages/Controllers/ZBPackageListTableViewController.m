@@ -72,10 +72,10 @@ typedef enum {
 
 - (void)configureNavigationButtons {
     if ([repo repoID] == 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self addUpgradeButton];
-            [self addQueueButtonOrSegmented];
-        });
+        [self configureUpgradeButton];
+        [self configureQueueOrSortButton];
+    } else {
+        [self configureLoadMoreButton];
     }
 }
 
@@ -114,7 +114,7 @@ typedef enum {
             self->isRefreshingTable = NO;
         }
         else {
-            self.batchLoadCount = 500;
+            self.batchLoadCount = 700;
             self->packages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
             if (self->section != NULL) {
@@ -125,6 +125,7 @@ typedef enum {
             }
             self.batchLoad = YES;
             self.continueBatchLoad = self.batchLoad;
+            [self configureLoadMoreButton];
         }
         self->numberOfPackages = (int)[self->packages count];
         
@@ -138,45 +139,67 @@ typedef enum {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->databaseRow < self->totalNumberOfPackages) {
+        if (self->numberOfPackages < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
             NSArray *nextPackages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
-                return;
             }
-            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
-            self->numberOfPackages = (int)[self->packages count];
-            self->databaseRow += self.batchLoadCount;
-            [self updateCollation];
-            [self.tableView reloadData];
-            self.isPerformingBatchLoad = NO;
+            else {
+                self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
+                self->numberOfPackages = (int)[self->packages count];
+                [self updateCollation];
+                [self.tableView reloadData];
+                self.isPerformingBatchLoad = NO;
+            }
+        }
+        else {
+            self.continueBatchLoad = self.isPerformingBatchLoad = NO;
+        }
+        [self configureLoadMoreButton];
+    });
+}
+
+- (void)configureUpgradeButton {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->needsUpdatesSection) {
+            UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
+            self.navigationItem.rightBarButtonItem = updateButton;
+        }
+        else {
+            self.navigationItem.rightBarButtonItem = nil;
         }
     });
 }
 
-- (void)addUpgradeButton {
-    if (needsUpdatesSection) {
-        UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
-        self.navigationItem.rightBarButtonItem = updateButton;
-    }
-    else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+- (void)configureLoadMoreButton {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.continueBatchLoad) {
+            if (self->totalNumberOfPackages) {
+                UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% Loaded", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages)] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
+                self.navigationItem.rightBarButtonItem = loadButton;
+            }
+        }
+        else {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    });
 }
 
-- (void)addQueueButtonOrSegmented {
-    if ([[ZBQueue sharedInstance] hasObjects]) {
-        UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-        self.navigationItem.leftBarButtonItem = queueButton;
-    }
-    else {
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
-        segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
-        [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-        UIBarButtonItem *controlItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
-        self.navigationItem.leftBarButtonItem = controlItem;
-    }
+- (void)configureQueueOrSortButton {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([[ZBQueue sharedInstance] hasObjects]) {
+            UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+            self.navigationItem.leftBarButtonItem = queueButton;
+        }
+        else {
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
+            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+            [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+            UIBarButtonItem *controlItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+            self.navigationItem.leftBarButtonItem = controlItem;
+        }
+    });
 }
 
 - (void)presentQueue {
