@@ -146,8 +146,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-    if (![[self class] needsSimulation] && ![documentsDirectory hasPrefix:@"/var/mobile/Documents"] && [documentsDirectory hasPrefix:@"/var/mobile/Containers/Data/Application/"]) {
-        // Zebra is sandboxed, warn user and let them run uicache again
+    if (![[self class] needsSimulation] && ![documentsDirectory hasPrefix:@"/var/mobile/Documents"] &&
+        [documentsDirectory hasPrefix:@"/var/mobile/Containers/Data/Application/"] &&
+       documentsDirectory.length > 40) {
+        // Zebra is sandboxed, warn user and let them removed such auto-created sandboxed document directory
         NSTask *task = [[NSClassFromString(@"NSTask") alloc] init];
         [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and Zebra needs to be killed. If you ignore this, you may have several issues using Zebra. Proceed?", documentsDirectory] blockAction:@"Yes" block:^(void) {
             [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
