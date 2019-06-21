@@ -109,13 +109,13 @@
     NSURL *url = [NSURL URLWithString:baseURL];
     NSString *host = [url host];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //chimera
+    if ([ZBDeviceHelper isChimera]) { //chimera
         return ([host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/jb"]) { //uncover
+    else if ([ZBDeviceHelper isUnc0ver]) { //uncover
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
+    else if ([ZBDeviceHelper isElectra]) { //electra
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { //cydia

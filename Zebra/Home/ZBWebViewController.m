@@ -175,17 +175,17 @@
             }
         }
         
-        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) {
+        if ([ZBDeviceHelper isChimera]) {
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/jb"]) { //uncover
+        else if ([ZBDeviceHelper isUnc0ver]) { //uncover
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
+        else if ([ZBDeviceHelper isElectra]) { //electra
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];

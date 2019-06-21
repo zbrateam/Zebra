@@ -15,4 +15,7 @@
 + (NSString *_Nullable)machineID;
 + (void)sbreload;
 + (void)uicache:(NSArray *_Nonnull)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
++ (BOOL)isChimera;
++ (BOOL)isElectra;
++ (BOOL)isUnc0ver;
 @end

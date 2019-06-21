@@ -86,4 +86,25 @@
 #endif
 }
 
++ (BOOL)isChimera {
+#if TARGET_OS_SIMULATOR
+    return NO;
+#endif
+    return [[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"];
+}
+
++ (BOOL)isElectra {
+#if TARGET_OS_SIMULATOR
+    return NO;
+#endif
+    return [[NSFileManager defaultManager] fileExistsAtPath:@"/electra"];
+}
+
++ (BOOL)isUnc0ver {
+#if TARGET_OS_SIMULATOR
+    return NO;
+#endif
+    return [[NSFileManager defaultManager] fileExistsAtPath:@"/jb"];
+}
+
 @end

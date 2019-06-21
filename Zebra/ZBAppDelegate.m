@@ -7,6 +7,7 @@
 //
 
 #import "NSTask.h"
+#import "UIProgressHUD.h"
 #import "ZBAppDelegate.h"
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
@@ -151,7 +152,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
        documentsDirectory.length > 40) {
         // Zebra is sandboxed, warn user and let them removed such auto-created sandboxed document directory
         NSTask *task = [[NSClassFromString(@"NSTask") alloc] init];
-        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and Zebra needs to be killed. If you ignore this, you may have several issues using Zebra. Proceed?", documentsDirectory] blockAction:@"Yes" block:^(void) {
+        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and uicache has to be run. If you ignore this, you may have several issues using Zebra. Proceed? It may take a while and your device will respring.", documentsDirectory] blockAction:@"Yes" block:^(void) {
             [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
             [task setArguments:@[@"rm", @"-rf", documentsDirectory]];
             
@@ -166,6 +167,17 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             
             [task launch];
             [task waitUntilExit];
+            NSMutableArray *arguments = [NSMutableArray array];
+            if ([ZBDeviceHelper isChimera]) {
+                [arguments addObject:@"-a"];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIProgressHUD *hud = [[UIProgressHUD alloc] init];
+                [hud setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+                [hud setText:@"Working..."];
+                [hud showInView:UIApplication.sharedApplication.keyWindow];
+            });
+            [ZBDeviceHelper uicache:arguments observer:nil];
             [ZBDeviceHelper sbreload];
         }];
         return NO;
