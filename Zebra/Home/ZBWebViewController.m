@@ -422,11 +422,15 @@
 }
 
 - (void)changeIcon {
-    if (@available(iOS 10.3, *)) {
+    #warning reset dark toggle
+    ZBColorPickerViewController *controller = [[ZBColorPickerViewController alloc] init];
+    controller.key = @"test";
+    [self.navigationController pushViewController:controller animated:TRUE];
+    /*if (@available(iOS 10.3, *)) {
         [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
     } else {
         return;
-    }
+    }*/
 }
 
 - (IBAction)refreshPage:(id)sender {
