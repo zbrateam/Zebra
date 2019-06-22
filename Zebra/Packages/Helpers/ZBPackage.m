@@ -293,7 +293,7 @@
 
 - (BOOL)isEqual:(ZBPackage *)object {
     if (self == object)
-        return TRUE;
+        return YES;
     
     if (![object isKindOfClass:[ZBPackage class]])
         return FALSE;

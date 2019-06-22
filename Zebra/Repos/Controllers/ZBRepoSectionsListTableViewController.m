@@ -100,7 +100,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:TRUE];
+    [super viewWillAppear:YES];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
@@ -195,7 +195,7 @@
                                         
                                         securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
                                     });
-                                    //[self.repo setLoggedIn:TRUE];
+                                    //[self.repo setLoggedIn:YES];
                                     [self.navigationItem setRightBarButtonItem:self.purchased];
                                 }
                                 else {
@@ -209,14 +209,14 @@
         else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
-            [self presentViewController:safariVC animated:TRUE completion:nil];
+            [self presentViewController:safariVC animated:YES completion:nil];
         }
         
     }
 }
 
 - (void)authenticationCallBack:(NSNotification *)notif {
-    [self dismissViewControllerAnimated:TRUE completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];

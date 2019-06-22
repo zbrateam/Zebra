@@ -25,7 +25,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:TRUE];
+    [super viewWillAppear:YES];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
     if (!wishedPackages) {
@@ -48,7 +48,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [wishedPackages count];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];

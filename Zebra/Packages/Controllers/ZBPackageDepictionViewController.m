@@ -173,7 +173,7 @@
     if ([ZBDarkModeHelper darkModeEnabled]) {
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
     } else {
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
     }
@@ -426,17 +426,17 @@
                         title = json[@"price"];
                         selector = @selector(purchasePackage);
                     } else if (purchased && available && ![self->package isInstalled:false]) {
-                        self->package.sileoDownload = TRUE;
-                        self.purchased = TRUE;
+                        self->package.sileoDownload = YES;
+                        self.purchased = YES;
                         
                     } else if (purchased && available && [self->package isInstalled:false] && [self->package isReinstallable]) {
-                        self->package.sileoDownload = TRUE;
-                        self.purchased = TRUE;
+                        self->package.sileoDownload = YES;
+                        self.purchased = YES;
                         title = @"Modify";
                         selector = @selector(modifyPackage);
                     } else if (purchased && available && [self->package isInstalled:false] && ![self->package isReinstallable]) {
-                        self->package.sileoDownload = TRUE;
-                        self.purchased = TRUE;
+                        self->package.sileoDownload = YES;
+                        self.purchased = YES;
                         title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
                         selector = @selector(removePackage);
                     }
@@ -558,7 +558,7 @@
     else {
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
         safariVC.delegate = self;
-        [self presentViewController:safariVC animated:TRUE completion:nil];
+        [self presentViewController:safariVC animated:YES completion:nil];
     }
 }
 

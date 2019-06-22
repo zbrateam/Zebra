@@ -8,6 +8,7 @@
 
 #import "ZBAlternateIconController.h"
 #import "UIColor+GlobalColors.h"
+
 @interface ZBAlternateIconController ()
 
 @end
@@ -23,13 +24,13 @@
     betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (IBAction)closeButtonPressed:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:TRUE completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -66,7 +67,7 @@
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [cell.imageView.layer setCornerRadius:10];
-    [cell.imageView setClipsToBounds:TRUE];
+    [cell.imageView setClipsToBounds:YES];
     
     
     return cell;
@@ -90,11 +91,11 @@
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
                 }
-                [self dismissViewControllerAnimated:TRUE completion:nil];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }];
         }
     } else {
-        [self dismissViewControllerAnimated:TRUE completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

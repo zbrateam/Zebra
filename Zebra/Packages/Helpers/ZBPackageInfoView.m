@@ -60,7 +60,7 @@ enum ZBPackageInfoOrder {
     self.tableView.dataSource = self;
     self.tableView.separatorColor = [UIColor clearColor];
     [self.packageIcon.layer setCornerRadius:20];
-    [self.packageIcon.layer setMasksToBounds:TRUE];
+    [self.packageIcon.layer setMasksToBounds:YES];
 }
 
 - (void)readIcon:(ZBPackage *)package {
@@ -348,7 +348,7 @@ enum ZBPackageInfoOrder {
     }
         
     
-    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 

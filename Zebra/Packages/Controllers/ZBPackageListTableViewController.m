@@ -194,9 +194,11 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([[ZBQueue sharedInstance] hasObjects]) {
             UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-            self.navigationItem.leftBarButtonItem = queueButton;
+            UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearQueue)];
+            self.navigationItem.leftBarButtonItems = @[ queueButton, clearButton ];
         }
         else {
+            self.navigationItem.leftBarButtonItems = nil;
             UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
             segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
             [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -208,6 +210,12 @@ typedef enum {
 
 - (void)presentQueue {
     [ZBPackageActionsManager presentQueue:self parent:nil];
+}
+
+- (void)clearQueue {
+    [[ZBQueue sharedInstance] clearQueue];
+    [self configureQueueOrSortButton];
+    [self refreshTable];
 }
 
 - (void)upgradeAll {

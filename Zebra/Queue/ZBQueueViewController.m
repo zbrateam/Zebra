@@ -21,15 +21,16 @@
 
 - (void)loadView {
     [super loadView];
-    
     _queue = [ZBQueue sharedInstance];
-    
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
-    
     [self refreshBarButtons];
-    
     self.title = @"Queue";
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (IBAction)confirm:(id)sender {
@@ -124,7 +125,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    //cell.backgroundColor = [UIColor whiteColor];
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     if (package == nil) {
         if ([action isEqual:@"Unresolved Dependencies"]) {
@@ -170,14 +170,14 @@
     if (package.iconPath) {
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
         [cell.imageView.layer setCornerRadius:10];
-        [cell.imageView setClipsToBounds:TRUE];
+        [cell.imageView setClipsToBounds:YES];
     }
     else {
         UIImage *sectionImage = [UIImage imageNamed:section];
         if (sectionImage != NULL) {
             cell.imageView.image = sectionImage;
             [cell.imageView.layer setCornerRadius:10];
-            [cell.imageView setClipsToBounds:TRUE];
+            [cell.imageView setClipsToBounds:YES];
         }
     }
 

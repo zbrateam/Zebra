@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    _imageView.layer.masksToBounds = TRUE;
+    _imageView.layer.masksToBounds = YES;
     _titleLabel.layer.masksToBounds = NO;
     _titleLabel.layer.shouldRasterize = YES;
     _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
