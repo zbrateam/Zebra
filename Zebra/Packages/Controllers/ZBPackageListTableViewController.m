@@ -77,7 +77,8 @@ typedef enum {
 - (void)configureNavigationButtons {
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
-        [self configureQueueOrSortButton];
+        [self configureSegmentedController];
+        [self configureQueueOrShareButton];
     } else {
         [self configureLoadMoreButton];
     }
@@ -190,7 +191,15 @@ typedef enum {
     });
 }
 
-- (void)configureQueueOrSortButton {
+- (void)configureSegmentedController {
+    self.navigationItem.leftBarButtonItems = nil;
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
+    segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segmentedControl;
+}
+
+- (void)configureQueueOrShareButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([[ZBQueue sharedInstance] hasObjects]) {
             UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
@@ -199,11 +208,8 @@ typedef enum {
         }
         else {
             self.navigationItem.leftBarButtonItems = nil;
-            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
-            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
-            [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-            UIBarButtonItem *controlItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
-            self.navigationItem.leftBarButtonItem = controlItem;
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+            self.navigationItem.leftBarButtonItem = shareButton;
         }
     });
 }
@@ -214,8 +220,56 @@ typedef enum {
 
 - (void)clearQueue {
     [[ZBQueue sharedInstance] clearQueue];
-    [self configureQueueOrSortButton];
+    [self configureQueueOrShareButton];
     [self refreshTable];
+}
+
+- (void)sharePackages {
+    NSArray *packages = [[self.databaseManager installedPackages] copy];
+    NSMutableArray *packageIds = [NSMutableArray new];
+    for (ZBPackage *package in packages) {
+        if(package.identifier) {
+            [packageIds addObject:package.identifier];
+        }
+    }
+    if ([packageIds count]) {
+        packageIds = [[packageIds sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] mutableCopy];
+        NSString *fullList = [packageIds componentsJoinedByString:@"\n"];
+        NSArray *share = @[fullList];
+        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:share applicationActivities:nil];
+        [self presentActivityController:controller];
+    }
+}
+
+// Share Sheet
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            // user shared an item
+            NSLog(@"We used activity type%@", activityType);
+        } else {
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
+        }
+        
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+        }
+    };
 }
 
 - (void)upgradeAll {
