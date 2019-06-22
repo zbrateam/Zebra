@@ -100,7 +100,7 @@
         BOOL secure = sqlite3_column_int(statement, ZBRepoColumnSecure);
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
-            iconURL = [NSURL URLWithString:url] ;
+            iconURL = [NSURL URLWithString:url];
         }
         else if (secure) {
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]];

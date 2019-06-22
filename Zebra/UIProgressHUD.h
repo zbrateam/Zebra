@@ -19,5 +19,4 @@
 - (void)setText:(NSString *)text;
 @end
 
-
 #endif /* UIProgressHUD_h */

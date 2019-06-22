@@ -12,6 +12,9 @@
 #import <NSTask.h>
 #import <sys/utsname.h>
 #import <sys/sysctl.h>
+#import <sys/types.h>
+#import <sys/stat.h>
+#import <unistd.h>
 
 @implementation ZBDeviceHelper
 
@@ -86,25 +89,37 @@
 #endif
 }
 
++ (BOOL)_isRegularFile:(const char *)path {
+    struct stat path_stat;
+    stat(path, &path_stat);
+    return S_ISREG(path_stat.st_mode);
+}
+
++ (BOOL)_isRegularDirectory:(const char *)path {
+    struct stat path_stat;
+    stat(path, &path_stat);
+    return S_ISDIR(path_stat.st_mode);
+}
+
 + (BOOL)isChimera {
 #if TARGET_OS_SIMULATOR
     return NO;
 #endif
-    return [[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"];
+    return [self _isRegularDirectory:"/chimera"];
 }
 
 + (BOOL)isElectra {
 #if TARGET_OS_SIMULATOR
     return NO;
 #endif
-    return [[NSFileManager defaultManager] fileExistsAtPath:@"/electra"];
+    return [self _isRegularDirectory:"/electra"];
 }
 
 + (BOOL)isUnc0ver {
 #if TARGET_OS_SIMULATOR
     return NO;
 #endif
-    return [[NSFileManager defaultManager] fileExistsAtPath:@"/jb"];
+    return [self _isRegularFile:"/.installed_unc0ver"];
 }
 
 @end
