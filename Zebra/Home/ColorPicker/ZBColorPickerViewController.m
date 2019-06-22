@@ -185,10 +185,11 @@
 }
 
 - (UIColor *)colorForRGBSliders {
-    return [UIColor colorWithRed:self.colorPickerRedSlider.value
+    UIColor *colorTest = [UIColor colorWithRed:self.colorPickerRedSlider.value
                            green:self.colorPickerGreenSlider.value
                             blue:self.colorPickerBlueSlider.value
                            alpha:self.colorPickerAlphaSlider.value];
+    return colorTest;
 }
 
 - (void)updateColor:(UIColor *)color animated:(BOOL)animated{
@@ -296,10 +297,10 @@
     } else {
         saveValue = [self colorForRGBSliders].cscp_hexStringWithAlpha;
     }
-    // save in domain for NSUserDefaults
-    [colorPickerDict setObject:saveValue forKey:@"color"];
+    // save in NSUserDefaults
+    /*[colorPickerDict setObject:saveValue forKey:@"color"];
     [defaults setObject:colorPickerDict forKey:self.key];
-    [defaults synchronize];
+    [defaults synchronize];*/
 }
 
 - (void)setLayoutConstraints {
