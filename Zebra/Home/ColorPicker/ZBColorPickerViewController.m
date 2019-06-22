@@ -31,7 +31,7 @@
     [super viewDidLoad];
     self.alphaEnabled = TRUE;
     defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:self.key];
+    //[defaults removeObjectForKey:self.key];
     [defaults synchronize];
     if(self.key){
         colorPickerDict = [[defaults objectForKey:self.key] mutableCopy];
@@ -169,7 +169,8 @@
 }
 
 - (UIColor *)startColor {
-    return [colorPickerDict valueForKey:@"color"];
+    NSString *dictColor = [colorPickerDict valueForKey:@"color"];
+    return [UIColor cscp_colorFromHexString:dictColor];
 }
 
 - (void)sliderDidChange:(CSColorSlider *)sender {
@@ -290,17 +291,17 @@
 
 - (void)saveColor {
     NSString *saveValue = nil;
-    if (self.isGradient) {
+    /*if (self.isGradient) {
         for (UIColor *color in self.colors) {
             saveValue = saveValue ? [saveValue stringByAppendingFormat:@",%@", color.cscp_hexStringWithAlpha] : [NSString stringWithFormat:@"%@", color.cscp_hexStringWithAlpha];
         }
-    } else {
-        saveValue = [self colorForRGBSliders].cscp_hexStringWithAlpha;
-    }
+    } else {*/
+    saveValue = [self colorForRGBSliders].cscp_hexStringWithAlpha;
+     //}
     // save in NSUserDefaults
-    /*[colorPickerDict setObject:saveValue forKey:@"color"];
+    [colorPickerDict setObject:saveValue forKey:@"color"];
     [defaults setObject:colorPickerDict forKey:self.key];
-    [defaults synchronize];*/
+    [defaults synchronize];
 }
 
 - (void)setLayoutConstraints {
