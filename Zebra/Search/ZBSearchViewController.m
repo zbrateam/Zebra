@@ -64,7 +64,6 @@
     self.tableView.tableFooterView = [UIView new];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"packageTableViewCell"];
@@ -72,6 +71,11 @@
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)refreshTable {
@@ -195,41 +199,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (searchController.active) {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-        
         ZBPackage *package = [results objectAtIndex:indexPath.row];
-        
         [cell updateData:package];
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            cell.packageLabel.textColor = [UIColor whiteColor];
-            cell.descriptionLabel.textColor = [UIColor lightGrayColor];
-            cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-        } else {
-            cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-            cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-            cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-        }
+        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         return cell;
     } else {
         static NSString *recentSearches = @"recentSearches";
-        
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recentSearches];
-        
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
         }
         cell.textLabel.text = [searches objectAtIndex:indexPath.row];
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            UIView *dark = [[UIView alloc] init];
-            dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
-            [[UITableViewCell appearance] setSelectedBackgroundView:dark];
-            [cell.textLabel setTextColor:[UIColor whiteColor]];
-        } else {
-            UIView *light = [[UIView alloc] init];
-            light.backgroundColor = [UIColor selectedCellBackgroundColor];
-            [[UITableViewCell appearance] setSelectedBackgroundView:light];
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-        }
-            
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
         return cell;
     }
 }

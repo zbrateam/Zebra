@@ -9,19 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (GlobalColors)
-+(UIColor*)tintColor;
-+(UIColor*)navBarTintColor;
-+(UIColor*)badgeColor;
-+(UIColor*)tableViewBackgroundColor;
-+(UIColor*)cellBackgroundColor;
-+(UIColor*)selectedCellBackgroundColor;
-+(UIColor*)cellPrimaryTextColor;
-+(UIColor*)cellSecondaryTextColor;
-+(UIColor *)selectedCellBackgroundColorDark;
-+(UIColor *)cellSeparatorColor;
++ (UIColor *)tintColor;
++ (UIColor *)navBarTintColor;
++ (UIColor *)badgeColor;
++ (UIColor *)tableViewBackgroundColor;
++ (UIColor *)cellBackgroundColor;
++ (UIColor *)cellPrimaryTextColor;
++ (UIColor *)cellSecondaryTextColor;
++ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
++ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted;
++ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
++ (UIColor *)cellSeparatorColor;
 @end
 
 @interface UIColor (Private)
-+(UIColor*)systemBlueColor;
-+(UIColor*)systemRedColor;
++ (UIColor *)systemBlueColor;
++ (UIColor *)systemRedColor;
 @end

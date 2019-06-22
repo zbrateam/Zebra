@@ -22,14 +22,9 @@
     defaults = [NSUserDefaults standardUserDefaults];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:TRUE];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
@@ -57,17 +52,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.packageLabel.textColor = [UIColor whiteColor];
-        cell.descriptionLabel.textColor = [UIColor lightGrayColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    } else {
-        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    }
-    
+    cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
 }
 

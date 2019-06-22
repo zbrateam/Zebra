@@ -19,15 +19,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
-    /*if ([ZBDarkModeHelper darkModeEnabled]) {
-        self.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-        self.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-        self.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-    } else {
-        self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-        self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-        self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    }*/
     self.backgroundContainerView.layer.cornerRadius = 5;
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
@@ -102,11 +93,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        self.backgroundContainerView.backgroundColor = highlighted ? [UIColor selectedCellBackgroundColorDark] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-    }
-    else {
-        self.backgroundContainerView.backgroundColor = highlighted ? [UIColor selectedCellBackgroundColor] : [UIColor cellBackgroundColor];
-    }
+    self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
+
 @end

@@ -50,7 +50,7 @@
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0]];
     UIView *dark = [[UIView alloc] init];
-    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];

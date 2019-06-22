@@ -101,7 +101,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:TRUE];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)dealloc {
@@ -134,10 +135,8 @@
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        //NSLog(@"Downloaded %@", json);
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
-                        //NSLog(@"BANNERS %@", self.featuredPackages);
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self setupFeaturedPackages];
                         });
@@ -187,13 +186,6 @@
                                     }
                                     NSString *token = queryByKeys[@"token"];
                                     NSString *payment = queryByKeys[@"payment_secret"];
-                                    
-                                    /*NSError *error;
-                                    [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                                    if (error) {
-                                        NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
-                                     
-                                    }*/
                                     self->_keychain[self.repoEndpoint] = token;
                                     UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                                     securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
@@ -286,11 +278,6 @@
         cell.textLabel.text = [section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
-    }
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        UIView *dark = [[UIView alloc] init];
-        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
-        [cell setSelectedBackgroundView:dark];
     }
     return cell;
 }

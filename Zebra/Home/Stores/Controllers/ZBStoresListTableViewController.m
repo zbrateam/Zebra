@@ -114,7 +114,6 @@
                        callbackURLScheme:@"sileo"
                        completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                            // TODO: Nothing to do here?
-                           //NSLog(@"URL %@", callbackURL);
                            if (callbackURL) {
                                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                NSArray *queryItems = urlComponents.queryItems;
@@ -124,12 +123,6 @@
                                }
                                NSString *token = queryByKeys[@"token"];
                                NSString *payment = queryByKeys[@"payment_secret"];
-                               /*NSError *error;
-                                [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                                if (error) {
-                                NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
-                                
-                                }*/
                                self->_keychain[self->currentRepoEndpoint] = token;
                                UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                                securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = nil;

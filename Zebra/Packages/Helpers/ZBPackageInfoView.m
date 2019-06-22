@@ -189,20 +189,17 @@ enum ZBPackageInfoOrder {
     if (!wishList) {
         wishList = [NSMutableArray new];
     }
-    NSLog(@"WISHLIST %@", wishList);
     if ([wishList containsObject:self.depictionPackage.identifier]) {
         [wishList removeObject:self.depictionPackage.identifier];
         [defaults setObject:wishList forKey:@"wishList"];
         [defaults synchronize];
         [self checkWishList:self.depictionPackage];
-        NSLog(@"WISHLIST yer %@", wishList);
         [self.tableView reloadData];
     } else {
         [wishList addObject:self.depictionPackage.identifier];
         [defaults setObject:wishList forKey:@"wishList"];
         [defaults synchronize];
         [self checkWishList:self.depictionPackage];
-        NSLog(@"WISHLIST YEET %@", wishList);
         [self.tableView reloadData];
     }
 }

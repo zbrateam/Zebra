@@ -16,7 +16,6 @@
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
 }
-
 @end
 
 @implementation ZBQueueViewController
@@ -107,14 +106,8 @@
     // Text Color
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            [header.textLabel setTextColor:[UIColor whiteColor]];
-        } else {
-            [header.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-        }
-        
+        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     }
-    
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {

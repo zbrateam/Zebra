@@ -17,8 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
-    
-    //set up refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
 }

@@ -66,6 +66,11 @@ typedef enum {
     [self refreshTable];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
@@ -277,16 +282,9 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.packageLabel.textColor = [UIColor whiteColor];
-        cell.descriptionLabel.textColor = [UIColor lightGrayColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    }
-    else {
-        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    }
+    cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
 }
 
@@ -406,10 +404,8 @@ typedef enum {
 #pragma mark - Navigation
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-    
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     ZBPackage *candidate = [package installableCandidate];
-    
     destination.package = candidate ? candidate : package;
     destination.parent = self;
 }
@@ -424,17 +420,11 @@ typedef enum {
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView
-                              indexPathForRowAtPoint:location];
-    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
-    
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
-    
     [self setDestinationVC:indexPath destination:packageDepictionVC];
-    
     return packageDepictionVC;
     
 }

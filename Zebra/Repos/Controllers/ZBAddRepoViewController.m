@@ -28,17 +28,13 @@
     
     if (self.text) {
         self.addRepoTextView.text = self.text;
-        
         self.addButton.enabled = self.addRepoTextView.text.length;
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
     [self.addRepoTextView becomeFirstResponder];
-    
-    //[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)keyboardWillShow:(NSNotification*)notification {
@@ -79,15 +75,5 @@
 - (void)textViewDidChange:(UITextView *)textView {
     self.addButton.enabled = self.addRepoTextView.text.length != 0;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
