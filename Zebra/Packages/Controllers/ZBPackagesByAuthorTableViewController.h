@@ -10,7 +10,6 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
-#import <ZBDarkModeHelper.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 

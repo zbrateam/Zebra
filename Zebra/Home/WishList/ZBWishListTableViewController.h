@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ZBPackage.h"
 #import "ZBPackageTableViewCell.h"
-#import "ZBDarkModeHelper.h"
 #import "UIColor+GlobalColors.h"
 #import "ZBDatabaseManager.h"
 #import "ZBPackageDepictionViewController.h"

@@ -8,7 +8,6 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBTab.h>
-#import <ZBDarkModeHelper.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -316,12 +315,7 @@ typedef enum {
         else if (selectedSortingType == ZBSortingTypeDate) {
             [label setText:@"Recent"];
         }
-        
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            [label setTextColor:[UIColor whiteColor]];
-        } else {
-            [label setTextColor:[UIColor cellPrimaryTextColor]];
-        }
+        [label setTextColor:[UIColor cellPrimaryTextColor]];
         
         [view addSubview:label];
         

@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDarkModeHelper.h>
 #import <ZBAppDelegate.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
@@ -179,12 +178,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle]];
-        
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            [label setTextColor: [UIColor whiteColor]];
-        } else {
-            [label setTextColor: [UIColor cellPrimaryTextColor]];
-        }
+        [label setTextColor: [UIColor cellPrimaryTextColor]];
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];

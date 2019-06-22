@@ -475,15 +475,9 @@
 //        }];
 //        [task resume];
 //    }
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.repoLabel.textColor = [UIColor whiteColor];
-        cell.urlLabel.textColor = [UIColor lightGrayColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    } else {
-        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    }
+    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
 }
 
@@ -541,11 +535,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[self sectionIndexTitlesForTableView:tableView][section]];
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            [label setTextColor:[UIColor whiteColor]];
-        } else {
-            [label setTextColor:[UIColor cellPrimaryTextColor]];
-        }
+        [label setTextColor:[UIColor cellPrimaryTextColor]];
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
