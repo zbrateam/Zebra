@@ -8,6 +8,7 @@
 
 #import "ZBRefreshableTableViewController.h"
 #import <ZBTabBarController.h>
+#import <UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
 
 @implementation ZBRefreshableTableViewController
@@ -41,6 +42,15 @@
 
 - (void)databaseStartedUpdate {
     [self setRepoRefreshIndicatorVisible:true];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
 }
 
 @end

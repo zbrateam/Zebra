@@ -8,6 +8,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDeviceHelper.h>
 #import <ZBDarkModeHelper.h>
+#import <UIColor+GlobalColors.h>
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -17,7 +18,6 @@
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 
-#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()

@@ -13,7 +13,6 @@
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import <UIColor+GlobalColors.h>
 
 @interface ZBChangesTableViewController () {
     NSArray *packages;
@@ -44,11 +43,6 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)dealloc {
@@ -165,10 +159,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
