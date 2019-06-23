@@ -742,7 +742,6 @@
         NSString *query;
         
         if (results) {
-            // ORDER BY (CASE WHEN name = "John" THEN 1 WHEN name LIKE "John%" THEN 2 ELSE 3 END),name LIMIT 10 ;
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT %d", name, name, name, results];
         }
         else {
