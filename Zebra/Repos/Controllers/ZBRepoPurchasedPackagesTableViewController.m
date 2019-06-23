@@ -8,7 +8,6 @@
 
 #import <ZBDeviceHelper.h>
 #import <ZBAppDelegate.h>
-#import <ZBDarkModeHelper.h>
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
@@ -16,7 +15,6 @@
 #import <UIColor+GlobalColors.h>
 
 #import <Packages/Helpers/ZBPackageActionsManager.h>
-
 
 @implementation ZBRepoPurchasedPackagesTableViewController
 
@@ -46,9 +44,13 @@
     [self.navigationItem setRightBarButtonItem:self.logOut];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self listPurchasedSileoPackages];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)listPurchasedSileoPackages {
@@ -160,17 +162,9 @@
     }
     else {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-        
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            cell.packageLabel.textColor = [UIColor whiteColor];//[UIColor cellPrimaryTextColor];
-            cell.descriptionLabel.textColor = [UIColor lightGrayColor];//[UIColor cellSecondaryTextColor];
-            cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];//[UIColor cellBackgroundColor];
-        } else {
-            cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-            cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-            cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-        }
-        
+        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         return cell;
     }
     
@@ -188,11 +182,7 @@
     
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:@"Purchased Packages"];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        [label setTextColor:[UIColor whiteColor]];
-    } else {
-        [label setTextColor:[UIColor cellPrimaryTextColor]];
-    }
+    [label setTextColor:[UIColor cellPrimaryTextColor]];
     [view addSubview:label];
     
     label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -242,4 +232,5 @@
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
+
 @end

@@ -6,14 +6,15 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBAppDelegate.h>
+#import <ZBDeviceHelper.h>
+#import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
 #import <Repos/Helpers/ZBRepo.h>
 #import <Repos/Helpers/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <Repos/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
-#import <ZBAppDelegate.h>
-#import <ZBDeviceHelper.h>
 
 @import SDWebImage;
 
@@ -31,17 +32,13 @@
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     currentRepoEndpoint = @"";
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self refreshTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:TRUE];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self refreshTable];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)refreshTable {
@@ -114,7 +111,6 @@
                        callbackURLScheme:@"sileo"
                        completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                            // TODO: Nothing to do here?
-                           //NSLog(@"URL %@", callbackURL);
                            if (callbackURL) {
                                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                NSArray *queryItems = urlComponents.queryItems;
@@ -124,12 +120,6 @@
                                }
                                NSString *token = queryByKeys[@"token"];
                                NSString *payment = queryByKeys[@"payment_secret"];
-                               /*NSError *error;
-                                [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                                if (error) {
-                                NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
-                                
-                                }*/
                                self->_keychain[self->currentRepoEndpoint] = token;
                                UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                                securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = nil;
@@ -152,7 +142,7 @@
         else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
-            [self presentViewController:safariVC animated:TRUE completion:nil];
+            [self presentViewController:safariVC animated:YES completion:nil];
         }
     }
     else {
@@ -182,7 +172,7 @@
 }
 
 - (void)authenticationCallBack:(NSNotification *)notif {
-    [self dismissViewControllerAnimated:TRUE completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 
     NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];

@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDarkModeHelper.h>
 #import "ZBPackageInfoView.h"
 #import <UIColor+GlobalColors.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -61,7 +60,7 @@ enum ZBPackageInfoOrder {
     self.tableView.dataSource = self;
     self.tableView.separatorColor = [UIColor clearColor];
     [self.packageIcon.layer setCornerRadius:20];
-    [self.packageIcon.layer setMasksToBounds:TRUE];
+    [self.packageIcon.layer setMasksToBounds:YES];
 }
 
 - (void)readIcon:(ZBPackage *)package {
@@ -189,20 +188,17 @@ enum ZBPackageInfoOrder {
     if (!wishList) {
         wishList = [NSMutableArray new];
     }
-    NSLog(@"WISHLIST %@", wishList);
     if ([wishList containsObject:self.depictionPackage.identifier]) {
         [wishList removeObject:self.depictionPackage.identifier];
         [defaults setObject:wishList forKey:@"wishList"];
         [defaults synchronize];
         [self checkWishList:self.depictionPackage];
-        NSLog(@"WISHLIST yer %@", wishList);
         [self.tableView reloadData];
     } else {
         [wishList addObject:self.depictionPackage.identifier];
         [defaults setObject:wishList forKey:@"wishList"];
         [defaults synchronize];
         [self checkWishList:self.depictionPackage];
-        NSLog(@"WISHLIST YEET %@", wishList);
         [self.tableView reloadData];
     }
 }
@@ -352,7 +348,7 @@ enum ZBPackageInfoOrder {
     }
         
     
-    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 

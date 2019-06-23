@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDarkModeHelper.h>
 #import "ZBRepoTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 
@@ -15,7 +14,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
-    
     self.backgroundContainerView.layer.cornerRadius = 5;
     self.backgroundContainerView.layer.masksToBounds = YES;
     self.iconImageView.layer.cornerRadius = 5;
@@ -30,12 +28,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        self.backgroundContainerView.backgroundColor = highlighted ? [UIColor selectedCellBackgroundColorDark] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    } else {
-        self.backgroundContainerView.backgroundColor = highlighted ? [UIColor selectedCellBackgroundColor] : [UIColor cellBackgroundColor];
-    }
-    
+    self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 - (void)clearAccessoryView {
@@ -54,6 +47,5 @@
 - (void)hideChevron {
     [self.accessoryZBView subviews][0].hidden = YES;
 }
-
 
 @end

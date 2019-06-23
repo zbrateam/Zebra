@@ -27,7 +27,7 @@
     return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
 }
 
--(void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {
+- (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {
     __weak typeof(self) weakSelf = self;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -335,7 +335,7 @@
     }
     
     NSError *error;
-    [output writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
+    [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
         completion(false, error);
@@ -394,7 +394,7 @@
     }
     
     NSError *error;
-    [output writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
+    [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
     }
@@ -420,7 +420,7 @@
     output = [output stringByAppendingString:sourceLine];
     
     NSError *error;
-    [output writeToFile:listsLocation atomically:TRUE encoding:NSUTF8StringEncoding error:&error];
+    [output writeToFile:listsLocation atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
     }

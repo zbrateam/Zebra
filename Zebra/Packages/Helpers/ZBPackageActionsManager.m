@@ -190,7 +190,7 @@
 
 + (void)installPackage:(ZBPackage *)package purchased:(BOOL)purchased {
     if (purchased) {
-        package.sileoDownload = TRUE;
+        package.sileoDownload = YES;
     }
     
     ZBQueue *queue = [ZBQueue sharedInstance];

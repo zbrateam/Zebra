@@ -135,9 +135,9 @@
     CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
     [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
     [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
-    [packageInfoView.widthAnchor constraintEqualToAnchor:webView.scrollView.widthAnchor multiplier:1.0].active = YES;
-    [packageInfoView.trailingAnchor constraintEqualToAnchor:webView.scrollView.trailingAnchor].active = YES;
-    [packageInfoView.leadingAnchor constraintEqualToAnchor:webView.scrollView.leadingAnchor].active = YES;
+    [packageInfoView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1.0].active = YES;
+    [packageInfoView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [packageInfoView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     
     webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
@@ -152,7 +152,6 @@
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -174,7 +173,7 @@
     if ([ZBDarkModeHelper darkModeEnabled]) {
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
     } else {
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
     }
@@ -427,17 +426,17 @@
                         title = json[@"price"];
                         selector = @selector(purchasePackage);
                     } else if (purchased && available && ![self->package isInstalled:false]) {
-                        self->package.sileoDownload = TRUE;
-                        self.purchased = TRUE;
+                        self->package.sileoDownload = YES;
+                        self.purchased = YES;
                         
                     } else if (purchased && available && [self->package isInstalled:false] && [self->package isReinstallable]) {
-                        self->package.sileoDownload = TRUE;
-                        self.purchased = TRUE;
+                        self->package.sileoDownload = YES;
+                        self.purchased = YES;
                         title = @"Modify";
                         selector = @selector(modifyPackage);
                     } else if (purchased && available && [self->package isInstalled:false] && ![self->package isReinstallable]) {
-                        self->package.sileoDownload = TRUE;
-                        self.purchased = TRUE;
+                        self->package.sileoDownload = YES;
+                        self.purchased = YES;
                         title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
                         selector = @selector(removePackage);
                     }
@@ -559,7 +558,7 @@
     else {
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
         safariVC.delegate = self;
-        [self presentViewController:safariVC animated:TRUE completion:nil];
+        [self presentViewController:safariVC animated:YES completion:nil];
     }
 }
 

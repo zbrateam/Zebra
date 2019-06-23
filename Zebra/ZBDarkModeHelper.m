@@ -35,7 +35,7 @@
     }
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
-    [[UINavigationBar appearance] setTranslucent:TRUE];
+    [[UINavigationBar appearance] setTranslucent:YES];
     //Light Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
@@ -50,7 +50,7 @@
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0]];
     UIView *dark = [[UIView alloc] init];
-    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
+    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -68,7 +68,7 @@
     }
     [[UINavigationBar appearance] setBarTintColor:nil];
     [[UINavigationBar appearance] setBackgroundColor:nil];
-    [[UINavigationBar appearance] setTranslucent:TRUE];
+    [[UINavigationBar appearance] setTranslucent:YES];
     //Light Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     
@@ -84,7 +84,7 @@
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:TRUE];
+    [[WKWebView appearance] setOpaque:YES];
 }
 
 + (void)applySettings {

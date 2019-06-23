@@ -293,7 +293,7 @@
 
 - (BOOL)isEqual:(ZBPackage *)object {
     if (self == object)
-        return TRUE;
+        return YES;
     
     if (![object isKindOfClass:[ZBPackage class]])
         return FALSE;
@@ -358,7 +358,7 @@
     NSString *contents = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&readError];
     
     if (readError != NULL) {
-        NSLog(@"Error: %@", readError);
+        NSLog(@"[Zebra] Error getting package field (%@): %@", field, readError);
         
         return readError.localizedDescription;
     }

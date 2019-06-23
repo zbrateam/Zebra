@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDarkModeHelper.h>
 #import <ZBAppDelegate.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
@@ -14,7 +13,6 @@
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Packages/Helpers/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import <UIColor+GlobalColors.h>
 
 @interface ZBChangesTableViewController () {
     NSArray *packages;
@@ -163,10 +161,6 @@
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     BOOL hasDataInSection = [[self objectAtSection:section] count];
     if (hasDataInSection) {
@@ -174,12 +168,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
         [label setFont:[UIFont boldSystemFontOfSize:15]];
         [label setText:[NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle]];
-        
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            [label setTextColor: [UIColor whiteColor]];
-        } else {
-            [label setTextColor: [UIColor cellPrimaryTextColor]];
-        }
+        [label setTextColor: [UIColor cellPrimaryTextColor]];
         [view addSubview:label];
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];

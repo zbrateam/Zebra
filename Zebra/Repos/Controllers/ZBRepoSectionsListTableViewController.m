@@ -8,6 +8,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDeviceHelper.h>
 #import <ZBDarkModeHelper.h>
+#import <UIColor+GlobalColors.h>
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -17,7 +18,6 @@
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 
-#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
@@ -100,8 +100,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:TRUE];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    [super viewWillAppear:YES];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)dealloc {
@@ -134,10 +135,8 @@
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        //NSLog(@"Downloaded %@", json);
                         self.fullJSON = json;
                         self.featuredPackages = json[@"banners"];
-                        //NSLog(@"BANNERS %@", self.featuredPackages);
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self setupFeaturedPackages];
                         });
@@ -187,13 +186,6 @@
                                     }
                                     NSString *token = queryByKeys[@"token"];
                                     NSString *payment = queryByKeys[@"payment_secret"];
-                                    
-                                    /*NSError *error;
-                                    [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                                    if (error) {
-                                        NSLog(@"MIDNIGHTZEBRA %@", error.localizedDescription);
-                                     
-                                    }*/
                                     self->_keychain[self.repoEndpoint] = token;
                                     UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                                     securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
@@ -203,7 +195,7 @@
                                         
                                         securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
                                     });
-                                    //[self.repo setLoggedIn:TRUE];
+                                    //[self.repo setLoggedIn:YES];
                                     [self.navigationItem setRightBarButtonItem:self.purchased];
                                 }
                                 else {
@@ -217,14 +209,14 @@
         else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
-            [self presentViewController:safariVC animated:TRUE completion:nil];
+            [self presentViewController:safariVC animated:YES completion:nil];
         }
         
     }
 }
 
 - (void)authenticationCallBack:(NSNotification *)notif {
-    [self dismissViewControllerAnimated:TRUE completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
@@ -286,11 +278,6 @@
         cell.textLabel.text = [section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
-    }
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        UIView *dark = [[UIView alloc] init];
-        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark];
-        [cell setSelectedBackgroundView:dark];
     }
     return cell;
 }

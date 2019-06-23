@@ -100,7 +100,7 @@
         BOOL secure = sqlite3_column_int(statement, ZBRepoColumnSecure);
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
-            iconURL = [NSURL URLWithString:url] ;
+            iconURL = [NSURL URLWithString:url];
         }
         else if (secure) {
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]];
@@ -139,7 +139,7 @@
                         if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
                             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
                             keychain[baseURL] = endpoint;
-                            [self setSupportSileoPay:TRUE];
+                            [self setSupportSileoPay:YES];
                         }
                         
                     }] resume];
@@ -162,11 +162,11 @@
                                         NSError *error) {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                         if (data != nil && (long)[httpResponse statusCode] != 404) {
-                            [self setSupportsFeaturedPackages:TRUE];
+                            [self setSupportsFeaturedPackages:YES];
                         }
                         
                     }] resume];
-            [self setCheckedSupportFeaturedPackages:TRUE];
+            [self setCheckedSupportFeaturedPackages:YES];
         }
         
         
@@ -186,7 +186,7 @@
 
 - (BOOL)isEqual:(ZBRepo *)object {
     if (self == object)
-        return TRUE;
+        return YES;
     
     if (![object isKindOfClass:[ZBRepo class]])
         return FALSE;

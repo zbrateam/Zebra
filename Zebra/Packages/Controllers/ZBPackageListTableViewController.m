@@ -8,7 +8,6 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBTab.h>
-#import <ZBDarkModeHelper.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -73,7 +72,8 @@ typedef enum {
 - (void)configureNavigationButtons {
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
-        [self configureQueueOrSortButton];
+        [self configureSegmentedController];
+        [self configureQueueOrShareButton];
     } else {
         [self configureLoadMoreButton];
     }
@@ -186,24 +186,85 @@ typedef enum {
     });
 }
 
-- (void)configureQueueOrSortButton {
+- (void)configureSegmentedController {
+    self.navigationItem.leftBarButtonItems = nil;
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
+    segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segmentedControl;
+}
+
+- (void)configureQueueOrShareButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([[ZBQueue sharedInstance] hasObjects]) {
             UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-            self.navigationItem.leftBarButtonItem = queueButton;
+            UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearQueue)];
+            self.navigationItem.leftBarButtonItems = @[ queueButton, clearButton ];
         }
         else {
-            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
-            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
-            [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-            UIBarButtonItem *controlItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
-            self.navigationItem.leftBarButtonItem = controlItem;
+            self.navigationItem.leftBarButtonItems = nil;
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+            self.navigationItem.leftBarButtonItem = shareButton;
         }
     });
 }
 
 - (void)presentQueue {
     [ZBPackageActionsManager presentQueue:self parent:nil];
+}
+
+- (void)clearQueue {
+    [[ZBQueue sharedInstance] clearQueue];
+    [self configureQueueOrShareButton];
+    [self refreshTable];
+}
+
+- (void)sharePackages {
+    NSArray *packages = [[self.databaseManager installedPackages] copy];
+    NSMutableArray *packageIds = [NSMutableArray new];
+    for (ZBPackage *package in packages) {
+        if(package.identifier) {
+            [packageIds addObject:package.identifier];
+        }
+    }
+    if ([packageIds count]) {
+        packageIds = [[packageIds sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] mutableCopy];
+        NSString *fullList = [packageIds componentsJoinedByString:@"\n"];
+        NSArray *share = @[fullList];
+        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:share applicationActivities:nil];
+        [self presentActivityController:controller];
+    }
+}
+
+// Share Sheet
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            // user shared an item
+            NSLog(@"We used activity type%@", activityType);
+        } else {
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
+        }
+        
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+        }
+    };
 }
 
 - (void)upgradeAll {
@@ -277,25 +338,14 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
-        cell.packageLabel.textColor = [UIColor whiteColor];
-        cell.descriptionLabel.textColor = [UIColor lightGrayColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    }
-    else {
-        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    }
+    cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -318,12 +368,7 @@ typedef enum {
         else if (selectedSortingType == ZBSortingTypeDate) {
             [label setText:@"Recent"];
         }
-        
-        if ([ZBDarkModeHelper darkModeEnabled]) {
-            [label setTextColor:[UIColor whiteColor]];
-        } else {
-            [label setTextColor:[UIColor cellPrimaryTextColor]];
-        }
+        [label setTextColor:[UIColor cellPrimaryTextColor]];
         
         [view addSubview:label];
         
@@ -406,10 +451,8 @@ typedef enum {
 #pragma mark - Navigation
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-    
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     ZBPackage *candidate = [package installableCandidate];
-    
     destination.package = candidate ? candidate : package;
     destination.parent = self;
 }
@@ -424,17 +467,11 @@ typedef enum {
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView
-                              indexPathForRowAtPoint:location];
-    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
-    
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
-    
     [self setDestinationVC:indexPath destination:packageDepictionVC];
-    
     return packageDepictionVC;
     
 }

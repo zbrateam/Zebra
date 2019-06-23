@@ -37,15 +37,27 @@
 }
 
 + (UIColor *)cellBackgroundColor {
-    return [UIColor whiteColor];
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        return [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+    } else {
+        return [UIColor whiteColor];
+    }
 }
 
-+ (UIColor *)selectedCellBackgroundColor {
-    return [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0];
++ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted {
+    return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
 }
 
-+ (UIColor *)selectedCellBackgroundColorDark {
-    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
++ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted {
+    return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+}
+
++ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
+    if ([ZBDarkModeHelper darkModeEnabled]) {
+        return [self selectedCellBackgroundColorDark:highlighted];
+    } else {
+        return [self selectedCellBackgroundColorLight:highlighted];
+    }
 }
 
 + (UIColor *)cellPrimaryTextColor {
@@ -62,7 +74,6 @@
     } else {
         return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
     }
-    
 }
 
 + (UIColor *)cellSeparatorColor {
@@ -72,4 +83,5 @@
         return [UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0];
     }
 }
+
 @end

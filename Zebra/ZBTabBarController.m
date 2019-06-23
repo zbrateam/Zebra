@@ -51,7 +51,7 @@
         [databaseManager setNeedsToPresentRefresh:false];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        refreshController.dropTables = TRUE;
+        refreshController.dropTables = YES;
         
         [self presentViewController:refreshController animated:true completion:nil];
     }
