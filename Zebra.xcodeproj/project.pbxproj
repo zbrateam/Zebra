@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260F4E1A22C01B6A00362B37 /* originalBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260F4E1622C01B6900362B37 /* originalBlack@2x.png */; };
+		260F4E1B22C01B6A00362B37 /* originalBlack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260F4E1722C01B6900362B37 /* originalBlack@3x.png */; };
+		260F4E1C22C01B6A00362B37 /* originalBlack~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260F4E1822C01B6900362B37 /* originalBlack~ipad@3x.png */; };
+		260F4E1D22C01B6A00362B37 /* originalBlack~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 260F4E1922C01B6A00362B37 /* originalBlack~ipad@2x.png */; };
 		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
 		3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */; };
 		363FE2422287854F00B69929 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
@@ -122,6 +126,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		260F4E1622C01B6900362B37 /* originalBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@2x.png"; sourceTree = "<group>"; };
+		260F4E1722C01B6900362B37 /* originalBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@3x.png"; sourceTree = "<group>"; };
+		260F4E1822C01B6900362B37 /* originalBlack~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack~ipad@3x.png"; sourceTree = "<group>"; };
+		260F4E1922C01B6A00362B37 /* originalBlack~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack~ipad@2x.png"; sourceTree = "<group>"; };
 		3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBFeaturedCollectionViewCell.h; sourceTree = "<group>"; };
 		3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBFeaturedCollectionViewCell.m; sourceTree = "<group>"; };
 		3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBFeaturedCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -315,6 +323,10 @@
 		36F77ADE22A33B6100A4604C /* AltIcons */ = {
 			isa = PBXGroup;
 			children = (
+				260F4E1622C01B6900362B37 /* originalBlack@2x.png */,
+				260F4E1722C01B6900362B37 /* originalBlack@3x.png */,
+				260F4E1922C01B6A00362B37 /* originalBlack~ipad@2x.png */,
+				260F4E1822C01B6900362B37 /* originalBlack~ipad@3x.png */,
 				36AC5A6F22AB30E9004C2332 /* zBlack@2x.png */,
 				36AC5A6D22AB30E9004C2332 /* zBlack@3x.png */,
 				36AC5A7022AB30E9004C2332 /* zBlack~ipad@2x.png */,
@@ -722,6 +734,7 @@
 				3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */,
 				89C90FE3227B767900325AAD /* twitter@3x.png in Resources */,
 				36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */,
+				260F4E1A22C01B6A00362B37 /* originalBlack@2x.png in Resources */,
 				893A17E5225FC24200E253CD /* report@2x.png in Resources */,
 				36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */,
 				89DB3BB32249A74B000F8983 /* repos@3x.png in Resources */,
@@ -746,9 +759,11 @@
 				89D230182242B27500837C3B /* default.list in Resources */,
 				893A17E4225FC24200E253CD /* report@3x.png in Resources */,
 				89C90FE0227B760B00325AAD /* twitter@2x.png in Resources */,
+				260F4E1D22C01B6A00362B37 /* originalBlack~ipad@2x.png in Resources */,
 				89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */,
+				260F4E1B22C01B6A00362B37 /* originalBlack@3x.png in Resources */,
 				36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */,
 				89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */,
 				89E8638321D5AFAA0081E485 /* url@3x.png in Resources */,
@@ -760,6 +775,7 @@
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
 				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
+				260F4E1C22C01B6A00362B37 /* originalBlack~ipad@3x.png in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
