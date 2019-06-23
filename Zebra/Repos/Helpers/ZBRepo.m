@@ -189,7 +189,7 @@
         return YES;
     
     if (![object isKindOfClass:[ZBRepo class]])
-        return FALSE;
+        return NO;
     
     return ([[object baseFileName] isEqual:[self baseFileName]]);
 }
