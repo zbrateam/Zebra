@@ -40,7 +40,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
         NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
         
-        BOOL dirExists = FALSE;
+        BOOL dirExists = NO;
         [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
         if (!dirExists) {
             NSLog(@"[Zebra] Creating documents directory.");
@@ -66,7 +66,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-    BOOL dirExists = FALSE;
+    BOOL dirExists = NO;
     [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
     if (!dirExists) {
         NSLog(@"[Zebra] Creating lists directory.");
@@ -106,7 +106,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (NSString *)debsLocation {
     NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
-    BOOL dirExists = FALSE;
+    BOOL dirExists = NO;
     [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
     if (!dirExists) {
         NSLog(@"[Zebra] Creating debs directory.");
@@ -152,7 +152,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
        documentsDirectory.length > 40) {
         // Zebra is sandboxed, warn user and let them removed such auto-created sandboxed document directory
         NSTask *task = [[NSClassFromString(@"NSTask") alloc] init];
-        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and uicache has to be run. If you ignore this, you may have several issues using Zebra. Proceed? It may take a while and your device will respring.", documentsDirectory] blockAction:@"Yes" block:^(void) {
+        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and uicache has to be run. If you ignore this, you may have several issues using Zebra. Proceed? It may take a while and your device will respring.\nIf this does not work, you can reinstall Zebra.", documentsDirectory] blockAction:@"Yes" block:^(void) {
             [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
             [task setArguments:@[@"rm", @"-rf", documentsDirectory]];
             

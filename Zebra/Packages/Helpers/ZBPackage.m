@@ -296,7 +296,7 @@
         return YES;
     
     if (![object isKindOfClass:[ZBPackage class]])
-        return FALSE;
+        return NO;
     
     return ([[object identifier] isEqual:[self identifier]] && [[object version] isEqual:[self version]]);
 }

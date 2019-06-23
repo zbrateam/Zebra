@@ -732,7 +732,7 @@
     }
     else {
         [self printDatabaseError];
-        return NULL;
+    return NULL;
     }
 }
 
@@ -742,10 +742,11 @@
         NSString *query;
         
         if (results) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 LIMIT %d;", name, results];
+            // ORDER BY (CASE WHEN name = "John" THEN 1 WHEN name LIKE "John%" THEN 2 ELSE 3 END),name LIMIT 10 ;
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT %d", name, name, name, results];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY NAME COLLATE NOCASE ASC;", name];
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name];
         }
         
         sqlite3_stmt *statement;
@@ -1237,11 +1238,13 @@
 
 - (NSArray *)cleanUpDuplicatePackages:(NSMutableArray *)packageList {
     NSMutableDictionary *packageVersionDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *results = [NSMutableArray array];
     
     for (ZBPackage *package in packageList) {
         ZBPackage *packageFromDict = packageVersionDict[[package identifier]];
         if (packageFromDict == NULL) {
             packageVersionDict[[package identifier]] = package;
+            [results addObject:package];
             continue;
         }
         
@@ -1251,12 +1254,14 @@
             int result = compare([packageVersion UTF8String], [packageDictVersion UTF8String]);
             
             if (result > 0) {
+                NSUInteger index = [results indexOfObject:packageFromDict];
                 packageVersionDict[[package identifier]] = package;
+                [results replaceObjectAtIndex:index withObject:package];
             }
         }
     }
     
-    return [packageVersionDict allValues];
+    return results;
 }
 
 @end
