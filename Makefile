@@ -13,6 +13,7 @@ after-stage::
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/SDWebImage.framework/SDWebImage
+	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/CSColorPicker.framework/CSColorPicker
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 
 after-install::

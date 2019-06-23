@@ -233,8 +233,11 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
             [[self navigationController] pushViewController:webController animated:true];
+        }else if ([action isEqual:@"settings"]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
+            [[self navigationController] pushViewController:settingsController animated:true];
         }
-        
     }
     else if ([destination isEqual:@"web"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -422,15 +425,11 @@
 }
 
 - (void)changeIcon {
-    #warning reset dark toggle
-    ZBColorPickerViewController *controller = [[ZBColorPickerViewController alloc] init];
-    controller.key = @"test";
-    [self.navigationController pushViewController:controller animated:TRUE];
-    /*if (@available(iOS 10.3, *)) {
+    if (@available(iOS 10.3, *)) {
         [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
     } else {
         return;
-    }*/
+    }
 }
 
 - (IBAction)refreshPage:(id)sender {

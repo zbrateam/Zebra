@@ -474,6 +474,24 @@
             </objects>
             <point key="canvasLocation" x="3348" y="-287.40629685157421"/>
         </scene>
+        <!--Settings Table View Controller-->
+        <scene sceneID="kzD-xi-zGp">
+            <objects>
+                <tableViewController storyboardIdentifier="settingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="el5-GG-Whe" customClass="ZBSettingsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="n9g-nq-pJf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="el5-GG-Whe" id="KJX-bk-H12"/>
+                            <outlet property="delegate" destination="el5-GG-Whe" id="K8t-VN-djn"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IMr-yk-xH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3354" y="-3002"/>
+        </scene>
         <!--Wish List-->
         <scene sceneID="OSK-WG-rrU">
             <objects>
@@ -642,6 +660,7 @@
                         <outlet property="progressView" destination="EUm-Oe-xqt" id="Zle-j6-x0A"/>
                         <outlet property="webView" destination="DeN-Wv-VKH" id="hbf-Jb-WSd"/>
                         <segue destination="jcS-1C-r5p" kind="show" identifier="segueHomeToAltIcons" id="DT9-z1-try"/>
+                        <segue destination="el5-GG-Whe" kind="show" identifier="segueHomeToSettings" id="Lsm-je-Y1z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRu-id-7Cu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1077,7 +1096,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="cOE-ig-TNf"/>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="I4L-pr-ZyX"/>
+        <segue reference="zKt-1l-gI8"/>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

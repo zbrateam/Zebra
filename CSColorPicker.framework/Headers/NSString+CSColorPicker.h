@@ -45,26 +45,4 @@
 //
 - (NSArray<id> *)cscp_gradientStringCGColors;
 
-//
-// legacy api methods deprecated
-//
-
-+ (UIColor *)colorFromHexString:(NSString *)hexString 
-__attribute__((deprecated("WARNING: (colorFromHexString:) has been deprecated, use cscp_colorFromHexString instead.")));
-
-+ (BOOL)isValidHexString:(NSString *)hexString 
-__attribute__((deprecated("WARNING: (isValidHexString:) has been deprecated, use cscp_isValidHexString: instead.")));
-
-- (UIColor *)hexColor 
-__attribute__((deprecated("WARNING: (hexColor) has been deprecated, use cscp_hexColor instead.")));
-
-- (BOOL)validHex 
-__attribute__((deprecated("WARNING: (validHex) has been deprecated, use cscp_validHex instead.")));
-
-- (NSArray<UIColor *> *)gradientStringColors 
-__attribute__((deprecated("WARNING: (gradientStringColors) has been deprecated, use cscp_gradientStringColors instead.")));
-
-- (NSArray<id> *)gradientStringCGColors 
-__attribute__((deprecated("WARNING: (gradientStringCGColors) has been deprecated, use cscp_gradientStringCGColors instead.")));
-
 @end
