@@ -10,7 +10,7 @@
 #define ZBTab_h
 
 typedef enum {
-    ZBTabHome = 0,
+    ZBTabHome,
     ZBTabSources,
     ZBTabChanges,
     ZBTabPackages,
