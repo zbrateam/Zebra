@@ -62,7 +62,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (BOOL)needsSimulation {
 #if TARGET_OS_SIMULATOR
-    return NO;
+    return YES;
 #else
     return ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
 #endif
