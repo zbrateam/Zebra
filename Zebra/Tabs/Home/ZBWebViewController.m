@@ -13,7 +13,7 @@
 #import <Database/ZBRefreshViewController.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
-#import <Stores/Controllers/ZBStoresListTableViewController.h>
+#import <Stores/ZBStoresListTableViewController.h>
 @import SDWebImage;
 
 @interface ZBWebViewController () {
