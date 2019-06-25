@@ -7,7 +7,7 @@
 //
 
 #import <ZBTabBarController.h>
-#import <ZBDarkModeHelper.h>
+#import <ZBDevice.h>
 #import "ZBRefreshViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #include <Parsel/parsel.h>
@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         [self setNeedsStatusBarAppearanceUpdate];
         [self.view setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
         [_consoleView setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
@@ -34,7 +34,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;
@@ -99,7 +99,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
-        BOOL isDark = [ZBDarkModeHelper darkModeEnabled];
+        BOOL isDark = [ZBDevice darkModeEnabled];
         switch (level) {
             case ZBLogLevelDescript: {
                 if (isDark) {
