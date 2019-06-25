@@ -8,7 +8,28 @@
 
 #import "ZBSettingsTableViewController.h"
 
-@interface ZBSettingsTableViewController ()
+enum ZBInfoOrder {
+    ZBChangelog = 0,
+    ZBRepos,
+    ZBBugs
+};
+
+enum ZBUIOrder {
+    ZBChangeIcon = 0,
+    ZBChangeTint,
+    ZBOledSwith
+};
+
+enum ZBAdvancedOrder {
+    ZBDropTables = 0,
+    ZBOpenDocs,
+    ZBClearImageCache,
+    ZBClearKeychain
+};
+
+@interface ZBSettingsTableViewController (){
+    NSMutableDictionary *_colors;
+}
 
 @end
 
@@ -19,6 +40,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Settings";
+    [self configureHeaderView];
+    [self configureTitleLabel];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -27,19 +50,66 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)configureHeaderView {
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor grayColor]];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setTranslucent:FALSE];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.headerView.backgroundColor = [UIColor grayColor];
+}
+
+- (void)configureTitleLabel {
+    NSString *versionString = [NSString stringWithFormat:@"Version: %@", PACKAGE_VERSION];
+    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Zebra\n\t\t%@", versionString]];
+    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:36], NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0,5)];
+    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:26], NSForegroundColorAttributeName: [[UIColor whiteColor] colorWithAlphaComponent:0.75]} range:[titleString.string rangeOfString:versionString]];
+    [self.titleLabel setAttributedText:titleString];
+    [self.titleLabel setTextAlignment:NSTextAlignmentNatural];
+    [self.titleLabel setNumberOfLines:0];
+    [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:FALSE];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:TRUE completion:nil];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY > 190){
+        self.navigationController.navigationBar.backgroundColor = [UIColor tableViewBackgroundColor];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    }else{
+        [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor grayColor]];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    }
+    if(offsetY < 0){
+        CGRect frame = self.headerView.frame;
+        frame.size.height = self.tableView.tableHeaderView.frame.size.height - scrollView.contentOffset.y;
+        frame.origin.y = self.tableView.tableHeaderView.frame.origin.y + scrollView.contentOffset.y;
+        self.headerView.frame = frame;
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    if(section == 2) {
+        return 4;
+    }else {
+        return 3;
+    }
 }
 
 
@@ -51,28 +121,12 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.text = @"Test";
+    
+    cell.textLabel.text = @"Hello";
     return cell;
+        
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *hex = [[NSUserDefaults standardUserDefaults] stringForKey:@"test"] ? : @"FF0000";
-    CSColorObject *colorObject = [CSColorObject colorObjectWithHex:hex];
-    CSColorPickerViewController *vc = [[CSColorPickerViewController alloc] initWithColorObject:colorObject showingAlpha:FALSE];
-    vc.delegate = self;
-    vc.identifier = @"test";
-    vc.navigationItem.title = @"Cell Color";
-    [self.navigationController pushViewController:vc animated:TRUE];
-}
-
-#pragma mark - CSColorPickerDelegate
-
-// called whenever the color picker is dismissed with including a color object representing the picked color
-- (void)colorPicker:(CSColorPickerViewController *)picker didPickColor:(CSColorObject *)colorObject {
-    self.view.backgroundColor = colorObject.color;
-    self.tableView.backgroundColor = colorObject.color;
-}
 
 
 

@@ -234,9 +234,7 @@
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
             [[self navigationController] pushViewController:webController animated:true];
         }else if ([action isEqual:@"settings"]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
-            [[self navigationController] pushViewController:settingsController animated:true];
+            [self performSegueWithIdentifier:@"segueHomeToSettings" sender:nil];
         }
     }
     else if ([destination isEqual:@"web"]) {

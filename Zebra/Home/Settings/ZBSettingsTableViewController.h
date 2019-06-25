@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@import CSColorPicker;
-
-@interface ZBSettingsTableViewController : UITableViewController <CSColorPickerDelegate>
-
+#import <ZBDarkModeHelper.h>
+#import <Extensions/UIColor+GlobalColors.h>
+@interface ZBSettingsTableViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *headerContainer;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @end

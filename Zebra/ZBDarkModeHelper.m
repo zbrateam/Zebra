@@ -27,6 +27,12 @@
 + (void)configureDark {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[MFMessageComposeViewController class]]] setTintColor:nil];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[ [MFMessageComposeViewController class]]] setBarTintColor:nil];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[MFMessageComposeViewController class]]] setBackgroundColor:nil];
+    [[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[MFMessageComposeViewController class]]] setBarStyle:UIBarStyleDefault];
+    
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     }
@@ -35,7 +41,7 @@
     }
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
-    [[UINavigationBar appearance] setTranslucent:YES];
+    [[UINavigationBar appearance] setTranslucent:NO];
     //Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
