@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ZBConsoleCommandDelegate.h>
+#import <Console/ZBConsoleCommandDelegate.h>
 
 @interface ZBDeviceHelper : NSObject
 + (NSString *_Nullable)UDID;
@@ -17,5 +17,5 @@
 + (void)uicache:(NSArray *_Nonnull)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
 + (BOOL)isChimera;
 + (BOOL)isElectra;
-+ (BOOL)isUnc0ver;
++ (BOOL)isUncover;
 @end

@@ -112,7 +112,7 @@
     if ([ZBDeviceHelper isChimera]) { //chimera
         return ([host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([ZBDeviceHelper isUnc0ver]) { //uncover
+    else if ([ZBDeviceHelper isUncover]) { //uncover
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
     else if ([ZBDeviceHelper isElectra]) { //electra

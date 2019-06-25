@@ -7,6 +7,7 @@
 //
 
 #import "ZBDeviceHelper.h"
+#import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
 #import <UIKit/UIDevice.h>
 #import <NSTask.h>
@@ -66,27 +67,27 @@
 }
 
 + (void)uicache:(NSArray *)arguments observer:(NSObject <ZBConsoleCommandDelegate> *)observer {
-#if !TARGET_OS_SIMULATOR
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    [task setArguments:[@[@"/usr/bin/uicache"] arrayByAddingObjectsFromArray:arguments]];
-    
-    if (observer) {
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        NSPipe *errorPipe = [[NSPipe alloc] init];
-        NSFileHandle *error = [errorPipe fileHandleForReading];
-        [error waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        [task setStandardOutput:outputPipe];
-        [task setStandardError:errorPipe];
+    if (![ZBAppDelegate needsSimulation]) {
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [task setArguments:[@[@"/usr/bin/uicache"] arrayByAddingObjectsFromArray:arguments]];
+        
+        if (observer) {
+            NSPipe *outputPipe = [[NSPipe alloc] init];
+            NSFileHandle *output = [outputPipe fileHandleForReading];
+            [output waitForDataInBackgroundAndNotify];
+            [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+            NSPipe *errorPipe = [[NSPipe alloc] init];
+            NSFileHandle *error = [errorPipe fileHandleForReading];
+            [error waitForDataInBackgroundAndNotify];
+            [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+            [task setStandardOutput:outputPipe];
+            [task setStandardError:errorPipe];
+        }
+        
+        [task launch];
+        [task waitUntilExit];
     }
-    
-    [task launch];
-    [task waitUntilExit];
-#endif
 }
 
 + (BOOL)_isRegularFile:(const char *)path {
@@ -102,24 +103,15 @@
 }
 
 + (BOOL)isChimera {
-#if TARGET_OS_SIMULATOR
-    return NO;
-#endif
-    return [self _isRegularDirectory:"/chimera"];
+    return [ZBAppDelegate needsSimulation] ? NO : [self _isRegularDirectory:"/chimera"];
 }
 
 + (BOOL)isElectra {
-#if TARGET_OS_SIMULATOR
-    return NO;
-#endif
-    return [self _isRegularDirectory:"/electra"];
+    return [ZBAppDelegate needsSimulation] ? NO : [self _isRegularDirectory:"/electra"];
 }
 
-+ (BOOL)isUnc0ver {
-#if TARGET_OS_SIMULATOR
-    return NO;
-#endif
-    return [self _isRegularFile:"/.installed_unc0ver"];
++ (BOOL)isUncover {
+    return [ZBAppDelegate needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
 }
 
 @end

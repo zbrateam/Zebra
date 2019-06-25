@@ -61,7 +61,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (BOOL)needsSimulation {
+#if TARGET_OS_SIMULATOR
+    return NO;
+#else
     return ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
+#endif
 }
 
 + (NSString *)listsLocation {
@@ -203,12 +207,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
-    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    
     NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
