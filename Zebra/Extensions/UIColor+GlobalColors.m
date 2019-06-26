@@ -6,13 +6,13 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDarkModeHelper.h>
+#import <ZBDevice.h>
 #import "UIColor+GlobalColors.h"
 
 @implementation UIColor (GlobalColors)
 
 + (UIColor *)tintColor {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
     } else {
         return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
@@ -29,7 +29,7 @@
 
 // Table View Colors
 + (UIColor *)tableViewBackgroundColor {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     } else {
         return [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
@@ -37,7 +37,7 @@
 }
 
 + (UIColor *)cellBackgroundColor {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
     } else {
         return [UIColor whiteColor];
@@ -53,7 +53,7 @@
 }
 
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [self selectedCellBackgroundColorDark:highlighted];
     } else {
         return [self selectedCellBackgroundColorLight:highlighted];
@@ -61,7 +61,7 @@
 }
 
 + (UIColor *)cellPrimaryTextColor {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [UIColor whiteColor];
     } else {
         return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
@@ -69,7 +69,7 @@
 }
 
 + (UIColor *)cellSecondaryTextColor {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [UIColor lightGrayColor];
     } else {
         return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
@@ -77,7 +77,7 @@
 }
 
 + (UIColor *)cellSeparatorColor {
-    if ([ZBDarkModeHelper darkModeEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     } else {
         return [UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0];

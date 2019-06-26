@@ -7,6 +7,7 @@
 //
 
 #import "ZBDatabaseManager.h"
+#import <ZBDevice.h>
 #import <Parsel/parsel.h>
 #import <Parsel/vercmp.h>
 #import <ZBAppDelegate.h>
@@ -262,7 +263,7 @@
 
 - (void)importLocalPackages {
     NSString *installedPath;
-    if ([ZBAppDelegate needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
+    if ([ZBDevice needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
     }
     else { //Otherwise, load the actual file

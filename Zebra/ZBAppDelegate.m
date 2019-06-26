@@ -11,8 +11,7 @@
 #import "ZBAppDelegate.h"
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
-#import "ZBDarkModeHelper.h"
-#import "ZBDeviceHelper.h"
+#import "ZBDevice.h"
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
@@ -58,10 +57,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     else {
         return paths[0];
     }
-}
-
-+ (BOOL)needsSimulation {
-    return ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
 }
 
 + (NSString *)listsLocation {
@@ -147,7 +142,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-    if (![[self class] needsSimulation] && ![documentsDirectory hasPrefix:@"/var/mobile/Documents"] &&
+    if (![ZBDevice needsSimulation] && ![documentsDirectory hasPrefix:@"/var/mobile/Documents"] &&
         [documentsDirectory hasPrefix:@"/var/mobile/Containers/Data/Application/"] &&
        documentsDirectory.length > 40) {
         // Zebra is sandboxed, warn user and let them removed such auto-created sandboxed document directory
@@ -168,7 +163,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             [task launch];
             [task waitUntilExit];
             NSMutableArray *arguments = [NSMutableArray array];
-            if ([ZBDeviceHelper isChimera]) {
+            if ([ZBDevice isChimera]) {
                 [arguments addObject:@"-a"];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -177,13 +172,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 [hud setText:@"Working..."];
                 [hud showInView:UIApplication.sharedApplication.keyWindow];
             });
-            [ZBDeviceHelper uicache:arguments observer:nil];
-            [ZBDeviceHelper sbreload];
+            [ZBDevice uicache:arguments observer:nil];
+            [ZBDevice sbreload];
         }];
         return NO;
     }
     [self setupSDWebImageCache];
-    [ZBDarkModeHelper applySettings];
+    [ZBDevice applySettings];
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -203,19 +198,17 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
-    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    
     NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
     switch (index) {
         case 0: { //file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                if (![ZBAppDelegate needsSimulation]) {
+                if (![ZBDevice needsSimulation]) {
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                     UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
                     

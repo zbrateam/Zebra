@@ -8,7 +8,7 @@
 
 #import "ZBConsoleViewController.h"
 #import <NSTask.h>
-#import <ZBDeviceHelper.h>
+#import <ZBDevice.h>
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
@@ -118,7 +118,7 @@
                     }
                 }
                 
-                if (![ZBAppDelegate needsSimulation]) {
+                if (![ZBDevice needsSimulation]) {
                     NSTask *task = [[NSTask alloc] init];
                     [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                     [task setArguments:command];
@@ -176,7 +176,7 @@
                         }
                     }
                     
-                    if (![ZBAppDelegate needsSimulation]) {
+                    if (![ZBDevice needsSimulation]) {
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
@@ -255,8 +255,8 @@
             [arguments addObjectsFromArray:bundlePaths];
         }
         
-        if (![ZBAppDelegate needsSimulation]) {
-            [ZBDeviceHelper uicache:arguments observer:self];
+        if (![ZBDevice needsSimulation]) {
+            [ZBDevice uicache:arguments observer:self];
         }
         else {
             [self writeToConsole:@"uicache is not available on the simulator\n" atLevel:ZBLogLevelWarning];
@@ -305,7 +305,7 @@
 
 - (void)restartSpringBoard {
     //Bye!
-    [ZBDeviceHelper sbreload];
+    [ZBDevice sbreload];
 }
 
 - (void)refreshLocalPackages {
