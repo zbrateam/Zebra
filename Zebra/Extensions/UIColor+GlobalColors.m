@@ -30,6 +30,9 @@
 // Table View Colors
 + (UIColor *)tableViewBackgroundColor {
     if ([ZBDevice darkModeEnabled]) {
+        if ([ZBDevice darkModeOledEnabled]){
+            return [UIColor blackColor];
+        }
         return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
     } else {
         return [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
@@ -38,6 +41,9 @@
 
 + (UIColor *)cellBackgroundColor {
     if ([ZBDevice darkModeEnabled]) {
+        if ([ZBDevice darkModeOledEnabled]){
+            return [UIColor blackColor];
+        }
         return [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
     } else {
         return [UIColor whiteColor];
@@ -48,13 +54,18 @@
     return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
 }
 
-+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted {
-    return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
++ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled{
+    if (!oled) {
+        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+    } else{
+        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
+    }
+
 }
 
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
     if ([ZBDevice darkModeEnabled]) {
-        return [self selectedCellBackgroundColorDark:highlighted];
+        return [self selectedCellBackgroundColorDark:highlighted oled:[ZBDevice darkModeOledEnabled]];
     } else {
         return [self selectedCellBackgroundColorLight:highlighted];
     }

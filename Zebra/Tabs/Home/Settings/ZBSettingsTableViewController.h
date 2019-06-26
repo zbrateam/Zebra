@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ZBDarkModeHelper.h>
+#import "ZBDevice.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import "ZBWebViewController.h"
+#import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
+#import "ZBAlternateIconController.h"
+@import SDWebImage;
 
 @interface ZBSettingsTableViewController : UITableViewController <WKNavigationDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headerView;

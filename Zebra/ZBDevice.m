@@ -130,6 +130,10 @@
     return [defaults boolForKey:@"darkMode"];
 }
 
++ (BOOL)darkModeOledEnabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"oledMode"];
+}
+
 + (void)setDarkModeEnabled:(BOOL)enabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:enabled forKey:@"darkMode"];
@@ -138,30 +142,33 @@
 
 + (void)configureDarkMode {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     }
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1]];
-    [[UINavigationBar appearance] setTranslucent:YES];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UINavigationBar appearance] setTranslucent:FALSE];
     //Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
     //Tab
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor colorWithRed:0.11 green:0.11 blue:0.11 alpha:1.0]];
-    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:0.11 green:0.11 blue:0.11 alpha:1.0]];
+    [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [[UITabBar appearance] setTranslucent:FALSE];
+    [[UITabBar appearance] setShadowImage:[UIImage new]];
     [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
     
     //Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
+    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0]];
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     UIView *dark = [[UIView alloc] init];
-    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES];
+    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor whiteColor];
+    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:NO];
 }
@@ -169,12 +176,13 @@
 + (void)configureLightMode {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:nil];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:nil];
     }
     [[UINavigationBar appearance] setBarTintColor:nil];
     [[UINavigationBar appearance] setBackgroundColor:nil];
-    [[UINavigationBar appearance] setTranslucent:YES];
+    [[UINavigationBar appearance] setTranslucent:NO];
     //Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     
@@ -183,6 +191,8 @@
     [[UITabBar appearance] setBackgroundColor:nil];
     [[UITabBar appearance] setBarTintColor:nil];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
+    [[UITabBar appearance] setTranslucent:FALSE];
+    [[UITabBar appearance] setShadowImage:[UIImage new]];
     
     //Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];

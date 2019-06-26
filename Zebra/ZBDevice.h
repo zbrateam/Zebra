@@ -23,6 +23,7 @@
 
 //Dark Mode
 + (BOOL)darkModeEnabled;
++ (BOOL)darkModeOledEnabled;
 + (void)setDarkModeEnabled:(BOOL)enabled;
 + (void)configureDarkMode;
 + (void)configureLightMode;

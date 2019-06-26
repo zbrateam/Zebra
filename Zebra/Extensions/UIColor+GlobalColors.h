@@ -17,7 +17,7 @@
 + (UIColor *)cellPrimaryTextColor;
 + (UIColor *)cellSecondaryTextColor;
 + (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
-+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted;
++ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
 + (UIColor *)cellSeparatorColor;
 @end

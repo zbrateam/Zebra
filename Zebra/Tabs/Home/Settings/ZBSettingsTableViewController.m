@@ -16,7 +16,7 @@ enum ZBInfoOrder {
 
 enum ZBUIOrder {
     ZBChangeTint = 0,
-    ZBOledSwith,
+    ZBOledSwitch,
     ZBChangeIcon
 };
 
@@ -44,36 +44,37 @@ enum ZBSectionOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Settings";
-    [self configureHeaderView];
+    self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self configureNavBar];
     [self configureTitleLabel];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:TRUE];
     [self.tableView reloadData];
     [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    [self configureNavBar];
 }
 
-- (void)configureHeaderView {
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor grayColor]];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    [self.navigationController.navigationBar setTranslucent:FALSE];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.headerView.backgroundColor = [UIColor grayColor];
+- (void)configureNavBar {
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+        [self.navigationController.navigationBar setTranslucent:FALSE];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        [self.navigationController.navigationBar layoutIfNeeded];
+    } completion:nil];
+    
 }
 
 - (void)configureTitleLabel {
     NSString *versionString = [NSString stringWithFormat:@"Version: %@", PACKAGE_VERSION];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Zebra\n\t\t%@", versionString]];
-    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:36], NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0,5)];
-    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:26], NSForegroundColorAttributeName: [[UIColor whiteColor] colorWithAlphaComponent:0.75]} range:[titleString.string rangeOfString:versionString]];
+    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:36], NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0,5)];
+    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:26], NSForegroundColorAttributeName: [[UIColor cellPrimaryTextColor] colorWithAlphaComponent:0.75]} range:[titleString.string rangeOfString:versionString]];
     [self.titleLabel setAttributedText:titleString];
     [self.titleLabel setTextAlignment:NSTextAlignmentNatural];
     [self.titleLabel setNumberOfLines:0];
@@ -91,7 +92,7 @@ enum ZBSectionOrder {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY > 190){
+    /*if (offsetY > 190){
         self.navigationController.navigationBar.backgroundColor = [UIColor tableViewBackgroundColor];
         [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
@@ -99,7 +100,7 @@ enum ZBSectionOrder {
         [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
         [self.navigationController.navigationBar setBarTintColor:[UIColor grayColor]];
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    }
+    }*/
     if(offsetY < 0){
         CGRect frame = self.headerView.frame;
         frame.size.height = self.tableView.tableHeaderView.frame.size.height - scrollView.contentOffset.y;
@@ -239,9 +240,23 @@ enum ZBSectionOrder {
                 
             }
         } else if (indexPath.row == ZBChangeTint){
+            /*UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Blue", @"Orange", @"White"]];
+            segment.frame = cell.contentView.bounds;
+            //segment.autoresizingMask = UIViewAutoresizingFlexibleCe
+            [cell.contentView addSubview:segment];*/
             cell.textLabel.text = @"Select Tint Color";
-        } else if (indexPath.row == ZBOledSwith) {
-            cell.textLabel.text = @"Pure Black Darkmode";
+        } else if (indexPath.row == ZBOledSwitch) {
+            UISwitch *darkSwitch = [[UISwitch alloc] init];
+            CGSize switchSize = [darkSwitch sizeThatFits:CGSizeZero];
+            darkSwitch.frame = CGRectMake(cell.contentView.bounds.size.width - switchSize.width - 5.0f, (cell.contentView.bounds.size.height - switchSize.height) / 2.0f, switchSize.width, switchSize.height);
+            darkSwitch.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            darkSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"oledMode"];
+            darkSwitch.tag = 123;
+            [darkSwitch addTarget:self action:@selector(toggleOledDarkMode:) forControlEvents:UIControlEventValueChanged];
+            if(![cell viewWithTag:123]){
+                [cell.contentView addSubview:darkSwitch];
+            }
+            cell.textLabel.text = @"Oled Darkmode";
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
@@ -277,32 +292,6 @@ enum ZBSectionOrder {
         
 }
 
-
-/*
- enum ZBInfoOrder {
- ZBChangelog = 0,
- ZBRepos,
- ZBBugs
- };
- 
- enum ZBUIOrder {
- ZBChangeTint = 0,
- ZBOledSwith,
- ZBChangeIcon
- };
- 
- enum ZBAdvancedOrder {
- ZBDropTables = 0,
- ZBOpenDocs,
- ZBClearImageCache,
- ZBClearKeychain
- };
- 
- enum ZBSectionOrder {
- ZBInfo = 0,
- ZBGraphics,
- ZBAdvanced
- };*/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case ZBInfo:
@@ -312,13 +301,44 @@ enum ZBSectionOrder {
                     break;
                 case ZBRepos:
                     [self openWebView:ZBRepos];
+                    break;
                 case ZBBugs:
+                    [self openWebView:ZBBugs];
+                    break;
+                default:
                     break;
             }
             break;
         case ZBGraphics:
+            switch (indexPath.row) {
+                case ZBChangeIcon :
+                    [self changeIcon];
+                    break;
+                case ZBOledSwitch :
+                    [self getTappedSwitch:indexPath];
+                    break;
+                default:
+                    break;
+            }
             break;
         case ZBAdvanced:
+            switch (indexPath.row) {
+                case ZBDropTables :
+                    [self nukeDatabase];
+                    break;
+                case ZBOpenDocs :
+                    [self openDocumentsDirectory];
+                    break;
+                case ZBClearImageCache :
+                    [self resetImageCache];
+                    break;
+                case ZBClearKeychain :
+                    [self clearKeychain];
+                    break;
+                default:
+                    break;
+                
+            }
             break;
         default:
             break;
@@ -326,11 +346,12 @@ enum ZBSectionOrder {
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
 }
 
+
 # pragma mark selected cells methods
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-    webController.navigationDelegate = self;
+    webController.navigationDelegate = webController;
     webController.navigationItem.title = @"Loading...";
     NSURL *url;
     if(cellNumber == ZBChangelog) {
@@ -338,141 +359,109 @@ enum ZBSectionOrder {
     }else if (cellNumber == ZBRepos) {
         url = [NSURL URLWithString:@"https://xtm3x.github.io/zebra/repos.html"];
     }else {
-        url = [NSURL URLWithString:@"https://google.com"];
+        url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
     }
-    
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [webController setValue:url forKey:@"_url"];
     
     [[self navigationController] pushViewController:webController animated:true];
 }
 
-#pragma mark WebView Delegates
-
-
-
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSArray *contents = [message.body componentsSeparatedByString:@"~"];
-    NSString *destination = (NSString *)contents[0];
-    NSString *action = contents[1];
-    NSString *url;
-    if ([contents count] == 3) {
-        url = contents[2];
-    }
-    else if ([destination isEqual:@"repo"]) {
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self handleRepoAdd:url local:false];
-        }];
-        UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
-        
-        [controller addAction:no];
-        [controller addAction:yes];
-        
-        [self presentViewController:controller animated:true completion:nil];
-    }
-    else if ([destination isEqual:@"repo-local"]) {
-        if ([contents count] == 2) {
-            if (![ZBAppDelegate needsSimulation]) {
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories?" preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self handleRepoAdd:contents[1] local:true];
-                }];
-                UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
-                [controller addAction:no];
-                [controller addAction:yes];
-                
-                [self presentViewController:controller animated:true completion:nil];
-            }
-            else {
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Error" message:@"This action is not supported on non-jailbroken devices" preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *ok = [UIAlertAction actionWithTitle:@"😢" style:UIAlertActionStyleDefault handler:NULL];
-                
-                [controller addAction:ok];
-                
-                [self presentViewController:controller animated:true completion:nil];
-            }
-        }
-        else {
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self handleRepoAdd:url local:true];
-            }];
-            UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
-            
-            [controller addAction:no];
-            [controller addAction:yes];
-            
-            [self presentViewController:controller animated:true completion:nil];
-        }
-    }
-}
-
-- (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-    //    NSLog(@"[Zebra] Handling repo add for method %@", repo);
-    if (local) {
-        NSArray *options = @[
-                             @"transfercydia",
-                             @"transfersileo",
-                             @"cydia",
-                             @"electra",
-                             @"uncover",
-                             @"bigboss",
-                             @"modmyi",
-                             @"zodttd",
-                             ];
-        
-        switch ([options indexOfObject:repo]) {
-            case 0:
-                [self.repoManager transferFromCydia];
-                break;
-            case 1:
-                [self.repoManager transferFromSileo];
-                break;
-            case 2:
-                [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
-                break;
-            case 3:
-                [self.repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\n"];
-                break;
-            case 4:
-                [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
-                break;
-            case 5:
-                [self.repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
-                break;
-            case 6:
-                [self.repoManager addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
-                break;
-            case 7:
-                [self.repoManager addDebLine:@"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"];
-                break;
-            default:
-                return;
-        }
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        console.navig
-        [self presentViewController:console animated:true completion:nil];
+- (void)showRefreshView:(NSNumber *)dropTables {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:false];
     }
     else {
-        __weak typeof(self) weakSelf = self;
-        
-        [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
-            if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-            }
-            else {
-                NSLog(@"[Zebra] Added source.");
-                [weakSelf showRefreshView:@(NO)];
-            }
-        }];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        console.dropTables = [dropTables boolValue];
+        [self presentViewController:console animated:true completion:nil];
     }
 }
+
+- (void)nukeDatabase {
+    [self showRefreshView:@(YES)];
+}
+
+- (void)openDocumentsDirectory {
+    NSString *documents = [ZBAppDelegate documentsDirectory];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
+}
+
+- (void)resetImageCache {
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+}
+
+- (void)clearKeychain {
+    NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
+                                (__bridge id)kSecClassInternetPassword,
+                                (__bridge id)kSecClassCertificate,
+                                (__bridge id)kSecClassKey,
+                                (__bridge id)kSecClassIdentity];
+    for (id secItemClass in secItemClasses) {
+        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
+        SecItemDelete((__bridge CFDictionaryRef)spec);
+    }
+}
+
+- (void)changeIcon {
+    if (@available(iOS 10.3, *)) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
+        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+        [self.navigationController pushViewController:altIcon animated:TRUE];
+    } else {
+        return;
+    }
+}
+
+- (void)getTappedSwitch:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UISwitch *switcher = (UISwitch *)[cell.contentView viewWithTag:123];
+    [switcher setOn:!switcher.on animated:YES];
+    [self toggleOledDarkMode:switcher];
+    
+}
+
+- (void)toggleOledDarkMode:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    UISwitch *switcher = (UISwitch *)sender;
+    BOOL oled = [defaults boolForKey:@"oledMode"];
+    oled = switcher.isOn;
+    [defaults setBool:oled forKey:@"oledMode"];
+    [defaults synchronize];
+    [self hapticButton];
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self oledAnimation];
+    } completion:nil];
+    
+}
+
+- (void)oledAnimation {
+    [self.tableView reloadData];
+    [self configureNavBar];
+    self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [ZBDevice configureDarkMode];
+    [ZBDevice refreshViews];
+    [self setNeedsStatusBarAppearanceUpdate];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+}
+
+- (void)hapticButton {
+    if (@available(iOS 10.0, *)) {
+        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
+        [feedback prepare];
+        [feedback selectionChanged];
+        feedback = nil;
+    } else {
+        return;// Fallback on earlier versions
+    }
+}
+
+
 
 
 /*

@@ -83,12 +83,15 @@
     
     self.navigationController.navigationBar.translucent = false;
     self.tabBarController.tabBar.translucent = false;
-    
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     if ([ZBDevice darkModeEnabled]) {
-        configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
+        if ([ZBDevice darkModeOledEnabled]) {
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark Oled ~ %@", PACKAGE_VERSION];
+        } else {
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
+        }
     } else {
         configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
     }
@@ -142,9 +145,6 @@
     webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
     webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
     
-    
-    //    [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
-    
     if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
     } else {
@@ -154,25 +154,21 @@
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
-    //NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    /*if ([package depictionURL]) {
-        request = [[NSMutableURLRequest alloc] initWithURL:[package depictionURL]];
-    } else {
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"];
-        request = [[NSMutableURLRequest alloc] initWithURL:url];
-    }*/
-    
-    
+    webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     if ([ZBDevice darkModeEnabled]) {
-        webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
-        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
         [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
+        if([ZBDevice darkModeOledEnabled]) {
+            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
+            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
+        } else {
+            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+        }
     } else {
         [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
     }
