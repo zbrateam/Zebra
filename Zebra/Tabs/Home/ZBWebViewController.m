@@ -33,7 +33,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
     self.repoManager = [[ZBRepoManager alloc] init];
-
+    [self colorWindow];
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
 
@@ -93,6 +93,10 @@
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
+- (void)colorWindow {
+    UIWindow *window = UIApplication.sharedApplication.delegate.window;
+    [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
@@ -421,6 +425,7 @@
 
 - (void)darkMode {
     [ZBDevice setDarkModeEnabled:YES];
+    [self colorWindow];
     [self resetWebView];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
     [ZBDevice configureDarkMode];
@@ -433,6 +438,7 @@
 - (void)lightMode {
     [ZBDevice setDarkModeEnabled:NO];
     [self resetWebView];
+    [self colorWindow];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
@@ -442,6 +448,7 @@
 }
 
 - (void)resetWebView {
+    [self colorWindow];
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
         if (@available(iOS 11.0, *)) {
