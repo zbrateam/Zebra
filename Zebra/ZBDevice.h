@@ -29,4 +29,5 @@
 + (void)configureLightMode;
 + (void)applySettings;
 + (void)refreshViews;
++ (NSInteger)selectedColorTint;
 @end

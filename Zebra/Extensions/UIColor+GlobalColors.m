@@ -11,11 +11,28 @@
 
 @implementation UIColor (GlobalColors)
 
-+ (UIColor *)tintColor {
-    if ([ZBDevice darkModeEnabled]) {
-        return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
++ (UIColor *)tintColor:(NSInteger)number {
+    if (number) {
+        switch (number) {
+            case ZBBlue :
+                return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+                break;
+            case ZBOrange :
+                return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
+                break;
+            case ZBWhiteOrBlack :
+                return ([ZBDevice darkModeEnabled]) ? [UIColor whiteColor] : [UIColor blackColor];
+                break;
+            default:
+                return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+                break;
+        }
     } else {
-        return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+        if ([ZBDevice darkModeEnabled]) {
+            return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
+        } else {
+            return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
+        }
     }
 }
 

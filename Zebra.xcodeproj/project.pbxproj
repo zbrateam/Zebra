@@ -15,6 +15,7 @@
 		363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */; };
 		367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */; };
 		367D80F922C3D2FE00581D60 /* ZBAlternateIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F822C3D2FD00581D60 /* ZBAlternateIconController.m */; };
+		367D810122C437D300581D60 /* ios7oled.css in Resources */ = {isa = PBXBuildFile; fileRef = 367D810022C437D200581D60 /* ios7oled.css */; };
 		369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */; };
 		369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */; };
 		36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6522AB30E3004C2332 /* zWhite~ipad@2x.png */; };
@@ -134,6 +135,7 @@
 		367D80F422C3D1CF00581D60 /* ZBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewController.h; sourceTree = "<group>"; };
 		367D80F722C3D2FD00581D60 /* ZBAlternateIconController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZBAlternateIconController.h; path = "Zebra/Tabs/Home/Alternate Icons/ZBAlternateIconController.h"; sourceTree = SOURCE_ROOT; };
 		367D80F822C3D2FD00581D60 /* ZBAlternateIconController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZBAlternateIconController.m; path = "Zebra/Tabs/Home/Alternate Icons/ZBAlternateIconController.m"; sourceTree = SOURCE_ROOT; };
+		367D810022C437D200581D60 /* ios7oled.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7oled.css; sourceTree = "<group>"; };
 		369F9E9E22BC850000D6CCF3 /* ZBWishListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBWishListTableViewController.h; sourceTree = "<group>"; };
 		369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBWishListTableViewController.m; sourceTree = "<group>"; };
 		369F9EA122BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagesByAuthorTableViewController.h; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				89E8637A21D5AFAA0081E485 /* home.html */,
 				89E8637621D5AFA90081E485 /* package_depiction.html */,
 				89E8637D21D5AFAA0081E485 /* ios7dark.css */,
+				367D810022C437D200581D60 /* ios7oled.css */,
 				36AC5A7922AB6F66004C2332 /* ios7.min.css */,
 				89E8637721D5AFA90081E485 /* ios7.min.js */,
 				89E8637921D5AFAA0081E485 /* changelog@2x.png */,
@@ -768,6 +771,7 @@
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
+				367D810122C437D300581D60 /* ios7oled.css in Resources */,
 				893A17E4225FC24200E253CD /* report@3x.png in Resources */,
 				89C90FE0227B760B00325AAD /* twitter@2x.png in Resources */,
 				89DB3BB22249A74B000F8983 /* repos@2x.png in Resources */,

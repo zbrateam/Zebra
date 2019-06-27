@@ -100,7 +100,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 

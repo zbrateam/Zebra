@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum  {
+    ZBBlue = 0,
+    ZBOrange,
+    ZBWhiteOrBlack
+} ZBTintSelection;
+
 @interface UIColor (GlobalColors)
-+ (UIColor *)tintColor;
++ (UIColor *)tintColor:(NSInteger)number;
 + (UIColor *)navBarTintColor;
 + (UIColor *)badgeColor;
 + (UIColor *)tableViewBackgroundColor;

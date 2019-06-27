@@ -197,7 +197,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         }
     }
     
-    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor:[ZBDevice selectedColorTint]];
     return YES;
 }
 

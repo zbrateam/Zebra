@@ -240,7 +240,13 @@
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
         
         if ([ZBDevice darkModeEnabled]) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+            NSString *path;
+            if([ZBDevice darkModeOledEnabled]) {
+                path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
+            }else {
+                path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+            }
+            
             NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
             cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -288,7 +294,12 @@
         //Darkmode etc for installed files
         
         if ([ZBDevice darkModeEnabled]) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+            NSString *path;
+            if([ZBDevice darkModeOledEnabled]) {
+                path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
+            }else {
+                path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+            }
             NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
             cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];

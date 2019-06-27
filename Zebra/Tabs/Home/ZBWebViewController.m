@@ -139,7 +139,12 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
     if ([ZBDevice darkModeEnabled]) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *path;
+        if([ZBDevice darkModeOledEnabled]) {
+            path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
+        }else {
+            path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        }
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];

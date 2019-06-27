@@ -33,8 +33,10 @@ enum ZBSectionOrder {
     ZBAdvanced
 };
 
-@interface ZBSettingsTableViewController (){
+
+@interface ZBSettingsTableViewController () {
     NSMutableDictionary *_colors;
+    ZBTintSelection selectedSortingType;
 }
 
 @end
@@ -48,6 +50,7 @@ enum ZBSectionOrder {
     [self configureNavBar];
     [self configureTitleLabel];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    selectedSortingType = (ZBTintSelection)[[NSUserDefaults standardUserDefaults] integerForKey:@"tintSelection"];
 
 }
 
@@ -59,14 +62,12 @@ enum ZBSectionOrder {
 }
 
 - (void)configureNavBar {
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-        [self.navigationController.navigationBar setTranslucent:FALSE];
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-        [self.navigationController.navigationBar layoutIfNeeded];
-    } completion:nil];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setTranslucent:FALSE];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    [self.navigationController.navigationBar layoutIfNeeded];
     
 }
 
@@ -92,15 +93,6 @@ enum ZBSectionOrder {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
-    /*if (offsetY > 190){
-        self.navigationController.navigationBar.backgroundColor = [UIColor tableViewBackgroundColor];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    }else{
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor grayColor]];
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    }*/
     if(offsetY < 0){
         CGRect frame = self.headerView.frame;
         frame.size.height = self.tableView.tableHeaderView.frame.size.height - scrollView.contentOffset.y;
@@ -240,11 +232,21 @@ enum ZBSectionOrder {
                 
             }
         } else if (indexPath.row == ZBChangeTint){
-            /*UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"Blue", @"Orange", @"White"]];
-            segment.frame = cell.contentView.bounds;
-            //segment.autoresizingMask = UIViewAutoresizingFlexibleCe
-            [cell.contentView addSubview:segment];*/
-            cell.textLabel.text = @"Select Tint Color";
+            [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+            NSString *thirdTint;
+            if([ZBDevice darkModeEnabled]) {
+                thirdTint = @"White";
+            } else {
+                thirdTint = @"Black";
+            }
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Blue", @"Orange", thirdTint]];
+            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+            [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+            segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            segmentedControl.center = CGPointMake(cell.contentView.bounds.size.width / 2, cell.contentView.bounds.size.height / 2);
+            [cell.contentView addSubview:segmentedControl];
+            
+            //cell.textLabel.text = @"Select Tint Color";
         } else if (indexPath.row == ZBOledSwitch) {
             UISwitch *darkSwitch = [[UISwitch alloc] init];
             CGSize switchSize = [darkSwitch sizeThatFits:CGSizeZero];
@@ -459,6 +461,15 @@ enum ZBSectionOrder {
     } else {
         return;// Fallback on earlier versions
     }
+}
+
+- (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
+    selectedSortingType = (ZBTintSelection)segmentedControl.selectedSegmentIndex;
+    [[NSUserDefaults standardUserDefaults] setInteger:(NSInteger)selectedSortingType forKey:@"tintSelection"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [ZBDevice setDarkModeEnabled:[ZBDevice darkModeEnabled]];
+    [self.tableView reloadData];
+    NSLog(@"HELP ME %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"tintSelection"]);
 }
 
 
