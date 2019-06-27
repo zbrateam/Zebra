@@ -190,7 +190,7 @@
     //Tab
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
     [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
+    [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
     [[UITabBar appearance] setTranslucent:FALSE];
     [[UITabBar appearance] setShadowImage:[UIImage new]];

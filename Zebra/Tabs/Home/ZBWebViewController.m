@@ -426,6 +426,7 @@
     [ZBDevice configureDarkMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
 }
 
@@ -435,6 +436,7 @@
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self setNeedsStatusBarAppearanceUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
 }
