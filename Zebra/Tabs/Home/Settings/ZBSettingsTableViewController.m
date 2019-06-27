@@ -157,7 +157,7 @@ enum ZBSectionOrder {
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 10, 18)];
     [view setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     [label setText:[self sectionTitleForSection:section]];
