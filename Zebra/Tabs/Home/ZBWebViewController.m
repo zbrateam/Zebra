@@ -212,23 +212,8 @@
     }
     
     if ([destination isEqual:@"local"]) {
-        if ([action isEqual:@"nuke"]) {
-            [self nukeDatabase];
-        }
-        else if ([action isEqual:@"sendBug"]) {
+        if ([action isEqual:@"sendBug"]) {
             [self sendBugReport];
-        }
-        else if ([action isEqual:@"doc"]) {
-            [self openDocumentsDirectory];
-        }
-        else if ([action isEqual:@"cache"]) {
-            [self resetImageCache];
-        }
-        else if ([action isEqual:@"keychain"]) {
-            [self clearKeychain];
-        }
-        else if ([action isEqual:@"icon"]) {
-            [self changeIcon];
         } else if ([action isEqual:@"stores"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
@@ -380,10 +365,6 @@
     }
 }
 
-- (void)nukeDatabase {
-    [self showRefreshView:@(YES)];
-}
-
 - (void)sendBugReport {
     if ([MFMailComposeViewController canSendMail]) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -407,36 +388,6 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)openDocumentsDirectory {
-    NSString *documents = [ZBAppDelegate documentsDirectory];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
-}
-
-- (void)resetImageCache {
-    [[SDImageCache sharedImageCache] clearMemory];
-    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
-}
-
-- (void)clearKeychain {
-    NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
-                                (__bridge id)kSecClassInternetPassword,
-                                (__bridge id)kSecClassCertificate,
-                                (__bridge id)kSecClassKey,
-                                (__bridge id)kSecClassIdentity];
-    for (id secItemClass in secItemClasses) {
-        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
-        SecItemDelete((__bridge CFDictionaryRef)spec);
-    }
-}
-
-- (void)changeIcon {
-    if (@available(iOS 10.3, *)) {
-        [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
-    } else {
-        return;
-    }
 }
 
 - (IBAction)refreshPage:(id)sender {
