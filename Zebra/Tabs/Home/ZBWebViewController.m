@@ -238,7 +238,12 @@
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
             [[self navigationController] pushViewController:webController animated:true];
         }else if ([action isEqual:@"settings"]) {
-            [self performSegueWithIdentifier:@"segueHomeToSettings" sender:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
+            if (@available(iOS 11.0, *)) {
+                settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+            }
+            [[self navigationController] pushViewController:settingsController animated:true];
         }
     }
     else if ([destination isEqual:@"web"]) {

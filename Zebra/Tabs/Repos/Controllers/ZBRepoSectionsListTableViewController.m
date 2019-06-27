@@ -88,6 +88,18 @@
     if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
         self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
     }
+    [self setupEndpointButtons];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self setupEndpointButtons];
+}
+
+- (void)setupEndpointButtons {
     if (self.repoEndpoint) {
         if (![self checkAuthenticated]) {
             [self.navigationItem setRightBarButtonItem:self.login];
@@ -96,12 +108,6 @@
             [self.navigationItem setRightBarButtonItem:self.purchased];
         }
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    self.tableView.separatorColor = [UIColor clearColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)dealloc {

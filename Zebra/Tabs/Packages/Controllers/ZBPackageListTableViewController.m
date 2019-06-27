@@ -461,7 +461,9 @@ typedef enum {
     if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        
+        if (@available(iOS 11.0, *)) {
+            destination.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        }
         [self setDestinationVC:indexPath destination:destination];
     }
 }
