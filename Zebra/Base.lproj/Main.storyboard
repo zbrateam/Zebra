@@ -487,7 +487,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zebra + Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yye-PV-Xqq">
-                                            <rect key="frame" x="22" y="18" width="330" height="136"/>
+                                            <rect key="frame" x="22" y="18" width="345" height="139"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -496,9 +496,9 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Yye-PV-Xqq" firstAttribute="leading" secondItem="g54-3u-HDJ" secondAttribute="leadingMargin" constant="14" id="CNl-PI-3zw"/>
-                                        <constraint firstItem="Yye-PV-Xqq" firstAttribute="trailing" secondItem="g54-3u-HDJ" secondAttribute="trailingMargin" constant="-15" id="E0P-5T-6qK"/>
+                                        <constraint firstItem="Yye-PV-Xqq" firstAttribute="trailing" secondItem="g54-3u-HDJ" secondAttribute="trailingMargin" id="E0P-5T-6qK"/>
                                         <constraint firstItem="Yye-PV-Xqq" firstAttribute="top" secondItem="g54-3u-HDJ" secondAttribute="top" constant="18" id="P15-uU-EgP"/>
-                                        <constraint firstAttribute="bottom" secondItem="Yye-PV-Xqq" secondAttribute="bottom" constant="46" id="unG-uW-KOj"/>
+                                        <constraint firstAttribute="bottom" secondItem="Yye-PV-Xqq" secondAttribute="bottom" constant="43" id="unG-uW-KOj"/>
                                     </constraints>
                                 </view>
                             </subviews>
