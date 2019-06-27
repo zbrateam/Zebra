@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef enum  {
-    ZBBlue = 0,
+    ZBDefaultTint = 0,
+    ZBBlue,
     ZBOrange,
     ZBWhiteOrBlack
 } ZBTintSelection;
 
 @interface UIColor (GlobalColors)
-+ (UIColor *)tintColor:(NSInteger)number;
++ (UIColor *)tintColor;
 + (UIColor *)navBarTintColor;
 + (UIColor *)badgeColor;
 + (UIColor *)tableViewBackgroundColor;

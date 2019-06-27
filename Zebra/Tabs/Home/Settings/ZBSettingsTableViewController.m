@@ -50,7 +50,7 @@ enum ZBSectionOrder {
     [self configureNavBar];
     [self configureTitleLabel];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    selectedSortingType = (ZBTintSelection)[[NSUserDefaults standardUserDefaults] integerForKey:@"tintSelection"];
+    [self configureSelectedTint];
 
 }
 
@@ -59,6 +59,15 @@ enum ZBSectionOrder {
     [self.tableView reloadData];
     [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     [self configureNavBar];
+}
+
+- (void)configureSelectedTint {
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:@"tintSelection"];
+    if (number) {
+        selectedSortingType = (ZBTintSelection)[number integerValue];
+    } else {
+        selectedSortingType = ZBDefaultTint;
+    }
 }
 
 - (void)configureNavBar {
@@ -233,31 +242,28 @@ enum ZBSectionOrder {
             }
         } else if (indexPath.row == ZBChangeTint){
             [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-            NSString *thirdTint;
+            NSString *forthTint;
             if([ZBDevice darkModeEnabled]) {
-                thirdTint = @"White";
+                forthTint = @"White";
             } else {
-                thirdTint = @"Black";
+                forthTint = @"Black";
             }
-            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Blue", @"Orange", thirdTint]];
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Default", @"Blue", @"Orange", forthTint]];
             segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+            segmentedControl.tintColor = [UIColor tintColor];
             [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-            segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            /*segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
             segmentedControl.center = CGPointMake(cell.contentView.bounds.size.width / 2, cell.contentView.bounds.size.height / 2);
-            [cell.contentView addSubview:segmentedControl];
-            
-            //cell.textLabel.text = @"Select Tint Color";
+            [cell.contentView addSubview:segmentedControl];*/
+            cell.accessoryView = segmentedControl;
+            cell.textLabel.text = @"Tint Color";
         } else if (indexPath.row == ZBOledSwitch) {
-            UISwitch *darkSwitch = [[UISwitch alloc] init];
-            CGSize switchSize = [darkSwitch sizeThatFits:CGSizeZero];
-            darkSwitch.frame = CGRectMake(cell.contentView.bounds.size.width - switchSize.width - 5.0f, (cell.contentView.bounds.size.height - switchSize.height) / 2.0f, switchSize.width, switchSize.height);
-            darkSwitch.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+            UISwitch *darkSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             darkSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"oledMode"];
-            darkSwitch.tag = 123;
             [darkSwitch addTarget:self action:@selector(toggleOledDarkMode:) forControlEvents:UIControlEventValueChanged];
-            if(![cell viewWithTag:123]){
-                [cell.contentView addSubview:darkSwitch];
-            }
+            [darkSwitch setOnTintColor:[UIColor tintColor]];
+            cell.accessoryView = darkSwitch;
             cell.textLabel.text = @"Oled Darkmode";
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
@@ -270,10 +276,6 @@ enum ZBSectionOrder {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
-        /*ZBDropTables = 0,
-         ZBOpenDocs,
-         ZBClearImageCache,
-         ZBClearKeychain*/
         NSString *text;
         if (indexPath.row == ZBDropTables) {
             text = @"Drop Tables";
@@ -422,7 +424,7 @@ enum ZBSectionOrder {
 
 - (void)getTappedSwitch:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    UISwitch *switcher = (UISwitch *)[cell.contentView viewWithTag:123];
+    UISwitch *switcher = (UISwitch *)cell.accessoryView;
     [switcher setOn:!switcher.on animated:YES];
     [self toggleOledDarkMode:switcher];
     
@@ -446,7 +448,7 @@ enum ZBSectionOrder {
     [self.tableView reloadData];
     [self configureNavBar];
     self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [ZBDevice configureDarkMode];
+    [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
@@ -465,58 +467,18 @@ enum ZBSectionOrder {
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBTintSelection)segmentedControl.selectedSegmentIndex;
-    [[NSUserDefaults standardUserDefaults] setInteger:(NSInteger)selectedSortingType forKey:@"tintSelection"];
+    [[NSUserDefaults standardUserDefaults] setObject:@(selectedSortingType) forKey:@"tintSelection"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [ZBDevice setDarkModeEnabled:[ZBDevice darkModeEnabled]];
-    [self.tableView reloadData];
-    NSLog(@"HELP ME %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"tintSelection"]);
+    [self hapticButton];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.tableView reloadData];
+        [self configureNavBar];
+        [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
+        [ZBDevice refreshViews];
+        [self setNeedsStatusBarAppearanceUpdate];
+    } completion:nil];
 }
 
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
