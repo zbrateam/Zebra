@@ -103,6 +103,7 @@ enum ZBSectionOrder {
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     //[self.navigationController.navigationBar setTranslucent:TRUE];
     //[self.navigationController.navigationBar setBarStyle:[ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
 }
 
