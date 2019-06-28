@@ -200,6 +200,9 @@
     [[UITableView appearance] setTintColor:nil];
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+    UIView *light = [[UIView alloc] init];
+    light.backgroundColor = [UIColor selectedCellBackgroundColorLight:TRUE];
+    [[UITableViewCell appearance] setSelectedBackgroundView:light];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];

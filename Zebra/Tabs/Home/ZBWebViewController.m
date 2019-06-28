@@ -93,6 +93,15 @@
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self colorWindow];
+    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+}
+
 - (void)colorWindow {
     UIWindow *window = UIApplication.sharedApplication.delegate.window;
     [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -432,6 +441,7 @@
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
 }
 
@@ -444,6 +454,7 @@
     [ZBDevice refreshViews];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
 }
 

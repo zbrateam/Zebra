@@ -483,30 +483,25 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g54-3u-HDJ">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wXO-pr-bba">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zebra + Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yye-PV-Xqq">
-                                            <rect key="frame" x="22" y="18" width="345" height="139"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="Yye-PV-Xqq" firstAttribute="leading" secondItem="g54-3u-HDJ" secondAttribute="leadingMargin" constant="14" id="CNl-PI-3zw"/>
-                                        <constraint firstItem="Yye-PV-Xqq" firstAttribute="trailing" secondItem="g54-3u-HDJ" secondAttribute="trailingMargin" id="E0P-5T-6qK"/>
-                                        <constraint firstItem="Yye-PV-Xqq" firstAttribute="top" secondItem="g54-3u-HDJ" secondAttribute="top" constant="18" id="P15-uU-EgP"/>
-                                        <constraint firstAttribute="bottom" secondItem="Yye-PV-Xqq" secondAttribute="bottom" constant="43" id="unG-uW-KOj"/>
-                                    </constraints>
-                                </view>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zebra + Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yye-PV-Xqq">
+                                    <rect key="frame" x="15" y="30" width="345" height="139"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="g54-3u-HDJ" firstAttribute="leading" secondItem="vDr-ZO-dJt" secondAttribute="leading" id="5wW-J5-x00"/>
-                                <constraint firstAttribute="bottom" secondItem="g54-3u-HDJ" secondAttribute="bottom" id="E9Z-OQ-z5h"/>
-                                <constraint firstAttribute="trailing" secondItem="g54-3u-HDJ" secondAttribute="trailing" id="GaS-K4-2tf"/>
-                                <constraint firstItem="g54-3u-HDJ" firstAttribute="top" secondItem="vDr-ZO-dJt" secondAttribute="top" id="iJr-Yq-VRu"/>
+                                <constraint firstItem="wXO-pr-bba" firstAttribute="top" secondItem="vDr-ZO-dJt" secondAttribute="top" id="DQm-Ae-ydv"/>
+                                <constraint firstItem="Yye-PV-Xqq" firstAttribute="centerX" secondItem="wXO-pr-bba" secondAttribute="centerX" id="IjH-vM-TIQ"/>
+                                <constraint firstItem="Yye-PV-Xqq" firstAttribute="top" secondItem="vDr-ZO-dJt" secondAttribute="top" constant="30" id="KIa-Kj-tqN"/>
+                                <constraint firstAttribute="bottom" secondItem="wXO-pr-bba" secondAttribute="bottom" id="UvF-gw-rKF"/>
+                                <constraint firstItem="Yye-PV-Xqq" firstAttribute="centerY" secondItem="wXO-pr-bba" secondAttribute="centerY" id="X8C-Rz-giw"/>
+                                <constraint firstAttribute="trailing" secondItem="wXO-pr-bba" secondAttribute="trailing" id="YoT-gX-tHi"/>
+                                <constraint firstItem="wXO-pr-bba" firstAttribute="leading" secondItem="vDr-ZO-dJt" secondAttribute="leading" id="g9J-pp-D3D"/>
+                                <constraint firstItem="Yye-PV-Xqq" firstAttribute="leading" secondItem="vDr-ZO-dJt" secondAttribute="leading" constant="15" id="ylv-EE-7eR"/>
                             </constraints>
                         </view>
                         <connections>
@@ -517,7 +512,7 @@
                     <navigationItem key="navigationItem" id="Fkg-eG-Qdm"/>
                     <connections>
                         <outlet property="headerContainer" destination="vDr-ZO-dJt" id="cQk-sm-dfP"/>
-                        <outlet property="headerView" destination="g54-3u-HDJ" id="aJm-1r-RQu"/>
+                        <outlet property="headerView" destination="wXO-pr-bba" id="qJs-fA-3tf"/>
                         <outlet property="titleLabel" destination="Yye-PV-Xqq" id="ZTB-S1-osr"/>
                     </connections>
                 </tableViewController>

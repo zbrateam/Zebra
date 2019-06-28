@@ -13,10 +13,12 @@
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
 #import "ZBAlternateIconController.h"
+#import "UINavigationController+Opacity.h"
 @import SDWebImage;
 
-@interface ZBSettingsTableViewController : UITableViewController <WKNavigationDelegate>
-@property (weak, nonatomic) IBOutlet UIView *headerView;
+@interface ZBSettingsTableViewController : UITableViewController <WKNavigationDelegate, UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *headerContainer;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property UIVisualEffectView *blurView;
 @end
