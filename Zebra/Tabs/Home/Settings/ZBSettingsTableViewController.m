@@ -64,10 +64,10 @@ enum ZBSectionOrder {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionTransitionNone animations:^{
+    /*[UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionTransitionNone animations:^{
         //[self setupStatusBlur];
         [self scrollViewDidScroll:self.tableView];
-    } completion:nil];
+    } completion:nil];*/
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -101,8 +101,8 @@ enum ZBSectionOrder {
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    [self.navigationController.navigationBar setTranslucent:TRUE];
-    [self.navigationController.navigationBar setBarStyle:[ZBDevice darkModeEnabled] ? UIBarStyleBlackTranslucent : UIBarStyleDefault];
+    //[self.navigationController.navigationBar setTranslucent:TRUE];
+    //[self.navigationController.navigationBar setBarStyle:[ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
 }
 
