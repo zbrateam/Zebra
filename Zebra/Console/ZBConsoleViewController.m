@@ -210,6 +210,7 @@
 - (void)finishUp {
     [queue clearQueue];
     [downloadingMap removeAllObjects];
+    _progressView.hidden = YES;
     
     NSMutableArray *uicaches = [NSMutableArray new];
     for (NSString *packageID in installedIDs) {
@@ -293,6 +294,7 @@
     [downloadingMap removeAllObjects];
     self.navigationItem.leftBarButtonItem = nil;
     _progressView.progress = 1;
+    _progressView.hidden = YES;
     [self addCloseButton];
     [queue clearQueue];
     [self removeAllDebs];

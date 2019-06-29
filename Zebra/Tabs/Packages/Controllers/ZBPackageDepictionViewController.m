@@ -45,7 +45,6 @@
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         
-        presented = true;
         self.package = [databaseManager topVersionForPackageID:packageID];
         
         if (self.package) {
@@ -58,6 +57,7 @@
             // Package not found, we resign
             return nil;
         }
+        presented = true;
     }
     
     return self;
@@ -317,7 +317,7 @@
         
         NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
         installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-        NSLog(@"installed FILES %@", installedFiles);
+
         for (int i = 0; i < installedFiles.count; i++) {
             NSString *file = installedFiles[i];
             if ([file isEqualToString:@"/."] || file.length == 0) {

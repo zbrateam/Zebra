@@ -30,6 +30,8 @@ typedef enum {
     NSMutableArray <ZBPackage *> *updates;
     NSMutableArray <ZBPackage *> *ignoredUpdates;
     NSMutableArray *sectionIndexTitles;
+    UIBarButtonItem *queueButton;
+    UIBarButtonItem *clearButton;
     BOOL needsUpdatesSection;
     BOOL needsIgnoredUpdatesSection;
     BOOL isRefreshingTable;
@@ -197,11 +199,12 @@ typedef enum {
 - (void)configureQueueOrShareButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([[ZBQueue sharedInstance] hasObjects]) {
-            UIBarButtonItem *queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-            UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearQueue)];
-            self.navigationItem.leftBarButtonItems = @[ queueButton, clearButton ];
+            self->queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+            self->clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
+            self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
         }
         else {
+            self->queueButton = self->clearButton = nil;
             self.navigationItem.leftBarButtonItems = nil;
             UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
             self.navigationItem.leftBarButtonItem = shareButton;
@@ -211,6 +214,21 @@ typedef enum {
 
 - (void)presentQueue {
     [ZBPackageActionsManager presentQueue:self parent:nil];
+}
+
+- (void)askClearQueue {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:@"Are you sure you want to clear Queue?" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:@"Clear" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self clearQueue];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    [alert addAction:clearAction];
+    [alert addAction:cancelAction];
+    
+    alert.popoverPresentationController.barButtonItem = self->clearButton;
+    
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 - (void)clearQueue {

@@ -10,6 +10,8 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Repos/Helpers/ZBRepo.h>
+#import <Packages/Controllers/ZBPackageListTableViewController.h>
 
 @implementation ZBRefreshableTableViewController
 
@@ -29,7 +31,17 @@
 - (void)refreshSources:(id)sender {
     [databaseManager addDatabaseDelegate:self];
     [self setRepoRefreshIndicatorVisible:true];
-    [databaseManager updateDatabaseUsingCaching:true userRequested:true];
+    BOOL singleRepo = NO;
+    if ([self respondsToSelector:@selector(repo)]) {
+        ZBRepo *repo = [(ZBPackageListTableViewController *)self repo];
+        if ([repo repoID] > 0) {
+            [databaseManager updateRepo:repo useCaching:true];
+            singleRepo = YES;
+        }
+    }
+    if (!singleRepo) {
+        [databaseManager updateDatabaseUsingCaching:true userRequested:true];
+    }
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
