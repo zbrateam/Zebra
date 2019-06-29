@@ -117,7 +117,7 @@ enum ZBSectionOrder {
     self.titleLabel.layer.shouldRasterize = YES;
     self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     self.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    self.titleLabel.layer.shadowRadius = 5.0;
+    self.titleLabel.layer.shadowRadius = 10.0;
     self.titleLabel.layer.shadowOpacity = 1.0;
 }
 
