@@ -29,6 +29,8 @@
 }
 
 - (void)refreshSources:(id)sender {
+    if ([databaseManager isDatabaseBeingUpdated])
+        return;
     [databaseManager addDatabaseDelegate:self];
     [self setRepoRefreshIndicatorVisible:true];
     BOOL singleRepo = NO;

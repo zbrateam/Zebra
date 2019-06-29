@@ -178,7 +178,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         return NO;
     }
     [self setupSDWebImageCache];
-    [ZBDevice applySettings];
+    [ZBDevice applyThemeSettings];
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {

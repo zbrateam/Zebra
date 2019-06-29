@@ -366,43 +366,34 @@ typedef enum {
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    if ([[self objectAtSection:section] count]) {
+        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+        header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        header.tintColor = [UIColor clearColor];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
     BOOL isIgnoredUpdateSection = [repo repoID] == 0 && needsIgnoredUpdatesSection && section == needsUpdatesSection;
     BOOL hasDataInSection = !isUpdateSection && !isIgnoredUpdateSection && [[self objectAtSection:section] count];
     if (isUpdateSection || isIgnoredUpdateSection || hasDataInSection) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width - 10, 18)];
-        [label setFont:[UIFont boldSystemFontOfSize:15]];
         if (isUpdateSection) {
-            [label setText:[NSString stringWithFormat:@"Available Upgrades (%lu)", (unsigned long)updates.count]];
+            return [NSString stringWithFormat:@"Available Upgrades (%lu)", (unsigned long)updates.count];
         }
-        else if (isIgnoredUpdateSection) {
-            [label setText:[NSString stringWithFormat:@"Ignored Upgrades (%lu)", (unsigned long)ignoredUpdates.count]];
+        if (isIgnoredUpdateSection) {
+            return [NSString stringWithFormat:@"Ignored Upgrades (%lu)", (unsigned long)ignoredUpdates.count];
         }
-        else if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
-            [label setText:[self sectionIndexTitlesForTableView:tableView][[self trueSection:section]]];
+        if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
+            return [self sectionIndexTitlesForTableView:tableView][[self trueSection:section]];
         }
-        else if (selectedSortingType == ZBSortingTypeDate) {
-            [label setText:@"Recent"];
+        if (selectedSortingType == ZBSortingTypeDate) {
+            return @"Recent";
         }
-        [label setTextColor:[UIColor cellPrimaryTextColor]];
-        
-        [view addSubview:label];
-        
-        label.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        // align label from the left and right
-        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-        
-        // align label from the bottom
-        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-        
-        return view;
     }
-    else {
-        return nil;
-    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

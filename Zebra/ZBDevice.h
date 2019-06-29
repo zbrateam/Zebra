@@ -27,7 +27,7 @@
 + (void)setDarkModeEnabled:(BOOL)enabled;
 + (void)configureDarkMode;
 + (void)configureLightMode;
-+ (void)applySettings;
++ (void)applyThemeSettings;
 + (void)refreshViews;
 + (NSInteger)selectedColorTint;
 @end

@@ -208,7 +208,7 @@
     [[WKWebView appearance] setOpaque:YES];
 }
 
-+ (void)applySettings {
++ (void)applyThemeSettings {
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
     }

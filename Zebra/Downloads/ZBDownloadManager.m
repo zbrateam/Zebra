@@ -599,8 +599,7 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     ZBPackage *package = packageTasksMap[@(task.taskIdentifier)];
     [self->downloadDelegate predator:self finishedDownloadForFile:[package name] withError:error];
-    tasks--;
-    if (tasks == 0) {
+    if (--tasks == 0) {
         [downloadDelegate predator:self finishedAllDownloads:filenames];
     }
 }

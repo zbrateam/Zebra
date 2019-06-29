@@ -63,6 +63,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isDatabaseOpen;
 
 /*!
+ @brief Boolean checks whether the database is being updated.
+ @return true if the database is being updated, false otherwise.
+ */
+- (BOOL)isDatabaseBeingUpdated;
+
+/*!
  @brief Prints sqlite_errmsg to the log.
  */
 - (void)printDatabaseError;

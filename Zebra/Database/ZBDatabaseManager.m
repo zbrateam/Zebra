@@ -18,10 +18,10 @@
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
-    
     int numberOfUpdates;
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
+    BOOL databaseBeingUpdated;
 }
 @end
 
@@ -96,6 +96,10 @@
     return SQLITE_OK;
 }
 
+- (BOOL)isDatabaseBeingUpdated {
+    return databaseBeingUpdated;
+}
+
 - (BOOL)isDatabaseOpen {
     return numberOfDatabaseUsers > 0 || database != NULL;
 }
@@ -120,6 +124,7 @@
 }
 
 - (void)bulkDatabaseCompletedUpdate:(int)updates {
+    databaseBeingUpdated = NO;
     for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
         [delegate databaseCompletedUpdate:updates];
     }
@@ -161,6 +166,10 @@
         }
     }
     
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
         ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
@@ -173,6 +182,10 @@
 }
 
 - (void)updateRepo:(ZBRepo *)repo useCaching:(BOOL)useCaching {
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
     [self bulkDatabaseStartedUpdate];
     ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Updating Repository (%@)\n", repo.origin] atLevel:ZBLogLevelInfo];
