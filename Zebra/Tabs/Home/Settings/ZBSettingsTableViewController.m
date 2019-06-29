@@ -9,30 +9,29 @@
 #import "ZBSettingsTableViewController.h"
 
 enum ZBInfoOrder {
-    ZBChangelog = 0,
+    ZBChangelog,
     ZBRepos,
     ZBBugs
 };
 
 enum ZBUIOrder {
-    ZBChangeTint = 0,
+    ZBChangeTint,
     ZBOledSwitch,
     ZBChangeIcon
 };
 
 enum ZBAdvancedOrder {
-    ZBDropTables = 0,
+    ZBDropTables,
     ZBOpenDocs,
     ZBClearImageCache,
     ZBClearKeychain
 };
 
 enum ZBSectionOrder {
-    ZBInfo = 0,
+    ZBInfo,
     ZBGraphics,
     ZBAdvanced
 };
-
 
 @interface ZBSettingsTableViewController () {
     NSMutableDictionary *_colors;
@@ -52,7 +51,6 @@ enum ZBSectionOrder {
     [self configureTitleLabel];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureSelectedTint];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -123,11 +121,6 @@ enum ZBSectionOrder {
     self.titleLabel.layer.shadowOpacity = 1.0;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:TRUE completion:nil];
 }
@@ -185,8 +178,6 @@ enum ZBSectionOrder {
     }
 }
 
-
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 10, 18)];
@@ -201,8 +192,6 @@ enum ZBSectionOrder {
     return view;
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == ZBInfo){
         static NSString *cellIdentifier = @"infoCells";
@@ -214,13 +203,15 @@ enum ZBSectionOrder {
         }
         NSString *labelText;
         UIImage *cellImage = [UIImage new];
-        if(indexPath.row == ZBChangelog) {
+        if (indexPath.row == ZBChangelog) {
             labelText = @"Changelog";
             cellImage = [UIImage imageNamed:@"changelog"];
-        }else if(indexPath.row == ZBRepos) {
+        }
+        else if(indexPath.row == ZBRepos) {
             labelText = @"Community Repos";
             cellImage = [UIImage imageNamed:@"repos"];
-        }else if (indexPath.row == ZBBugs) {
+        }
+        else if (indexPath.row == ZBBugs) {
             labelText = @"Report a Bug";
             cellImage = [UIImage imageNamed:@"report"];
         }
@@ -237,7 +228,8 @@ enum ZBSectionOrder {
         
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
-    }else if (indexPath.section == ZBGraphics) {
+    }
+    else if (indexPath.section == ZBGraphics) {
         static NSString *cellIdentifier = @"uiCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -272,7 +264,8 @@ enum ZBSectionOrder {
                 }
                 
             }
-        } else if (indexPath.row == ZBChangeTint){
+        }
+        else if (indexPath.row == ZBChangeTint) {
             [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
             NSString *forthTint;
             if([ZBDevice darkModeEnabled]) {
@@ -300,7 +293,8 @@ enum ZBSectionOrder {
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
-    }else if (indexPath.section == ZBAdvanced) {
+    }
+    else if (indexPath.section == ZBAdvanced) {
         static NSString *cellIdentifier = @"advancedCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -341,8 +335,6 @@ enum ZBSectionOrder {
                 case ZBBugs:
                     [self openWebView:ZBBugs];
                     break;
-                default:
-                    break;
             }
             break;
         case ZBGraphics:
@@ -352,8 +344,6 @@ enum ZBSectionOrder {
                     break;
                 case ZBOledSwitch :
                     [self getTappedSwitch:indexPath];
-                    break;
-                default:
                     break;
             }
             break;
@@ -371,12 +361,7 @@ enum ZBSectionOrder {
                 case ZBClearKeychain :
                     [self clearKeychain];
                     break;
-                default:
-                    break;
-                
             }
-            break;
-        default:
             break;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
@@ -392,9 +377,11 @@ enum ZBSectionOrder {
     NSURL *url;
     if(cellNumber == ZBChangelog) {
         url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/changelog.html"];
-    }else if (cellNumber == ZBRepos) {
+    }
+    else if (cellNumber == ZBRepos) {
         url = [NSURL URLWithString:@"https://xtm3x.github.io/zebra/repos.html"];
-    }else {
+    }
+    else {
         url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
     }
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -450,8 +437,6 @@ enum ZBSectionOrder {
         [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController pushViewController:altIcon animated:TRUE];
-    } else {
-        return;
     }
 }
 
@@ -493,8 +478,6 @@ enum ZBSectionOrder {
         [feedback prepare];
         [feedback selectionChanged];
         feedback = nil;
-    } else {
-        return;// Fallback on earlier versions
     }
 }
 
@@ -512,6 +495,5 @@ enum ZBSectionOrder {
         [self setNeedsStatusBarAppearanceUpdate];
     } completion:nil];
 }
-
 
 @end
