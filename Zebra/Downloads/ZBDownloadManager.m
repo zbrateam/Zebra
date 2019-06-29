@@ -14,6 +14,7 @@
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBRepoManager.h>
 
 #import <bzlib.h>
 #import <zlib.h>
@@ -38,9 +39,7 @@
     self = [super init];
     
     if (self) {
-        queue = [ZBQueue sharedInstance];
-        filenames = [NSMutableDictionary new];
-        packageTasksMap = [NSMutableDictionary new];
+        [self commonInit];
     }
     
     return self;
@@ -52,10 +51,19 @@
     if (self) {
         downloadDelegate = delegate;
         repos = [self reposFromSourcePath:trail];
-        
-        queue = [ZBQueue sharedInstance];
-        filenames = [NSMutableDictionary new];
-        packageTasksMap = [NSMutableDictionary new];
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo {
+    self = [super init];
+    
+    if (self) {
+        downloadDelegate = delegate;
+        repos = @[ [self baseURLFromDebLine:[[ZBRepoManager sharedInstance] debLineFromRepo:repo]] ];
+        [self commonInit];
     }
     
     return self;
@@ -66,13 +74,16 @@
     
     if (self) {
         repos = [self reposFromSourcePath:trail];
-        
-        queue = [ZBQueue sharedInstance];
-        filenames = [NSMutableDictionary new];
-        packageTasksMap = [NSMutableDictionary new];
+        [self commonInit];
     }
     
     return self;
+}
+
+- (void)commonInit {
+    queue = [ZBQueue sharedInstance];
+    filenames = [NSMutableDictionary new];
+    packageTasksMap = [NSMutableDictionary new];
 }
 
 - (NSArray *)reposFromSourcePath:(NSString *)path {

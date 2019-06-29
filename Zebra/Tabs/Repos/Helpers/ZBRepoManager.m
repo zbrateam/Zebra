@@ -15,6 +15,15 @@
 
 @implementation ZBRepoManager
 
++ (id)sharedInstance {
+    static ZBRepoManager *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [ZBRepoManager new];
+    });
+    return instance;
+}
+
 - (NSURL *)normalizedURL:(NSURL *)url {
     NSString *absoluteString = [url absoluteString];
     char lastChar = [absoluteString characterAtIndex:absoluteString.length - 1];
@@ -285,6 +294,27 @@
     [task resume];
 }
 
+- (NSString *)debLineFromRepo:(ZBRepo *)repo {
+    NSMutableString *output = [NSMutableString string];
+    if ([repo defaultRepo]) {
+        if ([[repo origin] isEqual:@"Cydia/Telesphoreo"]) {
+            [output appendFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
+        }
+        else if ([[repo origin] isEqual:@"Bingner/Elucubratus"]) {
+            [output appendFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
+        }
+        else {
+            NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
+            repoURL = [repoURL stringByDeletingLastPathComponent]; //Remove last two path components
+            [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
+        }
+    }
+    else {
+        [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
+    }
+    return output;
+}
+
 - (void)addSources:(NSArray<NSURL *> *)sourceURLs completion:(void (^)(BOOL success, NSError *error))completion {
     NSMutableString *output = [NSMutableString string];
     
@@ -293,22 +323,7 @@
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *repo in [databaseManager repos]) {
-        if ([repo defaultRepo]) {
-            if ([[repo origin] isEqual:@"Cydia/Telesphoreo"]) {
-                [output appendFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
-            }
-            else if ([[repo origin] isEqual:@"Bingner/Elucubratus"]) {
-                [output appendFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
-            }
-            else {
-                NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
-                repoURL = [repoURL stringByDeletingLastPathComponent]; //Remove last two path components
-                [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
-            }
-        }
-        else {
-            [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
-        }
+        [output appendString:[self debLineFromRepo:repo]];
     }
     
     for (NSURL *sourceURL in sourceURLs) {
@@ -358,22 +373,7 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *repo in [databaseManager repos]) {
         if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
-            if ([repo defaultRepo]) {
-                if ([[repo origin] isEqual:@"Cydia/Telesphoreo"]) {
-                    [output appendFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
-                }
-                else if ([[repo origin] isEqual:@"Bingner/Elucubratus"]) {
-                    [output appendFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n",kCFCoreFoundationVersionNumber];
-                }
-                else {
-                    NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
-                    repoURL = [repoURL stringByDeletingLastPathComponent]; //Remove last two path components
-                    [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
-                }
-            }
-            else {
-                [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
-            }
+            [output appendString:[self debLineFromRepo:repo]];
         }
     }
     

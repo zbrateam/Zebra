@@ -172,6 +172,13 @@
     }
 }
 
+- (void)updateRepo:(ZBRepo *)repo useCaching:(BOOL)useCaching {
+    [self bulkDatabaseStartedUpdate];
+    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
+    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Updating Repository (%@)\n", repo.origin] atLevel:ZBLogLevelInfo];
+    [downloadManager downloadReposAndIgnoreCaching:!useCaching];
+}
+
 - (void)parseRepos:(NSDictionary *)filenames {
     [self bulkPostStatusUpdate:@"Download Complete\n" atLevel:ZBLogLevelInfo];
     NSArray *releaseFiles = filenames[@"release"];
@@ -1222,7 +1229,11 @@
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
     [self bulkSetRepo:filename busy:false];
     if (error != NULL) {
-        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ for %@ \n", error.localizedDescription, filename] atLevel:ZBLogLevelError];
+        if (filename) {
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ for %@\n", error.localizedDescription, filename] atLevel:ZBLogLevelError];
+        } else {
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@\n", error.localizedDescription] atLevel:ZBLogLevelError];
+        }
     }
     else {
         [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];

@@ -29,6 +29,7 @@
     NSMutableArray *sectionIndexTitles;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
+    BOOL isRefreshingTable;
     NSString *lastPaste;
 }
 
@@ -44,7 +45,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"lightMode" object:nil];
     sources = [[self.databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
-    self.repoManager = [[ZBRepoManager alloc] init];
+    self.repoManager = [ZBRepoManager sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self layoutNavigationButtons];
@@ -160,11 +161,15 @@
 }
 
 - (void)refreshTable {
+    if (isRefreshingTable)
+        return;
     [self clearAllSpinners];
     self->sources = [[self.databaseManager repos] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
+        self->isRefreshingTable = YES;
         [self updateCollation];
         [self.tableView reloadData];
+        self->isRefreshingTable = NO;
     });
 }
 
@@ -241,7 +246,7 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+        ZBRepoManager *repoManager = [ZBRepoManager sharedInstance];
         NSString *sourceURL = url.absoluteString;
         
         UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
@@ -359,8 +364,8 @@
     for (ZBRepo *object in array) {
         NSUInteger index = [collation sectionForObject:object collationStringSelector:selector];
         NSMutableArray *section = [unsortedSections objectAtIndex:index];
+        sourceIndexes[[object baseFileName]] = @((index << 16) | section.count);
         [section addObject:object];
-        sourceIndexes[[object baseFileName]] = @((index << 16) | (section.count - 1));
     }
     NSUInteger lastIndex = 0;
     NSMutableIndexSet *sectionsToRemove = [NSMutableIndexSet indexSet];
@@ -377,6 +382,13 @@
         }
     }
     [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
+    for (NSString *bfn in [sourceIndexes allKeys]) {
+        NSInteger pos = [sourceIndexes[bfn] integerValue];
+        int index = (int)(pos >> 16);
+        NSInteger row = pos & 0xFF;
+        index = (int)[sectionIndexTitles indexOfObject:[NSString stringWithFormat:@"%c", 65 + index]];
+        sourceIndexes[bfn] = @(index << 16 | row);
+    }
     return sections;
 }
 
@@ -419,14 +431,35 @@
 }
 
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-     return [[self sourceAtIndexPath:indexPath] canDelete];
+     return YES;
  }
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    return [repo canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    NSMutableArray *actions = [NSMutableArray array];
+    if ([repo canDelete]) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [self->sources removeObject:repo];
+            [self.repoManager deleteSource:repo];
+            [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+        }];
+        [actions addObject:deleteAction];
+    }
+    UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Refresh" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self.databaseManager updateRepo:repo useCaching:true];
+    }];
+    refreshAction.backgroundColor = [UIColor systemTealColor];
+    [actions addObject:refreshAction];
+    return actions;
+}
 
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        ZBRepo *delRepo = [self sourceAtIndexPath:indexPath];
-        [sources removeObject:delRepo];
-        
         [tableView beginUpdates];
         if ([tableView numberOfRowsInSection:indexPath.section] == 1) {
             [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
@@ -437,7 +470,6 @@
         [self updateCollation];
         [tableView endUpdates];
         
-        [self.repoManager deleteSource:delRepo];
         ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
         [tabController setPackageUpdateBadgeValue:(int)[self.databaseManager packagesWithUpdates].count];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
@@ -575,7 +607,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+            ZBRepoManager *repoManager = [ZBRepoManager sharedInstance];
             
             [repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
                 if (error != NULL) {
@@ -621,7 +653,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBRepoManager *repoManager = [[ZBRepoManager alloc] init];
+            ZBRepoManager *repoManager = [ZBRepoManager sharedInstance];
             
             [repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
                 if (error != NULL) {

@@ -78,6 +78,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested;
 
 /*!
+ @brief Update a repository.
+ @param repo The targer repository.
+ @param useCaching Same as above.
+ */
+- (void)updateRepo:(ZBRepo *)repo useCaching:(BOOL)useCaching;
+
+/*!
  @brief Parses files located in the filenames dictionary.
  @discussion Updates the database from the repos contained in sources.list and from the local packages contained in /var/lib/dpkg/status
  @param filenames An NSDictionary containing "release" and "packages" both of which are NSArrays containing the files to parse into the database.

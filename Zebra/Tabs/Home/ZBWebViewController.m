@@ -32,7 +32,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
-    self.repoManager = [[ZBRepoManager alloc] init];
+    self.repoManager = [ZBRepoManager sharedInstance];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
