@@ -243,16 +243,6 @@
     if ([reinstallArray count]) {
         [commands addObject:@[@2]];
         
-        //Remove package first
-        NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        
-        [removeCommand insertObject:@"-r" atIndex:1];
-        [removeCommand insertObject:@"--force-depends" atIndex:2];
-        for (ZBPackage *package in reinstallArray) {
-            [removeCommand insertObject:[package identifier] atIndex:3];
-        }
-        [commands addObject:removeCommand];
-        
         //Install new version
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
