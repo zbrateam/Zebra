@@ -431,7 +431,7 @@
 }
 
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-     return YES;
+     return ![self.databaseManager isDatabaseBeingUpdated];
  }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -450,11 +450,13 @@
         }];
         [actions addObject:deleteAction];
     }
-    UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Refresh" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        [self.databaseManager updateRepo:repo useCaching:true];
-    }];
-    refreshAction.backgroundColor = [UIColor systemTealColor];
-    [actions addObject:refreshAction];
+    if (![self.databaseManager isDatabaseBeingUpdated]) {
+        UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Refresh" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [self.databaseManager updateRepo:repo useCaching:true];
+        }];
+        refreshAction.backgroundColor = [UIColor systemTealColor];
+        [actions addObject:refreshAction];
+    }
     return actions;
 }
 
