@@ -454,7 +454,7 @@
         UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Refresh" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self.databaseManager updateRepo:repo useCaching:true];
         }];
-        refreshAction.backgroundColor = [UIColor systemTealColor];
+        refreshAction.backgroundColor = [UIColor tintColor];
         [actions addObject:refreshAction];
     }
     return actions;
