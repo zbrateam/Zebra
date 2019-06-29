@@ -1075,7 +1075,6 @@
         <image name="Sources" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cOE-ig-TNf"/>
         <segue reference="Fi8-IT-Q36"/>
         <segue reference="I4L-pr-ZyX"/>
         <segue reference="hk8-hZ-Cdu"/>
