@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     icons = @[@"Default", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
     betterNames = @[@"Original", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
 }
@@ -29,9 +30,7 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
-- (IBAction)closeButtonPressed:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
 
 #pragma mark - Table view data source
 
@@ -91,11 +90,11 @@
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
                 }
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.navigationController popViewControllerAnimated:TRUE];
             }];
         }
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:TRUE];
     }
 }
 

@@ -33,7 +33,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
     self.repoManager = [ZBRepoManager sharedInstance];
-
+    [self colorWindow];
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
 
@@ -93,6 +93,19 @@
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self colorWindow];
+    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+}
+
+- (void)colorWindow {
+    UIWindow *window = UIApplication.sharedApplication.delegate.window;
+    [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
@@ -139,7 +152,12 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.navigationItem setTitle:[webView title]];
     if ([ZBDevice darkModeEnabled]) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        NSString *path;
+        if([ZBDevice darkModeOledEnabled]) {
+            path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
+        }else {
+            path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        }
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -207,23 +225,8 @@
     }
     
     if ([destination isEqual:@"local"]) {
-        if ([action isEqual:@"nuke"]) {
-            [self nukeDatabase];
-        }
-        else if ([action isEqual:@"sendBug"]) {
+        if ([action isEqual:@"sendBug"]) {
             [self sendBugReport];
-        }
-        else if ([action isEqual:@"doc"]) {
-            [self openDocumentsDirectory];
-        }
-        else if ([action isEqual:@"cache"]) {
-            [self resetImageCache];
-        }
-        else if ([action isEqual:@"keychain"]) {
-            [self clearKeychain];
-        }
-        else if ([action isEqual:@"icon"]) {
-            [self changeIcon];
         } else if ([action isEqual:@"stores"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
@@ -232,8 +235,14 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
             [[self navigationController] pushViewController:webController animated:true];
+        }else if ([action isEqual:@"settings"]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
+            if (@available(iOS 11.0, *)) {
+                settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+            }
+            [[self navigationController] pushViewController:settingsController animated:true];
         }
-        
     }
     else if ([destination isEqual:@"web"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -369,10 +378,6 @@
     }
 }
 
-- (void)nukeDatabase {
-    [self showRefreshView:@(YES)];
-}
-
 - (void)sendBugReport {
     if ([MFMailComposeViewController canSendMail]) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -396,36 +401,6 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)openDocumentsDirectory {
-    NSString *documents = [ZBAppDelegate documentsDirectory];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
-}
-
-- (void)resetImageCache {
-    [[SDImageCache sharedImageCache] clearMemory];
-    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
-}
-
-- (void)clearKeychain {
-    NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
-                                (__bridge id)kSecClassInternetPassword,
-                                (__bridge id)kSecClassCertificate,
-                                (__bridge id)kSecClassKey,
-                                (__bridge id)kSecClassIdentity];
-    for (id secItemClass in secItemClasses) {
-        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
-        SecItemDelete((__bridge CFDictionaryRef)spec);
-    }
-}
-
-- (void)changeIcon {
-    if (@available(iOS 10.3, *)) {
-        [self performSegueWithIdentifier:@"segueHomeToAltIcons" sender:nil];
-    } else {
-        return;
-    }
 }
 
 - (IBAction)refreshPage:(id)sender {
@@ -459,25 +434,32 @@
 
 - (void)darkMode {
     [ZBDevice setDarkModeEnabled:YES];
+    [self colorWindow];
     [self resetWebView];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
     [ZBDevice configureDarkMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
 }
 
 - (void)lightMode {
     [ZBDevice setDarkModeEnabled:NO];
     [self resetWebView];
+    [self colorWindow];
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
 }
 
 - (void)resetWebView {
+    [self colorWindow];
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
         if (@available(iOS 11.0, *)) {
