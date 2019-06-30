@@ -11,7 +11,7 @@
 
 @implementation UIAlertController (Theme)
 
-- (void)findCloseButton:(UIView *)view {
+- (void)recursiveSetColor:(UIView *)view {
     NSArray *subviews = [view subviews];
     for (UIView *subview in subviews) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIAlertControlleriOSActionSheetCancelBackgroundView")]) {
@@ -19,7 +19,10 @@
             bgView.backgroundColor = [UIColor cellBackgroundColor];
             return;
         }
-        [self findCloseButton:subview];
+        else if ([subview isKindOfClass:[UILabel class]]) {
+            ((UILabel *)subview).textColor = [UIColor tintColor];
+        }
+        [self recursiveSetColor:subview];
     }
 }
 
@@ -27,7 +30,7 @@
     // TODO: Can we make this logic faster?
     UIView *bgView = self.view.subviews[0];
     for (UIView *groupView in bgView.subviews) {
-        [self findCloseButton:groupView];
+        [self recursiveSetColor:groupView];
         UIView *contentView = groupView.subviews[0];
         contentView.backgroundColor = [UIColor cellBackgroundColor];
     }
