@@ -105,6 +105,7 @@
 }
 
 - (void)printDatabaseError {
+    databaseBeingUpdated = NO;
     const char *error = sqlite3_errmsg(database);
     if (error) {
         NSLog(@"[Zebra] Database Error: %s", error);
@@ -279,6 +280,7 @@
         [self bulkDatabaseCompletedUpdate:numberOfUpdates];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
+    databaseBeingUpdated = NO;
 }
 
 - (void)importLocalPackages {
@@ -1248,7 +1250,7 @@
             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@\n", error.localizedDescription] atLevel:ZBLogLevelError];
         }
     }
-    else {
+    else if (filename) {
         [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
     }
 }

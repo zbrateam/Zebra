@@ -153,9 +153,10 @@
     [self.navigationItem setTitle:[webView title]];
     if ([ZBDevice darkModeEnabled]) {
         NSString *path;
-        if([ZBDevice darkModeOledEnabled]) {
+        if ([ZBDevice darkModeOledEnabled]) {
             path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-        }else {
+        }
+        else {
             path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         }
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];

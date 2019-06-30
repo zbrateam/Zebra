@@ -465,7 +465,7 @@
         continueWithActions = false;
         [self writeToConsole:[error.localizedDescription stringByAppendingString:@"\n"] atLevel:ZBLogLevelError];
     }
-    else {
+    else if (filename) {
         [self writeToConsole:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
     }
 }

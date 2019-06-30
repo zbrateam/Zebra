@@ -207,7 +207,7 @@ enum ZBSectionOrder {
             labelText = @"Changelog";
             cellImage = [UIImage imageNamed:@"changelog"];
         }
-        else if(indexPath.row == ZBRepos) {
+        else if (indexPath.row == ZBRepos) {
             labelText = @"Community Repos";
             cellImage = [UIImage imageNamed:@"repos"];
         }
