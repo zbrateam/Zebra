@@ -36,27 +36,27 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 + (NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
-        NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
-        
-        BOOL dirExists = NO;
-        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
-        if (!dirExists) {
-            NSLog(@"[Zebra] Creating documents directory.");
-            NSError *error;
-            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
+    for (NSString *path in paths) {
+        if ([path isEqualToString:@"/var/mobile/Documents"]) {
+            NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
             
-            if (error != NULL) {
-                [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
-                NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+            BOOL dirExists = NO;
+            [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
+            if (!dirExists) {
+                NSLog(@"[Zebra] Creating documents directory.");
+                NSError *error;
+                [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
+                
+                if (error != NULL) {
+                    [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
+                    NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+                }
             }
+            
+            return path;
         }
-        
-        return path;
     }
-    else {
-        return paths[0];
-    }
+    return paths[0];
 }
 
 + (NSString *)listsLocation {
