@@ -1262,7 +1262,7 @@
 
 #pragma mark - Helper methods
 
-- (NSArray *)cleanUpDuplicatePackages:(NSMutableArray *)packageList {
+- (NSArray *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList {
     NSMutableDictionary *packageVersionDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *results = [NSMutableArray array];
     

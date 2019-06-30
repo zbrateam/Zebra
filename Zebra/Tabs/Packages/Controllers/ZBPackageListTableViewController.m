@@ -117,17 +117,11 @@ typedef enum {
             self->isRefreshingTable = NO;
         }
         else {
-            self.batchLoadCount = 700;
+            self.batchLoadCount = 500;
             self->packages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
-            if (self->section != NULL) {
-                self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:self->section];
-            }
-            else {
-                self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:NULL];
-            }
-            self.batchLoad = YES;
-            self.continueBatchLoad = self.batchLoad;
+            self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:self->section];
+            self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
         self->numberOfPackages = (int)[self->packages count];
@@ -149,8 +143,9 @@ typedef enum {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
             }
             else {
-                self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
+                self->packages = [self.databaseManager cleanUpDuplicatePackages:[self->packages arrayByAddingObjectsFromArray:nextPackages]];
                 self->numberOfPackages = (int)[self->packages count];
+                self->databaseRow += self.batchLoadCount;
                 [self updateCollation];
                 [self.tableView reloadData];
                 self.isPerformingBatchLoad = NO;

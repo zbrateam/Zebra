@@ -384,7 +384,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param packageList A list of packages that need to be cleaned.
  @return An array of every other version of a package in the database.
  */
-- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSMutableArray <ZBPackage *> *)packageList;
+- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList;
 
 /*!
  @brief Returns all packages made by a specific author.
