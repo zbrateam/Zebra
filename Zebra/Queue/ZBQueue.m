@@ -93,15 +93,11 @@
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeUpgrade; q <<= 1) {
         if (queue != q) {
             NSString *key = [self queueToKey:q];
-            ZBPackage *samePackage = nil;
             for (ZBPackage *p in _managedQueue[key]) {
                 if ([p sameAs:package]) {
-                    samePackage = p;
-                    break;
+                    [_managedQueue[key] removeObject:p];
+                    return;
                 }
-            }
-            if (samePackage) {
-                [_managedQueue[key] removeObject:samePackage];
             }
         }
     }
