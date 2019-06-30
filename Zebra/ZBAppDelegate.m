@@ -36,9 +36,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 + (NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    for (NSString *path in paths) {
-        if ([path isEqualToString:@"/var/mobile/Documents"]) {
-            NSString *path = [paths[0] stringByAppendingPathComponent:[self bundleID]];
+    for (NSString *path_ in paths) {
+        if ([path_ isEqualToString:@"/var/mobile/Documents"]) {
+            NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
             
             BOOL dirExists = NO;
             [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
