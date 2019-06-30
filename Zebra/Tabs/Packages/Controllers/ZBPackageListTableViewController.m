@@ -17,6 +17,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
+#import <UITableViewHeaderFooterView.h>
 
 typedef enum {
     ZBSortingTypeABC,
@@ -326,7 +327,8 @@ typedef enum {
 - (id)objectAtSection:(NSInteger)section {
     if ([self.tableData count] == 0)
         return nil;
-    return [self.tableData objectAtIndex:[self trueSection:section]];
+    NSInteger trueSection = [self trueSection:section];
+    return trueSection < [self.tableData count] ? [self.tableData objectAtIndex:trueSection] : nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -372,7 +374,7 @@ typedef enum {
         header.textLabel.font = [UIFont boldSystemFontOfSize:15];
         header.textLabel.textColor = [UIColor cellPrimaryTextColor];
         header.tintColor = [UIColor clearColor];
-        header.backgroundColor = [UIColor clearColor];
+        [header _setBackgroundViewColor:[UIColor clearColor]];
     }
 }
 

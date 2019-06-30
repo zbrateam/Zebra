@@ -8,6 +8,7 @@
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
+#import <UITableViewHeaderFooterView.h>
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
@@ -181,7 +182,7 @@
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
     header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     header.tintColor = [UIColor clearColor];
-    header.backgroundColor = [UIColor clearColor];
+    [header _setBackgroundViewColor:[UIColor clearColor]];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
