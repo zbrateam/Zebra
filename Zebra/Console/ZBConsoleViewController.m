@@ -295,6 +295,8 @@
     self.navigationItem.leftBarButtonItem = nil;
     _progressView.progress = 1;
     _progressView.hidden = YES;
+    _progressText.text = nil;
+    _progressText.hidden = YES;
     [self addCloseButton];
     [queue clearQueue];
     [self removeAllDebs];
