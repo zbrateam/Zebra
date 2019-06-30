@@ -23,6 +23,7 @@
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
     self.queueStatusLabel.hidden = YES;
+    self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.iconImageView.layer.cornerRadius = 10;
