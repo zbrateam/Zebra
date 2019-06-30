@@ -502,6 +502,7 @@
         header.textLabel.font = [UIFont boldSystemFontOfSize:15];
         header.textLabel.textColor = [UIColor cellPrimaryTextColor];
         header.tintColor = [UIColor clearColor];
+        header.backgroundColor = [UIColor clearColor];
     }
 }
 
