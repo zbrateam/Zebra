@@ -33,7 +33,11 @@
 }
 
 + (BOOL)canHaveAction:(NSUInteger)possibleActions forPackage:(ZBPackage *)package queue:(ZBQueueType)q {
-    return (possibleActions & q) && ![[ZBQueue sharedInstance] containsPackage:package queue:q];
+    BOOL inQueue = [[ZBQueue sharedInstance] containsPackage:package queue:q];
+    if (inQueue && q == ZBQueueTypeClear)
+        return YES;
+    BOOL allowed = possibleActions & q;
+    return allowed && !inQueue;
 }
 
 + (UIColor *)colorForAction:(ZBQueueType)queue {
@@ -47,6 +51,8 @@
             return [UIColor purpleColor];
         case ZBQueueTypeRemove:
             return [UIColor systemRedColor];
+        case ZBQueueTypeClear:
+            return [UIColor systemGreenColor];
         default:
             return nil;
     }
@@ -91,6 +97,9 @@
                 if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
                 }
+                else if (q == ZBQueueTypeClear) {
+                    [queue removePackage:package fromQueue:0];
+                }
                 else {
                     [queue addPackage:package toQueue:q];
                 }
@@ -112,6 +121,9 @@
                 else if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
                 }
+                else if (q == ZBQueueTypeClear) {
+                    [queue removePackage:package fromQueue:0];
+                }
                 else {
                     [queue addPackage:package toQueue:q];
                 }
@@ -126,6 +138,9 @@
                 }
                 else if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeClear) {
+                    [queue removePackage:package fromQueue:0];
                 }
                 else {
                     [queue addPackage:package toQueue:q];
@@ -143,7 +158,7 @@
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
     
-    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeSelectable; q <<= 1) {
+    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeClear; q <<= 1) {
         if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
             NSString *title = [queue queueToKey:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];

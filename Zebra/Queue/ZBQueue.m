@@ -78,6 +78,8 @@
             return @"Reinstall";
         case ZBQueueTypeSelectable:
             return @"Select Ver.";
+        case ZBQueueTypeClear:
+            return @"Clear";
         default:
             break;
     }
@@ -189,12 +191,25 @@
 }
 
 - (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue {
-    NSString *key = [self queueToKey:queue];
-    if (key) {
-        [_managedQueue[key] removeObject:package];
-        [packageQueues removeObjectForKey:package.identifier];
-        [replacedPackages removeObjectForKey:package.identifier];
-        [requiredPackages removeObjectForKey:package.identifier];
+    if (queue == 0) {
+        for (NSString *key in _managedQueue) {
+            if ([_managedQueue[key] containsObject:package]) {
+                [_managedQueue[key] removeObject:package];
+                [packageQueues removeObjectForKey:package.identifier];
+                [replacedPackages removeObjectForKey:package.identifier];
+                [requiredPackages removeObjectForKey:package.identifier];
+                break;
+            }
+        }
+    }
+    else {
+        NSString *key = [self queueToKey:queue];
+        if (key) {
+            [_managedQueue[key] removeObject:package];
+            [packageQueues removeObjectForKey:package.identifier];
+            [replacedPackages removeObjectForKey:package.identifier];
+            [requiredPackages removeObjectForKey:package.identifier];
+        }
     }
 }
 
@@ -346,6 +361,8 @@
 }
 
 - (BOOL)containsPackageName:(NSString *)packageName queue:(ZBQueueType)queue {
+    if (queue == ZBQueueTypeClear)
+        queue = 0;
     if (queue == 0) {
         for (NSString *key in _managedQueue) {
             for (ZBPackage *package in _managedQueue[key]) {
@@ -368,6 +385,8 @@
 }
 
 - (BOOL)containsPackage:(ZBPackage *)package queue:(ZBQueueType)queue {
+    if (queue == ZBQueueTypeClear)
+        queue = 0;
     if (queue == 0) {
         for (NSString *key in _managedQueue) {
             if ([_managedQueue[key] containsObject:package]) {
