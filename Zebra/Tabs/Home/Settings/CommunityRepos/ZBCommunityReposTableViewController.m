@@ -8,6 +8,12 @@
 
 #import "ZBCommunityReposTableViewController.h"
 
+enum ZBSourcesOrder {
+    ZBTransfer,
+    ZBJailbreakRepo,
+    ZBCommunity
+};
+
 @interface ZBCommunityReposTableViewController ()
 
 @end
@@ -22,6 +28,7 @@
     [self.navigationItem setTitle:@"Community Repos"];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     availableManagers = [NSMutableArray new];
+    self.repoManager = [ZBRepoManager sharedInstance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,16 +69,16 @@
 
 - (NSString *)determineJailreakRepo {
     if ([ZBDevice isChimera]) {
-        return @"deb https://repo.chimera.sh ./\n";
+        return @"https://repo.chimera.sh";
     }
     else if ([ZBDevice isUncover]) { //uncover
-        return @"deb http://apt.bingner.com/ ios/%.2f main\n";
+        return [NSString stringWithFormat:@"http://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber];
     }
     else if ([ZBDevice isElectra]) { //electra
         return @"deb https://electrarepo64.coolstar.org/ ./\n";
     }
     else { //cydia
-        return [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
+        return [NSString stringWithFormat:@"http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber];
     }
 }
 
@@ -111,10 +118,25 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
+        NSURL *iconURL;
+        if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
+            iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
+        } else {
+            iconURL = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/icons/sileo@3x.png"];
+        }
         NSString *titleString = [NSString stringWithFormat:@"Transfer Sources from %@", [availableManagers objectAtIndex:indexPath.row]];
         [cell.textLabel setText:titleString];
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell.imageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        CGSize itemSize = CGSizeMake(40, 40);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [cell.imageView.image drawInRect:imageRect];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [cell.imageView.layer setCornerRadius:10];
+        [cell.imageView setClipsToBounds:YES];
         return cell;
     }else if (indexPath.section == 1) {
         static NSString *cellIdentifier = @"jailbreakCell";
@@ -222,49 +244,89 @@
     }
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case ZBTransfer:
+            if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
+                [self.repoManager transferFromCydia];
+            } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Sileo"]) {
+                [self.repoManager transferFromSileo];
+            }
+            break;
+        case ZBJailbreakRepo:
+            [self addReposWithText:[self determineJailreakRepo]];
+            break;
+        case ZBCommunity: {
+            NSDictionary *dict = [communityRepos objectAtIndex:indexPath.row];
+            NSLog(@"Afdaf  %@", dict[@"clickLink"]);
+            [self addReposWithText:dict[@"clickLink"]];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+
+#pragma mark Add Repos
+
+- (void)addReposWithText:(NSString *)text {
+    UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:wait animated:true completion:nil];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self.repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            if (!success) {
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
+                
+                if (failedURLs.count) {
+                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [weakSelf addReposWithText:text];
+                    }];
+                    
+                    [errorAlert addAction:retryAction];
+                    
+                    UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        if ([failedURLs count] > 1) {
+                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                            ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
+                            addRepo.delegate = weakSelf;
+                            addRepo.text = text;
+                            
+                            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
+                            
+                            [weakSelf presentViewController:navCon animated:true completion:nil];
+                        }
+                        /*else {
+                            NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
+                            [weakSelf showAddRepoAlert:failedURL];
+                        }*/
+                    }];
+                    
+                    [errorAlert addAction:editAction];
+                }
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                
+                [errorAlert addAction:cancelAction];
+                
+                [weakSelf presentViewController:errorAlert animated:true completion:nil];
+            }
+            else {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                [weakSelf presentViewController:console animated:true completion:nil];
+            }
+        }];
+    }];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)didAddReposWithText:(NSString *)text {
+    [self addReposWithText:text];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
