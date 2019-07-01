@@ -1,0 +1,40 @@
+{
+    "jailbreaks": {
+        "uncOver": "deb http://apt.bingner.com/ ios/%.2f main\n",
+        "Chimera": "deb https://repo.chimera.sh ./\n",
+        "Electra": "deb https://electrarepo64.coolstar.org/ ./\n",
+        "Cydia": "deb http://apt.saurik.com/ ios/%.2f main\n"
+    },
+    "repos": [
+        {
+            "name": "BigBoss",
+            "url": "deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
+            "icon": "http://apt.thebigboss.org/repofiles/cydia/dists/stable/CydiaIcon.png"
+        },
+        {
+            "name": "Chariz",
+            "url": "deb https://repo.chariz.com/ ./\n",
+            "icon": "https://repo.chariz.com/CydiaIcon.png"
+        },
+        {
+            "name": "Dynastic Repo",
+            "url": "deb https://repo.dynastic.co/ ./\n",
+            "icon": "https://repo.dynastic.co/CydiaIcon.png"
+        },
+        {
+            "name": "ModMyi (Archive)",
+            "url": "deb http://apt.modmyi.com/ stable main\n",
+            "icon": "http://apt.modmyi.com/dists/stable/CydiaIcon.png"
+        },
+        {
+            "name": "Packix",
+            "url": "deb https://repo.packix.com/ ./\n",
+            "icon": "https://repo.packix.com/CydiaIcon.png"
+        },
+        {
+            "name": "ZodTTD & MacCiti (Archive)",
+            "url": "deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
+            "icon": "http://cydia.zodttd.com/repo/cydia/dists/stable/CydiaIcon.png"
+        }
+    ]
+}
