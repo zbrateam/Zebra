@@ -87,7 +87,7 @@ enum ZBSourcesOrder {
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"]) {
         [availableManagers addObject:@"Sileo"];
     }
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
         [availableManagers addObject:@"Cydia"];
     }
     return [availableManagers count];
