@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"Change Log"];
+    [self.navigationItem setTitle:@"Changelog"];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
