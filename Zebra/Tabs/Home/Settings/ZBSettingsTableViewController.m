@@ -330,7 +330,7 @@ enum ZBSectionOrder {
                     [self openWebView:ZBChangelog];
                     break;
                 case ZBRepos:
-                    [self openWebView:ZBRepos];
+                    [self openCommunityRepos];
                     break;
                 case ZBBugs:
                     [self openWebView:ZBBugs];
@@ -369,6 +369,14 @@ enum ZBSectionOrder {
 
 
 # pragma mark selected cells methods
+
+- (void)openCommunityRepos {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
+    [self.navigationController pushViewController:community animated:true];
+}
+
+
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
