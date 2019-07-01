@@ -1,10 +1,4 @@
 {
-    "jailbreaks": {
-        "uncOver": "deb http://apt.bingner.com/ ios/%.2f main\n",
-        "Chimera": "deb https://repo.chimera.sh ./\n",
-        "Electra": "deb https://electrarepo64.coolstar.org/ ./\n",
-        "Cydia": "deb http://apt.saurik.com/ ios/%.2f main\n"
-    },
     "repos": [
         {
             "name": "BigBoss",
