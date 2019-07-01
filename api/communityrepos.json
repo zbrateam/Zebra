@@ -25,6 +25,12 @@
             "icon": "http://apt.modmyi.com/dists/stable/CydiaIcon.png"
         },
         {
+            "name": "Nepeta",
+            "clickLink": "https://repo.nepeta.me/",
+            "url": "https://repo.nepeta.me/",
+            "icon": "https://repo.nepeta.me/CydiaIcon.png"
+        },
+        {
             "name": "Packix",
             "clickLink": "https://repo.packix.com/",
             "url": "https://repo.packix.com/",
