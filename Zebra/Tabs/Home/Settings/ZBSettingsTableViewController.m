@@ -225,7 +225,7 @@ enum ZBSectionOrder {
         UIGraphicsEndImageContext();
         [cell.imageView.layer setCornerRadius:10];
         [cell.imageView setClipsToBounds:YES];
-        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
     }

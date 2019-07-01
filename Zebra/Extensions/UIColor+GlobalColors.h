@@ -27,6 +27,7 @@ typedef enum  {
 + (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
 + (UIColor *)cellSeparatorColor;
++ (NSString *)hexStringFromColor:(UIColor *)color;
 @end
 
 @interface UIColor (Private)

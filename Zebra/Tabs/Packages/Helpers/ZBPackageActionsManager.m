@@ -52,7 +52,7 @@
         case ZBQueueTypeRemove:
             return [UIColor systemRedColor];
         case ZBQueueTypeClear:
-            return [UIColor systemGreenColor];
+            return [UIColor greenColor];
         default:
             return nil;
     }

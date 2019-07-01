@@ -162,9 +162,9 @@
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     if ([ZBDevice darkModeEnabled]) {
-        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
         if([ZBDevice darkModeOledEnabled]) {
-            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
+            [request setValue:@"TRUE" forHTTPHeaderField:@"Oled"];
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
         } else {
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
@@ -176,7 +176,7 @@
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-    
+    [request setValue:[UIColor hexStringFromColor:[UIColor tintColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
     
