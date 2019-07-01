@@ -8,32 +8,38 @@
     "repos": [
         {
             "name": "BigBoss",
-            "url": "deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
+            "clickLink": "deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
+            "url": "http://apt.thebigboss.org/repofiles/cydia/",
             "icon": "http://apt.thebigboss.org/repofiles/cydia/dists/stable/CydiaIcon.png"
         },
         {
             "name": "Chariz",
-            "url": "deb https://repo.chariz.com/ ./\n",
+            "clickLink": "deb https://repo.chariz.com/ ./\n",
+            "url": "https://repo.chariz.com/",
             "icon": "https://repo.chariz.com/CydiaIcon.png"
         },
         {
             "name": "Dynastic Repo",
-            "url": "deb https://repo.dynastic.co/ ./\n",
+            "clickLink": "deb https://repo.dynastic.co/ ./\n",
+            "url": "https://repo.dynastic.co/",
             "icon": "https://repo.dynastic.co/CydiaIcon.png"
         },
         {
             "name": "ModMyi (Archive)",
-            "url": "deb http://apt.modmyi.com/ stable main\n",
+            "clickLink": "deb http://apt.modmyi.com/ stable main\n",
+            "url": "http://apt.modmyi.com/",
             "icon": "http://apt.modmyi.com/dists/stable/CydiaIcon.png"
         },
         {
             "name": "Packix",
-            "url": "deb https://repo.packix.com/ ./\n",
+            "clickLink": "deb https://repo.packix.com/ ./\n",
+            "url": "https://repo.packix.com/",
             "icon": "https://repo.packix.com/CydiaIcon.png"
         },
         {
             "name": "ZodTTD & MacCiti (Archive)",
-            "url": "deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
+            "clickLink": "deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
+            "url": "http://cydia.zodttd.com/repo/cydia/",
             "icon": "http://cydia.zodttd.com/repo/cydia/dists/stable/CydiaIcon.png"
         }
     ]
