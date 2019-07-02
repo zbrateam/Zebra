@@ -137,6 +137,7 @@ enum ZBSourcesOrder {
         UIGraphicsEndImageContext();
         [cell.imageView.layer setCornerRadius:10];
         [cell.imageView setClipsToBounds:YES];
+        [cell.textLabel sizeToFit];
         return cell;
     }else if (indexPath.section == 1) {
         static NSString *cellIdentifier = @"jailbreakCell";
