@@ -471,6 +471,24 @@
             </objects>
             <point key="canvasLocation" x="3348" y="-287.40629685157421"/>
         </scene>
+        <!--Change Log Table View Controller-->
+        <scene sceneID="DQd-Tf-FXl">
+            <objects>
+                <tableViewController storyboardIdentifier="changeLogController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="88x-Fj-jmg" customClass="ZBChangeLogTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fnp-w0-926">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="88x-Fj-jmg" id="tEL-lk-VIa"/>
+                            <outlet property="delegate" destination="88x-Fj-jmg" id="WjX-cd-bkl"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gLE-Yw-Vhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4295.1999999999998" y="-3670.6146926536735"/>
+        </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="kzD-xi-zGp">
             <objects>
@@ -514,6 +532,7 @@
                         <outlet property="headerContainer" destination="vDr-ZO-dJt" id="cQk-sm-dfP"/>
                         <outlet property="headerView" destination="wXO-pr-bba" id="qJs-fA-3tf"/>
                         <outlet property="titleLabel" destination="Yye-PV-Xqq" id="ZTB-S1-osr"/>
+                        <segue destination="88x-Fj-jmg" kind="show" identifier="settingsToChangelog" id="gwz-A4-PJj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMr-yk-xH5" userLabel="First Responder" sceneMemberID="firstResponder"/>

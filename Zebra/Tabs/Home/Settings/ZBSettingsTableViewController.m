@@ -327,7 +327,7 @@ enum ZBSectionOrder {
         case ZBInfo:
             switch (indexPath.row) {
                 case ZBChangelog:
-                    [self openWebView:ZBChangelog];
+                    [self openChangelog];
                     break;
                 case ZBRepos:
                     [self openCommunityRepos];
@@ -369,6 +369,13 @@ enum ZBSectionOrder {
 
 
 # pragma mark selected cells methods
+
+- (void)openChangelog {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
+    [self.navigationController pushViewController:changeLog animated:true];
+}
+
 
 - (void)openCommunityRepos {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

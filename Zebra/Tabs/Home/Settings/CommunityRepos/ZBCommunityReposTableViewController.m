@@ -249,8 +249,10 @@ enum ZBSourcesOrder {
         case ZBTransfer:
             if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
                 [self.repoManager transferFromCydia];
+                [self presentConsole];
             } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Sileo"]) {
                 [self.repoManager transferFromSileo];
+                [self presentConsole];
             }
             break;
         case ZBJailbreakRepo:
@@ -267,6 +269,12 @@ enum ZBSourcesOrder {
             break;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+}
+
+- (void)presentConsole {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+    [self presentViewController:console animated:true completion:nil];
 }
 
 
