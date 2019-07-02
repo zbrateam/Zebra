@@ -555,7 +555,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1lX-UH-m4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5411" y="-3607"/>
+            <point key="canvasLocation" x="5122" y="-3671"/>
         </scene>
         <!--Wish List-->
         <scene sceneID="OSK-WG-rrU">
