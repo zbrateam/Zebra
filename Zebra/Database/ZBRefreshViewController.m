@@ -28,8 +28,8 @@
     [super viewDidLoad];
     if ([ZBDevice darkModeEnabled]) {
         [self setNeedsStatusBarAppearanceUpdate];
-        [self.view setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
-        [_consoleView setBackgroundColor:[UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0]];
+        [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [_consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     }
 }
 
