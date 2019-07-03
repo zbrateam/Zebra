@@ -98,8 +98,7 @@
                 [self updateStatus:[command[0] intValue]];
             }
             else {
-                int startIndex = [command[2] isEqualToString:@"--force-depends"] ? 3 : 2;
-                for (int i = startIndex; i < [command count]; i++) {
+                for (int i = 2; i < [command count]; i++) {
                     NSString *packageID = command[i];
                     
                     if (stage == 1) {
@@ -147,15 +146,14 @@
         if (continueWithActions) {
             _progressText.text = @"Performing actions...";
             self.navigationItem.leftBarButtonItem = nil;
-            NSArray *actions = [queue tasks:debs];
+            NSOrderedSet *actions = [queue tasks:debs];
             
             for (NSArray *command in actions) {
                 if ([command count] == 1) {
                     [self updateStatus:[command[0] intValue]];
                 }
                 else {
-                    int startIndex = [command[2] isEqualToString:@"--force-depends"] ? 3 : 2;
-                    for (int i = startIndex; i < [command count]; i++) {
+                    for (int i = 2; i < [command count]; i++) {
                         NSString *packageID = command[i];
                         if (stage == 1) {
                             BOOL update = [ZBPackage containsApp:packageID];

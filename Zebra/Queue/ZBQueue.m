@@ -213,14 +213,26 @@
     }
 }
 
-- (NSArray *)tasks:(NSArray *)debs {
-    NSMutableArray<NSArray *> *commands = [NSMutableArray new];
+- (NSOrderedSet *)tasks:(NSArray *)debs {
+    NSMutableOrderedSet<NSArray *> *commands = [NSMutableOrderedSet new];
     NSArray *baseCommand = @[@"dpkg"];
     
     NSMutableArray *installArray = _managedQueue[[self queueToKey:ZBQueueTypeInstall]];
     NSMutableArray *removeArray = _managedQueue[[self queueToKey:ZBQueueTypeRemove]];
     NSMutableArray *reinstallArray = _managedQueue[[self queueToKey:ZBQueueTypeReinstall]];
     NSMutableArray *upgradeArray = _managedQueue[[self queueToKey:ZBQueueTypeUpgrade]];
+    
+    if ([removeArray count]) {
+        [commands addObject:@[@1]];
+        NSMutableArray *removeCommand = [baseCommand mutableCopy];
+        
+        [removeCommand insertObject:@"-r" atIndex:1];
+        for (ZBPackage *package in removeArray) {
+            [removeCommand insertObject:[package identifier] atIndex:2];
+        }
+        
+        [commands addObject:removeCommand];
+    }
     
     if ([installArray count]) {
         [commands addObject:@[@0]];
@@ -237,18 +249,6 @@
         }
         
         [commands addObject:installCommand];
-    }
-    
-    if ([removeArray count]) {
-        [commands addObject:@[@1]];
-        NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        
-        [removeCommand insertObject:@"-r" atIndex:1];
-        for (ZBPackage *package in removeArray) {
-            [removeCommand insertObject:[package identifier] atIndex:2];
-        }
-        
-        [commands addObject:removeCommand];
     }
     
     if ([reinstallArray count]) {
@@ -287,7 +287,7 @@
         [commands addObject:upgradeCommand];
     }
     
-    return (NSArray *)commands;
+    return commands;
 }
 
 - (int)numberOfPackagesForQueue:(NSString *)queue {
