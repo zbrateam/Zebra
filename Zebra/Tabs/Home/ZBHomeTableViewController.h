@@ -13,7 +13,15 @@
 #import "ZBSettingsTableViewController.h"
 #import "ZBWishListTableViewController.h"
 #import "ZBWebViewController.h"
+#import "ZBDatabaseManager.h"
+#import "ZBRepo.h"
+
 @interface ZBHomeTableViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UILabel *footerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *udidLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *featuredCollection;
 
 @end

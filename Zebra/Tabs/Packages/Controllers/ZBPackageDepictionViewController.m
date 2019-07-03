@@ -67,7 +67,6 @@
     [super viewDidLoad];
     [self configureNavButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"lightMode" object:nil];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;

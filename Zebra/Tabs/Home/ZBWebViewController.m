@@ -31,7 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"lightMode" object:nil];
     self.repoManager = [ZBRepoManager sharedInstance];
     [self colorWindow];
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
