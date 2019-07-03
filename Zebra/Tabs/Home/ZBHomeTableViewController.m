@@ -449,6 +449,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
     [self resetTable];
 }
