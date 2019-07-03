@@ -362,22 +362,28 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zebra Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLj-LP-ZdY">
-                                    <rect key="frame" x="8" y="0.0" width="359" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UDID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0l-s2-v3D">
+                                    <rect key="frame" x="8" y="23" width="359" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UDID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0l-s2-v3D">
-                                    <rect key="frame" x="8" y="23" width="359" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zebra Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLj-LP-ZdY">
+                                    <rect key="frame" x="148" y="2" width="79" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="I0l-s2-v3D" firstAttribute="top" secondItem="OLj-LP-ZdY" secondAttribute="bottom" id="M8Y-j2-oH6"/>
+                                <constraint firstItem="I0l-s2-v3D" firstAttribute="top" secondItem="OLj-LP-ZdY" secondAttribute="bottom" id="PPc-xT-P9D"/>
+                                <constraint firstAttribute="bottom" secondItem="I0l-s2-v3D" secondAttribute="bottom" id="loy-oM-Ptw"/>
+                                <constraint firstItem="I0l-s2-v3D" firstAttribute="leading" secondItem="Amb-zA-vU0" secondAttribute="leading" constant="8" id="mZ6-bO-cTw"/>
+                                <constraint firstItem="OLj-LP-ZdY" firstAttribute="centerX" secondItem="Amb-zA-vU0" secondAttribute="centerX" id="rYd-EA-962"/>
+                                <constraint firstItem="I0l-s2-v3D" firstAttribute="centerX" secondItem="Amb-zA-vU0" secondAttribute="centerX" id="stx-zX-KV4"/>
+                            </constraints>
                         </view>
                         <connections>
                             <outlet property="dataSource" destination="hAX-u8-Al6" id="5sb-GZ-ySM"/>
