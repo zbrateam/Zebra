@@ -24,7 +24,7 @@
                 return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
                 break;
             case ZBWhiteOrBlack :
-                return ([ZBDevice darkModeEnabled]) ? [UIColor whiteColor] : [UIColor blackColor];
+                return ([ZBDevice darkModeEnabled]) ? [UIColor colorWithRed:1 green:1 blue:1 alpha:1] : [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
                 break;
             default:
                 return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
