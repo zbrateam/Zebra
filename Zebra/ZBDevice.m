@@ -222,6 +222,13 @@
         for (UIView *view in window.subviews) {
             [view removeFromSuperview];
             [window addSubview:view];
+            CATransition *transition = [CATransition animation];
+            transition.type = kCATransitionFade;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.fillMode = kCAFillModeForwards;
+            transition.duration = 0.35;
+            transition.subtype = kCATransitionFromTop;
+            [view.layer addAnimation:transition forKey:nil];
         }
     }
 }

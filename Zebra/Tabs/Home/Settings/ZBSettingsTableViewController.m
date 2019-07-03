@@ -471,10 +471,7 @@ enum ZBSectionOrder {
     [defaults setBool:oled forKey:@"oledMode"];
     [defaults synchronize];
     [self hapticButton];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self oledAnimation];
-    } completion:nil];
-    
+    [self oledAnimation];
 }
 
 - (void)oledAnimation {
@@ -485,6 +482,14 @@ enum ZBSectionOrder {
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionFade;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.fillMode = kCAFillModeForwards;
+    transition.duration = 0.35;
+    transition.subtype = kCATransitionFromTop;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
 }
 
 - (void)hapticButton {
