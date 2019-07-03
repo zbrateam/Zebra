@@ -21,7 +21,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
-#import <Home/ZBWebViewController.h>
+#import "ZBWebViewController.h"
 
 @interface ZBPackageDepictionViewController () {
     UIProgressView *progressView;
