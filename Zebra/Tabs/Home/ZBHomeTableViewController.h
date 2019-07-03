@@ -15,6 +15,7 @@
 #import "ZBWebViewController.h"
 #import "ZBDatabaseManager.h"
 #import "ZBRepo.h"
+#import "ZBNoScrollHeaderTableView.h"
 
 @interface ZBHomeTableViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
