@@ -315,6 +315,8 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self openLinkFromRow:indexPath.row];
             break;
         case ZBCredits:
+            [self openCredits];
+            break;
         default:
             break;
     }
@@ -363,6 +365,20 @@ typedef enum ZBLinksOrder : NSUInteger {
         default:
             break;
     }
+}
+
+- (void)openCredits {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+    webController.navigationDelegate = webController;
+    webController.navigationItem.title = @"Loading...";
+    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/zebra/credits.html"];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    
+    [webController setValue:url forKey:@"_url"];
+    
+    [[self navigationController] pushViewController:webController animated:true];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {
