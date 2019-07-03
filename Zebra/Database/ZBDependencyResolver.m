@@ -150,6 +150,7 @@
             if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
                 if ([[package provides] containsObject:conf.identifier] || [[package replaces] containsObject:conf.identifier]) {
                     // If this package can provide or replace this conflicting package, we can remove this conflicting package
+                    // This also means, we have to install "package" first before we remove "conf"
                     [queue addPackage:conf toQueue:ZBQueueTypeRemove requiredBy:package];
                 }
                 else {
@@ -167,7 +168,7 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 for (NSString *dep in [conf conflictsWith]) {
-                    if ([dep isEqualToString:[package identifier]]) {
+                    if ([dep isEqualToString:package.identifier]) {
                         if ([[conf conflictsWith] containsObject:package.identifier]) {
                             // If this conflicting package (conf) conflicts with this not-installed package, we remove conf
                             [queue addPackage:conf toQueue:ZBQueueTypeRemove];

@@ -17,6 +17,7 @@
     NSMutableDictionary <NSString *, NSNumber *> *packageQueues;
     NSMutableDictionary <NSString *, NSMutableArray <ZBPackage *> *> *requiredPackages;
     NSMutableDictionary <NSString *, ZBPackage *> *replacedPackages;
+    NSMutableArray <NSString *> *topPackages;
 }
 @end
 
@@ -45,6 +46,7 @@
         packageQueues = [NSMutableDictionary new];
         requiredPackages = [NSMutableDictionary new];
         replacedPackages = [NSMutableDictionary new];
+        topPackages = [NSMutableArray new];
     }
     
     return self;
@@ -105,6 +107,12 @@
     }
 }
 
+- (void)addTopPackage:(NSString *)packageIdentifier {
+    if (![topPackages containsObject:packageIdentifier]) {
+        [topPackages addObject:packageIdentifier];
+    }
+}
+
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     [self addPackage:package toQueue:queue ignoreDependencies:false];
 }
@@ -153,6 +161,9 @@
                     break;
                 case ZBQueueTypeRemove:
                     [self checkForConflictionsWithPackage:package state:1];
+                    if (requiredPackage) {
+                        [self addTopPackage:requiredPackage.identifier];
+                    }
                     break;
                 default:
                     break;
@@ -198,6 +209,7 @@
                 [packageQueues removeObjectForKey:package.identifier];
                 [replacedPackages removeObjectForKey:package.identifier];
                 [requiredPackages removeObjectForKey:package.identifier];
+                [topPackages removeObject:package.identifier];
                 break;
             }
         }
@@ -209,6 +221,7 @@
             [packageQueues removeObjectForKey:package.identifier];
             [replacedPackages removeObjectForKey:package.identifier];
             [requiredPackages removeObjectForKey:package.identifier];
+            [topPackages removeObject:package.identifier];
         }
     }
 }
@@ -222,6 +235,37 @@
     NSMutableArray *reinstallArray = _managedQueue[[self queueToKey:ZBQueueTypeReinstall]];
     NSMutableArray *upgradeArray = _managedQueue[[self queueToKey:ZBQueueTypeUpgrade]];
     
+    NSMutableArray *installCommand = nil;
+    NSMutableArray *topInstallCommand = nil;
+    
+    if ([installArray count]) {
+        installCommand = [baseCommand mutableCopy];
+        if (topPackages.count) {
+            [commands addObject:@[@0]];
+            topInstallCommand = [baseCommand mutableCopy];
+            [topInstallCommand insertObject:@"-i" atIndex:1];
+        }
+        for (ZBPackage *package in installArray) {
+            if ([topPackages containsObject:package.identifier]) {
+                for (NSString *filename in debs) {
+                    if ([filename containsString:[[package filename] lastPathComponent]]) {
+                        [topInstallCommand insertObject:filename atIndex:2];
+                        break;
+                    }
+                }
+            } else {
+                for (NSString *filename in debs) {
+                    if ([filename containsString:[[package filename] lastPathComponent]]) {
+                        [installCommand insertObject:filename atIndex:2];
+                        break;
+                    }
+                }
+            }
+        }
+        
+        [commands addObject:topInstallCommand];
+    }
+    
     if ([removeArray count]) {
         [commands addObject:@[@1]];
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
@@ -234,20 +278,9 @@
         [commands addObject:removeCommand];
     }
     
-    if ([installArray count]) {
+    if (installCommand) {
         [commands addObject:@[@0]];
-        NSMutableArray *installCommand = [baseCommand mutableCopy];
-        
         [installCommand insertObject:@"-i" atIndex:1];
-        for (ZBPackage *package in installArray) {
-            for (NSString *filename in debs) {
-                if ([filename containsString:[[package filename] lastPathComponent]]) {
-                    [installCommand insertObject:filename atIndex:2];
-                    break;
-                }
-            }
-        }
-        
         [commands addObject:installCommand];
     }
     
@@ -326,9 +359,10 @@
     [packageQueues removeAllObjects];
     [requiredPackages removeAllObjects];
     [replacedPackages removeAllObjects];
+    [topPackages removeAllObjects];
     
-    _failedDepQueue = [NSMutableArray new];
-    _failedConQueue = [NSMutableArray new];
+    [_failedDepQueue removeAllObjects];
+    [_failedConQueue removeAllObjects];
 }
 
 - (NSArray *)actionsToPerform {
