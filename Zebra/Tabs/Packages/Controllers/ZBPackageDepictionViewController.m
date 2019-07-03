@@ -223,7 +223,6 @@
     [packageInfoView setParentVC:self];
     packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
     [webView.scrollView addSubview:packageInfoView];
-    //[webView.scrollView sendSubviewToBack:packageInfoView];
     CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
     [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
     [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
@@ -232,8 +231,8 @@
     [packageInfoView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     
-    webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, pad, 0);
-    webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, pad, 0);
+    webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
+    webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
     [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:FALSE];
     
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
@@ -370,7 +369,7 @@
     }
 }
 
-- (void) webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
 }
 
