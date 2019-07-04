@@ -494,6 +494,6 @@ enum ZBSectionOrder {
 }
 
 - (IBAction)doneButtonPressed:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:self completion:nil];
+    [self dismissViewControllerAnimated:self completion:nil];
 }
 @end
