@@ -47,6 +47,7 @@ enum ZBSectionOrder {
     self.navigationItem.title = @"Settings";
     self.headerView.image = [UIImage imageNamed:@"banner"];
     self.headerView.clipsToBounds = TRUE;
+    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
     [self configureTitleLabel];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -476,6 +477,7 @@ enum ZBSectionOrder {
 
 - (void)oledAnimation {
     [self.tableView reloadData];
+    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
     self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
     [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
