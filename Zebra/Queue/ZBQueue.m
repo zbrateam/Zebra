@@ -239,7 +239,6 @@
     NSMutableArray *topInstallCommand = nil;
     
     if ([installArray count]) {
-        installCommand = [baseCommand mutableCopy];
         if (topPackages.count) {
             [commands addObject:@[@0]];
             topInstallCommand = [baseCommand mutableCopy];
@@ -254,6 +253,10 @@
                     }
                 }
             } else {
+                if (installCommand == nil) {
+                    installCommand = [baseCommand mutableCopy];
+                    [installCommand insertObject:@"-i" atIndex:1];
+                }
                 for (NSString *filename in debs) {
                     if ([filename containsString:[[package filename] lastPathComponent]]) {
                         [installCommand insertObject:filename atIndex:2];
@@ -280,7 +283,6 @@
     
     if (installCommand) {
         [commands addObject:@[@0]];
-        [installCommand insertObject:@"-i" atIndex:1];
         [commands addObject:installCommand];
     }
     
