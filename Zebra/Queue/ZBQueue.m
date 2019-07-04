@@ -240,7 +240,6 @@
     
     if ([installArray count]) {
         if (topPackages.count) {
-            [commands addObject:@[@0]];
             topInstallCommand = [baseCommand mutableCopy];
             [topInstallCommand insertObject:@"-i" atIndex:1];
         }
@@ -267,6 +266,7 @@
         }
         
         if (topInstallCommand) {
+            [commands addObject:@[@0]];
             [commands addObject:topInstallCommand];
         }
     }
