@@ -1015,7 +1015,7 @@
         else {
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID > 0 LIMIT 1;", identifier];
         }
-        ZBPackage *package;
+        ZBPackage *package = nil;
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {

@@ -111,7 +111,10 @@
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
+    NSArray *actions = [_queue actionsToPerform];
+    if (!actions.count)
+        return nil;
+    NSString *action = [actions objectAtIndex:indexPath.section];
     ZBQueueType queue = [_queue keyToQueue:action];
     return queue ? [_queue packageInQueue:queue atIndex:indexPath.row] : nil;
 }

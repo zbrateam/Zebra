@@ -65,7 +65,7 @@
 
 - (ZBPackage *)packageThatResolvesDependency:(NSString *)line checkProvides:(BOOL)provides {
 //    NSLog(@"[Zebra] Package that resolves dependency %@", line);
-    ZBPackage *package;
+    ZBPackage *package = nil;
     if ([line rangeOfString:@" | "].location != NSNotFound) {
         package = [self packageThatSatisfiesORComparison:line checkProvides:provides];
     }
@@ -76,9 +76,6 @@
         NSString *depPackageID = line;
         package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:true checkProvides:provides];
     }
-    
-    if (package == NULL)
-        return NULL;
     
     return package;
 }
@@ -218,7 +215,7 @@
                     ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:false];
                     if (depPackage) {
                         ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:true];
-                        if (providingPackage) {
+                        if (providingPackage && ![providingPackage sameAs:depPackage]) {
                             shouldRemove = NO;
                             break;
                         }
