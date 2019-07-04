@@ -41,17 +41,19 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [self.navigationItem setTitle:@"Home"];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    if ([ZBDevice darkModeEnabled]) {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    } else {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-    }
     [self configureFooter];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self checkFeaturedPackages];
+    if ([ZBDevice darkModeEnabled]) {
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+    } else {
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+    }
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self colorWindow];
 }
 
