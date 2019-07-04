@@ -391,16 +391,24 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="dMk-W6-d0A">
-                        <barButtonItem key="rightBarButtonItem" title="DarkMode" image="Dark" landscapeImage="Dark" largeContentSizeImage="Dark" id="2dE-CN-evu">
-                            <connections>
-                                <action selector="toggleDarkMode:" destination="hAX-u8-Al6" id="rwD-0S-3ae"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="DarkMode" image="Dark" landscapeImage="Dark" largeContentSizeImage="Dark" id="2dE-CN-evu">
+                                <connections>
+                                    <action selector="toggleDarkMode:" destination="hAX-u8-Al6" id="rwD-0S-3ae"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Settings" image="Settings" landscapeImage="Settings" id="5Na-Lv-DT1">
+                                <connections>
+                                    <action selector="settingsButtonTapped:" destination="hAX-u8-Al6" id="u9x-LH-PZ2"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="darkModeButton" destination="2dE-CN-evu" id="5jS-go-D0V"/>
                         <outlet property="footerLabel" destination="OLj-LP-ZdY" id="KOn-yV-6fB"/>
                         <outlet property="footerView" destination="Amb-zA-vU0" id="I7i-4w-gbI"/>
+                        <outlet property="settingsButton" destination="5Na-Lv-DT1" id="4l3-kP-h4p"/>
                         <outlet property="udidLabel" destination="I0l-s2-v3D" id="Isn-Z3-jDe"/>
                     </connections>
                 </tableViewController>
@@ -1194,6 +1202,7 @@
         <image name="Home" width="25" height="25"/>
         <image name="Packages" width="25" height="25"/>
         <image name="Search" width="25" height="25"/>
+        <image name="Settings" width="30" height="30"/>
         <image name="Sources" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>

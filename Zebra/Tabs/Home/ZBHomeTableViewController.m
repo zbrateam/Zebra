@@ -17,7 +17,8 @@ typedef enum ZBHomeOrder : NSUInteger {
 } ZBHomeOrder;
 
 typedef enum ZBViewOrder : NSUInteger {
-    ZBSettings,
+    ZBChangeLog,
+    ZBCommunity,
     ZBStores,
     ZBWishList,
     ZBBug
@@ -51,6 +52,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self checkFeaturedPackages];
+    [self colorWindow];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,17 +60,20 @@ typedef enum ZBLinksOrder : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
+
+
+//Stub for now
 - (void)checkFeaturedPackages {
     NSLog(@"Running");
     [self.featuredCollection removeFromSuperview];
     UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.tableHeaderView = blankHeader;
     [self.tableView layoutIfNeeded];
-    NSMutableArray *featuredRepos = [[self featuredRepos] mutableCopy];
+    /*NSMutableArray *featuredRepos = [[self featuredRepos] mutableCopy];
     for (ZBRepo *repo in featuredRepos) {
         NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.baseURL]];
         NSLog(@"asdfasdf a %@", requestURL.absoluteString);
-    }
+    }*/
     /*if (repo.supportsFeaturedPackages) {
         NSString *requestURL;
         if ([repo.baseURL hasSuffix:@"/"]) {
@@ -135,7 +140,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             return 1;
             break;
         case ZBViews:
-            return 4;
+            return 5;
             break;
         case ZBLinks:
             return 2;
@@ -176,9 +181,13 @@ typedef enum ZBLinksOrder : NSUInteger {
             NSString *text;
             UIImage *image;
             switch (indexPath.row) {
-                case ZBSettings:
-                    text = @"Settings";
-                    image = [UIImage imageNamed:@"icon"];
+                case ZBChangeLog:
+                    text = @"Changelog";
+                    image = [UIImage imageNamed:@"changelog"];
+                    break;
+                case ZBCommunity:
+                    text = @"Community Repos";
+                    image = [UIImage imageNamed:@"repos"];
                     break;
                 case ZBStores:
                     text = @"Stores";
@@ -325,13 +334,16 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)pushToView:(NSUInteger)row {
     switch (row) {
-        case ZBSettings:{
+        case ZBChangeLog:{
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
-            if (@available(iOS 11.0, *)) {
-                settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-            }
-            [[self navigationController] pushViewController:settingsController animated:true];
+            ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
+            [self.navigationController pushViewController:changeLog animated:true];
+        }
+            break;
+        case ZBCommunity: {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
+            [self.navigationController pushViewController:community animated:true];
         }
             break;
         case ZBStores:{
@@ -415,7 +427,16 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
+#pragma mark Settings
 
+- (IBAction)settingsButtonTapped:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
+    if (@available(iOS 11.0, *)) {
+        settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+    [[self navigationController] pushViewController:settingsController animated:true];
+}
 
 #pragma mark darkmode
 - (IBAction)toggleDarkMode:(id)sender {

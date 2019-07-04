@@ -19,6 +19,7 @@
 
 @interface ZBHomeTableViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *footerLabel;

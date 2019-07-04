@@ -9,8 +9,6 @@
 #import "ZBSettingsTableViewController.h"
 
 enum ZBInfoOrder {
-    ZBChangelog,
-    ZBRepos,
     ZBBugs
 };
 
@@ -161,14 +159,14 @@ enum ZBSectionOrder {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section){
         case ZBInfo:
+            return 1;
+            break;
+        case ZBGraphics:
             if (@available(iOS 10.3, *)) {
                 return 3;
             } else {
                 return 2;
             }
-            break;
-        case ZBGraphics:
-            return 3;
             break;
         case ZBAdvanced:
             return 4;
@@ -204,15 +202,7 @@ enum ZBSectionOrder {
         }
         NSString *labelText;
         UIImage *cellImage = [UIImage new];
-        if (indexPath.row == ZBChangelog) {
-            labelText = @"Changelog";
-            cellImage = [UIImage imageNamed:@"changelog"];
-        }
-        else if (indexPath.row == ZBRepos) {
-            labelText = @"Community Repos";
-            cellImage = [UIImage imageNamed:@"repos"];
-        }
-        else if (indexPath.row == ZBBugs) {
+        if (indexPath.row == ZBBugs) {
             labelText = @"Report a Bug";
             cellImage = [UIImage imageNamed:@"report"];
         }
@@ -327,12 +317,6 @@ enum ZBSectionOrder {
     switch (indexPath.section) {
         case ZBInfo:
             switch (indexPath.row) {
-                case ZBChangelog:
-                    [self openChangelog];
-                    break;
-                case ZBRepos:
-                    [self openCommunityRepos];
-                    break;
                 case ZBBugs:
                     [self openWebView:ZBBugs];
                     break;
@@ -390,16 +374,7 @@ enum ZBSectionOrder {
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
     webController.navigationDelegate = webController;
     webController.navigationItem.title = @"Loading...";
-    NSURL *url;
-    if(cellNumber == ZBChangelog) {
-        url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/changelog.html"];
-    }
-    else if (cellNumber == ZBRepos) {
-        url = [NSURL URLWithString:@"https://xtm3x.github.io/zebra/repos.html"];
-    }
-    else {
-        url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
-    }
+    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     
