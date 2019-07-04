@@ -27,7 +27,7 @@ Zebra is available from my personal APT repo for iOS located [here](https://xtm3
 This source can be added to Cydia on your iPhone or iPad and it is included by default with Zebra to provide future updates.
 
 #### Pre-compiled debs
-Pre-compiled debs are available via GitHub releases, if that is your fancy.
+Pre-compiled debs are available via GitHub [releases](https://github.com/wstyres/Zebra/releases), if that is your fancy.
 
 #### Using Xcode & theos
 If you want to compile Zebra yourself, you can use the following steps. A computer running macOS is _required_ and must have Xcode installed.
