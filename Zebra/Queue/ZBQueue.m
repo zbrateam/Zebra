@@ -283,7 +283,7 @@
         [commands addObject:removeCommand];
     }
     
-    if (installCommand) {
+    if (installCommand && installCommand.count > 2) {
         [commands addObject:@[@0]];
         [commands addObject:installCommand];
     }
