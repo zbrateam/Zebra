@@ -593,7 +593,13 @@
                             <outlet property="delegate" destination="el5-GG-Whe" id="K8t-VN-djn"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Fkg-eG-Qdm"/>
+                    <navigationItem key="navigationItem" id="Fkg-eG-Qdm">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="WlL-gm-KEb">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="el5-GG-Whe" id="3DA-tf-5L7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="headerContainer" destination="vDr-ZO-dJt" id="cQk-sm-dfP"/>
                         <outlet property="headerView" destination="wXO-pr-bba" id="qJs-fA-3tf"/>
@@ -603,7 +609,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMr-yk-xH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4288.8000000000002" y="-3004.0479760119943"/>
+            <point key="canvasLocation" x="5228" y="-3004.0479760119943"/>
         </scene>
         <!--Community Repos Table View Controller-->
         <scene sceneID="iLo-PP-Kbp">
@@ -621,7 +627,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1lX-UH-m4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5411" y="-3607"/>
+            <point key="canvasLocation" x="6349.6000000000004" y="-3607.6461769115444"/>
         </scene>
         <!--Wish List-->
         <scene sceneID="OSK-WG-rrU">
@@ -1194,6 +1200,24 @@
             </objects>
             <point key="canvasLocation" x="2398" y="1791"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mhA-vU-MxG">
+            <objects>
+                <navigationController storyboardIdentifier="settingsNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="duj-C1-EJb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g90-Mp-6R3">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="el5-GG-Whe" kind="relationship" relationship="rootViewController" id="63g-98-fnw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xs7-k4-Icg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4288.8000000000002" y="-3004.0479760119943"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Changes" width="30" height="30"/>
@@ -1207,8 +1231,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
-        <segue reference="zKt-1l-gI8"/>
-        <segue reference="hk8-hZ-Cdu"/>
+        <segue reference="wqW-Kk-qIz"/>
+        <segue reference="TU3-4Y-Pen"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>

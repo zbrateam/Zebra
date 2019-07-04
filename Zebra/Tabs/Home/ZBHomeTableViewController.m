@@ -431,11 +431,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (IBAction)settingsButtonTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
+    ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
     if (@available(iOS 11.0, *)) {
         settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    [[self navigationController] pushViewController:settingsController animated:true];
+    //[[self navigationController] pushViewController:settingsController animated:true];
+    [[self navigationController] presentViewController:settingsController animated:TRUE completion:nil];
 }
 
 #pragma mark darkmode
