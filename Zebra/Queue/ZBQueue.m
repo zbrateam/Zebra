@@ -266,7 +266,9 @@
             }
         }
         
-        [commands addObject:topInstallCommand];
+        if (topInstallCommand) {
+            [commands addObject:topInstallCommand];
+        }
     }
     
     if ([removeArray count]) {
