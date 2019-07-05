@@ -22,17 +22,16 @@
         else if ([subview isKindOfClass:[UILabel class]]) {
             ((UILabel *)subview).textColor = [UIColor tintColor];
         }
+        else {
+            subview.backgroundColor = [UIColor cellBackgroundColor];
+        }
         [self recursiveSetColor:subview];
     }
 }
 
 - (void)setBackgroundColor {
-    // TODO: Can we make this logic faster?
-    UIView *bgView = self.view.subviews[0];
-    for (UIView *groupView in bgView.subviews) {
+    for (UIView *groupView in self.view.subviews) {
         [self recursiveSetColor:groupView];
-        UIView *contentView = groupView.subviews[0];
-        contentView.backgroundColor = [UIColor cellBackgroundColor];
     }
 }
 
@@ -40,8 +39,8 @@
     self.view.tintColor = [UIColor tintColor];
 }
 
-- (void) viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     [self setBackgroundColor];
     [self setTextColor];
 }

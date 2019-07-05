@@ -96,10 +96,10 @@
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
     if (str == NULL)
         return;
+    __block BOOL isDark = [ZBDevice darkModeEnabled];
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
-        BOOL isDark = [ZBDevice darkModeEnabled];
         switch (level) {
             case ZBLogLevelDescript: {
                 if (isDark) {
