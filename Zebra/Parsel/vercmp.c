@@ -17,7 +17,7 @@ static int order(char c) {
         return 0;
 }
 
-int compareFragment(const char *A,const char *AEnd, const char *B,const char *BEnd) {
+int compareFragment(const char *A, const char *AEnd, const char *B, const char *BEnd) {
     /* Iterate over the whole string
      What this does is to split the whole string into groups of
      numeric and non numeric portions. For instance:
@@ -80,7 +80,7 @@ int compareFragment(const char *A,const char *AEnd, const char *B,const char *BE
     return 1;
 }
 
-int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEnd) {
+int compareVersion(const char *A, const char *AEnd, const char *B, const char *BEnd) {
     // Strip off the epoch and compare it
     const char *lhs = (const char*) memchr(A, ':', AEnd - A);
     const char *rhs = (const char*) memchr(B, ':', BEnd - B);
@@ -111,7 +111,7 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
     }
     
     // Compare the epoch
-    int Res = compareFragment(A,lhs,B,rhs);
+    int Res = compareFragment(A, lhs, B, rhs);
     if (Res != 0)
         return Res;
     
@@ -130,7 +130,7 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
         drhs = BEnd;
     
     // Compare the main version
-    Res = compareFragment(lhs,dlhs,rhs,drhs);
+    Res = compareFragment(lhs, dlhs, rhs, drhs);
     if (Res != 0)
         return Res;
     
@@ -142,16 +142,16 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
     
     // no debian revision need to be treated like -0
     if (*(dlhs-1) == '-' && *(drhs-1) == '-')
-        return compareFragment(dlhs,AEnd,drhs,BEnd);
+        return compareFragment(dlhs, AEnd, drhs, BEnd);
     else if (*(dlhs-1) == '-')
     {
         const char* null = "0";
-        return compareFragment(dlhs,AEnd,null, null+1);
+        return compareFragment(dlhs, AEnd, null, null + 1);
     }
     else if (*(drhs-1) == '-')
     {
         const char* null = "0";
-        return compareFragment(null, null+1, drhs, BEnd);
+        return compareFragment(null, null + 1, drhs, BEnd);
     }
     else
         return 0;
