@@ -351,7 +351,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="t9X-77-ZoJ" customClass="ZBNoScrollHeaderTableView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Amb-zA-vU0">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1227,7 +1227,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Fi8-IT-Q36"/>
         <segue reference="wqW-Kk-qIz"/>
-        <segue reference="TU3-4Y-Pen"/>
+        <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
 </document>
