@@ -7,7 +7,6 @@
 //
 
 #import <ZBAppDelegate.h>
-#import <UITableViewHeaderFooterView.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -169,7 +168,7 @@
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
     header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     header.tintColor = [UIColor clearColor];
-    [header _setBackgroundViewColor:[UIColor clearColor]];
+    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }
 
 #pragma mark - Swipe actions

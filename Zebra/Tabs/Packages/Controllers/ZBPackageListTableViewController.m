@@ -17,7 +17,6 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
-#import <UITableViewHeaderFooterView.h>
 
 typedef enum {
     ZBSortingTypeABC,
@@ -368,7 +367,7 @@ typedef enum {
         header.textLabel.font = [UIFont boldSystemFontOfSize:15];
         header.textLabel.textColor = [UIColor cellPrimaryTextColor];
         header.tintColor = [UIColor clearColor];
-        [header _setBackgroundViewColor:[UIColor clearColor]];
+        [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
     }
 }
 

@@ -285,7 +285,6 @@
 		9E2B413C22C86A31009BC12B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9E2B413E22C87074009BC12B /* UIAlertController+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Theme.h"; sourceTree = "<group>"; };
 		9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Theme.m"; sourceTree = "<group>"; };
-		9E2B414122C880C2009BC12B /* UITableViewHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITableViewHeaderFooterView.h; sourceTree = "<group>"; };
 		9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshableTableViewController.h; sourceTree = "<group>"; };
 		9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshableTableViewController.m; sourceTree = "<group>"; };
 		9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleCommandDelegate.h; sourceTree = "<group>"; };
@@ -602,7 +601,6 @@
 				89BDCB6F2289FEA800FC1345 /* Extensions */,
 				89E8633E21D5A9CE0081E485 /* Resources */,
 				896F11C921B236AC0017B581 /* Simulator Resources */,
-				9E2B414122C880C2009BC12B /* UITableViewHeaderFooterView.h */,
 			);
 			path = Zebra;
 			sourceTree = "<group>";
