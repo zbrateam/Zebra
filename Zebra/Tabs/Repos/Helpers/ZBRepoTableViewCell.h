@@ -16,9 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel;
 @property (weak, nonatomic) IBOutlet UIView *accessoryZBView;
+@property (weak, nonatomic) IBOutlet UIImageView *chevronView;
 
 - (void)clearAccessoryView;
-- (void)hideChevron;
+- (void)setSpinning:(BOOL)animated;
+- (void)showChevron:(BOOL)show;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -124,18 +124,8 @@
 }
 
 - (void)setSpinnerVisible:(BOOL)visible forCell:(ZBRepoTableViewCell *)cell {
-    if (visible) {
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-        [spinner setColor:[UIColor grayColor]];
-        spinner.frame = CGRectMake(0, 7, 0, 0);
-        [cell clearAccessoryView];
-        [cell hideChevron];
-        [cell.accessoryZBView addSubview:spinner];
-        [spinner startAnimating];
-    }
-    else {
-        [cell clearAccessoryView];
-    }
+    [cell setSpinning:visible];
+    [cell showChevron:!visible];
 }
 
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
@@ -147,12 +137,7 @@
 }
 
 - (void)clearAllSpinners {
-    ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
-    for (NSString *bfn in sourceIndexes) {
-        NSInteger pos = [sourceIndexes[bfn] integerValue];
-        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
-        [self setSpinnerVisible:NO forCell:cell];
-    }
+    [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
 }
 
 - (void)editMode:(id)sender {

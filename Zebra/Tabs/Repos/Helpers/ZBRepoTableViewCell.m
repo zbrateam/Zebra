@@ -9,6 +9,11 @@
 #import "ZBRepoTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 
+@interface ZBRepoTableViewCell () {
+    UIActivityIndicatorView *spinner;
+}
+@end
+
 @implementation ZBRepoTableViewCell
 
 - (void)awakeFromNib {
@@ -19,6 +24,10 @@
     self.iconImageView.layer.cornerRadius = 5;
     self.iconImageView.layer.masksToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+    [spinner setColor:[UIColor grayColor]];
+    spinner.frame = CGRectMake(0, 7, 0, 0);
+    [self.accessoryZBView addSubview:spinner];
 }
 
 - (void)layoutSubviews {
@@ -32,18 +41,22 @@
 }
 
 - (void)clearAccessoryView {
-    for (UIView *subview in [self.accessoryZBView subviews]) {
-        if (![subview isKindOfClass: [UIImageView class]]) {
-            [subview removeFromSuperview];
-        }
-        else {
-            subview.hidden = NO; // chevron
-        }
+    [self hideChevron];
+    spinner.hidden = YES;
+}
+
+- (void)setSpinning:(BOOL)spinning {
+    spinner.hidden = !spinning;
+    if (spinning) {
+        [spinner startAnimating];
+    }
+    else {
+        [spinner stopAnimating];
     }
 }
 
-- (void)hideChevron {
-    [self.accessoryZBView subviews][0].hidden = YES;
+- (void)showChevron:(BOOL)show {
+    self.chevronView.hidden = !show;
 }
 
 @end
