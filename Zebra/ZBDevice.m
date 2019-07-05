@@ -143,7 +143,7 @@
 + (void)configureDarkMode {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    //[[UINavigationBar appearance] setShadowImage:[UIImage new]];
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     }
@@ -158,7 +158,7 @@
     [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setShadowImage:[UIImage new]];
+    //[[UITabBar appearance] setShadowImage:[UIImage new]];
     [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
     
     //Tables
@@ -177,7 +177,7 @@
 + (void)configureLightMode {
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    //[[UINavigationBar appearance] setShadowImage:[UIImage new]];
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     }
@@ -193,7 +193,7 @@
     [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBar appearance] setShadowImage:[UIImage new]];
+    //[[UITabBar appearance] setShadowImage:[UIImage new]];
     
     //Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
