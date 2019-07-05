@@ -149,7 +149,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         NSTask *task = [[NSClassFromString(@"NSTask") alloc] init];
         [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and uicache has to be run. If you ignore this, you may have several issues using Zebra. Proceed? It may take a while and your device will respring.\nIf this does not work, you can reinstall Zebra.", documentsDirectory] blockAction:@"Yes" block:^(void) {
             [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-            [task setArguments:@[@"rm", @"-rf", documentsDirectory]];
+            [task setArguments:@[@"rm", @"-rf", [documentsDirectory stringByDeletingLastPathComponent]]];
             
             NSPipe *outputPipe = [[NSPipe alloc] init];
             NSFileHandle *output = [outputPipe fileHandleForReading];
