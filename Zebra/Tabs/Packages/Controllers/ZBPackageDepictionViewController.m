@@ -218,22 +218,6 @@
     if (package == nil)
         return;
     
-    packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
-    [packageInfoView setPackage:package];
-    [packageInfoView setParentVC:self];
-    packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
-    [webView.scrollView addSubview:packageInfoView];
-    CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
-    [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
-    [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
-    [packageInfoView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-    [packageInfoView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    
-    webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
-    webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
-    [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:NO];
-    
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
     
@@ -333,6 +317,22 @@
             
             [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
         }
+    } else {
+        packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
+        [packageInfoView setPackage:package];
+        [packageInfoView setParentVC:self];
+        packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
+        [webView.scrollView addSubview:packageInfoView];
+        CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
+        [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
+        [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
+        [packageInfoView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+        [packageInfoView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+        [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        
+        webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
+        webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
+        [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:NO];
     }
     
 }
