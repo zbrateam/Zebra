@@ -149,7 +149,7 @@
     }
     [[UINavigationBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UINavigationBar appearance] setTranslucent:FALSE];
+    [[UINavigationBar appearance] setTranslucent:NO];
     //Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
@@ -157,7 +157,7 @@
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
     [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [[UITabBar appearance] setTranslucent:FALSE];
+    [[UITabBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setShadowImage:[UIImage new]];
     [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
     
@@ -171,7 +171,7 @@
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:TRUE];
+    [[WKWebView appearance] setOpaque:YES];
 }
 
 + (void)configureLightMode {
@@ -192,7 +192,7 @@
     [[UITabBar appearance] setBackgroundColor:nil];
     [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
-    [[UITabBar appearance] setTranslucent:FALSE];
+    [[UITabBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setShadowImage:[UIImage new]];
     
     //Tables
@@ -201,7 +201,7 @@
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     UIView *light = [[UIView alloc] init];
-    light.backgroundColor = [UIColor selectedCellBackgroundColorLight:TRUE];
+    light.backgroundColor = [UIColor selectedCellBackgroundColorLight:YES];
     [[UITableViewCell appearance] setSelectedBackgroundView:light];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];

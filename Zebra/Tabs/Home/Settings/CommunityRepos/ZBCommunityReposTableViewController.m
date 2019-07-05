@@ -269,7 +269,7 @@ enum ZBSourcesOrder {
         default:
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)presentConsole {

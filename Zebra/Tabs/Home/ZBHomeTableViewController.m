@@ -126,7 +126,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.udidLabel setFont:[UIFont systemFontOfSize:13]];
     [self.udidLabel setTextColor:[UIColor cellSecondaryTextColor]];
     [self.udidLabel setNumberOfLines:1];
-    [self.udidLabel setAdjustsFontSizeToFitWidth:TRUE];
+    [self.udidLabel setAdjustsFontSizeToFitWidth:YES];
     [self.udidLabel setText:[ZBDevice UDID]];
 }
 
@@ -331,7 +331,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         default:
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)pushToView:(NSUInteger)row {
@@ -438,7 +438,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     //[[self navigationController] pushViewController:settingsController animated:true];
-    [[self navigationController] presentViewController:settingsController animated:TRUE completion:nil];
+    [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }
 
 #pragma mark darkmode
@@ -459,7 +459,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)darkMode {
-    [ZBDevice setDarkModeEnabled:([ZBDevice darkModeEnabled]) ? FALSE : TRUE];
+    [ZBDevice setDarkModeEnabled:([ZBDevice darkModeEnabled]) ? NO : YES];
     [self.darkModeButton setImage:([ZBDevice darkModeEnabled]) ? [UIImage imageNamed:@"Dark"] : [UIImage imageNamed:@"Light"]];
     if ([ZBDevice darkModeEnabled]) {
         [ZBDevice configureDarkMode];

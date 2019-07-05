@@ -44,7 +44,7 @@ enum ZBSectionOrder {
     [super viewDidLoad];
     self.navigationItem.title = @"Settings";
     self.headerView.image = [UIImage imageNamed:@"banner"];
-    self.headerView.clipsToBounds = TRUE;
+    self.headerView.clipsToBounds = YES;
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
     [self configureTitleLabel];
@@ -53,7 +53,7 @@ enum ZBSectionOrder {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:TRUE];
+    [super viewWillAppear:YES];
     [self.tableView reloadData];
     [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     [self configureNavBar];
@@ -68,9 +68,9 @@ enum ZBSectionOrder {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:TRUE];
+    [super viewWillDisappear:YES];
     /*[self.blurView removeFromSuperview];
-    [self.navigationController setClear:FALSE];
+    [self.navigationController setClear:NO];
     [self.navigationController setOpacity:1];
     [self.navigationController.navigationBar setBarStyle:[UINavigationBar appearance].barStyle];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
@@ -98,7 +98,7 @@ enum ZBSectionOrder {
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    //[self.navigationController.navigationBar setTranslucent:TRUE];
+    //[self.navigationController.navigationBar setTranslucent:YES];
     //[self.navigationController.navigationBar setBarStyle:[ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
@@ -112,7 +112,7 @@ enum ZBSectionOrder {
     [self.titleLabel setAttributedText:titleString];
     [self.titleLabel setTextAlignment:NSTextAlignmentNatural];
     [self.titleLabel setNumberOfLines:0];
-    [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:FALSE];
+    [self.titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     self.titleLabel.layer.shouldRasterize = YES;
     self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
     self.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
@@ -121,7 +121,7 @@ enum ZBSectionOrder {
 }
 
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:TRUE completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -349,7 +349,7 @@ enum ZBSectionOrder {
             }
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -427,7 +427,7 @@ enum ZBSectionOrder {
         ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
         [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController pushViewController:altIcon animated:TRUE];
+        [self.navigationController pushViewController:altIcon animated:YES];
     }
 }
 

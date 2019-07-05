@@ -12,11 +12,11 @@
 @implementation ZBNoScrollHeaderTableView
 
 - (BOOL)allowsFooterViewsToFloat {
-    return FALSE;
+    return NO;
 }
 
 - (BOOL)allowsHeaderViewsToFloat {
-    return FALSE;
+    return NO;
 }
 
 @end

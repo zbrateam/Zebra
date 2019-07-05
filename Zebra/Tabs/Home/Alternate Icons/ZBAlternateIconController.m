@@ -90,11 +90,11 @@
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
                 }
-                [self.navigationController popViewControllerAnimated:TRUE];
+                [self.navigationController popViewControllerAnimated:YES];
             }];
         }
     } else {
-        [self.navigationController popViewControllerAnimated:TRUE];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

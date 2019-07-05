@@ -145,9 +145,9 @@
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     if ([ZBDevice darkModeEnabled]) {
-        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
         if([ZBDevice darkModeOledEnabled]) {
-            [request setValue:@"TRUE" forHTTPHeaderField:@"Oled"];
+            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
         } else {
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
@@ -232,7 +232,7 @@
     
     webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
     webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
-    [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:FALSE];
+    [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:NO];
     
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
