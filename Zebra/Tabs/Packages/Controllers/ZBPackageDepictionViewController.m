@@ -226,7 +226,6 @@
     CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
     [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
     [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
-    [packageInfoView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1.0].active = YES;
     [packageInfoView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [packageInfoView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
