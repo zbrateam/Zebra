@@ -41,7 +41,7 @@
 }
 
 - (void)clearAccessoryView {
-    [self hideChevron];
+    [self showChevron:NO];
     spinner.hidden = YES;
 }
 
