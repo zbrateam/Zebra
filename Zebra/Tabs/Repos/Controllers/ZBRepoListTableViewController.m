@@ -90,7 +90,7 @@
     
     if ((url && url.scheme && url.host)) {
         if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
-            if (!askedToAddFromClipboard || ![lastPaste isEqualToString: pasteboard.string]) {
+            if (!askedToAddFromClipboard || ![lastPaste isEqualToString:pasteboard.string]) {
                 if (![urlBlacklist containsObject:url.host]) {
                     [self showAddRepoFromClipboardAlert:url];
                 }

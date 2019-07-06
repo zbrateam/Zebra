@@ -23,12 +23,8 @@ if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
     echo "Removed sandboxed Zebra document directory"
 fi
 
-# Create Documents directory if it does not already exist
-mkdir -p /var/mobile/Documents
-
-# I don't like this but why are people's doc directory owned by root??
-chown mobile:mobile /var/mobile/Documents
-chmod 0755 /var/mobile/Documents
+chown mobile:mobile "/var/mobile/Library/Application Support"
+chmod 0755 "/var/mobile/Library/Application Support"
 
 # I really don't like this, but its the only way to ensure alternate icons are available -MNC
 uicache -p /Applications/Zebra.app

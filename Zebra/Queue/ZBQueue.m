@@ -138,7 +138,12 @@
             if (package == NULL) return;
         }
         packageQueues[package.identifier] = @(queue);
-        [queueArray addObject:package];
+        if (requiredPackage) {
+            [queueArray insertObject:package atIndex:[queueArray indexOfObject:requiredPackage]];
+        }
+        else {
+            [queueArray addObject:package];
+        }
         [self clearPackage:package inOtherQueuesExcept:queue];
         if (!ignore) {
             if (requiredPackage) {
