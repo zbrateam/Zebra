@@ -21,6 +21,7 @@
 		369B7AE022C56009007521DB /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 369B7ADF22C56009007521DB /* banner.png */; };
 		369B7AEB22C56C04007521DB /* UINavigationController+Opacity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369B7AE722C56C03007521DB /* UINavigationController+Opacity.mm */; };
 		369B7AEC22C56C04007521DB /* UIImage+ImageWithColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369B7AEA22C56C04007521DB /* UIImage+ImageWithColor.mm */; };
+		369D4C6B22CFAEFD00A4B619 /* UIImage+UIKitImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 369D4C6A22CFAEFD00A4B619 /* UIImage+UIKitImage.m */; };
 		369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */; };
 		369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */; };
 		36A33CE222C9AD420054A577 /* ZBChangeLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */; };
@@ -153,6 +154,8 @@
 		369B7AE822C56C03007521DB /* UINavigationController+Opacity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Opacity.h"; sourceTree = "<group>"; };
 		369B7AE922C56C04007521DB /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
 		369B7AEA22C56C04007521DB /* UIImage+ImageWithColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+ImageWithColor.mm"; sourceTree = "<group>"; };
+		369D4C6922CFAEFD00A4B619 /* UIImage+UIKitImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIKitImage.h"; sourceTree = "<group>"; };
+		369D4C6A22CFAEFD00A4B619 /* UIImage+UIKitImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIKitImage.m"; sourceTree = "<group>"; };
 		369F9E9E22BC850000D6CCF3 /* ZBWishListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBWishListTableViewController.h; sourceTree = "<group>"; };
 		369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBWishListTableViewController.m; sourceTree = "<group>"; };
 		369F9EA122BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagesByAuthorTableViewController.h; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
 				9E2B413E22C87074009BC12B /* UIAlertController+Theme.h */,
 				9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */,
+				369D4C6922CFAEFD00A4B619 /* UIImage+UIKitImage.h */,
+				369D4C6A22CFAEFD00A4B619 /* UIImage+UIKitImage.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -899,6 +904,7 @@
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */,
+				369D4C6B22CFAEFD00A4B619 /* UIImage+UIKitImage.m in Sources */,
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,

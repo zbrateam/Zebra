@@ -292,6 +292,7 @@
     if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSString *packageID = sender;
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];

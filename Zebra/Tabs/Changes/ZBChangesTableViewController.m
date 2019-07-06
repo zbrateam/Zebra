@@ -203,7 +203,7 @@
     if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
         [self setDestinationVC:indexPath destination:destination];
     }
 }

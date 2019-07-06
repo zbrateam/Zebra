@@ -261,7 +261,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
     NSIndexPath *indexPath = sender;
-    
+    destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     destination.package = [results objectAtIndex:indexPath.row];
     
     [databaseManager closeDatabase];

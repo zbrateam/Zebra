@@ -35,18 +35,25 @@ typedef enum ZBLinksOrder : NSUInteger {
 @end
 
 @implementation ZBHomeTableViewController
-
+@synthesize allFeatured;
+@synthesize selectedFeatured;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [self.navigationItem setTitle:@"Home"];
+    allFeatured = [NSMutableArray new];
+    selectedFeatured = [NSMutableArray new];
+    //[self.settingsButton setImage:[UIImage uikitImageWithString:@"UITabBarMoreTemplateSelected"]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureFooter];
+    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+    [self startFeaturedPackages];
+    self.featuredCollection.delegate = self;
+    self.featuredCollection.dataSource = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self checkFeaturedPackages];
     if ([ZBDevice darkModeEnabled]) {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
     } else {
@@ -63,58 +70,108 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 
-
 //Stub for now
-- (void)checkFeaturedPackages {
+- (void)startFeaturedPackages {
     NSLog(@"Running");
-    [self.featuredCollection removeFromSuperview];
-    UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-    self.tableView.tableHeaderView = blankHeader;
-    [self.tableView layoutIfNeeded];
-    /*NSMutableArray *featuredRepos = [[self featuredRepos] mutableCopy];
+    //[self.featuredCollection removeFromSuperview];
+    //UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+    //self.tableView.tableHeaderView = blankHeader;
+    //[self.tableView layoutIfNeeded];
+    self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [self setFeaturedPackages];
+    });
+}
+
+- (void)setFeaturedPackages {
+    NSMutableArray <ZBRepo *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    dispatch_group_t group = dispatch_group_create();
     for (ZBRepo *repo in featuredRepos) {
-        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.baseURL]];
+        NSString *basePlusHttp;
+        if (repo.isSecure) {
+            basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
+        } else {
+            basePlusHttp = [NSString stringWithFormat:@"http://%@", repo.baseURL];
+        }
+        dispatch_group_enter(group);
+        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:basePlusHttp]];
         NSLog(@"asdfasdf a %@", requestURL.absoluteString);
-    }*/
-    /*if (repo.supportsFeaturedPackages) {
-        NSString *requestURL;
-        if ([repo.baseURL hasSuffix:@"/"]) {
-            requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", repo.baseURL];
-        }
-        else {
-            requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", repo.baseURL];
-        }
-        NSURL *checkingURL = [NSURL URLWithString:requestURL];
+        NSURL *checkingURL = requestURL;
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:checkingURL
-                completionHandler:^(NSData *data,
-                                    NSURLResponse *response,
-                                    NSError *error) {
+                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        self.fullJSON = json;
-                        self.featuredPackages = json[@"banners"];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self setupFeaturedPackages];
-                        });
+                        NSLog(@"JSON %@", json);
+                        if (!repo.supportsFeaturedPackages) {
+                            repo.supportsFeaturedPackages = YES;
+                        }
+                        if ([json objectForKey:@"banners"]) {
+                            NSArray *banners = [json objectForKey:@"banners"];
+                            if (banners.count) {
+                                [self->allFeatured addObjectsFromArray:banners];
+                            }
+                        }
+                        /*self.fullJSON = json;
+                         self.featuredPackages = json[@"banners"];
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                         [self setupFeaturedPackages];
+                         });*/
                     }
-                    
-                }] resume];
-        
-    }*/
+                    dispatch_group_leave(group);
+        }] resume];
+    }
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        //NSLog(@"OBJECTS %@", self->allFeatured);
+        //dispatch_async(dispatch_get_main_queue(), ^{
+        [self createHeader];
+        //});
+    });
 }
 
-- (NSArray *)featuredRepos {
-    NSArray <ZBRepo *>*repos = [[ZBDatabaseManager sharedInstance] repos];
-    NSMutableArray *featuredRepos = [NSMutableArray new];
-    for (ZBRepo *repo in repos) {
-        if (repo.supportsFeaturedPackages) {
-            [featuredRepos addObject:repo];
-            NSLog(@"REPO %@", repo.baseURL);
+- (void)createHeader {
+    if (allFeatured.count) {
+        [self.tableView beginUpdates];
+        [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
+        self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
+        
+        self.cellNumber = [self cellCount];
+        for (int i = 0; i <= self.cellNumber; i++) {
+            NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
+            if (![selectedFeatured containsObject:dict]) {
+                [self->selectedFeatured addObject:dict];
+            } else {
+                i--;
+            }
         }
+        [self.featuredCollection reloadData];
+        [UIView animateWithDuration:.25f animations:^{
+            self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
+        }];
+        [self.tableView endUpdates];
     }
-    return featuredRepos;
+}
+
+- (NSInteger)cellCount {
+    switch (allFeatured.count) {
+        case 1:
+            return 1;
+            break;
+        case 2:
+            return 2;
+            break;
+        case 3:
+            return 3;
+            break;
+        case 4:
+            return 4;
+            break;
+        default:
+            return 5;
+            break;
+    }
 }
 
 - (void)configureFooter {
@@ -482,6 +539,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.tableView reloadData];
     [self colorWindow];
     [self configureFooter];
+    self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -504,6 +562,42 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)colorWindow {
     UIWindow *window = UIApplication.sharedApplication.delegate.window;
     [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+}
+
+#pragma mark UICollectionView
+- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+    NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
+    [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    cell.packageID = currentBanner[@"package"];
+    [cell.titleLabel setText:currentBanner[@"title"]];
+    
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.cellNumber;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(263, 148);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"segueHomeFeaturedToDepiction" sender:cell.packageID];
+}
+
+#pragma mark Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
+        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        NSString *packageID = sender;
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        destination.package = [databaseManager topVersionForPackageID:packageID];
+        [databaseManager closeDatabase];
+    }
 }
 
 @end
