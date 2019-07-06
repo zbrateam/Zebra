@@ -24,10 +24,9 @@
     self.iconImageView.layer.cornerRadius = 5;
     self.iconImageView.layer.masksToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.chevronView = (UIImageView *)(self.accessoryView);
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     [spinner setColor:[UIColor grayColor]];
-    spinner.frame = CGRectMake(0, 7, 0, 0);
-    [self.accessoryZBView addSubview:spinner];
 }
 
 - (void)layoutSubviews {
@@ -41,22 +40,18 @@
 }
 
 - (void)clearAccessoryView {
-    [self showChevron:NO];
-    spinner.hidden = YES;
+    self.accessoryView = self.chevronView;
 }
 
 - (void)setSpinning:(BOOL)spinning {
-    spinner.hidden = !spinning;
     if (spinning) {
+        self.accessoryView = spinner;
         [spinner startAnimating];
     }
     else {
         [spinner stopAnimating];
+        self.accessoryView = self.chevronView;
     }
-}
-
-- (void)showChevron:(BOOL)show {
-    self.chevronView.hidden = !show;
 }
 
 @end
