@@ -57,16 +57,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self colorWindow];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
 //Stub for now
 - (void)checkFeaturedPackages {
-    NSLog(@"Running");
     [self.featuredCollection removeFromSuperview];
     UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
     self.tableView.tableHeaderView = blankHeader;
@@ -435,8 +427,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         [feedback prepare];
         [feedback selectionChanged];
         feedback = nil;
-    } else {
-        return;// Fallback on earlier versions
     }
 }
 
