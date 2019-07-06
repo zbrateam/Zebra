@@ -34,29 +34,28 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (NSString *)documentsDirectory {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    for (NSString *path_ in paths) {
-        if ([path_ isEqualToString:@"/var/mobile/Documents"]) {
-            NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
-            
-            BOOL dirExists = NO;
-            [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
-            if (!dirExists) {
-                NSLog(@"[Zebra] Creating documents directory.");
-                NSError *error;
-                [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
-                
-                if (error != NULL) {
-                    [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
-                    NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
-                }
-            }
-            
-            return path;
+    NSString *path_ = nil;
+    if (![ZBDevice needsSimulation]) {
+        path_ = @"/var/mobile/Library/Application Support";
+    }
+    else {
+        path_ = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    }
+    NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
+    BOOL dirExists = NO;
+    [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
+    if (!dirExists) {
+        NSLog(@"[Zebra] Creating documents directory.");
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
+        
+        if (error != NULL) {
+            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
         }
     }
-    return paths[0];
+    
+    return path;
 }
 
 + (NSString *)listsLocation {
@@ -142,41 +141,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-    if (![ZBDevice needsSimulation] && ![documentsDirectory hasPrefix:@"/var/mobile/Documents"] &&
-        [documentsDirectory hasPrefix:@"/var/mobile/Containers/Data/Application/"] &&
-       documentsDirectory.length > 40) {
-        // Zebra is sandboxed, warn user and let them removed such auto-created sandboxed document directory
-        NSTask *task = [[NSClassFromString(@"NSTask") alloc] init];
-        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Zebra is sandboxed (Path: %@), this path has to be removed and uicache has to be run. If you ignore this, you may have several issues using Zebra. Proceed? It may take a while and your device will respring.\nIf this does not work, you can reinstall Zebra.", documentsDirectory] blockAction:@"Yes" block:^(void) {
-            [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-            [task setArguments:@[@"rm", @"-rf", [documentsDirectory stringByDeletingLastPathComponent]]];
-            
-            NSPipe *outputPipe = [[NSPipe alloc] init];
-            NSFileHandle *output = [outputPipe fileHandleForReading];
-            [output waitForDataInBackgroundAndNotify];
-            NSPipe *errorPipe = [[NSPipe alloc] init];
-            NSFileHandle *error = [errorPipe fileHandleForReading];
-            [error waitForDataInBackgroundAndNotify];
-            [task setStandardOutput:outputPipe];
-            [task setStandardError:errorPipe];
-            
-            [task launch];
-            [task waitUntilExit];
-            NSMutableArray *arguments = [NSMutableArray array];
-            if ([ZBDevice isChimera]) {
-                [arguments addObject:@"-a"];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIProgressHUD *hud = [[UIProgressHUD alloc] init];
-                [hud setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-                [hud setText:@"Working..."];
-                [hud showInView:UIApplication.sharedApplication.keyWindow];
-            });
-            [ZBDevice uicache:arguments observer:nil];
-            [ZBDevice sbreload];
-        }];
-        return NO;
-    }
+    
     [self setupSDWebImageCache];
     [ZBDevice applyThemeSettings];
     
