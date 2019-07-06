@@ -782,6 +782,7 @@
 		89C5FDD521B1B13700A10E58 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ZB;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Wilson Styres";
 				TargetAttributes = {
