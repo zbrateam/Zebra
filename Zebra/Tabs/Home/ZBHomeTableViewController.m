@@ -140,19 +140,14 @@ typedef enum ZBLinksOrder : NSUInteger {
     switch (section) {
         case ZBWelcome:
             return 1;
-            break;
         case ZBViews:
             return 5;
-            break;
         case ZBLinks:
             return 2;
-            break;
         case ZBCredits:
             return 1;
-            break;
         default:
             return 0;
-            break;
     }
 }
 
@@ -171,7 +166,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return cell;
         }
-            break;
         case ZBViews: {
             static NSString *cellIdentifier = @"viewCell";
             
@@ -214,7 +208,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.textLabel sizeToFit];
             return cell;
         }
-            break;
         case ZBLinks: {
             static NSString *cellIdentifier = @"linkCell";
             
@@ -245,7 +238,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             
         }
            
-            break;
         case ZBCredits: {
             static NSString *cellIdentifier = @"creditCell";
             
@@ -262,39 +254,29 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.textLabel sizeToFit];
             return cell;
         }
-            break;
             
         default:
             return nil;
-            break;
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 10, 18)];
-    [view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
-    [label setText:[self sectionTitleForSection:section]];
-    [label setTextColor:[UIColor cellSecondaryTextColor]];
-    [view addSubview:label];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    return view;
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.backgroundColor = [UIColor tableViewBackgroundColor];
+    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    header.textLabel.textColor = [UIColor cellSecondaryTextColor];
+    header.tintColor = [UIColor clearColor];
+    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }
 
-- (NSString *)sectionTitleForSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
             return @"Info";
-            break;
         case ZBViews:
             return @"";
-            break;
         case ZBLinks:
             return @"Community";
-            break;
         case ZBCredits:
             return @"";
         default:
@@ -306,7 +288,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     return 60;
 }
 
-- (void)setImageSize:(UIImageView *)imageView{
+- (void)setImageSize:(UIImageView *)imageView {
     CGSize itemSize = CGSizeMake(29, 29);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
@@ -398,7 +380,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)openLinkFromRow:(NSUInteger)row {
     UIApplication *application = [UIApplication sharedApplication];
     switch (row) {
-        case ZBDiscord:{
+        case ZBDiscord: {
             [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
         }
             break;
