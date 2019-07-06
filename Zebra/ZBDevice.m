@@ -124,6 +124,14 @@
     return [self needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
 }
 
++ (NSString *)deviceType {
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        return @"iPad"; /* Device is iPad */
+    } else {
+        return @"iPhone/iPod";
+    }
+}
+
 //Dark mode
 + (BOOL)darkModeEnabled {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
