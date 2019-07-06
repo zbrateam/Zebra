@@ -54,9 +54,10 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
-        
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
@@ -124,7 +125,6 @@
 
 - (void)setSpinnerVisible:(BOOL)visible forCell:(ZBRepoTableViewCell *)cell {
     [cell setSpinning:visible];
-    [cell showChevron:!visible];
 }
 
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn {
@@ -390,8 +390,8 @@
     return [self hasDataInSection:section];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+- (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
     ZBRepo *source = [self sourceAtIndexPath:indexPath];
     
@@ -473,7 +473,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (![self hasDataInSection:section])
         return nil;
-    return [sectionIndexTitles objectAtIndex:section];//[[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
+    return [sectionIndexTitles objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -507,6 +507,10 @@
 }
 
 #pragma mark - Navigation
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *destination = [segue destinationViewController];
