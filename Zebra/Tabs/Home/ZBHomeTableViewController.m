@@ -592,11 +592,11 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
         NSString *packageID = sender;
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

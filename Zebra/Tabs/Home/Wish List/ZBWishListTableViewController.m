@@ -90,8 +90,8 @@
     if ([[segue identifier] isEqualToString:@"segueWishToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
         destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:[wishedPackages objectAtIndex:indexPath.row]];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

@@ -210,10 +210,10 @@
     if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
         destination.package = [_packages objectAtIndex:indexPath.row];
         
         [_databaseManager closeDatabase];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 
