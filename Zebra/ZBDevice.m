@@ -168,9 +168,6 @@
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-    UIView *highlight = [[UIView alloc] init];
-    highlight.backgroundColor = [UIColor selectedCellBackgroundColor:YES];
-    [[UITableViewCell appearance] setSelectedBackgroundView:highlight];
     
     // Labels
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
@@ -194,6 +191,9 @@
     
     // Tables
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
+    UIView *dark = [[UIView alloc] init];
+    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
+    [[UITableViewCell appearance] setSelectedBackgroundView:dark];
     
     [self configureCommon];
 }
@@ -212,6 +212,9 @@
     
     // Tables
     [[UITableView appearance] setTintColor:nil];
+    UIView *light = [[UIView alloc] init];
+    light.backgroundColor = [UIColor selectedCellBackgroundColorLight:YES];
+    [[UITableViewCell appearance] setSelectedBackgroundView:light];
     
     [self configureCommon];
 }

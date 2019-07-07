@@ -87,7 +87,9 @@
 }
 
 - (void)setColors {
+    self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+    self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
 }
 
 - (void)layoutSubviews {

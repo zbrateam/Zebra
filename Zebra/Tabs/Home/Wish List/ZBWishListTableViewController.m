@@ -23,7 +23,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
