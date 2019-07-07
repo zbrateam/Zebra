@@ -39,6 +39,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [self.navigationItem setTitle:@"Home"];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureFooter];
 }
 
@@ -50,6 +51,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self colorWindow];
 }
 

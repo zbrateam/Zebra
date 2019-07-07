@@ -45,14 +45,17 @@ enum ZBSectionOrder {
     self.navigationItem.title = @"Settings";
     self.headerView.image = [UIImage imageNamed:@"banner"];
     self.headerView.clipsToBounds = YES;
+    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
     [self configureTitleLabel];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureSelectedTint];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self.tableView reloadData];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     [self configureNavBar];
 }
 

@@ -27,6 +27,7 @@ enum ZBSourcesOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"Community Repos"];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     availableManagers = [NSMutableArray new];
     self.repoManager = [ZBRepoManager sharedInstance];
