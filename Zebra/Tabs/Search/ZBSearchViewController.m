@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     searches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
     if (!searches) {
         searches = [NSMutableArray new];
@@ -44,8 +45,11 @@
     
     searchController.delegate = self;
     searchController.searchBar.delegate = self;
+    searchController.searchBar.tintColor = [UIColor tintColor];
     searchController.searchBar.placeholder = @"Packages";
-   
+    if ([ZBDevice darkModeEnabled]) {
+        searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
+    }
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = false;
@@ -66,6 +70,11 @@
     [self refreshTable];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+}
+
 - (void)refreshTable {
     [UIView transitionWithView: self.tableView
                       duration: 0.35f
@@ -75,7 +84,7 @@
                             [self.tableView reloadData];
                             [self setNeedsStatusBarAppearanceUpdate];
                         });
-                      } completion:nil];
+                      }completion: nil];
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {
@@ -269,6 +278,14 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
+
+- (void)darkMode:(NSNotification *)notif {
+    [self refreshTable];
+    self.tableView.sectionIndexColor = [UIColor tintColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    searchController.searchBar.tintColor = [UIColor tintColor];
+    searchController.searchBar.keyboardAppearance = [[notif name] isEqualToString:@"darkMode"] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

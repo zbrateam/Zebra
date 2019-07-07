@@ -22,7 +22,6 @@
     databaseManager = [ZBDatabaseManager sharedInstance];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
@@ -59,12 +58,13 @@
     [self setRepoRefreshIndicatorVisible:true];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
-- (void)darkMode:(NSNotification *)notification {
-    [self.tableView reloadData];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
 }
 
 @end
