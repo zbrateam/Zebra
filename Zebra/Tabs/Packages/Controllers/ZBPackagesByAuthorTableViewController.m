@@ -20,7 +20,6 @@
     [super viewDidLoad];
     moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthor:self.package.author];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.title = self.developerName;
 }
 

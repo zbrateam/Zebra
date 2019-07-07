@@ -46,13 +46,11 @@
     sourceIndexes = [NSMutableDictionary new];
     self.repoManager = [ZBRepoManager sharedInstance];
     
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self layoutNavigationButtons];
     
     self.extendedLayoutIncludesOpaqueBars = true;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     
