@@ -257,7 +257,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
     header.textLabel.textColor = [UIColor cellSecondaryTextColor];
     header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
+    //Don't change this to clear color, it breaks the animation.
+    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
