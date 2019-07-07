@@ -145,9 +145,10 @@
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     if ([ZBDevice darkModeEnabled]) {
-        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
         if([ZBDevice darkModeOledEnabled]) {
-            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
+            //These headers must be "TRUE" no one change these to "YES" or else some repos will not be able to detect it.
+            [request setValue:@"TRUE" forHTTPHeaderField:@"Oled"];
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
         } else {
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
