@@ -162,7 +162,6 @@
     [request setValue:[UIColor hexStringFromColor:[UIColor tintColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
-    
     [webView loadRequest:request];
 }
 
@@ -218,28 +217,28 @@
     if (package == nil)
         return;
     
-    NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
+    NSString *js = @"(function() { var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta); }()";
     [webView evaluateJavaScript:js completionHandler:nil];
     
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
         
         if ([ZBDevice darkModeEnabled]) {
             NSString *path;
-            if([ZBDevice darkModeOledEnabled]) {
+            if ([ZBDevice darkModeOledEnabled]) {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-            }else {
+            }
+            else {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
             }
             
             NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
             cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
+            NSString *jsString = [NSString stringWithFormat:@"(function() { var style = document.createElement('style'); \
                                   style.innerHTML = '%@'; \
-                                  document.head.appendChild(style)",
+                                  document.head.appendChild(style); })()",
                                   cssData];
-            [webView evaluateJavaScript:jsString
-                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+            [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError *_Nullable error) {
                           if (error) {
                               NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
                           }
@@ -271,6 +270,28 @@
         else {
             [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         }
+    }
+    else if ([ZBDevice darkModeEnabled]) {
+        NSString *path;
+        if ([ZBDevice darkModeOledEnabled]) {
+            path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
+        }
+        else {
+            path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+        }
+        
+        NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+        cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        NSString *jsString = [NSString stringWithFormat:@"(function() { var style = document.createElement('style'); \
+                              style.innerHTML = '%@'; \
+                              document.head.appendChild(style); })()",
+                              cssData];
+        [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+            if (error) {
+                NSLog(@"[Zebra] Error setting web legacy dark mode: %@", error.localizedDescription);
+            }
+        }];
     }
     
     
