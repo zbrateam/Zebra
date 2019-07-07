@@ -44,7 +44,7 @@
             return;
         }
         else if ([subview isKindOfClass:[UILabel class]]) {
-            ((UILabel *)subview).textColor = [UIColor tintColor];
+            ((UILabel *)subview).textColor = [UIColor cellPrimaryTextColor];
         }
         [self recursiveSetColor:subview];
     }
