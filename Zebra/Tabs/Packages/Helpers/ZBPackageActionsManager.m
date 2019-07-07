@@ -108,9 +108,7 @@
                     [(ZBPackageListTableViewController *)vc configureNavigationButtons];
                 }
                 if (completion) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion();
-                    });
+                    completion();
                 }
             };
         }
