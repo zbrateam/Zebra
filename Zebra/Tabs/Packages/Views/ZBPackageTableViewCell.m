@@ -86,6 +86,12 @@
     }
 }
 
+- (void)setColors {
+    self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+    self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+    self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0));

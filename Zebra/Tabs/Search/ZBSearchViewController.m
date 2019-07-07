@@ -200,9 +200,7 @@
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         ZBPackage *package = [results objectAtIndex:indexPath.row];
         [cell updateData:package];
-        cell.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        [cell setColors];
         return cell;
     } else {
         static NSString *recentSearches = @"recentSearches";

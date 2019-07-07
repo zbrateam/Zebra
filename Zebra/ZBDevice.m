@@ -124,8 +124,8 @@
     return [self needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
 }
 
-+ ( NSString * _Nonnull)deviceType {
-    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
++ (NSString * _Nonnull)deviceType {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         return @"iPad"; /* Device is iPad */
     } else {
         return @"iPhone/iPod";
