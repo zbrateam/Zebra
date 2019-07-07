@@ -25,17 +25,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
     if (!wishedPackages) {
         wishedPackages = [NSMutableArray new];
     }
     [self.tableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source

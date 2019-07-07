@@ -72,7 +72,6 @@
     } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
-    // self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:true];
@@ -96,9 +95,7 @@
     [super viewWillAppear:animated];
     [self colorWindow];
     [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)colorWindow {
