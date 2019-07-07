@@ -2,6 +2,5 @@
 
 if [ -d /var/mobile/Documents/xyz.willy.Zebra ];then
     echo "Moving Zebra data from /var/mobile/Documents to /var/mobile/Library/Application Support"
-    cp -R /var/mobile/Documents/xyz.willy.Zebra "/var/mobile/Library/Application Support/"
-    rm -rf /var/mobile/Documents/xyz.willy.Zebra
+    mv /var/mobile/Documents/xyz.willy.Zebra "/var/mobile/Library/Application Support/"
 fi
