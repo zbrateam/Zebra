@@ -54,27 +54,26 @@ enum ZBSectionOrder {
     [super viewWillAppear:YES];
     [self.tableView reloadData];
     [self configureNavBar];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
-/*- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionTransitionNone animations:^{
+    /*[UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionTransitionNone animations:^{
         //[self setupStatusBlur];
         [self scrollViewDidScroll:self.tableView];
-    } completion:nil];
-}*/
+    } completion:nil];*/
+}
 
-/*- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
-    [self.blurView removeFromSuperview];
+    /*[self.blurView removeFromSuperview];
     [self.navigationController setClear:NO];
     [self.navigationController setOpacity:1];
     [self.navigationController.navigationBar setBarStyle:[UINavigationBar appearance].barStyle];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setBarTintColor:[UINavigationBar appearance].barTintColor];
-    [self.navigationController.navigationBar setBackgroundColor:[UINavigationBar appearance].backgroundColor];
-}*/
+    [self.navigationController.navigationBar setBackgroundColor:[UINavigationBar appearance].backgroundColor];*/
+}
 
 /*- (void)setupStatusBlur {
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:[ZBDevice darkModeEnabled] ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
@@ -93,7 +92,13 @@ enum ZBSectionOrder {
 }
 
 - (void)configureNavBar {
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    //[self.navigationController.navigationBar setTranslucent:YES];
+    //[self.navigationController.navigationBar setBarStyle:[ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault];
+    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
 }
 
 - (void)configureTitleLabel {
@@ -126,14 +131,17 @@ enum ZBSectionOrder {
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (NSString *)sectionTitleForSection:(NSInteger)section {
     switch (section) {
         case ZBInfo:
             return @"Information";
+            break;
         case ZBGraphics:
             return @"Graphics";
+            break;
         case ZBAdvanced:
             return @"Advanced";
+            break;
         default:
             return @"Error";
     }
@@ -149,25 +157,35 @@ enum ZBSectionOrder {
     switch (section){
         case ZBInfo:
             return 1;
+            break;
         case ZBGraphics:
             if (@available(iOS 10.3, *)) {
                 return 3;
             } else {
                 return 2;
             }
+            break;
         case ZBAdvanced:
             return 4;
+            break;
         default:
             return 0;
+            break;
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 10, 18)];
+    [view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    [label setText:[self sectionTitleForSection:section]];
+    [label setTextColor:[UIColor cellPrimaryTextColor]];
+    [view addSubview:label];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -288,6 +306,8 @@ enum ZBSectionOrder {
     } else {
         return nil;
     }
+    
+        
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -329,6 +349,7 @@ enum ZBSectionOrder {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
 # pragma mark selected cells methods
 
 - (void)openChangelog {
@@ -337,11 +358,13 @@ enum ZBSectionOrder {
     [self.navigationController pushViewController:changeLog animated:true];
 }
 
+
 - (void)openCommunityRepos {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
     [self.navigationController pushViewController:community animated:true];
 }
+
 
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -469,5 +492,4 @@ enum ZBSectionOrder {
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 @end
