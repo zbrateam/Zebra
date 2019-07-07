@@ -50,6 +50,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self startFeaturedPackages];
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
+    [self.featuredCollection setShowsHorizontalScrollIndicator:FALSE];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -138,7 +139,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
         
         self.cellNumber = [self cellCount];
-        for (int i = 0; i <= self.cellNumber; i++) {
+        for (int i = 1; i <= self.cellNumber; i++) {
             NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
             if (![selectedFeatured containsObject:dict]) {
                 [self->selectedFeatured addObject:dict];
