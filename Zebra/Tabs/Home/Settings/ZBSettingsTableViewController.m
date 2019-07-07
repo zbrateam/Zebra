@@ -59,32 +59,6 @@ enum ZBSectionOrder {
     [self configureNavBar];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    /*[UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionTransitionNone animations:^{
-        //[self setupStatusBlur];
-        [self scrollViewDidScroll:self.tableView];
-    } completion:nil];*/
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    /*[self.blurView removeFromSuperview];
-    [self.navigationController setClear:NO];
-    [self.navigationController setOpacity:1];
-    [self.navigationController.navigationBar setBarStyle:[UINavigationBar appearance].barStyle];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UINavigationBar appearance].barTintColor];
-    [self.navigationController.navigationBar setBackgroundColor:[UINavigationBar appearance].backgroundColor];*/
-}
-
-/*- (void)setupStatusBlur {
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:[ZBDevice darkModeEnabled] ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
-    self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    self.blurView.frame = [[UIApplication sharedApplication] statusBarFrame];
-    [[[UIApplication sharedApplication] keyWindow] addSubview:self.blurView];
-}*/
-
 - (void)configureSelectedTint {
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:@"tintSelection"];
     if (number) {
