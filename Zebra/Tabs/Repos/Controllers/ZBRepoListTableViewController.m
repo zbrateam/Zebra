@@ -516,8 +516,7 @@
     UIViewController *destination = [segue destinationViewController];
     
     if ([destination isKindOfClass:[ZBRepoSectionsListTableViewController class]]) {
-        UITableViewCell *cell = (UITableViewCell *)sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        NSIndexPath *indexPath = sender;
         ((ZBRepoSectionsListTableViewController *)destination).repo = [self sourceAtIndexPath:indexPath];
     } else if ([destination isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navCon = (UINavigationController *)destination;
