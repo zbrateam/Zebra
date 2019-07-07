@@ -51,7 +51,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     [self colorWindow];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 //Stub for now
@@ -437,12 +436,13 @@ typedef enum ZBLinksOrder : NSUInteger {
         [ZBDevice configureLightMode];
         [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     }
+    [ZBDevice refreshViews];
+    [self colorWindow];
     [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-    [ZBDevice refreshViews];
     [self resetTable];
 }
 
