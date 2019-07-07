@@ -9,6 +9,7 @@
 #import "ZBExternalPackageTableViewController.h"
 #import <NSTask.h>
 #import <Console/ZBConsoleViewController.h>
+#import "UIColor+GlobalColors.h"
 
 @interface ZBExternalPackageTableViewController () {
     NSDictionary *details;
@@ -20,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
     [task setArguments:@[@"/usr/bin/dpkg", @"-I", [_fileURL path], @"control"]];
@@ -63,6 +64,14 @@
 }
 
 #pragma mark - Table view data source
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    header.tintColor = [UIColor clearColor];
+    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
