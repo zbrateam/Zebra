@@ -79,11 +79,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationItem.title = package.name;
-    
-    self.navigationController.navigationBar.translucent = false;
-    self.tabBarController.tabBar.translucent = false;
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    
+        
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     if ([ZBDevice darkModeEnabled]) {
         if ([ZBDevice darkModeOledEnabled]) {

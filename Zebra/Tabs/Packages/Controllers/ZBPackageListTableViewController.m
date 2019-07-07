@@ -53,8 +53,6 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     selectedSortingType = ZBSortingTypeABC;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
@@ -482,12 +480,6 @@ typedef enum {
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-}
-
-- (void)darkMode:(NSNotification *)notif {
-    [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
 }
 
 @end

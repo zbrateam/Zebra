@@ -164,8 +164,13 @@
     [[UITabBar appearance] setTranslucent:NO];
     //[[UITabBar appearance] setShadowImage:[UIImage new]];
     
+    // Search bar
+    [[UISearchBar appearance] setTintColor:[UIColor tintColor]];
+    
     // Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UITableView appearance] setSectionIndexColor:[UIColor tintColor]];
+    [[UITableView appearance] setSectionIndexBackgroundColor:[UIColor clearColor]];
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     UIView *highlight = [[UIView alloc] init];
@@ -195,6 +200,9 @@
     // Tables
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
     
+    // Keyboard
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    
     [self configureCommon];
 }
 
@@ -212,6 +220,9 @@
     
     // Tables
     [[UITableView appearance] setTintColor:nil];
+    
+    // Keyboard
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
     
     [self configureCommon];
 }

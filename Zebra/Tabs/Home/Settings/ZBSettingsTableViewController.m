@@ -449,7 +449,6 @@ enum ZBSectionOrder {
 
 - (void)oledAnimation {
     [self.tableView reloadData];
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
     self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
     [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
