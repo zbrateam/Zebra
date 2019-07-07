@@ -7,6 +7,8 @@ chmod 6755 /usr/libexec/zebra/supersling
 chown root:wheel /usr/libexec/zebra/firmware.sh 
 chmod 6755 /usr/libexec/zebra/firmware.sh
 
+chown -R mobile:mobile /Applications/Zebra.app
+
 # Verify startup permissions (Auto-install etc)
 chown root:wheel /usr/libexec/zebra/startup
 chmod 6755 /usr/libexec/zebra/startup
@@ -23,8 +25,10 @@ if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
     echo "Removed sandboxed Zebra document directory"
 fi
 
-chown mobile:mobile "/var/mobile/Library/Application Support"
-chmod 0755 "/var/mobile/Library/Application Support"
+if [ -d "/var/mobile/Library/Application Support/xyz.willy.Zebra" ];then
+    chown -R mobile:mobile "/var/mobile/Library/Application Support/xyz.willy.Zebra"
+    chmod -R +r "/var/mobile/Library/Application Support/xyz.willy.Zebra"
+fi
 
 # I really don't like this, but its the only way to ensure alternate icons are available -MNC
 uicache -p /Applications/Zebra.app

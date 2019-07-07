@@ -76,7 +76,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (NSURL *)sourcesListURL {
-    return [NSURL URLWithString:[@"file://" stringByAppendingString:[self sourcesListPath]]];
+    return [NSURL fileURLWithPath:[self sourcesListPath]];
 }
 
 + (NSString *)sourcesListPath {

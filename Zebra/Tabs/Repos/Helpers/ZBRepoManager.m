@@ -80,7 +80,7 @@
                 
                 if (readError != NULL) {
                     //rip
-                    respond(false, readError.localizedDescription, @[]);
+                    respond(false, [NSString stringWithFormat:@"%@ (%@)", readError.localizedDescription, sourcesList], @[]);
                     return;
                 }
                 
