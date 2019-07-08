@@ -23,6 +23,7 @@ static BOOL hasSetSize = FALSE;
     UICollectionViewFlowLayout *collectionLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     collectionLayout.itemSize = CGSizeMake(263, 148);
     collectionLayout.estimatedItemSize = CGSizeMake(263, 148);
+    [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     // Initialization code
 }
 
