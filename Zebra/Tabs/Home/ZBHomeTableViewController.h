@@ -31,4 +31,5 @@
 @property NSMutableArray *allFeatured;
 @property NSMutableArray *selectedFeatured;
 @property NSInteger cellNumber;
+@property NSUserDefaults *defaults;
 @end

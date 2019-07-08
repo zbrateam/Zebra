@@ -188,6 +188,7 @@
     transition.duration = 0.35;
     transition.subtype = kCATransitionFromTop;
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
 }
 
 - (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath {

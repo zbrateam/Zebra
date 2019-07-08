@@ -19,6 +19,7 @@ enum ZBUIOrder {
 };
 
 enum ZBFeatureOrder {
+    ZBFeaturedEnable,
     ZBFeatureOrRandomToggle,
     ZBFeatureBlacklist
 };
@@ -152,9 +153,9 @@ enum ZBSectionOrder {
             break;
         case ZBFeatured:
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"randomFeatured"]) {
-                return 2;
+                return 3;
             } else {
-                return 1;
+                return 2;
             }
         case ZBAdvanced:
             return 4;
@@ -282,7 +283,15 @@ enum ZBSectionOrder {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
-        if (indexPath.row == ZBFeatureOrRandomToggle) {
+        if (indexPath.row == ZBFeaturedEnable) {
+            [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"wantsFeatured"];
+            [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            cell.accessoryView = enableSwitch;
+            cell.textLabel.text = @"Enable Featured Packages";
+        } else if (indexPath.row == ZBFeatureOrRandomToggle) {
             [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
             UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Repo Featured", @"Random"]];
             segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:@"randomFeatured"]] integerValue];
@@ -292,7 +301,7 @@ enum ZBSectionOrder {
             cell.textLabel.text = @"Feature Type";
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         } else {
-            cell.textLabel.text = @"Blacklist Repos from Featured";
+            cell.textLabel.text = @"Select Repos to be Featured";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
@@ -347,6 +356,9 @@ enum ZBSectionOrder {
             break;
         case ZBFeatured:
             switch (indexPath.row) {
+                case ZBFeaturedEnable:
+                    [self getTappedSwitch:indexPath];
+                    break;
                 case ZBFeatureOrRandomToggle:
                     break;
                 case ZBFeatureBlacklist:
@@ -355,6 +367,7 @@ enum ZBSectionOrder {
                 default:
                     break;
             }
+            break;
         case ZBAdvanced:
             switch (indexPath.row) {
                 case ZBDropTables :
@@ -466,8 +479,11 @@ enum ZBSectionOrder {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UISwitch *switcher = (UISwitch *)cell.accessoryView;
     [switcher setOn:!switcher.on animated:YES];
-    [self toggleOledDarkMode:switcher];
-    
+    if (indexPath.section == ZBFeatured) {
+        [self toggleFeatured:switcher];
+    } else {
+        [self toggleOledDarkMode:switcher];
+    }
 }
 
 - (void)toggleOledDarkMode:(id)sender {
@@ -479,6 +495,17 @@ enum ZBSectionOrder {
     [defaults synchronize];
     [self hapticButton];
     [self oledAnimation];
+}
+
+- (void)toggleFeatured:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    UISwitch *switcher = (UISwitch *)sender;
+    BOOL oled = [defaults boolForKey:@"wantsFeatured"];
+    oled = switcher.isOn;
+    [defaults setBool:oled forKey:@"wantsFeatured"];
+    [defaults synchronize];
+    [self hapticButton];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
 }
 
 - (void)oledAnimation {
