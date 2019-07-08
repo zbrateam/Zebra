@@ -105,7 +105,7 @@
             return;
         }
         if (@available(iOS 11.0, *)) {
-            static SFAuthenticationSession *session;.
+            static SFAuthenticationSession *session;
             session = [[SFAuthenticationSession alloc]
                        initWithURL:destinationUrl
                        callbackURLScheme:@"sileo"
