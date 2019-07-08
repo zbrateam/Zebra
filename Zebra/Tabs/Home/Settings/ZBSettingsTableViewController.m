@@ -35,6 +35,7 @@ enum ZBSectionOrder {
     ZBInfo,
     ZBGraphics,
     ZBFeatured,
+    ZBNews,
     ZBAdvanced
 };
 
@@ -128,6 +129,8 @@ enum ZBSectionOrder {
         case ZBAdvanced:
             return @"Advanced";
             break;
+        case ZBNews:
+            return @"News";
         default:
             return @"Error";
     }
@@ -136,7 +139,7 @@ enum ZBSectionOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -159,6 +162,9 @@ enum ZBSectionOrder {
             }
         case ZBAdvanced:
             return 4;
+            break;
+        case ZBNews:
+            return 1;
             break;
         default:
             return 0;
@@ -306,6 +312,23 @@ enum ZBSectionOrder {
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
+    } else if (indexPath.section == ZBNews) {
+        static NSString *cellIdentifier = @"newsCells";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+        UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+        enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"wantsNews"];
+        [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
+        [enableSwitch setOnTintColor:[UIColor tintColor]];
+        cell.accessoryView = enableSwitch;
+        cell.textLabel.text = @"Enable News";
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        return cell;
     }
     else if (indexPath.section == ZBAdvanced) {
         static NSString *cellIdentifier = @"advancedCells";
@@ -331,8 +354,6 @@ enum ZBSectionOrder {
     } else {
         return nil;
     }
-    
-        
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -367,6 +388,13 @@ enum ZBSectionOrder {
                 default:
                     break;
             }
+            break;
+        case ZBNews:{
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleNews:switcher];
+        }
             break;
         case ZBAdvanced:
             switch (indexPath.row) {
@@ -506,6 +534,17 @@ enum ZBSectionOrder {
     [defaults synchronize];
     [self hapticButton];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
+}
+
+- (void)toggleNews:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    UISwitch *switcher = (UISwitch *)sender;
+    BOOL oled = [defaults boolForKey:@"wantsNews"];
+    oled = switcher.isOn;
+    [defaults setBool:oled forKey:@"wantsNews"];
+    [defaults synchronize];
+    [self hapticButton];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
 }
 
 - (void)oledAnimation {

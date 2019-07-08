@@ -7,6 +7,7 @@
 //
 
 #import "ZBHomeTableViewController.h"
+#import "ZBNewsCollectionViewCell.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
@@ -30,7 +31,9 @@ typedef enum ZBLinksOrder : NSUInteger {
 } ZBLinksOrder;
 
 
-@interface ZBHomeTableViewController ()
+@interface ZBHomeTableViewController (){
+    NSMutableArray *redditPosts;
+}
 
 @end
 
@@ -42,21 +45,30 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.navigationItem setTitle:@"Home"];
     if (![self.defaults objectForKey:@"wantsFeatured"]) {
         [self.defaults setBool:TRUE forKey:@"wantsFeatured"];
     }
+    if (![self.defaults objectForKey:@"wantsNews"]) {
+        [self.defaults setBool:TRUE forKey:@"wantsNews"];
+    }
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
+    redditPosts = [NSMutableArray new];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 10;
     //[self.settingsButton setImage:[UIImage uikitImageWithString:@"UITabBarMoreTemplateSelected"]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureFooter];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBNewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsTableCell"];
     [self startFeaturedPackages];
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setShowsHorizontalScrollIndicator:FALSE];
+    [self retrieveNewsJson];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,6 +86,33 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)retrieveNewsJson {
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
+    [request setHTTPMethod:@"GET"];
+    //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+     [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        NSLog(@"DIcT %@", json);
+        NSDictionary *dataDict = [json objectForKey:@"data"];
+        NSLog(@"DataDict %@", dataDict);
+        for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
+            NSDictionary *postData = [dict objectForKey:@"data"];
+            NSLog(@"POST DATA %@", postData);
+            if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"]) {
+                [self->redditPosts addObject:postData];
+            }
+        }
+        if (error) {
+            NSLog(@"ERRORED %@", error);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self animateTable];
+        });
+    }] resume];
 }
 
 - (void)startFeaturedPackages {
@@ -222,7 +261,11 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
-            return 1;
+            if (redditPosts.count) {
+                return 2;
+            } else {
+                return 1;
+            }
             break;
         case ZBViews:
             return 5;
@@ -242,17 +285,40 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case ZBWelcome: {
-            static NSString *cellIdentifier = @"flavorTextCell";
-            
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            switch (indexPath.row) {
+                case 0:{
+                    static NSString *cellIdentifier = @"flavorTextCell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    }
+                    cell.textLabel.text = @"Welcome to the Zebra Beta!";
+                    [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                    return cell;
+                }
+                    break;
+                case 1:{
+                    static NSString *cellIdentifier = @"newsTableCell";
+                    
+                    ZBNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[ZBNewsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    }
+                    [cell setBackgroundColor:[UIColor tableViewBackgroundColor]];
+                    [cell setParentVC:self];
+                    [cell.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+                    [cell setupCollectionView:redditPosts];
+                    return cell;
+                }
+                    break;
+                default:
+                    return nil;
+                    break;
             }
-            cell.textLabel.text = @"Welcome to the Zebra Beta!";
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            return cell;
         }
             break;
         case ZBViews: {
@@ -351,6 +417,14 @@ typedef enum ZBLinksOrder : NSUInteger {
             return nil;
             break;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 300;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -602,6 +676,26 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
+- (void)toggleNews {
+    if ([self.defaults boolForKey:@"wantsNews"]) {
+        [self retrieveNewsJson];
+    } else {
+        [redditPosts removeAllObjects];
+        [self animateTable];
+    }
+}
+
+- (void)animateTable {
+    [self.tableView reloadData];
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionFade;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.fillMode = kCAFillModeForwards;
+    transition.duration = 0.35;
+    transition.subtype = kCATransitionFromTop;
+    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     if ([ZBDevice darkModeEnabled]) {
         return UIStatusBarStyleLightContent;
@@ -616,7 +710,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 #pragma mark UICollectionView
-- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
     [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -626,9 +720,14 @@ typedef enum ZBLinksOrder : NSUInteger {
     return cell;
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.cellNumber;
 }
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(263, 148);
