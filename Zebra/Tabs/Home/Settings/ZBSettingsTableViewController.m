@@ -18,6 +18,11 @@ enum ZBUIOrder {
     ZBChangeIcon
 };
 
+enum ZBFeatureOrder {
+    ZBFeatureOrRandomToggle,
+    ZBFeatureBlacklist
+};
+
 enum ZBAdvancedOrder {
     ZBDropTables,
     ZBOpenDocs,
@@ -28,6 +33,7 @@ enum ZBAdvancedOrder {
 enum ZBSectionOrder {
     ZBInfo,
     ZBGraphics,
+    ZBFeatured,
     ZBAdvanced
 };
 
@@ -116,6 +122,8 @@ enum ZBSectionOrder {
         case ZBGraphics:
             return @"Graphics";
             break;
+        case ZBFeatured:
+            return @"Featured";
         case ZBAdvanced:
             return @"Advanced";
             break;
@@ -127,7 +135,7 @@ enum ZBSectionOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -142,6 +150,12 @@ enum ZBSectionOrder {
                 return 2;
             }
             break;
+        case ZBFeatured:
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"randomFeatured"]) {
+                return 2;
+            } else {
+                return 1;
+            }
         case ZBAdvanced:
             return 4;
             break;
@@ -247,6 +261,7 @@ enum ZBSectionOrder {
             [cell.contentView addSubview:segmentedControl];*/
             cell.accessoryView = segmentedControl;
             cell.textLabel.text = @"Tint Color";
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         } else if (indexPath.row == ZBOledSwitch) {
             [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
             UISwitch *darkSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -255,6 +270,30 @@ enum ZBSectionOrder {
             [darkSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = darkSwitch;
             cell.textLabel.text = @"Oled Darkmode";
+        }
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        return cell;
+    }
+    else if (indexPath.section == ZBFeatured) {
+        static NSString *cellIdentifier = @"uiCells";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        if (indexPath.row == ZBFeatureOrRandomToggle) {
+            [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Repo Featured", @"Random"]];
+            segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:@"randomFeatured"]] integerValue];
+            segmentedControl.tintColor = [UIColor tintColor];
+            [segmentedControl addTarget:self action:@selector(featuredSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+            cell.accessoryView = segmentedControl;
+            cell.textLabel.text = @"Feature Type";
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        } else {
+            cell.textLabel.text = @"Blacklist Repos from Featured";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
@@ -306,6 +345,16 @@ enum ZBSectionOrder {
                     break;
             }
             break;
+        case ZBFeatured:
+            switch (indexPath.row) {
+                case ZBFeatureOrRandomToggle:
+                    break;
+                case ZBFeatureBlacklist:
+                    [self openBlackList];
+                    break;
+                default:
+                    break;
+            }
         case ZBAdvanced:
             switch (indexPath.row) {
                 case ZBDropTables :
@@ -405,6 +454,14 @@ enum ZBSectionOrder {
     }
 }
 
+- (void)openBlackList {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBRepoBlacklistTableViewController *blackList = [storyboard instantiateViewControllerWithIdentifier:@"repoBlacklistController"];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController pushViewController:blackList animated:YES];
+}
+
 - (void)getTappedSwitch:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UISwitch *switcher = (UISwitch *)cell.accessoryView;
@@ -465,6 +522,22 @@ enum ZBSectionOrder {
         [ZBDevice refreshViews];
         [self setNeedsStatusBarAppearanceUpdate];
     } completion:nil];
+}
+
+- (void)featuredSegmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
+    BOOL selectedMode = [[NSNumber numberWithInteger:segmentedControl.selectedSegmentIndex] boolValue];
+    [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:@"randomFeatured"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self hapticButton];
+    [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionFade;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.fillMode = kCAFillModeForwards;
+    transition.duration = 0.35;
+    transition.subtype = kCATransitionFromTop;
+    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

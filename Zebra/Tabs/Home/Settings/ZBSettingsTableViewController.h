@@ -16,6 +16,7 @@
 #import "UINavigationController+Opacity.h"
 #import "ZBChangeLogTableViewController.h"
 #import "ZBCommunityReposTableViewController.h"
+#import "ZBRepoBlacklistTableViewController.h"
 @import SDWebImage;
 
 @interface ZBSettingsTableViewController : UITableViewController <WKNavigationDelegate, UINavigationControllerDelegate>

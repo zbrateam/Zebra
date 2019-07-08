@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -488,6 +487,27 @@
             </objects>
             <point key="canvasLocation" x="4295.1999999999998" y="-3670.6146926536735"/>
         </scene>
+        <!--Repo Blacklist Table View Controller-->
+        <scene sceneID="vLS-NV-Xn7">
+            <objects>
+                <tableViewController storyboardIdentifier="repoBlacklistController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Nt-UW-N9b" customClass="ZBRepoBlacklistTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PqQ-w0-XjO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="9Nt-UW-N9b" id="m65-jV-y3K"/>
+                            <outlet property="delegate" destination="9Nt-UW-N9b" id="r6Y-np-gzJ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="el5-GG-Whe" kind="show" identifier="settingsToBlacklist" id="Y2Z-lg-2Ym"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Awo-6k-WUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5228" y="-3679"/>
+        </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="kzD-xi-zGp">
             <objects>
@@ -551,7 +571,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="0D0-Yv-w4F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <outlet property="dataSource" destination="aCx-cw-gm3" id="111-7P-68e"/>
                             <outlet property="delegate" destination="aCx-cw-gm3" id="rai-qG-XkV"/>
@@ -1084,7 +1104,8 @@
         <image name="Sources" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wqW-Kk-qIz"/>
+        <segue reference="Y2Z-lg-2Ym"/>
+        <segue reference="xJk-zG-Xgb"/>
         <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

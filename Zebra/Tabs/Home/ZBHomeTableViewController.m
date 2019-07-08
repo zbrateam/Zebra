@@ -40,6 +40,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection) name:@"refreshCollection" object:nil];
     [self.navigationItem setTitle:@"Home"];
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
@@ -79,10 +80,18 @@ typedef enum ZBLinksOrder : NSUInteger {
     //self.tableView.tableHeaderView = blankHeader;
     //[self.tableView layoutIfNeeded];
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [self setFeaturedPackages];
-    });
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"randomFeatured"]) {
+        NSLog(@"TRUE");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self packagesFromDB];
+        });
+    } else {
+        NSLog(@"FALSE");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self setFeaturedPackages];
+        });
+    }
+    
 }
 
 - (void)setFeaturedPackages {
@@ -129,6 +138,26 @@ typedef enum ZBLinksOrder : NSUInteger {
         //dispatch_async(dispatch_get_main_queue(), ^{
         [self createHeader];
         //});
+    });
+}
+
+- (void)packagesFromDB {
+    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesFromRepo:NULL inSection:NULL numberOfPackages:250 startingAt:0];
+    dispatch_group_t group = dispatch_group_create();
+    for (ZBPackage *package in packages) {
+        dispatch_group_enter(group);
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        if (package.iconPath) {
+            if (![[NSURL URLWithString:package.iconPath] isFileURL]) {
+                [dict setObject:package.iconPath forKey:@"url"];[dict setObject:package.identifier forKey:@"package"];
+                [dict setObject:package.name forKey:@"title"];
+                [self-> allFeatured addObject:dict];
+            }
+        }
+        dispatch_group_leave(group);
+    }
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [self createHeader];
     });
 }
 
@@ -550,6 +579,10 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.view.layer addAnimation:transition forKey:nil];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+}
+
+- (void)refreshCollection {
+    [self startFeaturedPackages];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
