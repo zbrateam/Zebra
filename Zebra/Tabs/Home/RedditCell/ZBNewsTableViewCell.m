@@ -54,11 +54,28 @@ static BOOL hasSetSize = FALSE;
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"newsCell" forIndexPath:indexPath];
     NSDictionary *dict = [self.redditPosts objectAtIndex:indexPath.row];
+    NSURL *url;
     cell.postTitle.text = [dict valueForKey:@"title"];
     cell.postTag.text = [dict valueForKey:@"link_flair_css_class"];
     cell.postTag.text = [cell.postTag.text capitalizedString];
     [cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
-    if ([[dict valueForKey:@"thumbnail"] isEqualToString:@"self"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"default"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"nsfw"]) {
+    if ([dict objectForKey:@"preview"]) {
+        NSDictionary *previews = [dict objectForKey:@"preview"];
+        if ([previews objectForKey:@"images"]) {
+            NSArray *images = [previews objectForKey:@"images"];
+            NSDictionary *imageDict = [images firstObject];
+            NSLog(@"IMAGE %@", imageDict);
+            if ([imageDict objectForKey:@"source"]) {
+                NSString *link = [imageDict valueForKeyPath:@"source.url"];
+                link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+                url = [NSURL URLWithString:link];
+                /*url = [NSURL URLWithString:[[imageDict valueForKeyPath:@"source.url"] stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]];*/
+            }
+        }
+    }
+    if (url) {
+        [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    }else if ([[dict valueForKey:@"thumbnail"] isEqualToString:@"self"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"default"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"nsfw"]) {
         [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
     } else {
         [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:[dict valueForKey:@"thumbnail"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];

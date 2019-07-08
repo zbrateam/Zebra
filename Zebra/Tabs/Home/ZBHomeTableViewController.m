@@ -103,8 +103,10 @@ typedef enum ZBLinksOrder : NSUInteger {
             for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
                 NSDictionary *postData = [dict objectForKey:@"data"];
                 NSLog(@"POST DATA %@", postData);
-                if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"]) {
-                    [self->redditPosts addObject:postData];
+                if ([postData objectForKey:@"link_flair_css_class"] != (id)[NSNull null]) {
+                    if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"]) {
+                        [self->redditPosts addObject:postData];
+                    }
                 }
             }
             if (error) {
