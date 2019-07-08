@@ -8,6 +8,7 @@
 
 #import "ZBNewsTableViewCell.h"
 #import "ZBNewsCollectionViewCell.h"
+#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @implementation ZBNewsTableViewCell
@@ -24,6 +25,7 @@ static BOOL hasSetSize = FALSE;
     collectionLayout.itemSize = CGSizeMake(263, 148);
     collectionLayout.estimatedItemSize = CGSizeMake(263, 148);
     [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
+    [self.collectionView setShowsHorizontalScrollIndicator:FALSE];
     // Initialization code
 }
 
@@ -79,20 +81,22 @@ static BOOL hasSetSize = FALSE;
     ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:cell.redditLink entersReaderIfAvailable:NO];
     safariVC.delegate = self;
-    [safariVC.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-    [safariVC.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    [safariVC.navigationController.navigationBar setTintColor:[UIColor blueColor]];
+    if (@available(iOS 10.0, *)) {
+        [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+        [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+    } else {
+        [safariVC.view setTintColor:[UIColor tintColor]];
+    }
     [self.parentVC presentViewController:safariVC animated:YES completion:nil];
 }
 
 #pragma mark - SFSafariViewController delegate methods
--(void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
 }
 
--(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    [controller dismissViewControllerAnimated:TRUE completion:nil];
 }
 
 @end

@@ -351,7 +351,10 @@
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
             SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
             if (@available(iOS 10.0, *)) {
-                sfVC.preferredControlTintColor = [UIColor tintColor];
+                [sfVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+                [sfVC setPreferredControlTintColor:[UIColor tintColor]];
+            } else {
+                [sfVC.view setTintColor:[UIColor tintColor]];
             }
             [self presentViewController:sfVC animated:true completion:nil];
             decisionHandler(WKNavigationActionPolicyCancel);
@@ -566,6 +569,12 @@
     else {
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
         safariVC.delegate = self;
+        if (@available(iOS 10.0, *)) {
+            [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+            [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+        } else {
+            [safariVC.view setTintColor:[UIColor tintColor]];
+        }
         [self presentViewController:safariVC animated:YES completion:nil];
     }
 }

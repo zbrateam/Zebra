@@ -18,6 +18,7 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <unistd.h>
+@import SafariServices;
 
 @implementation ZBDevice
 

@@ -89,30 +89,32 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)retrieveNewsJson {
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
-    [request setHTTPMethod:@"GET"];
-    //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-     [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        NSLog(@"DIcT %@", json);
-        NSDictionary *dataDict = [json objectForKey:@"data"];
-        NSLog(@"DataDict %@", dataDict);
-        for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
-            NSDictionary *postData = [dict objectForKey:@"data"];
-            NSLog(@"POST DATA %@", postData);
-            if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"]) {
-                [self->redditPosts addObject:postData];
+    if ([self.defaults boolForKey:@"wantsNews"]) {
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
+        [request setHTTPMethod:@"GET"];
+        //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSLog(@"DIcT %@", json);
+            NSDictionary *dataDict = [json objectForKey:@"data"];
+            NSLog(@"DataDict %@", dataDict);
+            for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
+                NSDictionary *postData = [dict objectForKey:@"data"];
+                NSLog(@"POST DATA %@", postData);
+                if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"]) {
+                    [self->redditPosts addObject:postData];
+                }
             }
-        }
-        if (error) {
-            NSLog(@"ERRORED %@", error);
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self animateTable];
-        });
-    }] resume];
+            if (error) {
+                NSLog(@"ERRORED %@", error);
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self animateTable];
+            });
+        }] resume];
+    }
 }
 
 - (void)startFeaturedPackages {

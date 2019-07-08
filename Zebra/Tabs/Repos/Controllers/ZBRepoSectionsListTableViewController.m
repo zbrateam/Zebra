@@ -213,6 +213,12 @@
         else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
+            if (@available(iOS 10.0, *)) {
+                [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+                [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+            } else {
+                [safariVC.view setTintColor:[UIColor tintColor]];
+            }
             [self presentViewController:safariVC animated:YES completion:nil];
         }
         
