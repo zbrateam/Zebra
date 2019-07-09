@@ -39,7 +39,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [self.navigationItem setTitle:@"Home"];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureFooter];
 }
 
@@ -51,8 +50,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     [self colorWindow];
 }
 
@@ -132,7 +131,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBWelcome:
             return 1;
         case ZBViews:
-            return 5;
+            return 4;
         case ZBLinks:
             return 2;
         case ZBCredits:
@@ -183,10 +182,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBWishList:
                     text = @"Wish List";
                     image = [UIImage imageNamed:@"stores"];
-                    break;
-                case ZBBug:
-                    text = @"Report a Bug";
-                    image = [UIImage imageNamed:@"report"];
                     break;
                 default:
                     break;
@@ -254,7 +249,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.backgroundColor = [UIColor tableViewBackgroundColor];
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
     header.textLabel.textColor = [UIColor cellSecondaryTextColor];
     header.tintColor = [UIColor clearColor];
     //Don't change this to clear color, it breaks the animation.
@@ -274,10 +268,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         default:
             return @"Error";
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
 }
 
 - (void)setImageSize:(UIImageView *)imageView {
@@ -335,7 +325,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [[self navigationController] pushViewController:webController animated:true];
         }
             break;
-        case ZBBug:{
+        /*case ZBBug:{
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
             webController.navigationDelegate = webController;
@@ -348,7 +338,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             
             [[self navigationController] pushViewController:webController animated:true];
         }
-            break;
+            break;*/
             
         default:
             break;
@@ -443,7 +433,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     [ZBDevice refreshViews];
     [self colorWindow];
     [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];

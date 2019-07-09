@@ -15,6 +15,12 @@ typedef enum  {
     ZBWhiteOrBlack
 } ZBTintSelection;
 
+typedef enum  {
+    ZBDefaultMode = 0,
+    ZBOled,
+    ZBThirteen
+} ZBModeSelection;
+
 @interface UIColor (GlobalColors)
 + (UIColor *)tintColor;
 + (UIColor *)navBarTintColor;

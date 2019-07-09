@@ -50,12 +50,12 @@
 // Table View Colors
 + (UIColor *)tableViewBackgroundColor {
     if ([ZBDevice darkModeEnabled]) {
-        if ([ZBDevice darkModeOledEnabled]){
-            return [UIColor blackColor];
+        if (![ZBDevice darkModeOledEnabled] && ![ZBDevice darkModeThirteenEnabled]) {
+            return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
         }
-        return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+        return [UIColor blackColor];
     } else {
-        return [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     }
 }
 
@@ -64,7 +64,7 @@
         if ([ZBDevice darkModeOledEnabled]){
             return [UIColor blackColor];
         }
-        return [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+        return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
     } else {
         return [UIColor whiteColor];
     }
@@ -109,9 +109,12 @@
 
 + (UIColor *)cellSeparatorColor {
     if ([ZBDevice darkModeEnabled]) {
-        return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+        if ([ZBDevice darkModeOledEnabled]){
+            return [UIColor blackColor];
+        }
+        return [UIColor colorWithRed:0.22 green:0.22 blue:0.23 alpha:1.0];
     } else {
-        return [UIColor colorWithRed:0.784 green:0.784 blue:0.784 alpha:1.0];
+        return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
     }
 }
 
