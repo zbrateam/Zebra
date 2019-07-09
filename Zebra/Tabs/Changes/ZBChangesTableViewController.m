@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -49,11 +50,23 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
-    [self retrieveNewsJson];
+    [self startSettingHeader];
     [self refreshTable];
 }
 
+- (void)startSettingHeader  {
+    NSLog(@"Running");
+    self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"wantsNews"]) {
+        NSLog(@"TRUE");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self retrieveNewsJson];
+        });
+    }
+}
+
 - (void)retrieveNewsJson {
+    [self.redditPosts removeAllObjects];
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
     [request setHTTPMethod:@"GET"];
@@ -76,9 +89,27 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             //[self animateTable];
-            [self.collectionView reloadData];
+            [self createHeader];
         });
     }] resume];
+}
+
+- (void)createHeader {
+    [self.tableView beginUpdates];
+    [self.collectionView reloadData];
+    [UIView animateWithDuration:.25f animations:^{
+        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
+    }];
+    [self.tableView endUpdates];
+}
+
+- (void)hideHeader {
+    [self.tableView beginUpdates];
+    [UIView animateWithDuration:.25f animations:^{
+        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 0);
+    }];
+    [self.collectionView reloadData];
+    [self.tableView endUpdates];
 }
 
 - (void)dealloc {
@@ -327,6 +358,16 @@
         [safariVC.view setTintColor:[UIColor tintColor]];
     }
     [self presentViewController:safariVC animated:YES completion:nil];
+}
+
+- (void)toggleNews {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"wantsNews"]) {
+        [self retrieveNewsJson];
+    } else {
+        [self.redditPosts removeAllObjects];
+        [self hideHeader];
+        //[self animateTable];
+    }
 }
 
 #pragma mark - SFSafariViewController delegate methods

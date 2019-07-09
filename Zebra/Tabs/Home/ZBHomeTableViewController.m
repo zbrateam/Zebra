@@ -42,6 +42,12 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection) name:@"refreshCollection" object:nil];
     [self.navigationItem setTitle:@"Home"];
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"wantsFeatured"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"wantsFeatured"];
+    }
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"wantsNews"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"wantsNews"];
+    }
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
     //[self.settingsButton setImage:[UIImage uikitImageWithString:@"UITabBarMoreTemplateSelected"]];
