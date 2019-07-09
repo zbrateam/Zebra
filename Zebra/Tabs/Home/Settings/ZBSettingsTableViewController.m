@@ -532,8 +532,6 @@ enum ZBSectionOrder {
     [switcher setOn:!switcher.on animated:YES];
     if (indexPath.section == ZBFeatured) {
         [self toggleFeatured:switcher];
-    } else {
-        [self toggleOledDarkMode:switcher];
     }
 }
 - (void)oledAnimation {
