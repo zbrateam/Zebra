@@ -14,7 +14,7 @@ enum ZBInfoOrder {
 
 enum ZBUIOrder {
     ZBChangeTint,
-    ZBOledSwitch,
+    ZBChangeMode,
     ZBChangeIcon
 };
 
@@ -42,6 +42,7 @@ enum ZBSectionOrder {
 @interface ZBSettingsTableViewController () {
     NSMutableDictionary *_colors;
     ZBTintSelection selectedSortingType;
+    ZBModeSelection selectedMode;
 }
 
 @end
@@ -56,8 +57,8 @@ enum ZBSectionOrder {
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
     [self configureTitleLabel];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureSelectedTint];
+    [self configureSelectedMode];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,11 +77,20 @@ enum ZBSectionOrder {
     }
 }
 
+- (void)configureSelectedMode {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"thirteenMode"]) {
+        selectedMode = ZBThirteen;
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"oledMode"]) {
+        selectedMode = ZBOled;
+    } else {
+        selectedMode = ZBDefaultMode;
+    }
+}
+
 - (void)configureNavBar {
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    //[self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setTranslucent:NO];
     //[self.navigationController.navigationBar setBarStyle:[ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
@@ -108,7 +118,7 @@ enum ZBSectionOrder {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
-    if(offsetY <= 0){
+    if (offsetY <= 0) {
         CGRect frame = self.headerView.frame;
         frame.size.height = self.tableView.tableHeaderView.frame.size.height - scrollView.contentOffset.y;
         frame.origin.y = self.tableView.tableHeaderView.frame.origin.y + scrollView.contentOffset.y;
@@ -250,8 +260,7 @@ enum ZBSectionOrder {
                 }
                 
             }
-        }
-        else if (indexPath.row == ZBChangeTint) {
+        } else if (indexPath.row == ZBChangeTint) {
             [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
             NSString *forthTint;
             if([ZBDevice darkModeEnabled]) {
@@ -263,20 +272,16 @@ enum ZBSectionOrder {
             segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
             segmentedControl.tintColor = [UIColor tintColor];
             [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-            /*segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-            segmentedControl.center = CGPointMake(cell.contentView.bounds.size.width / 2, cell.contentView.bounds.size.height / 2);
-            [cell.contentView addSubview:segmentedControl];*/
             cell.accessoryView = segmentedControl;
             cell.textLabel.text = @"Tint Color";
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        } else if (indexPath.row == ZBOledSwitch) {
+        } else if (indexPath.row == ZBChangeMode) {
             [cell.contentView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-            UISwitch *darkSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            darkSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"oledMode"];
-            [darkSwitch addTarget:self action:@selector(toggleOledDarkMode:) forControlEvents:UIControlEventValueChanged];
-            [darkSwitch setOnTintColor:[UIColor tintColor]];
-            cell.accessoryView = darkSwitch;
-            cell.textLabel.text = @"Oled Darkmode";
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Default", @"OLED", @"iOS 13"]];
+            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedMode;
+            segmentedControl.tintColor = [UIColor tintColor];
+            [segmentedControl addTarget:self action:@selector(modeValueChanged:) forControlEvents:UIControlEventValueChanged];
+            cell.accessoryView = segmentedControl;
+            cell.textLabel.text = @"Dark Mode";
         }
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
@@ -369,9 +374,6 @@ enum ZBSectionOrder {
             switch (indexPath.row) {
                 case ZBChangeIcon :
                     [self changeIcon];
-                    break;
-                case ZBOledSwitch :
-                    [self getTappedSwitch:indexPath];
                     break;
             }
             break;
@@ -495,6 +497,27 @@ enum ZBSectionOrder {
     }
 }
 
+- (void)toggleFeatured:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    UISwitch *switcher = (UISwitch *)sender;
+    BOOL oled = [defaults boolForKey:@"wantsFeatured"];
+    oled = switcher.isOn;
+    [defaults setBool:oled forKey:@"wantsFeatured"];
+    [defaults synchronize];
+    [self hapticButton];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
+}
+- (void)toggleNews:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    UISwitch *switcher = (UISwitch *)sender;
+    BOOL oled = [defaults boolForKey:@"wantsNews"];
+    oled = switcher.isOn;
+    [defaults setBool:oled forKey:@"wantsNews"];
+    [defaults synchronize];
+    [self hapticButton];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
+}
+
 - (void)openBlackList {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBRepoBlacklistTableViewController *blackList = [storyboard instantiateViewControllerWithIdentifier:@"repoBlacklistController"];
@@ -513,48 +536,16 @@ enum ZBSectionOrder {
         [self toggleOledDarkMode:switcher];
     }
 }
-
-- (void)toggleOledDarkMode:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    UISwitch *switcher = (UISwitch *)sender;
-    BOOL oled = [defaults boolForKey:@"oledMode"];
-    oled = switcher.isOn;
-    [defaults setBool:oled forKey:@"oledMode"];
-    [defaults synchronize];
-    [self hapticButton];
-    [self oledAnimation];
-}
-
-- (void)toggleFeatured:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    UISwitch *switcher = (UISwitch *)sender;
-    BOOL oled = [defaults boolForKey:@"wantsFeatured"];
-    oled = switcher.isOn;
-    [defaults setBool:oled forKey:@"wantsFeatured"];
-    [defaults synchronize];
-    [self hapticButton];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
-}
-
-- (void)toggleNews:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    UISwitch *switcher = (UISwitch *)sender;
-    BOOL oled = [defaults boolForKey:@"wantsNews"];
-    oled = switcher.isOn;
-    [defaults setBool:oled forKey:@"wantsNews"];
-    [defaults synchronize];
-    [self hapticButton];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
-}
-
 - (void)oledAnimation {
     [self.tableView reloadData];
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
     [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
@@ -564,6 +555,14 @@ enum ZBSectionOrder {
     transition.subtype = kCATransitionFromTop;
     [self.view.layer addAnimation:transition forKey:nil];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
+    
+    CGFloat offsetY = self.tableView.contentOffset.y;
+    if (offsetY <= 0) {
+        CGRect frame = self.headerView.frame;
+        frame.size.height = self.tableView.tableHeaderView.frame.size.height - self.tableView.contentOffset.y;
+        frame.origin.y = self.tableView.tableHeaderView.frame.origin.y + self.tableView.contentOffset.y;
+        self.headerView.frame = frame;
+    }
 }
 
 - (void)hapticButton {
@@ -604,6 +603,31 @@ enum ZBSectionOrder {
     transition.duration = 0.35;
     transition.subtype = kCATransitionFromTop;
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+}
+
+- (void)modeValueChanged:(UISegmentedControl *)segmentedControl {
+    if (segmentedControl.selectedSegmentIndex == 0) {
+        selectedMode = ZBDefaultMode;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:NO forKey:@"oledMode"];
+        [defaults setBool:NO forKey:@"thirteenMode"];
+        [defaults synchronize];
+    } else if (segmentedControl.selectedSegmentIndex == 1) {
+        selectedMode = ZBOled;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:@"oledMode"];
+        [defaults setBool:NO forKey:@"thirteenMode"];
+        [defaults synchronize];
+    } else if (segmentedControl.selectedSegmentIndex == 2) {
+        selectedMode = ZBThirteen;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:NO forKey:@"oledMode"];
+        [defaults setBool:YES forKey:@"thirteenMode"];
+        [defaults synchronize];
+    }
+    
+    [self hapticButton];
+    [self oledAnimation];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {
