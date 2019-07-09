@@ -19,56 +19,72 @@
                 <rect key="frame" x="0.0" y="0.0" width="416" height="64.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JDx-9t-re7">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JDx-9t-re7">
                         <rect key="frame" x="20" y="11" width="42" height="42"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="42" id="Kei-pT-vkA"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkS-a9-8o4">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkS-a9-8o4">
                         <rect key="frame" x="70" y="11" width="276" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyS-vT-uDO">
-                        <rect key="frame" x="70" y="33" width="276" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyS-vT-uDO">
+                        <rect key="frame" x="70" y="33" width="290" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="Kfs-v7-U2C">
-                        <rect key="frame" x="382" y="11" width="14" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="TA0-o7-XsF">
+                        <rect key="frame" x="346" y="11" width="14" height="14"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="TA0-o7-XsF">
-                        <rect key="frame" x="366" y="11" width="14" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xK6-wW-by6">
-                        <rect key="frame" x="360" y="33" width="36" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xK6-wW-by6">
+                        <rect key="frame" x="349" y="35" width="36" height="16"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="Kfs-v7-U2C">
+                        <rect key="frame" x="368" y="11" width="14" height="14"/>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="JDx-9t-re7" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="08L-0Y-xV8"/>
-                    <constraint firstItem="JDx-9t-re7" firstAttribute="centerY" secondItem="5rc-UN-QTa" secondAttribute="centerY" id="q9q-pN-RzP"/>
-                    <constraint firstItem="JDx-9t-re7" firstAttribute="leading" secondItem="5rc-UN-QTa" secondAttribute="leadingMargin" id="uLa-L4-bDf"/>
+                    <constraint firstItem="DyS-vT-uDO" firstAttribute="top" secondItem="IkS-a9-8o4" secondAttribute="bottom" constant="1" id="3Hh-gD-BWK"/>
+                    <constraint firstItem="JDx-9t-re7" firstAttribute="top" secondItem="IkS-a9-8o4" secondAttribute="top" id="4LE-8n-Tqg"/>
+                    <constraint firstItem="DyS-vT-uDO" firstAttribute="top" secondItem="TA0-o7-XsF" secondAttribute="bottom" constant="8" symbolic="YES" id="DEn-0A-ycw"/>
+                    <constraint firstItem="IkS-a9-8o4" firstAttribute="leading" secondItem="JDx-9t-re7" secondAttribute="trailing" constant="8" symbolic="YES" id="FHL-yi-orz"/>
+                    <constraint firstItem="DyS-vT-uDO" firstAttribute="top" secondItem="IkS-a9-8o4" secondAttribute="bottom" constant="1" id="HTU-09-hrH"/>
+                    <constraint firstItem="TA0-o7-XsF" firstAttribute="top" secondItem="IkS-a9-8o4" secondAttribute="top" id="MMj-Mt-8D6"/>
+                    <constraint firstItem="TA0-o7-XsF" firstAttribute="trailing" secondItem="DyS-vT-uDO" secondAttribute="trailing" id="O2P-i1-i28"/>
+                    <constraint firstItem="IkS-a9-8o4" firstAttribute="leading" secondItem="DyS-vT-uDO" secondAttribute="leading" id="QVw-l1-2GM"/>
+                    <constraint firstItem="JDx-9t-re7" firstAttribute="leading" secondItem="5rc-UN-QTa" secondAttribute="leadingMargin" id="QmX-tm-Sva"/>
+                    <constraint firstItem="xK6-wW-by6" firstAttribute="centerY" secondItem="DyS-vT-uDO" secondAttribute="centerY" id="TSX-ol-uuv"/>
+                    <constraint firstItem="DyS-vT-uDO" firstAttribute="bottom" secondItem="5rc-UN-QTa" secondAttribute="bottomMargin" id="VBu-KY-MVf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xK6-wW-by6" secondAttribute="trailing" constant="11" id="YLC-bc-ZjL"/>
+                    <constraint firstItem="DyS-vT-uDO" firstAttribute="top" secondItem="IkS-a9-8o4" secondAttribute="bottom" constant="1" id="ZID-xe-2yx"/>
+                    <constraint firstItem="JDx-9t-re7" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="bvh-Jg-jtt"/>
+                    <constraint firstItem="DyS-vT-uDO" firstAttribute="bottom" secondItem="5rc-UN-QTa" secondAttribute="bottomMargin" id="cDA-H3-msd"/>
+                    <constraint firstItem="TA0-o7-XsF" firstAttribute="top" secondItem="Kfs-v7-U2C" secondAttribute="top" id="ePx-sV-jmg"/>
+                    <constraint firstItem="JDx-9t-re7" firstAttribute="leading" secondItem="5rc-UN-QTa" secondAttribute="leadingMargin" id="ggR-EJ-Ro5"/>
+                    <constraint firstItem="Kfs-v7-U2C" firstAttribute="leading" secondItem="TA0-o7-XsF" secondAttribute="trailing" constant="8" symbolic="YES" id="hx5-jW-ZRi"/>
+                    <constraint firstItem="IkS-a9-8o4" firstAttribute="centerX" secondItem="5rc-UN-QTa" secondAttribute="centerX" id="iNy-e9-U4t"/>
+                    <constraint firstItem="TA0-o7-XsF" firstAttribute="leading" secondItem="IkS-a9-8o4" secondAttribute="trailing" id="nCx-h2-AyV"/>
+                    <constraint firstItem="JDx-9t-re7" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="s3n-GC-DVE"/>
+                    <constraint firstItem="JDx-9t-re7" firstAttribute="centerY" secondItem="5rc-UN-QTa" secondAttribute="centerY" id="v91-MY-uuc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="JDx-9t-re7" secondAttribute="bottom" constant="1" id="zJE-Sg-JUj"/>
+                    <constraint firstItem="IkS-a9-8o4" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="ziw-7A-bYg"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="descriptionLabel" destination="DyS-vT-uDO" id="cCT-je-qjd"/>
-                <outlet property="iconImageView" destination="JDx-9t-re7" id="BEJ-XU-r35"/>
-                <outlet property="isInstalledImageView" destination="Kfs-v7-U2C" id="Ew3-rS-SY2"/>
-                <outlet property="isPaidImageView" destination="TA0-o7-XsF" id="aES-hG-5PN"/>
-                <outlet property="packageLabel" destination="IkS-a9-8o4" id="Zkd-eG-PBF"/>
-                <outlet property="queueStatusLabel" destination="xK6-wW-by6" id="kyr-tM-sIA"/>
+                <outlet property="descriptionLabel" destination="DyS-vT-uDO" id="bGG-Im-cet"/>
+                <outlet property="iconImageView" destination="JDx-9t-re7" id="SzS-h0-CXg"/>
+                <outlet property="isInstalledImageView" destination="Kfs-v7-U2C" id="T6w-w7-czD"/>
+                <outlet property="isPaidImageView" destination="TA0-o7-XsF" id="jRp-cS-cbi"/>
+                <outlet property="packageLabel" destination="IkS-a9-8o4" id="Qgp-Gl-SrG"/>
+                <outlet property="queueStatusLabel" destination="xK6-wW-by6" id="9Xb-88-NUm"/>
             </connections>
             <point key="canvasLocation" x="69" y="-12.5"/>
         </tableViewCell>

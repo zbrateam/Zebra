@@ -21,7 +21,7 @@
     self.backgroundColor = [UIColor cellBackgroundColor];
     //self.backgroundContainerView.layer.cornerRadius = 5;
     //self.backgroundContainerView.layer.masksToBounds = YES;
-    self.iconImageView.layer.cornerRadius = 5;
+    self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.masksToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.chevronView = (UIImageView *)(self.accessoryView);

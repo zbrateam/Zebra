@@ -22,35 +22,38 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lz1-B6-foX">
                         <rect key="frame" x="20" y="11" width="42" height="42"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="42" id="jMf-q6-DFM"/>
+                            <constraint firstAttribute="width" constant="42" id="1m6-to-CWE"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvT-B5-ng0">
-                        <rect key="frame" x="70" y="34" width="298" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="Vi5-uB-dpE"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG1-gF-WiI">
                         <rect key="frame" x="70" y="11" width="306" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repo URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvT-B5-ng0">
+                        <rect key="frame" x="70" y="32" width="298" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="lnu-eN-dSK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="lz1-B6-foX" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="topMargin" id="Ajo-X6-3YQ"/>
-                    <constraint firstItem="qvT-B5-ng0" firstAttribute="trailing" secondItem="xDS-c2-OkW" secondAttribute="trailingMargin" id="E6Q-sy-Qb1"/>
-                    <constraint firstItem="DG1-gF-WiI" firstAttribute="leading" secondItem="qvT-B5-ng0" secondAttribute="leading" id="KbX-wr-IcM"/>
-                    <constraint firstItem="DG1-gF-WiI" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="8" symbolic="YES" id="S9h-fm-BO8"/>
-                    <constraint firstItem="lz1-B6-foX" firstAttribute="leading" secondItem="xDS-c2-OkW" secondAttribute="leadingMargin" id="TdL-OV-YYT"/>
-                    <constraint firstItem="lz1-B6-foX" firstAttribute="centerY" secondItem="xDS-c2-OkW" secondAttribute="centerY" id="XfH-HN-NTT"/>
-                    <constraint firstAttribute="trailing" secondItem="DG1-gF-WiI" secondAttribute="trailing" id="YPs-tg-rwu"/>
-                    <constraint firstItem="qvT-B5-ng0" firstAttribute="bottom" secondItem="xDS-c2-OkW" secondAttribute="bottomMargin" id="hsX-sX-Kng"/>
-                    <constraint firstItem="lz1-B6-foX" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="top" id="mir-cX-UX8"/>
+                    <constraint firstItem="DG1-gF-WiI" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="8" id="2go-Eg-dFx"/>
+                    <constraint firstItem="lz1-B6-foX" firstAttribute="leading" secondItem="xDS-c2-OkW" secondAttribute="leadingMargin" id="JgW-E1-WDf"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="lz1-B6-foX" secondAttribute="bottom" constant="2" id="LWx-oT-a4C"/>
+                    <constraint firstItem="lz1-B6-foX" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="topMargin" id="Lp1-bE-aPR"/>
+                    <constraint firstItem="qvT-B5-ng0" firstAttribute="trailing" secondItem="xDS-c2-OkW" secondAttribute="trailingMargin" id="PNV-4q-pkO"/>
+                    <constraint firstAttribute="trailing" secondItem="DG1-gF-WiI" secondAttribute="trailing" id="Q8p-ub-HAr"/>
+                    <constraint firstItem="qvT-B5-ng0" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="bottom" id="VwX-la-ihP"/>
+                    <constraint firstItem="lz1-B6-foX" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="top" id="dZr-6R-1pP"/>
+                    <constraint firstItem="qvT-B5-ng0" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="8" id="ffx-TS-OcK"/>
+                    <constraint firstItem="DG1-gF-WiI" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="top" constant="11" id="nak-8I-r6k"/>
+                    <constraint firstItem="qvT-B5-ng0" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="bottom" id="s2d-Nh-F8w"/>
+                    <constraint firstItem="qvT-B5-ng0" firstAttribute="bottom" secondItem="xDS-c2-OkW" secondAttribute="bottomMargin" constant="-2" id="xKp-Zf-rLU"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

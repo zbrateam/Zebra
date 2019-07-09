@@ -31,6 +31,8 @@
     sourceIndexes = [NSMutableDictionary new];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    self.tableView.estimatedRowHeight = 60.0;
+    self.tableView.rowHeight = 60;
     [self refreshTable];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

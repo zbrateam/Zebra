@@ -21,8 +21,8 @@
     //self.backgroundContainerView.layer.cornerRadius = 5;
     //self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
-    //self.isPaidImageView.hidden = YES;
-    //self.queueStatusLabel.hidden = YES;
+    self.isPaidImageView.hidden = YES;
+    self.queueStatusLabel.hidden = YES;
     self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -47,6 +47,7 @@
     else {
         self.iconImageView.image = sectionImage;
     }
+    
     
     BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];
@@ -78,6 +79,9 @@
         self.queueStatusLabel.hidden = NO;
         self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
         self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.queueStatusLabel sizeToFit];
+        });
     }
     else {
         self.queueStatusLabel.hidden = YES;
