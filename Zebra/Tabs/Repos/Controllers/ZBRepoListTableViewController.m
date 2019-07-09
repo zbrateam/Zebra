@@ -52,7 +52,6 @@
     self.extendedLayoutIncludesOpaqueBars = true;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     

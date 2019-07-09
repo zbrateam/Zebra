@@ -17,12 +17,12 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor clearColor];
-    self.backgroundContainerView.layer.cornerRadius = 5;
-    self.backgroundContainerView.layer.masksToBounds = YES;
+    self.backgroundColor = [UIColor cellBackgroundColor];
+    //self.backgroundContainerView.layer.cornerRadius = 5;
+    //self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
-    self.isPaidImageView.hidden = YES;
-    self.queueStatusLabel.hidden = YES;
+    //self.isPaidImageView.hidden = YES;
+    //self.queueStatusLabel.hidden = YES;
     self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -89,17 +89,17 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    self.backgroundColor = [UIColor cellBackgroundColor];
 }
 
-- (void)layoutSubviews {
+/*- (void)layoutSubviews {
     [super layoutSubviews];
     self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0));
-}
+}*/
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
+    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 @end

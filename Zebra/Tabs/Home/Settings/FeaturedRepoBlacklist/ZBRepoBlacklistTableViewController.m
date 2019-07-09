@@ -29,7 +29,6 @@
     [self.navigationItem setTitle:@"Featured Repos"];
     sources = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     [self refreshTable];

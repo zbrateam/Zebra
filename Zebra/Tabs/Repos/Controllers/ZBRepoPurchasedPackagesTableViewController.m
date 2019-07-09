@@ -41,8 +41,6 @@
         [self logoutRepo];
     }];
     [self.navigationItem setRightBarButtonItem:self.logOut];
-    
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self listPurchasedSileoPackages];
 }

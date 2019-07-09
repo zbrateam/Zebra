@@ -34,7 +34,6 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
@@ -80,8 +79,10 @@
         for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
             NSDictionary *postData = [dict objectForKey:@"data"];
             NSLog(@"POST DATA %@", postData);
-            if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"]) {
-                [self.redditPosts addObject:postData];
+            if ([postData objectForKey:@"link_flair_css_class"] != [NSNull null]) {
+                if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"]) {
+                    [self.redditPosts addObject:postData];
+                }
             }
         }
         if (error) {
@@ -327,7 +328,7 @@
     }
     if (url) {
         [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }else if ([[dict valueForKey:@"thumbnail"] isEqualToString:@"self"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"default"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"nsfw"]) {
+    }else if ([dict valueForKey:@"thumbnail"] != [NSNull null] && ([[dict valueForKey:@"thumbnail"] isEqualToString:@"self"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"default"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"nsfw"])) {
         [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
     } else {
         [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:[dict valueForKey:@"thumbnail"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
