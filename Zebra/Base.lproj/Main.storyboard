@@ -255,6 +255,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <collectionView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="N2X-8t-K5n">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="151"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PRT-1p-2vR">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <cells/>
+                        </collectionView>
                         <connections>
                             <outlet property="dataSource" destination="kvm-Xw-lml" id="Hj1-B7-fwl"/>
                             <outlet property="delegate" destination="kvm-Xw-lml" id="C7v-Rx-Uwz"/>
@@ -262,12 +274,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Changes" id="eZC-Ua-ycq"/>
                     <connections>
+                        <outlet property="collectionView" destination="N2X-8t-K5n" id="uBA-iU-5ru"/>
                         <segue destination="B5D-p6-E07" kind="show" identifier="seguePackagesToPackageDepiction" id="jak-5S-dzd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cur-Um-L2Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3348" y="1791"/>
+            <point key="canvasLocation" x="3348" y="1789.6551724137933"/>
         </scene>
         <!--Search-->
         <scene sceneID="f1N-ci-t5g">
@@ -1106,7 +1119,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Y2Z-lg-2Ym"/>
-        <segue reference="xJk-zG-Xgb"/>
+        <segue reference="jak-5S-dzd"/>
         <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

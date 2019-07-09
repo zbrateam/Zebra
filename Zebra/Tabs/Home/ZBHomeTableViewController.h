@@ -18,7 +18,6 @@
 #import "ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import "UIImage+UIKitImage.h"
-#import "ZBNewsTableViewCell.h"
 @import SDWebImage;
 
 @interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -32,5 +31,4 @@
 @property NSMutableArray *allFeatured;
 @property NSMutableArray *selectedFeatured;
 @property NSInteger cellNumber;
-@property NSUserDefaults *defaults;
 @end

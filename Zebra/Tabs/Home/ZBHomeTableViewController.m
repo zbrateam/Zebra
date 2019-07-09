@@ -7,7 +7,6 @@
 //
 
 #import "ZBHomeTableViewController.h"
-#import "ZBNewsCollectionViewCell.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
@@ -31,9 +30,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 } ZBLinksOrder;
 
 
-@interface ZBHomeTableViewController (){
-    NSMutableArray *redditPosts;
-}
+@interface ZBHomeTableViewController ()
 
 @end
 
@@ -43,32 +40,18 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection) name:@"refreshCollection" object:nil];
     [self.navigationItem setTitle:@"Home"];
-    if (![self.defaults objectForKey:@"wantsFeatured"]) {
-        [self.defaults setBool:TRUE forKey:@"wantsFeatured"];
-    }
-    if (![self.defaults objectForKey:@"wantsNews"]) {
-        [self.defaults setBool:TRUE forKey:@"wantsNews"];
-    }
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
-    redditPosts = [NSMutableArray new];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 10;
     //[self.settingsButton setImage:[UIImage uikitImageWithString:@"UITabBarMoreTemplateSelected"]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self configureFooter];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBNewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsTableCell"];
     [self startFeaturedPackages];
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setShowsHorizontalScrollIndicator:FALSE];
-    [self retrieveNewsJson];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -88,50 +71,27 @@ typedef enum ZBLinksOrder : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
-- (void)retrieveNewsJson {
-    if ([self.defaults boolForKey:@"wantsNews"]) {
-        NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
-        [request setHTTPMethod:@"GET"];
-        //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"DIcT %@", json);
-            NSDictionary *dataDict = [json objectForKey:@"data"];
-            NSLog(@"DataDict %@", dataDict);
-            for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
-                NSDictionary *postData = [dict objectForKey:@"data"];
-                NSLog(@"POST DATA %@", postData);
-                if ([postData objectForKey:@"link_flair_css_class"] != (id)[NSNull null]) {
-                    if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"]) {
-                        [self->redditPosts addObject:postData];
-                    }
-                }
-            }
-            if (error) {
-                NSLog(@"ERRORED %@", error);
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self animateTable];
-            });
-        }] resume];
-    }
-}
 
+//Stub for now
 - (void)startFeaturedPackages {
+    NSLog(@"Running");
+    //[self.featuredCollection removeFromSuperview];
+    //UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+    //self.tableView.tableHeaderView = blankHeader;
+    //[self.tableView layoutIfNeeded];
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([self.defaults boolForKey:@"wantsFeatured"]) {
-        if ([self.defaults boolForKey:@"randomFeatured"]) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self packagesFromDB];
-            });
-        } else {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self setFeaturedPackages];
-            });
-        }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"randomFeatured"]) {
+        NSLog(@"TRUE");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self packagesFromDB];
+        });
+    } else {
+        NSLog(@"FALSE");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self setFeaturedPackages];
+        });
     }
+    
 }
 
 - (void)setFeaturedPackages {
@@ -164,33 +124,34 @@ typedef enum ZBLinksOrder : NSUInteger {
                                 [self->allFeatured addObjectsFromArray:banners];
                             }
                         }
+                        /*self.fullJSON = json;
+                         self.featuredPackages = json[@"banners"];
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                         [self setupFeaturedPackages];
+                         });*/
                     }
                     dispatch_group_leave(group);
-        }] resume];
+                }] resume];
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        //NSLog(@"OBJECTS %@", self->allFeatured);
+        //dispatch_async(dispatch_get_main_queue(), ^{
         [self createHeader];
+        //});
     });
 }
 
 - (void)packagesFromDB {
     NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesFromRepo:NULL inSection:NULL numberOfPackages:250 startingAt:0];
-    NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
-    if (!blockedRepos) {
-        blockedRepos = [NSArray new];
-    }
     dispatch_group_t group = dispatch_group_create();
     for (ZBPackage *package in packages) {
         dispatch_group_enter(group);
         NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (![blockedRepos containsObject:package.repo.baseURL]) {
-            if (package.iconPath) {
-                if (![[NSURL URLWithString:package.iconPath] isFileURL]) {
-                    [dict setObject:package.iconPath forKey:@"url"];
-                    [dict setObject:package.identifier forKey:@"package"];
-                    [dict setObject:package.name forKey:@"title"];
-                    [self-> allFeatured addObject:dict];
-                }
+        if (package.iconPath) {
+            if (![[NSURL URLWithString:package.iconPath] isFileURL]) {
+                [dict setObject:package.iconPath forKey:@"url"];[dict setObject:package.identifier forKey:@"package"];
+                [dict setObject:package.name forKey:@"title"];
+                [self-> allFeatured addObject:dict];
             }
         }
         dispatch_group_leave(group);
@@ -205,7 +166,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.tableView beginUpdates];
         [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
         self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
-        [self.selectedFeatured removeAllObjects];
+        
         self.cellNumber = [self cellCount];
         for (int i = 1; i <= self.cellNumber; i++) {
             NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
@@ -265,11 +226,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
-            if (redditPosts.count) {
-                return 2;
-            } else {
-                return 1;
-            }
+            return 1;
             break;
         case ZBViews:
             return 5;
@@ -289,40 +246,17 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case ZBWelcome: {
-            switch (indexPath.row) {
-                case 0:{
-                    static NSString *cellIdentifier = @"flavorTextCell";
-                    
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                    
-                    if (cell == nil) {
-                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                    }
-                    cell.textLabel.text = @"Welcome to the Zebra Beta!";
-                    [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-                    return cell;
-                }
-                    break;
-                case 1:{
-                    static NSString *cellIdentifier = @"newsTableCell";
-                    
-                    ZBNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                    
-                    if (cell == nil) {
-                        cell = [[ZBNewsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                    }
-                    [cell setBackgroundColor:[UIColor tableViewBackgroundColor]];
-                    [cell setParentVC:self];
-                    [cell.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-                    [cell setupCollectionView:redditPosts];
-                    return cell;
-                }
-                    break;
-                default:
-                    return nil;
-                    break;
+            static NSString *cellIdentifier = @"flavorTextCell";
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
+            cell.textLabel.text = @"Welcome to the Zebra Beta!";
+            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            return cell;
         }
             break;
         case ZBViews: {
@@ -397,7 +331,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             return cell;
             
         }
-           
+            
             break;
         case ZBCredits: {
             static NSString *cellIdentifier = @"creditCell";
@@ -421,14 +355,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             return nil;
             break;
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 300;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -655,49 +581,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
 }
 
-- (void)refreshCollection:(NSNotification *)notif {
-    BOOL selected = [self.defaults boolForKey:@"randomFeatured"];
-    [allFeatured removeAllObjects];
-    if (selected) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self packagesFromDB];
-        });
-    } else {
-        NSLog(@"FALSE");
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self setFeaturedPackages];
-        });
-    }
-}
-
-- (void)toggleFeatured {
-    if ([self.defaults boolForKey:@"wantsFeatured"]) {
-        [self refreshCollection:nil];
-    } else {
-        [self.tableView beginUpdates];
-        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-        [self.tableView endUpdates];
-    }
-}
-
-- (void)toggleNews {
-    if ([self.defaults boolForKey:@"wantsNews"]) {
-        [self retrieveNewsJson];
-    } else {
-        [redditPosts removeAllObjects];
-        [self animateTable];
-    }
-}
-
-- (void)animateTable {
-    [self.tableView reloadData];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+- (void)refreshCollection {
+    [self startFeaturedPackages];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -714,7 +599,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 #pragma mark UICollectionView
-- (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
     [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -724,14 +609,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     return cell;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.cellNumber;
 }
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(263, 148);

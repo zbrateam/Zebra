@@ -13,6 +13,7 @@
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+@import SDWebImage;
 
 @interface ZBChangesTableViewController () {
     NSArray *packages;
@@ -33,6 +34,12 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
+    [self.collectionView setShowsHorizontalScrollIndicator:FALSE];
+    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -41,7 +48,37 @@
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    self.redditPosts = [NSMutableArray new];
+    [self retrieveNewsJson];
     [self refreshTable];
+}
+
+- (void)retrieveNewsJson {
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
+    [request setHTTPMethod:@"GET"];
+    //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        NSLog(@"DIcT %@", json);
+        NSDictionary *dataDict = [json objectForKey:@"data"];
+        NSLog(@"DataDict %@", dataDict);
+        for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
+            NSDictionary *postData = [dict objectForKey:@"data"];
+            NSLog(@"POST DATA %@", postData);
+            if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"]) {
+                [self.redditPosts addObject:postData];
+            }
+        }
+        if (error) {
+            NSLog(@"ERRORED %@", error);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //[self animateTable];
+            [self.collectionView reloadData];
+        });
+    }] resume];
 }
 
 - (void)dealloc {
@@ -230,6 +267,74 @@
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
+
+#pragma mark News
+- (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ZBNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"newsCell" forIndexPath:indexPath];
+    NSDictionary *dict = [self.redditPosts objectAtIndex:indexPath.row];
+    NSURL *url;
+    cell.postTitle.text = [dict valueForKey:@"title"];
+    cell.postTag.text = [dict valueForKey:@"link_flair_css_class"];
+    cell.postTag.text = [cell.postTag.text capitalizedString];
+    [cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
+    if ([dict objectForKey:@"preview"]) {
+        NSDictionary *previews = [dict objectForKey:@"preview"];
+        if ([previews objectForKey:@"images"]) {
+            NSArray *images = [previews objectForKey:@"images"];
+            NSDictionary *imageDict = [images firstObject];
+            NSLog(@"IMAGE %@", imageDict);
+            if ([imageDict objectForKey:@"source"]) {
+                NSString *link = [imageDict valueForKeyPath:@"source.url"];
+                link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+                url = [NSURL URLWithString:link];
+                /*url = [NSURL URLWithString:[[imageDict valueForKeyPath:@"source.url"] stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]];*/
+            }
+        }
+    }
+    if (url) {
+        [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    }else if ([[dict valueForKey:@"thumbnail"] isEqualToString:@"self"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"default"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"nsfw"]) {
+        [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
+    } else {
+        [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:[dict valueForKey:@"thumbnail"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    }
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(263, 148);
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.redditPosts.count;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:cell.redditLink entersReaderIfAvailable:NO];
+    safariVC.delegate = self;
+    if (@available(iOS 10.0, *)) {
+        [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+        [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+    } else {
+        [safariVC.view setTintColor:[UIColor tintColor]];
+    }
+    [self presentViewController:safariVC animated:YES completion:nil];
+}
+
+#pragma mark - SFSafariViewController delegate methods
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    // Load finished
+}
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    // Done button pressed
+}
 @end

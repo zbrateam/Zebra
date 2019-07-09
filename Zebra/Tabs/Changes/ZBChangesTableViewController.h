@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <ZBRefreshableTableViewController.h>
-
+#import "ZBNewsCollectionViewCell.h"
+@import SafariServices;
 @class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBChangesTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate>
+@interface ZBChangesTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate, UICollectionViewDelegate, UICollectionViewDataSource, SFSafariViewControllerDelegate>
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;
 @property (nonatomic, assign) BOOL continueBatchLoad;
 @property (nonatomic, assign) int batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray *tableData;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property NSMutableArray *redditPosts;
 - (void)refreshTable;
 @end
 

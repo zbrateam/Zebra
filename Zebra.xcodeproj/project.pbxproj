@@ -17,8 +17,6 @@
 		363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */; };
 		365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 365CAE2B22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m */; };
 		365CAE2E22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365CAE2C22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib */; };
-		365CAE3122D3BAC80052ED6E /* ZBNewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 365CAE3022D3BAC80052ED6E /* ZBNewsTableViewCell.m */; };
-		365CAE3322D3C0FF0052ED6E /* ZBNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365CAE3222D3C0FF0052ED6E /* ZBNewsTableViewCell.xib */; };
 		3671B52222CB07F9008FD737 /* ZBHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */; };
 		367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */; };
 		367D80F922C3D2FE00581D60 /* ZBAlternateIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F822C3D2FD00581D60 /* ZBAlternateIconController.m */; };
@@ -153,9 +151,6 @@
 		365CAE2A22D3A13C0052ED6E /* ZBNewsCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNewsCollectionViewCell.h; sourceTree = "<group>"; };
 		365CAE2B22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNewsCollectionViewCell.m; sourceTree = "<group>"; };
 		365CAE2C22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBNewsCollectionViewCell.xib; sourceTree = "<group>"; };
-		365CAE2F22D3BAC80052ED6E /* ZBNewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNewsTableViewCell.h; sourceTree = "<group>"; };
-		365CAE3022D3BAC80052ED6E /* ZBNewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNewsTableViewCell.m; sourceTree = "<group>"; };
-		365CAE3222D3C0FF0052ED6E /* ZBNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBNewsTableViewCell.xib; sourceTree = "<group>"; };
 		3671B52022CB07F9008FD737 /* ZBHomeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBHomeTableViewController.h; sourceTree = "<group>"; };
 		3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomeTableViewController.m; sourceTree = "<group>"; };
 		367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewController.m; sourceTree = "<group>"; };
@@ -368,9 +363,6 @@
 				365CAE2A22D3A13C0052ED6E /* ZBNewsCollectionViewCell.h */,
 				365CAE2B22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m */,
 				365CAE2C22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib */,
-				365CAE2F22D3BAC80052ED6E /* ZBNewsTableViewCell.h */,
-				365CAE3022D3BAC80052ED6E /* ZBNewsTableViewCell.m */,
-				365CAE3222D3C0FF0052ED6E /* ZBNewsTableViewCell.xib */,
 			);
 			path = RedditCell;
 			sourceTree = "<group>";
@@ -880,7 +872,6 @@
 				89E8638021D5AFAA0081E485 /* url@2x.png in Resources */,
 				36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */,
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
-				365CAE3322D3C0FF0052ED6E /* ZBNewsTableViewCell.xib in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
 				367D810122C437D300581D60 /* ios7oled.css in Resources */,
@@ -956,7 +947,6 @@
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */,
-				365CAE3122D3BAC80052ED6E /* ZBNewsTableViewCell.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
