@@ -45,6 +45,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.navigationItem setTitle:@"Home"];
     if (![self.defaults objectForKey:@"wantsFeatured"]) {

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"Featured Repo Blacklist"];
+    [self.navigationItem setTitle:@"Featured Repos"];
     sources = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
