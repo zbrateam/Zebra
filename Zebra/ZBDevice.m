@@ -185,8 +185,10 @@
     
     //Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+    
     UIView *dark = [[UIView alloc] init];
     dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
@@ -218,6 +220,7 @@
     
     //Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableView appearance] setTintColor:nil];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [[UITableViewCell appearance] setSelectedBackgroundView:nil];

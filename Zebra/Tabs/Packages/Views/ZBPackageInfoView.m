@@ -58,7 +58,7 @@ enum ZBPackageInfoOrder {
     infos = [NSMutableDictionary new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
 }

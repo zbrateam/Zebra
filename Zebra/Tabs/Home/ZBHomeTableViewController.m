@@ -46,28 +46,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"ZBDatabaseCompletedUpdate" object:nil];
-    self.defaults = [NSUserDefaults standardUserDefaults];
     [self.navigationItem setTitle:@"Home"];
-    if (![self.defaults objectForKey:@"wantsFeatured"]) {
-        [self.defaults setBool:TRUE forKey:@"wantsFeatured"];
-    }
-    if (![self.defaults objectForKey:@"wantsNews"]) {
-        [self.defaults setBool:TRUE forKey:@"wantsNews"];
-    }
-    allFeatured = [NSMutableArray new];
-    selectedFeatured = [NSMutableArray new];
-    redditPosts = [NSMutableArray new];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 10;
-    //[self.settingsButton setImage:[UIImage uikitImageWithString:@"UITabBarMoreTemplateSelected"]];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self configureFooter];
-    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBNewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"newsTableCell"];
-    [self startFeaturedPackages];
-    self.featuredCollection.delegate = self;
-    self.featuredCollection.dataSource = self;
-    [self.featuredCollection setShowsHorizontalScrollIndicator:FALSE];
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    [self setupFeatured];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -80,6 +61,24 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     [self colorWindow];
+}
+
+- (void)setupFeatured {
+    if (![self.defaults objectForKey:@"wantsFeatured"]) {
+        [self.defaults setBool:TRUE forKey:@"wantsFeatured"];
+    }
+    if (![self.defaults objectForKey:@"wantsNews"]) {
+        [self.defaults setBool:TRUE forKey:@"wantsNews"];
+    }
+    allFeatured = [NSMutableArray new];
+    selectedFeatured = [NSMutableArray new];
+    redditPosts = [NSMutableArray new];
+    [self configureFooter];
+    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+    [self startFeaturedPackages];
+    self.featuredCollection.delegate = self;
+    self.featuredCollection.dataSource = self;
+    [self.featuredCollection setShowsHorizontalScrollIndicator:FALSE];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -361,10 +360,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -372,24 +367,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     header.tintColor = [UIColor clearColor];
     //Don't change this to clear color, it breaks the animation.
     [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 300;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 10, 18)];
-    [view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
-    [label setText:[self sectionTitleForSection:section]];
-    [label setTextColor:[UIColor cellSecondaryTextColor]];
-    [view addSubview:label];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    return view;
 }
 
 - (NSString *)sectionTitleForSection:(NSInteger)section {
