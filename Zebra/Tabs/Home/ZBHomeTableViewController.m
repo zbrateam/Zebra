@@ -22,7 +22,7 @@ typedef enum ZBViewOrder : NSUInteger {
     ZBCommunity,
     ZBStores,
     ZBWishList,
-    ZBBug
+    //ZBBug
 } ZBViewOrder;
 
 typedef enum ZBLinksOrder : NSUInteger {
@@ -236,7 +236,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 return 1;
             break;
         case ZBViews:
-            return 5;
+            return 4;
             break;
         case ZBLinks:
             return 2;
@@ -293,10 +293,10 @@ typedef enum ZBLinksOrder : NSUInteger {
                     text = @"Wish List";
                     image = [UIImage imageNamed:@"stores"];
                     break;
-                case ZBBug:
+                /*case ZBBug:
                     text = @"Report a Bug";
                     image = [UIImage imageNamed:@"report"];
-                    break;
+                    break;*/
                 default:
                     break;
             }
@@ -450,7 +450,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [[self navigationController] pushViewController:webController animated:true];
         }
             break;
-        case ZBBug:{
+        /*case ZBBug:{
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
             webController.navigationDelegate = webController;
@@ -463,7 +463,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             
             [[self navigationController] pushViewController:webController animated:true];
         }
-            break;
+            break;*/
             
         default:
             break;
