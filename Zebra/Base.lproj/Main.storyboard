@@ -138,7 +138,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rav-H8-05Q">
-                                            <rect key="frame" x="141" y="8" width="93" height="93"/>
+                                            <rect key="frame" x="141" y="20" width="93" height="93"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="93" id="fR6-vv-HXc"/>
                                                 <constraint firstAttribute="width" secondItem="Rav-H8-05Q" secondAttribute="height" multiplier="1:1" id="lzg-xG-Iew"/>
@@ -155,8 +155,8 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Rav-H8-05Q" firstAttribute="centerX" secondItem="7eW-tQ-K6H" secondAttribute="centerX" id="WAJ-8a-O4K"/>
-                                        <constraint firstItem="Rav-H8-05Q" firstAttribute="top" secondItem="7eW-tQ-K6H" secondAttribute="topMargin" id="bT0-qR-KvB"/>
-                                        <constraint firstItem="bLd-KE-N3G" firstAttribute="top" secondItem="Rav-H8-05Q" secondAttribute="bottom" constant="20" id="lR4-5J-xbi"/>
+                                        <constraint firstItem="Rav-H8-05Q" firstAttribute="top" secondItem="7eW-tQ-K6H" secondAttribute="topMargin" constant="12" id="bT0-qR-KvB"/>
+                                        <constraint firstItem="bLd-KE-N3G" firstAttribute="top" secondItem="Rav-H8-05Q" secondAttribute="bottom" constant="8" id="lR4-5J-xbi"/>
                                         <constraint firstItem="bLd-KE-N3G" firstAttribute="centerX" secondItem="Rav-H8-05Q" secondAttribute="centerX" id="tlg-07-56n"/>
                                     </constraints>
                                 </view>
