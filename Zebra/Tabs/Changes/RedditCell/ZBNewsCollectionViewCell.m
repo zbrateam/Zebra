@@ -32,12 +32,30 @@
     [self.contentView addSubview:_backgroundImage];
     [self.contentView addSubview:_postTag];
     [self.contentView addSubview:_postTitle];
+    [self createBlur];
     self.backgroundColor = [UIColor clearColor];
     self.layer.borderWidth = 1.0f;
     self.layer.borderColor = [UIColor clearColor].CGColor;
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = 10.0f;
 }
+
+- (void)createBlur {
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    //always fill the view
+    blurEffectView.frame = self.backgroundImage.bounds;
+    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    blurEffectView.alpha = .45;
+    [self.backgroundImage addSubview:blurEffectView];
+}
+/*UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+ UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+ //always fill the view
+ blurEffectView.frame = self.backgroundImage.bounds;
+ blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+ blurEffectView.alpha = .3;
+ [self.backgroundImage addSubview:blurEffectView];*/
 
 - (void)prepareForReuse {
     [super prepareForReuse];

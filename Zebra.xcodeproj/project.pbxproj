@@ -666,7 +666,6 @@
 		89E8633621D5A1420081E485 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				365CAE2922D3A1210052ED6E /* RedditCell */,
 				367D80F622C3D2F400581D60 /* AlternateIcon */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
@@ -774,6 +773,7 @@
 		9E1C85AD22A3900700D93D14 /* Changes */ = {
 			isa = PBXGroup;
 			children = (
+				365CAE2922D3A1210052ED6E /* RedditCell */,
 				9E1C85AE22A3903600D93D14 /* ZBChangesTableViewController.h */,
 				9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */,
 			);
