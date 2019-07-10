@@ -966,7 +966,6 @@ enum ZBPackageInfoOrder {
     
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
 
 //More By author button;

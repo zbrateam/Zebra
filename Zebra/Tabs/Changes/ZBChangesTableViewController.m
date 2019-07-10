@@ -308,17 +308,29 @@
     ZBNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"newsCell" forIndexPath:indexPath];
     NSDictionary *dict = [self.redditPosts objectAtIndex:indexPath.row];
     NSURL *url;
-    cell.postTitle.text = [dict valueForKey:@"title"];
-    cell.postTag.text = [dict valueForKey:@"link_flair_css_class"];
-    cell.postTag.text = [cell.postTag.text capitalizedString];
-    [cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
+    if ([dict valueForKey:@"title"] != [NSNull null]) {
+        cell.postTitle.text = [self stripTag:[dict valueForKey:@"title"]];
+    } else {
+        cell.postTitle.text = @"Error";
+    }
+    if ([dict valueForKey:@"link_flair_css_class"] != [NSNull null]) {
+        cell.postTag.text = [dict valueForKey:@"link_flair_css_class"];
+        cell.postTag.text = [cell.postTag.text capitalizedString];
+    } else {
+        cell.postTag.text = @"Error";
+    }
+    if ([dict objectForKey:@"url"] != [NSNull null]) {
+        [cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
+    } else {
+        [cell setRedditLink:[NSURL URLWithString:@"https://reddit.com/r/jailbreak"]];
+    }
     if ([dict objectForKey:@"preview"]) {
         NSDictionary *previews = [dict objectForKey:@"preview"];
         if ([previews objectForKey:@"images"]) {
             NSArray *images = [previews objectForKey:@"images"];
             NSDictionary *imageDict = [images firstObject];
             NSLog(@"IMAGE %@", imageDict);
-            if ([imageDict objectForKey:@"source"]) {
+            if ([imageDict objectForKey:@"source"] && [imageDict objectForKey:@"source"] != [NSNull null]) {
                 NSString *link = [imageDict valueForKeyPath:@"source.url"];
                 link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
                 url = [NSURL URLWithString:link];
@@ -334,6 +346,18 @@
         [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:[dict valueForKey:@"thumbnail"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     }
     return cell;
+}
+
+- (NSString *)stripTag:(NSString *)title {
+    NSArray *authorName = [title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray *cleanedStrings = [NSMutableArray new];
+    for(NSString *cut in authorName) {
+        if (![cut hasPrefix:@"["] && ![cut hasSuffix:@"]"]) {
+            [cleanedStrings addObject:cut];
+        }
+    }
+    
+    return [cleanedStrings componentsJoinedByString:@" "];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
