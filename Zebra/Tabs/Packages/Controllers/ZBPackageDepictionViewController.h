@@ -8,18 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import <Packages/Views/ZBPackageInfoView.h>
 #import <Packages/Controllers/ZBPackagesByAuthorTableViewController.h>
 @import SafariServices;
+@import MessageUI;
 
 @class ZBPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate>
+@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) ZBPackage *package;
-@property (strong, nonatomic) IBOutlet ZBPackageInfoView *packageInfoView;
+@property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
+@property (weak, nonatomic) IBOutlet UILabel *packageName;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL purchased;
+@property NSString *authorEmail;
 @property (nonatomic, weak) UIViewController *parent;
 - (id)initWithPackageID:(NSString *)packageID;
 @end

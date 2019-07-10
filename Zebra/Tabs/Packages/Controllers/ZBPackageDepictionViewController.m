@@ -10,7 +10,6 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import "ZBPackageInfoView.h"
 #import "ZBPackageDepictionViewController.h"
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
@@ -22,8 +21,22 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBWebViewController.h"
+@import SDWebImage;
+
+
+enum ZBPackageInfoOrder {
+    ZBPackageInfoID = 0,
+    ZBPackageInfoAuthor,
+    ZBPackageInfoVersion,
+    ZBPackageInfoSize,
+    ZBPackageInfoRepo,
+    ZBPackageInfoWishList,
+    ZBPackageInfoMoreBy,
+    ZBPackageInfoInstalledFiles
+};
 
 @interface ZBPackageDepictionViewController () {
+    NSMutableDictionary *infos;
     UIProgressView *progressView;
     WKWebView *webView;
     BOOL presented;
@@ -36,7 +49,6 @@
 @synthesize previewingGestureRecognizerForFailureRelationship;
 @synthesize sourceRect;
 @synthesize sourceView;
-@synthesize packageInfoView;
 @synthesize package;
 
 - (id)initWithPackageID:(NSString *)packageID {
@@ -76,13 +88,15 @@
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
-    self.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
-    self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
+    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
+    //self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationItem.title = package.name;
     
-    self.navigationController.navigationBar.translucent = false;
-    self.tabBarController.tabBar.translucent = false;
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.packageIcon.layer setCornerRadius:20];
+    [self.packageIcon.layer setMasksToBounds:YES];
+    infos = [NSMutableDictionary new];
+    [self setPackage];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     if ([ZBDevice darkModeEnabled]) {
@@ -99,7 +113,7 @@
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
     
-    webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view addSubview:webView];
@@ -107,20 +121,20 @@
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [webView addSubview:progressView];
-    
+    [self.tableView.tableHeaderView addSubview:progressView];
+    [self.tableView setTableFooterView:webView];
     //Web View Layout
     
-    [webView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+    /*[webView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
     [webView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
     [webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    
+    */
     //Progress View Layout
     
-    [progressView.trailingAnchor constraintEqualToAnchor:webView.trailingAnchor].active = YES;
-    [progressView.leadingAnchor constraintEqualToAnchor:webView.leadingAnchor].active = YES;
-    [progressView.topAnchor constraintEqualToAnchor:webView.topAnchor].active = YES;
+    [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
+    [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
+    [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
     
     [progressView setTintColor:[UIColor tintColor]];
     
@@ -134,6 +148,7 @@
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -218,6 +233,19 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
+    [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
+        if (completed != nil) {
+            [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable height, NSError * _Nullable error) {
+                [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue])];
+                /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
+                [self.tableView beginUpdates];
+                [self.tableView setTableFooterView:webView];
+                [self.tableView endUpdates];
+                NSLog(@"DONE");
+            }];
+        }
+    }];
+    //webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [webView evaluateJavaScript:@"document.height" completionHandler:nil]);
     
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
@@ -318,7 +346,7 @@
             
             [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
         }
-    } else {
+    } /*else {
         packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
         [packageInfoView setPackage:package];
         [packageInfoView setParentVC:self];
@@ -334,7 +362,7 @@
         webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
         webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
         [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:NO];
-    }
+    }*/
     
 }
 
@@ -620,9 +648,325 @@
 
 - (void)reloadDepiction {
     [self prepDepictionLoading:webView.URL];
-    [packageInfoView.tableView reloadData];
-    [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [packageInfoView.packageName setTextColor:[UIColor cellPrimaryTextColor]];
+    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self.tableView reloadData];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.tableView.tableFooterView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.packageName setTextColor:[UIColor cellPrimaryTextColor]];
+}
+
+#pragma mark TableView
+
+- (CGFloat)rowHeight {
+    return 45;
+}
+
+- (NSArray *)packageInfoOrder {
+    static NSArray *packageInfoOrder = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        packageInfoOrder = @[
+                             @"packageID",
+                             @"Author",
+                             @"Version",
+                             @"Size",
+                             @"Repo",
+                             @"wishList",
+                             @"moreBy",
+                             @"Installed Files"
+                             ];
+    });
+    return packageInfoOrder;
+}
+
+- (void)readIcon:(ZBPackage *)package {
+    self.packageName.text = package.name;
+    self.packageName.textColor = [UIColor cellPrimaryTextColor];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
+        if (sectionImage == NULL) {
+            sectionImage = [UIImage imageNamed:@"Other"];
+        }
+        
+        NSString *iconURL = @"";
+        if (package.iconPath) {
+            iconURL = [package iconPath];
+        }
+        else {
+            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
+        }
+        
+        if (iconURL.length) {
+            [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
+        }
+    });
+}
+
+- (void)readPackageID:(ZBPackage *)package {
+    if (package.identifier) {
+        infos[@"packageID"] = package.identifier;
+    }
+    else {
+        [infos removeObjectForKey:@"packageID"];
+    }
+}
+
+- (void)checkWishList:(ZBPackage *)package {
+    NSArray *wishList = [[NSUserDefaults standardUserDefaults] objectForKey:@"wishList"];
+    if ([wishList containsObject:package.identifier]) {
+        infos[@"wishList"] = @"Remove from Wishlist";
+    } else {
+        infos[@"wishList"] = @"Add to Wishlist";
+    }
+}
+
+- (void)setMoreByText:(ZBPackage *)package {
+    if (package.author) {
+        infos[@"moreBy"] = @"More by this Developer";
+    } else {
+        [infos removeObjectForKey:@"moreBy"];
+    }
+}
+
+- (void)readVersion:(ZBPackage *)package {
+    if (![package isInstalled:NO] || [package installedVersion] == nil) {
+        infos[@"Version"] = [package version];
+    }
+    else {
+        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", [package version], [package installedVersion]];
+    }
+}
+
+- (void)readSize:(ZBPackage *)package {
+    NSString *size = [package size];
+    NSString *installedSize = [package installedSize];
+    if (size && installedSize) {
+        infos[@"Size"] = [NSString stringWithFormat:@"%@ (Installed Size: %@)", size, installedSize];
+    }
+    else if (size) {
+        infos[@"Size"] = size;
+    }
+    else {
+        [infos removeObjectForKey:@"Size"];
+    }
+}
+
+- (void)readRepo:(ZBPackage *)package {
+    NSString *repoName = [[package repo] origin];
+    if (repoName) {
+        infos[@"Repo"] = repoName;
+    }
+    else {
+        [infos removeObjectForKey:@"Repo"];
+    }
+}
+
+- (void)readFiles:(ZBPackage *)package {
+    if ([package isInstalled:NO]) {
+        infos[@"Installed Files"] = @"";
+    }
+    else {
+        [infos removeObjectForKey:@"Installed Files"];
+    }
+}
+
+- (void)readAuthor:(ZBPackage *)package {
+    NSString *authorName = [package author];
+    if (authorName) {
+        infos[@"Author"] = [self stripEmailFromAuthor];
+    } else {
+        [infos removeObjectForKey:@"Author"];
+    }
+}
+
+- (void)setPackage{
+    [self readIcon:package];
+    [self readAuthor:package];
+    [self readVersion:package];
+    [self readSize:package];
+    [self readRepo:package];
+    [self readFiles:package];
+    [self readPackageID:package];
+    [self checkWishList:package];
+    [self setMoreByText:package];
+    [self.tableView reloadData];
+}
+
+- (NSUInteger)rowCount {
+    return infos.count;
+}
+
+- (void)generateWishlist {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *wishList = [[defaults objectForKey:@"wishList"] mutableCopy];
+    if (!wishList) {
+        wishList = [NSMutableArray new];
+    }
+    if ([wishList containsObject:package.identifier]) {
+        [wishList removeObject:package.identifier];
+        [defaults setObject:wishList forKey:@"wishList"];
+        [defaults synchronize];
+        [self checkWishList:package];
+        [self.tableView reloadData];
+    } else {
+        [wishList addObject:package.identifier];
+        [defaults setObject:wishList forKey:@"wishList"];
+        [defaults synchronize];
+        [self checkWishList:package];
+        [self.tableView reloadData];
+    }
+}
+
+- (NSString *)stripEmailFromAuthor {
+    NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray *cleanedStrings = [NSMutableArray new];
+    for(NSString *cut in authorName) {
+        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
+            [cleanedStrings addObject:cut];
+        } else {
+            NSString *cutCopy = [cut copy];
+            cutCopy = [cut substringFromIndex:1];
+            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
+            self.authorEmail = cutCopy;
+        }
+    }
+    
+    return [cleanedStrings componentsJoinedByString:@" "];
+}
+
+- (void)sendEmailToDeveloper {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+        mail.mailComposeDelegate = self;
+        [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+        NSString *subject = [NSString stringWithFormat:@"Zebra %@: %@ Support (%@)", PACKAGE_VERSION, package.name, package.version];
+        [mail setSubject:subject];
+        NSString *body = [NSString stringWithFormat:@"%@: %@\n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
+        [mail setMessageBody:body isHTML:NO];
+        [mail setToRecipients:@[self.authorEmail]];
+        
+        [self presentViewController:mail animated:YES completion:NULL];
+    } else {
+        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@ Support Zebra %@", self.authorEmail, package.name, @"Arbitrary Number"];
+        NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        if (@available(iOS 10.0, *)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: url]];
+        }
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    //handle any error
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *property = [self packageInfoOrder][indexPath.row];
+    NSString *value = infos[property];
+    return value ? [self rowHeight] : 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
+    
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    NSString *property = [self packageInfoOrder][indexPath.row];
+    NSString *value = infos[property];
+    
+    if (indexPath.row == ZBPackageInfoInstalledFiles) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = property;
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+    }
+    else if (indexPath.row == ZBPackageInfoMoreBy || indexPath.row == ZBPackageInfoWishList) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = value;
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+    }
+    else if (indexPath.row == ZBPackageInfoID) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.textLabel.text = value;
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+    else if (indexPath.row == ZBPackageInfoAuthor) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        cell.textLabel.text = value;
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        if (self.authorEmail) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+    }
+    else {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
+        }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        if (value) {
+            cell.textLabel.text = property;
+            cell.detailTextLabel.text = value;
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+        }
+        else {
+            cell.textLabel.text = nil;
+            cell.detailTextLabel.text = nil;
+        }
+    }
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self packageInfoOrder].count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == ZBPackageInfoInstalledFiles) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+        filesController.navigationDelegate = (ZBPackageDepictionViewController *)self;
+        filesController.navigationItem.title = @"Installed Files";
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"installed_files" withExtension:@".html"];
+        [filesController setValue:url forKey:@"_url"];
+        
+        [[self navigationController] pushViewController:filesController animated:true];
+    }
+    else if (indexPath.row == ZBPackageInfoWishList) {
+        [self generateWishlist];
+    } else if (indexPath.row == ZBPackageInfoMoreBy) {
+        [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
+    } else if (indexPath.row == ZBPackageInfoAuthor && self.authorEmail) {
+        [self sendEmailToDeveloper];
+    }
+    
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 //More By author button;

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -128,10 +129,55 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1A-46-hKa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jiz-bw-rBw">
+                                <rect key="frame" x="0.0" y="116" width="375" height="502"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="7eW-tQ-K6H">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rav-H8-05Q">
+                                            <rect key="frame" x="141" y="8" width="93" height="93"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="93" id="fR6-vv-HXc"/>
+                                                <constraint firstAttribute="width" secondItem="Rav-H8-05Q" secondAttribute="height" multiplier="1:1" id="lzg-xG-Iew"/>
+                                                <constraint firstAttribute="height" constant="93" id="nU3-Jb-f4J"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="package-name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLd-KE-N3G">
+                                            <rect key="frame" x="130" y="121" width="115" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="Rav-H8-05Q" firstAttribute="centerX" secondItem="7eW-tQ-K6H" secondAttribute="centerX" id="WAJ-8a-O4K"/>
+                                        <constraint firstItem="Rav-H8-05Q" firstAttribute="top" secondItem="7eW-tQ-K6H" secondAttribute="topMargin" id="bT0-qR-KvB"/>
+                                        <constraint firstItem="bLd-KE-N3G" firstAttribute="top" secondItem="Rav-H8-05Q" secondAttribute="bottom" constant="20" id="lR4-5J-xbi"/>
+                                        <constraint firstItem="bLd-KE-N3G" firstAttribute="centerX" secondItem="Rav-H8-05Q" secondAttribute="centerX" id="tlg-07-56n"/>
+                                    </constraints>
+                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="B5D-p6-E07" id="aLx-DK-IWI"/>
+                                    <outlet property="delegate" destination="B5D-p6-E07" id="akl-Vl-gxN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jiz-bw-rBw" firstAttribute="leading" secondItem="o1A-46-hKa" secondAttribute="leadingMargin" constant="-16" id="Ein-Ly-0ap"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jiz-bw-rBw" secondAttribute="trailing" constant="-16" id="jjt-QW-DEa"/>
+                            <constraint firstItem="Jiz-bw-rBw" firstAttribute="top" secondItem="j8g-ah-bgN" secondAttribute="bottom" id="r0L-ut-TiR"/>
+                            <constraint firstItem="lyr-cW-NJO" firstAttribute="top" secondItem="Jiz-bw-rBw" secondAttribute="bottom" id="sbC-Sb-zLc"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="packageIcon" destination="Rav-H8-05Q" id="yDm-EU-Alr"/>
+                        <outlet property="packageName" destination="bLd-KE-N3G" id="JjK-cT-0Iz"/>
+                        <outlet property="tableView" destination="Jiz-bw-rBw" id="Pv1-Pz-EyS"/>
                         <segue destination="bfp-la-uN6" kind="show" identifier="seguePackageDepictionToMorePackages" id="cOE-ig-TNf"/>
                     </connections>
                 </viewController>

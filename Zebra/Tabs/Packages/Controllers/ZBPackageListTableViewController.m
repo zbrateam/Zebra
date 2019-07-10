@@ -17,6 +17,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
+#import "ZBDevice.h"
 
 typedef enum {
     ZBSortingTypeABC,
@@ -487,8 +488,10 @@ typedef enum {
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
+    [ZBDevice refreshViews];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    [self.navigationController.navigationBar setBarTintColor:nil];
 }
 
 @end
