@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *postTag;
 @property (weak, nonatomic) IBOutlet UILabel *postTitle;
 @property NSURL *redditLink;
+@property CAGradientLayer *gradient;
 @end

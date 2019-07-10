@@ -41,13 +41,15 @@
 }
 
 - (void)createBlur {
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    //always fill the view
-    blurEffectView.frame = self.backgroundImage.bounds;
-    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    blurEffectView.alpha = .45;
-    [self.backgroundImage addSubview:blurEffectView];
+    self.gradient = [CAGradientLayer layer];
+    self.gradient.frame = self.backgroundImage.frame;
+    self.gradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0].CGColor, (id)[UIColor colorWithRed:0 green:0 blue:0 alpha:.5].CGColor];
+    [self.backgroundImage.layer insertSublayer:self.gradient atIndex:0];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.gradient.frame = self.backgroundImage.frame;
 }
 /*UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
  UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
