@@ -173,8 +173,8 @@
     
     //Tab
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [[UITabBar appearance] setBackgroundColor:nil];
+    [[UITabBar appearance] setBarTintColor:nil];
     if ([ZBDevice darkModeOledEnabled]){
         [[UITabBar appearance] setTranslucent:NO];
     } else {
@@ -213,7 +213,7 @@
     //Tab
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
     [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [[UITabBar appearance] setBarTintColor:nil];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
     [[UITabBar appearance] setTranslucent:YES];
     //[[UITabBar appearance] setShadowImage:[UIImage new]];
