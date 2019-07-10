@@ -10,6 +10,7 @@
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
+#import "ZBRepo.h"
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
 
@@ -26,14 +27,18 @@
     self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.iconImageView.layer.cornerRadius = 10;
+    self.iconImageView.layer.cornerRadius = 13;
     self.iconImageView.layer.shadowRadius = 3;
 }
 
 - (void)updateData:(ZBPackage *)package {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    
+    if (package.author) {
+        self.author.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], package.repo.origin];
+    } else {
+        self.author.text = package.repo.origin;
+    }
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
         sectionImage = [UIImage imageNamed:@"Other"];
@@ -47,8 +52,7 @@
     else {
         self.iconImageView.image = sectionImage;
     }
-    self.iconImageView.layer.cornerRadius = 10;
-    self.iconImageView.layer.shadowRadius = 3;
+    self.iconImageView.layer.cornerRadius = 13;
     [self.iconImageView setClipsToBounds:TRUE];
     
     
@@ -96,7 +100,20 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+    self.author.textColor = [UIColor cellSecondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
+}
+
+- (NSString *)stripEmailFromAuthor:(NSString *)name {
+    NSArray *authorName = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray *cleanedStrings = [NSMutableArray new];
+    for(NSString *cut in authorName) {
+        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
+            [cleanedStrings addObject:cut];
+        }
+    }
+    
+    return [cleanedStrings componentsJoinedByString:@" "];
 }
 
 /*- (void)layoutSubviews {
