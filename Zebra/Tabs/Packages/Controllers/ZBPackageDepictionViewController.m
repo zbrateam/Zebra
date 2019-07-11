@@ -113,7 +113,7 @@ enum ZBPackageInfoOrder {
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
     
-    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
+    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view addSubview:webView];
