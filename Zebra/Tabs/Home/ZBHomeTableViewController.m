@@ -378,15 +378,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.backgroundColor = [UIColor tableViewBackgroundColor];
-    header.textLabel.textColor = [UIColor cellSecondaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    //Don't change this to clear color, it breaks the animation.
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-}
-
 - (NSString *)sectionTitleForSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
