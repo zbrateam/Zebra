@@ -20,10 +20,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="416" height="64.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JDx-9t-re7">
-                        <rect key="frame" x="20" y="11" width="43" height="43"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JDx-9t-re7">
+                        <rect key="frame" x="20" y="11" width="42" height="42"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="42" id="XKb-Gq-Fqe"/>
                             <constraint firstAttribute="width" secondItem="JDx-9t-re7" secondAttribute="height" multiplier="1:1" id="r6v-6I-355"/>
+                            <constraint firstAttribute="width" constant="42" id="vWj-87-wzV"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkS-a9-8o4">
@@ -69,8 +71,8 @@
                     <constraint firstAttribute="bottomMargin" secondItem="DyS-vT-uDO" secondAttribute="bottom" constant="-1" id="HND-Pb-Lzd"/>
                     <constraint firstItem="IkS-a9-8o4" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="Lxe-Rn-ews"/>
                     <constraint firstItem="JDx-9t-re7" firstAttribute="leading" secondItem="5rc-UN-QTa" secondAttribute="leadingMargin" id="SMD-aL-orn"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="JDx-9t-re7" secondAttribute="bottom" id="SwS-Ow-ybB"/>
-                    <constraint firstItem="IkS-a9-8o4" firstAttribute="leading" secondItem="JDx-9t-re7" secondAttribute="trailing" constant="7" id="Wio-L1-piY"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="JDx-9t-re7" secondAttribute="bottom" constant="1" id="SwS-Ow-ybB"/>
+                    <constraint firstItem="IkS-a9-8o4" firstAttribute="leading" secondItem="JDx-9t-re7" secondAttribute="trailing" constant="8" id="Wio-L1-piY"/>
                     <constraint firstItem="O7C-iN-6rJ" firstAttribute="trailing" secondItem="DyS-vT-uDO" secondAttribute="trailing" id="ZdQ-8h-YwD"/>
                     <constraint firstItem="Kfs-v7-U2C" firstAttribute="leading" secondItem="TA0-o7-XsF" secondAttribute="trailing" constant="8" symbolic="YES" id="bj4-zu-brc"/>
                     <constraint firstItem="Kfs-v7-U2C" firstAttribute="trailing" secondItem="5rc-UN-QTa" secondAttribute="trailingMargin" id="cHw-de-m5E"/>
@@ -82,6 +84,7 @@
                     <constraint firstItem="Kfs-v7-U2C" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="k98-r9-7ce"/>
                     <constraint firstAttribute="bottomMargin" secondItem="xK6-wW-by6" secondAttribute="bottom" id="nZJ-i3-9pf"/>
                     <constraint firstItem="TA0-o7-XsF" firstAttribute="top" secondItem="5rc-UN-QTa" secondAttribute="topMargin" id="oif-Vc-q5O"/>
+                    <constraint firstItem="IkS-a9-8o4" firstAttribute="leading" secondItem="JDx-9t-re7" secondAttribute="trailing" constant="8" id="org-wn-7ug"/>
                     <constraint firstAttribute="bottomMargin" secondItem="xK6-wW-by6" secondAttribute="bottom" id="uoH-53-mhy"/>
                 </constraints>
             </tableViewCellContentView>

@@ -29,6 +29,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.iconImageView.layer.cornerRadius = 13;
     self.iconImageView.layer.shadowRadius = 3;
+    self.iconImageView.clipsToBounds = TRUE;
 }
 
 - (void)updateData:(ZBPackage *)package {

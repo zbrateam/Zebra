@@ -16,6 +16,7 @@
 @import SDWebImage;
 
 @interface ZBChangesTableViewController () {
+    NSUserDefaults *defaults;
     NSArray *packages;
     NSArray *availableOptions;
     NSArray *sectionIndexTitles;
@@ -51,6 +52,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
     availableOptions = @[@"release", @"update", @"upcoming", @"news"];
+    defaults = [NSUserDefaults standardUserDefaults];
     [self startSettingHeader];
     [self refreshTable];
 }
@@ -58,21 +60,66 @@
 - (void)startSettingHeader  {
     NSLog(@"Running");
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"wantsNews"]) {
+    if ([defaults boolForKey:@"wantsNews"]) {
         NSLog(@"TRUE");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self retrieveNewsJson];
+            //[self retrieveNewsJson];
+            [self kickStartReddit];
         });
     }
+}
+
+- (void)kickStartReddit {
+    NSDate *creationDate = [defaults objectForKey:@"redditCheck"];
+    if (!creationDate) {
+        [self getRedditToken];
+    }else {
+        double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
+        if (seconds > 3500) {
+            [self getRedditToken];
+        } else {
+            [self retrieveNewsJson];
+        }
+    }
+}
+
+- (void)getRedditToken {
+    NSURL *checkingURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL:checkingURL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    //NSString *authString = @"Basic YnllM25VQzk1VUhNRlE6IA==";
+    [request setValue:[NSString stringWithFormat:@"Zebra %@ iOS:%@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
+    NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
+    [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSLog(@"ZEBRA FINISHED THING %@", [data class]);
+            NSError *error2;
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
+            NSLog(@"ZEBRA DICT %@", dictionary);
+            [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
+            [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
+            [self->defaults synchronize];
+            [self retrieveNewsJson];
+        }
+        if (error) {
+            NSLog(@"ERRORED %@", error);
+        }
+    }] resume];
 }
 
 - (void)retrieveNewsJson {
     [self.redditPosts removeAllObjects];
     NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak.json"]];
+    [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
     [request setHTTPMethod:@"GET"];
     //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", [defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         NSLog(@"DIcT %@", json);
@@ -415,7 +462,7 @@
 }
 
 - (void)toggleNews {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"wantsNews"]) {
+    if ([defaults boolForKey:@"wantsNews"]) {
         [self retrieveNewsJson];
     } else {
         [self.redditPosts removeAllObjects];
