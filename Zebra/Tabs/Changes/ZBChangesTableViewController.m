@@ -17,6 +17,7 @@
 
 @interface ZBChangesTableViewController () {
     NSArray *packages;
+    NSArray *availableOptions;
     NSArray *sectionIndexTitles;
     int totalNumberOfPackages;
     int numberOfPackages;
@@ -49,6 +50,7 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
+    availableOptions = @[@"release", @"update", @"upcoming", @"news"];
     [self startSettingHeader];
     [self refreshTable];
 }
@@ -79,9 +81,14 @@
         for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
             NSDictionary *postData = [dict objectForKey:@"data"];
             NSLog(@"POST DATA %@", postData);
-            if ([postData objectForKey:@"link_flair_css_class"] != [NSNull null]) {
-                if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"]) {
-                    [self.redditPosts addObject:postData];
+            if ([postData objectForKey:@"title"] != [NSNull null]) {
+                //if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"jailbreak release"]) {
+                NSArray *post = [self getTags:[postData valueForKey:@"title"]];
+                for (NSString *string in self->availableOptions) {
+                    if ([post containsObject:string] && ![self.redditPosts containsObject:postData]) {
+                        [self.redditPosts addObject:postData];
+                        NSLog(@"redditposts %@", self.redditPosts);
+                    }
                 }
             }
         }
@@ -310,17 +317,20 @@
     NSURL *url;
     if ([dict valueForKey:@"title"] != [NSNull null]) {
         cell.postTitle.text = [self stripTag:[dict valueForKey:@"title"]];
+        NSMutableArray *tags = [NSMutableArray new];
+        for (NSString *string in [self getTags:[dict valueForKey:@"title"]]) {
+            if ([availableOptions containsObject:string]) {
+                [tags addObject:string];
+            }
+        }
+        cell.postTag.text = [tags componentsJoinedByString:@", "];
+        cell.postTag.text = [cell.postTag.text capitalizedString];
     } else {
         cell.postTitle.text = @"Error";
     }
-    if ([dict valueForKey:@"link_flair_css_class"] != [NSNull null]) {
-        cell.postTag.text = [dict valueForKey:@"link_flair_css_class"];
-        cell.postTag.text = [cell.postTag.text capitalizedString];
-    } else {
-        cell.postTag.text = @"Error";
-    }
     if ([dict objectForKey:@"url"] != [NSNull null]) {
-        [cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
+        //[cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
+        [cell setRedditLink:[NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", [dict objectForKey:@"id"]]]];
     } else {
         [cell setRedditLink:[NSURL URLWithString:@"https://reddit.com/r/jailbreak"]];
     }
@@ -354,10 +364,29 @@
     for(NSString *cut in authorName) {
         if (![cut hasPrefix:@"["] && ![cut hasSuffix:@"]"]) {
             [cleanedStrings addObject:cut];
-        }
+        } 
     }
     
     return [cleanedStrings componentsJoinedByString:@" "];
+}
+
+- (NSArray *)getTags:(NSString *)body {
+    body = [body lowercaseString];
+    NSArray *authorName = [body componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray *cleanedStrings = [NSMutableArray new];
+    for(NSString *cut in authorName) {
+        if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
+            NSString *cutCopy = [cut copy];
+            cutCopy = [cut substringFromIndex:1];
+            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
+            if ([cutCopy containsString:@"]["]) {
+                [cleanedStrings addObjectsFromArray:[cutCopy componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            } else {
+                [cleanedStrings addObject:cutCopy];
+            }
+        }
+    }
+    return cleanedStrings;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
