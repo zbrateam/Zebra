@@ -332,7 +332,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return found ? timestamp : -1;
 }
 
-bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
+bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
     for (int i = 0; packageIdentifier[i]; ++i) {
@@ -370,7 +370,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTag, tags, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthor, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, depends[0] == '\0' ? NULL : depends, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnConflicts, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnProvides, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnReplaces, dict_get(package, "Replaces"), -1, SQLITE_TRANSIENT);
@@ -390,6 +390,8 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
             if (longDescription[0] != '\0')
                 longDescription[strlen(longDescription) - 1] = '\0';
+            if (depends[0] != '\0')
+                depends[strlen(depends) - 1] = '\0';
             sqlite3_step(insertStatement);
         }
         else {
@@ -401,11 +403,13 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
         dict_free(*package_);
         *package_ = dict_new();
         longDescription[0] = '\0';
+        depends[0] = '\0';
     }
     else {
         dict_free(*package_);
         *package_ = dict_new();
         longDescription[0] = '\0';
+        depends[0] = '\0';
         return true;
     }
     return false;
@@ -424,13 +428,14 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = repoID;
-    int longDesc = 0;
+    bool longDescFlag = false;
     
     char longDescription[32768] = "";
+    char depends[300] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDesc && isspace(line[0])) {
+            if (longDescFlag && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
                     ++i;
@@ -444,7 +449,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 continue;
             }
             else {
-                longDesc = 0;
+                longDescFlag = false;
             }
             
             char *info = strtok(line, "\n");
@@ -459,24 +464,37 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
+            
+            if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
+                size_t dependsLen = strlen(depends);
+                if (dependsLen + strlen(value) + 2 < 300) {
+                    if (dependsLen) {
+                        strcat(depends, ", ");
+                    }
+                    strcat(depends, value);
+                }
+                continue;
+            }
+            
             dict_add(package, key, value);
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
-                longDesc = 1;
+                longDescFlag = true;
             }
         }
         else if (dict_get(package, "Package") != 0) {
-            if (bindPackage(&package, repoID, safeID, longDescription, database, true, 0))
+            if (bindPackage(&package, repoID, safeID, longDescription, depends, database, true, 0))
                 continue;
         }
         else {
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
+            depends[0] = '\0';
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, repoID, safeID, longDescription, database, true, 0);
+        bindPackage(&package, repoID, safeID, longDescription, depends, database, true, 0);
     }
     
     fclose(file);
@@ -498,13 +516,14 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = repoID;
-    int longDesc = 0;
+    bool longDescFlag = false;
     
     char longDescription[32768] = "";
+    char depends[300] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDesc && isspace(line[0])) {
+            if (longDescFlag && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
                     ++i;
@@ -518,7 +537,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 continue;
             }
             else {
-                longDesc = 0;
+                longDescFlag = false;
             }
             
             char *info = strtok(line, "\n");
@@ -533,23 +552,36 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
+            
+            if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
+                size_t dependsLen = strlen(depends);
+                if (dependsLen + strlen(value) + 2 < 300) {
+                    if (dependsLen) {
+                        strcat(depends, ", ");
+                    }
+                    strcat(depends, value);
+                }
+                continue;
+            }
+            
             dict_add(package, key, value);
             
             if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
-                longDesc = 1;
+                longDescFlag = true;
             }
         }
         else if (dict_get(package, "Package") != 0) {
-            bindPackage(&package, repoID, safeID, longDescription, database, false, currentDate);
+            bindPackage(&package, repoID, safeID, longDescription, depends, database, false, currentDate);
         }
         else {
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
+            depends[0] = '\0';
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, repoID, safeID, longDescription, database, false, currentDate);
+        bindPackage(&package, repoID, safeID, longDescription, depends, database, false, currentDate);
     }
     
     fclose(file);
