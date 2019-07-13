@@ -404,10 +404,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
-}
-
 - (void)setImageSize:(UIImageView *)imageView{
     CGSize itemSize = CGSizeMake(29, 29);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
