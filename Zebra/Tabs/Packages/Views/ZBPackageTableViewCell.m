@@ -55,9 +55,6 @@
     else {
         self.iconImageView.image = sectionImage;
     }
-    self.iconImageView.layer.cornerRadius = 13;
-    [self.iconImageView setClipsToBounds:TRUE];
-    
     
     BOOL installed = [package isInstalled:false];
     BOOL paid = [package isPaid];
