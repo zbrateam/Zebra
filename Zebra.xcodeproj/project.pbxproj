@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		36200B6722D2B3E000C13F6D /* ZBRepoBlacklistTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36200B6622D2B3E000C13F6D /* ZBRepoBlacklistTableViewController.m */; };
 		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
 		3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */; };
 		3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3639D19422CC600D0012E18F /* ZBNoScrollHeaderTableView.m */; };
@@ -586,8 +585,6 @@
 				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
 				9E2B413E22C87074009BC12B /* UIAlertController+Theme.h */,
 				9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */,
-				369D4C6922CFAEFD00A4B619 /* UIImage+UIKitImage.h */,
-				369D4C6A22CFAEFD00A4B619 /* UIImage+UIKitImage.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -779,8 +776,8 @@
 		D1BF9C6D22A826B300DD9266 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */,
 				D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */,
+				D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -934,7 +931,6 @@
 				9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */,
-				369D4C6B22CFAEFD00A4B619 /* UIImage+UIKitImage.m in Sources */,
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,

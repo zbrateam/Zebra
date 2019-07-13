@@ -7,6 +7,7 @@
 //
 
 #import "ZBAddRepoViewController.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBAddRepoViewController () <UITextViewDelegate>
 
@@ -23,7 +24,9 @@
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
+    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.addRepoTextView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.addRepoTextView.textColor = [UIColor cellPrimaryTextColor];
     self.addRepoTextView.delegate = self;
     
     if (self.text) {
