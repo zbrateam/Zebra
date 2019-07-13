@@ -37,7 +37,7 @@
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
-        return nil;
+        return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
     NSTask *checkFilesTask = [[NSTask alloc] init];
     NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"-L", packageID, nil];
