@@ -35,10 +35,18 @@
 - (void)updateData:(ZBPackage *)package {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
+    ZBRepo *repo = package.repo;
+    NSString *repoName = repo.origin;
+    if ([repo repoID] <= 0) {
+        ZBPackage *candidate = [package installableCandidate];
+        if (candidate) {
+            repoName = candidate.repo.origin;
+        }
+    }
     if (package.author) {
-        self.author.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], package.repo.origin];
+        self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
     } else {
-        self.author.text = package.repo.origin;
+        self.authorAndRepo.text = repoName;
     }
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
@@ -101,7 +109,7 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.author.textColor = [UIColor cellSecondaryTextColor];
+    self.authorAndRepo.textColor = [UIColor cellSecondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
 }
 

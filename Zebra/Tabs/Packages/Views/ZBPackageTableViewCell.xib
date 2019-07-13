@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14835.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14790.5"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,11 +13,11 @@
             <rect key="frame" x="0.0" y="0.0" width="416" height="65"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uke-aC-RM3" id="5rc-UN-QTa">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="64.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="416" height="65"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JDx-9t-re7">
-                        <rect key="frame" x="20" y="11.5" width="42" height="42"/>
+                        <rect key="frame" x="15" y="11" width="42" height="42"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="XKb-Gq-Fqe"/>
                             <constraint firstAttribute="width" secondItem="JDx-9t-re7" secondAttribute="height" multiplier="1:1" id="r6v-6I-355"/>
@@ -29,13 +25,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkS-a9-8o4">
-                        <rect key="frame" x="70" y="11.5" width="119" height="14"/>
+                        <rect key="frame" x="65" y="11" width="119" height="14"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyS-vT-uDO">
-                        <rect key="frame" x="71" y="41.5" width="282" height="13.5"/>
+                        <rect key="frame" x="66" y="41" width="282" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="282" id="gMV-0Z-74e"/>
                         </constraints>
@@ -44,20 +40,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="Kfs-v7-U2C">
-                        <rect key="frame" x="382" y="11.5" width="14" height="14"/>
+                        <rect key="frame" x="387" y="11" width="14" height="14"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="TA0-o7-XsF">
-                        <rect key="frame" x="360" y="11.5" width="14" height="14"/>
+                        <rect key="frame" x="365" y="11" width="14" height="14"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xK6-wW-by6">
-                        <rect key="frame" x="360" y="38" width="36" height="16"/>
+                        <rect key="frame" x="365" y="38" width="36" height="16"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Repo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7C-iN-6rJ">
-                        <rect key="frame" x="71" y="26.5" width="282" height="14"/>
+                        <rect key="frame" x="66" y="26" width="282" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -89,7 +85,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="author" destination="O7C-iN-6rJ" id="iE5-bD-qTb"/>
+                <outlet property="authorAndRepo" destination="O7C-iN-6rJ" id="iE5-bD-qTb"/>
                 <outlet property="descriptionLabel" destination="DyS-vT-uDO" id="dSB-fQ-D1g"/>
                 <outlet property="iconImageView" destination="JDx-9t-re7" id="cgm-WA-yfu"/>
                 <outlet property="isInstalledImageView" destination="Kfs-v7-U2C" id="wTr-Kw-FI8"/>
