@@ -51,7 +51,6 @@
                     <constraint firstItem="qvT-B5-ng0" firstAttribute="trailing" secondItem="xDS-c2-OkW" secondAttribute="trailingMargin" id="PNV-4q-pkO"/>
                     <constraint firstAttribute="trailing" secondItem="DG1-gF-WiI" secondAttribute="trailing" id="Q8p-ub-HAr"/>
                     <constraint firstItem="qvT-B5-ng0" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="bottom" id="VwX-la-ihP"/>
-                    <constraint firstItem="lz1-B6-foX" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="top" id="dZr-6R-1pP"/>
                     <constraint firstItem="qvT-B5-ng0" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="8" id="ffx-TS-OcK"/>
                     <constraint firstItem="DG1-gF-WiI" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="top" constant="11" id="nak-8I-r6k"/>
                     <constraint firstItem="qvT-B5-ng0" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="bottom" id="s2d-Nh-F8w"/>

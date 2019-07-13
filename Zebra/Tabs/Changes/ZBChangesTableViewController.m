@@ -228,6 +228,14 @@
     return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
+
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     NSMutableDictionary <NSDate *, NSMutableArray *> *partitions = [NSMutableDictionary new];
     for (ZBPackage *package in packages) {

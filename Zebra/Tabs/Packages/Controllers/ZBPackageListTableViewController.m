@@ -394,6 +394,14 @@ typedef enum {
     return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
+
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
     sectionIndexTitles = [NSMutableArray arrayWithArray:[collation sectionIndexTitles]];

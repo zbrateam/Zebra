@@ -27,7 +27,7 @@
     self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.iconImageView.layer.cornerRadius = 13;
+    self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.shadowRadius = 3;
     self.iconImageView.clipsToBounds = TRUE;
 }
