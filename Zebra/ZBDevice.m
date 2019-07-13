@@ -59,13 +59,18 @@
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
         BOOL hasSbreload = [[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/sbreload"];
+        BOOL execed = NO;
         if (hasSbreload) {
             [task setLaunchPath:@"/usr/bin/sbreload"];
-            [task launch];
-            [task waitUntilExit];
+            if (![task isRunning]) {
+                [task launch];
+                [task waitUntilExit];
+            } else {
+                execed = YES;
+            }
         }
         
-        if (!hasSbreload || [task terminationStatus] != 0) {
+        if (!hasSbreload || execed || [task terminationStatus] != 0) {
             NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
             //Ideally, this is only if sbreload fails
             [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
