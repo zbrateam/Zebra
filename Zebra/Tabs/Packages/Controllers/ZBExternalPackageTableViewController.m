@@ -8,6 +8,7 @@
 
 #import "ZBExternalPackageTableViewController.h"
 #import <NSTask.h>
+#import <ZBDevice.h>
 #import <Console/ZBConsoleViewController.h>
 #import "UIColor+GlobalColors.h"
 
@@ -23,8 +24,8 @@
     [super viewDidLoad];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    [task setArguments:@[@"/usr/bin/dpkg", @"-I", [_fileURL path], @"control"]];
+    [task setLaunchPath:@"/usr/bin/dpkg"];
+    [ZBDevice asRoot:task arguments:@[@"-I", [_fileURL path], @"control"]];
     
     NSPipe *pipe = [NSPipe pipe];
     [task setStandardOutput:pipe];

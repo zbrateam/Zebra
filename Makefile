@@ -7,7 +7,7 @@ all::
 after-stage::
 	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
 	rm -rf Zebra.xcarchive
-	$(MAKE) -C Supersling
+	$(MAKE) -C Supersling LEAN_AND_MEAN=1
 	mkdir -p $(THEOS_STAGING_DIR)/usr/libexec/zebra
 	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/usr/libexec/zebra
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision

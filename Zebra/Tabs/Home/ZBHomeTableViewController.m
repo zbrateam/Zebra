@@ -378,7 +378,15 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (NSString *)sectionTitleForSection:(NSInteger)section {
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.backgroundColor = [UIColor tableViewBackgroundColor];
+    header.textLabel.textColor = [UIColor cellSecondaryTextColor];
+    header.tintColor = [UIColor clearColor];
+    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
             return @"Info";
@@ -531,7 +539,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    //[[self navigationController] pushViewController:settingsController animated:true];
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }
 
@@ -553,13 +560,14 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)darkMode {
-    [ZBDevice setDarkModeEnabled:([ZBDevice darkModeEnabled]) ? NO : YES];
-    [self.darkModeButton setImage:([ZBDevice darkModeEnabled]) ? [UIImage imageNamed:@"Dark"] : [UIImage imageNamed:@"Light"]];
+    [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
     if ([ZBDevice darkModeEnabled]) {
         [ZBDevice configureDarkMode];
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
         [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     } else {
         [ZBDevice configureLightMode];
+        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
         [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     }
     [ZBDevice refreshViews];

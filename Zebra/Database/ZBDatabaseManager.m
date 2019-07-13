@@ -119,20 +119,23 @@
 }
 
 - (void)bulkDatabaseStartedUpdate {
-    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+        id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         [delegate databaseStartedUpdate];
     }
 }
 
 - (void)bulkDatabaseCompletedUpdate:(int)updates {
     databaseBeingUpdated = NO;
-    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+        id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         [delegate databaseCompletedUpdate:updates];
     }
 }
 
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+        id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         if ([delegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
             [delegate postStatusUpdate:status atLevel:level];
         }
@@ -140,7 +143,8 @@
 }
 
 - (void)bulkSetRepo:(NSString *)bfn busy:(BOOL)busy {
-    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+        id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         if ([delegate respondsToSelector:@selector(setRepo:busy:)]) {
             [delegate setRepo:bfn busy:busy];
         }

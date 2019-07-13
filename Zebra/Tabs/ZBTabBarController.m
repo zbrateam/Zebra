@@ -12,6 +12,7 @@
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
+#import <UITabBarItem.h>
 #import <Database/ZBRefreshViewController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBTab.h"
@@ -19,6 +20,8 @@
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
     ZBDatabaseManager *databaseManager;
+    UIActivityIndicatorView *indicator;
+    BOOL sourcesUpdating;
 }
 @end
 
@@ -33,6 +36,11 @@
         UITabBar.appearance.tintColor = [UIColor tintColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
+    
+    self->indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+    CGRect indicatorFrame = self->indicator.frame;
+    self->indicator.frame = indicatorFrame;
+    self->indicator.color = [UIColor whiteColor];
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
@@ -83,22 +91,23 @@
     UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
     UITabBarItem *sourcesItem = [sourcesController tabBarItem];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [sourcesItem setAnimatedBadge:visible];
         if (visible) {
+            if (self->sourcesUpdating) {
+                return;
+            }
             sourcesItem.badgeValue = @"";
             
-            for (UIView *badge in self.tabBar.subviews[2].subviews) {
-                if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {
-                    UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-                    [loadingView setColor:[UIColor whiteColor]];
-                    
-                    [loadingView setCenter:badge.center];
-                    [loadingView startAnimating];
-                    [badge addSubview:loadingView];
-                }
-            }
+            UIView *badge = [[sourcesItem view] valueForKey:@"_badge"];
+            self->indicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+            self->indicator.center = badge.center;
+            [self->indicator startAnimating];
+            [badge addSubview:self->indicator];
+            self->sourcesUpdating = YES;
         }
         else {
             sourcesItem.badgeValue = nil;
+            self->sourcesUpdating = NO;
         }
     });
     [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];

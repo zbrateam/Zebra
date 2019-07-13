@@ -559,6 +559,10 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)initPurchaseLink:(NSString *)link {
+    if (link == nil) {
+        [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:@"Please relogin your account that is used to purchase this package (Possibly %@)", package.repo.origin]];
+        return;
+    }
     NSURL *destinationUrl = [NSURL URLWithString:link];
     if (@available(iOS 11.0, *)) {
         static SFAuthenticationSession *session;
