@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import <Packages/Controllers/ZBPackagesByAuthorTableViewController.h>
+#import "ZBInstalledFilesTableViewController.h"
 @import SafariServices;
 @import MessageUI;
 

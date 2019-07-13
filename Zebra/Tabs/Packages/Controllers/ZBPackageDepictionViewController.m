@@ -151,6 +151,11 @@ enum ZBPackageInfoOrder {
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+}
+
 - (void)prepDepictionLoading:(NSURL *)url {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -252,6 +257,12 @@ enum ZBPackageInfoOrder {
     
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
         
+        [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, 200)];
+        /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
+        [self.tableView beginUpdates];
+        [self.tableView setTableFooterView:webView];
+        [self.tableView endUpdates];
+        
         if ([ZBDevice darkModeEnabled]) {
             NSString *path;
             if([ZBDevice darkModeOledEnabled]) {
@@ -301,68 +312,6 @@ enum ZBPackageInfoOrder {
             [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         }
     }
-    
-    
-    if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"installed_files" withExtension:@".html"].absoluteString]) {
-        //Darkmode etc for installed files
-        
-        if ([ZBDevice darkModeEnabled]) {
-            NSString *path;
-            if([ZBDevice darkModeOledEnabled]) {
-                path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-            }else {
-                path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
-            }
-            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
-                                  style.innerHTML = '%@'; \
-                                  document.head.appendChild(style)",
-                                  cssData];
-            [webView evaluateJavaScript:jsString
-                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                          if (error) {
-                              NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-                          }
-                      }];
-        }
-        
-        NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
-        installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-
-        for (int i = 0; i < installedFiles.count; i++) {
-            NSString *file = installedFiles[i];
-            if ([file isEqualToString:@"/."] || file.length == 0) {
-                continue;
-            }
-            
-            NSArray *components = [file componentsSeparatedByString:@"/"];
-            NSMutableString *displayStr = [NSMutableString new];
-            for (int b = 0; b < components.count - 2; b++) {
-                [displayStr appendString:@"&emsp;"]; //add tab character
-            }
-            [displayStr appendString:components[components.count - 1]];
-            
-            [webView evaluateJavaScript:[NSString stringWithFormat:@"addFile(\"%@\");", displayStr] completionHandler:nil];
-        }
-    } /*else {
-        packageInfoView = [[[NSBundle mainBundle] loadNibNamed:@"ZBPackageInfoView" owner:nil options:nil] firstObject];
-        [packageInfoView setPackage:package];
-        [packageInfoView setParentVC:self];
-        packageInfoView.translatesAutoresizingMaskIntoConstraints = NO;
-        [webView.scrollView addSubview:packageInfoView];
-        CGFloat pad = 165 + [packageInfoView rowCount] * [ZBPackageInfoView rowHeight];
-        [packageInfoView.topAnchor constraintEqualToAnchor:webView.scrollView.topAnchor constant:-pad].active = YES;
-        [packageInfoView.heightAnchor constraintEqualToConstant:pad].active = YES;
-        [packageInfoView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-        [packageInfoView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-        [packageInfoView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        
-        webView.scrollView.contentInset = UIEdgeInsetsMake(pad, 0, 0, 0);
-        webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(pad, 0, 0, 0);
-        [webView.scrollView setContentOffset:CGPointMake(0, -webView.scrollView.contentInset.top) animated:NO];
-    }*/
     
 }
 
@@ -943,12 +892,9 @@ enum ZBPackageInfoOrder {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == ZBPackageInfoInstalledFiles) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-        filesController.navigationDelegate = (ZBPackageDepictionViewController *)self;
+        ZBInstalledFilesTableViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"installedFilesController"];
         filesController.navigationItem.title = @"Installed Files";
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"installed_files" withExtension:@".html"];
-        [filesController setValue:url forKey:@"_url"];
-        
+        [filesController setPackage:package];
         [[self navigationController] pushViewController:filesController animated:true];
     }
     else if (indexPath.row == ZBPackageInfoWishList) {
