@@ -240,10 +240,27 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
+    if (searchController.active) {
+        if ([results objectAtIndex:indexPath.row]) {
+            ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
+            return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+                [tableView reloadData];
+            }];
+        } else {
+            return nil;
+        }
+    } else {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [self->searches removeObjectAtIndex:indexPath.row];
+            [[NSUserDefaults standardUserDefaults] setObject:self->searches forKey:@"searches"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+        }];
+        deleteAction.backgroundColor = [UIColor redColor];
+        return @[deleteAction];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
