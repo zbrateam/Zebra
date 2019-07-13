@@ -437,20 +437,11 @@ enum ZBSectionOrder {
     }
 }
 
-- (void)hapticButton {
-    if (@available(iOS 10.0, *)) {
-        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
-        [feedback prepare];
-        [feedback selectionChanged];
-        feedback = nil;
-    }
-}
-
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBTintSelection)segmentedControl.selectedSegmentIndex;
     [[NSUserDefaults standardUserDefaults] setObject:@(selectedSortingType) forKey:@"tintSelection"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self hapticButton];
+    [ZBDevice hapticButton];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.tableView reloadData];
@@ -482,7 +473,7 @@ enum ZBSectionOrder {
         [defaults synchronize];
     }
     
-    [self hapticButton];
+    [ZBDevice hapticButton];
     [self oledAnimation];
 }
 

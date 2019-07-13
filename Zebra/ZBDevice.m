@@ -55,6 +55,15 @@
     return machineIdentifier;
 }
 
++ (void)hapticButton {
+    if (@available(iOS 10.0, *)) {
+        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
+        [feedback prepare];
+        [feedback selectionChanged];
+        feedback = nil;
+    }
+}
+
 + (void)asRoot:(NSTask *)task arguments:(NSArray *)arguments {
     NSString *launchPath = task.launchPath;
     [task setLaunchPath:@"/usr/libexec/zebra/supersling"];

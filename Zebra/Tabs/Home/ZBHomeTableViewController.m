@@ -405,17 +405,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 #pragma mark darkmode
 - (IBAction)toggleDarkMode:(id)sender {
-    [self hapticButton];
+    [ZBDevice hapticButton];
     [self darkMode];
-}
-
-- (void)hapticButton {
-    if (@available(iOS 10.0, *)) {
-        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
-        [feedback prepare];
-        [feedback selectionChanged];
-        feedback = nil;
-    }
 }
 
 - (void)darkMode {
