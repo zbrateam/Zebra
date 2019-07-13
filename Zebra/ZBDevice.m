@@ -55,6 +55,16 @@
     return machineIdentifier;
 }
 
++ (void)asRoot:(NSTask *)task arguments:(NSArray *)arguments {
+    NSString *launchPath = task.launchPath;
+    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+    NSArray *trueArguments = @[launchPath];
+    if (arguments) {
+        trueArguments = [trueArguments arrayByAddingObjectsFromArray:arguments];
+    }
+    [task setArguments:trueArguments];
+}
+
 + (void)sbreload {
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
@@ -62,6 +72,7 @@
         BOOL execed = NO;
         if (hasSbreload) {
             [task setLaunchPath:@"/usr/bin/sbreload"];
+            [self asRoot:task arguments:nil];
             if (![task isRunning]) {
                 [task launch];
                 [task waitUntilExit];
@@ -73,8 +84,8 @@
         if (!hasSbreload || execed || [task terminationStatus] != 0) {
             NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
             //Ideally, this is only if sbreload fails
-            [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-            [task setArguments:@[@"/bin/launchctl", @"stop", @"com.apple.backboardd"]];
+            [task setLaunchPath:@"/bin/launchctl"];
+            [self asRoot:task arguments:@[@"stop", @"com.apple.backboardd"]];
             
             [task launch];
         }
@@ -84,8 +95,8 @@
 + (void)uicache:(NSArray *)arguments observer:(NSObject <ZBConsoleCommandDelegate> *)observer {
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-        [task setArguments:[@[@"/usr/bin/uicache"] arrayByAddingObjectsFromArray:arguments]];
+        [task setLaunchPath:@"/usr/bin/uicache"];
+        [self asRoot:task arguments:arguments];
         
         if (observer) {
             NSPipe *outputPipe = [[NSPipe alloc] init];

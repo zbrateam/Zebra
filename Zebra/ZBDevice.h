@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <NSTask.h>
 #import <Console/ZBConsoleCommandDelegate.h>
 
 @interface ZBDevice : NSObject
@@ -15,6 +16,7 @@
 + (NSString *_Nullable)UDID;
 + (NSString *_Nullable)deviceModelID;
 + (NSString *_Nullable)machineID;
++ (void)asRoot:(NSTask *_Nullable)task arguments:(NSArray *_Nullable)arguments;
 + (void)sbreload;
 + (void)uicache:(NSArray *_Nonnull)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
 + (BOOL)isChimera;
