@@ -37,12 +37,6 @@
     self.descriptionLabel.text = package.shortDescription;
     ZBRepo *repo = package.repo;
     NSString *repoName = repo.origin;
-    if ([repo repoID] <= 0) {
-        ZBPackage *candidate = [package installableCandidate];
-        if (candidate) {
-            repoName = candidate.repo.origin;
-        }
-    }
     if (package.author) {
         self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
     } else {
