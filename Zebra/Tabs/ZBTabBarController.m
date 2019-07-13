@@ -88,12 +88,14 @@
             
             for (UIView *badge in self.tabBar.subviews[2].subviews) {
                 if ([NSStringFromClass([badge class]) isEqualToString:@"_UIBadgeView"]) {
+                    // TODO: Position is off in iOS 9
                     UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
                     [loadingView setColor:[UIColor whiteColor]];
                     
                     [loadingView setCenter:badge.center];
                     [loadingView startAnimating];
                     [badge addSubview:loadingView];
+                    break;
                 }
             }
         }
