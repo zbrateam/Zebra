@@ -17,5 +17,6 @@
 + (NSString *)sourcesListPath;
 + (NSString *)databaseLocation;
 + (NSString *)debsLocation;
++ (void)sendErrorToTabController:(NSString *)error;
 @end
 
