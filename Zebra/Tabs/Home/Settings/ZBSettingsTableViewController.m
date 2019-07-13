@@ -489,7 +489,7 @@ enum ZBSectionOrder {
     oled = switcher.isOn;
     [defaults setBool:oled forKey:@"wantsFeatured"];
     [defaults synchronize];
-    [self hapticButton];
+    [ZBDevice hapticButton];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
 }
 - (void)toggleNews:(id)sender {
@@ -499,7 +499,7 @@ enum ZBSectionOrder {
     oled = switcher.isOn;
     [defaults setBool:oled forKey:@"wantsNews"];
     [defaults synchronize];
-    [self hapticButton];
+    [ZBDevice hapticButton];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
 }
 
@@ -567,7 +567,7 @@ enum ZBSectionOrder {
     BOOL selectedMode = [[NSNumber numberWithInteger:segmentedControl.selectedSegmentIndex] boolValue];
     [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:@"randomFeatured"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self hapticButton];
+    [ZBDevice hapticButton];
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
     CATransition *transition = [CATransition animation];
