@@ -117,7 +117,7 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (![searchText isEqualToString:@""]) {
-        results = [databaseManager searchForPackageName:searchText numberOfResults:25];
+        results = [databaseManager searchForPackageName:searchText numberOfResults:60];
     }
     else {
         results = nil;

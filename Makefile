@@ -16,4 +16,4 @@ after-stage::
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 
 after-install::
-	install.exec "killall \"Zebra\" && uicache -p /Applications/Zebra.app" || true
+	install.exec "uicache -p /Applications/Zebra.app" || true

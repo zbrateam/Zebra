@@ -768,11 +768,11 @@
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *query;
         
-        if (results) {
+        if (results && results != -1) {
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT %d", name, name, name, results];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name];
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE (NAME LIKE \'%%%@\%%\') OR (SHORTDESCRIPTION LIKE \'%%%@\%%\') AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name, name];
         }
         
         sqlite3_stmt *statement;
