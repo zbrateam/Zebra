@@ -26,34 +26,61 @@
 #if TARGET_OS_SIMULATOR
     return YES;
 #else
-    return ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
+    });
+    return value;
 #endif
 }
 
 + (NSString *)UDID {
-    CFStringRef udidCF = (CFStringRef)MGCopyAnswer(kMGUniqueDeviceID);
-    NSString *udid = (__bridge NSString *)udidCF;
-    if (udid == NULL) {
-        // send a fake UDID in case this is a simulator
-        udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    }
+    static NSString *udid = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CFStringRef udidCF = (CFStringRef)MGCopyAnswer(kMGUniqueDeviceID);
+        udid = (__bridge NSString *)udidCF;
+        if (udid == NULL) {
+            // send a fake UDID in case this is a simulator
+            udid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        }
+    });
     return udid;
 }
 
 + (NSString *)deviceModelID {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    static NSString *modelID = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        struct utsname systemInfo;
+        uname(&systemInfo);
+        modelID = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    });
+    return modelID;
 }
 
 + (NSString *)machineID {
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *answer = malloc(size);
-    sysctlbyname("hw.machine", answer, &size, NULL, 0);
-    NSString *machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-    free(answer);
+    static NSString *machineIdentifier = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        size_t size;
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+        char *answer = malloc(size);
+        sysctlbyname("hw.machine", answer, &size, NULL, 0);
+        machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
+        free(answer);
+    });
     return machineIdentifier;
+}
+
++ (void)hapticButton {
+    if (@available(iOS 10.0, *)) {
+        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
+        [feedback prepare];
+        [feedback selectionChanged];
+        feedback = nil;
+    }
 }
 
 + (void)asRoot:(NSTask *)task arguments:(NSArray *)arguments {
@@ -130,15 +157,30 @@
 }
 
 + (BOOL)isChimera {
-    return [self needsSimulation] ? NO : [self _isRegularDirectory:"/chimera"];
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? NO : [self _isRegularDirectory:"/chimera"];
+    });
+    return value;
 }
 
 + (BOOL)isElectra {
-    return [self needsSimulation] ? NO : [self _isRegularDirectory:"/electra"];
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? NO : [self _isRegularDirectory:"/electra"];
+    });
+    return value;
 }
 
 + (BOOL)isUncover {
-    return [self needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
+    });
+    return value;
 }
 
 + (NSString * _Nonnull)deviceType {
@@ -170,6 +212,7 @@
 }
 
 + (void)configureDarkMode {
+    // Navigation bar
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     //[[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -209,11 +252,17 @@
     dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+    
+    //Keyboard
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    
+    //Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
 }
 
 + (void)configureLightMode {
+    //Navigation bar
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     //[[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -241,6 +290,11 @@
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [[UITableViewCell appearance] setSelectedBackgroundView:nil];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+    
+    //Keyboard
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
+    
+    //Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
 }
