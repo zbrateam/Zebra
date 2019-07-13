@@ -230,7 +230,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

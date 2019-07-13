@@ -118,19 +118,16 @@ enum ZBSectionOrder {
     }
 }
 
-- (NSString *)sectionTitleForSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBInfo:
             return @"Information";
-            break;
         case ZBGraphics:
             return @"Graphics";
-            break;
         case ZBAdvanced:
             return @"Advanced";
-            break;
         default:
-            return @"Error";
+            return nil;
     }
 }
 
@@ -144,35 +141,26 @@ enum ZBSectionOrder {
     switch (section){
         case ZBInfo:
             return 1;
-            break;
         case ZBGraphics:
             if (@available(iOS 10.3, *)) {
                 return 3;
             } else {
                 return 2;
             }
-            break;
         case ZBAdvanced:
             return 4;
-            break;
         default:
             return 0;
-            break;
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 0)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, tableView.frame.size.width - 10, 18)];
-    [view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
-    [label setText:[self sectionTitleForSection:section]];
-    [label setTextColor:[UIColor cellPrimaryTextColor]];
-    [view addSubview:label];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
-    return view;
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.backgroundColor = [UIColor tableViewBackgroundColor];
+    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    header.tintColor = [UIColor clearColor];
+    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -338,13 +326,11 @@ enum ZBSectionOrder {
     [self.navigationController pushViewController:changeLog animated:true];
 }
 
-
 - (void)openCommunityRepos {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
     [self.navigationController pushViewController:community animated:true];
 }
-
 
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -480,4 +466,5 @@ enum ZBSectionOrder {
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end
