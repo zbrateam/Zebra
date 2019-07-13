@@ -22,6 +22,7 @@
 @end
 
 @implementation ZBQueue
+
 + (id)sharedInstance {
     static ZBQueue *instance = nil;
     static dispatch_once_t onceToken;
@@ -117,19 +118,23 @@
     [self addPackage:package toQueue:queue ignoreDependencies:false];
 }
 
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
+    [self addPackage:package toQueue:queue ignoreDependencies:ignore requiredBy:nil replace:nil toTop:nil];
+}
+
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue replace:(ZBPackage *)oldPackage {
-    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:nil replace:oldPackage];
+    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:nil replace:oldPackage toTop:nil];
+}
+
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue toTop:(nullable ZBPackage *)topPackage {
+    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:nil replace:nil toTop:nil];
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue requiredBy:(nullable ZBPackage *)requiredPackage {
-    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:requiredPackage replace:nil];
+    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:requiredPackage replace:nil toTop:nil];
 }
 
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
-    [self addPackage:package toQueue:queue ignoreDependencies:ignore requiredBy:nil replace:nil];
-}
-
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage {
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage toTop:(nullable ZBPackage *)topPackage {
     NSMutableArray *queueArray = [self queueArray:queue];
     if (![queueArray containsObject:package]) {
         if (queue == ZBQueueTypeReinstall && [package filename] == NULL) {
@@ -166,7 +171,7 @@
                     break;
                 case ZBQueueTypeRemove:
                     [self checkForConflictionsWithPackage:package state:1];
-                    if (requiredPackage) {
+                    if (topPackage) {
                         [self addTopPackage:requiredPackage.identifier];
                     }
                     break;

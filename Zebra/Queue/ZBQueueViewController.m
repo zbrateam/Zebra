@@ -196,11 +196,12 @@
     }
     NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {
+        ZBQueueType queue = [_queue keyToQueue:action];
         NSMutableArray <NSString *> *requiredPackageNames = [NSMutableArray array];
         for (ZBPackage *package in requiredPackages) {
             [requiredPackageNames addObject:package.name];
         }
-        [details appendString:[NSString stringWithFormat:@" (Required by %@)", [requiredPackageNames componentsJoinedByString:@", "]]];
+        [details appendString:[NSString stringWithFormat:queue == ZBQueueTypeRemove ? @"(Removed by %@)" : @" (Required by %@)", [requiredPackageNames componentsJoinedByString:@", "]]];
     }
     cell.detailTextLabel.text = details;
     

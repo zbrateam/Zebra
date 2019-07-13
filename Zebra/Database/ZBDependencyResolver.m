@@ -148,7 +148,7 @@
                 if ([[package provides] containsObject:conf.identifier] || [[package replaces] containsObject:conf.identifier]) {
                     // If this package can provide or replace this conflicting package, we can remove this conflicting package
                     // This also means, we have to install "package" first before we remove "conf"
-                    [queue addPackage:conf toQueue:ZBQueueTypeRemove requiredBy:package];
+                    [queue addPackage:conf toQueue:ZBQueueTypeRemove toTop:package];
                 }
                 else {
                     // Just remove this package
@@ -207,7 +207,6 @@
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *dependingPackage = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                // [queue markPackageAsFailed:package forConflicts:conf conflictionType:2];
                 // Before we actually remove this package, it is possible that this package is to be removed due to its dependency being removed
                 // If there is such other dependency that can provide, we should not remove this package
                 BOOL shouldRemove = YES;
@@ -222,7 +221,7 @@
                     }
                 }
                 if (shouldRemove) {
-                    [queue addPackage:dependingPackage toQueue:ZBQueueTypeRemove];
+                    [queue addPackage:dependingPackage toQueue:ZBQueueTypeRemove requiredBy:package];
                 }
             }
         }
