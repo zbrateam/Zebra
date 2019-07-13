@@ -178,6 +178,7 @@
 }
 
 + (void)configureDarkMode {
+    // Navigation bar
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     //[[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -215,11 +216,17 @@
     dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+    
+    //Keyboard
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    
+    //Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
 }
 
 + (void)configureLightMode {
+    //Navigation bar
     [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     //[[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -246,6 +253,11 @@
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [[UITableViewCell appearance] setSelectedBackgroundView:nil];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+    
+    //Keyboard
+    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
+    
+    //Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
 }
