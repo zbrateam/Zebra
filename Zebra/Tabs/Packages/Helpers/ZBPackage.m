@@ -496,7 +496,7 @@
 }
 
 - (NSString *)installedVersion {
-#if !TARGET_OS_SIMULATOR
+#if TARGET_OS_SIMULATOR
     return self.version;
 #else
 	NSTask *installedVersionTask = [[NSTask alloc] init];
