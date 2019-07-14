@@ -162,7 +162,6 @@
     if (level == ZBLogLevelError || level == ZBLogLevelWarning) {
         hadAProblem = true;
     }
-    
     [self writeToConsole:status atLevel:level];
 }
 

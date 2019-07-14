@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ZBDownloadDelegate <NSObject>
 - (void)predator:(ZBDownloadManager *)downloadManager startedDownloadForFile:(NSString *)filename;
-- (void)predator:(ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *)filename withError:(NSError *_Nullable)error;
+- (void)predator:(ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError *_Nullable)error;
 - (void)predator:(ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames;
 @optional
 - (void)predator:(ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package;
