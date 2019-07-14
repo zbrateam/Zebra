@@ -386,6 +386,7 @@
     if ([dict objectForKey:@"url"] != [NSNull null]) {
         //[cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
         [cell setRedditLink:[NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", [dict objectForKey:@"id"]]]];
+        [cell setRedditID:[dict objectForKey:@"id"]];
     } else {
         [cell setRedditLink:[NSURL URLWithString:@"https://reddit.com/r/jailbreak"]];
     }
@@ -457,16 +458,21 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIApplication *application = [UIApplication sharedApplication];
     ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:cell.redditLink entersReaderIfAvailable:NO];
-    safariVC.delegate = self;
-    if (@available(iOS 10.0, *)) {
-        [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
-        [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+    if ([application canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]]]) {
+        [application openURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]]];
     } else {
-        [safariVC.view setTintColor:[UIColor tintColor]];
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:cell.redditLink entersReaderIfAvailable:NO];
+        safariVC.delegate = self;
+        if (@available(iOS 10.0, *)) {
+            [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+            [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+        } else {
+            [safariVC.view setTintColor:[UIColor tintColor]];
+        }
+        [self presentViewController:safariVC animated:YES completion:nil];
     }
-    [self presentViewController:safariVC animated:YES completion:nil];
 }
 
 - (void)toggleNews {
