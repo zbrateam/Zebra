@@ -74,11 +74,11 @@ typedef enum {
 - (void)configureNavigationButtons {
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
-        [self configureSegmentedController];
         [self configureQueueOrShareButton];
     } else {
         [self configureLoadMoreButton];
     }
+    [self configureSegmentedController];
 }
 
 - (void)updateCollation {
@@ -102,17 +102,6 @@ typedef enum {
             [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             
-            if (self->selectedSortingType == ZBSortingTypeDate) {
-                self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                    NSDate *first = [(ZBPackage *)a installedDate];
-                    NSDate *second = [(ZBPackage *)b installedDate];
-                    return [second compare:first];
-                }];
-            }
-            else {
-                self->sortedPackages = nil;
-            }
-            [self configureNavigationButtons];
             self->isRefreshingTable = NO;
         }
         else {
@@ -123,6 +112,17 @@ typedef enum {
             self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
+        if (self->selectedSortingType == ZBSortingTypeDate) {
+            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                NSDate *first = [(ZBPackage *)a installedDate];
+                NSDate *second = [(ZBPackage *)b installedDate];
+                return [second compare:first];
+            }];
+        }
+        else {
+            self->sortedPackages = nil;
+        }
+        [self configureNavigationButtons];
         self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
