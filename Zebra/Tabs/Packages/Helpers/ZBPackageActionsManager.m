@@ -16,6 +16,15 @@
 
 @implementation ZBPackageActionsManager
 
++ (instancetype)sharedInstance {
+    static dispatch_once_t p = 0;
+    __strong static ZBPackageActionsManager *instance = nil;
+    dispatch_once(&p, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
+
 + (void)presentQueue:(UIViewController *)vc parent:(UIViewController *)parent {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UINavigationController *qvc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
@@ -162,7 +171,7 @@
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeClear; q <<= 1) {
         if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
-            NSString *title = [queue queueToKey:q];
+            NSString *title = [queue queueToKeyDisplayed:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
             [actions addObject:action];
