@@ -24,6 +24,8 @@
     BOOL ignore;
     int tasks;
     NSMutableDictionary <NSNumber *, ZBPackage *> *packageTasksMap;
+    NSMutableDictionary <NSNumber *, NSURL *> *releaseTasksMap;
+    NSMutableDictionary <NSNumber *, NSURL *> *sourcePackagesTasksMap;
 }
 @end
 
@@ -84,6 +86,8 @@
     queue = [ZBQueue sharedInstance];
     filenames = [NSMutableDictionary new];
     packageTasksMap = [NSMutableDictionary new];
+    releaseTasksMap = [NSMutableDictionary new];
+    sourcePackagesTasksMap = [NSMutableDictionary new];
 }
 
 - (NSArray *)reposFromSourcePath:(NSString *)path {
@@ -219,11 +223,13 @@
         NSURL *packagesURL = dist ? [baseURL URLByAppendingPathComponent:@"main/binary-iphoneos-arm/Packages.bz2"] : [baseURL URLByAppendingPathComponent:@"Packages.bz2"];
         
         NSURLSessionTask *releaseTask = [session downloadTaskWithURL:releaseURL];
-        tasks++;
+        releaseTasksMap[@(releaseTask.taskIdentifier)] = releaseURL;
+        ++tasks;
         [releaseTask resume];
         
         NSURLSessionTask *packagesTask = [session downloadTaskWithURL:packagesURL];
-        tasks++;
+        sourcePackagesTasksMap[@(packagesTask.taskIdentifier)] = packagesURL;
+        ++tasks;
         [packagesTask resume];
 
         NSString *schemeless = [[baseURL absoluteString] stringByReplacingOccurrencesOfString:[baseURL scheme] withString:@""];
@@ -598,8 +604,23 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    ZBPackage *package = packageTasksMap[@(task.taskIdentifier)];
-    [self->downloadDelegate predator:self finishedDownloadForFile:[package name] withError:error];
+    NSNumber *taskIdentifier = @(task.taskIdentifier);
+    ZBPackage *package = packageTasksMap[taskIdentifier];
+    if (package) {
+        [self->downloadDelegate predator:self finishedDownloadForFile:[package name] withError:error];
+    }
+    else {
+        NSURL *releaseURL = releaseTasksMap[taskIdentifier];
+        if (releaseURL) {
+            [self->downloadDelegate predator:self finishedDownloadForFile:releaseURL.absoluteString withError:error];
+        }
+        else {
+            NSURL *sourcePackagesURL = sourcePackagesTasksMap[taskIdentifier];
+            if (sourcePackagesURL) {
+                [self->downloadDelegate predator:self finishedDownloadForFile:sourcePackagesURL.absoluteString withError:error];
+            }
+        }
+    }
     if (--tasks == 0) {
         [downloadDelegate predator:self finishedAllDownloads:filenames];
     }
@@ -625,6 +646,8 @@
         }
     }];
     [packageTasksMap removeAllObjects];
+    [releaseTasksMap removeAllObjects];
+    [sourcePackagesTasksMap removeAllObjects];
     [session invalidateAndCancel];
 }
 
