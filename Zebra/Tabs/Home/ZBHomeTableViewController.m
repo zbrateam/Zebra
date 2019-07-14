@@ -45,7 +45,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCache:) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self.navigationItem setTitle:@"Home"];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self setupFeatured];
@@ -94,15 +94,22 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [self packagesFromDB];
             });
         } else {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self setFeaturedPackages];
-            });
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self cacheJSON];
+                });
+            } else {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self setupHeaderFromCache];
+                });
+            }
         }
     }
 }
 
-- (void)setFeaturedPackages {
+- (void)cacheJSON {
     NSMutableArray <ZBRepo *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    NSMutableArray *saveArray = [NSMutableArray new];
     dispatch_group_t group = dispatch_group_create();
     for (ZBRepo *repo in featuredRepos) {
         NSString *basePlusHttp;
@@ -128,7 +135,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                         if ([json objectForKey:@"banners"]) {
                             NSArray *banners = [json objectForKey:@"banners"];
                             if (banners.count) {
-                                [self->allFeatured addObjectsFromArray:banners];
+                                [saveArray addObjectsFromArray:banners];
                             }
                         }
                     }
@@ -136,8 +143,20 @@ typedef enum ZBLinksOrder : NSUInteger {
                 }] resume];
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self createHeader];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        BOOL isDir = TRUE;
+        if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] isDirectory:&isDir]) {
+            [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] withIntermediateDirectories:NO attributes:nil error:nil];
+        }
+        [saveArray writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"] atomically:YES];
+        [self setupHeaderFromCache];
     });
+}
+
+- (void)setupHeaderFromCache {
+    [allFeatured removeAllObjects];
+    [allFeatured addObjectsFromArray:[NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]];
+    [self createHeader];
 }
 
 - (void)packagesFromDB {
@@ -582,7 +601,22 @@ typedef enum ZBLinksOrder : NSUInteger {
     } else {
         NSLog(@"FALSE");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self setFeaturedPackages];
+            [self setupHeaderFromCache];
+        });
+    }
+}
+
+- (void)refreshCache:(NSNotification *)notif {
+    BOOL selected = [self.defaults boolForKey:@"randomFeatured"];
+    [allFeatured removeAllObjects];
+    if (selected) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self packagesFromDB];
+        });
+    } else {
+        NSLog(@"FALSE");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self cacheJSON];
         });
     }
 }
