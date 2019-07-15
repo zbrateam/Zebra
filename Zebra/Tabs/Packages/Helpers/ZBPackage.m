@@ -502,7 +502,6 @@
 	NSTask *installedVersionTask = [[NSTask alloc] init];
     [installedVersionTask setLaunchPath:@"/usr/bin/dpkg"];
     NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"-s", self.identifier, nil];
-    [ZBDevice asRoot:installedVersionTask arguments:versionArgs];
     [installedVersionTask setArguments:versionArgs];
     
     NSPipe *outPipe = [NSPipe pipe];

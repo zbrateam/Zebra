@@ -673,9 +673,10 @@
                 const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
                 const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
                 NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
-                NSString *packageVersion = versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL;
+                NSString *packageVersion = [NSString stringWithUTF8String:versionChars];
                 //ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 ZBPackage *package = [self packageForID:packageID equalVersion:packageVersion];
+                package.version = packageVersion;
                 [installedPackageIDs addObject:[package identifier]];
                 [installedPackages addObject:package];
             }

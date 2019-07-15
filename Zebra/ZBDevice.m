@@ -125,7 +125,7 @@
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/uicache"];
-        [self asRoot:task arguments:arguments];
+        //[self asRoot:task arguments:arguments];
         
         if (observer) {
             NSPipe *outputPipe = [[NSPipe alloc] init];
