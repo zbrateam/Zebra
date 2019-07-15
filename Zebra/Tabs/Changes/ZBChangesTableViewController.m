@@ -371,7 +371,13 @@
     NSDictionary *dict = [self.redditPosts objectAtIndex:indexPath.row];
     NSURL *url;
     if ([dict valueForKey:@"title"] != [NSNull null]) {
-        cell.postTitle.text = [[self stripTag:[dict valueForKey:@"title"]] stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+        NSString *text = [self stripTag:[dict valueForKey:@"title"]];
+        text = [text stringByRemovingPercentEncoding];
+        text = [text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+        text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+        text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+        cell.postTitle.text = text;
+        
         NSMutableArray *tags = [NSMutableArray new];
         for (NSString *string in [self getTags:[dict valueForKey:@"title"]]) {
             if ([availableOptions containsObject:string]) {
