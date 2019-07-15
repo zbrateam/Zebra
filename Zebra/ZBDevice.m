@@ -302,7 +302,7 @@
 
 + (void)applyThemeSettings {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL useIcon = [defaults boolForKey:@“packageIconAction”];
+    BOOL useIcon = [defaults boolForKey:@"packageIconAction"];
     [[ZBQueue sharedInstance] setUseIcon:useIcon];
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
