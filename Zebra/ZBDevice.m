@@ -9,6 +9,7 @@
 #import "ZBDevice.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <WebKit/WebKit.h>
+#import <Queue/ZBQueue.h>
 #import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
 #import <UIKit/UIDevice.h>
@@ -300,6 +301,9 @@
 }
 
 + (void)applyThemeSettings {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL useIcon = [defaults boolForKey:@“packageIconAction”];
+    [[ZBQueue sharedInstance] setUseIcon:useIcon];
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
     }
