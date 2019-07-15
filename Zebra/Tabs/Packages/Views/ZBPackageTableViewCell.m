@@ -10,6 +10,7 @@
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
+#import "ZBRepo.h"
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
 
@@ -17,9 +18,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor clearColor];
-    self.backgroundContainerView.layer.cornerRadius = 5;
-    self.backgroundContainerView.layer.masksToBounds = YES;
+    self.backgroundColor = [UIColor cellBackgroundColor];
+    //self.backgroundContainerView.layer.cornerRadius = 5;
+    //self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
     self.queueStatusLabel.hidden = YES;
@@ -28,12 +29,19 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.shadowRadius = 3;
+    self.iconImageView.clipsToBounds = TRUE;
 }
 
 - (void)updateData:(ZBPackage *)package {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    
+    ZBRepo *repo = package.repo;
+    NSString *repoName = repo.origin;
+    if (package.author) {
+        self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
+    } else {
+        self.authorAndRepo.text = repoName;
+    }
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
         sectionImage = [UIImage imageNamed:@"Other"];
@@ -78,6 +86,9 @@
         self.queueStatusLabel.hidden = NO;
         self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
         self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.queueStatusLabel sizeToFit];
+        });
     }
     else {
         self.queueStatusLabel.hidden = YES;
@@ -89,17 +100,30 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    self.authorAndRepo.textColor = [UIColor cellSecondaryTextColor];
+    self.backgroundColor = [UIColor cellBackgroundColor];
 }
 
-- (void)layoutSubviews {
+- (NSString *)stripEmailFromAuthor:(NSString *)name {
+    NSArray *authorName = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray *cleanedStrings = [NSMutableArray new];
+    for(NSString *cut in authorName) {
+        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
+            [cleanedStrings addObject:cut];
+        }
+    }
+    
+    return [cleanedStrings componentsJoinedByString:@" "];
+}
+
+/*- (void)layoutSubviews {
     [super layoutSubviews];
     self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0));
-}
+}*/
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
+    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 @end

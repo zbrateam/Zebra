@@ -20,7 +20,6 @@
     [super viewDidLoad];
     moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthor:self.package.author];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.title = self.developerName;
 }
 
@@ -50,7 +49,11 @@
     [(ZBPackageTableViewCell *)cell updateData:package];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -63,6 +66,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

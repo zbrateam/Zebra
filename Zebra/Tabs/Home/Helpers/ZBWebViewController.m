@@ -134,7 +134,10 @@
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
             SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
             if (@available(iOS 10.0, *)) {
-                sfVC.preferredControlTintColor = [UIColor tintColor];
+                [sfVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+                [sfVC setPreferredControlTintColor:[UIColor tintColor]];
+            } else {
+                [sfVC.view setTintColor:[UIColor tintColor]];
             }
             [self presentViewController:sfVC animated:true completion:nil];
             decisionHandler(WKNavigationActionPolicyCancel);

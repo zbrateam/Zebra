@@ -41,8 +41,6 @@
         [self logoutRepo];
     }];
     [self.navigationItem setRightBarButtonItem:self.logOut];
-    
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self listPurchasedSileoPackages];
 }
@@ -210,10 +208,10 @@
     if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        
         destination.package = [_packages objectAtIndex:indexPath.row];
         
         [_databaseManager closeDatabase];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

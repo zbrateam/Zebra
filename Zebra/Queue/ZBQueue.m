@@ -89,6 +89,29 @@
     return nil;
 }
 
+- (NSString *)queueToKeyDisplayed:(ZBQueueType)queue {
+    if (!self.useIcon) {
+        return [self queueToKey:queue];
+    }
+    switch (queue) {
+        case ZBQueueTypeInstall:
+            return @"↓";
+        case ZBQueueTypeRemove:
+            return @"╳";
+        case ZBQueueTypeUpgrade:
+            return @"↑";
+        case ZBQueueTypeReinstall:
+            return @"↺";
+        case ZBQueueTypeSelectable:
+            return @"⇵";
+        case ZBQueueTypeClear:
+            return @"⌧";
+        default:
+            break;
+    }
+    return nil;
+}
+
 - (NSMutableArray *)queueArray:(ZBQueueType)queue {
     NSString *key = [self queueToKey:queue];
     return key ? _managedQueue[key] : nil;

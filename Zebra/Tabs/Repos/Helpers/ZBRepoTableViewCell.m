@@ -18,10 +18,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor clearColor];
-    self.backgroundContainerView.layer.cornerRadius = 5;
-    self.backgroundContainerView.layer.masksToBounds = YES;
-    self.iconImageView.layer.cornerRadius = 5;
+    self.backgroundColor = [UIColor cellBackgroundColor];
+    //self.backgroundContainerView.layer.cornerRadius = 5;
+    //self.backgroundContainerView.layer.masksToBounds = YES;
+    self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.masksToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.chevronView = (UIImageView *)(self.accessoryView);
@@ -29,14 +29,9 @@
     [spinner setColor:[UIColor grayColor]];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0));
-}
-
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundContainerView.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
+    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 - (void)clearAccessoryView {

@@ -93,7 +93,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self setupEndpointButtons];
 }
@@ -213,6 +213,12 @@
         else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
+            if (@available(iOS 10.0, *)) {
+                [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+                [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+            } else {
+                [safariVC.view setTintColor:[UIColor tintColor]];
+            }
             [self presentViewController:safariVC animated:YES completion:nil];
         }
         
@@ -295,6 +301,7 @@
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
     else {
         ZBPackageListTableViewController *destination = [segue destinationViewController];

@@ -28,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
@@ -40,6 +39,7 @@
     [super viewWillAppear:animated];
     [self refreshTable];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)refreshTable {
@@ -68,6 +68,14 @@
 }
 
 #pragma mark - Table view data source
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -142,6 +150,12 @@
         else {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
             safariVC.delegate = self;
+            if (@available(iOS 10.0, *)) {
+                [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+                [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+            } else {
+                [safariVC.view setTintColor:[UIColor tintColor]];
+            }
             [self presentViewController:safariVC animated:YES completion:nil];
         }
     }
@@ -153,10 +167,6 @@
         ivc.repoImage = [[ZBDatabaseManager sharedInstance] iconForRepo:source];
         [self.navigationController pushViewController:ivc animated:YES];
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
 }
 
 - (BOOL)checkAuthenticatedRepo:(NSString *)repo {

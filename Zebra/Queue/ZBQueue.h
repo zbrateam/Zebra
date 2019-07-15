@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *managedQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedDepQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
+@property(assign) BOOL useIcon;
 + (id)sharedInstance;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore;
@@ -44,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)packagesToDownload;
 - (BOOL)needsHyena;
 - (NSString *)queueToKey:(ZBQueueType)queue;
+- (NSString *)queueToKeyDisplayed:(ZBQueueType)queue;
 - (ZBQueueType)keyToQueue:(NSString *)key;
 - (ZBQueueType)queueStatusForPackageIdentifier:(NSString *)identifier;
 - (BOOL)hasErrors;

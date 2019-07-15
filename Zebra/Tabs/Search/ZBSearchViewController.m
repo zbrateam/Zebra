@@ -60,8 +60,6 @@
     }
     self.tableView.tableFooterView = [UIView new];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"packageTableViewCell"];
     
@@ -223,7 +221,11 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -274,10 +276,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
     NSIndexPath *indexPath = sender;
-    
     destination.package = [results objectAtIndex:indexPath.row];
     
     [databaseManager closeDatabase];
+    destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {

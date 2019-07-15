@@ -9,6 +9,7 @@
 #import "ZBDevice.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <WebKit/WebKit.h>
+#import <Queue/ZBQueue.h>
 #import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
 #import <UIKit/UIDevice.h>
@@ -18,6 +19,7 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <unistd.h>
+@import SafariServices;
 
 @implementation ZBDevice
 
@@ -231,8 +233,8 @@
     
     //Tab
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [[UITabBar appearance] setBackgroundColor:nil];
+    [[UITabBar appearance] setBarTintColor:nil];
     if ([ZBDevice darkModeOledEnabled]){
         [[UITabBar appearance] setTranslucent:NO];
     } else {
@@ -243,8 +245,10 @@
     
     //Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
     [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+    
     UIView *dark = [[UIView alloc] init];
     dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
     [[UITableViewCell appearance] setSelectedBackgroundView:dark];
@@ -275,13 +279,14 @@
     //Tab
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
     [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [[UITabBar appearance] setBarTintColor:nil];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
     [[UITabBar appearance] setTranslucent:YES];
     //[[UITabBar appearance] setShadowImage:[UIImage new]];
     
     //Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [[UITableView appearance] setTintColor:[UIColor tintColor]];
     [[UITableView appearance] setTintColor:nil];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [[UITableViewCell appearance] setSelectedBackgroundView:nil];
@@ -296,6 +301,9 @@
 }
 
 + (void)applyThemeSettings {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL useIcon = [defaults boolForKey:@"packageIconAction"];
+    [[ZBQueue sharedInstance] setUseIcon:useIcon];
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
     }
