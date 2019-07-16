@@ -171,7 +171,7 @@
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeClear; q <<= 1) {
         if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
-            NSString *title = [queue queueToKeyDisplayed:q];
+            NSString *title = type == 0 ? [queue queueToKeyDisplayed:q] : [queue queueToKey:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
             [actions addObject:action];

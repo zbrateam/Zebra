@@ -33,7 +33,7 @@ enum ZBFeatureOrder {
     ZBFeatureBlacklist
 };
 
-enum ZBPackagesOrder {
+enum ZBMiscOrder {
     ZBIconAction
 };
 
@@ -49,7 +49,7 @@ enum ZBSectionOrder {
     ZBGraphics,
     ZBFeatured,
     ZBNews,
-    ZBPackages,
+    ZBMisc,
     ZBAdvanced
 };
 
@@ -153,8 +153,8 @@ enum ZBSectionOrder {
             return @"Featured";
         case ZBNews:
             return @"News";
-        case ZBPackages:
-            return @"Packages";
+        case ZBMisc:
+            return @"Miscellaneous";
         case ZBAdvanced:
             return @"Advanced";
         default:
@@ -188,7 +188,7 @@ enum ZBSectionOrder {
             }
         case ZBNews:
             return 1;
-        case ZBPackages:
+        case ZBMisc:
             return 1;
         case ZBAdvanced:
             return 4;
@@ -350,8 +350,8 @@ enum ZBSectionOrder {
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
     }
-    else if (indexPath.section == ZBPackages) {
-        static NSString *cellIdentifier = @"packageCells";
+    else if (indexPath.section == ZBMisc) {
+        static NSString *cellIdentifier = @"miscCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
