@@ -22,3 +22,7 @@ video {
     margin-left: 20px;
     min-width: 240px;
 }
+
+.userImage {
+    border-radius: 50%;
+}
