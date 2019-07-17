@@ -669,9 +669,9 @@ enum ZBPackageInfoOrder {
 - (void)checkWishList:(ZBPackage *)package {
     NSArray *wishList = [[NSUserDefaults standardUserDefaults] objectForKey:@"wishList"];
     if ([wishList containsObject:package.identifier]) {
-        infos[@"wishList"] = @"Remove from Wishlist";
+        infos[@"wishList"] = @"Remove from Wish List";
     } else {
-        infos[@"wishList"] = @"Add to Wishlist";
+        infos[@"wishList"] = @"Add to Wish List";
     }
 }
 
