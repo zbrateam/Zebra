@@ -40,6 +40,7 @@ enum ZBPackageInfoOrder {
     UIProgressView *progressView;
     WKWebView *webView;
     BOOL presented;
+    BOOL navButtonsBeingConfigured;
 }
 @end
 
@@ -77,7 +78,6 @@ enum ZBPackageInfoOrder {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureNavButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
@@ -123,15 +123,8 @@ enum ZBPackageInfoOrder {
     
     [self.tableView.tableHeaderView addSubview:progressView];
     [self.tableView setTableFooterView:webView];
-    //Web View Layout
     
-    /*[webView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
-    [webView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
-    [webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-    [webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    */
     //Progress View Layout
-    
     [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
@@ -154,6 +147,7 @@ enum ZBPackageInfoOrder {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    [self configureNavButton];
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -354,6 +348,10 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)configureNavButton {
+    if (self->navButtonsBeingConfigured) {
+        return;
+    }
+    self->navButtonsBeingConfigured = YES;
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([package isInstalled:false]) {
         if ([package isReinstallable]) {
@@ -377,6 +375,7 @@ enum ZBPackageInfoOrder {
         installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:package queue:ZBQueueTypeInstall];
         self.navigationItem.rightBarButtonItem = installButton;
     }
+    self->navButtonsBeingConfigured = NO;
 }
 
 - (void)determinePaidPackage {

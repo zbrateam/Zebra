@@ -63,6 +63,10 @@ typedef enum {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self refreshTable];
 }
 
