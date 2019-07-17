@@ -94,6 +94,15 @@
     [task setArguments:trueArguments];
 }
 
++ (void)task:(NSTask *)task withArguments:(NSArray *)arguments {
+    NSString *launchPath = task.launchPath;
+    NSArray *trueArguments = @[launchPath];
+    if (arguments) {
+        trueArguments = [trueArguments arrayByAddingObjectsFromArray:arguments];
+    }
+    [task setArguments:trueArguments];
+}
+
 + (void)sbreload {
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
@@ -125,7 +134,7 @@
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/uicache"];
-        //[self asRoot:task arguments:arguments];
+        [self task:task withArguments:arguments];
         
         if (observer) {
             NSPipe *outputPipe = [[NSPipe alloc] init];

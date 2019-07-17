@@ -20,6 +20,7 @@
 + (void)hapticButton;
 
 //Commands
++ (void)task:(NSTask *_Nullable)task withArguments:(NSArray *_Nullable)arguments;
 + (void)asRoot:(NSTask *_Nullable)task arguments:(NSArray *_Nullable)arguments;
 + (void)sbreload;
 + (void)uicache:(NSArray *_Nonnull)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
