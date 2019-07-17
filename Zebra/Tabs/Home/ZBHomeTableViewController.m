@@ -38,8 +38,10 @@ typedef enum ZBLinksOrder : NSUInteger {
 @end
 
 @implementation ZBHomeTableViewController
+
 @synthesize allFeatured;
 @synthesize selectedFeatured;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
@@ -160,7 +162,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)packagesFromDB {
     NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesFromRepo:NULL inSection:NULL numberOfPackages:300 startingAt:0];
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
-    NSLog(@"blocked REPOS %@", blockedRepos);
+    NSLog(@"[Zebra] Blocked REPOS %@", blockedRepos);
     if (!blockedRepos) {
         blockedRepos = [NSArray new];
     }
@@ -170,7 +172,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (![blockedRepos containsObject:package.repo.baseURL]) {
             if (package.iconPath) {
-                if (![[NSURL URLWithString:package.iconPath] isFileURL]) {
+                if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
                     [dict setObject:package.iconPath forKey:@"url"];
                     [dict setObject:package.identifier forKey:@"package"];
                     [dict setObject:package.name forKey:@"title"];
