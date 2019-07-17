@@ -214,9 +214,8 @@
                     ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:false];
                     if (depPackage) {
                         ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:true];
-                        if (providingPackage && ![providingPackage sameAs:depPackage]) {
-                            shouldRemove = NO;
-                            break;
+                        if (providingPackage && shouldRemove) {
+                            shouldRemove = ![providingPackage sameAs:depPackage];
                         }
                     }
                 }
