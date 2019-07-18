@@ -168,9 +168,6 @@
                     }] resume];
             [self setCheckedSupportFeaturedPackages:YES];
         }
-        
-        
-        
     }
     
     return self;

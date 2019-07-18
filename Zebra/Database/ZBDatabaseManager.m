@@ -198,7 +198,7 @@
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
-    [self bulkPostStatusUpdate:@"Download Complete\n" atLevel:ZBLogLevelInfo];
+    [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
     NSArray *releaseFiles = filenames[@"release"];
     NSArray *packageFiles = filenames[@"packages"];
     
