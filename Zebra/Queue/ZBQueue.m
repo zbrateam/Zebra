@@ -166,10 +166,15 @@
             if (package == NULL) return;
         }
         packageQueues[package.identifier] = @(queue);
+        BOOL added = NO;
         if (requiredPackage) {
-            [queueArray insertObject:package atIndex:[queueArray indexOfObject:requiredPackage]];
+            NSUInteger requiredPackageIndex = [queueArray indexOfObject:requiredPackage];
+            if (requiredPackageIndex != NSNotFound) {
+                [queueArray insertObject:package atIndex:requiredPackageIndex];
+                added = YES;
+            }
         }
-        else {
+        if (!added) {
             [queueArray addObject:package];
         }
         [self clearPackage:package inOtherQueuesExcept:queue];
