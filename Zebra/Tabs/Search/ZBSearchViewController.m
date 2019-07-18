@@ -65,6 +65,7 @@
     
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [self configureClearSearchButton];
     [self refreshTable];
 }
 
@@ -73,16 +74,28 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
+- (void)configureClearSearchButton {
+    self.navigationItem.rightBarButtonItem = searches.count ? [[UIBarButtonItem alloc] initWithTitle:@"Clear Search" style:UIBarButtonItemStylePlain target:self action:@selector(clearSearches)] : nil;
+}
+
+- (void)clearSearches {
+    [self->searches removeAllObjects];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"searches"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    self.navigationItem.rightBarButtonItem = nil;
+    [self refreshTable];
+}
+
 - (void)refreshTable {
-    [UIView transitionWithView: self.tableView
-                      duration: 0.35f
-                      options: UIViewAnimationOptionTransitionCrossDissolve
-                      animations: ^(void) {
+    [UIView transitionWithView:self.tableView
+                      duration:0.35f
+                      options:UIViewAnimationOptionTransitionCrossDissolve
+                      animations:^(void) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
                             [self setNeedsStatusBarAppearanceUpdate];
                         });
-                      }completion: nil];
+                      } completion: nil];
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {
@@ -135,6 +148,7 @@
     NSLog(@"[Zebra] Searches: %@", searches);
     [[NSUserDefaults standardUserDefaults] setObject:searches forKey:@"searches"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self configureClearSearchButton];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -198,7 +212,8 @@
         [cell updateData:package];
         [cell setColors];
         return cell;
-    } else {
+    }
+    else {
         static NSString *recentSearches = @"recentSearches";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recentSearches];
         if (cell == nil) {
@@ -214,18 +229,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (searchController.active) {
         [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
-    } else {
+    }
+    else {
         searchController.active = YES;
         searchController.searchBar.text = [searches objectAtIndex:indexPath.row];
         [self searchBar:searchController.searchBar textDidChange:[searches objectAtIndex:indexPath.row]];
     }
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -258,6 +274,7 @@
             [self->searches removeObjectAtIndex:indexPath.row];
             [[NSUserDefaults standardUserDefaults] setObject:self->searches forKey:@"searches"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [self configureClearSearchButton];
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
