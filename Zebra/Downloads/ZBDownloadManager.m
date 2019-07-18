@@ -23,6 +23,7 @@
 @interface ZBDownloadManager () {
     BOOL ignore;
     int tasks;
+    int failedTasks;
     NSMutableDictionary <NSNumber *, ZBPackage *> *packageTasksMap;
     NSMutableDictionary <NSNumber *, NSURL *> *releaseTasksMap;
     NSMutableDictionary <NSNumber *, NSURL *> *sourcePackagesTasksMap;
@@ -274,13 +275,17 @@
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
         ZBRepo *repo = [package repo];
+        NSString *filename = [package filename];
         
-        if (repo == NULL || [package filename] == NULL) {
-            break;
+        if (repo == NULL || filename == NULL) {
+            if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not find a download URL for %@ (%@)\n", package.name, package.identifier] atLevel:ZBLogLevelWarning];
+            }
+            ++failedTasks;
+            continue;
         }
         
         NSString *baseURL = [repo isSecure] ? [@"https://" stringByAppendingString:[repo baseURL]] : [@"http://" stringByAppendingString:[repo baseURL]];
-        NSString *filename = [package filename];
         NSURL *url = [NSURL URLWithString:filename];
         
         NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
@@ -288,7 +293,7 @@
         
         if (url && url.host && url.scheme) {
             NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:url];
-            tasks++;
+            ++tasks;
             
             packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
@@ -297,7 +302,7 @@
         else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url) {
                 NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
-                self->tasks++;
+                ++self->tasks;
                 
                 self->packageTasksMap[@(downloadTask.taskIdentifier)] = package;
                 [self->downloadDelegate predator:self startedDownloadForFile:package.name];
@@ -307,12 +312,16 @@
         else {
             url = [base URLByAppendingPathComponent:filename];
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
-            tasks++;
+            ++tasks;
             
             packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
         }
+    }
+    if (failedTasks == packages.count) {
+        failedTasks = 0;
+        [self->downloadDelegate predator:self finishedAllDownloads:@{}];
     }
 }
 
