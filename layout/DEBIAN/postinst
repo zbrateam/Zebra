@@ -29,6 +29,3 @@ if [ -d "/var/mobile/Library/Application Support/xyz.willy.Zebra" ];then
     chown -R mobile:mobile "/var/mobile/Library/Application Support/xyz.willy.Zebra"
     chmod -R +r "/var/mobile/Library/Application Support/xyz.willy.Zebra"
 fi
-
-# I really don't like this, but its the only way to ensure alternate icons are available -MNC
-uicache -p /Applications/Zebra.app

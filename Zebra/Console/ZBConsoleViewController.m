@@ -26,6 +26,7 @@
     NSMutableArray *bundlePaths;
     NSMutableDictionary <NSString *, NSNumber *> *downloadingMap;
     ZBDownloadManager *downloadManager;
+    BOOL hasZebraUpdated;
 }
 @end
 
@@ -80,7 +81,7 @@
 - (void)downloadPackages {
     NSArray *packages = [queue packagesToDownload];
     
-    [self writeToConsole:@"Downloading Packages.\n" atLevel:ZBLogLevelInfo];
+    [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelInfo];
     downloadManager = [[ZBDownloadManager alloc] init];
     downloadManager.downloadDelegate = self;
     
@@ -105,7 +106,13 @@
                         BOOL update = [ZBPackage containsApp:packageID];
                         if (update) {
                             needsIconCacheUpdate = true;
-                            [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
+                            NSString *path = [ZBPackage pathForApplication:packageID];
+                            if (path) {
+                                [bundlePaths addObject:path];
+                                if ([packageID isEqualToString:[ZBAppDelegate bundleID]]) {
+                                    self->hasZebraUpdated = YES;
+                                }
+                            }
                         }
                         
                         if (!needsRespring) {
@@ -162,6 +169,9 @@
                                 NSString *path = [ZBPackage pathForApplication:packageID];
                                 if (path) {
                                     [bundlePaths addObject:path];
+                                    if ([packageID isEqualToString:[ZBAppDelegate bundleID]]) {
+                                        self->hasZebraUpdated = YES;
+                                    }
                                 }
                             }
                             
@@ -246,7 +256,7 @@
         else {
             [arguments addObject:@"-p"];
             for (NSString *packageID in uicaches) {
-                if ([packageID isEqualToString:@"-p"]) continue;
+                if ([packageID isEqualToString:@"-p"] || [packageID isEqualToString:[ZBAppDelegate bundleID]]) continue;
                 
                 NSString *bundlePath = [ZBPackage pathForApplication:packageID];
                 if (bundlePath != NULL) [bundlePaths addObject:bundlePath];
@@ -269,9 +279,13 @@
         self->_completeButton.hidden = false;
         self->_progressText.text = nil;
         
-        if (self->needsRespring) {
+        if (self->hasZebraUpdated) {
             [self addCloseButton];
-            
+            [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
+            [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else if (self->needsRespring) {
+            [self addCloseButton];
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -303,6 +317,13 @@
 - (void)goodbye {
     [self clearConsole];
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)closeZebra {
+    if (![ZBDevice needsSimulation]) {
+        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+    }
+    exit(1); // Correct?
 }
 
 - (void)restartSpringBoard {
@@ -450,10 +471,17 @@
     _progressText.text = [NSString stringWithFormat:@"Downloading: %.1f%%", totalProgress * 100];
 }
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
-    NSArray *debs = [filenames objectForKey:@"debs"];
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames {
     _progressText.text = nil;
-    [self performSelectorInBackground:@selector(performActions:) withObject:debs];
+    if (filenames.count) {
+        NSArray *debs = [filenames objectForKey:@"debs"];
+        [self performSelectorInBackground:@selector(performActions:) withObject:debs];
+    }
+    else {
+        continueWithActions = false;
+        [self cancel];
+        [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
+    }
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
@@ -471,6 +499,10 @@
 }
 
 #pragma mark - Database Delegate
+
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    [self writeToConsole:status atLevel:level];
+}
 
 - (void)databaseStartedUpdate {
     [self writeToConsole:@"Importing local packages.\n" atLevel:ZBLogLevelInfo];
