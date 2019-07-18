@@ -53,7 +53,7 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    selectedSortingType = ZBSortingTypeABC;
+    selectedSortingType = [[NSUserDefaults standardUserDefaults] boolForKey:@"sortPackagesByRecent"] ? ZBSortingTypeDate : ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -305,6 +305,8 @@ typedef enum {
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
+    [[NSUserDefaults standardUserDefaults] setBool:selectedSortingType == ZBSortingTypeDate forKey:@"sortPackagesByRecent"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self refreshTable];
 }
 
@@ -398,11 +400,11 @@ typedef enum {
     return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
