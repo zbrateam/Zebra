@@ -109,7 +109,7 @@
                             NSString *path = [ZBPackage pathForApplication:packageID];
                             if (path) {
                                 [bundlePaths addObject:path];
-                                if ([packageID isEqualToString:[ZBAppDelegate bundleID]]) {
+                                if (!self->hasZebraUpdated && [packageID isEqualToString:[ZBAppDelegate bundleID]]) {
                                     self->hasZebraUpdated = YES;
                                 }
                             }
@@ -169,7 +169,7 @@
                                 NSString *path = [ZBPackage pathForApplication:packageID];
                                 if (path) {
                                     [bundlePaths addObject:path];
-                                    if ([packageID isEqualToString:[ZBAppDelegate bundleID]]) {
+                                    if (!self->hasZebraUpdated && [packageID isEqualToString:[ZBAppDelegate bundleID]]) {
                                         self->hasZebraUpdated = YES;
                                     }
                                 }
@@ -355,33 +355,28 @@
 }
 
 - (void)updateStatus:(int)s {
+    stage = s;
     switch (s) {
         case 0:
-            stage = 0;
             [self setTitle:@"Installing"];
             [self writeToConsole:@"Installing Packages...\n" atLevel:ZBLogLevelInfo];
             break;
         case 1:
-            stage = 1;
             [self setTitle:@"Removing"];
             [self writeToConsole:@"Removing Packages...\n" atLevel:ZBLogLevelInfo];
             break;
         case 2:
-            stage = 2;
             [self setTitle:@"Reinstalling"];
             [self writeToConsole:@"Reinstalling Packages...\n" atLevel:ZBLogLevelInfo];
             break;
         case 3:
-            stage = 3;
             [self setTitle:@"Upgrading"];
             [self writeToConsole:@"Upgrading Packages...\n" atLevel:ZBLogLevelInfo];
             break;
         case 4:
-            stage = 4;
             [self setTitle:@"Done!"];
             [self writeToConsole:@"Done!\n" atLevel:ZBLogLevelInfo];
             break;
-
         default:
             break;
     }
