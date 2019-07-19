@@ -56,19 +56,22 @@
     }
     else {
         hadAProblem = true;
-        
         for (NSString *message in messages) {
             [self writeToConsole:message atLevel:ZBLogLevelError];
         }
-        
-        [self goodbye];
+        [self clearProblems];
     }
 }
 
 - (IBAction)completeButton:(id)sender {
+    [self clearProblems];
+    [self goodbye];
+}
+
+- (void)clearProblems {
     messages = NULL;
     hadAProblem = false;
-    [self goodbye];
+    self.completeButton.hidden = false;
 }
 
 - (void)goodbye {
@@ -76,19 +79,13 @@
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:false];
     }
     else {
-        if (hadAProblem) {
-            messages = NULL;
-            self.completeButton.hidden = false;
+        if ([self presentingViewController] != NULL) {
+            [self dismissViewControllerAnimated:true completion:nil];
         }
         else {
-            if ([self presentingViewController] != NULL) {
-                [self dismissViewControllerAnimated:true completion:nil];
-            }
-            else {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-                [self presentViewController:vc animated:YES completion:nil];
-            }
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+            [self presentViewController:vc animated:YES completion:nil];
         }
     }
 }
@@ -98,25 +95,15 @@
         return;
     __block BOOL isDark = [ZBDevice darkModeEnabled];
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIColor *color;
+        UIColor *color = [UIColor whiteColor];
         UIFont *font;
         switch (level) {
-            case ZBLogLevelDescript: {
-                if (isDark) {
-                    color = [UIColor whiteColor];
-                } else {
-                    color = [UIColor blackColor];
-                }
-                font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
-                break;
-            }
+            case ZBLogLevelDescript:
             case ZBLogLevelInfo: {
-                if (isDark) {
-                    color = [UIColor whiteColor];
-                } else {
+                if (!isDark) {
                     color = [UIColor blackColor];
                 }
-                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
+                font = [UIFont fontWithName:level == ZBLogLevelDescript ? @"CourierNewPSMT" : @"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
             case ZBLogLevelError: {
@@ -130,7 +117,6 @@
                 break;
             }
             default: {
-                color = [UIColor whiteColor];
                 break;
             }
         }
@@ -155,7 +141,9 @@
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
     [tabController setPackageUpdateBadgeValue:packageUpdates];
-    [self goodbye];
+    if (!hadAProblem) {
+        [self goodbye];
+    }
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
