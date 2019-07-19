@@ -194,7 +194,10 @@
             switch (queue) {
                 case ZBQueueTypeInstall:
                     [self enqueueDependenciesForPackage:package];
+                    [self checkForConflictionsWithPackage:package state:0];
+                    break;
                 case ZBQueueTypeUpgrade:
+                    [self enqueueDependenciesForPackage:package];
                     [self checkForConflictionsWithPackage:package state:0];
                     break;
                 case ZBQueueTypeRemove:

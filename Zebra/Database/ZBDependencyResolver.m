@@ -166,14 +166,14 @@
                 ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 for (NSString *dep in [conf conflictsWith]) {
                     if ([dep isEqualToString:package.identifier]) {
-                        if ([[conf conflictsWith] containsObject:package.identifier]) {
-                            // If this conflicting package (conf) conflicts with this not-installed package, we remove conf
-                            [queue addPackage:conf toQueue:ZBQueueTypeRemove];
-                            continue;
-                        }
-                        else if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
+                        if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
                             // If this conflicting package (conf) can replace this not-installed package, we don't have to install this package (package)
                             [queue removePackage:package fromQueue:ZBQueueTypeInstall];
+                            continue;
+                        }
+                        else if ([[conf conflictsWith] containsObject:package.identifier]) {
+                            // If this conflicting package (conf) conflicts with this not-installed package, we remove conf
+                            [queue addPackage:conf toQueue:ZBQueueTypeRemove];
                             continue;
                         }
                         [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
