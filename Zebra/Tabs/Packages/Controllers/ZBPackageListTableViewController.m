@@ -195,17 +195,19 @@ typedef enum {
 }
 
 - (void)configureQueueOrShareButton {
-    if ([[ZBQueue sharedInstance] hasObjects]) {
-        self->queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-        self->clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
-        self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
-    }
-    else {
-        self->queueButton = self->clearButton = nil;
-        self.navigationItem.leftBarButtonItems = nil;
-        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
-        self.navigationItem.leftBarButtonItem = shareButton;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([[ZBQueue sharedInstance] hasObjects]) {
+            self->queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+            self->clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
+            self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
+        }
+        else {
+            self->queueButton = self->clearButton = nil;
+            self.navigationItem.leftBarButtonItems = nil;
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+            self.navigationItem.leftBarButtonItem = shareButton;
+        }
+    });
 }
 
 - (void)presentQueue {
