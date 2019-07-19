@@ -120,7 +120,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         }
         dispatch_group_enter(group);
         NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:basePlusHttp]];
-        NSLog(@"asdfasdf a %@", requestURL.absoluteString);
+        NSLog(@"[Zebra] Cached JSON request URL: %@", requestURL.absoluteString);
         NSURL *checkingURL = requestURL;
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:checkingURL
@@ -128,7 +128,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSLog(@"JSON %@", json);
+                        NSLog(@"[Zebra] JSON response data: %@", json);
                         if (!repo.supportsFeaturedPackages) {
                             repo.supportsFeaturedPackages = YES;
                         }
