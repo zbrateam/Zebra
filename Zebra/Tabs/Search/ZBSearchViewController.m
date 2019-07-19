@@ -233,7 +233,7 @@
     else {
         searchController.active = YES;
         searchController.searchBar.text = [searches objectAtIndex:indexPath.row];
-        [self searchBar:searchController.searchBar textDidChange:[searches objectAtIndex:indexPath.row]];
+        [self searchBarSearchButtonClicked:searchController.searchBar];
     }
 }
 
