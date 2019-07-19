@@ -121,26 +121,28 @@
     [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        //NSLog(@"DIcT %@", json);
-        NSDictionary *dataDict = [json objectForKey:@"data"];
-        //NSLog(@"DataDict %@", dataDict);
-        for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
-            NSDictionary *postData = [dict objectForKey:@"data"];
-            //NSLog(@"POST DATA %@", postData);
-            if ([postData objectForKey:@"title"] != [NSNull null]) {
-                //if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"jailbreak release"]) {
-                NSArray *post = [self getTags:[postData valueForKey:@"title"]];
-                for (NSString *string in self->availableOptions) {
-                    if ([post containsObject:string] && ![self.redditPosts containsObject:postData]) {
-                        [self.redditPosts addObject:postData];
-                        //NSLog(@"redditposts %@", self.redditPosts);
+        if (data) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            //NSLog(@"DIcT %@", json);
+            NSDictionary *dataDict = [json objectForKey:@"data"];
+            //NSLog(@"DataDict %@", dataDict);
+            for (NSDictionary *dict in [dataDict objectForKey:@"children"]) {
+                NSDictionary *postData = [dict objectForKey:@"data"];
+                //NSLog(@"POST DATA %@", postData);
+                if ([postData objectForKey:@"title"] != [NSNull null]) {
+                    //if ([[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"release"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"update"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"upcoming"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"news"] || [[postData objectForKey:@"link_flair_css_class"] isEqualToString:@"jailbreak release"]) {
+                    NSArray *post = [self getTags:[postData valueForKey:@"title"]];
+                    for (NSString *string in self->availableOptions) {
+                        if ([post containsObject:string] && ![self.redditPosts containsObject:postData]) {
+                            [self.redditPosts addObject:postData];
+                            //NSLog(@"redditposts %@", self.redditPosts);
+                        }
                     }
                 }
             }
         }
         if (error) {
-            NSLog(@"ERRORED %@", error);
+            NSLog(@"[Zebra] Error retrieving news JSON %@", error);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             //[self animateTable];

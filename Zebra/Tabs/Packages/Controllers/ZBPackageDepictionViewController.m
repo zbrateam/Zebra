@@ -488,14 +488,16 @@ enum ZBPackageInfoOrder {
                 [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
                 [request setHTTPBody: requestData];
                 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    NSLog(@"[Zebra] Package purchase response: %@",json);
-                    if ([json[@"status"] boolValue]) {
-                        [uiBusy stopAnimating];
-                        [self initPurchaseLink:json[@"url"]];
-                    }
-                    else {
-                        [self configureNavButton];
+                    if (data) {
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        NSLog(@"[Zebra] Package purchase response: %@",json);
+                        if ([json[@"status"] boolValue]) {
+                            [uiBusy stopAnimating];
+                            [self initPurchaseLink:json[@"url"]];
+                        }
+                        else {
+                            [self configureNavButton];
+                        }
                     }
                 }] resume];
             }
