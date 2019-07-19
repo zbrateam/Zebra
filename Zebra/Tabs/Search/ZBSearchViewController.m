@@ -208,6 +208,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (searchController.active) {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        if (indexPath.row >= results.count) {
+            return nil;
+        }
         ZBPackage *package = [results objectAtIndex:indexPath.row];
         [cell updateData:package];
         [cell setColors];
