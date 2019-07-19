@@ -274,7 +274,10 @@
     
     [self removeAllDebs];
     [self updateStatus:4];
-    
+    [self updateCompleteButton];
+}
+
+- (void)updateCompleteButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = false;
         self->_progressText.text = nil;
@@ -481,6 +484,8 @@
         continueWithActions = false;
         [self cancel];
         [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
+        [self updateStatus:4];
+        [self updateCompleteButton];
     }
 }
 
