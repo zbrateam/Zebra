@@ -75,12 +75,12 @@ typedef enum {
         for (NSString *message in messages) {
             [self writeToConsole:message atLevel:ZBLogLevelError];
         }
+        buttonState = ZBStateDone;
         [self clearProblems];
     }
 }
 
 - (IBAction)completeOrCancelButton:(id)sender {
-    [self clearProblems];
     if (buttonState == ZBStateDone) {
         [self goodbye];
     }
@@ -104,6 +104,7 @@ typedef enum {
 - (void)clearProblems {
     messages = NULL;
     hadAProblem = NO;
+    self->_consoleView.text = nil;
 }
 
 - (void)goodbye {
@@ -111,6 +112,7 @@ typedef enum {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     }
     else {
+        [self clearProblems];
         if ([self presentingViewController] != NULL) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }

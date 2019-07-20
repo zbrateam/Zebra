@@ -373,6 +373,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        console.messages = nil;
         console.dropTables = [dropTables boolValue];
         [self presentViewController:console animated:true completion:nil];
     });

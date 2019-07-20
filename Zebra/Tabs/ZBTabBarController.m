@@ -59,6 +59,7 @@
         [databaseManager setNeedsToPresentRefresh:false];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+        refreshController.messages = nil;
         refreshController.dropTables = YES;
         
         [self presentViewController:refreshController animated:true completion:nil];
@@ -141,6 +142,7 @@
             refreshController.messages = self->errorMessages;
             
             [self presentViewController:refreshController animated:true completion:nil];
+            self->errorMessages = nil;
         }
     });
 }
