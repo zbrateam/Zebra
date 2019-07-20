@@ -107,7 +107,7 @@
             [self retrieveNewsJson];
         }
         if (error) {
-            NSLog(@"ERRORED %@", error);
+            NSLog(@"[Zebra] Error getting reddit token: %@", error);
         }
     }] resume];
 }
@@ -230,11 +230,11 @@
     return [self tableView:tableView numberOfRowsInSection:section] ? 30 : 0;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -286,7 +286,7 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (ZBPackageTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     [cell setColors];
     return cell;
@@ -313,7 +313,9 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
+        // TODO: Reloading the entire Changes table for each swipe is a bit too much, especially for slow devices
+        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [cell updateData:package];
     }];
 }
 
@@ -501,4 +503,5 @@
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
 }
+
 @end

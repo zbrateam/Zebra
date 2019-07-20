@@ -99,19 +99,12 @@
                 
                 NSArray *knownDistsURLs = @[
                                             @"apt.thebigboss.org/repofiles/cydia/",
-                                            @"apt.thebigboss.org/repofiles/cydia",
                                             @"apt.thebigboss.org/",
-                                            @"apt.thebigboss.org",
                                             @"apt.modmyi.com/",
-                                            @"apt.modmyi.com",
                                             @"apt.saurik.com/",
-                                            @"apt.saurik.com",
                                             @"apt.bingner.com/",
-                                            @"apt.bingner.com",
                                             @"cydia.zodttd.com/repo/cydia/",
-                                            @"cydia.zodttd.com/repo/cydia",
-                                            @"cydia.zodttd.com/",
-                                            @"cydia.zodttd.com"];
+                                            @"cydia.zodttd.com/"];
                 
                 for (NSURL *detectedURL in detectedURLs) {
                     dispatch_group_enter(group);
