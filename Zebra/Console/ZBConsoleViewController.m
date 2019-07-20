@@ -39,7 +39,6 @@
 
     [self setTitle:@"Console"];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    [self.navigationItem setHidesBackButton:true animated:true];
     
     queue = [ZBQueue sharedInstance];
     stage = -1;
@@ -278,6 +277,7 @@
 }
 
 - (void)updateCompleteButton {
+    [self.navigationItem setHidesBackButton:YES animated:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = false;
         self->_progressText.text = nil;
@@ -305,6 +305,7 @@
 }
 
 - (void)cancel {
+    [self.navigationItem setHidesBackButton:YES animated:NO];
     [downloadManager stopAllDownloads];
     [downloadingMap removeAllObjects];
     self.navigationItem.leftBarButtonItem = nil;
