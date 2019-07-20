@@ -32,30 +32,32 @@
     if ([databaseManager isDatabaseBeingUpdated])
         return;
     [databaseManager addDatabaseDelegate:self];
-    [self setRepoRefreshIndicatorVisible:true];
+    [self setRepoRefreshIndicatorVisible:YES];
     BOOL singleRepo = NO;
     if ([self respondsToSelector:@selector(repo)]) {
         ZBRepo *repo = [(ZBPackageListTableViewController *)self repo];
         if ([repo repoID] > 0) {
-            [databaseManager updateRepo:repo useCaching:true];
+            [databaseManager updateRepo:repo useCaching:YES];
             singleRepo = YES;
         }
     }
     if (!singleRepo) {
-        [databaseManager updateDatabaseUsingCaching:true userRequested:true];
+        [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
     }
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
-    [self setRepoRefreshIndicatorVisible:false];
+    if (packageUpdates != -1) {
+        [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+    }
+    [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
     });
 }
 
 - (void)databaseStartedUpdate {
-    [self setRepoRefreshIndicatorVisible:true];
+    [self setRepoRefreshIndicatorVisible:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

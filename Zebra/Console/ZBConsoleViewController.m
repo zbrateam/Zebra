@@ -513,8 +513,10 @@
     
     NSLog(@"[Zebra] %d updates available.", packageUpdates);
     
-    ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-    [tabController setPackageUpdateBadgeValue:packageUpdates];
+    if (packageUpdates != -1) {
+        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+        [tabController setPackageUpdateBadgeValue:packageUpdates];
+    }
     
     [self finishUp];
 }

@@ -10,13 +10,20 @@
 #import <ZBDevice.h>
 #import "ZBRefreshViewController.h"
 #import <Database/ZBDatabaseManager.h>
+#import <Downloads/ZBDownloadManager.h>
 #include <Parsel/parsel.h>
+
+typedef enum {
+    ZBStateCancel = 0,
+    ZBStateDone
+} ZBRefreshButtonState;
 
 @interface ZBRefreshViewController () {
     ZBDatabaseManager *databaseManager;
     BOOL hadAProblem;
+    ZBRefreshButtonState buttonState;
 }
-@property (strong, nonatomic) IBOutlet UIButton *completeButton;
+@property (strong, nonatomic) IBOutlet UIButton *completeOrCancelButton;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @end
 
@@ -26,11 +33,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (_dropTables) {
+        self.completeOrCancelButton.hidden = YES;
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     if ([ZBDevice darkModeEnabled]) {
         [self setNeedsStatusBarAppearanceUpdate];
         [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
         [_consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     }
+}
+
+- (void)disableCancelButton {
+    buttonState = ZBStateDone;
+    self.completeOrCancelButton.hidden = YES;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -52,10 +68,10 @@
             [databaseManager dropTables];
         }
         
-        [databaseManager updateDatabaseUsingCaching:false userRequested:true];
+        [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
     }
     else {
-        hadAProblem = true;
+        hadAProblem = YES;
         for (NSString *message in messages) {
             [self writeToConsole:message atLevel:ZBLogLevelError];
         }
@@ -63,24 +79,40 @@
     }
 }
 
-- (IBAction)completeButton:(id)sender {
+- (IBAction)completeOrCancelButton:(id)sender {
     [self clearProblems];
-    [self goodbye];
+    if (buttonState == ZBStateDone) {
+        [self goodbye];
+    }
+    else {
+        if (_dropTables) {
+            return;
+        }
+        [databaseManager setDatabaseBeingUpdated:NO];
+        [databaseManager setHaltDatabaseOperations];
+        [databaseManager.downloadManager stopAllDownloads];
+        [databaseManager removeDatabaseDelegate:self];
+        [databaseManager bulkDatabaseCompletedUpdate:-1];
+        ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
+        [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
+        
+        buttonState = ZBStateDone;
+        [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
+    }
 }
 
 - (void)clearProblems {
     messages = NULL;
-    hadAProblem = false;
-    self.completeButton.hidden = false;
+    hadAProblem = NO;
 }
 
 - (void)goodbye {
     if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:false];
+        [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     }
     else {
         if ([self presentingViewController] != NULL) {
-            [self dismissViewControllerAnimated:true completion:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -98,8 +130,7 @@
         UIColor *color = [UIColor whiteColor];
         UIFont *font;
         switch (level) {
-            case ZBLogLevelDescript:
-            case ZBLogLevelInfo: {
+            case ZBLogLevelDescript ... ZBLogLevelInfo: {
                 if (!isDark) {
                     color = [UIColor blackColor];
                 }
@@ -135,20 +166,25 @@
 #pragma mark - Database Delegate
 
 - (void)databaseStartedUpdate {
-    hadAProblem = false;
+    hadAProblem = NO;
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-    [tabController setPackageUpdateBadgeValue:packageUpdates];
+    if (packageUpdates != -1) {
+        [tabController setPackageUpdateBadgeValue:packageUpdates];
+    }
     if (!hadAProblem) {
         [self goodbye];
+    }
+    else {
+        [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
     }
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
     if (level == ZBLogLevelError || level == ZBLogLevelWarning) {
-        hadAProblem = true;
+        hadAProblem = YES;
     }
     [self writeToConsole:status atLevel:level];
 }

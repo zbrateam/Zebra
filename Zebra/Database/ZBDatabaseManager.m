@@ -22,6 +22,7 @@
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
     BOOL databaseBeingUpdated;
+    BOOL haltedDatabaseOperations;
 }
 @end
 
@@ -100,6 +101,10 @@
     return databaseBeingUpdated;
 }
 
+- (void)setDatabaseBeingUpdated:(BOOL)updated {
+    databaseBeingUpdated = updated;
+}
+
 - (BOOL)isDatabaseOpen {
     return numberOfDatabaseUsers > 0 || database != NULL;
 }
@@ -116,6 +121,10 @@
     if (![self.databaseDelegates containsObject:delegate]) {
         [self.databaseDelegates addObject:delegate];
     }
+}
+
+- (void)removeDatabaseDelegate:(id <ZBDatabaseDelegate>)delegate {
+    [self.databaseDelegates removeObject:delegate];
 }
 
 - (void)bulkDatabaseStartedUpdate {
@@ -177,9 +186,9 @@
     
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
-        ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
+        self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
         [self bulkPostStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
-        [downloadManager downloadReposAndIgnoreCaching:!useCaching];
+        [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
     }
     else {
         [self importLocalPackagesAndCheckForUpdates:true sender:self];
@@ -192,13 +201,23 @@
     databaseBeingUpdated = YES;
     
     [self bulkDatabaseStartedUpdate];
-    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
+    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Updating Repository (%@)\n", repo.origin] atLevel:ZBLogLevelInfo];
-    [downloadManager downloadReposAndIgnoreCaching:!useCaching];
+    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+}
+
+- (void)setHaltDatabaseOperations {
+    haltedDatabaseOperations = YES;
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
+    if (haltedDatabaseOperations) {
+        haltedDatabaseOperations = NO;
+        return;
+    }
     [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
+    self.downloadManager = nil;
     NSArray *releaseFiles = filenames[@"release"];
     NSArray *packageFiles = filenames[@"packages"];
     

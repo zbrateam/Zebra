@@ -31,6 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSMutableArray <id <ZBDatabaseDelegate>> *databaseDelegates;
 
+/*!
+ @brief The current download manager
+ @discussion The current download manager used during database update.
+ */
+@property (nonatomic, strong) ZBDownloadManager *_Nullable downloadManager;
+
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
 
@@ -67,6 +73,13 @@ NS_ASSUME_NONNULL_BEGIN
  @return true if the database is being updated, false otherwise.
  */
 - (BOOL)isDatabaseBeingUpdated;
+- (void)setDatabaseBeingUpdated:(BOOL)updated;
+- (void)setHaltDatabaseOperations;
+
+- (void)bulkDatabaseStartedUpdate;
+- (void)bulkDatabaseCompletedUpdate:(int)updates;
+- (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
+- (void)bulkSetRepo:(NSString *)bfn busy:(BOOL)busy;
 
 /*!
  @brief Prints sqlite_errmsg to the log.
@@ -126,6 +139,12 @@ NS_ASSUME_NONNULL_BEGIN
  @param delegate A database delegate to be added.
  */
 - (void)addDatabaseDelegate:(id <ZBDatabaseDelegate>)delegate;
+
+/*!
+ @brief Remove database delegate.
+ @param delegate A database delegate to be removed.
+ */
+- (void)removeDatabaseDelegate:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
  @brief Saves the current date and time into NSUseDefaults.

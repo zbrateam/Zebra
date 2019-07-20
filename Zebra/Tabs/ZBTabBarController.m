@@ -130,7 +130,9 @@
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    [self setPackageUpdateBadgeValue:packageUpdates];
+    if (packageUpdates != -1) {
+        [self setPackageUpdateBadgeValue:packageUpdates];
+    }
     [self setRepoRefreshIndicatorVisible:false];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {

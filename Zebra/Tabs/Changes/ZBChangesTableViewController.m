@@ -314,7 +314,7 @@
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
         // TODO: Reloading the entire Changes table for each swipe is a bit too much, especially for slow devices
-        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         [cell updateData:package];
     }];
 }

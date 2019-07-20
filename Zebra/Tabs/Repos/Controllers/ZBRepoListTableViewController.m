@@ -146,17 +146,17 @@
 
 - (void)clearAllSpinners {
     [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
+    [self refreshTable];
 }
 
 - (void)editMode:(id)sender {
-    [self setEditing:!self.editing animated:true];
+    [self setEditing:!self.editing animated:YES];
     [self layoutNavigationButtons];
 }
 
 - (void)refreshTable {
     if (isRefreshingTable)
         return;
-    [self clearAllSpinners];
     self->sources = [[self.databaseManager repos] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->isRefreshingTable = YES;
