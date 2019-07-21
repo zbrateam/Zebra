@@ -138,7 +138,7 @@
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
-    [self addPackage:package toQueue:queue ignoreDependencies:false];
+    [self addPackage:package toQueue:queue ignoreDependencies:NO];
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore {
@@ -146,15 +146,15 @@
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue replace:(ZBPackage *)oldPackage {
-    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:nil replace:oldPackage toTop:nil];
+    [self addPackage:package toQueue:queue ignoreDependencies:NO requiredBy:nil replace:oldPackage toTop:nil];
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue toTop:(nullable ZBPackage *)topPackage {
-    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:nil replace:nil toTop:nil];
+    [self addPackage:package toQueue:queue ignoreDependencies:NO requiredBy:nil replace:nil toTop:nil];
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue requiredBy:(nullable ZBPackage *)requiredPackage {
-    [self addPackage:package toQueue:queue ignoreDependencies:false requiredBy:requiredPackage replace:nil toTop:nil];
+    [self addPackage:package toQueue:queue ignoreDependencies:NO requiredBy:requiredPackage replace:nil toTop:nil];
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage toTop:(nullable ZBPackage *)topPackage {
@@ -219,7 +219,7 @@
 
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
     for (ZBPackage *package in packages) {
-        [self addPackage:package toQueue:queue ignoreDependencies:true];
+        [self addPackage:package toQueue:queue ignoreDependencies:YES];
     }
     
     NSString *key = [self queueToKey:queue];
@@ -433,10 +433,10 @@
 - (BOOL)hasObjects {
     for (NSString *key in _managedQueue) {
         if ([_managedQueue[key] count]) {
-            return true;
+            return YES;
         }
     }
-    return false;
+    return NO;
 }
 
 - (BOOL)containsPackageName:(NSString *)packageName queue:(ZBQueueType)queue {
@@ -446,21 +446,21 @@
         for (NSString *key in _managedQueue) {
             for (ZBPackage *package in _managedQueue[key]) {
                 if ([packageName isEqualToString:package.identifier]) {
-                    return true;
+                    return YES;
                 }
             }
         }
     }
     else {
         NSMutableArray *queueArray = [self queueArray:queue];
-        if (!queueArray) return false;
+        if (!queueArray) return NO;
         for (ZBPackage *p in queueArray) {
             if ([packageName isEqualToString:p.identifier]) {
-                return true;
+                return YES;
             }
         }
     }
-    return false;
+    return NO;
 }
 
 - (BOOL)containsPackage:(ZBPackage *)package queue:(ZBQueueType)queue {
@@ -469,20 +469,20 @@
     if (queue == 0) {
         for (NSString *key in _managedQueue) {
             if ([_managedQueue[key] containsObject:package]) {
-                return true;
+                return YES;
             }
         }
     }
     else {
         NSMutableArray *queueArray = [self queueArray:queue];
-        if (!queueArray) return false;
+        if (!queueArray) return NO;
         for (ZBPackage *p in queueArray) {
             if ([p sameAs:package]) {
-                return true;
+                return YES;
             }
         }
     }
-    return false;
+    return NO;
 }
 
 - (BOOL)containsPackage:(ZBPackage *)package {
@@ -514,10 +514,10 @@
 - (BOOL)needsHyena {
     for (NSString *key in _managedQueue) {
         if (![key isEqualToString:@"Remove"] && [_managedQueue[key] count]) {
-            return true;
+            return YES;
         }
     }
-    return false;
+    return NO;
 }
 
 - (BOOL)hasErrors {
