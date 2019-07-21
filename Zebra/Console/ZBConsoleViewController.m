@@ -296,6 +296,9 @@
 }
 
 - (void)addCloseButton {
+    if (self->hasZebraUpdated) {
+        return;
+    }
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = closeButton;
