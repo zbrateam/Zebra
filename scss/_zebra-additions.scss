@@ -1,0 +1,28 @@
+video {
+    width: 100%;
+    height: auto;
+}
+
+.credits {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: white;
+    .user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        margin-top: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        min-width: 240px;
+    }
+    .userImage {
+        border-radius: 50%;
+        height: 150px;
+    }
+}

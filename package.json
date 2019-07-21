@@ -33,10 +33,11 @@
         "bootstrap": "4.3.1",
         "jquery": "3.4.1",
         "jquery.easing": "^1.4.1",
-        "simple-line-icons": "2.4.1"
+        "simple-line-icons": "2.4.1",
+        "popper.js": "^1.12.9"
     },
     "devDependencies": {
-        "browser-sync": "2.26.7",
+        "browser-sync": "^2.26.7",
         "del": "4.1.1",
         "gulp": "4.0.2",
         "gulp-autoprefixer": "6.1.0",
