@@ -87,4 +87,8 @@
     return 65;
 }
 
+- (void)dealloc {
+    [databaseManager closeDatabase];
+}
+
 @end
