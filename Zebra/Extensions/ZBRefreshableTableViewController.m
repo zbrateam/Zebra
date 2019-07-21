@@ -17,18 +17,30 @@
 
 @synthesize databaseManager;
 
++ (BOOL)supportRefresh {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+    if ([[self class] supportRefresh]) {
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+    }
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+    if (![[self class] supportRefresh]) {
+        return;
+    }
     [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
 }
 
 - (void)refreshSources:(id)sender {
+    if (![[self class] supportRefresh]) {
+        return;
+    }
     if ([databaseManager isDatabaseBeingUpdated])
         return;
     [databaseManager addDatabaseDelegate:self];
@@ -47,6 +59,9 @@
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
+    if (![[self class] supportRefresh]) {
+        return;
+    }
     if (packageUpdates != -1) {
         [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
     }
@@ -57,6 +72,9 @@
 }
 
 - (void)databaseStartedUpdate {
+    if (![[self class] supportRefresh]) {
+        return;
+    }
     [self setRepoRefreshIndicatorVisible:YES];
 }
 

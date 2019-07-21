@@ -9,16 +9,23 @@
 #import <UIKit/UIKit.h>
 #import <Database/ZBDatabaseDelegate.h>
 #import <ZBRefreshableTableViewController.h>
+@class ZBRepo;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoListTableViewController : ZBRefreshableTableViewController
+@interface ZBRepoListTableViewController : ZBRefreshableTableViewController {
+    NSMutableArray *sources;
+    NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
+    NSMutableArray *sectionIndexTitles;
+}
 @property (readwrite, copy, nonatomic) NSArray *tableData;
 - (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn;
 - (void)handleURL:(NSURL *)url;
 - (void)addSource:(id)sender;
 - (void)clearAllSpinners;
 - (void)handleImportOf:(NSURL *)url;
+- (void)updateCollation;
+- (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

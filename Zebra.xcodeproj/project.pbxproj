@@ -108,6 +108,7 @@
 		9E06A9EF22D0842400DBBC38 /* ZBRepoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */; };
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */; };
+		9E41544A22E421D5000D34CA /* ZBRepoBlacklistTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36200B6622D2B3E000C13F6D /* ZBRepoBlacklistTableViewController.m */; };
 		9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
 		9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */; };
@@ -903,6 +904,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E41544A22E421D5000D34CA /* ZBRepoBlacklistTableViewController.m in Sources */,
 				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
 				369B7AEB22C56C04007521DB /* UINavigationController+Opacity.mm in Sources */,
 				36D15328229240F70010EC5C /* FTWCache.m in Sources */,

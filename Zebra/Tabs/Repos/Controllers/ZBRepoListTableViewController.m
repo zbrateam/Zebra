@@ -25,9 +25,6 @@
 @import SDWebImage;
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
-    NSMutableArray *sources;
-    NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
-    NSMutableArray *sectionIndexTitles;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
     BOOL isRefreshingTable;
@@ -35,7 +32,6 @@
     ZBRepoManager *repoManager;
     ZBQueue *queue;
 }
-
 @end
 
 @implementation ZBRepoListTableViewController
@@ -45,6 +41,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     sources = [[self.databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self baseViewDidLoad];
+}
+
+- (void)baseViewDidLoad {
     queue = [ZBQueue sharedInstance];
     repoManager = [ZBRepoManager sharedInstance];
     
@@ -55,7 +56,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     
     self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0.0, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0);
     

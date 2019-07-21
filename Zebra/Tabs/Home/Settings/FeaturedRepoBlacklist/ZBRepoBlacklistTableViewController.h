@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface ZBRepoBlacklistTableViewController : UITableViewController
-@property (readwrite, copy, nonatomic) NSArray *tableData;
+#import <Repos/Controllers/ZBRepoListTableViewController.h>
+
+@interface ZBRepoBlacklistTableViewController : ZBRepoListTableViewController
 @end
