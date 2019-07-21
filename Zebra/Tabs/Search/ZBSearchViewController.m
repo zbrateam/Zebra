@@ -7,6 +7,7 @@
 //
 
 #import <ZBDevice.h>
+#import <ZBAppDelegate.h>
 #import "ZBSearchViewController.h"
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Database/ZBDatabaseManager.h>
@@ -139,12 +140,17 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     [databaseManager closeDatabase];
-    results = [databaseManager searchForPackageName:[searchBar text] numberOfResults:-1];
-    [self refreshTable];
-    if ([searches containsObject:searchBar.text]) {
-        [searches removeObject:searchBar.text];
+    NSString *query = [searchBar text];
+    if (query.length <= 1) {
+        [ZBAppDelegate sendErrorToTabController:@"This search query is too short for the full search, please use a longer query."];
+        return;
     }
-    [searches insertObject:searchBar.text atIndex:0];
+    results = [databaseManager searchForPackageName:query numberOfResults:-1];
+    [self refreshTable];
+    if ([searches containsObject:query]) {
+        [searches removeObject:query];
+    }
+    [searches insertObject:query atIndex:0];
     NSLog(@"[Zebra] Searches: %@", searches);
     [[NSUserDefaults standardUserDefaults] setObject:searches forKey:@"searches"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -302,7 +308,7 @@
     destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
