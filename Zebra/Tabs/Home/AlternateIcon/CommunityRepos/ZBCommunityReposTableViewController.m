@@ -65,7 +65,7 @@ enum ZBSourcesOrder {
     
 }
 
-- (NSString *)determineJailreakRepo {
+- (NSString *)determineJailbreakRepo {
     if ([ZBDevice isChimera]) {
         return @"https://repo.chimera.sh";
     }
@@ -124,7 +124,7 @@ enum ZBSourcesOrder {
         subText = [NSString stringWithFormat:@"Move all sources from %@ to Zebra", [availableManagers objectAtIndex:indexPath.row]];
     }
     else if (indexPath.section == 1) {
-        if ([ZBDevice isChimera]) {
+        if ([ZBDevice isChimera]) { //chimera
             cellText = @"Chimera";
             iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
             subText = @"Utility repo for Chimera jailbreak";
@@ -209,14 +209,13 @@ enum ZBSourcesOrder {
             }
             break;
         case ZBJailbreakRepo:
-            [self addReposWithText:[self determineJailreakRepo]];
+            [self addReposWithText:[self determineJailbreakRepo]];
             break;
         case ZBCommunity: {
             NSDictionary *dict = [communityRepos objectAtIndex:indexPath.row];
             [self addReposWithText:dict[@"clickLink"]];
             break;
         }
-            
         default:
             break;
     }
