@@ -108,9 +108,6 @@
                             NSString *path = [ZBPackage pathForApplication:packageID];
                             if (path) {
                                 [bundlePaths addObject:path];
-                                if (!self->hasZebraUpdated && [packageID isEqualToString:[ZBAppDelegate bundleID]]) {
-                                    self->hasZebraUpdated = YES;
-                                }
                             }
                         }
                         
@@ -168,9 +165,6 @@
                                 NSString *path = [ZBPackage pathForApplication:packageID];
                                 if (path) {
                                     [bundlePaths addObject:path];
-                                    if (!self->hasZebraUpdated && [packageID isEqualToString:[ZBAppDelegate bundleID]]) {
-                                        self->hasZebraUpdated = YES;
-                                    }
                                 }
                             }
                             
@@ -232,6 +226,9 @@
                 NSRange underscoreRange = [truePackageID rangeOfString:@"_" options:NSLiteralSearch];
                 if (underscoreRange.location != NSNotFound) {
                     truePackageID = [truePackageID substringToIndex:underscoreRange.location];
+                    if (!self->hasZebraUpdated && [truePackageID isEqualToString:@"xyz.willy.zebra"]) {
+                        self->hasZebraUpdated = YES;
+                    }
                 }
                 if ([uicaches containsObject:truePackageID])
                     continue;
