@@ -50,6 +50,11 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCache:) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self.navigationItem setTitle:@"Home"];
     self.defaults = [NSUserDefaults standardUserDefaults];
+    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+    self.featuredCollection.delegate = self;
+    self.featuredCollection.dataSource = self;
+    [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
+    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self setupFeatured];
 }
 
@@ -67,25 +72,16 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)setupFeatured {
     if (![self.defaults objectForKey:@"wantsFeatured"]) {
-        [self.defaults setBool:TRUE forKey:@"wantsFeatured"];
+        [self.defaults setBool:YES forKey:@"wantsFeatured"];
     }
     if (![self.defaults objectForKey:@"wantsNews"]) {
-        [self.defaults setBool:TRUE forKey:@"wantsNews"];
+        [self.defaults setBool:YES forKey:@"wantsNews"];
     }
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
     redditPosts = [NSMutableArray new];
     [self configureFooter];
-    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     [self startFeaturedPackages];
-    self.featuredCollection.delegate = self;
-    self.featuredCollection.dataSource = self;
-    [self.featuredCollection setShowsHorizontalScrollIndicator:FALSE];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)startFeaturedPackages {
@@ -204,44 +200,27 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)createHeader {
     if (allFeatured.count) {
         [self.tableView beginUpdates];
-        [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
         self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
         [self.selectedFeatured removeAllObjects];
         self.cellNumber = [self cellCount];
-        for (int i = 1; i <= self.cellNumber; i++) {
+        for (int i = 1; i <= self.cellNumber; ++i) {
             NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
             if (![selectedFeatured containsObject:dict]) {
                 [self->selectedFeatured addObject:dict];
             } else {
-                i--;
+                --i;
             }
         }
-        [self.featuredCollection reloadData];
         [UIView animateWithDuration:.25f animations:^{
             self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
         }];
         [self.tableView endUpdates];
+        [self.featuredCollection reloadData];
     }
 }
 
 - (NSInteger)cellCount {
-    switch (allFeatured.count) {
-        case 1:
-            return 1;
-            break;
-        case 2:
-            return 2;
-            break;
-        case 3:
-            return 3;
-            break;
-        case 4:
-            return 4;
-            break;
-        default:
-            return 5;
-            break;
-    }
+    return MIN(5, allFeatured.count);
 }
 
 - (void)configureFooter {
@@ -250,7 +229,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.footerLabel setNumberOfLines:1];
     [self.footerLabel setFont:[UIFont systemFontOfSize:13]];
     [self.footerLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION]];
-    [self.udidLabel setFont:[UIFont systemFontOfSize:13]];
+    [self.udidLabel setFont:self.footerLabel.font];
     [self.udidLabel setTextColor:[UIColor cellSecondaryTextColor]];
     [self.udidLabel setNumberOfLines:1];
     [self.udidLabel setAdjustsFontSizeToFitWidth:YES];
@@ -266,20 +245,15 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
-                return 1;
-            break;
+            return 1;
         case ZBViews:
             return 4;
-            break;
         case ZBLinks:
             return 2;
-            break;
         case ZBCredits:
             return 1;
-            break;
         default:
             return 0;
-            break;
     }
 }
 
@@ -411,7 +385,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBCredits:
             return @"";
         default:
-            return @"Error";
+            return nil;
     }
 }
 
@@ -599,7 +573,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self packagesFromDB];
         });
     } else {
-        NSLog(@"FALSE");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self setupHeaderFromCache];
         });
@@ -614,7 +587,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self packagesFromDB];
         });
     } else {
-        NSLog(@"FALSE");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self cacheJSON];
         });
@@ -623,9 +595,11 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)toggleFeatured {
     [allFeatured removeAllObjects];
+    [self setupFeatured];
     if ([self.defaults boolForKey:@"wantsFeatured"]) {
         [self refreshCollection:nil];
-    } else {
+    }
+    else {
         [self.tableView beginUpdates];
         self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
         [self.tableView endUpdates];
