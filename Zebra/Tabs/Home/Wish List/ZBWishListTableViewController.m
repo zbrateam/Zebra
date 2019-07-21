@@ -7,6 +7,7 @@
 //
 
 #import "ZBWishListTableViewController.h"
+#import <ZBQueue.h>
 
 @interface ZBWishListTableViewController ()
 
@@ -33,18 +34,13 @@
     [self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -77,16 +73,24 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:[wishedPackages objectAtIndex:indexPath.row]];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+    NSMutableArray *actions = [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
         [tableView reloadData];
     }];
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[[ZBQueue sharedInstance] useIcon] ? @"W ╳" : @"Unlist" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self->wishedPackages removeObject:package.identifier];
+        [self->defaults setObject:self->wishedPackages forKey:@"wishList"];
+        [self->defaults synchronize];
+        [self.tableView reloadData];
+    }];
+    remove.backgroundColor = [UIColor systemYellowColor];
+    [actions addObject:remove];
+    return actions;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView setEditing:NO animated:YES];
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueWishToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
@@ -95,6 +99,5 @@
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
-
 
 @end
