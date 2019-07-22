@@ -215,6 +215,19 @@
     return self;
 }
 
+- (NSArray *)extract:(const char *)packages_ {
+    NSCharacterSet *delimiters = [NSCharacterSet characterSetWithCharactersInString:@",|"];
+    NSArray *packages = packages_ != 0 ? [[NSString stringWithUTF8String:packages_] componentsSeparatedByCharactersInSet:delimiters] : NULL;
+    if (packages) {
+        NSMutableArray *finalPackages = [NSMutableArray array];
+        for (NSString *line in packages) {
+            [finalPackages addObject:[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+        }
+        return finalPackages;
+    }
+    return packages;
+}
+
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
     self = [super init];
     
@@ -252,25 +265,10 @@
             tags = [tags[0] componentsSeparatedByString:@","];
         }
         
-        [self setDependsOn:dependsChars != 0 ? [[NSString stringWithUTF8String:dependsChars] componentsSeparatedByString:@", "] : NULL];
-        if ([dependsOn count] == 1 && [dependsOn[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
-            dependsOn = [dependsOn[0] componentsSeparatedByString:@","];
-        }
-        
-        [self setConflictsWith:conflictsChars != 0 ? [[NSString stringWithUTF8String:conflictsChars] componentsSeparatedByString:@", "] : NULL];
-        if ([conflictsWith count] == 1 && [conflictsWith[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
-            conflictsWith = [conflictsWith[0] componentsSeparatedByString:@","];
-        }
-        
-        [self setProvides:providesChars != 0 ? [[NSString stringWithUTF8String:providesChars] componentsSeparatedByString:@", "] : NULL];
-        if ([provides count] == 1 && [provides[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
-            provides = [provides[0] componentsSeparatedByString:@","];
-        }
-        
-        [self setProvides:replacesChars != 0 ? [[NSString stringWithUTF8String:replacesChars] componentsSeparatedByString:@", "] : NULL];
-        if ([replaces count] == 1 && [replaces[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
-            replaces = [replaces[0] componentsSeparatedByString:@","];
-        }
+        [self setDependsOn:[self extract:dependsChars]];
+        [self setConflictsWith:[self extract:conflictsChars]];
+        [self setProvides:[self extract:providesChars]];
+        [self setReplaces:[self extract:replacesChars]];
         
         int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
