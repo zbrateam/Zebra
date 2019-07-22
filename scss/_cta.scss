@@ -1,7 +1,6 @@
 // Styling for the call to action section
 section.cta {
     position: relative;
-    padding: 250px 0;
     background-image: url('../img/bg-cta.png');
     background-position: center;
     @include background-cover;
@@ -25,6 +24,11 @@ section.cta {
         }
     }
 
+    [class*="col-"] {
+        background-clip: padding-box;
+        border: 10px solid transparent;
+    }
+
     .overlay {
         position: absolute;
         top: 0;
@@ -35,19 +39,19 @@ section.cta {
     }
 
     .hovereffect {
-        width: 130px;
-        height: 130px;
+        width: 200px;
+        height: 200px;
         float: left;
         overflow: hidden;
         position: relative;
         text-align: center;
-        cursor: default;
-        
+        border-radius: 50%;    
     }
 
     .hovereffect .overlay {
-        width: 130px;
-        height: 130px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
         position: absolute;
         overflow: hidden;
         top: 0;
@@ -55,17 +59,18 @@ section.cta {
         opacity: 0;
         background-color: rgba(0, 0, 0, 0.5);
         -webkit-transition: all .4s ease-in-out;
-        transition: all .4s ease-in-out
+        transition: all .4s ease-in-out 
     }
 
     .hovereffect img {
-        width: 130px;
-        height: 130px;
+        width: 200px;
+        height: 200px;
         display: inline-block;
         position: relative;
         -webkit-transition: all .4s linear;
         transition: all .4s linear;
         overflow: hidden;
+        border-radius: 50%;
         
     }
 
@@ -81,7 +86,7 @@ section.cta {
         transform: translatey(-100px);
         -webkit-transition: all .2s ease-in-out;
         transition: all .2s ease-in-out;
-        padding: 10px;
+        padding: 30px;
     }
 
     .hovereffect a.info {
@@ -104,10 +109,10 @@ section.cta {
     }
 
     .hovereffect:hover img {
+        overflow: hidden;
         -ms-transform: scale(1.2);
         -webkit-transform: scale(1.2);
         transform: scale(1.2);
-        overflow: hidden;
         display: inline-block;
     }
 

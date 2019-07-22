@@ -288,7 +288,6 @@ section.features .feature-item i {
 
 section.cta {
   position: relative;
-  padding: 250px 0;
   background-image: url("../img/bg-cta.png");
   background-position: center;
   background-size: cover;
@@ -313,6 +312,11 @@ section.cta .cta-content h2 {
   }
 }
 
+section.cta [class*="col-"] {
+  background-clip: padding-box;
+  border: 10px solid transparent;
+}
+
 section.cta .overlay {
   position: absolute;
   top: 0;
@@ -323,18 +327,19 @@ section.cta .overlay {
 }
 
 section.cta .hovereffect {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: 200px;
   float: left;
   overflow: hidden;
   position: relative;
   text-align: center;
-  cursor: default;
+  border-radius: 50%;
 }
 
 section.cta .hovereffect .overlay {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -346,13 +351,14 @@ section.cta .hovereffect .overlay {
 }
 
 section.cta .hovereffect img {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: 200px;
   display: inline-block;
   position: relative;
   -webkit-transition: all .4s linear;
   transition: all .4s linear;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 section.cta .hovereffect h2 {
@@ -366,7 +372,7 @@ section.cta .hovereffect h2 {
   transform: translatey(-100px);
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
-  padding: 10px;
+  padding: 30px;
 }
 
 section.cta .hovereffect a.info {
@@ -390,9 +396,9 @@ section.cta .hovereffect a.info:hover {
 }
 
 section.cta .hovereffect:hover img {
+  overflow: hidden;
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
-  overflow: hidden;
   display: inline-block;
 }
 
