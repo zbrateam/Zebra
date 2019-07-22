@@ -82,7 +82,7 @@
         [self->defaults synchronize];
         [self.tableView reloadData];
     }];
-    remove.backgroundColor = [UIColor systemYellowColor];
+    remove.backgroundColor = [UIColor yellowColor];
     [actions addObject:remove];
     return actions;
 }

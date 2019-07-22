@@ -1246,6 +1246,45 @@
     }
 }
 
+- (NSArray *)packagesWithReachableIconsForRows:(int)limit{
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *packages = [NSMutableArray new];
+        //NSMutableArray *packageIdentifiers = [NSMutableArray new];
+        
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE ICONURL IS NOT NULL ORDER BY LASTSEEN DESC LIMIT %d;", limit];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                [packages addObject:package];
+ 
+            }
+        }
+        return packages;
+        /*while (sqlite3_step(statement) == SQLITE_ROW) {
+            int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
+            if (repoID > 0) {
+                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                if (![packageIdentifiers containsObject:package.identifier]) {
+                    [packageIdentifiers addObject:package.identifier];
+                }
+            }
+        }
+        sqlite3_finalize(statement);
+        
+        for (NSString *packageID in packageIdentifiers) {
+            [packages addObject:[self topVersionForPackageID:packageID]];
+        }
+        [self closeDatabase];
+        
+        return packages;*/
+    }
+    else {
+        [self printDatabaseError];
+        return NULL;
+    }
+}
+
 
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package {
     return [self topVersionForPackageID:[package identifier]];
