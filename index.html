@@ -67,17 +67,12 @@
           </div>
         </div>
         <div class="col-lg-5 my-auto">
-          <div class="device-container">
-            <div class="device-mockup iphone6 portrait black">
-              <div class="device">
+          <div class="device-wrapper">
+              <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black" style="z-index: 10">
                 <div class="screen">
                   <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <img src="img/homeDark.png" class="img-fluid" alt="">
+                  <img src="img/homeLight.png" class="img-fluid" alt="">  
                 </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -112,16 +107,11 @@
       <div class="row">
         <div class="col-lg-4 my-auto">
           <div class="device-container">
-            <div class="device-mockup iphone6 portrait white">
-              <div class="device">
-                <div class="screen">
-                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                  <!--  <img src="img/changesLight.png" class="img-fluid" alt=""> -->
-                  <video autoplay loop muted playsinline src="img/demo1.mp4"></video>
-                </div>
-                <div class="button">
-                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
+              <div class="device-wrapper">
+                <div class="device" data-device="iPhone7" data-orientation="portrait" data-color="black">
+                  <div class="screen">
+                    <video autoplay loop muted playsinline src="img/demo1.mp4"></video>
+                  </div>
               </div>
             </div>
           </div>
@@ -174,41 +164,85 @@
           <h2 class="text-center" style="display: inline-block !important;">Credits:</h2>
         </div>
         <div class="credits">
-          <div class="user">
-            <a class="badge-link" href="https://twitter.com/xTM3x"><img src="https://avatars.io/twitter/xTM3x/large" alt=""
-                class="userImage"></a>
-            <h3>Wilson</h3>
-            <p>Developer</p>
-          </div>
-          <div class="user">
-            <a class="badge-link" href="https://twitter.com/andrewabosh"><img src="https://avatars.io/twitter/andrewabosh/large" alt=""
-                class="userImage"></a>
-            <h3>Andrew</h3>
-            <p>Designer</p>
-          </div>
-          <div class="user">
-            <a class="badge-link" href="https://twitter.com/poomsmart"><img src="https://avatars.io/twitter/poomsmart/large" alt=""
-                class="userImage"></a>
-            <h3>PoomSmart</h3>
-            <p>Developer</p>
-          </div>
-          <div class="user">
-            <a class="badge-link" href="https://twitter.com/midnightchip"><img src="https://avatars.io/twitter/midnightchip/large" alt=""
-                class="userImage"></a>
-            <h3>MidnightChip</h3>
-            <p>Developer</p>
-          </div>
-          <div class="user">
-            <a class="badge-link" href="https://twitter.com/muirey03"><img src="https://avatars.io/twitter/muirey03/large" alt=""
-                class="userImage"></a>
-            <h3>Muirey03</h3>
-            <p>Developer</p>
-          </div>
-          <div class="user">
-            <a class="badge-link" href="https://twitter.com/skittyblock"><img src="https://avatars.io/twitter/skittyblock/large" alt=""
-                class="userImage"></a>
-            <h3>Skitty</h3>
-            <p>Developer</p>
+          <div class="row">
+
+            <div class="col">
+                <a href="https://twitter.com/xTM3x">
+                <div class="hovereffect">
+                    <img class="img-responsive" src="https://avatars.io/twitter/xTM3x/large" alt="">
+                    <div class="overlay">
+                       <h2>Wilson</h2>
+                       <h3 style="color: white;">Developer</h3>
+                      <i class="fab fa-twitter" style="color: white"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://twitter.com/andrewabosh">
+                <div class="hovereffect">
+                    <img class="img-responsive" src="https://avatars.io/twitter/andrewabosh/large" alt="">
+                    <div class="overlay">
+                       <h2>Andrew Abosh</h2>
+                       <h3 style="color: white;">Designer</h3>
+                      <i class="fab fa-twitter" style="color: white"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://twitter.com/poomsmart">
+                <div class="hovereffect">
+                    <img class="img-responsive" src="https://avatars.io/twitter/poomsmart/large" alt="">
+                    <div class="overlay">
+                       <h2>PoomSmart</h2>
+                       <h3 style="color: white;">Developer</h3>
+                      <i class="fab fa-twitter" style="color: white"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://twitter.com/midnightchip">
+                <div class="hovereffect">
+                    <img class="img-responsive" src="https://avatars.io/twitter/midnightchip/large" alt="">
+                    <div class="overlay">
+                       <h2>MidnightChip</h2>
+                       <h3 style="color: white;">Developer</h3>
+                      <i class="fab fa-twitter" style="color: white"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://twitter.com/muirey03">
+                <div class="hovereffect">
+                    <img class="img-responsive" src="https://avatars.io/twitter/muirey03/large" alt="">
+                    <div class="overlay">
+                       <h2>Muirey03</h2>
+                       <h3 style="color: white;">Developer</h3>
+                      <i class="fab fa-twitter" style="color: white"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="https://twitter.com/skittyblock">
+                <div class="hovereffect">
+                    <img class="img-responsive" src="https://avatars.io/twitter/skittyblock/large" alt="">
+                    <div class="overlay">
+                       <h2>Skitty</h2>
+                       <h3 style="color: white;">Developer</h3>
+                      <i class="fab fa-twitter" style="color: white"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
           </div>
         </div>
         <!---<a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a> -->
