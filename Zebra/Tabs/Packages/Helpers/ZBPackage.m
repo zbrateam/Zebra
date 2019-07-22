@@ -219,7 +219,7 @@
     static NSCharacterSet *charSet = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        charSet = [NSCharacterSet characterSetWithCharactersInString:@",|"];
+        charSet = [NSCharacterSet characterSetWithCharactersInString:@","];
     });
     return charSet;
 }

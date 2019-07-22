@@ -66,7 +66,7 @@
 - (ZBPackage *)packageThatResolvesDependency:(NSString *)line checkProvides:(BOOL)provides {
 //    NSLog(@"[Zebra] Package that resolves dependency %@", line);
     ZBPackage *package = nil;
-    if ([line rangeOfString:@" | "].location != NSNotFound) {
+    if ([line rangeOfString:@"|"].location != NSNotFound) {
         package = [self packageThatSatisfiesORComparison:line checkProvides:provides];
     }
     else if ([line rangeOfString:@"("].location != NSNotFound && [line rangeOfString:@")"].location != NSNotFound) {
@@ -81,10 +81,10 @@
 }
 
 - (ZBPackage *)packageThatSatisfiesORComparison:(NSString *)line checkProvides:(BOOL)provides {
-    NSArray *comps = [line componentsSeparatedByString:@" | "];
+    NSArray *comps = [line componentsSeparatedByString:@"|"];
     NSMutableArray *results = [NSMutableArray new];
     for (NSString *depPackageID in comps) {
-        ZBPackage *depPackage = [self packageThatResolvesDependency:depPackageID checkProvides:provides];
+        ZBPackage *depPackage = [self packageThatResolvesDependency:[depPackageID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] checkProvides:provides];
         
         if (depPackage != NULL) {
             if ([databaseManager packageIsInstalled:depPackage versionStrict:false]) {
