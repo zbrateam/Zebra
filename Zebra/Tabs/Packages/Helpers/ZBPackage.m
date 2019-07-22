@@ -215,8 +215,17 @@
     return self;
 }
 
++ (NSCharacterSet *)delimiters {
+    static NSCharacterSet *charSet = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        charSet = [NSCharacterSet characterSetWithCharactersInString:@",|"];
+    });
+    return charSet;
+}
+
 - (NSArray *)extract:(const char *)packages_ {
-    NSCharacterSet *delimiters = [NSCharacterSet characterSetWithCharactersInString:@",|"];
+    NSCharacterSet *delimiters = [[self class] delimiters];
     NSArray *packages = packages_ != 0 ? [[NSString stringWithUTF8String:packages_] componentsSeparatedByCharactersInSet:delimiters] : NULL;
     if (packages) {
         NSMutableArray *finalPackages = [NSMutableArray array];
