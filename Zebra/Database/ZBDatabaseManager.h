@@ -411,6 +411,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of every package made by specified author.
  */
 - (NSArray *)packagesByAuthor:(NSString *)author;
+
+
+/*!
+ @brief Returns all packages with a reachable icon.
+ @param limit Specify how many rows are selected.
+ @return An array of all packages with a reachable icon.
+ */
+- (NSArray *)packagesWithReachableIconsForRows:(int)limit;
 @end
 
 NS_ASSUME_NONNULL_END

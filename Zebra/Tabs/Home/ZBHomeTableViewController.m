@@ -156,7 +156,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesFromRepo:NULL inSection:NULL numberOfPackages:300 startingAt:0];
+    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIconsForRows:500];
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
     NSLog(@"[Zebra] Blocked REPOS %@", blockedRepos);
     if (!blockedRepos) {
