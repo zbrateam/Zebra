@@ -313,6 +313,10 @@
     return [[self identifier] isEqualToString:[package identifier]];
 }
 
+- (BOOL)sameAsStricted:(ZBPackage *)package {
+    return [self sameAs:package] && [[self version] isEqualToString:[package version]];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat: @"%@ (%@) V%@", name, identifier, version];
 }

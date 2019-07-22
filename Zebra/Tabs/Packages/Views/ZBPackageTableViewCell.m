@@ -19,8 +19,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor cellBackgroundColor];
-    //self.backgroundContainerView.layer.cornerRadius = 5;
-    //self.backgroundContainerView.layer.masksToBounds = YES;
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
     self.queueStatusLabel.hidden = YES;
@@ -29,20 +27,10 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.shadowRadius = 3;
-    self.iconImageView.clipsToBounds = TRUE;
+    self.iconImageView.clipsToBounds = YES;
 }
 
 - (void)updateData:(ZBPackage *)package {
-    if (package == nil) {
-        self.packageLabel.text = nil;
-        self.descriptionLabel.text = nil;
-        self.authorAndRepo.text = nil;
-        self.isInstalledImageView = nil;
-        self.iconImageView = nil;
-        self.queueStatusLabel.text = nil;
-        self.queueStatusLabel.hidden = YES;
-        return;
-    }
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
     ZBRepo *repo = package.repo;
@@ -90,7 +78,7 @@
 }
 
 - (void)updateQueueStatus:(ZBPackage *)package {
-    ZBQueueType queue = [[ZBQueue sharedInstance] queueStatusForPackageIdentifier:package.identifier];
+    ZBQueueType queue = [[ZBQueue sharedInstance] queueStatusForPackage:package];
     if (queue) {
         NSString *status = [[ZBQueue sharedInstance] queueToKey:queue];
         self.queueStatusLabel.hidden = NO;
@@ -122,14 +110,8 @@
             [cleanedStrings addObject:cut];
         }
     }
-    
     return [cleanedStrings componentsJoinedByString:@" "];
 }
-
-/*- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.contentView.frame = UIEdgeInsetsInsetRect(self.contentView.frame, UIEdgeInsetsMake(0, 0, 5, 0));
-}*/
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];

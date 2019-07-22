@@ -44,7 +44,7 @@
         ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:true];
         if (depPackage != NULL) {
             if ([databaseManager packageIsInstalled:depPackage versionStrict:true]) {
-                ZBLog(@"[Zebra] %@ is already installed, skipping", package);
+                ZBLog(@"[Zebra] %@ has already been installed, skipping", depPackage);
             }
             else {
                 ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:YES];
@@ -163,7 +163,7 @@
         }
         
         //Then, check if any package that is installed conflicts with package
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%% %@ %%\' AND REPOID < 1;", [package identifier]];
 
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -208,7 +208,7 @@
     }
     else if (state == 1) { //Removing package
         //Check if any package that is installed depends on this package
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@\%%\' AND REPOID < 1;", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%% %@ %%\' AND REPOID < 1;", [package identifier]];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -222,14 +222,19 @@
                     if (depPackage) {
                         ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:true];
                         if (providingPackage && shouldRemove) {
-                            shouldRemove = ![providingPackage sameAs:depPackage];
+                            shouldRemove = ![providingPackage sameAsStricted:depPackage];
                             ZBLog(@"[Zebra] Should we remove %@ because its dependency being removed?: %d", dependingPackage, shouldRemove);
                         }
                     }
                 }
                 if (shouldRemove) {
-                    ZBLog(@"[Zebra] Removing %@ as required by %@", dependingPackage, package);
-                    [queue addPackage:dependingPackage toQueue:ZBQueueTypeRemove requiredBy:package];
+                    if ([databaseManager packageHasUpdate:dependingPackage]) {
+                        ZBLog(@"[Zebra] %@ has an update, we can just let APT handle it without removing by ourselves", dependingPackage);
+                    }
+                    else {
+                        ZBLog(@"[Zebra] Removing %@ as required by %@", dependingPackage, package);
+                        [queue addPackage:dependingPackage toQueue:ZBQueueTypeRemove requiredBy:package];
+                    }
                 }
             }
         }

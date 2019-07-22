@@ -9,7 +9,7 @@
 #ifndef ZBLog_h
 #define ZBLog_h
 
-// #define ZB_DEBUG
+//#define ZB_DEBUG 1
 
 #if ZB_DEBUG
 #define ZBLog(format, ...) NSLog(format, __VA_ARGS__)

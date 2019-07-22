@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)sameAs:(ZBPackage *)package;
+- (BOOL)sameAsStricted:(ZBPackage *)package;
 - (BOOL)isPaid;
 - (NSString *)getField:(NSString *)field;
 - (BOOL)isInstalled:(BOOL)strict;

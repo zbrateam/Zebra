@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)queueToKey:(ZBQueueType)queue;
 - (NSString *)queueToKeyDisplayed:(ZBQueueType)queue;
 - (ZBQueueType)keyToQueue:(NSString *)key;
-- (ZBQueueType)queueStatusForPackageIdentifier:(NSString *)identifier;
+- (ZBQueueType)queueStatusForPackage:(ZBPackage *)package;
 - (BOOL)hasErrors;
 @end
 
