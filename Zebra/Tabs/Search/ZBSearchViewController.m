@@ -215,10 +215,12 @@
     if (searchController.active) {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         if (indexPath.row >= results.count) {
-            return nil;
+            ZBPackage *package = [results objectAtIndex:indexPath.row];
+            [cell updateData:package];
         }
-        ZBPackage *package = [results objectAtIndex:indexPath.row];
-        [cell updateData:package];
+        else {
+            [cell updateData:nil];
+        }
         [cell setColors];
         return cell;
     }

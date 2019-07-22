@@ -33,6 +33,16 @@
 }
 
 - (void)updateData:(ZBPackage *)package {
+    if (package == nil) {
+        self.packageLabel.text = nil;
+        self.descriptionLabel.text = nil;
+        self.authorAndRepo.text = nil;
+        self.isInstalledImageView = nil;
+        self.iconImageView = nil;
+        self.queueStatusLabel.text = nil;
+        self.queueStatusLabel.hidden = YES;
+        return;
+    }
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
     ZBRepo *repo = package.repo;
