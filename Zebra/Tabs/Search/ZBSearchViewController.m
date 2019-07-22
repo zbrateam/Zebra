@@ -13,6 +13,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Queue/ZBQueue.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 
@@ -21,9 +22,15 @@
     NSArray *results;
     BOOL searching;
     id<UIViewControllerPreviewing> previewing;
-    NSMutableArray *searches;
+    NSMutableArray *recentSearches;
 }
 @end
+
+enum ZBSearchSection {
+    ZBSearchSectionNotFound,
+    ZBSearchSectionRecent,
+    ZBSearchSectionResults
+};
 
 @implementation ZBSearchViewController
 
@@ -32,9 +39,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    searches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
-    if (!searches) {
-        searches = [NSMutableArray new];
+    recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
+    if (!recentSearches) {
+        recentSearches = [NSMutableArray new];
     }
     if (!databaseManager) {
         databaseManager = [ZBDatabaseManager sharedInstance];
@@ -51,18 +58,17 @@
     
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
-        searchController.obscuresBackgroundDuringPresentation = false;
+        searchController.obscuresBackgroundDuringPresentation = NO;
     }
     if (@available(iOS 11.0, *)) {
         self.navigationItem.searchController = searchController;
-        self.navigationItem.hidesSearchBarWhenScrolling = false;
+        self.navigationItem.hidesSearchBarWhenScrolling = NO;
     } else {
         self.tableView.tableHeaderView = searchController.searchBar;
     }
     self.tableView.tableFooterView = [UIView new];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil]
-         forCellReuseIdentifier:@"packageTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
@@ -76,11 +82,11 @@
 }
 
 - (void)configureClearSearchButton {
-    self.navigationItem.rightBarButtonItem = searches.count ? [[UIBarButtonItem alloc] initWithTitle:@"Clear Search" style:UIBarButtonItemStylePlain target:self action:@selector(clearSearches)] : nil;
+    self.navigationItem.rightBarButtonItem = recentSearches.count ? [[UIBarButtonItem alloc] initWithTitle:@"Clear Search" style:UIBarButtonItemStylePlain target:self action:@selector(clearSearches)] : nil;
 }
 
 - (void)clearSearches {
-    [self->searches removeAllObjects];
+    [self->recentSearches removeAllObjects];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"searches"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.navigationItem.rightBarButtonItem = nil;
@@ -89,14 +95,14 @@
 
 - (void)refreshTable {
     [UIView transitionWithView:self.tableView
-                      duration:0.35f
-                      options:UIViewAnimationOptionTransitionCrossDissolve
-                      animations:^(void) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
-                            [self setNeedsStatusBarAppearanceUpdate];
-                        });
-                      } completion: nil];
+      duration:0.35f
+      options:UIViewAnimationOptionTransitionCrossDissolve
+      animations:^(void) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self setNeedsStatusBarAppearanceUpdate];
+        });
+      } completion: nil];
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {
@@ -104,7 +110,6 @@
         if (!searchController) {
             searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         }
-        
         [searchController.searchBar becomeFirstResponder];
     }
     else {
@@ -128,7 +133,7 @@
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if (![searchText isEqualToString:@""]) {
+    if (searchText.length) {
         results = [databaseManager searchForPackageName:searchText numberOfResults:60];
     }
     else {
@@ -139,7 +144,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-    [databaseManager closeDatabase];
     NSString *query = [searchBar text];
     if (query.length <= 1) {
         [ZBAppDelegate sendErrorToTabController:@"This search query is too short for the full search, please use a longer query."];
@@ -147,27 +151,25 @@
     }
     results = [databaseManager searchForPackageName:query numberOfResults:-1];
     [self refreshTable];
-    if ([searches containsObject:query]) {
-        [searches removeObject:query];
+    if ([recentSearches containsObject:query]) {
+        [recentSearches removeObject:query];
     }
-    [searches insertObject:query atIndex:0];
-    NSLog(@"[Zebra] Searches: %@", searches);
-    [[NSUserDefaults standardUserDefaults] setObject:searches forKey:@"searches"];
+    [recentSearches insertObject:query atIndex:0];
+    NSLog(@"[Zebra] Searches: %@", recentSearches);
+    [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"searches"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self configureClearSearchButton];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    [databaseManager openDatabase];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     results = nil;
-    [self refreshTable];
-    [databaseManager closeDatabase];
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
+    [self refreshTable];
 }
 
 #pragma mark - UISearchControllerDelegate
@@ -188,80 +190,92 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ((results == nil) || (results.count)) {
-        tableView.backgroundView = nil;
-        return 1;
-    }
-    else {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height)];
-        label.text = @"No Results Found";
-        label.textColor = [UIColor cellSecondaryTextColor];
-        label.textAlignment = NSTextAlignmentCenter;
-        tableView.backgroundView = label;
-        return 0;
-    }
-    
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!searchController.active) {
-        return [searches count];
-    } else {
-        return results.count;
+    switch (section) {
+        case ZBSearchSectionNotFound:
+            return results && results.count == 0 ? 1 : 0;
+        case ZBSearchSectionRecent:
+            return results.count || searchController.active ? 0 : recentSearches.count;
+        case ZBSearchSectionResults:
+            return results.count;
+        default:
+            return 0;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (searchController.active) {
-        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-        if (indexPath.row >= results.count) {
+    switch (indexPath.section) {
+        case ZBSearchSectionNotFound: {
+            static NSString *notFoundID = @"notFound";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:notFoundID];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:notFoundID];
+            }
+            cell.textLabel.text = @"No Results Found";
+            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            return cell;
+        }
+        case ZBSearchSectionRecent: {
+            static NSString *recentSearchesID = @"recentSearches";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recentSearchesID];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearchesID];
+            }
+            cell.textLabel.text = [recentSearches objectAtIndex:indexPath.row];
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
+            return cell;
+        }
+        case ZBSearchSectionResults: {
+            ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
             ZBPackage *package = [results objectAtIndex:indexPath.row];
             [cell updateData:package];
+            [cell setColors];
+            return cell;
         }
-        else {
-            [cell updateData:nil];
-        }
-        [cell setColors];
-        return cell;
-    }
-    else {
-        static NSString *recentSearches = @"recentSearches";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:recentSearches];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearches];
-        }
-        cell.textLabel.text = [searches objectAtIndex:indexPath.row];
-        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
-        return cell;
+        default:
+            return nil;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (searchController.active) {
-        [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
-    }
-    else {
-        searchController.active = YES;
-        searchController.searchBar.text = [searches objectAtIndex:indexPath.row];
-        [self searchBarSearchButtonClicked:searchController.searchBar];
+    switch (indexPath.section) {
+        case ZBSearchSectionRecent:
+            searchController.active = YES;
+            searchController.searchBar.text = [recentSearches objectAtIndex:indexPath.row];
+            [self searchBarSearchButtonClicked:searchController.searchBar];
+            break;
+        case ZBSearchSectionResults:
+            [self performSegueWithIdentifier:@"segueSearchToPackageDepiction" sender:indexPath];
+            break;
+        default:
+            break;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case ZBSearchSectionNotFound: {
+            if (results.count)
+                return 0;
+            break;
+        }
+        case ZBSearchSectionRecent: {
+            if (searchController.active || results.count)
+                return 0;
+            break;
+        }
+        case ZBSearchSectionResults: {
+            if (!results.count)
+                return 0;
+            break;
+        }
+    }
     return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
 }
 
 #pragma mark - Swipe actions
@@ -271,27 +285,29 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (searchController.active) {
-        if ([results objectAtIndex:indexPath.row]) {
+    switch (indexPath.section) {
+        case ZBSearchSectionResults: {
             ZBPackage *package = (ZBPackage *)[results objectAtIndex:indexPath.row];
             return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
                 [tableView reloadData];
             }];
-        } else {
+        }
+        case ZBSearchSectionRecent: {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[[ZBQueue sharedInstance] queueToKeyDisplayed:ZBQueueTypeRemove] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+                [self->recentSearches removeObjectAtIndex:indexPath.row];
+                [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"searches"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self configureClearSearchButton];
+                [tableView beginUpdates];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView endUpdates];
+            }];
+            deleteAction.backgroundColor = [UIColor redColor];
+            return @[deleteAction];
+        }
+        default: {
             return nil;
         }
-    } else {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            [self->searches removeObjectAtIndex:indexPath.row];
-            [[NSUserDefaults standardUserDefaults] setObject:self->searches forKey:@"searches"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [self configureClearSearchButton];
-            [tableView beginUpdates];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-        }];
-        deleteAction.backgroundColor = [UIColor redColor];
-        return @[deleteAction];
     }
 }
 
@@ -305,26 +321,19 @@
     ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
     NSIndexPath *indexPath = sender;
     destination.package = [results objectAtIndex:indexPath.row];
-    
-    [databaseManager closeDatabase];
     destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    previewingContext.sourceRect = cell.frame;
-    
-    ZBPackage *package = indexPath.row < results.count ? [results objectAtIndex:indexPath.row] : nil;
-    if (package == nil) {
+    if (indexPath.section != ZBSearchSectionResults) {
         return nil;
     }
-    
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    previewingContext.sourceRect = cell.frame;
+    ZBPackage *package = [results objectAtIndex:indexPath.row];
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
     packageDepictionVC.package = package;
-
     return packageDepictionVC;
 }
 
@@ -348,10 +357,6 @@
     } else {
         return UIStatusBarStyleDefault;
     }
-}
-
-- (void)dealloc {
-    [databaseManager closeDatabase];
 }
 
 @end
