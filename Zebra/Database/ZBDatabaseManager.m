@@ -715,8 +715,9 @@
 
 - (NSMutableArray <ZBPackage *> *)packagesWithIgnoredUpdates {
     if ([self openDatabase] == SQLITE_OK) {
-        NSMutableArray *packagesWithUpdates = [NSMutableArray new];
+        NSMutableArray *packagesWithIgnoredUpdates = [NSMutableArray new];
         NSString *query = @"SELECT * FROM UPDATES WHERE IGNORE = 1;";
+        NSMutableArray *irrelevantPackages = [NSMutableArray new];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -724,12 +725,20 @@
                 const char *identifierChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnID);
                 const char *versionChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnVersion);
                 NSString *identifier = [NSString stringWithUTF8String:identifierChars];
+                ZBPackage *package = nil;
                 if (versionChars != 0) {
                     NSString *version = [NSString stringWithUTF8String:versionChars];
                     
-                    ZBPackage *package = [self packageForID:identifier equalVersion:version];
+                    package = [self packageForID:identifier equalVersion:version];
                     if (package != NULL) {
-                        [packagesWithUpdates addObject:package];
+                        [packagesWithIgnoredUpdates addObject:package];
+                    }
+                }
+                if (![self packageIDIsInstalled:identifier version:nil]) {
+                    // We don't need ignored updates from packages we don't have them installed
+                    [irrelevantPackages addObject:identifier];
+                    if (package) {
+                        [packagesWithIgnoredUpdates removeObject:package];
                     }
                 }
             }
@@ -739,8 +748,13 @@
         }
         sqlite3_finalize(statement);
         
+        if (irrelevantPackages.count) {
+            sqlite3_exec(database, [[NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE IN (%@)", [irrelevantPackages componentsJoinedByString:@", "]] UTF8String], NULL, 0, NULL);
+        }
+        
         [self closeDatabase];
-        return packagesWithUpdates;
+        
+        return packagesWithIgnoredUpdates;
     }
     else {
         [self printDatabaseError];
