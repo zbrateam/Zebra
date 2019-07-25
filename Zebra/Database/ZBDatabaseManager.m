@@ -538,7 +538,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return (NSArray*)sources;
+        return (NSArray *)sources;
     }
     else {
         [self printDatabaseError];

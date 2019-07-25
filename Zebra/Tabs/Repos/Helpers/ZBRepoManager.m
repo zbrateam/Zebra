@@ -70,7 +70,6 @@
                 
                 if (detectedURLs.count == 0) {
                     respond(NO, @"No repository urls detected.", @[]);
-                    
                     return;
                 }
                 
@@ -92,7 +91,6 @@
                     if ([contents[0] isEqualToString:@"deb"]) {
                         NSURL *url = [NSURL URLWithString:contents[1]];
                         NSString *urlString = [self normalizedURLString:url];
-                        
                         [baseURLs addObject:urlString];
                     }
                 }
@@ -116,19 +114,19 @@
                     }
                     else if ([knownDistsURLs containsObject:urlString]) {
                         switch ([knownDistsURLs indexOfObject:urlString]) {
-                            case 0 ... 3:
+                            case 0 ... 1:
                                 [self addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
                                 break;
-                            case 4 ... 5:
+                            case 2:
                                 [self addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
                                 break;
-                            case 6 ... 7:
+                            case 3:
                                 [self addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                                 break;
-                            case 8 ... 9:
+                            case 4:
                                 [self addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
                                 break;
-                            case 10 ... 13:
+                            case 5 ... 6:
                                 [self addDebLine:@"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"];
                                 break;
                             default:
