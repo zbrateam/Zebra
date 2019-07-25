@@ -7,6 +7,7 @@
 //
 
 #import <ZBAppDelegate.h>
+#import <ZBLog.h>
 #import <ZBTab.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
@@ -231,7 +232,6 @@ typedef enum {
 
 - (void)clearQueue {
     [[ZBQueue sharedInstance] clearQueue];
-    [self configureQueueOrShareButton];
     [self refreshTable];
 }
 
@@ -239,7 +239,7 @@ typedef enum {
     NSArray *packages = [[self.databaseManager installedPackages] copy];
     NSMutableArray *packageIds = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        if(package.identifier) {
+        if (package.identifier) {
             [packageIds addObject:package.identifier];
         }
     }
@@ -264,21 +264,18 @@ typedef enum {
     popController.barButtonItem = self.navigationItem.leftBarButtonItem;
     
     // access the completion handler
-    controller.completionWithItemsHandler = ^(NSString *activityType,
-                                              BOOL completed,
-                                              NSArray *returnedItems,
-                                              NSError *error){
+    controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *error) {
         // react to the completion
         if (completed) {
             // user shared an item
-            NSLog(@"We used activity type%@", activityType);
+            ZBLog(@"We used activity type %@", activityType);
         } else {
             // user cancelled
-            NSLog(@"We didn't want to share anything after all.");
+            ZBLog(@"We didn't want to share anything after all.");
         }
         
         if (error) {
-            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+            ZBLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
     };
 }

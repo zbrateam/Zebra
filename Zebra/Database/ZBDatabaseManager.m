@@ -523,12 +523,11 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sources = [NSMutableArray new];
         
-        NSString *query = @"SELECT * FROM REPOS ORDER BY ORIGIN COLLATE NOCASE ASC";
+        NSString *query = @"SELECT * FROM REPOS";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
-                
                 [sources addObject:source];
             }
         }

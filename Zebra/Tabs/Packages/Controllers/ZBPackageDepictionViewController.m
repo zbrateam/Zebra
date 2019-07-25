@@ -8,6 +8,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import "ZBPackageDepictionViewController.h"
@@ -240,7 +241,7 @@ enum ZBPackageInfoOrder {
                 [self.tableView beginUpdates];
                 [self.tableView setTableFooterView:webView];
                 [self.tableView endUpdates];
-                NSLog(@"DONE");
+                ZBLog(@"DONE");
             }];
         }
     }];
@@ -275,7 +276,7 @@ enum ZBPackageInfoOrder {
             [webView evaluateJavaScript:jsString
                       completionHandler:^(id _Nullable result, NSError *_Nullable error) {
                           if (error) {
-                              NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+                              ZBLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
                           }
                       }];
         }
@@ -406,7 +407,7 @@ enum ZBPackageInfoOrder {
                 SEL selector = @selector(installPackage);
                 if (data) {
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    NSLog(@"[Zebra] Package purchase status response: %@", json);
+                    ZBLog(@"[Zebra] Package purchase status response: %@", json);
                     BOOL purchased = [json[@"purchased"] boolValue];
                     BOOL available = [json[@"available"] boolValue];
                     if (!purchased && available) {
@@ -455,8 +456,10 @@ enum ZBPackageInfoOrder {
         if ([package isPaid] && [package repo].supportSileoPay) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
+#if ZB_DEBUG
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
-            NSLog(@"[Zebra] Package purchase token: %@", token);
+            ZBLog(@"[Zebra] Package purchase token: %@", token);
+#endif
             __block NSString *secret;
             //Wait on getting key
             dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -468,7 +471,7 @@ enum ZBPackageInfoOrder {
                 secret = keychain[idThing];
                 dispatch_semaphore_signal(sema);
                 if (error) {
-                    NSLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
+                    ZBLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
                 }
             });
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
@@ -490,7 +493,7 @@ enum ZBPackageInfoOrder {
                 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     if (data) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSLog(@"[Zebra] Package purchase response: %@",json);
+                        ZBLog(@"[Zebra] Package purchase response: %@",json);
                         if ([json[@"status"] boolValue]) {
                             [uiBusy stopAnimating];
                             [self initPurchaseLink:json[@"url"]];
@@ -521,7 +524,7 @@ enum ZBPackageInfoOrder {
                    callbackURLScheme:@"sileo"
                    completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                        // TODO: Nothing to do here?
-                       NSLog(@"[Zebra] Purchase callback URL: %@", callbackURL);
+                       ZBLog(@"[Zebra] Purchase callback URL: %@", callbackURL);
                        if (callbackURL) {
                            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                            NSArray *queryItems = urlComponents.queryItems;
@@ -535,7 +538,7 @@ enum ZBPackageInfoOrder {
                            NSError *error;
                            //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                            if (error) {
-                               NSLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
+                               ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
                            }
                            
                        }
@@ -592,6 +595,7 @@ enum ZBPackageInfoOrder {
 - (NSArray *)previewActionItems {
     return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
 }
+
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
 }
@@ -919,7 +923,7 @@ enum ZBPackageInfoOrder {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-//More By author button;
+//More By author button
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"seguePackageDepictionToMorePackages"]) {
         ZBPackagesByAuthorTableViewController *destination = (ZBPackagesByAuthorTableViewController *)[segue destinationViewController];

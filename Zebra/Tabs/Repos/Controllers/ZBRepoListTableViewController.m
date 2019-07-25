@@ -146,7 +146,9 @@
 
 - (void)clearAllSpinners {
     [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
-    [self refreshTable];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)editMode:(id)sender {
