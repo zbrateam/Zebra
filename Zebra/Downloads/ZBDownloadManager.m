@@ -249,7 +249,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
     NSURLSessionTask *task = [session downloadTaskWithURL:url];
-    tasks++;
+    ++tasks;
     [task resume];
     
     NSString *schemeless = [[url absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
@@ -369,6 +369,9 @@
         if ([[filename lastPathComponent] containsString:@".bz2"]) { //Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
         }
+        else if ([[filename lastPathComponent] containsString:@".gz"]) { //Try to download Packages
+            [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages"] ignoreCaching:self->ignore];
+        }
         else {
             if (![filename isEqualToString:@"Release"]) {
                 if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
@@ -426,9 +429,7 @@
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
@@ -471,7 +472,7 @@
                             }
                         }
                         
-                        [output writeToFile:[finalPath stringByDeletingPathExtension] atomically:false];
+                        [output writeToFile:[finalPath stringByDeletingPathExtension] atomically:NO];
 
                         NSError *removeError;
                         [[NSFileManager defaultManager] removeItemAtPath:finalPath error:&removeError];
@@ -492,9 +493,7 @@
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
@@ -548,6 +547,24 @@
                 }];
             }
         }
+        else if ([[filename lastPathComponent] hasSuffix:@"Packages"]) {
+            if (responseCode == 304) {
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+            }
+            else {
+                NSString *listsPath = [ZBAppDelegate listsLocation];
+                NSString *saveName = [self repoSaveName:url filename:filename];
+                NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
+                [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
+                    NSLog(@"[Hyena] File moved");
+                    if (success) {
+                        [self addFile:finalPath toArray:@"packages"];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:NULL];
+                    }
+                }];
+            }
+        }
         else if ([[filename lastPathComponent] containsString:@"Release"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
@@ -555,9 +572,7 @@
             }
             else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
@@ -573,9 +588,18 @@
     }
 }
 
+- (NSString *)repoSaveName:(NSURL *)url filename:(NSString *)filename {
+    NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+    NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+    return saveName;
+}
+
 - (NSString *)baseFileNameFromFullPath:(NSString *)path {
     if ([[path lastPathComponent] containsString:@"Packages"]) {
-        return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
+        NSString *basePath = [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
+        basePath = [basePath stringByReplacingOccurrencesOfString:@"_Packages.gz" withString:@""];
+        return basePath;
     }
     else {
         return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];

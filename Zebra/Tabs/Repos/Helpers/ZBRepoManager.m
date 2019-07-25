@@ -261,16 +261,26 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSURL *responseURL = [httpResponse.URL URLByDeletingLastPathComponent];
-        
-        if (httpResponse.statusCode != 200 || error != NULL ) {
+        if (httpResponse.statusCode != 200 || error != NULL) {
             NSMutableURLRequest *gzRequest = [request copy];
             [gzRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages.gz"]];
             NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable gzdata, NSURLResponse * _Nullable gzresponse, NSError * _Nullable gzerror) {
                 NSHTTPURLResponse *gzhttpResponse = (NSHTTPURLResponse *)gzresponse;
-                if (gzhttpResponse.statusCode != 200 || gzerror != NULL ) {
-                    NSString *gzerrorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
-                    NSLog(@"[Zebra] %@", gzerrorMessage);
-                    completion(gzerrorMessage, [sourceURL URLByAppendingPathComponent:@"Packages.gz"], [gzhttpResponse.URL URLByDeletingLastPathComponent]);
+                if (gzhttpResponse.statusCode != 200 || gzerror != NULL) {
+                    NSMutableURLRequest *pureRequest = [request copy];
+                    [pureRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages"]];
+                    NSURLSessionDataTask *pureTask = [session dataTaskWithRequest:pureRequest completionHandler:^(NSData * _Nullable pureData, NSURLResponse * _Nullable pureResponse, NSError * _Nullable pureError) {
+                        NSHTTPURLResponse * _Nullable pureHttpResponse = (NSHTTPURLResponse *)pureResponse;
+                        if (pureHttpResponse.statusCode != 200 || pureError != NULL) {
+                            NSString *pureErrorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
+                            NSLog(@"[Zebra] %@", pureErrorMessage);
+                            completion(pureErrorMessage, [sourceURL URLByAppendingPathComponent:@"Packages"], [pureHttpResponse.URL URLByDeletingLastPathComponent]);
+                        }
+                        else {
+                            completion(nil, nil, responseURL);
+                        }
+                    }];
+                    [pureTask resume];
                 }
                 else {
                     completion(nil, nil, responseURL);
