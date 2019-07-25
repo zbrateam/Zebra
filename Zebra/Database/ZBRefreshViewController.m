@@ -68,7 +68,12 @@ typedef enum {
             [databaseManager dropTables];
         }
         
-        [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
+        if (self.repoURLs) {
+            [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
+        }
+        else {
+            [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
+        }
     }
     else {
         hadAProblem = YES;

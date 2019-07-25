@@ -256,12 +256,12 @@
             }
             else {
                 [wait dismissViewControllerAnimated:true completion:^{
-                    NSLog(@"[Zebra] Added source.");
-                    NSLog(@"[Zebra] New Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
+                    NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        console.repoURLs = @[ url ];
                         [weakSelf presentViewController:console animated:true completion:nil];
                     });
                 }];
@@ -291,8 +291,9 @@
     [self presentViewController:wait animated:true completion:nil];
     
     __weak typeof(self) weakSelf = self;
+    __weak typeof(ZBRepoManager *) repoManager = self->repoManager;
     
-    [self->repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
+    [repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{
             if (!success) {
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -332,7 +333,8 @@
             }
             else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                console.repoURLs = [repoManager verifiedURLs];
                 [weakSelf presentViewController:console animated:true completion:nil];
             }
         }];
@@ -568,9 +570,7 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
             refreshController.messages = self->errorMessages;
-            
             self->errorMessages = NULL;
-            
             [self presentViewController:refreshController animated:true completion:nil];
         }
     });

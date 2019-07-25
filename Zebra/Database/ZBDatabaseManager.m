@@ -201,7 +201,16 @@
     
     [self bulkDatabaseStartedUpdate];
     self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Updating Repository (%@)\n", repo.origin] atLevel:ZBLogLevelInfo];
+    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+}
+
+- (void)updateRepoURLs:(NSArray <NSURL *> *)repoURLs useCaching:(BOOL)useCaching {
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
+    [self bulkDatabaseStartedUpdate];
+    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repoURLs:repoURLs];
     [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
 }
 
