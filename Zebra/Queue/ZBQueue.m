@@ -305,7 +305,11 @@
                     [installCommand insertObject:@"-i" atIndex:1];
                 }
                 for (NSString *filename in debs) {
-                    if ([filename containsString:[[package filename] lastPathComponent]]) {
+                    NSString *packageFilename = [package filename];
+                    if (packageFilename == nil) {
+                        continue;
+                    }
+                    if ([filename containsString:[packageFilename lastPathComponent]]) {
                         [installCommand insertObject:filename atIndex:2];
                         break;
                     }
