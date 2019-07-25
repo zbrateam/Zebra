@@ -232,9 +232,11 @@ enum ZBSearchSection {
         }
         case ZBSearchSectionResults: {
             ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-            ZBPackage *package = [results objectAtIndex:indexPath.row];
-            [cell updateData:package];
-            [cell setColors];
+            if (indexPath.row < results.count) {
+                ZBPackage *package = [results objectAtIndex:indexPath.row];
+                [cell updateData:package];
+                [cell setColors];
+            }
             return cell;
         }
         default:
