@@ -37,6 +37,12 @@
             "icon": "https://repo.packix.com/CydiaIcon.png"
         },
         {
+            "name": "rpetrich repo",
+            "clickLink": "https://rpetri.ch/repo",
+            "url": "https://rpetri.ch/repo",
+            "icon": "https://rpetri.ch/repo/CydiaIcon.png"
+        },
+        {
             "name": "ZodTTD & MacCiti (Archive)",
             "clickLink": "http://cydia.zodttd.com/repo/cydia/ stable main",
             "url": "http://cydia.zodttd.com/repo/cydia/",
