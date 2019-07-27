@@ -30,7 +30,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBWilsonTwitter
 } ZBLinksOrder;
 
-
 @interface ZBHomeTableViewController (){
     NSMutableArray *redditPosts;
 }

@@ -58,7 +58,6 @@
     return 1;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"changeLogCell";
     NSDictionary *dataDict = [changeLogArray objectAtIndex:indexPath.section];

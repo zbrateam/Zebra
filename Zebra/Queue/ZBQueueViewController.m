@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBLog.h>
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
@@ -255,7 +256,7 @@
 //            [_queue.failedDepQueue removeAllObjects];
 //        }
         else {
-            NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
+            ZBLog(@"[Zebra] MY TIME HAS COME TO BURN");
         }
         
         if ([_queue hasObjects]) {

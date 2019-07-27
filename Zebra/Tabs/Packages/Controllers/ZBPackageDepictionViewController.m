@@ -503,7 +503,7 @@ enum ZBPackageInfoOrder {
                 [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                     if (data) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        ZBLog(@"[Zebra] Package purchase response: %@",json);
+                        ZBLog(@"[Zebra] Package purchase response: %@", json);
                         if ([json[@"status"] boolValue]) {
                             [uiBusy stopAnimating];
                             [self initPurchaseLink:json[@"url"]];

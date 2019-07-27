@@ -331,7 +331,6 @@
 }
 
 - (void)restartSpringBoard {
-    //Bye!
     [ZBDevice sbreload];
 }
 

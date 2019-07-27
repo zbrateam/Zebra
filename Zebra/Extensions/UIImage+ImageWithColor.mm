@@ -1,7 +1,7 @@
 #import "UIImage+ImageWithColor.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation UIImage(ImageWithColor)
+@implementation UIImage (ImageWithColor)
 
 - (UIImage *)initWithColor:(UIColor *)color {
 	CGRect rect = CGRectMake(0, 0, 1, 1);

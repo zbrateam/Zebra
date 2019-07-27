@@ -17,7 +17,6 @@ enum ZBSourcesOrder {
 };
 
 @interface ZBCommunityReposTableViewController ()
-
 @end
 
 @implementation ZBCommunityReposTableViewController
