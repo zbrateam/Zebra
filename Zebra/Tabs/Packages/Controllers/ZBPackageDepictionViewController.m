@@ -71,7 +71,7 @@ enum ZBPackageInfoOrder {
             // Package not found, we resign
             return nil;
         }
-        presented = true;
+        presented = YES;
     }
     
     return self;
@@ -133,7 +133,7 @@ enum ZBPackageInfoOrder {
     [progressView setTintColor:[UIColor tintColor]];
     
     webView.navigationDelegate = self;
-    webView.opaque = false;
+    webView.opaque = NO;
     webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     if ([package depictionURL]) {
@@ -142,7 +142,6 @@ enum ZBPackageInfoOrder {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -178,7 +177,6 @@ enum ZBPackageInfoOrder {
     [request setValue:[UIColor hexStringFromColor:[UIColor tintColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
-    
     [webView loadRequest:request];
 }
 
@@ -202,7 +200,7 @@ enum ZBPackageInfoOrder {
 
 - (void)goodbye {
     if ([self presentingViewController]) {
-        [self dismissViewControllerAnimated:true completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -226,7 +224,7 @@ enum ZBPackageInfoOrder {
         NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
         [filesController setValue:url forKey:@"_url"];
         
-        [[self navigationController] pushViewController:filesController animated:true];
+        [[self navigationController] pushViewController:filesController animated:YES];
     }
 }
 
@@ -307,7 +305,6 @@ enum ZBPackageInfoOrder {
             [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         }
     }
-    
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -328,7 +325,7 @@ enum ZBPackageInfoOrder {
             } else {
                 [sfVC.view setTintColor:[UIColor tintColor]];
             }
-            [self presentViewController:sfVC animated:true completion:nil];
+            [self presentViewController:sfVC animated:YES completion:nil];
             decisionHandler(WKNavigationActionPolicyCancel);
         }
         else if ([[url scheme] isEqualToString:@"mailto"]) {
@@ -348,19 +345,23 @@ enum ZBPackageInfoOrder {
     [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
 }
 
+- (void)addModifyButton {
+    UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+    self.navigationItem.rightBarButtonItem = modifyButton;
+}
+
 - (void)configureNavButton {
     if (self->navButtonsBeingConfigured) {
         return;
     }
     self->navButtonsBeingConfigured = YES;
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([package isInstalled:false]) {
+    if ([package isInstalled:NO]) {
         if ([package isReinstallable]) {
             if ([package isPaid] && [keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
                 [self determinePaidPackage];
             } else {
-                UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
-                self.navigationItem.rightBarButtonItem = modifyButton;
+                [self addModifyButton];
             }
         }
         else {
@@ -410,23 +411,32 @@ enum ZBPackageInfoOrder {
                     ZBLog(@"[Zebra] Package purchase status response: %@", json);
                     BOOL purchased = [json[@"purchased"] boolValue];
                     BOOL available = [json[@"available"] boolValue];
-                    if (!purchased && available) {
-                        title = json[@"price"];
-                        selector = @selector(purchasePackage);
-                    } else if (purchased && available && ![self->package isInstalled:false]) {
-                        self->package.sileoDownload = YES;
-                        self.purchased = YES;
-                        
-                    } else if (purchased && available && [self->package isInstalled:false] && [self->package isReinstallable]) {
-                        self->package.sileoDownload = YES;
-                        self.purchased = YES;
-                        title = @"Modify";
-                        selector = @selector(modifyPackage);
-                    } else if (purchased && available && [self->package isInstalled:false] && ![self->package isReinstallable]) {
-                        self->package.sileoDownload = YES;
-                        self.purchased = YES;
-                        title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
-                        selector = @selector(removePackage);
+                    BOOL installed = [self->package isInstalled:NO];
+                    if (installed) {
+                        BOOL set = NO;
+                        if (purchased) {
+                            self->package.sileoDownload = YES;
+                            self.purchased = YES;
+                            if (available && ![self->package isReinstallable]) {
+                                title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
+                                selector = @selector(removePackage);
+                                set = YES;
+                            }
+                        }
+                        if (!set) {
+                            title = @"Modify";
+                            selector = @selector(modifyPackage);
+                        }
+                    }
+                    else if (available) {
+                        if (purchased) {
+                            self->package.sileoDownload = YES;
+                            self.purchased = YES;
+                        }
+                        else {
+                            title = json[@"price"];
+                            selector = @selector(purchasePackage);
+                        }
                     }
                 }
                 UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
@@ -579,7 +589,7 @@ enum ZBPackageInfoOrder {
     
     alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     
-    [self presentViewController:alert animated:true completion:nil];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)dealloc {
@@ -909,7 +919,7 @@ enum ZBPackageInfoOrder {
         ZBInstalledFilesTableViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"installedFilesController"];
         filesController.navigationItem.title = @"Installed Files";
         [filesController setPackage:package];
-        [[self navigationController] pushViewController:filesController animated:true];
+        [[self navigationController] pushViewController:filesController animated:YES];
     }
     else if (indexPath.row == ZBPackageInfoWishList) {
         [self generateWishlist];
@@ -918,8 +928,6 @@ enum ZBPackageInfoOrder {
     } else if (indexPath.row == ZBPackageInfoAuthor && self.authorEmail) {
         [self sendEmailToDeveloper];
     }
-    
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
