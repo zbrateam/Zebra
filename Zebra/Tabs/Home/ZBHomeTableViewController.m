@@ -47,7 +47,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCache:) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self.navigationItem setTitle:@"Home"];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
@@ -578,21 +577,11 @@ typedef enum ZBLinksOrder : NSUInteger {
         });
     } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self setupHeaderFromCache];
-        });
-    }
-}
-
-- (void)refreshCache:(NSNotification *)notif {
-    BOOL selected = [self.defaults boolForKey:@"randomFeatured"];
-    [allFeatured removeAllObjects];
-    if (selected) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self packagesFromDB];
-        });
-    } else {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self cacheJSON];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
+                    [self cacheJSON];
+                } else {
+                    [self setupHeaderFromCache];
+                }
         });
     }
 }
