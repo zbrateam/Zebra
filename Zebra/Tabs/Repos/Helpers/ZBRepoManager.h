@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoManager : NSObject
 + (instancetype)sharedInstance;
++ (NSArray <NSString *> *)knownDistURLs;
 - (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond;
 - (void)deleteSource:(ZBRepo *)delRepo;
@@ -22,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)transferFromCydia;
 - (void)transferFromSileo;
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
+- (NSString *)knownDebLineFromURLString:(NSString *)urlString;
+- (NSArray <NSURL *> *)verifiedURLs;
 @end
 
 NS_ASSUME_NONNULL_END

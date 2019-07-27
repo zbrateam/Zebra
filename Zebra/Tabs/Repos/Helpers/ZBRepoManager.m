@@ -13,6 +13,11 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 
+@interface ZBRepoManager () {
+    NSMutableArray<NSURL *> *verifiedURLs;
+}
+@end
+
 @implementation ZBRepoManager
 
 + (id)sharedInstance {
@@ -36,6 +41,42 @@
     return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
 }
 
+- (NSArray <NSURL *> *)verifiedURLs {
+    return verifiedURLs;
+}
+
++ (NSArray <NSString *> *)knownDistURLs {
+    static NSArray *urls = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        urls = @[@"apt.thebigboss.org/repofiles/cydia/",
+            @"apt.thebigboss.org/",
+            @"apt.modmyi.com/",
+            @"apt.saurik.com/",
+            @"apt.bingner.com/",
+            @"cydia.zodttd.com/repo/cydia/",
+            @"cydia.zodttd.com/"];
+    });
+    return urls;
+}
+
+- (NSString *)knownDebLineFromURLString:(NSString *)urlString {
+    switch ([[[self class] knownDistURLs] indexOfObject:urlString]) {
+        case 0 ... 1:
+            return @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n";
+        case 2:
+            return @"deb http://apt.modmyi.com/ stable main\n";
+        case 3:
+            return [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
+        case 4:
+            return [NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
+        case 5 ... 6:
+            return @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n";
+        default:
+            return nil;
+    }
+}
+
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {
     __weak typeof(self) weakSelf = self;
     
@@ -55,7 +96,7 @@
                 
                 NSMutableArray<NSString *> *errors = [NSMutableArray array];
                 NSMutableArray<NSURL *> *errorURLs = [NSMutableArray array];
-                NSMutableArray<NSURL *> *verifiedURLs = [NSMutableArray array];
+                self->verifiedURLs = [NSMutableArray new];
                 
                 NSMutableSet<NSURL *> *detectedURLs = [NSMutableSet set];
                 
@@ -95,62 +136,38 @@
                     }
                 }
                 
-                NSArray *knownDistsURLs = @[
-                                            @"apt.thebigboss.org/repofiles/cydia/",
-                                            @"apt.thebigboss.org/",
-                                            @"apt.modmyi.com/",
-                                            @"apt.saurik.com/",
-                                            @"apt.bingner.com/",
-                                            @"cydia.zodttd.com/repo/cydia/",
-                                            @"cydia.zodttd.com/"];
-                
                 for (NSURL *detectedURL in detectedURLs) {
                     dispatch_group_enter(group);
                     
                     NSString *urlString = [self normalizedURLString:detectedURL];
                     if ([baseURLs containsObject:urlString]) {
-                        NSLog(@"[Zebra] %@ is already added.", urlString);
+                        NSLog(@"[Zebra] %@ has already been added.", urlString);
                         dispatch_group_leave(group);
                     }
-                    else if ([knownDistsURLs containsObject:urlString]) {
-                        switch ([knownDistsURLs indexOfObject:urlString]) {
-                            case 0 ... 1:
-                                [self addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
-                                break;
-                            case 2:
-                                [self addDebLine:@"deb http://apt.modmyi.com/ stable main\n"];
-                                break;
-                            case 3:
-                                [self addDebLine:[NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
-                                break;
-                            case 4:
-                                [self addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
-                                break;
-                            case 5 ... 6:
-                                [self addDebLine:@"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"];
-                                break;
-                            default:
-                                break;
-                        }
-                        respond(YES, nil, nil);
-                    }
                     else {
-                        [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
-                            if (responseError) {
-                                dispatch_sync(sourcesQueue, ^{
-                                    [errors addObject:[NSString stringWithFormat:@"%@: %@", failingURL, responseError]];
-                                    [errorURLs addObject:failingURL];
-                                    
-                                    dispatch_group_leave(group);
-                                });
-                            } else {
-                                dispatch_sync(sourcesQueue, ^{
-                                    [verifiedURLs addObject:detectedURL];
-                                    
-                                    dispatch_group_leave(group);
-                                });
-                            }
-                        }];
+                        NSString *debLine = [self knownDebLineFromURLString:urlString];
+                        if (debLine) {
+                            [self addDebLine:debLine];
+                            respond(YES, nil, nil);
+                        }
+                        else {
+                            [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
+                                if (responseError) {
+                                    dispatch_sync(sourcesQueue, ^{
+                                        [errors addObject:[NSString stringWithFormat:@"%@: %@", failingURL, responseError]];
+                                        [errorURLs addObject:failingURL];
+                                        
+                                        dispatch_group_leave(group);
+                                    });
+                                } else {
+                                    dispatch_sync(sourcesQueue, ^{
+                                        [self->verifiedURLs addObject:detectedURL];
+                                        
+                                        dispatch_group_leave(group);
+                                    });
+                                }
+                            }];
+                        }
                     }
                 }
                 
@@ -158,13 +175,13 @@
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        if ([verifiedURLs count] == 0 && [errorURLs count] == 0) {
+                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
                             respond(NO, @"You have already added these repositories.", @[]);
                         }
                         else {
                             __block NSError *addError = nil;
                             
-                            [strongSelf addSources:verifiedURLs completion:^(BOOL success, NSError *error) {
+                            [strongSelf addSources:self->verifiedURLs completion:^(BOOL success, NSError *error) {
                                 addError = error;
                             }];
                             
@@ -298,11 +315,9 @@
 - (NSString *)debLineFromRepo:(ZBRepo *)repo {
     NSMutableString *output = [NSMutableString string];
     if ([repo defaultRepo]) {
-        if ([[repo origin] isEqual:@"Cydia/Telesphoreo"]) {
-            [output appendFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
-        }
-        else if ([[repo origin] isEqual:@"Bingner/Elucubratus"]) {
-            [output appendFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
+        NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
+        if (debLine) {
+            [output appendString:debLine];
         }
         else {
             NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];

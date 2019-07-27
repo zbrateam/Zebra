@@ -201,7 +201,16 @@
     
     [self bulkDatabaseStartedUpdate];
     self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Updating Repository (%@)\n", repo.origin] atLevel:ZBLogLevelInfo];
+    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+}
+
+- (void)updateRepoURLs:(NSArray <NSURL *> *)repoURLs useCaching:(BOOL)useCaching {
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
+    [self bulkDatabaseStartedUpdate];
+    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repoURLs:repoURLs];
     [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
 }
 
@@ -523,12 +532,11 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sources = [NSMutableArray new];
         
-        NSString *query = @"SELECT * FROM REPOS ORDER BY ORIGIN COLLATE NOCASE ASC";
+        NSString *query = @"SELECT * FROM REPOS";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
-                
                 [sources addObject:source];
             }
         }

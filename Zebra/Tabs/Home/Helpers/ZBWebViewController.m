@@ -375,7 +375,7 @@
         ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
         console.messages = nil;
         console.dropTables = [dropTables boolValue];
-        [self presentViewController:console animated:true completion:nil];
+        [self presentViewController:console animated:YES completion:nil];
     });
 }
 

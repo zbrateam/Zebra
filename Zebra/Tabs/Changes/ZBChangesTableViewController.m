@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
@@ -54,6 +55,7 @@
     availableOptions = @[@"release", @"update", @"upcoming", @"news"];
     defaults = [NSUserDefaults standardUserDefaults];
     [self startSettingHeader];
+    self.batchLoadCount = 500;
     [self refreshTable];
 }
 
@@ -107,7 +109,7 @@
             [self retrieveNewsJson];
         }
         if (error) {
-            NSLog(@"[Zebra] Error getting reddit token: %@", error);
+            ZBLog(@"[Zebra] Error getting reddit token: %@", error);
         }
     }] resume];
 }
@@ -142,7 +144,7 @@
             }
         }
         if (error) {
-            NSLog(@"[Zebra] Error retrieving news JSON %@", error);
+            ZBLog(@"[Zebra] Error retrieving news JSON %@", error);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             //[self animateTable];
@@ -179,7 +181,6 @@
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.batchLoadCount = 500;
         self->packages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
         self->databaseRow = self.batchLoadCount - 1;
         self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:NULL section:NULL];
@@ -313,9 +314,7 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        // TODO: Reloading the entire Changes table for each swipe is a bit too much, especially for slow devices
-        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-        [cell updateData:package];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
@@ -343,18 +342,14 @@
     }
 }
 
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
-    
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
     [self setDestinationVC:indexPath destination:packageDepictionVC];
-    
     return packageDepictionVC;
-    
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
@@ -367,7 +362,6 @@
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
-
 
 #pragma mark News
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -405,7 +399,7 @@
         if ([previews objectForKey:@"images"]) {
             NSArray *images = [previews objectForKey:@"images"];
             NSDictionary *imageDict = [images firstObject];
-            //NSLog(@"IMAGE %@", imageDict);
+            //ZBLog(@"IMAGE %@", imageDict);
             if ([imageDict objectForKey:@"source"] && [imageDict objectForKey:@"source"] != [NSNull null]) {
                 NSString *link = [imageDict valueForKeyPath:@"source.url"];
                 link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
