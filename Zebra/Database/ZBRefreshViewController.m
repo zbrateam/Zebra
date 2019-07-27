@@ -69,9 +69,11 @@ typedef enum {
         }
         
         if (self.repoURLs) {
+            // Update only the repos specified
             [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
         }
         else {
+            // Update every repo
             [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
         }
     }
@@ -93,11 +95,7 @@ typedef enum {
         if (_dropTables) {
             return;
         }
-        [databaseManager setDatabaseBeingUpdated:NO];
-        [databaseManager setHaltDatabaseOperations];
-        [databaseManager.downloadManager stopAllDownloads];
-        [databaseManager removeDatabaseDelegate:self];
-        [databaseManager bulkDatabaseCompletedUpdate:-1];
+        [databaseManager cancelUpdates:self];
         ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
         

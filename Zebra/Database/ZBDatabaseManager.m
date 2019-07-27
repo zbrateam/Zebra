@@ -219,12 +219,12 @@
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltedDatabaseOperations) {
         haltedDatabaseOperations = NO;
         return;
     }
     [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     self.downloadManager = nil;
     NSArray *releaseFiles = filenames[@"release"];
     NSArray *packageFiles = filenames[@"packages"];
@@ -594,6 +594,14 @@
         [self printDatabaseError];
         return NULL;
     }
+}
+
+- (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate {
+    [self setDatabaseBeingUpdated:NO];
+    [self setHaltDatabaseOperations];
+    [self.downloadManager stopAllDownloads];
+    [self bulkDatabaseCompletedUpdate:-1];
+    [self removeDatabaseDelegate:delegate];
 }
 
 - (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo {

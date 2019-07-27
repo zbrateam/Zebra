@@ -80,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)bulkDatabaseCompletedUpdate:(int)updates;
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 - (void)bulkSetRepo:(NSString *)bfn busy:(BOOL)busy;
+- (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
  @brief Prints sqlite_errmsg to the log.

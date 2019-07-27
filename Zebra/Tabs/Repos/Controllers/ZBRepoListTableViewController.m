@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     sources = [[self.databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
@@ -50,9 +51,8 @@
     repoManager = [ZBRepoManager sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    [self layoutNavigationButtons];
     
-    self.extendedLayoutIncludesOpaqueBars = true;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
@@ -62,6 +62,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
+    [self layoutNavigationButtons];
 }
 
 - (void)dealloc {
@@ -69,19 +70,26 @@
 }
 
 - (void)layoutNavigationButtons {
-    if (self.editing) {
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
-        self.navigationItem.rightBarButtonItem = doneButton;
-        
-        UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-        self.navigationItem.leftBarButtonItem = exportButton;
+    if (self.refreshControl.refreshing) {
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+        self.navigationItem.leftBarButtonItems = @[cancelButton];
+        self.navigationItem.rightBarButtonItem = nil;
     }
     else {
-        self.editButtonItem.action = @selector(editMode:);
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
-        
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-        self.navigationItem.leftBarButtonItems = @[addButton];
+        if (self.editing) {
+            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
+            self.navigationItem.rightBarButtonItem = doneButton;
+            
+            UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
+            self.navigationItem.leftBarButtonItem = exportButton;
+        }
+        else {
+            self.editButtonItem.action = @selector(editMode:);
+            self.navigationItem.rightBarButtonItem = self.editButtonItem;
+            
+            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+            self.navigationItem.leftBarButtonItems = @[addButton];
+        }
     }
 }
 
@@ -113,12 +121,9 @@
 
 - (void)exportSources {
     NSURL *sourcesList = [ZBAppDelegate sourcesListURL];
-    
     UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[sourcesList] applicationActivities:nil];
-    
     shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[0];
-    
-    [self presentViewController:shareSheet animated:true completion:nil];
+    [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -154,6 +159,15 @@
 - (void)editMode:(id)sender {
     [self setEditing:!self.editing animated:YES];
     [self layoutNavigationButtons];
+}
+
+- (void)disableCancelButton {
+    self.navigationItem.leftBarButtonItem.enabled = NO;
+}
+
+- (void)cancel:(id)sender {
+    [self.databaseManager cancelUpdates:self];
+    ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
 }
 
 - (void)refreshTable {
@@ -232,7 +246,7 @@
         textField.returnKeyType = UIReturnKeyNext;
     }];
     
-    [self presentViewController:alertController animated:true completion:nil];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)showAddRepoFromClipboardAlert:(NSURL *)url {
@@ -244,32 +258,32 @@
         NSString *sourceURL = url.absoluteString;
         
         UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:wait animated:true completion:nil];
+        [self presentViewController:wait animated:YES completion:nil];
         
         __weak typeof(self) weakSelf = self;
         [self->repoManager addSourceWithString:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
             if (!success) {
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-                [wait dismissViewControllerAnimated:true completion:^{
+                [wait dismissViewControllerAnimated:YES completion:^{
                     [weakSelf presentVerificationFailedAlert:error url:url present:NO];
                 }];
             }
             else {
-                [wait dismissViewControllerAnimated:true completion:^{
+                [wait dismissViewControllerAnimated:YES completion:^{
                     NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                         ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                         console.repoURLs = @[ url ];
-                        [weakSelf presentViewController:console animated:true completion:nil];
+                        [weakSelf presentViewController:console animated:YES completion:nil];
                     });
                 }];
             }
         }];
     }]];
     
-    [self presentViewController:alertController animated:true completion:nil];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url present:(BOOL)present {
@@ -282,13 +296,13 @@
             }
         }];
         [alertController addAction:okAction];
-        [self presentViewController:alertController animated:true completion:nil];
+        [self presentViewController:alertController animated:YES completion:nil];
     });
 }
 
 - (void)addReposWithText:(NSString *)text {
     UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:wait animated:true completion:nil];
+    [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
     __weak typeof(ZBRepoManager *) repoManager = self->repoManager;
@@ -314,7 +328,7 @@
                             
                             UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
                             
-                            [weakSelf presentViewController:navCon animated:true completion:nil];
+                            [weakSelf presentViewController:navCon animated:YES completion:nil];
                         }
                         else {
                             NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
@@ -329,13 +343,13 @@
                 
                 [errorAlert addAction:cancelAction];
                 
-                [weakSelf presentViewController:errorAlert animated:true completion:nil];
+                [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             }
             else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                 console.repoURLs = [repoManager verifiedURLs];
-                [weakSelf presentViewController:console animated:true completion:nil];
+                [weakSelf presentViewController:console animated:YES completion:nil];
             }
         }];
     }];
@@ -450,7 +464,7 @@
     if (![self.databaseManager isDatabaseBeingUpdated]) {
         NSString *title = [queue useIcon] ? [queue queueToKeyDisplayed:ZBQueueTypeReinstall] : @"Refresh";
         UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            [self.databaseManager updateRepo:repo useCaching:true];
+            [self.databaseManager updateRepo:repo useCaching:YES];
         }];
         refreshAction.backgroundColor = [UIColor tintColor];
         [actions addObject:refreshAction];
@@ -563,6 +577,11 @@
 
 #pragma mark - Database Delegate
 
+- (void)databaseStartedUpdate {
+    [super databaseStartedUpdate];
+    [self layoutNavigationButtons];
+}
+
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     [super databaseCompletedUpdate:packageUpdates];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -571,9 +590,13 @@
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
             refreshController.messages = self->errorMessages;
             self->errorMessages = NULL;
-            [self presentViewController:refreshController animated:true completion:nil];
+            [self presentViewController:refreshController animated:YES completion:nil];
         }
     });
+}
+
+- (void)didEndRefreshing {
+    [self layoutNavigationButtons];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
@@ -595,7 +618,7 @@
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:NULL];
             
             [alertController addAction:okAction];
-            [self presentViewController:alertController animated:true completion:nil];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
         
         for (NSString *line in contents) {
@@ -616,7 +639,7 @@
                     NSLog(@"[Zebra] Successfully merged sources");
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                    [self presentViewController:console animated:true completion:nil];
+                    [self presentViewController:console animated:YES completion:nil];
                 }
             }];
         }];
@@ -626,7 +649,7 @@
         [alertController addAction:yesAction];
         [alertController addAction:noAction];
         
-        [self presentViewController:alertController animated:true completion:nil];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     else {
         NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
@@ -639,7 +662,7 @@
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:NULL];
             
             [alertController addAction:okAction];
-            [self presentViewController:alertController animated:true completion:nil];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
         
         for (NSString *line in contents) {
@@ -660,7 +683,7 @@
                     NSLog(@"[Zebra] Successfully merged sources");
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                    [self presentViewController:console animated:true completion:nil];
+                    [self presentViewController:console animated:YES completion:nil];
                 }
             }];
         }];
@@ -670,7 +693,7 @@
         [alertController addAction:yesAction];
         [alertController addAction:noAction];
         
-        [self presentViewController:alertController animated:true completion:nil];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 

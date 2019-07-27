@@ -58,6 +58,8 @@
     }
 }
 
+- (void)didEndRefreshing {}
+
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     if (![[self class] supportRefresh]) {
         return;
@@ -68,6 +70,7 @@
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.refreshControl endRefreshing];
+        [self didEndRefreshing];
     });
 }
 

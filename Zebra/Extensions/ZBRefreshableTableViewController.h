@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBRefreshableTableViewController : UITableViewController <ZBDatabaseDelegate>
 @property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
+- (void)didEndRefreshing;
 @end
 
 NS_ASSUME_NONNULL_END
