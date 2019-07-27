@@ -7,6 +7,7 @@
 //
 
 #import "ZBCommunityReposTableViewController.h"
+#import <Database/ZBRefreshViewController.h>
 #import <Repos/Helpers/ZBRepoTableViewCell.h>
 
 enum ZBSourcesOrder {
@@ -235,8 +236,9 @@ enum ZBSourcesOrder {
     [self presentViewController:wait animated:true completion:nil];
     
     __weak typeof(self) weakSelf = self;
+    __weak typeof(ZBRepoManager *) repoManager = self.repoManager;
     
-    [self.repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
+    [repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{
             if (!success) {
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -276,7 +278,8 @@ enum ZBSourcesOrder {
             }
             else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                console.repoURLs = [repoManager verifiedURLs];
                 [weakSelf presentViewController:console animated:true completion:nil];
             }
         }];

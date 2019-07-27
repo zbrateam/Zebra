@@ -56,9 +56,7 @@
         ivc.repoEndpoint = self.repoEndpoint;
         ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
         [self.navigationController pushViewController:ivc animated:YES];
-        
     }];
-    
     
     UIImage *image = [databaseManager iconForRepo:repo];
     if (image != NULL) {

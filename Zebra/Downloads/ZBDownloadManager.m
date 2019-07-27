@@ -48,7 +48,7 @@
     return self;
 }
 
-- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
     self = [super init];
     
     if (self) {
@@ -60,12 +60,33 @@
     return self;
 }
 
-- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo {
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo {
     self = [super init];
     
     if (self) {
         downloadDelegate = delegate;
         repos = @[ [self baseURLFromDebLine:[[ZBRepoManager sharedInstance] debLineFromRepo:repo]] ];
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repoURLs:(NSArray <NSURL *> *)repoURLs {
+    self = [super init];
+    
+    if (self) {
+        downloadDelegate = delegate;
+        NSMutableArray <NSArray *> *baseURLs = [NSMutableArray array];
+        for (NSURL *url in repoURLs) {
+            NSString *urlString = url.absoluteString;
+            NSString *debLine = [[ZBRepoManager sharedInstance] knownDebLineFromURLString:urlString];
+            if (debLine == nil) {
+                debLine = [NSString stringWithFormat:@"deb %@ ./\n", urlString];
+            }
+            [baseURLs addObject:[self baseURLFromDebLine:debLine]];
+        }
+        repos = baseURLs;
         [self commonInit];
     }
     
@@ -111,7 +132,7 @@
     NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
     
     for (NSString *line in debLines) {
-        if (![line isEqual:@""]) {
+        if (![line isEqualToString:@""]) {
             if ([line characterAtIndex:0] == '#') continue;
             NSArray *baseURL = [self baseURLFromDebLine:line];
             if (baseURL != NULL) [repos addObject:baseURL];
