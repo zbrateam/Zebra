@@ -304,7 +304,6 @@
     NSLog(@"[Zebra] Importing local packages");
     [self importLocalPackages];
     if (checkForUpdates) {
-        NSLog(@"[Zebra] Checking for updates");
         [self checkForPackageUpdates];
     }
     if (needsDelegateStart) {
