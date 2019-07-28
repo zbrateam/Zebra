@@ -7,6 +7,7 @@
 //
 
 #import "ZBConsoleViewController.h"
+#import <ZBLog.h>
 #import <NSTask.h>
 #import <ZBDevice.h>
 #import <Queue/ZBQueue.h>
@@ -60,7 +61,7 @@
     [super viewDidAppear:animated];
     
     if (_externalInstall) {
-        akton = @[@[@0], @[@"dpkg", @"-i", _externalFilePath]];
+        akton = @[@[@0], @[@"apt", @"install", @"-y", _externalFilePath]];
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
     else if ([queue needsHyena]) {
@@ -93,13 +94,17 @@
 
 - (void)performActions:(NSArray *)debs {
     if (akton != NULL) {
+        ZBLog(@"[Zebra] Actions: %@", akton);
         for (NSArray *command in akton) {
             if ([command count] == 1) {
                 [self updateStatus:[command[0] intValue]];
             }
             else {
-                for (int i = 2; i < [command count]; i++) {
+                for (int i = 3; i < [command count]; ++i) {
                     NSString *packageID = command[i];
+                    if ([packageID hasPrefix:@"-"]) {
+                        continue;
+                    }
                     
                     if (stage == 1) {
                         BOOL update = [ZBPackage containsApp:packageID];
@@ -150,14 +155,18 @@
             _progressText.text = @"Performing actions...";
             self.navigationItem.leftBarButtonItem = nil;
             NSArray *actions = [queue tasks:debs];
+            ZBLog(@"[Zebra] Actions: %@", actions);
             
             for (NSArray *command in actions) {
                 if ([command count] == 1) {
                     [self updateStatus:[command[0] intValue]];
                 }
                 else {
-                    for (int i = 2; i < [command count]; i++) {
+                    for (int i = 3; i < [command count]; ++i) {
                         NSString *packageID = command[i];
+                        if ([packageID hasPrefix:@"-"]) {
+                            continue;
+                        }
                         if (stage == 1) {
                             BOOL update = [ZBPackage containsApp:packageID];
                             if (update) {

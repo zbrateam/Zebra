@@ -276,7 +276,7 @@
 
 - (NSArray *)tasks:(NSArray *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
-    NSArray *baseCommand = @[@"dpkg"];
+    NSArray *baseCommand = @[@"apt", @"-y"];
     
     NSMutableArray *installArray = _managedQueue[[self queueToKey:ZBQueueTypeInstall]];
     NSMutableArray *removeArray = _managedQueue[[self queueToKey:ZBQueueTypeRemove]];
@@ -289,20 +289,21 @@
     if ([installArray count]) {
         if (topPackages.count) {
             topInstallCommand = [baseCommand mutableCopy];
-            [topInstallCommand insertObject:@"-i" atIndex:1];
+            [topInstallCommand addObject:@"install"];
         }
         for (ZBPackage *package in installArray) {
             if ([topPackages containsObject:package.identifier]) {
                 for (NSString *filename in debs) {
                     if ([filename containsString:[[package filename] lastPathComponent]]) {
-                        [topInstallCommand insertObject:filename atIndex:2];
+                        [topInstallCommand addObject:filename];
                         break;
                     }
                 }
             } else {
                 if (installCommand == nil) {
                     installCommand = [baseCommand mutableCopy];
-                    [installCommand insertObject:@"-i" atIndex:1];
+                    [installCommand addObject:@"install"];
+                    [installCommand addObject:@"--reinstall"];
                 }
                 for (NSString *filename in debs) {
                     NSString *packageFilename = [package filename];
@@ -310,7 +311,7 @@
                         continue;
                     }
                     if ([filename containsString:[packageFilename lastPathComponent]]) {
-                        [installCommand insertObject:filename atIndex:2];
+                        [installCommand addObject:filename];
                         break;
                     }
                 }
@@ -327,9 +328,9 @@
         [commands addObject:@[@1]];
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
         
-        [removeCommand insertObject:@"-r" atIndex:1];
+        [removeCommand addObject:@"remove"];
         for (ZBPackage *package in removeArray) {
-            [removeCommand insertObject:package.identifier atIndex:2];
+            [removeCommand addObject:package.identifier];
         }
         
         [commands addObject:removeCommand];
@@ -346,11 +347,12 @@
         //Install new version
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
-        [installCommand insertObject:@"-i" atIndex:1];
+        [installCommand addObject:@"install"];
+        [installCommand addObject:@"--reinstall"];
         for (ZBPackage *package in reinstallArray) {
             for (NSString *filename in debs) {
                 if ([filename containsString:[[package filename] lastPathComponent]]) {
-                    [installCommand insertObject:filename atIndex:2];
+                    [installCommand addObject:filename];
                     break;
                 }
             }
@@ -363,11 +365,11 @@
         [commands addObject:@[@3]];
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
         
-        [upgradeCommand insertObject:@"-i" atIndex:1];
+        [upgradeCommand addObject:@"install"];
         for (ZBPackage *package in upgradeArray) {
             for (NSString *filename in debs) {
                 if ([filename containsString:[[package filename] lastPathComponent]]) {
-                    [upgradeCommand insertObject:filename atIndex:2];
+                    [upgradeCommand addObject:filename];
                     break;
                 }
             }

@@ -135,7 +135,6 @@
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            NSLog(@"[Zebra] %@", pair);
             if ([key isEqualToString:@"Package"]) {
                 contains = [self containsApp:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 return;
