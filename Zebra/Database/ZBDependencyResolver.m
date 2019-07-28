@@ -92,10 +92,11 @@
     NSArray *comps = [line componentsSeparatedByString:@"|"];
     NSMutableArray *results = [NSMutableArray new];
     for (NSString *depPackageID in comps) {
-        ZBPackage *depPackage = [self packageThatResolvesDependency:[depPackageID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] checkProvides:provides];
+        NSString *trueDepPackageID = [depPackageID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        ZBPackage *depPackage = [self packageThatResolvesDependency:trueDepPackageID checkProvides:provides];
         
         if (depPackage != NULL) {
-            if ([databaseManager packageIsInstalled:depPackage versionStrict:false]) {
+            if ([databaseManager packageIsInstalled:depPackage versionStrict:NO]) {
                 return depPackage;
             }
             else {
@@ -219,11 +220,11 @@
                 // If there is such other dependency that can provide, we should not remove this package
                 BOOL shouldRemove = YES;
                 for (NSString *line in [dependingPackage dependsOn]) {
-                    ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:false];
+                    ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:NO];
                     if (depPackage) {
                         ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:true];
                         if (providingPackage && shouldRemove) {
-                            shouldRemove = ![providingPackage sameAsStricted:depPackage];
+                            shouldRemove = NO;
                             ZBLog(@"[Zebra] Should we remove %@ because its dependency being removed?: %d", dependingPackage, shouldRemove);
                         }
                     }

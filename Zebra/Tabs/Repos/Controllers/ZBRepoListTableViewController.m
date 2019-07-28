@@ -39,7 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     sources = [[self.databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
@@ -164,10 +163,6 @@
 - (void)editMode:(id)sender {
     [self setEditing:!self.editing animated:YES];
     [self layoutNavigationButtons];
-}
-
-- (void)disableCancelButton {
-    self.navigationItem.leftBarButtonItem.enabled = NO;
 }
 
 - (void)cancel:(id)sender {
