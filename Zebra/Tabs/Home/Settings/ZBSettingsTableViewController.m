@@ -507,7 +507,8 @@ enum ZBSectionOrder {
 
 - (void)openDocumentsDirectory {
     NSString *documents = [ZBAppDelegate documentsDirectory];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"filza://view%@", documents]]];
+    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"filza://view%@/", documents] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)resetImageCache {
