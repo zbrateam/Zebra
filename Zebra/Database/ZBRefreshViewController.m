@@ -68,7 +68,7 @@ typedef enum {
             [databaseManager dropTables];
         }
         
-        if (self.repoURLs) {
+        if (self.repoURLs.count) {
             // Update only the repos specified
             [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
         }
