@@ -152,8 +152,8 @@
                 if ([[package provides] containsObject:conf.identifier] || [[package replaces] containsObject:conf.identifier]) {
                     // If this package can provide or replace this conflicting package, we can remove this conflicting package
                     // This also means, we have to install "package" first before we remove "conf"
-                    ZBLog(@"[Zebra] Installing %@ requires removing %@", package, conf);
-                    [queue addPackage:conf toQueue:ZBQueueTypeRemove toTop:package];
+                    ZBLog(@"[Zebra] Installing %@ triggers removing of %@, but we will let dpkg handle it", package, conf);
+                    continue;
                 }
                 else {
                     // Just remove this package
@@ -194,19 +194,6 @@
             [databaseManager printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
-        //Now, check if this package replaces any other package, i.e., we will remove them
-        
-        NSArray *replaces = [package replaces];
-        
-        for (NSString *line in replaces) {
-            ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:false];
-            if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
-                ZBLog(@"[Zebra] %@ replaces %@, will remove %@", package, conf, conf);
-                [queue addPackage:conf toQueue:ZBQueueTypeRemove requiredBy:package];
-            }
-        }
-        
     }
     else if (state == 1) { //Removing package
         //Check if any package that is installed depends on this package

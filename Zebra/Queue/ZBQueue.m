@@ -274,8 +274,8 @@
     }
 }
 
-- (NSOrderedSet *)tasks:(NSArray *)debs {
-    NSMutableOrderedSet<NSArray *> *commands = [NSMutableOrderedSet new];
+- (NSArray *)tasks:(NSArray *)debs {
+    NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = @[@"dpkg"];
     
     NSMutableArray *installArray = _managedQueue[[self queueToKey:ZBQueueTypeInstall]];
