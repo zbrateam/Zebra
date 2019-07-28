@@ -173,23 +173,20 @@
                     // Skip false positives
                     continue;
                 }
-                for (NSString *dep in [conf conflictsWith]) {
-                    if ([dep isEqualToString:package.identifier]) {
-                        if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
-                            // If this conflicting package (conf) can replace this not-installed package, we don't have to install this package (package)
-                            ZBLog(@"[Zebra] Skipping installation of %@ because %@ can substitute", package, conf);
-                            [queue removePackage:package fromQueue:ZBQueueTypeInstall];
-                            continue;
-                        }
-                        else if ([[conf conflictsWith] containsObject:package.identifier]) {
-                            // If this conflicting package (conf) conflicts with this not-installed package, we remove conf
-                            ZBLog(@"[Zebra] Removing %@ because it conflicts with %@", conf, package);
-                            [queue addPackage:conf toQueue:ZBQueueTypeRemove];
-                            continue;
-                        }
-                        [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
-                    }
+                if ([[conf conflictsWith] containsObject:package.identifier]) {
+                    // If this conflicting package (conf) conflicts with this not-installed package, we remove conf
+                    ZBLog(@"[Zebra] Removing %@ because it conflicts with %@", conf, package);
+                    [queue addPackage:conf toQueue:ZBQueueTypeRemove];
+                    continue;
                 }
+                else if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
+                    // If this conflicting package (conf) can replace this not-installed package, we don't have to install this package (package)
+                    ZBLog(@"[Zebra] Skipping installation of %@ because %@ can substitute", package, conf);
+                    [queue removePackage:package fromQueue:ZBQueueTypeInstall];
+                    continue;
+                }
+                [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
+                break;
             }
         }
         else {
@@ -218,10 +215,6 @@
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *dependingPackage = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                if (![[dependingPackage dependsOn] containsObject:package.identifier]) {
-                    // Skip false positives
-                    continue;
-                }
                 // Before we actually remove this package, it is possible that this package is to be removed due to its dependency being removed
                 // If there is such other dependency that can provide, we should not remove this package
                 BOOL shouldRemove = YES;
