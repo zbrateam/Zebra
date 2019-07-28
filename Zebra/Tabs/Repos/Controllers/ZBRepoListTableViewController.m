@@ -126,6 +126,11 @@
     [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self checkClipboard];

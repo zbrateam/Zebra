@@ -59,6 +59,11 @@
     [self refreshTable];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+}
+
 - (void)startSettingHeader  {
     //NSLog(@"Running");
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
@@ -75,7 +80,8 @@
     NSDate *creationDate = [defaults objectForKey:@"redditCheck"];
     if (!creationDate) {
         [self getRedditToken];
-    }else {
+    }
+    else {
         double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
         if (seconds > 3500) {
             [self getRedditToken];

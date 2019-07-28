@@ -164,7 +164,7 @@
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
         cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style)", cssData];
+        NSString *jsString = [NSString stringWithFormat:@"(function(){ var style = document.createElement('style'); style.innerHTML = '%@'; document.head.appendChild(style) })()", cssData];
         [webView evaluateJavaScript:jsString completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);

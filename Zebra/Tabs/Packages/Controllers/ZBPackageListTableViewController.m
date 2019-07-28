@@ -68,6 +68,7 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
     [self refreshTable];
 }
 
