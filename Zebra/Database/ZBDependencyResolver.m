@@ -163,12 +163,16 @@
         }
         
         //Then, check if any package that is installed conflicts with package
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%% %@ %%\' AND REPOID < 1;", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@%%\' AND REPOID < 1;", package.identifier];
 
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *conf = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                if (![[conf conflictsWith] containsObject:package.identifier]) {
+                    // Skip false positives
+                    continue;
+                }
                 for (NSString *dep in [conf conflictsWith]) {
                     if ([dep isEqualToString:package.identifier]) {
                         if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
@@ -208,12 +212,16 @@
     }
     else if (state == 1) { //Removing package
         //Check if any package that is installed depends on this package
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%% %@ %%\' AND REPOID < 1;", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@%%\' AND REPOID < 1;", package.identifier];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *dependingPackage = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                if (![[dependingPackage dependsOn] containsObject:package.identifier]) {
+                    // Skip false positives
+                    continue;
+                }
                 // Before we actually remove this package, it is possible that this package is to be removed due to its dependency being removed
                 // If there is such other dependency that can provide, we should not remove this package
                 BOOL shouldRemove = YES;

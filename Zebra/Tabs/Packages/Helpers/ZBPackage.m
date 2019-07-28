@@ -310,7 +310,7 @@
 }
 
 - (BOOL)sameAs:(ZBPackage *)package {
-    return [[self identifier] isEqualToString:[package identifier]];
+    return [[self identifier] isEqualToString:package.identifier];
 }
 
 - (BOOL)sameAsStricted:(ZBPackage *)package {

@@ -329,7 +329,7 @@
         
         [removeCommand insertObject:@"-r" atIndex:1];
         for (ZBPackage *package in removeArray) {
-            [removeCommand insertObject:[package identifier] atIndex:2];
+            [removeCommand insertObject:package.identifier atIndex:2];
         }
         
         [commands addObject:removeCommand];

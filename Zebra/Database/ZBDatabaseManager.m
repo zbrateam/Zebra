@@ -367,8 +367,8 @@
         numberOfUpdates = 0;
         upgradePackageIDs = [NSMutableArray new];
         for (ZBPackage *package in installedPackages) {
-            if ([found containsObject:[package identifier]]) {
-                NSLog(@"[Zebra] I already checking %@, skipping", [package identifier]);
+            if ([found containsObject:package.identifier]) {
+                NSLog(@"[Zebra] I already checking %@, skipping", package.identifier);
                 continue;
             }
             
@@ -398,10 +398,10 @@
                 BOOL packageIgnoreUpdates = [package ignoreUpdates];
                 if (packageIgnoreUpdates)
                     // This package has no update and the user actively ignores updates from it, we update the latest version here
-                    query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', 1);", [package identifier], [package version]];
+                    query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', 1);", package.identifier, [package version]];
                 else
                     // This package has no update and the user does not ignore updates from it, having the record in the database is waste of space
-                    query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", [package identifier]];
+                    query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", package.identifier];
                 if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
                     while (sqlite3_step(statement) == SQLITE_ROW) {
                         break;
@@ -412,7 +412,7 @@
                 }
                 sqlite3_finalize(statement);
             }
-            [found addObject:[package identifier]];
+            [found addObject:package.identifier];
         }
         [self closeDatabase];
     }
@@ -711,7 +711,7 @@
                 //ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 ZBPackage *package = [self packageForID:packageID equalVersion:packageVersion];
                 package.version = packageVersion;
-                [installedPackageIDs addObject:[package identifier]];
+                [installedPackageIDs addObject:package.identifier];
                 [installedPackages addObject:package];
             }
         }
@@ -910,7 +910,7 @@
 }
 
 - (BOOL)packageHasUpdate:(ZBPackage *)package {
-    return [self packageIDHasUpdate:[package identifier]];
+    return [self packageIDHasUpdate:package.identifier];
 }
 
 - (BOOL)packageIDIsInstalled:(NSString *)packageIdentifier version:(NSString *_Nullable)version {
@@ -952,7 +952,7 @@
 }
 
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict {
-    return [self packageIDIsInstalled:[package identifier] version:strict ? [package version] : NULL];
+    return [self packageIDIsInstalled:package.identifier version:strict ? [package version] : NULL];
 }
 
 - (BOOL)packageIDIsAvailable:(NSString *)packageIdentifier version:(NSString *_Nullable)version {
@@ -982,7 +982,7 @@
 }
 
 - (BOOL)packageIsAvailable:(ZBPackage *)package versionStrict:(BOOL)strict {
-    return [self packageIDIsAvailable:[package identifier] version:strict ? [package version] : NULL];
+    return [self packageIDIsAvailable:package.identifier version:strict ? [package version] : NULL];
 }
 
 - (ZBPackage *)packageForID:(NSString *)identifier equalVersion:(NSString *)version {
@@ -1014,7 +1014,7 @@
 
 - (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT IGNORE FROM UPDATES WHERE PACKAGE = '\%@\' LIMIT 1;", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT IGNORE FROM UPDATES WHERE PACKAGE = '\%@\' LIMIT 1;", package.identifier];
         
         BOOL ignored = false;
         sqlite3_stmt *statement;
@@ -1041,7 +1041,7 @@
 
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [package identifier], [package version], ignore ? 1 : 0];
+        NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", package.identifier, [package version], ignore ? 1 : 0];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1174,7 +1174,7 @@
 }
 
 - (NSArray *)allVersionsForPackage:(ZBPackage *)package {
-    return [self allVersionsForPackageID:[package identifier]];
+    return [self allVersionsForPackageID:package.identifier];
 }
 
 - (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier {
@@ -1207,7 +1207,7 @@
 
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package {
-    return [self otherVersionsForPackageID:[package identifier] version:[package version]];
+    return [self otherVersionsForPackageID:package.identifier version:[package version]];
 }
 
 - (NSArray *)otherVersionsForPackageID:(NSString *)packageIdentifier version:(NSString *)version {
@@ -1317,7 +1317,7 @@
 
 
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package {
-    return [self topVersionForPackageID:[package identifier]];
+    return [self topVersionForPackageID:package.identifier];
 }
 
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier {
@@ -1363,9 +1363,9 @@
     NSMutableArray *results = [NSMutableArray array];
     
     for (ZBPackage *package in packageList) {
-        ZBPackage *packageFromDict = packageVersionDict[[package identifier]];
+        ZBPackage *packageFromDict = packageVersionDict[package.identifier];
         if (packageFromDict == NULL) {
-            packageVersionDict[[package identifier]] = package;
+            packageVersionDict[package.identifier] = package;
             [results addObject:package];
             continue;
         }
@@ -1377,7 +1377,7 @@
             
             if (result > 0) {
                 NSUInteger index = [results indexOfObject:packageFromDict];
-                packageVersionDict[[package identifier]] = package;
+                packageVersionDict[package.identifier] = package;
                 [results replaceObjectAtIndex:index withObject:package];
             }
         }
