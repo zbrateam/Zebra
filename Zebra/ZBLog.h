@@ -12,9 +12,9 @@
 //#define ZB_DEBUG 1
 
 #if ZB_DEBUG
-#define ZBLog(format, ...) NSLog(format, __VA_ARGS__)
+#define ZBLog(...) NSLog(__VA_ARGS__)
 #else
-#define ZBLog(format, ...)
+#define ZBLog(...)
 #endif
 
 #endif /* ZBLog_h */
