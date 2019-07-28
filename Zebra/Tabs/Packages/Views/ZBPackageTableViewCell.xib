@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14835.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14845" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14790.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14799.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkS-a9-8o4">
-                        <rect key="frame" x="65" y="7" width="119" height="20"/>
+                        <rect key="frame" x="65" y="7" width="336" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                         <rect key="frame" x="365" y="11" width="14" height="14"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Repo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7C-iN-6rJ">
-                        <rect key="frame" x="66" y="26" width="87.5" height="16"/>
+                        <rect key="frame" x="66" y="26" width="335" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -74,7 +74,9 @@
                     <constraint firstItem="O7C-iN-6rJ" firstAttribute="leading" secondItem="JDx-9t-re7" secondAttribute="trailing" constant="9" id="ria-jo-e2m"/>
                     <constraint firstItem="IkS-a9-8o4" firstAttribute="bottom" secondItem="TA0-o7-XsF" secondAttribute="bottom" constant="2" id="tNo-dn-V5j"/>
                     <constraint firstItem="O7C-iN-6rJ" firstAttribute="top" secondItem="IkS-a9-8o4" secondAttribute="bottom" constant="-1" id="uVd-5U-CS5"/>
+                    <constraint firstAttribute="trailing" secondItem="O7C-iN-6rJ" secondAttribute="trailing" constant="15" id="vGH-HJ-aqa"/>
                     <constraint firstItem="Kfs-v7-U2C" firstAttribute="trailing" secondItem="5rc-UN-QTa" secondAttribute="trailingMargin" id="wo8-Fc-HMp"/>
+                    <constraint firstAttribute="trailing" secondItem="IkS-a9-8o4" secondAttribute="trailing" constant="15" id="yVj-0C-1EY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
