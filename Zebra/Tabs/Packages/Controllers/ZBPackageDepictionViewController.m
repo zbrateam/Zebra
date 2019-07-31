@@ -117,8 +117,6 @@ enum ZBPackageInfoOrder {
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.view addSubview:webView];
-    
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     
