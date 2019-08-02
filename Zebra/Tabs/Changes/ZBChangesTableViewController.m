@@ -59,16 +59,10 @@
     [self refreshTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
-}
-
 - (void)startSettingHeader  {
     //NSLog(@"Running");
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
     if ([defaults boolForKey:@"wantsNews"]) {
-        //NSLog(@"TRUE");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             //[self retrieveNewsJson];
             [self kickStartReddit];

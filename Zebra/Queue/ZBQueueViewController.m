@@ -37,7 +37,7 @@
 - (IBAction)confirm:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [[self navigationController] pushViewController:vc animated:true];
+    [[self navigationController] pushViewController:vc animated:YES];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -45,7 +45,7 @@
         [_queue clearQueue];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)refreshBarButtons {
@@ -78,7 +78,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *title = [[_queue actionsToPerform] objectAtIndex:section];
-    if ([title isEqual:@"Install"] || [title isEqual:@"Reinstall"] || [title isEqual:@"Upgrade"]) {
+    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"Reinstall"] || [title isEqualToString:@"Upgrade"]) {
         ZBQueueType type = [_queue keyToQueue:title];
         if (type) {
             double totalDownloadSize = 0;

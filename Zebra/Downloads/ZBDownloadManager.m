@@ -547,9 +547,7 @@
                         
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
-                            [self moveFileFromLocation:[NSURL fileURLWithPath:finalPath] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
-                                NSLog(@"[Hyena] File moved");
-                            }];
+                            [self moveFileFromLocation:[NSURL fileURLWithPath:finalPath] to:[finalPath stringByDeletingPathExtension] completion:NULL];
                         }
                         
                         BZ2_bzReadClose(&bzError, bzf);
@@ -578,7 +576,6 @@
                 NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
-                    NSLog(@"[Hyena] File moved");
                     if (success) {
                         [self addFile:finalPath toArray:@"packages"];
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:NULL];

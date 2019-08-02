@@ -7,6 +7,7 @@
 //
 
 #import "ZBPackage.h"
+#import <ZBLog.h>
 #import <ZBDevice.h>
 #import <Parsel/vercmp.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -60,7 +61,7 @@
 + (BOOL)containsTweak:(NSString *)packageID {
     NSLog(@"[Zebra] Searching %@ for tweak", packageID);
     if ([ZBDevice needsSimulation]) {
-        return true;
+        return YES;
     }
     if ([packageID hasSuffix:@".deb"]) {
         NSLog(@"[Zebra] Trying to find package id");
@@ -85,7 +86,7 @@
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            NSLog(@"[Zebra] %@", pair);
+            ZBLog(@"[Zebra] %@", pair);
             if ([key isEqualToString:@"Package"]) {
                 contains = [self containsTweak:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 return;
@@ -100,11 +101,11 @@
     for (NSString *path in files) {
         if ([path rangeOfString:@"/Library/MobileSubstrate/DynamicLibraries"].location != NSNotFound) {
             if ([path rangeOfString:@".dylib"].location != NSNotFound) {
-                return true;
+                return YES;
             }
         }
     }
-    return false;
+    return NO;
 }
 
 + (BOOL)containsApp:(NSString *)packageID {
@@ -137,7 +138,7 @@
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
                 contains = [self containsApp:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-                return;
+                *stop = YES;
             }
         }];
         
@@ -148,7 +149,7 @@
     
     for (NSString *path in files) {
         if ([path rangeOfString:@".app/Info.plist"].location != NSNotFound) {
-            return true;
+            return YES;
         }
     }
     return false;
@@ -179,7 +180,7 @@
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
                 path = [self pathForApplication:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-                return;
+                *stop = YES;
             }
         }];
         
@@ -442,7 +443,7 @@
 
 - (BOOL)isReinstallable {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageIsAvailable:self versionStrict:true];
+    return [databaseManager packageIsAvailable:self versionStrict:YES];
 }
 
 - (NSArray <ZBPackage *> *)otherVersions {

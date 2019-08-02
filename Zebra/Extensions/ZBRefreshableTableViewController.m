@@ -41,8 +41,12 @@
     if (![[self class] supportRefresh]) {
         return;
     }
-    if ([databaseManager isDatabaseBeingUpdated])
+    if ([databaseManager isDatabaseBeingUpdated]) {
+        if (!self.refreshControl.refreshing) {
+            [self.refreshControl beginRefreshing];
+        }
         return;
+    }
     [databaseManager addDatabaseDelegate:self];
     [self setRepoRefreshIndicatorVisible:YES];
     BOOL singleRepo = NO;
@@ -84,14 +88,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
-}
-
-- (void)dealloc {
-    [databaseManager closeDatabase];
 }
 
 @end
