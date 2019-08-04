@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-dict* dict_new() {
+dict *dict_new() {
     dict *dictionary = malloc(sizeof(dict));
     assert(dictionary != NULL);
     dictionary->head = NULL;

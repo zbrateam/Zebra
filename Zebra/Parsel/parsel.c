@@ -50,11 +50,11 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
 
 multi_tok_t init() { return NULL; }
 
-char* replace_char(char* str, char find, char replace) {
-    char *current_pos = strchr(str,find);
+char *replace_char(char *str, char find, char replace) {
+    char *current_pos = strchr(str, find);
     while (current_pos) {
         *current_pos = replace;
-        current_pos = strchr(current_pos,find);
+        current_pos = strchr(current_pos, find);
     }
     return str;
 }
@@ -71,12 +71,8 @@ int isRepoSecure(const char* sourcePath, char *repoURL) {
                 return 1;
             }
         }
-        
-        return 0;
     }
-    else {
-        return 0;
-    }
+    return 0;
 }
 
 char *reposSchema() {

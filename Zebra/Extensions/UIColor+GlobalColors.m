@@ -19,24 +19,18 @@
                 return ([ZBDevice darkModeEnabled]) ? [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0] : [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
             case ZBBlue :
                 return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-                break;
             case ZBOrange :
                 return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
-                break;
             case ZBWhiteOrBlack :
                 return ([ZBDevice darkModeEnabled]) ? [UIColor colorWithRed:1 green:1 blue:1 alpha:1] : [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-                break;
             default:
                 return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-                break;
-        }
-    } else {
-        if ([ZBDevice darkModeEnabled]) {
-            return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
-        } else {
-            return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
         }
     }
+    if ([ZBDevice darkModeEnabled]) {
+        return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
+    }
+    return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
 
 + (UIColor *)navBarTintColor {
@@ -54,9 +48,8 @@
             return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
         }
         return [UIColor blackColor];
-    } else {
-        return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     }
+    return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
 }
 
 + (UIColor *)cellBackgroundColor {
@@ -65,9 +58,8 @@
             return [UIColor blackColor];
         }
         return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
-    } else {
-        return [UIColor whiteColor];
     }
+    return [UIColor whiteColor];
 }
 
 + (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted {
@@ -77,34 +69,29 @@
 + (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled{
     if (!oled) {
         return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    } else{
-        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
     }
-
+    return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
 }
 
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
     if ([ZBDevice darkModeEnabled]) {
         return [self selectedCellBackgroundColorDark:highlighted oled:[ZBDevice darkModeOledEnabled]];
-    } else {
-        return [self selectedCellBackgroundColorLight:highlighted];
     }
+    return [self selectedCellBackgroundColorLight:highlighted];
 }
 
 + (UIColor *)cellPrimaryTextColor {
     if ([ZBDevice darkModeEnabled]) {
         return [UIColor whiteColor];
-    } else {
-        return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     }
+    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
 }
 
 + (UIColor *)cellSecondaryTextColor {
     if ([ZBDevice darkModeEnabled]) {
         return [UIColor lightGrayColor];
-    } else {
-        return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
     }
+    return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
 }
 
 + (UIColor *)cellSeparatorColor {
@@ -113,9 +100,8 @@
             return [UIColor blackColor];
         }
         return [UIColor colorWithRed:0.22 green:0.22 blue:0.23 alpha:1.0];
-    } else {
-        return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
     }
+    return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
 }
 
 + (NSString *)hexStringFromColor:(UIColor *)color {
@@ -125,10 +111,7 @@
     CGFloat g = components[1];
     CGFloat b = components[2];
     
-    return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
-            lroundf(r * 255),
-            lroundf(g * 255),
-            lroundf(b * 255)];
+    return [NSString stringWithFormat:@"#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255)];
 }
 
 @end

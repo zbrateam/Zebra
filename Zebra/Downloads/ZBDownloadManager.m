@@ -387,10 +387,10 @@
     NSURL *url = [[downloadTask originalRequest] URL];
     NSString *filename = [url lastPathComponent];
     if (responseCode != 200 && responseCode != 304) { // Handle error code
-        if ([[filename lastPathComponent] containsString:@".bz2"]) { // Try to download .gz
+        if ([filename hasSuffix:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
         }
-        else if ([[filename lastPathComponent] containsString:@".gz"]) { // Try to download Packages
+        else if ([filename hasSuffix:@".gz"]) { // Try to download Packages
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages"] ignoreCaching:self->ignore];
         }
         else {
@@ -413,11 +413,11 @@
                 else {
                     NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); // 🤮
                     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
-                    if ([[filename lastPathComponent] containsString:@".deb"]) {
+                    if ([filename hasSuffix:@".deb"]) {
                         [self cancelAllTasksForSession:session];
                     }
                     
-                    if ([filename containsString:@".deb"]) {
+                    if ([filename hasSuffix:@".deb"]) {
                         [self->downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
                     }
                     else {
@@ -428,7 +428,7 @@
         }
     }
     else { // Download success
-        if ([[filename lastPathComponent] containsString:@".deb"]) {
+        if ([filename hasSuffix:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
             
@@ -442,7 +442,7 @@
                 }
             }];
         }
-        else if ([[filename lastPathComponent] containsString:@".gz"]) {
+        else if ([filename hasSuffix:@".gz"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
@@ -506,7 +506,7 @@
                 }];
             }
         }
-        else if ([[filename lastPathComponent] containsString:@".bz2"]) {
+        else if ([filename hasSuffix:@".bz2"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
@@ -565,7 +565,7 @@
                 }];
             }
         }
-        else if ([[filename lastPathComponent] hasSuffix:@"Packages"]) {
+        else if ([filename isEqualToString:@"Packages"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
@@ -582,7 +582,7 @@
                 }];
             }
         }
-        else if ([[filename lastPathComponent] containsString:@"Release"]) {
+        else if ([filename isEqualToString:@"Release"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
