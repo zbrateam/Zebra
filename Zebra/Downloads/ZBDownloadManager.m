@@ -149,13 +149,13 @@
     if ([ZBDevice isChimera]) { // chimera
         return ([host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([ZBDevice isUncover]) { // uncover
+    if ([ZBDevice isUncover]) { // uncover
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([ZBDevice isElectra]) { // electra
+    if ([ZBDevice isElectra]) { // electra
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     

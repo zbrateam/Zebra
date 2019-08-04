@@ -15,6 +15,8 @@
 
 @interface ZBRepoManager () {
     NSMutableArray<NSURL *> *verifiedURLs;
+    NSMutableDictionary <NSNumber *, ZBRepo *> *repos;
+    BOOL recachingNeeded;
 }
 @end
 
@@ -25,8 +27,34 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [ZBRepoManager new];
+        instance->recachingNeeded = YES;
     });
     return instance;
+}
+
+- (NSMutableDictionary <NSNumber *, ZBRepo *> *)repos {
+    if (recachingNeeded) {
+        recachingNeeded = NO;
+        repos = [NSMutableDictionary new];
+        NSString *query = @"SELECT * FROM REPOS;";
+        
+        sqlite3 *database;
+        sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+                repos[@(source.repoID)] = source;
+            }
+        }
+        else {
+            [[ZBDatabaseManager sharedInstance] printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(database);
+    }
+    return repos;
 }
 
 - (NSURL *)normalizedURL:(NSURL *)url {
@@ -381,6 +409,7 @@
             completion(true, NULL);
         }
     }
+    recachingNeeded = YES;
 }
 
 - (void)deleteSource:(ZBRepo *)delRepo {
@@ -423,6 +452,7 @@
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         [databaseManager deleteRepo:delRepo];
     }
+    recachingNeeded = YES;
 }
 
 - (void)addDebLine:(NSString *)sourceLine {
@@ -587,6 +617,7 @@
         NSError *error = [NSError errorWithDomain:NSArgumentDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Both files aren't .list"}];
         completion(error);
     }
+    recachingNeeded = YES;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ZBRepo.h"
+#import "ZBRepoManager.h"
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
@@ -28,26 +29,7 @@
 @synthesize supportSileoPay;
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID {
-    NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE REPOID = %d;", repoID];
-    
-    sqlite3 *database;
-    sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
-    
-    ZBRepo *source;
-    sqlite3_stmt *statement;
-    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
-            break;
-        }
-    }
-    else {
-        [[ZBDatabaseManager sharedInstance] printDatabaseError];
-    }
-    sqlite3_finalize(statement);
-    sqlite3_close(database);
-    
-    return source;
+    return [[ZBRepoManager sharedInstance] repos][@(repoID)];
 }
 
 + (ZBRepo *)localRepo {
