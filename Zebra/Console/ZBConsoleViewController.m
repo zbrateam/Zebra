@@ -101,6 +101,10 @@ typedef enum {
     [self performActions:NULL];
 }
 
+- (BOOL)isValidPackageID:(NSString *)packageID {
+    return ![packageID hasPrefix:@"-"] && ![packageID isEqualToString:@"install"] && ![packageID isEqualToString:@"remove"];
+}
+
 - (void)performActions:(NSArray *)debs {
     if (akton != NULL) {
         ZBLog(@"[Zebra] Actions: %@", akton);
@@ -111,7 +115,7 @@ typedef enum {
             else {
                 for (int i = 3; i < [command count]; ++i) {
                     NSString *packageID = command[i];
-                    if ([packageID hasPrefix:@"-"]) {
+                    if (![self isValidPackageID:packageID]) {
                         continue;
                     }
                     
@@ -172,7 +176,7 @@ typedef enum {
                 else {
                     for (int i = 3; i < [command count]; ++i) {
                         NSString *packageID = command[i];
-                        if ([packageID hasPrefix:@"-"]) {
+                        if (![self isValidPackageID:packageID]) {
                             continue;
                         }
                         if (stage != ZBStageDone) {
