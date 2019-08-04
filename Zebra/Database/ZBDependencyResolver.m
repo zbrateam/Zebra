@@ -90,13 +90,16 @@
 
 - (ZBPackage *)packageThatSatisfiesORComparison:(NSString *)line checkProvides:(BOOL)provides {
     NSArray *comps = [line componentsSeparatedByString:@"|"];
+    ZBLog(@"[Zebra] Extracted OR dependencies: %@", comps);
     NSMutableArray *results = [NSMutableArray new];
     for (NSString *depPackageID in comps) {
         NSString *trueDepPackageID = [depPackageID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         ZBPackage *depPackage = [self packageThatResolvesDependency:trueDepPackageID checkProvides:provides];
+        ZBLog(@"[Zebra] Resolved OR dependency: %@ -> %@", trueDepPackageID, depPackage);
         
         if (depPackage != NULL) {
             if ([databaseManager packageIsInstalled:depPackage versionStrict:NO]) {
+                ZBLog(@"[Zebra] Final OR dependency: %@", depPackage);
                 return depPackage;
             }
             else {
@@ -106,6 +109,7 @@
     }
     
     if ([results count]) {
+        ZBLog(@"[Zebra] Final OR dependency (fallback): %@", results[0]);
         return results[0]; //The first one is probably fine
     }
     

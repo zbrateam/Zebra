@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBLog.h>
 #import "ZBDatabaseManager.h"
 #import <ZBDevice.h>
 #import <Parsel/parsel.h>
@@ -699,6 +700,7 @@
         installedPackageIDs = [NSMutableArray new];
         NSMutableArray *installedPackages = [NSMutableArray new];
         
+        // Note: This will not consider gsc.* packages
         NSString *query = @"SELECT * FROM PACKAGES WHERE REPOID = 0;";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -914,39 +916,42 @@
 
 - (BOOL)packageIDIsInstalled:(NSString *)packageIdentifier version:(NSString *_Nullable)version {
     if (version == NULL && [installedPackageIDs count] != 0) {
-        return [installedPackageIDs containsObject:packageIdentifier];
-    }
-    else {
-        if ([self openDatabase] == SQLITE_OK) {
-            NSString *query;
-            
-            if (version != NULL) {
-                query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1 LIMIT 1;", packageIdentifier, version];
-            }
-            else {
-                query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID < 1 LIMIT 1;", packageIdentifier];
-            }
-            
-            BOOL packageIsInstalled = false;
-            sqlite3_stmt *statement;
-            if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-                while (sqlite3_step(statement) == SQLITE_ROW) {
-                    packageIsInstalled = true;
-                    break;
-                }
-            }
-            else {
-                [self printDatabaseError];
-            }
-            sqlite3_finalize(statement);
-            [self closeDatabase];
-            
+        BOOL packageIsInstalled = [installedPackageIDs containsObject:packageIdentifier];
+        ZBLog(@"[Zebra] [installedPackageIDs] Is %@ (version: %@) installed? : %d", packageIdentifier, version, packageIsInstalled);
+        if (packageIsInstalled) {
             return packageIsInstalled;
+        }
+    }
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query;
+        
+        if (version != NULL) {
+            query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1 LIMIT 1;", packageIdentifier, version];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID < 1 LIMIT 1;", packageIdentifier];
+        }
+        
+        BOOL packageIsInstalled = false;
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                packageIsInstalled = true;
+                break;
+            }
         }
         else {
             [self printDatabaseError];
-            return false;
         }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        ZBLog(@"[Zebra] Is %@ (version: %@) installed? : %d", packageIdentifier, version, packageIsInstalled);
+        return packageIsInstalled;
+    }
+    else {
+        [self printDatabaseError];
+        return false;
     }
 }
 

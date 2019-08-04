@@ -117,7 +117,7 @@
                         }
                         
                         if (!needsRespring) {
-                            needsRespring = [ZBPackage containsTweak:packageID];
+                            needsRespring = [ZBPackage containsRespringable:packageID];
                         }
                     }
                     else {
@@ -178,7 +178,7 @@
                             }
                             
                             if (!needsRespring) {
-                                needsRespring = [ZBPackage containsTweak:packageID];
+                                needsRespring = [ZBPackage containsRespringable:packageID];
                             }
                         }
                         else {
@@ -247,7 +247,7 @@
         }
         
         if (!needsRespring) {
-            needsRespring = [ZBPackage containsTweak:packageID] ? true : needsRespring;
+            needsRespring = [ZBPackage containsRespringable:packageID] ? true : needsRespring;
         }
     }
     

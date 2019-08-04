@@ -58,13 +58,12 @@
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
-+ (BOOL)containsTweak:(NSString *)packageID {
-    NSLog(@"[Zebra] Searching %@ for tweak", packageID);
++ (BOOL)containsRespringable:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return YES;
     }
+    ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
-        NSLog(@"[Zebra] Trying to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/dpkg"];
@@ -86,9 +85,8 @@
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            ZBLog(@"[Zebra] %@", pair);
             if ([key isEqualToString:@"Package"]) {
-                contains = [self containsTweak:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                contains = [self containsRespringable:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 return;
             }
         }];
@@ -99,22 +97,24 @@
     NSArray *files = [self filesInstalled:packageID];
     
     for (NSString *path in files) {
-        if ([path rangeOfString:@"/Library/MobileSubstrate/DynamicLibraries"].location != NSNotFound) {
-            if ([path rangeOfString:@".dylib"].location != NSNotFound) {
-                return YES;
-            }
+        // Usual tweaks
+        if ([path rangeOfString:@"/Library/MobileSubstrate/DynamicLibraries"].location != NSNotFound && [path hasSuffix:@".dylib"]) {
+            return YES;
+        }
+        // CC bundles
+        if ([path rangeOfString:@"/Library/ControlCenter/Bundles"].location != NSNotFound && [path hasSuffix:@".bundle"]) {
+            return YES;
         }
     }
     return NO;
 }
 
 + (BOOL)containsApp:(NSString *)packageID {
-    NSLog(@"[Zebra] Searching %@ for app bundle", packageID);
+    ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([ZBDevice needsSimulation]) {
         return true;
     }
     if ([packageID hasSuffix:@".deb"]) {
-        NSLog(@"[Zebra] Trying to find package id");
         //do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/dpkg"];
