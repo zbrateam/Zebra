@@ -79,7 +79,7 @@ enum ZBSearchSection {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)configureClearSearchButton {

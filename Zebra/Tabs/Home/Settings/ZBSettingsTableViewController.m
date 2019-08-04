@@ -78,7 +78,7 @@ enum ZBSectionOrder {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self.tableView reloadData];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavBar];
 }
 
@@ -580,7 +580,7 @@ enum ZBSectionOrder {
     [self.tableView reloadData];
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self configureNavBar];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
     [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
     [ZBDevice refreshViews];

@@ -24,7 +24,7 @@
     [super loadView];
     _queue = [ZBQueue sharedInstance];
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
     self.title = @"Queue";
 }

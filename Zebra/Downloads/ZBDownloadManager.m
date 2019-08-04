@@ -397,17 +397,17 @@
             if (![filename isEqualToString:@"Release"]) {
                 if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
                     //Allows custom error message to be displayed by the repository using the body
-                    NSError *readError;
+                    NSError *readError = NULL;
                     NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
                     
                     if (readError) {
                         NSLog(@"[Zebra] Read error: %@", readError);
-                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
+                        [downloadDelegate predator:self finishedDownloadForFile:filename withError:readError];
                     }
                     else {
                         NSLog(@"[Zebra] Download response: %@", contents);
                         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
-                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                        [downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
                     }
                 }
                 else {
@@ -417,11 +417,11 @@
                         [self cancelAllTasksForSession:session];
                     }
                     
-                    if ([[[[downloadTask originalRequest] URL] lastPathComponent] containsString:@".deb"]) {
-                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                    if ([filename containsString:@".deb"]) {
+                        [self->downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
                     }
                     else {
-                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] absoluteString] withError:error];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[url absoluteString] withError:error];
                     }
                 }
             }
@@ -430,7 +430,6 @@
     else { //Download success
         if ([[filename lastPathComponent] containsString:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
-            NSString *filename = [[[downloadTask originalRequest] URL] lastPathComponent];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
             
             [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {

@@ -64,7 +64,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self colorWindow];
 }
 

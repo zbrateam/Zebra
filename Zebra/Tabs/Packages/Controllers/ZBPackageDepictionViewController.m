@@ -146,7 +146,7 @@ enum ZBPackageInfoOrder {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavButton];
 }
 
