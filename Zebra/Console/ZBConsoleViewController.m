@@ -107,8 +107,7 @@
                     }
                     
                     if (stage == 1) {
-                        BOOL update = [ZBPackage containsApp:packageID];
-                        if (update) {
+                        if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
                             needsIconCacheUpdate = true;
                             NSString *path = [ZBPackage pathForApplication:packageID];
                             if (path) {
@@ -168,8 +167,7 @@
                             continue;
                         }
                         if (stage == 1) {
-                            BOOL update = [ZBPackage containsApp:packageID];
-                            if (update) {
+                            if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
                                 needsIconCacheUpdate = true;
                                 NSString *path = [ZBPackage pathForApplication:packageID];
                                 if (path) {
@@ -346,7 +344,7 @@
 - (void)refreshLocalPackages {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager addDatabaseDelegate:self];
-    [databaseManager importLocalPackagesAndCheckForUpdates:true sender:self];
+    [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
 }
 
 - (void)removeAllDebs {

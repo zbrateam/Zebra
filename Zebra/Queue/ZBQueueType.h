@@ -12,8 +12,8 @@
 typedef enum {
     ZBQueueTypeInstall      = 1 << 0,
     ZBQueueTypeRemove       = 1 << 1,
-    ZBQueueTypeReinstall    = 1 << 2,
-    ZBQueueTypeUpgrade      = 1 << 3,
+    ZBQueueTypeUpgrade      = 1 << 2,
+    ZBQueueTypeReinstall    = 1 << 3,
     ZBQueueTypeSelectable   = 1 << 4,
     ZBQueueTypeClear        = 1 << 5
 } ZBQueueType;

@@ -163,6 +163,14 @@
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage toTop:(nullable ZBPackage *)topPackage {
     NSMutableArray *queueArray = [self queueArray:queue];
+    if (queue == ZBQueueTypeUpgrade) {
+        ZBPackage *topPackage = [[ZBDatabaseManager sharedInstance] topVersionForPackage:package];
+        if (![topPackage sameAsStricted:package]) {
+            NSString *formattedKey = [self formattedKeyForPackage:topPackage];
+            replacedPackages[formattedKey] = package;
+            package = topPackage;
+        }
+    }
     if (![self queueArray:queueArray containsPackageWithVersion:package]) {
         if (queue == ZBQueueTypeReinstall && [package filename] == NULL) {
             //Check to see if the package has a filename to download, if there isn't then we should try to find one
@@ -276,7 +284,7 @@
 
 - (NSArray *)tasks:(NSArray *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
-    NSArray *baseCommand = @[@"apt", @"-y"];
+    NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
     
     NSMutableArray *installArray = _managedQueue[[self queueToKey:ZBQueueTypeInstall]];
     NSMutableArray *removeArray = _managedQueue[[self queueToKey:ZBQueueTypeRemove]];

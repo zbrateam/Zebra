@@ -311,11 +311,11 @@
     if (![object isKindOfClass:[ZBPackage class]])
         return NO;
     
-    return ([[object identifier] isEqual:[self identifier]] && [[object version] isEqual:[self version]]);
+    return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]]);
 }
 
 - (BOOL)sameAs:(ZBPackage *)package {
-    return [[self identifier] isEqualToString:package.identifier];
+    return [self.identifier isEqualToString:package.identifier];
 }
 
 - (BOOL)sameAsStricted:(ZBPackage *)package {
@@ -380,7 +380,7 @@
         return readError.localizedDescription;
     }
     
-    NSString *packageIdentifier = [[self identifier] stringByAppendingString:@"\n"];
+    NSString *packageIdentifier = [self.identifier stringByAppendingString:@"\n"];
     NSString *packageVersion = [[self version] stringByAppendingString:@"\n"];
     
     NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
@@ -503,7 +503,9 @@
 
 - (ZBPackage *)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageForID:[self identifier] thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true];
+    ZBPackage *candidate = [databaseManager packageForID:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true];
+    ZBLog(@"Installable candidate for %@ is %@", self, candidate);
+    return candidate;
 }
 
 - (NSDate *)installedDate {
