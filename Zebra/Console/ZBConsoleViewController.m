@@ -17,6 +17,14 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <Packages/Helpers/ZBPackage.h>
 
+typedef enum {
+    ZBStageInstall = 0,
+    ZBStageRemove,
+    ZBStageReinstall,
+    ZBStageUpgrade,
+    ZBStageDone
+} ZBStage;
+
 @interface ZBConsoleViewController () {
     int stage;
     BOOL continueWithActions;
@@ -106,7 +114,7 @@
                         continue;
                     }
                     
-                    if (stage == 1) {
+                    if (stage != ZBStageDone) {
                         if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
                             needsIconCacheUpdate = true;
                             NSString *path = [ZBPackage pathForApplication:packageID];
@@ -119,7 +127,7 @@
                             needsRespring = [ZBPackage containsRespringable:packageID];
                         }
                     }
-                    else {
+                    if (stage != ZBStageDone && stage != ZBStageRemove) {
                         [installedIDs addObject:packageID];
                     }
                 }
@@ -166,7 +174,7 @@
                         if ([packageID hasPrefix:@"-"]) {
                             continue;
                         }
-                        if (stage == 1) {
+                        if (stage != ZBStageDone) {
                             if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
                                 needsIconCacheUpdate = true;
                                 NSString *path = [ZBPackage pathForApplication:packageID];
@@ -179,7 +187,7 @@
                                 needsRespring = [ZBPackage containsRespringable:packageID];
                             }
                         }
-                        else {
+                        if (stage != ZBStageDone && stage != ZBStageRemove) {
                             [installedIDs addObject:packageID];
                         }
                     }
@@ -276,7 +284,7 @@
     }
     
     [self removeAllDebs];
-    [self updateStatus:4];
+    [self updateStatus:ZBStageDone];
     [self updateCompleteButton];
 }
 
@@ -361,26 +369,26 @@
     }
 }
 
-- (void)updateStatus:(int)s {
+- (void)updateStatus:(ZBStage)s {
     stage = s;
     switch (s) {
-        case 0:
+        case ZBStageInstall:
             [self setTitle:@"Installing"];
             [self writeToConsole:@"Installing Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 1:
+        case ZBStageRemove:
             [self setTitle:@"Removing"];
             [self writeToConsole:@"Removing Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 2:
+        case ZBStageReinstall:
             [self setTitle:@"Reinstalling"];
             [self writeToConsole:@"Reinstalling Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 3:
+        case ZBStageUpgrade:
             [self setTitle:@"Upgrading"];
             [self writeToConsole:@"Upgrading Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 4:
+        case ZBStageDone:
             [self setTitle:@"Done!"];
             [self writeToConsole:@"Done!\n" atLevel:ZBLogLevelInfo];
             break;
@@ -486,7 +494,7 @@
         continueWithActions = false;
         [self cancel];
         [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
-        [self updateStatus:4];
+        [self updateStatus:ZBStageDone];
         [self updateCompleteButton];
     }
 }
