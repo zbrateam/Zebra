@@ -63,6 +63,7 @@ typedef enum {
     _progressText.hidden = YES;
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+    [self.navigationItem setHidesBackButton:YES animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

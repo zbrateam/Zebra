@@ -37,7 +37,7 @@
     
     if (self) {
         _managedQueue = [NSMutableDictionary new];
-        for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeUpgrade; q <<= 1) {
+        for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeReinstall; q <<= 1) {
             [_managedQueue setObject:[NSMutableArray array] forKey:[self queueToKey:q]];
         }
         
@@ -122,7 +122,7 @@
 }
 
 - (void)clearPackage:(ZBPackage *)package inOtherQueuesExcept:(ZBQueueType)queue {
-    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeUpgrade; q <<= 1) {
+    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeReinstall; q <<= 1) {
         if (queue != q) {
             NSString *key = [self queueToKey:q];
             for (ZBPackage *p in _managedQueue[key]) {
