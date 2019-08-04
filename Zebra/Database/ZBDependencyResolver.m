@@ -63,7 +63,7 @@
                 }
             }
         }
-        else { //Failed to find dependency
+        else { // Failed to find dependency
             ZBLog(@"[Zebra] Failed to find dependency for %@ to match %@", package, line);
             [queue markPackageAsFailed:package forDependency:line];
             return;
@@ -110,7 +110,7 @@
     
     if ([results count]) {
         ZBLog(@"[Zebra] Final OR dependency (fallback): %@", results[0]);
-        return results[0]; //The first one is probably fine
+        return results[0]; // The first one is probably fine
     }
     
     return NULL;
@@ -130,7 +130,7 @@
         ZBLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
         return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true checkProvides:provides];
     }
-    else { //bad repo maintainer alert
+    else { // bad repo maintainer alert
         NSString *comparison;
         NSString *version;
         NSScanner *scanner = [NSScanner scannerWithString:versionPredicate];
@@ -146,8 +146,8 @@
 
 - (void)conflictionsWithPackage:(ZBPackage *)package state:(int)state {
     sqlite3 *database = [databaseManager database];
-    if (state == 0) { //Installing package
-        //First, check if package conflicts with any packages that are currently installed
+    if (state == 0) { // Installing package
+        // First, check if package conflicts with any packages that are currently installed
         NSArray *conflictions = [package conflictsWith];
         
         for (NSString *line in conflictions) {
@@ -167,7 +167,7 @@
             }
         }
         
-        //Then, check if any package that is installed conflicts with package
+        // Then, check if any package that is installed conflicts with package
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE CONFLICTS LIKE \'%%%@%%\' AND REPOID < 1;", package.identifier];
 
         sqlite3_stmt *statement;
@@ -199,8 +199,8 @@
         }
         sqlite3_finalize(statement);
     }
-    else if (state == 1) { //Removing package
-        //Check if any package that is installed depends on this package
+    else if (state == 1) { // Removing package
+        // Check if any package that is installed depends on this package
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@%%\' AND REPOID < 1;", package.identifier];
         
         sqlite3_stmt *statement;
@@ -216,7 +216,8 @@
                         ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:true];
                         if (providingPackage && shouldRemove) {
                             shouldRemove = NO;
-                            ZBLog(@"[Zebra] Should we remove %@ because its dependency being removed?: %d", dependingPackage, shouldRemove);
+                            ZBLog(@"[Zebra] Should we remove %@ because its dependency being removed? : %d", dependingPackage, shouldRemove);
+                            break;
                         }
                     }
                 }

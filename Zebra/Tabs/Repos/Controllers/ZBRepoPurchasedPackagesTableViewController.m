@@ -67,10 +67,10 @@
     [request setHTTPBody: requestData];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        //self.packages = json[@"items"];
-        //[self.packages removeAllObjects];
-        //self.packages = nil
-        //Make package ids lowercase so we dont miss any
+        // self.packages = json[@"items"];
+        // [self.packages removeAllObjects];
+        // self.packages = nil
+        // Make package ids lowercase so we dont miss any
         NSMutableArray *loweredPackages = [NSMutableArray new];
         for (NSString *name in json[@"items"]) {
             [loweredPackages addObject:[name lowercaseString]];
@@ -141,11 +141,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) { //Account Cell
+    if (indexPath.section == 0) { // Account Cell
         cell.textLabel.text = self.userName;
         cell.detailTextLabel.text = self.userEmail;
     }
-    else { //Package Cell
+    else { // Package Cell
         ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
         [(ZBPackageTableViewCell *)cell updateData:package];
     }

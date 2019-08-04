@@ -146,16 +146,16 @@
     NSURL *url = [NSURL URLWithString:baseURL];
     NSString *host = [url host];
     
-    if ([ZBDevice isChimera]) { //chimera
+    if ([ZBDevice isChimera]) { // chimera
         return ([host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([ZBDevice isUncover]) { //uncover
+    else if ([ZBDevice isUncover]) { // uncover
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([ZBDevice isElectra]) { //electra
+    else if ([ZBDevice isElectra]) { // electra
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { //cydia
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     
@@ -166,7 +166,7 @@
     NSArray *urlComponents;
     
     NSArray *components = [debLine componentsSeparatedByString:@" "];
-    if ([components count] > 3) { //Distribution repo, we get it, you're cool
+    if ([components count] > 3) { // Distribution repo, we get it, you're cool
         NSString *baseURL = components[1];
         NSString *suite = components[2];
         NSString *component = components[3];
@@ -177,7 +177,7 @@
         
         urlComponents = @[baseURL, suite, component];
     }
-    else { //Normal, non-weird repo
+    else { // Normal, non-weird repo
         NSString *baseURL = components[1];
         
         if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
@@ -386,17 +386,17 @@
     NSInteger responseCode = [httpResponse statusCode];
     NSURL *url = [[downloadTask originalRequest] URL];
     NSString *filename = [url lastPathComponent];
-    if (responseCode != 200 && responseCode != 304) { //Handle error code
-        if ([[filename lastPathComponent] containsString:@".bz2"]) { //Try to download .gz
+    if (responseCode != 200 && responseCode != 304) { // Handle error code
+        if ([[filename lastPathComponent] containsString:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
         }
-        else if ([[filename lastPathComponent] containsString:@".gz"]) { //Try to download Packages
+        else if ([[filename lastPathComponent] containsString:@".gz"]) { // Try to download Packages
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages"] ignoreCaching:self->ignore];
         }
         else {
             if (![filename isEqualToString:@"Release"]) {
                 if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
-                    //Allows custom error message to be displayed by the repository using the body
+                    // Allows custom error message to be displayed by the repository using the body
                     NSError *readError = NULL;
                     NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
                     
@@ -411,7 +411,7 @@
                     }
                 }
                 else {
-                    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
+                    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); // 🤮
                     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
                     if ([[filename lastPathComponent] containsString:@".deb"]) {
                         [self cancelAllTasksForSession:session];
@@ -427,7 +427,7 @@
             }
         }
     }
-    else { //Download success
+    else { // Download success
         if ([[filename lastPathComponent] containsString:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];

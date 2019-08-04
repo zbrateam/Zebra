@@ -43,13 +43,13 @@
 - (void)createBlur {
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    //always fill the view
+    // always fill the view
     blurEffectView.frame = self.backgroundImage.bounds;
     blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     blurEffectView.alpha = .35;
     [self.backgroundImage addSubview:blurEffectView];
 }
-//Shadow gradient
+// Shadow gradient
 /*
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -62,7 +62,7 @@
 
 /*UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
  UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
- //always fill the view
+ // always fill the view
  blurEffectView.frame = self.backgroundImage.bounds;
  blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
  blurEffectView.alpha = .3;

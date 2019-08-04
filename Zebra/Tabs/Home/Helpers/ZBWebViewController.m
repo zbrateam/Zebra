@@ -50,14 +50,14 @@
     
     [webView addSubview:progressView];
     
-    //Web View Layout
+    // Web View Layout
 
     [webView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
     [webView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
     [webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     
-    //Progress View Layout
+    // Progress View Layout
     
     [progressView.trailingAnchor constraintEqualToAnchor:webView.trailingAnchor].active = YES;
     [progressView.leadingAnchor constraintEqualToAnchor:webView.leadingAnchor].active = YES;
@@ -200,17 +200,17 @@
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([ZBDevice isUncover]) { //uncover
+        else if ([ZBDevice isUncover]) { // uncover
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else if ([ZBDevice isElectra]) { //electra
+        else if ([ZBDevice isElectra]) { // electra
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
         }
-        else { //cydia
+        else { // cydia
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
@@ -413,10 +413,10 @@
     [ZBDevice hapticButton];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (![ZBDevice darkModeEnabled]) {
-            //Want Dark mode
+            // Want Dark mode
             [self darkMode];
         } else {
-            //Want Light
+            // Want Light
             [self lightMode];
         }
     } completion:nil];

@@ -171,7 +171,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     int index = (int)[choices indexOfObject:[url scheme]];
     
     switch (index) {
-        case 0: { //file
+        case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
                 if (![ZBDevice needsSimulation]) {
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -193,7 +193,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             break;
         }
-        case 1: { //zbra
+        case 1: { // zbra
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
@@ -240,7 +240,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             break;
         }
-        case 2: { //cydia
+        case 2: { // cydia
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"installed", @"package", @"search", @"url"];
@@ -286,20 +286,20 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             break;
         }
-        case 3: { //sileo
+        case 3: { // sileo
             NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
             if ([sourceApplication isEqualToString:@"com.apple.SafariViewService"]) {
                 NSArray *components = [[url host] componentsSeparatedByString:@"/"];
                 choices = @[@"authentication_success", @"payment_completed"];
                 index = (int)[choices indexOfObject:components[0]];
                 switch (index) {
-                    case 0: { //Authenticated
+                    case 0: { // Authenticated
                         NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
                         break;
                     }
-                    case 1: { //Purchase
-                        //Reading their documentation, a callback may not be required here. I will leave this case switch for future use however, in case I am proven wrong.
+                    case 1: { // Purchase
+                        // Reading their documentation, a callback may not be required here. I will leave this case switch for future use however, in case I am proven wrong.
                         break;
                     }
                 }
@@ -308,7 +308,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             break;
             
         }
-        default: { //WHO ARE YOU????
+        default: { // WHO ARE YOU????
             return false;
         }
     }

@@ -40,7 +40,7 @@
         
         [instance openDatabase];
         
-        //Checks to see if any of the databases have differing schemes and sets to update them if need be.
+        // Checks to see if any of the databases have differing schemes and sets to update them if need be.
         [instance setNeedsToPresentRefresh:(needsMigration(instance.database, 0) != 0 || needsMigration(instance.database, 1) != 0 || needsMigration(instance.database, 2) != 0)];
         
         [instance closeDatabase];
@@ -173,7 +173,7 @@
             NSUInteger unitFlags = NSCalendarUnitMinute;
             NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
             
-            needsUpdate = ([components minute] >= 30); //might need to be less
+            needsUpdate = ([components minute] >= 30); // might need to be less
         }
         else {
             needsUpdate = true;
@@ -238,7 +238,7 @@
             NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName];
-            if (repoID == -1) { //Repo does not exist in database, create it.
+            if (repoID == -1) { // Repo does not exist in database, create it.
                 repoID = [self nextRepoID];
                 if (importRepoToDatabase([[ZBAppDelegate sourcesListPath] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
@@ -265,10 +265,10 @@
             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:ZBLogLevelDescript];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName];
-            if (repoID == -1) { //Repo does not exist in database, create it (this should never happen).
+            if (repoID == -1) { // Repo does not exist in database, create it (this should never happen).
                 NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
                 repoID = [self nextRepoID];
-                createDummyRepo([[ZBAppDelegate sourcesListPath] UTF8String], [packagesPath UTF8String], database, repoID); //For repos with no release file (notably junesiphone)
+                createDummyRepo([[ZBAppDelegate sourcesListPath] UTF8String], [packagesPath UTF8String], database, repoID); // For repos with no release file (notably junesiphone)
                 if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID, currentDate) != PARSEL_OK) {
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
                 }
@@ -316,21 +316,21 @@
 
 - (void)importLocalPackages {
     NSString *installedPath;
-    if ([ZBDevice needsSimulation]) { //If the target is a simlator, load a demo list of installed packages
+    if ([ZBDevice needsSimulation]) { // If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
     }
-    else { //Otherwise, load the actual file
+    else { // Otherwise, load the actual file
         installedPath = @"/var/lib/dpkg/status";
     }
     
     if ([self openDatabase] == SQLITE_OK) {
-        //Delete packages from local repos (-1 and 0)
+        // Delete packages from local repos (-1 and 0)
         char *sql = "DELETE FROM PACKAGES WHERE REPOID = 0";
         sqlite3_exec(database, sql, NULL, 0, NULL);
         char *negativeOne = "DELETE FROM PACKAGES WHERE REPOID = -1";
         sqlite3_exec(database, negativeOne, NULL, 0, NULL);
         
-        //Import packages from the installedPath
+        // Import packages from the installedPath
         importPackagesToDatabase([installedPath UTF8String], database, 0);
         
         [self closeDatabase];
@@ -358,7 +358,7 @@
         }
         sqlite3_finalize(statement);
 
-        //Check for updates
+        // Check for updates
         NSLog(@"[Zebra] Checking for updates...");
         NSMutableArray *found = [NSMutableArray new];
         
@@ -709,7 +709,7 @@
                 const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
                 NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
                 NSString *packageVersion = [NSString stringWithUTF8String:versionChars];
-                //ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                // ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 ZBPackage *package = [self packageForID:packageID equalVersion:packageVersion];
                 package.version = packageVersion;
                 [installedPackageIDs addObject:package.identifier];
@@ -1119,7 +1119,7 @@
         }
         sqlite3_finalize(statement);
         
-        //Only try to resolve "Provides" if we can't resolve the normal package.
+        // Only try to resolve "Provides" if we can't resolve the normal package.
         if (provides && package == NULL) {
             package = [self packageThatProvides:identifier checkInstalled:installed];
         }
@@ -1283,7 +1283,7 @@
 - (NSArray *)packagesWithReachableIconsForRows:(int)limit{
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
-        //NSMutableArray *packageIdentifiers = [NSMutableArray new];
+        // NSMutableArray *packageIdentifiers = [NSMutableArray new];
         
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE ICONURL IS NOT NULL ORDER BY LASTSEEN DESC LIMIT %d;", limit];
         sqlite3_stmt *statement;

@@ -173,7 +173,7 @@
     }
     if (![self queueArray:queueArray containsPackageWithVersion:package]) {
         if (queue == ZBQueueTypeReinstall && [package filename] == NULL) {
-            //Check to see if the package has a filename to download, if there isn't then we should try to find one
+            // Check to see if the package has a filename to download, if there isn't then we should try to find one
             package = [package installableCandidate];
             if (package == NULL) return;
         }
@@ -352,7 +352,7 @@
     if ([reinstallArray count]) {
         [commands addObject:@[@2]];
         
-        //Install new version
+        // Install new version
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         
         [installCommand addObject:@"install"];

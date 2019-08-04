@@ -43,7 +43,7 @@
         NSArray *components = [file componentsSeparatedByString:@"/"];
         NSMutableString *displayStr = [NSMutableString new];
         for (int b = 0; b < components.count - 2; ++b) {
-            [displayStr appendString:@"\t"]; //add tab character
+            [displayStr appendString:@"\t"]; // add tab character
         }
         [displayStr appendString:components[components.count - 1]];
         [files addObject:displayStr];

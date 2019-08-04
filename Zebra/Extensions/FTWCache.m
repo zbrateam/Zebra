@@ -54,7 +54,7 @@ static NSTimeInterval cacheTime =  (double)604800;
         [data writeToFile:filename options:NSDataWritingAtomic error:&error];
     }
     @catch (NSException * e) {
-        //TODO: error handling maybe
+        // TODO: error handling maybe
     }
 }
 

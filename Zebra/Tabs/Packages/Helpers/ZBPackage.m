@@ -69,7 +69,7 @@
     }
     ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
-        //do the ole dpkg -I
+        // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/dpkg"];
         [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
@@ -120,7 +120,7 @@
         return true;
     }
     if ([packageID hasSuffix:@".deb"]) {
-        //do the ole dpkg -I
+        // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/dpkg"];
         [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
@@ -162,7 +162,7 @@
 
 + (NSString *)pathForApplication:(NSString *)packageID {
     if ([packageID hasSuffix:@".deb"]) {
-        //do the ole dpkg -I
+        // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/dpkg"];
         [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
@@ -263,7 +263,7 @@
         const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
-        [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; //This should never be NULL
+        [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
         [self setName:packageNameChars != 0 ? [NSString stringWithUTF8String:packageNameChars] : self.identifier]; // fall back to ID if NULL
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
@@ -275,7 +275,7 @@
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
-        if ([tags count] == 1 && [tags[0] containsString:@","]) { //Fix crimes against humanity @Dnasty
+        if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
             tags = [tags[0] componentsSeparatedByString:@","];
         }
         
@@ -294,7 +294,7 @@
         
         NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
         if ([section characterAtIndex:[section length] - 1] == ')') {
-            NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
+            NSArray *items = [section componentsSeparatedByString:@"("]; // Remove () from section
             sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
         }
         [self setSectionImageName:sectionStripped];
@@ -437,7 +437,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if ([repo repoID] <= 0) { //Package is in repoID 0 or -1 and is installed
+    if ([repo repoID] <= 0) { // Package is in repoID 0 or -1 and is installed
         return true;
     }
     else {

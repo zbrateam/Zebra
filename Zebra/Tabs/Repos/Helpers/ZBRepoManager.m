@@ -38,7 +38,7 @@
 - (NSString *)normalizedURLString:(NSURL *)url {
     NSURL *normalizedURL = [self normalizedURL:url];
     NSString *urlString = [normalizedURL absoluteString];
-    return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; //Remove http:// or https:// from url
+    return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; // Remove http:// or https:// from url
 }
 
 - (NSArray <NSURL *> *)verifiedURLs {
@@ -119,7 +119,7 @@
                 NSArray *sourcesListContents = [sourcesList componentsSeparatedByString:@"\n"];
                 
                 if (readError != NULL) {
-                    //rip
+                    // rip
                     respond(false, [NSString stringWithFormat:@"%@ (%@)", readError.localizedDescription, sourcesList], @[]);
                     return;
                 }
@@ -321,7 +321,7 @@
         }
         else {
             NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
-            repoURL = [repoURL stringByDeletingLastPathComponent]; //Remove last two path components
+            repoURL = [repoURL stringByDeletingLastPathComponent]; // Remove last two path components
             [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
         }
     }
@@ -465,7 +465,7 @@
 }
 
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion {
-    if ([[fromURL pathExtension] isEqualToString:@"list"] && [[destinationURL pathExtension] isEqualToString:@"list"]) { //Check to be sure both urls of are type .list
+    if ([[fromURL pathExtension] isEqualToString:@"list"] && [[destinationURL pathExtension] isEqualToString:@"list"]) { // Check to be sure both urls of are type .list
         NSError *readError;
         NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
         NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];

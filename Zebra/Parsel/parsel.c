@@ -125,7 +125,7 @@ int needsMigration(sqlite3 *database, int table) {
         }
         
         if (schema != NULL) {
-            //Remove CREATE TABLE
+            // Remove CREATE TABLE
             multi_tok_t s = init();
             multi_tok(schema, &s, "CREATE TABLE ");
             schema = multi_tok(NULL, &s, "CREATE TABLE ");
@@ -460,7 +460,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+            if (key == NULL || value == NULL) { // y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
@@ -478,7 +478,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             
             dict_add(package, key, value);
             
-            if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
+            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
                 longDescFlag = true;
             }
         }
@@ -548,7 +548,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+            if (key == NULL || value == NULL) { // y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
@@ -566,7 +566,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             
             dict_add(package, key, value);
             
-            if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
+            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
                 longDescFlag = true;
             }
         }

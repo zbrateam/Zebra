@@ -144,9 +144,9 @@
                         
                     }] resume];
         }
-        //prevent constant network spam
+        // prevent constant network spam
         if (!self.checkedSupportFeaturedPackages) {
-            //Check for featured string
+            // Check for featured string
             NSString *requestURL;
             if ([baseURL hasSuffix:@"/"]) {
                 requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", baseURL];

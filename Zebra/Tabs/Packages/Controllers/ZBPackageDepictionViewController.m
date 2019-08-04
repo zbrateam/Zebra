@@ -90,7 +90,7 @@ enum ZBPackageInfoOrder {
     }
     
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
-    //self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
+    // self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.95 alpha:1.0];
     self.navigationItem.title = package.name;
     
     [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -125,7 +125,7 @@ enum ZBPackageInfoOrder {
     [self.tableView.tableHeaderView addSubview:progressView];
     [self.tableView setTableFooterView:webView];
     
-    //Progress View Layout
+    // Progress View Layout
     [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
@@ -161,7 +161,7 @@ enum ZBPackageInfoOrder {
     if ([ZBDevice darkModeEnabled]) {
         [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
         if([ZBDevice darkModeOledEnabled]) {
-            //These headers must be "TRUE" no one change these to "YES" or else some repos will not be able to detect it.
+            // These headers must be "TRUE" no one change these to "YES" or else some repos will not be able to detect it.
             [request setValue:@"TRUE" forHTTPHeaderField:@"Oled"];
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
         } else {
@@ -243,7 +243,7 @@ enum ZBPackageInfoOrder {
             }];
         }
     }];
-    //webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [webView evaluateJavaScript:@"document.height" completionHandler:nil]);
+    // webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [webView evaluateJavaScript:@"document.height" completionHandler:nil]);
     
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
@@ -471,7 +471,7 @@ enum ZBPackageInfoOrder {
             ZBLog(@"[Zebra] Package purchase token: %@", token);
 #endif
             __block NSString *secret;
-            //Wait on getting key
+            // Wait on getting key
             dispatch_semaphore_t sema = dispatch_semaphore_create(0);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                 NSError *error = nil;
@@ -485,7 +485,7 @@ enum ZBPackageInfoOrder {
                 }
             });
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-            //Continue
+            // Continue
             if ([secret length] != 0) {
                 NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
                                                @"payment_secret": secret,
@@ -542,11 +542,11 @@ enum ZBPackageInfoOrder {
                            for (NSURLQueryItem *q in queryItems) {
                                [queryByKeys setValue:[q value] forKey:[q name]];
                            }
-                           //NSString *token = queryByKeys[@"token"];
-                           //NSString *payment = queryByKeys[@"payment_secret"];
+                           // NSString *token = queryByKeys[@"token"];
+                           // NSString *payment = queryByKeys[@"payment_secret"];
                            
                            NSError *error;
-                           //[self->_keychain setString:token forKey:self.repoEndpoint error:&error];
+                           // [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                            if (error) {
                                ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
                            }
@@ -600,7 +600,7 @@ enum ZBPackageInfoOrder {
     [ZBPackageActionsManager presentQueue:self parent:_parent];
 }
 
-//3D Touch Actions
+// 3D Touch Actions
 
 - (NSArray *)previewActionItems {
     return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
@@ -829,7 +829,7 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    //handle any error
+    // handle any error
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -931,7 +931,7 @@ enum ZBPackageInfoOrder {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-//More By author button
+// More By author button
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"seguePackageDepictionToMorePackages"]) {
         ZBPackagesByAuthorTableViewController *destination = (ZBPackagesByAuthorTableViewController *)[segue destinationViewController];

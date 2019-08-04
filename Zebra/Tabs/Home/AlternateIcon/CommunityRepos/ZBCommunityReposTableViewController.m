@@ -53,7 +53,7 @@ enum ZBSourcesOrder {
               if ([json objectForKey:@"repos"]) {
                   self->communityRepos = json[@"repos"];
               }
-              //self->changeLogArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+              // self->changeLogArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
               dispatch_async(dispatch_get_main_queue(), ^{
                   [self.tableView reloadData];
               });
@@ -69,13 +69,13 @@ enum ZBSourcesOrder {
     if ([ZBDevice isChimera]) {
         return @"https://repo.chimera.sh";
     }
-    else if ([ZBDevice isUncover]) { //uncover
+    else if ([ZBDevice isUncover]) { // uncover
         return [NSString stringWithFormat:@"http://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber];
     }
-    else if ([ZBDevice isElectra]) { //electra
+    else if ([ZBDevice isElectra]) { // electra
         return @"deb https://electrarepo64.coolstar.org/ ./\n";
     }
-    else { //cydia
+    else { // cydia
         return [NSString stringWithFormat:@"http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber];
     }
 }
@@ -124,22 +124,22 @@ enum ZBSourcesOrder {
         subText = [NSString stringWithFormat:@"Move all sources from %@ to Zebra", [availableManagers objectAtIndex:indexPath.row]];
     }
     else if (indexPath.section == 1) {
-        if ([ZBDevice isChimera]) { //chimera
+        if ([ZBDevice isChimera]) { // chimera
             cellText = @"Chimera";
             iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
             subText = @"Utility repo for Chimera jailbreak";
         }
-        else if ([ZBDevice isUncover]) { //uncover
+        else if ([ZBDevice isUncover]) { // uncover
             cellText = @"Bingner/Elucubratus";
             iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
             subText = @"Utility repo for unc0ver jailbreak";
         }
-        else if ([ZBDevice isElectra]) { //electra
+        else if ([ZBDevice isElectra]) { // electra
             cellText = @"Electra's iOS Utilities";
             iconURL = [NSURL URLWithString:@"https://github.com/coolstar/electra/raw/master/electra/Resources/AppIcon60x60%402x.png"];
             subText = @"Utility repo for Electra jailbreak";
         }
-        else { //cydia
+        else { // cydia
             cellText = @"Cydia/Telesphoreo";
             iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
             subText = @"Cydia utility repo";

@@ -96,7 +96,7 @@
         NSString *section = details[@"Section"];
         NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
         if ([section characterAtIndex:[section length] - 1] == ')') {
-            NSArray *items = [section componentsSeparatedByString:@"("]; //Remove () from section
+            NSArray *items = [section componentsSeparatedByString:@"("]; // Remove () from section
             sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
         }
         

@@ -103,7 +103,7 @@ enum ZBSearchSection {
             [self.tableView reloadData];
             [self setNeedsStatusBarAppearanceUpdate];
         });
-      } completion: nil];
+      } completion:nil];
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {
