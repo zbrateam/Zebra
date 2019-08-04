@@ -17,6 +17,11 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 
+@interface ZBPackage () {
+    NSUInteger possibleActions;
+}
+@end
+
 @implementation ZBPackage
 
 @synthesize identifier;
@@ -454,29 +459,30 @@
 }
 
 - (NSUInteger)possibleActions {
-    NSUInteger actions = 0;
-    // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
-    if ([self isInstalled:false]) {
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        if ([self isReinstallable]) {
-            actions |= ZBQueueTypeReinstall; // Reinstall
+    if (possibleActions == 0) {
+        // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
+        if ([self isInstalled:false]) {
+            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+            if ([self isReinstallable]) {
+                possibleActions |= ZBQueueTypeReinstall; // Reinstall
+            }
+            if ([databaseManager packageHasUpdate:self]) {
+                // A package update is even possible for a package installed from repo A, repo A got deleted, and an update comes from repo B
+                possibleActions |= ZBQueueTypeUpgrade; // Upgrade
+            }
+            possibleActions |= ZBQueueTypeRemove; // Remove
         }
-        if ([databaseManager packageHasUpdate:self]) {
-            // A package update is even possible for a package installed from repo A, repo A got deleted, and an update comes from repo B
-            actions |= ZBQueueTypeUpgrade; // Upgrade
+        else {
+            possibleActions |= ZBQueueTypeInstall; // Install
         }
-        actions |= ZBQueueTypeRemove; // Remove
+        NSArray *otherVersions = [self otherVersions];
+        if (otherVersions.count) {
+            // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
+            // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
+            possibleActions |= ZBQueueTypeSelectable; // Select other versions
+        }
     }
-    else {
-        actions |= ZBQueueTypeInstall; // Install
-    }
-    NSArray *otherVersions = [self otherVersions];
-    if (otherVersions.count) {
-        // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
-        // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-        actions |= ZBQueueTypeSelectable; // Select other versions
-    }
-    return actions;
+    return possibleActions;
 }
 
 - (NSString *)longDescription {
