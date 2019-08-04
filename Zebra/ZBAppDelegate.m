@@ -247,10 +247,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             index = (int)[choices indexOfObject:components[0]];
             
             switch (index) {
-                case 0:
-                case 1:
-                case 2:
-                case 3: {
+                case 0 ... 3: {
                     [tabController setSelectedIndex:index];
                     break;
                 }

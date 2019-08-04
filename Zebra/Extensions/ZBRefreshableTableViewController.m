@@ -13,6 +13,11 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 
+@interface ZBRefreshableTableViewController () {
+    UIRefreshControl *refreshControl;
+}
+@end
+
 @implementation ZBRefreshableTableViewController
 
 @synthesize databaseManager;
@@ -25,8 +30,8 @@
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
     if ([[self class] supportRefresh]) {
-        self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+        refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
     }
 }
 
@@ -42,8 +47,8 @@
         return;
     }
     if ([databaseManager isDatabaseBeingUpdated]) {
-        if (!self.refreshControl.refreshing) {
-            [self.refreshControl beginRefreshing];
+        if (!refreshControl.refreshing) {
+            [refreshControl beginRefreshing];
         }
         return;
     }
@@ -73,7 +78,7 @@
     }
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.refreshControl endRefreshing];
+        [self->refreshControl endRefreshing];
         [self didEndRefreshing];
     });
 }
@@ -89,6 +94,15 @@
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    if ([[self class] supportRefresh] && refreshControl) {
+        if ([databaseManager isDatabaseBeingUpdated]) {
+            [refreshControl removeFromSuperview];
+            self.refreshControl = nil;
+        }
+        else {
+            self.refreshControl = refreshControl;
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
