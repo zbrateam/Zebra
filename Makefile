@@ -14,3 +14,6 @@ after-stage::
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/SDWebImage.framework/SDWebImage
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
+
+after-install::
+	install.exec "killall \"Zebra\"" || true
