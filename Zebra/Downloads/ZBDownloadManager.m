@@ -546,7 +546,11 @@
                         
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
-                            [self moveFileFromLocation:[NSURL fileURLWithPath:finalPath] to:[finalPath stringByDeletingPathExtension] completion:NULL];
+                            [self moveFileFromLocation:[NSURL fileURLWithPath:finalPath] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
+                                if (!success && error != NULL) {
+                                    NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                                }
+                            }];
                         }
                         
                         BZ2_bzReadClose(&bzError, bzf);
@@ -640,12 +644,12 @@
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(BOOL success, NSError *error))completion {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    BOOL movedFileSuccess;
-    NSError *fileManagerError;
+    BOOL movedFileSuccess = NO;
+    NSError *fileManagerError = NULL;
     if ([fileManager fileExistsAtPath:finalPath]) {
         movedFileSuccess = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
         
-        if (!movedFileSuccess) {
+        if (!movedFileSuccess && completion) {
             completion(movedFileSuccess, fileManagerError);
             return;
         }
@@ -653,7 +657,9 @@
     
     movedFileSuccess = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
     
-    completion(movedFileSuccess, fileManagerError);
+    if (completion) {
+        completion(movedFileSuccess, fileManagerError);
+    }
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
