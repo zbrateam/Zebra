@@ -251,6 +251,9 @@
             if (responseError) {
                 respond(NO, responseError, failingURL);
             } else {
+                if (responseURL == nil) {
+                    responseURL = sourceURL;
+                }
                 NSLog(@"[Zebra] Verified source %@", responseURL);
                 
                 [self addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {

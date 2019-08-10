@@ -244,13 +244,13 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)showAddRepoFromClipboardAlert:(NSURL *)url {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to add the URL from your clipboard?" message:url.absoluteString preferredStyle:UIAlertControllerStyleAlert];
+- (void)showAddRepoFromClipboardAlert:(NSURL *)repoURL {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to add the URL from your clipboard?" message:repoURL.absoluteString preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor tintColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *sourceURL = url.absoluteString;
+        NSString *sourceURL = repoURL.absoluteString;
         
         UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source" preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:wait animated:YES completion:nil];
@@ -265,12 +265,12 @@
             }
             else {
                 [wait dismissViewControllerAnimated:YES completion:^{
-                    NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:@"/var/lib/zebra/sources.list" encoding:NSUTF8StringEncoding error:nil]);
+                    NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                         ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                        console.repoURLs = @[ url ];
+                        console.repoURLs = @[ repoURL ];
                         [weakSelf presentViewController:console animated:YES completion:nil];
                     });
                 }];
