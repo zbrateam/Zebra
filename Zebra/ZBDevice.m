@@ -112,8 +112,13 @@
             [task setLaunchPath:@"/usr/bin/sbreload"];
             [self asRoot:task arguments:nil];
             if (![task isRunning]) {
-                [task launch];
-                [task waitUntilExit];
+                @try {
+                    [task launch];
+                    [task waitUntilExit];
+                }
+                @catch (NSException *e) {
+                    execed = YES;
+                }
             } else {
                 execed = YES;
             }
