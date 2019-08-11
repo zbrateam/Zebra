@@ -666,7 +666,7 @@
     NSNumber *taskIdentifier = @(task.taskIdentifier);
     ZBPackage *package = packageTasksMap[taskIdentifier];
     if (package) {
-        [self->downloadDelegate predator:self finishedDownloadForFile:[package name] withError:error];
+        [self->downloadDelegate predator:self finishedDownloadForFile:package.name withError:error];
     }
     else {
         NSURL *releaseURL = releaseTasksMap[taskIdentifier];

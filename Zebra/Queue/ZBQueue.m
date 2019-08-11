@@ -448,7 +448,7 @@
         }
     }
     
-    return (NSArray *)actions;
+    return actions;
 }
 
 - (BOOL)hasObjects {
