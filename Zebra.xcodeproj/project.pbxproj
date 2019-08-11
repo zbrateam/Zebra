@@ -21,8 +21,6 @@
 		367D80F922C3D2FE00581D60 /* ZBAlternateIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F822C3D2FD00581D60 /* ZBAlternateIconController.m */; };
 		367D810122C437D300581D60 /* ios7oled.css in Resources */ = {isa = PBXBuildFile; fileRef = 367D810022C437D200581D60 /* ios7oled.css */; };
 		369B7AE022C56009007521DB /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 369B7ADF22C56009007521DB /* banner.png */; };
-		369B7AEB22C56C04007521DB /* UINavigationController+Opacity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369B7AE722C56C03007521DB /* UINavigationController+Opacity.mm */; };
-		369B7AEC22C56C04007521DB /* UIImage+ImageWithColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369B7AEA22C56C04007521DB /* UIImage+ImageWithColor.mm */; };
 		369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */; };
 		369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */; };
 		369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */; };
@@ -157,10 +155,6 @@
 		367D80F822C3D2FD00581D60 /* ZBAlternateIconController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZBAlternateIconController.m; path = "Zebra/Tabs/Home/Alternate Icons/ZBAlternateIconController.m"; sourceTree = SOURCE_ROOT; };
 		367D810022C437D200581D60 /* ios7oled.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7oled.css; sourceTree = "<group>"; };
 		369B7ADF22C56009007521DB /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
-		369B7AE722C56C03007521DB /* UINavigationController+Opacity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UINavigationController+Opacity.mm"; sourceTree = "<group>"; };
-		369B7AE822C56C03007521DB /* UINavigationController+Opacity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Opacity.h"; sourceTree = "<group>"; };
-		369B7AE922C56C04007521DB /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
-		369B7AEA22C56C04007521DB /* UIImage+ImageWithColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+ImageWithColor.mm"; sourceTree = "<group>"; };
 		369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInstalledFilesTableViewController.h; sourceTree = "<group>"; };
 		369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInstalledFilesTableViewController.m; sourceTree = "<group>"; };
 		369F9E9E22BC850000D6CCF3 /* ZBWishListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBWishListTableViewController.h; sourceTree = "<group>"; };
@@ -573,10 +567,6 @@
 		89BDCB6F2289FEA800FC1345 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				369B7AE922C56C04007521DB /* UIImage+ImageWithColor.h */,
-				369B7AEA22C56C04007521DB /* UIImage+ImageWithColor.mm */,
-				369B7AE822C56C03007521DB /* UINavigationController+Opacity.h */,
-				369B7AE722C56C03007521DB /* UINavigationController+Opacity.mm */,
 				9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */,
 				9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */,
 				36D15326229240F70010EC5C /* FTWCache.h */,
@@ -908,14 +898,12 @@
 			files = (
 				9E41544A22E421D5000D34CA /* ZBRepoBlacklistTableViewController.m in Sources */,
 				89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */,
-				369B7AEB22C56C04007521DB /* UINavigationController+Opacity.mm in Sources */,
 				36D15328229240F70010EC5C /* FTWCache.m in Sources */,
 				3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */,
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
 				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
-				369B7AEC22C56C04007521DB /* UIImage+ImageWithColor.mm in Sources */,
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,

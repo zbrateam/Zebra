@@ -13,7 +13,6 @@
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
 #import "ZBAlternateIconController.h"
-#import "UINavigationController+Opacity.h"
 #import "ZBChangeLogTableViewController.h"
 #import "ZBCommunityReposTableViewController.h"
 #import "ZBRepoBlacklistTableViewController.h"
