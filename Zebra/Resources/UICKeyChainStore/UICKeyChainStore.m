@@ -1401,7 +1401,7 @@ static NSString *_defaultService;
 - (BOOL)synchronizeWithError:(NSError *__autoreleasing *)error
 {
     // Deprecated, calling this method is no longer required
-    return true;
+    return YES;
 }
 
 @end

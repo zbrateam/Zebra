@@ -117,7 +117,7 @@
 + (BOOL)containsApp:(NSString *)packageID {
     ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([ZBDevice needsSimulation]) {
-        return true;
+        return YES;
     }
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
@@ -157,7 +157,7 @@
             return YES;
         }
     }
-    return false;
+    return NO;
 }
 
 + (NSString *)pathForApplication:(NSString *)packageID {
@@ -319,7 +319,7 @@
 }
 
 - (BOOL)sameAsStricted:(ZBPackage *)package {
-    return [self sameAs:package] && [[self version] isEqualToString:[package version]];
+    return [self sameAs:package] && [[self version] isEqualToString:package.version];
 }
 
 - (NSString *)description {
@@ -438,7 +438,7 @@
 
 - (BOOL)isInstalled:(BOOL)strict {
     if ([repo repoID] <= 0) { // Package is in repoID 0 or -1 and is installed
-        return true;
+        return YES;
     }
     else {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -461,7 +461,7 @@
 - (NSUInteger)possibleActions {
     if (possibleActions == 0) {
         // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
-        if ([self isInstalled:false]) {
+        if ([self isInstalled:NO]) {
             ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
             if ([self isReinstallable]) {
                 possibleActions |= ZBQueueTypeReinstall; // Reinstall
@@ -503,7 +503,7 @@
 
 - (ZBPackage *)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    ZBPackage *candidate = [databaseManager packageForID:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:false checkProvides:true];
+    ZBPackage *candidate = [databaseManager packageForID:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:NO checkProvides:YES];
     ZBLog(@"Installable candidate for %@ is %@", self, candidate);
     return candidate;
 }

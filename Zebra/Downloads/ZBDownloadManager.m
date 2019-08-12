@@ -126,7 +126,7 @@
     
     if ([sourceList isEqualToString:@""] || [sourceList isEqualToString:@"\n"]) {
         sourceList = @"deb https://xtm3x.github.io/repo ./\n";
-        [sourceList writeToFile:path atomically:false encoding:NSUTF8StringEncoding error:nil];
+        [sourceList writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
     }
     
     NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
@@ -159,32 +159,25 @@
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     
-    return false;
+    return NO;
 }
 
 - (NSArray *)baseURLFromDebLine:(NSString *)debLine {
     NSArray *urlComponents;
     
     NSArray *components = [debLine componentsSeparatedByString:@" "];
+    NSString *baseURL = components[1];
     if ([components count] > 3) { // Distribution repo, we get it, you're cool
-        NSString *baseURL = components[1];
         NSString *suite = components[2];
         NSString *component = components[3];
-        
-        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
-            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
-        }
-        
         urlComponents = @[baseURL, suite, component];
     }
     else { // Normal, non-weird repo
-        NSString *baseURL = components[1];
-        
-        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
-            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
-        }
-        
         urlComponents = @[baseURL];
+    }
+    
+    if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
+        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
     }
     
     return urlComponents;
@@ -282,7 +275,7 @@
 }
 
 - (void)downloadRepo:(ZBRepo *)repo {
-    [self downloadRepos:@[repo] ignoreCaching:false];
+    [self downloadRepos:@[repo] ignoreCaching:NO];
 }
 
 - (void)downloadReposAndIgnoreCaching:(BOOL)ignore {

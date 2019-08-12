@@ -75,7 +75,7 @@
     // self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
     if (_url != NULL) {
-        [webView setAllowsBackForwardNavigationGestures:true];
+        [webView setAllowsBackForwardNavigationGestures:YES];
         if (@available(iOS 11.0, *)) {
             self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
         }
@@ -139,7 +139,7 @@
             } else {
                 [sfVC.view setTintColor:[UIColor tintColor]];
             }
-            [self presentViewController:sfVC animated:true completion:nil];
+            [self presentViewController:sfVC animated:YES completion:nil];
             decisionHandler(WKNavigationActionPolicyCancel);
         }
         else {
@@ -233,18 +233,18 @@
         } else if ([action isEqual:@"stores"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
-            [[self navigationController] pushViewController:webController animated:true];
+            [[self navigationController] pushViewController:webController animated:YES];
         } else if ([action isEqual:@"wishList"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
-            [[self navigationController] pushViewController:webController animated:true];
+            [[self navigationController] pushViewController:webController animated:YES];
         }else if ([action isEqual:@"settings"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
             if (@available(iOS 11.0, *)) {
                 settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
             }
-            [[self navigationController] pushViewController:settingsController animated:true];
+            [[self navigationController] pushViewController:settingsController animated:YES];
         }
     }
     else if ([destination isEqual:@"web"]) {
@@ -252,20 +252,20 @@
         ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
         webController->_url = [NSURL URLWithString:action];
         
-        [[self navigationController] pushViewController:webController animated:true];
+        [[self navigationController] pushViewController:webController animated:YES];
     }
     else if ([destination isEqual:@"repo"]) {
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self handleRepoAdd:url local:false];
+            [self handleRepoAdd:url local:NO];
         }];
         UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
         
         [controller addAction:no];
         [controller addAction:yes];
         
-        [self presentViewController:controller animated:true completion:nil];
+        [self presentViewController:controller animated:YES completion:nil];
     }
     else if ([destination isEqual:@"repo-local"]) {
         if ([contents count] == 2) {
@@ -273,13 +273,13 @@
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories?" preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self handleRepoAdd:contents[1] local:true];
+                    [self handleRepoAdd:contents[1] local:YES];
                 }];
                 UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
                 [controller addAction:no];
                 [controller addAction:yes];
                 
-                [self presentViewController:controller animated:true completion:nil];
+                [self presentViewController:controller animated:YES completion:nil];
             }
             else {
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Error" message:@"This action is not supported on non-jailbroken devices" preferredStyle:UIAlertControllerStyleAlert];
@@ -288,21 +288,21 @@
                 
                 [controller addAction:ok];
                 
-                [self presentViewController:controller animated:true completion:nil];
+                [self presentViewController:controller animated:YES completion:nil];
             }
         }
         else {
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self handleRepoAdd:url local:true];
+                [self handleRepoAdd:url local:YES];
             }];
             UIAlertAction *no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:NULL];
             
             [controller addAction:no];
             [controller addAction:yes];
             
-            [self presentViewController:controller animated:true completion:nil];
+            [self presentViewController:controller animated:YES completion:nil];
         }
     }
 }
@@ -352,7 +352,7 @@
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        [self presentViewController:console animated:true completion:nil];
+        [self presentViewController:console animated:YES completion:nil];
     }
     else {
         __weak typeof(self) weakSelf = self;
@@ -451,7 +451,7 @@
 - (void)resetWebView {
     [self colorWindow];
     if (_url != NULL) {
-        [webView setAllowsBackForwardNavigationGestures:true];
+        [webView setAllowsBackForwardNavigationGestures:YES];
         if (@available(iOS 11.0, *)) {
             self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
         }

@@ -64,13 +64,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Boolean check to see if the database is currently open.
- @return true if the database is open, false otherwise.
+ @return YES if the database is open, NO otherwise.
  */
 - (BOOL)isDatabaseOpen;
 
 /*!
  @brief Boolean checks whether the database is being updated.
- @return true if the database is being updated, false otherwise.
+ @return YES if the database is being updated, NO otherwise.
  */
 - (BOOL)isDatabaseBeingUpdated;
 - (void)setDatabaseBeingUpdated:(BOOL)updated;
@@ -92,8 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Update the database.
  @discussion Updates the database from the repos contained in sources.list and from the local packages contained in /var/lib/dpkg/status
- @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to false, all of the package files will be downloaded again,
- @param requested If true, the user has requested this update and it should be performed. If false, the database should only be updated if it hasn't been updated in the last 30 minutes.
+ @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
+ @param requested If YES, the user has requested this update and it should be performed. If NO, the database should only be updated if it hasn't been updated in the last 30 minutes.
  */
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested;
 
@@ -265,14 +265,14 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Check whether or not a specific package has an update using its identifier.
  @param packageIdentifier The package ID that you want to check the update status for.
- @return true if the package has an update, false if there is no update (or if the update is hidden).
+ @return YES if the package has an update, NO if there is no update (or if the update is hidden).
  */
 - (BOOL)packageIDHasUpdate:(NSString *)packageIdentifier;
 
 /*!
  @brief Check whether or not a specific package has an update.
  @param package A ZBPackage instance containing the package you want to check the update status for.
- @return true if the package has an update, false if there is no update (or if the update is hidden).
+ @return YES if the package has an update, NO if there is no update (or if the update is hidden).
  */
 - (BOOL)packageHasUpdate:(ZBPackage *)package;
 
@@ -280,15 +280,15 @@ NS_ASSUME_NONNULL_BEGIN
  @brief Check whether or not a specific package is installed using its identifier.
  @param packageIdentifier The package ID that you want to check the installed status for.
  @param version (Nullable) The specific version you want to see if it is installed. Pass NULL if the version is irrelevant.
- @return true if the package is installed, false if it is not.
+ @return YES if the package is installed, NO if it is not.
  */
 - (BOOL)packageIDIsInstalled:(NSString *)packageIdentifier version:(NSString *_Nullable)version;
 
 /*!
  @brief Check whether or not a specific package is installed.
  @param package A ZBPackage instance containing the package that you want to check the installed status for.
- @param strict true if the specific version matters, false if it does not.
- @return true if the package is installed, false if it is not. If strict is false, this will indicate if the package ID is installed.
+ @param strict YES if the specific version matters, NO if it does not.
+ @return YES if the package is installed, NO if it is not. If strict is NO, this will indicate if the package ID is installed.
  */
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict;
 
@@ -296,15 +296,15 @@ NS_ASSUME_NONNULL_BEGIN
  @brief Check whether or not a specific package is available for download from a repo using its identifier.
  @param packageIdentifier The package ID that you want to check the availability status for.
  @param version (Nullable) The specific version you want to see if it is available. Pass NULL if the version is irrelevant.
- @return true if the package is available for download, false if it is not.
+ @return YES if the package is available for download, NO if it is not.
  */
 - (BOOL)packageIDIsAvailable:(NSString *)packageIdentifier version:(NSString *_Nullable)version;
 
 /*!
  @brief Check whether or not a specific package is available for download fro ma repo.
  @param package A ZBPackage instance containing the package that you want to check the availability status for.
- @param strict true if the specific version matters, false if it does not.
- @return true if the package is available for download, false if it is not. If strict is false, this will indicate if the package ID is available.
+ @param strict YES if the specific version matters, NO if it does not.
+ @return YES if the package is available for download, NO if it is not. If strict is NO, this will indicate if the package ID is available.
  */
 - (BOOL)packageIsAvailable:(ZBPackage *)package versionStrict:(BOOL)strict;
 
@@ -319,7 +319,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Check to see if the updates are ignored for a package.
  @param package The package.
- @return true if user has ignored the updates are ignored, false if otherwise
+ @return YES if user has ignored the updates are ignored, NO if otherwise
  */
 - (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package;
 
@@ -356,7 +356,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param package A ZBPackage instance.
  @param comparison Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>".
  @param version Used for version comparison.
- @return true if the package does satisfy this version comparison, false if otherwise.
+ @return YES if the package does satisfy this version comparison, NO otherwise.
  */
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
 

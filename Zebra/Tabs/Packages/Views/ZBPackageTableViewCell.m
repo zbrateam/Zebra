@@ -54,7 +54,7 @@
         self.iconImageView.image = sectionImage;
     }
     
-    BOOL installed = [package isInstalled:false];
+    BOOL installed = [package isInstalled:NO];
     BOOL paid = [package isPaid];
     
     self.isInstalledImageView.hidden = !installed;

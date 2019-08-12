@@ -302,10 +302,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                     text = @"Wish List";
                     image = [UIImage imageNamed:@"stores"];
                     break;
-                /*case ZBBug:
-                    text = @"Report a Bug";
-                    image = [UIImage imageNamed:@"report"];
-                    break;*/
                 default:
                     break;
             }
@@ -377,15 +373,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     switch (section) {
         case ZBWelcome:
             return @"Info";
-            break;
-        case ZBViews:
-            return @"";
-            break;
         case ZBLinks:
             return @"Community";
-            break;
-        case ZBCredits:
-            return @"";
         default:
             return nil;
     }
@@ -420,47 +409,28 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)pushToView:(NSUInteger)row {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     switch (row) {
-        case ZBChangeLog:{
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        case ZBChangeLog: {
             ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
-            [self.navigationController pushViewController:changeLog animated:true];
+            [self.navigationController pushViewController:changeLog animated:YES];
         }
             break;
         case ZBCommunity: {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
-            [self.navigationController pushViewController:community animated:true];
+            [self.navigationController pushViewController:community animated:YES];
         }
             break;
-        case ZBStores:{
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        case ZBStores: {
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
-            [[self navigationController] pushViewController:webController animated:true];
+            [[self navigationController] pushViewController:webController animated:YES];
         }
             break;
-            
         case ZBWishList: {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
-            [[self navigationController] pushViewController:webController animated:true];
+            ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
+            [[self navigationController] pushViewController:webController animated:YES];
         }
             break;
-        /*case ZBBug:{
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-            webController.navigationDelegate = webController;
-            webController.navigationItem.title = @"Loading...";
-            NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
-            [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-            [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-            
-            [webController setValue:url forKey:@"_url"];
-            
-            [[self navigationController] pushViewController:webController animated:true];
-        }
-            break;*/
-            
         default:
             break;
     }
@@ -477,7 +447,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     
     [webController setValue:url forKey:@"_url"];
     
-    [[self navigationController] pushViewController:webController animated:true];
+    [[self navigationController] pushViewController:webController animated:YES];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {
@@ -628,8 +598,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
     [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     cell.packageID = currentBanner[@"package"];
-    [cell.titleLabel setText:currentBanner[@"title"]];
-    
+    cell.titleLabel.text = currentBanner[@"title"];
     return cell;
 }
 

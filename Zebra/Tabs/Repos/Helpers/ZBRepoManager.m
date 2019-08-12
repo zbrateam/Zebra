@@ -148,7 +148,7 @@
                 
                 if (readError != NULL) {
                     // rip
-                    respond(false, [NSString stringWithFormat:@"%@ (%@)", readError.localizedDescription, sourcesList], @[]);
+                    respond(NO, [NSString stringWithFormat:@"%@ (%@)", readError.localizedDescription, sourcesList], @[]);
                     return;
                 }
                 
@@ -258,10 +258,10 @@
                 
                 [self addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {
                     if (success) {
-                        respond(true, NULL, NULL);
+                        respond(YES, NULL, NULL);
                     }
                     else {
-                        respond(false, addError.localizedDescription, responseURL);
+                        respond(NO, addError.localizedDescription, responseURL);
                     }
                 }];
             }
@@ -277,7 +277,7 @@
     NSURL *sourceURL = [NSURL URLWithString:urlString];
     if (!sourceURL) {
         NSLog(@"[Zebra] Invalid URL: %@", urlString);
-        respond(false, [NSString stringWithFormat:@"Invalid URL: %@", urlString], sourceURL);
+        respond(NO, [NSString stringWithFormat:@"Invalid URL: %@", urlString], sourceURL);
         return;
     }
     
@@ -400,16 +400,16 @@
     [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-        completion(false, error);
+        completion(NO, error);
     }
     else {
         [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
         if (error != NULL) {
             NSLog(@"[Zebra] Error while moving sources to file: %@", error);
-            completion(false, error);
+            completion(NO, error);
         }
         else {
-            completion(true, NULL);
+            completion(YES, NULL);
         }
     }
     recachingNeeded = YES;
@@ -545,7 +545,7 @@
             }
             
             NSError *writeError;
-            [finalContents writeToURL:destinationURL atomically:false encoding:NSUTF8StringEncoding error:&writeError];
+            [finalContents writeToURL:destinationURL atomically:NO encoding:NSUTF8StringEncoding error:&writeError];
             if (writeError != NULL) {
                 NSLog(@"[Zebra] Error while writing to %@: %@", destinationURL, writeError.localizedDescription);
             }
@@ -608,7 +608,7 @@
             }
             
             NSError *writeError;
-            [finalContents writeToURL:destinationURL atomically:false encoding:NSUTF8StringEncoding error:&writeError];
+            [finalContents writeToURL:destinationURL atomically:NO encoding:NSUTF8StringEncoding error:&writeError];
             if (writeError != NULL) {
                 NSLog(@"[Zebra] Error while writing to %@: %@", destinationURL, writeError.localizedDescription);
             }

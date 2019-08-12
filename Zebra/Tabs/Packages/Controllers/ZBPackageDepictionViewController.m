@@ -699,10 +699,10 @@ enum ZBPackageInfoOrder {
 
 - (void)readVersion:(ZBPackage *)package {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
-        infos[@"Version"] = [package version];
+        infos[@"Version"] = package.version;
     }
     else {
-        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", [package version], [package installedVersion]];
+        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", package.version, [package installedVersion]];
     }
 }
 

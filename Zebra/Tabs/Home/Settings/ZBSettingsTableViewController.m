@@ -228,8 +228,8 @@ enum ZBSectionOrder {
         [cell.imageView.image drawInRect:imageRect];
         cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        [cell.imageView.layer setCornerRadius:10];
-        [cell.imageView setClipsToBounds:YES];
+        cell.imageView.layer.cornerRadius = 10;
+        cell.imageView.clipsToBounds = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         return cell;
@@ -253,8 +253,8 @@ enum ZBSectionOrder {
                     [cell.imageView.image drawInRect:imageRect];
                     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
                     UIGraphicsEndImageContext();
-                    [cell.imageView.layer setCornerRadius:10];
-                    [cell.imageView setClipsToBounds:YES];
+                    cell.imageView.layer.cornerRadius = 10;
+                    cell.imageView.clipsToBounds = YES;
                 }
                 else {
                     cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
@@ -264,8 +264,8 @@ enum ZBSectionOrder {
                     [cell.imageView.image drawInRect:imageRect];
                     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
                     UIGraphicsEndImageContext();
-                    [cell.imageView.layer setCornerRadius:10];
-                    [cell.imageView setClipsToBounds:YES];
+                    cell.imageView.layer.cornerRadius = 10;
+                    cell.imageView.clipsToBounds = YES;
                 }
             }
         }
@@ -465,13 +465,13 @@ enum ZBSectionOrder {
 - (void)openChangelog {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
-    [self.navigationController pushViewController:changeLog animated:true];
+    [self.navigationController pushViewController:changeLog animated:YES];
 }
 
 - (void)openCommunityRepos {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
-    [self.navigationController pushViewController:community animated:true];
+    [self.navigationController pushViewController:community animated:YES];
 }
 
 - (void)openWebView:(NSInteger)cellNumber {
@@ -485,19 +485,19 @@ enum ZBSectionOrder {
     
     [webController setValue:url forKey:@"_url"];
     
-    [[self navigationController] pushViewController:webController animated:true];
+    [[self navigationController] pushViewController:webController animated:YES];
 }
 
 - (void)showRefreshView:(NSNumber *)dropTables {
     if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:false];
+        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:NO];
     }
     else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
         console.messages = nil;
         console.dropTables = [dropTables boolValue];
-        [self presentViewController:console animated:true completion:nil];
+        [self presentViewController:console animated:YES completion:nil];
     }
 }
 

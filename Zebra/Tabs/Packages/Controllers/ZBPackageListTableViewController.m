@@ -227,7 +227,7 @@ typedef enum {
     
     alert.popoverPresentationController.barButtonItem = self->clearButton;
     
-    [self presentViewController:alert animated:true completion:nil];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)clearQueue {

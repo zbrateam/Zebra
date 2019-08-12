@@ -47,7 +47,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if (!dirExists) {
         NSLog(@"[Zebra] Creating documents directory.");
         NSError *error;
-        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
@@ -65,7 +65,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if (!dirExists) {
         NSLog(@"[Zebra] Creating lists directory.");
         NSError *error;
-        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating lists directory: %@.", error.localizedDescription]];
@@ -105,7 +105,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if (!dirExists) {
         NSLog(@"[Zebra] Creating debs directory.");
         NSError *error;
-        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:true attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating debs directory: %@.", error.localizedDescription]];
@@ -129,7 +129,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil];
             [errorAlert addAction:okAction];
-            [tabController presentViewController:errorAlert animated:true completion:nil];
+            [tabController presentViewController:errorAlert animated:YES completion:nil];
         });
     }
 }
@@ -181,7 +181,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     external.fileURL = url;
                     
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-                    [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+                    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
                 }
             }
             else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
@@ -222,7 +222,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                         ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
                         if (packageController) {
                             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                            [tabController presentViewController:navController animated:true completion:nil];
+                            [tabController presentViewController:navController animated:YES completion:nil];
                         }
                     }
                     else {
@@ -258,7 +258,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                         ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
                         if (packageController) {
                             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                            [tabController presentViewController:navController animated:true completion:nil];
+                            [tabController presentViewController:navController animated:YES completion:nil];
                         }
                     }
                     break;
@@ -309,11 +309,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             
         }
         default: { // WHO ARE YOU????
-            return false;
+            return NO;
         }
     }
     
-    return true;
+    return YES;
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {

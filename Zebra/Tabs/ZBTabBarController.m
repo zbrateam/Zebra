@@ -56,13 +56,13 @@
     [super viewDidAppear:animated];
     
     if ([databaseManager needsToPresentRefresh]) {
-        [databaseManager setNeedsToPresentRefresh:false];
+        [databaseManager setNeedsToPresentRefresh:NO];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
         refreshController.messages = nil;
         refreshController.dropTables = YES;
         
-        [self presentViewController:refreshController animated:true completion:nil];
+        [self presentViewController:refreshController animated:YES completion:nil];
     }
 }
 
@@ -127,21 +127,21 @@
 }
 
 - (void)databaseStartedUpdate {
-    [self setRepoRefreshIndicatorVisible:true];
+    [self setRepoRefreshIndicatorVisible:YES];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     if (packageUpdates != -1) {
         [self setPackageUpdateBadgeValue:packageUpdates];
     }
-    [self setRepoRefreshIndicatorVisible:false];
+    [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
             refreshController.messages = self->errorMessages;
             
-            [self presentViewController:refreshController animated:true completion:nil];
+            [self presentViewController:refreshController animated:YES completion:nil];
             self->errorMessages = nil;
         }
     });

@@ -31,12 +31,12 @@
     
     if (vc.navigationController == NULL && parent != NULL) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [parent presentViewController:qvc animated:true completion:nil];
+            [parent presentViewController:qvc animated:YES completion:nil];
         });
     }
     else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [vc presentViewController:qvc animated:true completion:nil];
+            [vc presentViewController:qvc animated:YES completion:nil];
         });
     }
 }
@@ -195,14 +195,14 @@
     
     if ([package ignoreUpdates]) {
         UIAlertAction *unignore = [UIAlertAction actionWithTitle:@"Show Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [package setIgnoreUpdates:false];
+            [package setIgnoreUpdates:NO];
         }];
         
         [actions addObject:unignore];
     }
     else {
         UIAlertAction *ignore = [UIAlertAction actionWithTitle:@"Ignore Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [package setIgnoreUpdates:true];
+            [package setIgnoreUpdates:YES];
         }];
         
         [actions addObject:ignore];
@@ -249,7 +249,7 @@
         alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
     }
     
-    [vc presentViewController:alert animated:true completion:nil];
+    [vc presentViewController:alert animated:YES completion:nil];
 }
 
 @end

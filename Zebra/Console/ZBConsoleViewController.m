@@ -51,9 +51,9 @@ typedef enum {
     
     queue = [ZBQueue sharedInstance];
     stage = -1;
-    continueWithActions = true;
-    needsIconCacheUpdate = false;
-    needsRespring = false;
+    continueWithActions = YES;
+    needsIconCacheUpdate = NO;
+    needsRespring = NO;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
     downloadingMap = [NSMutableDictionary new];
@@ -121,7 +121,7 @@ typedef enum {
                     
                     if (stage != ZBStageDone) {
                         if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
-                            needsIconCacheUpdate = true;
+                            needsIconCacheUpdate = YES;
                             NSString *path = [ZBPackage pathForApplication:packageID];
                             if (path) {
                                 [bundlePaths addObject:path];
@@ -181,7 +181,7 @@ typedef enum {
                         }
                         if (stage != ZBStageDone) {
                             if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
-                                needsIconCacheUpdate = true;
+                                needsIconCacheUpdate = YES;
                                 NSString *path = [ZBPackage pathForApplication:packageID];
                                 if (path) {
                                     [bundlePaths addObject:path];
@@ -237,7 +237,7 @@ typedef enum {
     for (NSString *packageID in installedIDs) {
         BOOL update = [ZBPackage containsApp:packageID];
         if (update) {
-            needsIconCacheUpdate = true;
+            needsIconCacheUpdate = YES;
             NSString *truePackageID = packageID;
             if ([truePackageID hasSuffix:@".deb"]) {
                 // Transform deb-path-like packageID into actual package ID for checking to prevent duplicates
@@ -258,7 +258,7 @@ typedef enum {
         }
         
         if (!needsRespring) {
-            needsRespring = [ZBPackage containsRespringable:packageID] ? true : needsRespring;
+            needsRespring = [ZBPackage containsRespringable:packageID] ? YES : needsRespring;
         }
     }
     
@@ -296,7 +296,7 @@ typedef enum {
 - (void)updateCompleteButton {
     [self.navigationItem setHidesBackButton:YES animated:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->_completeButton.hidden = false;
+        self->_completeButton.hidden = NO;
         self->_progressText.text = nil;
         
         if (self->hasZebraUpdated) {
@@ -340,7 +340,7 @@ typedef enum {
 
 - (void)goodbye {
     [self clearConsole];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)closeZebra {
@@ -496,7 +496,7 @@ typedef enum {
         [self performSelectorInBackground:@selector(performActions:) withObject:debs];
     }
     else {
-        continueWithActions = false;
+        continueWithActions = NO;
         [self cancel];
         [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
         [self updateStatus:ZBStageDone];
@@ -510,7 +510,7 @@ typedef enum {
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
     if (error != NULL) {
-        continueWithActions = false;
+        continueWithActions = NO;
         [self writeToConsole:[error.localizedDescription stringByAppendingString:@"\n"] atLevel:ZBLogLevelError];
     }
     else if (filename) {

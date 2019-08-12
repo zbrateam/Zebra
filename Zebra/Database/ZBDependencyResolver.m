@@ -33,7 +33,7 @@
 }
 
 - (void)addDependenciesForPackage:(ZBPackage *)package {
-    if ([databaseManager packageIsInstalled:package versionStrict:true]) {
+    if ([databaseManager packageIsInstalled:package versionStrict:YES]) {
         ZBLog(@"[Zebra] %@ has already been installed, dependencies resolved.", package);
         return;
     }
@@ -41,9 +41,9 @@
     NSArray *dependencies = [package dependsOn];
     
     for (NSString *line in dependencies) {
-        ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:true];
+        ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:YES];
         if (depPackage != NULL) {
-            if ([databaseManager packageIsInstalled:depPackage versionStrict:true]) {
+            if ([databaseManager packageIsInstalled:depPackage versionStrict:YES]) {
                 ZBLog(@"[Zebra] %@ has already been installed, skipping", depPackage);
             }
             else {
@@ -82,7 +82,7 @@
     }
     else {
         NSString *depPackageID = line;
-        package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:true checkProvides:provides];
+        package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:YES checkProvides:provides];
     }
     
     return package;
@@ -128,7 +128,7 @@
         NSString *comparison = separate[0];
         NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
         ZBLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
-        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true checkProvides:provides];
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:YES checkProvides:provides];
     }
     else { // bad repo maintainer alert
         NSString *comparison;
@@ -139,7 +139,7 @@
         [scanner scanCharactersFromSet:versionChars intoString:&version];
         
         ZBLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
-        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:true checkProvides:provides];
+        return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:YES checkProvides:provides];
     }
     
 }
@@ -151,8 +151,8 @@
         NSArray *conflictions = [package conflictsWith];
         
         for (NSString *line in conflictions) {
-            ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:false];
-            if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:true]) {
+            ZBPackage *conf = [self packageThatResolvesDependency:line checkProvides:NO];
+            if (conf != NULL && [databaseManager packageIsInstalled:conf versionStrict:YES]) {
                 if ([[package provides] containsObject:conf.identifier] || [[package replaces] containsObject:conf.identifier]) {
                     // If this package can provide or replace this conflicting package, we can remove this conflicting package
                     // This also means, we have to install "package" first before we remove "conf"
@@ -213,7 +213,7 @@
                 for (NSString *line in [dependingPackage dependsOn]) {
                     ZBPackage *depPackage = [self packageThatResolvesDependency:line checkProvides:NO];
                     if (depPackage) {
-                        ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:true];
+                        ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:YES];
                         if (providingPackage && shouldRemove) {
                             shouldRemove = NO;
                             ZBLog(@"[Zebra] Should we remove %@ because its dependency being removed? : %d", dependingPackage, shouldRemove);

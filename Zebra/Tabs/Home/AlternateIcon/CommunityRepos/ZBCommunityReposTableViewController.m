@@ -225,14 +225,14 @@ enum ZBSourcesOrder {
 - (void)presentConsole {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    [self presentViewController:console animated:true completion:nil];
+    [self presentViewController:console animated:YES completion:nil];
 }
 
 #pragma mark Add Repos
 
 - (void)addReposWithText:(NSString *)text {
     UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:wait animated:true completion:nil];
+    [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
     __weak typeof(ZBRepoManager *) repoManager = self.repoManager;
@@ -258,7 +258,7 @@ enum ZBSourcesOrder {
                             
                             UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
                             
-                            [weakSelf presentViewController:navCon animated:true completion:nil];
+                            [weakSelf presentViewController:navCon animated:YES completion:nil];
                         }
                         /*else {
                             NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
@@ -273,13 +273,13 @@ enum ZBSourcesOrder {
                 
                 [errorAlert addAction:cancelAction];
                 
-                [weakSelf presentViewController:errorAlert animated:true completion:nil];
+                [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             }
             else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                 console.repoURLs = [repoManager verifiedURLs];
-                [weakSelf presentViewController:console animated:true completion:nil];
+                [weakSelf presentViewController:console animated:YES completion:nil];
             }
         }];
     }];

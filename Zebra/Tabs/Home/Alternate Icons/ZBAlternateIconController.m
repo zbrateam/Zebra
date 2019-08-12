@@ -36,7 +36,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [icons count];
+    return icons.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,9 +62,8 @@
     [cell.imageView.image drawInRect:imageRect];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    [cell.imageView.layer setCornerRadius:10];
-    [cell.imageView setClipsToBounds:YES];
-    
+    cell.imageView.layer.cornerRadius = 10;
+    cell.imageView.clipsToBounds = YES;
     
     return cell;
 }

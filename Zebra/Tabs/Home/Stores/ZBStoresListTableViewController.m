@@ -44,7 +44,7 @@
 
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:false];
+        [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:NO];
     }
     else {
         dispatch_async(dispatch_get_main_queue(), ^{

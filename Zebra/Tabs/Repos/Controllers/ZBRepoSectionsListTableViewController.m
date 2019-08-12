@@ -73,7 +73,7 @@
     }
     self.title = [repo origin];
     if (@available(iOS 10.0, *)) {
-        self.automaticallyAdjustsScrollViewInsets = false;
+        self.automaticallyAdjustsScrollViewInsets = NO;
     }
     else {
         CGFloat top = self.navigationController.navigationBar.bounds.size.height;
@@ -323,7 +323,7 @@
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:@"Refresh" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
 //        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-//        [databaseManager updateDatabaseUsingCaching:true singleRepo:self->repo completion:^(BOOL success, NSError * _Nonnull error) {
+//        [databaseManager updateDatabaseUsingCaching:YES singleRepo:self->repo completion:^(BOOL success, NSError * _Nonnull error) {
 //            NSLog(@"Updated repo %@", self->repo);
 //        }];
     }];
