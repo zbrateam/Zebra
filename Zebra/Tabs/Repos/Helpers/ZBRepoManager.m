@@ -77,32 +77,37 @@
     static NSArray *urls = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        urls = @[@"apt.thebigboss.org/repofiles/cydia/",
-            @"apt.thebigboss.org/",
+        urls = @[@"apt.thebigboss.org/",
             @"apt.modmyi.com/",
             @"apt.saurik.com/",
-            @"apt.bingner.com/",
-            @"cydia.zodttd.com/repo/cydia/",
             @"cydia.zodttd.com/"];
     });
     return urls;
 }
 
++ (NSArray <NSString *> *)knownDebLines {
+    static NSArray *lines = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        lines = @[
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
+            @"deb http://apt.modmyi.com/ stable main\n",
+            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"
+        ];
+    });
+    return lines;
+}
+
 - (NSString *)knownDebLineFromURLString:(NSString *)urlString {
-    switch ([[[self class] knownDistURLs] indexOfObject:urlString]) {
-        case 0 ... 1:
-            return @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n";
-        case 2:
-            return @"deb http://apt.modmyi.com/ stable main\n";
-        case 3:
-            return [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
-        case 4:
-            return [NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber];
-        case 5 ... 6:
-            return @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n";
-        default:
-            return nil;
+    int index = 0;
+    for (NSString *knownURL in [[self class] knownDistURLs]) {
+        if ([urlString containsString:knownURL]) {
+            return [[self class] knownDebLines][index];
+        }
+        ++index;
     }
+    return nil;
 }
 
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {

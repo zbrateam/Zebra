@@ -139,7 +139,7 @@
         }
     }
     
-    return (NSArray *)repos;
+    return repos;
 }
 
 - (BOOL)checkForInvalidRepo:(NSString *)baseURL {
@@ -211,7 +211,7 @@
     }
 }
 
-- (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore {
+- (void)downloadRepos:(NSArray <NSArray *> *)repos ignoreCaching:(BOOL)ignore {
     if (repos == NULL) {
         if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
             [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
@@ -231,7 +231,7 @@
     configuration.HTTPAdditionalHeaders = headers;
 
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-    for (NSArray *repo in self.repos) {
+    for (NSArray *repo in repos) {
         BOOL dist = [repo count] == 3;
         NSURL *baseURL = dist ? [NSURL URLWithString:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]]] : [NSURL URLWithString:repo[0]];
         NSURL *releaseURL = [baseURL URLByAppendingPathComponent:@"Release"];

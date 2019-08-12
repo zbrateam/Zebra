@@ -67,16 +67,16 @@ enum ZBSourcesOrder {
 
 - (NSString *)determineJailbreakRepo {
     if ([ZBDevice isChimera]) {
-        return @"https://repo.chimera.sh";
+        return @"https://repo.chimera.sh/";
     }
     else if ([ZBDevice isUncover]) { // uncover
-        return [NSString stringWithFormat:@"http://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber];
+        return @"http://apt.bingner.com/";
     }
     else if ([ZBDevice isElectra]) { // electra
-        return @"deb https://electrarepo64.coolstar.org/ ./\n";
+        return @"https://electrarepo64.coolstar.org/";
     }
     else { // cydia
-        return [NSString stringWithFormat:@"http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber];
+        return @"http://apt.saurik.com/";
     }
 }
 

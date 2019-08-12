@@ -335,7 +335,7 @@
                 [self.repoManager addDebLine:@"deb https://electrarepo64.coolstar.org/ ./\n"];
                 break;
             case 4:
-                [self.repoManager addDebLine:[NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber]];
+                [self.repoManager addDebLine:@"deb http://apt.bingner.com/\n"];
                 break;
             case 5:
                 [self.repoManager addDebLine:@"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n"];
