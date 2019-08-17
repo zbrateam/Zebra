@@ -256,9 +256,6 @@
         if (package) {
             [_queue removePackage:package fromQueue:queue];
         }
-        else {
-            ZBLog(@"[Zebra] MY TIME HAS COME TO BURN");
-        }
         
         if ([_queue hasObjects]) {
             [self refreshTable];

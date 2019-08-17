@@ -7,6 +7,7 @@
 //
 
 #import "ZBChangeLogTableViewController.h"
+#import <ZBLog.h>
 
 @interface ZBChangeLogTableViewController ()
 
@@ -18,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"Changelog"];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -31,21 +32,15 @@
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:@"https://api.github.com/repos/wstyres/Zebra/releases"]];
     
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
-      ^(NSData * _Nullable data,
-        NSURLResponse * _Nullable response,
-        NSError * _Nullable error) {
-          if (data && !error) {
-              self->changeLogArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-              dispatch_async(dispatch_get_main_queue(), ^{
-                  [self.tableView reloadData];
-              });
-          }
-          if (error) {
-              NSLog(@"[Zebra] Github error %@", error);
-          }
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data && !error) {
+            self->changeLogArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+        ZBLog(@"[Zebra] Github error %@", error);
       }] resume];
-    
 }
 
 #pragma mark - Table view data source
@@ -69,9 +64,9 @@
     if ([dataDict objectForKey:@"body"]) {
         [cell.textLabel setText:dataDict[@"body"]];
     }
-    [cell.textLabel setNumberOfLines:0];
-    [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -97,12 +92,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 30;
-        default :
-            return 45;
-    }
+    return section == 0 ? 30 : 45;
 }
 
 @end

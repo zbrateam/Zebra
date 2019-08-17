@@ -32,11 +32,11 @@
     return [[ZBRepoManager sharedInstance] repos][@(repoID)];
 }
 
-+ (ZBRepo *)localRepo {
++ (ZBRepo *)localRepo:(int)repoID {
     ZBRepo *local = [[ZBRepo alloc] init];
     [local setOrigin:@"Local Repository"];
     [local setDesc:@"Locally installed packages"];
-    [local setRepoID:0];
+    [local setRepoID:repoID];
     [local setBaseFileName:@"/var/lib/dpkg/status"];
     
     return local;

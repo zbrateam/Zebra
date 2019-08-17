@@ -69,11 +69,11 @@
 
 #pragma mark - Table view data source
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
 }
 
@@ -148,15 +148,7 @@
             [session start];
         }
         else {
-            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:destinationUrl];
-            safariVC.delegate = self;
-            if (@available(iOS 10.0, *)) {
-                [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
-                [safariVC setPreferredControlTintColor:[UIColor tintColor]];
-            } else {
-                [safariVC.view setTintColor:[UIColor tintColor]];
-            }
-            [self presentViewController:safariVC animated:YES completion:nil];
+            [ZBDevice openURL:destinationUrl delegate:self];
         }
     }
     else {

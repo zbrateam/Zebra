@@ -132,14 +132,7 @@
     
     if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
-            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
-            if (@available(iOS 10.0, *)) {
-                [sfVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
-                [sfVC setPreferredControlTintColor:[UIColor tintColor]];
-            } else {
-                [sfVC.view setTintColor:[UIColor tintColor]];
-            }
-            [self presentViewController:sfVC animated:YES completion:nil];
+            [ZBDevice openURL:url delegate:self];
             decisionHandler(WKNavigationActionPolicyCancel);
         }
         else {

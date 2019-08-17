@@ -270,8 +270,8 @@ typedef enum ZBLinksOrder : NSUInteger {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
             cell.textLabel.text = @"Welcome to the Zebra Beta!";
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
             break;
@@ -309,7 +309,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             [cell.textLabel sizeToFit];
             return cell;
         }
@@ -338,7 +338,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             [cell.textLabel sizeToFit];
             return cell;
             
@@ -357,7 +357,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:[UIImage imageNamed:@"url"]];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             [cell.textLabel sizeToFit];
             return cell;
         }

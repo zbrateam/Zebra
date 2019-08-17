@@ -289,7 +289,7 @@
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
         }
         else {
-            [self setRepo:[ZBRepo localRepo]];
+            [self setRepo:[ZBRepo localRepo:repoID]];
         }
         
         NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -459,6 +459,10 @@
 }
 
 - (NSUInteger)possibleActions {
+    if (self.repo.repoID == -1) {
+        // We do nothing with virtual dependencies
+        return 0;
+    }
     if (possibleActions == 0) {
         // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
         if ([self isInstalled:NO]) {

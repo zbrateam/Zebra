@@ -116,14 +116,7 @@ typedef enum {
     }
     else {
         [self clearProblems];
-        if ([self presentingViewController] != NULL) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            ZBTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
-            [self presentViewController:vc animated:YES completion:nil];
-        }
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

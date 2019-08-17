@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UICKeyChainStore.h"
-@import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
 

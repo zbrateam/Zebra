@@ -231,7 +231,7 @@ enum ZBSectionOrder {
         cell.imageView.layer.cornerRadius = 10;
         cell.imageView.clipsToBounds = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
     }
     else if (indexPath.section == ZBGraphics) {
@@ -294,7 +294,7 @@ enum ZBSectionOrder {
             cell.accessoryView = segmentedControl;
             cell.textLabel.text = @"Dark Mode";
         }
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
     }
     else if (indexPath.section == ZBFeatured) {
@@ -322,13 +322,13 @@ enum ZBSectionOrder {
             [segmentedControl addTarget:self action:@selector(featuredSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
             cell.accessoryView = segmentedControl;
             cell.textLabel.text = @"Feature Type";
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         else {
             cell.textLabel.text = @"Select Repos to be Featured";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
     }
     else if (indexPath.section == ZBNews) {
@@ -346,7 +346,7 @@ enum ZBSectionOrder {
         [enableSwitch setOnTintColor:[UIColor tintColor]];
         cell.accessoryView = enableSwitch;
         cell.textLabel.text = @"Enable News";
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
     }
     else if (indexPath.section == ZBMisc) {
@@ -366,8 +366,8 @@ enum ZBSectionOrder {
             segmentedControl.tintColor = [UIColor tintColor];
             [segmentedControl addTarget:self action:@selector(iconActionSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
             cell.accessoryView = segmentedControl;
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         }
         cell.textLabel.text = text;
         return cell;

@@ -346,4 +346,17 @@
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"tintSelection"];
 }
 
++ (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+    safariVC.delegate = delegate;
+    if (@available(iOS 10.0, *)) {
+        safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
+        safariVC.preferredControlTintColor = [UIColor tintColor];
+    }
+    else {
+        safariVC.view.tintColor = [UIColor tintColor];
+    }
+    [delegate presentViewController:safariVC animated:YES completion:nil];
+}
+
 @end
