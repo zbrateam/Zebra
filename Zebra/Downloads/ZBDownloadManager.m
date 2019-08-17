@@ -9,6 +9,7 @@
 #import "ZBDownloadManager.h"
 #import "UICKeyChainStore.h"
 #import <ZBDevice.h>
+#import <ZBLog.h>
 
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
@@ -360,7 +361,7 @@
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"[Zebra] Real package data: %@", json);
+            ZBLog(@"[Zebra] Real package data: %@", json);
             if ([json valueForKey:@"url"]) {
                 NSString *returnString = json[@"url"];
                 completionHandler(returnString);
@@ -408,9 +409,6 @@
                     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
                     if ([filename hasSuffix:@".deb"]) {
                         [self cancelAllTasksForSession:session];
-                    }
-                    
-                    if ([filename hasSuffix:@".deb"]) {
                         [self->downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
                     }
                     else {
@@ -462,32 +460,25 @@
                         stream.avail_out = 0;
                         
                         NSMutableData *output = nil;
-                        if (inflateInit2(&stream, 47) == Z_OK)
-                        {
+                        if (inflateInit2(&stream, 47) == Z_OK) {
                             int status = Z_OK;
                             output = [NSMutableData dataWithCapacity:data.length * 2];
-                            while (status == Z_OK)
-                            {
-                                if (stream.total_out >= output.length)
-                                {
+                            while (status == Z_OK) {
+                                if (stream.total_out >= output.length) {
                                     output.length += data.length / 2;
                                 }
                                 stream.next_out = (uint8_t *)output.mutableBytes + stream.total_out;
                                 stream.avail_out = (uInt)(output.length - stream.total_out);
                                 status = inflate (&stream, Z_SYNC_FLUSH);
                             }
-                            if (inflateEnd(&stream) == Z_OK)
-                            {
-                                if (status == Z_STREAM_END)
-                                {
-                                    output.length = stream.total_out;
-                                }
+                            if (inflateEnd(&stream) == Z_OK && status == Z_STREAM_END) {
+                                output.length = stream.total_out;
                             }
                         }
                         
                         [output writeToFile:[finalPath stringByDeletingPathExtension] atomically:NO];
 
-                        NSError *removeError;
+                        NSError *removeError = NULL;
                         [[NSFileManager defaultManager] removeItemAtPath:finalPath error:&removeError];
                         if (removeError != NULL) {
                             NSLog(@"[Hyena] Unable to remove .gz, %@", removeError.localizedDescription);
@@ -518,11 +509,10 @@
                         FILE *f = fopen([finalPath UTF8String], "r");
                         FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
                         
-                        int bzError;
-                        BZFILE *bzf;
+                        int bzError = BZ_OK;
                         char buf[4096];
                         
-                        bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
+                        BZFILE *bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
                         if (bzError != BZ_OK) {
                             fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
                         }
@@ -531,7 +521,7 @@
                             int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
                             if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
                                 size_t nwritten = fwrite(buf, 1, nread, output);
-                                if (nwritten != (size_t) nread) {
+                                if (nwritten != (size_t)nread) {
                                     fprintf(stderr, "[Hyena] E: short write\n");
                                 }
                             }

@@ -237,9 +237,6 @@
         }
         sqlite3_finalize(statement);
     }
-    else {
-        NSLog(@"[Zebra] MY TIME HAS COME TO BURN");
-    }
 }
 
 - (void)dealloc {

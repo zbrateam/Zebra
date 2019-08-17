@@ -20,7 +20,6 @@
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController ()
-
 @end
 
 @implementation ZBRepoSectionsListTableViewController
@@ -145,7 +144,6 @@
                     }
                     
                 }] resume];
-        
     }
 }
 

@@ -489,14 +489,6 @@
     return [self hasDataInSection:section] ? 30 : 0;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
-}
-
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return sectionIndexTitles;
 }

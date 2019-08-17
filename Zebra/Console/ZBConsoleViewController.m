@@ -262,6 +262,8 @@ typedef enum {
         }
     }
     
+    [self removeAllDebs];
+    
     if (needsIconCacheUpdate) {
         [self writeToConsole:@"Updating icon cache...\n" atLevel:ZBLogLevelInfo];
         NSMutableArray *arguments = [NSMutableArray new];
@@ -272,10 +274,11 @@ typedef enum {
         else {
             [arguments addObject:@"-p"];
             for (NSString *packageID in uicaches) {
-                if ([packageID isEqualToString:@"-p"] || [packageID isEqualToString:[ZBAppDelegate bundleID]]) continue;
-                
+                if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
+                    continue;
                 NSString *bundlePath = [ZBPackage pathForApplication:packageID];
-                if (bundlePath != NULL) [bundlePaths addObject:bundlePath];
+                if (bundlePath != NULL)
+                    [bundlePaths addObject:bundlePath];
             }
             [arguments addObjectsFromArray:bundlePaths];
         }
@@ -288,7 +291,6 @@ typedef enum {
         }
     }
     
-    [self removeAllDebs];
     [self updateStatus:ZBStageDone];
     [self updateCompleteButton];
 }

@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -61,7 +60,6 @@
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender {
     [self.addRepoTextView resignFirstResponder];
-    
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

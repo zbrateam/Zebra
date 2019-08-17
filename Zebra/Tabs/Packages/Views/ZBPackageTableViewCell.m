@@ -37,7 +37,8 @@
     NSString *repoName = repo.origin;
     if (package.author) {
         self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
-    } else {
+    }
+    else {
         self.authorAndRepo.text = repoName;
     }
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
@@ -105,7 +106,7 @@
 - (NSString *)stripEmailFromAuthor:(NSString *)name {
     NSArray *authorName = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName) {
+    for (NSString *cut in authorName) {
         if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
             [cleanedStrings addObject:cut];
         }

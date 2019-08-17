@@ -355,11 +355,7 @@ enum ZBSearchSection {
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([ZBDevice darkModeEnabled]) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
-    }
+    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 @end

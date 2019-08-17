@@ -171,25 +171,19 @@ enum ZBSectionOrder {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section){
         case ZBInfo:
+        case ZBNews:
+        case ZBMisc:
             return 1;
         case ZBGraphics:
             if (@available(iOS 10.3, *)) {
                 return 3;
             }
-            else {
-                return 2;
-            }
+            return 2;
         case ZBFeatured:
             if ([[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]) {
                 return 3;
             }
-            else {
-                return 2;
-            }
-        case ZBNews:
-            return 1;
-        case ZBMisc:
-            return 1;
+            return 2;
         case ZBAdvanced:
             return 4;
         default:
@@ -397,9 +391,7 @@ enum ZBSectionOrder {
         [cell.textLabel setTextColor:[UIColor tintColor]];
         return cell;
     }
-    else {
-        return nil;
-    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -437,8 +429,8 @@ enum ZBSectionOrder {
             UISwitch *switcher = (UISwitch *)cell.accessoryView;
             [switcher setOn:!switcher.on animated:YES];
             [self toggleNews:switcher];
-        }
             break;
+        }
         case ZBAdvanced:
             switch (indexPath.row) {
                 case ZBDropTables :
@@ -637,27 +629,11 @@ enum ZBSectionOrder {
 }
 
 - (void)modeValueChanged:(UISegmentedControl *)segmentedControl {
-    if (segmentedControl.selectedSegmentIndex == 0) {
-        selectedMode = ZBDefaultMode;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:NO forKey:oledModeKey];
-        [defaults setBool:NO forKey:thirteenModeKey];
-        [defaults synchronize];
-    }
-    else if (segmentedControl.selectedSegmentIndex == 1) {
-        selectedMode = ZBOled;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:YES forKey:oledModeKey];
-        [defaults setBool:NO forKey:thirteenModeKey];
-        [defaults synchronize];
-    }
-    else if (segmentedControl.selectedSegmentIndex == 2) {
-        selectedMode = ZBThirteen;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:NO forKey:oledModeKey];
-        [defaults setBool:YES forKey:thirteenModeKey];
-        [defaults synchronize];
-    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    selectedMode = (ZBModeSelection)segmentedControl.selectedSegmentIndex;
+    [defaults setBool:selectedMode == ZBThirteen forKey:thirteenModeKey];
+    [defaults setBool:selectedMode == ZBOled forKey:oledModeKey];
+    [defaults synchronize];
     
     [ZBDevice hapticButton];
     [self oledAnimation];

@@ -15,7 +15,7 @@ typedef enum  {
     ZBWhiteOrBlack
 } ZBTintSelection;
 
-typedef enum  {
+typedef NS_ENUM(NSInteger)  {
     ZBDefaultMode = 0,
     ZBOled,
     ZBThirteen

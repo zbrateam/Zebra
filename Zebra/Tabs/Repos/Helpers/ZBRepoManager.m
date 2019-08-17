@@ -370,9 +370,6 @@
 - (void)addSources:(NSArray<NSURL *> *)sourceURLs completion:(void (^)(BOOL success, NSError *error))completion {
     NSMutableString *output = [NSMutableString string];
     
-    //    NSString *contents = [NSString stringWithContentsOfFile:[ZBAppDelegate sourceListLocation] encoding:NSUTF8StringEncoding error:nil];
-    //    NSLog(@"[Zebra] Previous sources.list\n%@", contents);
-    
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBRepo *repo in [databaseManager repos]) {
         [output appendString:[self debLineFromRepo:repo]];
@@ -382,9 +379,7 @@
         NSString *URL = [sourceURL absoluteString];
         [output appendFormat:@"deb %@ ./\n", URL];
     }
-    
-    //    NSLog(@"[Zebra] New sources.list\n%@", output);
-    
+        
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = [paths objectAtIndex:0];
     

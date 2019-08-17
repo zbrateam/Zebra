@@ -59,7 +59,7 @@ char *replace_char(char *str, char find, char replace) {
     return str;
 }
 
-int isRepoSecure(const char* sourcePath, char *repoURL) {
+int isRepoSecure(const char *sourcePath, char *repoURL) {
     FILE *file = fopen(sourcePath, "r");
     if (file != NULL) {
         char line[256];
@@ -335,7 +335,8 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
         packageIdentifier[i] = tolower(packageIdentifier[i]);
     }
     const char *tags = dict_get(package, "Tag");
-    if (!import || (strcasestr(dict_get(package, "Status"), "not-installed") == NULL && strcasestr(dict_get(package, "Status"), "deinstall") == NULL)) {
+    const char *status = dict_get(package, "Status");
+    if (!import || (strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
         if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
             repoID = -1;
         }

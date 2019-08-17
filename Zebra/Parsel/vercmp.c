@@ -7,14 +7,13 @@
 static int order(char c) {
     if (isdigit(c))
         return 0;
-    else if (isalpha(c))
+    if (isalpha(c))
         return c;
-    else if (c == '~')
+    if (c == '~')
         return -1;
-    else if (c)
+    if (c)
         return c + 256;
-    else
-        return 0;
+    return 0;
 }
 
 int compareFragment(const char *A, const char *AEnd, const char *B, const char *BEnd) {
@@ -30,9 +29,7 @@ int compareFragment(const char *A, const char *AEnd, const char *B, const char *
     while (lhs != AEnd && rhs != BEnd) {
         int first_diff = 0;
         
-        while (lhs != AEnd && rhs != BEnd &&
-               (!isdigit(*lhs) || !isdigit(*rhs)))
-        {
+        while (lhs != AEnd && rhs != BEnd && (!isdigit(*lhs) || !isdigit(*rhs))) {
             int vc = order(*lhs);
             int rc = order(*rhs);
             if (vc != rc)
@@ -44,8 +41,7 @@ int compareFragment(const char *A, const char *AEnd, const char *B, const char *
             ++lhs;
         while (*rhs == '0')
             ++rhs;
-        while (isdigit(*lhs) && isdigit(*rhs))
-        {
+        while (isdigit(*lhs) && isdigit(*rhs)) {
             if (!first_diff)
                 first_diff = *lhs - *rhs;
             ++lhs;
@@ -91,20 +87,16 @@ int compareVersion(const char *A, const char *AEnd, const char *B, const char *B
     
     // Special case: a zero epoch is the same as no epoch,
     // so remove it.
-    if (lhs != A)
-    {
+    if (lhs != A) {
         for (; *A == '0'; ++A);
-        if (A == lhs)
-        {
+        if (A == lhs) {
             ++A;
             ++lhs;
         }
     }
-    if (rhs != B)
-    {
+    if (rhs != B) {
         for (; *B == '0'; ++B);
-        if (B == rhs)
-        {
+        if (B == rhs) {
             ++B;
             ++rhs;
         }
@@ -143,23 +135,19 @@ int compareVersion(const char *A, const char *AEnd, const char *B, const char *B
     // no debian revision need to be treated like -0
     if (*(dlhs-1) == '-' && *(drhs-1) == '-')
         return compareFragment(dlhs, AEnd, drhs, BEnd);
-    else if (*(dlhs-1) == '-')
-    {
+    if (*(dlhs-1) == '-') {
         const char* null = "0";
         return compareFragment(dlhs, AEnd, null, null + 1);
     }
-    else if (*(drhs-1) == '-')
-    {
+    if (*(drhs-1) == '-') {
         const char* null = "0";
         return compareFragment(null, null + 1, drhs, BEnd);
     }
-    else
-        return 0;
+    return 0;
 }
 
 int compare(const char *A, const char *B) {
     const char* AEnd = &A[strlen(A)];
     const char* BEnd = &B[strlen(B)];
-    
     return compareVersion(A, AEnd, B, BEnd);
 }

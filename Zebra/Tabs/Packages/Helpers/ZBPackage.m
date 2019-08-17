@@ -110,6 +110,10 @@
         if ([path rangeOfString:@"/Library/ControlCenter/Bundles"].location != NSNotFound && [path hasSuffix:@".bundle"]) {
             return YES;
         }
+        // Flipswitch bundles
+        if ([path rangeOfString:@"/Library/Switches"].location != NSNotFound && [path hasSuffix:@".bundle"]) {
+            return YES;
+        }
     }
     return NO;
 }
@@ -334,17 +338,15 @@
         
         if (compare([[self version] UTF8String], [[obj version] UTF8String]) < 0)
             return NSOrderedAscending;
-        else
-            return NSOrderedDescending;
+        return NSOrderedDescending;
     }
     else {
         int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
         if (result < 0)
             return NSOrderedAscending;
-        else if (result > 0)
+        if (result > 0)
             return NSOrderedDescending;
-        else
-            return NSOrderedSame;
+        return NSOrderedSame;
     }
 }
 
@@ -371,7 +373,7 @@
         }
     }
     
-    NSError *readError;
+    NSError *readError = NULL;
     NSString *contents = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&readError];
     
     if (readError != NULL) {
@@ -440,10 +442,8 @@
     if ([repo repoID] <= 0) { // Package is in repoID 0 or -1 and is installed
         return YES;
     }
-    else {
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        return [databaseManager packageIsInstalled:self versionStrict:strict];
-    }
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageIsInstalled:self versionStrict:strict];
 }
 
 - (BOOL)isReinstallable {
@@ -495,7 +495,6 @@
 
 - (BOOL)ignoreUpdates {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    
     return [databaseManager areUpdatesIgnoredForPackage:self];
 }
 
@@ -513,15 +512,16 @@
 }
 
 - (NSDate *)installedDate {
+    if ([ZBDevice needsSimulation])
+        return nil;
 	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
 	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
 	return attributes[NSFileModificationDate];
 }
 
 - (NSString *)installedVersion {
-#if TARGET_OS_SIMULATOR
-    return self.version;
-#else
+    if ([ZBDevice needsSimulation])
+        return self.version;
 	NSTask *installedVersionTask = [[NSTask alloc] init];
     [installedVersionTask setLaunchPath:@"/usr/bin/dpkg"];
     NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"-s", self.identifier, nil];
@@ -547,7 +547,6 @@
 	}];
 
     return version;
-#endif
 }
 
 @end

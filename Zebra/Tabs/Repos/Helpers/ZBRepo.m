@@ -38,7 +38,6 @@
     [local setDesc:@"Locally installed packages"];
     [local setRepoID:repoID];
     [local setBaseFileName:@"/var/lib/dpkg/status"];
-    
     return local;
 }
 
@@ -123,7 +122,6 @@
                             keychain[baseURL] = endpoint;
                             [self setSupportSileoPay:YES];
                         }
-                        
                     }] resume];
         }
         // prevent constant network spam
@@ -146,7 +144,6 @@
                         if (data != nil && (long)[httpResponse statusCode] != 404) {
                             [self setSupportsFeaturedPackages:YES];
                         }
-                        
                     }] resume];
             [self setCheckedSupportFeaturedPackages:YES];
         }

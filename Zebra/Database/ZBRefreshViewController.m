@@ -50,11 +50,7 @@ typedef enum {
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([ZBDevice darkModeEnabled]) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
-    }
+    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -145,9 +141,9 @@ typedef enum {
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
             }
-            default: {
+            default:
                 break;
-            }
+
         }
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };

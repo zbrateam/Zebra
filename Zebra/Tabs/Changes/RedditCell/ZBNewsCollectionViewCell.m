@@ -49,6 +49,7 @@
     blurEffectView.alpha = .35;
     [self.backgroundImage addSubview:blurEffectView];
 }
+
 // Shadow gradient
 /*
 - (void)layoutSubviews {

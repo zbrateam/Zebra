@@ -47,7 +47,6 @@
         }
         [displayStr appendString:components[components.count - 1]];
         [files addObject:displayStr];
-        
     }
 }
 

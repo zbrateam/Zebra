@@ -21,8 +21,7 @@ typedef enum ZBViewOrder : NSUInteger {
     ZBChangeLog,
     ZBCommunity,
     ZBStores,
-    ZBWishList,
-    // ZBBug
+    ZBWishList
 } ZBViewOrder;
 
 typedef enum ZBLinksOrder : NSUInteger {
@@ -60,7 +59,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [super viewWillAppear:animated];
     if ([ZBDevice darkModeEnabled]) {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    } else {
+    }
+    else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -89,12 +89,14 @@ typedef enum ZBLinksOrder : NSUInteger {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self packagesFromDB];
             });
-        } else {
+        }
+        else {
             if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self cacheJSON];
                 });
-            } else {
+            }
+            else {
                 [self setupHeaderFromCache];
             }
         }
@@ -109,7 +111,8 @@ typedef enum ZBLinksOrder : NSUInteger {
         NSString *basePlusHttp;
         if (repo.isSecure) {
             basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
-        } else {
+        }
+        else {
             basePlusHttp = [NSString stringWithFormat:@"http://%@", repo.baseURL];
         }
         dispatch_group_enter(group);
@@ -170,7 +173,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     [dict setObject:package.iconPath forKey:@"url"];
                     [dict setObject:package.identifier forKey:@"package"];
                     [dict setObject:package.name forKey:@"title"];
-                    [self-> allFeatured addObject:dict];
+                    [self->allFeatured addObject:dict];
                 }
             }
         }
@@ -274,7 +277,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
-            break;
         case ZBViews: {
             static NSString *cellIdentifier = @"viewCell";
             
@@ -313,7 +315,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.textLabel sizeToFit];
             return cell;
         }
-            break;
         case ZBLinks: {
             static NSString *cellIdentifier = @"linkCell";
             
@@ -343,8 +344,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             return cell;
             
         }
-            
-            break;
         case ZBCredits: {
             static NSString *cellIdentifier = @"creditCell";
             
@@ -361,11 +360,8 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.textLabel sizeToFit];
             return cell;
         }
-            break;
-            
         default:
             return nil;
-            break;
     }
 }
 
@@ -414,23 +410,23 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBChangeLog: {
             ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
             [self.navigationController pushViewController:changeLog animated:YES];
-        }
             break;
+        }
         case ZBCommunity: {
             ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
             [self.navigationController pushViewController:community animated:YES];
-        }
             break;
+        }
         case ZBStores: {
             ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
             [[self navigationController] pushViewController:webController animated:YES];
-        }
             break;
+        }
         case ZBWishList: {
             ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
             [[self navigationController] pushViewController:webController animated:YES];
-        }
             break;
+        }
         default:
             break;
     }
@@ -455,21 +451,23 @@ typedef enum ZBLinksOrder : NSUInteger {
     switch (row) {
         case ZBDiscord:{
             [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
-        }
             break;
+        }
         case ZBWilsonTwitter: {
             NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=xtm3x"];
             NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/xtm3x"];
             NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/xtm3x"];
             if ([application canOpenURL:twitterapp]) {
                 [self openURL:twitterapp];
-            } else if ([application canOpenURL:tweetbot]){
+            }
+            else if ([application canOpenURL:tweetbot]) {
                 [self openURL:tweetbot];
-            } else {
+            }
+            else {
                 [self openURL:twitterweb];
             }
-        }
             break;
+        }
         default:
             break;
     }
@@ -479,7 +477,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIApplication *application = [UIApplication sharedApplication];
     if (@available(iOS 10.0, *)) {
         [application openURL:url options:@{} completionHandler:nil];
-    } else {
+    }
+    else {
         [application openURL:url];
     }
 }
@@ -548,7 +547,8 @@ typedef enum ZBLinksOrder : NSUInteger {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
                     [self cacheJSON];
-                } else {
+                }
+            else {
                     [self setupHeaderFromCache];
                 }
         });
@@ -580,11 +580,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([ZBDevice darkModeEnabled]) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
-    }
+    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (void)colorWindow {

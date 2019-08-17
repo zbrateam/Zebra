@@ -78,7 +78,7 @@
     }
     [defaults setObject:blocked forKey:@"blackListedRepos"];
     [defaults synchronize];
-    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.tableView reloadData];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
