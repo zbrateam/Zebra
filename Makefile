@@ -14,6 +14,7 @@ after-stage::
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/SDWebImage.framework/SDWebImage
+	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/LNPopupController.framework/LNPopupController
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 
 after-install::
