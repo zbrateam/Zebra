@@ -1,8 +1,8 @@
 Package: xyz.willy.zebra
 Name: Zebra (BETA)
-Version: 1.0~beta14
+Version: 1.0~beta19
 Architecture: iphoneos-arm
-Depends: dpkg
+Depends: dpkg, uikittools
 Description: A Useful Package Manager
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>

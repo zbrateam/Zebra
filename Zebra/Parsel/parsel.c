@@ -50,16 +50,16 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
 
 multi_tok_t init() { return NULL; }
 
-char* replace_char(char* str, char find, char replace) {
-    char *current_pos = strchr(str,find);
+char *replace_char(char *str, char find, char replace) {
+    char *current_pos = strchr(str, find);
     while (current_pos) {
         *current_pos = replace;
-        current_pos = strchr(current_pos,find);
+        current_pos = strchr(current_pos, find);
     }
     return str;
 }
 
-int isRepoSecure(const char* sourcePath, char *repoURL) {
+int isRepoSecure(const char *sourcePath, char *repoURL) {
     FILE *file = fopen(sourcePath, "r");
     if (file != NULL) {
         char line[256];
@@ -71,12 +71,8 @@ int isRepoSecure(const char* sourcePath, char *repoURL) {
                 return 1;
             }
         }
-        
-        return 0;
     }
-    else {
-        return 0;
-    }
+    return 0;
 }
 
 char *reposSchema() {
@@ -125,7 +121,7 @@ int needsMigration(sqlite3 *database, int table) {
         }
         
         if (schema != NULL) {
-            //Remove CREATE TABLE
+            // Remove CREATE TABLE
             multi_tok_t s = init();
             multi_tok(schema, &s, "CREATE TABLE ");
             schema = multi_tok(NULL, &s, "CREATE TABLE ");
@@ -134,8 +130,7 @@ int needsMigration(sqlite3 *database, int table) {
             sqlite3_finalize(statement);
             return result;
         }
-    }
-    else {
+    } else {
         printf("[Zebra] Error creating migration check statement: %s\n", sqlite3_errmsg(database));
     }
     return 0;
@@ -159,8 +154,7 @@ void createTable(sqlite3 *database, int table) {
     if (table == 1) {
         char *packageIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGEVERSION ON PACKAGES (PACKAGE, VERSION);";
         sqlite3_exec(database, packageIndex, NULL, 0, NULL);
-    }
-    else if (table == 2) {
+    } else if (table == 2) {
         char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
         sqlite3_exec(database, updateIndex, NULL, 0, NULL);
     }
@@ -225,8 +219,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
             sqlite3_bind_text(insertStatement, ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_int(insertStatement, 9, repoID);
-        }
-        else {
+        } else {
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
@@ -238,8 +231,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
         }
         sqlite3_step(insertStatement);
-    }
-    else {
+    } else {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
@@ -302,8 +294,7 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
         sqlite3_step(insertStatement);
-    }
-    else {
+    } else {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
@@ -324,26 +315,25 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
             found = true;
             break;
         }
-    }
-    else {
+    } else {
         printf("[Parsel] Error preparing current package timestamp statement: %s\n", sqlite3_errmsg(database));
     }
     sqlite3_finalize(statement);
     return found ? timestamp : -1;
 }
 
-bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
+bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
     for (int i = 0; packageIdentifier[i]; ++i) {
         packageIdentifier[i] = tolower(packageIdentifier[i]);
     }
     const char *tags = dict_get(package, "Tag");
-    if (!import || (strcasestr(dict_get(package, "Status"), "not-installed") == NULL && strcasestr(dict_get(package, "Status"), "deinstall") == NULL)) {
+    const char *status = dict_get(package, "Status");
+    if (!import || (strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
         if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
             repoID = -1;
-        }
-        else if (repoID == -1) {
+        } else if (repoID == -1) {
             repoID = safeID;
         }
         
@@ -356,7 +346,11 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
         if (sqlite3_prepare_v2(database, packageInsertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPackage, packageIdentifier, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnName, dict_get(package, "Name"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, dict_get(package, "Version"), -1, SQLITE_TRANSIENT);
+            const char *packageVersion = dict_get(package, "Version");
+            if (packageVersion == NULL) {
+                dict_add(package, "Version", packageVersion = "1.0");
+            }
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, packageVersion, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnShortDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
             if (longDescription[0] == '\0' || isspace(longDescription[0]))
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, NULL, -1, SQLITE_TRANSIENT);
@@ -366,7 +360,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTag, tags, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthor, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, dict_get(package, "Depends"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, depends[0] == '\0' ? NULL : depends, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnConflicts, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnProvides, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnReplaces, dict_get(package, "Replaces"), -1, SQLITE_TRANSIENT);
@@ -378,17 +372,17 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             if (!import) {
                 if (previousTimestamp == -1) {
                     newTimestamp = currentDate;
-                }
-                else {
+                } else {
                     newTimestamp = previousTimestamp;
                 }
             }
             sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
             if (longDescription[0] != '\0')
                 longDescription[strlen(longDescription) - 1] = '\0';
+            if (depends[0] != '\0')
+                depends[strlen(depends) - 1] = '\0';
             sqlite3_step(insertStatement);
-        }
-        else {
+        } else {
             printf("[Parsel] Error preparing package binding statement: %s", sqlite3_errmsg(database));
         }
         
@@ -397,11 +391,12 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
         dict_free(*package_);
         *package_ = dict_new();
         longDescription[0] = '\0';
-    }
-    else {
+        depends[0] = '\0';
+    } else {
         dict_free(*package_);
         *package_ = dict_new();
         longDescription[0] = '\0';
+        depends[0] = '\0';
         return true;
     }
     return false;
@@ -420,13 +415,14 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = repoID;
-    int longDesc = 0;
+    bool longDescFlag = false;
     
     char longDescription[32768] = "";
+    char depends[300] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDesc && isspace(line[0])) {
+            if (longDescFlag && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
                     ++i;
@@ -438,9 +434,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 }
                 
                 continue;
-            }
-            else {
-                longDesc = 0;
+            } else {
+                longDescFlag = false;
             }
             
             char *info = strtok(line, "\n");
@@ -451,28 +446,39 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+            if (key == NULL || value == NULL) { // y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
+            
+            if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
+                size_t dependsLen = strlen(depends);
+                if (dependsLen + strlen(value) + 2 < 300) {
+                    if (dependsLen) {
+                        strcat(depends, ", ");
+                    }
+                    strcat(depends, value);
+                }
+                continue;
+            }
+            
             dict_add(package, key, value);
             
-            if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
-                longDesc = 1;
+            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
+                longDescFlag = true;
             }
-        }
-        else if (dict_get(package, "Package") != 0) {
-            if (bindPackage(&package, repoID, safeID, longDescription, database, true, 0))
+        } else if (dict_get(package, "Package") != 0) {
+            if (bindPackage(&package, repoID, safeID, longDescription, depends, database, true, 0))
                 continue;
-        }
-        else {
+        } else {
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
+            depends[0] = '\0';
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, repoID, safeID, longDescription, database, true, 0);
+        bindPackage(&package, repoID, safeID, longDescription, depends, database, true, 0);
     }
     
     fclose(file);
@@ -494,13 +500,14 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = repoID;
-    int longDesc = 0;
+    bool longDescFlag = false;
     
     char longDescription[32768] = "";
+    char depends[300] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDesc && isspace(line[0])) {
+            if (longDescFlag && isspace(line[0])) {
                 int i = 0;
                 while (line[i] != '\0' && isspace(line[i])) {
                     ++i;
@@ -512,9 +519,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 }
                                 
                 continue;
-            }
-            else {
-                longDesc = 0;
+            } else {
+                longDescFlag = false;
             }
             
             char *info = strtok(line, "\n");
@@ -525,27 +531,38 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, ": ");
             
-            if (key == NULL || value == NULL) { //y'all suck at maintaining repos, what do you do? make the package files by hand??
+            if (key == NULL || value == NULL) { // y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, ":");
             }
+            
+            if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
+                size_t dependsLen = strlen(depends);
+                if (dependsLen + strlen(value) + 2 < 300) {
+                    if (dependsLen) {
+                        strcat(depends, ", ");
+                    }
+                    strcat(depends, value);
+                }
+                continue;
+            }
+            
             dict_add(package, key, value);
             
-            if (key != NULL && strcmp(key, "Description") == 0) { //Check for a long description
-                longDesc = 1;
+            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
+                longDescFlag = true;
             }
-        }
-        else if (dict_get(package, "Package") != 0) {
-            bindPackage(&package, repoID, safeID, longDescription, database, false, currentDate);
-        }
-        else {
+        } else if (dict_get(package, "Package") != 0) {
+            bindPackage(&package, repoID, safeID, longDescription, depends, database, false, currentDate);
+        } else {
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
+            depends[0] = '\0';
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, repoID, safeID, longDescription, database, false, currentDate);
+        bindPackage(&package, repoID, safeID, longDescription, depends, database, false, currentDate);
     }
     
     fclose(file);

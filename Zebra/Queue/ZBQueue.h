@@ -18,12 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *managedQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedDepQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
+@property(assign) BOOL useIcon;
 + (id)sharedInstance;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue replace:(ZBPackage *)oldPackage;
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue toTop:(nullable ZBPackage *)topPackage;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue requiredBy:(nullable ZBPackage *)requiredPackage;
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage;
+- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage toTop:(nullable ZBPackage *)topPackage;
 - (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)markPackageAsFailed:(ZBPackage *)package forDependency:(NSString *)failedDependency;
 - (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict conflictionType:(int)type;
@@ -43,8 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)packagesToDownload;
 - (BOOL)needsHyena;
 - (NSString *)queueToKey:(ZBQueueType)queue;
+- (NSString *)queueToKeyDisplayed:(ZBQueueType)queue;
 - (ZBQueueType)keyToQueue:(NSString *)key;
-- (ZBQueueType)queueStatusForPackageIdentifier:(NSString *)identifier;
+- (ZBQueueType)queueStatusForPackage:(ZBPackage *)package;
 - (BOOL)hasErrors;
 @end
 

@@ -3,9 +3,29 @@
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
 
-# Create Documents directory if it does not already exist
-mkdir -p /var/mobile/Documents
+# Verify firmware.sh permissions
+chown root:wheel /usr/libexec/zebra/firmware.sh 
+chmod 6755 /usr/libexec/zebra/firmware.sh
 
-#I don't like this but why are people's doc directory owned by root??
-chown mobile:mobile /var/mobile/Documents
-chmod 0755 /var/mobile/Documents
+chown -R mobile:mobile /Applications/Zebra.app
+
+# Verify startup permissions (Auto-install etc)
+chown root:wheel /usr/libexec/zebra/startup
+chmod 6755 /usr/libexec/zebra/startup
+
+# Setup Launch Daemon
+chown root:wheel /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist
+chmod 644 /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist
+
+# Prevent Zebra from choosing a sandbox path for its directory
+if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
+    DBPATH=$(ls /var/mobile/Containers/Data/Application/*/Documents/zebra.db)
+    ZBPATH=${DBPATH/Documents\/zebra.db/}
+    rm -rf ${ZBPATH}
+    echo "Removed sandboxed Zebra document directory"
+fi
+
+if [ -d "/var/mobile/Library/Application Support/xyz.willy.Zebra" ];then
+    chown -R mobile:mobile "/var/mobile/Library/Application Support/xyz.willy.Zebra"
+    chmod -R +r "/var/mobile/Library/Application Support/xyz.willy.Zebra"
+fi

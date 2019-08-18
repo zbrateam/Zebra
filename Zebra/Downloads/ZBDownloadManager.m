@@ -8,12 +8,14 @@
 
 #import "ZBDownloadManager.h"
 #import "UICKeyChainStore.h"
-#import <ZBDeviceHelper.h>
+#import <ZBDevice.h>
+#import <ZBLog.h>
 
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBRepoManager.h>
 
 #import <bzlib.h>
 #import <zlib.h>
@@ -22,7 +24,10 @@
 @interface ZBDownloadManager () {
     BOOL ignore;
     int tasks;
+    int failedTasks;
     NSMutableDictionary <NSNumber *, ZBPackage *> *packageTasksMap;
+    NSMutableDictionary <NSNumber *, NSURL *> *releaseTasksMap;
+    NSMutableDictionary <NSNumber *, NSURL *> *sourcePackagesTasksMap;
 }
 @end
 
@@ -38,24 +43,52 @@
     self = [super init];
     
     if (self) {
-        queue = [ZBQueue sharedInstance];
-        filenames = [NSMutableDictionary new];
-        packageTasksMap = [NSMutableDictionary new];
+        [self commonInit];
     }
     
     return self;
 }
 
-- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
     self = [super init];
     
     if (self) {
         downloadDelegate = delegate;
         repos = [self reposFromSourcePath:trail];
-        
-        queue = [ZBQueue sharedInstance];
-        filenames = [NSMutableDictionary new];
-        packageTasksMap = [NSMutableDictionary new];
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo {
+    self = [super init];
+    
+    if (self) {
+        downloadDelegate = delegate;
+        repos = @[ [self baseURLFromDebLine:[[ZBRepoManager sharedInstance] debLineFromRepo:repo]] ];
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repoURLs:(NSArray <NSURL *> *)repoURLs {
+    self = [super init];
+    
+    if (self) {
+        downloadDelegate = delegate;
+        NSMutableArray <NSArray *> *baseURLs = [NSMutableArray array];
+        for (NSURL *url in repoURLs) {
+            NSString *urlString = url.absoluteString;
+            NSString *debLine = [[ZBRepoManager sharedInstance] knownDebLineFromURLString:urlString];
+            if (debLine == nil) {
+                debLine = [NSString stringWithFormat:@"deb %@ ./\n", urlString];
+            }
+            [baseURLs addObject:[self baseURLFromDebLine:debLine]];
+        }
+        repos = baseURLs;
+        [self commonInit];
     }
     
     return self;
@@ -66,13 +99,18 @@
     
     if (self) {
         repos = [self reposFromSourcePath:trail];
-        
-        queue = [ZBQueue sharedInstance];
-        filenames = [NSMutableDictionary new];
-        packageTasksMap = [NSMutableDictionary new];
+        [self commonInit];
     }
     
     return self;
+}
+
+- (void)commonInit {
+    queue = [ZBQueue sharedInstance];
+    filenames = [NSMutableDictionary new];
+    packageTasksMap = [NSMutableDictionary new];
+    releaseTasksMap = [NSMutableDictionary new];
+    sourcePackagesTasksMap = [NSMutableDictionary new];
 }
 
 - (NSArray *)reposFromSourcePath:(NSString *)path {
@@ -89,65 +127,57 @@
     
     if ([sourceList isEqualToString:@""] || [sourceList isEqualToString:@"\n"]) {
         sourceList = @"deb https://xtm3x.github.io/repo ./\n";
-        [sourceList writeToFile:path atomically:false encoding:NSUTF8StringEncoding error:nil];
+        [sourceList writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
     }
     
     NSArray *debLines = [sourceList componentsSeparatedByString:@"\n"];
     
     for (NSString *line in debLines) {
-        if (![line isEqual:@""]) {
+        if (![line isEqualToString:@""]) {
             if ([line characterAtIndex:0] == '#') continue;
             NSArray *baseURL = [self baseURLFromDebLine:line];
             if (baseURL != NULL) [repos addObject:baseURL];
         }
     }
     
-    return (NSArray *)repos;
+    return repos;
 }
 
 - (BOOL)checkForInvalidRepo:(NSString *)baseURL {
     NSURL *url = [NSURL URLWithString:baseURL];
     NSString *host = [url host];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/chimera"]) { //chimera
+    if ([ZBDevice isChimera]) { // chimera
         return ([host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/jb"]) { //uncover
+    if ([ZBDevice isUncover]) { // uncover
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/electra"]) { //electra
+    if ([ZBDevice isElectra]) { // electra
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { //cydia
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
         return ([host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     
-    return false;
+    return NO;
 }
 
 - (NSArray *)baseURLFromDebLine:(NSString *)debLine {
     NSArray *urlComponents;
     
     NSArray *components = [debLine componentsSeparatedByString:@" "];
-    if ([components count] > 3) { //Distribution repo, we get it, you're cool
-        NSString *baseURL = components[1];
+    NSString *baseURL = components[1];
+    if ([components count] > 3) { // Distribution repo, we get it, you're cool
         NSString *suite = components[2];
         NSString *component = components[3];
-        
-        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
-            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
-        }
-        
         urlComponents = @[baseURL, suite, component];
-    }
-    else { //Normal, non-weird repo
-        NSString *baseURL = components[1];
-        
-        if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
-            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
-        }
-        
+    } else { // Normal, non-weird repo
         urlComponents = @[baseURL];
+    }
+    
+    if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
+        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
     }
     
     return urlComponents;
@@ -159,13 +189,12 @@
 
 - (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDeviceHelper UDID];
-    NSString *machineIdentifier = [ZBDeviceHelper machineID];
+    NSString *udid = [ZBDevice UDID];
+    NSString *machineIdentifier = [ZBDevice machineID];
     
     if (path == NULL) {
         return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
-    }
-    else {
+    } else {
         NSError *fileError;
         NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
         NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
@@ -181,7 +210,7 @@
     }
 }
 
-- (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore {
+- (void)downloadRepos:(NSArray <NSArray *> *)repos ignoreCaching:(BOOL)ignore {
     if (repos == NULL) {
         if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
             [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
@@ -201,18 +230,20 @@
     configuration.HTTPAdditionalHeaders = headers;
 
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-    for (NSArray *repo in self.repos) {
+    for (NSArray *repo in repos) {
         BOOL dist = [repo count] == 3;
         NSURL *baseURL = dist ? [NSURL URLWithString:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]]] : [NSURL URLWithString:repo[0]];
         NSURL *releaseURL = [baseURL URLByAppendingPathComponent:@"Release"];
         NSURL *packagesURL = dist ? [baseURL URLByAppendingPathComponent:@"main/binary-iphoneos-arm/Packages.bz2"] : [baseURL URLByAppendingPathComponent:@"Packages.bz2"];
         
         NSURLSessionTask *releaseTask = [session downloadTaskWithURL:releaseURL];
-        tasks++;
+        releaseTasksMap[@(releaseTask.taskIdentifier)] = releaseURL;
+        ++tasks;
         [releaseTask resume];
         
         NSURLSessionTask *packagesTask = [session downloadTaskWithURL:packagesURL];
-        tasks++;
+        sourcePackagesTasksMap[@(packagesTask.taskIdentifier)] = packagesURL;
+        ++tasks;
         [packagesTask resume];
 
         NSString *schemeless = [[baseURL absoluteString] stringByReplacingOccurrencesOfString:[baseURL scheme] withString:@""];
@@ -231,7 +262,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
     NSURLSessionTask *task = [session downloadTaskWithURL:url];
-    tasks++;
+    ++tasks;
     [task resume];
     
     NSString *schemeless = [[url absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
@@ -243,7 +274,7 @@
 }
 
 - (void)downloadRepo:(ZBRepo *)repo {
-    [self downloadRepos:@[repo] ignoreCaching:false];
+    [self downloadRepos:@[repo] ignoreCaching:NO];
 }
 
 - (void)downloadReposAndIgnoreCaching:(BOOL)ignore {
@@ -257,13 +288,17 @@
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
         ZBRepo *repo = [package repo];
+        NSString *filename = [package filename];
         
-        if (repo == NULL || [package filename] == NULL) {
-            break;
+        if (repo == NULL || filename == NULL) {
+            if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not find a download URL for %@ (%@)\n", package.name, package.identifier] atLevel:ZBLogLevelWarning];
+            }
+            ++failedTasks;
+            continue;
         }
         
         NSString *baseURL = [repo isSecure] ? [@"https://" stringByAppendingString:[repo baseURL]] : [@"http://" stringByAppendingString:[repo baseURL]];
-        NSString *filename = [package filename];
         NSURL *url = [NSURL URLWithString:filename];
         
         NSArray *comps = [baseURL componentsSeparatedByString:@"dists"];
@@ -271,31 +306,33 @@
         
         if (url && url.host && url.scheme) {
             NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:url];
-            tasks++;
+            ++tasks;
             
             packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
-        }
-        else if (package.sileoDownload) {
+        } else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url) {
                 NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
-                self->tasks++;
+                ++self->tasks;
                 
                 self->packageTasksMap[@(downloadTask.taskIdentifier)] = package;
                 [self->downloadDelegate predator:self startedDownloadForFile:package.name];
                 [downloadTask resume];
             }];
-        }
-        else {
+        } else {
             url = [base URLByAppendingPathComponent:filename];
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
-            tasks++;
+            ++tasks;
             
             packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
         }
+    }
+    if (failedTasks == packages.count) {
+        failedTasks = 0;
+        [self->downloadDelegate predator:self finishedAllDownloads:@{}];
     }
 }
 
@@ -303,8 +340,8 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *test = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
-                            @"udid": [ZBDeviceHelper UDID],
-                            @"device": [ZBDeviceHelper deviceModelID],
+                            @"udid": [ZBDevice UDID],
+                            @"device": [ZBDevice deviceModelID],
                             @"version": package.version,
                             @"repo": [NSString stringWithFormat:@"https://%@", [package repo].baseURL] };
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
@@ -314,12 +351,13 @@
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ iOS/%@ (%@)", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion], [ZBDevice deviceType]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"[Zebra] Real package data: %@", json);
+            ZBLog(@"[Zebra] Real package data: %@", json);
             if ([json valueForKey:@"url"]) {
                 NSString *returnString = json[@"url"];
                 completionHandler(returnString);
@@ -338,78 +376,65 @@
     NSInteger responseCode = [httpResponse statusCode];
     NSURL *url = [[downloadTask originalRequest] URL];
     NSString *filename = [url lastPathComponent];
-    if (responseCode != 200 && responseCode != 304) { //Handle error code
-        if ([[filename lastPathComponent] containsString:@".bz2"]) { //Try to download .gz
+    if (responseCode != 200 && responseCode != 304) { // Handle error code
+        if ([filename hasSuffix:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
-        }
-        else {
+        } else if ([filename hasSuffix:@".gz"]) { // Try to download Packages
+            [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages"] ignoreCaching:self->ignore];
+        } else {
             if (![filename isEqualToString:@"Release"]) {
                 if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
-                    //Allows custom error message to be displayed by the repository using the body
-                    NSError *readError;
+                    // Allows custom error message to be displayed by the repository using the body
+                    NSError *readError = NULL;
                     NSString *contents = [NSString stringWithContentsOfURL:location encoding:NSUTF8StringEncoding error:&readError];
                     
                     if (readError) {
                         NSLog(@"[Zebra] Read error: %@", readError);
-                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:readError];
-                    }
-                    else {
+                        [downloadDelegate predator:self finishedDownloadForFile:filename withError:readError];
+                    } else {
                         NSLog(@"[Zebra] Download response: %@", contents);
                         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
-                        [downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
+                        [downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
                     }
-                }
-                else {
-                    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); //🤮
+                } else {
+                    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); // 🤮
                     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
-                    if ([[filename lastPathComponent] containsString:@".deb"]) {
+                    if ([filename hasSuffix:@".deb"]) {
                         [self cancelAllTasksForSession:session];
-                    }
-                    
-                    if ([[[[downloadTask originalRequest] URL] lastPathComponent] containsString:@".deb"]) {
-                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] lastPathComponent] withError:error];
-                    }
-                    else {
-                        [self->downloadDelegate predator:self finishedDownloadForFile:[[[downloadTask originalRequest] URL] absoluteString] withError:error];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
+                    } else {
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[url absoluteString] withError:error];
                     }
                 }
             }
         }
-    }
-    else { //Download success
-        if ([[filename lastPathComponent] containsString:@".deb"]) {
+    } else { // Download success
+        if ([filename hasSuffix:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
-            NSString *filename = [[[downloadTask originalRequest] URL] lastPathComponent];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
             
             [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                 if (!success && error != NULL) {
                     [self cancelAllTasksForSession:session];
                     NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
-                }
-                else {
+                } else {
                     [self addFile:finalPath toArray:@"debs"];
                 }
             }];
-        }
-        else if ([[filename lastPathComponent] containsString:@".gz"]) {
+        } else if ([filename hasSuffix:@".gz"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
-                    }
-                    else {
+                    } else {
                         NSData *data = [NSData dataWithContentsOfFile:finalPath];
                         
                         z_stream stream;
@@ -421,32 +446,25 @@
                         stream.avail_out = 0;
                         
                         NSMutableData *output = nil;
-                        if (inflateInit2(&stream, 47) == Z_OK)
-                        {
+                        if (inflateInit2(&stream, 47) == Z_OK) {
                             int status = Z_OK;
                             output = [NSMutableData dataWithCapacity:data.length * 2];
-                            while (status == Z_OK)
-                            {
-                                if (stream.total_out >= output.length)
-                                {
+                            while (status == Z_OK) {
+                                if (stream.total_out >= output.length) {
                                     output.length += data.length / 2;
                                 }
                                 stream.next_out = (uint8_t *)output.mutableBytes + stream.total_out;
                                 stream.avail_out = (uInt)(output.length - stream.total_out);
                                 status = inflate (&stream, Z_SYNC_FLUSH);
                             }
-                            if (inflateEnd(&stream) == Z_OK)
-                            {
-                                if (status == Z_STREAM_END)
-                                {
-                                    output.length = stream.total_out;
-                                }
+                            if (inflateEnd(&stream) == Z_OK && status == Z_STREAM_END) {
+                                output.length = stream.total_out;
                             }
                         }
                         
-                        [output writeToFile:[finalPath stringByDeletingPathExtension] atomically:false];
+                        [output writeToFile:[finalPath stringByDeletingPathExtension] atomically:NO];
 
-                        NSError *removeError;
+                        NSError *removeError = NULL;
                         [[NSFileManager defaultManager] removeItemAtPath:finalPath error:&removeError];
                         if (removeError != NULL) {
                             NSLog(@"[Hyena] Unable to remove .gz, %@", removeError.localizedDescription);
@@ -457,33 +475,27 @@
                     }
                 }];
             }
-        }
-        else if ([[filename lastPathComponent] containsString:@".bz2"]) {
+        } else if ([filename hasSuffix:@".bz2"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
-                    }
-                    else {                        
+                    } else {                        
                         FILE *f = fopen([finalPath UTF8String], "r");
                         FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
                         
-                        int bzError;
-                        BZFILE *bzf;
+                        int bzError = BZ_OK;
                         char buf[4096];
                         
-                        bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
+                        BZFILE *bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
                         if (bzError != BZ_OK) {
                             fprintf(stderr, "[Hyena] E: BZ2_bzReadOpen: %d\n", bzError);
                         }
@@ -492,7 +504,7 @@
                             int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
                             if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
                                 size_t nwritten = fwrite(buf, 1, nread, output);
-                                if (nwritten != (size_t) nread) {
+                                if (nwritten != (size_t)nread) {
                                     fprintf(stderr, "[Hyena] E: short write\n");
                                 }
                             }
@@ -500,8 +512,10 @@
                         
                         if (bzError != BZ_STREAM_END) {
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
-                            [self moveFileFromLocation:[NSURL URLWithString:[@"file://" stringByAppendingString:finalPath]] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
-                                NSLog(@"[Hyena] File moved");
+                            [self moveFileFromLocation:[NSURL fileURLWithPath:finalPath] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
+                                if (!success && error != NULL) {
+                                    NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                                }
                             }];
                         }
                         
@@ -520,24 +534,34 @@
                     }
                 }];
             }
-        }
-        else if ([[filename lastPathComponent] containsString:@"Release"]) {
+        } else if ([filename isEqualToString:@"Packages"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-                NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-                NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+                NSString *saveName = [self repoSaveName:url filename:filename];
+                NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
+                [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
+                    if (success) {
+                        [self addFile:finalPath toArray:@"packages"];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:NULL];
+                    }
+                }];
+            }
+        } else if ([filename isEqualToString:@"Release"]) {
+            if (responseCode == 304) {
+                if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+            } else {
+                NSString *listsPath = [ZBAppDelegate listsLocation];
+                NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
-                    }
-                    else {
+                    } else {
                         [self addFile:finalPath toArray:@"release"];
                     }
                 }];
@@ -546,16 +570,27 @@
     }
 }
 
+- (NSString *)repoSaveName:(NSURL *)url filename:(NSString *)filename {
+    NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
+    NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
+    return saveName;
+}
+
 - (NSString *)baseFileNameFromFullPath:(NSString *)path {
     if ([[path lastPathComponent] containsString:@"Packages"]) {
-        return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
-    }
-    else {
+        NSString *basePath = [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
+        basePath = [basePath stringByReplacingOccurrencesOfString:@"_Packages.gz" withString:@""];
+        return basePath;
+    } else {
         return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
     }
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    if (totalBytesExpectedToWrite == -1) {
+        return;
+    }
     ZBPackage *package = packageTasksMap[@(downloadTask.taskIdentifier)];
     if (package) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -569,12 +604,12 @@
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(BOOL success, NSError *error))completion {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    BOOL movedFileSuccess;
-    NSError *fileManagerError;
+    BOOL movedFileSuccess = NO;
+    NSError *fileManagerError = NULL;
     if ([fileManager fileExistsAtPath:finalPath]) {
         movedFileSuccess = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
         
-        if (!movedFileSuccess) {
+        if (!movedFileSuccess && completion) {
             completion(movedFileSuccess, fileManagerError);
             return;
         }
@@ -582,14 +617,28 @@
     
     movedFileSuccess = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
     
-    completion(movedFileSuccess, fileManagerError);
+    if (completion) {
+        completion(movedFileSuccess, fileManagerError);
+    }
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    if (error != NULL)
-        [self->downloadDelegate predator:self finishedDownloadForFile:[[[task originalRequest] URL] absoluteString] withError:error];
-    tasks--;
-    if (tasks == 0) {
+    NSNumber *taskIdentifier = @(task.taskIdentifier);
+    ZBPackage *package = packageTasksMap[taskIdentifier];
+    if (package) {
+        [self->downloadDelegate predator:self finishedDownloadForFile:package.name withError:error];
+    } else {
+        NSURL *releaseURL = releaseTasksMap[taskIdentifier];
+        if (releaseURL) {
+            [self->downloadDelegate predator:self finishedDownloadForFile:releaseURL.absoluteString withError:error];
+        } else {
+            NSURL *sourcePackagesURL = sourcePackagesTasksMap[taskIdentifier];
+            if (sourcePackagesURL) {
+                [self->downloadDelegate predator:self finishedDownloadForFile:sourcePackagesURL.absoluteString withError:error];
+            }
+        }
+    }
+    if (--tasks == 0) {
         [downloadDelegate predator:self finishedAllDownloads:filenames];
     }
 }
@@ -614,6 +663,8 @@
         }
     }];
     [packageTasksMap removeAllObjects];
+    [releaseTasksMap removeAllObjects];
+    [sourcePackagesTasksMap removeAllObjects];
     [session invalidateAndCancel];
 }
 

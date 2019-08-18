@@ -12,14 +12,11 @@
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
 + (NSString *)documentsDirectory;
-+ (BOOL)needsSimulation;
 + (NSString *)listsLocation;
 + (NSURL *)sourcesListURL;
 + (NSString *)sourcesListPath;
 + (NSString *)databaseLocation;
 + (NSString *)debsLocation;
-+ (void)configureDark;
-+ (void)configureLight;
-+ (void)refreshViews;
++ (void)sendErrorToTabController:(NSString *)error;
 @end
 

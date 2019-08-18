@@ -8,22 +8,22 @@
 
 #import "FTWCache.h"
 
-static NSTimeInterval cacheTime =  (double)604800;
+static NSTimeInterval cacheTime = (double)604800;
 
 @implementation FTWCache
 
-+ (void) resetCache {
++ (void)resetCache {
     [[NSFileManager defaultManager] removeItemAtPath:[FTWCache cacheDirectory] error:nil];
 }
 
-+ (NSString*) cacheDirectory {
++ (NSString *)cacheDirectory {
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = [paths objectAtIndex:0];
     cacheDirectory = [cacheDirectory stringByAppendingPathComponent:@"FTWCaches"];
     return cacheDirectory;
 }
 
-+ (NSData*) objectForKey:(NSString*)key {
++ (NSData *)objectForKey:(NSString *)key {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *filename = [self.cacheDirectory stringByAppendingPathComponent:key];
     
@@ -40,7 +40,7 @@ static NSTimeInterval cacheTime =  (double)604800;
     return nil;
 }
 
-+ (void) setObject:(NSData*)data forKey:(NSString*)key {
++ (void)setObject:(NSData *)data forKey:(NSString *)key {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *filename = [self.cacheDirectory stringByAppendingPathComponent:key];
     
@@ -54,9 +54,8 @@ static NSTimeInterval cacheTime =  (double)604800;
         [data writeToFile:filename options:NSDataWritingAtomic error:&error];
     }
     @catch (NSException * e) {
-        //TODO: error handling maybe
+        
     }
 }
-
 
 @end

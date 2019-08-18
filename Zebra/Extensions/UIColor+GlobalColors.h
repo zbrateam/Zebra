@@ -8,19 +8,35 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum  {
+    ZBDefaultTint = 0,
+    ZBBlue,
+    ZBOrange,
+    ZBWhiteOrBlack
+} ZBTintSelection;
+
+typedef NS_ENUM(NSInteger)  {
+    ZBDefaultMode = 0,
+    ZBOled,
+    ZBThirteen
+} ZBModeSelection;
+
 @interface UIColor (GlobalColors)
-+(UIColor*)tintColor;
-+(UIColor*)navBarTintColor;
-+(UIColor*)badgeColor;
-+(UIColor*)tableViewBackgroundColor;
-+(UIColor*)cellBackgroundColor;
-+(UIColor*)selectedCellBackgroundColor;
-+(UIColor*)cellPrimaryTextColor;
-+(UIColor*)cellSecondaryTextColor;
-+(UIColor *)selectedCellBackgroundColorDark;
++ (UIColor *)tintColor;
++ (UIColor *)navBarTintColor;
++ (UIColor *)badgeColor;
++ (UIColor *)tableViewBackgroundColor;
++ (UIColor *)cellBackgroundColor;
++ (UIColor *)cellPrimaryTextColor;
++ (UIColor *)cellSecondaryTextColor;
++ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
++ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
++ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
++ (UIColor *)cellSeparatorColor;
++ (NSString *)hexStringFromColor:(UIColor *)color;
 @end
 
 @interface UIColor (Private)
-+(UIColor*)systemBlueColor;
-+(UIColor*)systemRedColor;
++ (UIColor *)systemBlueColor;
++ (UIColor *)systemRedColor;
 @end

@@ -7,17 +7,16 @@
 static int order(char c) {
     if (isdigit(c))
         return 0;
-    else if (isalpha(c))
+    if (isalpha(c))
         return c;
-    else if (c == '~')
+    if (c == '~')
         return -1;
-    else if (c)
+    if (c)
         return c + 256;
-    else
-        return 0;
+    return 0;
 }
 
-int compareFragment(const char *A,const char *AEnd, const char *B,const char *BEnd) {
+int compareFragment(const char *A, const char *AEnd, const char *B, const char *BEnd) {
     /* Iterate over the whole string
      What this does is to split the whole string into groups of
      numeric and non numeric portions. For instance:
@@ -30,9 +29,7 @@ int compareFragment(const char *A,const char *AEnd, const char *B,const char *BE
     while (lhs != AEnd && rhs != BEnd) {
         int first_diff = 0;
         
-        while (lhs != AEnd && rhs != BEnd &&
-               (!isdigit(*lhs) || !isdigit(*rhs)))
-        {
+        while (lhs != AEnd && rhs != BEnd && (!isdigit(*lhs) || !isdigit(*rhs))) {
             int vc = order(*lhs);
             int rc = order(*rhs);
             if (vc != rc)
@@ -44,8 +41,7 @@ int compareFragment(const char *A,const char *AEnd, const char *B,const char *BE
             ++lhs;
         while (*rhs == '0')
             ++rhs;
-        while (isdigit(*lhs) && isdigit(*rhs))
-        {
+        while (isdigit(*lhs) && isdigit(*rhs)) {
             if (!first_diff)
                 first_diff = *lhs - *rhs;
             ++lhs;
@@ -80,7 +76,7 @@ int compareFragment(const char *A,const char *AEnd, const char *B,const char *BE
     return 1;
 }
 
-int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEnd) {
+int compareVersion(const char *A, const char *AEnd, const char *B, const char *BEnd) {
     // Strip off the epoch and compare it
     const char *lhs = (const char*) memchr(A, ':', AEnd - A);
     const char *rhs = (const char*) memchr(B, ':', BEnd - B);
@@ -91,27 +87,23 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
     
     // Special case: a zero epoch is the same as no epoch,
     // so remove it.
-    if (lhs != A)
-    {
+    if (lhs != A) {
         for (; *A == '0'; ++A);
-        if (A == lhs)
-        {
+        if (A == lhs) {
             ++A;
             ++lhs;
         }
     }
-    if (rhs != B)
-    {
+    if (rhs != B) {
         for (; *B == '0'; ++B);
-        if (B == rhs)
-        {
+        if (B == rhs) {
             ++B;
             ++rhs;
         }
     }
     
     // Compare the epoch
-    int Res = compareFragment(A,lhs,B,rhs);
+    int Res = compareFragment(A, lhs, B, rhs);
     if (Res != 0)
         return Res;
     
@@ -130,7 +122,7 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
         drhs = BEnd;
     
     // Compare the main version
-    Res = compareFragment(lhs,dlhs,rhs,drhs);
+    Res = compareFragment(lhs, dlhs, rhs, drhs);
     if (Res != 0)
         return Res;
     
@@ -142,24 +134,20 @@ int compareVersion(const char *A,const char *AEnd, const char *B,const char *BEn
     
     // no debian revision need to be treated like -0
     if (*(dlhs-1) == '-' && *(drhs-1) == '-')
-        return compareFragment(dlhs,AEnd,drhs,BEnd);
-    else if (*(dlhs-1) == '-')
-    {
+        return compareFragment(dlhs, AEnd, drhs, BEnd);
+    if (*(dlhs-1) == '-') {
         const char* null = "0";
-        return compareFragment(dlhs,AEnd,null, null+1);
+        return compareFragment(dlhs, AEnd, null, null + 1);
     }
-    else if (*(drhs-1) == '-')
-    {
+    if (*(drhs-1) == '-') {
         const char* null = "0";
-        return compareFragment(null, null+1, drhs, BEnd);
+        return compareFragment(null, null + 1, drhs, BEnd);
     }
-    else
-        return 0;
+    return 0;
 }
 
 int compare(const char *A, const char *B) {
     const char* AEnd = &A[strlen(A)];
     const char* BEnd = &B[strlen(B)];
-    
     return compareVersion(A, AEnd, B, BEnd);
 }

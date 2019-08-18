@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-dict* dict_new() {
+dict *dict_new() {
     dict *dictionary = malloc(sizeof(dict));
     assert(dictionary != NULL);
     dictionary->head = NULL;
@@ -29,7 +29,7 @@ void dict_add(dict *dictionary, const char *key, const char *value) {
                     free(dictionary->head->value);
                 dictionary->head->value = malloc((strlen(value) + 1) * sizeof(char));
                 assert(dictionary->head->value != NULL);
-                strcpy(dictionary->head->value, strdup(value));
+                strcpy(dictionary->head->value, value);
                 return;
             }
             if (dictionary->next == NULL) {
@@ -47,10 +47,10 @@ void dict_add(dict *dictionary, const char *key, const char *value) {
         assert(next->head != NULL);
         next->head->key = malloc((strlen(key) + 1) * sizeof(char));
         assert(next->head->key != NULL);
-        strcpy(next->head->key, strdup(key));
+        strcpy(next->head->key, key);
         next->head->value = malloc((strlen(value) + 1) * sizeof(char));
         assert(next->head->value != NULL);
-        strcpy(next->head->value, strdup(value));
+        strcpy(next->head->value, value);
     }
 }
 
@@ -89,15 +89,18 @@ void dict_remove(dict *dictionary, const char *key) {
                     dict *toremove = dictionary->next;
                     dictionary->head->key = toremove->head->key;
                     dictionary->next = toremove->next;
+                    free(toremove->head->key);
+                    free(toremove->head->value);
                     free(toremove->head);
+                    free(toremove->next);
                     free(toremove);
                     return;
                 }
-            }
-            else {
+            } else {
                 previous->next = dictionary->next;
             }
             free(dictionary->head->key);
+            free(dictionary->head->value);
             free(dictionary->head);
             free(dictionary);
             return;
@@ -119,6 +122,7 @@ void dict_free(dict *dictionary) {
     }
     
     free(dictionary->head->key);
+    free(dictionary->head->value);
     free(dictionary->head);
     dict *next = dictionary->next;
     free(dictionary);

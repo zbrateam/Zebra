@@ -11,11 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <Downloads/ZBDownloadDelegate.h>
 #import <Database/ZBDatabaseDelegate.h>
+#import <ZBConsoleCommandDelegate.h>
 #import <ZBLogLevel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate>
+@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate, ZBConsoleCommandDelegate>
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
