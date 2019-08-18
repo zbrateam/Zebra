@@ -360,7 +360,6 @@
     NSURL *url;
     if ([dict valueForKey:@"title"] != [NSNull null]) {
         NSString *text = [self stripTag:[dict valueForKey:@"title"]];
-        text = [text stringByRemovingPercentEncoding];
         text = [text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
         text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
