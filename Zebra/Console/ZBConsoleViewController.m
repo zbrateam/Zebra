@@ -16,6 +16,7 @@
 #import <ZBTabBarController.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+@import LNPopupController;
 
 typedef enum {
     ZBStageInstall = 0,
@@ -332,7 +333,9 @@ typedef enum {
 
 - (void)goodbye {
     [self clearConsole];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [[ZBAppDelegate tabBarController] closePopupAnimated:YES completion:^(void) {
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+    }];
 }
 
 - (void)closeZebra {
@@ -523,8 +526,7 @@ typedef enum {
     NSLog(@"[Zebra] %d updates available.", packageUpdates);
     
     if (packageUpdates != -1) {
-        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:packageUpdates];
+        [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
     }
     
     [self finishUp];

@@ -165,6 +165,9 @@
 }
 
 + (NSString *)pathForApplication:(NSString *)packageID {
+    if ([ZBDevice needsSimulation]) {
+        return nil;
+    }
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];

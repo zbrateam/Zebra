@@ -7,6 +7,7 @@
 //
 
 #import <ZBLog.h>
+#import <ZBAppDelegate.h>
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
@@ -30,25 +31,33 @@
     self.title = @"Queue";
 }
 
+- (void)clearQueueBarData {
+    self.navigationController.popupItem.title = @"Queue cleared";
+    self.navigationController.popupItem.subtitle = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self refreshTable];
 }
 
 - (IBAction)confirm:(id)sender {
-    [self.delegate dismissPopupBarAnimated:true completion:^(void) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-        [self.delegate presentViewController:vc animated:true completion:nil];
-    }];
+    [self clearQueueBarData];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
+    [[self navigationController] pushViewController:vc animated:YES];
 }
 
 - (IBAction)abort:(id)sender {
     if (!self.navigationItem.rightBarButtonItem.enabled) {
         [_queue clearQueue];
+        [self clearQueueBarData];
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+    } else {
+        [[ZBAppDelegate tabBarController] closePopupAnimated:YES completion:nil];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-    [self.delegate closePopupAnimated:true completion:nil];
 }
 
 - (void)refreshBarButtons {
@@ -220,7 +229,7 @@
 #pragma mark - Table View Delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([_queue hasErrors]) return NO;
+    if ([_queue hasErrors] || ![_queue hasObjects]) return NO;
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {

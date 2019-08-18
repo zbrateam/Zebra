@@ -227,6 +227,7 @@
             }
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
     }
 }
 
@@ -279,6 +280,7 @@
             [topPackages removeObject:package.identifier];
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
 - (NSArray *)tasks:(NSArray *)debs {
@@ -389,13 +391,11 @@
 }
 
 - (int)numberOfPackagesForQueue:(NSString *)queue {
-    if ([queue isEqualToString:@"Unresolved Dependencies"]) {
+    if ([queue isEqualToString:@"Unresolved Dependencies"])
         return (int)[_failedDepQueue count];
-    } else if ([queue isEqualToString:@"Conflictions"]) {
+    if ([queue isEqualToString:@"Conflictions"])
         return (int)[_failedConQueue count];
-    } else {
-        return (int)[_managedQueue[queue] count];
-    }
+    return (int)[_managedQueue[queue] count];
 }
 
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index {
@@ -426,6 +426,7 @@
     
     [_failedDepQueue removeAllObjects];
     [_failedConQueue removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
 - (NSArray *)actionsToPerform {
