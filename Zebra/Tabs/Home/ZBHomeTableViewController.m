@@ -149,7 +149,9 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)setupHeaderFromCache {
     [allFeatured removeAllObjects];
     [allFeatured addObjectsFromArray:[NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]];
-    [self createHeader];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self createHeader];
+    });
 }
 
 - (void)packagesFromDB {
