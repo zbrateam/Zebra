@@ -7,12 +7,14 @@
 //
 
 #import "ZBNewsCollectionViewCell.h"
+@import SDWebImage;
 
 @implementation ZBNewsCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     _backgroundImage.layer.masksToBounds = YES;
+    _backgroundImage.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
     _postTag.layer.masksToBounds = NO;
     _postTag.layer.shouldRasterize = YES;
     _postTag.layer.shadowColor = [UIColor blackColor].CGColor;
