@@ -7,12 +7,14 @@
 //
 
 #import "ZBFeaturedCollectionViewCell.h"
+@import SDWebImage;
 
 @implementation ZBFeaturedCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     _imageView.layer.masksToBounds = YES;
+    _imageView.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
     _titleLabel.layer.masksToBounds = NO;
     _titleLabel.layer.shouldRasterize = YES;
     _titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
