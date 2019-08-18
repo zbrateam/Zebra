@@ -73,8 +73,7 @@
     NSDate *creationDate = [defaults objectForKey:@"redditCheck"];
     if (!creationDate) {
         [self getRedditToken];
-    }
-    else {
+    } else {
         double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
         if (seconds > 3500) {
             [self getRedditToken];

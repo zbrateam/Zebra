@@ -72,13 +72,11 @@ typedef enum {
     if (_externalInstall) {
         akton = @[@[@0], @[@"apt", @"install", @"-y", _externalFilePath]];
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
-    }
-    else if ([queue needsHyena]) {
+    } else if ([queue needsHyena]) {
         _progressView.hidden = NO;
         _progressText.hidden = NO;
         [self downloadPackages];
-    }
-    else {
+    } else {
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
 }
@@ -111,8 +109,7 @@ typedef enum {
         for (NSArray *command in akton) {
             if ([command count] == 1) {
                 [self updateStatus:[command[0] intValue]];
-            }
-            else {
+            } else {
                 for (int i = 3; i < [command count]; ++i) {
                     NSString *packageID = command[i];
                     if (![self isValidPackageID:packageID]) {
@@ -161,8 +158,7 @@ typedef enum {
             }
         }
         [self refreshLocalPackages];
-    }
-    else {
+    } else {
         if (continueWithActions) {
             _progressText.text = @"Performing actions...";
             self.navigationItem.leftBarButtonItem = nil;
@@ -172,8 +168,7 @@ typedef enum {
             for (NSArray *command in actions) {
                 if ([command count] == 1) {
                     [self updateStatus:[command[0] intValue]];
-                }
-                else {
+                } else {
                     for (int i = 3; i < [command count]; ++i) {
                         NSString *packageID = command[i];
                         if (![self isValidPackageID:packageID]) {
@@ -221,8 +216,7 @@ typedef enum {
                 }
             }
             [self refreshLocalPackages];
-        }
-        else {
+        } else {
             [self finishUp];
         }
     }
@@ -270,8 +264,7 @@ typedef enum {
         if ([uicaches count] + [bundlePaths count] > 1) {
             [arguments addObject:@"-a"];
             [self writeToConsole:@"This may take awhile and Zebra may crash. It is okay if it does.\n" atLevel:ZBLogLevelWarning];
-        }
-        else {
+        } else {
             [arguments addObject:@"-p"];
             for (NSString *packageID in uicaches) {
                 if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
@@ -285,8 +278,7 @@ typedef enum {
         
         if (![ZBDevice needsSimulation]) {
             [ZBDevice uicache:arguments observer:self];
-        }
-        else {
+        } else {
             [self writeToConsole:@"uicache is not available on the simulator\n" atLevel:ZBLogLevelWarning];
         }
     }
@@ -305,13 +297,11 @@ typedef enum {
             [self addCloseButton];
             [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else if (self->needsRespring) {
+        } else if (self->needsRespring) {
             [self addCloseButton];
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else {
+        } else {
             [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
         }
     });
@@ -425,8 +415,7 @@ typedef enum {
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
-        }
-        else if ([str rangeOfString:@"error"].location != NSNotFound) {
+        } else if ([str rangeOfString:@"error"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
@@ -496,8 +485,7 @@ typedef enum {
     if (filenames.count) {
         NSArray *debs = [filenames objectForKey:@"debs"];
         [self performSelectorInBackground:@selector(performActions:) withObject:debs];
-    }
-    else {
+    } else {
         continueWithActions = NO;
         [self cancel];
         [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
@@ -514,8 +502,7 @@ typedef enum {
     if (error != NULL) {
         continueWithActions = NO;
         [self writeToConsole:[error.localizedDescription stringByAppendingString:@"\n"] atLevel:ZBLogLevelError];
-    }
-    else if (filename) {
+    } else if (filename) {
         [self writeToConsole:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
     }
 }

@@ -98,8 +98,7 @@
         if ([databaseManager isDatabaseBeingUpdated]) {
             [refreshControl removeFromSuperview];
             self.refreshControl = nil;
-        }
-        else {
+        } else {
             self.refreshControl = refreshControl;
         }
     }

@@ -103,8 +103,7 @@
         cell.imageView.image = [UIImage imageNamed:section];
         
         return cell;
-    }
-    else {
+    } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"externalPackageDetailCell" forIndexPath:indexPath];
         
         cell.textLabel.text = keys[indexPath.row];

@@ -33,8 +33,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [parent presentViewController:qvc animated:YES completion:nil];
         });
-    }
-    else {
+    } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [vc presentViewController:qvc animated:YES completion:nil];
         });
@@ -105,11 +104,9 @@
             return ^(void) {
                 if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
-                }
-                else if (q == ZBQueueTypeClear) {
+                } else if (q == ZBQueueTypeClear) {
                     [queue removePackage:package fromQueue:0];
-                }
-                else {
+                } else {
                     [queue addPackage:package toQueue:q];
                 }
                 
@@ -128,14 +125,11 @@
                 if (q == ZBQueueTypeInstall) {
                     BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
                     [self installPackage:package purchased:purchased];
-                }
-                else if (q == ZBQueueTypeSelectable) {
+                } else if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
-                }
-                else if (q == ZBQueueTypeClear) {
+                } else if (q == ZBQueueTypeClear) {
                     [queue removePackage:package fromQueue:0];
-                }
-                else {
+                } else {
                     [queue addPackage:package toQueue:q];
                 }
             };
@@ -146,14 +140,11 @@
                     BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
                     [self installPackage:package purchased:purchased];
                     [self presentQueue:vc parent:parent];
-                }
-                else if (q == ZBQueueTypeSelectable) {
+                } else if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
-                }
-                else if (q == ZBQueueTypeClear) {
+                } else if (q == ZBQueueTypeClear) {
                     [queue removePackage:package fromQueue:0];
-                }
-                else {
+                } else {
                     [queue addPackage:package toQueue:q];
                     [self presentQueue:vc parent:parent];
                 }
@@ -199,8 +190,7 @@
         }];
         
         [actions addObject:unignore];
-    }
-    else {
+    } else {
         UIAlertAction *ignore = [UIAlertAction actionWithTitle:@"Ignore Updates" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [package setIgnoreUpdates:YES];
         }];
@@ -215,8 +205,7 @@
         if (inWishList) {
             [wishList removeObject:package.identifier];
             [defaults setObject:wishList forKey:@"wishList"];
-        }
-        else {
+        } else {
             [wishList addObject:package.identifier];
             [defaults setObject:wishList forKey:@"wishList"];
         }
@@ -260,8 +249,7 @@
         ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
         alert.popoverPresentationController.sourceView = cell;
         alert.popoverPresentationController.sourceRect = cell.bounds;
-    }
-    else {
+    } else {
         alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
     }
     

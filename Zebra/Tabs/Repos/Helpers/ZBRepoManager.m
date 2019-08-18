@@ -47,8 +47,7 @@
                 ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
                 repos[@(source.repoID)] = source;
             }
-        }
-        else {
+        } else {
             [[ZBDatabaseManager sharedInstance] printDatabaseError];
         }
         sqlite3_finalize(statement);
@@ -176,14 +175,12 @@
                     if ([baseURLs containsObject:urlString]) {
                         NSLog(@"[Zebra] %@ has already been added.", urlString);
                         dispatch_group_leave(group);
-                    }
-                    else {
+                    } else {
                         NSString *debLine = [self knownDebLineFromURLString:urlString];
                         if (debLine) {
                             [self addDebLine:debLine];
                             respond(YES, nil, nil);
-                        }
-                        else {
+                        } else {
                             [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
                                 if (responseError) {
                                     dispatch_sync(sourcesQueue, ^{
@@ -210,8 +207,7 @@
                     if (strongSelf) {
                         if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
                             respond(NO, @"You have already added these repositories.", @[]);
-                        }
-                        else {
+                        } else {
                             __block NSError *addError = nil;
                             
                             [strongSelf addSources:self->verifiedURLs completion:^(BOOL success, NSError *error) {
@@ -264,8 +260,7 @@
                 [self addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {
                     if (success) {
                         respond(YES, NULL, NULL);
-                    }
-                    else {
+                    } else {
                         respond(NO, addError.localizedDescription, responseURL);
                     }
                 }];
@@ -328,14 +323,12 @@
                             NSString *pureErrorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
                             NSLog(@"[Zebra] %@", pureErrorMessage);
                             completion(pureErrorMessage, [sourceURL URLByAppendingPathComponent:@"Packages"], [pureHttpResponse.URL URLByDeletingLastPathComponent]);
-                        }
-                        else {
+                        } else {
                             completion(nil, nil, responseURL);
                         }
                     }];
                     [pureTask resume];
-                }
-                else {
+                } else {
                     completion(nil, nil, responseURL);
                 }
             }];
@@ -354,14 +347,12 @@
         NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
         if (debLine) {
             [output appendString:debLine];
-        }
-        else {
+        } else {
             NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
             repoURL = [repoURL stringByDeletingLastPathComponent]; // Remove last two path components
             [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
         }
-    }
-    else {
+    } else {
         [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
     }
     return output;
@@ -401,14 +392,12 @@
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
         completion(NO, error);
-    }
-    else {
+    } else {
         [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
         if (error != NULL) {
             NSLog(@"[Zebra] Error while moving sources to file: %@", error);
             completion(NO, error);
-        }
-        else {
+        } else {
             completion(YES, NULL);
         }
     }
@@ -445,8 +434,7 @@
     [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-    }
-    else {
+    } else {
         [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
         if (error != NULL) {
             NSLog(@"[Zebra] Error while moving sources to file: %@", error);
@@ -552,8 +540,7 @@
         }
         
         completion(NULL);
-    }
-    else if ([[fromURL pathExtension] isEqualToString:@"sources"] && [[destinationURL pathExtension] isEqualToString:@"list"]) {
+    } else if ([[fromURL pathExtension] isEqualToString:@"sources"] && [[destinationURL pathExtension] isEqualToString:@"list"]) {
         NSError *readError;
         NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
         NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];
@@ -615,8 +602,7 @@
         }
         
         completion(NULL);
-    }
-    else {
+    } else {
         NSError *error = [NSError errorWithDomain:NSArgumentDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Both files aren't .list"}];
         completion(error);
     }

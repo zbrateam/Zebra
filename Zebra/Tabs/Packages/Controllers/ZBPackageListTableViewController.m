@@ -107,8 +107,7 @@ typedef enum {
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
             
             self->isRefreshingTable = NO;
-        }
-        else {
+        } else {
             self.batchLoadCount = 500;
             self->packages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
@@ -122,8 +121,7 @@ typedef enum {
                 NSDate *second = [(ZBPackage *)b installedDate];
                 return [second compare:first];
             }];
-        }
-        else {
+        } else {
             self->sortedPackages = nil;
         }
         [self configureNavigationButtons];
@@ -144,8 +142,7 @@ typedef enum {
             NSArray *nextPackages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
-            }
-            else {
+            } else {
                 self->packages = [self.databaseManager cleanUpDuplicatePackages:[self->packages arrayByAddingObjectsFromArray:nextPackages]];
                 self->numberOfPackages = (int)[self->packages count];
                 self->databaseRow += self.batchLoadCount;
@@ -153,8 +150,7 @@ typedef enum {
                 [self.tableView reloadData];
                 self.isPerformingBatchLoad = NO;
             }
-        }
-        else {
+        } else {
             self.continueBatchLoad = self.isPerformingBatchLoad = NO;
         }
         [self configureLoadMoreButton];
@@ -166,8 +162,7 @@ typedef enum {
         if (self->needsUpdatesSection) {
             UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
             self.navigationItem.rightBarButtonItem = updateButton;
-        }
-        else {
+        } else {
             self.navigationItem.rightBarButtonItem = nil;
         }
     });
@@ -180,8 +175,7 @@ typedef enum {
                 UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% Loaded", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages)] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
                 self.navigationItem.rightBarButtonItem = loadButton;
             }
-        }
-        else {
+        } else {
             self.navigationItem.rightBarButtonItem = nil;
         }
     });
@@ -201,8 +195,7 @@ typedef enum {
             self->queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
             self->clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
             self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
-        }
-        else {
+        } else {
             self->queueButton = self->clearButton = nil;
             self.navigationItem.leftBarButtonItems = nil;
             UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
@@ -417,8 +410,7 @@ typedef enum {
             NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
             [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
             lastIndex = [sectionsToRemove lastIndex] + 1;
-        }
-        else {
+        } else {
             [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
         }
     }

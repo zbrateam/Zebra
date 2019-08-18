@@ -45,25 +45,21 @@
         if (depPackage != NULL) {
             if ([databaseManager packageIsInstalled:depPackage versionStrict:YES]) {
                 ZBLog(@"[Zebra] %@ has already been installed, skipping", depPackage);
-            }
-            else {
+            } else {
                 ZBPackage *providingPackage = [databaseManager packageThatProvides:depPackage.identifier checkInstalled:YES];
                 if (providingPackage) {
                     // If there is an installed package that provides functionalities to this dependency package already, we don't need to install it
                     ZBLog(@"[Zebra] Removing %@ due to its alternative has already been installed", depPackage);
                     [queue removePackage:depPackage fromQueue:ZBQueueTypeInstall];
-                }
-                else if (![queue containsPackage:depPackage]) {
+                } else if (![queue containsPackage:depPackage]) {
                     // Dependency can be added normally
                     ZBLog(@"[Zebra] Adding %@ to Install queue", depPackage);
                     [queue addPackage:depPackage toQueue:ZBQueueTypeInstall requiredBy:package];
-                }
-                else {
+                } else {
                     ZBLog(@"[Zebra] %@ already in queue, skipping", package);
                 }
             }
-        }
-        else { // Failed to find dependency
+        } else { // Failed to find dependency
             ZBLog(@"[Zebra] Failed to find dependency for %@ to match %@", package, line);
             [queue markPackageAsFailed:package forDependency:line];
             return;
@@ -76,11 +72,9 @@
     ZBPackage *package = nil;
     if ([line rangeOfString:@"|"].location != NSNotFound) {
         package = [self packageThatSatisfiesORComparison:line checkProvides:provides];
-    }
-    else if ([line rangeOfString:@"("].location != NSNotFound && [line rangeOfString:@")"].location != NSNotFound) {
+    } else if ([line rangeOfString:@"("].location != NSNotFound && [line rangeOfString:@")"].location != NSNotFound) {
         package = [self packageThatSatisfiesVersionComparison:line checkProvides:provides];
-    }
-    else {
+    } else {
         NSString *depPackageID = line;
         package = [databaseManager packageForID:depPackageID thatSatisfiesComparison:NULL ofVersion:NULL checkInstalled:YES checkProvides:provides];
     }
@@ -101,8 +95,7 @@
             if ([databaseManager packageIsInstalled:depPackage versionStrict:NO]) {
                 ZBLog(@"[Zebra] Final OR dependency: %@", depPackage);
                 return depPackage;
-            }
-            else {
+            } else {
                 [results addObject:depPackage];
             }
         }
@@ -129,8 +122,7 @@
         NSString *version = [separate[1] substringToIndex:[separate[1] length] - 1];
         ZBLog(@"[Zebra] Trying to resolve version, %@ needs to be %@ than %@", depPackageID, comparison, version);
         return [databaseManager packageForID:depPackageID thatSatisfiesComparison:comparison ofVersion:version checkInstalled:YES checkProvides:provides];
-    }
-    else { // bad repo maintainer alert
+    } else { // bad repo maintainer alert
         NSString *comparison;
         NSString *version;
         NSScanner *scanner = [NSScanner scannerWithString:versionPredicate];
@@ -158,8 +150,7 @@
                     // This also means, we have to install "package" first before we remove "conf"
                     ZBLog(@"[Zebra] Installing %@ triggers removing of %@, but we will let dpkg handle it", package, conf);
                     continue;
-                }
-                else {
+                } else {
                     // Just remove this package
                     ZBLog(@"[Zebra] Removing %@ due to being conflicted with %@", conf, package);
                     [queue addPackage:conf toQueue:ZBQueueTypeRemove];
@@ -183,8 +174,7 @@
                     ZBLog(@"[Zebra] Removing %@ because it conflicts with %@", conf, package);
                     [queue addPackage:conf toQueue:ZBQueueTypeRemove];
                     continue;
-                }
-                else if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
+                } else if ([[conf provides] containsObject:package.identifier] || [[conf replaces] containsObject:package.identifier]) {
                     // If this conflicting package (conf) can replace this not-installed package, we don't have to install this package (package)
                     ZBLog(@"[Zebra] Skipping installation of %@ because %@ can substitute", package, conf);
                     [queue removePackage:package fromQueue:ZBQueueTypeInstall];
@@ -193,13 +183,11 @@
                 [queue markPackageAsFailed:package forConflicts:conf conflictionType:1];
                 break;
             }
-        }
-        else {
+        } else {
             [databaseManager printDatabaseError];
         }
         sqlite3_finalize(statement);
-    }
-    else if (state == 1) { // Removing package
+    } else if (state == 1) { // Removing package
         // Check if any package that is installed depends on this package
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE DEPENDS LIKE \'%%%@%%\' AND REPOID < 1;", package.identifier];
         
@@ -224,15 +212,13 @@
                 if (shouldRemove) {
                     if ([databaseManager packageHasUpdate:dependingPackage]) {
                         ZBLog(@"[Zebra] %@ has an update, we can just let APT handle it without removing by ourselves", dependingPackage);
-                    }
-                    else {
+                    } else {
                         ZBLog(@"[Zebra] Removing %@ as required by %@", dependingPackage, package);
                         [queue addPackage:dependingPackage toQueue:ZBQueueTypeRemove requiredBy:package];
                     }
                 }
             }
-        }
-        else {
+        } else {
             [databaseManager printDatabaseError];
         }
         sqlite3_finalize(statement);

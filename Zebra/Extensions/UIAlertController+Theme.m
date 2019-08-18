@@ -42,8 +42,7 @@
             UIView *bgView = [subview valueForKey:@"backgroundView"];
             bgView.backgroundColor = [UIColor cellBackgroundColor];
             return;
-        }
-        else if ([subview isKindOfClass:[UILabel class]]) {
+        } else if ([subview isKindOfClass:[UILabel class]]) {
             ((UILabel *)subview).textColor = [UIColor cellPrimaryTextColor];
         }
         [self recursiveSetColor:subview];

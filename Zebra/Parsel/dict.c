@@ -96,8 +96,7 @@ void dict_remove(dict *dictionary, const char *key) {
                     free(toremove);
                     return;
                 }
-            }
-            else {
+            } else {
                 previous->next = dictionary->next;
             }
             free(dictionary->head->key);

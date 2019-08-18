@@ -291,8 +291,7 @@
         int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
             [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
-        }
-        else {
+        } else {
             [self setRepo:[ZBRepo localRepo:repoID]];
         }
         
@@ -339,8 +338,7 @@
         if (compare([[self version] UTF8String], [[obj version] UTF8String]) < 0)
             return NSOrderedAscending;
         return NSOrderedDescending;
-    }
-    else {
+    } else {
         int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
         if (result < 0)
             return NSOrderedAscending;
@@ -475,8 +473,7 @@
                 possibleActions |= ZBQueueTypeUpgrade; // Upgrade
             }
             possibleActions |= ZBQueueTypeRemove; // Remove
-        }
-        else {
+        } else {
             possibleActions |= ZBQueueTypeInstall; // Install
         }
         NSArray *otherVersions = [self otherVersions];

@@ -172,8 +172,7 @@
         NSString *suite = components[2];
         NSString *component = components[3];
         urlComponents = @[baseURL, suite, component];
-    }
-    else { // Normal, non-weird repo
+    } else { // Normal, non-weird repo
         urlComponents = @[baseURL];
     }
     
@@ -195,8 +194,7 @@
     
     if (path == NULL) {
         return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
-    }
-    else {
+    } else {
         NSError *fileError;
         NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
         NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
@@ -313,8 +311,7 @@
             packageTasksMap[@(downloadTask.taskIdentifier)] = package;
             [downloadDelegate predator:self startedDownloadForFile:package.name];
             [downloadTask resume];
-        }
-        else if (package.sileoDownload) {
+        } else if (package.sileoDownload) {
             [self realLinkWithPackage:package withCompletion:^(NSString *url) {
                 NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:[NSURL URLWithString:url]];
                 ++self->tasks;
@@ -323,8 +320,7 @@
                 [self->downloadDelegate predator:self startedDownloadForFile:package.name];
                 [downloadTask resume];
             }];
-        }
-        else {
+        } else {
             url = [base URLByAppendingPathComponent:filename];
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
             ++tasks;
@@ -383,11 +379,9 @@
     if (responseCode != 200 && responseCode != 304) { // Handle error code
         if ([filename hasSuffix:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
-        }
-        else if ([filename hasSuffix:@".gz"]) { // Try to download Packages
+        } else if ([filename hasSuffix:@".gz"]) { // Try to download Packages
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages"] ignoreCaching:self->ignore];
-        }
-        else {
+        } else {
             if (![filename isEqualToString:@"Release"]) {
                 if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
                     // Allows custom error message to be displayed by the repository using the body
@@ -397,28 +391,24 @@
                     if (readError) {
                         NSLog(@"[Zebra] Read error: %@", readError);
                         [downloadDelegate predator:self finishedDownloadForFile:filename withError:readError];
-                    }
-                    else {
+                    } else {
                         NSLog(@"[Zebra] Download response: %@", contents);
                         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
                         [downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
                     }
-                }
-                else {
+                } else {
                     NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); // 🤮
                     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
                     if ([filename hasSuffix:@".deb"]) {
                         [self cancelAllTasksForSession:session];
                         [self->downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
-                    }
-                    else {
+                    } else {
                         [self->downloadDelegate predator:self finishedDownloadForFile:[url absoluteString] withError:error];
                     }
                 }
             }
         }
-    }
-    else { // Download success
+    } else { // Download success
         if ([filename hasSuffix:@".deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
@@ -427,18 +417,15 @@
                 if (!success && error != NULL) {
                     [self cancelAllTasksForSession:session];
                     NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
-                }
-                else {
+                } else {
                     [self addFile:finalPath toArray:@"debs"];
                 }
             }];
-        }
-        else if ([filename hasSuffix:@".gz"]) {
+        } else if ([filename hasSuffix:@".gz"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
                 NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
@@ -447,8 +434,7 @@
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
-                    }
-                    else {
+                    } else {
                         NSData *data = [NSData dataWithContentsOfFile:finalPath];
                         
                         z_stream stream;
@@ -489,13 +475,11 @@
                     }
                 }];
             }
-        }
-        else if ([filename hasSuffix:@".bz2"]) {
+        } else if ([filename hasSuffix:@".bz2"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
                 NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
@@ -504,8 +488,7 @@
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
-                    }
-                    else {                        
+                    } else {                        
                         FILE *f = fopen([finalPath UTF8String], "r");
                         FILE *output = fopen([[finalPath stringByDeletingPathExtension] UTF8String], "w");
                         
@@ -551,13 +534,11 @@
                     }
                 }];
             }
-        }
-        else if ([filename isEqualToString:@"Packages"]) {
+        } else if ([filename isEqualToString:@"Packages"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
                 NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
@@ -568,13 +549,11 @@
                     }
                 }];
             }
-        }
-        else if ([filename isEqualToString:@"Release"]) {
+        } else if ([filename isEqualToString:@"Release"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
-            }
-            else {
+            } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
                 NSString *saveName = [self repoSaveName:url filename:filename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
@@ -582,8 +561,7 @@
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
                         NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
-                    }
-                    else {
+                    } else {
                         [self addFile:finalPath toArray:@"release"];
                     }
                 }];
@@ -604,8 +582,7 @@
         NSString *basePath = [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
         basePath = [basePath stringByReplacingOccurrencesOfString:@"_Packages.gz" withString:@""];
         return basePath;
-    }
-    else {
+    } else {
         return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
     }
 }
@@ -650,13 +627,11 @@
     ZBPackage *package = packageTasksMap[taskIdentifier];
     if (package) {
         [self->downloadDelegate predator:self finishedDownloadForFile:package.name withError:error];
-    }
-    else {
+    } else {
         NSURL *releaseURL = releaseTasksMap[taskIdentifier];
         if (releaseURL) {
             [self->downloadDelegate predator:self finishedDownloadForFile:releaseURL.absoluteString withError:error];
-        }
-        else {
+        } else {
             NSURL *sourcePackagesURL = sourcePackagesTasksMap[taskIdentifier];
             if (sourcePackagesURL) {
                 [self->downloadDelegate predator:self finishedDownloadForFile:sourcePackagesURL.absoluteString withError:error];

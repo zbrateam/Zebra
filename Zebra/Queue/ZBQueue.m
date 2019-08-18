@@ -268,8 +268,7 @@
                 break;
             }
         }
-    }
-    else {
+    } else {
         NSString *key = [self queueToKey:queue];
         if (key) {
             [_managedQueue[key] removeObject:package];
@@ -392,11 +391,9 @@
 - (int)numberOfPackagesForQueue:(NSString *)queue {
     if ([queue isEqualToString:@"Unresolved Dependencies"]) {
         return (int)[_failedDepQueue count];
-    }
-    else if ([queue isEqualToString:@"Conflictions"]) {
+    } else if ([queue isEqualToString:@"Conflictions"]) {
         return (int)[_failedConQueue count];
-    }
-    else {
+    } else {
         return (int)[_managedQueue[queue] count];
     }
 }
@@ -471,8 +468,7 @@
                 }
             }
         }
-    }
-    else {
+    } else {
         NSMutableArray *queueArray = [self queueArray:queue];
         if (!queueArray) return NO;
         for (ZBPackage *p in queueArray) {
@@ -493,8 +489,7 @@
                 return YES;
             }
         }
-    }
-    else {
+    } else {
         NSMutableArray *queueArray = [self queueArray:queue];
         if (!queueArray) return NO;
         for (ZBPackage *p in queueArray) {

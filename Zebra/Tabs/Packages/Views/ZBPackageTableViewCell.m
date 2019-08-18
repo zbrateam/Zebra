@@ -37,8 +37,7 @@
     NSString *repoName = repo.origin;
     if (package.author) {
         self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
-    }
-    else {
+    } else {
         self.authorAndRepo.text = repoName;
     }
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
@@ -50,8 +49,7 @@
         // [self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
         // [self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
         [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
-    }
-    else {
+    } else {
         self.iconImageView.image = sectionImage;
     }
     
@@ -69,8 +67,7 @@
             self.isInstalledImageView.image = self.isPaidImageView.image;
             self.isInstalledImageView.hidden = NO;
             self.isPaidImageView.hidden = YES;
-        }
-        else {
+        } else {
             self.isPaidImageView.image = [UIImage imageNamed:@"Paid"];
         }
     }
@@ -88,8 +85,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.queueStatusLabel sizeToFit];
         });
-    }
-    else {
+    } else {
         self.queueStatusLabel.hidden = YES;
         self.queueStatusLabel.text = nil;
         self.queueStatusLabel.backgroundColor = nil;

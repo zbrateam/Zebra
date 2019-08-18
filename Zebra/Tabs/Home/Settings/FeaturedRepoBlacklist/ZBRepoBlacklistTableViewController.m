@@ -47,8 +47,7 @@
     
     if ([source isSecure]) {
         cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
-    }
-    else {
+    } else {
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];

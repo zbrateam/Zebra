@@ -112,8 +112,7 @@ enum ZBSearchSection {
             searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         }
         [searchController.searchBar becomeFirstResponder];
-    }
-    else {
+    } else {
         NSArray *path = [url pathComponents];
         if ([path count] == 2) {
             if (!databaseManager) {
@@ -136,8 +135,7 @@ enum ZBSearchSection {
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length) {
         results = [databaseManager searchForPackageName:searchText numberOfResults:60];
-    }
-    else {
+    } else {
         results = nil;
     }
     [self refreshTable];

@@ -52,8 +52,7 @@
     
     if (indexPath.row != 0) {
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
-    }
-    else {
+    } else {
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
     }
     CGSize itemSize = CGSizeMake(40, 40);
@@ -71,8 +70,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         [self setIconWithName:nil fromIndex:indexPath];
-    }
-    else {
+    } else {
         [self setIconWithName:[icons objectAtIndex:indexPath.row] fromIndex:indexPath];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

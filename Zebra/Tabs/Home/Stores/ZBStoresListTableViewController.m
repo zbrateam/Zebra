@@ -45,8 +45,7 @@
 - (void)refreshTable {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:NO];
-    }
-    else {
+    } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateStores];
             [self.tableView reloadData];
@@ -94,8 +93,7 @@
 
     if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source baseURL]]]) {
         cell.urlLabel.text = @"Login";
-    }
-    else {
+    } else {
         cell.urlLabel.text = @"Purchases";
     }
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -138,20 +136,17 @@
                                    securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
                                });
                                [self refreshTable];
-                           }
-                           else {
+                           } else {
                                return;
                            }
                            
                            
                        }];
             [session start];
-        }
-        else {
+        } else {
             [ZBDevice openURL:destinationUrl delegate:self];
         }
-    }
-    else {
+    } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = source.origin;

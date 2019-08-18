@@ -74,8 +74,7 @@
         if (updates > 0) {
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
-        }
-        else {
+        } else {
             [packagesTabBarItem setBadgeValue:nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         }
@@ -105,8 +104,7 @@
             [self->indicator startAnimating];
             [badge addSubview:self->indicator];
             self->sourcesUpdating = YES;
-        }
-        else {
+        } else {
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }

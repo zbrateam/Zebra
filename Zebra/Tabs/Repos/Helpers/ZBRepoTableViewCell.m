@@ -40,8 +40,7 @@
     if (spinning) {
         self.accessoryView = spinner;
         [spinner startAnimating];
-    }
-    else {
+    } else {
         [spinner stopAnimating];
         self.accessoryView = self.chevronView;
     }

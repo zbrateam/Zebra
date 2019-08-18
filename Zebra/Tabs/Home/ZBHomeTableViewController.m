@@ -59,8 +59,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [super viewWillAppear:animated];
     if ([ZBDevice darkModeEnabled]) {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    }
-    else {
+    } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -89,14 +88,12 @@ typedef enum ZBLinksOrder : NSUInteger {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self packagesFromDB];
             });
-        }
-        else {
+        } else {
             if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self cacheJSON];
                 });
-            }
-            else {
+            } else {
                 [self setupHeaderFromCache];
             }
         }
@@ -111,8 +108,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         NSString *basePlusHttp;
         if (repo.isSecure) {
             basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
-        }
-        else {
+        } else {
             basePlusHttp = [NSString stringWithFormat:@"http://%@", repo.baseURL];
         }
         dispatch_group_enter(group);
@@ -459,11 +455,9 @@ typedef enum ZBLinksOrder : NSUInteger {
             NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/xtm3x"];
             if ([application canOpenURL:twitterapp]) {
                 [self openURL:twitterapp];
-            }
-            else if ([application canOpenURL:tweetbot]) {
+            } else if ([application canOpenURL:tweetbot]) {
                 [self openURL:tweetbot];
-            }
-            else {
+            } else {
                 [self openURL:twitterweb];
             }
             break;
@@ -477,8 +471,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIApplication *application = [UIApplication sharedApplication];
     if (@available(iOS 10.0, *)) {
         [application openURL:url options:@{} completionHandler:nil];
-    }
-    else {
+    } else {
         [application openURL:url];
     }
 }
@@ -547,8 +540,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
                     [self cacheJSON];
-                }
-            else {
+                } else {
                     [self setupHeaderFromCache];
                 }
         });
@@ -560,8 +552,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self setupFeatured];
     if ([self.defaults boolForKey:@"wantsFeatured"]) {
         [self refreshCollection:nil];
-    }
-    else {
+    } else {
         [self.tableView beginUpdates];
         self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
         [self.tableView endUpdates];

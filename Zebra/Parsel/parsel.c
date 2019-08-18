@@ -130,8 +130,7 @@ int needsMigration(sqlite3 *database, int table) {
             sqlite3_finalize(statement);
             return result;
         }
-    }
-    else {
+    } else {
         printf("[Zebra] Error creating migration check statement: %s\n", sqlite3_errmsg(database));
     }
     return 0;
@@ -155,8 +154,7 @@ void createTable(sqlite3 *database, int table) {
     if (table == 1) {
         char *packageIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGEVERSION ON PACKAGES (PACKAGE, VERSION);";
         sqlite3_exec(database, packageIndex, NULL, 0, NULL);
-    }
-    else if (table == 2) {
+    } else if (table == 2) {
         char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
         sqlite3_exec(database, updateIndex, NULL, 0, NULL);
     }
@@ -221,8 +219,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
             sqlite3_bind_text(insertStatement, ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_int(insertStatement, 9, repoID);
-        }
-        else {
+        } else {
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
@@ -234,8 +231,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
             sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
         }
         sqlite3_step(insertStatement);
-    }
-    else {
+    } else {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
@@ -298,8 +294,7 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
         sqlite3_step(insertStatement);
-    }
-    else {
+    } else {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
@@ -320,8 +315,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
             found = true;
             break;
         }
-    }
-    else {
+    } else {
         printf("[Parsel] Error preparing current package timestamp statement: %s\n", sqlite3_errmsg(database));
     }
     sqlite3_finalize(statement);
@@ -339,8 +333,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
     if (!import || (strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
         if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
             repoID = -1;
-        }
-        else if (repoID == -1) {
+        } else if (repoID == -1) {
             repoID = safeID;
         }
         
@@ -379,8 +372,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             if (!import) {
                 if (previousTimestamp == -1) {
                     newTimestamp = currentDate;
-                }
-                else {
+                } else {
                     newTimestamp = previousTimestamp;
                 }
             }
@@ -390,8 +382,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
             if (depends[0] != '\0')
                 depends[strlen(depends) - 1] = '\0';
             sqlite3_step(insertStatement);
-        }
-        else {
+        } else {
             printf("[Parsel] Error preparing package binding statement: %s", sqlite3_errmsg(database));
         }
         
@@ -401,8 +392,7 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
         *package_ = dict_new();
         longDescription[0] = '\0';
         depends[0] = '\0';
-    }
-    else {
+    } else {
         dict_free(*package_);
         *package_ = dict_new();
         longDescription[0] = '\0';
@@ -444,8 +434,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 }
                 
                 continue;
-            }
-            else {
+            } else {
                 longDescFlag = false;
             }
             
@@ -478,12 +467,10 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
                 longDescFlag = true;
             }
-        }
-        else if (dict_get(package, "Package") != 0) {
+        } else if (dict_get(package, "Package") != 0) {
             if (bindPackage(&package, repoID, safeID, longDescription, depends, database, true, 0))
                 continue;
-        }
-        else {
+        } else {
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';
@@ -532,8 +519,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 }
                                 
                 continue;
-            }
-            else {
+            } else {
                 longDescFlag = false;
             }
             
@@ -566,11 +552,9 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
                 longDescFlag = true;
             }
-        }
-        else if (dict_get(package, "Package") != 0) {
+        } else if (dict_get(package, "Package") != 0) {
             bindPackage(&package, repoID, safeID, longDescription, depends, database, false, currentDate);
-        }
-        else {
+        } else {
             dict_free(package);
             package = dict_new();
             longDescription[0] = '\0';

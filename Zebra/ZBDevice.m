@@ -320,8 +320,7 @@
     [[ZBQueue sharedInstance] setUseIcon:useIcon];
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
-    }
-    else {
+    } else {
         [self configureLightMode];
     }
 }
@@ -352,8 +351,7 @@
     if (@available(iOS 10.0, *)) {
         safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
         safariVC.preferredControlTintColor = [UIColor tintColor];
-    }
-    else {
+    } else {
         safariVC.view.tintColor = [UIColor tintColor];
     }
     [delegate presentViewController:safariVC animated:YES completion:nil];

@@ -67,13 +67,11 @@ typedef enum {
         if (self.repoURLs.count) {
             // Update only the repos specified
             [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
-        }
-        else {
+        } else {
             // Update every repo
             [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
         }
-    }
-    else {
+    } else {
         hadAProblem = YES;
         for (NSString *message in messages) {
             [self writeToConsole:message atLevel:ZBLogLevelError];
@@ -86,8 +84,7 @@ typedef enum {
 - (IBAction)completeOrCancelButton:(id)sender {
     if (buttonState == ZBStateDone) {
         [self goodbye];
-    }
-    else {
+    } else {
         if (_dropTables) {
             return;
         }
@@ -109,8 +106,7 @@ typedef enum {
 - (void)goodbye {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
-    }
-    else {
+    } else {
         [self clearProblems];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -170,8 +166,7 @@ typedef enum {
     }
     if (!hadAProblem) {
         [self goodbye];
-    }
-    else {
+    } else {
         [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
     }
 }

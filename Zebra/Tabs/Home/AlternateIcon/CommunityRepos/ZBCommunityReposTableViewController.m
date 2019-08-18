@@ -68,14 +68,11 @@ enum ZBSourcesOrder {
 - (NSString *)determineJailbreakRepo {
     if ([ZBDevice isChimera]) {
         return @"https://repo.chimera.sh/";
-    }
-    else if ([ZBDevice isUncover]) { // uncover
+    } else if ([ZBDevice isUncover]) { // uncover
         return @"http://apt.bingner.com/";
-    }
-    else if ([ZBDevice isElectra]) { // electra
+    } else if ([ZBDevice isElectra]) { // electra
         return @"https://electrarepo64.coolstar.org/";
-    }
-    else { // cydia
+    } else { // cydia
         return @"http://apt.saurik.com/";
     }
 }
@@ -100,8 +97,7 @@ enum ZBSourcesOrder {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return [self numberOfRowsInTransfer];
-    }
-    else if (section == 1) {
+    } else if (section == 1) {
         return 1;
     }
     return [communityRepos count];
@@ -122,30 +118,25 @@ enum ZBSourcesOrder {
         }
         cellText = [NSString stringWithFormat:@"Transfer Sources from %@", [availableManagers objectAtIndex:indexPath.row]];
         subText = [NSString stringWithFormat:@"Move all sources from %@ to Zebra", [availableManagers objectAtIndex:indexPath.row]];
-    }
-    else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
         if ([ZBDevice isChimera]) { // chimera
             cellText = @"Chimera";
             iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
             subText = @"Utility repo for Chimera jailbreak";
-        }
-        else if ([ZBDevice isUncover]) { // uncover
+        } else if ([ZBDevice isUncover]) { // uncover
             cellText = @"Bingner/Elucubratus";
             iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
             subText = @"Utility repo for unc0ver jailbreak";
-        }
-        else if ([ZBDevice isElectra]) { // electra
+        } else if ([ZBDevice isElectra]) { // electra
             cellText = @"Electra's iOS Utilities";
             iconURL = [NSURL URLWithString:@"https://github.com/coolstar/electra/raw/master/electra/Resources/AppIcon60x60%402x.png"];
             subText = @"Utility repo for Electra jailbreak";
-        }
-        else { // cydia
+        } else { // cydia
             cellText = @"Cydia/Telesphoreo";
             iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
             subText = @"Cydia utility repo";
         }
-    }
-    else {
+    } else {
         NSDictionary *dataDict = [communityRepos objectAtIndex:indexPath.row];
         cellText = dataDict[@"name"];
         repoURL = [NSURL URLWithString:dataDict[@"url"]];
@@ -155,20 +146,17 @@ enum ZBSourcesOrder {
     if (cellText) {
         [cell.repoLabel setText:cellText];
         [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
-    }
-    else {
+    } else {
         cell.repoLabel.text = nil;
     }
     
     if (subText && !repoURL) {
         [cell.urlLabel setText:subText];
         [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
-    }
-    else if (repoURL) {
+    } else if (repoURL) {
         [cell.urlLabel setText:repoURL.absoluteString];
         [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
-    }
-    else {
+    } else {
         cell.urlLabel.text = nil;
     }
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -274,8 +262,7 @@ enum ZBSourcesOrder {
                 [errorAlert addAction:cancelAction];
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
-            }
-            else {
+            } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                 console.repoURLs = [repoManager verifiedURLs];

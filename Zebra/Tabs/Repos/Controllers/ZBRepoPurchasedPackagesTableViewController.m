@@ -108,8 +108,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
-    }
-    else {
+    } else {
         return 25;
     }
 }
@@ -125,8 +124,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         return 65;
-    }
-    else {
+    } else {
         return 44;
     }
 }
@@ -134,8 +132,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
-    }
-    else {
+    } else {
         return [self.packages count];
     }
 }
@@ -144,8 +141,7 @@
     if (indexPath.section == 0) { // Account Cell
         cell.textLabel.text = self.userName;
         cell.detailTextLabel.text = self.userEmail;
-    }
-    else { // Package Cell
+    } else { // Package Cell
         ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
         [(ZBPackageTableViewCell *)cell updateData:package];
     }
@@ -155,8 +151,7 @@
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"accountCell"];
         return cell;
-    }
-    else {
+    } else {
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         [cell setColors];
         return cell;

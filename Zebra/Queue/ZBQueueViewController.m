@@ -109,8 +109,7 @@
                 if (totalDownloadSize > 1024 * 1024) {
                     totalDownloadSize /= 1024 * 1024;
                     unit = @"MB";
-                }
-                else if (totalDownloadSize > 1024) {
+                } else if (totalDownloadSize > 1024) {
                     totalDownloadSize /= 1024;
                     unit = @"KB";
                 }
@@ -153,8 +152,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
         
         return cell;
-    }
-    else if ([action isEqualToString:@"Conflictions"]) {
+    } else if ([action isEqualToString:@"Conflictions"]) {
         cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
         
         NSArray *failedQ = [_queue failedConQueue];
@@ -189,8 +187,7 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
         cell.imageView.layer.cornerRadius = 10;
         cell.imageView.clipsToBounds = YES;
-    }
-    else {
+    } else {
         UIImage *sectionImage = [UIImage imageNamed:section];
         if (sectionImage != NULL) {
             cell.imageView.image = sectionImage;
@@ -205,8 +202,7 @@
     ZBPackage *replacedPackage = [_queue packageReplacedBy:package];
     if (replacedPackage) {
         [details appendString:[NSString stringWithFormat:@"%@ (%@ -> %@)", package.identifier, replacedPackage.version, package.version]];
-    }
-    else {
+    } else {
         [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
     }
     
@@ -259,8 +255,7 @@
         
         if ([_queue hasObjects]) {
             [self refreshTable];
-        }
-        else {
+        } else {
             [self abort:nil];
         }
     }

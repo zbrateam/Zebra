@@ -73,16 +73,14 @@
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
         self.navigationItem.leftBarButtonItems = @[cancelButton];
         self.navigationItem.rightBarButtonItem = nil;
-    }
-    else {
+    } else {
         if (self.editing) {
             UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
             self.navigationItem.rightBarButtonItem = doneButton;
             
             UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
             self.navigationItem.leftBarButtonItem = exportButton;
-        }
-        else {
+        } else {
             self.editButtonItem.action = @selector(editMode:);
             self.navigationItem.rightBarButtonItem = self.editButtonItem;
             
@@ -188,22 +186,19 @@
         NSArray *components = [path pathComponents];
         if ([components count] == 2) {
             [self showAddRepoAlert:NULL];
-        }
-        else if ([components count] >= 4) {
+        } else if ([components count] >= 4) {
             NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
             
             NSURL *url;
             if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
                 url = [NSURL URLWithString:urlString];
-            }
-            else {
+            } else {
                 url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
             }
             
             if (url && url.scheme && url.host) {
                 [self showAddRepoAlert:url];
-            }
-            else {
+            } else {
                 [self showAddRepoAlert:NULL];
             }
         }
@@ -231,8 +226,7 @@
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (url != NULL) {
             textField.text = [url absoluteString];
-        }
-        else {
+        } else {
             textField.text = @"https://";
         }
         textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -262,8 +256,7 @@
                 [wait dismissViewControllerAnimated:YES completion:^{
                     [weakSelf presentVerificationFailedAlert:error url:url present:NO];
                 }];
-            }
-            else {
+            } else {
                 [wait dismissViewControllerAnimated:YES completion:^{
                     NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
                     
@@ -324,8 +317,7 @@
                             UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
                             
                             [weakSelf presentViewController:navCon animated:YES completion:nil];
-                        }
-                        else {
+                        } else {
                             NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
                             [weakSelf showAddRepoAlert:failedURL];
                         }
@@ -339,8 +331,7 @@
                 [errorAlert addAction:cancelAction];
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
-            }
-            else {
+            } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
                 console.repoURLs = [repoManager verifiedURLs];
@@ -381,8 +372,7 @@
             NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
             [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
             lastIndex = [sectionsToRemove lastIndex] + 1;
-        }
-        else {
+        } else {
             NSArray *data = [collation sortedArrayFromArray:section collationStringSelector:selector];
             [sections addObject:data];
         }
@@ -424,8 +414,7 @@
     
     if ([source isSecure]) {
         cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
-    }
-    else {
+    } else {
         cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
     }
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -472,8 +461,7 @@
         [tableView beginUpdates];
         if ([tableView numberOfRowsInSection:indexPath.section] == 1) {
             [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-        }
-        else {
+        } else {
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
         [self updateCollation];
@@ -621,8 +609,7 @@
             [self->repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
                 if (error != NULL) {
                     NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
-                }
-                else {
+                } else {
                     NSLog(@"[Zebra] Successfully merged sources");
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
@@ -637,8 +624,7 @@
         [alertController addAction:noAction];
         
         [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else {
+    } else {
         NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
         
         NSError *readError;
@@ -665,8 +651,7 @@
             [self->repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
                 if (error != NULL) {
                     NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
-                }
-                else {
+                } else {
                     NSLog(@"[Zebra] Successfully merged sources");
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                     UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];

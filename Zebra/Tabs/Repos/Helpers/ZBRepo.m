@@ -82,11 +82,9 @@
         NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
         if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
             iconURL = [NSURL URLWithString:url];
-        }
-        else if (secure) {
+        } else if (secure) {
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]];
-        }
-        else {
+        } else {
             iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]];
         }
         
@@ -105,8 +103,7 @@
             NSString *requestURL;
             if ([baseURL hasSuffix:@"/"]) {
                 requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint", baseURL];
-            }
-            else {
+            } else {
                 requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint", baseURL];
             }
             NSURL *url = [NSURL URLWithString:requestURL];
@@ -130,8 +127,7 @@
             NSString *requestURL;
             if ([baseURL hasSuffix:@"/"]) {
                 requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", baseURL];
-            }
-            else {
+            } else {
                 requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", baseURL];
             }
             NSURL *checkingURL = [NSURL URLWithString:requestURL];

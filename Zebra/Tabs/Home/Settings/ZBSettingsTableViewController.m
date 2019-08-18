@@ -86,8 +86,7 @@ enum ZBSectionOrder {
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
         tintColorType = (ZBTintSelection)[number integerValue];
-    }
-    else {
+    } else {
         tintColorType = ZBDefaultTint;
     }
 }
@@ -95,11 +94,9 @@ enum ZBSectionOrder {
 - (void)configureSelectedMode {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
         selectedMode = ZBThirteen;
-    }
-    else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
         selectedMode = ZBOled;
-    }
-    else {
+    } else {
         selectedMode = ZBDefaultMode;
     }
 }
@@ -227,8 +224,7 @@ enum ZBSectionOrder {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
-    }
-    else if (indexPath.section == ZBGraphics) {
+    } else if (indexPath.section == ZBGraphics) {
         static NSString *cellIdentifier = @"uiCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -249,8 +245,7 @@ enum ZBSectionOrder {
                     UIGraphicsEndImageContext();
                     cell.imageView.layer.cornerRadius = 10;
                     cell.imageView.clipsToBounds = YES;
-                }
-                else {
+                } else {
                     cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
                     CGSize itemSize = CGSizeMake(40, 40);
                     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
@@ -262,14 +257,12 @@ enum ZBSectionOrder {
                     cell.imageView.clipsToBounds = YES;
                 }
             }
-        }
-        else if (indexPath.row == ZBChangeTint) {
+        } else if (indexPath.row == ZBChangeTint) {
             [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             NSString *forthTint;
             if ([ZBDevice darkModeEnabled]) {
                 forthTint = @"White";
-            }
-            else {
+            } else {
                 forthTint = @"Black";
             }
             UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Default", @"Blue", @"Orange", forthTint]];
@@ -278,8 +271,7 @@ enum ZBSectionOrder {
             [segmentedControl addTarget:self action:@selector(tintColorSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
             cell.accessoryView = segmentedControl;
             cell.textLabel.text = @"Tint Color";
-        }
-        else if (indexPath.row == ZBChangeMode) {
+        } else if (indexPath.row == ZBChangeMode) {
             [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Default", @"OLED", @"iOS 13"]];
             segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedMode;
@@ -290,8 +282,7 @@ enum ZBSectionOrder {
         }
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
-    }
-    else if (indexPath.section == ZBFeatured) {
+    } else if (indexPath.section == ZBFeatured) {
         static NSString *cellIdentifier = @"uiCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -307,8 +298,7 @@ enum ZBSectionOrder {
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = @"Enable Featured Packages";
-        }
-        else if (indexPath.row == ZBFeatureOrRandomToggle) {
+        } else if (indexPath.row == ZBFeatureOrRandomToggle) {
             [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Repo Featured", @"Random"]];
             segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
@@ -317,15 +307,13 @@ enum ZBSectionOrder {
             cell.accessoryView = segmentedControl;
             cell.textLabel.text = @"Feature Type";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        else {
+        } else {
             cell.textLabel.text = @"Select Repos to be Featured";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
-    }
-    else if (indexPath.section == ZBNews) {
+    } else if (indexPath.section == ZBNews) {
         static NSString *cellIdentifier = @"newsCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -342,8 +330,7 @@ enum ZBSectionOrder {
         cell.textLabel.text = @"Enable News";
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         return cell;
-    }
-    else if (indexPath.section == ZBMisc) {
+    } else if (indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"miscCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -365,8 +352,7 @@ enum ZBSectionOrder {
         }
         cell.textLabel.text = text;
         return cell;
-    }
-    else if (indexPath.section == ZBAdvanced) {
+    } else if (indexPath.section == ZBAdvanced) {
         static NSString *cellIdentifier = @"advancedCells";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -377,14 +363,11 @@ enum ZBSectionOrder {
         NSString *text = nil;
         if (indexPath.row == ZBDropTables) {
             text = @"Drop Tables";
-        }
-        else if (indexPath.row == ZBOpenDocs){
+        } else if (indexPath.row == ZBOpenDocs){
             text = @"Open Documents Directory";
-        }
-        else if (indexPath.row == ZBClearImageCache) {
+        } else if (indexPath.row == ZBClearImageCache) {
             text = @"Clear Image Cache";
-        }
-        else if (indexPath.row == ZBClearKeychain){
+        } else if (indexPath.row == ZBClearKeychain){
             text = @"Clear Keychain";
         }
         cell.textLabel.text = text;
@@ -483,8 +466,7 @@ enum ZBSectionOrder {
 - (void)showRefreshView:(NSNumber *)dropTables {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:NO];
-    }
-    else {
+    } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
         console.messages = nil;

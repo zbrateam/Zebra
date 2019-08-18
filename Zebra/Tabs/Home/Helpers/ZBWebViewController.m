@@ -82,8 +82,7 @@
         
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
-    }
-    else {
+    } else {
         self.title = @"Home";
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
@@ -118,8 +117,7 @@
                 [self->progressView setProgress:0.0f animated:NO];
             }];
         }
-    }
-    else {
+    } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -134,12 +132,10 @@
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
             [ZBDevice openURL:url delegate:self];
             decisionHandler(WKNavigationActionPolicyCancel);
-        }
-        else {
+        } else {
             decisionHandler(WKNavigationActionPolicyAllow);
         }
-    }
-    else {
+    } else {
         decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
@@ -150,8 +146,7 @@
         NSString *path;
         if ([ZBDevice darkModeOledEnabled]) {
             path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-        }
-        else {
+        } else {
             path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
         }
         NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
@@ -177,8 +172,7 @@
         if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"] && ![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
             [webView evaluateJavaScript:@"document.getElementById('transfergroup').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('transferfooter').outerHTML = \'\'" completionHandler:nil];
-        }
-        else {
+        } else {
             if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"]) {
                 [webView evaluateJavaScript:@"document.getElementById('sileotransfer').outerHTML = \'\'" completionHandler:nil];
             }
@@ -192,18 +186,15 @@
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
-        }
-        else if ([ZBDevice isUncover]) { // uncover
+        } else if ([ZBDevice isUncover]) { // uncover
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
-        }
-        else if ([ZBDevice isElectra]) { // electra
+        } else if ([ZBDevice isElectra]) { // electra
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
-        }
-        else { // cydia
+        } else { // cydia
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
@@ -239,15 +230,13 @@
             }
             [[self navigationController] pushViewController:settingsController animated:YES];
         }
-    }
-    else if ([destination isEqual:@"web"]) {
+    } else if ([destination isEqual:@"web"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
         webController->_url = [NSURL URLWithString:action];
         
         [[self navigationController] pushViewController:webController animated:YES];
-    }
-    else if ([destination isEqual:@"repo"]) {
+    } else if ([destination isEqual:@"repo"]) {
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -259,8 +248,7 @@
         [controller addAction:yes];
         
         [self presentViewController:controller animated:YES completion:nil];
-    }
-    else if ([destination isEqual:@"repo-local"]) {
+    } else if ([destination isEqual:@"repo-local"]) {
         if ([contents count] == 2) {
             if (![ZBDevice needsSimulation]) {
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repositories" message:@"Are you sure you want to transfer repositories?" preferredStyle:UIAlertControllerStyleAlert];
@@ -273,8 +261,7 @@
                 [controller addAction:yes];
                 
                 [self presentViewController:controller animated:YES completion:nil];
-            }
-            else {
+            } else {
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Error" message:@"This action is not supported on non-jailbroken devices" preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"😢" style:UIAlertActionStyleDefault handler:NULL];
@@ -283,8 +270,7 @@
                 
                 [self presentViewController:controller animated:YES completion:nil];
             }
-        }
-        else {
+        } else {
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Add Repository" message:[NSString stringWithFormat:@"Are you sure you want to add the repository \"%@\"?", action] preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -346,15 +332,13 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
         [self presentViewController:console animated:YES completion:nil];
-    }
-    else {
+    } else {
         __weak typeof(self) weakSelf = self;
         
         [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
             if (!success) {
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-            }
-            else {
+            } else {
                 NSLog(@"[Zebra] Added source.");
                 [weakSelf showRefreshView:@(NO)];
             }
@@ -451,8 +435,7 @@
         
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
-    }
-    else {
+    } else {
         self.title = @"Home";
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];

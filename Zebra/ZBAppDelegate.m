@@ -37,8 +37,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSString *path_ = nil;
     if (![ZBDevice needsSimulation]) {
         path_ = @"/var/mobile/Library/Application Support";
-    }
-    else {
+    } else {
         path_ = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     }
     NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
@@ -151,8 +150,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 NSLog(@"[Zebra] Error: %@", error.localizedDescription);
             } else if (!granted) {
                 NSLog(@"[Zebra] Authorization was not granted.");
-            }
-            else {
+            } else {
                 NSLog(@"[Zebra] Notification access granted.");
             }
         }];
@@ -183,8 +181,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                     [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
                 }
-            }
-            else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
+            } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                 
@@ -224,8 +221,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                             [tabController presentViewController:navController animated:YES completion:nil];
                         }
-                    }
-                    else {
+                    } else {
                         [tabController setSelectedIndex:ZBTabPackages];
                     }
                     break;
@@ -323,8 +319,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         
         ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [searchController handleURL:NULL];
-    }
-    else if ([shortcutItem.type isEqualToString:@"Add"]) {
+    } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
         ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
