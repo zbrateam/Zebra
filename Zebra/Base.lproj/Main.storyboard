@@ -1010,9 +1010,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" id="tew-zJ-h7b">
-                                <rect key="frame" x="313" y="20" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="tew-zJ-h7b">
+                                <rect key="frame" x="216" y="20" width="143" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5kM-cy-4lb"/>
                                 </constraints>
@@ -1028,6 +1027,7 @@
                         <constraints>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="2Rr-nE-B89"/>
                             <constraint firstItem="BuP-O1-Zgo" firstAttribute="centerX" secondItem="4S3-dv-b0f" secondAttribute="centerX" id="567-Pm-jsB"/>
+                            <constraint firstItem="tew-zJ-h7b" firstAttribute="leading" relation="lessThanOrEqual" secondItem="lpS-Lu-3mG" secondAttribute="leading" constant="200" id="Fuf-cl-BKr"/>
                             <constraint firstItem="Dwm-vr-TSr" firstAttribute="centerX" secondItem="4S3-dv-b0f" secondAttribute="centerX" id="IvK-Lc-W34"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="4S3-dv-b0f" secondAttribute="trailingMargin" id="K3p-8W-Ws6"/>
                             <constraint firstItem="tew-zJ-h7b" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="top" id="OyH-Gl-kFj"/>
