@@ -44,9 +44,11 @@
 
 - (IBAction)confirm:(id)sender {
     [self clearQueueBarData];
+    ZBTabBarController *tab = [ZBAppDelegate tabBarController];
+    [tab dismissPopupBarAnimated:NO completion:nil];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [[self navigationController] pushViewController:vc animated:YES];
+    [tab presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)abort:(id)sender {

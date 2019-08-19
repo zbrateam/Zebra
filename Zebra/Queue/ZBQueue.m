@@ -426,7 +426,6 @@
     
     [_failedDepQueue removeAllObjects];
     [_failedConQueue removeAllObjects];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
 - (NSArray *)actionsToPerform {
