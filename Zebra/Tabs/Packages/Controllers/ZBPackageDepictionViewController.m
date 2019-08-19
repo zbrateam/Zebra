@@ -22,6 +22,7 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBWebViewController.h"
+#import "ZBPurchaseInfo.h"
 @import SDWebImage;
 
 
@@ -387,22 +388,24 @@ enum ZBPackageInfoOrder {
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 NSString *title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeInstall];
                 SEL selector = @selector(installPackage);
-                BOOL purchased = NO;
-                BOOL available = NO;
-                NSDictionary *json = nil;
+                ZBPurchaseInfo *purchaseInfo = nil;
                 if (data) {
-                    json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                    /*json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                     ZBLog(@"[Zebra] Package purchase status response: %@", json);
                     purchased = [json[@"purchased"] boolValue];
-                    available = [json[@"available"] boolValue];
+                    available = [json[@"available"] boolValue];*/
+                    NSError *err;
+                    purchaseInfo = [ZBPurchaseInfo fromData:data error:&err];
+                    /*purchased = [purchaseInfo.purchased boolValue];
+                    available = [purchaseInfo.available boolValue];*/
                 }
                 BOOL installed = [self->package isInstalled:NO];
                 if (installed) {
                     BOOL set = NO;
-                    if (purchased) {
+                    if (purchaseInfo.purchased != nil && [purchaseInfo.purchased boolValue]) {
                         self->package.sileoDownload = YES;
                         self.purchased = YES;
-                        if (available && ![self->package isReinstallable]) {
+                        if ([purchaseInfo.available boolValue] && ![self->package isReinstallable]) {
                             title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
                             selector = @selector(removePackage);
                             set = YES;
@@ -412,12 +415,12 @@ enum ZBPackageInfoOrder {
                         title = @"Modify";
                         selector = @selector(modifyPackage);
                     }
-                } else if (available) {
-                    if (purchased) {
+                } else if ([purchaseInfo.available boolValue]) {
+                    if ([purchaseInfo.purchased boolValue]) {
                         self->package.sileoDownload = YES;
                         self.purchased = YES;
-                    } else if (json) {
-                        title = json[@"price"];
+                    } else if (purchaseInfo) {
+                        title = purchaseInfo.price;
                         selector = @selector(purchasePackage);
                     }
                 }
