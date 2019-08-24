@@ -62,6 +62,20 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
+- (IBAction)clear:(id)sender {
+    for (NSArray *array in [_queue failedDepQueue]) {
+        ZBPackage *package = array[1];
+        [_queue removePackage:package fromQueue:0];
+    }
+    [_queue.failedDepQueue removeAllObjects];
+    for (NSArray *array in [_queue failedConQueue]) {
+        ZBPackage *package = array[2];
+        [_queue removePackage:package fromQueue:0];
+    }
+    [_queue.failedConQueue removeAllObjects];
+    [self refreshTable];
+}
+
 - (void)refreshBarButtons {
     if ([_queue hasErrors]) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
