@@ -13,6 +13,7 @@
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
+#import "ZBUserInfo.h"
 
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 
@@ -66,26 +67,23 @@
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody: requestData];
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        // self.packages = json[@"items"];
-        // [self.packages removeAllObjects];
-        // self.packages = nil
+        //NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        //NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSError *parseErr;
+        ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseErr];
         // Make package ids lowercase so we dont miss any
         NSMutableArray *loweredPackages = [NSMutableArray new];
-        for (NSString *name in json[@"items"]) {
+        for (NSString *name in userInfo.items) {
             [loweredPackages addObject:[name lowercaseString]];
         }
         self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages:loweredPackages];
-        if (json[@"user"]) {
-            if ([json valueForKeyPath:@"user.name"]) {
-                self.userName = [json valueForKeyPath:@"user.name"];
-            }
-            if ([json valueForKeyPath:@"user.email"]) {
-                self.userEmail = [json valueForKeyPath:@"user.email"];
-            }
-            
-            
+        if (userInfo.user.name) {
+            self.userName = userInfo.user.name;
         }
+        if (userInfo.user.email) {
+            self.userEmail = userInfo.user.email;
+        }
+            
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
