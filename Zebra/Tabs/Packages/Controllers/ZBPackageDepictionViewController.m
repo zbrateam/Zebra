@@ -439,6 +439,7 @@ enum ZBPackageInfoOrder {
 - (void)installPackage {
     [ZBPackageActionsManager installPackage:package purchased:self.purchased];
     [self presentQueue];
+    [self configureNavButton];
 }
 
 - (void)purchasePackage {
