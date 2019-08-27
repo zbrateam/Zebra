@@ -437,12 +437,6 @@ enum ZBSectionOrder {
 
 # pragma mark selected cells methods
 
-- (void)openChangelog {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
-    [self.navigationController pushViewController:changeLog animated:YES];
-}
-
 - (void)openCommunityRepos {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];

@@ -1,5 +1,5 @@
 //
-//  ZBChangeLogTableViewController.h
+//  ZBChangelogTableViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 6/30/19.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+GlobalColors.h"
 
-@interface ZBChangeLogTableViewController : UITableViewController
-@property NSArray *changeLogArray;
+@interface ZBChangelogTableViewController : UITableViewController
+@property (nonatomic, strong) NSArray *releases;
 @end
