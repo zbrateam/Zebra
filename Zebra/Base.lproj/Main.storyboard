@@ -469,10 +469,10 @@
             </objects>
             <point key="canvasLocation" x="3286" y="-976"/>
         </scene>
-        <!--Changelog Table View Controller-->
+        <!--Changelog-->
         <scene sceneID="uTC-so-JOc">
             <objects>
-                <tableViewController id="cfe-FA-iQ9" customClass="ZBChangelogTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Changelog" id="cfe-FA-iQ9" customClass="ZBChangelogTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wO0-Zn-icc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
