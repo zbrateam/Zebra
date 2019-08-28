@@ -19,7 +19,9 @@
 @synthesize releases;
 
 - (void)viewDidLoad {
-    [self.navigationItem setTitle:@"Changelog"];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = spinner;
+    [spinner startAnimating];
     
     if (@available(iOS 11.0, *)) {
         [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
@@ -41,13 +43,16 @@
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             self.releases = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
         }
         else {
             ZBLog(@"[Zebra] Error while trying to access changelog: %@", error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            self.navigationItem.titleView = NULL;
+            self.navigationItem.title = @"Changelog";
+        });
     }];
     
     [task resume];
