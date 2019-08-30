@@ -6,7 +6,7 @@ env:
     - THEOS=theos
 
 script:
-- make do
+- make package
 
 before_install:
 - brew install ldid
