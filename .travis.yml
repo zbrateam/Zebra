@@ -1,7 +1,13 @@
 language: objective-c
-#xcode_project: Zebra.xcodeproj
-#xcode_scheme: Zebra
-#osx_image: xcode10.2
+osx_image: xcode10.2
+
+env:
+  global:
+    - THEOS=theos
 
 script:
-  - set -o pipefail && xcodebuild -project Zebra.xcodeproj -scheme Zebra build | xcpretty
+- make do
+
+before_install:
+- brew install ldid
+- git clone --recursive https://github.com/theos/theos.git $THEOS
