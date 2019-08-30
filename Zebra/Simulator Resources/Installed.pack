@@ -1506,8 +1506,8 @@ Section: Packaging
 Installed-Size: 3124
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1:0
-Depends: dpkg, apt1.4 | apt7
+Version: 1.0~beta19
+Depends: dpkg, uikittools
 Description: A Useful Package Manager
 Name: Zebra (BETA)
 Author: Wilson Styres <wilson@styres.me>
@@ -2566,13 +2566,3 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
-
-Package: org.hacx.volumeamplifier
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1.90
-Description: Dummy package
-

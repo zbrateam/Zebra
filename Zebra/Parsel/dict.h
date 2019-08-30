@@ -18,10 +18,10 @@ typedef struct {
 
 typedef struct dict_t {
     pair *head;
-    struct dict_t *tail;
+    struct dict_t *next;
 } dict;
 
-dict* dict_new(void);
+dict *dict_new(void);
 void dict_add(dict *dictionary, const char *key, const char *value);
 int dict_has(dict *dictionary, const char *key);
 const char *dict_get(dict *dictionary, const char *key);

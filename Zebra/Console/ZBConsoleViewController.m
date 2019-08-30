@@ -7,13 +7,23 @@
 //
 
 #import "ZBConsoleViewController.h"
-#import <Queue/ZBQueue.h>
+#import <ZBLog.h>
 #import <NSTask.h>
+#import <ZBDevice.h>
+#import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+
+typedef enum {
+    ZBStageInstall = 0,
+    ZBStageRemove,
+    ZBStageReinstall,
+    ZBStageUpgrade,
+    ZBStageDone
+} ZBStage;
 
 @interface ZBConsoleViewController () {
     int stage;
@@ -23,6 +33,9 @@
     BOOL needsRespring;
     NSMutableArray *installedIDs;
     NSMutableArray *bundlePaths;
+    NSMutableDictionary <NSString *, NSNumber *> *downloadingMap;
+    ZBDownloadManager *downloadManager;
+    BOOL hasZebraUpdated;
 }
 @end
 
@@ -35,37 +48,48 @@
 
     [self setTitle:@"Console"];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    [self.navigationItem setHidesBackButton:true animated:true];
     
     queue = [ZBQueue sharedInstance];
     stage = -1;
-    continueWithActions = true;
-    needsIconCacheUpdate = false;
-    needsRespring = false;
+    continueWithActions = YES;
+    needsIconCacheUpdate = NO;
+    needsRespring = NO;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
+    downloadingMap = [NSMutableDictionary new];
+    _progressView.progress = 0;
+    _progressView.hidden = YES;
+    _progressText.text = nil;
+    _progressText.hidden = YES;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    [self.navigationItem setHidesBackButton:YES animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if (_externalInstall) {
-        akton = @[@[@0], @[@"dpkg", @"-i", _externalFilePath]];
+        akton = @[@[@0], @[@"apt", @"install", @"-y", _externalFilePath]];
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
-    }
-    else if ([queue needsHyena]) {
+    } else if ([queue needsHyena]) {
+        _progressView.hidden = NO;
+        _progressText.hidden = NO;
         [self downloadPackages];
-    }
-    else {
+    } else {
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)downloadPackages {
     NSArray *packages = [queue packagesToDownload];
     
-    [self writeToConsole:@"Downloading Packages.\n" atLevel:ZBLogLevelInfo];
-    ZBDownloadManager *downloadManager = [[ZBDownloadManager alloc] init];
+    [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelInfo];
+    downloadManager = [[ZBDownloadManager alloc] init];
     downloadManager.downloadDelegate = self;
     
     [downloadManager downloadPackages:packages];
@@ -75,35 +99,44 @@
     [self performActions:NULL];
 }
 
+- (BOOL)isValidPackageID:(NSString *)packageID {
+    return ![packageID hasPrefix:@"-"] && ![packageID isEqualToString:@"install"] && ![packageID isEqualToString:@"remove"];
+}
+
 - (void)performActions:(NSArray *)debs {
     if (akton != NULL) {
+        ZBLog(@"[Zebra] Actions: %@", akton);
         for (NSArray *command in akton) {
             if ([command count] == 1) {
                 [self updateStatus:[command[0] intValue]];
-            }
-            else {
-                if (![ZBAppDelegate needsSimulation]) {
-                    for (int i = 2; i < [command count]; i++) {
-                        NSString *packageID = command[i];
-                        
-                        if (stage == 1) {
-                            BOOL update = [ZBPackage containsApp:packageID];
-                            if (update) {
-                                needsIconCacheUpdate = true;
-                                [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
-                            }
-                            
-                            if (!needsRespring) {
-                                needsRespring = [ZBPackage containsTweak:packageID];
-                            }
-                        }
-                        else {
-                            [installedIDs addObject:packageID];
-                        }
+            } else {
+                for (int i = 3; i < [command count]; ++i) {
+                    NSString *packageID = command[i];
+                    if (![self isValidPackageID:packageID]) {
+                        continue;
                     }
                     
+                    if (stage != ZBStageDone) {
+                        if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
+                            needsIconCacheUpdate = YES;
+                            NSString *path = [ZBPackage pathForApplication:packageID];
+                            if (path) {
+                                [bundlePaths addObject:path];
+                            }
+                        }
+                        
+                        if (!needsRespring) {
+                            needsRespring = [ZBPackage containsRespringable:packageID];
+                        }
+                    }
+                    if (stage != ZBStageDone && stage != ZBStageRemove) {
+                        [installedIDs addObject:packageID];
+                    }
+                }
+                
+                if (![ZBDevice needsSimulation]) {
                     NSTask *task = [[NSTask alloc] init];
-                    [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                     [task setArguments:command];
                     
                     NSPipe *outputPipe = [[NSPipe alloc] init];
@@ -125,41 +158,43 @@
             }
         }
         [self refreshLocalPackages];
-    }
-    else {
-        if ([ZBAppDelegate needsSimulation]) {
-            [self writeToConsole:@"Console actions are not available on the simulator\n" atLevel:ZBLogLevelWarning];
-            [self refreshLocalPackages];
-        }
-        else if (continueWithActions) {
+    } else {
+        if (continueWithActions) {
+            _progressText.text = @"Performing actions...";
+            self.navigationItem.leftBarButtonItem = nil;
             NSArray *actions = [queue tasks:debs];
+            ZBLog(@"[Zebra] Actions: %@", actions);
             
             for (NSArray *command in actions) {
                 if ([command count] == 1) {
                     [self updateStatus:[command[0] intValue]];
-                }
-                else {
-                    if (![ZBAppDelegate needsSimulation]) {
-                        for (int i = 2; i < [command count]; i++) {
-                            NSString *packageID = command[i];
-                            if (stage == 1) {
-                                BOOL update = [ZBPackage containsApp:packageID];
-                                if (update) {
-                                    needsIconCacheUpdate = true;
-                                    [bundlePaths addObject:[ZBPackage pathForApplication:packageID]];
-                                }
-                                
-                                if (!needsRespring) {
-                                    needsRespring = [ZBPackage containsTweak:packageID];
+                } else {
+                    for (int i = 3; i < [command count]; ++i) {
+                        NSString *packageID = command[i];
+                        if (![self isValidPackageID:packageID]) {
+                            continue;
+                        }
+                        if (stage != ZBStageDone) {
+                            if (!needsIconCacheUpdate && [ZBPackage containsApp:packageID]) {
+                                needsIconCacheUpdate = YES;
+                                NSString *path = [ZBPackage pathForApplication:packageID];
+                                if (path) {
+                                    [bundlePaths addObject:path];
                                 }
                             }
-                            else {
-                                [installedIDs addObject:packageID];
+                            
+                            if (!needsRespring) {
+                                needsRespring = [ZBPackage containsRespringable:packageID];
                             }
                         }
-                        
+                        if (stage != ZBStageDone && stage != ZBStageRemove) {
+                            [installedIDs addObject:packageID];
+                        }
+                    }
+                    
+                    if (![ZBDevice needsSimulation]) {
                         NSTask *task = [[NSTask alloc] init];
-                        [task setLaunchPath:@"/Applications/Zebra.app/supersling"];
+                        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
                         
                         NSPipe *outputPipe = [[NSPipe alloc] init];
@@ -181,8 +216,7 @@
                 }
             }
             [self refreshLocalPackages];
-        }
-        else {
+        } else {
             [self finishUp];
         }
     }
@@ -190,21 +224,39 @@
 
 - (void)finishUp {
     [queue clearQueue];
+    [downloadingMap removeAllObjects];
+    _progressView.hidden = YES;
     
     NSMutableArray *uicaches = [NSMutableArray new];
-    if (![ZBAppDelegate needsSimulation]) {
-        for (NSString *packageID in installedIDs) {
-            BOOL update = [ZBPackage containsApp:packageID];
-            if (update) {
-                needsIconCacheUpdate = true;
-                [uicaches addObject:packageID];
+    for (NSString *packageID in installedIDs) {
+        BOOL update = [ZBPackage containsApp:packageID];
+        if (update) {
+            needsIconCacheUpdate = YES;
+            NSString *truePackageID = packageID;
+            if ([truePackageID hasSuffix:@".deb"]) {
+                // Transform deb-path-like packageID into actual package ID for checking to prevent duplicates
+                truePackageID = [[packageID lastPathComponent] stringByDeletingPathExtension];
+                // ex., com.xxx.yyy_1.0.0_iphoneos_arm.deb
+                NSRange underscoreRange = [truePackageID rangeOfString:@"_" options:NSLiteralSearch];
+                if (underscoreRange.location != NSNotFound) {
+                    truePackageID = [truePackageID substringToIndex:underscoreRange.location];
+                    if (!self->hasZebraUpdated && [truePackageID isEqualToString:@"xyz.willy.zebra"]) {
+                        self->hasZebraUpdated = YES;
+                    }
+                }
+                if ([uicaches containsObject:truePackageID])
+                    continue;
             }
-            
-            if (!needsRespring) {
-                needsRespring = [ZBPackage containsTweak:packageID] ? true : needsRespring;
-            }
+            if (![uicaches containsObject:truePackageID])
+                [uicaches addObject:truePackageID];
+        }
+        
+        if (!needsRespring) {
+            needsRespring = [ZBPackage containsRespringable:packageID] ? YES : needsRespring;
         }
     }
+    
+    [self removeAllDebs];
     
     if (needsIconCacheUpdate) {
         [self writeToConsole:@"Updating icon cache...\n" atLevel:ZBLogLevelInfo];
@@ -212,82 +264,92 @@
         if ([uicaches count] + [bundlePaths count] > 1) {
             [arguments addObject:@"-a"];
             [self writeToConsole:@"This may take awhile and Zebra may crash. It is okay if it does.\n" atLevel:ZBLogLevelWarning];
-        }
-        else {
+        } else {
             [arguments addObject:@"-p"];
             for (NSString *packageID in uicaches) {
-                if ([packageID isEqualToString:@"-p"]) continue;
-                
+                if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
+                    continue;
                 NSString *bundlePath = [ZBPackage pathForApplication:packageID];
-                if (bundlePath != NULL) [bundlePaths addObject:bundlePath];
+                if (bundlePath != NULL)
+                    [bundlePaths addObject:bundlePath];
             }
             [arguments addObjectsFromArray:bundlePaths];
         }
         
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/uicache"];
-        [task setArguments:arguments];
-        
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        
-        NSPipe *errorPipe = [[NSPipe alloc] init];
-        NSFileHandle *error = [errorPipe fileHandleForReading];
-        [error waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        
-        [task setStandardOutput:outputPipe];
-        [task setStandardError:errorPipe];
-        
-        [task launch];
-        [task waitUntilExit];
+        if (![ZBDevice needsSimulation]) {
+            [ZBDevice uicache:arguments observer:self];
+        } else {
+            [self writeToConsole:@"uicache is not available on the simulator\n" atLevel:ZBLogLevelWarning];
+        }
     }
     
-    [self removeAllDebs];
-    [self updateStatus:4];
-    
+    [self updateStatus:ZBStageDone];
+    [self updateCompleteButton];
+}
+
+- (void)updateCompleteButton {
+    [self.navigationItem setHidesBackButton:YES animated:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->_completeButton.hidden = false;
+        self->_completeButton.hidden = NO;
+        self->_progressText.text = nil;
         
-        if (self->needsRespring) {
-            UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
-            self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-            self.navigationItem.rightBarButtonItem = closeButton;
-            
+        if (self->hasZebraUpdated) {
+            [self addCloseButton];
+            [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
+            [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
+        } else if (self->needsRespring) {
+            [self addCloseButton];
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else {
+        } else {
             [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
         }
     });
 }
 
+- (void)addCloseButton {
+    if (self->hasZebraUpdated) {
+        return;
+    }
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+- (void)cancel {
+    [self.navigationItem setHidesBackButton:YES animated:NO];
+    [downloadManager stopAllDownloads];
+    [downloadingMap removeAllObjects];
+    self.navigationItem.leftBarButtonItem = nil;
+    _progressView.progress = 1;
+    _progressView.hidden = YES;
+    _progressText.text = nil;
+    _progressText.hidden = YES;
+    [self addCloseButton];
+    [queue clearQueue];
+    [self removeAllDebs];
+}
+
 - (void)goodbye {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self clearConsole];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)closeZebra {
+    if (![ZBDevice needsSimulation]) {
+        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+    }
+    exit(1); // Correct?
 }
 
 - (void)restartSpringBoard {
-    //Bye!
-    NSTask *task = [[NSTask alloc] init];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:@"/chimera"]) {
-        [task setLaunchPath:@"/usr/bin/sbreload"];
-    }
-    else {
-        [task setLaunchPath:@"/usr/bin/killall"];
-        [task setArguments:@[@"-9", @"backboardd"]];
-    }
-    
-    [task launch];
+    [ZBDevice sbreload];
 }
 
 - (void)refreshLocalPackages {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    [databaseManager setDatabaseDelegate:self];
-    [databaseManager justImportLocal];
+    [databaseManager addDatabaseDelegate:self];
+    [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
 }
 
 - (void)removeAllDebs {
@@ -299,39 +361,34 @@
         BOOL result = [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate debsLocation] stringByAppendingPathComponent:file] error:&error];
 
         if (!result && error) {
-            NSLog(@"Error while removing %@: %@", file, error);
+            NSLog(@"[Zebra] Error while removing %@: %@", file, error);
         }
     }
 }
 
-- (void)updateStatus:(int)s {
+- (void)updateStatus:(ZBStage)s {
+    stage = s;
     switch (s) {
-        case 0:
-            stage = 0;
+        case ZBStageInstall:
             [self setTitle:@"Installing"];
             [self writeToConsole:@"Installing Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 1:
-            stage = 1;
+        case ZBStageRemove:
             [self setTitle:@"Removing"];
             [self writeToConsole:@"Removing Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 2:
-            stage = 2;
+        case ZBStageReinstall:
             [self setTitle:@"Reinstalling"];
             [self writeToConsole:@"Reinstalling Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 3:
-            stage = 3;
+        case ZBStageUpgrade:
             [self setTitle:@"Upgrading"];
             [self writeToConsole:@"Upgrading Packages...\n" atLevel:ZBLogLevelInfo];
             break;
-        case 4:
-            stage = 4;
+        case ZBStageDone:
             [self setTitle:@"Done!"];
             [self writeToConsole:@"Done!\n" atLevel:ZBLogLevelInfo];
             break;
-
         default:
             break;
     }
@@ -341,7 +398,7 @@
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
 
-    if (data.length > 0) {
+    if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self writeToConsole:str atLevel:ZBLogLevelDescript];
@@ -352,14 +409,13 @@
     NSFileHandle *fh = [notif object];
     NSData *data = [fh availableData];
 
-    if (data.length > 0) {
+    if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
-        }
-        else if ([str rangeOfString:@"error"].location != NSNotFound) {
+        } else if ([str rangeOfString:@"error"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
@@ -370,7 +426,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
-        switch(level) {
+        switch (level) {
             case ZBLogLevelDescript:
                 color = [UIColor whiteColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
@@ -396,40 +452,66 @@
 
         [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
-        if (self->_consoleView.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
+        if (self->_consoleView.text.length) {
+            NSRange bottom = NSMakeRange(self->_consoleView.text.length - 1, 1);
             [self->_consoleView scrollRangeToVisible:bottom];
         }
     });
 }
 
+- (void)clearConsole {
+    _consoleView.text = nil;
+}
+
 - (IBAction)complete:(id)sender {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self goodbye];
 }
 
 #pragma mark - Hyena Delegate
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
-    NSArray *debs = [filenames objectForKey:@"debs"];
-    
-    [self performSelectorInBackground:@selector(performActions:) withObject:debs];
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
+    downloadingMap[package.identifier] = @(progress);
+    CGFloat totalProgress = 0;
+    for (NSString *packageID in downloadingMap) {
+        totalProgress += [downloadingMap[packageID] doubleValue];
+    }
+    totalProgress /= downloadingMap.count;
+    [_progressView setProgress:totalProgress animated:YES];
+    _progressText.text = [NSString stringWithFormat:@"Downloading: %.1f%%", totalProgress * 100];
+}
+
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames {
+    _progressText.text = nil;
+    if (filenames.count) {
+        NSArray *debs = [filenames objectForKey:@"debs"];
+        [self performSelectorInBackground:@selector(performActions:) withObject:debs];
+    } else {
+        continueWithActions = NO;
+        [self cancel];
+        [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
+        [self updateStatus:ZBStageDone];
+        [self updateCompleteButton];
+    }
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
     [self writeToConsole:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
 }
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(nonnull NSString *)filename withError:(NSError * _Nullable)error {
+- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
     if (error != NULL) {
-        continueWithActions = false;
-        [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
-    }
-    else {
+        continueWithActions = NO;
+        [self writeToConsole:[error.localizedDescription stringByAppendingString:@"\n"] atLevel:ZBLogLevelError];
+    } else if (filename) {
         [self writeToConsole:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
     }
 }
 
 #pragma mark - Database Delegate
+
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    [self writeToConsole:status atLevel:level];
+}
 
 - (void)databaseStartedUpdate {
     [self writeToConsole:@"Importing local packages.\n" atLevel:ZBLogLevelInfo];
@@ -440,8 +522,10 @@
     
     NSLog(@"[Zebra] %d updates available.", packageUpdates);
     
-    ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-    [tabController setPackageUpdateBadgeValue:packageUpdates];
+    if (packageUpdates != -1) {
+        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+        [tabController setPackageUpdateBadgeValue:packageUpdates];
+    }
     
     [self finishUp];
 }

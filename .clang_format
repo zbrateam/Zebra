@@ -1,0 +1,17 @@
+BasedOnStyle: LLVM
+Language: ObjC
+ColumnLimit: 250
+MaxEmptyLinesToKeep: 1
+PointerBindsToType: false
+AllowShortBlocksOnASingleLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AlignTrailingComments: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeAssignmentOperators: true
+SpacesInContainerLiterals: true
+ObjCSpaceAfterProperty: false
+ObjCSpaceBeforeProtocolList: true
+SortIncludes: true
+IndentWidth: 4
+TabWidth: 4
+ObjCBlockIndentWidth: 4

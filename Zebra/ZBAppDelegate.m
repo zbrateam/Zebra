@@ -6,59 +6,65 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import "NSTask.h"
+#import "UIProgressHUD.h"
 #import "ZBAppDelegate.h"
+#import "ZBTabBarController.h"
+#import "ZBTab.h"
+#import "ZBDevice.h"
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
-#import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <SDWebImage/SDImageCacheConfig.h>
+#import <SDWebImage/SDImageCache.h>
 
 @interface ZBAppDelegate ()
 
 @end
 
+static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
+
 @implementation ZBAppDelegate
 
-+ (NSString *)documentsDirectory {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    if ([paths[0] isEqualToString:@"/var/mobile/Documents"]) {
-        NSString *path = [paths[0] stringByAppendingPathComponent:@"xyz.willy.Zebra"];
-        
-        BOOL dirExsits;
-        [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExsits];
-        if (!dirExsits) {
-            NSLog(@"[Zebra] Creating documents directory.");
-            NSError *error;
-            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&error];
-            
-            if (error != NULL) {
-                [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
-                NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
-            }
-        }
-        
-        return path;
-    }
-    else {
-        return paths[0];
-    }
++ (NSString *)bundleID {
+    return [[NSBundle mainBundle] bundleIdentifier];
 }
 
-+ (BOOL)needsSimulation {
-    return ![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Zebra.app/supersling"];
++ (NSString *)documentsDirectory {
+    NSString *path_ = nil;
+    if (![ZBDevice needsSimulation]) {
+        path_ = @"/var/mobile/Library/Application Support";
+    } else {
+        path_ = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    }
+    NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
+    BOOL dirExists = NO;
+    [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
+    if (!dirExists) {
+        NSLog(@"[Zebra] Creating documents directory.");
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+        
+        if (error != NULL) {
+            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+        }
+    }
+    
+    return path;
 }
 
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-    BOOL dirExsits;
-    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExsits];
-    if (!dirExsits) {
+    BOOL dirExists = NO;
+    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
+    if (!dirExists) {
         NSLog(@"[Zebra] Creating lists directory.");
         NSError *error;
-        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:true attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating lists directory: %@.", error.localizedDescription]];
@@ -69,7 +75,7 @@
 }
 
 + (NSURL *)sourcesListURL {
-    return [NSURL URLWithString:[@"file://" stringByAppendingString:[self sourcesListPath]]];
+    return [NSURL fileURLWithPath:[self sourcesListPath]];
 }
 
 + (NSString *)sourcesListPath {
@@ -93,12 +99,12 @@
 
 + (NSString *)debsLocation {
     NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
-    BOOL dirExsits;
-    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExsits];
-    if (!dirExsits) {
+    BOOL dirExists = NO;
+    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
+    if (!dirExists) {
         NSLog(@"[Zebra] Creating debs directory.");
         NSError *error;
-        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:true attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating debs directory: %@.", error.localizedDescription]];
@@ -108,25 +114,35 @@
     return debs;
 }
 
-+ (void)sendErrorToTabController:(NSString *)error {
++ (void)sendErrorToTabController:(NSString *)error blockAction:(NSString *)action block:(void (^)(void))block {
     ZBTabBarController *tabController = (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
     if (tabController != NULL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"An Error Occured" message:error preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [errorAlert dismissViewControllerAnimated:true completion:nil];
-            }];
-            
+            if (action != nil && block != NULL) {
+                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:action style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
+                    block();
+                }];
+                [errorAlert addAction:blockAction];
+            }
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil];
             [errorAlert addAction:okAction];
-            
-            [tabController presentViewController:errorAlert animated:true completion:nil];
+            [tabController presentViewController:errorAlert animated:YES completion:nil];
         });
     }
 }
 
++ (void)sendErrorToTabController:(NSString *)error {
+    [self sendErrorToTabController:error blockAction:nil block:NULL];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
+    NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
+    
+    [self setupSDWebImageCache];
+    [ZBDevice applyThemeSettings];
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -134,8 +150,7 @@
                 NSLog(@"[Zebra] Error: %@", error.localizedDescription);
             } else if (!granted) {
                 NSLog(@"[Zebra] Authorization was not granted.");
-            }
-            else {
+            } else {
                 NSLog(@"[Zebra] Notification access granted.");
             }
         }];
@@ -146,72 +161,73 @@
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
-    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    
     NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
     switch (index) {
-        case 0: { //file
+        case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                if (![ZBAppDelegate needsSimulation]) {
+                if (![ZBDevice needsSimulation]) {
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                     UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
                     
                     ZBExternalPackageTableViewController *external = vc.viewControllers[0];
                     external.fileURL = url;
                     
-                    [self.window.rootViewController presentViewController:vc animated:true completion:nil];
+                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+                    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
                 }
-            }
-            else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
+            } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-                [tabController setSelectedIndex:1];
+                [tabController setSelectedIndex:ZBTabSources];
                 
                 ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 [repoController handleImportOf:url];
             }
             break;
         }
-        case 1: { //zbra
+        case 1: { // zbra
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-            NSLog(@"%@", [url host]);
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-            choices = @[@"home", @"sources", @"packages", @"search"];
+            choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
             index = (int)[choices indexOfObject:components[0]];
             
             switch (index) {
                 case 0: {
-                    [tabController setSelectedIndex:0];
+                    [tabController setSelectedIndex:ZBTabHome];
                     break;
                 }
                 case 1: {
-                    [tabController setSelectedIndex:1];
+                    [tabController setSelectedIndex:ZBTabSources];
                     
                     ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [repoController handleURL:url];
                     break;
                 }
                 case 2: {
-                    if (![[url path] isEqual:@""]) {
-                        NSString *packageID = [[url path] substringFromIndex:1];
-                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                        
-                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                        
-                        [tabController presentViewController:navController animated:true completion:nil];
-                    }
-                    else {
-                        [tabController setSelectedIndex:2];
-                    }
+                    [tabController setSelectedIndex:ZBTabChanges];
                     break;
                 }
                 case 3: {
-                    [tabController setSelectedIndex:3];
+                    NSString *path = [url path];
+                    if (path.length > 1) {
+                        NSString *packageID = [path substringFromIndex:1];
+                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                        if (packageController) {
+                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                            [tabController presentViewController:navController animated:YES completion:nil];
+                        }
+                    } else {
+                        [tabController setSelectedIndex:ZBTabPackages];
+                    }
+                    break;
+                }
+                case 4: {
+                    [tabController setSelectedIndex:ZBTabSearch];
                     
                     ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [searchController handleURL:url];
@@ -220,38 +236,31 @@
             }
             break;
         }
-        case 2: { //cydia
+        case 2: { // cydia
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-            NSLog(@"%@", [url host]);
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"installed", @"package", @"search", @"url"];
             index = (int)[choices indexOfObject:components[0]];
             
             switch (index) {
-                case 0: {
-                    [tabController setSelectedIndex:0];
-                    break;
-                }
-                case 1: {
-                    [tabController setSelectedIndex:1];
-                    break;
-                }
-                case 2:
-                case 3: {
-                    [tabController setSelectedIndex:2];
+                case 0 ... 3: {
+                    [tabController setSelectedIndex:index];
                     break;
                 }
                 case 4: {
-                    NSString *packageID = [[url path] substringFromIndex:1];
-                    ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                    
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                    
-                    [tabController presentViewController:navController animated:true completion:nil];
+                    NSString *path = [url path];
+                    if (path.length > 1) {
+                        NSString *packageID = [path substringFromIndex:1];
+                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                        if (packageController) {
+                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                            [tabController presentViewController:navController animated:YES completion:nil];
+                        }
+                    }
                     break;
                 }
                 case 5: {
-                    [tabController setSelectedIndex:3];
+                    [tabController setSelectedIndex:ZBTabSearch];
                     
                     ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [searchController handleURL:url];
@@ -261,7 +270,7 @@
                     NSArray *components = [[url absoluteString] componentsSeparatedByString:@"share#?source="];
                     if ([components count] == 2) {
                         NSString *sourceURL = [components[1] componentsSeparatedByString:@"&package"][0];
-                        [tabController setSelectedIndex:1];
+                        [tabController setSelectedIndex:ZBTabSources];
                         
                         ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                         
@@ -273,34 +282,45 @@
             }
             break;
         }
-        case 3: { //sileo
+        case 3: { // sileo
             NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
-            if([sourceApplication isEqualToString:@"com.apple.SafariViewService"]){
-                NSLog(@"SILEO OUTPUT %@", url);
-                NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
+            if ([sourceApplication isEqualToString:@"com.apple.SafariViewService"]) {
+                NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+                choices = @[@"authentication_success", @"payment_completed"];
+                index = (int)[choices indexOfObject:components[0]];
+                switch (index) {
+                    case 0: { // Authenticated
+                        NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
+                        break;
+                    }
+                    case 1: { // Purchase
+                        // Reading their documentation, a callback may not be required here. I will leave this case switch for future use however, in case I am proven wrong.
+                        break;
+                    }
+                }
+                
             }
             break;
             
         }
-        default: { //WHO ARE YOU????
-            return false;
+        default: { // WHO ARE YOU????
+            return NO;
         }
     }
     
-    return true;
+    return YES;
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
-        [tabController setSelectedIndex:3];
+        [tabController setSelectedIndex:ZBTabSearch];
         
         ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [searchController handleURL:NULL];
-    }
-    else if ([shortcutItem.type isEqualToString:@"Add"]) {
-        [tabController setSelectedIndex:1];
+    } else if ([shortcutItem.type isEqualToString:@"Add"]) {
+        [tabController setSelectedIndex:ZBTabSources];
         
         ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
@@ -330,6 +350,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setupSDWebImageCache {
+    [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
 }
 
 @end
