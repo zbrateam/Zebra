@@ -19,7 +19,7 @@
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *featuredPackages;
-    NSArray<NSDictionary <NSString *, NSDictionary *> *> *communityNewsPosts;
+    NSMutableArray *communityNewsPosts;
 }
 
 @end
@@ -123,13 +123,28 @@
             return;
         }
         
-        self->communityNewsPosts = [[json objectForKey:@"data"] objectForKey:@"children"];
+        NSArray<NSDictionary <NSString *, NSDictionary *> *> *children = [[json objectForKey:@"data"] objectForKey:@"children"];
+        
+        for (NSDictionary *child in children) {
+            NSDictionary *post = [child objectForKey:@"data"];
+            
+            if ([[post objectForKey:@"stickied"] boolValue] == false && [self acceptableFlair:[post objectForKey:@"link_flair_text"]]) {
+                [self->communityNewsPosts addObject:post];
+            }
+            
+            if ([self->communityNewsPosts count] == 3) break;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)] withRowAnimation:UITableViewRowAnimationFade];
         });
     }];
     
     [task resume];
+}
+
+- (BOOL)acceptableFlair:(NSString *)flairText {
+    NSArray *acceptableFlairs = @[@"release", @"update", @"upcoming", @"news"];
+    return [acceptableFlairs containsObject:[flairText lowercaseString]];
 }
 
 - (void)cacheFeaturedPackages {
@@ -223,9 +238,10 @@
         case 1: { //Community News
             ZBCommunityNewsTableViewCell *cell = (ZBCommunityNewsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
             
-            NSDictionary *post = [[communityNewsPosts objectAtIndex:indexPath.row] objectForKey:@"data"];
+            NSDictionary *post = [communityNewsPosts objectAtIndex:indexPath.row];
+            NSArray *components = [[post objectForKey:@"title"] componentsSeparatedByString:@"] "];
             
-            cell.titleLabel.text = [post objectForKey:@"title"];
+            cell.titleLabel.text = [components count] > 1 ? components[1] : components[0];
             
             return cell;
         }
