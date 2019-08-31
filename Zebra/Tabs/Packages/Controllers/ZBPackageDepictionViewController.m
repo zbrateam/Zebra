@@ -596,7 +596,7 @@ enum ZBPackageInfoOrder {
     webView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView reloadData];
     self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.packageName.textColor = [UIColor cellPrimaryTextColor];

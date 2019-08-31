@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import <Views/ZBFeaturedCollectionViewCell.h>
 
@@ -17,10 +18,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -42,14 +43,14 @@
     switch (indexPath.section) {
         case 0: {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"featuredPackageTableCell" forIndexPath:indexPath];
-            
+
             return cell;
         }
         default: {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"somethingWrongIHoldMyHead"];
-            
+
             cell.textLabel.text = @"Something is very wrong here...";
-            
+
             return cell;
         }
     }
@@ -61,7 +62,7 @@
     if (indexPath.section == 0) {
         return 246;
     }
-    
+
     else {
         return 44;
     }
@@ -103,7 +104,7 @@
 
 /*
  #pragma mark - Navigation
- 
+
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].

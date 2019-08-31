@@ -7,6 +7,7 @@
 //
 
 #import "ZBPackageActionsManager.h"
+#import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
@@ -26,18 +27,7 @@
 }
 
 + (void)presentQueue:(UIViewController *)vc parent:(UIViewController *)parent {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UINavigationController *qvc = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
-    
-    if (vc.navigationController == NULL && parent != NULL) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [parent presentViewController:qvc animated:YES completion:nil];
-        });
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [vc presentViewController:qvc animated:YES completion:nil];
-        });
-    }
+    [[ZBAppDelegate tabBarController] openQueueBar:YES];
 }
 
 + (BOOL)canHaveAction:(NSUInteger)possibleActions forPackage:(ZBPackage *)package queue:(ZBQueueType)q {

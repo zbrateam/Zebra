@@ -226,6 +226,7 @@ typedef enum {
 - (void)clearQueue {
     [[ZBQueue sharedInstance] clearQueue];
     [self refreshTable];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
 - (void)sharePackages {

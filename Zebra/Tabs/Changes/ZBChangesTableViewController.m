@@ -8,6 +8,7 @@
 
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
+#import <ZBSettings.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -62,7 +63,7 @@
 
 - (void)startSettingHeader  {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([defaults boolForKey:@"wantsNews"]) {
+    if ([defaults boolForKey:wantsNewsKey]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // [self retrieveNewsJson];
             [self kickStartReddit];
@@ -470,7 +471,7 @@
 }
 
 - (void)toggleNews {
-    if ([defaults boolForKey:@"wantsNews"]) {
+    if ([defaults boolForKey:wantsNewsKey]) {
         [self retrieveNewsJson];
     } else {
         [self.redditPosts removeAllObjects];

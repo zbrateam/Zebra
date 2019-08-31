@@ -7,11 +7,13 @@
 //
 
 #import <ZBLog.h>
+#import <ZBAppDelegate.h>
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
 @import SDWebImage;
+@import LNPopupController;
 
 @interface ZBQueueViewController () {
     ZBQueue *_queue;
@@ -29,23 +31,36 @@
     self.title = @"Queue";
 }
 
+- (void)clearQueueBarData {
+    self.navigationController.popupItem.title = @"Queue cleared";
+    self.navigationController.popupItem.subtitle = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self refreshTable];
 }
 
 - (IBAction)confirm:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    [self clearQueueBarData];
+    ZBTabBarController *tab = [ZBAppDelegate tabBarController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [[self navigationController] pushViewController:vc animated:YES];
+    [tab presentViewController:vc animated:YES completion:^(void) {
+        [tab dismissPopupBarAnimated:NO completion:nil];
+    }];
 }
 
 - (IBAction)abort:(id)sender {
     if (!self.navigationItem.rightBarButtonItem.enabled) {
         [_queue clearQueue];
+        [self clearQueueBarData];
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+    } else {
+        [[ZBAppDelegate tabBarController] closePopupAnimated:YES completion:nil];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)clear:(id)sender {
@@ -119,6 +134,7 @@
     }
     return title;
 }
+
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     // Text Color
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
@@ -230,7 +246,7 @@
 #pragma mark - Table View Delegate
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([_queue hasErrors]) return NO;
+    if ([_queue hasErrors] || ![_queue hasObjects]) return NO;
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {

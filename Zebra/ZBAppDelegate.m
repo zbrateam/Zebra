@@ -6,12 +6,11 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "NSTask.h"
-#import "UIProgressHUD.h"
 #import "ZBAppDelegate.h"
 #import "ZBTabBarController.h"
-#import "ZBTab.h"
-#import "ZBDevice.h"
+#import <ZBTab.h>
+#import <ZBDevice.h>
+#import <ZBSettings.h>
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
@@ -114,8 +113,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     return debs;
 }
 
++ (ZBTabBarController *)tabBarController {
+    return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+}
+
 + (void)sendErrorToTabController:(NSString *)error blockAction:(NSString *)action block:(void (^)(void))block {
-    ZBTabBarController *tabController = (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+    ZBTabBarController *tabController = [self tabBarController];
     if (tabController != NULL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"An Error Occured" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -135,6 +138,20 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (void)sendErrorToTabController:(NSString *)error {
     [self sendErrorToTabController:error blockAction:nil block:NULL];
+}
+
+- (void)setDefaultValues {
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    if (![settings objectForKey:liveSearchKey]) {
+        [settings setBool:YES forKey:liveSearchKey];
+    }
+    if (![settings objectForKey:wantsFeaturedKey]) {
+        [settings setBool:YES forKey:wantsFeaturedKey];
+    }
+    if (![settings objectForKey:wantsNewsKey]) {
+        [settings setBool:YES forKey:wantsNewsKey];
+    }
+    [settings synchronize];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -161,6 +178,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+    [self setDefaultValues];
     return YES;
 }
 
