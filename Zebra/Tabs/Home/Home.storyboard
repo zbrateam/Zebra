@@ -43,17 +43,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oF9-V6-HzX">
-                                            <rect key="frame" x="16" y="16" width="382" height="213.5"/>
+                                            <rect key="frame" x="0.0" y="16" width="414" height="213.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XrV-qH-yeG">
                                                 <size key="itemSize" width="250" height="213"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="featuredPackageCollectionCell" id="2H3-eP-0S1" customClass="ZBFeaturedCollectionViewCell">
-                                                    <rect key="frame" x="0.0" y="0.5" width="250" height="213"/>
+                                                    <rect key="frame" x="16" y="0.5" width="250" height="213"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="250" height="213"/>
@@ -111,10 +111,10 @@
                                         </collectionView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="oF9-V6-HzX" secondAttribute="bottom" constant="16" id="8Xg-CN-hSN"/>
-                                        <constraint firstItem="oF9-V6-HzX" firstAttribute="top" secondItem="7cP-pD-HZ6" secondAttribute="top" constant="16" id="AkY-TU-cC4"/>
-                                        <constraint firstAttribute="trailing" secondItem="oF9-V6-HzX" secondAttribute="trailing" constant="16" id="baV-b3-ClV"/>
-                                        <constraint firstItem="oF9-V6-HzX" firstAttribute="leading" secondItem="7cP-pD-HZ6" secondAttribute="leading" constant="16" id="vnb-Wt-XfK"/>
+                                        <constraint firstItem="oF9-V6-HzX" firstAttribute="leading" secondItem="7cP-pD-HZ6" secondAttribute="leading" id="EZ4-5B-sB4"/>
+                                        <constraint firstAttribute="trailing" secondItem="oF9-V6-HzX" secondAttribute="trailing" id="OfK-rS-zia"/>
+                                        <constraint firstItem="oF9-V6-HzX" firstAttribute="top" secondItem="7cP-pD-HZ6" secondAttribute="topMargin" constant="5" id="Q67-Jf-VSX"/>
+                                        <constraint firstItem="oF9-V6-HzX" firstAttribute="centerY" secondItem="7cP-pD-HZ6" secondAttribute="centerY" id="iRg-g6-pTh"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
