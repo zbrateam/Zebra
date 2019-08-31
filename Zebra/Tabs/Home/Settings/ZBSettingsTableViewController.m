@@ -204,6 +204,8 @@ enum ZBMiscOrder {
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     cell.imageView.image = nil;
     cell.accessoryView = nil;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInfo: {
@@ -304,7 +306,6 @@ enum ZBMiscOrder {
                     [segmentedControl addTarget:self action:@selector(featuredSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
                     cell.accessoryView = segmentedControl;
                     cell.textLabel.text = @"Feature Type";
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
                 }
                 default: {
@@ -345,7 +346,6 @@ enum ZBMiscOrder {
                 segmentedControl.tintColor = [UIColor tintColor];
                 [segmentedControl addTarget:self action:@selector(iconActionSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
                 cell.accessoryView = segmentedControl;
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             }
             cell.textLabel.text = text;
@@ -355,11 +355,11 @@ enum ZBMiscOrder {
             NSString *text = nil;
             if (indexPath.row == ZBDropTables) {
                 text = @"Drop Tables";
-            } else if (indexPath.row == ZBOpenDocs){
+            } else if (indexPath.row == ZBOpenDocs) {
                 text = @"Open Documents Directory";
             } else if (indexPath.row == ZBClearImageCache) {
                 text = @"Clear Image Cache";
-            } else if (indexPath.row == ZBClearKeychain){
+            } else if (indexPath.row == ZBClearKeychain) {
                 text = @"Clear Keychain";
             }
             cell.textLabel.text = text;
