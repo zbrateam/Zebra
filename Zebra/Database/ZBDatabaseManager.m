@@ -1177,7 +1177,7 @@
     return NULL;
 }
 
-- (NSArray *)packagesWithReachableIconsForRows:(int)limit{
+- (NSArray *)packagesWithReachableIconsForRows:(int)limit {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         
@@ -1189,6 +1189,9 @@
                 [packages addObject:package];
  
             }
+        }
+        else {
+            [self printDatabaseError];
         }
         return packages;
     }

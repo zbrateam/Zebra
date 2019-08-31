@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@import SDWebImage;
+
 #import "ZBFeaturedCollectionViewCell.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Repos/Helpers/ZBRepo.h>
@@ -25,8 +27,6 @@
     repoNameLabel.textColor = [UIColor tintColor];
     tweakDescriptionLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     
-    bannerImageView.backgroundColor = [UIColor redColor];
-    
     bannerImageView.layer.cornerRadius = 6;
     bannerImageView.layer.masksToBounds = true;
 }
@@ -37,6 +37,8 @@
     repoNameLabel.text = [[[package repo] origin] uppercaseString];
     tweakNameLabel.text = [package name];
     tweakDescriptionLabel.text = [package shortDescription];
+    
+    [bannerImageView sd_setImageWithURL:[NSURL URLWithString:[package iconPath]]];
 }
 
 @end
