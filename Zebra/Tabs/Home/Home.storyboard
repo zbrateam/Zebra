@@ -121,26 +121,21 @@
                                     <outlet property="collectionView" destination="oF9-V6-HzX" id="Y24-Gg-spu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headerTableCell" rowHeight="38" id="VyF-51-e7r">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headerTableCell" textLabel="TyB-qO-bxF" rowHeight="38" style="IBUITableViewCellStyleDefault" id="VyF-51-e7r">
                                 <rect key="frame" x="0.0" y="274" width="414" height="38"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VyF-51-e7r" id="yeU-22-ihm">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="37.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsk-6o-xg0">
-                                            <rect key="frame" x="16" y="5" width="382" height="27.5"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TyB-qO-bxF">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="37.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="tsk-6o-xg0" secondAttribute="trailing" constant="16" id="EWM-uK-R6T"/>
-                                        <constraint firstItem="tsk-6o-xg0" firstAttribute="top" secondItem="yeU-22-ihm" secondAttribute="top" constant="5" id="V7d-Aj-IIf"/>
-                                        <constraint firstItem="tsk-6o-xg0" firstAttribute="leading" secondItem="yeU-22-ihm" secondAttribute="leading" constant="16" id="hwn-IO-J0U"/>
-                                        <constraint firstAttribute="bottom" secondItem="tsk-6o-xg0" secondAttribute="bottom" constant="5" id="yvp-hQ-QKR"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsTableCell" rowHeight="61" id="WRw-hh-DDm">

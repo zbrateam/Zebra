@@ -105,27 +105,51 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    if (section == 0 && [featuredPackages count] == 0) { //Don't show featured packages if they haven't loaded yet
-        return 0;
+    switch (section) {
+        case 0:
+            return [featuredPackages count] == 0 ? 0 : 1; //Don't show featured packages if they haven't loaded yet
+        case 1:
+            return 3;
+        case 2:
+            return 1;
+        case 3:
+            return 3;
+        default:
+            return 0;
     }
-
-    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0: {
+        case 0: { //Featured Packages
             ZBFeaturedTableViewCell *cell = (ZBFeaturedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"featuredPackageTableCell" forIndexPath:indexPath];
 
             [cell updatePackages:featuredPackages];
 
             return cell;
         }
+        case 1: { //Community News
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
+            
+            return cell;
+        }
+        case 2: { //Changelog
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
+            
+            return cell;
+        }
+        case 3: { //Links
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonTableCell" forIndexPath:indexPath];
+            
+            return cell;
+        }
+//        case 4: { //Credits and Device information
+//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
+//        }
         default: {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"somethingWrongIHoldMyHead"];
 
@@ -138,13 +162,38 @@
 
 #pragma mark - Table view layout
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 246;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerTableCell"];
+        
+        cell.textLabel.text = @"Community News";
+        
+        return cell;
     }
+    
+    return NULL;
+}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return 38;
+    }
     else {
-        return 44;
+        return 0;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+            return 246;
+        case 1:
+        case 2:
+            return 61;
+        case 3:
+            return 52;
+        default:
+            return 0;
     }
 }
 
