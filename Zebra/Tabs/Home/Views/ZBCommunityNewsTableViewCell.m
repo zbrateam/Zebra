@@ -12,11 +12,13 @@
 @implementation ZBCommunityNewsTableViewCell
 
 @synthesize titleLabel;
+@synthesize tagLabel;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
 
     titleLabel.textColor = [UIColor tintColor];
+    tagLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

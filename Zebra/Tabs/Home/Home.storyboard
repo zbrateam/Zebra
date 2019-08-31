@@ -138,44 +138,53 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsTableCell" rowHeight="61" id="WRw-hh-DDm" customClass="ZBCommunityNewsTableViewCell">
-                                <rect key="frame" x="0.0" y="312" width="414" height="61"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsTableCell" rowHeight="60" id="WRw-hh-DDm" customClass="ZBCommunityNewsTableViewCell">
+                                <rect key="frame" x="0.0" y="312" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WRw-hh-DDm" id="R9E-yx-Jhe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="60.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of news" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egx-wJ-aFR">
-                                            <rect key="frame" x="16" y="20" width="382" height="21"/>
+                                            <rect key="frame" x="16" y="27" width="382" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0M-7D-Q6h">
+                                            <rect key="frame" x="16" y="11" width="17" height="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Egx-wJ-aFR" secondAttribute="trailing" constant="16" id="Koh-a5-EOX"/>
-                                        <constraint firstItem="Egx-wJ-aFR" firstAttribute="leading" secondItem="R9E-yx-Jhe" secondAttribute="leading" constant="16" id="bDV-Wy-wuR"/>
-                                        <constraint firstItem="Egx-wJ-aFR" firstAttribute="centerY" secondItem="R9E-yx-Jhe" secondAttribute="centerY" id="wDf-9a-HFS"/>
+                                        <constraint firstItem="Egx-wJ-aFR" firstAttribute="top" secondItem="I0M-7D-Q6h" secondAttribute="bottom" constant="2" id="RqL-Cq-buF"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Egx-wJ-aFR" secondAttribute="bottom" constant="1" id="kBF-9K-Ijo"/>
+                                        <constraint firstItem="Egx-wJ-aFR" firstAttribute="centerX" secondItem="R9E-yx-Jhe" secondAttribute="centerX" id="nL1-Gf-uXi"/>
+                                        <constraint firstItem="I0M-7D-Q6h" firstAttribute="leading" secondItem="Egx-wJ-aFR" secondAttribute="leading" id="nRF-eP-yOA"/>
+                                        <constraint firstItem="I0M-7D-Q6h" firstAttribute="leading" secondItem="R9E-yx-Jhe" secondAttribute="leadingMargin" constant="-4" id="zEB-VY-0Jy"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="tagLabel" destination="I0M-7D-Q6h" id="pfq-IB-SBn"/>
                                     <outlet property="titleLabel" destination="Egx-wJ-aFR" id="tt8-HW-grY"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="iconTableCell" rowHeight="61" id="Avi-mW-kJL" customClass="ZBIconTableViewCell">
-                                <rect key="frame" x="0.0" y="373" width="414" height="61"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="iconTableCell" rowHeight="60" id="Avi-mW-kJL" customClass="ZBIconTableViewCell">
+                                <rect key="frame" x="0.0" y="372" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Avi-mW-kJL" id="ViB-WM-ZPA">
-                                    <rect key="frame" x="0.0" y="0.0" width="376" height="60.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cell Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEh-Jn-UnU">
-                                            <rect key="frame" x="52.5" y="20" width="307.5" height="21"/>
+                                            <rect key="frame" x="51.5" y="19.5" width="308.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a0f-S8-Yls">
-                                            <rect key="frame" x="16" y="16" width="28.5" height="28.5"/>
+                                            <rect key="frame" x="16" y="16" width="27.5" height="27.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="a0f-S8-Yls" secondAttribute="height" multiplier="1:1" id="TSD-Dk-Hkl"/>
                                             </constraints>
@@ -196,7 +205,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonTableCell" rowHeight="52" id="Iw2-eA-6OU" customClass="ZBButtonTableViewCell">
-                                <rect key="frame" x="0.0" y="434" width="414" height="52"/>
+                                <rect key="frame" x="0.0" y="432" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Iw2-eA-6OU" id="tlO-0a-xSa">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="51.5"/>

@@ -242,6 +242,7 @@
             NSArray *components = [[post objectForKey:@"title"] componentsSeparatedByString:@"] "];
             
             cell.titleLabel.text = [components count] > 1 ? components[1] : components[0];
+            cell.tagLabel.text = [[post objectForKey:@"link_flair_text"] uppercaseString];
             
             return cell;
         }
@@ -249,6 +250,7 @@
             ZBIconTableViewCell *cell = (ZBIconTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
             
             cell.titleLabel.text = @"Changelog";
+            cell.iconImageView.image = [UIImage imageNamed:@"changelog@3x.png"];
             
             return cell;
         }
@@ -285,7 +287,7 @@
 #pragma mark - Table view layout
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 1 && [communityNewsPosts count] != 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerTableCell"];
         
         cell.textLabel.text = @"Community News";
@@ -297,7 +299,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 1 && [communityNewsPosts count] != 0) {
         return 38;
     }
     else {
@@ -311,7 +313,7 @@
             return 246;
         case 1:
         case 2:
-            return 61;
+            return 60;
         case 3:
             return 52;
         default:
