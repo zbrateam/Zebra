@@ -500,21 +500,17 @@
         NSMutableArray *baseURLs = [NSMutableArray new];
         for (NSString *line in destinationContents) {
             NSArray *contents = [line componentsSeparatedByString:@" "];
-            if ([contents count] == 0 || [contents count] == 4) continue;
-            
-            if ([contents[0] isEqualToString:@"deb"]) {
+            if ([contents count] != 0 && [contents[0] isEqualToString:@"deb"]) {
                 NSURL *url = [NSURL URLWithString:contents[1]];
                 NSString *urlString = [self normalizedURLString:url];
-                
+                    
                 [baseURLs addObject:urlString];
             }
         }
         
         for (NSString *line in sourcesContents) {
             NSArray *contents = [line componentsSeparatedByString:@" "];
-            if ([contents count] == 0 || [contents count] == 4) continue;
-            
-            if ([contents[0] isEqualToString:@"deb"]) {
+            if ([contents count] != 0 && [contents[0] isEqualToString:@"deb"]) {
                 NSURL *url = [NSURL URLWithString:contents[1]];
                 NSString *urlString = [self normalizedURLString:url];
                 
@@ -540,7 +536,7 @@
         }
         
         completion(NULL);
-    } else if ([[fromURL pathExtension] isEqualToString:@"sources"] && [[destinationURL pathExtension] isEqualToString:@"list"]) {
+    } else if ([[fromURL pathExtension] isEqualToString:@"sources"] && [[destinationURL pathExtension] isEqualToString:@"list"]) { //sileo sources format
         NSError *readError;
         NSString *destinationString = [NSString stringWithContentsOfURL:destinationURL encoding:NSUTF8StringEncoding error:&readError];
         NSArray *destinationContents = [destinationString componentsSeparatedByString:@"\n"];
