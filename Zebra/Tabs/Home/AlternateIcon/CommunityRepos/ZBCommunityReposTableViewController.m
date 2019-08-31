@@ -26,12 +26,16 @@ enum ZBSourcesOrder {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.navigationItem setTitle:@"Community Repos"];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     availableManagers = [NSMutableArray new];
     self.repoManager = [ZBRepoManager sharedInstance];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -6,13 +6,14 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBSettings.h>
 #import <ZBDevice.h>
 #import "UIColor+GlobalColors.h"
 
 @implementation UIColor (GlobalColors)
 
 + (UIColor *)tintColor {
-    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:@"tintSelection"];
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
         switch ([number integerValue]) {
             case ZBDefaultTint :

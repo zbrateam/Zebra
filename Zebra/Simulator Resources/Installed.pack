@@ -1506,7 +1506,7 @@ Section: Packaging
 Installed-Size: 3124
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.0~beta19
+Version: 1:0
 Depends: dpkg, uikittools
 Description: A Useful Package Manager
 Name: Zebra (BETA)
