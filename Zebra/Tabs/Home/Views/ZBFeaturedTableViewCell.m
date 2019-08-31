@@ -9,22 +9,25 @@
 #import "ZBFeaturedTableViewCell.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation ZBFeaturedTableViewCell
 
 @synthesize collectionView;
+@synthesize packages;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
     collectionView.delegate = self;
     collectionView.dataSource = self;
+    packages = NULL;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)updatePackages:(NSArray <ZBPackage *> *)newPackages {
+    packages = newPackages;
+    
+    [collectionView reloadData];
 }
 
 #pragma mark - Collection view data source
@@ -32,15 +35,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"featuredPackageCollectionCell" forIndexPath:indexPath];
     
-    cell.tweakNameLabel.text = @"Dank Tweak";
-    
-    cell.tweakDescriptionLabel.text = @"Probably the best tweak out there";
-    cell.tweakDescriptionLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    
-    cell.repoNameLabel.text = @"CHARIZ";
-    cell.repoNameLabel.textColor = [UIColor tintColor];
-    
-//    cell.bannerImageView.image = [UIImage imageNamed:@"banner.png"];
+    [cell updatePackage:[packages objectAtIndex:indexPath.row]];
     
     return cell;
 }
@@ -50,9 +45,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
-    return 3;
+    return packages.count;
 }
-
 
 @end

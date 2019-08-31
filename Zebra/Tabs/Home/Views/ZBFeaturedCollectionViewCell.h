@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBPackage;
+
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -15,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UILabel *tweakNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tweakDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *bannerImageView;
+@property (strong, nonatomic) ZBPackage *package;
 
+- (void)updatePackage:(ZBPackage *)newPackage;
 @end
 
 NS_ASSUME_NONNULL_END

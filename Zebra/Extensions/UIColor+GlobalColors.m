@@ -44,13 +44,15 @@
 
 // Table View Colors
 + (UIColor *)tableViewBackgroundColor {
-    if ([ZBDevice darkModeEnabled]) {
-        if (![ZBDevice darkModeOledEnabled] && ![ZBDevice darkModeThirteenEnabled]) {
-            return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
-        }
-        return [UIColor blackColor];
-    }
-    return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+//    if ([ZBDevice darkModeEnabled]) {
+//        if (![ZBDevice darkModeOledEnabled] && ![ZBDevice darkModeThirteenEnabled]) {
+//            return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+//        }
+//        return [UIColor blackColor];
+//    }
+//    return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+    
+    return [UIColor whiteColor];
 }
 
 + (UIColor *)cellBackgroundColor {

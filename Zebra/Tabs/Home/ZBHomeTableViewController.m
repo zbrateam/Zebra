@@ -8,7 +8,9 @@
 
 #import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
+#import <Views/ZBFeaturedTableViewCell.h>
 #import <Views/ZBFeaturedCollectionViewCell.h>
+#import <Database/ZBDatabaseManager.h>
 
 @interface ZBHomeTableViewController ()
 
@@ -42,7 +44,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0: {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"featuredPackageTableCell" forIndexPath:indexPath];
+            ZBFeaturedTableViewCell *cell = (ZBFeaturedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"featuredPackageTableCell" forIndexPath:indexPath];
+            
+            [cell updatePackages:[[ZBDatabaseManager sharedInstance] installedPackages]];
 
             return cell;
         }
