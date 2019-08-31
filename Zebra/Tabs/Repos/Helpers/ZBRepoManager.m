@@ -32,6 +32,10 @@
     return instance;
 }
 
+- (void)needRecaching {
+    recachingNeeded = YES;
+}
+
 - (NSMutableDictionary <NSNumber *, ZBRepo *> *)repos {
     if (recachingNeeded) {
         recachingNeeded = NO;

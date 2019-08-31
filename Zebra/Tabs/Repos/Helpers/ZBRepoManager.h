@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDebLine:(NSString *)sourceLine;
 - (void)transferFromCydia;
 - (void)transferFromSileo;
+- (void)needRecaching;
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
 - (NSString *)knownDebLineFromURLString:(NSString *)urlString;
 - (NSArray <NSURL *> *)verifiedURLs;
