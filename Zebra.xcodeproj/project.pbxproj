@@ -289,7 +289,6 @@
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
 		9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBRepoTableViewCell.xib; sourceTree = "<group>"; };
 		9E084EC622A28B9200B23361 /* ZBColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBColumn.h; sourceTree = "<group>"; };
-		9E1718AE22BD29270028358C /* UIProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIProgressHUD.h; sourceTree = "<group>"; };
 		9E1C85A522A38DCB00D93D14 /* ZBTab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTab.h; sourceTree = "<group>"; };
 		9E1C85AE22A3903600D93D14 /* ZBChangesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangesTableViewController.h; sourceTree = "<group>"; };
 		9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangesTableViewController.m; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 		9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshableTableViewController.h; sourceTree = "<group>"; };
 		9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshableTableViewController.m; sourceTree = "<group>"; };
 		9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleCommandDelegate.h; sourceTree = "<group>"; };
+		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
 		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
 		9EB2AE8D22E5C64400BE99BC /* ZBLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZBLog.h; path = ../../../../../../System/Volumes/Data/Users/thcp.unp/Desktop/CydiaTweaks/ZebraMain/Zebra/ZBLog.h; sourceTree = "<group>"; };
@@ -626,7 +626,6 @@
 			children = (
 				89B20FD121B7635300F7EEFE /* NSTask.h */,
 				895071972239E2FD004AE338 /* MobileGestalt.h */,
-				9E1718AE22BD29270028358C /* UIProgressHUD.h */,
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */,
@@ -649,6 +648,7 @@
 				36A1D8F8230A15FC002694BE /* JSONParsing */,
 				9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */,
 				9EB2AE8D22E5C64400BE99BC /* ZBLog.h */,
+				9E87F358231A20350043E7F2 /* ZBSettings.h */,
 			);
 			path = Zebra;
 			sourceTree = "<group>";

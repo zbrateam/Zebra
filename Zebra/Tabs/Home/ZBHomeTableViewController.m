@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
 
@@ -68,12 +69,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)setupFeatured {
-    if (![self.defaults objectForKey:@"wantsFeatured"]) {
-        [self.defaults setBool:YES forKey:@"wantsFeatured"];
-    }
-    if (![self.defaults objectForKey:@"wantsNews"]) {
-        [self.defaults setBool:YES forKey:@"wantsNews"];
-    }
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
     redditPosts = [NSMutableArray new];
@@ -83,8 +78,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)startFeaturedPackages {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([self.defaults boolForKey:@"wantsFeatured"]) {
-        if ([self.defaults boolForKey:@"randomFeatured"]) {
+    if ([self.defaults boolForKey:wantsFeaturedKey]) {
+        if ([self.defaults boolForKey:randomFeaturedKey]) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self packagesFromDB];
             });
@@ -374,7 +369,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (void)setImageSize:(UIImageView *)imageView{
+- (void)setImageSize:(UIImageView *)imageView {
     CGSize itemSize = CGSizeMake(29, 29);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
@@ -532,7 +527,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
-    BOOL selected = [self.defaults boolForKey:@"randomFeatured"];
+    BOOL selected = [self.defaults boolForKey:randomFeaturedKey];
     [allFeatured removeAllObjects];
     if (selected) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -552,7 +547,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)toggleFeatured {
     [allFeatured removeAllObjects];
     [self setupFeatured];
-    if ([self.defaults boolForKey:@"wantsFeatured"]) {
+    if ([self.defaults boolForKey:wantsFeaturedKey]) {
         [self refreshCollection:nil];
     } else {
         [self.tableView beginUpdates];
