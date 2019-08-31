@@ -576,7 +576,7 @@
                 NSString *urlString = [self normalizedURLString:url];
                 
                 if (![baseURLs containsObject:urlString]) {
-                    NSString *converted = [NSString stringWithFormat:@"%@ %@ %@%@\n", (NSString *)[info objectForKey:@"Types"], (NSString *)[info objectForKey:@"URIs"], (NSString *)[info objectForKey:@"Suites"], (NSString *)[info objectForKey:@"Components"]];
+                    NSString *converted = [NSString stringWithFormat:@"%@ %@ %@ %@\n", (NSString *)[info objectForKey:@"Types"], (NSString *)[info objectForKey:@"URIs"], (NSString *)[info objectForKey:@"Suites"], (NSString *)[info objectForKey:@"Components"]];
                     [linesToAdd addObject:converted];
                 }
             }
