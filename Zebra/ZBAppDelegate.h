@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Tabs/ZBTabBarController.h>
 
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
@@ -18,5 +19,6 @@
 + (NSString *)databaseLocation;
 + (NSString *)debsLocation;
 + (void)sendErrorToTabController:(NSString *)error;
++ (ZBTabBarController *)tabBarController;
 @end
 

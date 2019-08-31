@@ -40,6 +40,8 @@
 		36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7522AB3545004C2332 /* icon@3x.png */; };
 		36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7622AB3545004C2332 /* icon@2x.png */; };
 		36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7922AB6F66004C2332 /* ios7.min.css */; };
+		36C4891C22ADB88700D6FE40 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */; };
+		36C4891D22ADB88700D6FE40 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
 		36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
 		36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -126,6 +128,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */,
+				36C4891D22ADB88700D6FE40 /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +188,7 @@
 		36AC5A7522AB3545004C2332 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
 		36AC5A7622AB3545004C2332 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		36AC5A7922AB6F66004C2332 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
+		36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = "<group>"; };
 		36D15325229240F60010EC5C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
 		36D15326229240F70010EC5C /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
 		36D1533E22924D9F0010EC5C /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
@@ -317,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				363FE2422287854F00B69929 /* Security.framework in Frameworks */,
+				36C4891C22ADB88700D6FE40 /* LNPopupController.framework in Frameworks */,
 				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
@@ -703,6 +708,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */,
 				9E2B413C22C86A31009BC12B /* UIKit.framework */,
 				36D1533E22924D9F0010EC5C /* SDWebImage.framework */,
 				363FE2412287854E00B69929 /* Security.framework */,
@@ -828,7 +834,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Wilson Styres";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {

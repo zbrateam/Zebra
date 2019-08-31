@@ -16,6 +16,7 @@
 #import <ZBTabBarController.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+@import LNPopupController;
 
 typedef enum {
     ZBStageInstall = 0,
@@ -26,16 +27,17 @@ typedef enum {
 } ZBStage;
 
 @interface ZBConsoleViewController () {
-    int stage;
+    ZBStage stage;
     BOOL continueWithActions;
-    NSArray *akton;
     BOOL needsIconCacheUpdate;
     BOOL needsRespring;
+    BOOL hasZebraUpdated;
+    BOOL preventCancel;
+    NSArray *akton;
     NSMutableArray *installedIDs;
     NSMutableArray *bundlePaths;
     NSMutableDictionary <NSString *, NSNumber *> *downloadingMap;
     ZBDownloadManager *downloadManager;
-    BOOL hasZebraUpdated;
 }
 @end
 
@@ -45,15 +47,13 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self setTitle:@"Console"];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    
     queue = [ZBQueue sharedInstance];
+    self.title = @"Console";
     stage = -1;
     continueWithActions = YES;
     needsIconCacheUpdate = NO;
     needsRespring = NO;
+    preventCancel = NO;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
     downloadingMap = [NSMutableDictionary new];
@@ -61,9 +61,7 @@ typedef enum {
     _progressView.hidden = YES;
     _progressText.text = nil;
     _progressText.hidden = YES;
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-    [self.navigationItem setHidesBackButton:YES animated:NO];
+    [self updateCancelOrCloseButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,11 +85,9 @@ typedef enum {
 
 - (void)downloadPackages {
     NSArray *packages = [queue packagesToDownload];
-    
     [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelInfo];
     downloadManager = [[ZBDownloadManager alloc] init];
     downloadManager.downloadDelegate = self;
-    
     [downloadManager downloadPackages:packages];
 }
 
@@ -161,7 +157,6 @@ typedef enum {
     } else {
         if (continueWithActions) {
             _progressText.text = @"Performing actions...";
-            self.navigationItem.leftBarButtonItem = nil;
             NSArray *actions = [queue tasks:debs];
             ZBLog(@"[Zebra] Actions: %@", actions);
             
@@ -283,22 +278,20 @@ typedef enum {
         }
     }
     
+    preventCancel = NO;
     [self updateStatus:ZBStageDone];
     [self updateCompleteButton];
+    [self updateCancelOrCloseButton];
 }
 
 - (void)updateCompleteButton {
-    [self.navigationItem setHidesBackButton:YES animated:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = NO;
         self->_progressText.text = nil;
-        
         if (self->hasZebraUpdated) {
-            [self addCloseButton];
             [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
         } else if (self->needsRespring) {
-            [self addCloseButton];
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
         } else {
@@ -307,32 +300,19 @@ typedef enum {
     });
 }
 
-- (void)addCloseButton {
-    if (self->hasZebraUpdated) {
+- (void)cancel {
+    if (preventCancel) {
         return;
     }
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem = closeButton;
-}
-
-- (void)cancel {
-    [self.navigationItem setHidesBackButton:YES animated:NO];
     [downloadManager stopAllDownloads];
     [downloadingMap removeAllObjects];
-    self.navigationItem.leftBarButtonItem = nil;
     _progressView.progress = 1;
     _progressView.hidden = YES;
     _progressText.text = nil;
     _progressText.hidden = YES;
-    [self addCloseButton];
     [queue clearQueue];
     [self removeAllDebs];
-}
-
-- (void)goodbye {
-    [self clearConsole];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self updateCancelOrCloseButton];
 }
 
 - (void)closeZebra {
@@ -463,8 +443,35 @@ typedef enum {
     _consoleView.text = nil;
 }
 
+- (void)updateCancelOrCloseButton {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->preventCancel) {
+            self.cancelOrCloseButton.hidden = YES;
+        } else if (self->stage == ZBStageDone) {
+            self.cancelOrCloseButton.hidden = self->hasZebraUpdated;
+            [self.cancelOrCloseButton setTitle:@"Close" forState:UIControlStateNormal];
+        } else {
+            self.cancelOrCloseButton.hidden = NO;
+            [self.cancelOrCloseButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        }
+    });
+}
+
+- (void)close {
+    [self clearConsole];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)complete:(id)sender {
-    [self goodbye];
+    [self close];
+}
+
+- (IBAction)cancelOrClose:(id)sender {
+    if (stage == ZBStageDone) {
+        [self close];
+    } else {
+        [self cancel];
+    }
 }
 
 #pragma mark - Hyena Delegate
@@ -492,6 +499,8 @@ typedef enum {
         [self updateStatus:ZBStageDone];
         [self updateCompleteButton];
     }
+    preventCancel = YES;
+    self.cancelOrCloseButton.hidden = YES;
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
@@ -519,14 +528,10 @@ typedef enum {
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     [self writeToConsole:@"Finished importing local packages.\n" atLevel:ZBLogLevelInfo];
-    
-    NSLog(@"[Zebra] %d updates available.", packageUpdates);
-    
+    ZBLog(@"[Zebra] %d updates available.", packageUpdates);
     if (packageUpdates != -1) {
-        ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:packageUpdates];
+        [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
     }
-    
     [self finishUp];
 }
 
