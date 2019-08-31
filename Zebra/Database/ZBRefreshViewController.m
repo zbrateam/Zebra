@@ -8,10 +8,11 @@
 
 #import <ZBTabBarController.h>
 #import <ZBDevice.h>
-#import "ZBRefreshViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <ZBRepoManager.h>
 #include <Parsel/parsel.h>
+#import "ZBRefreshViewController.h"
 
 typedef enum {
     ZBStateCancel = 0,
@@ -169,6 +170,7 @@ typedef enum {
     } else {
         [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
     }
+    [[ZBRepoManager sharedInstance] needRecaching];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
