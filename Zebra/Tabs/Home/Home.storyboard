@@ -138,7 +138,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsTableCell" rowHeight="61" id="WRw-hh-DDm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsTableCell" rowHeight="61" id="WRw-hh-DDm" customClass="ZBCommunityNewsTableViewCell">
                                 <rect key="frame" x="0.0" y="312" width="414" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WRw-hh-DDm" id="R9E-yx-Jhe">
@@ -158,8 +158,11 @@
                                         <constraint firstItem="Egx-wJ-aFR" firstAttribute="centerY" secondItem="R9E-yx-Jhe" secondAttribute="centerY" id="wDf-9a-HFS"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="Egx-wJ-aFR" id="tt8-HW-grY"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="iconTableCell" rowHeight="61" id="Avi-mW-kJL">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="iconTableCell" rowHeight="61" id="Avi-mW-kJL" customClass="ZBIconTableViewCell">
                                 <rect key="frame" x="0.0" y="373" width="414" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Avi-mW-kJL" id="ViB-WM-ZPA">
@@ -187,8 +190,12 @@
                                         <constraint firstItem="a0f-S8-Yls" firstAttribute="leading" secondItem="ViB-WM-ZPA" secondAttribute="leading" constant="16" id="x3c-v6-ujP"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="iconImageView" destination="a0f-S8-Yls" id="t2i-2G-c4W"/>
+                                    <outlet property="titleLabel" destination="IEh-Jn-UnU" id="ocr-aL-Jff"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonTableCell" rowHeight="52" id="Iw2-eA-6OU">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonTableCell" rowHeight="52" id="Iw2-eA-6OU" customClass="ZBButtonTableViewCell">
                                 <rect key="frame" x="0.0" y="434" width="414" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Iw2-eA-6OU" id="tlO-0a-xSa">
@@ -220,6 +227,9 @@
                                         <constraint firstAttribute="bottom" secondItem="VmV-EJ-Hno" secondAttribute="bottom" constant="8" id="w04-kH-64Z"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="actionLabel" destination="fg2-79-ghG" id="Fhw-A3-DnU"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>

@@ -10,6 +10,9 @@
 #import "ZBHomeTableViewController.h"
 #import <Views/ZBFeaturedTableViewCell.h>
 #import <Views/ZBFeaturedCollectionViewCell.h>
+#import <Views/ZBCommunityNewsTableViewCell.h>
+#import <Views/ZBButtonTableViewCell.h>
+#import <Views/ZBIconTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <ZBAppDelegate.h>
@@ -24,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache/featured.plist"]]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self cacheFeaturedPackages];
@@ -133,17 +136,33 @@
             return cell;
         }
         case 1: { //Community News
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
+            ZBCommunityNewsTableViewCell *cell = (ZBCommunityNewsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
+            
+            cell.titleLabel.text = @"News title";
             
             return cell;
         }
         case 2: { //Changelog
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
+            ZBIconTableViewCell *cell = (ZBIconTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
+            
+            cell.titleLabel.text = @"Changelog";
             
             return cell;
         }
         case 3: { //Links
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonTableCell" forIndexPath:indexPath];
+            ZBButtonTableViewCell *cell = (ZBButtonTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"buttonTableCell" forIndexPath:indexPath];
+            
+            switch (indexPath.row) {
+                case 0:
+                    cell.actionLabel.text = @"Join the Discord";
+                    break;
+                case 1:
+                    cell.actionLabel.text = @"Follow @getZebra on Twitter";
+                    break;
+                case 2:
+                    cell.actionLabel.text = @"Buy the Team a Coffee";
+                    break;
+            }
             
             return cell;
         }
