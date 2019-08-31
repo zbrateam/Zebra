@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache/featured.plist"]]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self cacheFeaturedPackages];
@@ -81,24 +81,23 @@
 }
 
 - (void)loadFeaturedFromCache {
-    
+
     if (featuredPackages == NULL) {
         featuredPackages = [NSMutableArray new];
     }
-    
+
     NSArray *featuredCache = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache/featured.plist"]];
-    
+
     for (NSDictionary *cache in featuredCache) {
         [featuredPackages addObject:[[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]]];
     }
-    
+
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 0)] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
@@ -107,7 +106,7 @@
     if (section == 0 && [featuredPackages count] == 0) { //Don't show featured packages if they haven't loaded yet
         return 0;
     }
-    
+
     return 1;
 }
 
@@ -115,7 +114,7 @@
     switch (indexPath.section) {
         case 0: {
             ZBFeaturedTableViewCell *cell = (ZBFeaturedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"featuredPackageTableCell" forIndexPath:indexPath];
-            
+
             [cell updatePackages:featuredPackages];
 
             return cell;
