@@ -598,7 +598,7 @@
         
         for (NSString *line in contents) {
             NSArray *components = [line componentsSeparatedByString:@" "];
-            if ([components count] == 3) {
+            if ([components count] != 0 && [components[0] isEqualToString:@"deb"]) {
                 [urls appendString:[components[1] stringByAppendingString:@"\n"]];
             }
         }
