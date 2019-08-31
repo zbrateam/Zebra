@@ -148,8 +148,8 @@
     [self.tableView beginUpdates];
     self.tableView.tableHeaderView = self.featuredCollection;
     self.tableView.tableHeaderView.frame = CGRectZero;
-    self.featuredCollection.delegate = self;
-    self.featuredCollection.dataSource = self;
+//    self.featuredCollection.delegate = self;
+//    self.featuredCollection.dataSource = self;
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     self.featuredCollection.backgroundColor = [UIColor clearColor];
     CGFloat height = CGSizeFromString(_fullJSON[@"itemSize"]).height + 10;
@@ -321,35 +321,35 @@
     return @[refresh];
 }
 
-#pragma mark UICollectionView delegates
-- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
-    [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    cell.packageID = currentBanner[@"package"];
-    [cell.titleLabel setText:currentBanner[@"title"]];
-    
-    // dispatch_async(dispatch_get_main_queue(), ^{
-        if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
-            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
-        }
-    // });
-    
-    return cell;
-}
-
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_featuredPackages count];
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeFromString(_fullJSON[@"itemSize"]);
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-   ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
-}
+//#pragma mark UICollectionView delegates
+//- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+//    NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
+//    [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//    cell.packageID = currentBanner[@"package"];
+//    [cell.titleLabel setText:currentBanner[@"title"]];
+//    
+//    // dispatch_async(dispatch_get_main_queue(), ^{
+//        if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
+//            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
+//        }
+//    // });
+//    
+//    return cell;
+//}
+//
+//- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    return [_featuredPackages count];
+//}
+//
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return CGSizeFromString(_fullJSON[@"itemSize"]);
+//}
+//
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//   ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
+//}
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];

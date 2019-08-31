@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoSectionsListTableViewController : UITableViewController <SFSafariViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ZBRepoSectionsListTableViewController : UITableViewController <SFSafariViewControllerDelegate>//, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (strong, nonatomic) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 @property (nonatomic, strong) ZBRepo *repo;
