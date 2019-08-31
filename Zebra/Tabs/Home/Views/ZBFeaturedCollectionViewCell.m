@@ -16,6 +16,7 @@
 @synthesize repoNameLabel;
 @synthesize tweakDescriptionLabel;
 @synthesize tweakNameLabel;
+@synthesize bannerImageView;
 @synthesize package;
 
 - (void)awakeFromNib {
@@ -23,12 +24,17 @@
     
     repoNameLabel.textColor = [UIColor tintColor];
     tweakDescriptionLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    
+    bannerImageView.backgroundColor = [UIColor redColor];
+    
+    bannerImageView.layer.cornerRadius = 6;
+    bannerImageView.layer.masksToBounds = true;
 }
 
 - (void)updatePackage:(ZBPackage *)newPackage {
     package = newPackage;
     
-    repoNameLabel.text = [[package repo] origin];
+    repoNameLabel.text = [[[package repo] origin] uppercaseString];
     tweakNameLabel.text = [package name];
     tweakDescriptionLabel.text = [package shortDescription];
 }
