@@ -202,6 +202,7 @@ enum ZBMiscOrder {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    cell.accessoryView = nil;
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInfo: {
