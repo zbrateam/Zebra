@@ -288,11 +288,19 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 1 && [communityNewsPosts count] != 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerTableCell"];
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, 37.5)];
         
-        cell.textLabel.text = @"Community News";
+        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, screenBounds.size.width - 20, 37.5)];
+        UIFont *currentFont = sectionLabel.font;
+        UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",currentFont.fontName] size:22];
+        sectionLabel.font = newFont;
         
-        return cell;
+        [view addSubview:sectionLabel];
+        
+        sectionLabel.text = @"Community News";
+        
+        return view;
     }
     
     return NULL;
