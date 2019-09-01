@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBButtonTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *actionLabel;
+@property (weak, nonatomic) IBOutlet UIView *buttonView;
 
 @end
 

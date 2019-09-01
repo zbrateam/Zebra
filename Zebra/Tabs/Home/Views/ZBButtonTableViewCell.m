@@ -15,8 +15,8 @@
     [super awakeFromNib];
     
     self.actionLabel.textColor = [UIColor tintColor];
-    self.contentView.layer.cornerRadius = 10;
-    self.contentView.layer.masksToBounds = true;
+    self.buttonView.layer.cornerRadius = 10;
+    self.buttonView.layer.masksToBounds = true;
     
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, [[UIScreen mainScreen] bounds].size.width);
 }

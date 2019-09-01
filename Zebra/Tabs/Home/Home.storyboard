@@ -151,8 +151,8 @@
                                             <color key="textColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0M-7D-Q6h">
-                                            <rect key="frame" x="16" y="11" width="17" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0M-7D-Q6h">
+                                            <rect key="frame" x="16" y="11" width="22" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -238,6 +238,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="actionLabel" destination="fg2-79-ghG" id="Fhw-A3-DnU"/>
+                                    <outlet property="buttonView" destination="VmV-EJ-Hno" id="JCp-pn-WG1"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
