@@ -227,8 +227,11 @@
         NSArray *contents = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:path]];
         for (NSDictionary *cache in contents) {
             ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]];
-            package.bannerImageURL = [NSURL URLWithString:cache[@"url"]];
-            [featuredPackages addObject:package];
+            if (package != NULL) {
+                package.bannerImageURL = [NSURL URLWithString:cache[@"url"]];
+                
+                [featuredPackages addObject:package];
+            }
         }
     }
 
