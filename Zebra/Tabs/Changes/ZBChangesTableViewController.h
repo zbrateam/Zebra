@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBChangesTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate, UICollectionViewDelegate, UICollectionViewDataSource, SFSafariViewControllerDelegate>
+@interface ZBChangesTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate, SFSafariViewControllerDelegate>
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;
 @property (nonatomic, assign) BOOL continueBatchLoad;

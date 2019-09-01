@@ -17,6 +17,7 @@
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
+#import <Changelog/ZBChangelogTableViewController.h>
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *featuredPackages;
@@ -326,6 +327,26 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 1: {
+            
+        }
+        case 2: {
+            
+        }
+        case 3: { //Changelog
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
+            ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:@"changelogController"];
+            
+            [[self navigationController] pushViewController:changelogController animated:true];
+        }
+        case 4: { //Links
+            
+        }
+    }
+}
+
 #pragma mark - Table view layout
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -382,12 +403,6 @@
             return 0;
     }
 }
-
-//#pragma mark - Navigation
-//
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//
-//}
 
 /*
  // Override to support conditional editing of the table view.
