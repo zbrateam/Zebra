@@ -292,7 +292,7 @@
             ZBIconTableViewCell *cell = (ZBIconTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
             
             cell.titleLabel.text = @"Changelog";
-            cell.iconImageView.image = [UIImage imageNamed:@"changelog@3x.png"];
+            cell.iconImageView.image = [UIImage imageNamed:@"Changelog"];
             
             return cell;
         }
@@ -301,7 +301,7 @@
             
             switch (indexPath.row) {
                 case 0:
-                    cell.actionLabel.text = @"Join the Discord";
+                    cell.actionLabel.text = @"Join our Discord";
                     break;
                 case 1:
                     cell.actionLabel.text = @"Follow @getZebra on Twitter";
