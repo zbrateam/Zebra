@@ -25,8 +25,20 @@
 }
 
 - (void)updatePackages:(NSArray <ZBPackage *> *)newPackages {
-    packages = newPackages;
+    NSMutableArray* pickedPackages = [NSMutableArray new];
     
+    NSUInteger remaining = newPackages.count >= 5 ? 5 : newPackages.count;
+    
+    while (remaining > 0) {
+        ZBPackage *package = newPackages[arc4random_uniform((uint32_t)newPackages.count)];
+            
+        if (![pickedPackages containsObject:package]) {
+            [pickedPackages addObject:package];
+            remaining--;
+        }
+    }
+    
+    packages = (NSArray *)pickedPackages;
     [collectionView reloadData];
 }
 
