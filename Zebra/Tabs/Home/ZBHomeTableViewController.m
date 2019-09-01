@@ -358,7 +358,7 @@
         return 48;
     }
     else if (section == 3) {
-        return 32;
+        return 16;
     }
     else {
         return CGFLOAT_MIN;
