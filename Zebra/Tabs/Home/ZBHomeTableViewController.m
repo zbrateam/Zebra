@@ -133,7 +133,8 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView beginUpdates];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)] withRowAnimation:UITableViewRowAnimationFade];
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:1];
+            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView endUpdates];
         });
     }];
@@ -240,11 +241,8 @@
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
-//        NSArray *paths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]];
-//        [[self tableView] insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
-//        [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     });
 }
