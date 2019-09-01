@@ -327,14 +327,18 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 1 && [communityNewsPosts count] != 0) {
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, 37.5)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, 38)];
         
-        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, screenBounds.size.width - 20, 37.5)];
+        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         UIFont *currentFont = sectionLabel.font;
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",currentFont.fontName] size:22];
         sectionLabel.font = newFont;
         
         [view addSubview:sectionLabel];
+        
+        [sectionLabel setTranslatesAutoresizingMaskIntoConstraints: NO];
+        [view addConstraint:[NSLayoutConstraint constraintWithItem:sectionLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[sectionLabel]-16-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sectionLabel)]];
         
         sectionLabel.text = @"Community News";
         
