@@ -37,21 +37,14 @@
         communityNewsPosts = [NSMutableArray new];
     }
     
-    // From: https://stackoverflow.com/a/48837322
+    //From: https://stackoverflow.com/a/48837322
     UIVisualEffectView *fxView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     [fxView setFrame:CGRectOffset(CGRectInset(self.navigationController.navigationBar.bounds, 0, -12), 0, -60)];
     [self.navigationController.navigationBar setTranslucent:YES];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar insertSubview:fxView atIndex:1];
     
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache/featured.plist"]]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self cacheFeaturedPackages];
-        });
-    } else {
-        [self loadFeaturedFromCache];
-    }
-    
+    [self downloadFeaturedPackages:false];
     [self getRedditPosts];
 }
 
@@ -135,7 +128,9 @@
             if ([self->communityNewsPosts count] == 3) break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView beginUpdates];
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
         });
     }];
     
@@ -147,61 +142,101 @@
     return [acceptableFlairs containsObject:[flairText lowercaseString]];
 }
 
-- (void)cacheFeaturedPackages {
-    NSMutableArray <ZBRepo *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
-    NSMutableArray *saveArray = [NSMutableArray new];
-    dispatch_group_t group = dispatch_group_create();
-    for (ZBRepo *repo in featuredRepos) {
-        NSString *basePlusHttp;
-        if (repo.isSecure) {
-            basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
-        } else {
-            basePlusHttp = [NSString stringWithFormat:@"http://%@", repo.baseURL];
+- (void)downloadFeaturedPackages:(BOOL)ignoreCaching {
+    NSMutableArray <ZBRepo *> *repos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    
+    for (ZBRepo *repo in repos) {
+        dispatch_group_enter(downloadGroup);
+        
+        NSURLSession *session;
+        NSString *filePath = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Featured", [repo baseFileName]]];
+        if (!ignoreCaching && [[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+            NSError *fileError;
+            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&fileError];
+            NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+            [formatter setTimeZone:gmt];
+            [formatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
+            
+            NSString *modificationDate = [NSString stringWithFormat:@"%@ GMT", [formatter stringFromDate:date]];
+            
+            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            configuration.HTTPAdditionalHeaders = @{@"If-Modified-Since": modificationDate};;
+            
+            session = [NSURLSession sessionWithConfiguration:configuration];
         }
-        dispatch_group_enter(group);
-        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:basePlusHttp]];
-        NSLog(@"[Zebra] Cached JSON request URL: %@", requestURL.absoluteString);
-        NSURL *checkingURL = requestURL;
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:checkingURL
-                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                    if (data != nil && (long)[httpResponse statusCode] != 404) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSLog(@"[Zebra] JSON response data: %@", json);
-                        if (!repo.supportsFeaturedPackages) {
-                            repo.supportsFeaturedPackages = YES;
-                        }
-                        if ([json objectForKey:@"banners"]) {
-                            NSArray *banners = [json objectForKey:@"banners"];
-                            if (banners.count) {
-                                [saveArray addObjectsFromArray:banners];
-                            }
-                        }
+        else {
+            session = [NSURLSession sharedSession];
+        }
+        
+        NSMutableArray *featuredPackages = [NSMutableArray new];
+        
+        NSString *featuredURLString = repo.isSecure ? [NSString stringWithFormat:@"https://%@", repo.baseURL] : [NSString stringWithFormat:@"http://%@", repo.baseURL];
+
+        NSURL *featuredURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:featuredURLString]];
+        NSURLSessionDataTask *task = [session dataTaskWithURL:featuredURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            if (error != NULL) {
+                NSLog(@"[Zebra] Error while downloading featured JSON for %@: %@", repo, error);
+                dispatch_group_leave(downloadGroup);
+                return;
+            }
+            
+            if (data != NULL && [httpResponse statusCode] != 404) {
+                NSError *jsonReadError;
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonReadError];
+                if (jsonReadError != NULL) {
+                    NSLog(@"[Zebra] Error while parsing featured JSON for %@: %@", repo, jsonReadError);
+                    dispatch_group_leave(downloadGroup);
+                    return;
+                }
+                
+                if ([json objectForKey:@"banners"]) {
+                    NSArray *banners = [json objectForKey:@"banners"];
+                    if (banners.count) {
+                        [featuredPackages addObjectsFromArray:banners];
                     }
-                    dispatch_group_leave(group);
-                }] resume];
+                }
+            }
+            
+            NSString *filename = [NSString stringWithFormat:@"%@_Featured", [repo baseFileName]];
+            if ([featuredPackages count] > 0) {
+                [featuredPackages writeToFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename] atomically:true];
+            }
+            
+            dispatch_group_leave(downloadGroup);
+        }];
+        
+        [task resume];
     }
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = TRUE;
-        if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache"] isDirectory:&isDir]) {
-            [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache"] withIntermediateDirectories:NO attributes:nil error:nil];
-        }
-        [saveArray writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache/featured.plist"] atomically:YES];
-        [self loadFeaturedFromCache];
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+        [self loadFeaturedPackagesFromCache];
     });
 }
 
-- (void)loadFeaturedFromCache {
-    NSArray *featuredCache = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache/featured.plist"]];
+- (void)loadFeaturedPackagesFromCache {
+    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
+    NSArray *featuredCacheFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '_Featured'"]];
 
-    for (NSDictionary *cache in featuredCache) {
-        [featuredPackages addObject:[[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]]];
+    for (NSString *path in featuredCacheFiles) {
+        NSArray *contents = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:path]];
+        for (NSDictionary *cache in contents) {
+            [featuredPackages addObject:[[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]]];
+        }
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 0)] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView beginUpdates];
+//        NSArray *paths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]];
+//        [[self tableView] insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+//        [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
     });
 }
 
@@ -216,7 +251,7 @@
         case 0:
             return [featuredPackages count] == 0 ? 0 : 1; //Don't show featured packages if they haven't loaded yet
         case 1:
-            return [communityNewsPosts count] == 0 ? 0 : ([communityNewsPosts count] > 3 ? 3 : [communityNewsPosts count]); //Show at most 3 news posts, otherwise show nothing or show as many as we got.
+            return [communityNewsPosts count] == 0 ? 0 : ([communityNewsPosts count] > 3 ? 3 : [communityNewsPosts count]); //Show at most 3 news posts, otherwise show nothing or show as many we got.
         case 2:
             return 1;
         case 3:
