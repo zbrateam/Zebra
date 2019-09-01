@@ -32,6 +32,7 @@
 @synthesize section;
 @synthesize sectionImageName;
 @synthesize depictionURL;
+@synthesize bannerImageURL;
 @synthesize tags;
 @synthesize dependsOn;
 @synthesize conflictsWith;

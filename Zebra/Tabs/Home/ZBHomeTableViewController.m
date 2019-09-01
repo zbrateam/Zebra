@@ -15,6 +15,7 @@
 #import <Views/ZBIconTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
+#import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 
 @interface ZBHomeTableViewController () {
@@ -225,7 +226,9 @@
     for (NSString *path in featuredCacheFiles) {
         NSArray *contents = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:path]];
         for (NSDictionary *cache in contents) {
-            [featuredPackages addObject:[[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]]];
+            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]];
+            package.bannerImageURL = [NSURL URLWithString:cache[@"url"]];
+            [featuredPackages addObject:package];
         }
     }
 

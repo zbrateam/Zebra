@@ -38,7 +38,7 @@
     tweakNameLabel.text = [package name];
     tweakDescriptionLabel.text = [package shortDescription];
     
-    [bannerImageView sd_setImageWithURL:[NSURL URLWithString:[package iconPath]]];
+    [bannerImageView sd_setImageWithURL:[package bannerImageURL]];
 }
 
 @end
