@@ -56,6 +56,30 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     return path;
 }
 
++ (NSString *)cacheDirectory {
+    NSString *path_ = nil;
+    if (![ZBDevice needsSimulation]) {
+        path_ = @"/var/mobile/Library/Application Support/Caches";
+    } else {
+        path_ = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+    }
+    NSString *path = [[self documentsDirectory] stringByAppendingPathComponent:@"caches"];
+    BOOL dirExists = NO;
+    [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
+    if (!dirExists) {
+        NSLog(@"[Zebra] Creating caches directory.");
+        NSError *error;
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+        
+        if (error != NULL) {
+            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating caches directory: %@.", error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating caches directory: %@.", error.localizedDescription);
+        }
+    }
+    
+    return path;
+}
+
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
     BOOL dirExists = NO;
