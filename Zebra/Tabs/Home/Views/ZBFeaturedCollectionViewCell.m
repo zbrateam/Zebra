@@ -29,6 +29,7 @@
     
     bannerImageView.layer.cornerRadius = 6;
     bannerImageView.layer.masksToBounds = true;
+    bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)updatePackage:(ZBPackage *)newPackage {
