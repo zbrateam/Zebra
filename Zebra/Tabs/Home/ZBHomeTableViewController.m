@@ -45,6 +45,8 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar insertSubview:fxView atIndex:1];
     
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 0.01f)]; // For removing gap at the top of the table view
+    
     [self downloadFeaturedPackages:false];
     [self getRedditPosts];
 }
@@ -335,10 +337,11 @@
         sectionLabel.font = newFont;
         
         [view addSubview:sectionLabel];
-        
+                
         [sectionLabel setTranslatesAutoresizingMaskIntoConstraints: NO];
-        [view addConstraint:[NSLayoutConstraint constraintWithItem:sectionLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[sectionLabel]-16-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sectionLabel)]];
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[sectionLabel]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sectionLabel)]];
+
         
         sectionLabel.text = @"Community News";
         
@@ -350,17 +353,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 1 && [communityNewsPosts count] != 0) {
-        return 38;
+        return 48;
     }
     else {
-        return 0;
+        return CGFLOAT_MIN;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:
-            return 246;
+            return 252;
         case 1:
         case 2:
             return 60;
