@@ -359,6 +359,9 @@
     if (section == 1 && [communityNewsPosts count] != 0) {
         return 48;
     }
+    else if (section == 3) {
+        return 32;
+    }
     else {
         return CGFLOAT_MIN;
     }
@@ -376,7 +379,7 @@
         case 2:
             return 60;
         case 3:
-            return 52;
+            return 44;
         default:
             return 0;
     }

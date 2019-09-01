@@ -247,18 +247,18 @@
                                     <outlet property="titleLabel" destination="IEh-Jn-UnU" id="ocr-aL-Jff"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonTableCell" rowHeight="52" id="Iw2-eA-6OU" customClass="ZBButtonTableViewCell">
-                                <rect key="frame" x="0.0" y="427.33333333333331" width="375" height="52"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonTableCell" rowHeight="44" id="Iw2-eA-6OU" customClass="ZBButtonTableViewCell">
+                                <rect key="frame" x="0.0" y="427.33333333333331" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Iw2-eA-6OU" id="tlO-0a-xSa">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VmV-EJ-Hno">
-                                            <rect key="frame" x="16" y="8" width="343" height="35.666666666666664"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="36"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fg2-79-ghG">
-                                                    <rect key="frame" x="16" y="9.3333333333333321" width="311" height="17"/>
+                                                    <rect key="frame" x="16" y="9.6666666666666643" width="311" height="17"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -275,7 +275,7 @@
                                     <constraints>
                                         <constraint firstItem="VmV-EJ-Hno" firstAttribute="leading" secondItem="tlO-0a-xSa" secondAttribute="leading" constant="16" id="WKs-hI-anT"/>
                                         <constraint firstAttribute="trailing" secondItem="VmV-EJ-Hno" secondAttribute="trailing" constant="16" id="jkY-ca-nx7"/>
-                                        <constraint firstItem="VmV-EJ-Hno" firstAttribute="top" secondItem="tlO-0a-xSa" secondAttribute="top" constant="8" id="kKY-5c-zY0"/>
+                                        <constraint firstItem="VmV-EJ-Hno" firstAttribute="top" secondItem="tlO-0a-xSa" secondAttribute="top" id="kKY-5c-zY0"/>
                                         <constraint firstAttribute="bottom" secondItem="VmV-EJ-Hno" secondAttribute="bottom" constant="8" id="w04-kH-64Z"/>
                                     </constraints>
                                 </tableViewCellContentView>
