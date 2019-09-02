@@ -284,7 +284,7 @@
                                     <outlet property="buttonView" destination="VmV-EJ-Hno" id="JCp-pn-WG1"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="footnotesTableCell" rowHeight="70" id="CfF-jJ-pDQ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="footnotesTableCell" rowHeight="70" id="CfF-jJ-pDQ" customClass="ZBFootnotesTableViewCell">
                                 <rect key="frame" x="0.0" y="471.33333333333331" width="375" height="69.999999999999943"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CfF-jJ-pDQ" id="CAb-gu-YX5">
@@ -327,6 +327,10 @@
                                         <constraint firstAttribute="trailing" secondItem="OGX-2x-HXg" secondAttribute="trailing" constant="16" id="in7-if-YYo"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="creditsButton" destination="Ust-DA-74A" id="xHV-s8-ocv"/>
+                                    <outlet property="deviceInfoLabel" destination="OGX-2x-HXg" id="s7N-Sq-kqv"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
