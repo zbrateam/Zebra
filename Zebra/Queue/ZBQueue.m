@@ -323,6 +323,10 @@
                         [installCommand addObject:filename];
                         break;
                     }
+                    else if ([packageFilename containsString:[filename lastPathComponent]]) {
+                        [installCommand addObject:filename];
+                        break;
+                    }
                 }
             }
         }
@@ -364,6 +368,10 @@
                     [installCommand addObject:filename];
                     break;
                 }
+                else if ([[package filename] containsString:[filename lastPathComponent]]) {
+                    [installCommand addObject:filename];
+                    break;
+                }
             }
         }
         
@@ -379,6 +387,10 @@
             for (NSString *filename in debs) {
                 if ([filename containsString:[[package filename] lastPathComponent]]) {
                     [upgradeCommand addObject:filename];
+                    break;
+                }
+                else if ([[package filename] containsString:[filename lastPathComponent]]) {
+                    [installCommand addObject:filename];
                     break;
                 }
             }
