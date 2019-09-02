@@ -23,14 +23,17 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    if (highlighted) {
-        self.buttonView.backgroundColor = [UIColor tintColor];
-        self.actionLabel.textColor = UIColor.whiteColor;
-    }
-    else {
-        self.buttonView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.96 alpha:1.0];
-        self.actionLabel.textColor = [UIColor tintColor];
-    }
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (highlighted) {
+            self.buttonView.backgroundColor = [UIColor tintColor];
+            self.actionLabel.textColor = UIColor.whiteColor;
+        }
+        else {
+            self.buttonView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.96 alpha:1.0];
+            self.actionLabel.textColor = [UIColor tintColor];
+        }
+    } completion:^(BOOL finished) {
+    }];
 }
 
 @end
