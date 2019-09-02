@@ -41,6 +41,9 @@
         communityNewsPosts = [NSMutableArray new];
     }
     
+    [self downloadFeaturedPackages:false];
+    [self getRedditPosts];
+    
     //From: https://stackoverflow.com/a/48837322
     UIVisualEffectView *fxView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     fxView.backgroundColor = [UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:0.60];
@@ -51,8 +54,18 @@
     
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 0.01f)]; // For removing gap at the top of the table view
     
-    [self downloadFeaturedPackages:false];
-    [self getRedditPosts];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    
+    if (@available(iOS 10.0, *)) {
+        self.tableView.refreshControl = refreshControl;
+    } else {
+        [self.tableView addSubview:refreshControl];
+    }
+}
+
+- (void)refreshTable {
+    [self.refreshControl endRefreshing];
 }
 
 - (void)getRedditPosts {
