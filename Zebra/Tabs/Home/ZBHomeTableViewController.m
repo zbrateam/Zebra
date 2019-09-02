@@ -324,12 +324,15 @@
             switch (indexPath.row) {
                 case 0:
                     cell.actionLabel.text = @"Join Our Discord";
+                    cell.actionLink = @"https://discordapp.com/invite/6CPtHBU";
                     break;
                 case 1:
                     cell.actionLabel.text = @"Follow @getZebra on Twitter";
+                    cell.actionLink = @"https://twitter.com/getZebra";
                     break;
                 case 2:
                     cell.actionLabel.text = @"Buy the Team Coffee";
+                    cell.actionLink = @"https://paypal.me/wstyres";
                     break;
             }
             
@@ -378,8 +381,18 @@
                 [[self navigationController] pushViewController:changelogController animated:true];
             }
         }
-        case 4: { //Links
-            
+        case 3: { //Links
+            if ([cell isKindOfClass:[ZBButtonTableViewCell class]]) {
+                ZBButtonTableViewCell *buttonCell = (ZBButtonTableViewCell *)cell;
+                
+                NSURL *url = [NSURL URLWithString:buttonCell.actionLink];
+                SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+                if (@available(iOS 10.0, *)) {
+                    safariViewController.preferredControlTintColor = [UIColor tintColor];
+                }
+                
+                [self presentViewController:safariViewController animated:true completion:nil];
+            }
         }
     }
 }
