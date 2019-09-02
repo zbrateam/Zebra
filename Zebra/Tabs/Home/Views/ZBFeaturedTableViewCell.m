@@ -10,11 +10,13 @@
 #import "ZBFeaturedCollectionViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Home/ZBHomeTableViewController.h>
 
 @implementation ZBFeaturedTableViewCell
 
 @synthesize collectionView;
 @synthesize packages;
+@synthesize father;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -58,6 +60,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return packages.count;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Father please show %@", [packages objectAtIndex:indexPath.row]);
+    [father showPackageDepiction:[packages objectAtIndex:indexPath.row]];
 }
 
 @end

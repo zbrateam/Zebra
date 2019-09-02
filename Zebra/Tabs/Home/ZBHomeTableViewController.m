@@ -22,6 +22,7 @@
 #import <ZBAppDelegate.h>
 #import <Changelog/ZBChangelogTableViewController.h>
 #import "ZBDevice.h"
+#import <Tabs/Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *featuredPackages;
@@ -293,6 +294,7 @@
         case 0: { //Featured Packages
             ZBFeaturedTableViewCell *cell = (ZBFeaturedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"featuredPackageTableCell" forIndexPath:indexPath];
 
+            cell.father = self;
             [cell updatePackages:featuredPackages];
 
             return cell;
@@ -462,6 +464,15 @@
         default:
             return 0;
     }
+}
+
+- (void)showPackageDepiction:(ZBPackage *)package {
+    NSLog(@"Ok son ill show %@", package);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBPackageDepictionViewController *depiction = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    depiction.package = package;
+    
+    [[self navigationController] pushViewController:depiction animated:true];
 }
 
 /*
