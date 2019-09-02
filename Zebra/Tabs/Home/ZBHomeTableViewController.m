@@ -319,13 +319,13 @@
             
             switch (indexPath.row) {
                 case 0:
-                    cell.actionLabel.text = @"Join our Discord";
+                    cell.actionLabel.text = @"Join Our Discord";
                     break;
                 case 1:
                     cell.actionLabel.text = @"Follow @getZebra on Twitter";
                     break;
                 case 2:
-                    cell.actionLabel.text = @"Buy the Team a Coffee";
+                    cell.actionLabel.text = @"Buy the Team Coffee";
                     break;
             }
             
