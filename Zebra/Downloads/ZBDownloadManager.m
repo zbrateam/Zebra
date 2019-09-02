@@ -321,7 +321,8 @@
                 [downloadTask resume];
             }];
         } else {
-            url = [base URLByAppendingPathComponent:filename];
+            NSString *urlString = [[base absoluteString] stringByAppendingPathComponent:filename];
+            url = [NSURL URLWithString:urlString];
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:url];
             ++tasks;
             
