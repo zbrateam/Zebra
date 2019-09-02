@@ -15,7 +15,6 @@
     
     self.iconImageView.layer.cornerRadius = 6;
     self.iconImageView.layer.masksToBounds = true;
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

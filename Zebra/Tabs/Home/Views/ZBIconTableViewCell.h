@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBIconTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-
+@property (strong, nonatomic) NSString *storyboardID;
 @end
 
 NS_ASSUME_NONNULL_END

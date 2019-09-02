@@ -314,6 +314,7 @@
             
             cell.titleLabel.text = @"Changelog";
             cell.iconImageView.image = [UIImage imageNamed:@"Changelog"];
+            cell.storyboardID = @"changelogController";
             
             return cell;
         }
@@ -367,11 +368,15 @@
                 [self presentViewController:safariViewController animated:true completion:nil];
             }
         }
-        case 3: { //Changelog
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
-            ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:@"changelogController"];
-            
-            [[self navigationController] pushViewController:changelogController animated:true];
+        case 2: { //Changelog
+            if ([cell isKindOfClass:[ZBIconTableViewCell class]]) {
+                ZBIconTableViewCell *iconCell = (ZBIconTableViewCell *)cell;
+                
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
+                ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:iconCell.storyboardID];
+                
+                [[self navigationController] pushViewController:changelogController animated:true];
+            }
         }
         case 4: { //Links
             
