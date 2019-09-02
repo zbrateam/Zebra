@@ -376,7 +376,7 @@
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)[downloadTask response];
     NSInteger responseCode = [httpResponse statusCode];
     NSURL *url = [[downloadTask originalRequest] URL];
-    NSString *filename = [url lastPathComponent];
+    NSString *filename = [[downloadTask response] suggestedFilename];
     if (responseCode != 200 && responseCode != 304) { // Handle error code
         if ([filename hasSuffix:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
