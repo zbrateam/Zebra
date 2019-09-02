@@ -251,7 +251,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -264,6 +264,8 @@
             return 1;
         case 3:
             return 3;
+        case 4:
+            return 1;
         default:
             return 0;
     }
@@ -314,9 +316,10 @@
             
             return cell;
         }
-//        case 4: { //Credits and Device information
-//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
-//        }
+        case 4: { //Credits and Device information
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"footnotesTableCell" forIndexPath:indexPath];
+            return cell;
+        }
         default: {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"somethingWrongIHoldMyHead"];
 
@@ -381,13 +384,21 @@
     else if (section == 3) {
         return 16;
     }
+    else if (section == 4) {
+        return 8;
+    }
     else {
         return CGFLOAT_MIN;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    if (section == 4) {
+        return 16;
+    }
+    else {
+        return CGFLOAT_MIN;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -399,6 +410,8 @@
             return 60;
         case 3:
             return 44;
+        case 4:
+            return 70;
         default:
             return 0;
     }

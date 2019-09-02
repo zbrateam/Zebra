@@ -12,7 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.deviceInfoLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
