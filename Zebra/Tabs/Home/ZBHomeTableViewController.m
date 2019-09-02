@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@import SafariServices;
+
 #import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import <Views/ZBFeaturedTableViewCell.h>
@@ -303,6 +305,7 @@
             
             cell.titleLabel.text = [components count] > 1 ? components[1] : components[0];
             cell.tagLabel.text = [[post objectForKey:@"link_flair_text"] uppercaseString];
+            cell.permalink = [post objectForKey:@"permalink"];
             
             return cell;
         }
@@ -349,12 +352,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     switch (indexPath.section) {
-        case 1: {
-            
-        }
-        case 2: {
-            
+        case 1: { //Community News
+            if ([cell isKindOfClass:[ZBCommunityNewsTableViewCell class]]) {
+                ZBCommunityNewsTableViewCell *newsCell = (ZBCommunityNewsTableViewCell *)cell;
+                
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", newsCell.permalink]];
+                SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+                if (@available(iOS 10.0, *)) {
+                    safariViewController.preferredControlTintColor = [UIColor tintColor];
+                }
+                
+                [self presentViewController:safariViewController animated:true completion:nil];
+            }
         }
         case 3: { //Changelog
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];

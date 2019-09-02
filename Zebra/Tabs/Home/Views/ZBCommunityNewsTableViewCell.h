@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBCommunityNewsTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLabel;
-
+@property (strong, nonatomic) NSString *permalink;
 @end
 
 NS_ASSUME_NONNULL_END
