@@ -13,11 +13,13 @@
 #import <Views/ZBCommunityNewsTableViewCell.h>
 #import <Views/ZBButtonTableViewCell.h>
 #import <Views/ZBIconTableViewCell.h>
+#import <Views/ZBFootnotesTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <Changelog/ZBChangelogTableViewController.h>
+#import "ZBDevice.h"
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *featuredPackages;
@@ -317,7 +319,10 @@
             return cell;
         }
         case 4: { //Credits and Device information
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"footnotesTableCell" forIndexPath:indexPath];
+            ZBFootnotesTableViewCell *cell = (ZBFootnotesTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"footnotesTableCell" forIndexPath:indexPath];
+            
+            [cell.deviceInfoLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@ \n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]]];
+            
             return cell;
         }
         default: {
