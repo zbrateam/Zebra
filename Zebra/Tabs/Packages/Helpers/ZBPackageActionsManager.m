@@ -188,21 +188,6 @@
         [actions addObject:ignore];
     }
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *wishList = [[defaults objectForKey:@"wishList"] mutableCopy] ?: [NSMutableArray new];
-    BOOL inWishList = [wishList containsObject:package.identifier];
-    UIAlertAction *wish = [UIAlertAction actionWithTitle:inWishList ? @"Remove from Wish List" : @"Add to Wish List" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (inWishList) {
-            [wishList removeObject:package.identifier];
-            [defaults setObject:wishList forKey:@"wishList"];
-        } else {
-            [wishList addObject:package.identifier];
-            [defaults setObject:wishList forKey:@"wishList"];
-        }
-        [defaults synchronize];
-    }];
-    [actions addObject:wish];
-    
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
     [actions addObject:cancel];
     

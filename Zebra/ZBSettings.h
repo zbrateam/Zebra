@@ -17,5 +17,6 @@
 #define wantsNewsKey @"wantsNews"
 #define liveSearchKey @"liveSearch"
 #define iconActionKey @"packageIconAction"
+#define wishListKey @"wishList"
 
 #endif /* ZBSettings_h */

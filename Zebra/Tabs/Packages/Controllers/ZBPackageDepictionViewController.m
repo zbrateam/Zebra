@@ -11,6 +11,7 @@
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 #import "ZBPackageDepictionViewController.h"
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
@@ -26,12 +27,13 @@
 @import SDWebImage;
 
 
-enum ZBPackageInfoOrder {
+typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoID = 0,
     ZBPackageInfoAuthor,
     ZBPackageInfoVersion,
     ZBPackageInfoSize,
     ZBPackageInfoRepo,
+    ZBPackageInfoWishList,
     ZBPackageInfoMoreBy,
     ZBPackageInfoInstalledFiles
 };
@@ -559,13 +561,10 @@ enum ZBPackageInfoOrder {
 
 - (void)modifyPackage {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
     for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
         [alert addAction:action];
     }
-    
     alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -613,12 +612,13 @@ enum ZBPackageInfoOrder {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         packageInfoOrder = @[
-                             @"packageID",
+                             @"PackageID",
                              @"Author",
                              @"Version",
                              @"Size",
                              @"Repo",
-                             @"moreBy",
+                             @"WishList",
+                             @"MoreBy",
                              @"Installed Files"
                              ];
     });
@@ -650,17 +650,17 @@ enum ZBPackageInfoOrder {
 
 - (void)readPackageID:(ZBPackage *)package {
     if (package.identifier) {
-        infos[@"packageID"] = package.identifier;
+        infos[@"PackageID"] = package.identifier;
     } else {
-        [infos removeObjectForKey:@"packageID"];
+        [infos removeObjectForKey:@"PackageID"];
     }
 }
 
 - (void)setMoreByText:(ZBPackage *)package {
     if (package.author) {
-        infos[@"moreBy"] = @"More by this Developer";
+        infos[@"MoreBy"] = @"More by this Developer";
     } else {
-        [infos removeObjectForKey:@"moreBy"];
+        [infos removeObjectForKey:@"MoreBy"];
     }
 }
 
@@ -710,7 +710,7 @@ enum ZBPackageInfoOrder {
     }
 }
 
-- (void)setPackage{
+- (void)setPackage {
     [self readIcon:package];
     [self readAuthor:package];
     [self readVersion:package];
@@ -719,6 +719,7 @@ enum ZBPackageInfoOrder {
     [self readFiles:package];
     [self readPackageID:package];
     [self setMoreByText:package];
+    infos[@"WishList"] = @"";
     [self.tableView reloadData];
 }
 
@@ -787,8 +788,10 @@ enum ZBPackageInfoOrder {
     NSString *property = [self packageInfoOrder][indexPath.row];
     NSString *value = infos[property];
     
+    ZBPackageInfoOrder row = indexPath.row;
+    
     if (cell == nil) {
-        if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoRepo) {
+        if (row == ZBPackageInfoSize || row == ZBPackageInfoVersion || row == ZBPackageInfoRepo) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
@@ -796,28 +799,41 @@ enum ZBPackageInfoOrder {
     }
     cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
     
-    if (indexPath.row == ZBPackageInfoInstalledFiles) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = property;
-    } else if (indexPath.row == ZBPackageInfoMoreBy) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = value;
-    } else if (indexPath.row == ZBPackageInfoID) {
-        cell.textLabel.text = value;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    } else if (indexPath.row == ZBPackageInfoAuthor) {
-        cell.textLabel.text = value;
-        cell.accessoryType = self.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
-    } else {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        if (value) {
+    switch (row) {
+        case ZBPackageInfoInstalledFiles:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.text = property;
-            cell.detailTextLabel.text = value;
-            cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
-        } else {
-            cell.textLabel.text = nil;
-            cell.detailTextLabel.text = nil;
+            break;
+        case ZBPackageInfoMoreBy:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = value;
+            break;
+        case ZBPackageInfoID:
+            cell.textLabel.text = value;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        case ZBPackageInfoAuthor:
+            cell.textLabel.text = value;
+            cell.accessoryType = self.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
+            break;
+        case ZBPackageInfoWishList: {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
+            cell.textLabel.text = inWishList ? @"Remove from Wish List" : @"Add to Wish List";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+        }
+        default: {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (value) {
+                cell.textLabel.text = property;
+                cell.detailTextLabel.text = value;
+                cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+            } else {
+                cell.textLabel.text = nil;
+                cell.detailTextLabel.text = nil;
+            }
+            break;
         }
     }
     return cell;
@@ -848,24 +864,49 @@ enum ZBPackageInfoOrder {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == ZBPackageInfoInstalledFiles) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBInstalledFilesTableViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"installedFilesController"];
-        filesController.navigationItem.title = @"Installed Files";
-        [filesController setPackage:package];
-        [[self navigationController] pushViewController:filesController animated:YES];
-    } else if (indexPath.row == ZBPackageInfoMoreBy) {
-        [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
-    } else if (indexPath.row == ZBPackageInfoAuthor && self.authorEmail) {
-        [self sendEmailToDeveloper];
+    ZBPackageInfoOrder row = indexPath.row;
+    switch (row) {
+        case ZBPackageInfoID:
+        case ZBPackageInfoRepo:
+        case ZBPackageInfoVersion:
+        case ZBPackageInfoSize:
+            break;
+        case ZBPackageInfoInstalledFiles: {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBInstalledFilesTableViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"installedFilesController"];
+            filesController.navigationItem.title = @"Installed Files";
+            [filesController setPackage:package];
+            [[self navigationController] pushViewController:filesController animated:YES];
+            break;
+        }
+        case ZBPackageInfoMoreBy:
+            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
+            break;
+        case ZBPackageInfoAuthor:
+            if (self.authorEmail)
+                [self sendEmailToDeveloper];
+            break;
+        case ZBPackageInfoWishList: {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSMutableArray *wishList = [[defaults objectForKey:wishListKey] mutableCopy];
+            BOOL inWishList = [wishList containsObject:package.identifier];
+            if (inWishList) {
+                [wishList removeObject:package.identifier];
+                [defaults setObject:wishList forKey:wishListKey];
+            } else {
+                [wishList addObject:package.identifier];
+                [defaults setObject:wishList forKey:wishListKey];
+            }
+            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-// More By author button
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"seguePackageDepictionToMorePackages"]) {
-        ZBPackagesByAuthorTableViewController *destination = (ZBPackagesByAuthorTableViewController *)[segue destinationViewController];
+        ZBPackagesByAuthorTableViewController *destination = [segue destinationViewController];
         NSString *authorName = sender;
         destination.package = self.package;
         destination.developerName = authorName;

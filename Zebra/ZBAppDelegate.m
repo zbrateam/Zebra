@@ -175,6 +175,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if (![settings objectForKey:wantsNewsKey]) {
         [settings setBool:YES forKey:wantsNewsKey];
     }
+    if (![settings objectForKey:wishListKey]) {
+        [settings setObject:[NSArray new] forKey:wishListKey];
+    }
     [settings synchronize];
 }
 
