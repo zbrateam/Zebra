@@ -7,6 +7,7 @@
 //
 
 #import "ZBWishListTableViewController.h"
+#import <ZBSettings.h>
 #import <ZBQueue.h>
 
 @interface ZBWishListTableViewController ()
@@ -27,10 +28,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    wishedPackages = [[defaults objectForKey:@"wishList"] mutableCopy];
-    if (!wishedPackages) {
-        wishedPackages = [NSMutableArray new];
-    }
+    wishedPackages = [defaults objectForKey:wishListKey];
     [self.tableView reloadData];
 }
 
@@ -78,7 +76,7 @@
     }];
     UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[[ZBQueue sharedInstance] useIcon] ? @"W ╳" : @"Unlist" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self->wishedPackages removeObject:package.identifier];
-        [self->defaults setObject:self->wishedPackages forKey:@"wishList"];
+        [self->defaults setObject:self->wishedPackages forKey:wishListKey];
         [self->defaults synchronize];
         [self.tableView reloadData];
     }];

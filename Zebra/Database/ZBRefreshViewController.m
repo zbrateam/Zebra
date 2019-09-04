@@ -8,6 +8,7 @@
 
 #import <ZBTabBarController.h>
 #import <ZBDevice.h>
+#import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBRepoManager.h>
@@ -161,7 +162,7 @@ typedef enum {
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
+    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
     if (packageUpdates != -1) {
         [tabController setPackageUpdateBadgeValue:packageUpdates];
     }
