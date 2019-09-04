@@ -74,7 +74,11 @@
         [_queue removePackage:package fromQueue:0];
     }
     [_queue.failedConQueue removeAllObjects];
-    [self refreshTable];
+    if (![_queue hasObjects]) {
+        [self abort:nil];
+    } else {
+        [self refreshTable];
+    }
 }
 
 - (void)refreshBarButtons {
