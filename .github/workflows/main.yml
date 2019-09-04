@@ -12,9 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install Dependencies
+      env:
+        theos: theos
       run: |
         brew install ldid
-        git clone --recursive https://github.com/theos/theos.git theos
+        git clone --recursive https://github.com/theos/theos.git $THEOS
         
     - name: Build Package
+      env:
+        theos: theos
       run: make package
