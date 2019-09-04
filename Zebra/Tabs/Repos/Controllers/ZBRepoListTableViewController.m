@@ -334,7 +334,9 @@
             } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                console.repoURLs = [repoManager verifiedURLs];
+                if (![repoManager debLines]) {
+                    console.repoURLs = [repoManager verifiedURLs];
+                }
                 [weakSelf presentViewController:console animated:YES completion:nil];
             }
         }];

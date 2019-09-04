@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
 - (NSString *)knownDebLineFromURLString:(NSString *)urlString;
 - (NSArray <NSURL *> *)verifiedURLs;
+- (NSArray <NSString *> *)debLines;
 @end
 
 NS_ASSUME_NONNULL_END
