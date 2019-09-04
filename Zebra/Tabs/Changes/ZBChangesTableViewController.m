@@ -333,16 +333,33 @@
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    previewingContext.sourceRect = cell.frame;
-    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
-    [self setDestinationVC:indexPath destination:packageDepictionVC];
-    return packageDepictionVC;
+    if (indexPath != nil) {
+        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        previewingContext.sourceRect = cell.frame;
+        ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        
+        [self setDestinationVC:indexPath destination:packageDepictionVC];
+        return packageDepictionVC;
+    }
+    else {
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
+        ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        NSURL *url = [cell redditLink];
+        SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+        
+        return sfVC;
+    }
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+    
+    if ([viewControllerToCommit isKindOfClass:[SFSafariViewController class]]) {
+        [self.navigationController presentViewController:viewControllerToCommit animated:true completion:nil];
+    }
+    else {
+        [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+    }
 }
 
 - (void)darkMode:(NSNotification *)notif {
