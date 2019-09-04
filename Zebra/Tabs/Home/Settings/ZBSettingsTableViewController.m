@@ -333,7 +333,7 @@ enum ZBMiscOrder {
             [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
-            cell.textLabel.text = @"Search as Typing";
+            cell.textLabel.text = @"Search while Typing";
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
