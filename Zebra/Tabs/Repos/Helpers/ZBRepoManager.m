@@ -81,9 +81,11 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         urls = @[@"apt.thebigboss.org/",
+            @"apt.thebigboss.org/repofiles/cydia/",
             @"apt.modmyi.com/",
             @"apt.saurik.com/",
-            @"cydia.zodttd.com/"];
+            @"cydia.zodttd.com/",
+            @"cydia.zodttd.com/repo/cydia/"];
     });
     return urls;
 }
@@ -94,8 +96,10 @@
     dispatch_once(&onceToken, ^{
         lines = @[
             @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
             @"deb http://apt.modmyi.com/ stable main\n",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
             @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"
         ];
     });
