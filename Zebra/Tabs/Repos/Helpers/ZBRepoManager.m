@@ -187,7 +187,6 @@
                         NSString *debLine = [self knownDebLineFromURLString:urlString];
                         if (debLine) {
                             [self addDebLine:debLine];
-                            respond(YES, nil, nil);
                         } else {
                             [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
                                 if (responseError) {
