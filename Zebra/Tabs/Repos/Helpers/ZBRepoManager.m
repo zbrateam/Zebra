@@ -15,6 +15,7 @@
 
 @interface ZBRepoManager () {
     NSMutableArray<NSURL *> *verifiedURLs;
+    NSMutableArray<NSString *> *debLines;
     NSMutableDictionary <NSNumber *, ZBRepo *> *repos;
     BOOL recachingNeeded;
 }
@@ -76,14 +77,20 @@
     return verifiedURLs;
 }
 
+- (NSArray <NSString *> *)debLines {
+    return debLines;
+}
+
 + (NSArray <NSString *> *)knownDistURLs {
     static NSArray *urls = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         urls = @[@"apt.thebigboss.org/",
+            @"apt.thebigboss.org/repofiles/cydia/",
             @"apt.modmyi.com/",
             @"apt.saurik.com/",
-            @"cydia.zodttd.com/"];
+            @"cydia.zodttd.com/",
+            @"cydia.zodttd.com/repo/cydia/"];
     });
     return urls;
 }
@@ -94,8 +101,10 @@
     dispatch_once(&onceToken, ^{
         lines = @[
             @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
             @"deb http://apt.modmyi.com/ stable main\n",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
             @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"
         ];
     });
@@ -133,6 +142,7 @@
                 NSMutableArray<NSString *> *errors = [NSMutableArray array];
                 NSMutableArray<NSURL *> *errorURLs = [NSMutableArray array];
                 self->verifiedURLs = [NSMutableArray new];
+                self->debLines = [NSMutableArray new];
                 
                 NSMutableSet<NSURL *> *detectedURLs = [NSMutableSet set];
                 
@@ -182,8 +192,9 @@
                     } else {
                         NSString *debLine = [self knownDebLineFromURLString:urlString];
                         if (debLine) {
-                            [self addDebLine:debLine];
-                            respond(YES, nil, nil);
+                            [self->debLines addObject:debLine];
+                            
+                            dispatch_group_leave(group);
                         } else {
                             [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
                                 if (responseError) {
@@ -209,14 +220,22 @@
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
+                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0 && !self->debLines.count) {
                             respond(NO, @"You have already added these repositories.", @[]);
-                        } else {
+                        }
+                        else if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0 && self->debLines.count) {
+                            respond(YES, nil, nil);
+                        }
+                        else {
                             __block NSError *addError = nil;
                             
                             [strongSelf addSources:self->verifiedURLs completion:^(BOOL success, NSError *error) {
                                 addError = error;
                             }];
+                            
+                            for (NSString *debLine in self->debLines) {
+                                [self addDebLine:debLine];
+                            }
                             
                             if (errors.count) {
                                 NSString *errorMessage;

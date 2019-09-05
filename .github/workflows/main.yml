@@ -1,0 +1,24 @@
+name: Build Zebra
+
+on:
+  push:
+    branches:
+      - master
+  
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install Dependencies
+      env:
+        THEOS: theos
+      run: |
+        brew install ldid
+        git clone --recursive https://github.com/theos/theos.git $THEOS
+        
+    - name: Build Package
+      env:
+        THEOS: theos
+      run: make package
