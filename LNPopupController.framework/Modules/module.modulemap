@@ -1,0 +1,6 @@
+framework module LNPopupController {
+  umbrella header "LNPopupController.h"
+
+  export *
+  module * { export * }
+}
