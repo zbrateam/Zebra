@@ -219,23 +219,21 @@
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    if (indexPath != nil) {
-        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        previewingContext.sourceRect = cell.frame;
-        ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        
-        [self setDestinationVC:indexPath destination:packageDepictionVC];
-        return packageDepictionVC;
-    }
-    else {
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
-        ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-        
-        NSURL *url = [cell redditLink];
-        SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
-        
-        return sfVC;
-    }
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    previewingContext.sourceRect = cell.frame;
+    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    
+    [self setDestinationVC:indexPath destination:packageDepictionVC];
+    return packageDepictionVC;
+//    else {
+//        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
+//        ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+//
+//        NSURL *url = [cell redditLink];
+//        SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+//
+//        return sfVC;
+//    }
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
