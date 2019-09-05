@@ -162,8 +162,12 @@
 }
 
 - (BOOL)acceptableFlair:(NSString *)flairText {
-    NSArray *acceptableFlairs = @[@"release", @"update", @"upcoming", @"news"];
-    return [acceptableFlairs containsObject:[flairText lowercaseString]];
+    if (flairText != NULL && ![flairText isEqual:[NSNull null]]) {
+        NSArray *acceptableFlairs = @[@"release", @"update", @"upcoming", @"news"];
+        return [acceptableFlairs containsObject:[flairText lowercaseString]];
+    }
+    
+    return false;
 }
 
 - (void)downloadFeaturedPackages:(BOOL)ignoreCaching {
