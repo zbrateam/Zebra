@@ -6,13 +6,13 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceListTableViewController.h"
+#import "ZBSourcesListTableViewController.h"
 
-@interface ZBSourceListTableViewController ()
+@interface ZBSourcesListTableViewController ()
 
 @end
 
-@implementation ZBSourceListTableViewController
+@implementation ZBSourcesListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

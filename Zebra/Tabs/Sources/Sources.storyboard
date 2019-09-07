@@ -12,7 +12,7 @@
         <!--Sources-->
         <scene sceneID="3WX-ZW-3lp">
             <objects>
-                <tableViewController id="veq-0E-5UG" customClass="ZBSourceListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="veq-0E-5UG" customClass="ZBSourcesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NdN-gL-Kl5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

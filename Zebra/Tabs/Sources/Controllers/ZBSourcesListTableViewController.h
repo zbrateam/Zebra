@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceListTableViewController : UITableViewController
+@interface ZBSourcesListTableViewController : UITableViewController
 
 @end
 

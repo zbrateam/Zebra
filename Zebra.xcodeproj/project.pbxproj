@@ -59,7 +59,7 @@
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		89254AA7232424FD008BE104 /* Sources.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89254AA6232424FD008BE104 /* Sources.storyboard */; };
-		89254AAD232425B1008BE104 /* ZBSourceListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89254AAC232425B1008BE104 /* ZBSourceListTableViewController.m */; };
+		89254AAD232425B1008BE104 /* ZBSourcesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89254AAC232425B1008BE104 /* ZBSourcesListTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
@@ -202,8 +202,8 @@
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		89254AA6232424FD008BE104 /* Sources.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sources.storyboard; sourceTree = "<group>"; };
-		89254AAB232425B1008BE104 /* ZBSourceListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceListTableViewController.h; sourceTree = "<group>"; };
-		89254AAC232425B1008BE104 /* ZBSourceListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceListTableViewController.m; sourceTree = "<group>"; };
+		89254AAB232425B1008BE104 /* ZBSourcesListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourcesListTableViewController.h; sourceTree = "<group>"; };
+		89254AAC232425B1008BE104 /* ZBSourcesListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourcesListTableViewController.m; sourceTree = "<group>"; };
 		8931E4D2226D6E9300F35DFD /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
@@ -515,8 +515,8 @@
 		896F11C821B231CF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				89254AAB232425B1008BE104 /* ZBSourceListTableViewController.h */,
-				89254AAC232425B1008BE104 /* ZBSourceListTableViewController.m */,
+				89254AAB232425B1008BE104 /* ZBSourcesListTableViewController.h */,
+				89254AAC232425B1008BE104 /* ZBSourcesListTableViewController.m */,
 				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
 				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
 				8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */,
@@ -939,7 +939,7 @@
 				36A33CED22C9C0C60054A577 /* ZBCommunityReposTableViewController.m in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
-				89254AAD232425B1008BE104 /* ZBSourceListTableViewController.m in Sources */,
+				89254AAD232425B1008BE104 /* ZBSourcesListTableViewController.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
