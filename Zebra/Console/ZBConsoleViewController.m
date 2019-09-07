@@ -48,12 +48,17 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     queue = [ZBQueue sharedInstance];
+    [self resetData];
+}
+
+- (void)resetData {
     self.title = @"Console";
     stage = -1;
     continueWithActions = YES;
     needsIconCacheUpdate = NO;
     needsRespring = NO;
     preventCancel = NO;
+    hasZebraUpdated = NO;
     installedIDs = [NSMutableArray new];
     bundlePaths = [NSMutableArray new];
     downloadingMap = [NSMutableDictionary new];
@@ -66,6 +71,7 @@ typedef enum {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self resetData];
     
     if (_externalInstall) {
         akton = @[@[@0], @[@"apt", @"install", @"-y", _externalFilePath]];
@@ -254,7 +260,7 @@ typedef enum {
     [self removeAllDebs];
     
     if (needsIconCacheUpdate) {
-        [self writeToConsole:@"Updating icon cache...\n" atLevel:ZBLogLevelInfo];
+        [self writeToConsole:@"Updating icon cache asynchronously...\n" atLevel:ZBLogLevelInfo];
         NSMutableArray *arguments = [NSMutableArray new];
         if ([uicaches count] + [bundlePaths count] > 1) {
             [arguments addObject:@"-a"];

@@ -156,7 +156,6 @@
         }
         
         [task launch];
-        [task waitUntilExit];
     }
 }
 
