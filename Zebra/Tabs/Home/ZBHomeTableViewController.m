@@ -307,9 +307,21 @@
             ZBCommunityNewsTableViewCell *cell = (ZBCommunityNewsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
             
             NSDictionary *post = [communityNewsPosts objectAtIndex:indexPath.row];
-            NSArray *components = [[post objectForKey:@"title"] componentsSeparatedByString:@"] "];
+            NSMutableArray *components = [[[post objectForKey:@"title"] componentsSeparatedByString:@"] "] mutableCopy];
             
-            cell.titleLabel.text = [components count] > 1 ? components[1] : components[0];
+            NSString *title = @"Could not load post";
+            if ([components count] > 2) {
+                [components removeObjectAtIndex:0];
+                title = [components componentsJoinedByString:@"] "];
+            }
+            else if ([components count] > 1) {
+                title = components[1];
+            }
+            else {
+                title = components[0];
+            }
+            
+            cell.titleLabel.text = title;
             cell.tagLabel.text = [[post objectForKey:@"link_flair_text"] uppercaseString];
             cell.permalink = [post objectForKey:@"permalink"];
             
