@@ -163,7 +163,7 @@
 
 - (BOOL)acceptableFlair:(NSString *)flairText {
     if (flairText != NULL && ![flairText isEqual:[NSNull null]]) {
-        NSArray *acceptableFlairs = @[@"release", @"update", @"upcoming", @"news"];
+        NSArray *acceptableFlairs = @[@"release", @"update", @"upcoming", @"news", @"tutorial", @"jailbreak release"];
         return [acceptableFlairs containsObject:[flairText lowercaseString]];
     }
     
