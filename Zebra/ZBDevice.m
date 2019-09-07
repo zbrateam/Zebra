@@ -228,91 +228,91 @@
 }
 
 + (void)configureDarkMode {
-    // Navigation bar
-    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    }
-    if ([ZBDevice darkModeOledEnabled]){
-        [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [[UINavigationBar appearance] setTranslucent:NO];
-    } else {
-        [[UINavigationBar appearance] setBackgroundColor:nil];
-        [[UINavigationBar appearance] setTranslucent:YES];
-    }
-    
-    // Status bar
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    
-    // Tab
-    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
-    if ([ZBDevice darkModeOledEnabled]){
-        [[UITabBar appearance] setTranslucent:NO];
-    } else {
-        [[UITabBar appearance] setTranslucent:YES];
-    }
-    // [[UITabBar appearance] setShadowImage:[UIImage new]];
-    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
-    
-    // Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
-    [[UITableView appearance] setTintColor:[UIColor tintColor]];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-    
-    UIView *dark = [[UIView alloc] init];
-    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
-    [[UITableViewCell appearance] setSelectedBackgroundView:dark];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
-    
-    // Keyboard
-    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
-    
-    // Web views
-    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:YES];
+//    // Navigation bar
+//    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+//    // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//    if (@available(iOS 11.0, *)) {
+//        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+//    }
+//    if ([ZBDevice darkModeOledEnabled]){
+//        [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//        [[UINavigationBar appearance] setTranslucent:NO];
+//    } else {
+//        [[UINavigationBar appearance] setBackgroundColor:nil];
+//        [[UINavigationBar appearance] setTranslucent:YES];
+//    }
+//
+//    // Status bar
+//    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+//
+//    // Tab
+//    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
+//    [[UITabBar appearance] setBackgroundColor:nil];
+//    [[UITabBar appearance] setBarTintColor:nil];
+//    if ([ZBDevice darkModeOledEnabled]){
+//        [[UITabBar appearance] setTranslucent:NO];
+//    } else {
+//        [[UITabBar appearance] setTranslucent:YES];
+//    }
+//    // [[UITabBar appearance] setShadowImage:[UIImage new]];
+//    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+//
+//    // Tables
+//    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
+//    [[UITableView appearance] setTintColor:[UIColor tintColor]];
+//    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+//
+//    UIView *dark = [[UIView alloc] init];
+//    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
+//    [[UITableViewCell appearance] setSelectedBackgroundView:dark];
+//    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+//
+//    // Keyboard
+//    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+//
+//    // Web views
+//    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [[WKWebView appearance] setOpaque:YES];
 }
 
 + (void)configureLightMode {
-    // Navigation bar
-    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    }
-    [[UINavigationBar appearance] setBarTintColor:nil];
-    [[UINavigationBar appearance] setBackgroundColor:nil];
-    [[UINavigationBar appearance] setTranslucent:YES];
-    // Status bar
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
-    
-    // Tab
-    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
-    [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
-    [[UITabBar appearance] setTranslucent:YES];
-    // [[UITabBar appearance] setShadowImage:[UIImage new]];
-    
-    // Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITableView appearance] setTintColor:[UIColor tintColor]];
-    [[UITableView appearance] setTintColor:nil];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-    [[UITableViewCell appearance] setSelectedBackgroundView:nil];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
-    
-    // Keyboard
-    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
-    
-    // Web views
-    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:YES];
+//    // Navigation bar
+//    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+//    // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//    if (@available(iOS 11.0, *)) {
+//        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+//    }
+//    [[UINavigationBar appearance] setBarTintColor:nil];
+//    [[UINavigationBar appearance] setBackgroundColor:nil];
+//    [[UINavigationBar appearance] setTranslucent:YES];
+//    // Status bar
+//    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+//
+//    // Tab
+//    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
+//    [[UITabBar appearance] setBackgroundColor:nil];
+//    [[UITabBar appearance] setBarTintColor:nil];
+//    [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
+//    [[UITabBar appearance] setTranslucent:YES];
+//    // [[UITabBar appearance] setShadowImage:[UIImage new]];
+//
+//    // Tables
+//    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [[UITableView appearance] setTintColor:[UIColor tintColor]];
+//    [[UITableView appearance] setTintColor:nil];
+//    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+//    [[UITableViewCell appearance] setSelectedBackgroundView:nil];
+//    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+//
+//    // Keyboard
+//    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
+//
+//    // Web views
+//    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [[WKWebView appearance] setOpaque:YES];
 }
 
 + (void)applyThemeSettings {
@@ -350,7 +350,7 @@
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     safariVC.delegate = delegate;
     if (@available(iOS 10.0, *)) {
-        safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
+//        safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
         safariVC.preferredControlTintColor = [UIColor tintColor];
     } else {
         safariVC.view.tintColor = [UIColor tintColor];

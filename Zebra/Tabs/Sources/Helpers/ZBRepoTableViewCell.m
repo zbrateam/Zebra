@@ -18,7 +18,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor cellBackgroundColor];
+//    self.backgroundColor = [UIColor cellBackgroundColor];
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.masksToBounds = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -29,7 +29,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
+//    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 - (void)clearAccessoryView {

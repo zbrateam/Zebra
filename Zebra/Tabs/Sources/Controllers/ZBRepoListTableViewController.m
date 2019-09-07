@@ -421,9 +421,9 @@
     }
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
-    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+//    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+//    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+//    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
 }
 
@@ -497,7 +497,7 @@
     if ([self hasDataInSection:section]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
         header.tintColor = [UIColor clearColor];
         [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
     }

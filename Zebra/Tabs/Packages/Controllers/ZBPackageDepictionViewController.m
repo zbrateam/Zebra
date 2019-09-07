@@ -90,10 +90,10 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
-    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
     
-    [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
     infos = [NSMutableDictionary new];
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     
     webView.navigationDelegate = self;
     webView.opaque = NO;
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
@@ -144,13 +144,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavButton];
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
@@ -592,13 +592,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)reloadDepiction {
     [self prepDepictionLoading:webView.URL];
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    webView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.tableView reloadData];
-    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.packageName.textColor = [UIColor cellPrimaryTextColor];
+//    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.packageName.textColor = [UIColor cellPrimaryTextColor];
 }
 
 #pragma mark TableView
@@ -627,7 +627,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
-    self.packageName.textColor = [UIColor cellPrimaryTextColor];
+//    self.packageName.textColor = [UIColor cellPrimaryTextColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
@@ -797,7 +797,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         }
     }
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
     
     switch (row) {
         case ZBPackageInfoInstalledFiles:
@@ -828,7 +828,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             if (value) {
                 cell.textLabel.text = property;
                 cell.detailTextLabel.text = value;
-                cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+//                cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
             } else {
                 cell.textLabel.text = nil;
                 cell.detailTextLabel.text = nil;

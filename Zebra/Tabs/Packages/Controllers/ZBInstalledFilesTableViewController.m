@@ -27,7 +27,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)getInstalledFiles {
@@ -76,7 +76,7 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

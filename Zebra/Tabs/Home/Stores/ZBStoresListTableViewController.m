@@ -38,8 +38,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshTable];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)refreshTable {

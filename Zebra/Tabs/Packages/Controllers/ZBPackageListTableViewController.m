@@ -360,7 +360,7 @@ typedef enum {
     if ([[self objectAtSection:section] count]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
         header.tintColor = [UIColor clearColor];
         [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
     }
@@ -464,7 +464,7 @@ typedef enum {
             destination.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
         }
         [self setDestinationVC:indexPath destination:destination];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+//        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

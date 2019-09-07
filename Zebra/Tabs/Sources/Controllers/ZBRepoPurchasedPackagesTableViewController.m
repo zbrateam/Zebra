@@ -48,7 +48,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)listPurchasedSileoPackages {
@@ -166,7 +166,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     header.tintColor = [UIColor clearColor];
     [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }
@@ -199,7 +199,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         destination.package = [_packages objectAtIndex:indexPath.row];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+//        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

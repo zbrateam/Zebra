@@ -89,8 +89,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self setupEndpointButtons];
 }
 
@@ -283,7 +283,7 @@
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+//        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     } else {
         ZBPackageListTableViewController *destination = [segue destinationViewController];
         UITableViewCell *cell = (UITableViewCell *)sender;

@@ -26,7 +26,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 #pragma mark - Table view data source
@@ -48,7 +48,7 @@
     }
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
     
     if (indexPath.row != 0) {
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];

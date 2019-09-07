@@ -27,7 +27,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     wishedPackages = [defaults objectForKey:wishListKey];
     [self.tableView reloadData];
 }
@@ -94,7 +94,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:[wishedPackages objectAtIndex:indexPath.row]];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+//        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

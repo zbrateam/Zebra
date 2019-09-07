@@ -94,15 +94,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self colorWindow];
-    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)colorWindow {
     UIWindow *window = UIApplication.sharedApplication.delegate.window;
-    [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -407,7 +407,7 @@
     [ZBDevice configureDarkMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
 }
@@ -419,7 +419,7 @@
     [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];

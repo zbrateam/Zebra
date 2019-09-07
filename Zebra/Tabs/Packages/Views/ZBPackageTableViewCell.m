@@ -18,7 +18,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor cellBackgroundColor];
+//    self.backgroundColor = [UIColor cellBackgroundColor];
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
     self.queueStatusLabel.hidden = YES;
@@ -93,10 +93,10 @@
 }
 
 - (void)setColors {
-    self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-    self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.authorAndRepo.textColor = [UIColor cellSecondaryTextColor];
-    self.backgroundColor = [UIColor cellBackgroundColor];
+//    self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
+//    self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
+//    self.authorAndRepo.textColor = [UIColor cellSecondaryTextColor];
+//    self.backgroundColor = [UIColor cellBackgroundColor];
 }
 
 - (NSString *)stripEmailFromAuthor:(NSString *)name {
@@ -112,7 +112,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
+//    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 @end

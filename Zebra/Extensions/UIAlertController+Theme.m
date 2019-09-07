@@ -40,10 +40,10 @@
     for (UIView *subview in subviews) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIAlertControlleriOSActionSheetCancelBackgroundView")]) {
             UIView *bgView = [subview valueForKey:@"backgroundView"];
-            bgView.backgroundColor = [UIColor cellBackgroundColor];
+//            bgView.backgroundColor = [UIColor cellBackgroundColor];
             return;
         } else if ([subview isKindOfClass:[UILabel class]]) {
-            ((UILabel *)subview).textColor = [UIColor cellPrimaryTextColor];
+//            ((UILabel *)subview).textColor = [UIColor cellPrimaryTextColor];
         }
         [self recursiveSetColor:subview];
     }
@@ -51,7 +51,7 @@
 
 - (void)setBackgroundColor {
     UIView *view = self.view;
-    view.subviews[0].subviews[0].subviews[0].backgroundColor = [UIColor cellBackgroundColor];
+//    view.subviews[0].subviews[0].subviews[0].backgroundColor = [UIColor cellBackgroundColor];
     for (UIView *groupView in view.subviews) {
         [self recursiveSetColor:groupView];
     }
@@ -60,7 +60,7 @@
             UIView *backgroundView = [view valueForKey:@"_backgroundView"];
             UIView *visualEffectView = [backgroundView valueForKey:@"_blurView"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
-                visualEffectView.subviews[1].backgroundColor = [UIColor cellBackgroundColor];
+//                visualEffectView.subviews[1].backgroundColor = [UIColor cellBackgroundColor];
             });
             return;
         }

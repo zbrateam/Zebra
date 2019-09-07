@@ -62,7 +62,7 @@ enum ZBMiscOrder {
     self.navigationItem.title = @"Settings";
     self.headerView.image = [UIImage imageNamed:@"banner"];
     self.headerView.clipsToBounds = YES;
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self configureNavBar];
     [self configureTitleLabel];
     [self configureSelectedTint];
@@ -72,7 +72,7 @@ enum ZBMiscOrder {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self.tableView reloadData];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavBar];
 }
 
@@ -96,12 +96,12 @@ enum ZBMiscOrder {
 }
 
 - (void)configureNavBar {
-    self.navigationController.navigationBar.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
     self.navigationController.navigationBar.translucent = NO;
     // self.navigationController.navigationBar.barStyle = [ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]};
+//    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]};
 }
 
 - (void)configureTitleLabel {
@@ -190,9 +190,9 @@ enum ZBMiscOrder {
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -226,7 +226,7 @@ enum ZBMiscOrder {
             cell.imageView.layer.cornerRadius = 10;
             cell.imageView.clipsToBounds = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBGraphics: {
@@ -284,7 +284,7 @@ enum ZBMiscOrder {
                     break;
                 }
             }
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBFeatured: {
@@ -314,7 +314,7 @@ enum ZBMiscOrder {
                     break;
                 }
             }
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBNews: {
@@ -324,7 +324,7 @@ enum ZBMiscOrder {
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = @"Enable News";
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBSearch: {
@@ -334,7 +334,7 @@ enum ZBMiscOrder {
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = @"Search while Typing";
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBMisc: {
@@ -346,7 +346,7 @@ enum ZBMiscOrder {
                 segmentedControl.tintColor = [UIColor tintColor];
                 [segmentedControl addTarget:self action:@selector(iconActionSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
                 cell.accessoryView = segmentedControl;
-                cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//                cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             }
             cell.textLabel.text = text;
             return cell;
@@ -451,8 +451,8 @@ enum ZBMiscOrder {
     webController.navigationDelegate = webController;
     webController.navigationItem.title = @"Loading...";
     NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [webController setValue:url forKey:@"_url"];
     [[self navigationController] pushViewController:webController animated:YES];
 }
@@ -500,8 +500,8 @@ enum ZBMiscOrder {
     if (@available(iOS 10.3, *)) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController pushViewController:altIcon animated:YES];
     }
 }
@@ -534,8 +534,8 @@ enum ZBMiscOrder {
 - (void)openBlackList {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBRepoBlacklistTableViewController *blackList = [storyboard instantiateViewControllerWithIdentifier:@"repoBlacklistController"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController pushViewController:blackList animated:YES];
 }
 
@@ -549,10 +549,10 @@ enum ZBMiscOrder {
 }
 - (void)oledAnimation {
     [self.tableView reloadData];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self configureNavBar];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.headerView.backgroundColor = [UIColor tableViewBackgroundColor];
     [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];

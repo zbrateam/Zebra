@@ -26,7 +26,7 @@
     [super loadView];
     _queue = [ZBQueue sharedInstance];
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
     self.title = @"Queue";
 }
@@ -38,7 +38,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self refreshTable];
 }
 
@@ -143,7 +143,7 @@
     // Text Color
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     }
 }
 
@@ -162,7 +162,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    cell.backgroundColor = [UIColor cellBackgroundColor];
+//    cell.backgroundColor = [UIColor cellBackgroundColor];
     
     if ([action isEqualToString:@"Unresolved Dependencies"]) {
         cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];

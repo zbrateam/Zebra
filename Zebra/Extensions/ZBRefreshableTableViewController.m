@@ -92,8 +92,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     if ([[self class] supportRefresh] && refreshControl) {
         if ([databaseManager isDatabaseBeingUpdated]) {
             [refreshControl removeFromSuperview];

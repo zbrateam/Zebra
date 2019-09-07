@@ -41,8 +41,8 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     if ([ZBDevice darkModeEnabled]) {
         [self setNeedsStatusBarAppearanceUpdate];
-        [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [_consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//        [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//        [_consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     }
 }
 

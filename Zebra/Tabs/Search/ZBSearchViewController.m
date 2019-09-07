@@ -79,8 +79,8 @@ enum ZBSearchSection {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)configureClearSearchButton {
@@ -218,7 +218,7 @@ enum ZBSearchSection {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:notFoundID];
             }
             cell.textLabel.text = @"No Results Found";
-            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             return cell;
         }
@@ -229,8 +229,8 @@ enum ZBSearchSection {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearchesID];
             }
             cell.textLabel.text = [recentSearches objectAtIndex:indexPath.row];
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
             return cell;
         }
         case ZBSearchSectionResults: {
@@ -326,7 +326,7 @@ enum ZBSearchSection {
     ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
     NSIndexPath *indexPath = sender;
     destination.package = [results objectAtIndex:indexPath.row];
-    destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+//    destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {

@@ -26,7 +26,7 @@ enum ZBSourcesOrder {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.navigationItem setTitle:@"Community Repos"];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
@@ -149,17 +149,17 @@ enum ZBSourcesOrder {
     
     if (cellText) {
         [cell.repoLabel setText:cellText];
-        [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
+//        [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
     } else {
         cell.repoLabel.text = nil;
     }
     
     if (subText && !repoURL) {
         [cell.urlLabel setText:subText];
-        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
+//        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
     } else if (repoURL) {
         [cell.urlLabel setText:repoURL.absoluteString];
-        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
+//        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
     } else {
         cell.urlLabel.text = nil;
     }
@@ -171,7 +171,7 @@ enum ZBSourcesOrder {
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
     header.tintColor = [UIColor clearColor];
     [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }
