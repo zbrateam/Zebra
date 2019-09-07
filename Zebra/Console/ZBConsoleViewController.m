@@ -48,6 +48,7 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     queue = [ZBQueue sharedInstance];
+    [self resetData];
 }
 
 - (void)resetData {
