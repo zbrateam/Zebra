@@ -36,6 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.tableView setBackgroundColor:[UIColor whiteColor]]; //Change for dark mode later
+    
     if (featuredPackages == NULL) {
         featuredPackages = [NSMutableArray new];
     }
