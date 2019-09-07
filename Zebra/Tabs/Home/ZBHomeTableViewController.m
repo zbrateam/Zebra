@@ -369,7 +369,7 @@
                     break;
                 case 1:
                     cell.actionLabel.text = @"Follow @getZebra on Twitter";
-                    cell.actionLink = @"https://twitter.com/getZebra";
+                    cell.actionLink = @"twitter";
                     break;
                 case 2:
                     cell.actionLabel.text = @"Buy the Team Coffee";
@@ -392,48 +392,6 @@
             cell.textLabel.text = @"Something is very wrong here...";
 
             return cell;
-        }
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    switch (indexPath.section) {
-        case 1: { //Community News
-            if ([cell isKindOfClass:[ZBCommunityNewsTableViewCell class]]) {
-                ZBCommunityNewsTableViewCell *newsCell = (ZBCommunityNewsTableViewCell *)cell;
-                
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", newsCell.permalink]];
-                SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
-                if (@available(iOS 10.0, *)) {
-                    safariViewController.preferredControlTintColor = [UIColor tintColor];
-                }
-                
-                [self presentViewController:safariViewController animated:true completion:nil];
-            }
-        }
-        case 2: { //Changelog
-            if ([cell isKindOfClass:[ZBIconTableViewCell class]]) {
-                ZBIconTableViewCell *iconCell = (ZBIconTableViewCell *)cell;
-                
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
-                ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:iconCell.storyboardID];
-                
-                [[self navigationController] pushViewController:changelogController animated:true];
-            }
-        }
-        case 3: { //Links
-            if ([cell isKindOfClass:[ZBButtonTableViewCell class]]) {
-                ZBButtonTableViewCell *buttonCell = (ZBButtonTableViewCell *)cell;
-                
-                NSURL *url = [NSURL URLWithString:buttonCell.actionLink];
-                SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
-                if (@available(iOS 10.0, *)) {
-                    safariViewController.preferredControlTintColor = [UIColor tintColor];
-                }
-                
-                [self presentViewController:safariViewController animated:true completion:nil];
-            }
         }
     }
 }
@@ -511,6 +469,93 @@
     depiction.package = package;
     
     [[self navigationController] pushViewController:depiction animated:true];
+}
+
+#pragma mark - Navigation
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    switch (indexPath.section) {
+        case 1: { //Community News
+            if ([cell isKindOfClass:[ZBCommunityNewsTableViewCell class]]) {
+                ZBCommunityNewsTableViewCell *newsCell = (ZBCommunityNewsTableViewCell *)cell;
+                
+                [self openRedditURL:newsCell.permalink];
+            }
+            break;
+        }
+        case 2: { //Changelog
+            if ([cell isKindOfClass:[ZBIconTableViewCell class]]) {
+                ZBIconTableViewCell *iconCell = (ZBIconTableViewCell *)cell;
+                
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
+                ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:iconCell.storyboardID];
+                
+                [[self navigationController] pushViewController:changelogController animated:true];
+            }
+            break;
+        }
+        case 3: { //Links
+            if ([cell isKindOfClass:[ZBButtonTableViewCell class]]) {
+                ZBButtonTableViewCell *buttonCell = (ZBButtonTableViewCell *)cell;
+                
+                NSURL *url = [NSURL URLWithString:buttonCell.actionLink];
+                
+                if ([buttonCell.actionLink isEqualToString:@"twitter"]) {
+                    [self openTwitter:@"getZebra"];
+                }
+                else {
+                    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+                    if (@available(iOS 10.0, *)) {
+                        safariViewController.preferredControlTintColor = [UIColor tintColor];
+                    }
+                    
+                    [self presentViewController:safariViewController animated:true completion:nil];
+                }
+            }
+            break;
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+
+- (void)openRedditURL:(NSString *)permalink {
+    if  ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"reddit://"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://reddit.com%@", permalink]]];
+    }
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"apollo://"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com%@", permalink]]];
+    }
+    else {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", permalink]];
+        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+        if (@available(iOS 10.0, *)) {
+            safariViewController.preferredControlTintColor = [UIColor tintColor];
+        }
+        
+        [self presentViewController:safariViewController animated:true completion:nil];
+    }
+}
+
+- (void)openTwitter:(NSString *)username {
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot:"]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"tweetbot:///user_profile/" stringByAppendingString:username]]];
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitterrific:"]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"twitterrific:///profile?screen_name=" stringByAppendingString:username]]];
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetings:"]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"tweetings:///user?screen_name=" stringByAppendingString:username]]];
+    else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter:"]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"twitter://user?screen_name=" stringByAppendingString:username]]];
+    else {
+        NSURL *url = [NSURL URLWithString:[@"https://twitter.com/" stringByAppendingString:username]];
+        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+        if (@available(iOS 10.0, *)) {
+            safariViewController.preferredControlTintColor = [UIColor tintColor];
+        }
+        
+        [self presentViewController:safariViewController animated:true completion:nil];
+    }
 }
 
 @end
