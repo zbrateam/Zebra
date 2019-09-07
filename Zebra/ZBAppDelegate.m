@@ -14,7 +14,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
-#import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDWebImage/SDImageCacheConfig.h>

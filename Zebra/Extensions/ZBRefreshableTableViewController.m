@@ -10,7 +10,7 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 
 @interface ZBRefreshableTableViewController () {

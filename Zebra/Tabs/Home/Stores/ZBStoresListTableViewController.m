@@ -10,11 +10,11 @@
 #import <ZBDevice.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
-#import <Repos/Helpers/ZBRepo.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepoManager.h>
-#import <Repos/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
+#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
 
 @import SDWebImage;
 

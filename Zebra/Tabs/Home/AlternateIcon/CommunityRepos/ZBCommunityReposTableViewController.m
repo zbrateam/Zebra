@@ -8,7 +8,7 @@
 
 #import "ZBCommunityReposTableViewController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Helpers/ZBRepoTableViewCell.h>
 
 enum ZBSourcesOrder {
     ZBTransfer,

@@ -8,7 +8,7 @@
 
 #import "ZBRepoManager.h"
 #import <UIKit/UIDevice.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepo.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>

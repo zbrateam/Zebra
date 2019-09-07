@@ -17,7 +17,7 @@
 #import <Views/ZBIconTableViewCell.h>
 #import <Views/ZBFootnotesTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <Changelog/ZBChangelogTableViewController.h>

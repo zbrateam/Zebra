@@ -14,8 +14,8 @@
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Repos/Helpers/ZBRepo.h>
-#import <Repos/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepoManager.h>
 
 #import <bzlib.h>
 #import <zlib.h>

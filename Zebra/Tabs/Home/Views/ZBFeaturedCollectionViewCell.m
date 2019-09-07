@@ -10,7 +10,7 @@
 
 #import "ZBFeaturedCollectionViewCell.h"
 #import <Packages/Helpers/ZBPackage.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepo.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 @implementation ZBFeaturedCollectionViewCell

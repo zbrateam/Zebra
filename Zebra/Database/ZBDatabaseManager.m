@@ -12,7 +12,7 @@
 #import <Parsel/parsel.h>
 #import <Parsel/vercmp.h>
 #import <ZBAppDelegate.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
