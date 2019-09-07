@@ -251,25 +251,46 @@
 - (void)loadFeaturedPackagesFromCache {
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
     NSArray *featuredCacheFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '_Featured'"]];
+    dispatch_group_t downloadGroup = dispatch_group_create();
 
     for (NSString *path in featuredCacheFiles) {
         NSArray *contents = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:path]];
         for (NSDictionary *cache in contents) {
-            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]];
-            if (package != NULL) {
-                package.bannerImageURL = [NSURL URLWithString:cache[@"url"]];
+            dispatch_group_enter(downloadGroup);
+            
+            NSURL *bannerImageURL = [NSURL URLWithString:cache[@"url"]];
+            
+            if (bannerImageURL != NULL) {
+                NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:bannerImageURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if ([(NSHTTPURLResponse *)response statusCode] == 404) {
+                        NSLog(@"[Zebra] No banner image for %@", bannerImageURL);
+                    }
+                    else {
+                        ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]];
+                        if (package != NULL) {
+                            package.bannerImageURL = bannerImageURL;
+                            
+                            [self->featuredPackages addObject:package];
+                        }
+                    }
+                    
+                    dispatch_group_leave(downloadGroup);
+                }];
                 
-                [featuredPackages addObject:package];
+                [task resume];
             }
         }
     }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView beginUpdates];
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+        });
     });
+
 }
 
 #pragma mark - Table view data source
@@ -485,7 +506,6 @@
 }
 
 - (void)showPackageDepiction:(ZBPackage *)package {
-    NSLog(@"Ok son ill show %@", package);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBPackageDepictionViewController *depiction = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     depiction.package = package;
@@ -493,37 +513,4 @@
     [[self navigationController] pushViewController:depiction animated:true];
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 @end
