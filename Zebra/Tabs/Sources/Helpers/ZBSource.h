@@ -1,5 +1,5 @@
 //
-//  ZBRepo.h
+//  ZBSource.h
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepo : NSObject
+@interface ZBSource : NSObject
 @property (nonatomic, strong) NSString *origin;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *baseFileName;
@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 
-+ (ZBRepo *)repoMatchingRepoID:(int)repoID;
-+ (ZBRepo *)localRepo:(int)repoID;
++ (ZBSource *)repoMatchingRepoID:(int)repoID;
++ (ZBSource *)localRepo:(int)repoID;
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isSecure;

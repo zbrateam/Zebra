@@ -10,7 +10,7 @@
 #import <UIColor+Zebra.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
 
@@ -33,7 +33,7 @@
 - (void)updateData:(ZBPackage *)package {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    ZBRepo *repo = package.repo;
+    ZBSource *repo = package.repo;
     NSString *repoName = repo.origin;
     if (package.author) {
         self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];

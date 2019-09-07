@@ -17,7 +17,7 @@
 #import <Views/ZBIconTableViewCell.h>
 #import <Views/ZBFootnotesTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <Changelog/ZBChangelogTableViewController.h>
@@ -173,10 +173,10 @@
 }
 
 - (void)downloadFeaturedPackages:(BOOL)ignoreCaching {
-    NSMutableArray <ZBRepo *> *repos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    NSMutableArray <ZBSource *> *repos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
     dispatch_group_t downloadGroup = dispatch_group_create();
     
-    for (ZBRepo *repo in repos) {
+    for (ZBSource *repo in repos) {
         dispatch_group_enter(downloadGroup);
         
         NSURLSession *session;

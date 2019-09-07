@@ -12,7 +12,7 @@
 #import <Parsel/parsel.h>
 #import <Parsel/vercmp.h>
 #import <ZBAppDelegate.h>
-#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
@@ -192,7 +192,7 @@
     }
 }
 
-- (void)updateRepo:(ZBRepo *)repo useCaching:(BOOL)useCaching {
+- (void)updateRepo:(ZBSource *)repo useCaching:(BOOL)useCaching {
     if (databaseBeingUpdated)
         return;
     databaseBeingUpdated = YES;
@@ -472,7 +472,7 @@
     return -1;
 }
 
-- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section {
+- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section {
     if ([self openDatabase] == SQLITE_OK) {
         int packages = 0;
         NSString *query;
@@ -500,7 +500,7 @@
     return -1;
 }
 
-- (NSArray <ZBRepo *> *)repos {
+- (NSArray <ZBSource *> *)repos {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sources = [NSMutableArray new];
         
@@ -508,7 +508,7 @@
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 [sources addObject:source];
             }
         } else {
@@ -523,7 +523,7 @@
     return NULL;
 }
 
-- (void)deleteRepo:(ZBRepo *)repo {
+- (void)deleteRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
         NSString *repoQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [repo repoID]];
@@ -539,7 +539,7 @@
     }
 }
 
-- (UIImage *)iconForRepo:(ZBRepo *)repo {
+- (UIImage *)iconForRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
         UIImage* icon = NULL;
         NSString* sqliteQuery = [NSString stringWithFormat:@"SELECT ICON FROM REPOS WHERE REPOID = %d;", [repo repoID]];
@@ -570,7 +570,7 @@
     [self removeDatabaseDelegate:delegate];
 }
 
-- (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo {
+- (void)saveIcon:(UIImage *)icon forRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
         const char* sqliteQuery = "UPDATE REPOS SET (ICON) = (?) WHERE REPOID = ?";
         sqlite3_stmt* statement;
@@ -590,7 +590,7 @@
     [self printDatabaseError];
 }
 
-- (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo {
+- (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
         
@@ -619,7 +619,7 @@
 
 #pragma mark - Package management
 
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query;

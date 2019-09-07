@@ -1,19 +1,19 @@
 //
-//  ZBRepo.m
+//  ZBSource.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import "ZBRepoManager.h"
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 
-@implementation ZBRepo
+@implementation ZBSource
 
 @synthesize origin;
 @synthesize desc;
@@ -28,12 +28,12 @@
 @synthesize shortURL;
 @synthesize supportSileoPay;
 
-+ (ZBRepo *)repoMatchingRepoID:(int)repoID {
++ (ZBSource *)repoMatchingRepoID:(int)repoID {
     return [[ZBRepoManager sharedInstance] repos][@(repoID)];
 }
 
-+ (ZBRepo *)localRepo:(int)repoID {
-    ZBRepo *local = [[ZBRepo alloc] init];
++ (ZBSource *)localRepo:(int)repoID {
+    ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:@"Local Repository"];
     [local setDesc:@"Locally installed packages"];
     [local setRepoID:repoID];
@@ -156,11 +156,11 @@
     return ![[self origin] isEqualToString:@"xTM3x Repo"];
 }
 
-- (BOOL)isEqual:(ZBRepo *)object {
+- (BOOL)isEqual:(ZBSource *)object {
     if (self == object)
         return YES;
     
-    if (![object isKindOfClass:[ZBRepo class]])
+    if (![object isKindOfClass:[ZBSource class]])
         return NO;
     
     return ([[object baseFileName] isEqual:[self baseFileName]]);

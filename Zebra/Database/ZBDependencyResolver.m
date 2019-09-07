@@ -13,7 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <sqlite3.h>
 #import <Queue/ZBQueue.h>
-#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 
 @implementation ZBDependencyResolver
 

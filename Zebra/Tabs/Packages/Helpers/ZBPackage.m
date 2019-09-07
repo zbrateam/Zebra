@@ -10,7 +10,7 @@
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <Parsel/vercmp.h>
-#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Queue/ZBQueueType.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
@@ -294,9 +294,9 @@
         
         int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
-            [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
+            [self setRepo:[ZBSource repoMatchingRepoID:repoID]];
         } else {
-            [self setRepo:[ZBRepo localRepo:repoID]];
+            [self setRepo:[ZBSource localRepo:repoID]];
         }
         
         NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -359,7 +359,7 @@
 - (NSString *)getField:(NSString *)field {
     NSString *value;
     
-    ZBRepo *repo = [self repo];
+    ZBSource *repo = [self repo];
     
     if (repo == NULL) return NULL;
     

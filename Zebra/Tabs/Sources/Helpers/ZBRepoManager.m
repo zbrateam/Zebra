@@ -8,7 +8,7 @@
 
 #import "ZBRepoManager.h"
 #import <UIKit/UIDevice.h>
-#import <Sources/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -16,7 +16,7 @@
 @interface ZBRepoManager () {
     NSMutableArray<NSURL *> *verifiedURLs;
     NSMutableArray<NSString *> *debLines;
-    NSMutableDictionary <NSNumber *, ZBRepo *> *repos;
+    NSMutableDictionary <NSNumber *, ZBSource *> *repos;
     BOOL recachingNeeded;
 }
 @end
@@ -37,7 +37,7 @@
     recachingNeeded = YES;
 }
 
-- (NSMutableDictionary <NSNumber *, ZBRepo *> *)repos {
+- (NSMutableDictionary <NSNumber *, ZBSource *> *)repos {
     if (recachingNeeded) {
         recachingNeeded = NO;
         repos = [NSMutableDictionary new];
@@ -49,7 +49,7 @@
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 repos[@(source.repoID)] = source;
             }
         } else {
@@ -364,7 +364,7 @@
     [task resume];
 }
 
-- (NSString *)debLineFromRepo:(ZBRepo *)repo {
+- (NSString *)debLineFromRepo:(ZBSource *)repo {
     NSMutableString *output = [NSMutableString string];
     if ([repo defaultRepo]) {
         NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
@@ -385,7 +385,7 @@
     NSMutableString *output = [NSMutableString string];
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBRepo *repo in [databaseManager repos]) {
+    for (ZBSource *repo in [databaseManager repos]) {
         [output appendString:[self debLineFromRepo:repo]];
     }
     
@@ -427,11 +427,11 @@
     recachingNeeded = YES;
 }
 
-- (void)deleteSource:(ZBRepo *)delRepo {
+- (void)deleteSource:(ZBSource *)delRepo {
     NSMutableString *output = [NSMutableString string];
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBRepo *repo in [databaseManager repos]) {
+    for (ZBSource *repo in [databaseManager repos]) {
         if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
             [output appendString:[self debLineFromRepo:repo]];
         }
