@@ -206,7 +206,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cell Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEh-Jn-UnU">
-                                            <rect key="frame" x="52" y="19.5" width="307" height="21"/>
+                                            <rect key="frame" x="54" y="20" width="305" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -238,7 +238,7 @@
                                         <constraint firstItem="fFy-zo-JYo" firstAttribute="leading" secondItem="ViB-WM-ZPA" secondAttribute="leading" constant="16" id="e2b-hd-l7j"/>
                                         <constraint firstAttribute="trailing" secondItem="La5-Pj-ydn" secondAttribute="trailing" constant="16" id="lCR-Xw-fia"/>
                                         <constraint firstItem="La5-Pj-ydn" firstAttribute="centerY" secondItem="ViB-WM-ZPA" secondAttribute="centerY" id="pfe-fI-seU"/>
-                                        <constraint firstItem="IEh-Jn-UnU" firstAttribute="leading" secondItem="a0f-S8-Yls" secondAttribute="trailing" constant="8" id="rG3-Qa-D7L"/>
+                                        <constraint firstItem="IEh-Jn-UnU" firstAttribute="leading" secondItem="a0f-S8-Yls" secondAttribute="trailing" constant="10" id="rG3-Qa-D7L"/>
                                         <constraint firstItem="a0f-S8-Yls" firstAttribute="leading" secondItem="ViB-WM-ZPA" secondAttribute="leading" constant="16" id="x3c-v6-ujP"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -343,7 +343,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUO-s2-gFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3284" y="-976.84729064039414"/>
+            <point key="canvasLocation" x="3284" y="-977.36131934032994"/>
         </scene>
         <!--Changelog-->
         <scene sceneID="uTC-so-JOc">
