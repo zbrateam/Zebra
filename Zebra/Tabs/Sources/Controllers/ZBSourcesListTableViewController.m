@@ -8,6 +8,8 @@
 
 #import "ZBSourcesListTableViewController.h"
 
+#import <Tabs/ZBTabBarController.h>
+
 @interface ZBSourcesListTableViewController ()
 
 @end
