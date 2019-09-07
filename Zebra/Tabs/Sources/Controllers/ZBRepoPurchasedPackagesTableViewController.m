@@ -12,7 +12,7 @@
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import "ZBUserInfo.h"
 
 #import <Packages/Helpers/ZBPackageActionsManager.h>

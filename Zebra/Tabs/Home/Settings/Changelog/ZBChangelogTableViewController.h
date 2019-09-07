@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
 @interface ZBChangelogTableViewController : UITableViewController
 @property (nonatomic, strong) NSArray *releases;

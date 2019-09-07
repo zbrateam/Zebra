@@ -1,5 +1,5 @@
 //
-//  UIColor+GlobalColors.m
+//  UIColor+Zebra.m
 //  Zebra
 //
 //  Created by Andrew Abosh on 2019-04-24.
@@ -8,9 +8,9 @@
 
 #import <ZBSettings.h>
 #import <ZBDevice.h>
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
-@implementation UIColor (GlobalColors)
+@implementation UIColor (Zebra)
 
 + (UIColor *)tintColor {
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
@@ -43,7 +43,7 @@
 }
 
 // Table View Colors
-+ (UIColor *)tableViewBackgroundColor {
+//+ (UIColor *)tableViewBackgroundColor {
 //    if ([ZBDevice darkModeEnabled]) {
 //        if (![ZBDevice darkModeOledEnabled] && ![ZBDevice darkModeThirteenEnabled]) {
 //            return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
@@ -51,61 +51,61 @@
 //        return [UIColor blackColor];
 //    }
 //    return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
-    
-    return [UIColor whiteColor];
-}
-
-+ (UIColor *)cellBackgroundColor {
-    if ([ZBDevice darkModeEnabled]) {
-        if ([ZBDevice darkModeOledEnabled]){
-            return [UIColor blackColor];
-        }
-        return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
-    }
-    return [UIColor whiteColor];
-}
-
-+ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted {
-    return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
-}
-
-+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled {
-    if (!oled) {
-        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
-    }
-    return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
-}
-
-+ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
-    if ([ZBDevice darkModeEnabled]) {
-        return [self selectedCellBackgroundColorDark:highlighted oled:[ZBDevice darkModeOledEnabled]];
-    }
-    return [self selectedCellBackgroundColorLight:highlighted];
-}
-
-+ (UIColor *)cellPrimaryTextColor {
-    if ([ZBDevice darkModeEnabled]) {
-        return [UIColor whiteColor];
-    }
-    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
-}
-
-+ (UIColor *)cellSecondaryTextColor {
-    if ([ZBDevice darkModeEnabled]) {
-        return [UIColor lightGrayColor];
-    }
-    return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
-}
-
-+ (UIColor *)cellSeparatorColor {
-    if ([ZBDevice darkModeEnabled]) {
-        if ([ZBDevice darkModeOledEnabled]){
-            return [UIColor blackColor];
-        }
-        return [UIColor colorWithRed:0.22 green:0.22 blue:0.23 alpha:1.0];
-    }
-    return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
-}
+//    
+//    return [UIColor whiteColor];
+//}
+//
+//+ (UIColor *)cellBackgroundColor {
+//    if ([ZBDevice darkModeEnabled]) {
+//        if ([ZBDevice darkModeOledEnabled]){
+//            return [UIColor blackColor];
+//        }
+//        return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
+//    }
+//    return [UIColor whiteColor];
+//}
+//
+//+ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted {
+//    return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
+//}
+//
+//+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled {
+//    if (!oled) {
+//        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+//    }
+//    return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
+//}
+//
+//+ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
+//    if ([ZBDevice darkModeEnabled]) {
+//        return [self selectedCellBackgroundColorDark:highlighted oled:[ZBDevice darkModeOledEnabled]];
+//    }
+//    return [self selectedCellBackgroundColorLight:highlighted];
+//}
+//
+//+ (UIColor *)cellPrimaryTextColor {
+//    if ([ZBDevice darkModeEnabled]) {
+//        return [UIColor whiteColor];
+//    }
+//    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+//}
+//
+//+ (UIColor *)cellSecondaryTextColor {
+//    if ([ZBDevice darkModeEnabled]) {
+//        return [UIColor lightGrayColor];
+//    }
+//    return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
+//}
+//
+//+ (UIColor *)cellSeparatorColor {
+//    if ([ZBDevice darkModeEnabled]) {
+//        if ([ZBDevice darkModeOledEnabled]){
+//            return [UIColor blackColor];
+//        }
+//        return [UIColor colorWithRed:0.22 green:0.22 blue:0.23 alpha:1.0];
+//    }
+//    return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
+//}
 
 + (NSString *)hexStringFromColor:(UIColor *)color {
     const CGFloat *components = CGColorGetComponents(color.CGColor);

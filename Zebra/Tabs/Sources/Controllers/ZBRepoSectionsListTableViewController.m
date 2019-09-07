@@ -7,7 +7,7 @@
 //
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBRepo.h>

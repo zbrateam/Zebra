@@ -7,7 +7,7 @@
 //
 
 #import "ZBRepoTableViewCell.h"
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 
 @interface ZBRepoTableViewCell () {
     UIActivityIndicatorView *spinner;

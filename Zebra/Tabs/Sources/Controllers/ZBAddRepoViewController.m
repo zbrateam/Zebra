@@ -7,7 +7,7 @@
 //
 
 #import "ZBAddRepoViewController.h"
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
 @interface ZBAddRepoViewController () <UITextViewDelegate>
 

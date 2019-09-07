@@ -13,7 +13,7 @@
 #import <ZBSettings.h>
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <Sources/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>

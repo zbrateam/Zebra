@@ -9,7 +9,7 @@
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import "ZBRepoListTableViewController.h"
 #import "ZBAddRepoViewController.h"
 #import "ZBAddRepoDelegate.h"

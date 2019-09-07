@@ -11,7 +11,7 @@
 #import "ZBFeaturedCollectionViewCell.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Sources/Helpers/ZBRepo.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 
 @implementation ZBFeaturedCollectionViewCell
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZBDevice.h"
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 #import "ZBRepoManager.h"
 #import "ZBAddRepoViewController.h"
 @import SDWebImage;

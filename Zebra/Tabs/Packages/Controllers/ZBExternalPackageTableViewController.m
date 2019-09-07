@@ -10,7 +10,7 @@
 #import <NSTask.h>
 #import <ZBDevice.h>
 #import <Console/ZBConsoleViewController.h>
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
 @interface ZBExternalPackageTableViewController () {
     NSDictionary *details;

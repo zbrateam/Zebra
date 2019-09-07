@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
 @interface ZBAlternateIconController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;

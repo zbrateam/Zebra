@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackageTableViewCell.h"
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import "ZBRepo.h"

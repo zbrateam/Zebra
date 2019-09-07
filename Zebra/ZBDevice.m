@@ -8,7 +8,7 @@
 
 #import <ZBDevice.h>
 #import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 #import <WebKit/WebKit.h>
 #import <Queue/ZBQueue.h>
 #import "ZBAppDelegate.h"

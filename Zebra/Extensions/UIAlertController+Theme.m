@@ -7,7 +7,7 @@
 //
 
 #import "UIAlertController+Theme.h"
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <objc/runtime.h>
 
 @implementation UIAlertController (Theme)

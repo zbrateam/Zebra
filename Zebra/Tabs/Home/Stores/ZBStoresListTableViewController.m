@@ -8,7 +8,7 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import "ZBStoresListTableViewController.h"
 #import <Sources/Helpers/ZBRepo.h>
 #import <Sources/Helpers/ZBRepoTableViewCell.h>

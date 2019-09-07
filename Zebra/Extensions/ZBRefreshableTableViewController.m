@@ -8,7 +8,7 @@
 
 #import "ZBRefreshableTableViewController.h"
 #import <ZBTabBarController.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>

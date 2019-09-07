@@ -12,7 +12,7 @@
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Queue/ZBQueue.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 
 @implementation ZBPackageActionsManager

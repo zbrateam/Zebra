@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <ZBDatabaseDelegate.h>
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
 @interface ZBRefreshViewController : UIViewController <ZBDatabaseDelegate>
 @property (nonatomic, strong) NSArray *messages;

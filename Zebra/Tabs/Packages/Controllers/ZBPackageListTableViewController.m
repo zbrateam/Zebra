@@ -17,7 +17,7 @@
 #import <ZBTabBarController.h>
 #import <Sources/Helpers/ZBRepo.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import "ZBDevice.h"
 
 typedef enum {

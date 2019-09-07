@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZBDevice.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 #import "ZBWebViewController.h"
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"

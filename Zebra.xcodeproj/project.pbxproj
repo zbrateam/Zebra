@@ -54,7 +54,7 @@
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		499BD8C6231D970000CC6932 /* ZBFootnotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499BD8C5231D970000CC6932 /* ZBFootnotesTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
-		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
+		49E1304622715DB8006F450A /* UIColor+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+Zebra.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
@@ -192,8 +192,8 @@
 		499BD8C5231D970000CC6932 /* ZBFootnotesTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBFootnotesTableViewCell.m; sourceTree = "<group>"; };
 		49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRepoTableViewCell.h; sourceTree = "<group>"; };
 		49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRepoTableViewCell.m; sourceTree = "<group>"; };
-		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
-		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
+		49E1304522715DB8006F450A /* UIColor+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Zebra.m"; sourceTree = "<group>"; };
+		49E1304722715EE5006F450A /* UIColor+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Zebra.h"; sourceTree = "<group>"; };
 		7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddRepoViewController.m; sourceTree = "<group>"; };
 		7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoViewController.h; sourceTree = "<group>"; };
 		7821AF702275F3B2006C0315 /* ZBAddRepoDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoDelegate.h; sourceTree = "<group>"; };
@@ -591,8 +591,8 @@
 				9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */,
 				36D15326229240F70010EC5C /* FTWCache.h */,
 				36D15325229240F60010EC5C /* FTWCache.m */,
-				49E1304722715EE5006F450A /* UIColor+GlobalColors.h */,
-				49E1304522715DB8006F450A /* UIColor+GlobalColors.m */,
+				49E1304722715EE5006F450A /* UIColor+Zebra.h */,
+				49E1304522715DB8006F450A /* UIColor+Zebra.m */,
 				363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */,
 				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
 				9E2B413E22C87074009BC12B /* UIAlertController+Theme.h */,
@@ -925,7 +925,7 @@
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,
-				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
+				49E1304622715DB8006F450A /* UIColor+Zebra.m in Sources */,
 				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,

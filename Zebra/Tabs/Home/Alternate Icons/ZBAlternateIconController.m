@@ -7,7 +7,7 @@
 //
 
 #import "ZBAlternateIconController.h"
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 
 @interface ZBAlternateIconController ()
 

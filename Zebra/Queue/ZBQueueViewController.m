@@ -11,7 +11,7 @@
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 @import SDWebImage;
 @import LNPopupController;
 

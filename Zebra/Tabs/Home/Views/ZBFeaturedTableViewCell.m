@@ -8,7 +8,7 @@
 
 #import "ZBFeaturedTableViewCell.h"
 #import "ZBFeaturedCollectionViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Tabs/Home/ZBHomeTableViewController.h>
 

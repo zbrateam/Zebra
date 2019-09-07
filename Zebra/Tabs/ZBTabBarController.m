@@ -14,7 +14,7 @@
 #import <ZBAppDelegate.h>
 #import <UITabBarItem.h>
 #import <Database/ZBRefreshViewController.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <ZBQueue.h>
 #import "ZBTab.h"
 @import LNPopupController;

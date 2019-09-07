@@ -1,5 +1,5 @@
 //
-//  UIColor+GlobalColors.h
+//  UIColor+Zebra.h
 //  Zebra
 //
 //  Created by Andrew Abosh on 2019-04-24.
@@ -21,18 +21,18 @@ typedef NS_ENUM(NSInteger)  {
     ZBThirteen
 } ZBModeSelection;
 
-@interface UIColor (GlobalColors)
+@interface UIColor (Zebra)
 + (UIColor *)tintColor;
 + (UIColor *)navBarTintColor;
 + (UIColor *)badgeColor;
-+ (UIColor *)tableViewBackgroundColor;
-+ (UIColor *)cellBackgroundColor;
-+ (UIColor *)cellPrimaryTextColor;
-+ (UIColor *)cellSecondaryTextColor;
-+ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
-+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
-+ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
-+ (UIColor *)cellSeparatorColor;
+//+ (UIColor *)tableViewBackgroundColor;
+//+ (UIColor *)cellBackgroundColor;
+//+ (UIColor *)cellPrimaryTextColor;
+//+ (UIColor *)cellSecondaryTextColor;
+//+ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
+//+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
+//+ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
+//+ (UIColor *)cellSeparatorColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
 @end
 

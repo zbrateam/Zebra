@@ -21,7 +21,7 @@
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Sources/Helpers/ZBRepo.h>
 #import <ZBTabBarController.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import "ZBWebViewController.h"
 #import "ZBPurchaseInfo.h"
 @import SDWebImage;

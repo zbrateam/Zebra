@@ -10,7 +10,7 @@
 #import "ZBDatabaseManager.h"
 #import "ZBRepo.h"
 #import "ZBRepoTableViewCell.h"
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 @import SDWebImage;
 
 @implementation ZBRepoBlacklistTableViewController

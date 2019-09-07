@@ -7,7 +7,7 @@
 //
 
 #import "ZBCommunityNewsTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 
 @implementation ZBCommunityNewsTableViewCell
 

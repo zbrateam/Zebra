@@ -10,7 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBPackagesByAuthorTableViewController : UITableViewController

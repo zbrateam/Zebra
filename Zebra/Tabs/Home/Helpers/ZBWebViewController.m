@@ -12,7 +12,7 @@
 #import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Helpers/ZBRepoManager.h>
-#import <UIColor+GlobalColors.h>
+#import <UIColor+Zebra.h>
 #import <Stores/ZBStoresListTableViewController.h>
 @import SDWebImage;
 
