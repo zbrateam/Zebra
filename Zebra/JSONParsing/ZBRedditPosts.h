@@ -346,6 +346,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBPreview : NSObject
 @property (nonatomic, nullable, copy)   NSArray<ZBImage *> *images;
 @property (nonatomic, nullable, strong) NSNumber *enabled;
+@property (nonatomic, nullable, copy)   NSString *reddit_video_preview;
 @end
 
 @interface ZBImage : NSObject
@@ -356,6 +357,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ZBVariants : NSObject
+@property (nonatomic, nullable, copy)   NSString *gif;
+@property (nonatomic, nullable, copy)   NSString *mp4;
 @end
 
 NS_ASSUME_NONNULL_END
