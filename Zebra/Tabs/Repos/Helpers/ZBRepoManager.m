@@ -15,7 +15,6 @@
 
 @interface ZBRepoManager () {
     NSMutableArray<NSURL *> *verifiedURLs;
-    NSMutableArray<NSString *> *debLines;
     NSMutableDictionary <NSNumber *, ZBRepo *> *repos;
     BOOL recachingNeeded;
 }
@@ -75,10 +74,6 @@
 
 - (NSArray <NSURL *> *)verifiedURLs {
     return verifiedURLs;
-}
-
-- (NSArray <NSString *> *)debLines {
-    return debLines;
 }
 
 + (NSArray <NSString *> *)knownDistURLs {
@@ -142,7 +137,6 @@
                 NSMutableArray<NSString *> *errors = [NSMutableArray array];
                 NSMutableArray<NSURL *> *errorURLs = [NSMutableArray array];
                 self->verifiedURLs = [NSMutableArray new];
-                self->debLines = [NSMutableArray new];
                 
                 NSMutableSet<NSURL *> *detectedURLs = [NSMutableSet set];
                 
@@ -192,7 +186,7 @@
                     } else {
                         NSString *debLine = [self knownDebLineFromURLString:urlString];
                         if (debLine) {
-                            [self->debLines addObject:debLine];
+                            [self->verifiedURLs addObject:detectedURL];
                             
                             dispatch_group_leave(group);
                         } else {
@@ -220,11 +214,8 @@
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0 && !self->debLines.count) {
+                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
                             respond(NO, @"You have already added these repositories.", @[]);
-                        }
-                        else if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0 && self->debLines.count) {
-                            respond(YES, nil, nil);
                         }
                         else {
                             __block NSError *addError = nil;
@@ -232,11 +223,7 @@
                             [strongSelf addSources:self->verifiedURLs completion:^(BOOL success, NSError *error) {
                                 addError = error;
                             }];
-                            
-                            for (NSString *debLine in self->debLines) {
-                                [self addDebLine:debLine];
-                            }
-                            
+
                             if (errors.count) {
                                 NSString *errorMessage;
                                 
@@ -391,7 +378,14 @@
     
     for (NSURL *sourceURL in sourceURLs) {
         NSString *URL = [sourceURL absoluteString];
-        [output appendFormat:@"deb %@ ./\n", URL];
+        
+        NSString *debLine = [self knownDebLineFromURLString:URL];
+        if (debLine) {
+            [output appendString:debLine];
+        }
+        else {
+            [output appendFormat:@"deb %@ ./\n", URL];
+        }
     }
         
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
