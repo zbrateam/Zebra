@@ -8,20 +8,24 @@
 
 @import SafariServices;
 
-#import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
+
+#import <ZBAppDelegate.h>
+#import <ZBDevice.h>
+
 #import <Views/ZBFeaturedTableViewCell.h>
 #import <Views/ZBFeaturedCollectionViewCell.h>
 #import <Views/ZBCommunityNewsTableViewCell.h>
 #import <Views/ZBButtonTableViewCell.h>
 #import <Views/ZBIconTableViewCell.h>
 #import <Views/ZBFootnotesTableViewCell.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <ZBAppDelegate.h>
 #import <Changelog/ZBChangelogTableViewController.h>
-#import "ZBDevice.h"
+
+#import <Database/ZBDatabaseManager.h>
+
+#import <Tabs/Sources/Helpers/ZBSource.h>
+
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBHomeTableViewController () {
@@ -463,14 +467,6 @@
     }
 }
 
-- (void)showPackageDepiction:(ZBPackage *)package {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBPackageDepictionViewController *depiction = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    depiction.package = package;
-    
-    [[self navigationController] pushViewController:depiction animated:true];
-}
-
 #pragma mark - Navigation
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -518,6 +514,14 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+
+- (void)showPackageDepiction:(ZBPackage *)package {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBPackageDepictionViewController *depiction = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    depiction.package = package;
+    
+    [[self navigationController] pushViewController:depiction animated:true];
 }
 
 - (void)openRedditURL:(NSString *)permalink {
