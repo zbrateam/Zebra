@@ -182,7 +182,14 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     [self setDefaultValues];
+    [self stablilityCheck];
     return YES;
+}
+
+- (void)stablilityCheck {
+    if (![ZBDevice needsSimulation] && ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+        [[self class] sendErrorToTabController:@"apt not found in your system, please try reinstalling \"APT\" from Cydia"];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
