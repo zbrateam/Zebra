@@ -452,7 +452,14 @@
         UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self.databaseManager updateRepo:repo useCaching:YES];
         }];
-        refreshAction.backgroundColor = [UIColor tintColor];
+        
+        if ([[UIColor tintColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
+            refreshAction.backgroundColor = [UIColor grayColor];
+        }
+        else {
+            refreshAction.backgroundColor = [UIColor tintColor];
+        }
+        
         [actions addObject:refreshAction];
     }
     return actions;
