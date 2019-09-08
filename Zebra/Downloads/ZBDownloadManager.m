@@ -550,7 +550,11 @@
                     }
                 }];
             }
-        } else if ([filename isEqualToString:@"Release"]) {
+        } else if ([filename containsString:@"Release"]) {
+            if ([filename pathExtension] != NULL) {
+                filename = [filename stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [filename pathExtension]] withString:@""]; //Remove path extension from release
+            }
+            
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
