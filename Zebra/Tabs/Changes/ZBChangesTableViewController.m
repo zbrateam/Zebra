@@ -42,7 +42,7 @@
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    
+
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
@@ -200,10 +200,10 @@
 #pragma mark - Navigation
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-    
+
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     ZBPackage *candidate = [package installableCandidate];
-    
+
     destination.package = candidate ? candidate : package;
     destination.parent = self;
 }
@@ -222,7 +222,7 @@
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
+
     [self setDestinationVC:indexPath destination:packageDepictionVC];
     return packageDepictionVC;
 //    else {
@@ -237,7 +237,7 @@
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    
+
     if ([viewControllerToCommit isKindOfClass:[SFSafariViewController class]]) {
         [self.navigationController presentViewController:viewControllerToCommit animated:true completion:nil];
     }
