@@ -342,10 +342,11 @@
         return packageDepictionVC;
     }
     else {
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
-        ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
+        ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
         
-        NSURL *url = [cell redditLink];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
         SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
         
         return sfVC;
