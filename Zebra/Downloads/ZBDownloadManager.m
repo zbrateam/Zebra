@@ -572,6 +572,10 @@
                 }];
             }
         }
+        else {
+            if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not parse %@\n", filename] atLevel:ZBLogLevelError];
+        }
     }
 }
 
