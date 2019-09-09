@@ -379,6 +379,10 @@
     
     NSString *requestedFilename = [url lastPathComponent];
     NSString *suggestedFilename = [[downloadTask response] suggestedFilename];
+    if ([suggestedFilename hasSuffix:@".txt"]) {
+        // It might be a Package file, let's play along
+        suggestedFilename = [[suggestedFilename stringByDeletingPathExtension] stringByAppendingPathExtension:@"bz2"];
+    }
     if (responseCode != 200 && responseCode != 304) { // Handle error code
         if ([suggestedFilename hasSuffix:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
@@ -412,34 +416,7 @@
             }
         }
     } else { // Download success
-        if ([[suggestedFilename pathExtension] containsString:@"deb"]) {
-            NSString *debsPath = [ZBAppDelegate debsLocation];
-            NSString *finalPath = [debsPath stringByAppendingPathComponent:suggestedFilename];
-            
-            if (![[finalPath pathExtension] isEqualToString:@"deb"]) { //create deb extension so apt doesnt freak
-                NSString *stripExtension = [finalPath stringByReplacingOccurrencesOfString:[finalPath pathExtension] withString:@""];
-                finalPath = [NSString stringWithFormat:@"%@deb", stripExtension];
-            }
-            
-            [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
-                if (!success && error != NULL) {
-                    [self cancelAllTasksForSession:session];
-                    NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
-                } else {
-                    NSMutableArray *arr = [self->filenames objectForKey:@"debs"];
-                    if (arr == NULL) {
-                        arr = [NSMutableArray new];
-                    }
-                    
-                    NSMutableDictionary *dict = [NSMutableDictionary new];
-                    [dict setObject:requestedFilename forKey:@"original"];
-                    [dict setObject:finalPath forKey:@"final"];
-                    
-                    [arr addObject:dict];
-                    [self->filenames setValue:arr forKey:@"debs"];
-                }
-            }];
-        } else if ([suggestedFilename hasSuffix:@".gz"]) {
+        if ([suggestedFilename hasSuffix:@".gz"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
@@ -450,7 +427,7 @@
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
-                        NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                        [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
                     } else {
                         NSData *data = [NSData dataWithContentsOfFile:finalPath];
@@ -504,7 +481,7 @@
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
-                        NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                        [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
                         [self->downloadDelegate predator:self finishedDownloadForFile:[self baseFileNameFromFullPath:finalPath] withError:error];
                     } else {                        
                         FILE *f = fopen([finalPath UTF8String], "r");
@@ -532,7 +509,7 @@
                             fprintf(stderr, "[Hyena] E: bzip error after read: %d\n", bzError);
                             [self moveFileFromLocation:[NSURL fileURLWithPath:finalPath] to:[finalPath stringByDeletingPathExtension] completion:^(BOOL success, NSError *error) {
                                 if (!success && error != NULL) {
-                                    NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                                    [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
                                 }
                             }];
                         }
@@ -544,7 +521,7 @@
                         NSError *removeError;
                         [[NSFileManager defaultManager] removeItemAtPath:finalPath error:&removeError];
                         if (removeError != NULL) {
-                            NSLog(@"[Hyena] Unable to remove .bz2, %@", removeError.localizedDescription);
+                            [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Hyena] Unable to remove .bz2, %@\n", removeError.localizedDescription] atLevel:ZBLogLevelError];
                         }
                         
                         [self addFile:[finalPath stringByDeletingPathExtension] toArray:@"packages"];
@@ -582,17 +559,44 @@
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (!success && error != NULL) {
-                        NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
+                        [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
                     } else {
                         [self addFile:finalPath toArray:@"release"];
                     }
                 }];
             }
+        } else {
+            // TODO: Assume they are all debs, better solution?
+            NSString *debsPath = [ZBAppDelegate debsLocation];
+            NSString *finalPath = [debsPath stringByAppendingPathComponent:suggestedFilename];
+            
+            if (![[finalPath pathExtension] isEqualToString:@"deb"]) { //create deb extension so apt doesnt freak
+                finalPath = [[finalPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"deb"];
+            }
+            
+            [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
+                if (!success && error != NULL) {
+                    [self cancelAllTasksForSession:session];
+                    [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
+                } else {
+                    NSMutableArray *arr = [self->filenames objectForKey:@"debs"];
+                    if (arr == NULL) {
+                        arr = [NSMutableArray new];
+                    }
+                    
+                    NSMutableDictionary *dict = [NSMutableDictionary new];
+                    [dict setObject:requestedFilename forKey:@"original"];
+                    [dict setObject:finalPath forKey:@"final"];
+                    
+                    [arr addObject:dict];
+                    [self->filenames setValue:arr forKey:@"debs"];
+                }
+            }];
         }
-        else {
+        /* else {
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                 [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not parse %@\n", suggestedFilename] atLevel:ZBLogLevelError];
-        }
+        }*/
     }
 }
 
