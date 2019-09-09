@@ -388,7 +388,7 @@
     NSString *suggestedFilename = [response suggestedFilename];
     BOOL downloadFailed = (responseCode != 200 && responseCode != 304);
     
-    NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-bzip2", @"application/x-gzip", @"application/x-deb", @"not-found"];
+    NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-bzip2", @"application/x-gzip", @"application/x-deb", @"application/x-debian-package", @"not-found"];
     switch ([acceptableMIMETypes indexOfObject:MIMEType]) {
         case 0: { //Release file or uncompressed Packages file most likely
             if (downloadFailed) { //Big sad :(
@@ -589,7 +589,8 @@
             }
             break;
         }
-        case 3: { //.deb file
+        case 3:
+        case 4: { //.deb file
             if (downloadFailed) {
                 NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); // 🤮
                 NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", suggestedFilename]]}];
@@ -626,7 +627,7 @@
             }
             break;
         }
-        case 4: { //not-found
+        case 5: { //not-found
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
                 [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not parse %@ from %@\n", suggestedFilename, url] atLevel:ZBLogLevelError];
             }
