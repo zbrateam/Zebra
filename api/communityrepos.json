@@ -7,12 +7,6 @@
             "icon": "http://apt.thebigboss.org/repofiles/cydia/dists/stable/CydiaIcon.png"
         },
         {
-            "name": "Chariz",
-            "clickLink": "https://repo.chariz.io/",
-            "url": "https://repo.chariz.io/",
-            "icon": "https://repo.chariz.io/CydiaIcon.png"
-        },
-        {
             "name": "Dynastic Repo",
             "clickLink": "https://repo.dynastic.co/",
             "url": "https://repo.dynastic.co/",
