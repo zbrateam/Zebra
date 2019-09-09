@@ -283,7 +283,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
-- (NSArray *)tasks:(NSArray *)debs {
+- (NSArray *)tasks:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
     
@@ -314,17 +314,25 @@
                     [installCommand addObject:@"install"];
                     [installCommand addObject:@"--reinstall"];
                 }
-                for (NSString *filename in debs) {
-                    NSString *packageFilename = [package filename];
-                    if (packageFilename == nil) {
+                for (NSDictionary *filename in debs) {
+                    NSString *originalFilename = [filename objectForKey:@"original"];
+                    NSString *finalPath = [filename objectForKey:@"final"];
+                    NSString *packageFilename = [[package filename] lastPathComponent];
+                    
+                    if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
                         continue;
                     }
-                    if ([filename containsString:[packageFilename lastPathComponent]]) {
-                        [installCommand addObject:filename];
+                    
+                    if ([finalPath containsString:packageFilename]) {
+                        [installCommand addObject:finalPath];
                         break;
                     }
-                    else if ([packageFilename containsString:[filename lastPathComponent]]) {
-                        [installCommand addObject:filename];
+                    else if ([originalFilename containsString:packageFilename]) {
+                        [installCommand addObject:finalPath];
+                        break;
+                    }
+                    else if ([packageFilename containsString:originalFilename]) {
+                        [installCommand addObject:finalPath];
                         break;
                     }
                 }
@@ -363,13 +371,25 @@
         [installCommand addObject:@"install"];
         [installCommand addObject:@"--reinstall"];
         for (ZBPackage *package in reinstallArray) {
-            for (NSString *filename in debs) {
-                if ([filename containsString:[[package filename] lastPathComponent]]) {
-                    [installCommand addObject:filename];
+            for (NSDictionary *filename in debs) {
+                NSString *originalFilename = [filename objectForKey:@"original"];
+                NSString *finalPath = [filename objectForKey:@"final"];
+                NSString *packageFilename = [[package filename] lastPathComponent];
+                
+                if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
+                    continue;
+                }
+                
+                if ([finalPath containsString:packageFilename]) {
+                    [installCommand addObject:finalPath];
                     break;
                 }
-                else if ([[package filename] containsString:[filename lastPathComponent]]) {
-                    [installCommand addObject:filename];
+                else if ([originalFilename containsString:packageFilename]) {
+                    [installCommand addObject:finalPath];
+                    break;
+                }
+                else if ([packageFilename containsString:originalFilename]) {
+                    [installCommand addObject:finalPath];
                     break;
                 }
             }
@@ -384,13 +404,25 @@
         
         [upgradeCommand addObject:@"install"];
         for (ZBPackage *package in upgradeArray) {
-            for (NSString *filename in debs) {
-                if ([filename containsString:[[package filename] lastPathComponent]]) {
-                    [upgradeCommand addObject:filename];
+            for (NSDictionary *filename in debs) {
+                NSString *originalFilename = [filename objectForKey:@"original"];
+                NSString *finalPath = [filename objectForKey:@"final"];
+                NSString *packageFilename = [[package filename] lastPathComponent];
+                
+                if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
+                    continue;
+                }
+                
+                if ([finalPath containsString:packageFilename]) {
+                    [upgradeCommand addObject:finalPath];
                     break;
                 }
-                else if ([[package filename] containsString:[filename lastPathComponent]]) {
-                    [installCommand addObject:filename];
+                else if ([originalFilename containsString:packageFilename]) {
+                    [upgradeCommand addObject:finalPath];
+                    break;
+                }
+                else if ([packageFilename containsString:originalFilename]) {
+                    [upgradeCommand addObject:finalPath];
                     break;
                 }
             }

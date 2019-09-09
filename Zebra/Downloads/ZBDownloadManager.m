@@ -376,14 +376,16 @@
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)[downloadTask response];
     NSInteger responseCode = [httpResponse statusCode];
     NSURL *url = [[downloadTask originalRequest] URL];
-    NSString *filename = [[downloadTask response] suggestedFilename];
+    
+    NSString *requestedFilename = [url lastPathComponent];
+    NSString *suggestedFilename = [[downloadTask response] suggestedFilename];
     if (responseCode != 200 && responseCode != 304) { // Handle error code
-        if ([filename hasSuffix:@".bz2"]) { // Try to download .gz
+        if ([suggestedFilename hasSuffix:@".bz2"]) { // Try to download .gz
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages.gz"] ignoreCaching:self->ignore];
-        } else if ([filename hasSuffix:@".gz"]) { // Try to download Packages
+        } else if ([suggestedFilename hasSuffix:@".gz"]) { // Try to download Packages
             [self downloadFromURL:[[url URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"Packages"] ignoreCaching:self->ignore];
         } else {
-            if (![filename isEqualToString:@"Release"]) {
+            if (![suggestedFilename isEqualToString:@"Release"]) {
                 if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
                     // Allows custom error message to be displayed by the repository using the body
                     NSError *readError = NULL;
@@ -391,18 +393,18 @@
                     
                     if (readError) {
                         NSLog(@"[Zebra] Read error: %@", readError);
-                        [downloadDelegate predator:self finishedDownloadForFile:filename withError:readError];
+                        [downloadDelegate predator:self finishedDownloadForFile:suggestedFilename withError:readError];
                     } else {
                         NSLog(@"[Zebra] Download response: %@", contents);
                         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: contents}];
-                        [downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
+                        [downloadDelegate predator:self finishedDownloadForFile:suggestedFilename withError:error];
                     }
                 } else {
                     NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, [httpResponse statusCode], NULL, kCFHTTPVersion1_1)); // 🤮
-                    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", filename]]}];
-                    if ([filename hasSuffix:@".deb"]) {
+                    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:responseCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingString:[NSString stringWithFormat:@": %@\n", suggestedFilename]]}];
+                    if ([suggestedFilename hasSuffix:@".deb"]) {
                         [self cancelAllTasksForSession:session];
-                        [self->downloadDelegate predator:self finishedDownloadForFile:filename withError:error];
+                        [self->downloadDelegate predator:self finishedDownloadForFile:suggestedFilename withError:error];
                     } else {
                         [self->downloadDelegate predator:self finishedDownloadForFile:[url absoluteString] withError:error];
                     }
@@ -410,25 +412,35 @@
             }
         }
     } else { // Download success
-        if ([filename hasSuffix:@".deb"]) {
+        if ([[suggestedFilename pathExtension] containsString:@"deb"]) {
             NSString *debsPath = [ZBAppDelegate debsLocation];
-            NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
+            NSString *finalPath = [debsPath stringByAppendingPathComponent:suggestedFilename];
             
             [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                 if (!success && error != NULL) {
                     [self cancelAllTasksForSession:session];
                     NSLog(@"[Zebra] Error while moving file at %@ to %@: %@", location, finalPath, error.localizedDescription);
                 } else {
-                    [self addFile:finalPath toArray:@"debs"];
+                    NSMutableArray *arr = [self->filenames objectForKey:@"debs"];
+                    if (arr == NULL) {
+                        arr = [NSMutableArray new];
+                    }
+                    
+                    NSMutableDictionary *dict = [NSMutableDictionary new];
+                    [dict setObject:requestedFilename forKey:@"original"];
+                    [dict setObject:finalPath forKey:@"final"];
+                    
+                    [arr addObject:dict];
+                    [self->filenames setValue:arr forKey:@"debs"];
                 }
             }];
-        } else if ([filename hasSuffix:@".gz"]) {
+        } else if ([suggestedFilename hasSuffix:@".gz"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *saveName = [self repoSaveName:url filename:filename];
+                NSString *saveName = [self repoSaveName:url filename:suggestedFilename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
@@ -476,13 +488,13 @@
                     }
                 }];
             }
-        } else if ([filename hasSuffix:@".bz2"]) {
+        } else if ([suggestedFilename hasSuffix:@".bz2"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *saveName = [self repoSaveName:url filename:filename];
+                NSString *saveName = [self repoSaveName:url filename:suggestedFilename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
@@ -535,13 +547,13 @@
                     }
                 }];
             }
-        } else if ([filename isEqualToString:@"Packages"]) {
+        } else if ([suggestedFilename isEqualToString:@"Packages"]) {
             if (responseCode == 304) {
                 if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *saveName = [self repoSaveName:url filename:filename];
+                NSString *saveName = [self repoSaveName:url filename:suggestedFilename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                     if (success) {
@@ -550,9 +562,9 @@
                     }
                 }];
             }
-        } else if ([filename containsString:@"Release"]) {
-            if ([filename pathExtension] != NULL) {
-                filename = [filename stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [filename pathExtension]] withString:@""]; //Remove path extension from release
+        } else if ([suggestedFilename containsString:@"Release"]) {
+            if ([suggestedFilename pathExtension] != NULL) {
+                suggestedFilename = [suggestedFilename stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [suggestedFilename pathExtension]] withString:@""]; //Remove path extension from release
             }
             
             if (responseCode == 304) {
@@ -560,7 +572,7 @@
                     [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
             } else {
                 NSString *listsPath = [ZBAppDelegate listsLocation];
-                NSString *saveName = [self repoSaveName:url filename:filename];
+                NSString *saveName = [self repoSaveName:url filename:suggestedFilename];
                 NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
@@ -574,7 +586,7 @@
         }
         else {
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not parse %@\n", filename] atLevel:ZBLogLevelError];
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not parse %@\n", suggestedFilename] atLevel:ZBLogLevelError];
         }
     }
 }
