@@ -416,6 +416,11 @@
             NSString *debsPath = [ZBAppDelegate debsLocation];
             NSString *finalPath = [debsPath stringByAppendingPathComponent:suggestedFilename];
             
+            if (![[finalPath pathExtension] isEqualToString:@"deb"]) { //create deb extension so apt doesnt freak
+                NSString *stripExtension = [finalPath stringByReplacingOccurrencesOfString:[finalPath pathExtension] withString:@""];
+                finalPath = [NSString stringWithFormat:@"%@deb", stripExtension];
+            }
+            
             [self moveFileFromLocation:location to:finalPath completion:^(BOOL success, NSError *error) {
                 if (!success && error != NULL) {
                     [self cancelAllTasksForSession:session];
