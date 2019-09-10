@@ -15,7 +15,7 @@
 
 @interface ZBRepoManager () {
     NSMutableArray<NSURL *> *verifiedURLs;
-    NSMutableDictionary <NSNumber *, ZBRepo *> *repos;
+    NSMutableDictionary <NSNumber *, ZBSource *> *repos;
     BOOL recachingNeeded;
 }
 @end
