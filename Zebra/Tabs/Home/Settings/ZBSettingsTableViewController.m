@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBFeatured,
     ZBNews,
     ZBSearch,
+    ZBAutoComplete,
     ZBMisc,
     ZBAdvanced
 };
@@ -45,6 +46,12 @@ enum ZBInfoOrder {
 
 enum ZBMiscOrder {
     ZBIconAction
+};
+
+typedef NS_ENUM(NSUInteger, ZBAutoCompleteOrder) {
+    ZBAutoCompleteEnable,
+    ZBAutoCompleteTimeoutDesc,
+    ZBAutoCompleteTimeout
 };
 
 @interface ZBSettingsTableViewController () {
@@ -147,6 +154,8 @@ enum ZBMiscOrder {
             return @"News";
         case ZBSearch:
             return @"Search";
+        case ZBAutoComplete:
+            return @"Auto Complete";
         case ZBMisc:
             return @"Miscellaneous";
         case ZBAdvanced:
@@ -159,7 +168,7 @@ enum ZBMiscOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
@@ -180,6 +189,11 @@ enum ZBMiscOrder {
                 return 3;
             }
             return 2;
+        case ZBAutoComplete:
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:wantsAutoCompleteKey]) {
+                return 3;
+            }
+            return 1;
         case ZBAdvanced:
             return 4;
         default:
@@ -337,6 +351,46 @@ enum ZBMiscOrder {
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
+        case ZBAutoComplete: {
+            ZBAutoCompleteOrder row = indexPath.row;
+            BOOL wantsAutoComplete = [[NSUserDefaults standardUserDefaults] boolForKey:wantsAutoCompleteKey];
+            switch (row) {
+                case ZBAutoCompleteEnable: {
+                    UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    enableSwitch.on = wantsAutoComplete;
+                    enableSwitch.onTintColor = [UIColor tintColor];
+                    [enableSwitch addTarget:self action:@selector(toggleAutoComplete:) forControlEvents:UIControlEventValueChanged];
+                    cell.accessoryView = enableSwitch;
+                    cell.textLabel.text = @"Enable auto complete";
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                    break;
+                }
+                case ZBAutoCompleteTimeoutDesc: {
+
+                    cell.textLabel.text = @"Timeout";
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    break;
+                }
+                case ZBAutoCompleteTimeout: {
+                    float timeout = [[NSUserDefaults standardUserDefaults] floatForKey:autoCompleteTimeoutKey];
+                    cell.textLabel.text = [NSString stringWithFormat:@"%0.1f", timeout];
+                    cell.textLabel.textAlignment = NSTextAlignmentRight;
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    UISlider *timeoutSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+                    timeoutSlider.minimumValue = 0.0;
+                    timeoutSlider.maximumValue = 30.0;
+                    timeoutSlider.value = timeout;
+                    timeoutSlider.continuous = YES;
+                    timeoutSlider.tintColor = [UIColor tintColor];
+                    [timeoutSlider addTarget:self action:@selector(autoCompleteTimeoutChanged:) forControlEvents:UIControlEventValueChanged];
+                    [cell.contentView addSubview:timeoutSlider];
+                    timeoutSlider.frame = cell.textLabel.frame;
+                    break;
+                }
+            }
+            return cell;
+        }
         case ZBMisc: {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
@@ -410,6 +464,16 @@ enum ZBMiscOrder {
             UISwitch *switcher = (UISwitch *)cell.accessoryView;
             [switcher setOn:!switcher.on animated:YES];
             [self toggleNews:switcher];
+            break;
+        }
+        case ZBAutoComplete: {
+            ZBAutoCompleteOrder row = indexPath.row;
+            if (row == ZBAutoCompleteEnable) {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                [switcher setOn:!switcher.on animated:YES];
+                [self toggleAutoComplete:switcher];
+            }
             break;
         }
         case ZBAdvanced: {
@@ -537,6 +601,11 @@ enum ZBMiscOrder {
     [self toggle:sender preference:liveSearchKey notification:nil];
 }
 
+- (void)toggleAutoComplete:(id)sender {
+    [self toggle:sender preference:wantsAutoCompleteKey notification:nil];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBAutoComplete] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 - (void)openBlackList {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBRepoBlacklistTableViewController *blackList = [storyboard instantiateViewControllerWithIdentifier:@"repoBlacklistController"];
@@ -623,6 +692,16 @@ enum ZBMiscOrder {
     [ZBDevice hapticButton];
     [self oledAnimation];
 }
+
+- (void)autoCompleteTimeoutChanged:(UISlider *)slider {
+    float timeout = (roundf(slider.value * 2.0) * 0.5);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setFloat:timeout forKey:autoCompleteTimeoutKey];
+    [defaults synchronize];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ZBAutoCompleteTimeout inSection:ZBAutoComplete]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%0.1f", slider.value];
+}
+
 
 - (void)iconActionSegmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     BOOL useIcon = segmentedControl.selectedSegmentIndex == 1;

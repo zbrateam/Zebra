@@ -16,6 +16,8 @@
 #define wantsFeaturedKey @"wantsFeatured"
 #define wantsNewsKey @"wantsNews"
 #define liveSearchKey @"liveSearch"
+#define wantsAutoCompleteKey @"wantsAutoComplete"
+#define autoCompleteTimeoutKey @"autoCompleteTimeout"
 #define iconActionKey @"packageIconAction"
 #define wishListKey @"wishList"
 

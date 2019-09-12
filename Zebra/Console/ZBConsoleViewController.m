@@ -16,6 +16,7 @@
 #import <ZBTabBarController.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Packages/Helpers/ZBPackage.h>
+#import <ZBSettings.h>
 @import LNPopupController;
 
 typedef enum {
@@ -288,6 +289,7 @@ typedef enum {
     [self updateStatus:ZBStageDone];
     [self updateCompleteButton];
     [self updateCancelOrCloseButton];
+    [self autoComplete];
 }
 
 - (void)updateCompleteButton {
@@ -304,6 +306,17 @@ typedef enum {
             [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
         }
     });
+}
+
+- (void)autoComplete {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL wantsAutoComplete = [defaults boolForKey:wantsAutoCompleteKey];
+    if (wantsAutoComplete) {
+        float timeout = [defaults floatForKey:autoCompleteTimeoutKey];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self->_completeButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        });
+    }
 }
 
 - (void)cancel {
@@ -504,6 +517,7 @@ typedef enum {
         [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
         [self updateStatus:ZBStageDone];
         [self updateCompleteButton];
+        [self autoComplete];
     }
     preventCancel = YES;
     self.cancelOrCloseButton.hidden = YES;
