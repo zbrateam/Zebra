@@ -376,7 +376,6 @@ enum ZBMiscOrder {
         case ZBInfo: {
             switch (indexPath.row) {
                 case ZBBugs:
-                    [self openWebView:ZBBugs];
                     break;
             }
             break;
@@ -443,18 +442,6 @@ enum ZBMiscOrder {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
     [self.navigationController pushViewController:community animated:YES];
-}
-
-- (void)openWebView:(NSInteger)cellNumber {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-    webController.navigationDelegate = webController;
-    webController.navigationItem.title = @"Loading...";
-    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [webController setValue:url forKey:@"_url"];
-    [[self navigationController] pushViewController:webController animated:YES];
 }
 
 - (void)showRefreshView:(NSNumber *)dropTables {

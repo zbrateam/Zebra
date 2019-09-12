@@ -22,7 +22,6 @@
 #import <Sources/Helpers/ZBSource.h>
 #import <ZBTabBarController.h>
 #import <UIColor+Zebra.h>
-#import "ZBWebViewController.h"
 #import "ZBPurchaseInfo.h"
 @import SDWebImage;
 
@@ -212,16 +211,16 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     NSString *destination = (NSString *)contents[0];
     NSString *action = contents[1];
     
-    if ([destination isEqual:@"local"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-        filesController.navigationDelegate = self;
-        filesController.navigationItem.title = @"Installed Files";
-        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
-        [filesController setValue:url forKey:@"_url"];
-        
-        [[self navigationController] pushViewController:filesController animated:YES];
-    }
+//    if ([destination isEqual:@"local"]) {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+//        filesController.navigationDelegate = self;
+//        filesController.navigationItem.title = @"Installed Files";
+//        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
+//        [filesController setValue:url forKey:@"_url"];
+//        
+//        [[self navigationController] pushViewController:filesController animated:YES];
+//    }
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {

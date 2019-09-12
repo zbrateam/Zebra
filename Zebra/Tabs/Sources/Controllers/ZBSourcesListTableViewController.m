@@ -9,7 +9,7 @@
 #import "ZBSourcesListTableViewController.h"
 
 #import <Tabs/ZBTabBarController.h>
-#import <Views/ZBSourceTableViewCell.h>
+#import <Tabs/Sources/Cells/ZBSourceTableViewCell.h>
 
 @interface ZBSourcesListTableViewController ()
 

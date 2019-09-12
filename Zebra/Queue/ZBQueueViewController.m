@@ -139,13 +139,13 @@
     return title;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    // Text Color
-    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
-        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-//        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    }
-}
+//- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+//    // Text Color
+//    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+//        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+////        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//    }
+//}
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *actions = [_queue actionsToPerform];

@@ -13,12 +13,12 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 
-#import <Views/ZBFeaturedTableViewCell.h>
-#import <Views/ZBFeaturedCollectionViewCell.h>
-#import <Views/ZBCommunityNewsTableViewCell.h>
-#import <Views/ZBButtonTableViewCell.h>
-#import <Views/ZBIconTableViewCell.h>
-#import <Views/ZBFootnotesTableViewCell.h>
+#import <Cells/ZBFeaturedTableViewCell.h>
+#import <Cells/ZBFeaturedCollectionViewCell.h>
+#import <Cells/ZBCommunityNewsTableViewCell.h>
+#import <Cells/ZBButtonTableViewCell.h>
+#import <Cells/ZBIconTableViewCell.h>
+#import <Cells/ZBFootnotesTableViewCell.h>
 #import <Changelog/ZBChangelogTableViewController.h>
 
 #import <Database/ZBDatabaseManager.h>
