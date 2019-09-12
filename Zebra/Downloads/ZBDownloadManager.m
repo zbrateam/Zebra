@@ -15,7 +15,7 @@
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 
 #import <bzlib.h>
 #import <zlib.h>
@@ -66,7 +66,7 @@
     
     if (self) {
         downloadDelegate = delegate;
-        repos = @[ [self baseURLFromDebLine:[[ZBRepoManager sharedInstance] debLineFromRepo:repo]] ];
+        repos = @[ [self baseURLFromDebLine:[[ZBSourceManager sharedInstance] debLineFromRepo:repo]] ];
         [self commonInit];
     }
     
@@ -81,7 +81,7 @@
         NSMutableArray <NSArray *> *baseURLs = [NSMutableArray array];
         for (NSURL *url in repoURLs) {
             NSString *urlString = url.absoluteString;
-            NSString *debLine = [[ZBRepoManager sharedInstance] knownDebLineFromURLString:urlString];
+            NSString *debLine = [[ZBSourceManager sharedInstance] knownDebLineFromURLString:urlString];
             if (debLine == nil) {
                 debLine = [NSString stringWithFormat:@"deb %@ ./\n", urlString];
             }

@@ -1,32 +1,32 @@
 //
-//  ZBRepoManager.m
+//  ZBSourceManager.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRepoManager.h"
+#import "ZBSourceManager.h"
 #import <UIKit/UIDevice.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 
-@interface ZBRepoManager () {
+@interface ZBSourceManager () {
     NSMutableArray<NSURL *> *verifiedURLs;
     NSMutableDictionary <NSNumber *, ZBSource *> *repos;
     BOOL recachingNeeded;
 }
 @end
 
-@implementation ZBRepoManager
+@implementation ZBSourceManager
 
 + (id)sharedInstance {
-    static ZBRepoManager *instance = nil;
+    static ZBSourceManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [ZBRepoManager new];
+        instance = [ZBSourceManager new];
         instance->recachingNeeded = YES;
     });
     return instance;

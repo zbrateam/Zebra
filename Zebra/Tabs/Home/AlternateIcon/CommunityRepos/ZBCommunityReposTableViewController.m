@@ -31,7 +31,7 @@ enum ZBSourcesOrder {
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     availableManagers = [NSMutableArray new];
-    self.repoManager = [ZBRepoManager sharedInstance];
+    self.repoManager = [ZBSourceManager sharedInstance];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -227,7 +227,7 @@ enum ZBSourcesOrder {
     [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
-    __weak typeof(ZBRepoManager *) repoManager = self.repoManager;
+    __weak typeof(ZBSourceManager *) repoManager = self.repoManager;
     
     [repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{

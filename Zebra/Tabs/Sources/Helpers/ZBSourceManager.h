@@ -1,5 +1,5 @@
 //
-//  ZBRepoManager.h
+//  ZBSourceManager.h
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoManager : NSObject
+@interface ZBSourceManager : NSObject
 + (instancetype)sharedInstance;
 + (NSArray <NSString *> *)knownDistURLs;
 - (NSMutableDictionary <NSNumber *, ZBSource *> *)repos;

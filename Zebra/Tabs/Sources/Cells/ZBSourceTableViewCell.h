@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *sourceURLLabel;
 @property (weak, nonatomic) IBOutlet UILabel *packageCountLabel;
 
+- (void)setSpinning:(BOOL)spinning;
 @end
 
 NS_ASSUME_NONNULL_END

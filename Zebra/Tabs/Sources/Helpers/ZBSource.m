@@ -7,7 +7,7 @@
 //
 
 #import "ZBSource.h"
-#import "ZBRepoManager.h"
+#import "ZBSourceManager.h"
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
@@ -29,7 +29,7 @@
 @synthesize supportSileoPay;
 
 + (ZBSource *)repoMatchingRepoID:(int)repoID {
-    return [[ZBRepoManager sharedInstance] repos][@(repoID)];
+    return [[ZBSourceManager sharedInstance] repos][@(repoID)];
 }
 
 + (ZBSource *)localRepo:(int)repoID {

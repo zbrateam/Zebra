@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZBDevice.h"
 #import "UIColor+Zebra.h"
-#import "ZBRepoManager.h"
+#import "ZBSourceManager.h"
 #import "ZBAddRepoViewController.h"
 @import SDWebImage;
 
@@ -17,5 +17,5 @@
 @property NSString *jailbreakRepo;
 @property NSArray *communityRepos;
 @property NSMutableArray *availableManagers;
-@property ZBRepoManager *repoManager;
+@property ZBSourceManager *repoManager;
 @end
