@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBSource;
+
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -15,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *sourceNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sourceURLLabel;
 @property (weak, nonatomic) IBOutlet UILabel *packageCountLabel;
-
+- (void)updateData:(ZBSource *)source;
 - (void)setSpinning:(BOOL)spinning;
 @end
 

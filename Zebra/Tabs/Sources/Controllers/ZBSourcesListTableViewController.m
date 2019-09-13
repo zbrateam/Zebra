@@ -11,6 +11,8 @@
 #import <Tabs/ZBTabBarController.h>
 #import <Tabs/Sources/Cells/ZBSourceTableViewCell.h>
 
+#import <Tabs/Sources/Helpers/ZBSource.h>
+
 @interface ZBSourcesListTableViewController ()
 
 @end
@@ -76,8 +78,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableCell" forIndexPath:indexPath];
+    ZBSource *source = [sources objectAtIndex:indexPath.row];
     
-    cell.sourceNameLabel.text = @"Whats up";
+    [cell updateData:source];
     
     return cell;
 }

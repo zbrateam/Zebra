@@ -30,7 +30,6 @@
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XEV-Gf-Usd">
                                             <rect key="frame" x="16" y="16" width="37" height="37"/>
-                                            <color key="backgroundColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="XEV-Gf-Usd" secondAttribute="height" multiplier="1:1" id="mgr-md-g9A"/>
                                             </constraints>

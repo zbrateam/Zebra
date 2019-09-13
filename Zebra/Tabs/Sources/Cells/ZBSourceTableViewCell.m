@@ -6,11 +6,19 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@import SDWebImage;
+
 #import "ZBSourceTableViewCell.h"
+
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @implementation ZBSourceTableViewCell {
     UIActivityIndicatorView *spinner;
 }
+
+@synthesize sourceNameLabel;
+@synthesize sourceURLLabel;
+@synthesize iconImageView;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -46,4 +54,11 @@
         self.accessoryView = nil;
     }
 }
+
+- (void)updateData:(ZBSource *)source {
+    [sourceNameLabel setText:[source origin]];
+    [sourceURLLabel setText:[source baseURL]];
+    [iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+}
+
 @end
