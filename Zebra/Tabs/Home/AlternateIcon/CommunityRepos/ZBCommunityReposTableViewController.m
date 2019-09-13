@@ -8,7 +8,7 @@
 
 #import "ZBCommunityReposTableViewController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Cells/ZBSourceTableViewCell.h>
 
 enum ZBSourcesOrder {
     ZBTransfer,
@@ -109,7 +109,7 @@ enum ZBSourcesOrder {
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     NSString *cellText = nil;
     NSURL *iconURL = nil;
     NSURL *repoURL = nil;
@@ -148,20 +148,20 @@ enum ZBSourcesOrder {
     }
     
     if (cellText) {
-        [cell.repoLabel setText:cellText];
+        [cell.sourceNameLabel setText:cellText];
 //        [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
     } else {
-        cell.repoLabel.text = nil;
+        cell.sourceNameLabel.text = nil;
     }
     
     if (subText && !repoURL) {
-        [cell.urlLabel setText:subText];
+        [cell.sourceNameLabel setText:subText];
 //        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
     } else if (repoURL) {
-        [cell.urlLabel setText:repoURL.absoluteString];
+        [cell.sourceNameLabel setText:repoURL.absoluteString];
 //        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
     } else {
-        cell.urlLabel.text = nil;
+        cell.sourceNameLabel.text = nil;
     }
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     

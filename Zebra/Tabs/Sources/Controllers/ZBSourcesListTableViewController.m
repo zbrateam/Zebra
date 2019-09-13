@@ -17,8 +17,18 @@
 
 @implementation ZBSourcesListTableViewController
 
+@synthesize sources;
+
+#pragma mark - Controller Setup
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    sources = [self.databaseManager repos];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     //From: https://stackoverflow.com/a/48837322
     UIVisualEffectView *fxView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
@@ -28,22 +38,46 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar insertSubview:fxView atIndex:1];
     
+    [self layoutNavigationButtons];
 }
 
-#pragma mark - Table view data source
+- (void)layoutNavigationButtons {
+    if (self.refreshControl.refreshing) {
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+        self.navigationItem.leftBarButtonItems = @[cancelButton];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    else {
+        if (self.editing) {
+            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
+            self.navigationItem.rightBarButtonItem = doneButton;
+            
+            UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
+            self.navigationItem.leftBarButtonItem = exportButton;
+        } else {
+            self.editButtonItem.action = @selector(editMode:);
+            self.navigationItem.rightBarButtonItem = self.editButtonItem;
+            
+            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+            self.navigationItem.leftBarButtonItems = @[addButton];
+        }
+    }
+}
+
+#pragma mark - Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 12;
+    return [sources count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    cell.sourceNameLabel.text = @"Whats up";
     
     return cell;
 }

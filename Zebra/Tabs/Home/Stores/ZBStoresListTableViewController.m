@@ -11,7 +11,7 @@
 #import <UIColor+Zebra.h>
 #import "ZBStoresListTableViewController.h"
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Helpers/ZBRepoTableViewCell.h>
+//#import <Sources/Helpers/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
@@ -84,20 +84,21 @@
     return self.tableData.count;
 }
 
-- (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+//    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
-    
-    cell.repoLabel.text = [source origin];
-
-    if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source baseURL]]]) {
-        cell.urlLabel.text = @"Login";
-    } else {
-        cell.urlLabel.text = @"Purchases";
-    }
-    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
- 
+//    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
+//
+//    cell.repoLabel.text = [source origin];
+//
+//    if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source baseURL]]]) {
+//        cell.urlLabel.text = @"Login";
+//    } else {
+//        cell.urlLabel.text = @"Purchases";
+//    }
+//    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//
     return cell;
 }
 

@@ -61,7 +61,6 @@
 		89254AAD232425B1008BE104 /* ZBSourcesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89254AAC232425B1008BE104 /* ZBSourcesListTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
-		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */; };
@@ -202,8 +201,6 @@
 		8931E4D2226D6E9300F35DFD /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
-		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
-		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
 		89463CDF2277B5C300A92FC5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
@@ -507,8 +504,6 @@
 				89254AAC232425B1008BE104 /* ZBSourcesListTableViewController.m */,
 				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
 				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
-				8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */,
-				8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */,
 				363FE24D2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.h */,
 				363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */,
@@ -927,7 +922,6 @@
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
-				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
 				89DA9492231B21B80027459C /* ZBIconTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

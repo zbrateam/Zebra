@@ -14,7 +14,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+Zebra.h>
-#import <Sources/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBSourcesListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDWebImage/SDImageCacheConfig.h>
@@ -237,8 +237,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                 
-                ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                [repoController handleImportOf:url];
+                ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                [sourceController handleImportOf:url];
             }
             break;
         }
@@ -256,8 +256,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
                     
-                    ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    [repoController handleURL:url];
+                    ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [sourceController handleURL:url];
                     break;
                 }
                 case 2: {
@@ -324,10 +324,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                         NSString *sourceURL = [components[1] componentsSeparatedByString:@"&package"][0];
                         [tabController setSelectedIndex:ZBTabSources];
                         
-                        ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                        ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                         
                         NSURL *url = [NSURL URLWithString:[@"zbra://sources/add/" stringByAppendingString:sourceURL]];
-                        [repoController handleURL:url];
+                        [sourceController handleURL:url];
                     }
                     break;
                 }
@@ -374,8 +374,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
+        ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [sourceController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     }
 }
 
