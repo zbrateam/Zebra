@@ -87,32 +87,29 @@
 - (void)layoutNavigationButtons {
     if (self.refreshControl.refreshing) {
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelRefresh:)];
-        self.navigationItem.leftBarButtonItems = @[cancelButton];
+        self.navigationItem.leftBarButtonItem = cancelButton;
         self.navigationItem.rightBarButtonItem = nil;
     }
     else {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
         if (self.isEditing) {
-            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditing:)];
-            self.navigationItem.rightBarButtonItem = doneButton;
-            
             UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources:)];
             self.navigationItem.leftBarButtonItem = exportButton;
-        } else {
-            self.editButtonItem.action = @selector(toggleEditing:);
-            self.navigationItem.rightBarButtonItem = self.editButtonItem;
-            
+        }
+        else {
             UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
             self.navigationItem.leftBarButtonItems = @[addButton];
         }
     }
 }
 
-- (void)cancelRefresh:(id)sender {
-    
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self layoutNavigationButtons];
 }
 
-- (void)toggleEditing:(id)sender {
-    [self setEditing:!self.isEditing animated:true];
+- (void)cancelRefresh:(id)sender {
+    
 }
 
 - (void)exportSources:(id)sender {
