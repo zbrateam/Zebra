@@ -170,4 +170,13 @@
     return [NSString stringWithFormat: @"%@ %@ %d", origin, shortURL, repoID];
 }
 
+- (NSString *)displayableURL {
+    if (secure) {
+        return [NSString stringWithFormat:@"https://%@", baseURL];
+    }
+    else {
+        return [NSString stringWithFormat:@"http://%@", baseURL];
+    }
+}
+
 @end

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isSecure;
 - (BOOL)canDelete;
+- (NSString *)displayableURL;
 @end
 
 NS_ASSUME_NONNULL_END

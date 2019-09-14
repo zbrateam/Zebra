@@ -57,7 +57,7 @@
 
 - (void)updateData:(ZBSource *)source {
     [sourceNameLabel setText:[source origin]];
-    [sourceURLLabel setText:[source baseURL]];
+    [sourceURLLabel setText:[source displayableURL]];
     [iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
 }
 
