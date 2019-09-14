@@ -43,29 +43,6 @@
     [self layoutNavigationButtons];
 }
 
-- (void)layoutNavigationButtons {
-    if (self.refreshControl.refreshing) {
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-        self.navigationItem.leftBarButtonItems = @[cancelButton];
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-    else {
-        if (self.editing) {
-            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
-            self.navigationItem.rightBarButtonItem = doneButton;
-            
-            UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-            self.navigationItem.leftBarButtonItem = exportButton;
-        } else {
-            self.editButtonItem.action = @selector(editMode:);
-            self.navigationItem.rightBarButtonItem = self.editButtonItem;
-            
-            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-            self.navigationItem.leftBarButtonItems = @[addButton];
-        }
-    }
-}
-
 #pragma mark - Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -87,6 +64,68 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 69;
+}
+
+#pragma mark - Navigation Buttons
+
+- (void)layoutNavigationButtons {
+    if (self.refreshControl.refreshing) {
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelRefresh:)];
+        self.navigationItem.leftBarButtonItems = @[cancelButton];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    else {
+        if (self.editing) {
+            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditing:)];
+            self.navigationItem.rightBarButtonItem = doneButton;
+            
+            UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources:)];
+            self.navigationItem.leftBarButtonItem = exportButton;
+        } else {
+            self.editButtonItem.action = @selector(toggleEditing:);
+            self.navigationItem.rightBarButtonItem = self.editButtonItem;
+            
+            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+            self.navigationItem.leftBarButtonItems = @[addButton];
+        }
+    }
+}
+
+- (void)cancelRefresh:(id)sender {
+    
+}
+
+- (void)toggleEditing:(id)sender {
+    
+}
+
+- (void)exportSources:(id)sender {
+
+}
+
+- (void)addSource:(id)sender {
+
+}
+
+#pragma mark - UI Updates
+
+- (BOOL)setSpinnerVisible:(BOOL)visible forBaseFileName:(NSString *)baseFileName {
+
+    return false;
+}
+
+- (void)clearAllSpinners {
+    
+}
+
+#pragma mark - URL Handling
+
+- (void)handleURL:(NSURL *)url {
+
+}
+
+- (void)handleImportOf:(NSURL *)url {
+    
 }
 
 /*
