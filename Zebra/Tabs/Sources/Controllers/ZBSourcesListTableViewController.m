@@ -215,17 +215,16 @@
 
 #pragma mark - UI Updates
 
+- (BOOL)setSpinnerVisible:(BOOL)visible forCell:(ZBSourceTableViewCell *)cell {
+    return [cell setSpinning:visible];
+}
+
 - (BOOL)setSpinnerVisible:(BOOL)visible forBaseFileName:(NSString *)baseFileName {
+    NSInteger cellPosition = [[self baseFileNameMap] indexOfObject:baseFileName];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellPosition inSection:0];
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSInteger cellPosition = [[self baseFileNameMap] indexOfObject:baseFileName];
-        NSInteger cellPosition = [self->sourceIndexes[baseFileName] integerValue];
-        ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
-        [self setSpinnerVisible:visible forCell:cell];
-        });
-    }
-    
-    return true;
+    return [self setSpinnerVisible:visible forCell:cell];
 }
 
 - (void)clearAllSpinners {

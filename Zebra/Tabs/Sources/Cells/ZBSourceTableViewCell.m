@@ -41,18 +41,18 @@
 //    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
 }
 
-- (void)clearAccessoryView {
-    self.accessoryView = nil;
-}
-
-- (void)setSpinning:(BOOL)spinning {
-    if (spinning) {
-        self.accessoryView = spinner;
-        [spinner startAnimating];
-    } else {
-        [spinner stopAnimating];
-        self.accessoryView = nil;
-    }
+- (BOOL)setSpinning:(BOOL)spinning {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (spinning) {
+            self.accessoryView = self->spinner;
+            [self->spinner startAnimating];
+        } else {
+            [self->spinner stopAnimating];
+            self.accessoryView = nil;
+        }
+    });
+    
+    return spinning;
 }
 
 - (void)updateData:(ZBSource *)source {

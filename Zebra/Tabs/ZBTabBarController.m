@@ -9,7 +9,7 @@
 #import "ZBTabBarController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-//#import <Sources/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBSourcesListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <UITabBarItem.h>
@@ -92,40 +92,40 @@
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-//    UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
-//    UITabBarItem *sourcesItem = [sourcesController tabBarItem];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [sourcesItem setAnimatedBadge:visible];
-//        if (visible) {
-//            if (self->sourcesUpdating) {
-//                return;
-//            }
-//            sourcesItem.badgeValue = @"";
-//
-//            UIView *badge = [[sourcesItem view] valueForKey:@"_badge"];
-//            self->indicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-//            self->indicator.center = badge.center;
-//            [self->indicator startAnimating];
-//            [badge addSubview:self->indicator];
-//            self->sourcesUpdating = YES;
-//        } else {
-//            sourcesItem.badgeValue = nil;
-//            self->sourcesUpdating = NO;
-//        }
-//    });
-//    [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
+    UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
+    UITabBarItem *sourcesItem = [sourcesController tabBarItem];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [sourcesItem setAnimatedBadge:visible];
+        if (visible) {
+            if (self->sourcesUpdating) {
+                return;
+            }
+            sourcesItem.badgeValue = @"";
+
+            UIView *badge = [[sourcesItem view] valueForKey:@"_badge"];
+            self->indicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+            self->indicator.center = badge.center;
+            [self->indicator startAnimating];
+            [badge addSubview:self->indicator];
+            self->sourcesUpdating = YES;
+        } else {
+            sourcesItem.badgeValue = nil;
+            self->sourcesUpdating = NO;
+        }
+    });
+    [(ZBSourcesListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
 }
 
 #pragma mark - Database Delegate
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
-//    if (bfn == NULL) return;
-//    if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
-//    
-//    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-//    
-//    [repoBusyList setObject:@(busy) forKey:bfn];
-//    [sourcesVC setSpinnerVisible:busy forRepo:bfn];
+    if (bfn == NULL) return;
+    if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
+    
+    ZBSourcesListTableViewController *sourcesVC = (ZBSourcesListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
+    
+    [repoBusyList setObject:@(busy) forKey:bfn];
+    [sourcesVC setSpinnerVisible:busy forBaseFileName:bfn];
 }
 
 - (void)databaseStartedUpdate {
