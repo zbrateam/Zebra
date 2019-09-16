@@ -8,10 +8,15 @@
 
 #import "ZBSourcesListTableViewController.h"
 
+#import <Extensions/UIColor+Zebra.h>
+
 #import <Tabs/ZBTabBarController.h>
 #import <Tabs/Sources/Cells/ZBSourceTableViewCell.h>
 
 #import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+
+#import <Database/ZBRefreshViewController.h>
 
 @interface ZBSourcesListTableViewController ()
 
@@ -19,6 +24,8 @@
 
 @implementation ZBSourcesListTableViewController
 
+@synthesize sourceManager;
+@synthesize baseFileNameMap;
 @synthesize sources;
 
 #pragma mark - Controller Setup
@@ -26,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    sourceManager = [ZBSourceManager sharedInstance];
+    baseFileNameMap = [NSMutableArray new];
     sources = [[self.databaseManager repos] mutableCopy];
 }
 
@@ -97,7 +106,7 @@
             self.navigationItem.leftBarButtonItem = exportButton;
         }
         else {
-            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddSourcePopup:)];
             self.navigationItem.leftBarButtonItems = @[addButton];
         }
     }
@@ -116,15 +125,107 @@
 
 }
 
-- (void)addSource:(id)sender {
+- (void)showAddSourcePopup:(id)sender {
+    [self presentViewController:[self addSourcePopup] animated:YES completion:nil];
+}
 
+#pragma mark Add Source Popup Configuration
+
+- (UIAlertController *)addSourcePopup {
+    return [self addSourcePopupWithPlaceholder:NULL];
+}
+
+- (UIAlertController *)addSourcePopupWithPlaceholder:(NSURL *_Nullable)url {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter URL" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tintColor = [UIColor tintColor];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *sourceURLString = alertController.textFields[0].text;
+        
+        [self addSourceURLFromString:sourceURLString];
+    }]];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        if (url != NULL) {
+            textField.text = [url absoluteString];
+        } else {
+            textField.text = @"https://";
+        }
+        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        textField.keyboardType = UIKeyboardTypeURL;
+        textField.returnKeyType = UIReturnKeyNext;
+    }];
+    
+    return alertController;
+}
+
+#pragma mark - Adding a Source
+
+- (void)addSourceURLFromString:(NSString *)sourceURLString {
+    UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:wait animated:YES completion:nil];
+    
+    __weak typeof(self) weakSelf = self;
+    __weak typeof(ZBSourceManager *) sourceManager = self->sourceManager;
+    
+    [sourceManager addSourcesFromString:sourceURLString response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
+        [weakSelf dismissViewControllerAnimated:YES completion:^{
+            if (!success) {
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
+                
+                if (failedURLs.count) {
+                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [weakSelf addSourceURLFromString:sourceURLString];
+                    }];
+                    
+                    [errorAlert addAction:retryAction];
+                    
+                    UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        if ([failedURLs count] > 1) {
+                            //Show add multi controller
+                        }
+                        else {
+                            NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
+                            
+                            [weakSelf presentViewController:[weakSelf addSourcePopupWithPlaceholder:failedURL] animated:true completion:nil];
+                        }
+                    }];
+                    
+                    [errorAlert addAction:editAction];
+                }
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                
+                [errorAlert addAction:cancelAction];
+                
+                [weakSelf presentViewController:errorAlert animated:YES completion:nil];
+            }
+            else {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                
+                console.repoURLs = [sourceManager verifiedURLs];
+                [weakSelf presentViewController:console animated:YES completion:nil];
+            }
+        }];
+    }];
 }
 
 #pragma mark - UI Updates
 
 - (BOOL)setSpinnerVisible:(BOOL)visible forBaseFileName:(NSString *)baseFileName {
-
-    return false;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger cellPosition = [[self baseFileNameMap] indexOfObject:baseFileName];
+        NSInteger cellPosition = [self->sourceIndexes[baseFileName] integerValue];
+        ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
+        [self setSpinnerVisible:visible forCell:cell];
+        });
+    }
+    
+    return true;
 }
 
 - (void)clearAllSpinners {
