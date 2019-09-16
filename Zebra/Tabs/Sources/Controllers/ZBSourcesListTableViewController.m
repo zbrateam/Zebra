@@ -34,8 +34,8 @@
     [super viewDidLoad];
     
     sourceManager = [ZBSourceManager sharedInstance];
-    baseFileNameMap = [NSMutableArray new];
     sources = [[self.databaseManager repos] mutableCopy];
+    [self drawSourceMap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -214,6 +214,17 @@
 }
 
 #pragma mark - UI Updates
+
+- (void)drawSourceMap {
+    if (![sources count]) return;
+    
+    NSMutableArray *map = [NSMutableArray new];
+    for (ZBSource *source in sources) {
+        [map addObject:[source baseFileName]];
+    }
+    
+    self.baseFileNameMap = (NSArray *)map;
+}
 
 - (BOOL)setSpinnerVisible:(BOOL)visible forCell:(ZBSourceTableViewCell *)cell {
     return [cell setSpinning:visible];

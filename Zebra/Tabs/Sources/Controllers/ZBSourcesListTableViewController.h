@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourcesListTableViewController : ZBRefreshableTableViewController
 @property (nonatomic, strong) ZBSourceManager *sourceManager;
-@property (nonatomic, strong) NSMutableArray *baseFileNameMap;
+@property (nonatomic, strong) NSArray *baseFileNameMap;
 @property (nonatomic, strong) NSMutableArray *sources;
 - (BOOL)setSpinnerVisible:(BOOL)visible forBaseFileName:(NSString *)baseFileName;
 - (void)handleURL:(NSURL *)url;
