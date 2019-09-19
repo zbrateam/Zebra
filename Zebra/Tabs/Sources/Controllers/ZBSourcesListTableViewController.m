@@ -8,13 +8,13 @@
 
 #import "ZBSourcesListTableViewController.h"
 
+#import <ZBAppDelegate.h>
 #import <Extensions/UIColor+Zebra.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 
 #import <Tabs/ZBTabBarController.h>
 #import <Tabs/Sources/Cells/ZBSourceTableViewCell.h>
-
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 
 #import <Database/ZBRefreshViewController.h>
 
@@ -148,7 +148,10 @@
 }
 
 - (void)exportSources:(id)sender {
-
+    NSURL *sourcesList = [ZBAppDelegate sourcesListURL];
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[sourcesList] applicationActivities:nil];
+    shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[0];
+    [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
 - (void)showAddSourcePopup:(id)sender {
