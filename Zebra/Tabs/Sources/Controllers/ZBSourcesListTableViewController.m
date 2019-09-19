@@ -72,6 +72,7 @@
     if (isRefreshing) return;
     
     sources = [[self.databaseManager repos] mutableCopy];
+    [self drawSourceMap];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->isRefreshing = YES;
         [self.tableView reloadData];
