@@ -20,6 +20,7 @@
 
 @interface ZBSourcesListTableViewController () {
     BOOL askedToAddFromClipboard;
+    BOOL isRefreshing;
     NSString *lastPaste;
 }
 @end
@@ -66,6 +67,17 @@
 }
 
 #pragma mark - Data Source
+
+- (void)refreshTable {
+    if (isRefreshing) return;
+    
+    sources = [[self.databaseManager repos] mutableCopy];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->isRefreshing = YES;
+        [self.tableView reloadData];
+        self->isRefreshing = NO;
+    });
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
