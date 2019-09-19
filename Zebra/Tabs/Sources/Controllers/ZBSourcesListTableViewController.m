@@ -18,8 +18,10 @@
 
 #import <Database/ZBRefreshViewController.h>
 
-@interface ZBSourcesListTableViewController ()
-
+@interface ZBSourcesListTableViewController () {
+    BOOL askedToAddFromClipboard;
+    NSString *lastPaste;
+}
 @end
 
 @implementation ZBSourcesListTableViewController
@@ -49,7 +51,18 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar insertSubview:fxView atIndex:1];
     
+    [self registerForNotifications];
     [self layoutNavigationButtons];
+}
+
+- (void)registerForNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+}
+
+- (void)dealloc { //Remove ourselves from receiving notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 #pragma mark - Data Source
@@ -129,7 +142,7 @@
     [self presentViewController:[self addSourcePopup] animated:YES completion:nil];
 }
 
-#pragma mark Add Source Popup Configuration
+#pragma mark - UIAlertControllers
 
 - (UIAlertController *)addSourcePopup {
     return [self addSourcePopupWithPlaceholder:NULL];
@@ -161,7 +174,53 @@
     return alertController;
 }
 
+- (UIAlertController *)addRepoFromClipboardPopup:(NSURL *_Nonnull)sourceURL {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to add the URL from your clipboard?" message:sourceURL.absoluteString preferredStyle:UIAlertControllerStyleAlert];
+    alertController.view.tintColor = [UIColor tintColor];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self addSourceURL:sourceURL];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    
+    return alertController;
+}
+
+#pragma mark - Clipboard
+
+- (void)checkClipboard {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSURL *url = [NSURL URLWithString:pasteboard.string];
+    NSArray *urlBlacklist = @[@"youtube.com", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
+    
+    NSMutableArray *currentSourceURLs = [NSMutableArray new];
+    for (ZBSource *source in sources) {
+        if (source.secure) {
+            [currentSourceURLs addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", source.baseURL]] host]];
+        }
+        else {
+            [currentSourceURLs addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", source.baseURL]] host]];
+        }
+    }
+    
+    if ((url && url.scheme && url.host)) {
+        if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
+            if (!askedToAddFromClipboard || ![lastPaste isEqualToString:pasteboard.string]) {
+                if (![urlBlacklist containsObject:url.host] && ![currentSourceURLs containsObject:url.host]) {
+                    [self presentViewController:[self addRepoFromClipboardPopup:url] animated:true completion:nil];
+                }
+            }
+            askedToAddFromClipboard = YES;
+            lastPaste = pasteboard.string;
+        }
+    }
+}
+
 #pragma mark - Adding a Source
+
+- (void)addSourceURL:(NSURL *)sourceURL {
+    [self addSourceURLFromString:[sourceURL absoluteString]];
+}
 
 - (void)addSourceURLFromString:(NSString *)sourceURLString {
     UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
