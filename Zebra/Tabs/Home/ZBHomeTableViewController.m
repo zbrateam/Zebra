@@ -410,8 +410,7 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, 38)];
         
         UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        UIFont *currentFont = sectionLabel.font;
-        UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",currentFont.fontName] size:22];
+        UIFont *newFont = [UIFont systemFontOfSize:22 weight:UIFontWeightBold];
         sectionLabel.font = newFont;
         
         [view addSubview:sectionLabel];
