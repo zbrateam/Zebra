@@ -17,6 +17,7 @@
 #import <Tabs/Sources/Cells/ZBSourceTableViewCell.h>
 
 #import <Database/ZBRefreshViewController.h>
+#import <Tabs/Sources/Controllers/ZBRepoSectionsListTableViewController.h>
 
 @interface ZBSourcesListTableViewController () {
     BOOL askedToAddFromClipboard;
@@ -115,7 +116,12 @@
 #pragma mark - Navigation
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSource *source = [sources objectAtIndex:indexPath.row];
     
+    ZBRepoSectionsListTableViewController *sectionsController = [[ZBRepoSectionsListTableViewController alloc] init];
+    sectionsController.repo = source;
+    
+    [[self navigationController] pushViewController:sectionsController animated:true];
 }
 
 #pragma mark - Table View Layout
