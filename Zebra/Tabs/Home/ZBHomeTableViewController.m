@@ -177,7 +177,7 @@
 }
 
 - (void)downloadFeaturedPackages:(BOOL)ignoreCaching {
-    NSMutableArray <ZBSource *> *repos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    NSMutableArray <ZBSource *> *repos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     dispatch_group_t downloadGroup = dispatch_group_create();
     
     for (ZBSource *repo in repos) {

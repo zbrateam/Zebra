@@ -37,7 +37,7 @@
     [super viewDidLoad];
     
     sourceManager = [ZBSourceManager sharedInstance];
-    sources = [[self.databaseManager repos] mutableCopy];
+    sources = [[self.databaseManager sources] mutableCopy];
     [self drawSourceMap];
 }
 
@@ -71,8 +71,9 @@
 - (void)refreshTable {
     if (isRefreshing) return;
     
-    sources = [[self.databaseManager repos] mutableCopy];
+    sources = [[self.databaseManager sources] mutableCopy];
     [self drawSourceMap];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         self->isRefreshing = YES;
         [self.tableView reloadData];
@@ -109,6 +110,12 @@
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+#pragma mark - Navigation
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - Table View Layout
@@ -326,15 +333,5 @@
 - (void)handleImportOf:(NSURL *)url {
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

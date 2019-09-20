@@ -185,7 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
  @brief All of the repos that are in the database.
  @return An array of ZBRepos that represent the repos that are in the database.
  */
-- (NSArray <ZBSource *> *)repos;
+- (NSArray <ZBSource *> *)sources;
 
 /*!
  @brief Deletes the repo and all the packages that have a matching repoID.

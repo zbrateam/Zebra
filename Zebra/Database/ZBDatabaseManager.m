@@ -500,11 +500,11 @@
     return -1;
 }
 
-- (NSArray <ZBSource *> *)repos {
+- (NSArray <ZBSource *> *)sources {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sources = [NSMutableArray new];
         
-        NSString *query = @"SELECT * FROM REPOS";
+        NSString *query = @"SELECT * FROM REPOS ORDER BY ORIGIN";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {

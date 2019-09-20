@@ -372,7 +372,7 @@
     NSMutableString *output = [NSMutableString string];
 
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBSource *repo in [databaseManager repos]) {
+    for (ZBSource *repo in [databaseManager sources]) {
         [output appendString:[self debLineFromRepo:repo]];
     }
 
@@ -425,7 +425,7 @@
     NSMutableString *output = [NSMutableString string];
 
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBSource *repo in [databaseManager repos]) {
+    for (ZBSource *repo in [databaseManager sources]) {
         if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
             [output appendString:[self debLineFromRepo:repo]];
         }

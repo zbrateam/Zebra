@@ -55,7 +55,7 @@
 
 - (void)updateStores {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    sources = [[databaseManager repos] mutableCopy];
+    sources = [[databaseManager sources] mutableCopy];
     
     self.tableData = [[NSMutableArray alloc] init];
     
