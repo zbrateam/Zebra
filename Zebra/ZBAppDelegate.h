@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Tabs/ZBTabBarController.h>
 
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
