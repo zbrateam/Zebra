@@ -387,6 +387,7 @@
         }
         case 4: { //Credits and Device information
             ZBFootnotesTableViewCell *cell = (ZBFootnotesTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"footnotesTableCell" forIndexPath:indexPath];
+            [cell.creditsButton addTarget:self action:@selector(showCredits) forControlEvents:UIControlEventTouchUpInside];
             
             [cell.deviceInfoLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@ \n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]]];
             
@@ -523,6 +524,10 @@
     depiction.package = package;
     
     [[self navigationController] pushViewController:depiction animated:true];
+}
+
+- (void)showCredits {
+    NSLog(@"[Zebra] Showing credits");
 }
 
 - (void)openRedditURL:(NSString *)permalink {
