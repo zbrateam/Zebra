@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mjM-Uq-xJ3">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -11,12 +11,11 @@
         <!--Navigation Controller-->
         <scene sceneID="uV4-oz-lGi">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rbS-Qq-Aj8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="mjM-Uq-xJ3" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="dP8-V6-2OG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="27a-qZ-ifQ">
@@ -26,6 +25,7 @@
                         <segue destination="Ptj-lR-ibs" kind="relationship" relationship="rootViewController" id="7Wd-d4-ysO"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rbS-Qq-Aj8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-775" y="636"/>
         </scene>
@@ -52,16 +52,16 @@
             <objects>
                 <viewController title=" " id="5ze-fy-CZc" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fmu-Xk-zUm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Zr8-7G-shW"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="nC3-Dz-hMW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhd-No-F0x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="636"/>
+            <point key="canvasLocation" x="862" y="635"/>
         </scene>
     </scenes>
 </document>
