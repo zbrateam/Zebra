@@ -335,11 +335,117 @@
 #pragma mark - URL Handling
 
 - (void)handleURL:(NSURL *)url {
-
+    NSString *path = [url path];
+    
+    if (![path isEqualToString:@""]) {
+        NSArray *components = [path pathComponents];
+        if ([components count] == 2) {
+            [self presentViewController:[self addSourcePopup] animated:true completion:nil];
+        } else if ([components count] >= 4) {
+            NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
+            
+            NSURL *url;
+            if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
+                url = [NSURL URLWithString:urlString];
+            } else {
+                url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
+            }
+            
+            if (url && url.scheme && url.host) {
+                [self presentViewController:[self addSourcePopupWithPlaceholder:url] animated:true completion:nil];
+            } else {
+                [self presentViewController:[self addSourcePopup] animated:true completion:nil];
+            }
+        }
+    }
 }
 
 - (void)handleImportOf:(NSURL *)url {
-    
+    if ([[url pathExtension] isEqualToString:@"list"]) {
+        NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
+        
+        NSError *readError;
+        NSArray *contents = [[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
+        if (readError != NULL) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:readError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:NULL];
+            
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        
+        for (NSString *line in contents) {
+            NSArray *components = [line componentsSeparatedByString:@" "];
+            if ([components count] != 0 && [components[0] isEqualToString:@"deb"]) {
+                [urls appendString:[components[1] stringByAppendingString:@"\n"]];
+            }
+        }
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->sourceManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
+                if (error != NULL) {
+                    NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
+                } else {
+                    NSLog(@"[Zebra] Successfully merged sources");
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                    [self presentViewController:console animated:YES completion:nil];
+                }
+            }];
+        }];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:NULL];
+        
+        [alertController addAction:yesAction];
+        [alertController addAction:noAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
+        
+        NSError *readError;
+        NSArray *contents = [[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
+        if (readError != NULL) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:readError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:NULL];
+            
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        
+        for (NSString *line in contents) {
+            NSArray *components = [line componentsSeparatedByString:@" "];
+            if ([components count] == 2 && [components[0] isEqualToString:@"URIs:"]) {
+                [urls appendString:[components[1] stringByAppendingString:@"\n"]];
+            }
+        }
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->sourceManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
+                if (error != NULL) {
+                    NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
+                } else {
+                    NSLog(@"[Zebra] Successfully merged sources");
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                    [self presentViewController:console animated:YES completion:nil];
+                }
+            }];
+        }];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:NULL];
+        
+        [alertController addAction:yesAction];
+        [alertController addAction:noAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 @end
