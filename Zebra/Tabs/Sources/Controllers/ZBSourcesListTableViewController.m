@@ -329,7 +329,10 @@
 }
 
 - (void)clearAllSpinners {
-    
+    [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - URL Handling
