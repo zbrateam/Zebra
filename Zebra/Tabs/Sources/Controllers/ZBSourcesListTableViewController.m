@@ -118,12 +118,17 @@
 #pragma mark - Navigation
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZBSource *source = [sources objectAtIndex:indexPath.row];
-//
-//    ZBRepoSectionsListTableViewController *sectionsController = [[ZBRepoSectionsListTableViewController alloc] init];
-//    sectionsController.repo = source;
-//
-//    [[self navigationController] pushViewController:sectionsController animated:true];
+    if (!self.editing) {
+        ZBSource *source = [sources objectAtIndex:indexPath.row];
+
+        ZBRepoSectionsListTableViewController *sectionsController = [[ZBRepoSectionsListTableViewController alloc] init];
+        sectionsController.repo = source;
+
+        [[self navigationController] pushViewController:sectionsController animated:true];
+    }
+    else if (![self tableView:tableView canEditRowAtIndexPath:indexPath]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:true];
+    }
 }
 
 #pragma mark - Table View Layout
@@ -144,11 +149,12 @@
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         if (self.isEditing) {
             UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources:)];
-            self.navigationItem.leftBarButtonItem = exportButton;
+            UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSelected:)];
+            self.navigationItem.leftBarButtonItems = @[exportButton, deleteButton];
         }
         else {
             UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddSourcePopup:)];
-            self.navigationItem.leftBarButtonItems = @[addButton];
+            self.navigationItem.leftBarButtonItem = addButton;
         }
     }
 }
@@ -171,6 +177,15 @@
 
 - (void)showAddSourcePopup:(id)sender {
     [self presentViewController:[self addSourcePopup] animated:YES completion:nil];
+}
+
+- (void)deleteSelected:(id)sender {
+    NSMutableArray *sourcesToDelete = [NSMutableArray new];
+    for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
+        [sourcesToDelete addObject:[sources objectAtIndex:indexPath.row]];
+    }
+    
+    NSLog(@"%@", sourcesToDelete);
 }
 
 #pragma mark - UIAlertControllers
