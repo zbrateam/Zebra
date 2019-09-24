@@ -118,12 +118,12 @@
 #pragma mark - Navigation
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *source = [sources objectAtIndex:indexPath.row];
-    
-    ZBRepoSectionsListTableViewController *sectionsController = [[ZBRepoSectionsListTableViewController alloc] init];
-    sectionsController.repo = source;
-    
-    [[self navigationController] pushViewController:sectionsController animated:true];
+//    ZBSource *source = [sources objectAtIndex:indexPath.row];
+//
+//    ZBRepoSectionsListTableViewController *sectionsController = [[ZBRepoSectionsListTableViewController alloc] init];
+//    sectionsController.repo = source;
+//
+//    [[self navigationController] pushViewController:sectionsController animated:true];
 }
 
 #pragma mark - Table View Layout

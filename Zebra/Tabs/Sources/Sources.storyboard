@@ -11,7 +11,7 @@
         <scene sceneID="3WX-ZW-3lp">
             <objects>
                 <tableViewController id="veq-0E-5UG" customClass="ZBSourcesListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NdN-gL-Kl5">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NdN-gL-Kl5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -91,8 +91,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sources" id="ru5-Zj-4NT">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="fXM-UR-49c"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MtJ-MB-ZOf"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="MtJ-MB-ZOf"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="fXM-UR-49c"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9xP-mQ-PwR" userLabel="First Responder" sceneMemberID="firstResponder"/>
