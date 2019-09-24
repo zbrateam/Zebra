@@ -109,6 +109,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.sourceManager deleteSource:[sources objectAtIndex:indexPath.row]];
         [sources removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -180,12 +181,11 @@
 }
 
 - (void)deleteSelected:(id)sender {
-    NSMutableArray *sourcesToDelete = [NSMutableArray new];
-    for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
-        [sourcesToDelete addObject:[sources objectAtIndex:indexPath.row]];
+    NSSortDescriptor *rowDescriptor = [[NSSortDescriptor alloc] initWithKey:@"row" ascending:NO];
+    NSArray *indexPaths = [[self.tableView indexPathsForSelectedRows] sortedArrayUsingDescriptors:@[rowDescriptor]];
+    for (NSIndexPath *indexPath in indexPaths) {
+        [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
     }
-    
-    NSLog(@"%@", sourcesToDelete);
 }
 
 #pragma mark - UIAlertControllers

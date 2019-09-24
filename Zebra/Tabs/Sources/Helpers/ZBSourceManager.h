@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableDictionary <NSNumber *, ZBSource *> *)repos;
 - (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond;
-- (void)deleteSource:(ZBSource *)delRepo;
+- (void)deleteSource:(ZBSource *)sourceToDelete;
 - (NSString *)debLineFromRepo:(ZBSource *)repo;
 - (void)addDebLine:(NSString *)sourceLine;
 - (void)transferFromCydia;

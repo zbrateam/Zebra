@@ -421,13 +421,13 @@
     recachingNeeded = YES;
 }
 
-- (void)deleteSource:(ZBSource *)delRepo {
+- (void)deleteSource:(ZBSource *)sourceToDelete {
     NSMutableString *output = [NSMutableString string];
 
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBSource *repo in [databaseManager sources]) {
-        if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
-            [output appendString:[self debLineFromRepo:repo]];
+    for (ZBSource *source in [databaseManager sources]) {
+        if (![[sourceToDelete baseFileName] isEqualToString:[source baseFileName]]) {
+            [output appendString:[self debLineFromRepo:source]];
         }
     }
 
@@ -458,7 +458,7 @@
         }
 
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager deleteRepo:delRepo];
+        [databaseManager deleteRepo:sourceToDelete];
     }
     recachingNeeded = YES;
 }
