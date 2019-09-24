@@ -154,7 +154,7 @@
         }
         else {
             UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddSourcePopup:)];
-            self.navigationItem.leftBarButtonItem = addButton;
+            self.navigationItem.leftBarButtonItems = @[addButton];
         }
     }
 }
