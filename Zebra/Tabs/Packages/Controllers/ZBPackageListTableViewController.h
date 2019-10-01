@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite, copy, nonatomic) NSArray *tableData;
 - (void)refreshTable;
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination;
-- (void)configureNavigationButtons;
 @end
 
 NS_ASSUME_NONNULL_END

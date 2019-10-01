@@ -100,8 +100,8 @@
                     [queue addPackage:package toQueue:q];
                 }
                 
-                if ([vc respondsToSelector:@selector(configureNavigationButtons)]) {
-                    [(ZBPackageListTableViewController *)vc configureNavigationButtons];
+                if ([vc isKindOfClass:[ZBPackageListTableViewController class]]) {
+                    [(ZBPackageListTableViewController *)vc layoutNavigationButtons];
                 }
                 if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{

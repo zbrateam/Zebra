@@ -75,7 +75,7 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-- (void)configureNavigationButtons {
+- (void)layoutNavigationButtonsNormal {
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
         [self configureQueueOrShareButton];
@@ -83,6 +83,13 @@ typedef enum {
         [self configureLoadMoreButton];
     }
     [self configureSegmentedController];
+}
+
+- (void)layoutNavigationButtonsRefreshing {
+    [super layoutNavigationButtonsRefreshing];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.rightBarButtonItem = nil;
+    });
 }
 
 - (void)updateCollation {
@@ -124,7 +131,7 @@ typedef enum {
         } else {
             self->sortedPackages = nil;
         }
-        [self configureNavigationButtons];
+        [self layoutNavigationButtons];
         self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
@@ -182,7 +189,6 @@ typedef enum {
 }
 
 - (void)configureSegmentedController {
-    self.navigationItem.leftBarButtonItems = nil;
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
     segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
