@@ -7,6 +7,7 @@
 //
 
 #import "ZBRefreshableTableViewController.h"
+#import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
@@ -26,12 +27,57 @@
     return YES;
 }
 
+- (void)cancelRefresh:(id)sender {
+    [self.databaseManager cancelUpdates:self];
+    [[ZBAppDelegate tabBarController] clearRepos];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
     if ([[self class] supportRefresh]) {
+        [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+        [self layoutNavigationButtons];
+        [self updateRefreshView];
+    }
+}
+
+- (BOOL)updateRefreshView {
+    if (refreshControl) {
+        self.refreshControl = refreshControl;
+        if ([databaseManager isDatabaseBeingUpdated]) {
+            if (!self.refreshControl.refreshing) {
+                [self.refreshControl beginRefreshing];
+            }
+            [self layoutNavigationButtonsRefreshing];
+            return YES;
+        }
+    } else {
+        self.refreshControl = nil;
+    }
+    return NO;
+}
+
+- (void)layoutNavigationButtonsRefreshing {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelRefresh:)];
+        self.navigationItem.leftBarButtonItems = @[cancelButton];
+    });
+}
+
+- (void)layoutNavigationButtonsNormal {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.leftBarButtonItems = @[];
+    });
+}
+
+- (void)layoutNavigationButtons {
+    if (self.refreshControl.refreshing) {
+        [self layoutNavigationButtonsRefreshing];
+    } else {
+        [self layoutNavigationButtonsNormal];
     }
 }
 
@@ -43,16 +89,9 @@
 }
 
 - (void)refreshSources:(id)sender {
-    if (![[self class] supportRefresh]) {
+    if (![[self class] supportRefresh] || [self updateRefreshView]) {
         return;
     }
-    if ([databaseManager isDatabaseBeingUpdated]) {
-        if (!refreshControl.refreshing) {
-            [refreshControl beginRefreshing];
-        }
-        return;
-    }
-    [databaseManager addDatabaseDelegate:self];
     [self setRepoRefreshIndicatorVisible:YES];
     BOOL singleRepo = NO;
     if ([self respondsToSelector:@selector(repo)]) {
@@ -67,7 +106,9 @@
     }
 }
 
-- (void)didEndRefreshing {}
+- (void)didEndRefreshing {
+    [self layoutNavigationButtons];
+}
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     if (![[self class] supportRefresh]) {
@@ -88,20 +129,14 @@
         return;
     }
     [self setRepoRefreshIndicatorVisible:YES];
+    [self layoutNavigationButtons];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    if ([[self class] supportRefresh] && refreshControl) {
-        if ([databaseManager isDatabaseBeingUpdated]) {
-            [refreshControl removeFromSuperview];
-            self.refreshControl = nil;
-        } else {
-            self.refreshControl = refreshControl;
-        }
-    }
+    [self updateRefreshView];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

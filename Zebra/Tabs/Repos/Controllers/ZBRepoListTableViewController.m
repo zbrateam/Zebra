@@ -61,32 +61,30 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self refreshTable];
-    [self layoutNavigationButtons];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-- (void)layoutNavigationButtons {
-    if (self.refreshControl.refreshing) {
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-        self.navigationItem.leftBarButtonItems = @[cancelButton];
-        self.navigationItem.rightBarButtonItem = nil;
+- (void)layoutNavigationButtonsRefreshing {
+    [super layoutNavigationButtonsRefreshing];
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)layoutNavigationButtonsNormal {
+    if (self.editing) {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        
+        UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
+        self.navigationItem.leftBarButtonItem = exportButton;
     } else {
-        if (self.editing) {
-            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
-            self.navigationItem.rightBarButtonItem = doneButton;
-            
-            UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-            self.navigationItem.leftBarButtonItem = exportButton;
-        } else {
-            self.editButtonItem.action = @selector(editMode:);
-            self.navigationItem.rightBarButtonItem = self.editButtonItem;
-            
-            UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-            self.navigationItem.leftBarButtonItems = @[addButton];
-        }
+        self.editButtonItem.action = @selector(editMode:);
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
+        self.navigationItem.leftBarButtonItems = @[addButton];
     }
 }
 
@@ -147,7 +145,7 @@
 }
 
 - (void)clearAllSpinners {
-    [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
+    [[ZBAppDelegate tabBarController] clearRepos];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -156,11 +154,6 @@
 - (void)editMode:(id)sender {
     [self setEditing:!self.editing animated:YES];
     [self layoutNavigationButtons];
-}
-
-- (void)cancel:(id)sender {
-    [self.databaseManager cancelUpdates:self];
-    ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
 }
 
 - (void)refreshTable {
@@ -559,11 +552,6 @@
 
 #pragma mark - Database Delegate
 
-- (void)databaseStartedUpdate {
-    [super databaseStartedUpdate];
-    [self layoutNavigationButtons];
-}
-
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     [super databaseCompletedUpdate:packageUpdates];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -575,10 +563,6 @@
             [self presentViewController:refreshController animated:YES completion:nil];
         }
     });
-}
-
-- (void)didEndRefreshing {
-    [self layoutNavigationButtons];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {

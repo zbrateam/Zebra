@@ -92,7 +92,7 @@
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
                 contains = [self containsRespringable:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-                return;
+                *stop = YES;
             }
         }];
         
