@@ -233,6 +233,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray <ZBPackage *> *)installedPackages;
 
 /*!
+ @brief A list of packages (including packages that Provide: another package
+ @discussion Queries the database for installed packages. Then it runs another pass for each installed package found and queries the Provides: field. Installed packages are placed in the "installed" array of the top level dictionary while virtual packages will be placed in the "virtual" array of the top level dictionary.
+ @return A dictionary whose top level keys are "installed" and "virtual". Each array will contain another dictionary with "package" and "version" (if applicable).
+ */
+- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList;
+
+/*!
  @brief A list of packages that their updates have been ignored, installed or not.
  @return An array of packages that their updates have been ignored.
  */

@@ -559,13 +559,13 @@
 }
 
 - (void)enqueueDependenciesForPackage:(ZBPackage *)package {
-    ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] init];
-    [resolver addDependenciesForPackage:package];
+    ZBDependencyResolver *resolver = [ZBDependencyResolver sharedInstance];
+    [resolver resolveDependenciesForPackage:package];
 }
 
 - (void)checkForConflictionsWithPackage:(ZBPackage *)package state:(int)state {
-    ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] init];
-    [resolver conflictionsWithPackage:package state:state];
+//    ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] init];
+//    [resolver conflictionsWithPackage:package state:state];
 }
 
 - (NSArray *)packagesToDownload {

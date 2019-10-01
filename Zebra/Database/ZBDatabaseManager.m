@@ -682,6 +682,22 @@
     return NULL;
 }
 
+- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList {
+    NSMutableArray *installedPackages = [NSMutableArray new];
+    NSMutableArray *virtualPackages = [NSMutableArray new];
+    
+    for (ZBPackage *package in [self installedPackages]) {
+        NSDictionary *installedPackage = @{@"identifier": [package identifier], @"version": [package version]};
+        [installedPackages addObject:installedPackage];
+        
+        for (NSString *virtualPackage in [package provides]) {
+            [virtualPackages addObject:virtualPackage];
+        }
+    }
+    
+    return @{@"installed": installedPackages, @"virtual": virtualPackages};
+}
+
 - (NSMutableArray <ZBPackage *> *)packagesWithIgnoredUpdates {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packagesWithIgnoredUpdates = [NSMutableArray new];

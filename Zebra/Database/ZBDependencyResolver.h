@@ -6,20 +6,20 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <sqlite3.h>
-
 @class ZBDatabaseManager;
 @class ZBPackage;
 @class ZBQueue;
 
+#import <Foundation/Foundation.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBDependencyResolver : NSObject
-@property (nonatomic, strong) ZBDatabaseManager *databaseManager;
-@property (nonatomic, strong) ZBQueue *queue;
-- (void)addDependenciesForPackage:(ZBPackage *)package;
-- (void)conflictionsWithPackage:(ZBPackage *)package state:(int)state;
+@interface ZBDependencyResolver : NSObject {
+    ZBDatabaseManager *databaseManager;
+    ZBQueue *queue;
+}
++ (id)sharedInstance;
+- (void)resolveDependenciesForPackage:(ZBPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END
