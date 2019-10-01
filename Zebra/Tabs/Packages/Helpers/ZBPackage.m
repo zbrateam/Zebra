@@ -304,7 +304,7 @@
             sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
         }
         [self setSectionImageName:sectionStripped];
-        [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : NULL];
+        [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
     }
     
     return self;
