@@ -28,7 +28,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    wishedPackages = [defaults objectForKey:wishListKey];
+    wishedPackages = [[defaults objectForKey:wishListKey] mutableCopy];
     [self.tableView reloadData];
 }
 
