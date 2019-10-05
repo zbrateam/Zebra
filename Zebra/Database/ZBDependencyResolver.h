@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
     ZBQueue *queue;
 }
 + (id)sharedInstance;
-- (void)resolveDependenciesForPackage:(ZBPackage *)package;
+- (BOOL)resolveDependenciesForPackage:(ZBPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END
