@@ -1045,25 +1045,30 @@
         sqlite3_finalize(statement);
         
         // Only try to resolve "Provides" if we can't resolve the normal package.
-        if (package == NULL) {
-            package = [self packageThatProvides:identifier];
+        if (package == NULL && version == NULL && comparison == NULL) {
+            package = [self packageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
         
         if (package != NULL) {
             NSArray *otherVersions = [self allVersionsForPackage:package];
-            if ([otherVersions count] > 1) {
-                for (ZBPackage *package in otherVersions) {
-                    if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
-                        [self closeDatabase];
-                        return package;
+            if (version != NULL && comparison != NULL) {
+                if ([otherVersions count] > 1) {
+                    for (ZBPackage *package in otherVersions) {
+                        if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                            [self closeDatabase];
+                            return package;
+                        }
                     }
+                    
+                    [self closeDatabase];
+                    return NULL;
                 }
-                
                 [self closeDatabase];
-                return NULL;
+                return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
             }
-            [self closeDatabase];
-            return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
+            else {
+                return otherVersions[0];
+            }
         }
         
         [self closeDatabase];
