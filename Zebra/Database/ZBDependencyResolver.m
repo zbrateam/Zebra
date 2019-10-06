@@ -39,6 +39,7 @@
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
         queue = [ZBQueue sharedInstance];
+        [self populateLists]; //This might cause some issues with efficiency when adding several packages.
     }
     
     return self;
@@ -47,8 +48,6 @@
 #pragma mark - Immediate dependency resolution
 
 - (BOOL)calculateDependenciesForPackage:(ZBPackage *)package {
-    [self populateLists]; //This might cause some issues with efficiency when adding several packages.
-    
     //On the first pass, remove any dependencies that are already satisfied
     NSMutableArray *unresolvedDependencies = [NSMutableArray new];
     for (NSString *dependency in [package dependsOn]) {
@@ -57,7 +56,10 @@
         }
     }
     
-    return [self resolveDependencies:unresolvedDependencies];
+    BOOL result = [self resolveDependencies:unresolvedDependencies];
+    
+    NSLog(@"[Zebra] Queued packages for dependencies: %@", queuedPackagesList);
+    return result;
 }
 
 - (BOOL)isDependencyResolved:(NSString *)dependency {
@@ -73,11 +75,13 @@
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
+        if ([queuedPackagesList containsObject:components[0]]) return true;
         
         //We should now have a separate version and a comparison string
         return [self isPackageInstalled:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
+        if ([queuedPackagesList containsObject:dependency]) return true;
         return [self isPackageInstalled:dependency];
     }
 }
@@ -112,22 +116,13 @@
         //We should now have a separate version and a comparison string
         
         ZBPackage *package = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (dependency) {
-            [self enqueuePackage:package];
-            
-            return true;
-        }
+        if (package) return [self enqueuePackage:package];
         
         return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *package = [databaseManager topVersionForPackageID:dependency];
-        
-        if (dependency) {
-            [self enqueuePackage:package];
-            
-            return true;
-        }
+        if (package) return [self enqueuePackage:package];
         
         return false;
     }
