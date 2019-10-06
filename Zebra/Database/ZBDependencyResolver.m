@@ -52,13 +52,14 @@
     NSMutableArray *unresolvedDependencies = [NSMutableArray new];
     for (NSString *dependency in [package dependsOn]) {
         if (![self isDependencyResolved:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]]) {
-            [unresolvedDependencies addObject:dependency];
+            [unresolvedDependencies addObject:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]];
         }
     }
     
     BOOL result = [self resolveDependencies:unresolvedDependencies];
     
     NSLog(@"[Zebra] Queued packages for dependencies: %@", queuedPackagesList);
+    NSLog(@"[Zebra] ZBPackages: %@", packagesToEnqueue);
     return result;
 }
 
@@ -112,6 +113,7 @@
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
+        if ([queuedPackagesList containsObject:dependency]) return true;
         
         //We should now have a separate version and a comparison string
         
@@ -121,7 +123,9 @@
         return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-        ZBPackage *package = [databaseManager topVersionForPackageID:dependency];
+        if ([queuedPackagesList containsObject:dependency]) return true;
+        
+        ZBPackage *package = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
         if (package) return [self enqueuePackage:package];
         
         return false;
