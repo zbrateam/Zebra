@@ -230,7 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
  @brief A list of packages that the user has installed on their device.
  @return An array of packages from repoID 0 (installed).
  */
-- (NSMutableArray <ZBPackage *> *)installedPackages;
+- (NSMutableArray <ZBPackage *> *)installedPackages:(BOOL)includeVirtualDependencies;
 
 /*!
  @brief A list of packages (including packages that Provide: another package
@@ -342,21 +342,18 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Mainly used in dependency resolution, this will return whether or not there is a package that provides the same functionality as the given one.
  @param identifier The identifier of the package in question.
- @param installed Whether or not to check the installed database for this package
  @return A ZBPackage instance that matches the parameters.
  */
-- (ZBPackage *)packageThatProvides:(NSString *)identifier checkInstalled:(BOOL)installed;
+- (ZBPackage *)packageThatProvides:(NSString *)identifier;
 
 /*!
  @brief Mainly used in dependency resolution, this will return a ZBPackage instance that matches the parameters.
  @param identifier The identifier of the package in question.
  @param comparison (Nullable) Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>". Pass NULL if no comparison needed.
  @param version (Nullable) Used for version comparison. Pass NULL if no comparison needed.
- @param installed Whether or not to check the installed database for this package
- @param provides Whether or not to check for packages that have this package identifier in the Provides: field
  @return A ZBPackage instance that matches the parameters.
  */
-- (ZBPackage *)packageForID:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version checkInstalled:(BOOL)installed checkProvides:(BOOL)provides;
+- (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
 
 /*!
  @brief Mainly used in dependency resolution, this will return whether or not a specific package satisfies a version comparison.

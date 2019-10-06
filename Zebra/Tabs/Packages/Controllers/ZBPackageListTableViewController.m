@@ -102,7 +102,7 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages];
+            self->packages = [self.databaseManager installedPackages:false];
             self->updates = [self.databaseManager packagesWithUpdates];
             self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
@@ -236,7 +236,7 @@ typedef enum {
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages] copy];
+    NSArray *packages = [[self.databaseManager installedPackages:false] copy];
     NSMutableArray *packageIds = [NSMutableArray new];
     for (ZBPackage *package in packages) {
         if (package.identifier) {
