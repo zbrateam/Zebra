@@ -560,7 +560,7 @@
 
 - (void)enqueueDependenciesForPackage:(ZBPackage *)package {
     ZBDependencyResolver *resolver = [ZBDependencyResolver sharedInstance];
-    [resolver resolveDependenciesForPackage:package];
+    [resolver calculateDependenciesForPackage:package];
 }
 
 - (void)checkForConflictionsWithPackage:(ZBPackage *)package state:(int)state {

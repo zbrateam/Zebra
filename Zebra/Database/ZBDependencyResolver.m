@@ -11,12 +11,14 @@
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 
 #import <Database/ZBDatabaseManager.h>
+#import <Parsel/vercmp.h>
 #import <Queue/ZBQueue.h>
 
 @interface ZBDependencyResolver () {
-    NSArray *installedPackagesList;
-    NSArray *virtualPackagesList;
-    NSMutableArray *dependencies;
+    NSArray *installedPackagesList;     //Packages that are installed on the device
+    NSArray *virtualPackagesList;       //Packages that are provided by installed packages
+    NSMutableArray *queuedPackagesList; //Packages that are queued for install
+    NSMutableArray *packagesToEnqueue;  //An array of ZBPackages that will be passed along to ZBQueue
 }
 @end
 
@@ -44,17 +46,51 @@
 
 #pragma mark - Immediate dependency resolution
 
-- (BOOL)resolveDependenciesForPackage:(ZBPackage *)package {
-    [self populateLists];
+- (BOOL)calculateDependenciesForPackage:(ZBPackage *)package {
+    [self populateLists]; //This might cause some issues with efficiency when adding several packages.
     
-    //Resolve dependencies first
+    //On the first pass, remove any dependencies that are already satisfied
+    NSMutableArray *unresolvedDependencies = [NSMutableArray new];
     for (NSString *dependency in [package dependsOn]) {
-        if (![self resolveDependency:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]]) { //Remove all spaces from dependency and start resolution
-            return false;
+        if (![self isDependencyResolved:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]]) {
+            [unresolvedDependencies addObject:dependency];
         }
     }
     
-    //Then resolve conflicts
+    return [self resolveDependencies:unresolvedDependencies];
+}
+
+- (BOOL)isDependencyResolved:(NSString *)dependency {
+    if ([dependency containsString:@"|"]) { //There is an OR dependency here, process them in the order they appear
+        NSArray *orDependencies = [dependency componentsSeparatedByString:@"|"];
+        for (NSString *orDependency in orDependencies) {
+            if ([self isDependencyResolved:orDependency]) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
+        NSArray *components = [self separateVersionComparison:dependency];
+        
+        //We should now have a separate version and a comparison string
+        return [self isPackageInstalled:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
+    }
+    else { //We should just be left as a package ID at this point, lets search for it in the database
+        return [self isPackageInstalled:dependency];
+    }
+}
+
+- (BOOL)resolveDependencies:(NSArray *)dependencies {
+    if ([dependencies count] == 0 || dependencies == NULL) return true;
+    
+    //At this point, we are left with only unresolved dependencies
+    for (NSString *dependency in dependencies) {
+        if (![self resolveDependency:dependency]) {
+            return false;
+        }
+    }
     
     return true;
 }
@@ -71,37 +107,114 @@
         return false;
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
-        NSUInteger openIndex = [dependency rangeOfString:@"("].location;
-        NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
-        
-        NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSString *comparison;
-        
-        NSScanner *scanner = [NSScanner scannerWithString:version];
-        NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
-        [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
-        [scanner scanCharactersFromSet:versionChars intoString:&version];
+        NSArray *components = [self separateVersionComparison:dependency];
         
         //We should now have a separate version and a comparison string
         
-        ZBPackage *dependency = [databaseManager packageForID:packageIdentifier thatSatisfiesComparison:comparison ofVersion:version checkInstalled:false checkProvides:false];
-        return dependency != NULL;
+        ZBPackage *package = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
+        if (dependency) {
+            [self enqueuePackage:package];
+            
+            return true;
+        }
+        
+        return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-        return [databaseManager packageIDIsAvailable:dependency version:NULL];
+        ZBPackage *package = [databaseManager topVersionForPackageID:dependency];
+        
+        if (dependency) {
+            [self enqueuePackage:package];
+            
+            return true;
+        }
+        
+        return false;
     }
 }
 
 #pragma mark - Helper functions
 
 - (void)populateLists { //Populates a list of packages that are installed and a list of virtual packages of which the installed packages provide.
-    if (!dependencies) dependencies = [NSMutableArray new];
-    
     NSDictionary *packageList = [databaseManager installedPackagesList];
     installedPackagesList = [packageList objectForKey:@"installed"];
     virtualPackagesList = [packageList objectForKey:@"virtual"];
+    
+    if (!queuedPackagesList) queuedPackagesList = [NSMutableArray new];
+    if (!packagesToEnqueue) packagesToEnqueue = [NSMutableArray new];
+}
+
+- (BOOL)isPackageInstalled:(NSString *)packageIdentifier {
+    return [self isPackageInstalled:packageIdentifier thatSatisfiesComparison:NULL ofVersion:NULL];
+}
+
+- (BOOL)isPackageInstalled:(NSString *)packageIdentifier thatSatisfiesComparison:(nullable NSString *)comparison ofVersion:(nullable NSString *)version { //Returns true if package is installed or is provided.
+    for (NSDictionary *dict in installedPackagesList) {
+        if ([[dict objectForKey:@"identifier"] isEqual:packageIdentifier]) {
+            if (version != NULL && comparison != NULL) {
+                return [self doesVersion:version satisfyComparison:comparison ofVersion:version];
+            }
+            
+            return true;
+        }
+    }
+    
+    return [virtualPackagesList containsObject:packageIdentifier];
+}
+
+- (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version {
+    NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+
+    if (version == NULL || comparison == NULL) return true;
+
+    int nx = (int)[choices indexOfObject:comparison];
+    switch (nx) {
+        case 0:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending;
+        case 1:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+        case 2:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+        case 3:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+        case 4:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending;
+        default:
+            return NO;
+    }
+}
+
+- (NSComparisonResult)compareVersion:(NSString *)firstVersion toVersion:(NSString *)secondVersion {
+    int result = compare([firstVersion UTF8String], [secondVersion UTF8String]);
+    if (result < 0)
+        return NSOrderedAscending;
+    if (result > 0)
+        return NSOrderedDescending;
+    return NSOrderedSame;
+}
+
+- (NSArray *)separateVersionComparison:(NSString *)dependency {
+    NSUInteger openIndex = [dependency rangeOfString:@"("].location;
+    NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
+    
+    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *comparison;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:version];
+    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
+    [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
+    [scanner scanCharactersFromSet:versionChars intoString:&version];
+    
+    return @[packageIdentifier, comparison, version];
+}
+
+- (BOOL)enqueuePackage:(ZBPackage *)package {
+    [queuedPackagesList addObject:[package identifier]];
+    [packagesToEnqueue addObject:package];
+    
+    return [self calculateDependenciesForPackage:package];
 }
 
 @end
