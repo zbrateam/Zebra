@@ -678,23 +678,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: mobilesubstrate
-Status: install ok installed
-Priority: optional
-Section: System
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.7032
-Replaces: cycript (<= 0.9.594)
-Depends: com.saurik.substrate.safemode
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: uikittools (<< 1.1.1), com.mywi4 (<= 5.03.2), com.phoenix.pandoracontrols (<= 1.1.0-1), com.intelliborn.intelliscreenx (<= 1.0.110), com.evad3rs.evasi0n7 (<< 0.2)
-Conflicts: me.devbug.msreloadfix, com.r3pwn.startsubstrate, com.ragemasta.bootstrap
-Description: powerful code insertion platform
-Name: Cydia Substrate
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Depiction: http://cydia.saurik.com/info/mobilesubstrate/
-
 Package: com.linusyang.localeutf8
 Status: install ok installed
 Section: System
@@ -1472,22 +1455,6 @@ Version: 1334
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: com.saurik.substrate.safemode
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 80
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.6001.1
-Replaces: safe-mode-fixer-ios7
-Depends: mobilesubstrate (>= 0.9.3367+38)
-Conflicts: safe-mode-fixer-ios7
-Description: safe mode safety extension (safe)
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Name: Substrate Safe Mode
-Depiction: http://cydia.saurik.com/info/com.saurik.substrate.safemode/
-
 Package: me.nepeta.owo
 Status: install ok installed
 Section: Tweaks
@@ -1513,6 +1480,23 @@ Name: Zebra (BETA)
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/
 Tag: purpose::x
+
+Package: com.spark.snowboard
+Status: install ok installed
+Section: Tweaks
+Installed-Size: 3124
+Maintainer: Wilson Styres <wilson@styres.me>
+Architecture: iphoneos-arm
+Version: 1.2.22~Beta1
+Depends: mobilesubstrate, preferenceloader
+Conflicts: anemoneteam.anemone, com.anemonetheming.anemone, winterboard
+Provides: anemoneteam.anemone, com.anemonetheming.anemone, winterboard
+Replaces: anemoneteam.anemone, com.anemonetheming.anemone, winterboard
+Description: Snowboard theming engine
+Name: SnowBoard
+Author: Spark & Dennis D. Bednarz
+Depiction: https://repo.packix.com/package/com.spark.snowboard/
+Tag: purpose::extension, compatible_min::ios7.0, compatible_max::ios12.4
 
 Package: gsc.rear-facing-camera
 Essential: yes
