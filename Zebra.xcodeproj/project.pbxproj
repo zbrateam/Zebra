@@ -209,7 +209,6 @@
 		36F77AE822A34EE800A4604C /* lightZebraSkin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin@3x.png"; sourceTree = "<group>"; };
 		36F77AEB22A34F1300A4604C /* lightZebraSkin~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin~ipad@2x.png"; sourceTree = "<group>"; };
 		36F77AED22A34F2700A4604C /* lightZebraSkin~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin~ipad@3x.png"; sourceTree = "<group>"; };
-		36F77AF022A350BE00A4604C /* ZBAlternateIconController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconController.m; sourceTree = "<group>"; };
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
@@ -378,14 +377,6 @@
 				365CAE2C22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib */,
 			);
 			path = RedditCell;
-			sourceTree = "<group>";
-		};
-		367D80EE22C3D11400581D60 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				36F77AF022A350BE00A4604C /* ZBAlternateIconController.m */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		367D80EF22C3D17F00581D60 /* Settings */ = {
@@ -626,7 +617,6 @@
 				89C5FDDF21B1B13700A10E58 /* Zebra */,
 				89C5FDDE21B1B13700A10E58 /* Products */,
 				89E8633B21D5A8C00081E485 /* Frameworks */,
-				367D80EE22C3D11400581D60 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
