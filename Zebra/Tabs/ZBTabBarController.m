@@ -177,7 +177,7 @@
     queueNav.popupItem.subtitle = @"Tap to manage Queue";
 }
 
-- (void)openQueueBar:(BOOL)openPopup {
+- (void)openQueue:(BOOL)openPopup {
     [self checkQueueNav];
     LNPopupPresentationState state = self.popupPresentationState;
     if (state == LNPopupPresentationStateTransitioning) {
@@ -199,7 +199,7 @@
     [self checkQueueNav];
     LNPopupPresentationState state = self.popupPresentationState;
     if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-        [self openQueueBar:NO];
+        [self openQueue:NO];
     }
     [self updateQueueBarData];
 }
