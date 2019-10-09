@@ -211,7 +211,7 @@ typedef enum {
 }
 
 - (void)presentQueue {
-    [ZBPackageActionsManager presentQueue:self parent:nil];
+    [[ZBAppDelegate tabBarController] openQueue:YES];
 }
 
 - (void)askClearQueue {

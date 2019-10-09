@@ -573,7 +573,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    [ZBPackageActionsManager presentQueue:self parent:_parent];
+    [[ZBAppDelegate tabBarController] openQueue:YES];
 }
 
 // 3D Touch Actions
