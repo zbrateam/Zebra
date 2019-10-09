@@ -349,15 +349,15 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 [self addModifyButton];
             }
         } else {
-            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeRemove] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             removeButton.enabled = package.repo.repoID != -1;
             self.navigationItem.rightBarButtonItem = removeButton;
         }
     } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
         [self determinePaidPackage];
     } else {
-        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedInstance] queueToKey:ZBQueueTypeInstall] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-        installButton.enabled = ![[ZBQueue sharedInstance] containsPackage:package queue:ZBQueueTypeInstall];
+        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeInstall] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+//        installButton.enabled = ![[ZBQueue sharedQueue] containsPackage:package queue:ZBQueueTypeInstall];
         self.navigationItem.rightBarButtonItem = installButton;
     }
     self->navButtonsBeingConfigured = NO;
@@ -388,7 +388,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             [request setValue:[NSString stringWithFormat:@"Zebra/%@ iOS/%@ (%@)", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion], [ZBDevice deviceType]] forHTTPHeaderField:@"User-Agent"];
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSString *title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeInstall];
+                NSString *title = [[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeInstall];
                 SEL selector = @selector(installPackage);
                 ZBPurchaseInfo *purchaseInfo = nil;
                 if (data) {
@@ -408,7 +408,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                         self->package.sileoDownload = YES;
                         self.purchased = YES;
                         if ([purchaseInfo.available boolValue] && ![self->package isReinstallable]) {
-                            title = [[ZBQueue sharedInstance] queueToKey:ZBQueueTypeRemove];
+                            title = [[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeRemove];
                             selector = @selector(removePackage);
                             set = YES;
                         }
@@ -427,7 +427,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                     }
                 }
                 UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
-                button.enabled = ![[ZBQueue sharedInstance] containsPackage:self->package queue:ZBQueueTypeInstall];
+//                button.enabled = ![[ZBQueue sharedQueue] containsPackage:self->package queue:ZBQueueTypeInstall];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.navigationItem setRightBarButtonItem:button animated:YES];
                     [uiBusy stopAnimating];
@@ -554,7 +554,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (package.repo.repoID == -1) {
         return;
     }
-    ZBQueue *queue = [ZBQueue sharedInstance];
+    ZBQueue *queue = [ZBQueue sharedQueue];
     [queue addPackage:package toQueue:ZBQueueTypeRemove];
     [self presentQueue];
 }

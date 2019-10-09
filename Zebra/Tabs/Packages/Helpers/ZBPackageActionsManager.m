@@ -31,11 +31,12 @@
 }
 
 + (BOOL)canHaveAction:(NSUInteger)possibleActions forPackage:(ZBPackage *)package queue:(ZBQueueType)q {
-    BOOL inQueue = [[ZBQueue sharedInstance] containsPackage:package queue:q];
-    if (inQueue && q == ZBQueueTypeClear)
-        return YES;
-    BOOL allowed = possibleActions & q;
-    return allowed && !inQueue;
+//    BOOL inQueue = [[ZBQueue sharedInstance] containsPackage:package queue:q];
+//    if (inQueue && q == ZBQueueTypeClear)
+//        return YES;
+//    BOOL allowed = possibleActions & q;
+//    return allowed && !inQueue;
+    return true;
 }
 
 + (UIColor *)colorForAction:(ZBQueueType)queue {
@@ -45,12 +46,10 @@
             return [UIColor systemBlueColor];
         case ZBQueueTypeReinstall:
             return [UIColor orangeColor];
-        case ZBQueueTypeSelectable:
+        case ZBQueueTypeDowngrade:
             return [UIColor purpleColor];
         case ZBQueueTypeRemove:
             return [UIColor systemRedColor];
-        case ZBQueueTypeClear:
-            return [UIColor greenColor];
         default:
             return nil;
     }
@@ -91,53 +90,56 @@
 + (void (^)(void))getHandler:(int)type package:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath queue:(ZBQueueType)q to:(ZBQueue *)queue viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     switch (type) {
         case 0: { // rowAction
+            //FIXME: fix for new queue
             return ^(void) {
-                if (q == ZBQueueTypeSelectable) {
-                    [self selectVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
-                } else if (q == ZBQueueTypeClear) {
-                    [queue removePackage:package fromQueue:0];
-                } else {
-                    [queue addPackage:package toQueue:q];
-                }
-                
-                if ([vc isKindOfClass:[ZBPackageListTableViewController class]]) {
-                    [(ZBPackageListTableViewController *)vc layoutNavigationButtons];
-                }
-                if (completion) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion();
-                    });
-                }
+//                if (q == ZBQueueTypeSelectable) {
+//                    [self selectVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+//                } else if (q == ZBQueueTypeClear) {
+//                    [queue removePackage:package fromQueue:0];
+//                } else {
+//                    [queue addPackage:package toQueue:q];
+//                }
+//
+//                if ([vc isKindOfClass:[ZBPackageListTableViewController class]]) {
+//                    [(ZBPackageListTableViewController *)vc layoutNavigationButtons];
+//                }
+//                if (completion) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completion();
+//                    });
+//                }
             };
         }
         case 1: { // previewAction
             return ^(void) {
-                if (q == ZBQueueTypeInstall) {
-                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
-                    [self installPackage:package purchased:purchased];
-                } else if (q == ZBQueueTypeSelectable) {
-                    [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
-                } else if (q == ZBQueueTypeClear) {
-                    [queue removePackage:package fromQueue:0];
-                } else {
-                    [queue addPackage:package toQueue:q];
-                }
+                //FIXME: fix for new queue
+//                if (q == ZBQueueTypeInstall) {
+//                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
+//                    [self installPackage:package purchased:purchased];
+//                } else if (q == ZBQueueTypeSelectable) {
+//                    [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
+//                } else if (q == ZBQueueTypeClear) {
+//                    [queue removePackage:package fromQueue:0];
+//                } else {
+//                    [queue addPackage:package toQueue:q];
+//                }
             };
         }
         case 2: { // alertAction
             return ^(void) {
-                if (q == ZBQueueTypeInstall) {
-                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
-                    [self installPackage:package purchased:purchased];
-                    [self presentQueue:vc parent:parent];
-                } else if (q == ZBQueueTypeSelectable) {
-                    [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
-                } else if (q == ZBQueueTypeClear) {
-                    [queue removePackage:package fromQueue:0];
-                } else {
-                    [queue addPackage:package toQueue:q];
-                    [self presentQueue:vc parent:parent];
-                }
+                //FIXME: fix for new queue
+//                if (q == ZBQueueTypeInstall) {
+//                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
+//                    [self installPackage:package purchased:purchased];
+//                    [self presentQueue:vc parent:parent];
+//                } else if (q == ZBQueueTypeSelectable) {
+//                    [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
+//                } else if (q == ZBQueueTypeClear) {
+//                    [queue removePackage:package fromQueue:0];
+//                } else {
+//                    [queue addPackage:package toQueue:q];
+//                    [self presentQueue:vc parent:parent];
+//                }
             };
         }
         default:
@@ -148,11 +150,11 @@
 + (NSMutableArray *)actions:(int)type forPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     NSMutableArray *actions = [NSMutableArray array];
     NSUInteger possibleActions = [package possibleActions];
-    ZBQueue *queue = [ZBQueue sharedInstance];
+    ZBQueue *queue = [ZBQueue sharedQueue];
     
-    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeClear; q <<= 1) {
+    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
         if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
-            NSString *title = type == 0 ? [queue queueToKeyDisplayed:q] : [queue queueToKey:q];
+            NSString *title = type == 0 ? [queue queueToKeyDisplayed:q] : [queue keyFromQueueType:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
             [actions addObject:action];
@@ -199,8 +201,9 @@
         package.sileoDownload = YES;
     }
     
-    ZBQueue *queue = [ZBQueue sharedInstance];
-    [queue addPackage:package toQueue:ZBQueueTypeInstall];
+    ZBQueue *queue = [ZBQueue sharedQueue];
+    //FIXME: fix for new queue
+//    [queue addPackage:package toQueue:ZBQueueTypeInstall];
 }
 
 + (void)selectVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
@@ -209,8 +212,8 @@
     for (ZBPackage *otherPackage in [package otherVersions]) {
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedInstance];
-            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall replace:package];
+            ZBQueue *queue = [ZBQueue sharedQueue];
+//            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall replace:package];
             [self presentQueue:vc parent:parent];
         }];
         

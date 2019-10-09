@@ -38,7 +38,7 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
-        queue = [ZBQueue sharedInstance];
+        queue = [ZBQueue sharedQueue];
         [self populateLists]; //This might cause some issues with efficiency when adding several packages.
     }
     

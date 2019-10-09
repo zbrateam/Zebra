@@ -483,7 +483,7 @@
         if (otherVersions.count) {
             // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
             // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-            possibleActions |= ZBQueueTypeSelectable; // Select other versions
+            possibleActions |= ZBQueueTypeDowngrade; // Select other versions
         }
     }
     return possibleActions;

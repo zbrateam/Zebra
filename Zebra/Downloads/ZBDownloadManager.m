@@ -106,7 +106,7 @@
 }
 
 - (void)commonInit {
-    queue = [ZBQueue sharedInstance];
+    queue = [ZBQueue sharedQueue];
     filenames = [NSMutableDictionary new];
     packageTasksMap = [NSMutableDictionary new];
     releaseTasksMap = [NSMutableDictionary new];

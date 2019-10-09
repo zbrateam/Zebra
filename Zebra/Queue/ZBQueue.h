@@ -6,49 +6,32 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "ZBQueueType.h"
-#import "ZBQueueViewController.h"
-
 @class ZBPackage;
+
+#import <Foundation/Foundation.h>
+#import <Queue/ZBQueueType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *managedQueue;
-@property (nonatomic, strong) NSMutableArray<NSArray *> *failedDepQueue;
-@property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
-@property(assign) BOOL useIcon;
-+ (id)sharedInstance;
++ (id)sharedQueue;
++ (int)count;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore;
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue replace:(ZBPackage *)oldPackage;
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue toTop:(nullable ZBPackage *)topPackage;
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue requiredBy:(nullable ZBPackage *)requiredPackage;
-- (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue ignoreDependencies:(BOOL)ignore requiredBy:(nullable ZBPackage *)requiredPackage replace:(nullable ZBPackage *)oldPackage toTop:(nullable ZBPackage *)topPackage;
-- (void)addPackages:(NSArray<ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
-- (void)markPackageAsFailed:(ZBPackage *)package forDependency:(NSString *)failedDependency;
-- (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict conflictionType:(int)type;
-- (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue;
-- (NSArray *)tasks:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
-- (int)numberOfPackagesForQueue:(NSString *)queue;
-- (nullable NSMutableArray <ZBPackage *> *)packagesRequiredBy:(ZBPackage *)package;
-- (nullable ZBPackage *)packageReplacedBy:(ZBPackage *)package;
-- (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
-- (void)clearQueue;
-- (NSArray *)actionsToPerform;
-- (NSMutableArray *)queueArray:(ZBQueueType)queue;
-- (BOOL)hasObjects;
-- (BOOL)containsPackage:(ZBPackage *)package;
-- (BOOL)containsPackage:(ZBPackage *)package queue:(ZBQueueType)queue;
-- (BOOL)containsPackageName:(NSString *)packageName queue:(ZBQueueType)queue;
-- (NSArray *)packagesToDownload;
-- (BOOL)needsHyena;
-- (NSString *)queueToKey:(ZBQueueType)queue;
+- (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
+- (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
+- (NSMutableArray *)queueFromType:(ZBQueueType)queue;
+- (ZBQueueType)queueTypeFromKey:(NSString *)key;
+- (NSString *)keyFromQueueType:(ZBQueueType)queue;
 - (NSString *)queueToKeyDisplayed:(ZBQueueType)queue;
-- (ZBQueueType)keyToQueue:(NSString *)key;
-- (ZBQueueType)queueStatusForPackage:(ZBPackage *)package;
-- (BOOL)hasErrors;
+- (NSArray *)actionsToPerform;
+- (int)numberOfPackagesInQueueKey:(NSString *)queue;
+- (int)numberOfPackagesInQueue:(ZBQueueType)queue;
+- (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)needsToDownloadPackages;
+- (NSArray *)packagesToDownload;
+- (BOOL)hasIssues;
+- (void)clear;
+- (BOOL)useIcon;
 @end
 
 NS_ASSUME_NONNULL_END

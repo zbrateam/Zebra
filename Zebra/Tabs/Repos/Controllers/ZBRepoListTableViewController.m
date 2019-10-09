@@ -46,7 +46,7 @@
 }
 
 - (void)baseViewDidLoad {
-    queue = [ZBQueue sharedInstance];
+    queue = [ZBQueue sharedQueue];
     repoManager = [ZBRepoManager sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];

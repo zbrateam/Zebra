@@ -629,7 +629,6 @@ enum ZBMiscOrder {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:useIcon forKey:iconActionKey];
     [defaults synchronize];
-    [[ZBQueue sharedInstance] setUseIcon:useIcon];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

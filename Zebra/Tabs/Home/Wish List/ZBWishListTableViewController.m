@@ -74,7 +74,7 @@
     NSMutableArray *actions = [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
         [tableView reloadData];
     }];
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[[ZBQueue sharedInstance] useIcon] ? @"W ╳" : @"Unlist" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[[ZBQueue sharedQueue] useIcon] ? @"W ╳" : @"Unlist" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self->wishedPackages removeObject:package.identifier];
         [self->defaults setObject:self->wishedPackages forKey:wishListKey];
         [self->defaults synchronize];
