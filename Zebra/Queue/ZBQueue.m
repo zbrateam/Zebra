@@ -71,6 +71,12 @@
     [[self queueFromType:queue] removeObject:package];
 }
 
+- (void)clear {
+    for (NSMutableArray *array in [self queues]) {
+        [array removeAllObjects];
+    }
+}
+
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
