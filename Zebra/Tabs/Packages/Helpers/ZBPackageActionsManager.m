@@ -28,15 +28,15 @@
 + (UIColor *)colorForAction:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall:
-            return [UIColor systemPinkColor];
+            return [UIColor systemTealColor];
         case ZBQueueTypeRemove:
-            return [UIColor systemRedColor];
+            return [UIColor systemPinkColor];
         case ZBQueueTypeReinstall:
-            return [UIColor orangeColor];
+            return [UIColor systemOrangeColor];
         case ZBQueueTypeUpgrade:
             return [UIColor systemBlueColor];
         case ZBQueueTypeDowngrade:
-            return [UIColor purpleColor];
+            return [UIColor systemPurpleColor];
         default:
             return nil;
     }
