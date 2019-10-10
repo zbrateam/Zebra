@@ -41,4 +41,6 @@ typedef NS_ENUM(NSInteger)  {
 + (UIColor *)systemRedColor;
 + (UIColor *)systemPinkColor;
 + (UIColor *)systemPurpleColor;
++ (UIColor *)systemTealColor;
++ (UIColor *)systemOrangeColor;
 @end
