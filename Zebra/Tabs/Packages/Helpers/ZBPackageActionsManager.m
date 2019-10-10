@@ -17,39 +17,26 @@
 
 @implementation ZBPackageActionsManager
 
-+ (instancetype)sharedInstance {
-    static dispatch_once_t p = 0;
-    __strong static ZBPackageActionsManager *instance = nil;
-    dispatch_once(&p, ^{
-        instance = [[self alloc] init];
-    });
-    return instance;
-}
-
-+ (void)presentQueue:(UIViewController *)vc parent:(UIViewController *)parent {
-    [[ZBAppDelegate tabBarController] openQueueBar:YES];
-}
-
-+ (BOOL)canHaveAction:(NSUInteger)possibleActions forPackage:(ZBPackage *)package queue:(ZBQueueType)q {
-//    BOOL inQueue = [[ZBQueue sharedInstance] containsPackage:package queue:q];
-//    if (inQueue && q == ZBQueueTypeClear)
-//        return YES;
-//    BOOL allowed = possibleActions & q;
-//    return allowed && !inQueue;
-    return true;
++ (BOOL)isActionAllowed:(NSUInteger)possibleAction forPackage:(ZBPackage *)package queue:(ZBQueueType)q {
+    BOOL inQueue = [[ZBQueue sharedQueue] containsPackage:package inQueue:q];
+    if (inQueue && q == ZBQueueTypeClear)
+        return YES;
+    BOOL allowed = possibleAction & q;
+    return allowed && !inQueue;
 }
 
 + (UIColor *)colorForAction:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall:
-        case ZBQueueTypeUpgrade:
-            return [UIColor systemBlueColor];
-        case ZBQueueTypeReinstall:
-            return [UIColor orangeColor];
-        case ZBQueueTypeDowngrade:
-            return [UIColor purpleColor];
+            return [UIColor systemPinkColor];
         case ZBQueueTypeRemove:
             return [UIColor systemRedColor];
+        case ZBQueueTypeReinstall:
+            return [UIColor orangeColor];
+        case ZBQueueTypeUpgrade:
+            return [UIColor systemBlueColor];
+        case ZBQueueTypeDowngrade:
+            return [UIColor purpleColor];
         default:
             return nil;
     }
@@ -90,56 +77,71 @@
 + (void (^)(void))getHandler:(int)type package:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath queue:(ZBQueueType)q to:(ZBQueue *)queue viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     switch (type) {
         case 0: { // rowAction
-            //FIXME: fix for new queue
             return ^(void) {
-//                if (q == ZBQueueTypeSelectable) {
-//                    [self selectVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
-//                } else if (q == ZBQueueTypeClear) {
-//                    [queue removePackage:package fromQueue:0];
-//                } else {
-//                    [queue addPackage:package toQueue:q];
-//                }
-//
-//                if ([vc isKindOfClass:[ZBPackageListTableViewController class]]) {
-//                    [(ZBPackageListTableViewController *)vc layoutNavigationButtons];
-//                }
-//                if (completion) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        completion();
-//                    });
-//                }
+                if (q == ZBQueueTypeUpgrade) {
+                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeDowngrade) {
+                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeClear) {
+                    [queue removePackage:package];
+                }
+                else {
+                    [queue addPackage:package toQueue:q];
+                }
+
+                if ([vc isKindOfClass:[ZBPackageListTableViewController class]]) {
+                    [(ZBPackageListTableViewController *)vc layoutNavigationButtons];
+                }
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
             };
         }
         case 1: { // previewAction
             return ^(void) {
-                //FIXME: fix for new queue
-//                if (q == ZBQueueTypeInstall) {
-//                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
-//                    [self installPackage:package purchased:purchased];
-//                } else if (q == ZBQueueTypeSelectable) {
-//                    [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
-//                } else if (q == ZBQueueTypeClear) {
-//                    [queue removePackage:package fromQueue:0];
-//                } else {
-//                    [queue addPackage:package toQueue:q];
-//                }
+                if (q == ZBQueueTypeUpgrade) {
+                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeDowngrade) {
+                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeInstall) {
+                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
+                    [self installPackage:package purchased:purchased];
+                }
+                else if (q == ZBQueueTypeClear) {
+                    [queue removePackage:package];
+                }
+                else {
+                    [queue addPackage:package toQueue:q];
+                }
             };
         }
         case 2: { // alertAction
             return ^(void) {
-                //FIXME: fix for new queue
-//                if (q == ZBQueueTypeInstall) {
-//                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
-//                    [self installPackage:package purchased:purchased];
-//                    [self presentQueue:vc parent:parent];
-//                } else if (q == ZBQueueTypeSelectable) {
-//                    [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
-//                } else if (q == ZBQueueTypeClear) {
-//                    [queue removePackage:package fromQueue:0];
-//                } else {
-//                    [queue addPackage:package toQueue:q];
-//                    [self presentQueue:vc parent:parent];
-//                }
+                if (q == ZBQueueTypeUpgrade) {
+                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeDowngrade) {
+                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                }
+                else if (q == ZBQueueTypeInstall) {
+                    BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
+                    [self installPackage:package purchased:purchased];
+                    
+                    [[ZBAppDelegate tabBarController] openQueue:YES];
+                }
+                else if (q == ZBQueueTypeClear) {
+                    [[ZBAppDelegate tabBarController] openQueue:YES];
+                }
+                else {
+                    [queue addPackage:package toQueue:q];
+                    [[ZBAppDelegate tabBarController] openQueue:YES];
+                }
             };
         }
         default:
@@ -153,7 +155,7 @@
     ZBQueue *queue = [ZBQueue sharedQueue];
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
-        if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
+        if ([self isActionAllowed:possibleActions forPackage:package queue:q]) {
             NSString *title = type == 0 ? [queue queueToKeyDisplayed:q] : [queue keyFromQueueType:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
@@ -202,19 +204,45 @@
     }
     
     ZBQueue *queue = [ZBQueue sharedQueue];
-    //FIXME: fix for new queue
-//    [queue addPackage:package toQueue:ZBQueueTypeInstall];
+    [queue addPackage:package toQueue:ZBQueueTypeInstall];
 }
 
-+ (void)selectVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Select Version: %@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
++ (void)selectUpgradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to upgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    for (ZBPackage *otherPackage in [package otherVersions]) {
+    for (ZBPackage *otherPackage in [package greaterVersions]) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ZBQueue *queue = [ZBQueue sharedQueue];
+            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+            [[ZBAppDelegate tabBarController] openQueue:YES];
+        }];
+        
+        [alert addAction:action];
+    }
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    [alert addAction:cancel];
+    
+    if (indexPath) {
+        ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
+        alert.popoverPresentationController.sourceView = cell;
+        alert.popoverPresentationController.sourceRect = cell.bounds;
+    } else {
+        alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
+    }
+    
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
++ (void)selectDowngradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to downgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (ZBPackage *otherPackage in [package lesserVersions]) {
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ZBQueue *queue = [ZBQueue sharedQueue];
-//            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall replace:package];
-            [self presentQueue:vc parent:parent];
+            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+            [[ZBAppDelegate tabBarController] openQueue:YES];
         }];
         
         [alert addAction:action];
