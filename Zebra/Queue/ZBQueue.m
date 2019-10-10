@@ -61,6 +61,16 @@
     }
 }
 
+- (void)removePackage:(ZBPackage *)package {
+    for (NSMutableArray *queue in [self queues]) {
+        [queue removeObject:package];
+    }
+}
+
+- (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
+    [[self queueFromType:queue] removeObject:package];
+}
+
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
@@ -201,7 +211,7 @@
 }
 
 - (NSString *)queueToKeyDisplayed:(ZBQueueType)queue {
-    if (!self.useIcon) {
+    if (![self useIcon]) {
         return [self keyFromQueueType:queue];
     }
     switch (queue) {
@@ -223,7 +233,6 @@
 
 - (NSArray *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
-    
     for (NSString *key in managedQueue) {
         if ([managedQueue[key] count]) {
             [actions addObject:key];
@@ -252,6 +261,7 @@
         default:
             break;
     }
+    
     return -1;
 }
 
@@ -268,12 +278,12 @@
             return YES;
         }
     }
+    
     return NO;
 }
 
 - (NSArray *)packagesToDownload {
     NSMutableArray *packages = [NSMutableArray new];
-    
     for (NSString *key in managedQueue) {
         if (![key isEqualToString:@"Remove"]) {
             [packages addObjectsFromArray:managedQueue[key]];
@@ -283,8 +293,34 @@
     return (NSArray *)packages;
 }
 
+- (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
+    if (queue == ZBQueueTypeClear)
+        queue = 0;
+    
+    if (queue == 0) {
+        for (NSString *key in managedQueue) {
+            if ([managedQueue[key] containsObject:package]) {
+                return YES;
+            }
+        }
+    } else {
+        NSMutableArray *queueArray = [self queueFromType:queue];
+        if (!queueArray) return NO;
+        for (ZBPackage *p in queueArray) {
+            if ([p sameAs:package]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+- (BOOL)hasIssues {
+    return false;
+}
+
 - (BOOL)useIcon {
-    return true;
+    return false;
 }
 
 - (NSArray <NSMutableArray *> *)queues {

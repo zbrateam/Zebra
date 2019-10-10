@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (int)count;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
+- (void)removePackage:(ZBPackage *)package;
+- (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (ZBQueueType)queueTypeFromKey:(NSString *)key;
@@ -29,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;
+- (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (BOOL)hasIssues;
 - (void)clear;
 - (BOOL)useIcon;
