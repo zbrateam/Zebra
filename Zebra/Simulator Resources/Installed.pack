@@ -994,20 +994,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: com.xtm3x.noblur
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 104
-Maintainer: Wilson Styres <wilson@styres.me>
-Architecture: iphoneos-arm
-Version: 1.7
-Depends: mobilesubstrate
-Conflicts: com.xtm3x.noblurlite
-Description: Remove blurs from UI elements system-wide
-Name: NoBlur
-Author: Wilson Styres <wilson@styres.me>
-Depiction: https://xtm3x.github.io/repo/depictions/com.xtm3x.noblur/
-
 Package: gsc.cellular-data
 Essential: yes
 Status: install ok installed

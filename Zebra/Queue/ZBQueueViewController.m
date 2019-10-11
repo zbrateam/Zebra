@@ -13,6 +13,8 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
+#import <Queue/ZBQueuedPackage.h>
+
 @import SDWebImage;
 @import LNPopupController;
 
@@ -128,12 +130,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    NSString *action = [[queue actionsToPerform] objectAtIndex:indexPath.section];
+//    NSString *action = [[queue actionsToPerform] objectAtIndex:indexPath.section];
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    cell.backgroundColor = [UIColor cellBackgroundColor];
+//    cell.backgroundColor = [UIColor cellBackgroundColor];
     
 //    if ([action isEqualToString:@"Unresolved Dependencies"]) {
 //        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
@@ -171,7 +173,8 @@
 //        return cell;
 //    }
     
-    ZBPackage *package = [queue packageAtIndexPath:indexPath];
+    ZBQueuedPackage *queuedPackage = [queue packageAtIndexPath:indexPath];
+    ZBPackage *package = [queuedPackage package];
     NSString *section = [package sectionImageName];
     
     if (package.iconPath) {
