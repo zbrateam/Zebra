@@ -52,8 +52,9 @@
     ZBQueuedPackage *queuedPackage = [[ZBQueuedPackage alloc] initWithPackage:package];
     [[self queueFromType:queue] addObject:queuedPackage];
     if (queue == ZBQueueTypeInstall || queue == ZBQueueTypeUpgrade || queue == ZBQueueTypeDowngrade) {
+        NSLog(@"[Zebra] Finding dependencies for %@", package);
         if ([self enqueueDependenciesForPackage:package]) {
-            NSLog(@"all deps found");
+            NSLog(@"[Zebra] All dependencies found for %@", package);
         }
     }
 }
@@ -346,15 +347,35 @@
     NSMutableArray *result = [NSMutableArray new];
     for (NSArray *queue in [self queues]) {
         for (ZBQueuedPackage *queuedPackage in queue) {
-            [result addObjectsFromArray:[self allDependenciesForPackage:queuedPackage]];
+            [result addObjectsFromArray:[self listOfDependenciesForPackage:queuedPackage]];
         }
     }
     return result;
 }
 
-- (NSArray <NSString *> *)allDependenciesForPackage:(ZBQueuedPackage *)package {
+- (NSArray <NSString *> *)listOfDependenciesForPackage:(ZBQueuedPackage *)package {
     NSMutableArray *result = [NSMutableArray new];
     [result addObject:[[package package] identifier]];
+    for (ZBQueuedPackage *queuedPackage in [package dependencies]) {
+        [result addObjectsFromArray:[self listOfDependenciesForPackage:queuedPackage]];
+    }
+    return result;
+}
+
+- (NSArray <ZBPackage *> *)allPackagesInQueue:(ZBQueueType)queueType {
+    NSMutableArray *result = [NSMutableArray new];
+    
+    NSArray *queue = [self queueFromType:queueType];
+    for (ZBQueuedPackage *queuedPackage in queue) {
+        [result addObjectsFromArray:[self allDependenciesForPackage:queuedPackage]];
+    }
+    
+    return result;
+}
+
+- (NSArray <ZBPackage *> *)allDependenciesForPackage:(ZBQueuedPackage *)package {
+    NSMutableArray *result = [NSMutableArray new];
+    [result addObject:[package package]];
     for (ZBQueuedPackage *queuedPackage in [package dependencies]) {
         [result addObjectsFromArray:[self allDependenciesForPackage:queuedPackage]];
     }

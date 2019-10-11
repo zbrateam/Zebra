@@ -204,7 +204,7 @@
     [queue addDependency:dependency toPackage:package];
     NSLog(@"[Zebra] Enqueued %@ as a dependency for %@", dependency, package);
     
-    return [self calculateDependenciesForPackage:package];
+    return [self calculateDependenciesForPackage:dependency];
 }
 
 - (NSArray <NSString *> *)queuedPackagesList {

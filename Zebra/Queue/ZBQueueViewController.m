@@ -94,13 +94,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *title = [[queue actionsToPerform] objectAtIndex:section];
-    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"Reinstall"] || [title isEqualToString:@"Upgrade"]) {
+    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
         ZBQueueType type = [queue queueTypeFromKey:title];
         if (type) {
             double totalDownloadSize = 0;
             NSArray *packages = [queue queueFromType:type];
-            for (ZBPackage *package in packages) {
-                ZBPackage *truePackage = package;
+            for (ZBQueuedPackage *package in packages) {
+                ZBPackage *truePackage = [package package];
                 totalDownloadSize += [truePackage numericSize];
             }
             if (totalDownloadSize) {

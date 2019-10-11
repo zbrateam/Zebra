@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)packagesToDownload;
 - (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray <NSString *> *)queuedPackagesList;
+- (NSArray <ZBPackage *> *)allPackagesInQueue:(ZBQueueType)queueType;
 - (BOOL)hasIssues;
 - (void)clear;
 - (BOOL)useIcon;
