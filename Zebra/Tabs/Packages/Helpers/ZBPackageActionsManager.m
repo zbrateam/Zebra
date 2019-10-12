@@ -208,58 +208,83 @@
 }
 
 + (void)selectUpgradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to upgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (ZBPackage *otherPackage in [package greaterVersions]) {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedQueue];
-            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-            [[ZBAppDelegate tabBarController] openQueue:YES];
-        }];
+    NSArray *greaterVersions = [package greaterVersions];
+    if ([greaterVersions count] > 1) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to upgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
         
-        [alert addAction:action];
+        for (ZBPackage *otherPackage in greaterVersions) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                ZBQueue *queue = [ZBQueue sharedQueue];
+                [queue addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+                [[ZBAppDelegate tabBarController] openQueue:YES];
+            }];
+            
+            [alert addAction:action];
+        }
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+        [alert addAction:cancel];
+        
+        if (indexPath) {
+            ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
+            alert.popoverPresentationController.sourceView = cell;
+            alert.popoverPresentationController.sourceRect = cell.bounds;
+        } else {
+            alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
+        }
+        
+        [vc presentViewController:alert animated:YES completion:nil];
     }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
-    [alert addAction:cancel];
-    
-    if (indexPath) {
-        ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
-        alert.popoverPresentationController.sourceView = cell;
-        alert.popoverPresentationController.sourceRect = cell.bounds;
-    } else {
-        alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
+    else if ([greaterVersions count] == 1) {
+        ZBQueue *queue = [ZBQueue sharedQueue];
+        [queue addPackage:greaterVersions[0] toQueue:ZBQueueTypeUpgrade];
+        [[ZBAppDelegate tabBarController] openQueue:YES];
     }
-    
-    [vc presentViewController:alert animated:YES completion:nil];
+    else {
+        ZBQueue *queue = [ZBQueue sharedQueue];
+        [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
+        [[ZBAppDelegate tabBarController] openQueue:YES];
+    }
 }
 
 + (void)selectDowngradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to downgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (ZBPackage *otherPackage in [package lesserVersions]) {
+    NSArray *lesserVersions = [package lesserVersions];
+    if ([lesserVersions count] > 1) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to downgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
         
-        UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBQueue *queue = [ZBQueue sharedQueue];
-            [queue addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-            [[ZBAppDelegate tabBarController] openQueue:YES];
-        }];
+        for (ZBPackage *otherPackage in [package lesserVersions]) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                ZBQueue *queue = [ZBQueue sharedQueue];
+                [queue addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+                [[ZBAppDelegate tabBarController] openQueue:YES];
+            }];
+            
+            [alert addAction:action];
+        }
         
-        [alert addAction:action];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+        [alert addAction:cancel];
+        
+        if (indexPath) {
+            ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
+            alert.popoverPresentationController.sourceView = cell;
+            alert.popoverPresentationController.sourceRect = cell.bounds;
+        } else {
+            alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
+        }
+        
+        [vc presentViewController:alert animated:YES completion:nil];
     }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
-    [alert addAction:cancel];
-    
-    if (indexPath) {
-        ZBPackageTableViewCell *cell = [((UITableViewController *)vc).tableView cellForRowAtIndexPath:indexPath];
-        alert.popoverPresentationController.sourceView = cell;
-        alert.popoverPresentationController.sourceRect = cell.bounds;
-    } else {
-        alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
+    else if ([lesserVersions count] == 1) {
+        ZBQueue *queue = [ZBQueue sharedQueue];
+        [queue addPackage:lesserVersions[0] toQueue:ZBQueueTypeDowngrade];
+        [[ZBAppDelegate tabBarController] openQueue:YES];
     }
-    
-    [vc presentViewController:alert animated:YES completion:nil];
+    else {
+        ZBQueue *queue = [ZBQueue sharedQueue];
+        [queue addPackage:package toQueue:ZBQueueTypeDowngrade];
+        [[ZBAppDelegate tabBarController] openQueue:YES];
+    }
 }
 
 @end
