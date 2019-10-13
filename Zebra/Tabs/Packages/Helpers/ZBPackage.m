@@ -40,6 +40,7 @@
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
+@synthesize dependencies;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
@@ -572,6 +573,12 @@
 	}];
 
     return version;
+}
+
+- (void)addDependency:(ZBPackage *)package {
+    if (!dependencies) dependencies = [NSMutableArray new];
+    
+    [dependencies addObject:package];
 }
 
 @end

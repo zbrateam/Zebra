@@ -13,7 +13,6 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
-#import <Queue/ZBQueuedPackage.h>
 
 @import SDWebImage;
 @import LNPopupController;
@@ -28,6 +27,7 @@
 - (void)loadView {
     [super loadView];
     queue = [ZBQueue sharedQueue];
+    NSLog(@"[Zebra] Queued Packages: %@", queue.queuedPackagesList);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
@@ -42,6 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
     [self refreshTable];
 }
 
@@ -67,11 +68,20 @@
 }
 
 - (IBAction)clear:(id)sender {
-    //idk
+    [self abort:nil];
 }
 
 - (void)refreshBarButtons {
-    //idk
+    if ([queue hasIssues]) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
+        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
+        self.navigationItem.leftBarButtonItems[1].enabled = YES;
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
+        self.navigationItem.leftBarButtonItems[1].enabled = NO;
+    }
 }
 
 - (void)refreshTable {
@@ -99,9 +109,8 @@
         if (type) {
             double totalDownloadSize = 0;
             NSArray *packages = [queue queueFromType:type];
-            for (ZBQueuedPackage *package in packages) {
-                ZBPackage *truePackage = [package package];
-                totalDownloadSize += [truePackage numericSize];
+            for (ZBPackage *package in packages) {
+                totalDownloadSize += [package numericSize];
             }
             if (totalDownloadSize) {
                 NSString *unit = @"bytes";
@@ -173,8 +182,7 @@
 //        return cell;
 //    }
     
-    ZBQueuedPackage *queuedPackage = [queue packageAtIndexPath:indexPath];
-    ZBPackage *package = [queuedPackage package];
+    ZBPackage *package = [queue packageAtIndexPath:indexPath];
     NSString *section = [package sectionImageName];
     
     if (package.iconPath) {

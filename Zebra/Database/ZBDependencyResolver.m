@@ -201,13 +201,14 @@
 }
 
 - (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package {
-    [queue addDependency:dependency toPackage:package];
-    NSLog(@"[Zebra] Enqueued %@ as a dependency for %@", dependency, package);
+    NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
+    [package addDependency:dependency];
+    [queue addDependency:dependency];
     
     return [self calculateDependenciesForPackage:dependency];
 }
 
-- (NSArray <NSString *> *)queuedPackagesList {
+- (NSMutableArray *)queuedPackagesList {
     return [queue queuedPackagesList];
 }
 
