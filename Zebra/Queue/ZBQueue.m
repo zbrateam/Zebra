@@ -369,12 +369,14 @@
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue {
     NSMutableArray *result = [NSMutableArray new];
     for (NSArray *queue in [self queues]) {
-        NSMutableArray *topDownQueue = [NSMutableArray new];
-        for (ZBPackage *package in queue) {
-            [topDownQueue addObject:package];
-            [topDownQueue addObjectsFromArray:[package dependencies]];
+        if ([queue count] > 0) {
+            NSMutableArray *topDownQueue = [NSMutableArray new];
+            for (ZBPackage *package in queue) {
+                [topDownQueue addObject:package];
+                [topDownQueue addObjectsFromArray:[package dependencies]];
+            }
+            [result addObject:topDownQueue];
         }
-        [result addObject:topDownQueue];
     }
     return result;
 }

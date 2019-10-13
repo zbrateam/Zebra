@@ -105,29 +105,29 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    NSString *title = [[queue actionsToPerform] objectAtIndex:section];
-//    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
-//        ZBQueueType type = [queue queueTypeFromKey:title];
-//        if (type) {
-//            double totalDownloadSize = 0;
-//            NSArray *packages = [queue queueFromType:type];
-//            for (ZBPackage *package in packages) {
-//                totalDownloadSize += [package numericSize];
-//            }
-//            if (totalDownloadSize) {
-//                NSString *unit = @"bytes";
-//                if (totalDownloadSize > 1024 * 1024) {
-//                    totalDownloadSize /= 1024 * 1024;
-//                    unit = @"MB";
-//                } else if (totalDownloadSize > 1024) {
-//                    totalDownloadSize /= 1024;
-//                    unit = @"KB";
-//                }
-//                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
-//            }
-//        }
-//    }
-    return @"Queue";
+    NSString *title = [[queue actionsToPerform] objectAtIndex:section];
+    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
+        ZBQueueType type = [queue queueTypeFromKey:title];
+        if (type) {
+            double totalDownloadSize = 0;
+            NSArray *packages = [queue queueFromType:type];
+            for (ZBPackage *package in packages) {
+                totalDownloadSize += [package numericSize];
+            }
+            if (totalDownloadSize) {
+                NSString *unit = @"bytes";
+                if (totalDownloadSize > 1024 * 1024) {
+                    totalDownloadSize /= 1024 * 1024;
+                    unit = @"MB";
+                } else if (totalDownloadSize > 1024) {
+                    totalDownloadSize /= 1024;
+                    unit = @"KB";
+                }
+                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+            }
+        }
+    }
+    return title;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
