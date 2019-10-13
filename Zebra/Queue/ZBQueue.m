@@ -284,6 +284,25 @@
     }
     
     return actions;
+    
+//    NSMutableArray *actions = [NSMutableArray new];
+//    if ([[self installQueue] count] > 0) {
+//        [actions addObject:@(ZBQueueTypeInstall)];
+//    }
+//    if ([[self reinstallQueue] count] > 0) {
+//        [actions addObject:@(ZBQueueTypeReinstall)];
+//    }
+//    if ([[self removeQueue] count] > 0) {
+//        [actions addObject:@(ZBQueueTypeRemove)];
+//    }
+//    if ([[self upgradeQueue] count] > 0) {
+//        [actions addObject:@(ZBQueueTypeUpgrade)];
+//    }
+//    if ([[self downgradeQueue] count] > 0) {
+//        [actions addObject:@(ZBQueueTypeDowngrade)];
+//    }
+//    
+//    return actions;
 }
 
 - (int)numberOfPackagesInQueueKey:(NSString *)queue {

@@ -212,6 +212,7 @@
 - (BOOL)enqueueDependency:(ZBPackage *)dependency {
     NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
     [self->package addDependency:dependency];
+    [dependency addDependencyOf:self->package];
     [queue addDependency:dependency];
     
     return [self calculateDependenciesForPackage:dependency];

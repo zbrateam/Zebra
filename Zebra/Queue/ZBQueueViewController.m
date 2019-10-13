@@ -185,21 +185,25 @@
 //    }
     
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    NSString *section = [package sectionImageName];
-    
-    if (package.iconPath) {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
-        cell.imageView.layer.cornerRadius = 10;
-        cell.imageView.clipsToBounds = YES;
-    } else {
-        UIImage *sectionImage = [UIImage imageNamed:section];
-        if (sectionImage != NULL) {
-            cell.imageView.image = sectionImage;
+    if ([[package dependencyOf] count] == 0) {
+        NSString *section = [package sectionImageName];
+        
+        if (package.iconPath) {
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
             cell.imageView.layer.cornerRadius = 10;
             cell.imageView.clipsToBounds = YES;
+        } else {
+            UIImage *sectionImage = [UIImage imageNamed:section];
+            if (sectionImage != NULL) {
+                cell.imageView.image = sectionImage;
+                cell.imageView.layer.cornerRadius = 10;
+                cell.imageView.clipsToBounds = YES;
+            }
         }
     }
-
+    else {
+        cell.imageView.image = nil;
+    }
     cell.textLabel.text = package.name;
     
 //    NSMutableString *details = [NSMutableString string];
