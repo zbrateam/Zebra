@@ -69,7 +69,7 @@
         if ([[self queuedPackagesList] containsObject:components[0]]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:components[0]];
             if (queuedDependency != NULL) {
-                [self enqueueDependency:queuedDependency];
+                [self enqueueDependency:queuedDependency ignoreDependencies:true];
             }
             return true;
         }
@@ -81,7 +81,7 @@
         if ([[self queuedPackagesList] containsObject:dependency]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:dependency];
             if (queuedDependency != NULL) {
-                [self enqueueDependency:queuedDependency];
+                [self enqueueDependency:queuedDependency ignoreDependencies:true];
             }
             return true;
         }
@@ -121,7 +121,7 @@
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage];
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
         
         return false;
     }
@@ -129,7 +129,7 @@
 //        if ([[self queuedPackagesList] containsObject:dependency]) return true;
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage];
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
         
         return false;
     }
@@ -209,12 +209,15 @@
     return @[packageIdentifier, comparison, version];
 }
 
-- (BOOL)enqueueDependency:(ZBPackage *)dependency {
+- (BOOL)enqueueDependency:(ZBPackage *)dependency ignoreDependencies:(BOOL)ignore {
     NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
     [self->package addDependency:dependency];
     [dependency addDependencyOf:self->package];
     [queue addDependency:dependency];
     
+    if (ignore) {
+        return true;
+    }
     return [self calculateDependenciesForPackage:dependency];
 }
 
