@@ -19,6 +19,7 @@
 
 @interface ZBQueueViewController () {
     ZBQueue *queue;
+    NSArray *packages;
 }
 @end
 
@@ -27,6 +28,7 @@
 - (void)loadView {
     [super loadView];
     queue = [ZBQueue sharedQueue];
+    packages = [queue topDownQueue];
     NSLog(@"[Zebra] Queued Packages: %@", queue.queuedPackagesList);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
@@ -86,6 +88,7 @@
 
 - (void)refreshTable {
     [self refreshBarButtons];
+    packages = [queue topDownQueue];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -94,38 +97,37 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[queue actionsToPerform] count];
+    return [packages count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSString *action = [[queue actionsToPerform] objectAtIndex:section];
-    return [queue numberOfPackagesInQueueKey:action];
+    return [packages[section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *title = [[queue actionsToPerform] objectAtIndex:section];
-    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
-        ZBQueueType type = [queue queueTypeFromKey:title];
-        if (type) {
-            double totalDownloadSize = 0;
-            NSArray *packages = [queue queueFromType:type];
-            for (ZBPackage *package in packages) {
-                totalDownloadSize += [package numericSize];
-            }
-            if (totalDownloadSize) {
-                NSString *unit = @"bytes";
-                if (totalDownloadSize > 1024 * 1024) {
-                    totalDownloadSize /= 1024 * 1024;
-                    unit = @"MB";
-                } else if (totalDownloadSize > 1024) {
-                    totalDownloadSize /= 1024;
-                    unit = @"KB";
-                }
-                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
-            }
-        }
-    }
-    return title;
+//    NSString *title = [[queue actionsToPerform] objectAtIndex:section];
+//    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
+//        ZBQueueType type = [queue queueTypeFromKey:title];
+//        if (type) {
+//            double totalDownloadSize = 0;
+//            NSArray *packages = [queue queueFromType:type];
+//            for (ZBPackage *package in packages) {
+//                totalDownloadSize += [package numericSize];
+//            }
+//            if (totalDownloadSize) {
+//                NSString *unit = @"bytes";
+//                if (totalDownloadSize > 1024 * 1024) {
+//                    totalDownloadSize /= 1024 * 1024;
+//                    unit = @"MB";
+//                } else if (totalDownloadSize > 1024) {
+//                    totalDownloadSize /= 1024;
+//                    unit = @"KB";
+//                }
+//                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+//            }
+//        }
+//    }
+    return @"Queue";
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -182,7 +184,7 @@
 //        return cell;
 //    }
     
-    ZBPackage *package = [queue packageAtIndexPath:indexPath];
+    ZBPackage *package = packages[indexPath.section][indexPath.row];
     NSString *section = [package sectionImageName];
     
     if (package.iconPath) {

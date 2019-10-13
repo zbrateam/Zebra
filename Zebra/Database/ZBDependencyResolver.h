@@ -16,10 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDependencyResolver : NSObject {
     ZBDatabaseManager *databaseManager;
+    ZBPackage *package;
     ZBQueue *queue;
 }
-+ (id)sharedInstance;
-- (BOOL)calculateDependenciesForPackage:(ZBPackage *)package;
+- (id)initWithPackage:(ZBPackage *)package;
+- (BOOL)calculateDependencies;
 @end
 
 NS_ASSUME_NONNULL_END

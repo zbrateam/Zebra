@@ -16,27 +16,19 @@
 
 @interface ZBDependencyResolver () {
     NSArray *installedPackagesList; //Packages that are installed on the device
-    NSArray *virtualPackagesList;   //Packages that are provided by installed packages
+    NSArray *virtualPackagesList;   //Packages that are provided by installed packages 
 }
 @end
 
 @implementation ZBDependencyResolver
 
-+ (id)sharedInstance {
-    static ZBDependencyResolver *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [ZBDependencyResolver new];
-    });
-    return instance;
-}
-
-- (id)init {
+- (id)initWithPackage:(ZBPackage *)package {
     self = [super init];
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
         queue = [ZBQueue sharedQueue];
+        self->package = package;
         [self populateLists]; //This might cause some issues with efficiency when adding several packages.
     }
     
@@ -44,6 +36,10 @@
 }
 
 #pragma mark - Immediate dependency resolution
+
+- (BOOL)calculateDependencies {
+    return [self calculateDependenciesForPackage:self->package];
+}
 
 - (BOOL)calculateDependenciesForPackage:(ZBPackage *)package {
     //On the first pass, remove any dependencies that are already satisfied
@@ -54,7 +50,7 @@
         }
     }
     
-    return [self resolveDependencies:unresolvedDependencies forPackage:package];
+    return [self resolveDependencies:unresolvedDependencies];
 }
 
 - (BOOL)isDependencyResolved:(NSString *)dependency {
@@ -70,23 +66,36 @@
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
-        if ([[self queuedPackagesList] containsObject:components[0]]) return true;
+        if ([[self queuedPackagesList] containsObject:components[0]]) {
+            ZBPackage *queuedDependency = [self packageInDependencyQueue:components[0]];
+            if (queuedDependency != NULL) {
+                [self enqueueDependency:queuedDependency];
+            }
+            return true;
+        }
         
         //We should now have a separate version and a comparison string
         return [self isPackageInstalled:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-        if ([[self queuedPackagesList] containsObject:dependency]) return true;
+        if ([[self queuedPackagesList] containsObject:dependency]) {
+            ZBPackage *queuedDependency = [self packageInDependencyQueue:dependency];
+            if (queuedDependency != NULL) {
+                [self enqueueDependency:queuedDependency];
+            }
+            return true;
+        }
+        
         return [self isPackageInstalled:dependency];
     }
 }
 
-- (BOOL)resolveDependencies:(NSArray *)dependencies forPackage:(ZBPackage *)package {
+- (BOOL)resolveDependencies:(NSArray *)dependencies {
     if ([dependencies count] == 0 || dependencies == NULL) return true;
     
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
-        if (![self resolveDependency:dependency forPackage:package]) {
+        if (![self resolveDependency:dependency]) {
             return false;
         }
     }
@@ -94,11 +103,11 @@
     return true;
 }
 
-- (BOOL)resolveDependency:(NSString *)dependency forPackage:(ZBPackage *)package {
+- (BOOL)resolveDependency:(NSString *)dependency {
     if ([dependency containsString:@"|"]) { //There is an OR dependency here, process them in the order they appear
         NSArray *orDependencies = [dependency componentsSeparatedByString:@"|"];
         for (NSString *orDependency in orDependencies) {
-            if ([self resolveDependency:orDependency forPackage:package]) {
+            if ([self resolveDependency:orDependency]) {
                 return true;
             }
         }
@@ -107,20 +116,20 @@
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
-        if ([[self queuedPackagesList] containsObject:dependency]) return true;
+//        if ([[self queuedPackagesList] containsObject:dependency]) return true;
         
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package];
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage];
         
         return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-        if ([[self queuedPackagesList] containsObject:dependency]) return true;
+//        if ([[self queuedPackagesList] containsObject:dependency]) return true;
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package];
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage];
         
         return false;
     }
@@ -200,12 +209,21 @@
     return @[packageIdentifier, comparison, version];
 }
 
-- (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package {
+- (BOOL)enqueueDependency:(ZBPackage *)dependency {
     NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
-    [package addDependency:dependency];
+    [self->package addDependency:dependency];
     [queue addDependency:dependency];
     
     return [self calculateDependenciesForPackage:dependency];
+}
+
+- (ZBPackage *)packageInDependencyQueue:(NSString *)packageID {
+    for (ZBPackage *package in [queue dependencyQueue]) {
+        if ([[package identifier] isEqual:packageID]) {
+            return package;
+        }
+    }
+    return NULL;
 }
 
 - (NSMutableArray *)queuedPackagesList {

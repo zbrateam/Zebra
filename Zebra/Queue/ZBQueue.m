@@ -90,8 +90,8 @@
 }
 
 - (BOOL)enqueueDependenciesForPackage:(ZBPackage *)package {
-    ZBDependencyResolver *resolver = [ZBDependencyResolver sharedInstance];
-    return [resolver calculateDependenciesForPackage:package];
+    ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] initWithPackage:package];
+    return [resolver calculateDependencies];
 }
 
 - (void)removePackage:(ZBQueuedPackage *)package {
@@ -309,13 +309,6 @@
     return -1;
 }
 
-- (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *actions = [self actionsToPerform];
-    NSString *key = [actions objectAtIndex:indexPath.section];
-    
-    return [[self queueFromType:[self queueTypeFromKey:key]] objectAtIndex:indexPath.row];
-}
-
 - (BOOL)needsToDownloadPackages {
     for (NSString *key in managedQueue) {
         if (![key isEqualToString:@"Remove"] && [managedQueue[key] count]) {
@@ -371,6 +364,19 @@
 
 - (NSArray <NSString *> *)queuedPackagesList {
     return queuedPackagesList;
+}
+
+- (NSArray <NSArray <ZBPackage *> *> *)topDownQueue {
+    NSMutableArray *result = [NSMutableArray new];
+    for (NSArray *queue in [self queues]) {
+        NSMutableArray *topDownQueue = [NSMutableArray new];
+        for (ZBPackage *package in queue) {
+            [topDownQueue addObject:package];
+            [topDownQueue addObjectsFromArray:[package dependencies]];
+        }
+        [result addObject:topDownQueue];
+    }
+    return result;
 }
 
 //- (NSArray <NSString *> *)queuedPackagesList {
