@@ -158,7 +158,7 @@
         if ([self isActionAllowed:possibleActions forPackage:package queue:q]) {
             NSString *title = [queue displayableNameForQueueType:q useIcon:true];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
-            id action = [self getAction:type title:[title capitalizedString] queue:q handler:handler];
+            id action = [self getAction:type title:title queue:q handler:handler];
             [actions addObject:action];
         }
     }
