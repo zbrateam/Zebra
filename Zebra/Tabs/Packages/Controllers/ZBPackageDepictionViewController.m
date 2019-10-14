@@ -349,14 +349,14 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 [self addModifyButton];
             }
         } else {
-            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeRemove] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeRemove] capitalizedString] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
             removeButton.enabled = package.repo.repoID != -1;
             self.navigationItem.rightBarButtonItem = removeButton;
         }
     } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
         [self determinePaidPackage];
     } else {
-        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeInstall] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeInstall] capitalizedString] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
 //        installButton.enabled = ![[ZBQueue sharedQueue] containsPackage:package queue:ZBQueueTypeInstall];
         self.navigationItem.rightBarButtonItem = installButton;
     }
@@ -388,7 +388,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             [request setValue:[NSString stringWithFormat:@"Zebra/%@ iOS/%@ (%@)", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion], [ZBDevice deviceType]] forHTTPHeaderField:@"User-Agent"];
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSString *title = [[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeInstall];
+                NSString *title = [[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeInstall] capitalizedString];
                 SEL selector = @selector(installPackage);
                 ZBPurchaseInfo *purchaseInfo = nil;
                 if (data) {
@@ -408,7 +408,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                         self->package.sileoDownload = YES;
                         self.purchased = YES;
                         if ([purchaseInfo.available boolValue] && ![self->package isReinstallable]) {
-                            title = [[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeRemove];
+                            title = [[[ZBQueue sharedQueue] keyFromQueueType:ZBQueueTypeRemove] capitalizedString];
                             selector = @selector(removePackage);
                             set = YES;
                         }
