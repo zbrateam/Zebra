@@ -106,7 +106,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *title = [[queue actionsToPerform] objectAtIndex:section];
-    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
+    if ([title isEqualToString:@"install"] || [title isEqualToString:@"reinstall"] || [title isEqualToString:@"upgrade"]) {
         ZBQueueType type = [queue queueTypeFromKey:title];
         if (type) {
             double totalDownloadSize = 0;
@@ -123,11 +123,11 @@
                     totalDownloadSize /= 1024;
                     unit = @"KB";
                 }
-                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", [title capitalizedString], totalDownloadSize, unit];
             }
         }
     }
-    return title;
+    return [title capitalizedString];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
