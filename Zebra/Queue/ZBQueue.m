@@ -12,6 +12,7 @@
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
+#import <ZBDevice.h>
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray <ZBPackage *> *> *managedQueue;
@@ -254,55 +255,45 @@
     return [managedQueue[[self keyFromQueueType:queue]] count] > 0;
 }
 
-- (NSString *)queueToKeyDisplayed:(ZBQueueType)queue {
-    if (![self useIcon]) {
-        return [self keyFromQueueType:queue];
-    }
+- (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)icon {
+    BOOL useIcon = icon ? [ZBDevice useIcon] : false;
+    
     switch (queue) {
         case ZBQueueTypeInstall:
-            return @"↓";
+            return useIcon ? @"↓" : @"Install";
         case ZBQueueTypeReinstall:
-            return @"↺";
+            return useIcon ? @"↺" : @"Reinstall";
         case ZBQueueTypeRemove:
-            return @"╳";
+            return useIcon ? @"╳" : @"Remove";
         case ZBQueueTypeUpgrade:
-            return @"↑";
+            return useIcon ? @"↑" : @"Upgrade";
         case ZBQueueTypeDowngrade:
-            return @"⇵";
+            return useIcon ? @"⇵" : @"Downgrade";
         default:
             break;
     }
-    return nil;
+    return @"This shouldn't be here...";
 }
 
 - (NSArray *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
-    for (NSString *key in managedQueue) {
-        if ([managedQueue[key] count]) {
-            [actions addObject:key];
-        }
+    if ([[self installQueue] count] > 0) {
+        [actions addObject:@(ZBQueueTypeInstall)];
     }
-    
+    if ([[self reinstallQueue] count] > 0) {
+        [actions addObject:@(ZBQueueTypeReinstall)];
+    }
+    if ([[self removeQueue] count] > 0) {
+        [actions addObject:@(ZBQueueTypeRemove)];
+    }
+    if ([[self upgradeQueue] count] > 0) {
+        [actions addObject:@(ZBQueueTypeUpgrade)];
+    }
+    if ([[self downgradeQueue] count] > 0) {
+        [actions addObject:@(ZBQueueTypeDowngrade)];
+    }
+
     return actions;
-    
-//    NSMutableArray *actions = [NSMutableArray new];
-//    if ([[self installQueue] count] > 0) {
-//        [actions addObject:@(ZBQueueTypeInstall)];
-//    }
-//    if ([[self reinstallQueue] count] > 0) {
-//        [actions addObject:@(ZBQueueTypeReinstall)];
-//    }
-//    if ([[self removeQueue] count] > 0) {
-//        [actions addObject:@(ZBQueueTypeRemove)];
-//    }
-//    if ([[self upgradeQueue] count] > 0) {
-//        [actions addObject:@(ZBQueueTypeUpgrade)];
-//    }
-//    if ([[self downgradeQueue] count] > 0) {
-//        [actions addObject:@(ZBQueueTypeDowngrade)];
-//    }
-//    
-//    return actions;
 }
 
 - (int)numberOfPackagesInQueueKey:(NSString *)queue {
@@ -400,51 +391,7 @@
     return result;
 }
 
-//- (NSArray <NSString *> *)queuedPackagesList {
-//    NSMutableArray *result = [NSMutableArray new];
-//    for (NSArray *queue in [self queues]) {
-//        for (ZBPackage *queuedPackage in queue) {
-//            [result addObjectsFromArray:[self listOfDependenciesForPackage:queuedPackage]];
-//        }
-//    }
-//    return result;
-//}
-//
-//- (NSArray <NSString *> *)listOfDependenciesForPackage:(ZBPackage *)package {
-//    NSMutableArray *result = [NSMutableArray new];
-//    [result addObject:[package identifier]];
-//    [result addObjectsFromArray:[package provides]];
-//    for (ZBPackage *dependency in [package dependencies]) {
-//        [result addObjectsFromArray:[self listOfDependenciesForPackage:dependency]];
-//    }
-//    return result;
-//}
-//
-//- (NSArray <ZBPackage *> *)allPackagesInQueue:(ZBQueueType)queueType {
-//    NSMutableArray *result = [NSMutableArray new];
-//
-//    NSArray *queue = [self queueFromType:queueType];
-//    for (ZBQueuedPackage *queuedPackage in queue) {
-//        [result addObjectsFromArray:[self allDependenciesForPackage:queuedPackage]];
-//    }
-//
-//    return result;
-//}
-//
-//- (NSArray <ZBPackage *> *)allDependenciesForPackage:(ZBQueuedPackage *)package {
-//    NSMutableArray *result = [NSMutableArray new];
-//    [result addObject:[package package]];
-//    for (ZBQueuedPackage *queuedPackage in [package dependencies]) {
-//        [result addObjectsFromArray:[self allDependenciesForPackage:queuedPackage]];
-//    }
-//    return result;
-//}
-
 - (BOOL)hasIssues {
-    return false;
-}
-
-- (BOOL)useIcon {
     return false;
 }
 

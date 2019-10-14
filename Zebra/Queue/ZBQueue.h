@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (ZBQueueType)queueTypeFromKey:(NSString *)key;
 - (NSString *)keyFromQueueType:(ZBQueueType)queue;
-- (NSString *)queueToKeyDisplayed:(ZBQueueType)queue;
 - (NSArray *)actionsToPerform;
+- (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)useIcon;
 - (int)numberOfPackagesInQueueKey:(NSString *)queue;
 - (int)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
@@ -37,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue;
 - (BOOL)hasIssues;
 - (void)clear;
-- (BOOL)useIcon;
 - (NSMutableArray *)dependencyQueue; // delete this later
 @end
 

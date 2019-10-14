@@ -431,7 +431,7 @@
     ZBRepo *repo = [self sourceAtIndexPath:indexPath];
     NSMutableArray *actions = [NSMutableArray array];
     if ([repo canDelete]) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue queueToKeyDisplayed:ZBQueueTypeRemove] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self->sources removeObject:repo];
             [self->repoManager deleteSource:repo];
             [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
@@ -439,7 +439,7 @@
         [actions addObject:deleteAction];
     }
     if (![self.databaseManager isDatabaseBeingUpdated]) {
-        NSString *title = [queue useIcon] ? [queue queueToKeyDisplayed:ZBQueueTypeReinstall] : @"Refresh";
+        NSString *title = @"Refresh";
         UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self.databaseManager updateRepo:repo useCaching:YES];
         }];
