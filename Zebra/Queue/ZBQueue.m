@@ -278,19 +278,24 @@
 - (NSArray *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
     if ([[self installQueue] count] > 0) {
-        [actions addObject:@(ZBQueueTypeInstall)];
+        ZBQueueType type = ZBQueueTypeInstall;
+        [actions addObject:[NSValue valueWithBytes:&type objCType:@encode(ZBQueueType)]];
     }
     if ([[self reinstallQueue] count] > 0) {
-        [actions addObject:@(ZBQueueTypeReinstall)];
+        ZBQueueType type = ZBQueueTypeReinstall;
+        [actions addObject:[NSValue valueWithBytes:&type objCType:@encode(ZBQueueType)]];
     }
     if ([[self removeQueue] count] > 0) {
-        [actions addObject:@(ZBQueueTypeRemove)];
+        ZBQueueType type = ZBQueueTypeRemove;
+        [actions addObject:[NSValue valueWithBytes:&type objCType:@encode(ZBQueueType)]];
     }
     if ([[self upgradeQueue] count] > 0) {
-        [actions addObject:@(ZBQueueTypeUpgrade)];
+        ZBQueueType type = ZBQueueTypeUpgrade;
+        [actions addObject:[NSValue valueWithBytes:&type objCType:@encode(ZBQueueType)]];
     }
     if ([[self downgradeQueue] count] > 0) {
-        [actions addObject:@(ZBQueueTypeDowngrade)];
+        ZBQueueType type = ZBQueueTypeDowngrade;
+        [actions addObject:[NSValue valueWithBytes:&type objCType:@encode(ZBQueueType)]];
     }
 
     return actions;
