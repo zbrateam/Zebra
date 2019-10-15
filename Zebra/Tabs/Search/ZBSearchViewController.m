@@ -148,10 +148,9 @@ enum ZBSearchSection {
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     NSString *query = [searchBar text];
-    
+
     // Make sure the query has no extra whitespace
     query = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
     if (query.length <= 1) {
         [ZBAppDelegate sendErrorToTabController:@"This search query is too short for the full search, please use a longer query."];
         return;
