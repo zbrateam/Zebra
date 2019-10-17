@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
 - (void)didEndRefreshing;
+- (void)layoutNavigationButtons;
+- (void)layoutNavigationButtonsNormal;
+- (void)layoutNavigationButtonsRefreshing;
 @end
 
 NS_ASSUME_NONNULL_END

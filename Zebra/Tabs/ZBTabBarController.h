@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setPackageUpdateBadgeValue:(int)updates;
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
 - (void)openQueueBar:(BOOL)openPopup;
+- (void)clearRepos;
 @end
 
 NS_ASSUME_NONNULL_END

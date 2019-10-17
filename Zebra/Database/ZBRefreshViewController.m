@@ -91,7 +91,7 @@ typedef enum {
             return;
         }
         [databaseManager cancelUpdates:self];
-        ((ZBTabBarController *)self.tabBarController).repoBusyList = [NSMutableDictionary new];
+        [((ZBTabBarController *)self.tabBarController) clearRepos];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
         
         buttonState = ZBStateDone;

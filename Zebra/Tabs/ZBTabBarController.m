@@ -128,6 +128,10 @@
     [sourcesVC setSpinnerVisible:busy forBaseFileName:bfn];
 }
 
+- (void)clearRepos {
+    [repoBusyList removeAllObjects];
+}
+
 - (void)databaseStartedUpdate {
     [self setRepoRefreshIndicatorVisible:YES];
 }

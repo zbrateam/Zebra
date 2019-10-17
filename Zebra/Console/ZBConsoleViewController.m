@@ -49,6 +49,8 @@ typedef enum {
     [super viewDidLoad];
     queue = [ZBQueue sharedInstance];
     [self resetData];
+    _progressText.layer.cornerRadius = 3.0;
+    _progressText.layer.masksToBounds = YES;
 }
 
 - (void)resetData {
@@ -162,7 +164,7 @@ typedef enum {
         [self refreshLocalPackages];
     } else {
         if (continueWithActions) {
-            _progressText.text = @"Performing actions...";
+            _progressText.text = @" Performing actions... ";
             NSArray *actions = [queue tasks:debs];
             ZBLog(@"[Zebra] Actions: %@", actions);
             
@@ -490,7 +492,7 @@ typedef enum {
     }
     totalProgress /= downloadingMap.count;
     [_progressView setProgress:totalProgress animated:YES];
-    _progressText.text = [NSString stringWithFormat:@"Downloading: %.1f%%", totalProgress * 100];
+    _progressText.text = [NSString stringWithFormat: @"Downloading: %.1f%% ", totalProgress * 100];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames {

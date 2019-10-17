@@ -93,7 +93,7 @@
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
                 contains = [self containsRespringable:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-                return;
+                *stop = YES;
             }
         }];
         
@@ -305,7 +305,7 @@
             sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
         }
         [self setSectionImageName:sectionStripped];
-        [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : NULL];
+        [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
     }
     
     return self;

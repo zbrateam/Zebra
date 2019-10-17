@@ -166,7 +166,8 @@
 - (NSArray *)baseURLFromDebLine:(NSString *)debLine {
     NSArray *urlComponents;
     
-    NSArray *components = [debLine componentsSeparatedByString:@" "];
+    NSMutableArray *components = [[debLine componentsSeparatedByString:@" "] mutableCopy];
+    [components removeObject:@""]; //Remove empty strings from the line which exist for some reason
     NSString *baseURL = components[1];
     if ([components count] > 3) { // Distribution repo, we get it, you're cool
         NSString *suite = components[2];
