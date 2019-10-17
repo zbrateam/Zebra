@@ -30,8 +30,6 @@
     queue = [ZBQueue sharedQueue];
     packages = [queue topDownQueue];
     NSLog(@"[Zebra] Queued Packages: %@", queue.queuedPackagesList);
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
     self.title = @"Queue";
 }
@@ -43,7 +41,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor whiteColor]; //change for dark mode
+    [self.tableView setContentInset:UIEdgeInsetsMake(30,0,0,0)]; //move the table view down a little bit to compoensate for no nav bar
     NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
     [self refreshTable];
 }
@@ -74,16 +73,16 @@
 }
 
 - (void)refreshBarButtons {
-    if ([queue hasIssues]) {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
-        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
-        self.navigationItem.leftBarButtonItems[1].enabled = YES;
-    } else {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
-        self.navigationItem.leftBarButtonItems[1].enabled = NO;
-    }
+//    if ([queue hasIssues]) {
+//        self.navigationItem.rightBarButtonItem.enabled = NO;
+//        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
+//        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
+//        self.navigationItem.leftBarButtonItems[1].enabled = YES;
+//    } else {
+//        self.navigationItem.rightBarButtonItem.enabled = YES;
+//        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
+//        self.navigationItem.leftBarButtonItems[1].enabled = NO;
+//    }
 }
 
 - (void)refreshTable {
