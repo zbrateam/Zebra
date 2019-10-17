@@ -191,7 +191,7 @@
     }
     [self updateQueueBarData];
     self.popupInteractionStyle = LNPopupInteractionStyleSnap;
-    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleDefault;
+    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
 }
 

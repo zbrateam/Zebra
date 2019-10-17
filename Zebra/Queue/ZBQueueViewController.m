@@ -30,6 +30,8 @@
     queue = [ZBQueue sharedQueue];
     packages = [queue topDownQueue];
     NSLog(@"[Zebra] Queued Packages: %@", queue.queuedPackagesList);
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
     self.title = @"Queue";
 }
@@ -41,16 +43,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor whiteColor]; //change for dark mode
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
-    
-    //Move the table view down once
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        CGFloat offset = 30.0f; // Change this how much you want!
-        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + offset, self.tableView.frame.size.width, self.tableView.frame.size.height - offset)];
-    });
-    
     [self refreshTable];
 }
 
@@ -80,16 +74,16 @@
 }
 
 - (void)refreshBarButtons {
-//    if ([queue hasIssues]) {
-//        self.navigationItem.rightBarButtonItem.enabled = NO;
-//        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
-//        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
-//        self.navigationItem.leftBarButtonItems[1].enabled = YES;
-//    } else {
-//        self.navigationItem.rightBarButtonItem.enabled = YES;
-//        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
-//        self.navigationItem.leftBarButtonItems[1].enabled = NO;
-//    }
+    if ([queue hasIssues]) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
+        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
+        self.navigationItem.leftBarButtonItems[1].enabled = YES;
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
+        self.navigationItem.leftBarButtonItems[1].enabled = NO;
+    }
 }
 
 - (void)refreshTable {
