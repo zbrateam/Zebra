@@ -42,8 +42,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor whiteColor]; //change for dark mode
-    [self.tableView setContentInset:UIEdgeInsetsMake(30,0,0,0)]; //move the table view down a little bit to compoensate for no nav bar
     NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
+    
+    //Move the table view down once
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CGFloat offset = 30.0f; // Change this how much you want!
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + offset, self.tableView.frame.size.width, self.tableView.frame.size.height - offset)];
+    });
+    
     [self refreshTable];
 }
 
