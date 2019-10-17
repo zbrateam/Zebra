@@ -183,6 +183,7 @@
     databaseBeingUpdated = YES;
     
     if (requested || needsUpdate) {
+        [self checkForZebraRepo];
         [self bulkDatabaseStartedUpdate];
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
         [self bulkPostStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
@@ -1281,6 +1282,21 @@
     }
     
     return results;
+}
+
+- (void)checkForZebraRepo {
+    NSError *readError;
+    NSString *repos = [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:&readError];
+    if (readError != nil) {
+        NSLog(@"[Zebra] Error while reading source list");
+    }
+
+    if (![repos containsString:@"\ndeb https://getzbra.com/repo/ ./\n"]) {
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:[ZBAppDelegate sourcesListPath]];
+        [fileHandle seekToEndOfFile];
+        [fileHandle writeData:[@"\ndeb https://getzbra.com/repo/ ./\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [fileHandle closeFile];
+    }
 }
 
 @end

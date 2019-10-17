@@ -1,0 +1,40 @@
+name: Upload Zebra Beta Release
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: webfactory/ssh-agent@v0.1.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Install Dependencies
+      env:
+        THEOS: theos
+      run: |
+        brew install ldid dpkg
+        git clone --recursive https://github.com/theos/theos.git $THEOS
+        
+    - name: Build Package
+      env:
+        THEOS: theos
+      run: make package FINALPACKAGE=1
+    - name: Clone gh-pages
+      run: |
+        git clone -b gh-pages git@github.com:wstyres/Zebra.git ~/website
+    - name: Move package
+      run: |
+        mkdir ~/website/beta/newpackages
+        cd packages
+        fn=$(ls -t | head -n1)
+        echo $fn
+        mv -f -- "$fn" ~/website/beta/newpackages
+    - name: Push repo
+      run: |
+        cd ~/website
+        chmod +x beta_update.sh
+        ./beta_update.sh
