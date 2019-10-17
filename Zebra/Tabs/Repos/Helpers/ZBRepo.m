@@ -153,7 +153,7 @@
 }
 
 - (BOOL)canDelete {
-    return ![[self origin] isEqualToString:@"xTM3x Repo"];
+    return ![[self baseFileName] isEqualToString:@"getzbra.com_repo_."];
 }
 
 - (BOOL)isEqual:(ZBRepo *)object {
