@@ -190,7 +190,7 @@
         return;
     }
     [self updateQueueBarData];
-    self.popupInteractionStyle = LNPopupInteractionStyleDrag;
+    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
     self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleDefault;
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
 }
