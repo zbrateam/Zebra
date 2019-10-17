@@ -35,6 +35,12 @@
             "clickLink": "http://cydia.zodttd.com/repo/cydia/ stable main",
             "url": "http://cydia.zodttd.com/repo/cydia/",
             "icon": "http://cydia.zodttd.com/repo/cydia/dists/stable/CydiaIcon.png"
-        }
+        },
+        {
+            "name": "Zebra Beta Repo",
+            "clickLink": "https://getzbra.com/beta",
+            "url": "https://getzbra.com/beta",
+            "icon": "https://getzbra.com/beta/CydiaIcon.png"
+        },
     ]
 }
