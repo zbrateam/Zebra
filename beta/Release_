@@ -1,0 +1,8 @@
+Origin: Zebra Beta Repo
+Label: Zebra Beta Repo
+Suite: stable
+Version: 1.0
+Codename: stable
+Architectures: iphoneos-arm
+Components: main
+Description: APT Repository for beta versions of Zebra.
