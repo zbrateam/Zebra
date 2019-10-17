@@ -1,8 +1,8 @@
-name: Upload Zebra Release
+name: Upload Zebra Beta Release
 
 on:
   release:
-    types: [published]
+    types: [prereleased]
 
 jobs:
   build:
@@ -28,13 +28,13 @@ jobs:
         git clone -b gh-pages git@github.com:wstyres/Zebra.git ~/website
     - name: Move package
       run: |
-        mkdir ~/website/repo/newpackages
+        mkdir ~/website/beta/newpackages
         cd packages
         fn=$(ls -t | head -n1)
         echo $fn
-        mv -f -- "$fn" ~/website/repo/newpackages
+        mv -f -- "$fn" ~/website/beta/newpackages
     - name: Push repo
       run: |
         cd ~/website
-        chmod +x repo_update.sh
-        ./repo_update.sh
+        chmod +x beta_update.sh
+        ./beta_update.sh
