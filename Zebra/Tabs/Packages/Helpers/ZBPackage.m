@@ -42,6 +42,7 @@
 @synthesize filename;
 @synthesize dependencies;
 @synthesize dependencyOf;
+@synthesize issues;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
@@ -586,6 +587,16 @@
     if (!dependencyOf) dependencyOf = [NSMutableArray new];
     
     [dependencyOf addObject:package];
+}
+
+- (void)addIssue:(NSString *)issue {
+    if (!issues) issues = [NSMutableArray new];
+    
+    [issues addObject:issue];
+}
+
+- (BOOL)hasIssues {
+    return [issues count] > 0;
 }
 
 @end

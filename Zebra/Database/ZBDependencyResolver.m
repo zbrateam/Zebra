@@ -50,7 +50,7 @@
         }
     }
     
-    return [self resolveDependencies:unresolvedDependencies];
+    return [self resolveDependencies:unresolvedDependencies forPackage:package];
 }
 
 - (BOOL)isDependencyResolved:(NSString *)dependency {
@@ -90,12 +90,13 @@
     }
 }
 
-- (BOOL)resolveDependencies:(NSArray *)dependencies {
+- (BOOL)resolveDependencies:(NSArray *)dependencies forPackage:(ZBPackage *)package {
     if ([dependencies count] == 0 || dependencies == NULL) return true;
     
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
         if (![self resolveDependency:dependency]) {
+            [package addIssue:dependency];
             return false;
         }
     }
@@ -121,14 +122,12 @@
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
         
-        [queue addIssue:[NSString stringWithFormat:@"Could not locate dependency for %@", [package name]] forPackage:dependency];
         return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
         
-        [queue addIssue:[NSString stringWithFormat:@"Could not locate dependency for %@", [package name]] forPackage:dependency];
         return false;
     }
 }

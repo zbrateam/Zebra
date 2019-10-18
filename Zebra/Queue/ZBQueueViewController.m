@@ -29,7 +29,6 @@
     [super loadView];
     queue = [ZBQueue sharedQueue];
     packages = [queue topDownQueue];
-    NSLog(@"[Zebra] Queued Packages: %@", queue.queuedPackagesList);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
@@ -99,40 +98,20 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger sections = [packages count];
-    if ([queue hasIssues]) sections++;
-    return sections;
+    return [packages count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([queue hasIssues] && section == 0) {
-        return [[queue issues] count];
-    }
-    else {
-        if ([queue hasIssues]) {
-            section--;
-        }
-        
-        return [packages[section] count];
-    }
+    return [packages[section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([queue hasIssues] && section == 0) {
-        return @"Issues";
+    ZBQueueType action;
+    [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
+    if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
+        return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
     }
-    else {
-        if ([queue hasIssues]) {
-            section--;
-        }
-        
-        ZBQueueType action;
-        [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
-        if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-            return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
-        }
-        return [queue displayableNameForQueueType:action useIcon:false];
-    }
+    return [queue displayableNameForQueueType:action useIcon:false];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -152,44 +131,41 @@
     }
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
-    if ([queue hasIssues] && indexPath.section == 0) {
-        NSArray *issue = [[queue issues] objectAtIndex:indexPath.row];
-        cell.textLabel.text = issue[0];
-        cell.detailTextLabel.text = issue[1];
+    ZBPackage *package = packages[indexPath.section][indexPath.row];
+    if ([[package dependencyOf] count] == 0) {
+        NSString *section = [package sectionImageName];
         
+        if (package.iconPath) {
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+            cell.imageView.layer.cornerRadius = 10;
+            cell.imageView.clipsToBounds = YES;
+        } else {
+            UIImage *sectionImage = [UIImage imageNamed:section];
+            if (sectionImage != NULL) {
+                cell.imageView.image = sectionImage;
+                cell.imageView.layer.cornerRadius = 10;
+                cell.imageView.clipsToBounds = YES;
+            }
+        }
+    }
+    else {
+        cell.imageView.image = nil;
+    }
+    cell.textLabel.text = package.name;
+    
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
+    
+    if ([package hasIssues]) {
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        [cell setTintColor:[UIColor systemPinkColor]];
         cell.textLabel.textColor = [UIColor systemPinkColor];
         cell.detailTextLabel.textColor = [UIColor systemPinkColor];
     }
     else {
-        ZBPackage *package;
-        if ([queue hasIssues]) {
-            package = packages[indexPath.section - 1][indexPath.row];
-        }
-        else {
-            package = packages[indexPath.section][indexPath.row];
-        }
-        if ([[package dependencyOf] count] == 0) {
-            NSString *section = [package sectionImageName];
-            
-            if (package.iconPath) {
-                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
-                cell.imageView.layer.cornerRadius = 10;
-                cell.imageView.clipsToBounds = YES;
-            } else {
-                UIImage *sectionImage = [UIImage imageNamed:section];
-                if (sectionImage != NULL) {
-                    cell.imageView.image = sectionImage;
-                    cell.imageView.layer.cornerRadius = 10;
-                    cell.imageView.clipsToBounds = YES;
-                }
-            }
-        }
-        else {
-            cell.imageView.image = nil;
-        }
-        cell.textLabel.text = package.name;
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.detailTextLabel.textColor = [UIColor blackColor];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     }
     
 //    NSMutableString *details = [NSMutableString string];
@@ -219,6 +195,25 @@
     UIGraphicsEndImageContext();
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    ZBPackage *package = packages[indexPath.section][indexPath.row];
+    NSMutableString *message = [@"This package has issues that cannot be resolved" mutableCopy];
+    for (NSString *issue in [package issues]) {
+        [message appendFormat:@"\n%@", issue];
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Issues" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self->queue removePackage:package];
+        [self refreshTable];
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+    }];
+    [alert addAction:deleteAction];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 @end

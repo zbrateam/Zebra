@@ -15,6 +15,7 @@
 #import <ZBDevice.h>
 
 @interface ZBQueue ()
+@property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray <ZBPackage *> *> *managedQueue;
 @end
 
@@ -22,7 +23,6 @@
 
 @synthesize managedQueue;
 @synthesize queuedPackagesList;
-@synthesize issues;
 
 + (id)sharedQueue {
     static ZBQueue *instance = nil;
@@ -51,7 +51,6 @@
             [managedQueue setObject:[NSMutableArray new] forKey:[self keyFromQueueType:q]];
         }
         queuedPackagesList = [NSMutableArray new];
-        issues = [NSMutableArray new];
     }
     
     return self;
@@ -100,10 +99,6 @@
     return [resolver calculateDependencies];
 }
 
-- (void)addIssue:(NSString *)issue forPackage:(NSString *)package {
-    [issues addObject:@[package, issue]];
-}
-
 - (void)removePackage:(ZBQueuedPackage *)package {
     for (NSMutableArray *queue in [self queues]) {
         [queue removeObject:package];
@@ -119,7 +114,6 @@
         [array removeAllObjects];
     }
     [queuedPackagesList removeAllObjects];
-    [issues removeAllObjects];
 }
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
@@ -439,10 +433,20 @@
 }
 
 - (BOOL)hasIssues {
-    return [issues count] > 0;
+//    return false;
+    return [[self issues] count] > 0;
 }
 
 - (NSArray <NSArray <NSString *> *> *)issues {
+    NSMutableArray *issues = [NSMutableArray new];
+    NSArray *topDownQueue = [self topDownQueue];
+    for (NSArray *arr in topDownQueue) {
+        for (ZBPackage *package in arr) {
+            if ([package hasIssues]) {
+                [issues addObjectsFromArray:[package issues]];
+            }
+        }
+    }
     return issues;
 }
 

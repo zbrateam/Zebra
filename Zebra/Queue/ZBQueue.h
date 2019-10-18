@@ -15,14 +15,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
-@property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
-@property (nonatomic, strong) NSMutableArray<NSArray <NSString *> *> *issues;
 + (id)sharedQueue;
 + (int)count;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)addDependency:(ZBPackage *)package;
-- (void)addIssue:(NSString *)issue forPackage:(NSString *)package;
 - (void)removePackage:(ZBPackage *)package;
 - (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
@@ -42,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSArray <NSString *> *> *)issues;
 - (void)clear;
 - (NSMutableArray *)dependencyQueue; // delete this later
+- (NSMutableArray <NSString *> *)queuedPackagesList;
 @end
 
 NS_ASSUME_NONNULL_END

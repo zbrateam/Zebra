@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDate *lastSeenDate;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencies;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencyOf;
+@property (nonatomic, strong) NSMutableArray <NSString *> *issues;
 @property BOOL sileoDownload;
 
 + (NSArray *)filesInstalled:(NSString *)packageID;
@@ -64,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)installedVersion;
 - (void)addDependency:(ZBPackage *)package;
 - (void)addDependencyOf:(ZBPackage *)package;
+- (void)addIssue:(NSString *)issue;
+- (BOOL)hasIssues;
 @end
 
 NS_ASSUME_NONNULL_END
