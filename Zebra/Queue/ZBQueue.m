@@ -22,6 +22,7 @@
 
 @synthesize managedQueue;
 @synthesize queuedPackagesList;
+@synthesize issues;
 
 + (id)sharedQueue {
     static ZBQueue *instance = nil;
@@ -50,6 +51,7 @@
             [managedQueue setObject:[NSMutableArray new] forKey:[self keyFromQueueType:q]];
         }
         queuedPackagesList = [NSMutableArray new];
+        issues = [NSMutableArray new];
     }
     
     return self;
@@ -98,6 +100,10 @@
     return [resolver calculateDependencies];
 }
 
+- (void)addIssue:(NSString *)issue forPackage:(NSString *)package {
+    [issues addObject:@[package, issue]];
+}
+
 - (void)removePackage:(ZBQueuedPackage *)package {
     for (NSMutableArray *queue in [self queues]) {
         [queue removeObject:package];
@@ -113,6 +119,7 @@
         [array removeAllObjects];
     }
     [queuedPackagesList removeAllObjects];
+    [issues removeAllObjects];
 }
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
@@ -432,7 +439,11 @@
 }
 
 - (BOOL)hasIssues {
-    return false;
+    return [issues count] > 0;
+}
+
+- (NSArray <NSArray <NSString *> *> *)issues {
+    return issues;
 }
 
 - (NSArray <NSMutableArray *> *)queues {

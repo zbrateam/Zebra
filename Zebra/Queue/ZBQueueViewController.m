@@ -99,20 +99,40 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [packages count];
+    NSInteger sections = [packages count];
+    if ([queue hasIssues]) sections++;
+    return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [packages[section] count];
+    if ([queue hasIssues] && section == 0) {
+        return [[queue issues] count];
+    }
+    else {
+        if ([queue hasIssues]) {
+            section--;
+        }
+        
+        return [packages[section] count];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    ZBQueueType action;
-    [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
-    if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-        return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
+    if ([queue hasIssues] && section == 0) {
+        return @"Issues";
     }
-    return [queue displayableNameForQueueType:action useIcon:false];
+    else {
+        if ([queue hasIssues]) {
+            section--;
+        }
+        
+        ZBQueueType action;
+        [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
+        if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
+            return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
+        }
+        return [queue displayableNameForQueueType:action useIcon:false];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -126,70 +146,51 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//    NSString *action = [[queue actionsToPerform] objectAtIndex:indexPath.section];
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-//    cell.backgroundColor = [UIColor cellBackgroundColor];
+    cell.backgroundColor = [UIColor cellBackgroundColor];
     
-//    if ([action isEqualToString:@"Unresolved Dependencies"]) {
-//        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-//
-//        NSArray *failedQ = [queue failedDepQueue];
-//        cell.textLabel.text = failedQ[indexPath.row][0];
-//        cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
-//
-//        return cell;
-//    } else if ([action isEqualToString:@"Conflictions"]) {
-//        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-//
-//        NSArray *failedQ = [queue failedConQueue];
-//
-//        int type = [failedQ[indexPath.row][0] intValue];
-//        ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][1];
-//        ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][2];
-//
-//        cell.textLabel.text = confliction.name;
-//        switch (type) {
-//            case 0:
-//                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", package.name, confliction.name];
-//                break;
-//            case 1:
-//                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", confliction.name, package.name];
-//                break;
-//            case 2:
-//                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ depends on %@", confliction.name, package.name];
-//                break;
-//            default:
-//                cell.detailTextLabel.text = @"Are you proud of yourself?";
-//                break;
-//        }
-//
-//        return cell;
-//    }
-    
-    ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([[package dependencyOf] count] == 0) {
-        NSString *section = [package sectionImageName];
+    if ([queue hasIssues] && indexPath.section == 0) {
+        NSArray *issue = [[queue issues] objectAtIndex:indexPath.row];
+        cell.textLabel.text = issue[0];
+        cell.detailTextLabel.text = issue[1];
         
-        if (package.iconPath) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
-            cell.imageView.layer.cornerRadius = 10;
-            cell.imageView.clipsToBounds = YES;
-        } else {
-            UIImage *sectionImage = [UIImage imageNamed:section];
-            if (sectionImage != NULL) {
-                cell.imageView.image = sectionImage;
-                cell.imageView.layer.cornerRadius = 10;
-                cell.imageView.clipsToBounds = YES;
-            }
-        }
+        cell.textLabel.textColor = [UIColor systemPinkColor];
+        cell.detailTextLabel.textColor = [UIColor systemPinkColor];
     }
     else {
-        cell.imageView.image = nil;
+        ZBPackage *package;
+        if ([queue hasIssues]) {
+            package = packages[indexPath.section - 1][indexPath.row];
+        }
+        else {
+            package = packages[indexPath.section][indexPath.row];
+        }
+        if ([[package dependencyOf] count] == 0) {
+            NSString *section = [package sectionImageName];
+            
+            if (package.iconPath) {
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+                cell.imageView.layer.cornerRadius = 10;
+                cell.imageView.clipsToBounds = YES;
+            } else {
+                UIImage *sectionImage = [UIImage imageNamed:section];
+                if (sectionImage != NULL) {
+                    cell.imageView.image = sectionImage;
+                    cell.imageView.layer.cornerRadius = 10;
+                    cell.imageView.clipsToBounds = YES;
+                }
+            }
+        }
+        else {
+            cell.imageView.image = nil;
+        }
+        cell.textLabel.text = package.name;
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.textColor = [UIColor blackColor];
     }
-    cell.textLabel.text = package.name;
     
 //    NSMutableString *details = [NSMutableString string];
 //    ZBPackage *replacedPackage = [queue packageReplacedBy:package];

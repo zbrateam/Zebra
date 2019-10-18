@@ -116,21 +116,19 @@
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
-//        if ([[self queuedPackagesList] containsObject:dependency]) return true;
-        
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
         
+        [queue addIssue:[NSString stringWithFormat:@"Could not locate dependency for %@", [package name]] forPackage:dependency];
         return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-//        if ([[self queuedPackagesList] containsObject:dependency]) return true;
-        
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
         
+        [queue addIssue:[NSString stringWithFormat:@"Could not locate dependency for %@", [package name]] forPackage:dependency];
         return false;
     }
 }
