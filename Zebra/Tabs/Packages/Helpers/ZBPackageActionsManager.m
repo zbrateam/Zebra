@@ -18,7 +18,7 @@
 @implementation ZBPackageActionsManager
 
 + (BOOL)isActionAllowed:(NSUInteger)possibleAction forPackage:(ZBPackage *)package queue:(ZBQueueType)q {
-    BOOL inQueue = [[ZBQueue sharedQueue] containsPackage:package inQueue:q];
+    BOOL inQueue = [[ZBQueue sharedQueue] contains:package inQueue:q];
     if (inQueue && q == ZBQueueTypeClear)
         return YES;
     BOOL allowed = possibleAction & q;

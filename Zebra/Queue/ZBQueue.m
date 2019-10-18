@@ -56,17 +56,20 @@
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
-    if (![self containsPackage:package]) {
-        [[self queueFromType:queue] addObject:package];
-        [queuedPackagesList addObject:[package identifier]];
-        if (queue == ZBQueueTypeInstall || queue == ZBQueueTypeUpgrade || queue == ZBQueueTypeDowngrade) {
-            NSLog(@"[Zebra] Finding dependencies for %@", package);
-            if ([self enqueueDependenciesForPackage:package]) {
-                NSLog(@"[Zebra] All dependencies found for %@", package);
-            }
-            else {
-                NSLog(@"[Zebra] Unable to find all dependencies for %@", package);
-            }
+    ZBQueueType type = [self locate:package];
+    if (type != ZBQueueTypeClear) { //Remove package from queue
+        [[self queueFromType:type] removeObject:package];
+    }
+    
+    [[self queueFromType:queue] addObject:package];
+    [queuedPackagesList addObject:[package identifier]];
+    if (queue == ZBQueueTypeInstall || queue == ZBQueueTypeUpgrade || queue == ZBQueueTypeDowngrade) {
+        NSLog(@"[Zebra] Finding dependencies for %@", package);
+        if ([self enqueueDependenciesForPackage:package]) {
+            NSLog(@"[Zebra] All dependencies found for %@", package);
+        }
+        else {
+            NSLog(@"[Zebra] Unable to find all dependencies for %@", package);
         }
     }
 }
@@ -345,7 +348,7 @@
     return (NSArray *)packages;
 }
 
-- (BOOL)containsPackage:(ZBPackage *)package {
+- (BOOL)contains:(ZBPackage *)package {
     if ([queuedPackagesList containsObject:[package identifier]]) {
         return true;
     }
@@ -358,12 +361,12 @@
     return NO;
 }
 
-- (BOOL)containsPackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
+- (BOOL)contains:(ZBPackage *)package inQueue:(ZBQueueType)queue {
     if (queue == ZBQueueTypeClear)
         queue = 0;
     
     if (queue == 0) {
-        return [self containsPackage:package];
+        return [self contains:package];
     }
     else {
         NSMutableArray *queueArray = [self queueFromType:queue];
@@ -394,6 +397,38 @@
         }
     }
     return result;
+}
+
+- (NSString *)downloadSizeForQueue:(ZBQueueType)queueType {
+    double totalDownloadSize = 0;
+    NSArray *packages = [self queueFromType:queueType];
+    for (ZBPackage *package in packages) {
+        totalDownloadSize += [package numericSize];
+    }
+    if (totalDownloadSize) {
+        NSString *unit = @"bytes";
+        if (totalDownloadSize > 1024 * 1024) {
+            totalDownloadSize /= 1024 * 1024;
+            unit = @"MB";
+        }
+        else if (totalDownloadSize > 1024) {
+            totalDownloadSize /= 1024;
+            unit = @"KB";
+        }
+        return [NSString stringWithFormat:@"%.2f %@", totalDownloadSize, unit];
+    }
+    
+    return NULL;
+}
+
+- (ZBQueueType)locate:(ZBPackage *)package {
+    for (NSString *key in managedQueue) {
+        if ([managedQueue[key] containsObject:package]) {
+            return [self queueTypeFromKey:key];
+        }
+    }
+    
+    return ZBQueueTypeClear;
 }
 
 - (BOOL)hasIssues {

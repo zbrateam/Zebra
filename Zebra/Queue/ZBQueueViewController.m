@@ -79,7 +79,9 @@
         self.navigationItem.leftBarButtonItems[0].title = @"Abort";
         self.navigationItem.leftBarButtonItems[1].title = @"Clear";
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
-    } else {
+    }
+    else {
+        
         self.navigationItem.rightBarButtonItem.enabled = YES;
         self.navigationItem.leftBarButtonItems[0].title = @"Continue";
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
@@ -108,23 +110,7 @@
     ZBQueueType action;
     [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
     if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-        double totalDownloadSize = 0;
-        NSArray *packages = [queue queueFromType:action];
-        for (ZBPackage *package in packages) {
-            totalDownloadSize += [package numericSize];
-        }
-        if (totalDownloadSize) {
-            NSString *unit = @"bytes";
-            if (totalDownloadSize > 1024 * 1024) {
-                totalDownloadSize /= 1024 * 1024;
-                unit = @"MB";
-            }
-            else if (totalDownloadSize > 1024) {
-                totalDownloadSize /= 1024;
-                unit = @"KB";
-            }
-            return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", [queue displayableNameForQueueType:action useIcon:false], totalDownloadSize, unit];
-        }
+        return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
     }
     return [queue displayableNameForQueueType:action useIcon:false];
 }
