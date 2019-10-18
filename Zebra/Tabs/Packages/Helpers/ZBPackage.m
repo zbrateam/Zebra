@@ -580,13 +580,17 @@
 - (void)addDependency:(ZBPackage *)package {
     if (!dependencies) dependencies = [NSMutableArray new];
     
-    [dependencies addObject:package];
+    if (![dependencies containsObject:package]) {
+        [dependencies addObject:package];
+    }
 }
 
 - (void)addDependencyOf:(ZBPackage *)package {
     if (!dependencyOf) dependencyOf = [NSMutableArray new];
     
-    [dependencyOf addObject:package];
+    if (![dependencyOf containsObject:package]) {
+        [dependencyOf addObject:package];
+    }
 }
 
 - (void)addIssue:(NSString *)issue {
