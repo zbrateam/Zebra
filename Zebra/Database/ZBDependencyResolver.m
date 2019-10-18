@@ -45,7 +45,7 @@
     //On the first pass, remove any dependencies that are already satisfied
     NSMutableArray *unresolvedDependencies = [NSMutableArray new];
     for (NSString *dependency in [package dependsOn]) {
-        if (![self isDependencyResolved:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]]) {
+        if (![self isDependencyResolved:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""] forPackage:package]) {
             [unresolvedDependencies addObject:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]];
         }
     }
@@ -53,11 +53,11 @@
     return [self resolveDependencies:unresolvedDependencies forPackage:package];
 }
 
-- (BOOL)isDependencyResolved:(NSString *)dependency {
+- (BOOL)isDependencyResolved:(NSString *)dependency forPackage:(ZBPackage *)package {
     if ([dependency containsString:@"|"]) { //There is an OR dependency here, process them in the order they appear
         NSArray *orDependencies = [dependency componentsSeparatedByString:@"|"];
         for (NSString *orDependency in orDependencies) {
-            if ([self isDependencyResolved:orDependency]) {
+            if ([self isDependencyResolved:orDependency forPackage:package]) {
                 return true;
             }
         }
@@ -69,7 +69,7 @@
         if ([[self queuedPackagesList] containsObject:components[0]]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:components[0]];
             if (queuedDependency != NULL) {
-                [self enqueueDependency:queuedDependency ignoreDependencies:true];
+                [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:true];
             }
             return true;
         }
@@ -81,7 +81,7 @@
         if ([[self queuedPackagesList] containsObject:dependency]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:dependency];
             if (queuedDependency != NULL) {
-                [self enqueueDependency:queuedDependency ignoreDependencies:true];
+                [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:true];
             }
             return true;
         }
@@ -95,7 +95,7 @@
     
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
-        if (![self resolveDependency:dependency]) {
+        if (![self resolveDependency:dependency forPackage:package]) {
             [package addIssue:dependency];
             return false;
         }
@@ -104,11 +104,11 @@
     return true;
 }
 
-- (BOOL)resolveDependency:(NSString *)dependency {
+- (BOOL)resolveDependency:(NSString *)dependency forPackage:(ZBPackage *)package {
     if ([dependency containsString:@"|"]) { //There is an OR dependency here, process them in the order they appear
         NSArray *orDependencies = [dependency componentsSeparatedByString:@"|"];
         for (NSString *orDependency in orDependencies) {
-            if ([self resolveDependency:orDependency]) {
+            if ([self resolveDependency:orDependency forPackage:package]) {
                 return true;
             }
         }
@@ -120,13 +120,13 @@
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
         
         return false;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage ignoreDependencies:false];
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
         
         return false;
     }
@@ -206,10 +206,10 @@
     return @[packageIdentifier, comparison, version];
 }
 
-- (BOOL)enqueueDependency:(ZBPackage *)dependency ignoreDependencies:(BOOL)ignore {
+- (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package ignoreFurtherDependencies:(BOOL)ignore {
     NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
-    [self->package addDependency:dependency];
-    [dependency addDependencyOf:self->package];
+    [package addDependency:dependency];
+    [dependency addDependencyOf:package];
     [queue addDependency:dependency];
     
     if (ignore) {

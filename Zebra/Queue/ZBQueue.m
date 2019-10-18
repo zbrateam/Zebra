@@ -391,13 +391,23 @@
         if ([queue count] > 0) {
             NSMutableArray *topDownQueue = [NSMutableArray new];
             for (ZBPackage *package in queue) {
-                [topDownQueue addObject:package];
-                [topDownQueue addObjectsFromArray:[package dependencies]];
+                NSMutableArray *array = [NSMutableArray new];
+                [self allDependenciesForPackage:package dependencies:array];
+                [topDownQueue addObjectsFromArray:array];
             }
             [result addObject:topDownQueue];
         }
     }
     return result;
+}
+
+- (void)allDependenciesForPackage:(ZBPackage *)package dependencies:(NSMutableArray *)array {
+    if (![array containsObject:package]) {
+        [array addObject:package];
+        for (ZBPackage *dependency in [package dependencies]) {
+            [self allDependenciesForPackage:dependency dependencies:array];
+        }
+    }
 }
 
 - (NSString *)downloadSizeForQueue:(ZBQueueType)queueType {
