@@ -218,7 +218,7 @@
         [self presentViewController:alert animated:true completion:nil];
     }
     else if ([[package dependsOn] count] > 0) {
-        NSMutableString *message = [@"This package is required by:" mutableCopy];
+        NSMutableString *message = [[NSString stringWithFormat:@"%@ is required by:", [package name]] mutableCopy];
         for (ZBPackage *parent in [package dependencyOf]) {
             [message appendFormat:@"\n%@", [parent name]];
         }
