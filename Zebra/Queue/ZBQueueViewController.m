@@ -28,7 +28,9 @@
 - (void)loadView {
     [super loadView];
     queue = [ZBQueue sharedQueue];
+    NSLog(@"Queue Install: %@", [queue queueFromType:ZBQueueTypeInstall]);
     packages = [queue topDownQueue];
+    NSLog(@"Queue Install2: %@", [queue queueFromType:ZBQueueTypeInstall]);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
@@ -132,28 +134,28 @@
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([[package dependencyOf] count] == 0) {
-        NSString *section = [package sectionImageName];
-        
-        if (package.iconPath) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
-            cell.imageView.layer.cornerRadius = 10;
-            cell.imageView.clipsToBounds = YES;
-        } else {
-            UIImage *sectionImage = [UIImage imageNamed:section];
-            if (sectionImage != NULL) {
-                cell.imageView.image = sectionImage;
-                cell.imageView.layer.cornerRadius = 10;
-                cell.imageView.clipsToBounds = YES;
-            }
-        }
+    if ([[package dependencyOf] count] == 0)  {
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     else {
-        cell.imageView.image = nil;
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
+    
+    NSString *section = [package sectionImageName];
+    if (package.iconPath) {
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
+        cell.imageView.layer.cornerRadius = 10;
+        cell.imageView.clipsToBounds = YES;
+    } else {
+        UIImage *sectionImage = [UIImage imageNamed:section];
+        if (sectionImage != NULL) {
+            cell.imageView.image = sectionImage;
+            cell.imageView.layer.cornerRadius = 10;
+            cell.imageView.clipsToBounds = YES;
+        }
+    }
+    
     cell.textLabel.text = package.name;
-    
-    
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
     
     if ([package hasIssues]) {
@@ -163,7 +165,6 @@
         cell.detailTextLabel.textColor = [UIColor systemPinkColor];
     }
     else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     }
@@ -199,21 +200,35 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    NSMutableString *message = [@"This package has issues that cannot be resolved" mutableCopy];
-    for (NSString *issue in [package issues]) {
-        [message appendFormat:@"\n%@", issue];
+    if ([package hasIssues]) {
+        NSMutableString *message = [@"This package has issues that cannot be resolved" mutableCopy];
+        for (NSString *issue in [package issues]) {
+            [message appendFormat:@"\n%@", issue];
+        }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Issues" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self->queue removePackage:package];
+            [self refreshTable];
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+        }];
+        [alert addAction:deleteAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
     }
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Issues" message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self->queue removePackage:package];
-        [self refreshTable];
-    }];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
-    }];
-    [alert addAction:deleteAction];
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:true completion:nil];
+    else if ([[package dependsOn] count] > 0) {
+        NSMutableString *message = [@"This package is required by:" mutableCopy];
+        for (ZBPackage *parent in [package dependencyOf]) {
+            [message appendFormat:@"\n%@", [parent name]];
+        }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Package" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
+    }
 }
 
 @end

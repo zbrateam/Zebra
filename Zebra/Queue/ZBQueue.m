@@ -24,6 +24,8 @@
 @synthesize managedQueue;
 @synthesize queuedPackagesList;
 
+static BOOL topDownMonitoring = false;
+
 + (id)sharedQueue {
     static ZBQueue *instance = nil;
     static dispatch_once_t onceToken;
@@ -58,19 +60,20 @@
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     ZBQueueType type = [self locate:package];
-    if (type != ZBQueueTypeClear) { //Remove package from queue
+    if (type != ZBQueueTypeClear && type != queue) { //Remove package from queue
         [[self queueFromType:type] removeObject:package];
     }
-    
-    [[self queueFromType:queue] addObject:package];
-    [queuedPackagesList addObject:[package identifier]];
-    if (queue == ZBQueueTypeInstall || queue == ZBQueueTypeUpgrade || queue == ZBQueueTypeDowngrade) {
-        NSLog(@"[Zebra] Finding dependencies for %@", package);
-        if ([self enqueueDependenciesForPackage:package]) {
-            NSLog(@"[Zebra] All dependencies found for %@", package);
-        }
-        else {
-            NSLog(@"[Zebra] Unable to find all dependencies for %@", package);
+    if (type != queue) {
+        [[self queueFromType:queue] addObject:package];
+        [queuedPackagesList addObject:[package identifier]];
+        if (queue == ZBQueueTypeInstall || queue == ZBQueueTypeUpgrade || queue == ZBQueueTypeDowngrade) {
+            NSLog(@"[Zebra] Finding dependencies for %@", package);
+            if ([self enqueueDependenciesForPackage:package]) {
+                NSLog(@"[Zebra] All dependencies found for %@", package);
+            }
+            else {
+                NSLog(@"[Zebra] Unable to find all dependencies for %@", package);
+            }
         }
     }
 }
@@ -212,6 +215,9 @@
 }
 
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue {
+    if (topDownMonitoring) {
+        NSLog(@"Install Queue: %@", managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]]);
+    }
     return managedQueue[[self keyFromQueueType:queue]];
 }
 
@@ -281,7 +287,7 @@
 
 - (NSArray *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
-    if ([[self installQueue] count] > 0) {
+    if ([[self installQueue] count] > 0 || [[self dependencyQueue] count] > 0) {
         ZBQueueType type = ZBQueueTypeInstall;
         [actions addObject:[NSValue valueWithBytes:&type objCType:@encode(ZBQueueType)]];
     }
@@ -386,15 +392,22 @@
 }
 
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue {
+    topDownMonitoring = true;
     NSMutableArray *result = [NSMutableArray new];
     for (NSArray *queue in [self queues]) {
         if ([queue count] > 0) {
             NSMutableArray *topDownQueue = [NSMutableArray new];
             for (ZBPackage *package in queue) {
-                NSMutableArray *array = [NSMutableArray new];
-                [self allDependenciesForPackage:package dependencies:array];
-                [topDownQueue addObjectsFromArray:array];
+                [topDownQueue addObject:package];
             }
+            if (queue == [self installQueue]) {
+                [topDownQueue addObjectsFromArray:[self dependencyQueue]];
+            }
+            [result addObject:topDownQueue];
+        }
+        else if (queue == [self installQueue] && [[self dependencyQueue] count] > 0) {
+            NSMutableArray *topDownQueue = [NSMutableArray new];
+            [topDownQueue addObjectsFromArray:[self dependencyQueue]];
             [result addObject:topDownQueue];
         }
     }
@@ -412,7 +425,11 @@
 
 - (NSString *)downloadSizeForQueue:(ZBQueueType)queueType {
     double totalDownloadSize = 0;
-    NSArray *packages = [self queueFromType:queueType];
+    NSMutableArray *packages = [[self queueFromType:queueType] mutableCopy];
+    if (queueType == ZBQueueTypeInstall) {
+        [packages addObjectsFromArray:[self dependencyQueue]];
+    }
+    
     for (ZBPackage *package in packages) {
         totalDownloadSize += [package numericSize];
     }
@@ -465,6 +482,10 @@
 }
 
 - (NSMutableArray *)installQueue {
+    NSMutableArray *queue = managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]];
+    if (topDownMonitoring && [queue count] > 0) {
+        NSLog(@"Install Queue: %@", queue);
+    }
     return managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]];
 }
 
