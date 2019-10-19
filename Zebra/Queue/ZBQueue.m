@@ -118,6 +118,7 @@
 }
 
 - (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
+    [[package issues] removeAllObjects];
     [[self queueFromType:queue] removeObject:package];
 }
 
