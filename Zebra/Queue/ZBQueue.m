@@ -104,13 +104,27 @@
     return [resolver calculateDependencies];
 }
 
+- (BOOL)enqueueRemovalOfPackagesThatConflictWith:(ZBPackage *)package {
+    ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] initWithPackage:package];
+    return [resolver calculateDependencies];
+}
+
 - (void)enqueueRemovalOfPackagesThatDependOn:(ZBPackage *)package {
     [self addPackages:[[ZBDatabaseManager sharedInstance] packagesThatDependOn:package] toQueue:ZBQueueTypeRemove];
 }
 
 - (void)removePackage:(ZBPackage *)package {
     ZBQueueType action = [self locate:package];
-    if (action != ZBQueueTypeClear) {
+    if ([package removedBy] != NULL && action == ZBQueueTypeRemove) {
+        ZBPackage *topPackage = [package removedBy];
+        while ([topPackage removedBy] != NULL) {
+            topPackage = [topPackage removedBy];
+        }
+        [self removePackage:topPackage inQueue:ZBQueueTypeRemove];
+        [self removePackagesRemovedBy:topPackage];
+        return;
+    }
+    else if (action != ZBQueueTypeClear) {
         [self removePackage:package inQueue:action];
         for (ZBPackage *dependency in [package dependencies]) {
             [[dependency dependencyOf] removeObject:package];
@@ -129,6 +143,15 @@
     [[package issues] removeAllObjects];
     [package setRemovedBy:NULL];
     [[self queueFromType:queue] removeObject:package];
+}
+
+- (void)removePackagesRemovedBy:(ZBPackage *)package {
+    for (ZBPackage *removedPackage in [[self removeQueue] copy]) {
+        if ([[removedPackage removedBy] isEqual:package]) {
+            [self removePackage:removedPackage inQueue:ZBQueueTypeRemove];
+            [self removePackagesRemovedBy:removedPackage];
+        }
+    }
 }
 
 - (void)clear {
