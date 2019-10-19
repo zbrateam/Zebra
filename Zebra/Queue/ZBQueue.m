@@ -105,9 +105,13 @@
     if (action != ZBQueueTypeClear) {
         [self removePackage:package inQueue:action];
         for (ZBPackage *dependency in [package dependencies]) {
-            [self removePackage:dependency inQueue:ZBQueueTypeDependency];
+            [[dependency dependencyOf] removeObject:package];
+            if ([[dependency dependencyOf] count] <= 1) {
+                [self removePackage:dependency];
+            }
         }
         for (ZBPackage *dependencyOf in [package dependencyOf]) {
+            [[dependencyOf dependencies] removeObject:package];
             [self removePackage:dependencyOf];
         }
     }
@@ -483,7 +487,6 @@
 }
 
 - (NSMutableArray *)installQueue {
-    NSMutableArray *queue = managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]];
     return managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]];
 }
 
