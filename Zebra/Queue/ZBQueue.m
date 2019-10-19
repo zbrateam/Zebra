@@ -73,6 +73,10 @@
                 NSLog(@"[Zebra] Unable to find all dependencies for %@", package);
             }
         }
+        else if (queue == ZBQueueTypeRemove) {
+            NSLog(@"[Zebra] Removing packages that depend on %@", package);
+            [self enqueueRemovalOfPackagesThatDependOn:package];
+        }
     }
 }
 
@@ -98,6 +102,10 @@
 - (BOOL)enqueueDependenciesForPackage:(ZBPackage *)package {
     ZBDependencyResolver *resolver = [[ZBDependencyResolver alloc] initWithPackage:package];
     return [resolver calculateDependencies];
+}
+
+- (void)enqueueRemovalOfPackagesThatDependOn:(ZBPackage *)package {
+    [self addPackages:[[ZBDatabaseManager sharedInstance] packagesThatDependOn:package] toQueue:ZBQueueTypeRemove];
 }
 
 - (void)removePackage:(ZBPackage *)package {

@@ -407,6 +407,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
 
+/*!
+@brief Packages that depend on another package
+@param package The package that you want to search for
+@return An array of ZBPackage instances that contain every package that depends on the search parameter
+*/
+- (NSArray <ZBPackage *> *)packagesThatDependOn:(ZBPackage *)package;
+
 #pragma mark - Helper methods
 
 /*!
