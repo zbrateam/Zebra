@@ -33,6 +33,7 @@
     NSLog(@"Queue Install2: %@", [queue queueFromType:ZBQueueTypeInstall]);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
     self.title = @"Queue";
 }
