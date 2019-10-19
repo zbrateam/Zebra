@@ -1233,9 +1233,9 @@
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                [packages addObject:package];
-                
+                ZBPackage *found = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                [found setRemovedBy:package];
+                [packages addObject:found];
             }
         }
         return [packages count] > 0 ? packages : NULL;

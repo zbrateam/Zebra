@@ -43,6 +43,7 @@
 @synthesize dependencies;
 @synthesize dependencyOf;
 @synthesize issues;
+@synthesize removedBy;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {

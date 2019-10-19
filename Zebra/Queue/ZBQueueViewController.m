@@ -142,11 +142,11 @@
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([[package dependencyOf] count] == 0)  {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+    if ([[package dependencyOf] count] > 0 || [package hasIssues] || [package removedBy] != NULL)  {
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
     else {
-        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     NSString *section = [package sectionImageName];
@@ -167,7 +167,6 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
     
     if ([package hasIssues]) {
-        cell.accessoryType = UITableViewCellAccessoryDetailButton;
         [cell setTintColor:[UIColor systemPinkColor]];
         cell.textLabel.textColor = [UIColor systemPinkColor];
         cell.detailTextLabel.textColor = [UIColor systemPinkColor];
@@ -204,6 +203,15 @@
             [alert dismissViewControllerAnimated:true completion:nil];
         }];
         [alert addAction:deleteAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
+    }
+    else if ([package removedBy] != NULL) {
+        NSString *message = [NSString stringWithFormat:@"%@ must be removed because it depends on %@", [package name], [[package removedBy] name]];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Package" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+        }];
         [alert addAction:okAction];
         [self presentViewController:alert animated:true completion:nil];
     }
