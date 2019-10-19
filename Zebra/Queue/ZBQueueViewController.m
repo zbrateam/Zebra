@@ -202,7 +202,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = packages[indexPath.section][indexPath.row];
     if ([package hasIssues]) {
-        NSMutableString *message = [@"This package has issues that cannot be resolved" mutableCopy];
+        NSMutableString *message = [[NSString stringWithFormat:@"%@ has issues that cannot be resolved:", [package name]] mutableCopy];
         for (NSString *issue in [package issues]) {
             [message appendFormat:@"\n%@", issue];
         }
