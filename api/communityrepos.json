@@ -7,6 +7,12 @@
             "icon": "http://apt.thebigboss.org/repofiles/cydia/dists/stable/CydiaIcon.png"
         },
         {
+            "name": "Chariz",
+            "clickLink": "https://repo.chariz.com/",
+            "url": "https://repo.chariz.com/",
+            "icon": "https://repo.chariz.com/CydiaIcon.png"
+        },
+        {
             "name": "Dynastic Repo",
             "clickLink": "https://repo.dynastic.co/",
             "url": "https://repo.dynastic.co/",
@@ -31,16 +37,16 @@
             "icon": "https://rpetri.ch/repo/CydiaIcon.png"
         },
         {
-            "name": "ZodTTD & MacCiti (Archive)",
-            "clickLink": "http://cydia.zodttd.com/repo/cydia/ stable main",
-            "url": "http://cydia.zodttd.com/repo/cydia/",
-            "icon": "http://cydia.zodttd.com/repo/cydia/dists/stable/CydiaIcon.png"
-        },
-        {
             "name": "Zebra Beta Repo",
             "clickLink": "https://getzbra.com/beta",
             "url": "https://getzbra.com/beta",
             "icon": "https://getzbra.com/beta/CydiaIcon.png"
         },
+        {
+            "name": "ZodTTD & MacCiti (Archive)",
+            "clickLink": "http://cydia.zodttd.com/repo/cydia/ stable main",
+            "url": "http://cydia.zodttd.com/repo/cydia/",
+            "icon": "http://cydia.zodttd.com/repo/cydia/dists/stable/CydiaIcon.png"
+        }
     ]
 }
