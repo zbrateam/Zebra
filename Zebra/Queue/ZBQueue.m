@@ -115,8 +115,8 @@
 
 - (void)removePackage:(ZBPackage *)package {
     ZBQueueType action = [self locate:package];
-    if ([package removedBy] != NULL && action == ZBQueueTypeRemove) {
-        ZBPackage *topPackage = [package removedBy];
+    if (action == ZBQueueTypeRemove) {
+        ZBPackage *topPackage = package;
         while ([topPackage removedBy] != NULL) {
             topPackage = [topPackage removedBy];
         }
