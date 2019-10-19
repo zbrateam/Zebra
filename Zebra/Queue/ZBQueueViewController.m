@@ -91,6 +91,13 @@
 }
 
 - (void)refreshTable {
+    if ([ZBQueue count] == 0) {
+        [queue clear];
+        [self clearQueueBarData];
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+        return;
+    }
+    
     [self refreshBarButtons];
     packages = [queue topDownQueue];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -166,28 +173,10 @@
         cell.detailTextLabel.textColor = [UIColor systemPinkColor];
     }
     else {
+        [cell setTintColor:[UIColor tintColor]];
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     }
-    
-//    NSMutableString *details = [NSMutableString string];
-//    ZBPackage *replacedPackage = [queue packageReplacedBy:package];
-//    if (replacedPackage) {
-//        [details appendString:[NSString stringWithFormat:@"%@ (%@ -> %@)", package.identifier, replacedPackage.version, package.version]];
-//    } else {
-//        [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
-//    }
-//    
-//    NSMutableArray <ZBPackage *> *requiredPackages = [queue packagesRequiredBy:package];
-//    if (requiredPackages) {
-//        ZBQueueType queue = [queue keyToQueue:action];
-//        NSMutableArray <NSString *> *requiredPackageNames = [NSMutableArray array];
-//        for (ZBPackage *package in requiredPackages) {
-//            [requiredPackageNames addObject:package.name];
-//        }
-//        [details appendString:[NSString stringWithFormat:queue == ZBQueueTypeRemove ? @" (Removed by %@)" : @" (Required by %@)", [requiredPackageNames componentsJoinedByString:@", "]]];
-//    }
-//    cell.detailTextLabel.text = details;
     
     CGSize itemSize = CGSizeMake(35, 35);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
@@ -230,6 +219,24 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:true completion:nil];
     }
+}
+
+//swipe actions
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+    }];
+    return @[deleteAction];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [queue removePackage:packages[indexPath.section][indexPath.row]];
+    [self refreshTable];
 }
 
 @end

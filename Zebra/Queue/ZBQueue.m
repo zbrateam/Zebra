@@ -24,8 +24,6 @@
 @synthesize managedQueue;
 @synthesize queuedPackagesList;
 
-static BOOL topDownMonitoring = false;
-
 + (id)sharedQueue {
     static ZBQueue *instance = nil;
     static dispatch_once_t onceToken;
@@ -102,13 +100,20 @@ static BOOL topDownMonitoring = false;
     return [resolver calculateDependencies];
 }
 
-- (void)removePackage:(ZBQueuedPackage *)package {
-    for (NSMutableArray *queue in [self queues]) {
-        [queue removeObject:package];
+- (void)removePackage:(ZBPackage *)package {
+    ZBQueueType action = [self locate:package];
+    if (action != ZBQueueTypeClear) {
+        [self removePackage:package inQueue:action];
+        for (ZBPackage *dependency in [package dependencies]) {
+            [self removePackage:dependency inQueue:ZBQueueTypeDependency];
+        }
+        for (ZBPackage *dependencyOf in [package dependencyOf]) {
+            [self removePackage:dependencyOf];
+        }
     }
 }
 
-- (void)removePackage:(ZBQueuedPackage *)package inQueue:(ZBQueueType)queue {
+- (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
     [[self queueFromType:queue] removeObject:package];
 }
 
@@ -215,9 +220,6 @@ static BOOL topDownMonitoring = false;
 }
 
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue {
-    if (topDownMonitoring) {
-        NSLog(@"Install Queue: %@", managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]]);
-    }
     return managedQueue[[self keyFromQueueType:queue]];
 }
 
@@ -235,7 +237,7 @@ static BOOL topDownMonitoring = false;
         case 4:
             return ZBQueueTypeDowngrade;
         case 5:
-            return ZBQueueTypeDowngrade;
+            return ZBQueueTypeDependency;
         default:
             return -1;
     }
@@ -392,7 +394,6 @@ static BOOL topDownMonitoring = false;
 }
 
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue {
-    topDownMonitoring = true;
     NSMutableArray *result = [NSMutableArray new];
     for (NSArray *queue in [self queues]) {
         if ([queue count] > 0) {
@@ -483,9 +484,6 @@ static BOOL topDownMonitoring = false;
 
 - (NSMutableArray *)installQueue {
     NSMutableArray *queue = managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]];
-    if (topDownMonitoring && [queue count] > 0) {
-        NSLog(@"Install Queue: %@", queue);
-    }
     return managedQueue[[self keyFromQueueType:ZBQueueTypeInstall]];
 }
 

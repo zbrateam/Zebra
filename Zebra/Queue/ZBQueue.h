@@ -7,7 +7,6 @@
 //
 
 @class ZBPackage;
-@class ZBQueuedPackage;
 
 #import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
