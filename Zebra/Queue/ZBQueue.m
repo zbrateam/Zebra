@@ -127,7 +127,7 @@
 
 - (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
     [[package issues] removeAllObjects];
-    package.removedBy = NULL;
+    [package setRemovedBy:NULL];
     [[self queueFromType:queue] removeObject:package];
 }
 

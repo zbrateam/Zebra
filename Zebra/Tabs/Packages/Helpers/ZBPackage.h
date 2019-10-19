@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencies;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencyOf;
 @property (nonatomic, strong) NSMutableArray <NSString *> *issues;
-@property (nonatomic, strong) ZBPackage *removedBy;
+@property (nonatomic, strong)  ZBPackage * _Nullable removedBy;
 @property BOOL sileoDownload;
 
 + (NSArray *)filesInstalled:(NSString *)packageID;
