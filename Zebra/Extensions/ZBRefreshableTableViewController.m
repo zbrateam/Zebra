@@ -45,8 +45,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     if ([[self class] supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
@@ -142,20 +142,6 @@
     }
     [self setRepoRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    if ([[self class] supportRefresh] && refreshControl) {
-        if ([databaseManager isDatabaseBeingUpdated]) {
-            [refreshControl removeFromSuperview];
-            self.refreshControl = nil;
-        } else {
-            self.refreshControl = refreshControl;
-        }
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
