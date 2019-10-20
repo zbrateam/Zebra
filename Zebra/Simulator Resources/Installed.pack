@@ -1510,7 +1510,7 @@ Description: GMP is a free library for arbitrary precision arithmetic, operating
 Name: GNU Multiple Precision Arithmetic Library
 Homepage: https://gmplib.org/
 
-Package: ws.hbang.newterm2
+Package: ws.hbang.newterm
 Status: install ok installed
 Section: Terminal Support
 Installed-Size: 2200

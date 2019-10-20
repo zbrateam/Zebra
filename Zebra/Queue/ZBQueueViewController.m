@@ -28,9 +28,8 @@
 - (void)loadView {
     [super loadView];
     queue = [ZBQueue sharedQueue];
-    NSLog(@"Queue Install: %@", [queue queueFromType:ZBQueueTypeInstall]);
     packages = [queue topDownQueue];
-    NSLog(@"Queue Install2: %@", [queue queueFromType:ZBQueueTypeInstall]);
+    NSLog(@"Conflict Queue: %@", [queue conflictQueue]);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

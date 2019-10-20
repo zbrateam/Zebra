@@ -1079,6 +1079,56 @@
     return NULL;
 }
 
+- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 LIMIT 1;", identifier];
+        
+        ZBPackage *package;
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        // Only try to resolve "Provides" if we can't resolve the normal package.
+        if (package == NULL && version == NULL && comparison == NULL) {
+            package = [self packageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
+        }
+        
+        if (package != NULL) {
+            NSArray *otherVersions = [self allVersionsForPackage:package];
+            if (version != NULL && comparison != NULL) {
+                if ([otherVersions count] > 1) {
+                    for (ZBPackage *package in otherVersions) {
+                        if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                            [self closeDatabase];
+                            return package;
+                        }
+                    }
+                    
+                    [self closeDatabase];
+                    return NULL;
+                }
+                [self closeDatabase];
+                return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
+            }
+            else {
+                return otherVersions[0];
+            }
+        }
+        
+        [self closeDatabase];
+        return NULL;
+    }
+    [self printDatabaseError];
+    return NULL;
+}
+
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version {
     NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
 

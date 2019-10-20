@@ -37,8 +37,8 @@
 
 #pragma mark - Immediate dependency resolution
 
-- (BOOL)calculateDependencies {
-    return [self calculateDependenciesForPackage:self->package];
+- (BOOL)immediateResolution {
+    return [self calculateDependenciesForPackage:self->package] && [self calculateConflictsForPackage:self->package];
 }
 
 - (BOOL)calculateDependenciesForPackage:(ZBPackage *)package {
@@ -51,6 +51,22 @@
     }
     
     return [self resolveDependencies:unresolvedDependencies forPackage:package];
+}
+
+- (BOOL)calculateConflictsForPackage:(ZBPackage *)package {
+    //First lets check to see if any installed packages conflict with this package
+    NSArray *packagesThatConflictWith = [databaseManager packagesThatConflictWith:package];
+    if ([packagesThatConflictWith count] > 0) {
+        //We cannot install this package as there are some already installed packages that conflict here
+        for (ZBPackage *conflict in packagesThatConflictWith) {
+            [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", [conflict name], [package name]]];
+        }
+        return false;
+    }
+    
+    //Next, check if this package conflicts with any installed packages
+    [self resolveConflicts:[package conflictsWith] forPackage:package];
+    return true;
 }
 
 - (BOOL)isDependencyResolved:(NSString *)dependency forPackage:(ZBPackage *)package {
@@ -129,6 +145,26 @@
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
         
         return false;
+    }
+}
+
+- (void)resolveConflicts:(NSArray *)conflicts forPackage:(ZBPackage *)package {
+    for (NSString *conflict in conflicts) {
+        [self resolveConflict:conflict forPackage:package];
+    }
+}
+
+- (void)resolveConflict:(NSString *)conflict forPackage:(ZBPackage *)package {
+    if ([conflict containsString:@"("] || [conflict containsString:@")"]) { //This package conflicts with a specific version
+        NSArray *components = [self separateVersionComparison:conflict];
+        //We should now have a separate version and a comparison string
+        
+        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
+        if (conflictingPackage) [self enqueueConflict:conflictingPackage forPackage:package];
+    }
+    else { //We should just be left as a package ID at this point, lets search for it in the database
+        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL];
+        if (conflictingPackage) [self enqueueConflict:conflictingPackage forPackage:package];
     }
 }
 
@@ -216,6 +252,13 @@
         return true;
     }
     return [self calculateDependenciesForPackage:dependency];
+}
+
+- (void)enqueueConflict:(ZBPackage *)conflict forPackage:(ZBPackage *)package {
+    NSLog(@"[Zebra] Adding %@ as a conflict for %@", conflict, package);
+    [package addDependency:conflict];
+    [conflict addDependencyOf:package];
+    [queue addConflict:conflict];
 }
 
 - (ZBPackage *)packageInDependencyQueue:(NSString *)packageID {

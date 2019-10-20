@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     ZBQueue *queue;
 }
 - (id)initWithPackage:(ZBPackage *)package;
-- (BOOL)calculateDependencies;
+- (BOOL)immediateResolution;
 @end
 
 NS_ASSUME_NONNULL_END

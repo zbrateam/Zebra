@@ -356,6 +356,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
 
 /*!
+@brief Mainly used in dependency resolution, this will return an installed ZBPackage instance that matches the parameters.
+@param identifier The identifier of the package in question.
+@param comparison (Nullable) Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>". Pass NULL if no comparison needed.
+@param version (Nullable) Used for version comparison. Pass NULL if no comparison needed.
+@return A ZBPackage instance that matches the parameters.
+*/
+- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
+
+/*!
  @brief Mainly used in dependency resolution, this will return whether or not a specific package satisfies a version comparison.
  @param package A ZBPackage instance.
  @param comparison Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>".
