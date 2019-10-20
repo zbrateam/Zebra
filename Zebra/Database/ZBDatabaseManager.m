@@ -1244,6 +1244,24 @@
     return NULL;
 }
 
+- (NSArray <ZBPackage *> *)packagesThatConflictWith:(ZBPackage *)package {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *packages = [NSMutableArray new];
+        
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = 0 AND CONFLICTS LIKE \'%%%@\%%\';", [package identifier]];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBPackage *found = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                [packages addObject:found];
+            }
+        }
+        return [packages count] > 0 ? packages : NULL;
+    }
+    [self printDatabaseError];
+    return NULL;
+}
+
 #pragma mark - Hyena Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {

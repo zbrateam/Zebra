@@ -414,6 +414,13 @@ NS_ASSUME_NONNULL_BEGIN
 */
 - (NSArray <ZBPackage *> *)packagesThatDependOn:(ZBPackage *)package;
 
+/*!
+@brief Packages that conflict with another package
+@param package The package that you want to search for
+@return An array of ZBPackage instances that contain every package that conflicts with the search parameter
+*/
+- (NSArray <ZBPackage *> *)packagesThatConflictWith:(ZBPackage *)package;
+
 #pragma mark - Helper methods
 
 /*!
