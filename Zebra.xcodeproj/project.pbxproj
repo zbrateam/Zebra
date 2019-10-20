@@ -45,11 +45,7 @@
 		36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7522AB3545004C2332 /* icon@3x.png */; };
 		36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7622AB3545004C2332 /* icon@2x.png */; };
 		36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7922AB6F66004C2332 /* ios7.min.css */; };
-		36C4891C22ADB88700D6FE40 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */; };
-		36C4891D22ADB88700D6FE40 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
-		36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; };
-		36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36D1533E22924D9F0010EC5C /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADC22A2C89A00A4604C /* installed_files.html */; };
 		36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */; };
 		36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */; };
@@ -113,7 +109,11 @@
 		89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637C21D5AFAA0081E485 /* changelog@3x.png */; };
 		89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7dark.css */; };
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
+		89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; };
+		89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E06A9EF22D0842400DBBC38 /* ZBRepoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */; };
+		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
+		9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */; };
 		9E41544A22E421D5000D34CA /* ZBRepoBlacklistTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36200B6622D2B3E000C13F6D /* ZBRepoBlacklistTableViewController.m */; };
@@ -125,15 +125,46 @@
 		D1BF9C7522A826BF00DD9266 /* stores@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1BF9C7322A826BF00DD9266 /* stores@3x.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		89EB9361235BFCE30038BCEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 39DB52E51B5823330061C589;
+			remoteInfo = LNPopupController;
+		};
+		9E0D95292358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53761325155AD0D5005750A4;
+			remoteInfo = "SDWebImage static";
+		};
+		9E0D952B2358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A2CADFF1AB4BB5300B6BC39;
+			remoteInfo = SDWebImage;
+		};
+		9E0D952D2358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 80B6DFEE2142B71600BCB334;
+			remoteInfo = SDWebImageMapKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
-		36D1532D229249220010EC5C /* Embed Frameworks */ = {
+		9E0D951D2358AD7000C6C2B2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				36D1534122924DA60010EC5C /* SDWebImage.framework in Embed Frameworks */,
-				36C4891D22ADB88700D6FE40 /* LNPopupController.framework in Embed Frameworks */,
+				9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */,
+				89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,10 +229,8 @@
 		36AC5A7522AB3545004C2332 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
 		36AC5A7622AB3545004C2332 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		36AC5A7922AB6F66004C2332 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
-		36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LNPopupController.framework; sourceTree = "<group>"; };
 		36D15325229240F60010EC5C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
 		36D15326229240F70010EC5C /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
-		36D1533E22924D9F0010EC5C /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		36F77ADC22A2C89A00A4604C /* installed_files.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = installed_files.html; sourceTree = "<group>"; };
 		36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin@3x.png"; sourceTree = "<group>"; };
 		36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin@2x.png"; sourceTree = "<group>"; };
@@ -300,9 +329,11 @@
 		89E8637D21D5AFAA0081E485 /* ios7dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7dark.css; sourceTree = "<group>"; };
 		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
+		89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
 		9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBRepoTableViewCell.xib; sourceTree = "<group>"; };
 		9E084EC622A28B9200B23361 /* ZBColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBColumn.h; sourceTree = "<group>"; };
+		9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Vendor/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		9E1C85A522A38DCB00D93D14 /* ZBTab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTab.h; sourceTree = "<group>"; };
 		9E1C85AE22A3903600D93D14 /* ZBChangesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangesTableViewController.h; sourceTree = "<group>"; };
 		9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangesTableViewController.m; sourceTree = "<group>"; };
@@ -331,12 +362,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				363FE2422287854F00B69929 /* Security.framework in Frameworks */,
-				36C4891C22ADB88700D6FE40 /* LNPopupController.framework in Frameworks */,
 				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
-				36D1534022924DA60010EC5C /* SDWebImage.framework in Frameworks */,
+				9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
+				89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,9 +754,9 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				36C4891A22ADB87E00D6FE40 /* LNPopupController.framework */,
+				89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */,
+				9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */,
 				9E2B413C22C86A31009BC12B /* UIKit.framework */,
-				36D1533E22924D9F0010EC5C /* SDWebImage.framework */,
 				363FE2412287854E00B69929 /* Security.framework */,
 				89463CDF2277B5C300A92FC5 /* libz.tbd */,
 				8997843F2242D25800C1138C /* libbz2.tbd */,
@@ -777,6 +808,14 @@
 			path = HTML;
 			sourceTree = "<group>";
 		};
+		89EB935E235BFCE30038BCEC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89EB9362235BFCE30038BCEC /* LNPopupController.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		89FEBC1B22C293E100B58662 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -800,6 +839,16 @@
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9E0D95232358AFEE00C6C2B2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9E0D952A2358AFEF00C6C2B2 /* libSDWebImage.a */,
+				9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */,
+				9E0D952E2358AFEF00C6C2B2 /* SDWebImageMapKit.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		9E1C85AD22A3900700D93D14 /* Changes */ = {
@@ -831,13 +880,15 @@
 				89C5FDD921B1B13700A10E58 /* Sources */,
 				89C5FDDA21B1B13700A10E58 /* Frameworks */,
 				89C5FDDB21B1B13700A10E58 /* Resources */,
-				36D1532D229249220010EC5C /* Embed Frameworks */,
+				9E0D951D2358AD7000C6C2B2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Zebra;
+			packageProductDependencies = (
+			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
 			productType = "com.apple.product-type.application";
@@ -868,12 +919,53 @@
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 89EB935E235BFCE30038BCEC /* Products */;
+					ProjectRef = 89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */;
+				},
+				{
+					ProductGroup = 9E0D95232358AFEE00C6C2B2 /* Products */;
+					ProjectRef = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				89C5FDDC21B1B13700A10E58 /* Zebra */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		89EB9362235BFCE30038BCEC /* LNPopupController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LNPopupController.framework;
+			remoteRef = 89EB9361235BFCE30038BCEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9E0D952A2358AFEF00C6C2B2 /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = 9E0D95292358AFEF00C6C2B2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SDWebImage.framework;
+			remoteRef = 9E0D952B2358AFEF00C6C2B2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9E0D952E2358AFEF00C6C2B2 /* SDWebImageMapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SDWebImageMapKit.framework;
+			remoteRef = 9E0D952D2358AFEF00C6C2B2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		89C5FDDB21B1B13700A10E58 /* Resources */ = {
@@ -1086,6 +1178,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 arm64e armv7";
 			};
 			name = Debug;
 		};
@@ -1139,6 +1232,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 arm64e armv7";
 			};
 			name = Release;
 		};
@@ -1146,6 +1240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
@@ -1171,6 +1266,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7";
 			};
 			name = Debug;
 		};
@@ -1178,6 +1274,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
@@ -1199,6 +1296,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7";
 			};
 			name = Release;
 		};

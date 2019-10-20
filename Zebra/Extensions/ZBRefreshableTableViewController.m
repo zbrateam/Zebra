@@ -28,34 +28,46 @@
 }
 
 - (void)cancelRefresh:(id)sender {
-    [self.databaseManager cancelUpdates:self];
+    [databaseManager cancelUpdates:self];
     [[ZBAppDelegate tabBarController] clearRepos];
+    if (self.refreshControl.refreshing) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
-    if ([[self class] supportRefresh]) {
+    [self layoutNavigationButtons];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    if ([[self class] supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
-        [self layoutNavigationButtons];
-        [self updateRefreshView];
+        self.refreshControl = refreshControl;
     }
+    [self updateRefreshView];
 }
 
 - (BOOL)updateRefreshView {
-    if (refreshControl) {
-        self.refreshControl = refreshControl;
+    if (self.refreshControl) {
         if ([databaseManager isDatabaseBeingUpdated]) {
             if (!self.refreshControl.refreshing) {
-                [self.refreshControl beginRefreshing];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.refreshControl beginRefreshing];
+                    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
+                });
             }
             [self layoutNavigationButtonsRefreshing];
             return YES;
         }
-    } else {
-        self.refreshControl = nil;
     }
     return NO;
 }
@@ -130,13 +142,6 @@
     }
     [self setRepoRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    [self updateRefreshView];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

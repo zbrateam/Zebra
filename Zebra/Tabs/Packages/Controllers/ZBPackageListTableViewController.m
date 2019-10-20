@@ -189,10 +189,12 @@ typedef enum {
 }
 
 - (void)configureSegmentedController {
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @"")]];
-    segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
-    [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-    self.navigationItem.titleView = segmentedControl;
+    dispatch_async(dispatch_get_main_queue(), ^{
+            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @"")]];
+        segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+        self.navigationItem.titleView = segmentedControl;
+    });
 }
 
 - (void)configureQueueOrShareButton {
