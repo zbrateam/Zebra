@@ -1,0 +1,140 @@
+// Common
+
+Cancel
+No
+Ok
+Error
+Retry
+Edit
+Login
+Close
+Done
+
+// Home
+
+Home
+Info
+    Welcome to the Zebra Beta!
+    Changelog
+    Community Repos
+        Transfer Sources from %@
+        Move all sources from %@ to Zebra
+        Utility repo for %@
+        Transfer Sources
+        Utilities
+        Please Wait...
+        Verifying Source(s)
+    Stores
+        Purchases
+    Wish List
+        Unlist
+Community
+    Join our Discord
+    Follow me on Twitter
+    Credits
+
+// Sources
+
+Sources
+Local Repository
+Locally installed packages
+Unknown
+No repository urls detected.
+You have already added these repositories.
+Error verifying repository
+Error verifying repositories
+Unknown error.
+Invalid URL
+Enter URL
+Add
+Add Multiple
+Would you like to add the URL from your clipboard?
+Please Wait...
+Verifying Source(s)
+Unable to verify Repo
+Refresh
+Log Out
+Purchased Packages
+Purchased
+
+// Changes
+
+Changes
+
+// Packages
+
+Packages
+Show Updates
+Ignore Updates
+Select Version
+Package
+Information
+Upgrade All
+Loaded
+ABC
+Date
+Queue
+Clear
+Are you sure you want to clear Queue?
+Available Upgrades
+Ignored Upgrades
+Recent
+Installed Files
+Modify
+Authenticate to initiate purchase.
+Please relogin your account that is used to purchase this package (Possibly %@)
+More by this Developer
+Installed Version
+
+// Search
+
+Search
+Clear Search
+This search query is too short for the full search, please use a longer query.
+No Results Found
+
+// Downloads
+
+Downloads
+Error while opening sources.list
+The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n
+Could not find a download URL for
+%@ hasn't been modified
+Could not parse %@ from %@\n
+
+// Console
+
+Console
+Downloading Packages
+Performing actions
+Updating icon cache asynchronously
+This may take awhile and Zebra may crash. It is okay if it does.
+Close Zebra
+Restart SpringBoard
+Installing Packages
+Removing Packages
+Reinstalling Packages
+Upgrading Packages
+Done!
+
+// Queue
+
+Queue
+Queue cleared
+// TODO Install
+// TODO Remove
+// TODO Upgrade
+// TODO Reinstall
+// TODO Select Ver.
+// TODO Clear
+// TODO Unresolved Dependencies
+// TODO Conflictions
+Abort
+Continue
+Download Size
+Could not resolve dependency for %@
+%@ conflicts with %@
+%@ depends on %@
+Are you proud of yourself?
+Removed by
+Required by
