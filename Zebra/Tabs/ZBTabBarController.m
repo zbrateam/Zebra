@@ -169,9 +169,10 @@
 
 - (void)updateQueueBarData {
     int totalPackages = 0;
-    NSArray *actions = [[ZBQueue sharedInstance] actionsToPerform];
-    for (NSString *string in actions) {
-        totalPackages += [[ZBQueue sharedInstance] numberOfPackagesForQueue:string];
+    NSArray<NSNumber *> *actions = [[ZBQueue sharedInstance] actionsToPerform];
+    for (NSNumber *key in actions) {
+        ZBQueueType queue = key.intValue;
+        totalPackages += [[ZBQueue sharedInstance] numberOfPackagesForQueue:queue];
     }
     if (totalPackages == 0) {
         [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];

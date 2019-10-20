@@ -9,13 +9,23 @@
 #ifndef ZBQueueType_h
 #define ZBQueueType_h
 
+
 typedef enum {
-    ZBQueueTypeInstall      = 1 << 0,
-    ZBQueueTypeRemove       = 1 << 1,
-    ZBQueueTypeUpgrade      = 1 << 2,
-    ZBQueueTypeReinstall    = 1 << 3,
-    ZBQueueTypeSelectable   = 1 << 4,
-    ZBQueueTypeClear        = 1 << 5
+    ZBQueueTypeUnknown                = 0,
+
+    ZBQueueTypeInstall                = 1 << 0,
+    ZBQueueTypeRemove                 = 1 << 1,
+    ZBQueueTypeUpgrade                = 1 << 2,
+    ZBQueueTypeReinstall              = 1 << 3,
+#define ZBQueueTypeIsPartOfManagedQueue(x) (x >= ZBQueueTypeInstall && x <= ZBQueueTypeReinstall)
+
+    ZBQueueTypeSelectable             = 1 << 4,
+    ZBQueueTypeClear                  = 1 << 5,
+#define ZBQueueTypeIsAction(x) (x >= ZBQueueTypeInstall && x <= ZBQueueTypeClear)
+
+    ZBQueueTypeUnresolvedDependencies = 1 << 6,
+    ZBQueueTypeConflictions           = 1 << 7,
 } ZBQueueType;
+
 
 #endif /* ZBQueueType_h */

@@ -108,32 +108,30 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSString *action = [[_queue actionsToPerform] objectAtIndex:section];
-    return [_queue numberOfPackagesForQueue:action];
+    ZBQueueType queue = _queue.actionsToPerform[section].intValue;
+    return [_queue numberOfPackagesForQueue:queue];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *title = [[_queue actionsToPerform] objectAtIndex:section];
-    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"Reinstall"] || [title isEqualToString:@"Upgrade"]) {
-        ZBQueueType type = [_queue keyToQueue:title];
-        if (type) {
-            double totalDownloadSize = 0;
-            NSArray *packages = [_queue queueArray:type];
-            for (ZBPackage *package in packages) {
-                ZBPackage *truePackage = package;
-                totalDownloadSize += [truePackage numericSize];
+    ZBQueueType queue = _queue.actionsToPerform[section].intValue;
+    NSString *title = [_queue queueToKey:queue];
+    if(queue == ZBQueueTypeInstall || queue == ZBQueueTypeReinstall || queue == ZBQueueTypeUpgrade) {
+        double totalDownloadSize = 0;
+        NSArray *packages = [_queue queueArray:queue];
+        for (ZBPackage *package in packages) {
+            ZBPackage *truePackage = package;
+            totalDownloadSize += [truePackage numericSize];
+        }
+        if (totalDownloadSize) {
+            NSString *unit = @"bytes";
+            if (totalDownloadSize > 1024 * 1024) {
+                totalDownloadSize /= 1024 * 1024;
+                unit = @"MB";
+            } else if (totalDownloadSize > 1024) {
+                totalDownloadSize /= 1024;
+                unit = @"KB";
             }
-            if (totalDownloadSize) {
-                NSString *unit = @"bytes";
-                if (totalDownloadSize > 1024 * 1024) {
-                    totalDownloadSize /= 1024 * 1024;
-                    unit = @"MB";
-                } else if (totalDownloadSize > 1024) {
-                    totalDownloadSize /= 1024;
-                    unit = @"KB";
-                }
-                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
-            }
+            return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
         }
     }
     return title;
@@ -148,23 +146,21 @@
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *actions = [_queue actionsToPerform];
-    NSString *action = [actions objectAtIndex:indexPath.section];
-    ZBQueueType queue = [_queue keyToQueue:action];
-    return queue ? [_queue packageInQueue:queue atIndex:indexPath.row] : nil;
+    ZBQueueType queue = _queue.actionsToPerform[indexPath.section].intValue;
+    return [_queue packageInQueue:queue atIndex:indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
+    ZBQueueType queue = _queue.actionsToPerform[indexPath.section].intValue;
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
-    if ([action isEqualToString:@"Unresolved Dependencies"]) {
+    if (queue == ZBQueueTypeUnresolvedDependencies) {
         cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
         
         NSArray *failedQ = [_queue failedDepQueue];
@@ -172,7 +168,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
         
         return cell;
-    } else if ([action isEqualToString:@"Conflictions"]) {
+    } else if (queue == ZBQueueTypeConflictions) {
         cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
         
         NSArray *failedQ = [_queue failedConQueue];
@@ -228,7 +224,6 @@
     
     NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
     if (requiredPackages) {
-        ZBQueueType queue = [_queue keyToQueue:action];
         NSMutableArray <NSString *> *requiredPackageNames = [NSMutableArray array];
         for (ZBPackage *package in requiredPackages) {
             [requiredPackageNames addObject:package.name];
@@ -265,8 +260,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
-        ZBQueueType queue = [_queue keyToQueue:action];
+        ZBQueueType queue = _queue.actionsToPerform[indexPath.section].intValue;
         ZBPackage *package = [self packageAtIndexPath:indexPath];
         
         if (package) {

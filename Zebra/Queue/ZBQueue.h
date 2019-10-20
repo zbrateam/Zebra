@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *managedQueue;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray *> *managedQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedDepQueue;
 @property (nonatomic, strong) NSMutableArray<NSArray *> *failedConQueue;
 @property(assign) BOOL useIcon;
@@ -31,12 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)markPackageAsFailed:(ZBPackage *)package forConflicts:(ZBPackage *)conflict conflictionType:(int)type;
 - (void)removePackage:(ZBPackage *)package fromQueue:(ZBQueueType)queue;
 - (NSArray *)tasks:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
-- (int)numberOfPackagesForQueue:(NSString *)queue;
+- (int)numberOfPackagesForQueue:(ZBQueueType)queue;
 - (nullable NSMutableArray <ZBPackage *> *)packagesRequiredBy:(ZBPackage *)package;
 - (nullable ZBPackage *)packageReplacedBy:(ZBPackage *)package;
 - (ZBPackage *)packageInQueue:(ZBQueueType)queue atIndex:(NSInteger)index;
 - (void)clearQueue;
-- (NSArray *)actionsToPerform;
+- (NSArray<NSNumber *> *)actionsToPerform;
 - (NSMutableArray *)queueArray:(ZBQueueType)queue;
 - (BOOL)hasObjects;
 - (BOOL)containsPackage:(ZBPackage *)package;
@@ -46,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)needsHyena;
 - (NSString *)queueToKey:(ZBQueueType)queue;
 - (NSString *)queueToKeyDisplayed:(ZBQueueType)queue;
-- (ZBQueueType)keyToQueue:(NSString *)key;
 - (ZBQueueType)queueStatusForPackage:(ZBPackage *)package;
 - (BOOL)hasErrors;
 @end

@@ -95,7 +95,7 @@
                 if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
                 } else if (q == ZBQueueTypeClear) {
-                    [queue removePackage:package fromQueue:0];
+                    [queue removePackage:package fromQueue:ZBQueueTypeUnknown];
                 } else {
                     [queue addPackage:package toQueue:q];
                 }
@@ -118,7 +118,7 @@
                 } else if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
                 } else if (q == ZBQueueTypeClear) {
-                    [queue removePackage:package fromQueue:0];
+                    [queue removePackage:package fromQueue:ZBQueueTypeUnknown];
                 } else {
                     [queue addPackage:package toQueue:q];
                 }
@@ -133,7 +133,7 @@
                 } else if (q == ZBQueueTypeSelectable) {
                     [self selectVersionForPackage:package indexPath:nil viewController:vc parent:parent];
                 } else if (q == ZBQueueTypeClear) {
-                    [queue removePackage:package fromQueue:0];
+                    [queue removePackage:package fromQueue:ZBQueueTypeUnknown];
                 } else {
                     [queue addPackage:package toQueue:q];
                     [self presentQueue:vc parent:parent];
@@ -150,7 +150,7 @@
     NSUInteger possibleActions = [package possibleActions];
     ZBQueue *queue = [ZBQueue sharedInstance];
     
-    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeClear; q <<= 1) {
+    for (ZBQueueType q = ZBQueueTypeInstall; ZBQueueTypeIsAction(q); q <<= 1) {
         if ([self canHaveAction:possibleActions forPackage:package queue:q]) {
             NSString *title = type == 0 ? [queue queueToKeyDisplayed:q] : [queue queueToKey:q];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
