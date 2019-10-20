@@ -4,8 +4,8 @@ all: Release
 .PHONY: Packages Packages.bz2 Release
 
 Release: Packages Packages.bz2
-	$(eval SIZE1 := $(shell wc -c Packages | sed 's/[[:space:]].*//'))
-	$(eval SIZE2 := $(shell wc -c Packages.bz2 | sed 's/[[:space:]].*//'))
+	$(eval SIZE1 := $(shell wc -c Packages | awk '{print $$1}'))
+	$(eval SIZE2 := $(shell wc -c Packages.bz2 | awk '{print $$1}'))
 	@cp Release_ $@
 
 	@echo SHA1: >> $@
