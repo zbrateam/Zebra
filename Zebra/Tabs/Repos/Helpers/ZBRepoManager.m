@@ -152,7 +152,7 @@
                 }];
                 
                 if (detectedURLs.count == 0) {
-                    respond(NO, @"No repository urls detected.", @[]);
+                    respond(NO, NSLocalizedString(@"No repository urls detected.", @""), @[]);
                     return;
                 }
                 
@@ -217,7 +217,7 @@
                     
                     if (strongSelf) {
                         if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
-                            respond(NO, @"You have already added these repositories.", @[]);
+                            respond(NO, NSLocalizedString(@"You have already added these repositories.", @""), @[]);
                         }
                         else {
                             __block NSError *addError = nil;
@@ -227,13 +227,9 @@
                             }];
 
                             if (errors.count) {
-                                NSString *errorMessage;
-                                
-                                if (errors.count == 1) {
-                                    errorMessage = [NSString stringWithFormat:@"Error verifying repository:\n%@", [errors componentsJoinedByString:@"\n"]];
-                                } else {
-                                    errorMessage = [NSString stringWithFormat:@"Error verifying repositories:\n%@", [errors componentsJoinedByString:@"\n"]];
-                                }
+                                NSString *errorMessage = NSLocalizedString(errors.count == 1 ? @"Error verifying repository" : @"Error verifying repositories", @"");
+                                errorMessage = [NSString stringWithFormat:@"%@:\n%@", errorMessage, [errors componentsJoinedByString:@"\n"]];
+
                                 if (addError) {
                                     errorMessage = [NSString stringWithFormat:@"%@\n%@", addError.localizedDescription, errorMessage];
                                 }
@@ -244,14 +240,14 @@
                         }
                     } else {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            respond(NO, @"Unknown error.", @[]);
+                            respond(NO, NSLocalizedString(@"Unknown error.", @""), @[]);
                         });
                     }
                 });
             }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                respond(NO, @"Unknown error.", @[]);
+                respond(NO, NSLocalizedString(@"Unknown error.", @""), @[]);
             });
         }
     });
@@ -278,7 +274,7 @@
                 }];
             }
         } else {
-            respond(NO, @"Unknown error.", responseURL);
+            respond(NO, NSLocalizedString(@"Unknown error.", @""), responseURL);
         }
     }];
 }
@@ -289,7 +285,7 @@
     NSURL *sourceURL = [NSURL URLWithString:urlString];
     if (!sourceURL) {
         NSLog(@"[Zebra] Invalid URL: %@", urlString);
-        respond(NO, [NSString stringWithFormat:@"Invalid URL: %@", urlString], sourceURL);
+        respond(NO, [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Invalid URL", @""), urlString], sourceURL);
         return;
     }
     

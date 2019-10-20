@@ -1,0 +1,23 @@
+/*
+  Localizable.strings
+  Zebra
+
+  Created by Reed Weichler on 10/19/19.
+  Copyright © 2019 Wilson Styres. All rights reserved.
+*/
+
+// Home
+
+"Home" = "Home";
+
+"Info" = "Info";
+"Welcome to the Zebra Beta!" = "Welcome to the Zebra Beta!"
+"Changelog" = "Changelog";
+"Community Repos" = "Community Repos";
+"Stores" = "Stores";
+"Wish List" = "Wish List";
+
+"Community" = "Community";
+"Join our Discord" = "Join our Discord";
+"Follow me on Twitter" = "Follow me on Twitter";
+"Credits" = "Credits";

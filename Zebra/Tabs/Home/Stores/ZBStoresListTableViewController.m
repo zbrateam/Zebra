@@ -92,9 +92,9 @@
     cell.repoLabel.text = [source origin];
 
     if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source baseURL]]]) {
-        cell.urlLabel.text = @"Login";
+        cell.urlLabel.text = NSLocalizedString(@"Login", @"");
     } else {
-        cell.urlLabel.text = @"Purchases";
+        cell.urlLabel.text = NSLocalizedString(@"Purchases", @"");
     }
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
  

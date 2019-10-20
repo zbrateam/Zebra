@@ -54,7 +54,7 @@ typedef enum {
 }
 
 - (void)resetData {
-    self.title = @"Console";
+    self.title = NSLocalizedString(@"Console", @"");
     stage = -1;
     continueWithActions = YES;
     needsIconCacheUpdate = NO;
@@ -93,7 +93,7 @@ typedef enum {
 
 - (void)downloadPackages {
     NSArray *packages = [queue packagesToDownload];
-    [self writeToConsole:@"Downloading Packages...\n" atLevel:ZBLogLevelInfo];
+    [self writeToConsole:[NSString stringWithFormat:@"%@...\n", NSLocalizedString(@"Downloading Packages", @"")] atLevel:ZBLogLevelInfo];
     downloadManager = [[ZBDownloadManager alloc] init];
     downloadManager.downloadDelegate = self;
     [downloadManager downloadPackages:packages];
@@ -164,7 +164,7 @@ typedef enum {
         [self refreshLocalPackages];
     } else {
         if (continueWithActions) {
-            _progressText.text = @" Performing actions... ";
+            _progressText.text = [NSString stringWithFormat:@" %@... ", NSLocalizedString(@"Performing actions", @"")];
             NSArray *actions = [queue tasks:debs];
             ZBLog(@"[Zebra] Actions: %@", actions);
             
@@ -262,11 +262,11 @@ typedef enum {
     [self removeAllDebs];
     
     if (needsIconCacheUpdate) {
-        [self writeToConsole:@"Updating icon cache asynchronously...\n" atLevel:ZBLogLevelInfo];
+        [self writeToConsole:[NSString stringWithFormat:@"%@...\n", NSLocalizedString(@"Updating icon cache asynchronously", @"")] atLevel:ZBLogLevelInfo];
         NSMutableArray *arguments = [NSMutableArray new];
         if ([uicaches count] + [bundlePaths count] > 1) {
             [arguments addObject:@"-a"];
-            [self writeToConsole:@"This may take awhile and Zebra may crash. It is okay if it does.\n" atLevel:ZBLogLevelWarning];
+            [self writeToConsole:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"This may take awhile and Zebra may crash. It is okay if it does.", @"")] atLevel:ZBLogLevelWarning];
         } else {
             [arguments addObject:@"-p"];
             for (NSString *packageID in uicaches) {
@@ -297,13 +297,13 @@ typedef enum {
         self->_completeButton.hidden = NO;
         self->_progressText.text = nil;
         if (self->hasZebraUpdated) {
-            [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
+            [self->_completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
         } else if (self->needsRespring) {
-            [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
+            [self->_completeButton setTitle:NSLocalizedString(@"Restart SpringBoard", @"") forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
         } else {
-            [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
+            [self->_completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
         }
     });
 }
@@ -359,22 +359,22 @@ typedef enum {
     switch (s) {
         case ZBStageInstall:
             [self setTitle:@"Installing"];
-            [self writeToConsole:@"Installing Packages...\n" atLevel:ZBLogLevelInfo];
+            [self writeToConsole:[NSString stringWithFormat:@"%@...\n", NSLocalizedString(@"Installing Packages", @"")] atLevel:ZBLogLevelInfo];
             break;
         case ZBStageRemove:
             [self setTitle:@"Removing"];
-            [self writeToConsole:@"Removing Packages...\n" atLevel:ZBLogLevelInfo];
+            [self writeToConsole:[NSString stringWithFormat:@"%@...\n", NSLocalizedString(@"Removing Packages", @"")] atLevel:ZBLogLevelInfo];
             break;
         case ZBStageReinstall:
             [self setTitle:@"Reinstalling"];
-            [self writeToConsole:@"Reinstalling Packages...\n" atLevel:ZBLogLevelInfo];
+            [self writeToConsole:[NSString stringWithFormat:@"%@...\n", NSLocalizedString(@"Reinstalling Packages", @"")] atLevel:ZBLogLevelInfo];
             break;
         case ZBStageUpgrade:
             [self setTitle:@"Upgrading"];
-            [self writeToConsole:@"Upgrading Packages...\n" atLevel:ZBLogLevelInfo];
+            [self writeToConsole:[NSString stringWithFormat:@"%@...\n", NSLocalizedString(@"Upgrading Packages", @"")] atLevel:ZBLogLevelInfo];
             break;
         case ZBStageDone:
-            [self setTitle:@"Done!"];
+            [self setTitle:NSLocalizedString(@"Done!", @"")];
             [self writeToConsole:@"Done!\n" atLevel:ZBLogLevelInfo];
             break;
         default:

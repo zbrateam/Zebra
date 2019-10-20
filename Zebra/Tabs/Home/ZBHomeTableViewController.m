@@ -46,7 +46,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
-    [self.navigationItem setTitle:@"Home"];
+    [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     self.featuredCollection.delegate = self;
@@ -265,7 +265,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
-            cell.textLabel.text = @"Welcome to the Zebra Beta!";
+            cell.textLabel.text = NSLocalizedString(@"Welcome to the Zebra Beta!", @"");
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -282,19 +282,19 @@ typedef enum ZBLinksOrder : NSUInteger {
             UIImage *image;
             switch (indexPath.row) {
                 case ZBChangeLog:
-                    text = @"Changelog";
+                    text = NSLocalizedString(@"Changelog", @"");
                     image = [UIImage imageNamed:@"changelog"];
                     break;
                 case ZBCommunity:
-                    text = @"Community Repos";
+                    text = NSLocalizedString(@"Community Repos", @"");
                     image = [UIImage imageNamed:@"repos"];
                     break;
                 case ZBStores:
-                    text = @"Stores";
+                    text = NSLocalizedString(@"Stores", @"");
                     image = [UIImage imageNamed:@"stores"];
                     break;
                 case ZBWishList:
-                    text = @"Wish List";
+                    text = NSLocalizedString(@"Wish List", @"");
                     image = [UIImage imageNamed:@"stores"];
                     break;
                 default:
@@ -320,11 +320,11 @@ typedef enum ZBLinksOrder : NSUInteger {
             UIImage *image;
             switch (indexPath.row) {
                 case ZBDiscord:
-                    text = @"Join our Discord";
+                    text = NSLocalizedString(@"Join our Discord", @"");
                     image = [UIImage imageNamed:@"discord"];
                     break;
                 case ZBWilsonTwitter:
-                    text = @"Follow me on Twitter";
+                    text = NSLocalizedString(@"Follow me on Twitter", @"");
                     image = [UIImage imageNamed:@"twitter"];
                     break;
             }
@@ -345,7 +345,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
-            [cell.textLabel setText:@"Credits"];
+            [cell.textLabel setText:NSLocalizedString(@"Credits", @"")];
             [cell.imageView setImage:[UIImage imageNamed:@"url"]];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -361,9 +361,9 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
-            return @"Info";
+            return NSLocalizedString(@"Info", @"");
         case ZBLinks:
-            return @"Community";
+            return NSLocalizedString(@"Community", @"");
         default:
             return nil;
     }

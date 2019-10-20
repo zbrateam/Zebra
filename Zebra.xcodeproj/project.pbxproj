@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00ED302E235C23C5005E8302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00ED302C235C23C5005E8302 /* Localizable.strings */; };
 		2627B60B2321A63E00B141E5 /* originalBlack_ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60A2321A63E00B141E5 /* originalBlack_ipad@3x.png */; };
 		2627B60D2321A64400B141E5 /* originalBlack_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60C2321A64400B141E5 /* originalBlack_ipad@2x.png */; };
 		2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60E2321A64D00B141E5 /* originalBlack@3x.png */; };
@@ -140,6 +141,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00ED302D235C23C5005E8302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2627B60A2321A63E00B141E5 /* originalBlack_ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack_ipad@3x.png"; sourceTree = "<group>"; };
 		2627B60C2321A64400B141E5 /* originalBlack_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack_ipad@2x.png"; sourceTree = "<group>"; };
 		2627B60E2321A64D00B141E5 /* originalBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@3x.png"; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 				9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */,
 				9EB2AE8D22E5C64400BE99BC /* ZBLog.h */,
 				9E87F358231A20350043E7F2 /* ZBSettings.h */,
+				00ED302C235C23C5005E8302 /* Localizable.strings */,
 			);
 			path = Zebra;
 			sourceTree = "<group>";
@@ -912,6 +915,7 @@
 				36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */,
 				36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */,
 				89E8638421D5AFAA0081E485 /* changelog@3x.png in Resources */,
+				00ED302E235C23C5005E8302 /* Localizable.strings in Resources */,
 				89E8638321D5AFAA0081E485 /* url@3x.png in Resources */,
 				2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */,
 				2627B60B2321A63E00B141E5 /* originalBlack_ipad@3x.png in Resources */,
@@ -999,6 +1003,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		00ED302C235C23C5005E8302 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00ED302D235C23C5005E8302 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		89C5FDE621B1B13700A10E58 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

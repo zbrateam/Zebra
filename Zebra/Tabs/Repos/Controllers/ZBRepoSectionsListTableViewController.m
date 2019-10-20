@@ -44,11 +44,11 @@
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     // Purchased Buttons
-    self.login = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain actionHandler:^{
+    self.login = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"") style:UIBarButtonItemStylePlain actionHandler:^{
         [self setupRepoLogin];
     }];
     
-    self.purchased = [[UIBarButtonItem alloc] initWithTitle:@"Purchased" style:UIBarButtonItemStylePlain actionHandler:^{
+    self.purchased = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Purchased", @"") style:UIBarButtonItemStylePlain actionHandler:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = self.repo.origin;

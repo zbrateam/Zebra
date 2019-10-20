@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     if (presented) {
-        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
     }
     
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
         filesController.navigationDelegate = self;
-        filesController.navigationItem.title = @"Installed Files";
+        filesController.navigationItem.title = NSLocalizedString(@"Installed Files", @"");
         NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
         [filesController setValue:url forKey:@"_url"];
         
@@ -330,7 +330,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)addModifyButton {
-    UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+    UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
     self.navigationItem.rightBarButtonItem = modifyButton;
 }
 
@@ -414,7 +414,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                         }
                     }
                     if (!set) {
-                        title = @"Modify";
+                        title = NSLocalizedString(@"Modify", @"");
                         selector = @selector(modifyPackage);
                     }
                 } else if ([purchaseInfo.available boolValue]) {
@@ -465,7 +465,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 NSError *error = nil;
                 [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                       authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                keychain.authenticationPrompt = @"Authenticate to initiate purchase.";
+                keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
                 secret = keychain[idThing];
                 dispatch_semaphore_signal(sema);
                 if (error) {
@@ -509,7 +509,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)initPurchaseLink:(NSString *)link {
     if (link == nil) {
-        [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:@"Please relogin your account that is used to purchase this package (Possibly %@)", package.repo.origin]];
+        [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Please relogin your account that is used to purchase this package (Possibly %@)", @""), package.repo.origin]];
         return;
     }
     NSURL *destinationUrl = [NSURL URLWithString:link];
@@ -658,7 +658,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)setMoreByText:(ZBPackage *)package {
     if (package.author) {
-        infos[@"MoreBy"] = @"More by this Developer";
+        infos[@"MoreBy"] = NSLocalizedString(@"More by this Developer", @"");
     } else {
         [infos removeObjectForKey:@"MoreBy"];
     }
@@ -668,7 +668,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
         infos[@"Version"] = package.version;
     } else {
-        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", package.version, [package installedVersion]];
+        infos[@"Version"] = [NSString stringWithFormat:@"%@ (%@: %@)", package.version, NSLocalizedString(@"Installed Version", @""), [package installedVersion]];
     }
 }
 

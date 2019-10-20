@@ -167,7 +167,7 @@ typedef enum {
 - (void)configureUpgradeButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->needsUpdatesSection) {
-            UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:@"Upgrade All" style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
+            UIBarButtonItem *updateButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Upgrade All", @"") style:UIBarButtonItemStylePlain target:self action:@selector(upgradeAll)];
             self.navigationItem.rightBarButtonItem = updateButton;
         } else {
             self.navigationItem.rightBarButtonItem = nil;
@@ -179,7 +179,7 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.continueBatchLoad) {
             if (self->totalNumberOfPackages) {
-                UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% Loaded", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages)] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
+                UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% %@", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages), NSLocalizedString(@"Loaded", @"")] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
                 self.navigationItem.rightBarButtonItem = loadButton;
             }
         } else {
@@ -189,7 +189,7 @@ typedef enum {
 }
 
 - (void)configureSegmentedController {
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"ABC", @"Date"]];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @"")]];
     segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
     [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = segmentedControl;
@@ -198,8 +198,8 @@ typedef enum {
 - (void)configureQueueOrShareButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([[ZBQueue sharedInstance] hasObjects]) {
-            self->queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-            self->clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
+            self->queueButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Queue", @"") style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
+            self->clearButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"") style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
             self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
         } else {
             self->queueButton = self->clearButton = nil;
@@ -215,12 +215,12 @@ typedef enum {
 }
 
 - (void)askClearQueue {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:@"Are you sure you want to clear Queue?" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:NSLocalizedString(@"Are you sure you want to clear Queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:@"Clear" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self clearQueue];
     }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
     [alert addAction:clearAction];
     [alert addAction:cancelAction];
     
@@ -378,16 +378,16 @@ typedef enum {
     BOOL hasDataInSection = !isUpdateSection && !isIgnoredUpdateSection && [[self objectAtSection:section] count];
     if (isUpdateSection || isIgnoredUpdateSection || hasDataInSection) {
         if (isUpdateSection) {
-            return [NSString stringWithFormat:@"Available Upgrades (%lu)", (unsigned long)updates.count];
+            return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Available Upgrades", @""), (unsigned long)updates.count];
         }
         if (isIgnoredUpdateSection) {
-            return [NSString stringWithFormat:@"Ignored Upgrades (%lu)", (unsigned long)ignoredUpdates.count];
+            return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Ignored Upgrades", @""), (unsigned long)ignoredUpdates.count];
         }
         if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
             return [self sectionIndexTitlesForTableView:tableView][[self trueSection:section]];
         }
         if (selectedSortingType == ZBSortingTypeDate) {
-            return @"Recent";
+            return NSLocalizedString(@"Recent", @"");
         }
     }
     return nil;

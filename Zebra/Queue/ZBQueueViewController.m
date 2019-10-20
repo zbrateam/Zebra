@@ -28,11 +28,11 @@
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self refreshBarButtons];
-    self.title = @"Queue";
+    self.title = NSLocalizedString(@"Queue", @"");
 }
 
 - (void)clearQueueBarData {
-    self.navigationController.popupItem.title = @"Queue cleared";
+    self.navigationController.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
     self.navigationController.popupItem.subtitle = nil;
 }
 
@@ -84,12 +84,12 @@
 - (void)refreshBarButtons {
     if ([_queue hasErrors]) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
-        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
+        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Abort", @"");
+        self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
     } else {
         self.navigationItem.rightBarButtonItem.enabled = YES;
-        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
+        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
     }
 }
@@ -132,7 +132,7 @@
                     totalDownloadSize /= 1024;
                     unit = @"KB";
                 }
-                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
+                return [NSString stringWithFormat:@"%@ (%@: %.2f %@)", title, NSLocalizedString(@"Download Size", @""), totalDownloadSize, unit];
             }
         }
     }
@@ -169,7 +169,7 @@
         
         NSArray *failedQ = [_queue failedDepQueue];
         cell.textLabel.text = failedQ[indexPath.row][0];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Could not resolve dependency for %@", @""), [(ZBPackage *)failedQ[indexPath.row][1] name]];
         
         return cell;
     } else if ([action isEqualToString:@"Conflictions"]) {
@@ -184,16 +184,16 @@
         cell.textLabel.text = confliction.name;
         switch (type) {
             case 0:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", package.name, confliction.name];
+                cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ conflicts with %@", @""), package.name, confliction.name];
                 break;
             case 1:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", confliction.name, package.name];
+                cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ conflicts with %@", @""), confliction.name, package.name];
                 break;
             case 2:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ depends on %@", confliction.name, package.name];
+                cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ depends on %@", @""), confliction.name, package.name];
                 break;
             default:
-                cell.detailTextLabel.text = @"Are you proud of yourself?";
+                cell.detailTextLabel.text = NSLocalizedString(@"Are you proud of yourself?", @"");
                 break;
         }
         
@@ -233,7 +233,8 @@
         for (ZBPackage *package in requiredPackages) {
             [requiredPackageNames addObject:package.name];
         }
-        [details appendString:[NSString stringWithFormat:queue == ZBQueueTypeRemove ? @" (Removed by %@)" : @" (Required by %@)", [requiredPackageNames componentsJoinedByString:@", "]]];
+        NSString *prefix = NSLocalizedString(queue == ZBQueueTypeRemove ? @"Removed by" : @"Required by", @"");
+        [details appendString:[NSString stringWithFormat:@" (%@ %@)", prefix, [requiredPackageNames componentsJoinedByString:@", "]]];
     }
     cell.detailTextLabel.text = details;
     
