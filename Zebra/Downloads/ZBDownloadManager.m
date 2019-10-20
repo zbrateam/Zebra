@@ -126,7 +126,7 @@
     }
     
     if ([sourceList isEqualToString:@""] || [sourceList isEqualToString:@"\n"]) {
-        sourceList = @"deb https://xtm3x.github.io/repo ./\n";
+        sourceList = @"deb https://getzbra.com/repo ./\n";
         [sourceList writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
     }
     
