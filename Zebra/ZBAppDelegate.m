@@ -17,8 +17,8 @@
 #import <Repos/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import <SDWebImage/SDImageCacheConfig.h>
-#import <SDWebImage/SDImageCache.h>
+#import <SDImageCacheConfig.h>
+#import <SDImageCache.h>
 
 @interface ZBAppDelegate ()
 
