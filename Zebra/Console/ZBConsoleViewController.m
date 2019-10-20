@@ -296,12 +296,12 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->_completeButton.hidden = NO;
         self->_progressText.text = nil;
-        if (self->hasZebraUpdated) {
-            [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
-            [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
-        } else if (self->needsRespring) {
+        if (self->needsRespring) {
             [self->_completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->_completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
+        } else if (self->hasZebraUpdated) {
+            [self->_completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
+            [self->_completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
         } else {
             [self->_completeButton setTitle:@"Done" forState:UIControlStateNormal];
         }
