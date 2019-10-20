@@ -167,6 +167,22 @@
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
 
+    if ([self queueHasPackages:ZBQueueTypeRemove]) {
+        NSMutableArray *removeCommand = [baseCommand mutableCopy];
+        [removeCommand addObject:@"remove"];
+        
+        for (ZBPackage *package in [self removeQueue]) {
+            [removeCommand addObject:package.identifier];
+        }
+        
+        for (ZBPackage *package in [self conflictQueue]) {
+            [removeCommand addObject:package.identifier];
+        }
+        
+        [commands addObject:@[@(ZBQueueTypeRemove)]];
+        [commands addObject:removeCommand];
+    }
+    
     if ([self queueHasPackages:ZBQueueTypeInstall]) {
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         [installCommand addObject:@"install"];
@@ -189,18 +205,6 @@
         
         [commands addObject:@[@(ZBQueueTypeReinstall)]];
         [commands addObject:reinstallCommand];
-    }
-    
-    if ([self queueHasPackages:ZBQueueTypeRemove]) {
-        NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        [removeCommand addObject:@"remove"];
-        
-        for (ZBPackage *package in [self removeQueue]) {
-            [removeCommand addObject:package.identifier];
-        }
-        
-        [commands addObject:@[@(ZBQueueTypeRemove)]];
-        [commands addObject:removeCommand];
     }
     
     if ([self queueHasPackages:ZBQueueTypeUpgrade]) {
@@ -307,7 +311,15 @@
 }
 
 - (BOOL)queueHasPackages:(ZBQueueType)queue {
-    return [managedQueue[[self keyFromQueueType:queue]] count] > 0;
+    if (queue == ZBQueueTypeRemove) {
+        return [managedQueue[[self keyFromQueueType:queue]] count] > 0 || [[self conflictQueue] count] > 0;
+    }
+    else if (queue == ZBQueueTypeInstall) {
+        return [managedQueue[[self keyFromQueueType:queue]] count] > 0 || [[self dependencyQueue] count] > 0;
+    }
+    else {
+        return [managedQueue[[self keyFromQueueType:queue]] count] > 0;
+    }
 }
 
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)icon {
