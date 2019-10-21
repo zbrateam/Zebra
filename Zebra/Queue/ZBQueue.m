@@ -161,6 +161,8 @@
     for (NSMutableArray *array in [self queues]) {
         [array removeAllObjects];
     }
+    [[self dependencyQueue] removeAllObjects];
+    [[self conflictQueue] removeAllObjects];
     [queuedPackagesList removeAllObjects];
 }
 
