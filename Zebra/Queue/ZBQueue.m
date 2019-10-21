@@ -103,6 +103,7 @@
 - (void)addConflict:(ZBPackage *)package {
     if (![[self conflictQueue] containsObject:package]) {
         [[self conflictQueue] addObject:package];
+        [self enqueueRemovalOfPackagesThatDependOn:package];
     }
 }
 
