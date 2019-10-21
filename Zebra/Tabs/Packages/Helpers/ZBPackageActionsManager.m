@@ -156,7 +156,7 @@
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
         if ([self isActionAllowed:possibleActions forPackage:package queue:q]) {
-            NSString *title = [queue displayableNameForQueueType:q useIcon:true];
+            NSString *title = [queue displayableNameForQueueType:q useIcon:(type == 0)];
             void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
             [actions addObject:action];
