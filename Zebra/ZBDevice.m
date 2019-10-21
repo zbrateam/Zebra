@@ -315,9 +315,9 @@
 }
 
 + (void)applyThemeSettings {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL useIcon = [defaults boolForKey:iconActionKey];
-    [[ZBQueue sharedInstance] setUseIcon:useIcon];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    BOOL useIcon = [defaults boolForKey:iconActionKey];
+//    [[ZBQueue sharedQueue] setUseIcon:useIcon];
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
     } else {
@@ -355,6 +355,11 @@
         safariVC.view.tintColor = [UIColor tintColor];
     }
     [delegate presentViewController:safariVC animated:YES completion:nil];
+}
+
++ (BOOL)useIcon {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:iconActionKey];
 }
 
 @end

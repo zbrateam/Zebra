@@ -12,9 +12,9 @@
 #import <Queue/ZBQueueType.h>
 
 @interface ZBPackageActionsManager : NSObject
-+ (void)presentQueue:(UIViewController *)vc parent:(UIViewController *)parent;
 + (void)installPackage:(ZBPackage *)package purchased:(BOOL)purchased;
-+ (void)selectVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent;
++ (void)selectUpgradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent;
++ (void)selectDowngradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent;
 + (UIColor *)colorForAction:(ZBQueueType)queue;
 + (NSMutableArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent;
 + (NSMutableArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent;

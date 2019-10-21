@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "ZBQueueViewController.h"
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import "ZBQueue.h"
@@ -16,7 +17,8 @@
 @import LNPopupController;
 
 @interface ZBQueueViewController () {
-    ZBQueue *_queue;
+    ZBQueue *queue;
+    NSArray *packages;
 }
 @end
 
@@ -24,9 +26,12 @@
 
 - (void)loadView {
     [super loadView];
-    _queue = [ZBQueue sharedInstance];
+    queue = [ZBQueue sharedQueue];
+    packages = [queue topDownQueue];
+    NSLog(@"Conflict Queue: %@", [queue conflictQueue]);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
     self.title = @"Queue";
 }
@@ -38,7 +43,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
     [self refreshTable];
 }
 
@@ -54,7 +60,7 @@
 
 - (IBAction)abort:(id)sender {
     if (!self.navigationItem.rightBarButtonItem.enabled) {
-        [_queue clearQueue];
+        [queue clear];
         [self clearQueueBarData];
         [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
     } else {
@@ -64,30 +70,18 @@
 }
 
 - (IBAction)clear:(id)sender {
-    for (NSArray *array in [_queue failedDepQueue]) {
-        ZBPackage *package = array[1];
-        [_queue removePackage:package fromQueue:0];
-    }
-    [_queue.failedDepQueue removeAllObjects];
-    for (NSArray *array in [_queue failedConQueue]) {
-        ZBPackage *package = array[2];
-        [_queue removePackage:package fromQueue:0];
-    }
-    [_queue.failedConQueue removeAllObjects];
-    if (![_queue hasObjects]) {
-        [self abort:nil];
-    } else {
-        [self refreshTable];
-    }
+    [self abort:nil];
 }
 
 - (void)refreshBarButtons {
-    if ([_queue hasErrors]) {
+    if ([queue hasIssues]) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
         self.navigationItem.leftBarButtonItems[0].title = @"Abort";
         self.navigationItem.leftBarButtonItems[1].title = @"Clear";
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
-    } else {
+    }
+    else {
+
         self.navigationItem.rightBarButtonItem.enabled = YES;
         self.navigationItem.leftBarButtonItems[0].title = @"Continue";
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
@@ -95,7 +89,15 @@
 }
 
 - (void)refreshTable {
+    if ([ZBQueue count] == 0) {
+        [queue clear];
+        [self clearQueueBarData];
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+        return;
+    }
+
     [self refreshBarButtons];
+    packages = [queue topDownQueue];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -104,39 +106,20 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[_queue actionsToPerform] count];
+    return [packages count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSString *action = [[_queue actionsToPerform] objectAtIndex:section];
-    return [_queue numberOfPackagesForQueue:action];
+    return [packages[section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *title = [[_queue actionsToPerform] objectAtIndex:section];
-    if ([title isEqualToString:@"Install"] || [title isEqualToString:@"Reinstall"] || [title isEqualToString:@"Upgrade"]) {
-        ZBQueueType type = [_queue keyToQueue:title];
-        if (type) {
-            double totalDownloadSize = 0;
-            NSArray *packages = [_queue queueArray:type];
-            for (ZBPackage *package in packages) {
-                ZBPackage *truePackage = package;
-                totalDownloadSize += [truePackage numericSize];
-            }
-            if (totalDownloadSize) {
-                NSString *unit = @"bytes";
-                if (totalDownloadSize > 1024 * 1024) {
-                    totalDownloadSize /= 1024 * 1024;
-                    unit = @"MB";
-                } else if (totalDownloadSize > 1024) {
-                    totalDownloadSize /= 1024;
-                    unit = @"KB";
-                }
-                return [NSString stringWithFormat:@"%@ (Download Size: %.2f %@)", title, totalDownloadSize, unit];
-            }
-        }
+    ZBQueueType action;
+    [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
+    if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
+        return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
     }
-    return title;
+    return [queue displayableNameForQueueType:action useIcon:false];
 }
 
 //- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -147,62 +130,24 @@
 //    }
 //}
 
-- (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *actions = [_queue actionsToPerform];
-    NSString *action = [actions objectAtIndex:indexPath.section];
-    ZBQueueType queue = [_queue keyToQueue:action];
-    return queue ? [_queue packageInQueue:queue atIndex:indexPath.row] : nil;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
-    
+
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
 //    cell.backgroundColor = [UIColor cellBackgroundColor];
-    
-    if ([action isEqualToString:@"Unresolved Dependencies"]) {
-        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-        
-        NSArray *failedQ = [_queue failedDepQueue];
-        cell.textLabel.text = failedQ[indexPath.row][0];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Could not resolve dependency for %@", [(ZBPackage *)failedQ[indexPath.row][1] name]];
-        
-        return cell;
-    } else if ([action isEqualToString:@"Conflictions"]) {
-        cell.backgroundColor = [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
-        
-        NSArray *failedQ = [_queue failedConQueue];
-        
-        int type = [failedQ[indexPath.row][0] intValue];
-        ZBPackage *confliction = (ZBPackage *)failedQ[indexPath.row][1];
-        ZBPackage *package = (ZBPackage *)failedQ[indexPath.row][2];
-        
-        cell.textLabel.text = confliction.name;
-        switch (type) {
-            case 0:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", package.name, confliction.name];
-                break;
-            case 1:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ conflicts with %@", confliction.name, package.name];
-                break;
-            case 2:
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ depends on %@", confliction.name, package.name];
-                break;
-            default:
-                cell.detailTextLabel.text = @"Are you proud of yourself?";
-                break;
-        }
-        
-        return cell;
+
+    ZBPackage *package = packages[indexPath.section][indexPath.row];
+    if ([[package dependencyOf] count] > 0 || [package hasIssues] || [package removedBy] != NULL)  {
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
-    
-    ZBPackage *package = [self packageAtIndexPath:indexPath];
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+
     NSString *section = [package sectionImageName];
-    
     if (package.iconPath) {
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
         cell.imageView.layer.cornerRadius = 10;
@@ -217,68 +162,87 @@
     }
 
     cell.textLabel.text = package.name;
-    
-    NSMutableString *details = [NSMutableString string];
-    ZBPackage *replacedPackage = [_queue packageReplacedBy:package];
-    if (replacedPackage) {
-        [details appendString:[NSString stringWithFormat:@"%@ (%@ -> %@)", package.identifier, replacedPackage.version, package.version]];
-    } else {
-        [details appendString:[NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
+
+    if ([package hasIssues]) {
+        [cell setTintColor:[UIColor systemPinkColor]];
+        cell.textLabel.textColor = [UIColor systemPinkColor];
+        cell.detailTextLabel.textColor = [UIColor systemPinkColor];
     }
-    
-    NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
-    if (requiredPackages) {
-        ZBQueueType queue = [_queue keyToQueue:action];
-        NSMutableArray <NSString *> *requiredPackageNames = [NSMutableArray array];
-        for (ZBPackage *package in requiredPackages) {
-            [requiredPackageNames addObject:package.name];
-        }
-        [details appendString:[NSString stringWithFormat:queue == ZBQueueTypeRemove ? @" (Removed by %@)" : @" (Required by %@)", [requiredPackageNames componentsJoinedByString:@", "]]];
+    else {
+        [cell setTintColor:[UIColor tintColor]];
+        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     }
-    cell.detailTextLabel.text = details;
-    
+
     CGSize itemSize = CGSizeMake(35, 35);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
     [cell.imageView.image drawInRect:imageRect];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
+
     return cell;
 }
 
-#pragma mark - Table View Delegate
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    ZBPackage *package = packages[indexPath.section][indexPath.row];
+    if ([package hasIssues]) {
+        NSMutableString *message = [[NSString stringWithFormat:@"%@ has issues that cannot be resolved:", [package name]] mutableCopy];
+        for (NSString *issue in [package issues]) {
+            [message appendFormat:@"\n%@", issue];
+        }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Issues" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self->queue removePackage:package];
+            [self refreshTable];
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+        }];
+        [alert addAction:deleteAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
+    }
+    else if ([package removedBy] != NULL) {
+        NSString *message = [NSString stringWithFormat:@"%@ must be removed because it depends on %@", [package name], [[package removedBy] name]];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Package" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
+    }
+    else if ([[package dependsOn] count] > 0) {
+        NSMutableString *message = [[NSString stringWithFormat:@"%@ is required by:", [package name]] mutableCopy];
+        for (ZBPackage *parent in [package dependencyOf]) {
+            [message appendFormat:@"\n%@", [parent name]];
+        }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Package" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert dismissViewControllerAnimated:true completion:nil];
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:true completion:nil];
+    }
+}
+
+//swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([_queue hasErrors] || ![_queue hasObjects]) return NO;
-    ZBPackage *package = [self packageAtIndexPath:indexPath];
-    NSMutableArray <ZBPackage *> *requiredPackages = [_queue packagesRequiredBy:package];
-    if (requiredPackages) {
-        for (ZBPackage *requiredPackage in requiredPackages) {
-            if ([_queue containsPackage:requiredPackage queue:ZBQueueTypeInstall]) {
-                return NO;
-            }
-        }
-    }
     return YES;
 }
 
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+    }];
+    return @[deleteAction];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *action = [[_queue actionsToPerform] objectAtIndex:indexPath.section];
-        ZBQueueType queue = [_queue keyToQueue:action];
-        ZBPackage *package = [self packageAtIndexPath:indexPath];
-        
-        if (package) {
-            [_queue removePackage:package fromQueue:queue];
-        }
-        
-        if ([_queue hasObjects]) {
-            [self refreshTable];
-        } else {
-            [self abort:nil];
-        }
-    }
+    [queue removePackage:packages[indexPath.section][indexPath.row]];
+    [self refreshTable];
 }
 
 @end

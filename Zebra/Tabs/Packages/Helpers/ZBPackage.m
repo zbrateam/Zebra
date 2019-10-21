@@ -41,6 +41,10 @@
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
+@synthesize dependencies;
+@synthesize dependencyOf;
+@synthesize issues;
+@synthesize removedBy;
 
 + (NSArray *)filesInstalled:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
@@ -457,7 +461,32 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
     [versions removeObject:self];
+    
     return versions;
+}
+
+- (NSArray <ZBPackage *> *)lesserVersions {
+    NSMutableArray *versions = [[self otherVersions] mutableCopy];
+    NSMutableArray *lesserVersions = [versions mutableCopy];
+    for (ZBPackage *package in versions) {
+        if ([self compare:package] == NSOrderedAscending) {
+            [lesserVersions removeObject:package];
+        }
+    }
+    
+    return lesserVersions;
+}
+
+- (NSArray <ZBPackage *> *)greaterVersions {
+    NSMutableArray *versions = [[self otherVersions] mutableCopy];
+    NSMutableArray *greaterVersions = [versions mutableCopy];
+    for (ZBPackage *package in versions) {
+        if ([self compare:package] == NSOrderedDescending) {
+            [greaterVersions removeObject:package];
+        }
+    }
+    
+    return greaterVersions;
 }
 
 - (NSUInteger)possibleActions {
@@ -484,7 +513,7 @@
         if (otherVersions.count) {
             // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
             // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-            possibleActions |= ZBQueueTypeSelectable; // Select other versions
+            possibleActions |= ZBQueueTypeDowngrade; // Select other versions
         }
     }
     return possibleActions;
@@ -507,7 +536,7 @@
 
 - (ZBPackage *)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    ZBPackage *candidate = [databaseManager packageForID:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:NO checkProvides:YES];
+    ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
     ZBLog(@"Installable candidate for %@ is %@", self, candidate);
     return candidate;
 }
@@ -548,6 +577,32 @@
 	}];
 
     return version;
+}
+
+- (void)addDependency:(ZBPackage *)package {
+    if (!dependencies) dependencies = [NSMutableArray new];
+    
+    if (![dependencies containsObject:package]) {
+        [dependencies addObject:package];
+    }
+}
+
+- (void)addDependencyOf:(ZBPackage *)package {
+    if (!dependencyOf) dependencyOf = [NSMutableArray new];
+    
+    if (![dependencyOf containsObject:package]) {
+        [dependencyOf addObject:package];
+    }
+}
+
+- (void)addIssue:(NSString *)issue {
+    if (!issues) issues = [NSMutableArray new];
+    
+    [issues addObject:issue];
+}
+
+- (BOOL)hasIssues {
+    return [issues count] > 0;
 }
 
 @end
