@@ -104,7 +104,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
-    return ![[source origin] isEqualToString:@"xTM3x Repo"];
+    return [source canDelete];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
