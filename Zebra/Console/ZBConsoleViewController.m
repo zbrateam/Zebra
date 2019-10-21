@@ -47,7 +47,7 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    queue = [ZBQueue sharedInstance];
+    queue = [ZBQueue sharedQueue];
     [self resetData];
     _progressText.layer.cornerRadius = 3.0;
     _progressText.layer.masksToBounds = YES;
@@ -78,7 +78,7 @@ typedef enum {
     if (_externalInstall) {
         akton = @[@[@0], @[@"apt", @"install", @"-y", _externalFilePath]];
         [self performSelectorInBackground:@selector(performActions) withObject:NULL];
-    } else if ([queue needsHyena]) {
+    } else if ([queue needsToDownloadPackages]) {
         _progressView.hidden = NO;
         _progressText.hidden = NO;
         [self downloadPackages];
@@ -165,7 +165,7 @@ typedef enum {
     } else {
         if (continueWithActions) {
             _progressText.text = @" Performing actions... ";
-            NSArray *actions = [queue tasks:debs];
+            NSArray *actions = [queue tasksToPerform:debs];
             ZBLog(@"[Zebra] Actions: %@", actions);
             
             for (NSArray *command in actions) {
@@ -226,7 +226,7 @@ typedef enum {
 }
 
 - (void)finishUp {
-    [queue clearQueue];
+    [queue clear];
     [downloadingMap removeAllObjects];
     _progressView.hidden = YES;
     
@@ -318,7 +318,7 @@ typedef enum {
     _progressView.hidden = YES;
     _progressText.text = nil;
     _progressText.hidden = YES;
-    [queue clearQueue];
+    [queue clear];
     [self removeAllDebs];
     [self updateCancelOrCloseButton];
 }
