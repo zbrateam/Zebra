@@ -47,8 +47,10 @@ typedef enum {
 }
 
 - (void)disableCancelButton {
-    buttonState = ZBStateDone;
-    self.completeOrCancelButton.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->buttonState = ZBStateDone;
+        self.completeOrCancelButton.hidden = YES;
+    });
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

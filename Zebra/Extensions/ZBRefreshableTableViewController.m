@@ -97,7 +97,9 @@
     if (![[self class] supportRefresh]) {
         return;
     }
-    [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+    });
 }
 
 - (void)refreshSources:(id)sender {
@@ -127,7 +129,9 @@
         return;
     }
     if (packageUpdates != -1) {
-        [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+        });
     }
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{

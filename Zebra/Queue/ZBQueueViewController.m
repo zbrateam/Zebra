@@ -30,7 +30,7 @@
     packages = [queue topDownQueue];
     NSLog(@"Conflict Queue: %@", [queue conflictQueue]);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
     self.title = @"Queue";
@@ -43,7 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
     [self refreshTable];
 }
@@ -171,8 +171,8 @@
     }
     else {
         [cell setTintColor:[UIColor tintColor]];
-        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+//        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     }
 
     CGSize itemSize = CGSizeMake(35, 35);

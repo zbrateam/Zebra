@@ -336,16 +336,19 @@
 }
 
 - (BOOL)setSpinnerVisible:(BOOL)visible forBaseFileName:(NSString *)baseFileName {
-    NSInteger cellPosition = [[self baseFileNameMap] indexOfObject:baseFileName];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellPosition inSection:0];
-    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    __block ZBSourceTableViewCell *cell;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger cellPosition = [[self baseFileNameMap] indexOfObject:baseFileName];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cellPosition inSection:0];
+        cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    });
     
     return [self setSpinnerVisible:visible forCell:cell];
 }
 
 - (void)clearAllSpinners {
-    [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [((ZBTabBarController *)self.tabBarController).repoBusyList removeAllObjects];
         [self.tableView reloadData];
     });
 }

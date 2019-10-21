@@ -86,15 +86,17 @@
 }
 
 - (void)updatePackagesTableView {
-    UINavigationController *navController = self.viewControllers[ZBTabPackages];
-    ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
-    [packagesController refreshTable];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UINavigationController *navController = self.viewControllers[ZBTabPackages];
+        ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
+        [packagesController refreshTable];
+    });
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
-    UITabBarItem *sourcesItem = [sourcesController tabBarItem];
     dispatch_async(dispatch_get_main_queue(), ^{
+        UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
+        UITabBarItem *sourcesItem = [sourcesController tabBarItem];
         [sourcesItem setAnimatedBadge:visible];
         if (visible) {
             if (self->sourcesUpdating) {
@@ -112,20 +114,22 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
+        [(ZBSourcesListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
     });
-    [(ZBSourcesListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
 }
 
 #pragma mark - Database Delegate
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
-    if (bfn == NULL) return;
-    if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
-    
-    ZBSourcesListTableViewController *sourcesVC = (ZBSourcesListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-    
-    [repoBusyList setObject:@(busy) forKey:bfn];
-    [sourcesVC setSpinnerVisible:busy forBaseFileName:bfn];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (bfn == NULL) return;
+        if (!self->repoBusyList) self->repoBusyList = [NSMutableDictionary new];
+        
+        ZBSourcesListTableViewController *sourcesVC = (ZBSourcesListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
+        
+        [self->repoBusyList setObject:@(busy) forKey:bfn];
+        [sourcesVC setSpinnerVisible:busy forBaseFileName:bfn];
+    });
 }
 
 - (void)clearRepos {
