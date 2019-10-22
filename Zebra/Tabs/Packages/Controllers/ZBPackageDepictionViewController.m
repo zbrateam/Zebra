@@ -357,7 +357,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         [self determinePaidPackage];
     } else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-        installButton.enabled = [[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
+        installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
         self.navigationItem.rightBarButtonItem = installButton;
     }
     self->navButtonsBeingConfigured = NO;
@@ -427,7 +427,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                     }
                 }
                 UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
-//                button.enabled = ![[ZBQueue sharedQueue] containsPackage:self->package queue:ZBQueueTypeInstall];
+                button.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.navigationItem setRightBarButtonItem:button animated:YES];
                     [uiBusy stopAnimating];
