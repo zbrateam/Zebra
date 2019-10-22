@@ -23,6 +23,11 @@
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
     
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(16, 5, frame.size.width - 32, 0.5)];
+    bar.backgroundColor = [UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1.0];
+    [self.view addSubview:bar];
+    
     if (@available(iOS 11.0, *)) {
         [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
     }
