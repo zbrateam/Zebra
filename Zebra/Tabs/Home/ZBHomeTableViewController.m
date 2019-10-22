@@ -62,6 +62,11 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar insertSubview:fxView atIndex:1];
     }
+
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(16, 0, frame.size.width - 32, 0.5)];
+    bar.backgroundColor = [UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1.0];
+    [self.view addSubview:bar];
     
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 0.01f)]; // For removing gap at the top of the table view
     

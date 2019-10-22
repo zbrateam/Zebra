@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xy5-2Y-w5Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xy5-2Y-w5Q">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -115,22 +115,12 @@
                                                 <constraint firstAttribute="height" constant="0.5" id="Yph-fs-Qzg"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3E-E7-mne">
-                                            <rect key="frame" x="16" y="0.0" width="343" height="0.5"/>
-                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="0.5" id="jfQ-ei-8e7"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="oF9-V6-HzX" firstAttribute="leading" secondItem="7cP-pD-HZ6" secondAttribute="leading" id="3SI-JC-J4f"/>
                                         <constraint firstAttribute="trailing" secondItem="oF9-V6-HzX" secondAttribute="trailing" id="AaY-os-iXj"/>
                                         <constraint firstItem="oF9-V6-HzX" firstAttribute="top" secondItem="7cP-pD-HZ6" secondAttribute="top" id="OIX-BL-wJ7"/>
-                                        <constraint firstItem="i3E-E7-mne" firstAttribute="top" secondItem="7cP-pD-HZ6" secondAttribute="top" id="Pbc-85-vj3"/>
-                                        <constraint firstAttribute="trailing" secondItem="i3E-E7-mne" secondAttribute="trailing" constant="16" id="Udp-Jt-0ta"/>
                                         <constraint firstItem="UGQ-RR-QH8" firstAttribute="leading" secondItem="7cP-pD-HZ6" secondAttribute="leading" constant="16" id="f9N-ta-cHY"/>
-                                        <constraint firstItem="i3E-E7-mne" firstAttribute="leading" secondItem="7cP-pD-HZ6" secondAttribute="leading" constant="16" id="fkl-JR-Wsp"/>
                                         <constraint firstItem="oF9-V6-HzX" firstAttribute="centerY" secondItem="7cP-pD-HZ6" secondAttribute="centerY" id="gIY-Uu-gdQ"/>
                                         <constraint firstAttribute="bottom" secondItem="UGQ-RR-QH8" secondAttribute="bottom" constant="0.5" id="gKA-UA-EfH"/>
                                         <constraint firstAttribute="trailing" secondItem="UGQ-RR-QH8" secondAttribute="trailing" constant="16" id="joj-1O-mSL"/>
