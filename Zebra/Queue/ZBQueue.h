@@ -24,11 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 //- (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
-- (ZBQueueType)queueTypeFromKey:(NSString *)key;
-- (NSString *)keyFromQueueType:(ZBQueueType)queue;
-- (NSArray *)actionsToPerform;
+- (NSArray<NSNumber *> *)actionsToPerform;
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)useIcon;
-- (int)numberOfPackagesInQueueKey:(NSString *)queue;
 - (int)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;

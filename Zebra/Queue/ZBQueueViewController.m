@@ -115,8 +115,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    ZBQueueType action;
-    [[[queue actionsToPerform] objectAtIndex:section] getValue:&action];
+    ZBQueueType action = [queue actionsToPerform][section].intValue;
     if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
         return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
     }
