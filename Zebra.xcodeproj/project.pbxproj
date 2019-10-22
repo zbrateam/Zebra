@@ -284,6 +284,7 @@
 		89A1B733223C97210053D0E2 /* ZBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
+		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
@@ -512,10 +513,11 @@
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
+				89B76A51235F8FF6006900FE /* ZBStage.h */,
 				89FEA4132264BF68002647A2 /* ZBLogLevel.h */,
 				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
 				893952FE220B5D0100995109 /* ZBConsoleViewController.m */,
-				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
 			);
 			path = Console;
 			sourceTree = "<group>";
