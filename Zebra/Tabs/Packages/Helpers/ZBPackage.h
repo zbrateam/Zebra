@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)  ZBPackage * _Nullable removedBy;
 @property BOOL sileoDownload;
 
-+ (NSArray *)filesInstalled:(NSString *)packageID;
++ (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)containsRespringable:(NSString *)packageID;
-+ (BOOL)containsApp:(NSString *)packageID;
++ (BOOL)containsApplicationBundle:(NSString *)packageID;
 + (NSString *)pathForApplication:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
