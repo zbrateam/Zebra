@@ -171,12 +171,10 @@
 }
 
 - (NSString *)displayableURL {
-    if (secure) {
-        return [NSString stringWithFormat:@"https://%@", baseURL];
-    }
-    else {
-        return [NSString stringWithFormat:@"http://%@", baseURL];
-    }
+    NSString *url = baseURL;
+    if (defaultRepo) url = [baseURL componentsSeparatedByString:@"dists"][0];
+
+    return [NSString stringWithFormat:@"http%@://%@", secure ? @"s" : @"", url];
 }
 
 @end
