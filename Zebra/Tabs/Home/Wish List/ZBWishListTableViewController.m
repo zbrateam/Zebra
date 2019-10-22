@@ -24,6 +24,10 @@
     [super viewDidLoad];
     defaults = [NSUserDefaults standardUserDefaults];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -79,17 +83,22 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:[wishedPackages objectAtIndex:indexPath.row]];
+    ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
     NSMutableArray *actions = [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
         [tableView reloadData];
     }];
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:[ZBDevice useIcon] ? @"W ╳" : @"Unlist" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        [self->wishedPackages removeObject:package.identifier];
-        [self->defaults setObject:self->wishedPackages forKey:wishListKey];
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Remove" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self->wishedPackages removeObject:package];
+        NSMutableArray *wishedPackageIDs = [[self->defaults objectForKey:wishListKey] mutableCopy];
+        [wishedPackageIDs removeObject:[package identifier]];
+        [self->defaults setObject:wishedPackageIDs forKey:wishListKey];
         [self->defaults synchronize];
-        [self.tableView reloadData];
+        
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
     }];
-    remove.backgroundColor = [UIColor yellowColor];
+    remove.backgroundColor = [UIColor systemPinkColor];
     [actions addObject:remove];
     return actions;
 }
@@ -102,7 +111,7 @@
     if ([[segue identifier] isEqualToString:@"segueWishToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:[wishedPackages objectAtIndex:indexPath.row]];
+        destination.package = [wishedPackages objectAtIndex:indexPath.row];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
