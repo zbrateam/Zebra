@@ -53,6 +53,16 @@
     return self;
 }
 
+- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate {
+    self = [self init];
+    
+    if (self) {
+        downloadDelegate = delegate;
+    }
+    
+    return self;
+}
+
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
     self = [self init];
     
