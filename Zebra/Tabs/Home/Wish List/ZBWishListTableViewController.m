@@ -29,7 +29,18 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    wishedPackages = [[defaults objectForKey:wishListKey] mutableCopy];
+    wishedPackages = [NSMutableArray new];
+    NSMutableArray *wishedPackageIDs = [[defaults objectForKey:wishListKey] mutableCopy];
+    NSArray *nullCheck = [wishedPackageIDs copy];
+    for (NSString *packageID in nullCheck) {
+        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+        if (package == NULL) {
+            [wishedPackageIDs removeObject:package];
+        }
+        else {
+            [wishedPackages addObject:package];
+        }
+    }
     [self.tableView reloadData];
 }
 
@@ -54,12 +65,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     [cell setColors];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:[wishedPackages objectAtIndex:indexPath.row]];
+    ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
     [(ZBPackageTableViewCell *)cell updateData:package];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
