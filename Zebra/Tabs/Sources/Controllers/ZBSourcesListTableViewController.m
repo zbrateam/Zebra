@@ -37,6 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    CGRect frame = [[UIScreen mainScreen] bounds];
+    UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(16, 0, frame.size.width - 32, 0.5)];
+    bar.backgroundColor = [UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1.0];
+    [self.view addSubview:bar];
+    
     sourceManager = [ZBSourceManager sharedInstance];
     sources = [[self.databaseManager sources] mutableCopy];
     [self drawSourceMap];
