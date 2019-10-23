@@ -145,8 +145,8 @@
 }
 
 - (void)clearAllSpinners {
-    [[ZBAppDelegate tabBarController] clearRepos];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [[ZBAppDelegate tabBarController] clearRepos];
         [self.tableView reloadData];
     });
 }
