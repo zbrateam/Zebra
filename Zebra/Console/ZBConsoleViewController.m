@@ -11,10 +11,13 @@
 
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <Tabs/ZBTabBarController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
+
+@import LNPopupController;
 
 @interface ZBConsoleViewController () {
     NSMutableArray *applicationBundlePaths;
@@ -101,6 +104,10 @@
     [self setProgressViewHidden:true];
     [self setProgressTextHidden:true];
     [self updateCancelOrCloseButton];
+    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    [self.navigationItem setHidesBackButton:true];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -115,7 +122,9 @@
 
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
     if (downloadFailed) {
-        //TODO: Provide options for the user to cancel, retry, or clear queue.
+        //FIXME: Localize
+        [self writeToConsole:@"\nOne or more packages failed to download.\n\nClick \"Return to Queue\" to return to the Queue and retry the download.\n" atLevel:ZBLogLevelError];
+        [self finishTasks];
     }
     else {
         NSArray *actions = [queue tasksToPerform:downloadedFiles];
@@ -202,14 +211,17 @@
         }
         
         [queue clear];
+        [self refreshLocalPackages];
+        [self removeAllDebs];
         [self finishTasks];
     }
 }
 
 - (void)finishTasks {
-    [self refreshLocalPackages];
-    [self removeAllDebs];
     [downloadMap removeAllObjects];
+    [applicationBundlePaths removeAllObjects];
+    [installedPackageIdentifiers removeAllObjects];
+    
     [self updateStage:ZBStageFinished];
 }
 
@@ -232,11 +244,7 @@
 
 - (void)close {
     [self clearConsole];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)complete:(id)sender {
-    [self close];
+    [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
 }
 
 - (IBAction)cancelOrClose:(id)sender {
@@ -244,6 +252,26 @@
         [self close];
     } else {
         [self cancel];
+    }
+}
+
+- (void)returnToQueue {
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+- (void)closeZebra {
+    if (![ZBDevice needsSimulation]) {
+        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+    }
+    exit(0);
+}
+
+- (void)restartSpringBoard {
+    if (![ZBDevice needsSimulation]) {
+        [ZBDevice sbreload];
+    }
+    else {
+        [self close];
     }
 }
 
@@ -317,17 +345,6 @@
     
     [self setProgressViewHidden:stage != ZBStageDownload];
     [self updateCancelOrCloseButton];
-}
-
-- (void)closeZebra {
-    if (![ZBDevice needsSimulation]) {
-        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
-    }
-    exit(0);
-}
-
-- (void)restartSpringBoard {
-    [ZBDevice sbreload];
 }
 
 - (BOOL)isValidPackageID:(NSString *)packageID {
@@ -450,7 +467,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self->completeButton.hidden = NO;
         [self updateProgressText:nil];
-        if (self->respringRequired) {
+        if (self->downloadFailed) {
+            [self->completeButton setTitle:@"Return to Queue" forState:UIControlStateNormal];
+            [self->completeButton addTarget:self action:@selector(returnToQueue) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else if (self->respringRequired) {
             [self->completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
             [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -460,6 +481,7 @@
         }
         else {
             [self->completeButton setTitle:@"Done" forState:UIControlStateNormal];
+            [self->completeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
         }
     });
 }
@@ -509,19 +531,11 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames {
     [self updateProgressText:nil];
-    if (filenames.count) {
-        NSArray *debs = [filenames objectForKey:@"debs"];
-        [self performSelectorInBackground:@selector(performTasksForDownloadedFiles:) withObject:debs];
-    }
-    else {
-        downloadFailed = true;
-        [self cancel];
-        [self writeToConsole:@"Nothing has been downloaded.\n" atLevel:ZBLogLevelWarning];
-        [self updateStage:ZBStageFinished];
-        [self updateCompleteButton];
-    }
+    
+    NSArray *debs = [filenames objectForKey:@"debs"];
+    [self performSelectorInBackground:@selector(performTasksForDownloadedFiles:) withObject:debs];
     suppressCancel = true;
-    self.cancelOrCloseButton.hidden = YES;
+    [self updateCancelOrCloseButton];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
