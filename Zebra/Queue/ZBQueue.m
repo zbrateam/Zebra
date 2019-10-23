@@ -13,6 +13,7 @@
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBDevice.h>
+#import <Console/ZBStage.h>
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
@@ -182,7 +183,7 @@
             [removeCommand addObject:package.identifier];
         }
         
-        [commands addObject:@[@(ZBQueueTypeRemove)]];
+        [commands addObject:@[@(ZBStageRemove)]];
         [commands addObject:removeCommand];
     }
     
@@ -194,7 +195,7 @@
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
         [installCommand addObjectsFromArray:paths];
         
-        [commands addObject:@[@(ZBQueueTypeInstall)]];
+        [commands addObject:@[@(ZBStageInstall)]];
         [commands addObject:installCommand];
     }
     
@@ -206,7 +207,7 @@
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
         [reinstallCommand addObjectsFromArray:paths];
         
-        [commands addObject:@[@(ZBQueueTypeReinstall)]];
+        [commands addObject:@[@(ZBStageReinstall)]];
         [commands addObject:reinstallCommand];
     }
     
@@ -217,7 +218,7 @@
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeUpgrade filenames:debs];
         [upgradeCommand addObjectsFromArray:paths];
 
-        [commands addObject:@[@(ZBQueueTypeUpgrade)]];
+        [commands addObject:@[@(ZBStageUpgrade)]];
         [commands addObject:upgradeCommand];
     }
     
@@ -228,7 +229,7 @@
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDowngrade filenames:debs];
         [downgradeCommand addObjectsFromArray:paths];
 
-        [commands addObject:@[@(ZBQueueTypeDowngrade)]];
+        [commands addObject:@[@(ZBStageDowngrade)]];
         [commands addObject:downgradeCommand];
     }
     

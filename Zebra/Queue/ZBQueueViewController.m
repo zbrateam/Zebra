@@ -44,19 +44,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [self refreshTable];
 }
-
 - (IBAction)confirm:(id)sender {
-    [self clearQueueBarData];
-    ZBTabBarController *tab = [ZBAppDelegate tabBarController];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [tab presentViewController:vc animated:YES completion:^(void) {
-        [tab dismissPopupBarAnimated:NO completion:nil];
-    }];
+    ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
+    [self.navigationController pushViewController:console animated:true];
 }
 
 - (IBAction)abort:(id)sender {

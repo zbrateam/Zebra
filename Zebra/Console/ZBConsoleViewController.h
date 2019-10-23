@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#define COMMAND_START 7
+
 @class ZBQueue;
 
 #import <UIKit/UIKit.h>
@@ -17,12 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate, ZBConsoleCommandDelegate>
-@property (strong, nonatomic) IBOutlet UITextView *consoleView;
-@property (strong, nonatomic) IBOutlet UIButton *completeButton;
-@property (strong, nonatomic) IBOutlet UIButton *cancelOrCloseButton;
-@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
-@property (strong, nonatomic) IBOutlet UILabel *progressText;
-@property (strong, nonatomic) ZBQueue *queue;
+
 @property (nonatomic) BOOL externalInstall;
 @property (strong, nonatomic) NSString *externalFilePath;
 @end

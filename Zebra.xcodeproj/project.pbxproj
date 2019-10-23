@@ -125,6 +125,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		89E9806B2360DE34005A3C35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53761325155AD0D5005750A4;
+			remoteInfo = "SDWebImage static";
+		};
+		89E9806D2360DE34005A3C35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 80B6DFEE2142B71600BCB334;
+			remoteInfo = SDWebImageMapKit;
+		};
 		89EB9361235BFCE30038BCEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */;
@@ -270,6 +284,7 @@
 		89A1B733223C97210053D0E2 /* ZBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
+		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
@@ -498,10 +513,11 @@
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
+				89B76A51235F8FF6006900FE /* ZBStage.h */,
 				89FEA4132264BF68002647A2 /* ZBLogLevel.h */,
 				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
 				893952FE220B5D0100995109 /* ZBConsoleViewController.m */,
-				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
 			);
 			path = Console;
 			sourceTree = "<group>";
@@ -658,8 +674,8 @@
 				89CADA122263FED1000101EE /* Downloads */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				8991FFA321B21D26004FCE23 /* Database */,
-				893952FC220B5CE400995109 /* Console */,
 				89DD2683220156F800CD31A0 /* Queue */,
+				893952FC220B5CE400995109 /* Console */,
 				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
@@ -817,7 +833,9 @@
 		9E0D95232358AFEE00C6C2B2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				89E9806C2360DE34005A3C35 /* libSDWebImage.a */,
 				9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */,
+				89E9806E2360DE34005A3C35 /* SDWebImageMapKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -908,6 +926,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		89E9806C2360DE34005A3C35 /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = 89E9806B2360DE34005A3C35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		89E9806E2360DE34005A3C35 /* SDWebImageMapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SDWebImageMapKit.framework;
+			remoteRef = 89E9806D2360DE34005A3C35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		89EB9362235BFCE30038BCEC /* LNPopupController.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
