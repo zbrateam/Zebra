@@ -132,26 +132,12 @@
 			remoteGlobalIDString = 39DB52E51B5823330061C589;
 			remoteInfo = LNPopupController;
 		};
-		9E0D95292358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 53761325155AD0D5005750A4;
-			remoteInfo = "SDWebImage static";
-		};
 		9E0D952B2358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4A2CADFF1AB4BB5300B6BC39;
 			remoteInfo = SDWebImage;
-		};
-		9E0D952D2358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 80B6DFEE2142B71600BCB334;
-			remoteInfo = SDWebImageMapKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -831,9 +817,7 @@
 		9E0D95232358AFEE00C6C2B2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9E0D952A2358AFEF00C6C2B2 /* libSDWebImage.a */,
 				9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */,
-				9E0D952E2358AFEF00C6C2B2 /* SDWebImageMapKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -931,25 +915,11 @@
 			remoteRef = 89EB9361235BFCE30038BCEC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9E0D952A2358AFEF00C6C2B2 /* libSDWebImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDWebImage.a;
-			remoteRef = 9E0D95292358AFEF00C6C2B2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SDWebImage.framework;
 			remoteRef = 9E0D952B2358AFEF00C6C2B2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E0D952E2358AFEF00C6C2B2 /* SDWebImageMapKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SDWebImageMapKit.framework;
-			remoteRef = 9E0D952D2358AFEF00C6C2B2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
