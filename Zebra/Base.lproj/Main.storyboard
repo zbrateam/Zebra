@@ -841,6 +841,7 @@
                             <outlet property="delegate" destination="Utk-Km-MBH" id="Ltl-xT-4cm"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Queue" id="uSZ-TC-nHR">
                         <leftBarButtonItems>
                             <barButtonItem title="Continue" id="Bpj-dl-pWU">
