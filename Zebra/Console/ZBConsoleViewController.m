@@ -244,7 +244,9 @@
 
 - (void)close {
     [self clearConsole];
-    [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+    [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
+        [[ZBAppDelegate tabBarController] updateQueueNav];
+    }];
 }
 
 - (IBAction)cancelOrClose:(id)sender {

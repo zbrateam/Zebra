@@ -162,9 +162,13 @@
 
 - (void)checkQueueNav {
     if (queueNav == nil) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
+        [self updateQueueNav];
     }
+}
+
+- (void)updateQueueNav {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
 }
 
 - (void)updateQueueBarData {

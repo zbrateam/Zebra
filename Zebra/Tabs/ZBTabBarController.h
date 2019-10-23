@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
 - (void)openQueue:(BOOL)openPopup;
 - (void)clearRepos;
+- (void)updateQueueNav;
 @end
 
 NS_ASSUME_NONNULL_END
