@@ -52,9 +52,8 @@
 - (IBAction)confirm:(id)sender {
     [self clearQueueBarData];
     ZBTabBarController *tab = [ZBAppDelegate tabBarController];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [tab presentViewController:vc animated:YES completion:^(void) {
+    ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
+    [tab presentViewController:console animated:YES completion:^(void) {
         [tab dismissPopupBarAnimated:NO completion:nil];
     }];
 }
