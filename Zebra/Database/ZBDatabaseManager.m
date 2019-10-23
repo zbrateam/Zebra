@@ -74,18 +74,32 @@
         assert(sqlite3_threadsafe());
         int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
         if (result == SQLITE_OK) {
-            ++numberOfDatabaseUsers;
+            [self increment];
         }
         return result;
     } else {
-        ++numberOfDatabaseUsers;
+        [self increment];
         return SQLITE_OK;
     }
 }
 
+- (void)increment {
+    @synchronized(self) {
+        ++numberOfDatabaseUsers;
+    }
+}
+
+- (void)decrement {
+    @synchronized(self) {
+        --numberOfDatabaseUsers;
+    }
+}
+
 - (int)closeDatabase {
-    if (numberOfDatabaseUsers == 0) {
-        return SQLITE_ERROR;
+    @synchronized(self) {
+        if (numberOfDatabaseUsers == 0) {
+            return SQLITE_ERROR;
+        }
     }
     
     if (--numberOfDatabaseUsers == 0 && [self isDatabaseOpen]) {
@@ -105,7 +119,9 @@
 }
 
 - (BOOL)isDatabaseOpen {
-    return numberOfDatabaseUsers > 0 || database != NULL;
+    @synchronized(self) {
+        return numberOfDatabaseUsers > 0 || database != NULL;
+    }
 }
 
 - (void)printDatabaseError {
