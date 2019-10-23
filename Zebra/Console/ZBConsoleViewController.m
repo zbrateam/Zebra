@@ -123,7 +123,7 @@
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
     if (downloadFailed) {
         //FIXME: Localize
-        [self writeToConsole:@"\nOne or more packages failed to download.\n\nClick \"Return to Queue\" to return to the Queue and retry the download.\n" atLevel:ZBLogLevelError];
+        [self writeToConsole:@"\nOne or more packages failed to download.\n\nClick \"Return to Queue\" to return to the Queue and retry the download." atLevel:ZBLogLevelDescript];
         [self finishTasks];
     }
     else {
@@ -308,7 +308,8 @@
 
 - (void)updateStage:(ZBStage)stage {
     //FIXME: Localize
-    suppressCancel = stage != ZBStageDownload || stage != ZBStageFinished;
+    currentStage = stage;
+    suppressCancel = stage != ZBStageDownload && stage != ZBStageFinished;
     
     switch (stage) {
         case ZBStageDownload:
