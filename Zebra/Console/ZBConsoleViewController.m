@@ -52,13 +52,15 @@
     
     if (self) {
         applicationBundlePaths = [NSMutableArray new];
-        downloadFailed = false;
-        downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-        downloadMap = [NSMutableDictionary new];
+        queue = [ZBQueue sharedQueue];
+        if ([queue needsToDownloadPackages]) {
+            downloadFailed = false;
+            downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+            downloadMap = [NSMutableDictionary new];
+        }
         installedPackageIdentifiers = [NSMutableArray new];
         respringRequired = false;
         updateIconCache = false;
-        queue = [ZBQueue sharedQueue];
     }
     
     return self;
@@ -74,11 +76,12 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if ([queue needsToDownloadPackages]) {
-        [self downloadPackages:[queue packagesToDownload]];
+    if (downloadManager) {
+        [self updateStage:ZBStageDownload];
+        [downloadManager downloadPackages:[queue packagesToDownload]];
     }
     else {
-        [self performSelectorInBackground:@selector(performActions) withObject:NULL];
+        [self performSelectorInBackground:@selector(performTasks) withObject:NULL];
     }
 }
 
@@ -86,11 +89,13 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (void)performActions {
-    [self performActionsForDownloadedFiles:NULL];
+#pragma mark - Performing Tasks
+
+- (void)performTasks {
+    [self performTasksForDownloadedFiles:NULL];
 }
 
-- (void)performActionsForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
+- (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
     if (downloadFailed) {
         //TODO: Provide options for the user to cancel, retry, or clear queue.
     }
@@ -104,10 +109,6 @@
                 for (int i = COMMAND_START; i < [command count]; ++i) {
                     NSString *packageID = command[i];
                     if (![self isValidPackageID:packageID]) continue;
-                    
-                    if (currentStage == ZBStageFinished) {
-                        NSLog(@"Well ill be");
-                    }
                     
                     if ([ZBPackage containsApplicationBundle:packageID]) {
                         updateIconCache = true;
@@ -257,17 +258,6 @@
     [self updateCancelOrCloseButton];
 }
 
-- (void)closeZebra {
-    if (![ZBDevice needsSimulation]) {
-        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
-    }
-    exit(1); // Correct?
-}
-
-- (void)restartSpringBoard {
-    [ZBDevice sbreload];
-}
-
 - (void)removeAllDebs {
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
     NSString *file;
@@ -280,43 +270,6 @@
             NSLog(@"[Zebra] Error while removing %@: %@", file, error);
         }
     }
-}
-
-- (void)updateStage:(ZBStage)stage {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //FIXME: Localize
-        switch (stage) {
-            case ZBStageDownload:
-                [self setTitle:@"Downloading"];
-                [self writeToConsole:@"Downloading Packages..." atLevel:ZBLogLevelInfo];
-            case ZBStageInstall:
-                [self setTitle:@"Installing"];
-                [self writeToConsole:@"Installing Packages..." atLevel:ZBLogLevelInfo];
-                break;
-            case ZBStageRemove:
-                [self setTitle:@"Removing"];
-                [self writeToConsole:@"Removing Packages..." atLevel:ZBLogLevelInfo];
-                break;
-            case ZBStageReinstall:
-                [self setTitle:@"Reinstalling"];
-                [self writeToConsole:@"Reinstalling Packages..." atLevel:ZBLogLevelInfo];
-                break;
-            case ZBStageUpgrade:
-                [self setTitle:@"Upgrading"];
-                [self writeToConsole:@"Upgrading Packages..." atLevel:ZBLogLevelInfo];
-                break;
-            case ZBStageFinished:
-                [self setTitle:@"Complete"];
-                [self writeToConsole:@"Finished!" atLevel:ZBLogLevelInfo];
-                
-                self->suppressCancel = NO;
-                [self updateCompleteButton];
-                [self updateCancelOrCloseButton];
-                break;
-            default:
-                break;
-        }
-    });
 }
 
 - (void)receivedData:(NSNotification *)notif {
@@ -423,6 +376,53 @@
 
 #pragma mark - Helper Methods
 
+- (void)updateStage:(ZBStage)stage {
+    //FIXME: Localize
+    switch (stage) {
+        case ZBStageDownload:
+            [self setTitle:@"Downloading"];
+            [self writeToConsole:@"Downloading Packages..." atLevel:ZBLogLevelInfo];
+            break;
+        case ZBStageInstall:
+            [self setTitle:@"Installing"];
+            [self writeToConsole:@"Installing Packages..." atLevel:ZBLogLevelInfo];
+            break;
+        case ZBStageRemove:
+            [self setTitle:@"Removing"];
+            [self writeToConsole:@"Removing Packages..." atLevel:ZBLogLevelInfo];
+            break;
+        case ZBStageReinstall:
+            [self setTitle:@"Reinstalling"];
+            [self writeToConsole:@"Reinstalling Packages..." atLevel:ZBLogLevelInfo];
+            break;
+        case ZBStageUpgrade:
+            [self setTitle:@"Upgrading"];
+            [self writeToConsole:@"Upgrading Packages..." atLevel:ZBLogLevelInfo];
+            break;
+        case ZBStageFinished:
+            [self setTitle:@"Complete"];
+            [self writeToConsole:@"Finished!" atLevel:ZBLogLevelInfo];
+            
+            self->suppressCancel = NO;
+            [self updateCompleteButton];
+            [self updateCancelOrCloseButton];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)closeZebra {
+    if (![ZBDevice needsSimulation]) {
+        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+    }
+    exit(0);
+}
+
+- (void)restartSpringBoard {
+    [ZBDevice sbreload];
+}
+
 - (BOOL)isValidPackageID:(NSString *)packageID {
     return ![packageID hasPrefix:@"-"] && ![packageID isEqualToString:@"install"] && ![packageID isEqualToString:@"remove"];
 }
@@ -457,12 +457,7 @@
     });
 }
 
-#pragma mark - Downloading Packages
-
-- (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
-    [self updateStage:ZBStageDownload];
-    [downloadManager downloadPackages:packages];
-}
+#pragma mark - Downloading Delegate
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
     downloadMap[package.identifier] = @(progress);
@@ -479,7 +474,7 @@
     [self updateProgressText:nil];
     if (filenames.count) {
         NSArray *debs = [filenames objectForKey:@"debs"];
-        [self performSelectorInBackground:@selector(performActionsForDownloadedFiles:) withObject:debs];
+        [self performSelectorInBackground:@selector(performTasksForDownloadedFiles:) withObject:debs];
     }
     else {
         downloadFailed = true;
