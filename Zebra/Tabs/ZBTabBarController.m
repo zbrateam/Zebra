@@ -168,11 +168,7 @@
 }
 
 - (void)updateQueueBarData {
-    int totalPackages = 0;
-    NSArray *actions = [[ZBQueue sharedInstance] actionsToPerform];
-    for (NSString *string in actions) {
-        totalPackages += [[ZBQueue sharedInstance] numberOfPackagesForQueue:string];
-    }
+    int totalPackages = [ZBQueue count];
     if (totalPackages == 0) {
         [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
         return;
@@ -181,7 +177,7 @@
     queueNav.popupItem.subtitle = @"Tap to manage Queue";
 }
 
-- (void)openQueueBar:(BOOL)openPopup {
+- (void)openQueue:(BOOL)openPopup {
     [self checkQueueNav];
     LNPopupPresentationState state = self.popupPresentationState;
     if (state == LNPopupPresentationStateTransitioning) {
@@ -203,7 +199,7 @@
     [self checkQueueNav];
     LNPopupPresentationState state = self.popupPresentationState;
     if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-        [self openQueueBar:NO];
+        [self openQueue:NO];
     }
     [self updateQueueBarData];
 }

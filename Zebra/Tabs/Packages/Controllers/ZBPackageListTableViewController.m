@@ -102,7 +102,7 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages];
+            self->packages = [self.databaseManager installedPackages:false];
             self->updates = [self.databaseManager packagesWithUpdates];
             self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
@@ -199,7 +199,7 @@ typedef enum {
 
 - (void)configureQueueOrShareButton {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([[ZBQueue sharedInstance] hasObjects]) {
+        if ([ZBQueue count] > 0) {
             self->queueButton = [[UIBarButtonItem alloc] initWithTitle:@"Queue" style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
             self->clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
             self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
@@ -213,7 +213,7 @@ typedef enum {
 }
 
 - (void)presentQueue {
-    [ZBPackageActionsManager presentQueue:self parent:nil];
+    [[ZBAppDelegate tabBarController] openQueue:YES];
 }
 
 - (void)askClearQueue {
@@ -232,13 +232,13 @@ typedef enum {
 }
 
 - (void)clearQueue {
-    [[ZBQueue sharedInstance] clearQueue];
+    [[ZBQueue sharedQueue] clear];
     [self refreshTable];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages] copy];
+    NSArray *packages = [[self.databaseManager installedPackages:false] copy];
     NSMutableArray *packageIds = [NSMutableArray new];
     for (ZBPackage *package in packages) {
         if (package.identifier) {
@@ -283,7 +283,7 @@ typedef enum {
 }
 
 - (void)upgradeAll {
-    ZBQueue *queue = [ZBQueue sharedInstance];
+    ZBQueue *queue = [ZBQueue sharedQueue];
     [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
     [self presentQueue];
 }
