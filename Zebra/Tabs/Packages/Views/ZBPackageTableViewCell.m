@@ -35,11 +35,16 @@
     self.descriptionLabel.text = package.shortDescription;
     ZBRepo *repo = package.repo;
     NSString *repoName = repo.origin;
-    if (package.author) {
-        self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
-    } else {
-        self.authorAndRepo.text = repoName;
-    }
+    NSString *author = [self stripEmailFromAuthor:package.author];
+    NSString *installedSize = [package installedSize];
+    NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
+    if (author.length)
+        [info addObject:author];
+    if (repoName.length)
+        [info addObject:repoName];
+    if (installedSize)
+        [info addObject:installedSize];
+    self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
         sectionImage = [UIImage imageNamed:@"Other"];
@@ -95,7 +100,7 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.authorAndRepo.textColor = [UIColor cellSecondaryTextColor];
+    self.authorAndRepoAndSize.textColor = [UIColor cellSecondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
 }
 

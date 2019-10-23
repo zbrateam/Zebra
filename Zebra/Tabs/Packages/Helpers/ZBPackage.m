@@ -19,6 +19,7 @@
 
 @interface ZBPackage () {
     NSUInteger possibleActions;
+    int numericInstalledSize;
 }
 @end
 
@@ -428,9 +429,12 @@
 }
 
 - (int)numericInstalledSize {
+    if (numericInstalledSize)
+        return numericInstalledSize;
     NSString *sizeField = [self getField:@"Installed-Size"];
     if (!sizeField) return 0;
-    return [sizeField intValue];
+    numericInstalledSize = [sizeField intValue];
+    return numericInstalledSize;
 }
 
 - (NSString *)installedSize {

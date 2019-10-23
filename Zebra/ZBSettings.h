@@ -18,5 +18,6 @@
 #define liveSearchKey @"liveSearch"
 #define iconActionKey @"packageIconAction"
 #define wishListKey @"wishList"
+#define packageSortingKey @"packageSortingType"
 
 #endif /* ZBSettings_h */
