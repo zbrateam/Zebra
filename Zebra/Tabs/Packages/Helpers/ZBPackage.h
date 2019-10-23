@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL sileoDownload;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
-+ (BOOL)containsRespringable:(NSString *)packageID;
++ (BOOL)respringRequiredFor:(NSString *)packageID;
 + (BOOL)containsApplicationBundle:(NSString *)packageID;
 + (NSString *)pathForApplication:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;

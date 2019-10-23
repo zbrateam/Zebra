@@ -67,7 +67,7 @@
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
-+ (BOOL)containsRespringable:(NSString *)packageID {
++ (BOOL)respringRequiredFor:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return YES;
     }
@@ -95,7 +95,7 @@
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
-                contains = [self containsRespringable:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                contains = [self respringRequiredFor:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 *stop = YES;
             }
         }];
