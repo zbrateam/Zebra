@@ -439,7 +439,7 @@
         [actions addObject:deleteAction];
     }
     if (![self.databaseManager isDatabaseBeingUpdated]) {
-        NSString *title = @"Refresh";
+        NSString *title = [ZBDevice useIcon] ? @"↺" : @"Refresh";
         UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self.databaseManager updateRepo:repo useCaching:YES];
         }];
