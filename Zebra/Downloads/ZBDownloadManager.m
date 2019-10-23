@@ -53,7 +53,7 @@
     return self;
 }
 
-- (id)initWithDownloadDelegate:(id<ZBDownloadDelegate>)delegate {
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate {
     self = [self init];
     
     if (self) {
