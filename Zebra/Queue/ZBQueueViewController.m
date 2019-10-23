@@ -46,6 +46,7 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [self refreshTable];
 }
 - (IBAction)confirm:(id)sender {
