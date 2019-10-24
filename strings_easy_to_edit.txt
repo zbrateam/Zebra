@@ -123,6 +123,11 @@ Upgrading
 Upgrading Packages...
 Complete
 Finished!
+Return to Queue
+Importing local packages.
+Finished importing local packages.
+One or more packages failed to download.
+Click \"Return to Queue\" to return to the Queue and retry the download.
 
 // Queue
 
