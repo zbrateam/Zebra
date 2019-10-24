@@ -488,6 +488,7 @@ enum ZBMiscOrder {
 - (void)resetImageCache {
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+    [ZBAppDelegate sendAlertFrom:self message:@"Resetting image cache completed"];
 }
 
 - (void)clearKeychain {
@@ -500,6 +501,7 @@ enum ZBMiscOrder {
         NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
         SecItemDelete((__bridge CFDictionaryRef)spec);
     }
+    [ZBAppDelegate sendAlertFrom:self message:@"Clearing keychain completed"];
 }
 
 - (void)changeIcon {
@@ -629,7 +631,6 @@ enum ZBMiscOrder {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:useIcon forKey:iconActionKey];
     [defaults synchronize];
-    [[ZBQueue sharedInstance] setUseIcon:useIcon];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

@@ -117,27 +117,35 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
 }
 
-+ (void)sendErrorToTabController:(NSString *)error blockAction:(NSString *)action block:(void (^)(void))block {
-    ZBTabBarController *tabController = [self tabBarController];
-    if (tabController != NULL) {
++ (void)sendAlertFrom:(UIViewController *)vc title:(NSString *)title message:(NSString *)message actionLabel:(NSString *)actionLabel okLabel:(NSString *)okLabel block:(void (^)(void))block {
+    UIViewController *trueVC = vc ? vc : [self tabBarController];
+    if (trueVC != NULL) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"An Error Occured" message:error preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
             
-            if (action != nil && block != NULL) {
-                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:action style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
+            if (actionLabel != nil && block != NULL) {
+                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:actionLabel style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
                     block();
                 }];
-                [errorAlert addAction:blockAction];
+                [alert addAction:blockAction];
             }
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil];
-            [errorAlert addAction:okAction];
-            [tabController presentViewController:errorAlert animated:YES completion:nil];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:okLabel style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:okAction];
+            [trueVC presentViewController:alert animated:YES completion:nil];
         });
     }
 }
 
++ (void)sendAlertFrom:(UIViewController *)vc message:(NSString *)message {
+    [self sendAlertFrom:vc title:@"Zebra" message:message actionLabel:nil okLabel:@"Ok" block:NULL];
+}
+
++ (void)sendErrorToTabController:(NSString *)error actionLabel:(NSString *)actionLabel block:(void (^)(void))block {
+    [self sendAlertFrom:nil title:@"An Error Occurred" message:error actionLabel:actionLabel okLabel:@"Dismiss" block:block];
+}
+
 + (void)sendErrorToTabController:(NSString *)error {
-    [self sendErrorToTabController:error blockAction:nil block:NULL];
+    [self sendErrorToTabController:error actionLabel:nil block:NULL];
 }
 
 - (void)setDefaultValues {

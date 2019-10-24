@@ -43,38 +43,50 @@
     self = [super init];
     
     if (self) {
-        [self commonInit];
+        queue = [ZBQueue sharedQueue];
+        filenames = [NSMutableDictionary new];
+        packageTasksMap = [NSMutableDictionary new];
+        releaseTasksMap = [NSMutableDictionary new];
+        sourcePackagesTasksMap = [NSMutableDictionary new];
+    }
+    
+    return self;
+}
+
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate {
+    self = [self init];
+    
+    if (self) {
+        downloadDelegate = delegate;
     }
     
     return self;
 }
 
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail {
-    self = [super init];
+    self = [self init];
     
     if (self) {
         downloadDelegate = delegate;
         repos = [self reposFromSourcePath:trail];
-        [self commonInit];
     }
     
     return self;
 }
 
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo {
-    self = [super init];
+    self = [self init];
     
     if (self) {
         downloadDelegate = delegate;
         repos = @[ [self baseURLFromDebLine:[[ZBRepoManager sharedInstance] debLineFromRepo:repo]] ];
-        [self commonInit];
     }
     
     return self;
 }
 
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repoURLs:(NSArray <NSURL *> *)repoURLs {
-    self = [super init];
+    self = [self init];
     
     if (self) {
         downloadDelegate = delegate;
@@ -88,29 +100,19 @@
             [baseURLs addObject:[self baseURLFromDebLine:debLine]];
         }
         repos = baseURLs;
-        [self commonInit];
     }
     
     return self;
 }
 
 - (id)initWithSourceListPath:(NSString *)trail {
-    self = [super init];
+    self = [self init];
     
     if (self) {
         repos = [self reposFromSourcePath:trail];
-        [self commonInit];
     }
     
     return self;
-}
-
-- (void)commonInit {
-    queue = [ZBQueue sharedInstance];
-    filenames = [NSMutableDictionary new];
-    packageTasksMap = [NSMutableDictionary new];
-    releaseTasksMap = [NSMutableDictionary new];
-    sourcePackagesTasksMap = [NSMutableDictionary new];
 }
 
 - (NSArray *)reposFromSourcePath:(NSString *)path {
@@ -644,7 +646,8 @@
 - (NSString *)guessMIMETypeForFile:(NSString *)path {
     NSString *filename = [path lastPathComponent];
     
-    if ([[filename lastPathComponent] pathExtension] != NULL && ![[[filename lastPathComponent] pathExtension] isEqualToString:@""]) {
+    NSString *pathExtension = [[filename lastPathComponent] pathExtension];
+    if (pathExtension != NULL && ![pathExtension isEqualToString:@""]) {
         NSString *extension = [filename pathExtension];
         
         if ([extension isEqualToString:@"txt"]) { //Likely Packages.txt or Release.txt
@@ -675,12 +678,13 @@
 }
 
 - (NSString *)baseFileNameFromFullPath:(NSString *)path {
-    if ([[path lastPathComponent] containsString:@"Packages"]) {
-        NSString *basePath = [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
+    NSString *lastPathComponent = [path lastPathComponent];
+    if ([lastPathComponent containsString:@"Packages"]) {
+        NSString *basePath = [lastPathComponent stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
         basePath = [basePath stringByReplacingOccurrencesOfString:@"_Packages.gz" withString:@""];
         return basePath;
     } else {
-        return [[path lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
+        return [lastPathComponent stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
     }
 }
 

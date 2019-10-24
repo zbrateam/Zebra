@@ -44,4 +44,7 @@
 + (void)applyThemeSettings;
 + (void)refreshViews;
 + (NSInteger)selectedColorTint;
+
+//Settings
++ (BOOL)useIcon;
 @end

@@ -35,11 +35,16 @@
     self.descriptionLabel.text = package.shortDescription;
     ZBRepo *repo = package.repo;
     NSString *repoName = repo.origin;
-    if (package.author) {
-        self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
-    } else {
-        self.authorAndRepo.text = repoName;
-    }
+    NSString *author = [self stripEmailFromAuthor:package.author];
+    NSString *installedSize = [package installedSize];
+    NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
+    if (author.length)
+        [info addObject:author];
+    if (repoName.length)
+        [info addObject:repoName];
+    if (installedSize)
+        [info addObject:installedSize];
+    self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
         sectionImage = [UIImage imageNamed:@"Other"];
@@ -76,26 +81,26 @@
 }
 
 - (void)updateQueueStatus:(ZBPackage *)package {
-    ZBQueueType queue = [[ZBQueue sharedInstance] queueStatusForPackage:package];
-    if (queue) {
-        NSString *status = [[ZBQueue sharedInstance] queueToKey:queue];
-        self.queueStatusLabel.hidden = NO;
-        self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
-        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.queueStatusLabel sizeToFit];
-        });
-    } else {
-        self.queueStatusLabel.hidden = YES;
-        self.queueStatusLabel.text = nil;
-        self.queueStatusLabel.backgroundColor = nil;
-    }
+//    ZBQueueType queue = [[ZBQueue sharedQueue] queueStatusForPackage:package];
+//    if (queue) {
+//        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:false];
+//        self.queueStatusLabel.hidden = NO;
+//        self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
+//        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.queueStatusLabel sizeToFit];
+//        });
+//    } else {
+//        self.queueStatusLabel.hidden = YES;
+//        self.queueStatusLabel.text = nil;
+//        self.queueStatusLabel.backgroundColor = nil;
+//    }
 }
 
 - (void)setColors {
     self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
     self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.authorAndRepo.textColor = [UIColor cellSecondaryTextColor];
+    self.authorAndRepoAndSize.textColor = [UIColor cellSecondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
 }
 

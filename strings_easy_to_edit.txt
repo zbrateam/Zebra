@@ -67,6 +67,7 @@ Packages
 Show Updates
 Ignore Updates
 Select Version
+Select a version to upgrade to
 Package
 Information
 Upgrade All
@@ -105,30 +106,33 @@ Could not parse %@ from %@\n
 // Console
 
 Console
-Downloading Packages
 Performing actions
-Updating icon cache asynchronously
+Updating icon cache asynchronously...
 This may take awhile and Zebra may crash. It is okay if it does.
 Close Zebra
 Restart SpringBoard
-Installing Packages
-Removing Packages
-Reinstalling Packages
-Upgrading Packages
-Done!
+Downloading
+Downloading Packages...
+Installing
+Installing Packages...
+Removing
+Removing Packages...
+Reinstalling
+Reinstalling Packages...
+Upgrading
+Upgrading Packages...
+Complete
+Finished!
 
 // Queue
 
 Queue
 Queue cleared
-// TODO Install
-// TODO Remove
-// TODO Upgrade
-// TODO Reinstall
-// TODO Select Ver.
-// TODO Clear
-// TODO Unresolved Dependencies
-// TODO Conflictions
+Install
+Reinstall
+Remove
+Upgrade
+Downgrade
 Abort
 Continue
 Download Size

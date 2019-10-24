@@ -52,6 +52,7 @@
 }
 
 - (IBAction)install:(id)sender {
+    //FIXME: Update for new console
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
     vc.externalInstall = YES;

@@ -9,6 +9,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBLog.h>
 #import <ZBTab.h>
+#import <ZBSettings.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -20,10 +21,11 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBDevice.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ZBSortingType) {
     ZBSortingTypeABC,
-    ZBSortingTypeDate
-} ZBSortingType;
+    ZBSortingTypeDate,
+    ZBSortingTypeInstalledSize
+};
 
 @interface ZBPackageListTableViewController () {
     ZBSortingType selectedSortingType;
@@ -54,7 +56,7 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    selectedSortingType = [[NSUserDefaults standardUserDefaults] boolForKey:@"sortPackagesByRecent"] ? ZBSortingTypeDate : ZBSortingTypeABC;
+    selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -102,7 +104,7 @@ typedef enum {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages];
+            self->packages = [self.databaseManager installedPackages:false];
             self->updates = [self.databaseManager packagesWithUpdates];
             self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
@@ -123,10 +125,16 @@ typedef enum {
             [self configureLoadMoreButton];
         }
         if (self->selectedSortingType == ZBSortingTypeDate) {
-            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                NSDate *first = [(ZBPackage *)a installedDate];
-                NSDate *second = [(ZBPackage *)b installedDate];
+            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
+                NSDate *first = [a installedDate];
+                NSDate *second = [b installedDate];
                 return [second compare:first];
+            }];
+        } else if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
+            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
+                NSInteger sizeA = [a numericInstalledSize];
+                NSInteger sizeB = [b numericInstalledSize];
+                return sizeB - sizeA;
             }];
         } else {
             self->sortedPackages = nil;
@@ -190,7 +198,7 @@ typedef enum {
 
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
-            UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @"")]];
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")]];
         segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
@@ -199,7 +207,7 @@ typedef enum {
 
 - (void)configureQueueOrShareButton {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([[ZBQueue sharedInstance] hasObjects]) {
+        if ([ZBQueue count] > 0) {
             self->queueButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Queue", @"") style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
             self->clearButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"") style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
             self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
@@ -213,7 +221,7 @@ typedef enum {
 }
 
 - (void)presentQueue {
-    [ZBPackageActionsManager presentQueue:self parent:nil];
+    [[ZBAppDelegate tabBarController] openQueue:YES];
 }
 
 - (void)askClearQueue {
@@ -232,13 +240,13 @@ typedef enum {
 }
 
 - (void)clearQueue {
-    [[ZBQueue sharedInstance] clearQueue];
+    [[ZBQueue sharedQueue] clear];
     [self refreshTable];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages] copy];
+    NSArray *packages = [[self.databaseManager installedPackages:false] copy];
     NSMutableArray *packageIds = [NSMutableArray new];
     for (ZBPackage *package in packages) {
         if (package.identifier) {
@@ -283,7 +291,7 @@ typedef enum {
 }
 
 - (void)upgradeAll {
-    ZBQueue *queue = [ZBQueue sharedInstance];
+    ZBQueue *queue = [ZBQueue sharedQueue];
     [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
     [self presentQueue];
 }
@@ -304,7 +312,7 @@ typedef enum {
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
-    [[NSUserDefaults standardUserDefaults] setBool:selectedSortingType == ZBSortingTypeDate forKey:@"sortPackagesByRecent"];
+    [[NSUserDefaults standardUserDefaults] setInteger:selectedSortingType forKey:packageSortingKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self refreshTable];
 }
@@ -390,6 +398,9 @@ typedef enum {
         }
         if (selectedSortingType == ZBSortingTypeDate) {
             return NSLocalizedString(@"Recent", @"");
+        }
+        if (selectedSortingType == ZBSortingTypeInstalledSize) {
+            return @"Size";
         }
     }
     return nil;

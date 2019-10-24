@@ -19,6 +19,7 @@
 
 @interface ZBPackage () {
     NSUInteger possibleActions;
+    int numericInstalledSize;
 }
 @end
 
@@ -40,8 +41,12 @@
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
+@synthesize dependencies;
+@synthesize dependencyOf;
+@synthesize issues;
+@synthesize removedBy;
 
-+ (NSArray *)filesInstalled:(NSString *)packageID {
++ (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
@@ -63,7 +68,7 @@
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
-+ (BOOL)containsRespringable:(NSString *)packageID {
++ (BOOL)respringRequiredFor:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return YES;
     }
@@ -91,7 +96,7 @@
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
-                contains = [self containsRespringable:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                contains = [self respringRequiredFor:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 *stop = YES;
             }
         }];
@@ -99,7 +104,7 @@
         return contains;
     }
     
-    NSArray *files = [self filesInstalled:packageID];
+    NSArray *files = [self filesInstalledBy:packageID];
     
     for (NSString *path in files) {
         // Usual tweaks
@@ -118,10 +123,10 @@
     return NO;
 }
 
-+ (BOOL)containsApp:(NSString *)packageID {
++ (BOOL)containsApplicationBundle:(NSString *)packageID {
     ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([ZBDevice needsSimulation]) {
-        return YES;
+        return NO;
     }
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
@@ -146,7 +151,7 @@
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
-                contains = [self containsApp:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                contains = [self containsApplicationBundle:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 *stop = YES;
             }
         }];
@@ -154,10 +159,10 @@
         return contains;
     }
     
-    NSArray *files = [self filesInstalled:packageID];
+    NSArray *files = [self filesInstalledBy:packageID];
     
     for (NSString *path in files) {
-        if ([path rangeOfString:@".app/Info.plist"].location != NSNotFound) {
+        if ([path containsString:@".app/Info.plist"]) {
             return YES;
         }
     }
@@ -199,7 +204,7 @@
         return path;
     }
     
-    NSArray *files = [self filesInstalled:packageID];
+    NSArray *files = [self filesInstalledBy:packageID];
     
     NSString *appPath;
     for (NSString *path in files) {
@@ -424,9 +429,12 @@
 }
 
 - (int)numericInstalledSize {
+    if (numericInstalledSize)
+        return numericInstalledSize;
     NSString *sizeField = [self getField:@"Installed-Size"];
     if (!sizeField) return 0;
-    return [sizeField intValue];
+    numericInstalledSize = [sizeField intValue];
+    return numericInstalledSize;
 }
 
 - (NSString *)installedSize {
@@ -456,7 +464,32 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
     [versions removeObject:self];
+    
     return versions;
+}
+
+- (NSArray <ZBPackage *> *)lesserVersions {
+    NSMutableArray *versions = [[self otherVersions] mutableCopy];
+    NSMutableArray *lesserVersions = [versions mutableCopy];
+    for (ZBPackage *package in versions) {
+        if ([self compare:package] == NSOrderedAscending) {
+            [lesserVersions removeObject:package];
+        }
+    }
+    
+    return lesserVersions;
+}
+
+- (NSArray <ZBPackage *> *)greaterVersions {
+    NSMutableArray *versions = [[self otherVersions] mutableCopy];
+    NSMutableArray *greaterVersions = [versions mutableCopy];
+    for (ZBPackage *package in versions) {
+        if ([self compare:package] == NSOrderedDescending) {
+            [greaterVersions removeObject:package];
+        }
+    }
+    
+    return greaterVersions;
 }
 
 - (NSUInteger)possibleActions {
@@ -483,7 +516,7 @@
         if (otherVersions.count) {
             // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
             // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-            possibleActions |= ZBQueueTypeSelectable; // Select other versions
+            possibleActions |= ZBQueueTypeDowngrade; // Select other versions
         }
     }
     return possibleActions;
@@ -506,7 +539,7 @@
 
 - (ZBPackage *)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    ZBPackage *candidate = [databaseManager packageForID:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version] checkInstalled:NO checkProvides:YES];
+    ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
     ZBLog(@"Installable candidate for %@ is %@", self, candidate);
     return candidate;
 }
@@ -547,6 +580,32 @@
 	}];
 
     return version;
+}
+
+- (void)addDependency:(ZBPackage *)package {
+    if (!dependencies) dependencies = [NSMutableArray new];
+    
+    if (![dependencies containsObject:package]) {
+        [dependencies addObject:package];
+    }
+}
+
+- (void)addDependencyOf:(ZBPackage *)package {
+    if (!dependencyOf) dependencyOf = [NSMutableArray new];
+    
+    if (![dependencyOf containsObject:package]) {
+        [dependencyOf addObject:package];
+    }
+}
+
+- (void)addIssue:(NSString *)issue {
+    if (!issues) issues = [NSMutableArray new];
+    
+    [issues addObject:issue];
+}
+
+- (BOOL)hasIssues {
+    return [issues count] > 0;
 }
 
 @end

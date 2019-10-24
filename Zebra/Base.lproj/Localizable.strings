@@ -67,6 +67,7 @@
 "Show Updates" = "Show Updates";
 "Ignore Updates" = "Ignore Updates";
 "Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
 "Package" = "Package";
 "Information" = "Information";
 "Upgrade All" = "Upgrade All";
@@ -105,30 +106,33 @@
 // Console
 
 "Console" = "Console";
-"Downloading Packages" = "Downloading Packages";
 "Performing actions" = "Performing actions";
-"Updating icon cache asynchronously" = "Updating icon cache asynchronously";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Close Zebra";
 "Restart SpringBoard" = "Restart SpringBoard";
-"Installing Packages" = "Installing Packages";
-"Removing Packages" = "Removing Packages";
-"Reinstalling Packages" = "Reinstalling Packages";
-"Upgrading Packages" = "Upgrading Packages";
-"Done!" = "Done!";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
 
 // Queue
 
 "Queue" = "Queue";
 "Queue cleared" = "Queue cleared";
-// TODO Install
-// TODO Remove
-// TODO Upgrade
-// TODO Reinstall
-// TODO Select Ver.
-// TODO Clear
-// TODO Unresolved Dependencies
-// TODO Conflictions
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
 "Abort" = "Abort";
 "Continue" = "Continue";
 "Download Size" = "Download Size";

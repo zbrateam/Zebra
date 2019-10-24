@@ -31,7 +31,7 @@
 }
 
 - (void)getInstalledFiles {
-    NSArray *installedFiles = [ZBPackage filesInstalled:package.identifier];
+    NSArray *installedFiles = [ZBPackage filesInstalledBy:package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
     
     for (int i = 0; i < installedFiles.count; ++i) {

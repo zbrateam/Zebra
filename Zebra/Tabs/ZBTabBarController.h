@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary *repoBusyList;
 - (void)setPackageUpdateBadgeValue:(int)updates;
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
-- (void)openQueueBar:(BOOL)openPopup;
+- (void)openQueue:(BOOL)openPopup;
 - (void)clearRepos;
+- (void)updateQueueNav;
 @end
 
 NS_ASSUME_NONNULL_END

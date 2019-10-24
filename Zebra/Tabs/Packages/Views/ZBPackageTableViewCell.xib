@@ -41,7 +41,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="TA0-o7-XsF">
                         <rect key="frame" x="365" y="11" width="14" height="14"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Repo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7C-iN-6rJ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Repo + Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7C-iN-6rJ">
                         <rect key="frame" x="66" y="26" width="335" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -80,7 +80,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="authorAndRepo" destination="O7C-iN-6rJ" id="iE5-bD-qTb"/>
+                <outlet property="authorAndRepoAndSize" destination="O7C-iN-6rJ" id="iE5-bD-qTb"/>
                 <outlet property="descriptionLabel" destination="DyS-vT-uDO" id="dSB-fQ-D1g"/>
                 <outlet property="iconImageView" destination="JDx-9t-re7" id="cgm-WA-yfu"/>
                 <outlet property="isInstalledImageView" destination="Kfs-v7-U2C" id="wTr-Kw-FI8"/>

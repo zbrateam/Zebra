@@ -301,7 +301,7 @@ enum ZBSearchSection {
             }];
         }
         case ZBSearchSectionRecent: {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[[ZBQueue sharedInstance] queueToKeyDisplayed:ZBQueueTypeRemove] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
                 [self->recentSearches removeObjectAtIndex:indexPath.row];
                 [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"searches"];
                 [[NSUserDefaults standardUserDefaults] synchronize];

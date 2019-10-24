@@ -33,11 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *iconPath;
 @property (nonatomic, strong) NSString *origBundleID;
 @property (nonatomic, strong) NSDate *lastSeenDate;
+@property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencies;
+@property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencyOf;
+@property (nonatomic, strong) NSMutableArray <NSString *> *issues;
+@property (nonatomic, strong)  ZBPackage * _Nullable removedBy;
 @property BOOL sileoDownload;
 
-+ (NSArray *)filesInstalled:(NSString *)packageID;
-+ (BOOL)containsRespringable:(NSString *)packageID;
-+ (BOOL)containsApp:(NSString *)packageID;
++ (NSArray *)filesInstalledBy:(NSString *)packageID;
++ (BOOL)respringRequiredFor:(NSString *)packageID;
++ (BOOL)containsApplicationBundle:(NSString *)packageID;
 + (NSString *)pathForApplication:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
@@ -48,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
 - (NSArray <ZBPackage *> *)otherVersions;
+- (NSArray <ZBPackage *> *)lesserVersions;
+- (NSArray <ZBPackage *> *)greaterVersions;
 - (NSUInteger)possibleActions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
@@ -58,6 +64,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *)installableCandidate;
 - (NSDate *)installedDate;
 - (NSString *)installedVersion;
+- (void)addDependency:(ZBPackage *)package;
+- (void)addDependencyOf:(ZBPackage *)package;
+- (void)addIssue:(NSString *)issue;
+- (BOOL)hasIssues;
 @end
 
 NS_ASSUME_NONNULL_END

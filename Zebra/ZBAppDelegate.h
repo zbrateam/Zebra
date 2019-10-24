@@ -18,6 +18,7 @@
 + (NSString *)sourcesListPath;
 + (NSString *)databaseLocation;
 + (NSString *)debsLocation;
++ (void)sendAlertFrom:(UIViewController *)vc message:(NSString *)message;
 + (void)sendErrorToTabController:(NSString *)error;
 + (ZBTabBarController *)tabBarController;
 @end
