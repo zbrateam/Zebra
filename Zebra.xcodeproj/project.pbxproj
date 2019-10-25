@@ -173,6 +173,7 @@
 
 /* Begin PBXFileReference section */
 		00ED302D235C23C5005E8302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		13CEE5372363AA010072EC7D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2627B60A2321A63E00B141E5 /* originalBlack_ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack_ipad@3x.png"; sourceTree = "<group>"; };
 		2627B60C2321A64400B141E5 /* originalBlack_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack_ipad@2x.png"; sourceTree = "<group>"; };
 		2627B60E2321A64D00B141E5 /* originalBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@3x.png"; sourceTree = "<group>"; };
@@ -907,6 +908,7 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1091,6 +1093,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				00ED302D235C23C5005E8302 /* Base */,
+				13CEE5372363AA010072EC7D /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1118,6 +1121,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1178,6 +1182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
