@@ -33,6 +33,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     currentRepoEndpoint = @"";
     [self refreshTable];
+    
+    if (@available(iOS 11.0, *)) {
+        [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
