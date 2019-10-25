@@ -635,7 +635,8 @@
         }
         case 5: { //not-found
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Could not parse %@ from %@\n", @""), suggestedFilename, url] atLevel:ZBLogLevelError];
+                NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Could not parse %@ from %@", @""), suggestedFilename, url];
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@\n", text] atLevel:ZBLogLevelError];
             }
             break;
         }

@@ -168,7 +168,7 @@
 "Could not determine device information." = "Could not determine device information.";
 "Could not find a download URL for" = "Could not find a download URL for";
 "%@ hasn't been modified" = "%@ hasn't been modified";
-"Could not parse %@ from %@\n" = "Could not parse %@ from %@\n";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
