@@ -58,7 +58,8 @@
 }
 
 - (void)applyLocalization {
-    for(UIViewController *vc in self.viewControllers) {
+    for(UINavigationController *vc in self.viewControllers) {
+        assert([vc isKindOfClass:UINavigationController.class]);
         // This isn't exactly "best practice", but this way the text in IB isn't useless.
         vc.tabBarItem.title = NSLocalizedString(vc.tabBarItem.title, @"");
     }
