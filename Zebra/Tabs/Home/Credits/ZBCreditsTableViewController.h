@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@import SafariServices;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBCreditsTableViewController : UITableViewController
-
+@interface ZBCreditsTableViewController : UITableViewController <SFSafariViewControllerDelegate>
+@property (nonatomic, strong) NSArray *credits;
 @end
 
 NS_ASSUME_NONNULL_END

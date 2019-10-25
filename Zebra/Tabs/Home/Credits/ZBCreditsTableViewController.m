@@ -8,6 +8,7 @@
 
 #import "ZBCreditsTableViewController.h"
 #import <Extensions/UIColor+GlobalColors.h>
+#import <ZBDevice.h>
 
 @interface ZBCreditsTableViewController ()
 
@@ -15,89 +16,91 @@
 
 @implementation ZBCreditsTableViewController
 
+@synthesize credits;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = spinner;
+    [spinner startAnimating];
     
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     if (@available(iOS 11.0, *)) {
         [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
     }
-    
-    [self applyLocalization];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-}
-
-- (void)applyLocalization {
-    [self setTitle:NSLocalizedString(@"Credits", @"")];
+    
+    if (credits == NULL) {
+        [self fetchCredits];
+    }
 }
 
 #pragma mark - Table view data source
 
+- (void)fetchCredits {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:@"https://getzbra.com/api/credits.json"]];
+
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data && !error) {
+            self->credits = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"sections"];
+        }
+        else {
+            NSLog(@"[Zebra] Error while trying to access credits: %@", error);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            self.navigationItem.titleView = NULL;
+            self.navigationItem.title = NSLocalizedString(@"Credits", @"");
+        });
+    }];
+    
+    [task resume];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return [credits count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [[[credits objectAtIndex:section] objectForKey:@"items"] count];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"creditsTableViewCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    NSDictionary *person = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [person objectForKey:@"name"];
+    [cell.textLabel setTextColor:[UIColor tintColor]];
+    
+    cell.detailTextLabel.text = [person objectForKey:@"subtitle"];
+    [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return NSLocalizedString([[credits objectAtIndex:section] objectForKey:@"title"], @"");
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    NSDictionary *person = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
+    NSURL *url = [NSURL URLWithString:[person objectForKey:@"link"]];
+    
+    if (url) {
+        [ZBDevice openURL:url delegate:self];
+    }
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
