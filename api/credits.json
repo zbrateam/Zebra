@@ -45,6 +45,18 @@
     {
       "title": "Libraries",
       "items": [
+        {
+          "name": "LNPopupController",
+          "link": "https://www.github.com/LeoNatan/LNPopupController"
+        },
+        {
+          "name": "SDWebImage",
+          "link": "https://github.com/SDWebImage/SDWebImage"
+        },
+        {
+          "name": "Twemoji",
+          "link": "https://github.com/twitter/twemoji"
+        }
       ]
     }
   ]
