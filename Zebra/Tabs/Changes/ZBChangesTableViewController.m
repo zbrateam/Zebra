@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
     self.collectionView.delegate = self;
@@ -59,6 +60,11 @@
     [self startSettingHeader];
     self.batchLoadCount = 500;
     [self refreshTable];
+}
+
+- (void)applyLocalization {
+    // This isn't exactly "best practice", but this way the text in IB isn't useless.
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"");
 }
 
 - (void)startSettingHeader  {

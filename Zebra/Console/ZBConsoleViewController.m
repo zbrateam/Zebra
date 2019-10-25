@@ -72,7 +72,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Console";
+    self.title = NSLocalizedString(@"Console", @"");
     [self setupView];
 }
 
@@ -122,8 +122,7 @@
 
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
     if (downloadFailed) {
-        //FIXME: Localize
-        [self writeToConsole:@"\nOne or more packages failed to download.\n\nClick \"Return to Queue\" to return to the Queue and retry the download." atLevel:ZBLogLevelDescript];
+        [self writeToConsole:[NSString stringWithFormat:@"\n%@\n\n%@", NSLocalizedString(@"One or more packages failed to download.", @""), NSLocalizedString(@"Click \"Return to Queue\" to return to the Queue and retry the download.", @"")] atLevel:ZBLogLevelDescript];
         [self finishTasks];
     }
     else {
@@ -280,12 +279,11 @@
 #pragma mark - Helper Methods
 
 - (void)updateIconCaches:(NSArray *)caches {
-    //FIXME: Localize
-    [self writeToConsole:@"Updating icon cache asynchronously..." atLevel:ZBLogLevelInfo];
+    [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
     NSMutableArray *arguments = [NSMutableArray new];
     if ([caches count] + [applicationBundlePaths count] > 1) {
         [arguments addObject:@"-a"];
-        [self writeToConsole:@"This may take awhile and Zebra may crash. It is okay if it does." atLevel:ZBLogLevelWarning];
+        [self writeToConsole:NSLocalizedString(@"This may take awhile and Zebra may crash. It is okay if it does.", @"") atLevel:ZBLogLevelWarning];
     }
     else {
         [arguments addObject:@"-p"];
@@ -307,37 +305,36 @@
 }
 
 - (void)updateStage:(ZBStage)stage {
-    //FIXME: Localize
     currentStage = stage;
     suppressCancel = stage != ZBStageDownload && stage != ZBStageFinished;
     
     switch (stage) {
         case ZBStageDownload:
-            [self updateTitle:@"Downloading"];
-            [self writeToConsole:@"Downloading Packages..." atLevel:ZBLogLevelInfo];
+            [self updateTitle:NSLocalizedString(@"Downloading", @"")];
+            [self writeToConsole:NSLocalizedString(@"Downloading Packages...", @"") atLevel:ZBLogLevelInfo];
             
             [self setProgressTextHidden:false];
             [self setProgressViewHidden:false];
             break;
         case ZBStageInstall:
-            [self updateTitle:@"Installing"];
-            [self writeToConsole:@"Installing Packages..." atLevel:ZBLogLevelInfo];
+            [self updateTitle:NSLocalizedString(@"Installing", @"")];
+            [self writeToConsole:NSLocalizedString(@"Installing Packages...", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageRemove:
-            [self updateTitle:@"Removing"];
-            [self writeToConsole:@"Removing Packages..." atLevel:ZBLogLevelInfo];
+            [self updateTitle:NSLocalizedString(@"Removing", @"")];
+            [self writeToConsole:NSLocalizedString(@"Removing Packages...", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageReinstall:
-            [self updateTitle:@"Reinstalling"];
-            [self writeToConsole:@"Reinstalling Packages..." atLevel:ZBLogLevelInfo];
+            [self updateTitle:NSLocalizedString(@"Reinstalling", @"")];
+            [self writeToConsole:NSLocalizedString(@"Reinstalling Packages...", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageUpgrade:
-            [self updateTitle:@"Upgrading"];
-            [self writeToConsole:@"Upgrading Packages..." atLevel:ZBLogLevelInfo];
+            [self updateTitle:NSLocalizedString(@"Upgrading", @"")];
+            [self writeToConsole:NSLocalizedString(@"Upgrading Packages...", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageFinished:
-            [self updateTitle:@"Complete"];
-            [self writeToConsole:@"Finished!" atLevel:ZBLogLevelInfo];
+            [self updateTitle:NSLocalizedString(@"Complete", @"")];
+            [self writeToConsole:NSLocalizedString(@"Finished!", @"") atLevel:ZBLogLevelInfo];
             
             [self updateCompleteButton];
             [self updateCancelOrCloseButton];
@@ -456,34 +453,33 @@
         }
         else if (self->currentStage == ZBStageFinished) {
             self.cancelOrCloseButton.hidden = self->zebraRestartRequired;
-            [self.cancelOrCloseButton setTitle:@"Close" forState:UIControlStateNormal];
+            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Close", @"") forState:UIControlStateNormal];
         }
         else {
             self.cancelOrCloseButton.hidden = NO;
-            [self.cancelOrCloseButton setTitle:@"Cancel" forState:UIControlStateNormal];
+            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
         }
     });
 }
 
 - (void)updateCompleteButton {
-    //FIXME: Localize
     dispatch_async(dispatch_get_main_queue(), ^{
         self->completeButton.hidden = NO;
         [self updateProgressText:nil];
         if (self->downloadFailed) {
-            [self->completeButton setTitle:@"Return to Queue" forState:UIControlStateNormal];
+            [self->completeButton setTitle:NSLocalizedString(@"Return to Queue", @"") forState:UIControlStateNormal];
             [self->completeButton addTarget:self action:@selector(returnToQueue) forControlEvents:UIControlEventTouchUpInside];
         }
         else if (self->respringRequired) {
-            [self->completeButton setTitle:@"Restart SpringBoard" forState:UIControlStateNormal];
+            [self->completeButton setTitle:NSLocalizedString(@"Restart SpringBoard", @"") forState:UIControlStateNormal];
             [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
         }
         else if (self->zebraRestartRequired) {
-            [self->completeButton setTitle:@"Close Zebra" forState:UIControlStateNormal];
+            [self->completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
             [self->completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
         }
         else {
-            [self->completeButton setTitle:@"Done" forState:UIControlStateNormal];
+            [self->completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
             [self->completeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
         }
     });
@@ -529,7 +525,7 @@
     }
     totalProgress /= downloadMap.count;
     [self updateProgress:totalProgress];
-    [self updateProgressText:[NSString stringWithFormat: @"Downloading: %.1f%% ", totalProgress * 100]];
+    [self updateProgressText:[NSString stringWithFormat: @"%@: %.1f%% ", NSLocalizedString(@"Downloading", @""), totalProgress * 100]];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames {
@@ -542,7 +538,7 @@
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
-    [self writeToConsole:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
+    [self writeToConsole:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Downloading", @""), filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
@@ -551,7 +547,7 @@
         [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
     }
     else if (filename) {
-        [self writeToConsole:[NSString stringWithFormat:@"Done %@", filename] atLevel:ZBLogLevelDescript];
+        [self writeToConsole:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Done", @""), filename] atLevel:ZBLogLevelDescript];
     }
 }
 
@@ -562,13 +558,11 @@
 }
 
 - (void)databaseStartedUpdate {
-    //FIXME: Localize
-    [self writeToConsole:@"Importing local packages." atLevel:ZBLogLevelInfo];
+    [self writeToConsole:NSLocalizedString(@"Importing local packages.", @"") atLevel:ZBLogLevelInfo];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    //FIXME: Localize
-    [self writeToConsole:@"Finished importing local packages." atLevel:ZBLogLevelInfo];
+    [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
 //    ZBLog(@"[Zebra] %d updates available.", packageUpdates);
     if (packageUpdates != -1) {
         [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];

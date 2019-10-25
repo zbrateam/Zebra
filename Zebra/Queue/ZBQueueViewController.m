@@ -34,11 +34,11 @@
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
-    self.title = @"Queue";
+    self.title = NSLocalizedString(@"Queue", @"");
 }
 
 - (void)clearQueueBarData {
-    self.navigationController.popupItem.title = @"Queue cleared";
+    self.navigationController.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
     self.navigationController.popupItem.subtitle = nil;
 }
 
@@ -72,14 +72,14 @@
 - (void)refreshBarButtons {
     if ([queue hasIssues]) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
-        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
+        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Abort", @"");
+        self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
     }
     else {
         
         self.navigationItem.rightBarButtonItem.enabled = YES;
-        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
+        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
     }
 }
@@ -112,7 +112,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     ZBQueueType action = [queue actionsToPerform][section].intValue;
     if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-        return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
+        return [NSString stringWithFormat:@"%@ %@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
     }
     return [queue displayableNameForQueueType:action useIcon:false];
 }

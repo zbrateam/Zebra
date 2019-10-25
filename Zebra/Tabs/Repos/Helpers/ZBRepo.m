@@ -34,8 +34,8 @@
 
 + (ZBRepo *)localRepo:(int)repoID {
     ZBRepo *local = [[ZBRepo alloc] init];
-    [local setOrigin:@"Local Repository"];
-    [local setDesc:@"Locally installed packages"];
+    [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
+    [local setDesc:NSLocalizedString(@"Locally installed packages", @"")];
     [local setRepoID:repoID];
     [local setBaseFileName:@"/var/lib/dpkg/status"];
     return local;
@@ -91,7 +91,7 @@
         [self setDesc:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setBaseFileName:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setBaseURL:baseURL];
-        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : (baseURL ?: @"Unknown")];
+        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : (baseURL ?: NSLocalizedString(@"Unknown", @""))];
         [self setSecure:secure];
         [self setRepoID:sqlite3_column_int(statement, ZBRepoColumnRepoID)];
         [self setIconURL:iconURL];

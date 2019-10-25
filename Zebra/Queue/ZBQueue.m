@@ -287,15 +287,15 @@
     
     switch (queue) {
         case ZBQueueTypeInstall:
-            return useIcon ? @"↓" : @"Install";
+            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
         case ZBQueueTypeReinstall:
-            return useIcon ? @"↺" : @"Reinstall";
+            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
         case ZBQueueTypeRemove:
-            return useIcon ? @"╳" : @"Remove";
+            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         case ZBQueueTypeUpgrade:
-            return useIcon ? @"↑" : @"Upgrade";
+            return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBQueueTypeDowngrade:
-            return useIcon ? @"⇵" : @"Downgrade";
+            return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
         default:
             break;
     }

@@ -122,7 +122,7 @@
     NSString *sourceList = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&sourceListReadError];
     
     if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && sourceListReadError != NULL) {
-        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Error while opening sources.list: %@\n", sourceListReadError.localizedDescription] atLevel:ZBLogLevelError];
+        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Error while opening sources.list", @""), sourceListReadError.localizedDescription] atLevel:ZBLogLevelError];
         
         return NULL;
     }
@@ -180,7 +180,10 @@
     }
     
     if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)] && [self checkForInvalidRepo:baseURL]) {
-        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"The repo %@ is incompatible with your jailbreak.\n\nIt may cause issues if you add it to Zebra resulting in a loss of jailbreak and a possible restore.\n\nPlease remove this repo from your sources.list file.\n\n", baseURL] atLevel:ZBLogLevelError];
+        NSString *sentence1 = [NSString stringWithFormat:NSLocalizedString(@"The repo %@ is incompatible with your jailbreak.", @""), baseURL];
+        NSString *sentence2 = NSLocalizedString(@"It may cause issues if you add it to Zebra resulting in possible restore.", @"");
+        NSString *sentence3 = NSLocalizedString(@"Please remove this repo from your sources.list file.", @"");
+        [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n", sentence1, sentence2, sentence3] atLevel:ZBLogLevelError];
     }
     
     return urlComponents;
@@ -216,7 +219,7 @@
 - (void)downloadRepos:(NSArray <NSArray *> *)repos ignoreCaching:(BOOL)ignore {
     if (repos == NULL) {
         if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
-            [downloadDelegate postStatusUpdate:@"Incorrect documents permissions.\n" atLevel:ZBLogLevelError];
+            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Incorrect documents permissions.", @"")] atLevel:ZBLogLevelError];
         [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
     }
     
@@ -225,7 +228,7 @@
     NSDictionary *headers = ignore ? [self headers] : [self headersForFile:@"file"];
     if (headers == NULL) {
         if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
-            [downloadDelegate postStatusUpdate:@"Could not determine device information.\n" atLevel:ZBLogLevelError];
+            [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
         [downloadDelegate predator:self finishedAllDownloads:@{@"release": @[], @"packages": @[]}];
         
         return;
@@ -295,7 +298,7 @@
         
         if (repo == NULL || filename == NULL) {
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not find a download URL for %@ (%@)\n", package.name, package.identifier] atLevel:ZBLogLevelWarning];
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ %@ (%@)\n", NSLocalizedString(@"Could not find a download URL for", @""), package.name, package.identifier] atLevel:ZBLogLevelWarning];
             }
             ++failedTasks;
             continue;
@@ -427,7 +430,7 @@
                 }
                 
                 if (responseCode == 304 && [downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"%@ hasn't been modified", @""), [url host]] atLevel:ZBLogLevelDescript];
                 }
                 else {
                     NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -447,7 +450,7 @@
                 }
                 
                 if (responseCode == 304 && [downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"%@ hasn't been modified", @""), [url host]] atLevel:ZBLogLevelDescript];
                 }
                 else {
                     NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -471,7 +474,7 @@
             }
             else {
                 if (responseCode == 304 && [downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"%@ hasn't been modified", @""), [url host]] atLevel:ZBLogLevelDescript];
                 }
                 else {
                     NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -537,7 +540,7 @@
             }
             else {
                 if (responseCode == 304 && [downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ hasn't been modified", [url host]] atLevel:ZBLogLevelDescript];
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"%@ hasn't been modified", @""), [url host]] atLevel:ZBLogLevelDescript];
                 }
                 else {
                     NSString *listsPath = [ZBAppDelegate listsLocation];
@@ -632,7 +635,8 @@
         }
         case 5: { //not-found
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"Could not parse %@ from %@\n", suggestedFilename, url] atLevel:ZBLogLevelError];
+                NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Could not parse %@ from %@", @""), suggestedFilename, url];
+                [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@\n", text] atLevel:ZBLogLevelError];
             }
             break;
         }

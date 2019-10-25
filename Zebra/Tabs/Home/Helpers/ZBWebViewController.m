@@ -83,7 +83,7 @@
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
     } else {
-        self.title = @"Home";
+        self.title = NSLocalizedString(@"Home", @"");
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
     }
@@ -436,7 +436,7 @@
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
     } else {
-        self.title = @"Home";
+        self.title = NSLocalizedString(@"Home", @"");
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
         
