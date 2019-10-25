@@ -4,16 +4,16 @@
 "No" = "Nei";
 "Ok" = "Ok";
 "Error" = "Feil";
-"Retry" = "Pr¯v pÂ nytt";
+"Retry" = "Prøv på nytt";
 "Edit" = "Endre";
 "Login" = "Logg inn";
 "Close" = "Lukk";
 "Done" = "Ferdig";
 
 // Tab controller
-"Packages in Queue" = "Pakker i K¯";
-"Package in Queue" = "Pakke i K¯";
-"Tap to manage Queue" = "Trykk for Â administrere K¯";
+"Packages in Queue" = "Pakker i Kø";
+"Package in Queue" = "Pakke i Kø";
+"Tap to manage Queue" = "Trykk for å administrere Kø";
 
 // Home
 
@@ -22,20 +22,20 @@
 "Welcome to the Zebra Beta!" = "Velkommen til Zebra beta!";
 "Changelog" = "Endringslogg";
 "Community Repos" = "Felleskilder";
-"Transfer Sources from %@" = "Overf¯r Kilder fra %@";
-"Move all sources from %@ to Zebra" = "Overf¯r alle kilder fra %@ til Zebra";
-"Utility repo for %@" = "Verkt¯yskilde for %@";
-"Transfer Sources" = "Overf¯r Kilder";
-"Utilities" = "Verkt¯y";
+"Transfer Sources from %@" = "Overfør Kilder fra %@";
+"Move all sources from %@ to Zebra" = "Overfør alle kilder fra %@ til Zebra";
+"Utility repo for %@" = "Verktøyskilde for %@";
+"Transfer Sources" = "Overfør Kilder";
+"Utilities" = "Verktøy";
 "Please Wait..." = "Vennligst Vent...";
 "Verifying Source(s)" = "Verifiserer Kilde(r)";
 "Stores" = "Butikker";
-"Purchases" = "Kj¯p";
-"Wish List" = "ÿnskeliste";
+"Purchases" = "Kjøp";
+"Wish List" = "Ønskeliste";
 "Unlist" = "Fjern";
 "Community" = "Sosialt";
-"Join our Discord" = "Bli med i vÂr Discord";
-"Follow me on Twitter" = "F¯lg meg pÂ Twitter";
+"Join our Discord" = "Bli med i vår Discord";
+"Follow me on Twitter" = "Følg meg på Twitter";
 "Credits" = "Bidragsytere";
 
 // Settings
@@ -46,7 +46,7 @@
 "Graphics" = "Grafikk";
 "Featured" = "Utvalgt";
 "News" = "Nyheter";
-"Search" = "S¯k";
+"Search" = "Søk";
 "Miscellaneous" = "Diverse";
 "Advanced" = "Avansert";
 
@@ -54,12 +54,12 @@
 
 "Tint Color" = "Fargetone";
 "Default" = "Standard";
-"Blue" = "BlÂ";
+"Blue" = "Blå";
 "Orange" = "Oransje";
 "White" = "Hvit";
 "Black" = "Svart";
 
-"Dark Mode" = "M¯rkmodus";
+"Dark Mode" = "Mørkmodus";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
@@ -74,19 +74,19 @@
 
 "Enable News" = "Aktiver Nyheter";
 
-"Search while Typing" = "S¯k mens du Taster";
+"Search while Typing" = "Søk mens du Taster";
 
 "Swipe Actions Display As" = "Sveiphandlinger Vises Som";
 "Text" = "Tekst";
 "Icon" = "Ikoner";
-"Open Documents Directory" = "≈pne Dokument Filplassering";
-"Clear Image Cache" = "T¯m bildebufferen";
-"Clear Keychain" = "T¯m n¯kkelring";
+"Open Documents Directory" = "Åpne Dokument Filplassering";
+"Clear Image Cache" = "Tøm bildebufferen";
+"Clear Keychain" = "Tøm nøkkelring";
 
 "Loading..." = "Laster...";
 
-"Resetting image cache completed" = " Tilbakestilling av bildebuffer fullf¯rt";
-"Clearing keychain completed" = "Tilbakestilling av n¯kkelring fullf¯rt";
+"Resetting image cache completed" = " Tilbakestilling av bildebuffer fullført";
+"Clearing keychain completed" = "Tilbakestilling av nøkkelring fullført";
 
 // Sources
 
@@ -110,8 +110,8 @@
 "Unable to verify Repo" = "Kan ikke verifisere Kilde";
 "Refresh" = "Oppdater";
 "Log Out" = "Logg Ut";
-"Purchased Packages" = "Mine Kj¯p";
-"Purchased" = "Kj¯pt";
+"Purchased Packages" = "Mine Kjøp";
+"Purchased" = "Kjøpt";
 
 "All Packages" = "Alle pakker";
 "Delete" = "Slett";
@@ -133,36 +133,36 @@
 "Loaded" = "Lastet";
 "ABC" = "ABC";
 "Date" = "Dato";
-"Size" = "St¯rrelse";
-"Queue" = "K¯";
-"Clear" = "T¯m";
-"Are you sure you want to clear Queue?" = "Er du sikker pÂ at du vil t¯mme k¯en?";
+"Size" = "Størrelse";
+"Queue" = "Kø";
+"Clear" = "Tøm";
+"Are you sure you want to clear Queue?" = "Er du sikker på at du vil tømme køen?";
 "Available Upgrades" = "Tilgjengelige Oppdateringer";
 "Ignored Upgrades" = "Ignorerte Oppdateringer";
 "Recent" = "Nylig";
 "Installed Files" = "Installerte Filer";
 "Modify" = "Endre";
-"Authenticate to initiate purchase." = "Autentiser for Â kj¯pe.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vennligst logg inn pÂ nytt med kontoen som brukes for Â kj¯pe denne pakken (Muligens %@)";
+"Authenticate to initiate purchase." = "Autentiser for å kjøpe.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vennligst logg inn på nytt med kontoen som brukes for å kjøpe denne pakken (Muligens %@)";
 "More by this Developer" = "Mer fra denne Utvikleren";
 "Installed Version" = "Installert Versjon";
 
-"Add to Wish List" = "Legg til i ÿnskelisten";
-"Remove from Wish List" = "Fjern fra ÿnskelisten";
+"Add to Wish List" = "Legg til i Ønskelisten";
+"Remove from Wish List" = "Fjern fra Ønskelisten";
 
 // Search
 
-"Search" = "S¯k";
-"Clear Search" = "T¯m s¯keloggen";
-"This search query is too short for the full search, please use a longer query." = "Dette s¯keordet er for kort for et komplett s¯k. Vennligst bruk et lengre s¯keord.";
+"Search" = "Søk";
+"Clear Search" = "Tøm søkeloggen";
+"This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for et komplett søk. Vennligst bruk et lengre søkeord.";
 "No Results Found" = "Ingen Resultater Funnet";
 
 // Downloads
 
 "Downloads" = "Nedlastinger";
-"Error while opening sources.list" = "Feil under Âpning av sources.list";
+"Error while opening sources.list" = "Feil under åpning av sources.list";
 "The repo %@ is incompatible with your jailbreak." = "Kilde %@ er ikke kompatibel med din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forÂrsake problemer hvis du legger den til i Zebra. Det kan eventuelt f¯re til at du mÂ gjenopprette mobilen.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette mobilen.";
 "Please remove this repo from your sources.list file." = "Vennligst fjern denne kilden fra din sources.list fil.";
 "Incorrect documents permissions." = "Feil dokumenttillatelser";
 "Could not determine device information." = "Kunne ikke finne enhetsinformasjon.";
@@ -173,42 +173,42 @@
 // Console
 
 "Console" = "Konsoll";
-"Performing actions" = "Utf¯rer handlinger";
+"Performing actions" = "Utfører handlinger";
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta en stund og det kan hende at Zebra krasjer. Dette vil ikke f¯re til skade.";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta en stund og det kan hende at Zebra krasjer. Dette vil ikke føre til skade.";
 "Close Zebra" = "Lukk Zebra";
-"Restart SpringBoard" = "Start SpringBoard PÂ Nytt";
+"Restart SpringBoard" = "Start SpringBoard På Nytt";
 "Downloading" = "Laster ned";
 "Downloading Packages..." = "Laster ned Pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer Pakker...";
 "Removing" = "Fjerner";
 "Removing Packages..." = "Fjerner Pakker...";
-"Reinstalling" = "Installerer PÂ Nytt";
-"Reinstalling Packages..." = "Installerer Pakker PÂ Nytt...";
+"Reinstalling" = "Installerer På Nytt";
+"Reinstalling Packages..." = "Installerer Pakker På Nytt...";
 "Upgrading" = "Oppgraderer";
 "Upgrading Packages..." = "Oppgraderer Pakker...";
 "Complete" = "Ferdig";
 "Finished!" = "Ferdig!";
-"Return to Queue" = "Tilbake til K¯";
+"Return to Queue" = "Tilbake til Kø";
 "Importing local packages." = "Importerer lokale pakker.";
-"Finished importing local packages." = "Ferdig med Â importere lokale pakker.";
+"Finished importing local packages." = "Ferdig med å importere lokale pakker.";
 "One or more packages failed to download." = "Nedlasting av en eller flere pakker feilet.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk pÂ \"Tilbake til K¯\" for Â returnere til k¯en og pr¯ve nedlastingen pÂ nytt.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnere til køen og prøve nedlastingen på nytt.";
 
 // Queue
 
-"Queue" = "K¯";
-"Queue cleared" = "K¯ t¯mt";
+"Queue" = "Kø";
+"Queue cleared" = "Kø tømt";
 "Install" = "Installer";
-"Reinstall" = "Installer pÂ nytt";
+"Reinstall" = "Installer på nytt";
 "Remove" = "Fjern";
 "Upgrade" = "Oppgrader";
 "Downgrade" = "Nedgrader";
 "Abort" = "Avbryt";
 "Continue" = "Fortsett";
-"Download Size" = "Nedlasting St¯rrelse";
-"Could not resolve dependency for %@" = "Kunne ikke l¯se n¯dvendighet for %@";
+"Download Size" = "Nedlasting Størrelse";
+"Could not resolve dependency for %@" = "Kunne ikke løse nødvendighet for %@";
 "%@ conflicts with %@" = "%@ konflikter med %@";
 "%@ depends on %@" = "%@ avhenger av %@";
 "Removed by" = "Fjernet av";
