@@ -9,6 +9,7 @@
 #import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
+#import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
@@ -427,16 +428,9 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)openCredits {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-    webController.navigationDelegate = webController;
-    webController.navigationItem.title = @"Loading...";
-    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/zebra/credits.html"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    ZBCreditsTableViewController *creditsController = [storyboard instantiateViewControllerWithIdentifier:@"creditsController"];
     
-    [webController setValue:url forKey:@"_url"];
-    
-    [[self navigationController] pushViewController:webController animated:YES];
+    [[self navigationController] pushViewController:creditsController animated:YES];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {
