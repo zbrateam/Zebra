@@ -5,16 +5,11 @@
       "items": [
         {
           "name": "Wilson Styres",
-          "links": [
-            {"Twitter": "https://twitter.com/xtm3x/"},
-            {"Website": "https://styres.me/"}
-          ]
+          "link": "https://styres.me/",
         },
         {
           "name": "Andrew Abosh",
-          "links": [
-            {"Website": "https://andrew-abosh.com/"}
-          ]
+          "link": "https://andrew-abosh.com/"
         }
       ]
     },
@@ -23,16 +18,11 @@
       "items": [
         {
           "name": "Thatchapon Unprasert",
-          "links": [
-            {"Twitter": "https://twitter.com/PoomSmart"}
-          ]
+          "link": "https://twitter.com/PoomSmart"
         },
         {
           "name": "MidnightChips",
-          "links": [
-            {"Twitter": "https://twitter.com/MidnightChip"},
-            {"Website": "https://midnightchips.me"}
-          ]
+          "link": "https://midnightchips.me"
         },
         {
           "name": "Tommy Muir"
@@ -48,10 +38,13 @@
         {
           "name": "WorldlyDev",
           "subtitle": "Norwegian Bokmål",
-          "links": [
-            {"Twitter": "https://twitter.com/WorldlyDev"}
-          ]
+          "link": "https://twitter.com/WorldlyDev"
         }
+      ]
+    },
+    {
+      "title": "Libraries",
+      "items": [
       ]
     }
   ]
