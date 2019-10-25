@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
+about: Having an issue with Zebra? Report it here!
+title: "[BUG]"
 labels: bug
 assignees: ''
 
@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
  - Device Type [e.g. iPhone or iPad]: 
 
 **Crash Log or System Log**
-Please provide a Crash Log to help me solve the issue.
+Please provide a Crash Log to help us solve the issue.
 
 **Additional context**
 Add any other context about the problem here.
