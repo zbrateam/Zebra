@@ -5,7 +5,7 @@ Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built t
 
 Zebra supports localization but help is needed in order to translate Zebra!
 
-If you are familiar with a language that is not currently supported by Zebra, you can help us out by translating Zebra into your language. There are two ways to do this:
+If you are familiar with a language that is not currently supported by Zebra (you can check out a list of curently supported languages [here](https://github.com/wstyres/Zebra/blob/master/translations.md), you can help us out by translating Zebra into your language. There are two ways to do this:
 
 1. If you do not know how to use Xcode or are not able to use Xcode, you can download Zebra's strings from [here](https://getzbra.com/localization/Localizable.strings), and translate them one-by-one. The English strings are on the left side while the strings that needed to be translated are placed on the right side. Once you are done, you can [file an issue](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=localization&template=localization-support.md&title=%5BLocalize%5D) with a link to your translated Localizable.strings and we will review it for inclusion in Zebra.
 
