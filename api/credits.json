@@ -37,24 +37,29 @@
       "title": "Translators",
       "items": [
         {
-          "name": "Far0pe7",
-          "subtitle": "French",
-          "link": "https://twitter.com/Far0pe7"
-        },
-        {
-          "name": "Pablo Reyes",
-          "subtitle": "Spanish",
-          "link": "https://twitter.com/pjreyess"
-        },
-        {
           "name": "Jafar Ali",
           "subtitle": "Arabic",
           "link": "https://twitter.com/busadoki"
         },
         {
+          "name": "Far0pe7",
+          "subtitle": "French",
+          "link": "https://twitter.com/Far0pe7"
+        },
+        {
+          "name": "GeopJr",
+          "subtitle": "Greek",
+          "link": "https://geopjr.xyz/"
+        },
+        {
           "name": "michael31_05",
           "subtitle": "German",
           "link": "https://twitter.com/lipmichi"
+        },
+        {
+          "name": "Pablo Reyes",
+          "subtitle": "Spanish",
+          "link": "https://twitter.com/pjreyess"
         },
         {
           "name": "WorldlyDev",
