@@ -75,15 +75,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"creditsTableViewCell" forIndexPath:indexPath];
-    
-    NSDictionary *person = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = [person objectForKey:@"name"];
-    [cell.textLabel setTextColor:[UIColor tintColor]];
-    
-    cell.detailTextLabel.text = [person objectForKey:@"subtitle"];
+    UITableViewCell *cell;
+    if (indexPath.section == 3) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+    }
+    else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
+        [cell.textLabel setTextColor:[UIColor tintColor]];
+    }
     [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    
+    NSDictionary *item = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [item objectForKey:@"name"];
+    cell.detailTextLabel.text = [item objectForKey:@"subtitle"];
     
     return cell;
 }
