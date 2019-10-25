@@ -81,7 +81,7 @@ enum ZBSearchSection {
 
 - (void)applyLocalization {
     // This isn't exactly "best practice", but this way the text in IB isn't useless.
-    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"");
+    self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
