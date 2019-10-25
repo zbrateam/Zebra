@@ -5,7 +5,6 @@
       "items": [
         {
           "name": "Wilson Styres",
-          "role": "Developer",
           "links": [
             {"Twitter": "https://twitter.com/xtm3x/"},
             {"Website": "https://styres.me/"}
@@ -13,7 +12,6 @@
         },
         {
           "name": "Andrew Abosh",
-          "role": "Designer and Front-end Developer",
           "links": [
             {"Website": "https://andrew-abosh.com/"}
           ]
@@ -25,26 +23,22 @@
       "items": [
         {
           "name": "Thatchapon Unprasert",
-          "role": "Developer",
           "links": [
             {"Twitter": "https://twitter.com/PoomSmart"}
           ]
         },
         {
           "name": "MidnightChips",
-          "role": "Developer",
           "links": [
             {"Twitter": "https://twitter.com/MidnightChip"},
             {"Website": "https://midnightchips.me"}
           ]
         },
         {
-          "name": "Tommy Muir",
-          "role": "Developer"
+          "name": "Tommy Muir"
         },
         {
-          "name": "Reed Weichler",
-          "role": "Developer"
+          "name": "Reed Weichler"
         }
       ]
     },
@@ -53,7 +47,7 @@
       "items": [
         {
           "name": "WorldlyDev",
-          "role": "Norwegian Bokmål",
+          "subtitle": "Norwegian Bokmål",
           "links": [
             {"Twitter": "https://twitter.com/WorldlyDev"}
           ]
