@@ -211,6 +211,5 @@
 "Could not resolve dependency for %@" = "Could not resolve dependency for %@";
 "%@ conflicts with %@" = "%@ conflicts with %@";
 "%@ depends on %@" = "%@ depends on %@";
-"Are you proud of yourself?" = "Are you proud of yourself?";
 "Removed by" = "Removed by";
 "Required by" = "Required by";
