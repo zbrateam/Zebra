@@ -611,6 +611,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     static NSArray *packageInfoOrder = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        // FIXME: Refactor this so it supports localization.
         packageInfoOrder = @[
                              @"PackageID",
                              @"Author",
@@ -668,7 +669,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
         infos[@"Version"] = package.version;
     } else {
-        infos[@"Version"] = [NSString stringWithFormat:@"%@ (%@: %@)", package.version, NSLocalizedString(@"Installed Version", @""), [package installedVersion]];
+        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", package.version, [package installedVersion]];
     }
 }
 
@@ -819,7 +820,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         case ZBPackageInfoWishList: {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
-            cell.textLabel.text = inWishList ? @"Remove from Wish List" : @"Add to Wish List";
+            cell.textLabel.text = NSLocalizedString(inWishList ? @"Remove from Wish List" : @"Add to Wish List", @"");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }

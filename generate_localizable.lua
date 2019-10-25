@@ -1,9 +1,14 @@
-local f = io.open('strings_easy_to_edit.txt', 'r')
-for line in f:lines() do
+local input = assert(io.open('strings_easy_to_edit.txt', 'r'))
+local output = assert(io.open('Zebra/Base.lproj/Localizable.strings', 'w'))
+for line in input:lines() do
     if line == '' or string.match(line, '%/%/.*') then
-        print(line)
+        output:write(line)
     else
         local s = string.match(line, '%s*(.*)')
-        print('"'..s..'" = "'..s..'";')
+        output:write('"'..s..'" = "'..s..'";')
     end
+    output:write('\n')
 end
+
+input:close()
+output:close()

@@ -10,6 +10,11 @@ Login
 Close
 Done
 
+// Tab controller
+Packages in Queue
+Package in Queue
+Tap to manage Queue
+
 // Home
 
 Home
@@ -33,6 +38,56 @@ Community
     Follow me on Twitter
     Credits
 
+// Settings
+
+Settings
+Version
+Information
+Graphics
+Featured
+News
+Search
+Miscellaneous
+Advanced
+
+Report a Bug
+
+Tint Color
+Default
+Blue
+Orange
+White
+Black
+
+Dark Mode
+Default
+OLED
+iOS 13
+
+Change Icon
+
+Enable Featured Packages
+Repo Featured
+Random
+Feature Type
+Select Repos to be Featured
+
+Enable News
+
+Search while Typing
+
+Swipe Actions Display As
+Text
+Icon
+Open Documents Directory
+Clear Image Cache
+Clear Keychain
+
+Loading...
+
+Resetting image cache completed
+Clearing keychain completed
+
 // Sources
 
 Sources
@@ -46,6 +101,7 @@ Error verifying repositories
 Unknown error.
 Invalid URL
 Enter URL
+Add Repo(s)
 Add
 Add Multiple
 Would you like to add the URL from your clipboard?
@@ -56,6 +112,9 @@ Refresh
 Log Out
 Purchased Packages
 Purchased
+
+All Packages
+Delete
 
 // Changes
 
@@ -74,6 +133,7 @@ Upgrade All
 Loaded
 ABC
 Date
+Size
 Queue
 Clear
 Are you sure you want to clear Queue?
@@ -86,6 +146,9 @@ Authenticate to initiate purchase.
 Please relogin your account that is used to purchase this package (Possibly %@)
 More by this Developer
 Installed Version
+
+Add to Wish List
+Remove from Wish List
 
 // Search
 

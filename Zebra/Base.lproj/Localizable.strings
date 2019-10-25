@@ -10,6 +10,11 @@
 "Close" = "Close";
 "Done" = "Done";
 
+// Tab controller
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
+
 // Home
 
 "Home" = "Home";
@@ -33,6 +38,56 @@
 "Follow me on Twitter" = "Follow me on Twitter";
 "Credits" = "Credits";
 
+// Settings
+
+"Settings" = "Settings";
+"Version" = "Version";
+"Information" = "Information";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Search" = "Search";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
+
+"Report a Bug" = "Report a Bug";
+
+"Tint Color" = "Tint Color";
+"Default" = "Default";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
+
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Change Icon";
+
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
+
+"Enable News" = "Enable News";
+
+"Search while Typing" = "Search while Typing";
+
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
+
+"Loading..." = "Loading...";
+
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
+
 // Sources
 
 "Sources" = "Sources";
@@ -46,6 +101,7 @@
 "Unknown error." = "Unknown error.";
 "Invalid URL" = "Invalid URL";
 "Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
 "Add" = "Add";
 "Add Multiple" = "Add Multiple";
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
@@ -56,6 +112,9 @@
 "Log Out" = "Log Out";
 "Purchased Packages" = "Purchased Packages";
 "Purchased" = "Purchased";
+
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
@@ -74,6 +133,7 @@
 "Loaded" = "Loaded";
 "ABC" = "ABC";
 "Date" = "Date";
+"Size" = "Size";
 "Queue" = "Queue";
 "Clear" = "Clear";
 "Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
@@ -86,6 +146,9 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
 "More by this Developer" = "More by this Developer";
 "Installed Version" = "Installed Version";
+
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Search
 

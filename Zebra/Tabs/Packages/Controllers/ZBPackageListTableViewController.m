@@ -56,6 +56,8 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
+
     selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
@@ -66,6 +68,11 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+}
+
+- (void)applyLocalization {
+    // This isn't exactly "best practice", but this way the text in IB isn't useless.
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {

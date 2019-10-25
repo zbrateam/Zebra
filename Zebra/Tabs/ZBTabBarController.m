@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
 
     if (@available(iOS 10.0, *)) {
         UITabBar.appearance.tintColor = [UIColor tintColor];
@@ -54,6 +55,13 @@
         [databaseManager updateDatabaseUsingCaching:YES userRequested:NO];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
+}
+
+- (void)applyLocalization {
+    for(UIViewController *vc in self.viewControllers) {
+        // This isn't exactly "best practice", but this way the text in IB isn't useless.
+        vc.tabBarItem.title = NSLocalizedString(vc.tabBarItem.title, @"");
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -177,8 +185,8 @@
         [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
         return;
     }
-    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@ in Queue", totalPackages, totalPackages > 1 ? @"Packages" : @"Package"];
-    queueNav.popupItem.subtitle = @"Tap to manage Queue";
+    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", totalPackages, NSLocalizedString(totalPackages > 1 ? @"Packages in Queue" : @"Package in Queue", @"")];
+    queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage Queue", @"");
 }
 
 - (void)openQueue:(BOOL)openPopup {

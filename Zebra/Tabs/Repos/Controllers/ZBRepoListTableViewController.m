@@ -38,11 +38,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     sources = [[self.databaseManager repos] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     [self baseViewDidLoad];
+}
+
+- (void)applyLocalization {
+    // This isn't exactly "best practice", but this way the text in IB isn't useless.
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"");
 }
 
 - (void)baseViewDidLoad {

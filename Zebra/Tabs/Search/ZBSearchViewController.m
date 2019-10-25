@@ -39,6 +39,8 @@ enum ZBSearchSection {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
     if (!recentSearches) {
@@ -75,6 +77,11 @@ enum ZBSearchSection {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self configureClearSearchButton];
     [self refreshTable];
+}
+
+- (void)applyLocalization {
+    // This isn't exactly "best practice", but this way the text in IB isn't useless.
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
