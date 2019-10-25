@@ -126,7 +126,7 @@
 "Show Updates" = "Vis Oppdateringer";
 "Ignore Updates" = "Ignorer Oppdateringer";
 "Select Version" = "Velg Versjon";
-"Select a version to upgrade to" = "Velg versjonen du vil oppdater til";
+"Select a version to upgrade to" = "Velg versjonen du vil oppdatere til";
 "Package" = "Pakke";
 "Information" = "Informasjon";
 "Upgrade All" = "Oppdater Alle";
@@ -162,7 +162,7 @@
 "Downloads" = "Nedlastinger";
 "Error while opening sources.list" = "Feil under åpning av sources.list";
 "The repo %@ is incompatible with your jailbreak." = "Kilde %@ er ikke kompatibel med din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette mobilen.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette enheten din.";
 "Please remove this repo from your sources.list file." = "Vennligst fjern denne kilden fra din sources.list fil.";
 "Incorrect documents permissions." = "Feil dokumenttillatelser";
 "Could not determine device information." = "Kunne ikke finne enhetsinformasjon.";
@@ -209,7 +209,7 @@
 "Continue" = "Fortsett";
 "Download Size" = "Nedlasting Størrelse";
 "Could not resolve dependency for %@" = "Kunne ikke løse nødvendighet for %@";
-"%@ conflicts with %@" = "%@ konflikter med %@";
+"%@ conflicts with %@" = "%@ er i konflikt med %@";
 "%@ depends on %@" = "%@ avhenger av %@";
 "Removed by" = "Fjernet av";
 "Required by" = "Kreves av";
