@@ -72,7 +72,7 @@
 "Feature Type" = "Type de Mise en Vedette";
 "Select Repos to be Featured" = "Selectionner les Sources à Mettre en Vedette";
 
-"Enable News" = "Activer la section "nouveautés"";
+"Enable News" = "Activer la section \"nouveautés\"";
 
 "Search while Typing" = "Rechercher tout en écrivant";
 
@@ -108,7 +108,7 @@
 "Please Wait..." = "Patientez...";
 "Verifying Source(s)" = "Vérification de la(des) Source(s)";
 "Unable to verify Repo" = "Impossible de vérifier la(les) Source(s)";
-"Refresh" = "Rafraîchir"
+"Refresh" = "Rafraîchir";
 "Log Out" = "Déconnexion";
 "Purchased Packages" = "Paquets Achetés";
 "Purchased" = "Acheté";
