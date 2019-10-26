@@ -19,8 +19,11 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
+#import <Tabs/Repos/Helpers/ZBRepo.h>
 
-@interface ZBAppDelegate ()
+@interface ZBAppDelegate () {
+    NSString *forwardToPackageID;
+}
 
 @end
 
@@ -305,13 +308,23 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 6: {
                     NSArray *components = [[url absoluteString] componentsSeparatedByString:@"share#?source="];
                     if ([components count] == 2) {
-                        NSString *sourceURL = [components[1] componentsSeparatedByString:@"&package"][0];
+                        NSArray *urlComponents = [components[1] componentsSeparatedByString:@"&package="];
+                        NSString *sourceURL = urlComponents[0];
+                        if ([urlComponents count] > 1) {
+                            [tabController setForwardToPackageID:urlComponents[1]];
+                        }
+                        
                         [tabController setSelectedIndex:ZBTabSources];
                         
-                        ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                        
-                        NSURL *url = [NSURL URLWithString:[@"zbra://sources/add/" stringByAppendingString:sourceURL]];
-                        [repoController handleURL:url];
+                        if (![ZBRepo exists:sourceURL]) {
+                            ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                            
+                            NSURL *url = [NSURL URLWithString:[@"zbra://sources/add/" stringByAppendingString:sourceURL]];
+                            [repoController handleURL:url];
+                        }
+                        else {
+                            [tabController forwardToPackage];
+                        }
                     }
                     break;
                 }

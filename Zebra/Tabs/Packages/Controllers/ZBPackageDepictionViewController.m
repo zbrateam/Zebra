@@ -56,7 +56,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 @synthesize package;
 
 - (id)initWithPackageID:(NSString *)packageID {
-    self = [super init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -573,7 +574,11 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    [[ZBAppDelegate tabBarController] openQueue:YES];
+    if (presented) {
+        [self dismissViewControllerAnimated:true completion:^{
+            [[ZBAppDelegate tabBarController] openQueue:YES];
+        }];
+    }
 }
 
 // 3D Touch Actions

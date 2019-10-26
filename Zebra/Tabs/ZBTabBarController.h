@@ -12,12 +12,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate>
+@property (nonatomic, strong) NSString *forwardToPackageID;
 @property (nonatomic, strong) NSMutableDictionary *repoBusyList;
 - (void)setPackageUpdateBadgeValue:(int)updates;
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
 - (void)openQueue:(BOOL)openPopup;
 - (void)clearRepos;
 - (void)updateQueueNav;
+- (void)forwardToPackage;
 @end
 
 NS_ASSUME_NONNULL_END
