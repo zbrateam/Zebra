@@ -346,6 +346,7 @@
 		89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
 		89F86869236377660057D3D9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
+		96F1BEE92363DAB3009B0D27 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBRepoTableViewCell.xib; sourceTree = "<group>"; };
 		9E084EC622A28B9200B23361 /* ZBColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBColumn.h; sourceTree = "<group>"; };
 		9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Vendor/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
@@ -944,6 +945,7 @@
 				"pt-BR",
 				vi,
 				ja,
+        "zh-Hans",
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1141,6 +1143,7 @@
 				893CB6652364011B00204E27 /* pt-BR */,
 				893CB666236402EE00204E27 /* vi */,
 				893CB6672364041500204E27 /* ja */,
+        96F1BEE92363DAB3009B0D27 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

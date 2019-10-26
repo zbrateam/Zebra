@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "取消";
+"No" = "否";
+"Ok" = "是";
+"Error" = "错误";
+"Retry" = "重试";
+"Edit" = "编辑";
+"Login" = "登录";
+"Close" = "关闭";
+"Done" = "完成";
+
+// Tab controller
+"Packages in Queue" = "软件包队列";
+"Package in Queue" = "软件包队列";
+"Tap to manage Queue" = "点击管理队列";
+
+// Home
+
+"Home" = "主页";
+"Info" = "信息";
+"Welcome to the Zebra Beta!" = "欢迎来到 Zebra 测试版！";
+"Changelog" = "更新日志";
+"Community Repos" = "第三方软件源";
+"Transfer Sources from %@" = "从 %@ 中导入软件源";
+"Move all sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
+"Utility repo for %@" = "%@ 的工具软件源";
+"Transfer Sources" = "导入软件源";
+"Utilities" = "工具";
+"Please Wait..." = "请稍候……";
+"Verifying Source(s)" = "验证软件源";
+"Stores" = "商店";
+"Purchases" = "购买";
+"Wish List" = "心愿单";
+"Unlist" = "隐藏";
+"Community" = "交流";
+"Join our Discord" = "加入我们的 Discord";
+"Follow me on Twitter" = "在 Twitter 上关注我们";
+"Credits" = "鸣谢";
+
+// Settings
+
+"Settings" = "设置";
+"Version" = "版本";
+"Information" = "信息";
+"Graphics" = "画面";
+"Featured" = "功能";
+"News" = "新闻";
+"Search" = "搜索";
+"Miscellaneous" = "其它";
+"Advanced" = "高级";
+
+"Report a Bug" = "报告 Bug";
+
+"Tint Color" = "主题颜色";
+"Default" = "默认";
+"Blue" = "蓝色";
+"Orange" = "橙色";
+"White" = "白色";
+"Black" = "黑色";
+
+"Dark Mode" = "黑暗模式";
+"Default" = "默认";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "更换图标";
+
+"Enable Featured Packages" = "启用推荐软件包";
+"Repo Featured" = "推荐的软件源";
+"Random" = "随机";
+"Feature Type" = "推荐类型";
+"Select Repos to be Featured" = "选择会被推荐的软件源";
+
+"Enable News" = "启用新闻";
+
+"Search while Typing" = "打字时搜索";
+
+"Swipe Actions Display As" = "滑动选项显示为";
+"Text" = "文字";
+"Icon" = "图标";
+"Open Documents Directory" = "打开文档目录";
+"Clear Image Cache" = "清除图片缓存";
+"Clear Keychain" = "清除 Keychain";
+
+"Loading..." = "加载中……";
+
+"Resetting image cache completed" = "清除图片缓存完成";
+"Clearing keychain completed" = "Keychain 清除完成";
+
+// Sources
+
+"Sources" = "软件源";
+"Local Repository" = "本地软件源";
+"Locally installed packages" = "本地已安装软件包";
+"Unknown" = "未知";
+"No repository urls detected." = "未检测到软件源链接。";
+"You have already added these repositories." = "你已经添加过这些软件源。";
+"Error verifying repository" = "验证软件源失败";
+"Error verifying repositories" = "验证软件源失败";
+"Unknown error." = "未知错误。";
+"Invalid URL" = "无效的 URL";
+"Enter URL" = "输入 URL";
+"Add Repo(s)" = "添加软件源";
+"Add" = "添加";
+"Add Multiple" = "批量添加";
+"Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
+"Please Wait..." = "请稍候……";
+"Verifying Source(s)" = "验证软件源";
+"Unable to verify Repo" = "无法验证软件源";
+"Refresh" = "刷新";
+"Log Out" = "注销";
+"Purchased Packages" = "已购买软件包";
+"Purchased" = "已购买";
+
+"All Packages" = "所有软件包";
+"Delete" = "删除";
+
+// Changes
+
+"Changes" = "更新";
+
+// Packages
+
+"Packages" = "软件包";
+"Show Updates" = "显示更新";
+"Ignore Updates" = "忽略更新";
+"Select Version" = "选择版本";
+"Select a version to upgrade to" = "选择需要更新的版本";
+"Package" = "软件包";
+"Information" = "信息";
+"Upgrade All" = "全部更新";
+"Loaded" = "已加载";
+"ABC" = "ABC";
+"Date" = "日期";
+"Size" = "大小";
+"Queue" = "队列";
+"Clear" = "清除";
+"Are you sure you want to clear Queue?" = "确定要清除队列吗？";
+"Available Upgrades" = "可更新";
+"Ignored Upgrades" = "已忽略的更新";
+"Recent" = "最近";
+"Installed Files" = "已安装的文件";
+"Modify" = "修改";
+"Authenticate to initiate purchase." = "登录后购买。";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
+"More by this Developer" = "此开发者的更多软件包";
+"Installed Version" = "已安装版本";
+
+"Add to Wish List" = "加入心愿单";
+"Remove from Wish List" = "从心愿单中移除";
+
+// Search
+
+"Search" = "搜索";
+"Clear Search" = "清除搜索";
+"This search query is too short for the full search, please use a longer query." = "你输入的文字太短，无法进行搜索。请使用更长的文字。";
+"No Results Found" = "未找到结果";
+
+// Downloads
+
+"Downloads" = "下载";
+"Error while opening sources.list" = "打开 sources.list 时错误";
+"The repo %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
+"Please remove this repo from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
+"Incorrect documents permissions." = "文档权限不正确。";
+"Could not determine device information." = "无法获取设备信息。";
+"Could not find a download URL for" = "无法获取下载链接";
+"%@ hasn't been modified" = "%@ 未被修改";
+"Could not parse %@ from %@" = "无法解析 %@ 自 %@";
+
+// Console
+
+"Console" = "控制台";
+"Performing actions" = "正在进行操作";
+"Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
+"This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
+"Close Zebra" = "关闭 Zebra";
+"Restart SpringBoard" = "重启 SpringBoard";
+"Downloading" = "正在下载";
+"Downloading Packages..." = "正在下载软件包……";
+"Installing" = "正在安装";
+"Installing Packages..." = "正在安装软件包……";
+"Removing" = "正在移除";
+"Removing Packages..." = "正在移除软件包……";
+"Reinstalling" = "正在重新安装";
+"Reinstalling Packages..." = "正在重新安装软件包……";
+"Upgrading" = "正在更新";
+"Upgrading Packages..." = "正在更新软件包……";
+"Complete" = "完成";
+"Finished!" = "完成！";
+"Return to Queue" = "返回队列";
+"Importing local packages." = "正在导入本地软件包。";
+"Finished importing local packages." = "导入本地软件包完成。";
+"One or more packages failed to download." = "一个或多个软件包下载失败。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
+
+// Queue
+
+"Queue" = "队列";
+"Queue cleared" = "队列已清空";
+"Install" = "安装";
+"Reinstall" = "重新安装";
+"Remove" = "移除";
+"Upgrade" = "更新";
+"Downgrade" = "降级";
+"Abort" = "停止";
+"Continue" = "继续";
+"Download Size" = "下载大小";
+"Could not resolve dependency for %@" = "无法找到 %@ 的依赖包";
+"%@ conflicts with %@" = "%@ 与 %@ 不兼容";
+"%@ depends on %@" = "%@ 需要 %@ 依赖包";
+"Removed by" = "需要移除——";
+"Required by" = "需要依赖包——";
