@@ -34,7 +34,7 @@
 "Wish List" = "Liste de souhait";
 "Unlist" = "Enlever de la liste";
 "Community" = "Communauté";
-"Join our Discord" = "Joindre notre Discord";
+"Join our Discord" = "Rejoindre notre serveur Discord";
 "Follow me on Twitter" = "Me suivre sur Twitter";
 "Credits" = "Crédits";
 
@@ -72,7 +72,7 @@
 "Feature Type" = "Type de Mise en Vedette";
 "Select Repos to be Featured" = "Selectionner les Sources à Mettre en Vedette";
 
-"Enable News" = "Activer la section \"nouveautés\"";
+"Enable News" = "Activer la section \"Nouveautés\"";
 
 "Search while Typing" = "Rechercher tout en écrivant";
 
@@ -137,8 +137,8 @@
 "Queue" = "File d'attente";
 "Clear" = "Vider";
 "Are you sure you want to clear Queue?" = "Etes vous sur de vouloir vider la File d'Attente?";
-"Available Upgrades" = "Mises à niveau disponibles";
-"Ignored Upgrades" = "Mises à niveau ignorées";
+"Available Upgrades" = "Mises à Niveau Disponibles";
+"Ignored Upgrades" = "Mises à Niveau Ignorées";
 "Recent" = "Récent";
 "Installed Files" = "Fichiers Installés";
 "Modify" = "Modifier";
@@ -148,7 +148,7 @@
 "Installed Version" = "Version Installée";
 
 "Add to Wish List" = "Ajouter à la Liste de Souhait";
-"Remove from Wish List" = "Supprimer de la liste de souhait";
+"Remove from Wish List" = "Supprimer de la Liste de Souhait";
 
 // Search
 
@@ -173,7 +173,7 @@
 // Console
 
 "Console" = "Console";
-"Performing actions" = "En cours";
+"Performing actions" = "Actions En cours";
 "Updating icon cache asynchronously..." = "Mise à jour asynchrone du cache des icônes...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Cela peut prendre un moment et peut conduire Zebra à se fermer. Tout va bien si tel est le cas.";
 "Close Zebra" = "Fermer Zebra";
@@ -190,7 +190,7 @@
 "Upgrading Packages..." = "Mise à niveau des Paquets...";
 "Complete" = "Fini";
 "Finished!" = "Terminé!";
-"Return to Queue" = "Retourner à la Queue";
+"Return to Queue" = "Retourner à la File d'attente";
 "Importing local packages." = "Importation des paquets locaux.";
 "Finished importing local packages." = "Importation des paquets locaux terminée.";
 "One or more packages failed to download." = "Un ou plusieurs paquets n'ont pas pu être téléchargés.";
@@ -211,5 +211,5 @@
 "Could not resolve dependency for %@" = "Impossible de résoudre la dépendence de %@";
 "%@ conflicts with %@" = "%@ entre en conflit avec %@";
 "%@ depends on %@" = "%@ dépend de %@";
-"Removed by" = "Supprimer par";
+"Removed by" = "Supprimé par";
 "Required by" = "Souhaité par";
