@@ -269,6 +269,7 @@
 		893CB6642363D99400204E27 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		893CB6652364011B00204E27 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		893CB666236402EE00204E27 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		893CB6672364041500204E27 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8942C8E823639D86002DE095 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
@@ -942,6 +943,7 @@
 				"es-419",
 				"pt-BR",
 				vi,
+				ja,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1138,6 +1140,7 @@
 				893CB6642363D99400204E27 /* es-419 */,
 				893CB6652364011B00204E27 /* pt-BR */,
 				893CB666236402EE00204E27 /* vi */,
+				893CB6672364041500204E27 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
