@@ -76,6 +76,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
+    
+    NSDictionary *item = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
+    
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -83,11 +86,14 @@
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
-        [cell.textLabel setTextColor:[UIColor tintColor]];
+        if ([item objectForKey:@"link"] != NULL) {
+            [cell.textLabel setTextColor:[UIColor tintColor]];
+        }
+        else {
+            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        }
     }
     [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
-    
-    NSDictionary *item = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [item objectForKey:@"name"];
     cell.detailTextLabel.text = [item objectForKey:@"subtitle"];
