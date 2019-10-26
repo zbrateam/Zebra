@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "Cancelar";
+"No" = "Não";
+"Ok" = "Ok";
+"Error" = "Erro";
+"Retry" = "Repetir";
+"Edit" = "Editar";
+"Login" = "Login";
+"Close" = "Fechar";
+"Done" = "Concluir";
+
+// Tab controller
+"Packages in Queue" = "Pacotes na Fila";
+"Package in Queue" = "Pacote na Fila";
+"Tap to manage Queue" = "Clica para gerir Fila";
+
+// Home
+
+"Home" = "Início";
+"Info" = "Info";
+"Welcome to the Zebra Beta!" = "Bem-vindo ao Zebra Beta!";
+"Changelog" = "Changelog";
+"Community Repos" = "Repos Comunitários";
+"Transfer Sources from %@" = "Tranferir Fontes de %@";
+"Move all sources from %@ to Zebra" = "Mover todas as Fontes de %@ para o Zebra";
+"Utility repo for %@" = "Repo utilitário para %@";
+"Transfer Sources" = "Transferir Fontes";
+"Utilities" = "Utilitários";
+"Please Wait..." = "Por favor aguarde...";
+"Verifying Source(s)" = "A verificar Fonte(s)";
+"Stores" = "Lojas";
+"Purchases" = "Compras";
+"Wish List" = "Lista de Desejos";
+"Unlist" = "Remover";
+"Community" = "Comunidade";
+"Join our Discord" = "Junta-te ao nosso Discord";
+"Follow me on Twitter" = "Segue-me no Twitter";
+"Credits" = "Creditos";
+
+// Settings
+
+"Settings" = "Definições";
+"Version" = "Versão";
+"Information" = "Informação";
+"Graphics" = "Graficos";
+"Featured" = "Destaque";
+"News" = "Notícias";
+"Search" = "Procurar";
+"Miscellaneous" = "Diversos";
+"Advanced" = "Avançado";
+
+"Report a Bug" = "Reportar um Bug";
+
+"Tint Color" = "Tonalidade";
+"Default" = "Padrão";
+"Blue" = "Azul";
+"Orange" = "Laranja";
+"White" = "Branco";
+"Black" = "Preto";
+
+"Dark Mode" = "Dark Mode";
+"Default" = "Original";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Mudar Icon";
+
+"Enable Featured Packages" = "Permitir Pacotes de Destaque";
+"Repo Featured" = "Repo Destaque";
+"Random" = "Aleatório";
+"Feature Type" = "Tipo de Destaque";
+"Select Repos to be Featured" = "Seleciona Repos para serem Destacados";
+
+"Enable News" = "Permitir Notícias";
+
+"Search while Typing" = "Procurar enquanto se escreve";
+
+"Swipe Actions Display As" = "Ações de Gesto Mostram Como";
+"Text" = "Texto";
+"Icon" = "Icon";
+"Open Documents Directory" = "Abrir Diretório de Documentos";
+"Clear Image Cache" = "Limpar Cache de Imagens";
+"Clear Keychain" = "Limpar Keychain";
+
+"Loading..." = "A Carregar...";
+
+"Resetting image cache completed" = "Cache de imagens restablecida completa";
+"Clearing keychain completed" = "Limpeza de keychain completa";
+
+// Sources
+
+"Sources" = "Fontes";
+"Local Repository" = "Repositório Local";
+"Locally installed packages" = "Pacotes instalados localmente";
+"Unknown" = "Desconhecid";
+"No repository urls detected." = "Repositório não encontrado";
+"You have already added these repositories." = "Repos adicionados anteriormente.";
+"Error verifying repository" = "Erro na verificação de repositório";
+"Error verifying repositories" = "Erro na verificação de repositórios";
+"Unknown error." = "Erro desconhecido.";
+"Invalid URL" = "URL inválido";
+"Enter URL" = "Inserir URL";
+"Add Repo(s)" = "Adicionar Repo(s)";
+"Add" = "Adicionar";
+"Add Multiple" = "Adicionar Multiplos";
+"Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
+"Please Wait..." = "Por favor aguarda...";
+"Verifying Source(s)" = "A Verificar Fonte(s)";
+"Unable to verify Repo" = "Não foi possivel verificar o Repo";
+"Refresh" = "Atualidade";
+"Log Out" = "Sair";
+"Purchased Packages" = "Pacotes Comprados";
+"Purchased" = "Comprados";
+
+"All Packages" = "Todos os Pacotes";
+"Delete" = "Apagar";
+
+// Changes
+
+"Changes" = "Mudanças";
+
+// Packages
+
+"Packages" = "Pacotes";
+"Show Updates" = "Mostrar Atualizações";
+"Ignore Updates" = "Ignorar Atualizações";
+"Select Version" = "Selecionar Versão";
+"Select a version to upgrade to" = "Selecionar uma versão para atualizar";
+"Package" = "Pacote";
+"Information" = "Informação";
+"Upgrade All" = "Atualizar TODOS";
+"Loaded" = "Carregado";
+"ABC" = "ABC";
+"Date" = "Data";
+"Size" = "Tamanho";
+"Queue" = "Fila";
+"Clear" = "Apagar";
+"Are you sure you want to clear Queue?" = "Tens a certeza que queres apagar a Fila?";
+"Available Upgrades" = "Atualizações Disponíveis";
+"Ignored Upgrades" = "Atualizações Ignoradas";
+"Recent" = "Recente";
+"Installed Files" = "Ficheiros Instalados";
+"Modify" = "Mudar";
+"Authenticate to initiate purchase." = "Ínicia sessão para começar a compra";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Por favor reentre na conta que foi usada para comprar este pacote (Possivelmente %@)";
+"More by this Developer" = "Mais deste Developer";
+"Installed Version" = "Versão Instalada";
+
+"Add to Wish List" = "Adicionar à Lista de Desejos";
+"Remove from Wish List" = "Remover da Lista de Desejos";
+
+// Search
+
+"Search" = "Procurar";
+"Clear Search" = "Apagar Procura";
+"This search query is too short for the full search, please use a longer query." = "Esta consulta é muito curta, por favor usa uma consulta mais longa";
+"No Results Found" = "0 Resultados Encontrados";
+
+// Downloads
+
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Erro ao abrir sources.list";
+"The repo %@ is incompatible with your jailbreak." = "O Repo %@ é incompatível com o teu jailbreak";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "É possível que cause problemas quando adicionado ao Zebra resultando num possível restauro";
+"Please remove this repo from your sources.list file." = "Por favor remove este Repo do teu ficheiro sources.list";
+"Incorrect documents permissions." = "Permissões de documentos incorretas";
+"Could not determine device information." = "Não foi possível determinar informação do dispositivo";
+"Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
+"%@ hasn't been modified" = "%@ não foi modificado";
+"Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
+
+// Console
+
+"Console" = "Consola";
+"Performing actions" = "A executar ações";
+"Updating icon cache asynchronously..." = "A atualizar o cache do ícon de forma assíncrona...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Isto pode demorar e o Zebra pode crashar. Não ha problema se isso acontecer.";
+"Close Zebra" = "Fechar o Zebra";
+"Restart SpringBoard" = "Reiniciar o SpringBoard";
+"Downloading" = "A fazer o download";
+"Downloading Packages..." = "A fazer o download de pacotes...";
+"Installing" = "A instalar";
+"Installing Packages..." = "A instalar pacotes...";
+"Removing" = "A remover";
+"Removing Packages..." = "A remover pacotes...";
+"Reinstalling" = "A reinstalar";
+"Reinstalling Packages..." = "A reinstalar pacotes...";
+"Upgrading" = "A atualizar";
+"Upgrading Packages..." = "A atualizar pacotes...";
+"Complete" = "Completo";
+"Finished!" = "Feito!";
+"Return to Queue" = "Voltar à Fila";
+"Importing local packages." = "A importar pacotes locais.";
+"Finished importing local packages." = "Importação de pacotes locais terminado.";
+"One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
+
+// Queue
+
+"Queue" = "Fila";
+"Queue cleared" = "Fila apagada";
+"Install" = "Instalada";
+"Reinstall" = "Reinstalada";
+"Remove" = "Remover";
+"Upgrade" = "Atualizar";
+"Downgrade" = "Downgrade";
+"Abort" = "Abortar";
+"Continue" = "Continuar";
+"Download Size" = "Tamanho do Download";
+"Could not resolve dependency for %@" = "Não foi possível resolver a dependência para %@";
+"%@ conflicts with %@" = "%@ entra em conflito com %@";
+"%@ depends on %@" = "%@ depende de %@";
+"Removed by" = "Removido por";
+"Required by" = "Solicitado por";
