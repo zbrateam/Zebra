@@ -467,6 +467,29 @@
     return -1;
 }
 
+- (int)repoIDFromBaseURL:(NSString *)baseURL {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
+        
+        sqlite3_stmt *statement;
+        int repoID = -1;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                repoID = sqlite3_column_int(statement, 0);
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        return repoID;
+    }
+    [self printDatabaseError];
+    return -1;
+}
+
 - (int)nextRepoID {
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement;

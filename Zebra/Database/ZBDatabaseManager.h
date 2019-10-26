@@ -169,6 +169,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)repoIDFromBaseFileName:(NSString *)bfn;
 
 /*!
+@brief Get a repoID from a base url
+@param baseURL the base url
+@return A repoID for the matching base url. -1 if no match was found.
+*/
+- (int)repoIDFromBaseURL:(NSString *)baseURL;
+
+/*!
  @brief The next repoID in the database.
  @return The next repoID.
  */

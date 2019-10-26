@@ -41,6 +41,15 @@
     return local;
 }
 
++ (BOOL)exists:(NSString *)urlString {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    NSRange dividerRange = [urlString rangeOfString:@"://"];
+    NSUInteger divide = NSMaxRange(dividerRange);
+    NSString *baseURL = [urlString substringFromIndex:divide];
+    
+    return [databaseManager repoIDFromBaseURL:baseURL] > 0;
+}
+
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA {
     
     self = [super init];
