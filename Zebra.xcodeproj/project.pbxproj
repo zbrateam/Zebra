@@ -263,6 +263,7 @@
 		8932F0CA2364A83300F16E5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0CB2364A8D000F16E5E /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8932F0CC2364AA2D00F16E5E /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8932F0CD2364AB5300F16E5E /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
 		893A17E2225FC24200E253CD /* report@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report@3x.png"; sourceTree = "<group>"; };
@@ -960,6 +961,7 @@
 				nl,
 				"pt-PT",
 				lt,
+				cs,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1165,6 +1167,7 @@
 				8932F0CA2364A83300F16E5E /* nl */,
 				8932F0CB2364A8D000F16E5E /* pt-PT */,
 				8932F0CC2364AA2D00F16E5E /* lt */,
+				8932F0CD2364AB5300F16E5E /* cs */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
