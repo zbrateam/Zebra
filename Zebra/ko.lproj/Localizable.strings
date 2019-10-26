@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "취소";
+"No" = "아니요";
+"Ok" = "확인";
+"Error" = "오류";
+"Retry" = "재시도";
+"Edit" = "편집";
+"Login" = "로그인";
+"Close" = "닫기";
+"Done" = "완료";
+
+// Tab controller
+"Packages in Queue" = "패키지가 대기열에 있습니다.";
+"Package in Queue" = "패키지가 대기열에 있습니다.";
+"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
+
+// Home
+
+"Home" = "홈";
+"Info" = "정보";
+"Welcome to the Zebra Beta!" = "Zebra Beta에 오신걸 환영합니다!";
+"Changelog" = "변경 사항";
+"Community Repos" = "커뮤니티 레포";
+"Transfer Sources from %@" = "%@(으)로부터 소스 이전";
+"Move all sources from %@ to Zebra" = "%@의 모든 소스를 Zebra로 이동";
+"Utility repo for %@" = "%@를 위한 유틸리티 레포";
+"Transfer Sources" = "소스 이전";
+"Utilities" = "유틸리티";
+"Please Wait..." = "잠시만 기다려주세요...";
+"Verifying Source(s)" = "소스를 검증하는 중";
+"Stores" = "스토어";
+"Purchases" = "구매 기록";
+"Wish List" = "위시 리스트";
+"Unlist" = "미등록";
+"Community" = "커뮤니티";
+"Join our Discord" = "우리의 Discord 참여";
+"Follow me on Twitter" = "Twitter에서 나를 팔로우하세요!";
+"Credits" = "크레딧";
+
+// Settings
+
+"Settings" = "설정";
+"Version" = "버전";
+"Information" = "정보";
+"Graphics" = "그래픽";
+"Featured" = "선정된 패키지";
+"News" = "뉴스";
+"Search" = "검색";
+"Miscellaneous" = "기타 여러가지 기능";
+"Advanced" = "고급";
+
+"Report a Bug" = "버그 신고";
+
+"Tint Color" = "Tint 색상";
+"Default" = "기본";
+"Blue" = "파란색";
+"Orange" = "노란색";
+"White" = "하얀색";
+"Black" = "검은색";
+
+"Dark Mode" = "다크 모드";
+"Default" = "기본";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "아이콘 변경";
+
+"Enable Featured Packages" = "선정된 패키지 보이기";
+"Repo Featured" = "레포에서 선정";
+"Random" = "랜덤";
+"Feature Type" = "선정 방법: ";
+"Select Repos to be Featured" = "선정될 레포 선택";
+
+"Enable News" = "뉴스 활성화";
+
+"Search while Typing" = "입력하여 검색";
+
+"Swipe Actions Display As" = "스와이프 동작 표시";
+"Text" = "텍스트";
+"Icon" = "아이콘";
+"Open Documents Directory" = "문서 디렉토리 열기";
+"Clear Image Cache" = "이미지 캐시 지우기";
+"Clear Keychain" = "키체인 지우기";
+
+"Loading..." = "불러오는 중...";
+
+"Resetting image cache completed" = "이미지 캐시 초기화 완료";
+"Clearing keychain completed" = "키체인 지우기 완료";
+
+// Sources
+
+"Sources" = "소스";
+"Local Repository" = "로컬 저장소";
+"Locally installed packages" = "내부에서 설치된 패키지";
+"Unknown" = "알 수 없음";
+"No repository urls detected." = "아무런 저장소 url도 감지되지 않음.";
+"You have already added these repositories." = "이미 이 저장소들을 추가했습니다.";
+"Error verifying repository" = "저장소 검증 오류";
+"Error verifying repositories" = "저장소 검증 오류";
+"Unknown error." = "알 수 없는 오류.";
+"Invalid URL" = "잘못된 URL";
+"Enter URL" = "URL 입력";
+"Add Repo(s)" = "레포 추가";
+"Add" = "추가";
+"Add Multiple" = "여러개 추가";
+"Would you like to add the URL from your clipboard?" = "클립보드에서 가져온 URL을 추가할까요?";
+"Please Wait..." = "잠시만 기다려주세요...";
+"Verifying Source(s)" = "소스를 검증하는 중";
+"Unable to verify Repo" = "레포를 검증할 수 없음";
+"Refresh" = "새로고침";
+"Log Out" = "로그아웃";
+"Purchased Packages" = "구매된 패키지";
+"Purchased" = "구매됨";
+
+"All Packages" = "모든 패키지";
+"Delete" = "제거";
+
+// Changes
+
+"Changes" = "변경";
+
+// Packages
+
+"Packages" = "패키지";
+"Show Updates" = "업데이트 표시";
+"Ignore Updates" = "업데이트 무시";
+"Select Version" = "버전 선택";
+"Select a version to upgrade to" = "업그레이드할 버전 선택";
+"Package" = "패키지";
+"Information" = "정보";
+"Upgrade All" = "모두 업그레이드";
+"Loaded" = "로드 됨";
+"ABC" = "ABC";
+"Date" = "날짜";
+"Size" = "크기";
+"Queue" = "대기열";
+"Clear" = "제거";
+"Are you sure you want to clear Queue?" = "정말 대기열을 지울까요?";
+"Available Upgrades" = "사용 가능한 업그레이드";
+"Ignored Upgrades" = "무시된 업그레이드";
+"Recent" = "최근";
+"Installed Files" = "설치된 파일들";
+"Modify" = "수정";
+"Authenticate to initiate purchase." = "인증하여 구매 시작";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "이 패키지를 구매할 때 사용한 내 계정으로 다시 로그인해주세요. (혹시 %@)";
+"More by this Developer" = "이 개발자 패키지 더 보기";
+"Installed Version" = "설치된 버전";
+
+"Add to Wish List" = "위시 리스트에 추가";
+"Remove from Wish List" = "위시 리스트에서 제거";
+
+// Search
+
+"Search" = "검색";
+"Clear Search" = "검색 제거";
+"This search query is too short for the full search, please use a longer query." = "이 검색 쿼리는 전체 검색을 하기엔 너무 짧습니다. 더 긴 쿼리를 사용하세요.";
+"No Results Found" = "결과 없음";
+
+// Downloads
+
+"Downloads" = "다운로드";
+"Error while opening sources.list" = "sources.list를 여는 중 오류가 발생했습니다.";
+"The repo %@ is incompatible with your jailbreak." = "%@ 레포는 내 탈옥과 호환되지 않습니다.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "이것을 Zebra에 추가하면 문제가 발생할 수 있습니다..";
+"Please remove this repo from your sources.list file." = "이 레포를 sources.list 파일에서 제거하세요.";
+"Incorrect documents permissions." = "잘못된 문서 권한.";
+"Could not determine device information." = "기기 정보를 가져올 수 없습니다.";
+"Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
+"%@ hasn't been modified" = "%@(이)가 수정되지 않았습니다.";
+"Could not parse %@ from %@" = "%@를 분석할 수 없습니다. (%@에서 옴)";
+
+// Console
+
+"Console" = "콘솔";
+"Performing actions" = "작업 수행 중";
+"Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
+"Close Zebra" = "Zebra 닫기";
+"Restart SpringBoard" = "SpringBoard 재시작";
+"Downloading" = "다운로드 중";
+"Downloading Packages..." = "패키지 다운로드 중...";
+"Installing" = "설치 중";
+"Installing Packages..." = "패키지 설치 중...";
+"Removing" = "삭제 중";
+"Removing Packages..." = "패키지 삭제 중...";
+"Reinstalling" = "재설치 중";
+"Reinstalling Packages..." = "패키지 재설치 중...";
+"Upgrading" = "업그레이드 중";
+"Upgrading Packages..." = "패키지 업그레이드 중...";
+"Complete" = "완료";
+"Finished!" = "완료!";
+"Return to Queue" = "대기열로 돌아가기";
+"Importing local packages." = "로컬 패키지 가져오는 중.";
+"Finished importing local packages." = "로컬 패키지 가져오기 완료.";
+"One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
+
+// Queue
+
+"Queue" = "대기열";
+"Queue cleared" = "대기열 제거 됨";
+"Install" = "설치";
+"Reinstall" = "재설치";
+"Remove" = "삭제";
+"Upgrade" = "업그레이드";
+"Downgrade" = "다운그레이드";
+"Abort" = "취소";
+"Continue" = "계속";
+"Download Size" = "다운로드 사이즈";
+"Could not resolve dependency for %@" = "%@의 종속성을 해결할 수 없음";
+"%@ conflicts with %@" = "%@가 %@와 충돌합니다.";
+"%@ depends on %@" = "%@가 %@에 의존합니다.";
+"Removed by" = "다음에 의해 제거 됨: ";
+"Required by" = "다음에 위해 필요함: ";
