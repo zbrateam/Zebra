@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "Hủy Bỏ";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Lỗi";
+"Retry" = "Thử lại";
+"Edit" = "Soạn thảo";
+"Login" = "Đăng nhập";
+"Close" = "Đóng";
+"Done" = "Xong";
+
+// Tab controller
+"Packages in Queue" = "Các gói trong hàng đợi";
+"Package in Queue" = "Các gói trong hàng đợi";
+"Tap to manage Queue" = "Nhấn để quản lý hàng đợi";
+
+// Home
+
+"Home" = "Trang Chủ";
+"Info" = "Thông tin";
+"Welcome to the Zebra Beta!" = "Chào mừng đến với Zebra Beta!";
+"Changelog" = "Thay đổi";
+"Community Repos" = "Cộng đồng Repos";
+"Transfer Sources from %@" = "Chuyển nguồn từ %@";
+"Move all sources from %@ to Zebra" = "Di chuyển tất cả các nguồn từ %@ đến Zebra";
+"Utility repo for %@" = "Repo tiện ích cho %@";
+"Transfer Sources" = "Chuyển nguồn";
+"Utilities" = "Tiện ích";
+"Please Wait..." = "Vui lòng chờ...";
+"Verifying Source(s)" = "Xác minh nguồn(s)";
+"Stores" = "Cửa hàng";
+"Purchases" = "Mua hàng";
+"Wish List" = "Danh sách mong muốn";
+"Unlist" = "Bỏ danh sách";
+"Community" = "Cộng đồng";
+"Join our Discord" = "Tham gia Discord của chúng tôi";
+"Follow me on Twitter" = "Theo dõi tôi trên Twitter";
+"Credits" = "Credits";
+
+// Settings
+
+"Settings" = "Cài đặt";
+"Version" = "Phiên bản";
+"Information" = "Thông tin";
+"Graphics" = "Đồ họa";
+"Featured" = "Tính năng";
+"News" = "Tin tức";
+"Search" = "Tìm kiếm";
+"Miscellaneous" = "Điều khoản khác";
+"Advanced" = "Nâng cao";
+
+"Report a Bug" = "Báo cáo lỗi";
+
+"Tint Color" = "Màu sắc";
+"Default" = "Mặc định";
+"Blue" = "Lam";
+"Orange" = "Cam";
+"White" = "Trắng";
+"Black" = "Đen";
+
+"Dark Mode" = "Chế độ tối";
+"Default" = "Mặc định";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Thay đổi biểu tượng";
+
+"Enable Featured Packages" = "Kích hoạt gói nổi bật";
+"Repo Featured" = "Repo nổi bật";
+"Random" = "Ngẫu nhiên";
+"Feature Type" = "Loại tính năng";
+"Select Repos to be Featured" = "Chọn Repo nổi bật";
+
+"Enable News" = "Kích hoạt tin tức";
+
+"Search while Typing" = "Tìm kiếm trong khi gõ";
+
+"Swipe Actions Display As" = "Thao tác vuốt hiển thị dưới dạng";
+"Text" = "Văn bản";
+"Icon" = "Biểu tượng";
+"Open Documents Directory" = "Mở thư mục tài liệu";
+"Clear Image Cache" = "Xóa bộ nhớ cache hình ảnh";
+"Clear Keychain" = "Xóa Keychain";
+
+"Loading..." = "Đang tải...";
+
+"Resetting image cache completed" = "Đặt lại bộ đệm hình ảnh đã hoàn thành";
+"Clearing keychain completed" = "Dọn dẹp keychain hoàn thành";
+
+// Sources
+
+"Sources" = "Nguồn";
+"Local Repository" = "Kho lưu trữ cục bộ";
+"Locally installed packages" = "Gói cài đặt cục bộ";
+"Unknown" = "Không xác định";
+"No repository urls detected." = "Không có url kho lưu trữ được phát hiện.";
+"You have already added these repositories." = "Bạn đã thêm các kho lưu trữ này.";
+"Error verifying repository" = "Lỗi khi xác minh kho lưu trữ";
+"Error verifying repositories" = "Lỗi khi xác minh kho lưu trữ";
+"Unknown error." = "Lỗi không xác định.";
+"Invalid URL" = "URL không hợp lệ";
+"Enter URL" = "Nhập URL";
+"Add Repo(s)" = "Thêm Repo(s)";
+"Add" = "Thêm";
+"Add Multiple" = "Thêm nhiều";
+"Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
+"Please Wait..." = "Vui lòng chờ...";
+"Verifying Source(s)" = "Xác minh nguồn(s)";
+"Unable to verify Repo" = "Không thể xác minh Repo";
+"Refresh" = "Làm mới";
+"Log Out" = "Đăng xuất";
+"Purchased Packages" = "Gói mua";
+"Purchased" = "Đã mua";
+
+"All Packages" = "Tất cả các gói";
+"Delete" = "Xóa bỏ";
+
+// Changes
+
+"Changes" = "Thay đổi";
+
+// Packages
+
+"Packages" = "Gói";
+"Show Updates" = "Hiển thị cập nhật";
+"Ignore Updates" = "Bỏ qua cập nhật";
+"Select Version" = "Chọn phiên bản";
+"Select a version to upgrade to" = "Chọn một phiên bản để nâng cấp";
+"Package" = "Gói";
+"Information" = "Thông tin";
+"Upgrade All" = "Nâng cấp tất cả";
+"Loaded" = "Tải";
+"ABC" = "ABC";
+"Date" = "Ngày";
+"Size" = "Kích thước";
+"Queue" = "Xếp hàng";
+"Clear" = "Xoá bỏ";
+"Are you sure you want to clear Queue?" = "Bạn có chắc chắn muốn xóa Hàng đợi?";
+"Available Upgrades" = "Nâng cấp có sẵn";
+"Ignored Upgrades" = "Bỏ qua Nâng cấp";
+"Recent" = "Gần đây";
+"Installed Files" = "Tập tin đã cài đặt";
+"Modify" = "Sửa đổi";
+"Authenticate to initiate purchase." = "Xác thực để bắt đầu mua hàng.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vui lòng đăng nhập lại tài khoản của bạn được sử dụng để mua gói này (Possibly %@)";
+"More by this Developer" = "Thêm bởi Nhà phát triển này";
+"Installed Version" = "Phiên bản đã cài đặt";
+
+"Add to Wish List" = "Thêm vào danh sách mong muốn";
+"Remove from Wish List" = "Xóa khỏi danh sách mong muốn";
+
+// Search
+
+"Search" = "Tìm kiếm";
+"Clear Search" = "Xóa bỏ tìm kiếm";
+"This search query is too short for the full search, please use a longer query." = "Truy vấn tìm kiếm này quá ngắn cho tìm kiếm đầy đủ, vui lòng sử dụng truy vấn dài hơn.";
+"No Results Found" = "Không có kết quả nào được tìm thấy";
+
+// Downloads
+
+"Downloads" = "Tải xuống";
+"Error while opening sources.list" = "Lỗi trong khi mở danh sách nguồn";
+"The repo %@ is incompatible with your jailbreak." = "Các repo %@ không tương thích với bản bẻ khóa của bạn.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
+"Please remove this repo from your sources.list file." = "Vui lòng xóa repo này khỏi tệp danh sách nguồn của bạn.";
+"Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
+"Could not determine device information." = "Không thể xác định thông tin thiết bị.";
+"Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
+"%@ hasn't been modified" = "%@ chưa được sửa đổi";
+"Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
+
+// Console
+
+"Console" = "Bảng điều khiển";
+"Performing actions" = "Thực hiện hành động";
+"Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
+"Close Zebra" = "Đóng Zebra";
+"Restart SpringBoard" = "Khởi động lại SpringBoard";
+"Downloading" = "Đang tải xuống";
+"Downloading Packages..." = "Đang tải xuống gói...";
+"Installing" = "Đang cài đặt";
+"Installing Packages..." = "Đang cài đặt gói...";
+"Removing" = "Đang gỡ bỏ";
+"Removing Packages..." = "Đang gỡ bỏ gói...";
+"Reinstalling" = "Cài đặt lại";
+"Reinstalling Packages..." = "Cài đặt lại gói...";
+"Upgrading" = "Nâng cấp";
+"Upgrading Packages..." = "Nâng cấp gói...";
+"Complete" = "Hoàn thành";
+"Finished!" = "Kết thúc!";
+"Return to Queue" = "Trở lại hàng đợi";
+"Importing local packages." = "Nhập gói nội địa.";
+"Finished importing local packages." = "Hoàn tất nhập các gói nội địa.";
+"One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
+
+// Queue
+
+"Queue" = "Xếp hàng";
+"Queue cleared" = "Hàng đợi đã được xóa";
+"Install" = "Cài đặt";
+"Reinstall" = "Cài đặt lại";
+"Remove" = "Xóa bỏ";
+"Upgrade" = "Nâng cấp";
+"Downgrade" = "Hạ cấp";
+"Abort" = "Hủy bỏ";
+"Continue" = "Tiếp tục";
+"Download Size" = "Kích thước tải xuống";
+"Could not resolve dependency for %@" = "Không thể giải quyết sự phụ thuộc cho %@";
+"%@ conflicts with %@" = "%@ xung đột với %@";
+"%@ depends on %@" = "%@ phụ thuộc %@";
+"Removed by" = "Xóa bởi";
+"Required by" = "Yêu cầu bởi";
