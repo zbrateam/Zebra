@@ -1089,7 +1089,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="V62-Gd-WSx">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="eeA-zf-gAO">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="eeA-zf-gAO">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" id="tew-zJ-h7b">
                                 <rect key="frame" x="313" y="7" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
