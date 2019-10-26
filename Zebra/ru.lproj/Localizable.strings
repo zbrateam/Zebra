@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "Отмена";
+"No" = "Нет";
+"Ok" = "ОК";
+"Error" = "Ошибка";
+"Retry" = "Поввторить попытку";
+"Edit" = "Изменить";
+"Login" = "Авторизироваться";
+"Close" = "Закрыть";
+"Done" = "Выполнено";
+
+// Tab controller
+"Packages in Queue" = "Пакеты в очереди";
+"Package in Queue" = "Пакет в очереди";
+"Tap to manage Queue" = "Нажмите, чтобы управлять очередью";
+
+// Home
+
+"Home" = "Домашняя страница";
+"Info" = "Информация";
+"Welcome to the Zebra Beta!" = "Добро пожаловать в Zebra Beta!";
+"Changelog" = "Список изменений";
+"Community Repos" = "Репозитории сообщества";
+"Transfer Sources from %@" = "Перенести источники из %@";
+"Move all sources from %@ to Zebra" = "Перенести все источники из %@ в Zebra";
+"Utility repo for %@" = "Репозиторий утилит для %@";
+"Transfer Sources" = "Перенести источники";
+"Utilities" = "Полезное";
+"Please Wait..." = "Пожалуйста, подождите...";
+"Verifying Source(s)" = "Проверка источников";
+"Stores" = "Магазины";
+"Purchases" = "Покупки";
+"Wish List" = "Список желаемого";
+"Unlist" = "Удалить";
+"Community" = "Сообщество";
+"Join our Discord" = "Вступите в наш Discord";
+"Follow me on Twitter" = "Подпишитесь на меня в Twitter";
+"Credits" = "Признательность";
+
+// Settings
+
+"Settings" = "Настройки";
+"Version" = "Версия";
+"Information" = "Информация";
+"Graphics" = "Оформление";
+"Featured" = "Избранное";
+"News" = "Новости";
+"Search" = "Поиск";
+"Miscellaneous" = "Другое";
+"Advanced" = "Расширенное";
+
+"Report a Bug" = "Сообщить об ошибке";
+
+"Tint Color" = "Цвет оттенка";
+"Default" = "По умолчанию";
+"Blue" = "Синий";
+"Orange" = "Оранж.";
+"White" = "Белый";
+"Black" = "Черный";
+
+"Dark Mode" = "Темный режим";
+"Default" = "По умолчанию";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Изменить иконку";
+
+"Enable Featured Packages" = "Включить избранные пакеты";
+"Repo Featured" = "Репоз. для избранных";
+"Random" = "Случайно";
+"Feature Type" = "Тип избрания";
+"Select Repos to be Featured" = "Выберите избранные репозитории";
+
+"Enable News" = "Включить новости";
+
+"Search while Typing" = "Поиск во время набора";
+
+"Swipe Actions Display As" = "Действие проведения отображаются как";
+"Text" = "Текст";
+"Icon" = "Иконка";
+"Open Documents Directory" = "Открыть каталог документов";
+"Clear Image Cache" = "Очистить кэш картинок";
+"Clear Keychain" = "Очистить ключи";
+
+"Loading..." = "Загрузка...";
+
+"Resetting image cache completed" = "Очистка кэша картинок завершена";
+"Clearing keychain completed" = "Очистка ключей завершена";
+
+// Sources
+
+"Sources" = "Источники";
+"Local Repository" = "Локальный репозиторий";
+"Locally installed packages" = "Локально установленные пакеты";
+"Unknown" = "Неизвестно";
+"No repository urls detected." = "URL репозитория не обнаружены.";
+"You have already added these repositories." = "Вы уже добавили эти репозитории.";
+"Error verifying repository" = "Ошибка проверки источника";
+"Error verifying repositories" = "Ошибка проверки репозиториев";
+"Unknown error." = "Неизвестная ошибка.";
+"Invalid URL" = "Неправильный URL";
+"Enter URL" = "Введите URL";
+"Add Repo(s)" = "Добавить репозитории";
+"Add" = "Добавить";
+"Add Multiple" = "Добавить несколько";
+"Would you like to add the URL from your clipboard?" = "Хотели бы вы добавить URL из вашего буфера обмена?";
+"Please Wait..." = "Пожалуйста, подождите...";
+"Verifying Source(s)" = "Проверка источников";
+"Unable to verify Repo" = "Невозможно проверить репозиторий";
+"Refresh" = "Обновить";
+"Log Out" = "Выйти";
+"Purchased Packages" = "Купленные пакеты";
+"Purchased" = "Купленное";
+
+"All Packages" = "Все пакеты";
+"Delete" = "Удалить";
+
+// Changes
+
+"Changes" = "Изиенения";
+
+// Packages
+
+"Packages" = "Пакеты";
+"Show Updates" = "Показать обновления";
+"Ignore Updates" = "Игнорировать обновления";
+"Select Version" = "Выберите версию";
+"Select a version to upgrade to" = "Выберите версию для обновления";
+"Package" = "Пакет";
+"Information" = "Информация";
+"Upgrade All" = "Обновить все";
+"Loaded" = "Загруженное";
+"ABC" = "ABC";
+"Date" = "Дата";
+"Size" = "Размер";
+"Queue" = "Очередь";
+"Clear" = "Очистить";
+"Are you sure you want to clear Queue?" = "Вы уверены, что хотите очистить очередь?";
+"Available Upgrades" = "Доступные обновления";
+"Ignored Upgrades" = "Игнорируемые обновления";
+"Recent" = "Недавнее";
+"Installed Files" = "Установленные файлы";
+"Modify" = "Изменить";
+"Authenticate to initiate purchase." = "Авторизируйтесь, чтобы начать покупку.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста, перезайдите в ваш аккаунт, который используется для покупки этого пакета (Возможно, %@)";
+"More by this Developer" = "Больше от этого разработчика";
+"Installed Version" = "Установленная версия";
+
+"Add to Wish List" = "Добавть в список желаемого";
+"Remove from Wish List" = "Удалить из списока желаемого";
+
+// Search
+
+"Search" = "Поиск";
+"Clear Search" = "Очистить поиск";
+"This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста, введите запрос длиннее.";
+"No Results Found" = "Результатов не найдено";
+
+// Downloads
+
+"Downloads" = "Загрузки";
+"Error while opening sources.list" = "Ошибка в открытии sources.list";
+"The repo %@ is incompatible with your jailbreak." = "Репозиторий %@ несовместим с вашим jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "При добавлении в Zebra, это может вызвать проблемы, в результате которых возможна перестановка системы.";
+"Please remove this repo from your sources.list file." = "Пожалуйста, удалите этот репозиторий из вашего sources.list.";
+"Incorrect documents permissions." = "Неверные разрешения на документы.";
+"Could not determine device information." = "Не смогли установить информацию об устройстве.";
+"Could not find a download URL for" = "Не смогли найти URL для скачивания ";
+"%@ hasn't been modified" = "%@ не был изменен";
+"Could not parse %@ from %@" = "Не смогли разобрать %@ из %@";
+
+// Console
+
+"Console" = "Консоль";
+"Performing actions" = "Выполняем действия";
+"Updating icon cache asynchronously..." = "Обновляем кэш иконок асинхронно...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Это может занять некоторое время и Zebra может крашнуться. Это нормально, если случится.";
+"Close Zebra" = "Закрыть Zebra";
+"Restart SpringBoard" = "Перезапустить SpringBoard";
+"Downloading" = "Скачивание";
+"Downloading Packages..." = "Скачивание пакетов...";
+"Installing" = "Установка";
+"Installing Packages..." = "Установка пакетов...";
+"Removing" = "Удаление";
+"Removing Packages..." = "Удаление пакетов...";
+"Reinstalling" = "Переустановка";
+"Reinstalling Packages..." = "Переуствновка пакетов...";
+"Upgrading" = "Обновление";
+"Upgrading Packages..." = "Обновление пакетов...";
+"Complete" = "Закончено";
+"Finished!" = "Готово!";
+"Return to Queue" = "Вернуться в очередь";
+"Importing local packages." = "Импортируем локальные пакеты.";
+"Finished importing local packages." = "Импортирование локальных пакетов закончено.";
+"One or more packages failed to download." = "Не удалось загрузить один или несколько пакетов.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться в очередь\", чтобы вернуться в очередь и попробовать загрузку заново.";
+
+// Queue
+
+"Queue" = "Очередь";
+"Queue cleared" = "Очередь очищена";
+"Install" = "Установка";
+"Reinstall" = "Переустановка";
+"Remove" = "Удаление";
+"Upgrade" = "Обновление";
+"Downgrade" = "Установка версии ниже установленной";
+"Abort" = "Отмена";
+"Continue" = "Продолжить";
+"Download Size" = "Размер загрузки";
+"Could not resolve dependency for %@" = "Не удалось разрешить зависимость для %@";
+"%@ conflicts with %@" = "%@ конфликтует с %@";
+"%@ depends on %@" = "%@ зависит от %@";
+"Removed by" = "Удалено пакетом";
+"Required by" = "Требуется пакетом";
