@@ -37,6 +37,10 @@
       "title": "Translators",
       "items": [
         {
+          "name": "0x9fff00",
+          "subtitle": "Swedish"
+        },
+        {
           "name": "Jafar Ali",
           "subtitle": "Arabic",
           "link": "https://twitter.com/busadoki"
