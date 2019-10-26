@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "Zrušiť";
+"No" = "Nie";
+"Ok" = "Ok";
+"Error" = "Chyba";
+"Retry" = "Znova";
+"Edit" = "Upraviť";
+"Login" = "Prihlásiť";
+"Close" = "Zavrieť";
+"Done" = "Hotovo";
+
+// Tab controller
+"Packages in Queue" = "Balíčky vo fronte";
+"Package in Queue" = "Balíček vo fronte";
+"Tap to manage Queue" = "Tapni, a spravuj frontu";
+
+// Home
+
+"Home" = "Domú";
+"Info" = "Info";
+"Welcome to the Zebra Beta!" = "Vitaj v Zebra Beta!";
+"Changelog" = "Changelog";
+"Community Repos" = "Repozitáre komunity";
+"Transfer Sources from %@" = "Prenes repozitáre z %@";
+"Move all sources from %@ to Zebra" = "Presuň všetky repozitáre z %@ to Zebra";
+"Utility repo for %@" = "Repozitáre nástrojov pre %@";
+"Transfer Sources" = "Prenos Repozitárov";
+"Utilities" = "Nástroje";
+"Please Wait..." = "Prosím čekajte...";
+"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
+"Stores" = "Obchody";
+"Purchases" = "Zakúpené";
+"Wish List" = "Wish List";
+"Unlist" = "Odebrať";
+"Community" = "Komunita";
+"Join our Discord" = "Pripoj sa na náš Discord";
+"Follow me on Twitter" = "Sleduj ma na Twitteri";
+"Credits" = "Kredity";
+
+// Settings
+
+"Settings" = "Nastavenie";
+"Version" = "Verzia";
+"Information" = "Informácie";
+"Graphics" = "Grafika";
+"Featured" = "Odporúčané";
+"News" = "Novinky";
+"Search" = "Hľadať";
+"Miscellaneous" = "Rôzne";
+"Advanced" = "Pokročilé";
+
+"Report a Bug" = "Nahlásiť Bug";
+
+"Tint Color" = "Odtieň Farby";
+"Default" = "Predvolené";
+"Blue" = "Modrá";
+"Orange" = "Oranžová";
+"White" = "Biela";
+"Black" = "Čierna";
+
+"Dark Mode" = "Tmavý režim";
+"Default" = "Predvolené";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Zmeniť ikonu";
+
+"Enable Featured Packages" = "Zapnúť Odporúčané Balíčky";
+"Repo Featured" = "Odporúčané balíčky repozitára";
+"Random" = "Náhodné";
+"Feature Type" = "Typ odporúčania";
+"Select Repos to be Featured" = "Vyber repozitára, ktoré budú odporúčané";
+
+"Enable News" = "Zapnúť novinky";
+
+"Search while Typing" = "Hľadaj počas zahávania";
+
+"Swipe Actions Display As" = "Akcie prstom sa zobrazia ako";
+"Text" = "Text";
+"Icon" = "Ikona";
+"Open Documents Directory" = "Otvoriť Adresár Dokumentov";
+"Clear Image Cache" = "Vyčisťiť Image Cache";
+"Clear Keychain" = "Vyčisťiť kľúčenku";
+
+"Loading..." = "Načítanie...";
+
+"Resetting image cache completed" = "Resetovanie image cache dokončené";
+"Clearing keychain completed" = "Čišťenie kľúčenky bolo dokončené";
+
+// Sources
+
+"Sources" = "Repozitáre";
+"Local Repository" = "Miestné repozitára";
+"Locally installed packages" = "Lokálne nainštalované balíčky";
+"Unknown" = "Neznámy";
+"No repository urls detected." = "Žiadne URL repozitárov neboli detekované.";
+"You have already added these repositories." = "Tieto repozitáre ste už pridali.";
+"Error verifying repository" = "Chyba pri overovaní repozitára";
+"Error verifying repositories" = "Chyba pri overovaní repozitárov";
+"Unknown error." = "Neznáma chyba";
+"Invalid URL" = "Chybné URL";
+"Enter URL" = "Zadaj URL";
+"Add Repo(s)" = "Pridať repozitár(a)";
+"Add" = "Pridať";
+"Add Multiple" = "Pridať viac";
+"Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
+"Please Wait..." = "Prosím čakajťe...";
+"Verifying Source(s)" = "Overovanie repozitárov";
+"Unable to verify Repo" = "Nie je možné overiť repozitár";
+"Refresh" = "Refreshút";
+"Log Out" = "Odhlásiť sa";
+"Purchased Packages" = "Zakúpené balíčky";
+"Purchased" = "Zakúpené";
+
+"All Packages" = "Všetky balíčky";
+"Delete" = "Zmazať";
+
+// Changes
+
+"Changes" = "Zmeny";
+
+// Packages
+
+"Packages" = "Balíčky";
+"Show Updates" = "Zobraziť aktualizácie";
+"Ignore Updates" = "Ignorovať aktualizácie";
+"Select Version" = "Vyber verziu";
+"Select a version to upgrade to" = "Vyberte verziu, na ktorú chcete aktualizovať";
+"Package" = "Balíček";
+"Information" = "Informácie";
+"Upgrade All" = "Aktualizovať všetko";
+"Loaded" = "Načítané";
+"ABC" = "ABC";
+"Date" = "Dátum";
+"Size" = "Veľkosť";
+"Queue" = "Fronta";
+"Clear" = "Vyčistiť";
+"Are you sure you want to clear Queue?" = "Naozaj chcete vymazať frontu?";
+"Available Upgrades" = "Dostupné aktualizácie";
+"Ignored Upgrades" = "Ignorované aktualizácie";
+"Recent" = "Recent";
+"Installed Files" = "Nainštalované súbory";
+"Modify" = "Upraviť";
+"Authenticate to initiate purchase." = "Autorizuj se pro nákup.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Znova prihláste svoj účet, ktorý sa používa na zakúpenie tohto balíčka (Prípadne %@)";
+"More by this Developer" = "Viac od tohto vývojára";
+"Installed Version" = "Inštalovaná verzia";
+
+"Add to Wish List" = "Pridať na Wish List";
+"Remove from Wish List" = "Odstrániť z Wish Listu";
+
+// Search
+
+"Search" = "Hľadať";
+"Clear Search" = "Vyčistiť hľadanie";
+"This search query is too short for the full search, please use a longer query." = "Tento vyhľadávací dopyt je príliš krátky na úplné vyhľadávanie. Použite dlhší dopyt.";
+"No Results Found" = "Neboli nájdené žiadne výsledky";
+
+// Downloads
+
+"Downloads" = "Stiahnuté";
+"Error while opening sources.list" = "Chyba pri otváraní sources.list";
+"The repo %@ is incompatible with your jailbreak." = "Repozitár %@ nie je kompatibilný s vaším Jailbreakom.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ak ho pridáte do aplikácie Zebra, môže to spôsobiť problémy, čo môže mať za následok nutné obnovenie softvéru.";
+"Please remove this repo from your sources.list file." = "Odstráňte tento repozitár zo súboru sources.list.";
+"Incorrect documents permissions." = "Chybné oprávnenia dokumentu.";
+"Could not determine device information." = "Informácie o zariadení sa nepodarilo zistiť.";
+"Could not find a download URL for" = "Nepodarilo sa nájsť webovú adresu pre stiahnutie súboru";
+"%@ hasn't been modified" = "%@ nebol zmenený";
+"Could not parse %@ from %@" = "Nepodarilo sa analyzovať %@ z %@";
+
+// Console
+
+"Console" = "konzola";
+"Performing actions" = "Vykonávanie akcií";
+"Updating icon cache asynchronously..." = "Asynchrónna aktualizácia icon cache...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Môže to chvíľu trvať a Zebra môže spadnúť. Ak sa to stane, je to v poriadku.";
+"Close Zebra" = "Zatvoriť Zebra";
+"Restart SpringBoard" = "Reštart SpringBoardu";
+"Downloading" = "Stahovanie";
+"Downloading Packages..." = "Sťahujú sa balíčky ...";
+"Installing" = "Inštalovanie";
+"Installing Packages..." = "Inštalácia balíčkov ...";
+"Removing" = "Odštraňovanie";
+"Removing Packages..." = "Odstraňujú sa balíčky ...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Preinštalovanie balíkov ...";
+"Upgrading" = "Aktualizovanie";
+"Upgrading Packages..." = "Aktualizujú sa balíčky";
+"Complete" = "Dokončené";
+"Finished!" = "Hotovo!";
+"Return to Queue" = "Návrat do fronty";
+"Importing local packages." = "Import miestnych balíčkov.";
+"Finished importing local packages." = "Importovanie miestnych balíčkov bolo dokončené.";
+"One or more packages failed to download." = "Nepodarilo sa stiahnuť jeden alebo viac balíčkov.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do fronty\" pre vrátenie do fronty a opakujte sťahovanie";
+
+// Queue
+
+"Queue" = "Fronta";
+"Queue cleared" = "Fronta vyčistená";
+"Install" = "Inštalovať";
+"Reinstall" = "Preinštalovať";
+"Remove" = "Odstrániť";
+"Upgrade" = "Aktualizovať";
+"Downgrade" = "Downgrade";
+"Abort" = "Prerušiť";
+"Continue" = "Ďalej";
+"Download Size" = "Veľkosť sťahovania";
+"Could not resolve dependency for %@" = "Závislosť sa nepodarilo vyriešiť pre %@";
+"%@ conflicts with %@" = "%@ v konflikte s %@";
+"%@ depends on %@" = "%@ je závislý na %@";
+"Removed by" = "Odstránené používateľom";
+"Required by" = "Vyžadované kvôli";
