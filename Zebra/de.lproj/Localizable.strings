@@ -36,7 +36,7 @@
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord bei";
 "Follow me on Twitter" = "Folgt mir auf Twitter";
-"Credits" = "Danke";
+"Credits" = "Authoren";
 
 // Settings
 
@@ -79,7 +79,7 @@
 "Swipe Actions Display As" = "Wischgesten werden angezeigt als";
 "Text" = "Text";
 "Icon" = "Icon";
-"Open Documents Directory" = "Dateipfad öffnen";
+"Open Documents Directory" = "Dokumenten Dateipad öffnen";
 "Clear Image Cache" = "Bildcache leeren";
 "Clear Keychain" = "Keychain leeren";
 
@@ -142,7 +142,7 @@
 "Recent" = "Kürzlich";
 "Installed Files" = "Installierte Dateien";
 "Modify" = "Bearbeiten";
-"Authenticate to initiate purchase." = "Zum kaufen authenifizieren.";
+"Authenticate to initiate purchase." = "Zum kaufen authentifizieren.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Bitte logge dich erneut in den Account ein, mit dem das Paket gekauft wurde (Möglicherweise %@)";
 "More by this Developer" = "Mehr vom Entwickler";
 "Installed Version" = "Installierte Version";
@@ -155,7 +155,7 @@
 "Search" = "Suchen";
 "Clear Search" = "Suche leeren";
 "This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist  für eine vollständige Suche zu kurz. Bitte verwenden Sie eine länger Suchanfrage";
-"No Results Found" = "Keine Treffer";
+"No Results Found" = "Keine Ergebnisse";
 
 // Downloads
 
@@ -184,7 +184,7 @@
 "Installing Packages..." = "Pakete werden installiert...";
 "Removing" = "Wird entfernt";
 "Removing Packages..." = "Pakete werden entfernt...";
-"Reinstalling" = "Reinstalling";
+"Reinstalling" = "Neu Installiert";
 "Reinstalling Packages..." = "Pakete werden neu installiert...";
 "Upgrading" = "Wird aktualisiert";
 "Upgrading Packages..." = "Pakete werden aktualisiert...";
@@ -193,7 +193,7 @@
 "Return to Queue" = "Zurück zur Warteschlange";
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
-"One or more packages failed to download." = "Ein Paket konnte nicht heruntergeladen werden.";
+"One or more packages failed to download." = "Ein oder Mehrere Paket/en konnte nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \“Zurück zur Warteschlange“\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue
