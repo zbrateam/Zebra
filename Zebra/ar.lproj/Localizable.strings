@@ -2,7 +2,7 @@
 
 "Cancel" = "إلغاء";
 "No" = "لا";
-"Ok" = "حسناً";
+"Ok" = "حسنًا";
 "Error" = "خطأ";
 "Retry" = "إعادة المحاولة";
 "Edit" = "تعديل";
@@ -20,24 +20,24 @@
 
 "Home" = "الرئيسية";
 "Info" = "معلومات";
-"Welcome to the Zebra Beta!" = "مرحباً بك في Zebra التجريبي";
+"Welcome to the Zebra Beta!" = "مرحباً بك في Zebra التجريبي!";
 "Changelog" = "التغييرات";
-"Community Repos" = "مجتمع المصادر";
-"Transfer Sources from %@" = "جلب المصادر من %@";
-"Move all sources from %@ to Zebra" = "نقل كل المصادر من  %@ إلى زيبرا";
-"Utility repo for %@" = "فائدة المصدر لـ %@";
-"Transfer Sources" = "نقل المصادر";
+"Community Repos" = "مجتمع المستودعات";
+"Transfer Sources from %@" = "تحويل المصادر من %@";
+"Move all sources from %@ to Zebra" = "نقل كل المصادر من  %@ إلى Zebra";
+"Utility repo for %@" = "فائدة المستودع لـ %@";
+"Transfer Sources" = "تحويل المصادر";
 "Utilities" = "خدمات";
 "Please Wait..." = "الرجاء الإنتظار...";
 "Verifying Source(s)" = "التحقق من المصدر/المصادر";
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
-"Wish List" = "قائمة التمنيات";
+"Wish List" = "قائمة الأمنيات";
 "Unlist" = "إزالة من القائمة";
-"Community" = "تواصل إجتماعي";
-"Join our Discord" = "انضم لنا على (Discord)";
+"Community" = "المجتمع";
+"Join our Discord" = "انضم لنا على Discord";
 "Follow me on Twitter" = "تابعنا على تويتر";
-"Credits" = "الفضل لـ";
+"Credits" = "الإعتمادات";
 
 // Settings
 
@@ -53,62 +53,62 @@
 
 "Report a Bug" = "الإبلاغ عن خطأ";
 "Tint Color" = "لون الخط";
-"Default" = "الإفتراضي";
+"Default" = "افتراضي";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
 "White" = "أبيض";
 "Black" = "أسود";
 
 "Dark Mode" = "الوضع الداكن";
-"Default" = "الإفتراضي";
+"Default" = "افتراضي";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
 "Change Icon" = "تغيير الأيقونة";
 
-"Enable Featured Packages" = "تمكين مميزات الحزم";
-"Repo Featured" = "مميزات المصدر";
+"Enable Featured Packages" = "تفعيل الحزم المميزة";
+"Repo Featured" = "المستودع المميز";
 "Random" = "عشوائي";
 "Feature Type" = "نوع الميزة";
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 
-"Enable News" = "تمكين الأخبار";
+"Enable News" = "تفعيل الأخبار";
 
 "Search while Typing" = "البحث أثناء الكتابة";
 
-"Swipe Actions Display As" = "إظهار خيارات السحب كـ";
+"Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
 "Text" = "النص";
 "Icon" = "الأيقونة";
 "Open Documents Directory" = "فتح دليل المستندات";
 "Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
 "Clear Keychain" = "مسح سلسلة المفاتيح";
 
-"Loading..." = "جار التحميل...";
+"Loading..." = "جارِ التحميل...";
 
 "Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
-"Clearing keychain completed" = "أكتمل مسح سلسلة المفاتيح";
+"Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
 
 // Sources
 
 "Sources" = "المصادر";
-"Local Repository" = "مصادر محلية";
+"Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليا";
 "Unknown" = "غير معروف";
-"No repository urls detected." = "لم يتم إكتشاف رابط مصدر";
-"You have already added these repositories." = "انت اضفت هذه المصادر بالفعل.";
-"Error verifying repository" = "تعذر التحقق من المصدر";
-"Error verifying repositories" = "تعذر التحقق من المصادر";
+"No repository urls detected." = "لم يتم إكتشاف عناوين URL مستودعات.";
+"You have already added these repositories." = "أنت أضفت هذه المستودعات بالفعل.";
+"Error verifying repository" = "تعذر التحقق من المستودع";
+"Error verifying repositories" = "تعذر التحقق من المستودعات";
 "Unknown error." = "خطأ غير معروف.";
-"Invalid URL" = "رابط غير صحيح";
-"Enter URL" = "أدخل الرابط";
-"Add Repo(s)" = "أضف المصدر/المصادر";
+"Invalid URL" = "عنوان URL غير صحيح";
+"Enter URL" = "أدخل عنوان URL";
+"Add Repo(s)" = "أضف المستودع/المستودعات";
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
-"Would you like to add the URL from your clipboard?" = "هل تريد إضافة الرابط من المحفظة ؟";
+"Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 "Please Wait..." = "الرجاء الإنتظار...";
-"Verifying Source(s)" = "التحقق من المصدر (المصادر)";
-"Unable to verify Repo" = "تعذر التحقق من المصدر";
-"Refresh" = "تنشيط";
+"Verifying Source(s)" = "التحقق من المصدر/المصادر";
+"Unable to verify Repo" = "تعذر التحقق من المستودع";
+"Refresh" = "تحديث";
 "Log Out" = "تسجيل خروج";
 "Purchased Packages" = "الحزم المشتراة";
 "Purchased" = "المشتريات";
@@ -126,29 +126,29 @@
 "Show Updates" = "إظهار التحديثات";
 "Ignore Updates" = "تجاهل التحديثات";
 "Select Version" = "اختيار إصدار";
-"Select a version to upgrade to" = "اختر الإصدار للترقية";
+"Select a version to upgrade to" = "اختر إصدار للترقية إليه";
 "Package" = "حزمة";
 "Information" = "معلومات";
 "Upgrade All" = "ترقية الكل";
-"Loaded" = "محمل";
-"ABC" = "أبجدي";
-"Date" = "تاريخ";
+"Loaded" = "تم التحميل";
+"ABC" = "أبجديًا";
+"Date" = "التاريخ";
 "Size" = "الحجم";
 "Queue" = "الإنتظار";
 "Clear" = "مسح";
-"Are you sure you want to clear Queue?" = "هل انت متأكد من مسح قائمة الإنتظار";
-"Available Upgrades" = "ترقيات متاحة";
+"Are you sure you want to clear Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
+"Available Upgrades" = "الترقيات المتاحة";
 "Ignored Upgrades" = "تجاهل الترقيات";
-"Recent" = "أخيرة";
+"Recent" = "مؤخرًا";
 "Installed Files" = "الملفات المثبتة";
 "Modify" = "تعديل";
 "Authenticate to initiate purchase." = "المصادقة لبدء الشراء.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "يرجى إعادة تسجيل حسابك الذي تم إستخدامه لشراء هذه الحزمة (ربما %@)";
-"More by this Developer" = "المزيد من هذا المطور";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "يرجى إعادة تسجيل الدخول بحسابك الذي تم إستخدامه لشراء هذه الحزمة (ربما %@)";
+"More by this Developer" = "المزيد بواسطة هذا المطور";
 "Installed Version" = "الإصدار المثبت";
 
-"Add to Wish List" = "إضافة إلى قائمة التمنيات";
-"Remove from Wish List" = "مسح من قائمة التمنيات";
+"Add to Wish List" = "إضافة إلى قائمة الأمنيات";
+"Remove from Wish List" = "إزالة من قائمة الأمنيات";
 
 // Search
 
@@ -159,14 +159,14 @@
 
 // Downloads
 
-"Downloads" = "التحميلات";
+"Downloads" = "التنزيلات";
 "Error while opening sources.list" = "خطأ أثناء فتح قائمة المصادر";
-"The repo %@ is incompatible with your jailbreak." = "هذا المصدر %@ غير متوافق مع الجيلبريك الخاص بك";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما أدى إلى حدوث استعادته.";
-"Please remove this repo from your sources.list file." = "الرجاء إزالة هذا المصدر من ملف قائمة المصادر.";
+"The repo %@ is incompatible with your jailbreak." = "هذا المستودع %@ غير متوافق مع الجيلبريك الخاص بك.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما يؤدي إلى حدوث عملية استعادة.";
+"Please remove this repo from your sources.list file." = "يرجى إزالة هذا المستودع من ملف قائمة المصادر الخاص بك.";
 "Incorrect documents permissions." = "مستندات أذونات غير صحيحة.";
 "Could not determine device information." = "لا يمكن تحديد معلومات الجهاز.";
-"Could not find a download URL for" = "لايمكن العثور على رابط التحمل لـ";
+"Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
 "Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
 
@@ -174,19 +174,19 @@
 
 "Console" = "وحدة التحكم";
 "Performing actions" = "تنفيذ الإجراءات";
-"Updating icon cache asynchronously..." = "جارٍ تحديث ذاكرة التخزين المؤقت للأيقونة بشكل غير متزامن ...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و زيبرا قد يخرج. لا بأس إذا حدث ذلك.";
-"Close Zebra" = "إغلاق زيبرا";
-"Restart SpringBoard" = "إعادة تشغيل واجهة المستخدم";
-"Downloading" = "جارى التحميل";
-"Downloading Packages..." = "تحميل الحزم...";
-"Installing" = "جار التثبيت";
+"Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن ...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
+"Close Zebra" = "إغلاق Zebra";
+"Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
+"Downloading" = "جارِ التنزيل";
+"Downloading Packages..." = "تنزيل الحزم...";
+"Installing" = "جارِ التثبيت";
 "Installing Packages..." = "تثبيت الحزم...";
-"Removing" = "جار الحذف";
-"Removing Packages..." = "حذف الحزم...";
-"Reinstalling" = "جار إعادة التثبيت";
+"Removing" = "جارِ الإزالة";
+"Removing Packages..." = "إزالة الحزم...";
+"Reinstalling" = "جارِ إعادة التثبيت";
 "Reinstalling Packages..." = "إعادة تثبيت الحزم...";
-"Upgrading" = "جار الترقية";
+"Upgrading" = "جارِ الترقية";
 "Upgrading Packages..." = "ترقية الحزم...";
 "Complete" = "إكتمل";
 "Finished!" = "انتهى!";
@@ -194,7 +194,7 @@
 "Importing local packages." = "استيراد الحزم المحلية.";
 "Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "اضغط \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التحميل.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 
 // Queue
 
@@ -202,14 +202,14 @@
 "Queue cleared" = "تم مسح قائمة الإنتظار";
 "Install" = "تثبيت";
 "Reinstall" = "إعادة تثبيت";
-"Remove" = "حذف";
+"Remove" = "إزالة";
 "Upgrade" = "ترقية";
-"Downgrade" = "إرجاع الإصدار";
+"Downgrade" = "خفض الإصدار";
 "Abort" = "إيقاف";
 "Continue" = "استمرار";
-"Download Size" = "حجم التحميل";
-"Could not resolve dependency for %@" = "لا يمكن حل الإعتماد لـ %@";
+"Download Size" = "حجم التنزيل";
+"Could not resolve dependency for %@" = "لا يمكن حل التبعية لـ %@";
 "%@ conflicts with %@" = "%@ يتعارض مع %@";
 "%@ depends on %@" = "%@ يعتمد على %@";
-"Removed by" = "محذوف من قبل";
-"Required by" = "مطلوب من قبل";
+"Removed by" = "تمت إزالته بواسطة";
+"Required by" = "مطلوب بواسطة";
