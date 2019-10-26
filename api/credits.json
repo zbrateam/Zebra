@@ -42,14 +42,14 @@
           "link": "https://twitter.com/busadoki"
         },
         {
-          "name": "iA7myd",
-          "subtitle": "Arabic",
-          "link": "https://twitter.com/iA7myd"
-        },
-        {
           "name": "Guilherme Benites",
           "subtitle": "Portuguese (Brazil)",
           "link": "http://twitter.com/benitesgui"
+        },
+        {
+          "name": "Can Destan (NightyFox)",
+          "subtitle": "Turkish",
+          "link": "https://mobile.twitter.com/MrCylops"
         },
         {
           "name": "eveevekun",
@@ -70,6 +70,11 @@
           "name": "gkeep",
           "subtitle": "Russian",
           "link": "https://github.com/gkeep"
+        },
+        {
+          "name": "iA7myd",
+          "subtitle": "Arabic",
+          "link": "https://twitter.com/iA7myd"
         },
         {
           "name": "leoagm",
