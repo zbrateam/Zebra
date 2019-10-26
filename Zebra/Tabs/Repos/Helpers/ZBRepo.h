@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBRepo *)repoMatchingRepoID:(int)repoID;
 + (ZBRepo *)localRepo:(int)repoID;
++ (ZBRepo *)repoFromBaseURL:(NSString *)baseURL;
 + (BOOL)exists:(NSString *)urlString;
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;

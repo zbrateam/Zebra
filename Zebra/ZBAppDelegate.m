@@ -256,18 +256,36 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     if (path.length > 1) {
                         NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
                         if (source != NULL) {
-                            NSString *packageID = [path substringFromIndex:1];
-                            [tabController setForwardToPackageID:packageID];
-                            
-                            NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
-                            [[UIApplication sharedApplication] openURL:newURL];
+                            if ([ZBRepo exists:source]) {
+                                NSString *packageID = [path substringFromIndex:1];
+                                ZBRepo *repo = [ZBRepo repoFromBaseURL:source];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
+                                if (packageController) {
+                                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                                    [tabController presentViewController:navController animated:YES completion:nil];
+                                }
+                                else {
+                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [repo origin]]];
+                                }
+                            }
+                            else {
+                                NSString *packageID = [path substringFromIndex:1];
+                                [tabController setForwardToPackageID:packageID];
+                                [tabController setForwardedRepoBaseURL:source];
+                                
+                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                                [[UIApplication sharedApplication] openURL:newURL];
+                            }
                         }
                         else {
                             NSString *packageID = [path substringFromIndex:1];
-                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
                             if (packageController) {
                                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                 [tabController presentViewController:navController animated:YES completion:nil];
+                            }
+                            else {
+                                [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@", @""), packageID]];
                             }
                         }
                     }
@@ -301,7 +319,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     NSString *path = [url path];
                     if (path.length > 1) {
                         NSString *packageID = [path substringFromIndex:1];
-                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
                         if (packageController) {
                             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                             [tabController presentViewController:navController animated:YES completion:nil];

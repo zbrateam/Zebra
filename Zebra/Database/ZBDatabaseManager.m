@@ -490,6 +490,33 @@
     return -1;
 }
 
+- (ZBRepo *)repoFromBaseURL:(NSString *)burl {
+    NSRange dividerRange = [burl rangeOfString:@"://"];
+    NSUInteger divide = NSMaxRange(dividerRange);
+    NSString *baseURL = [burl substringFromIndex:divide];
+    
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
+        
+        sqlite3_stmt *statement;
+        ZBRepo *repo;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                repo = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        return repo;
+    }
+    [self printDatabaseError];
+    return NULL;
+}
+
 - (int)nextRepoID {
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement;
@@ -1192,16 +1219,35 @@
 }
 
 - (NSArray *)allVersionsForPackage:(ZBPackage *)package {
-    return [self allVersionsForPackageID:package.identifier];
+    return [self allVersionsForPackageID:package.identifier inRepo:NULL];
 }
 
 - (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier {
+    return [self allVersionsForPackageID:packageIdentifier inRepo:NULL];
+}
+
+- (NSArray *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo {
+    return [self allVersionsForPackageID:package.identifier inRepo:repo];
+}
+
+- (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *allVersions = [NSMutableArray new];
         
+        NSString *query;
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE = ?;", -1, &statement, nil) == SQLITE_OK) {
+        if (repo != NULL) {
+            query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ? AND REPOID = ?;";
+        }
+        else {
+            query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?;";
+        }
+        
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            if (repo != NULL) {
+                sqlite3_bind_int(statement, 2, [repo repoID]);
+            }
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -1219,7 +1265,6 @@
     [self printDatabaseError];
     return NULL;
 }
-
 
 - (NSArray *)otherVersionsForPackage:(ZBPackage *)package {
     return [self otherVersionsForPackageID:package.identifier version:package.version];
@@ -1306,11 +1351,19 @@
 
 
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package {
-    return [self topVersionForPackageID:package.identifier];
+    return [self topVersionForPackage:package inRepo:NULL];
 }
 
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier {
-    NSArray *allVersions = [self allVersionsForPackageID:packageIdentifier];
+    return [self topVersionForPackageID:packageIdentifier inRepo:NULL];
+}
+
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo {
+    return [self topVersionForPackageID:package.identifier inRepo:repo];
+}
+
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo {
+    NSArray *allVersions = [self allVersionsForPackageID:packageIdentifier inRepo:repo];
     return allVersions.count ? allVersions[0] : nil;
 }
 

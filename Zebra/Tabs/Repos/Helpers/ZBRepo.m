@@ -41,6 +41,10 @@
     return local;
 }
 
++ (ZBRepo *)repoFromBaseURL:(NSString *)baseURL {
+    return [[ZBDatabaseManager sharedInstance] repoFromBaseURL:baseURL];
+}
+
 + (BOOL)exists:(NSString *)urlString {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSRange dividerRange = [urlString rangeOfString:@"://"];
