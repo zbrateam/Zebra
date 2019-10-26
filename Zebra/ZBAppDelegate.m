@@ -254,13 +254,24 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
-                        NSString *packageID = [path substringFromIndex:1];
-                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                        if (packageController) {
-                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                            [tabController presentViewController:navController animated:YES completion:nil];
+                        NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
+                        if (source != NULL) {
+                            NSString *packageID = [path substringFromIndex:1];
+                            [tabController setForwardToPackageID:packageID];
+                            
+                            NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                            [[UIApplication sharedApplication] openURL:newURL];
                         }
-                    } else {
+                        else {
+                            NSString *packageID = [path substringFromIndex:1];
+                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                            if (packageController) {
+                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                                [tabController presentViewController:navController animated:YES completion:nil];
+                            }
+                        }
+                    }
+                    else {
                         [tabController setSelectedIndex:ZBTabPackages];
                     }
                     break;
