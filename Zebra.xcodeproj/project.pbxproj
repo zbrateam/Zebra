@@ -1133,11 +1133,8 @@
 				893CB6552363A54E00204E27 /* de */,
 				893CB6562363C0ED00204E27 /* el */,
 				13FE5E702363D4DE0052F0AB /* it */,
-<<<<<<< HEAD
-				96F1BEE92363DAB3009B0D27 /* zh-Hans */,
-=======
 				893CB6642363D99400204E27 /* es-419 */,
->>>>>>> upstream/master
+				96F1BEE92363DAB3009B0D27 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
