@@ -6,14 +6,14 @@
 "Error" = "Error";
 "Retry" = "Reintentar";
 "Edit" = "Editar";
-"Login" = “Iniciar sesión";
+"Login" = "Iniciar sesión";
 "Close" = "Cerrar";
 "Done" = "Listo";
 
 // Tab controller
-"Packages in Queue" = "Paquetes en cola”;
-"Package in Queue" = "Paquete en cola”;
-"Tap to manage Queue" = "Toca para gestionar cola”;
+"Packages in Queue" = "Paquetes en cola";
+"Package in Queue" = "Paquete en cola";
+"Tap to manage Queue" = "Toca para gestionar cola";
 
 // Home
 
@@ -25,14 +25,14 @@
 "Transfer Sources from %@" = "Transferir fuentes desde %@";
 "Move all sources from %@ to Zebra" = "Mueve todas las fuentes desde %@ a Zebra";
 "Utility repo for %@" = "Repositorio de utilidad para %@";
-"Transfer Sources" = "Transferir fuentes”;
+"Transfer Sources" = "Transferir fuentes";
 "Utilities" = "Utilidades";
 "Please Wait..." = "Por favor espere...";
-"Verifying Source(s)" = "Verificando fuente(s)”;
+"Verifying Source(s)" = "Verificando fuente(s)";
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de deseos";
-"Unlist" = “Quitar de la lista”;
+"Unlist" = "Quitar de la lista";
 "Community" = "Comunidad";
 "Join our Discord" = "Únete a nuestro Discord";
 "Follow me on Twitter" = "Sígueme en Twitter";
@@ -53,14 +53,14 @@
 "Report a Bug" = "Reportar un problema";
 
 "Tint Color" = "Color de tinte";
-"Default" = “Por omisión“;
+"Default" = "Por omisión";
 "Blue" = "Azul";
-"Orange" = “Naranja”;
+"Orange" = "Naranja";
 "White" = "Blanco";
 "Black" = "Negro";
 
 "Dark Mode" = "Modo oscuro";
-"Default" = “Por defecto”;
+"Default" = "Por defecto";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -80,8 +80,8 @@
 "Text" = "Texto";
 "Icon" = "Icono";
 "Open Documents Directory" = "Abrir directorio de Documentos";
-"Clear Image Cache" = "Limpiar caché de imágenes”;
-"Clear Keychain" = "Limpiar llavero”;
+"Clear Image Cache" = "Limpiar caché de imágenes";
+"Clear Keychain" = "Limpiar llavero";
 
 "Loading..." = "Cargando...";
 
@@ -90,31 +90,31 @@
 
 // Sources
 
-"Sources" = “Fuentes”;
+"Sources" = "Fuentes";
 "Local Repository" = "Repositorio local";
 "Locally installed packages" = "Paquetes instalados localmente";
 "Unknown" = "Desconocido";
-"No repository urls detected." = "No se detectaron URLs de repositorios.”;
+"No repository urls detected." = "No se detectaron URLs de repositorios.";
 "You have already added these repositories." = "Ya tienes estos repositorios agregados.";
-"Error verifying repository" = "Error verificando repositorio”;
+"Error verifying repository" = "Error verificando repositorio";
 "Error verifying repositories" = "Error verificando repositorios";
 "Unknown error." = "Error desconocido.";
 "Invalid URL" = "Dirección URL Invalida";
 "Enter URL" = "Ingresa dirección URL";
 "Add Repo(s)" = "Añadir repositorio(s)";
-"Add" = "Añadir”;
+"Add" = "Añadir";
 "Add Multiple" = "Añadir múltiples";
-"Would you like to add the URL from your clipboard?" = “¿Te gustaría añadir la dirección URL del portapapeles?";
+"Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
 "Please Wait..." = "Por favor espere...";
 "Verifying Source(s)" = "Verificando fuente(s)";
-"Unable to verify Repo" = “No es posible verificar el repositorio";
-"Refresh" = “Actualizar”;
+"Unable to verify Repo" = "No es posible verificar el repositorio";
+"Refresh" = "Actualizar";
 "Log Out" = "Cerrar sesión";
 "Purchased Packages" = "Paquetes comprados";
 "Purchased" = "Comprado";
 
 "All Packages" = "Todos los paquetes";
-"Delete" = “Eliminar”;
+"Delete" = "Eliminar";
 
 // Changes
 
@@ -129,14 +129,14 @@
 "Select a version to upgrade to" = "Seleccionar versión a actualizar";
 "Package" = "Paquete";
 "Information" = "Información";
-"Upgrade All" = "Actualizar todo”;
+"Upgrade All" = "Actualizar todo";
 "Loaded" = "Cargado";
 "ABC" = "ABC";
 "Date" = "Fecha";
 "Size" = "Tamaño";
-"Queue" = “Cola”;
+"Queue" = "Cola";
 "Clear" = "Limpiar";
-"Are you sure you want to clear Queue?" = “¿Estas seguro de que quieres limpiar la cola?”;
+"Are you sure you want to clear Queue?" = "¿Estas seguro de que quieres limpiar la cola?";
 "Available Upgrades" = "Actualizaciones disponibles";
 "Ignored Upgrades" = "Actualizaciones ignoradas";
 "Recent" = "Recientes";
@@ -148,12 +148,12 @@
 "Installed Version" = "Versión instalada";
 
 "Add to Wish List" = "Agregar a la lista de deseos";
-"Remove from Wish List" = “Quitar de la lista de deseos";
+"Remove from Wish List" = "Quitar de la lista de deseos";
 
 // Search
 
 "Search" = "Buscar";
-"Clear Search" = “Limpiar búsqueda";
+"Clear Search" = "Limpiar búsqueda";
 "This search query is too short for the full search, please use a longer query." = "Esta consulta es muy corta para realizar la búsqueda, por favor usa una mas larga";
 "No Results Found" = "No se encontró ningún resultado";
 
@@ -182,27 +182,27 @@
 "Downloading Packages..." = "Descargando paquetes...";
 "Installing" = "Instalando";
 "Installing Packages..." = "Instalando paquetes...";
-"Removing" = “Quitando”;
-"Removing Packages..." = “Quitando paquetes...";
+"Removing" = "Quitando";
+"Removing Packages..." = "Quitando paquetes...";
 "Reinstalling" = "Reinstalando";
 "Reinstalling Packages..." = "Reinstalando paquetes...";
 "Upgrading" = "Actualizando";
 "Upgrading Packages..." = "Actualizando paquetes...";
 "Complete" = "Completo";
 "Finished!" = "¡Terminado!";
-"Return to Queue" = "Regresar a la cola”;
+"Return to Queue" = "Regresar a la cola";
 "Importing local packages." = "Importando paquetes locales.";
-"Finished importing local packages." = "Importación de paquetes locales terminada.”;
-"One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.”;
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\” para regresar a la cola y reintentar la descarga.";
+"Finished importing local packages." = "Importación de paquetes locales terminada.";
+"One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 
 // Queue
 
-"Queue" = “Cola”;
-"Queue cleared" = “Cola vacía”;
+"Queue" = "Cola";
+"Queue cleared" = "Cola vacía";
 "Install" = "Instalar";
 "Reinstall" = "Reinstalar";
-"Remove" = “Quitar”;
+"Remove" = "Quitar";
 "Upgrade" = "Actualizar";
 "Downgrade" = "Degradar";
 "Abort" = "Abortar";
@@ -211,5 +211,5 @@
 "Could not resolve dependency for %@" = "No se pudo resolver la dependencia para %@";
 "%@ conflicts with %@" = "%@ hace conflicto con %@";
 "%@ depends on %@" = "%@ depende de %@";
-"Removed by" = “Quitado por";
+"Removed by" = "Quitado por";
 "Required by" = "Requerido por";
