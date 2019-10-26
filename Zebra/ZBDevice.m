@@ -198,6 +198,23 @@
     return value;
 }
 
++ (NSString *)packageManagementBinary {
+    static NSString *packageManagementBinary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if ([ZBDevice needsSimulation]) {
+            packageManagementBinary = @"/usr/bin/dpkg";
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+            packageManagementBinary = @"/usr/bin/apt";
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/dpkg"]) {
+            packageManagementBinary = @"/usr/bin/dpkg";
+        }
+    });
+    return packageManagementBinary;
+}
+
 + (NSString * _Nonnull)deviceType {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         return @"iPad"; /* Device is iPad */

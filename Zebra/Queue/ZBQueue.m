@@ -169,7 +169,18 @@
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
-    NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
+    NSArray *baseCommand;
+    if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/apt"]) {
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
+    }
+    else if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
+        baseCommand = @[@"dpkg"];
+    }
+    else {
+        return NULL;
+    }
+    
+    NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
@@ -190,7 +201,6 @@
     if ([self queueHasPackages:ZBQueueTypeInstall]) {
         NSMutableArray *installCommand = [baseCommand mutableCopy];
         [installCommand addObject:@"install"];
-        [installCommand addObject:@"--reinstall"];
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
         [installCommand addObjectsFromArray:paths];
@@ -200,15 +210,34 @@
     }
     
     if ([self queueHasPackages:ZBQueueTypeReinstall]) {
-        NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
-        [reinstallCommand addObject:@"install"];
-        [reinstallCommand addObject:@"--reinstall"];
-        
-        NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
-        [reinstallCommand addObjectsFromArray:paths];
-        
         [commands addObject:@[@(ZBStageReinstall)]];
-        [commands addObject:reinstallCommand];
+        if ([binary isEqualToString:@"apt"]) {
+            NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
+            [reinstallCommand addObject:@"install"];
+            [reinstallCommand addObject:@"--reinstall"];
+            
+            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
+            [reinstallCommand addObjectsFromArray:paths];
+            [commands addObject:reinstallCommand];
+        }
+        else if ([binary isEqualToString:@"dpkg"]) {
+            //Remove package first
+            NSMutableArray *removeCommand = [baseCommand mutableCopy];
+            
+            [removeCommand insertObject:@"-r" atIndex:1];
+            [removeCommand insertObject:@"--force-depends" atIndex:2];
+            for (ZBPackage *package in [self reinstallQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            [commands addObject:removeCommand];
+            
+            //Install new version
+            NSMutableArray *installCommand = [baseCommand mutableCopy];
+            [installCommand insertObject:@"-i" atIndex:1];
+            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
+            [installCommand addObjectsFromArray:paths];
+            [commands addObject:installCommand];
+        }
     }
     
     if ([self queueHasPackages:ZBQueueTypeUpgrade]) {
