@@ -339,21 +339,16 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     if ([components count] == 2) {
                         NSArray *urlComponents = [components[1] componentsSeparatedByString:@"&package="];
                         NSString *sourceURL = urlComponents[0];
+                        NSURL *url;
                         if ([urlComponents count] > 1) {
-                            [tabController setForwardToPackageID:urlComponents[1]];
-                        }
-                        
-                        [tabController setSelectedIndex:ZBTabSources];
-                        
-                        if (![ZBRepo exists:sourceURL]) {
-                            ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                            
-                            NSURL *url = [NSURL URLWithString:[@"zbra://sources/add/" stringByAppendingString:sourceURL]];
-                            [repoController handleURL:url];
+                            NSString *packageID = urlComponents[1];
+                            url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://packages/%@?source=%@", packageID, sourceURL]];
                         }
                         else {
-                            [tabController forwardToPackage];
+                            url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                         }
+                        
+                        [[UIApplication sharedApplication] openURL:url];
                     }
                     break;
                 }
