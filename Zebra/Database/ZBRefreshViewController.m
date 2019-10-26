@@ -115,7 +115,9 @@ typedef enum {
         [self clearProblems];
         ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
         [self dismissViewControllerAnimated:YES completion:^{
-            [controller forwardToPackage];
+            if ([controller isKindOfClass:[ZBTabBarController class]]) {
+                [controller forwardToPackage];
+            }
         }];
     }
 }
