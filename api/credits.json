@@ -49,7 +49,12 @@
         {
           "name": "Guilherme Benites",
           "subtitle": "Portuguese (Brazil)",
-          "link": "http://twitter.com/benitesgui"
+          "link": "https://twitter.com/benitesgui"
+        },
+        {
+          "name": "Maciej Borek",
+          "subtitle": "Polish",
+          "link": "https://github.com/maciejborek"
         },
         {
           "name": "Can Destan (NightyFox)",
