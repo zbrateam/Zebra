@@ -202,10 +202,7 @@
     static NSString *packageManagementBinary = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ([ZBDevice needsSimulation]) {
-            packageManagementBinary = @"/usr/bin/dpkg";
-        }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
             packageManagementBinary = @"/usr/bin/apt";
         }
         else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/dpkg"]) {
