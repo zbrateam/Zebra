@@ -55,22 +55,16 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID {
-    self = [super init];
+- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         
-        self.package = [databaseManager topVersionForPackageID:packageID];
-        
-        if (self.package) {
-            ZBPackage *candidate = [self.package installableCandidate];
-            if (candidate) {
-                self.package = candidate;
-            }
-        } else {
-            // Package not found, we resign
-            return nil;
+        self.package = [databaseManager topVersionForPackageID:packageID inRepo:repo];
+        if (self.package == NULL) {
+            return NULL;
         }
         presented = YES;
     }
@@ -573,7 +567,11 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    [[ZBAppDelegate tabBarController] openQueue:YES];
+    if (presented) {
+        [self dismissViewControllerAnimated:true completion:^{
+            [[ZBAppDelegate tabBarController] openQueue:YES];
+        }];
+    }
 }
 
 // 3D Touch Actions

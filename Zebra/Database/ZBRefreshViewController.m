@@ -110,7 +110,10 @@ typedef enum {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     } else {
         [self clearProblems];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [controller forwardToPackage];
+        }];
     }
 }
 

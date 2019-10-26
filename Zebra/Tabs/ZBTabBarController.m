@@ -30,6 +30,8 @@
 
 @implementation ZBTabBarController
 
+@synthesize forwardedRepoBaseURL;
+@synthesize forwardToPackageID;
 @synthesize repoBusyList;
 
 - (void)viewDidLoad {
@@ -215,6 +217,18 @@
         [self openQueue:NO];
     }
     [self updateQueueBarData];
+}
+
+- (void)forwardToPackage {
+    if (forwardToPackageID != NULL) { //this is pretty hacky
+        NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
+        if (forwardedRepoBaseURL != NULL) {
+            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedRepoBaseURL];
+            forwardedRepoBaseURL = NULL;
+        }
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+        forwardToPackageID = NULL;
+    }
 }
 
 @end

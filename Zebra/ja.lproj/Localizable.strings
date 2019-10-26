@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "キャンセル";
+"No" = "いいえ";
+"Ok" = "はい";
+"Error" = "エラー";
+"Retry" = "再試行";
+"Edit" = "編集";
+"Login" = "ログイン";
+"Close" = "閉じる";
+"Done" = "完了";
+
+// Tab controller
+"Packages in Queue" = "キュー済みのパッケージ";
+"Package in Queue" = "キュー済みのパッケージ";
+"Tap to manage Queue" = "タップしてキューを管理します";
+
+// Home
+
+"Home" = "ホーム";
+"Info" = "情報";
+"Welcome to the Zebra Beta!" = "Zebra Beta版 にようこそ!";
+"Changelog" = "変更履歴";
+"Community Repos" = "公式リポジトリ ";
+"Transfer Sources from %@" = "%@ からソースを読み込む";
+"Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
+"Utility repo for %@" = "%@ のための有効なリポジトリ";
+"Transfer Sources" = "ソースの読み込み";
+"Utilities" = "有効なリポジトリ";
+"Please Wait..." = "お待ちください...";
+"Verifying Source(s)" = "リポジトリを検証中";
+"Stores" = "ストア";
+"Purchases" = "購入リスト";
+"Wish List" = "ほしいものリスト";
+"Unlist" = "リストから外す";
+"Community" = "コミュニティ";
+"Join our Discord" = "Discord に参加";
+"Follow me on Twitter" = "Twitter でフォロー";
+"Credits" = "名誉";
+
+// Settings
+
+"Settings" = "設定";
+"Version" = "バージョン";
+"Information" = "情報";
+"Graphics" = "表示方法";
+"Featured" = "パッケージ特集";
+"News" = "ニュース";
+"Search" = "検索";
+"Miscellaneous" = "その他";
+"Advanced" = "高度";
+
+"Report a Bug" = "バグを報告";
+
+"Tint Color" = "色合い";
+"Default" = "既定";
+"Blue" = "青";
+"Orange" = "橙";
+"White" = "白";
+"Black" = "黒";
+
+"Dark Mode" = "ダークモード";
+"Default" = "既定";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "アイコンを変更";
+
+"Enable Featured Packages" = "パッケージ特集の表示を有効";
+"Repo Featured" = "リポジトリ特集";
+"Random" = "ランダム";
+"Feature Type" = "表示方法";
+"Select Repos to be Featured" = "特集するリポジトリを選択";
+
+"Enable News" = "ニュースを表示";
+
+"Search while Typing" = "打ちながら検索";
+
+"Swipe Actions Display As" = "スワイプアクションで表示する：";
+"Text" = "テキスト";
+"Icon" = "アイコン";
+"Open Documents Directory" = "ドキュメントディレクトリを開く";
+"Clear Image Cache" = "画像キャッシュをクリア";
+"Clear Keychain" = "キーチェーンをクリア";
+
+"Loading..." = "読み込み中...";
+
+"Resetting image cache completed" = "画像キャッシュをクリアしました";
+"Clearing keychain completed" = "キーチェーンをクリアしました";
+
+// Sources
+
+"Sources" = "ソース";
+"Local Repository" = "ローカルリポジトリ";
+"Locally installed packages" = "ローカルでインストールされたパッケージ";
+"Unknown" = "不明";
+"No repository urls detected." = "リポジトリのURLは検出されませんでした。";
+"You have already added these repositories." = "これらのリポジトリはすでに追加されています。";
+"Error verifying repository" = "リポジトリの検証エラー";
+"Error verifying repositories" = "リポジトリの検証エラー";
+"Unknown error." = "不明なエラー。";
+"Invalid URL" = "無効なURL";
+"Enter URL" = "URLを入力";
+"Add Repo(s)" = "リポジトリを追加";
+"Add" = "追加";
+"Add Multiple" = "複数追加";
+"Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
+"Please Wait..." = "お待ちください...";
+"Verifying Source(s)" = "ソースの検証中";
+"Unable to verify Repo" = "リポジトリを検証できませんでした";
+"Refresh" = "再読み込み";
+"Log Out" = "ログアウト";
+"Purchased Packages" = "購入したパッケージ";
+"Purchased" = "購入済み";
+
+"All Packages" = "すべてのパッケージ";
+"Delete" = "削除";
+
+// Changes
+
+"Changes" = "変更";
+
+// Packages
+
+"Packages" = "パッケージ";
+"Show Updates" = "アップデートを表示";
+"Ignore Updates" = "アップデートを無視";
+"Select Version" = "バージョンを選択";
+"Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
+"Package" = "パッケージ";
+"Information" = "情報";
+"Upgrade All" = "すべてアップグレード";
+"Loaded" = "読み込み済み";
+"ABC" = "ABC";
+"Date" = "日付";
+"Size" = "サイズ";
+"Queue" = "キュー";
+"Clear" = "クリア";
+"Are you sure you want to clear Queue?" = "キューをクリアしてもよろしいですか？";
+"Available Upgrades" = "利用可能なアップグレード";
+"Ignored Upgrades" = "無視したアップグレード";
+"Recent" = "最近";
+"Installed Files" = "インストールされたファイル";
+"Modify" = "変更";
+"Authenticate to initiate purchase." = "認証してから購入します。";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
+"More by this Developer" = "この開発者による他のパッケージ";
+"Installed Version" = "インストール済みバージョン";
+
+"Add to Wish List" = "ほしい物リストに追加する";
+"Remove from Wish List" = "ほしい物リストから削除";
+
+// Search
+
+"Search" = "検索";
+"Clear Search" = "検索履歴をクリア";
+"This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
+"No Results Found" = "No Results Found";
+
+// Downloads
+
+"Downloads" = "ダウンロード";
+"Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
+"The repo %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
+"Please remove this repo from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
+"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
+"Could not determine device information." = "デバイス情報を特定できませんでした。";
+"Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
+"%@ hasn't been modified" = "%@ は変更されていません";
+"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
+
+// Console
+
+"Console" = "コンソール";
+"Performing actions" = "実行しています";
+"Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
+"Close Zebra" = "Zebra を閉じる";
+"Restart SpringBoard" = "SpringBoard を再起動";
+"Downloading" = "ダウンロードしています";
+"Downloading Packages..." = "パッケージをダウンロードしています...";
+"Installing" = "インストールしています";
+"Installing Packages..." = "パッケージをインストールしています...";
+"Removing" = "削除しています";
+"Removing Packages..." = "パッケージを削除しています...";
+"Reinstalling" = "再インストールしています";
+"Reinstalling Packages..." = "パッケージを再インストールしています...";
+"Upgrading" = "アップグレードしています";
+"Upgrading Packages..." = "パッケージをアップグレードしています...";
+"Complete" = "完了";
+"Finished!" = "終了!";
+"Return to Queue" = "キューに戻る";
+"Importing local packages." = "ローカルパッケージのインポートをしています。";
+"Finished importing local packages." = "ローカルパッケージのインポートが完了しました。";
+"One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
+
+// Queue
+
+"Queue" = "キュー";
+"Queue cleared" = "キューをクリアしました";
+"Install" = "インストール";
+"Reinstall" = "再インストール";
+"Remove" = "削除";
+"Upgrade" = "アップグレード";
+"Downgrade" = "ダウングレード";
+"Abort" = "中止";
+"Continue" = "続行";
+"Download Size" = "ダウンロードサイズ";
+"Could not resolve dependency for %@" = "%@ の依存関係を解決できませんでした";
+"%@ conflicts with %@" = "%@ が %@ と競合しています";
+"%@ depends on %@" = "%@ は %@ に依存しています";
+"Removed by" = "によって削除されました";
+"Required by" = "より必要";
