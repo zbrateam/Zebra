@@ -21,6 +21,7 @@
 #import <sys/stat.h>
 #import <unistd.h>
 @import SafariServices;
+@import LNPopupController;
 
 @implementation ZBDevice
 
@@ -288,6 +289,11 @@
     // Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
+    
+    //PopupBar
+    [[LNPopupBar appearance] setTranslucent:false];
+    [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
+    [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
 }
 
 + (void)configureLightMode {
@@ -326,6 +332,10 @@
     // Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
+    
+    [[LNPopupBar appearance] setTranslucent:true];
+    [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+    [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
 }
 
 + (void)applyThemeSettings {
