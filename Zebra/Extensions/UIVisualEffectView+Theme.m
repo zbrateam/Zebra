@@ -36,13 +36,7 @@
     });
 }
 
-- (void)setColor {
-    
-}
-
 - (void)zb_layoutSubviews {
-    NSLog(@"Swizzled!");
-//    [self layoutSubviews];
     if ([ZBDevice darkModeEnabled] || [ZBDevice darkModeOledEnabled] || [ZBDevice darkModeThirteenEnabled]) {
         self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     }
