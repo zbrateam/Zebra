@@ -13,6 +13,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
+#import <ZBDevice.h>
 
 @import SDWebImage;
 @import LNPopupController;
@@ -44,11 +45,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    if ([ZBDevice darkModeEnabled]) {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    }
+    else {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [self refreshTable];
 }
+
 - (IBAction)confirm:(id)sender {
     ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
     [self.navigationController pushViewController:console animated:true];
@@ -122,6 +129,8 @@
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        header.tintColor = [UIColor clearColor];
+        [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     }
 }
 
