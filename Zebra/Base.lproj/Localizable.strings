@@ -213,3 +213,4 @@
 "%@ depends on %@" = "%@ depends on %@";
 "Removed by" = "Removed by";
 "Required by" = "Required by";
+"Confirm" = "Confirm";

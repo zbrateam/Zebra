@@ -35,7 +35,14 @@
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
+    [self applyLocalization];
     self.title = NSLocalizedString(@"Queue", @"");
+}
+
+- (void)applyLocalization {
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"Confirm", @"");
+    self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
+    self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
 }
 
 - (void)clearQueueBarData {
@@ -84,7 +91,6 @@
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
     }
     else {
-        
         self.navigationItem.rightBarButtonItem.enabled = YES;
         self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
