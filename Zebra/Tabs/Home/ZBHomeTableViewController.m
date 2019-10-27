@@ -485,23 +485,25 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)darkMode {
-    [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
-    if ([ZBDevice darkModeEnabled]) {
-        [ZBDevice configureDarkMode];
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    } else {
-        [ZBDevice configureLightMode];
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-    }
-    [ZBDevice refreshViews];
-    [self colorWindow];
-    [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-    [self resetTable];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
+        if ([ZBDevice darkModeEnabled]) {
+            [ZBDevice configureDarkMode];
+            [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        } else {
+            [ZBDevice configureLightMode];
+            [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+        }
+        [ZBDevice refreshViews];
+        [self colorWindow];
+        [self setNeedsStatusBarAppearanceUpdate];
+        [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+        [self resetTable];
+    });
 }
 
 - (void)resetTable {
@@ -566,8 +568,10 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)colorWindow {
-    UIWindow *window = UIApplication.sharedApplication.delegate.window;
-    [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIWindow *window = UIApplication.sharedApplication.delegate.window;
+        [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    });
 }
 
 #pragma mark UICollectionView
