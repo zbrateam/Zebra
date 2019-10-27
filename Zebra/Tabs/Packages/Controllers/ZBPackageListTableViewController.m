@@ -205,8 +205,14 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")]];
-        segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+        if (self->repo.repoID) {
+            [items removeLastObject];
+            segmentedControl.selectedSegmentIndex = MIN(1, (NSInteger)self->selectedSortingType);
+        }
+        else
+            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
     });
