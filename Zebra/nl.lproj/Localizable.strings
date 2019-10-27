@@ -1,6 +1,6 @@
 // Common
 
-"Cancel" = "Stop";
+"Cancel" = "Annuleer";
 "No" = "Nee";
 "Ok" = "Ok";
 "Error" = "Error";
@@ -27,7 +27,7 @@
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaatsen geslaagd!";
 "Utilities" = "Benodigheden";
-"Please Wait..." = "Een momentje...";
+"Please Wait..." = "Een ogenblink geduld alstublieft...";
 "Verifying Source(s)" = "Controleer Bron(nen)";
 "Stores" = "Winkel";
 "Purchases" = "Kopen";
@@ -35,7 +35,7 @@
 "Unlist" = "Verwijder van de lijst";
 "Community" = "Community";
 "Join our Discord" = "Join onze Discord";
-"Follow me on Twitter" = "Volg me op Twitter";
+"Follow me on Twitter" = "Volg mij op Twitter";
 "Credits" = "Credits";
 
 // Settings
@@ -52,14 +52,14 @@
 
 "Report a Bug" = "Meld een fout";
 
-"Tint Color" = "Kleur van de tint";
+"Tint Color" = "Tint kleur";
 "Default" = "Standaard";
 "Blue" = "Blauw";
 "Orange" = "Oranje";
 "White" = "Wit";
 "Black" = "Zwart";
 
-"Dark Mode" = "Dark Mode";
+"Dark Mode" = "Donkere modus";
 "Default" = "Standaard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
@@ -67,7 +67,7 @@
 "Change Icon" = "Verander icoon";
 
 "Enable Featured Packages" = "Zet uitgelichte pakketten aan";
-"Repo Featured" = "Uitgelichte repo";
+"Repo Featured" = "Uitgelichte Bron";
 "Random" = "Willekeurig";
 "Feature Type" = "Uitgelicht type";
 "Select Repos to be Featured" = "Selecteer een repo om deze uit te lichten";
@@ -81,12 +81,12 @@
 "Icon" = "Icoon";
 "Open Documents Directory" = "Open Documentenmap";
 "Clear Image Cache" = "Leeg de fotocache";
-"Clear Keychain" = "Leeg de keychain";
+"Clear Keychain" = "Leeg de sleutelhanger";
 
 "Loading..." = "Aan het laden...";
 
 "Resetting image cache completed" = "Legen van de fotocache is gelukt";
-"Clearing keychain completed" = "Legen van de keychain is gelukt";
+"Clearing keychain completed" = "Legen van de sleutelhanger is gelukt";
 
 // Sources
 
@@ -94,18 +94,18 @@
 "Local Repository" = "Lokale bron";
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 "Unknown" = "Onbekend";
-"No repository urls detected." = "Er zijn geen bronnen-URLS gedetecteerd.";
+"No repository urls detected." = "Er zijn geen bron-URLS gedetecteerd.";
 "You have already added these repositories." = "Deze bronnen heb je al toegevoegd";
-"Error verifying repository" = "Er is een fout met het verifiëren van de bron.";
-"Error verifying repositories" = "Er is een fout met het verifiëren van de bronnen.";
+"Error verifying repository" = "Er is een fout opgetreden tijdens het verifiëren van de bron.";
+"Error verifying repositories" = "Er is een fout opgetreden tijdens het verifiëren van de bronnen.";
 "Unknown error." = "Onbekende fout";
-"Invalid URL" = "Geen geldige URLD";
+"Invalid URL" = "Ongeldige URLD";
 "Enter URL" = "Voer een URL in";
 "Add Repo(s)" = "Voeg bron(nen) toe";
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
-"Would you like to add the URL from your clipboard?" = "Wil je de URL in je klembord toevoegen?";
-"Please Wait..." = "Een momentje...";
+"Would you like to add the URL from your clipboard?" = "Wil je de URL uit je klembord toevoegen?";
+"Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
 "Unable to verify Repo" = "Kan de bron niet verifiëren";
 "Refresh" = "Ververs";
@@ -114,7 +114,7 @@
 "Purchased" = "Gekocht";
 
 "All Packages" = "Alle pakketten";
-"Delete" = "Verwijderd";
+"Delete" = "Verwijder";
 
 // Changes
 
@@ -129,7 +129,7 @@
 "Select a version to upgrade to" = "Kies een versie om naar up te graden";
 "Package" = "Pakket";
 "Information" = "Informatie";
-"Upgrade All" = "Upgrade allemaal";
+"Upgrade All" = "Upgrade alles";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
@@ -142,10 +142,10 @@
 "Recent" = "Recent";
 "Installed Files" = "Geïnstalleerde bestanden";
 "Modify" = "Pas aan";
-"Authenticate to initiate purchase." = "Authenticeer jezelf om het pakket te kopen";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Log alsjeblieft in met het account die dit pakket gekocht heeft. (Possibly %@)";
+"Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Log alstublieft in met het account dat dit pakket gekocht heeft. (Mogelijk %@)";
 "More by this Developer" = "Meer van deze ontwikkelaar";
-"Installed Version" = "Geïnstalleerde verzi";
+"Installed Version" = "Geïnstalleerde versie";
 
 "Add to Wish List" = "Voeg toe aan verlanglijst";
 "Remove from Wish List" = "Verwijder van verlanglijst";
@@ -153,20 +153,20 @@
 // Search
 
 "Search" = "Zoeken";
-"Clear Search" = "Leeg de zoekbalm";
-"This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer termen.";
+"Clear Search" = "Leeg de zoekbalk";
+"This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
 
 // Downloads
 
 "Downloads" = "Downloads";
-"Error while opening sources.list" = "Er is een fout bij het openen van sources.list";
-"The repo %@ is incompatible with your jailbreak." = "De repo %@ is niet compatibel met je jailbrak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen onstaan als je dit toevoegt, wat kan leiden tot een herstel van Zebra..";
-"Please remove this repo from your sources.list file." = "Verwijder alsjeblieft deze repo van je sources.list";
-"Incorrect documents permissions." = "Geen permissies voor dit document";
-"Could not determine device information." = "Kan geen informatie van dit apparaat krijgen.";
-"Could not find a download URL for" = "Kan geen downloadlink vinden van";
+"Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
+"The repo %@ is incompatible with your jailbreak." = "De repo %@ is niet compatibel met deze jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
+"Please remove this repo from your sources.list file." = "Verwijder alstublieft deze repo van het sources.list bestand.";
+"Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
+"Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
+"Could not find a download URL for" = "Kan geen downloadlink vinden voor ";
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
 "Could not parse %@ from %@" = "Kan %@ niet verwerken van %@";
 
@@ -175,7 +175,7 @@
 "Console" = "Console";
 "Performing actions" = "Acties aan het uitvoeren";
 "Updating icon cache asynchronously..." = "De iconcache asynchroom aan het updaten";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dat gebeurt.";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
 "Restart SpringBoard" = "Herstart SpringBoard";
 "Downloading" = "Aan het downloaden";
@@ -188,27 +188,27 @@
 "Reinstalling Packages..." = "Pakketten opnieuw aan het installeren...";
 "Upgrading" = "Aan het upgraden";
 "Upgrading Packages..." = "Pakketten aan het upgraden...";
-"Complete" = "Af";
+"Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
 "Importing local packages." = "Lokale pakketten aan het importeren";
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en opnieuw te downloaden";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 
 // Queue
 
 "Queue" = "Wachtrij";
 "Queue cleared" = "Wachtrij leeggemaakt";
-"Install" = "Installeren";
-"Reinstall" = "Opnieuw installeren";
-"Remove" = "Verwijderen";
-"Upgrade" = "Upgraden";
-"Downgrade" = "Downgraden";
-"Abort" = "Stoppen";
+"Install" = "Installeer";
+"Reinstall" = "Installeer opnieuw";
+"Remove" = "Verwijder";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Stop";
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
-"Could not resolve dependency for %@" = "Kan niet de afhankelijke pakketten voor %@ vinden";
+"Could not resolve dependency for %@" = "Kan niet de benodigde pakketten voor %@ vinden";
 "%@ conflicts with %@" = "%@ werkt niet samen met %@";
 "%@ depends on %@" = "%@ is afhankelijk van %@";
 "Removed by" = "Verwijderd door";
