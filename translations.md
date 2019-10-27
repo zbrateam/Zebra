@@ -10,6 +10,7 @@ Zebra currently supports the following languages:
 - Italian (it)
 - Japanese (ja)
 - Korean (ko)
+- Latvian (lv-LV)
 - Lithuanian (lt)
 - Norwegian Bokmål (nb)
 - Norwegian Nynorsk (nn)
