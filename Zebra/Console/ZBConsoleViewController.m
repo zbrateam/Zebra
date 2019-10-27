@@ -26,6 +26,7 @@
     ZBDownloadManager *downloadManager;
     NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
     NSMutableArray *installedPackageIdentifiers;
+    NSString *localInstallPath;
     BOOL respringRequired;
     BOOL suppressCancel;
     BOOL updateIconCache;
@@ -63,6 +64,24 @@
         installedPackageIdentifiers = [NSMutableArray new];
         respringRequired = false;
         updateIconCache = false;
+    }
+    
+    return self;
+}
+
+- (id)initWithLocalFile:(NSString *)filePath {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
+    
+    if (self) {
+        applicationBundlePaths = [NSMutableArray new];
+        installedPackageIdentifiers = [NSMutableArray new];
+        localInstallPath = filePath;
+        respringRequired = false;
+        updateIconCache = false;
+        
+        //Resume database operations
+        [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
     }
     
     return self;
@@ -117,7 +136,30 @@
 #pragma mark - Performing Tasks
 
 - (void)performTasks {
-    [self performTasksForDownloadedFiles:NULL];
+    if (localInstallPath != NULL) {
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [task setArguments:@[@"dpkg", @"-i", localInstallPath]];
+        
+        NSPipe *outputPipe = [[NSPipe alloc] init];
+        NSFileHandle *output = [outputPipe fileHandleForReading];
+        [output waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+        
+        NSPipe *errorPipe = [[NSPipe alloc] init];
+        NSFileHandle *error = [errorPipe fileHandleForReading];
+        [error waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+        
+        [task setStandardOutput:outputPipe];
+        [task setStandardError:errorPipe];
+        
+        [task launch];
+        [task waitUntilExit];
+    }
+    else {
+        [self performTasksForDownloadedFiles:NULL];
+    }
 }
 
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
