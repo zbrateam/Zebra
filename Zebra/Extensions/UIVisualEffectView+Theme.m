@@ -37,7 +37,7 @@
 }
 
 - (void)zb_layoutSubviews {
-    if ([ZBDevice darkModeEnabled] || [ZBDevice darkModeOledEnabled] || [ZBDevice darkModeThirteenEnabled]) {
+    if ([ZBDevice darkModeEnabled]) {
         self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     }
     else {
