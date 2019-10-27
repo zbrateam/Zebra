@@ -18,5 +18,6 @@ Zebra currently supports the following languages:
 - Russian (ru)
 - Spanish (es)
 - Spanish (Latin America) (es-419)
+- Thai (th)
 - Turkish (tr)
 - Vietnamese (vi)
