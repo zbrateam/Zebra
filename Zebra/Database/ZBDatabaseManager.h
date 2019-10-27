@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isDatabaseBeingUpdated;
 - (void)setDatabaseBeingUpdated:(BOOL)updated;
-- (void)setHaltDatabaseOperations;
+- (void)setHaltDatabaseOperations:(BOOL)halt;
 
 - (void)bulkDatabaseStartedUpdate;
 - (void)bulkDatabaseCompletedUpdate:(int)updates;
