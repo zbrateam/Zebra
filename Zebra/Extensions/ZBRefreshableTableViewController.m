@@ -54,6 +54,7 @@
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
     }
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self updateRefreshView];
 }
 
