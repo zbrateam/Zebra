@@ -33,6 +33,7 @@
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
+            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         });
     }
 }
@@ -133,6 +134,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->refreshControl endRefreshing];
         [self didEndRefreshing];
+        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     });
 }
 
