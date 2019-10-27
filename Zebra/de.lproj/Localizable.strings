@@ -1,6 +1,6 @@
 // Common
 
-"Cancel" = "Zurück";
+"Cancel" = "Abbrechen";
 "No" = "Nein";
 "Ok" = "Ok";
 "Error" = "Fehler";
@@ -20,7 +20,7 @@
 "Home" = "Home";
 "Info" = "Info";
 "Welcome to the Zebra Beta!" = "Willkommen zur  Zebra Beta!";
-"Changelog" = "Änderungen";
+"Changelog" = "Änderungsprotokoll";
 "Community Repos" = "Community Quellen";
 "Transfer Sources from %@" = "Quellen von %@ übertragen";
 "Move all sources from %@ to Zebra" = "Verschiebe alle Quellen von %@ zu Zebra";
@@ -74,9 +74,9 @@
 
 "Enable News" = "Neuigkeiten aktivieren";
 
-"Search while Typing" = "Während tippen suchen";
+"Search while Typing" = "Während dem Tippen suchen";
 
-"Swipe Actions Display As" = "Wischgesten werden angezeigt als";
+"Swipe Actions Display As" = "Wischgesten angezeigen als";
 "Text" = "Text";
 "Icon" = "Icon";
 "Open Documents Directory" = "Dokumenten Dateipad öffnen";
@@ -85,7 +85,7 @@
 
 "Loading..." = "Laden...";
 
-"Resetting image cache completed" = "Bildchache erfolgreich zurückgesetzt";
+"Resetting image cache completed" = "Bildcache erfolgreich zurückgesetzt";
 "Clearing keychain completed" = "Keychain erfolgreich geleert";
 
 // Sources
@@ -154,7 +154,7 @@
 
 "Search" = "Suchen";
 "Clear Search" = "Suche leeren";
-"This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist  für eine vollständige Suche zu kurz. Bitte verwenden Sie eine länger Suchanfrage";
+"This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwenden Sie eine längere Suchanfrage";
 "No Results Found" = "Keine Ergebnisse";
 
 // Downloads
@@ -175,11 +175,11 @@
 "Console" = "Konsole";
 "Performing actions" = "Laufende Aktivitäten";
 "Updating icon cache asynchronously..." = "Icon cache wird asynchron aktualisiert...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Zeit dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Weile dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
 "Close Zebra" = "Zebra schließen";
 "Restart SpringBoard" = "SpringBoard neustarten";
 "Downloading" = "Herunterladen";
-"Downloading Packages..." = "Pakete herunterladen...";
+"Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Installing" = "Wird installiert";
 "Installing Packages..." = "Pakete werden installiert...";
 "Removing" = "Wird entfernt";
