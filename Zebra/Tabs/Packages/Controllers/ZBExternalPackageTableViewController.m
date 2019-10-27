@@ -11,6 +11,7 @@
 #import <ZBDevice.h>
 #import <Console/ZBConsoleViewController.h>
 #import "UIColor+GlobalColors.h"
+#import <Database/ZBDatabaseManager.h>
 
 @interface ZBExternalPackageTableViewController () {
     NSDictionary *details;
@@ -57,6 +58,7 @@
 }
 
 - (IBAction)goodbye:(id)sender {
+    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
