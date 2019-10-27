@@ -52,13 +52,8 @@
 }
 
 - (IBAction)install:(id)sender {
-    //FIXME: Update for new console
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    vc.externalInstall = YES;
-    vc.externalFilePath = [_fileURL path];
-    
-    [[self navigationController] pushViewController:vc animated:YES];
+    ZBConsoleViewController *console = [[ZBConsoleViewController alloc] initWithLocalFile:[_fileURL path]];
+    [[self navigationController] pushViewController:console animated:YES];
 }
 
 - (IBAction)goodbye:(id)sender {
