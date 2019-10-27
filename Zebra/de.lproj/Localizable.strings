@@ -213,3 +213,4 @@
 "%@ depends on %@" = "%@ hängt ab von %@";
 "Removed by" = "Entfernt von";
 "Required by" = "Benötigt von";
+"Confirm" = "Bestätigen";
