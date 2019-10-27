@@ -212,7 +212,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                if (![ZBDevice needsSimulation]) {
+//                if (![ZBDevice needsSimulation]) {
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                     UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
                     
@@ -221,7 +221,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                     [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
-                }
+                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:true];
+//                }
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
