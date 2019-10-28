@@ -2,7 +2,7 @@
 
 "Cancel" = "キャンセル";
 "No" = "いいえ";
-"Ok" = "はい";
+"Ok" = はい;
 "Error" = "エラー";
 "Retry" = "再試行";
 "Edit" = "編集";
@@ -11,9 +11,9 @@
 "Done" = "完了";
 
 // Tab controller
-"Packages in Queue" = "キュー済みのパッケージ";
-"Package in Queue" = "キュー済みのパッケージ";
-"Tap to manage Queue" = "タップしてキューを管理します";
+"Packages in Queue" = "個のキュー済みのパッケージ";
+"Package in Queue" = "個のキュー済みのパッケージ";
+"Tap to manage Queue" = "タップしてキューを管理";
 
 // Home
 
@@ -66,7 +66,7 @@
 
 "Change Icon" = "アイコンを変更";
 
-"Enable Featured Packages" = "パッケージ特集の表示を有効";
+"Enable Featured Packages" = "パッケージ特集の表示をする";
 "Repo Featured" = "リポジトリ特集";
 "Random" = "ランダム";
 "Feature Type" = "表示方法";
@@ -74,9 +74,9 @@
 
 "Enable News" = "ニュースを表示";
 
-"Search while Typing" = "打ちながら検索";
+"Search while Typing" = "入力と同時に検索する";
 
-"Swipe Actions Display As" = "スワイプアクションで表示する：";
+"Swipe Actions Display As" = "スワイプで表示する：";
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
@@ -118,7 +118,7 @@
 
 // Changes
 
-"Changes" = "変更";
+"Changes" = "更新履歴";
 
 // Packages
 
@@ -155,7 +155,7 @@
 "Search" = "検索";
 "Clear Search" = "検索履歴をクリア";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
-"No Results Found" = "No Results Found";
+"No Results Found" = "検索結果が見つかりませんでした。";
 
 // Downloads
 
@@ -174,25 +174,25 @@
 
 "Console" = "コンソール";
 "Performing actions" = "実行しています";
-"Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新...";
+"Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
-"Downloading" = "ダウンロードしています";
-"Downloading Packages..." = "パッケージをダウンロードしています...";
+"Downloading" = "ダウンロードしています：";
+"Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
-"Installing Packages..." = "パッケージをインストールしています...";
+"Installing Packages..." = "パッケージをインストールします...";
 "Removing" = "削除しています";
 "Removing Packages..." = "パッケージを削除しています...";
 "Reinstalling" = "再インストールしています";
-"Reinstalling Packages..." = "パッケージを再インストールしています...";
+"Reinstalling Packages..." = "パッケージを再インストールします...";
 "Upgrading" = "アップグレードしています";
-"Upgrading Packages..." = "パッケージをアップグレードしています...";
+"Upgrading Packages..." = "パッケージをアップグレードします...";
 "Complete" = "完了";
-"Finished!" = "終了!";
+"Finished!" = "完了！";
 "Return to Queue" = "キューに戻る";
-"Importing local packages." = "ローカルパッケージのインポートをしています。";
-"Finished importing local packages." = "ローカルパッケージのインポートが完了しました。";
+"Importing local packages." = "ローカルパッケージをインポートしています。";
+"Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
