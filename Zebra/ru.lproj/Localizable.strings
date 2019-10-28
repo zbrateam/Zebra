@@ -35,7 +35,7 @@
 "Unlist" = "Удалить";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
-"Follow me on Twitter" = "Подпишитесь на мой Twitter";
+"Follow me on Twitter" = "Twitter Разработчика";
 "Credits" = "Благодарности";
 
 // Settings
@@ -53,14 +53,14 @@
 "Report a Bug" = "Сообщить об Ошибке";
 
 "Tint Color" = "Цвет акцентов";
-"Default" = "По умолчанию";
+"Default" = "Обычный";
 "Blue" = "Синий";
-"Orange" = "Оранжевый";
+"Orange" = "Оранж.";
 "White" = "Белый";
 "Black" = "Черный";
 
 "Dark Mode" = "Темный режим";
-"Default" = "По умолчанию";
+"Default" = "Обычный";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -76,7 +76,7 @@
 
 "Search while Typing" = "Поиск при вводе";
 
-"Swipe Actions Display As" = "Свайп-действия Показываются Как";
+"Swipe Actions Display As" = "Вид Свайп-действий";
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Open Documents Directory" = "Открыть Директорию Документов";
