@@ -2,6 +2,7 @@ Zebra currently supports the following languages:
 - Arabic (ar)
 - Chinese (Simplified) (zh-Hans)
 - Czech (cs)
+- Danish (da)
 - Dutch (nl)
 - French (fr)
 - German (de)

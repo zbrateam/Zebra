@@ -257,6 +257,7 @@
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
+		8916912E2367B4D4006E765F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8931E4D2226D6E9300F35DFD /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
 		8932F0C02364A0B200F16E5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0C12364A33000F16E5E /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -977,6 +978,7 @@
 				sv,
 				th,
 				"lv-LV",
+				da,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1189,6 +1191,7 @@
 				8932F0D02364F8A500F16E5E /* sv */,
 				9ED47D942365886300CF2021 /* th */,
 				8943970023662C6000E6F042 /* lv-LV */,
+				8916912E2367B4D4006E765F /* da */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
