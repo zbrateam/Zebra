@@ -184,7 +184,12 @@
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        [removeCommand addObject:@"remove"];
+        if ([binary isEqualToString:@"apt"]) {
+            [removeCommand addObject:@"remove"];
+        }
+        else {
+            [removeCommand addObject:@"-r"];
+        }
         
         for (ZBPackage *package in [self removeQueue]) {
             [removeCommand addObject:package.identifier];
@@ -200,7 +205,12 @@
     
     if ([self queueHasPackages:ZBQueueTypeInstall]) {
         NSMutableArray *installCommand = [baseCommand mutableCopy];
-        [installCommand addObject:@"install"];
+        if ([binary isEqualToString:@"apt"]) {
+            [installCommand addObject:@"install"];
+        }
+        else {
+            [installCommand addObject:@"-i"];
+        }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
         [installCommand addObjectsFromArray:paths];
@@ -242,7 +252,12 @@
     
     if ([self queueHasPackages:ZBQueueTypeUpgrade]) {
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
-        [upgradeCommand addObject:@"install"];
+        if ([binary isEqualToString:@"apt"]) {
+            [upgradeCommand addObject:@"install"];
+        }
+        else {
+            [upgradeCommand addObject:@"-i"];
+        }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeUpgrade filenames:debs];
         [upgradeCommand addObjectsFromArray:paths];
@@ -253,7 +268,12 @@
     
     if ([self queueHasPackages:ZBQueueTypeDowngrade]) {
         NSMutableArray *downgradeCommand = [baseCommand mutableCopy];
-        [downgradeCommand addObject:@"install"];
+        if ([binary isEqualToString:@"apt"]) {
+            [downgradeCommand addObject:@"install"];
+        }
+        else {
+            [downgradeCommand addObject:@"-i"];
+        }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDowngrade filenames:debs];
         [downgradeCommand addObjectsFromArray:paths];
