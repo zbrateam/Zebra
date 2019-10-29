@@ -213,3 +213,4 @@
 "%@ depends on %@" = "%@ priklausomas nuo %@";
 "Removed by" = "Pašalino";
 "Required by" = "Reikalaujama pagal";
+"Confirm" = "Patvirtinti";
