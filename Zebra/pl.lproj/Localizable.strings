@@ -157,7 +157,7 @@
 "Administration" = "Administracyjne";
 "App Addons" = "Dodatki do aplikacji";
 "Archiving" = "Archiwizacja";
-"Carrier Blanks" = "Carrier Blanks";
+"Carrier Blanks" = "Wsparcie operatorów";
 "Communication" = "Komunikacja";
 "Data Storage" = "Przechowywanie danych";
 "Development" = "Dewelopment";
@@ -259,3 +259,4 @@
 "%@ depends on %@" = "%@ polega na %@";
 "Removed by" = "Usunięte przez";
 "Required by" = "Wymagane przez";
+"Confirm" = "Potwierdź";
