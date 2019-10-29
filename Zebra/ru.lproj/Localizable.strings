@@ -155,7 +155,7 @@
 // Package Section Names
 
 "Administration" = "Администрирование";
-"App Addons" = "Дополнения приложений";
+"App Addons" = "Дополнения к приложениям";
 "Archiving" = "Архивирование";
 "Carrier Support" = "Поддержка для Операторов";
 "Communication" = "Связь";
@@ -180,10 +180,10 @@
 "Ringtones" = "Рингтоны";
 "Scripting" = "Скрипты";
 "Security" = "Безопасность";
-"Social" = "Соцальные (сети и.т.д)";
+"Social" = "Социальные (сети и.т.д)";
 "System" = "Система";
 "Terminal Support" = "Поддержка для Консоли";
-"Text Editors" = "Редакторы Текств";
+"Text Editors" = "Текстовые Редакторы";
 "Themes" = "Темы";
 "Toys" = "Игрушки";
 "Tweaks" = "Твики";
