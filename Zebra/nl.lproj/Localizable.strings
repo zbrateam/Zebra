@@ -259,3 +259,4 @@
 "%@ depends on %@" = "%@ is afhankelijk van %@";
 "Removed by" = "Verwijderd door";
 "Required by" = "Is nodig bij";
+"Confirm" = "Bevestig"
