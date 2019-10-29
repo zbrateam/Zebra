@@ -13,6 +13,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
+#import <ZBDevice.h>
 
 @import SDWebImage;
 @import LNPopupController;
@@ -34,7 +35,14 @@
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
+    [self applyLocalization];
     self.title = NSLocalizedString(@"Queue", @"");
+}
+
+- (void)applyLocalization {
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"Confirm", @"");
+    self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
+    self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
 }
 
 - (void)clearQueueBarData {
@@ -44,11 +52,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    if ([ZBDevice darkModeEnabled]) {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    }
+    else {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [self refreshTable];
 }
+
 - (IBAction)confirm:(id)sender {
     ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
     [self.navigationController pushViewController:console animated:true];
@@ -77,7 +91,6 @@
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
     }
     else {
-        
         self.navigationItem.rightBarButtonItem.enabled = YES;
         self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
@@ -122,6 +135,8 @@
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        header.tintColor = [UIColor clearColor];
+        [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     }
 }
 

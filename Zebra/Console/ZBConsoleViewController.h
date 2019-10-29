@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL externalInstall;
 @property (strong, nonatomic) NSString *externalFilePath;
+- (id)init;
+- (id)initWithLocalFile:(NSString *)filePath;
 @end
 
 NS_ASSUME_NONNULL_END

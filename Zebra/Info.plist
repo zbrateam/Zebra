@@ -55,15 +55,6 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>originalBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>originalBlack</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -78,6 +69,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>lightZebraSkin</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>originalBlack</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>originalBlack</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>

@@ -26,6 +26,7 @@
     ZBDownloadManager *downloadManager;
     NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
     NSMutableArray *installedPackageIdentifiers;
+    NSString *localInstallPath;
     BOOL respringRequired;
     BOOL suppressCancel;
     BOOL updateIconCache;
@@ -63,6 +64,24 @@
         installedPackageIdentifiers = [NSMutableArray new];
         respringRequired = false;
         updateIconCache = false;
+    }
+    
+    return self;
+}
+
+- (id)initWithLocalFile:(NSString *)filePath {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
+    
+    if (self) {
+        applicationBundlePaths = [NSMutableArray new];
+        installedPackageIdentifiers = [NSMutableArray new];
+        localInstallPath = filePath;
+        respringRequired = false;
+        updateIconCache = false;
+        
+        //Resume database operations
+        [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
     }
     
     return self;
@@ -117,7 +136,30 @@
 #pragma mark - Performing Tasks
 
 - (void)performTasks {
-    [self performTasksForDownloadedFiles:NULL];
+    if (localInstallPath != NULL) {
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [task setArguments:@[@"dpkg", @"-i", localInstallPath]];
+        
+        NSPipe *outputPipe = [[NSPipe alloc] init];
+        NSFileHandle *output = [outputPipe fileHandleForReading];
+        [output waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+        
+        NSPipe *errorPipe = [[NSPipe alloc] init];
+        NSFileHandle *error = [errorPipe fileHandleForReading];
+        [error waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+        
+        [task setStandardOutput:outputPipe];
+        [task setStandardError:errorPipe];
+        
+        [task launch];
+        [task waitUntilExit];
+    }
+    else {
+        [self performTasksForDownloadedFiles:NULL];
+    }
 }
 
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
@@ -127,92 +169,99 @@
     }
     else {
         NSArray *actions = [queue tasksToPerform:downloadedFiles];
-        for (NSArray *command in actions) {
-            if ([command count] == 1) {
-                [self updateStage:(ZBStage)[command[0] intValue]];
-            }
-            else {
-                for (int i = COMMAND_START; i < [command count]; ++i) {
-                    NSString *packageID = command[i];
-                    if (![self isValidPackageID:packageID]) continue;
-                    
-                    if ([ZBPackage containsApplicationBundle:packageID]) {
-                        updateIconCache = true;
-                        NSString *path = [ZBPackage pathForApplication:packageID];
-                        if (path != NULL) {
-                            [applicationBundlePaths addObject:path];
-                        }
-                    }
-                        
-                    if (!respringRequired) {
-                        respringRequired = [ZBPackage respringRequiredFor:packageID];
-                    }
-                    
-                    if (currentStage != ZBStageRemove) {
-                        [installedPackageIdentifiers addObject:packageID];
-                    }
-                }
-                
-                if (![ZBDevice needsSimulation]) {
-                    NSTask *task = [[NSTask alloc] init];
-                    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-                    [task setArguments:command];
-                    
-                    NSPipe *outputPipe = [[NSPipe alloc] init];
-                    NSFileHandle *output = [outputPipe fileHandleForReading];
-                    [output waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                    
-                    NSPipe *errorPipe = [[NSPipe alloc] init];
-                    NSFileHandle *error = [errorPipe fileHandleForReading];
-                    [error waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                    
-                    [task setStandardOutput:outputPipe];
-                    [task setStandardError:errorPipe];
-                    
-                    [task launch];
-                    [task waitUntilExit];
-                }
-            }
+        if ([actions count] == 0) {
+            [self writeToConsole:NSLocalizedString(@"There are no actions to perform", @"") atLevel:ZBLogLevelDescript];
         }
-        
-        NSMutableArray *uicaches = [NSMutableArray new];
-        for (NSString *packageIdentifier in installedPackageIdentifiers) {
-            if ([ZBPackage containsApplicationBundle:packageIdentifier]) {
-                updateIconCache = YES;
-                NSString *actualPackageIdentifier = packageIdentifier;
-                if ([packageIdentifier hasSuffix:@".deb"]) {
-                    // Transform deb-path-like packageID into actual package ID for checking to prevent duplicates
-                    actualPackageIdentifier = [[packageIdentifier lastPathComponent] stringByDeletingPathExtension];
-                    // ex., com.xxx.yyy_1.0.0_iphoneos_arm.deb
-                    NSRange underscoreRange = [actualPackageIdentifier rangeOfString:@"_" options:NSLiteralSearch];
-                    if (underscoreRange.location != NSNotFound) {
-                        actualPackageIdentifier = [actualPackageIdentifier substringToIndex:underscoreRange.location];
-                        if (!zebraRestartRequired && [actualPackageIdentifier isEqualToString:@"xyz.willy.zebra"]) {
-                            zebraRestartRequired = YES;
+        else {
+            [self setProgressTextHidden:false];
+            [self updateProgressText:NSLocalizedString(@"Performing Actions...", @"")];
+            for (NSArray *command in actions) {
+                if ([command count] == 1) {
+                    [self updateStage:(ZBStage)[command[0] intValue]];
+                }
+                else {
+                    for (int i = COMMAND_START; i < [command count]; ++i) {
+                        NSString *packageID = command[i];
+                        if (![self isValidPackageID:packageID]) continue;
+                        
+                        if ([ZBPackage containsApplicationBundle:packageID]) {
+                            updateIconCache = true;
+                            NSString *path = [ZBPackage pathForApplication:packageID];
+                            if (path != NULL) {
+                                [applicationBundlePaths addObject:path];
+                            }
+                        }
+                            
+                        if (!respringRequired) {
+                            respringRequired = [ZBPackage respringRequiredFor:packageID];
+                        }
+                        
+                        if (currentStage != ZBStageRemove) {
+                            [installedPackageIdentifiers addObject:packageID];
                         }
                     }
-                    if ([uicaches containsObject:actualPackageIdentifier])
-                        continue;
+                    
+                    if (![ZBDevice needsSimulation]) {
+                        NSTask *task = [[NSTask alloc] init];
+                        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+                        [task setArguments:command];
+                        
+                        NSPipe *outputPipe = [[NSPipe alloc] init];
+                        NSFileHandle *output = [outputPipe fileHandleForReading];
+                        [output waitForDataInBackgroundAndNotify];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+                        
+                        NSPipe *errorPipe = [[NSPipe alloc] init];
+                        NSFileHandle *error = [errorPipe fileHandleForReading];
+                        [error waitForDataInBackgroundAndNotify];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+                        
+                        [task setStandardOutput:outputPipe];
+                        [task setStandardError:errorPipe];
+                        
+                        [task launch];
+                        [task waitUntilExit];
+                    }
                 }
-                if (![uicaches containsObject:actualPackageIdentifier])
-                    [uicaches addObject:actualPackageIdentifier];
             }
             
-            if (!respringRequired) {
-                respringRequired = [ZBPackage respringRequiredFor:packageIdentifier] ? YES : respringRequired;
+            NSMutableArray *uicaches = [NSMutableArray new];
+            for (NSString *packageIdentifier in installedPackageIdentifiers) {
+                if ([ZBPackage containsApplicationBundle:packageIdentifier]) {
+                    updateIconCache = YES;
+                    NSString *actualPackageIdentifier = packageIdentifier;
+                    if ([packageIdentifier hasSuffix:@".deb"]) {
+                        // Transform deb-path-like packageID into actual package ID for checking to prevent duplicates
+                        actualPackageIdentifier = [[packageIdentifier lastPathComponent] stringByDeletingPathExtension];
+                        // ex., com.xxx.yyy_1.0.0_iphoneos_arm.deb
+                        NSRange underscoreRange = [actualPackageIdentifier rangeOfString:@"_" options:NSLiteralSearch];
+                        if (underscoreRange.location != NSNotFound) {
+                            actualPackageIdentifier = [actualPackageIdentifier substringToIndex:underscoreRange.location];
+                            if (!zebraRestartRequired && [actualPackageIdentifier isEqualToString:@"xyz.willy.zebra"]) {
+                                zebraRestartRequired = YES;
+                            }
+                        }
+                        if ([uicaches containsObject:actualPackageIdentifier])
+                            continue;
+                    }
+                    if (![uicaches containsObject:actualPackageIdentifier])
+                        [uicaches addObject:actualPackageIdentifier];
+                }
+                
+                if (!respringRequired) {
+                    respringRequired = [ZBPackage respringRequiredFor:packageIdentifier] ? YES : respringRequired;
+                }
             }
+            
+            if (updateIconCache) {
+                [self updateIconCaches:uicaches];
+            }
+            
+            [queue clear];
+            [self refreshLocalPackages];
+            [self removeAllDebs];
+            [self finishTasks];
         }
-        
-        if (updateIconCache) {
-            [self updateIconCaches:uicaches];
-        }
-        
-        [queue clear];
-        [self refreshLocalPackages];
-        [self removeAllDebs];
-        [self finishTasks];
     }
 }
 

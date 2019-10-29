@@ -34,7 +34,7 @@
 "Wish List" = "Ønskeliste";
 "Unlist" = "Fjern";
 "Community" = "Sosialt";
-"Join our Discord" = "Bli med i vår Discord";
+"Join our Discord" = "Bli med i Discorden vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
 "Credits" = "Bidragsytere";
 
@@ -213,3 +213,4 @@
 "%@ depends on %@" = "%@ avhenger av %@";
 "Removed by" = "Fjernet av";
 "Required by" = "Kreves av";
+"Confirm" = "Bekreft";

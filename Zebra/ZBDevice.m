@@ -21,6 +21,7 @@
 #import <sys/stat.h>
 #import <unistd.h>
 @import SafariServices;
+@import LNPopupController;
 
 @implementation ZBDevice
 
@@ -198,6 +199,20 @@
     return value;
 }
 
++ (NSString *)packageManagementBinary {
+    static NSString *packageManagementBinary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+            packageManagementBinary = @"/usr/bin/apt";
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/dpkg"]) {
+            packageManagementBinary = @"/usr/bin/dpkg";
+        }
+    });
+    return packageManagementBinary;
+}
+
 + (NSString * _Nonnull)deviceType {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         return @"iPad"; /* Device is iPad */
@@ -274,6 +289,11 @@
     // Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
+    
+    //PopupBar
+    [[LNPopupBar appearance] setTranslucent:false];
+    [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
+    [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
 }
 
 + (void)configureLightMode {
@@ -312,6 +332,10 @@
     // Web views
     [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[WKWebView appearance] setOpaque:YES];
+    
+    [[LNPopupBar appearance] setTranslucent:true];
+    [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+    [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
 }
 
 + (void)applyThemeSettings {

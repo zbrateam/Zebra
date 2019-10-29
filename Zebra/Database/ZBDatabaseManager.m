@@ -23,7 +23,7 @@
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
     BOOL databaseBeingUpdated;
-    BOOL haltedDatabaseOperations;
+    BOOL haltdDatabaseOperations;
 }
 @end
 
@@ -179,6 +179,13 @@
 
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested {
     BOOL needsUpdate = NO;
+    if (requested && haltdDatabaseOperations) {
+        [self setHaltDatabaseOperations:false];
+    }
+    else {
+        NSLog(@"[Zebra] Database operations halted");
+    }
+    
     if (!requested) {
         NSDate *currentDate = [NSDate date];
         NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
@@ -229,14 +236,14 @@
     [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
 }
 
-- (void)setHaltDatabaseOperations {
-    haltedDatabaseOperations = YES;
+- (void)setHaltDatabaseOperations:(BOOL)halt {
+    haltdDatabaseOperations = halt;
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
-    if (haltedDatabaseOperations) {
-        haltedDatabaseOperations = NO;
+    if (haltdDatabaseOperations) {
+        NSLog(@"[Zebra] Database operations halted");
         return;
     }
     [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
@@ -309,6 +316,11 @@
 }
 
 - (void)importLocalPackagesAndCheckForUpdates:(BOOL)checkForUpdates sender:(id)sender {
+    if (haltdDatabaseOperations) {
+        NSLog(@"[Zebra] Database operations halted");
+        return;
+    }
+    
     BOOL needsDelegateStart = !([sender isKindOfClass:[ZBDatabaseManager class]]);
     if (needsDelegateStart) {
         [self bulkDatabaseStartedUpdate];
@@ -326,6 +338,11 @@
 }
 
 - (void)importLocalPackages {
+    if (haltdDatabaseOperations) {
+        NSLog(@"[Zebra] Database operations halted");
+        return;
+    }
+    
     NSString *installedPath;
     if ([ZBDevice needsSimulation]) { // If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
@@ -631,7 +648,7 @@
 
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate {
     [self setDatabaseBeingUpdated:NO];
-    [self setHaltDatabaseOperations];
+    [self setHaltDatabaseOperations:true];
     [self.downloadManager stopAllDownloads];
     [self bulkDatabaseCompletedUpdate:-1];
     [self removeDatabaseDelegate:delegate];

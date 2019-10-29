@@ -1,0 +1,215 @@
+// Common
+
+"Cancel" = "Avbryt";
+"No" = "Nej";
+"Ok" = "Ok";
+"Error" = "Fel";
+"Retry" = "Försök igen";
+"Edit" = "Ändra";
+"Login" = "Logga in";
+"Close" = "Stäng";
+"Done" = "Klar";
+
+// Tab controller
+"Packages in Queue" = "Paket i kön";
+"Package in Queue" = "Paket i kön";
+"Tap to manage Queue" = "Tryck för att hantera kön";
+
+// Home
+
+"Home" = "Hem";
+"Info" = "Info";
+"Welcome to the Zebra Beta!" = "Välkommen till betan av Zebra!";
+"Changelog" = "Ändringslogg";
+"Community Repos" = "Gemenskapsförråd";
+"Transfer Sources from %@" = "Överför källor från %@";
+"Move all sources from %@ to Zebra" = "Flytta alla källor från %@ till Zebra";
+"Utility repo for %@" = "Verktygsförråd för %@";
+"Transfer Sources" = "Överför källor";
+"Utilities" = "Verktyg";
+"Please Wait..." = "Vänta...";
+"Verifying Source(s)" = "Verifierar källor";
+"Stores" = "Butiker";
+"Purchases" = "Köp";
+"Wish List" = "Önskelista";
+"Unlist" = "Avlista";
+"Community" = "Gemenskap";
+"Join our Discord" = "Gå med i vår Discord";
+"Follow me on Twitter" = "Följ mig på Twitter";
+"Credits" = "Medverkande";
+
+// Settings
+
+"Settings" = "Inställningar";
+"Version" = "Version";
+"Information" = "Information";
+"Graphics" = "Grafik";
+"Featured" = "Utvalt";
+"News" = "Nyheter";
+"Search" = "Sök";
+"Miscellaneous" = "Övrigt";
+"Advanced" = "Avancerat";
+
+"Report a Bug" = "Rapportera en bugg";
+
+"Tint Color" = "Tonfärg";
+"Default" = "Standard";
+"Blue" = "Blå";
+"Orange" = "Orange";
+"White" = "Vit";
+"Black" = "Svart";
+
+"Dark Mode" = "Mörkt läge";
+"Default" = "Standard";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Byt ikon";
+
+"Enable Featured Packages" = "Aktivera utvalda paket";
+"Repo Featured" = "Förråd utvalt";
+"Random" = "Slumpmässig";
+"Feature Type" = "Utväljningstyp";
+"Select Repos to be Featured" = "Välj förråd att välja ut";
+
+"Enable News" = "Aktivera nyheter";
+
+"Search while Typing" = "Sök medan du skriver";
+
+"Swipe Actions Display As" = "Svepåtgärder visas som";
+"Text" = "Text";
+"Icon" = "Ikon";
+"Open Documents Directory" = "Öppna dokumentkatalog";
+"Clear Image Cache" = "Rensa bildcachen";
+"Clear Keychain" = "Rensa nyckelringen";
+
+"Loading..." = "Laddar...";
+
+"Resetting image cache completed" = "Återställde bildcachen";
+"Clearing keychain completed" = "Rensade nyckelringen";
+
+// Sources
+
+"Sources" = "Källor";
+"Local Repository" = "Lokalt förråd";
+"Locally installed packages" = "Lokalt installerade paket";
+"Unknown" = "Okänd";
+"No repository urls detected." = "Inga förråds-URL:er detekterades.";
+"You have already added these repositories." = "Du har redan lagt till de här förråden.";
+"Error verifying repository" = "Fel när förrådet verifierades";
+"Error verifying repositories" = "Fel när förråden verifierades";
+"Unknown error." = "Okänt fel.";
+"Invalid URL" = "Ogiltig URL";
+"Enter URL" = "Ange URL";
+"Add Repo(s)" = "Lägg till förråd";
+"Add" = "Lägg till";
+"Add Multiple" = "Lägg till flera";
+"Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
+"Please Wait..." = "Vänta...";
+"Verifying Source(s)" = "Verifierar källor";
+"Unable to verify Repo" = "Kunde inte verifiera förråd";
+"Refresh" = "Uppdatera";
+"Log Out" = "Logga ut";
+"Purchased Packages" = "Köpta paket";
+"Purchased" = "Köpt";
+
+"All Packages" = "Alla paket";
+"Delete" = "Ta bort";
+
+// Changes
+
+"Changes" = "Ändringar";
+
+// Packages
+
+"Packages" = "Paket";
+"Show Updates" = "Visa uppdateringar";
+"Ignore Updates" = "Ignorera uppdateringar";
+"Select Version" = "Välj version";
+"Select a version to upgrade to" = "Välj en version att uppgradera till";
+"Package" = "Paket";
+"Information" = "Information";
+"Upgrade All" = "Uppgradera alla";
+"Loaded" = "laddat";
+"ABC" = "ABC";
+"Date" = "Datum";
+"Size" = "Storlek";
+"Queue" = "Kö";
+"Clear" = "Rensa";
+"Are you sure you want to clear Queue?" = "Är du säker på att du vill rensa kön?";
+"Available Upgrades" = "Tillgängliga uppgraderingar";
+"Ignored Upgrades" = "Ignorerade uppgraderingar";
+"Recent" = "Nytt";
+"Installed Files" = "Installerade filer";
+"Modify" = "Ändra";
+"Authenticate to initiate purchase." = "Autentisera för att initiera köp.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Logga in igen med ditt konto som används för att köpa det här paketet (Eventuellt %@)";
+"More by this Developer" = "Mer av den här utvecklaren";
+"Installed Version" = "Installerad version";
+
+"Add to Wish List" = "Lägg till på önskelistan";
+"Remove from Wish List" = "Ta bort från önskelistan";
+
+// Search
+
+"Search" = "Sök";
+"Clear Search" = "Rensa sökning";
+"This search query is too short for the full search, please use a longer query." = "Det här sökordet är för kort för fullständig sökning, använd ett längre sökord.";
+"No Results Found" = "Inga resultat hittades";
+
+// Downloads
+
+"Downloads" = "Nedladdningar";
+"Error while opening sources.list" = "Fel när sources.list öppnades";
+"The repo %@ is incompatible with your jailbreak." = "Förrådet %@ är inkompatibelt med din jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
+"Please remove this repo from your sources.list file." = "Ta bort det här förrådet från din sources.list-fil.";
+"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
+"Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
+"Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
+"%@ hasn't been modified" = "%@ har inte ändrats";
+"Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
+
+// Console
+
+"Console" = "Konsol";
+"Performing actions" = "Utför åtgärder";
+"Updating icon cache asynchronously..." = "Uppdaterar ikoncachen asynkront...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Det kan ta en stund och Zebra kan krascha. Det är okej om det gör det.";
+"Close Zebra" = "Stäng Zebra";
+"Restart SpringBoard" = "Starta om SpringBoard";
+"Downloading" = "Laddar ner";
+"Downloading Packages..." = "Laddar ner paket...";
+"Installing" = "Installerar";
+"Installing Packages..." = "Installerar paket...";
+"Removing" = "Tar bort";
+"Removing Packages..." = "Tar bort paket...";
+"Reinstalling" = "Installerar om";
+"Reinstalling Packages..." = "Installerar om paket...";
+"Upgrading" = "Uppgraderar";
+"Upgrading Packages..." = "Uppgraderar paket...";
+"Complete" = "Färdig";
+"Finished!" = "Klart!";
+"Return to Queue" = "Återgå till kön";
+"Importing local packages." = "Importerar lokala paket.";
+"Finished importing local packages." = "Importerade lokala paket.";
+"One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
+
+// Queue
+
+"Queue" = "Kö";
+"Queue cleared" = "Kön rensades";
+"Install" = "Installera";
+"Reinstall" = "Installera om";
+"Remove" = "Ta bort";
+"Upgrade" = "Uppgradera";
+"Downgrade" = "Nedgradera";
+"Abort" = "Avbryt";
+"Continue" = "Fortsätt";
+"Download Size" = "Nedladdningsstorlek";
+"Could not resolve dependency for %@" = "Kunde inte lösa beroende för %@";
+"%@ conflicts with %@" = "%@ är i konflikt med %@";
+"%@ depends on %@" = "%@ beror på %@";
+"Removed by" = "Tas bort av";
+"Required by" = "Krävs av";

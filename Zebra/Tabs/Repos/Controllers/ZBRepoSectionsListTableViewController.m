@@ -266,8 +266,8 @@
         NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
     } else {
-        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-        cell.textLabel.text = [section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        NSString *section = [[sectionNames objectAtIndex:indexPath.row - 1] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        cell.textLabel.text = NSLocalizedString(section, @"");
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
     }

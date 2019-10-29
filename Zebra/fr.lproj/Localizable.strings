@@ -19,10 +19,10 @@
 
 "Home" = "Accueil";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Bienvenue sur la BÍta de Zebra!";
+"Welcome to the Zebra Beta!" = "Bienvenue sur la Bêta de Zebra!";
 "Changelog" = "Changelog";
 "Community Repos" = "Sources de la communauté";
-"Transfer Sources from %@" = "Importer les sources de %@";
+"Transfer Sources from %@" = "Importer les Sources de %@";
 "Move all sources from %@ to Zebra" = "Importer toutes les sources de %@ vers Zebra";
 "Utility repo for %@" = "Source utilitaire pour %@";
 "Transfer Sources" = "Transférer les Sources";
@@ -34,13 +34,13 @@
 "Wish List" = "Liste de souhait";
 "Unlist" = "Enlever de la liste";
 "Community" = "Communauté";
-"Join our Discord" = "Joindre notre Discord";
+"Join our Discord" = "Rejoindre notre serveur Discord";
 "Follow me on Twitter" = "Me suivre sur Twitter";
 "Credits" = "Crédits";
 
 // Settings
 
-"Settings" = "ParamËtres";
+"Settings" = "Paramètres";
 "Version" = "Version";
 "Information" = "Informations";
 "Graphics" = "Graphiques";
@@ -64,29 +64,29 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Changer l'IcÙne";
+"Change Icon" = "Changer l'Icône";
 
-"Enable Featured Packages" = "Activer les Paquets Mis en Vedette";
+"Enable Featured Packages" = "Activer la Mise en Vedette de Paquets";
 "Repo Featured" = "Sources Mises en Vedette";
 "Random" = "Aléatoire";
 "Feature Type" = "Type de Mise en Vedette";
-"Select Repos to be Featured" = "Selectionner les Sources ‡ Mettre en Vedette";
+"Select Repos to be Featured" = "Selectionner les Sources à Mettre en Vedette";
 
-"Enable News" = "Activer la section \"nouveautés\"";
+"Enable News" = "Activer la section \"Nouveautés\"";
 
 "Search while Typing" = "Rechercher tout en écrivant";
 
-"Swipe Actions Display As" = "Swipe Actions Display As";
+"Swipe Actions Display As" = "Afficher les Informations en Balayant";
 "Text" = "Texte";
-"Icon" = "IcÙne";
-"Open Documents Directory" = "Ouvrir le dossier Dcuments";
+"Icon" = "Icône";
+"Open Documents Directory" = "Ouvrir le dossier Documents";
 "Clear Image Cache" = "Nettoyer le Cache de l'Image";
 "Clear Keychain" = "Nettoyer la Keychain";
 
 "Loading..." = "Chargement...";
 
 "Resetting image cache completed" = "Cache de l'image nettoyé";
-"Clearing keychain completed" = "Keychain nettoyée";
+"Clearing keychain completed" = "Keychain nettoyé";
 
 // Sources
 
@@ -95,7 +95,7 @@
 "Locally installed packages" = "Paquets installés";
 "Unknown" = "Inconnu";
 "No repository urls detected." = "Pas de source détectée.";
-"You have already added these repositories." = "Vous avez déj‡ ajouté cette source.";
+"You have already added these repositories." = "Vous avez déjà ajouté cette source.";
 "Error verifying repository" = "Erreur lors de la vérification de la source";
 "Error verifying repositories" = "Erreur lors de la vérification des sources";
 "Unknown error." = "Erreur inconnue.";
@@ -104,14 +104,14 @@
 "Add Repo(s)" = "Ajouter la(les) source(s)";
 "Add" = "Ajouter";
 "Add Multiple" = "Ajouter plusieurs";
-"Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter cet URL ‡ votre presse-papiers?";
+"Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter cet URL à votre presse-papiers?";
 "Please Wait..." = "Patientez...";
 "Verifying Source(s)" = "Vérification de la(des) Source(s)";
 "Unable to verify Repo" = "Impossible de vérifier la(les) Source(s)";
-"Refresh" = "RafraÓchir";
+"Refresh" = "Rafraîchir";
 "Log Out" = "Déconnexion";
 "Purchased Packages" = "Paquets Achetés";
-"Purchased" = "Purchased";
+"Purchased" = "Acheté";
 
 "All Packages" = "Tous les Paquets";
 "Delete" = "Supprimer";
@@ -123,32 +123,32 @@
 // Packages
 
 "Packages" = "Paquets";
-"Show Updates" = "Afficher les Mises ‡ Jour";
-"Ignore Updates" = "Ignorer les Mises ‡ Jour";
+"Show Updates" = "Afficher les Mises à Jour";
+"Ignore Updates" = "Ignorer les Mises à Jour";
 "Select Version" = "Selectionner la Version";
-"Select a version to upgrade to" = "Selectionner une version ‡ mettre ‡ jour vers";
+"Select a version to upgrade to" = "Selectionner une version à mettre à jour vers";
 "Package" = "Paquet";
 "Information" = "Informations";
-"Upgrade All" = "Tout Mettre ‡ Jour";
+"Upgrade All" = "Tout Mettre à Jour";
 "Loaded" = "Chargé";
 "ABC" = "ABC";
 "Date" = "Date";
 "Size" = "Taille";
 "Queue" = "File d'attente";
 "Clear" = "Vider";
-"Are you sure you want to clear Queue?" = "Etes vous sur de vouloir vider la Queue?";
-"Available Upgrades" = "Mises ‡ niveau disponibles";
-"Ignored Upgrades" = "Mises ‡ niveau ignorées";
+"Are you sure you want to clear Queue?" = "Etes vous sur de vouloir vider la File d'Attente?";
+"Available Upgrades" = "Mises à Niveau Disponibles";
+"Ignored Upgrades" = "Mises à Niveau Ignorées";
 "Recent" = "Récent";
 "Installed Files" = "Fichiers Installés";
 "Modify" = "Modifier";
 "Authenticate to initiate purchase." = "S'identifier pour acheter.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Veuillez vous reconnecter au compte utilisé lors de l'achat de ce paquet(Possiblement %@)";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Veuillez vous reconnecter au compte utilisé lors de l'achat de ce paquet (Possiblement %@)";
 "More by this Developer" = "Plus de paquets de ce Développeur";
 "Installed Version" = "Version Installée";
 
-"Add to Wish List" = "Ajouter ‡ la liste de souhait";
-"Remove from Wish List" = "Supprimer de la liste de souhait";
+"Add to Wish List" = "Ajouter à la Liste de Souhait";
+"Remove from Wish List" = "Supprimer de la Liste de Souhait";
 
 // Search
 
@@ -162,54 +162,54 @@
 "Downloads" = "Téléchargements";
 "Error while opening sources.list" = "Erreur lors de l'ouverture de sources.list";
 "The repo %@ is incompatible with your jailbreak." = "La source %@ est incompatible avec ce jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Cet ajout peut endommager Zebra et le forcer ‡ se réinitialiser.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Cet ajout peut endommager Zebra et le forcer à se réinitialiser.";
 "Please remove this repo from your sources.list file." = "Veuillez supprimer cette source dans le fichier sources.list.";
 "Incorrect documents permissions." = "Permissions incorrectes.";
 "Could not determine device information." = "Impossible de trouver les informations de l'appareil.";
-"Could not find a download URL for" = "Impossible de trouver l'URL pour télécharger";
+"Could not find a download URL for" = "Impossible de trouver une URL pour télécharger";
 "%@ hasn't been modified" = "%@ n'a pas été modifié";
-"Could not parse %@ from %@" = "Impossible d'analyser %@ ‡ partir de %@";
+"Could not parse %@ from %@" = "Impossible d'analyser %@ à partir de %@";
 
 // Console
 
 "Console" = "Console";
-"Performing actions" = "En cours";
-"Updating icon cache asynchronously..." = "Mise ‡ jour asynchrone du cache des icÙnes asynchronously...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Cela peut prendre un moment et peut conduire Zebra ‡ se fermer. Tout va bien si tel est le cas.";
+"Performing actions" = "Actions En cours";
+"Updating icon cache asynchronously..." = "Mise à jour asynchrone du cache des icônes...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Cela peut prendre un moment et peut conduire Zebra à se fermer. Tout va bien si tel est le cas.";
 "Close Zebra" = "Fermer Zebra";
 "Restart SpringBoard" = "Redémarrer le SpringBoard";
 "Downloading" = "Téléchargement en cours";
-"Downloading Packages..." = "Téléchargement en cours des  Paquets...";
+"Downloading Packages..." = "Téléchargement en cours des Paquets...";
 "Installing" = "Installation";
 "Installing Packages..." = "Installation des Paquets...";
 "Removing" = "Suppression";
 "Removing Packages..." = "Suppression des Paquets...";
 "Reinstalling" = "Réinstallation";
 "Reinstalling Packages..." = "Réinstallation des Paquets...";
-"Upgrading" = "Mise ‡ niveau";
-"Upgrading Packages..." = "Mise ‡ niveau des Paquets...";
-"Complete" = "Accompli";
+"Upgrading" = "Mise à niveau";
+"Upgrading Packages..." = "Mise à niveau des Paquets...";
+"Complete" = "Fini";
 "Finished!" = "Terminé!";
-"Return to Queue" = "Retourner ‡ la Queue";
+"Return to Queue" = "Retourner à la File d'attente";
 "Importing local packages." = "Importation des paquets locaux.";
 "Finished importing local packages." = "Importation des paquets locaux terminée.";
-"One or more packages failed to download." = "Un ou plusieurs paquets n'ont pas pu Ítre téléchargés.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clic \"Retour ‡ la file d'attente\" pour retourner ‡ la file d'attente et réessayer le téléchargement.";
+"One or more packages failed to download." = "Un ou plusieurs paquets n'ont pas pu être téléchargés.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clic \"Retour à la File d'Attente\" pour retourner à la File d'Attente et réessayer le téléchargement.";
 
 // Queue
 
-"Queue" = "File d'attente";
-"Queue cleared" = "File d'attente nettoyée";
+"Queue" = "File d'Attente";
+"Queue cleared" = "File d'Attente nettoyée";
 "Install" = "Installer";
 "Reinstall" = "Réinstaller";
 "Remove" = "Supprimer";
-"Upgrade" = "Mettre ‡ niveau";
-"Downgrade" = "Retourner ‡ la version";
+"Upgrade" = "Mettre à niveau";
+"Downgrade" = "Retourner à la version";
 "Abort" = "Annuler";
 "Continue" = "Continuer";
 "Download Size" = "Taille du téléchargement";
 "Could not resolve dependency for %@" = "Impossible de résoudre la dépendence de %@";
 "%@ conflicts with %@" = "%@ entre en conflit avec %@";
 "%@ depends on %@" = "%@ dépend de %@";
-"Removed by" = "Supprimer par";
+"Removed by" = "Supprimé par";
 "Required by" = "Souhaité par";
