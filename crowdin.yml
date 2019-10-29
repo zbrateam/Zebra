@@ -1,0 +1,3 @@
+files:
+  - source: /Zebra/Base.lproj/Localizable.strings
+    translation: /Zebra/%two_letters_code%.lproj/Localizable.strings
