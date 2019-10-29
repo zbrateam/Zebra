@@ -1,12 +1,12 @@
 // Common
 
-"Cancel" = "Zurück";
+"Cancel" = "Abbrechen";
 "No" = "Nein";
 "Ok" = "Ok";
 "Error" = "Fehler";
 "Retry" = "Erneut versuchen";
 "Edit" = "Bearbeiten";
-"Login" = "Login";
+"Login" = "Anmelden";
 "Close" = "Schließen";
 "Done" = "Fertig";
 
@@ -17,10 +17,10 @@
 
 // Home
 
-"Home" = "Home";
+"Home" = "Start";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Willkommen zur  Zebra Beta!";
-"Changelog" = "Änderungen";
+"Welcome to the Zebra Beta!" = "Willkommen zur Zebra Beta!";
+"Changelog" = "Änderungsprotokoll";
 "Community Repos" = "Community Quellen";
 "Transfer Sources from %@" = "Quellen von %@ übertragen";
 "Move all sources from %@ to Zebra" = "Verschiebe alle Quellen von %@ zu Zebra";
@@ -36,7 +36,7 @@
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord bei";
 "Follow me on Twitter" = "Folgt mir auf Twitter";
-"Credits" = "Danke";
+"Credits" = "Authoren";
 
 // Settings
 
@@ -50,7 +50,7 @@
 "Miscellaneous" = "Sonstiges";
 "Advanced" = "Fortgeschritten";
 
-"Report a Bug" = "Einen Bug melden";
+"Report a Bug" = "Einen Fehler melden";
 
 "Tint Color" = "Farbton";
 "Default" = "Standard";
@@ -74,18 +74,18 @@
 
 "Enable News" = "Neuigkeiten aktivieren";
 
-"Search while Typing" = "Während tippen suchen";
+"Search while Typing" = "Während dem Tippen suchen";
 
-"Swipe Actions Display As" = "Wischgesten werden angezeigt als";
+"Swipe Actions Display As" = "Wischgesten angezeigen als";
 "Text" = "Text";
 "Icon" = "Icon";
-"Open Documents Directory" = "Dateipfad öffnen";
-"Clear Image Cache" = "Bildcache leeren";
+"Open Documents Directory" = "Dokumenten Dateipad öffnen";
+"Clear Image Cache" = "Bildzwischenspeicher leeren";
 "Clear Keychain" = "Keychain leeren";
 
 "Loading..." = "Laden...";
 
-"Resetting image cache completed" = "Bildchache erfolgreich zurückgesetzt";
+"Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
 "Clearing keychain completed" = "Keychain erfolgreich geleert";
 
 // Sources
@@ -94,10 +94,10 @@
 "Local Repository" = "Lokale Quelle";
 "Locally installed packages" = "Lokal installierte Pakete";
 "Unknown" = "Unbekannt";
-"No repository urls detected." = "Keine Qullen-URL gefunden.";
+"No repository urls detected." = "Keine Quellen-URL gefunden.";
 "You have already added these repositories." = "Du hast diese Quellen bereits hinzugefügt.";
-"Error verifying repository" = "Beim verifizieren der Quelle ist ein Fehler aufgetreten";
-"Error verifying repositories" = "Beim verifizieren der Quellen ist ein Fehler aufgetreten";
+"Error verifying repository" = "Beim Verifizieren der Quelle ist ein Fehler aufgetreten";
+"Error verifying repositories" = "Beim Verifizieren der Quellen ist ein Fehler aufgetreten";
 "Unknown error." = "Unbekannter Fehler.";
 "Invalid URL" = "Ungültige URL";
 "Enter URL" = "URL eingeben";
@@ -109,7 +109,7 @@
 "Verifying Source(s)" = "Quelle(n) verifizieren";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";
-"Log Out" = "Ausloggen";
+"Log Out" = "Abmelden";
 "Purchased Packages" = "Gekaufte Pakete";
 "Purchased" = "Gekauft";
 
@@ -126,7 +126,7 @@
 "Show Updates" = "Aktualisierungen anzeigen";
 "Ignore Updates" = "Aktualisierungen ignorieren";
 "Select Version" = "Version auswählen";
-"Select a version to upgrade to" = "Wähle die Version, auf die du aktualisieren möchtest";
+"Select a version to upgrade to" = "Wähle die Version aus, auf die du aktualisieren möchtest";
 "Package" = "Paket";
 "Information" = "Informationen";
 "Upgrade All" = "Alles Aktualisieren";
@@ -136,14 +136,14 @@
 "Size" = "Größe";
 "Queue" = "Warteschlange";
 "Clear" = "Leeren";
-"Are you sure you want to clear Queue?" = "Willst du dir Warteschlange wirklich leeren?";
+"Are you sure you want to clear Queue?" = "Willst du die Warteschlange wirklich leeren?";
 "Available Upgrades" = "Verfügbare Aktualisierungen";
 "Ignored Upgrades" = "Ignorierte Aktualiserungen";
 "Recent" = "Kürzlich";
 "Installed Files" = "Installierte Dateien";
 "Modify" = "Bearbeiten";
-"Authenticate to initiate purchase." = "Zum kaufen authenifizieren.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Bitte logge dich erneut in den Account ein, mit dem das Paket gekauft wurde (Möglicherweise %@)";
+"Authenticate to initiate purchase." = "Zum Kaufen authentifizieren.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Bitte melde dich erneut mit dem Konto an, mit dem das Paket gekauft wurde (Möglicherweise %@)";
 "More by this Developer" = "Mehr vom Entwickler";
 "Installed Version" = "Installierte Version";
 
@@ -154,18 +154,18 @@
 
 "Search" = "Suchen";
 "Clear Search" = "Suche leeren";
-"This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist  für eine vollständige Suche zu kurz. Bitte verwenden Sie eine länger Suchanfrage";
-"No Results Found" = "Keine Treffer";
+"This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage";
+"No Results Found" = "Keine Ergebnisse";
 
 // Downloads
 
 "Downloads" = "Downloads";
-"Error while opening sources.list" = "Fehler beim öffnen von sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist mit Ihrem Jailbreak inkompatibel.";
+"Error while opening sources.list" = "Fehler beim Öffnen von sources.list";
+"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist mit deinem Jailbreak inkompatibel.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Es könnte Probleme verursachen, wenn du es zu Zebra hinzufügst, was eine mögliche Wiederherstellung von Zebra verursachen könnte.";
 "Please remove this repo from your sources.list file." = "Bitte entferne diese Quelle von deiner sources.list Datei.";
 "Incorrect documents permissions." = "Falsche Dokumentenberechtigung.";
-"Could not determine device information." = "Geräteinformation nicht gefunden.";
+"Could not determine device information." = "Geräteinformationen nicht gefunden.";
 "Could not find a download URL for" = "Keine Download-URL dafür gefunden";
 "%@ hasn't been modified" = "%@ wurde nicht bearbeitet";
 "Could not parse %@ from %@" = "Konnte  %@ von %@ nicht analysieren";
@@ -174,17 +174,17 @@
 
 "Console" = "Konsole";
 "Performing actions" = "Laufende Aktivitäten";
-"Updating icon cache asynchronously..." = "Icon cache wird asynchron aktualisiert...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Zeit dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
+"Updating icon cache asynchronously..." = "Icon Zwischenspeicher wird asynchron aktualisiert...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Weile dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
 "Close Zebra" = "Zebra schließen";
 "Restart SpringBoard" = "SpringBoard neustarten";
 "Downloading" = "Herunterladen";
-"Downloading Packages..." = "Pakete herunterladen...";
+"Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Installing" = "Wird installiert";
 "Installing Packages..." = "Pakete werden installiert...";
 "Removing" = "Wird entfernt";
 "Removing Packages..." = "Pakete werden entfernt...";
-"Reinstalling" = "Reinstalling";
+"Reinstalling" = "Neu Installiert";
 "Reinstalling Packages..." = "Pakete werden neu installiert...";
 "Upgrading" = "Wird aktualisiert";
 "Upgrading Packages..." = "Pakete werden aktualisiert...";
@@ -193,7 +193,7 @@
 "Return to Queue" = "Zurück zur Warteschlange";
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
-"One or more packages failed to download." = "Ein Paket konnte nicht heruntergeladen werden.";
+"One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \“Zurück zur Warteschlange“\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue
@@ -203,7 +203,7 @@
 "Install" = "Installieren";
 "Reinstall" = "Neu installieren";
 "Remove" = "Entfernen";
-"Upgrade" = "Aktualisierung";
+"Upgrade" = "Aktualisieren";
 "Downgrade" = "Downgrade";
 "Abort" = "Abbrechen";
 "Continue" = "Weiter";
@@ -213,3 +213,4 @@
 "%@ depends on %@" = "%@ hängt ab von %@";
 "Removed by" = "Entfernt von";
 "Required by" = "Benötigt von";
+"Confirm" = "Bestätigen";

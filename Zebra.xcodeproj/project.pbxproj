@@ -112,6 +112,7 @@
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 		89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; };
 		89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F8730223653D280070160A /* UIVisualEffectView+Theme.m */; };
 		9E06A9EF22D0842400DBBC38 /* ZBRepoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */; };
 		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
 		9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -256,6 +257,7 @@
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
+		8916912E2367B4D4006E765F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8931E4D2226D6E9300F35DFD /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
 		8932F0C02364A0B200F16E5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0C12364A33000F16E5E /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -263,6 +265,10 @@
 		8932F0CA2364A83300F16E5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0CB2364A8D000F16E5E /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8932F0CC2364AA2D00F16E5E /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8932F0CD2364AB5300F16E5E /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8932F0CE2364F61100F16E5E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8932F0CF2364F78400F16E5E /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8932F0D02364F8A500F16E5E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
 		893A17E2225FC24200E253CD /* report@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report@3x.png"; sourceTree = "<group>"; };
@@ -277,6 +283,7 @@
 		893CB666236402EE00204E27 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6672364041500204E27 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8942C8E823639D86002DE095 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8943970023662C6000E6F042 /* lv-LV */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "lv-LV"; path = "lv-LV.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
 		89463CDF2277B5C300A92FC5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -351,6 +358,8 @@
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 		89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
 		89F86869236377660057D3D9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Theme.h"; sourceTree = "<group>"; };
+		89F8730223653D280070160A /* UIVisualEffectView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIVisualEffectView+Theme.m"; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
 		95B7FFF323643B74003616EC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F1BEE92363DAB3009B0D27 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -373,6 +382,7 @@
 		9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDevice.h; sourceTree = "<group>"; };
 		9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDevice.m; sourceTree = "<group>"; };
 		9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITabBarItem.h; sourceTree = "<group>"; };
+		9ED47D942365886300CF2021 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStoresListTableViewController.m; sourceTree = "<group>"; };
 		D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStoresListTableViewController.h; sourceTree = "<group>"; };
 		D1BF9C7222A826BF00DD9266 /* stores@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stores@2x.png"; sourceTree = "<group>"; };
@@ -674,6 +684,8 @@
 				363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */,
 				9E2B413E22C87074009BC12B /* UIAlertController+Theme.h */,
 				9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */,
+				89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */,
+				89F8730223653D280070160A /* UIVisualEffectView+Theme.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -960,6 +972,13 @@
 				nl,
 				"pt-PT",
 				lt,
+				cs,
+				pl,
+				sk,
+				sv,
+				th,
+				"lv-LV",
+				da,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1109,6 +1128,7 @@
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */,
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
+				89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */,
@@ -1165,6 +1185,13 @@
 				8932F0CA2364A83300F16E5E /* nl */,
 				8932F0CB2364A8D000F16E5E /* pt-PT */,
 				8932F0CC2364AA2D00F16E5E /* lt */,
+				8932F0CD2364AB5300F16E5E /* cs */,
+				8932F0CE2364F61100F16E5E /* pl */,
+				8932F0CF2364F78400F16E5E /* sk */,
+				8932F0D02364F8A500F16E5E /* sv */,
+				9ED47D942365886300CF2021 /* th */,
+				8943970023662C6000E6F042 /* lv-LV */,
+				8916912E2367B4D4006E765F /* da */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

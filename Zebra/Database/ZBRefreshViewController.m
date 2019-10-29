@@ -32,23 +32,25 @@ typedef enum {
 @implementation ZBRefreshViewController
 
 @synthesize messages;
+@synthesize completeOrCancelButton;
+@synthesize consoleView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_dropTables) {
-        self.completeOrCancelButton.hidden = YES;
+        [self setCompleteOrCancelButtonHidden:true];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     if ([ZBDevice darkModeEnabled]) {
         [self setNeedsStatusBarAppearanceUpdate];
         [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [_consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     }
 }
 
 - (void)disableCancelButton {
     buttonState = ZBStateDone;
-    self.completeOrCancelButton.hidden = YES;
+    [self setCompleteOrCancelButtonHidden:true];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -86,7 +88,8 @@ typedef enum {
 - (IBAction)completeOrCancelButton:(id)sender {
     if (buttonState == ZBStateDone) {
         [self goodbye];
-    } else {
+    }
+    else {
         if (_dropTables) {
             return;
         }
@@ -102,7 +105,7 @@ typedef enum {
 - (void)clearProblems {
     messages = NULL;
     hadAProblem = NO;
-    self->_consoleView.text = nil;
+    [self clearConsoleText];
 }
 
 - (void)goodbye {
@@ -112,9 +115,25 @@ typedef enum {
         [self clearProblems];
         ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
         [self dismissViewControllerAnimated:YES completion:^{
-            [controller forwardToPackage];
+            if ([controller isKindOfClass:[ZBTabBarController class]]) {
+                [controller forwardToPackage];
+            }
         }];
     }
+}
+
+#pragma mark - UI Updates
+
+- (void)setCompleteOrCancelButtonHidden:(BOOL)hidden {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->completeOrCancelButton setHidden:hidden];
+    });
+}
+
+- (void)clearConsoleText {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->consoleView setText:nil];
+    });
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
@@ -149,14 +168,15 @@ typedef enum {
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
         
-        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+        [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
-        if (self->_consoleView.text.length) {
-            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
-            [self->_consoleView scrollRangeToVisible:bottom];
+        if (self->consoleView.text.length) {
+            NSRange bottom = NSMakeRange(self->consoleView.text.length -1, 1);
+            [self->consoleView scrollRangeToVisible:bottom];
         }
     });
 }
+
 
 #pragma mark - Database Delegate
 
@@ -172,6 +192,7 @@ typedef enum {
     if (!hadAProblem) {
         [self goodbye];
     } else {
+        [self setCompleteOrCancelButtonHidden:false];
         [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
     }
     [[ZBRepoManager sharedInstance] needRecaching];

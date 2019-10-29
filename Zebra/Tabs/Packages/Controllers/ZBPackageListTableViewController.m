@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
-    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
@@ -205,8 +205,14 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")]];
-        segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+        if (self->repo.repoID) {
+            [items removeLastObject];
+            segmentedControl.selectedSegmentIndex = MIN(1, (NSInteger)self->selectedSortingType);
+        }
+        else
+            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
     });

@@ -193,15 +193,17 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     [self setDefaultValues];
-    [self stablilityCheck];
+//    [self stablilityCheck];
     return YES;
 }
 
-- (void)stablilityCheck {
-    if (![ZBDevice needsSimulation] && ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
-        [[self class] sendErrorToTabController:@"apt not found in your system, please try reinstalling \"APT\" from Cydia"];
-    }
-}
+//- (void)stablilityCheck {
+//    if (![ZBDevice needsSimulation]) {
+//        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+//            [[self class] sendErrorToTabController:@"apt not found in your system, please try reinstalling \"APT\" from Cydia"];
+//        }
+//    }
+//}
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
@@ -210,7 +212,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                if (![ZBDevice needsSimulation]) {
+//                if (![ZBDevice needsSimulation]) {
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                     UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
                     
@@ -219,7 +221,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                     [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
-                }
+                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:true];
+//                }
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
