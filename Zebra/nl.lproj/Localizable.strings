@@ -10,11 +10,6 @@
 "Close" = "Sluit";
 "Done" = "Klaar";
 
-// Tab controller
-"Packages in Queue" = "Pakketen in de wachtrij";
-"Package in Queue" = "Pakket in de wachtrij";
-"Tap to manage Queue" = "Tik om de wachtrij te wijzigingen";
-
 // Home
 
 "Home" = "Home";
@@ -36,7 +31,14 @@
 "Community" = "Community";
 "Join our Discord" = "Join onze Discord";
 "Follow me on Twitter" = "Volg mij op Twitter";
+
+//Credits
+
 "Credits" = "Credits";
+"Creators" = "Makers";
+"Contributors" = "Bijdragers";
+"Translators" = "Vertalers";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Voeg toe aan verlanglijst";
 "Remove from Wish List" = "Verwijder van verlanglijst";
 
+// Package Section Names
+
+"Administration" = "Administratie";
+"App Addons" = "App Toevoeginen";
+"Archiving" = "Archivering";
+"Carrier Blanks" = "Carrier Blanks";
+"Communication" = "Communicatie";
+"Data Storage" = "Data Opslag";
+"Development" = "Ontwikkeling";
+"Dictionaries" = "Woordenboeken";
+"Education" = "Educatie";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Gezondheid en Fitness";
+"Imaging" = "Fotografie";
+"Java" = "Java";
+"Keyboards" = "Toetsenborden";
+"Localization" = "Lokalisatie";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigatie";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productiviteit";
+"Repositories" = "Bronnen";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Beveiliging";
+"Social" = "Sociaal";
+"System" = "Systeem";
+"Terminal Support" = "Terminal Ondersteuning";
+"Text Editors" = "Tekstverwerkers";
+"Themes" = "Themas";
+"Toys" = "Speelgoed";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Achtergronden";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "Zoeken";
@@ -195,6 +236,11 @@
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
+
+// Queue Bar
+"Packages in Queue" = "Pakketen in de wachtrij";
+"Package in Queue" = "Pakket in de wachtrij";
+"Tap to manage Queue" = "Tik om de wachtrij te wijzigingen";
 
 // Queue
 
