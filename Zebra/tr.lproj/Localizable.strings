@@ -10,10 +10,44 @@
 "Close" = "Kapat";
 "Done" = "Tamamla";
 
-// Tab controller
-"Packages in Queue" = "Sıradaki Paketler";
-"Package in Queue" = "Sıradaki Paket";
-"Tap to manage Queue" = "Sırayı Düzenlemek İçin Dokun";
+// Package Section Names
+
+"Administration" = "Yönetim";
+"App Addons" = "Uygulama Eklentileri";
+"Archiving" = "Arşivleme";
+"Carrier Support" = "Telekominasyon";
+"Communication" = "İletişim";
+"Data Storage" = "Depolama";
+"Development" = "Geliştirme";
+"Dictionaries" = "Sözlükler";
+"Education" = "Eğitim";
+"Entertainment" = "Eğlence";
+"Games" = "Oyunlar";
+"Health and Fitness" = "Sağlık ve Spoe";
+"Imaging" = "Imajlama";
+"Java" = "Java";
+"Keyboards" = "Klavyeler";
+"Localization" = "Dil Desteği";
+"Messaging" = "Mesajlaşma";
+"Multimedia" = "Multimedya";
+"Navigation" = "Yönlendirme";
+"Networking" = "Ağ";
+"Packaging" = "Paketleme";
+"Productivity" = "Verimlilik";
+"Repositories" = "Kaynaklar";
+"Ringtones" = "Zil Sesleri";
+"Scripting" = "Komut Paketleri";
+"Security" = "Güvenlik";
+"Social" = "Sosyal";
+"System" = "Sistem";
+"Terminal Support" = "Terminal Desteği";
+"Text Editors" = "Metin Editörleri";
+"Themes" = "Temalar";
+"Toys" = "Oyuncaklar";
+"Tweaks" = "Tweaklar";
+"Utilities" = "Araçlar";
+"Wallpaper" = "Duvar Kağıtları";
+"Widgets" = "Widgetler";
 
 // Home
 
@@ -157,6 +191,11 @@
 "This search query is too short for the full search, please use a longer query." = "Yaptığınız arama, arama yapmak için çok kısaydı. Lütfen daha uzun bir şey arayın.";
 "No Results Found" = "Sonuç Yok";
 
+// Queue Bar
+"Packages in Queue" = "Sıradaki Paketler";
+"Package in Queue" = "Sıradaki Paket";
+"Tap to manage Queue" = "Sırayı Düzenlemek İçin Dokun";
+
 // Downloads
 
 "Downloads" = "İndirmeler";
@@ -213,3 +252,4 @@
 "%@ depends on %@" = "%@ için %@ gerekli.";
 "Removed by" = "Şunun tarafından kaldırıldı:";
 "Required by" = "Şunun tarafından gerekiyor:";
+"Confirm" = "Onayla";
