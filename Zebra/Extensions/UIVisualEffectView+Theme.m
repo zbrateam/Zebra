@@ -18,11 +18,11 @@
     dispatch_once(&onceToken, ^{
         Class thisClass = self;
         
-        SEL methodSEL = @selector(layoutSubviews);
+        SEL methodSEL = @selector(effect);
         Method og_Method = class_getInstanceMethod(thisClass, methodSEL);
         IMP methodIMP = method_getImplementation(og_Method);
         
-        SEL mg_methodSEL = @selector(zb_layoutSubviews);
+        SEL mg_methodSEL = @selector(zb_effect);
         Method mg_Method = class_getInstanceMethod(thisClass, mg_methodSEL);
         IMP mg_methodIMP = method_getImplementation(mg_Method);
         
@@ -36,12 +36,12 @@
     });
 }
 
-- (void)zb_layoutSubviews {
+- (UIVisualEffect *)zb_effect {
     if ([ZBDevice darkModeEnabled]) {
-        self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     }
     else {
-        self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     }
 }
 
