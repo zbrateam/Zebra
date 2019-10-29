@@ -252,4 +252,4 @@
 "%@ depends on %@" = "%@ için %@ gerekli.";
 "Removed by" = "Şunun tarafından kaldırıldı:";
 "Required by" = "Şunun tarafından gerekiyor:";
-"Confirm" = "Onayla"
+"Confirm" = "Onayla";
