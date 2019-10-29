@@ -157,7 +157,7 @@
 "Administration" = "管理";
 "App Addons" = "App 插件";
 "Archiving" = "归档";
-"Carrier Blanks" = "运营商";
+"Carrier Support" = "运营商支持";
 "Communication" = "通讯";
 "Data Storage" = "数据存储";
 "Development" = "开发";
@@ -241,6 +241,7 @@
 "Packages in Queue" = "软件包队列";
 "Package in Queue" = "软件包队列";
 "Tap to manage Queue" = "点击此处管理队列";
+
 // Queue
 
 "Queue" = "队列";
