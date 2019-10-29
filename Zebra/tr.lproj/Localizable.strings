@@ -15,7 +15,7 @@
 "Administration" = "Yönetim";
 "App Addons" = "Uygulama Eklentileri";
 "Archiving" = "Arşivleme";
-"Carrier Blanks" = "Telekominasyon";
+"Carrier Support" = "Telekominasyon";
 "Communication" = "İletişim";
 "Data Storage" = "Depolama";
 "Development" = "Geliştirme";
@@ -252,3 +252,4 @@
 "%@ depends on %@" = "%@ için %@ gerekli.";
 "Removed by" = "Şunun tarafından kaldırıldı:";
 "Required by" = "Şunun tarafından gerekiyor:";
+"Confirm" = "Onayla"
