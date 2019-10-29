@@ -10,11 +10,6 @@
 "Close" = "Fechar";
 "Done" = "Feito";
 
-// Tab controller
-"Packages in Queue" = "Pacotes na fila";
-"Package in Queue" = "Pacote na fila";
-"Tap to manage Queue" = "Toque para gerenciar a fila";
-
 // Home
 
 "Home" = "Início";
@@ -33,10 +28,17 @@
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
 "Unlist" = "Remover da lista";
-"Community" = "Communidade";
+"Community" = "Comunidade";
 "Join our Discord" = "Entre no nosso Discord";
 "Follow me on Twitter" = "Me siga no Twitter";
+
+//Credits
+
 "Credits" = "Créditos";
+"Creators" = "Criadores";
+"Contributors" = "Contribuidores";
+"Translators" = "Tradutores";
+"Libraries" = "Bibliotecas";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Adicionar na Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
 
+// Package Section Names
+
+"Administration" = "Administração";
+"App Addons" = "Complementos para Apps";
+"Archiving" = "Arquivamento";
+"Carrier Support" = "Suporte de Operadora";
+"Communication" = "Comunicação";
+"Data Storage" = "Armazenamento de dados";
+"Development" = "Desenvolvimento";
+"Dictionaries" = "Dicionários";
+"Education" = "Educação";
+"Entertainment" = "Entretenimento";
+"Games" = "Jogos";
+"Health and Fitness" = "Saúde e fitness";
+"Imaging" = "Imagens";
+"Java" = "Java";
+"Keyboards" = "Teclados";
+"Localization" = "Localização";
+"Messaging" = "Mensagens";
+"Multimedia" = "Multimídia";
+"Navigation" = "Navegação";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Produtividade";
+"Repositories" = "Repositórios";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Segurança";
+"Social" = "Social";
+"System" = "Sistema";
+"Terminal Support" = "Suporte de Terminal";
+"Text Editors" = "Editores de Texto";
+"Themes" = "Temas";
+"Toys" = "Brinquedos";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilidades";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "Buscar";
@@ -194,7 +235,12 @@
 "Importing local packages." = "Importando pacotes locais.";
 "Finished importing local packages." = "Terminando de importar pacotes locais.";
 "One or more packages failed to download." = "Um ou mais pacotes falharam ao baixar.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clique \"Retorne a Fila\" para retornar à fila e tentar novamente o download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clique em \"Retorne a Fila\" para retornar à fila e tentar novamente o download.";
+
+// Queue Bar
+"Packages in Queue" = "Pacotes na fila";
+"Package in Queue" = "Pacote na fila";
+"Tap to manage Queue" = "Toque para gerenciar a fila";
 
 // Queue
 
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ depende de %@";
 "Removed by" = "Removido por";
 "Required by" = "Pedido por";
+"Confirm" = "Confirmar";
