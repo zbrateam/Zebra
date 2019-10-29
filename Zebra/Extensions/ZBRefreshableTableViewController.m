@@ -33,7 +33,7 @@
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
-            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         });
     }
 }
@@ -54,7 +54,7 @@
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
     }
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self updateRefreshView];
 }
 
@@ -64,7 +64,7 @@
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.refreshControl beginRefreshing];
-                    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
+//                    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
                 });
             }
             [self layoutNavigationButtonsRefreshing];
@@ -135,7 +135,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->refreshControl endRefreshing];
         [self didEndRefreshing];
-        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     });
 }
 
