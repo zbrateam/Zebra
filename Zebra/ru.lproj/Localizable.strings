@@ -10,11 +10,6 @@
 "Close" = "Закрыть";
 "Done" = "Готово";
 
-// Tab controller
-"Packages in Queue" = "Пакетов в Очереди";
-"Package in Queue" = "Пакет в Очереди";
-"Tap to manage Queue" = "Нажмите для управления Очередью";
-
 // Home
 
 "Home" = "Главная";
@@ -36,7 +31,14 @@
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
 "Follow me on Twitter" = "Twitter Разработчика";
+
+//Credits
+
 "Credits" = "Благодарности";
+"Creators" = "Создатели";
+"Contributors" = "Участники";
+"Translators" = "Переводчики";
+"Libraries" = "Библиотеки";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Добавить в список желаний";
 "Remove from Wish List" = "Удалить из списка желаний";
 
+// Package Section Names
+
+"Administration" = "Администрирование";
+"App Addons" = "Дополнения к приложениям";
+"Archiving" = "Архивирование";
+"Carrier Support" = "Поддержка для Операторов";
+"Communication" = "Связь";
+"Data Storage" = "Хранение Данных";
+"Development" = "Разработка";
+"Dictionaries" = "Словари";
+"Education" = "Образование";
+"Entertainment" = "Развлечения";
+"Games" = "Игры";
+"Health and Fitness" = "Здоровье и Форма";
+"Imaging" = "Образы";
+"Java" = "Java";
+"Keyboards" = "Клавиатуры";
+"Localization" = "Локализация";
+"Messaging" = "Сообщения";
+"Multimedia" = "Мультимедиа";
+"Navigation" = "Навигация";
+"Networking" = "Сеть";
+"Packaging" = "Пакеты";
+"Productivity" = "Продуктивность";
+"Repositories" = "Репозитории";
+"Ringtones" = "Рингтоны";
+"Scripting" = "Скрипты";
+"Security" = "Безопасность";
+"Social" = "Социальные (сети и.т.д)";
+"System" = "Система";
+"Terminal Support" = "Поддержка для Консоли";
+"Text Editors" = "Текстовые Редакторы";
+"Themes" = "Темы";
+"Toys" = "Игрушки";
+"Tweaks" = "Твики";
+"Utilities" = "Утилиты";
+"Wallpaper" = "Обои";
+"Widgets" = "Виджеты";
+
 // Search
 
 "Search" = "Поиск";
@@ -196,6 +237,11 @@
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 
+// Queue Bar
+"Packages in Queue" = "Пакетов(а) в Очереди";
+"Package in Queue" = "Пакет в Очереди";
+"Tap to manage Queue" = "Нажмите для управления Очередью";
+
 // Queue
 
 "Queue" = "Очередь";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ зависит от %@";
 "Removed by" = "Удалено";
 "Required by" = "Требуется";
+"Confirm" = "Подтвердить";
