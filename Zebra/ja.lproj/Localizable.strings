@@ -34,11 +34,11 @@
 
 //Credits
 
-"Credits" = "名誉";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "クレジット";
+"Creators" = "作成者";
+"Contributors" = "貢献者";
+"Translators" = "翻訳者";
+"Libraries" = "ライブラリー";
 
 // Settings
 
@@ -154,42 +154,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "管理";
+"App Addons" = "アプリのアドオン";
+"Archiving" = "アーカイブ";
+"Carrier Support" = "キャリアサポート";
+"Communication" = "コミュニケーション";
+"Data Storage" = "データ容量";
+"Development" = "開発";
+"Dictionaries" = "辞書";
+"Education" = "教育";
+"Entertainment" = "エンターテイメント";
+"Games" = "ゲーム";
+"Health and Fitness" = "ヘルスケア";
+"Imaging" = "画像";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Keyboards" = "キーボード";
+"Localization" = "言語";
+"Messaging" = "メッセージ";
+"Multimedia" = "マルチメディア";
+"Navigation" = "ナビゲーション";
+"Networking" = "ネットワーク関連";
+"Packaging" = "パッケージング";
+"Productivity" = "効率化";
+"Repositories" = "リポジトリ";
+"Ringtones" = "着信音";
+"Scripting" = "スクリプト関連";
+"Security" = "セキュリティ";
+"Social" = "ソーシャル";
+"System" = "システム";
+"Terminal Support" = "ターミナルサポート";
+"Text Editors" = "テキスト編集";
+"Themes" = "テーマ";
+"Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Utilities" = "ユーティリティ";
+"Wallpaper" = "壁紙";
+"Widgets" = "ウィジェット";
 
 // Search
 
@@ -237,7 +237,7 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
-// Tab controller
+// Queue Bar
 "Packages in Queue" = "個のキュー済みのパッケージ";
 "Package in Queue" = "個のキュー済みのパッケージ";
 "Tap to manage Queue" = "タップしてキューを管理";
@@ -259,4 +259,4 @@
 "%@ depends on %@" = "%@ は %@ に依存しています";
 "Removed by" = "によって削除されました";
 "Required by" = "より必要";
-"Confirm" = "Confirm";
+"Confirm" = "実行";
