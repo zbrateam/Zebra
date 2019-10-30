@@ -35,9 +35,9 @@
 //Credits
 
 "Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
+"Creators" = "Makers";
+"Contributors" = "Bijdragers";
+"Translators" = "Vertalers";
 "Libraries" = "Libraries";
 
 // Settings
@@ -154,41 +154,41 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
+"Administration" = "Administratie";
+"App Addons" = "App Toevoeginen";
+"Archiving" = "Archivering";
 "Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
+"Communication" = "Communicatie";
+"Data Storage" = "Data Opslag";
+"Development" = "Ontwikkeling";
+"Dictionaries" = "Woordenboeken";
+"Education" = "Educatie";
 "Entertainment" = "Entertainment";
 "Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Health and Fitness" = "Gezondheid en Fitness";
+"Imaging" = "Fotografie";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
+"Keyboards" = "Toetsenborden";
+"Localization" = "Lokalisatie";
 "Messaging" = "Messaging";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
+"Navigation" = "Navigatie";
 "Networking" = "Networking";
 "Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
+"Productivity" = "Productiviteit";
+"Repositories" = "Bronnen";
 "Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Security" = "Beveiliging";
+"Social" = "Sociaal";
+"System" = "Systeem";
+"Terminal Support" = "Terminal Ondersteuning";
+"Text Editors" = "Tekstverwerkers";
+"Themes" = "Themas";
+"Toys" = "Speelgoed";
 "Tweaks" = "Tweaks";
 "Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
+"Wallpaper" = "Achtergronden";
 "Widgets" = "Widgets";
 
 // Search
@@ -259,4 +259,4 @@
 "%@ depends on %@" = "%@ is afhankelijk van %@";
 "Removed by" = "Verwijderd door";
 "Required by" = "Is nodig bij";
-"Confirm" = "Confirm";
+"Confirm" = "Bevestig";
