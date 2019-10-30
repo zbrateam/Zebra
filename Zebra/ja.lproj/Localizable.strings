@@ -21,9 +21,9 @@
 "Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
-"Utilities" = "有効なリポジトリ";
+"Utilities" = "ユーティリティ";
 "Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "リポジトリを検証中";
+"Verifying Source(s)" = "ソースの検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
@@ -62,7 +62,7 @@
 "Black" = "黒";
 
 "Dark Mode" = "ダークモード";
-"Default" = "既定";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -81,7 +81,6 @@
 "Swipe Actions Display As" = "スワイプで表示するタイプ";
 "Text" = "テキスト";
 "Icon" = "アイコン";
-"Drop Tables" = "テーブルの削除";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
 "Clear Image Cache" = "画像キャッシュをクリア";
 "Clear Keychain" = "キーチェーンをクリア";
@@ -108,8 +107,8 @@
 "Add" = "追加";
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
-"Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "ソースの検証中";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
 "Log Out" = "ログアウト";
@@ -131,7 +130,7 @@
 "Select Version" = "バージョンを選択";
 "Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
 "Package" = "パッケージ";
-"Information" = "情報";
+"Information" = "Information";
 "Upgrade All" = "すべてアップグレード";
 "Loaded" = "読み込み済み";
 "ABC" = "ABC";
@@ -155,7 +154,6 @@
 
 // Package Section Names
 
-"Addons" = "アドオン";
 "Administration" = "管理";
 "App Addons" = "アプリのアドオン";
 "Archiving" = "アーカイブ";
@@ -166,7 +164,6 @@
 "Dictionaries" = "辞書";
 "Education" = "教育";
 "Entertainment" = "エンターテイメント";
-"Fonts" = "フォント";
 "Games" = "ゲーム";
 "Health and Fitness" = "ヘルスケア";
 "Imaging" = "画像";
@@ -187,18 +184,16 @@
 "System" = "システム";
 "Terminal Support" = "ターミナルサポート";
 "Text Editors" = "テキスト編集";
-"Theme" = "テーマ";
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
-"Utility" = "ユーティリティ";
-"Utilities" = "ユーティリティ";
+"Utilities" = "Utilities";
 "Wallpaper" = "壁紙";
 "Widgets" = "ウィジェット";
 
 // Search
 
-"Search" = "検索";
+"Search" = "Search";
 "Clear Search" = "検索履歴をクリア";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
 "No Results Found" = "検索結果が見つかりませんでした。";
@@ -240,7 +235,7 @@
 "Importing local packages." = "ローカルパッケージをインポートしています。";
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "\\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
 // Queue Bar
 "Packages in Queue" = "個のキュー済みのパッケージ";
@@ -249,7 +244,7 @@
 
 // Queue
 
-"Queue" = "キュー";
+"Queue" = "Queue";
 "Queue cleared" = "キューをクリアしました";
 "Install" = "インストール";
 "Reinstall" = "再インストール";
