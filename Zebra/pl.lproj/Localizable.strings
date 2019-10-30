@@ -22,12 +22,12 @@
 "Utility repo for %@" = "Użyteczne repozytorium dla %@";
 "Transfer Sources" = "Przenieś źródła";
 "Utilities" = "Użyteczne";
-"Please Wait..." = "Proszę Czekać...";
+"Please Wait..." = "Proszę czekać...";
 "Verifying Source(s)" = "Weryfikowanie źródeł";
 "Stores" = "Sklepy";
 "Purchases" = "Zakupione";
 "Wish List" = "Lista Życzeń";
-"Unlist" = "Ukryj";
+"Unwish" = "Unwish";
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
 "Follow me on Twitter" = "Śledź mnie na Twitterze";
@@ -44,7 +44,7 @@
 
 "Settings" = "Ustawienia";
 "Version" = "Wersja";
-"Information" = "Informacje";
+"Information" = "Informacja";
 "Graphics" = "Grafika";
 "Featured" = "Wyróżnione";
 "News" = "Nowości";
@@ -55,14 +55,14 @@
 "Report a Bug" = "Zgłoś błąd";
 
 "Tint Color" = "Kolor odcienia";
-"Default" = "Domyślne";
+"Default" = "Domyślny";
 "Blue" = "Niebieski";
 "Orange" = "Pomarańczowy";
 "White" = "Biały";
 "Black" = "Czarny";
 
 "Dark Mode" = "Tryb ciemny";
-"Default" = "Domyślny";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Dodaj";
 "Add Multiple" = "Dodaj wiele";
 "Would you like to add the URL from your clipboard?" = "Czy chcesz skopiować URL do schowka?";
-"Please Wait..." = "Proszę czekać...";
-"Verifying Source(s)" = "Weryfikowanie źródeł";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nie można zweryfikować repozytorium";
 "Refresh" = "Odśwież";
 "Log Out" = "Wyloguj się";
@@ -130,7 +130,7 @@
 "Select Version" = "Wybierz wersje";
 "Select a version to upgrade to" = "Wybierz, do której wersji zaktualizować";
 "Package" = "Pakiet";
-"Information" = "Informacja";
+"Information" = "Information";
 "Upgrade All" = "Zaktualizuj wszystkie";
 "Loaded" = "Załadowane";
 "ABC" = "ABC";
@@ -157,7 +157,7 @@
 "Administration" = "Administracyjne";
 "App Addons" = "Dodatki do aplikacji";
 "Archiving" = "Archiwizacja";
-"Carrier Blanks" = "Wsparcie operatorów";
+"Carrier Support" = "Carrier Support";
 "Communication" = "Komunikacja";
 "Data Storage" = "Przechowywanie danych";
 "Development" = "Dewelopment";
@@ -187,13 +187,13 @@
 "Themes" = "Motywy";
 "Toys" = "Zabawki";
 "Tweaks" = "Tweaki";
-"Utilities" = "Użyteczne";
+"Utilities" = "Utilities";
 "Wallpaper" = "Tapeta";
 "Widgets" = "Widżety";
 
 // Search
 
-"Search" = "Szukaj";
+"Search" = "Search";
 "Clear Search" = "Wyczyść wyszukiwanie";
 "This search query is too short for the full search, please use a longer query." = "To zapytanie jest za krótkie do pełnego wyszukiwania, użyj dłuższego zapytania";
 "No Results Found" = "Nie znaleziono wyników";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Kolejka";
+"Queue" = "Queue";
 "Queue cleared" = "Kolejka wyczyszczona";
 "Install" = "Instaluj";
 "Reinstall" = "Reinstaluj";
