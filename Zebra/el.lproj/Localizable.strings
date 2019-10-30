@@ -35,7 +35,7 @@
 //Credits
 
 "Credits" = "Εύσημα";
-"Creators" = "Creators";
+"Creators" = "Δημιουργοί";
 "Contributors" = "Contributors";
 "Translators" = "Μεταφραστές";
 "Libraries" = "Βιβλιοθήκες";
@@ -170,25 +170,25 @@
 "Java" = "Java";
 "Keyboards" = "Πληκτρολόγια";
 "Localization" = "Τοπικοποίηση";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
+"Messaging" = "Μηνύματα";
+"Multimedia" = "Πολυμέσα";
+"Navigation" = "Πλοήγηση";
+"Networking" = "Δικτύωση";
+"Packaging" = "Πακετάρισμα";
+"Productivity" = "Παραγωγικότητα";
 "Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
+"Ringtones" = "Ήχοι κλήσης";
 "Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Security" = "Ασφάλεια";
+"Social" = "Κοινωνικά";
+"System" = "Σύστημα";
+"Terminal Support" = "Υποστήριξη Τερματικού";
+"Text Editors" = "Επεξεργαστές Κειμένου";
+"Themes" = "Θέματα";
+"Toys" = "Παιχνίδια";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
+"Utilities" = "Χρήσιμα";
+"Wallpaper" = "Ταπετσαρία";
 "Widgets" = "Widgets";
 
 // Search
