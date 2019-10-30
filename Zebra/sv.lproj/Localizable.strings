@@ -10,11 +10,6 @@
 "Close" = "Stäng";
 "Done" = "Klar";
 
-// Tab controller
-"Packages in Queue" = "Paket i kön";
-"Package in Queue" = "Paket i kön";
-"Tap to manage Queue" = "Tryck för att hantera kön";
-
 // Home
 
 "Home" = "Hem";
@@ -32,11 +27,18 @@
 "Stores" = "Butiker";
 "Purchases" = "Köp";
 "Wish List" = "Önskelista";
-"Unlist" = "Avlista";
+"Unwish" = "Unwish";
 "Community" = "Gemenskap";
 "Join our Discord" = "Gå med i vår Discord";
 "Follow me on Twitter" = "Följ mig på Twitter";
+
+//Credits
+
 "Credits" = "Medverkande";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "Svart";
 
 "Dark Mode" = "Mörkt läge";
-"Default" = "Standard";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Lägg till";
 "Add Multiple" = "Lägg till flera";
 "Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
-"Please Wait..." = "Vänta...";
-"Verifying Source(s)" = "Verifierar källor";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Kunde inte verifiera förråd";
 "Refresh" = "Uppdatera";
 "Log Out" = "Logga ut";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Lägg till på önskelistan";
 "Remove from Wish List" = "Ta bort från önskelistan";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Sök";
+"Search" = "Search";
 "Clear Search" = "Rensa sökning";
 "This search query is too short for the full search, please use a longer query." = "Det här sökordet är för kort för fullständig sökning, använd ett längre sökord.";
 "No Results Found" = "Inga resultat hittades";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 
+// Queue Bar
+"Packages in Queue" = "Paket i kön";
+"Package in Queue" = "Paket i kön";
+"Tap to manage Queue" = "Tryck för att hantera kön";
+
 // Queue
 
-"Queue" = "Kö";
+"Queue" = "Queue";
 "Queue cleared" = "Kön rensades";
 "Install" = "Installera";
 "Reinstall" = "Installera om";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ beror på %@";
 "Removed by" = "Tas bort av";
 "Required by" = "Krävs av";
+"Confirm" = "Confirm";
