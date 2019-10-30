@@ -27,7 +27,7 @@
 "Stores" = "Stores";
 "Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
-"Unlist" = "Von der Liste entfernen";
+"Unwish" = "Unwish";
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord bei";
 "Follow me on Twitter" = "Folgt mir auf Twitter";
@@ -44,7 +44,7 @@
 
 "Settings" = "Einstellungen";
 "Version" = "Version";
-"Information" = "Information";
+"Information" = "Informationen";
 "Graphics" = "Grafiken";
 "Featured" = "Vorgestellt";
 "News" = "Neuigkeiten";
@@ -62,7 +62,7 @@
 "Black" = "Schwarz";
 
 "Dark Mode" = "Dunkelmodus";
-"Default" = "Standard";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
-"Please Wait..." = "Bitte warten...";
-"Verifying Source(s)" = "Quelle(n) verifizieren";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";
 "Log Out" = "Abmelden";
@@ -130,7 +130,7 @@
 "Select Version" = "Version auswählen";
 "Select a version to upgrade to" = "Wähle die Version aus, auf die du aktualisieren möchtest";
 "Package" = "Paket";
-"Information" = "Informationen";
+"Information" = "Information";
 "Upgrade All" = "Alles Aktualisieren";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
@@ -187,13 +187,13 @@
 "Themes" = "Motive";
 "Toys" = "Spielzeuge";
 "Tweaks" = "Tweaks";
-"Utilities" = "Dienstprogramme";
+"Utilities" = "Utilities";
 "Wallpaper" = "Hintergründe";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Suchen";
+"Search" = "Search";
 "Clear Search" = "Suche leeren";
 "This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage";
 "No Results Found" = "Keine Ergebnisse";
@@ -235,7 +235,7 @@
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \“Zurück zur Warteschlange“\, um zur Warteschlange zurückzukehren und versuche es erneut.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
 "Packages in Queue" = "Pakete in Warteschlange";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Warteschlange";
+"Queue" = "Queue";
 "Queue cleared" = "Warteschlange geleert";
 "Install" = "Installieren";
 "Reinstall" = "Neu installieren";
