@@ -213,7 +213,7 @@
 
 // Console
 
-"Console" = "Console";
+"Console" = "Consola";
 "Performing actions" = "Executando ações";
 "Updating icon cache asynchronously..." = "Atualizando o cache do ícone de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isso pode demorar um pouco e o Zebra pode falhar. Tudo bem se isso acontecer.";
