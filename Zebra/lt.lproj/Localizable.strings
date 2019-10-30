@@ -10,11 +10,6 @@
 "Close" = "Uždaryti";
 "Done" = "Atlikta";
 
-// Tab controller
-"Packages in Queue" = "Paketų eilėje";
-"Package in Queue" = "Paketas eilėje";
-"Tap to manage Queue" = "Paspauskite eilės tvarkymui";
-
 // Home
 
 "Home" = "Pradžia";
@@ -32,11 +27,18 @@
 "Stores" = "Parduotuvės";
 "Purchases" = "Pirkimų sąrašas";
 "Wish List" = "Norų sąrašas";
-"Unlist" = "Išbraukti";
+"Unwish" = "Išbraukti norą";
 "Community" = "Bendruomenė";
 "Join our Discord" = "Prisijunkite prie mūsų Discord";
 "Follow me on Twitter" = "Sekite mane Twitteryje";
+
+//Credits
+
 "Credits" = "Kūrėjų sąrašas";
+"Creators" = "Kūrėjai";
+"Contributors" = "Modifikacijų autoriai";
+"Translators" = "Vertėjai";
+"Libraries" = "Biliotekos";
 
 // Settings
 
@@ -55,7 +57,7 @@
 "Tint Color" = "Atspalvis";
 "Default" = "Numatytas";
 "Blue" = "Mėlynas";
-"Orange" = "Orandžinis";
+"Orange" = "Orandž.";
 "White" = "Baltas";
 "Black" = "Juodas";
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Pridėti į norų sąrašą";
 "Remove from Wish List" = "Išimti iš norų sąrašo";
 
+// Package Section Names
+
+"Administration" = "Valdymas";
+"App Addons" = "Programų papildymai";
+"Archiving" = "Archyvavimas";
+"Carrier Support" = "Operatoriaus palaikymas";
+"Communication" = "Komunikacija";
+"Data Storage" = "Duomenų kaupiklis";
+"Development" = "Kūrimas";
+"Dictionaries" = "Žodynai";
+"Education" = "Švietimas";
+"Entertainment" = "Pramogos";
+"Games" = "Žaidimai";
+"Health and Fitness" = "Sveikata ir Treniruotės";
+"Imaging" = "Vaizdavimas";
+"Java" = "Java";
+"Keyboards" = "Klaviatūros";
+"Localization" = "Lokalizacija";
+"Messaging" = "Pranešimai";
+"Multimedia" = "Multimedija";
+"Navigation" = "Navigacija";
+"Networking" = "Darbas tinkle";
+"Packaging" = "Pakavimas";
+"Productivity" = "Našumas";
+"Repositories" = "Saugyklos";
+"Ringtones" = "Skambučių melodijos";
+"Scripting" = "Skriptinimas";
+"Security" = "Saugumas";
+"Social" = "Socialinis";
+"System" = "Sistema";
+"Terminal Support" = "Terminalo palaikymas";
+"Text Editors" = "Teksto redaktoriai";
+"Themes" = "Apipavidalinimas";
+"Toys" = "Žaislai";
+"Tweaks" = "Pataisymai";
+"Utilities" = "Naudingos programos";
+"Wallpaper" = "Darbalaukio fonai";
+"Widgets" = "Valdikliai";
+
 // Search
 
 "Search" = "Paieška";
@@ -196,6 +237,12 @@
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
 
+// Queue Bar
+
+"Packages in Queue" = "Paketų eilėje";
+"Package in Queue" = "Paketas eilėje";
+"Tap to manage Queue" = "Paspauskite eilės tvarkymui";
+
 // Queue
 
 "Queue" = "Eilė";
@@ -212,5 +259,5 @@
 "%@ conflicts with %@" = "%@ nesuderinamas su %@";
 "%@ depends on %@" = "%@ priklausomas nuo %@";
 "Removed by" = "Pašalino";
-"Required by" = "Reikalaujama pagal";
+"Required by" = "Reikalauja";
 "Confirm" = "Patvirtinti";

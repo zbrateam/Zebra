@@ -10,11 +10,6 @@
 "Close" = "Zamknij";
 "Done" = "Gotowe";
 
-// Tab controller
-"Packages in Queue" = "Pakiety w kolejce";
-"Package in Queue" = "Pakiet w kolejce";
-"Tap to manage Queue" = "Dotknij, aby zarządzać kolejką";
-
 // Home
 
 "Home" = "Początek";
@@ -36,7 +31,14 @@
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
 "Follow me on Twitter" = "Śledź mnie na Twitterze";
+
+//Credits
+
 "Credits" = "Autorzy";
+"Creators" = "Twórcy";
+"Contributors" = "Pomocnicy";
+"Translators" = "Tłumacze";
+"Libraries" = "Biblioteki";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Dodaj do listy życzeń";
 "Remove from Wish List" = "Usuń z listy życzeń";
 
+// Package Section Names
+
+"Administration" = "Administracyjne";
+"App Addons" = "Dodatki do aplikacji";
+"Archiving" = "Archiwizacja";
+"Carrier Blanks" = "Wsparcie operatorów";
+"Communication" = "Komunikacja";
+"Data Storage" = "Przechowywanie danych";
+"Development" = "Dewelopment";
+"Dictionaries" = "Słowniki";
+"Education" = "Edukacja";
+"Entertainment" = "Rozrywka";
+"Games" = "Gry";
+"Health and Fitness" = "Zdrowie i kondycja";
+"Imaging" = "Graficzne";
+"Java" = "Java";
+"Keyboards" = "Klawiatury";
+"Localization" = "Lokalizacja";
+"Messaging" = "Wiadomości";
+"Multimedia" = "Multimedia";
+"Navigation" = "Nawigacja";
+"Networking" = "Sieć";
+"Packaging" = "Pakiety";
+"Productivity" = "Produktywność";
+"Repositories" = "Repozytoria";
+"Ringtones" = "Dzwonki";
+"Scripting" = "Skrypty";
+"Security" = "Bezpieczeństwo";
+"Social" = "Społecznościowe";
+"System" = "Systemowe";
+"Terminal Support" = "Wsparcie terminala";
+"Text Editors" = "Edytory tekstu";
+"Themes" = "Motywy";
+"Toys" = "Zabawki";
+"Tweaks" = "Tweaki";
+"Utilities" = "Użyteczne";
+"Wallpaper" = "Tapeta";
+"Widgets" = "Widżety";
+
 // Search
 
 "Search" = "Szukaj";
@@ -196,6 +237,11 @@
 "One or more packages failed to download." = "Jeden lub więcej pakietów nie udało się zaktualizować.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknij \"Powrót do kolejki\" żeby powrócić do kolejki i ponowić pobieranie.";
 
+// Queue Bar
+"Packages in Queue" = "Pakiety w kolejce";
+"Package in Queue" = "Pakiet w kolejce";
+"Tap to manage Queue" = "Kliknij aby zarządzać kolejką";
+
 // Queue
 
 "Queue" = "Kolejka";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ polega na %@";
 "Removed by" = "Usunięte przez";
 "Required by" = "Wymagane przez";
+"Confirm" = "Potwierdź";

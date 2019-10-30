@@ -10,11 +10,6 @@
 "Close" = "Lukk";
 "Done" = "Ferdig";
 
-// Tab controller
-"Packages in Queue" = "Pakkar i Kø";
-"Package in Queue" = "Pakke i Kø";
-"Tap to manage Queue" = "Trykk for å administrera Kø";
-
 // Home
 
 "Home" = "Heim";
@@ -32,11 +27,18 @@
 "Stores" = "Butikkar";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
-"Unlist" = "Fjern";
+"Unwish" = "Fjern";
 "Community" = "Sosialt";
 "Join our Discord" = "Bli med i Discorda vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
+
+ //Credits
+
 "Credits" = "Bidragsytarar";
+"Creators" = "Forfattarar";
+"Contributors" = "Bidragsytarar";
+"Translators" = "Omsetjarar";
+"Libraries" = "Bibliotek";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Legg til i Ønskelista";
 "Remove from Wish List" = "Fjern frå Ønskelista";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Utvidingar";
+"Archiving" = "Arkivering";
+"Carrier Support" = "Operatør Støtte";
+"Communication" = "Kommunikasjon";
+"Data Storage" = "Data Lagring";
+"Development" = "Utvikling";
+"Dictionaries" = "Bibliotek";
+"Education" = "Utdanning";
+"Entertainment" = "Underhaldning";
+"Games" = "Spel";
+"Health and Fitness" = "Helse og Trening";
+"Imaging" = "Bildebehandling";
+"Java" = "Java";
+"Keyboards" = "Tastatur";
+"Localization" = "Omsetjingar";
+"Messaging" = "Meldingar";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigasjon";
+"Networking" = "Nettverk";
+"Packaging" = "Innpakning";
+"Productivity" = "Produktivitet";
+"Repositories" = "Kjelder";
+"Ringtones" = "Ringetoner";
+"Scripting" = "Skripting";
+"Security" = "Sikkerheit";
+"Social" = "Sosialt";
+"System" = "System";
+"Terminal Support" = "Terminalstøtte";
+"Text Editors" = "Verktøyet til Tekstredigering";
+"Themes" = "Tema";
+"Toys" = "Leikar";
+"Tweaks" = "Tweaks";
+"Utilities" = "Verktøy";
+"Wallpaper" = "Bakgrunnar";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "Søk";
@@ -195,6 +236,11 @@
 "Finished importing local packages." = "Ferdig med å importere lokale pakkar.";
 "One or more packages failed to download." = "Nedlasting av ein eller fleire pakkar feila.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnera til køen og prøva nedlastinga på nytt.";
+
+// Tab controller
+"Packages in Queue" = "Pakkar i Kø";
+"Package in Queue" = "Pakke i Kø";
+"Tap to manage Queue" = "Trykk for å administrera Kø";
 
 // Queue
 

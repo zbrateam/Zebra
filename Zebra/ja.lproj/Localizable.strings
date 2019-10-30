@@ -10,11 +10,6 @@
 "Close" = "閉じる";
 "Done" = "完了";
 
-// Tab controller
-"Packages in Queue" = "個のキュー済みのパッケージ";
-"Package in Queue" = "個のキュー済みのパッケージ";
-"Tap to manage Queue" = "タップしてキューを管理";
-
 // Home
 
 "Home" = "ホーム";
@@ -24,7 +19,7 @@
 "Community Repos" = "公式リポジトリ ";
 "Transfer Sources from %@" = "%@ からソースを読み込む";
 "Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
-"Utility repo for %@" = "%@ のための有効なリポジトリ";
+"Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
 "Utilities" = "有効なリポジトリ";
 "Please Wait..." = "お待ちください...";
@@ -32,11 +27,18 @@
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
-"Unlist" = "リストから外す";
+"Unwish" = "リストから外す";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
 "Follow me on Twitter" = "Twitter でフォロー";
-"Credits" = "名誉";
+
+//Credits
+
+"Credits" = "クレジット";
+"Creators" = "作成者";
+"Contributors" = "貢献者";
+"Translators" = "翻訳者";
+"Libraries" = "ライブラリー";
 
 // Settings
 
@@ -76,9 +78,10 @@
 
 "Search while Typing" = "入力と同時に検索する";
 
-"Swipe Actions Display As" = "スワイプで表示する：";
+"Swipe Actions Display As" = "スワイプで表示するタイプ";
 "Text" = "テキスト";
 "Icon" = "アイコン";
+"Drop Tables" = "テーブルの削除";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
 "Clear Image Cache" = "画像キャッシュをクリア";
 "Clear Keychain" = "キーチェーンをクリア";
@@ -150,6 +153,49 @@
 "Add to Wish List" = "ほしい物リストに追加する";
 "Remove from Wish List" = "ほしい物リストから削除";
 
+// Package Section Names
+
+"Addons" = "アドオン";
+"Administration" = "管理";
+"App Addons" = "アプリのアドオン";
+"Archiving" = "アーカイブ";
+"Carrier Support" = "キャリアサポート";
+"Communication" = "コミュニケーション";
+"Data Storage" = "データ容量";
+"Development" = "開発用途";
+"Dictionaries" = "辞書";
+"Education" = "教育";
+"Entertainment" = "エンターテイメント";
+"Fonts" = "フォント";
+"Games" = "ゲーム";
+"Health and Fitness" = "ヘルスケア";
+"Imaging" = "画像";
+"Java" = "Java";
+"Keyboards" = "キーボード";
+"Localization" = "言語";
+"Messaging" = "メッセージ";
+"Multimedia" = "マルチメディア";
+"Navigation" = "ナビゲーション";
+"Networking" = "ネットワーク関連";
+"Packaging" = "パッケージインストーラー";
+"Productivity" = "効率化";
+"Repositories" = "リポジトリ";
+"Ringtones" = "着信音";
+"Scripting" = "スクリプト関連";
+"Security" = "セキュリティ";
+"Social" = "ソーシャル";
+"System" = "システム";
+"Terminal Support" = "ターミナルサポート";
+"Text Editors" = "テキスト編集";
+"Theme" = "テーマ";
+"Themes" = "テーマ";
+"Toys" = "おもちゃ";
+"Tweaks" = "Tweaks";
+"Utility" = "ユーティリティ";
+"Utilities" = "ユーティリティ";
+"Wallpaper" = "壁紙";
+"Widgets" = "ウィジェット";
+
 // Search
 
 "Search" = "検索";
@@ -196,6 +242,11 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
+// Queue Bar
+"Packages in Queue" = "個のキュー済みのパッケージ";
+"Package in Queue" = "個のキュー済みのパッケージ";
+"Tap to manage Queue" = "タップしてキューを管理";
+
 // Queue
 
 "Queue" = "キュー";
@@ -207,9 +258,10 @@
 "Downgrade" = "ダウングレード";
 "Abort" = "中止";
 "Continue" = "続行";
-"Download Size" = "ダウンロードサイズ";
+"Download Size" = "(サイズ";
 "Could not resolve dependency for %@" = "%@ の依存関係を解決できませんでした";
 "%@ conflicts with %@" = "%@ が %@ と競合しています";
 "%@ depends on %@" = "%@ は %@ に依存しています";
 "Removed by" = "によって削除されました";
 "Required by" = "より必要";
+"Confirm" = "実行";

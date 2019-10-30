@@ -496,3 +496,50 @@
 /* (No Comment) */
 "You have already added these repositories." = "Hai già aggiunto queste repository.";
 
+//Credits
+
+"Creators" = "Creatori";
+"Contributors" = "Contributori";
+"Translators" = "Traduttori";
+"Libraries" = "Librerie";
+
+// Package Section Names
+
+"Administration" = "Amministrazione";
+"App Addons" = "Componenti Aggiuntivi App";
+"Archiving" = "Archiviazione";
+"Carrier Support" = "Supporto Gestore";
+"Communication" = "Comunicazione";
+"Data Storage" = "Archivio Dati";
+"Development" = "Sviluppo";
+"Dictionaries" = "Dizionari";
+"Education" = "Educazione";
+"Entertainment" = "Intrattenimento";
+"Games" = "Giochi";
+"Health and Fitness" = "Salute e Benessere";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Tastiere";
+"Localization" = "Localizzazione";
+"Messaging" = "Messaggistica";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigazione";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Produttività";
+"Repositories" = "Repository";
+"Ringtones" = "Suonerie";
+"Scripting" = "Scripting";
+"Security" = "Sicurezza";
+"Social" = "Social";
+"System" = "Sistema";
+"Terminal Support" = "Supporto Terminale";
+"Text Editors" = "Editor Testo";
+"Themes" = "Temi";
+"Toys" = "Giochi";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utility";
+"Wallpaper" = "Sfondi";
+"Widgets" = "Widget";
+"Unwish" = "Non desiderato";
+"Confirm" = "Conferma";

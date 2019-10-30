@@ -10,11 +10,6 @@
 "Close" = "关闭";
 "Done" = "完成";
 
-// Tab controller
-"Packages in Queue" = "软件包队列";
-"Package in Queue" = "软件包队列";
-"Tap to manage Queue" = "点击管理队列";
-
 // Home
 
 "Home" = "主页";
@@ -32,11 +27,18 @@
 "Stores" = "商店";
 "Purchases" = "购买";
 "Wish List" = "心愿单";
-"Unlist" = "隐藏";
+"Unwish" = "从心愿单中移除";
 "Community" = "交流";
 "Join our Discord" = "加入我们的 Discord";
 "Follow me on Twitter" = "在 Twitter 上关注我们";
+
+//Credits
+
 "Credits" = "鸣谢";
+"Creators" = "开发者";
+"Contributors" = "贡献者";
+"Translators" = "翻译";
+"Libraries" = "程序库";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "加入心愿单";
 "Remove from Wish List" = "从心愿单中移除";
 
+// Package Section Names
+
+"Administration" = "管理";
+"App Addons" = "App 插件";
+"Archiving" = "归档";
+"Carrier Support" = "运营商支持";
+"Communication" = "通讯";
+"Data Storage" = "数据存储";
+"Development" = "开发";
+"Dictionaries" = "词典";
+"Education" = "教育";
+"Entertainment" = "娱乐";
+"Games" = "游戏";
+"Health and Fitness" = "健康";
+"Imaging" = "图像";
+"Java" = "Java";
+"Keyboards" = "输入法";
+"Localization" = "翻译";
+"Messaging" = "消息";
+"Multimedia" = "多媒体";
+"Navigation" = "导航";
+"Networking" = "网络";
+"Packaging" = "打包";
+"Productivity" = "生产力";
+"Repositories" = "软件源";
+"Ringtones" = "铃声";
+"Scripting" = "脚本";
+"Security" = "安全";
+"Social" = "社交";
+"System" = "系统";
+"Terminal Support" = "终端支持";
+"Text Editors" = "文字编辑器";
+"Themes" = "主题";
+"Toys" = "玩具";
+"Tweaks" = "插件";
+"Utilities" = "实用工具";
+"Wallpaper" = "壁纸";
+"Widgets" = "小工具";
+
 // Search
 
 "Search" = "搜索";
@@ -196,6 +237,11 @@
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 
+// Queue Bar
+"Packages in Queue" = "软件包队列";
+"Package in Queue" = "软件包队列";
+"Tap to manage Queue" = "点击此处管理队列";
+
 // Queue
 
 "Queue" = "队列";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ 需要 %@ 依赖包";
 "Removed by" = "需要移除——";
 "Required by" = "需要依赖包——";
+"Confirm" = "确认";
