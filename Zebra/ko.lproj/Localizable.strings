@@ -10,11 +10,6 @@
 "Close" = "닫기";
 "Done" = "완료";
 
-// Tab controller
-"Packages in Queue" = "패키지가 대기열에 있습니다.";
-"Package in Queue" = "패키지가 대기열에 있습니다.";
-"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
-
 // Home
 
 "Home" = "홈";
@@ -36,7 +31,14 @@
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord 참여";
 "Follow me on Twitter" = "Twitter에서 나를 팔로우하세요!";
+
+//Credits
+
 "Credits" = "크레딧";
+"Creators" = "만든 사람";
+"Contributors" = "기여자";
+"Translators" = "번역자";
+"Libraries" = "라이브러리들";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "위시 리스트에 추가";
 "Remove from Wish List" = "위시 리스트에서 제거";
 
+// Package Section Names
+
+"Administration" = "관리";
+"App Addons" = "앱 에드온";
+"Archiving" = "아카이빙";
+"Carrier Support" = "통신사 지원";
+"Communication" = "커뮤니케이션";
+"Data Storage" = "데이터 저장소";
+"Development" = "개발";
+"Dictionaries" = "사전";
+"Education" = "교육";
+"Entertainment" = "엔터테이먼트";
+"Games" = "게임";
+"Health and Fitness" = "건강과 피트니스";
+"Imaging" = "이미지";
+"Java" = "Java";
+"Keyboards" = "키보드";
+"Localization" = "현지화";
+"Messaging" = "메시징";
+"Multimedia" = "멀티미디어";
+"Navigation" = "네비게이션";
+"Networking" = "네트워킹";
+"Packaging" = "패키징";
+"Productivity" = "생산성";
+"Repositories" = "저장소";
+"Ringtones" = "벨소리";
+"Scripting" = "스크립팅";
+"Security" = "보안";
+"Social" = "소셜";
+"System" = "시스템";
+"Terminal Support" = "터미널 지원";
+"Text Editors" = "텍스트 편집기";
+"Themes" = "테마";
+"Toys" = "장난감";
+"Tweaks" = "트윅";
+"Utilities" = "유틸리티";
+"Wallpaper" = "배경화면";
+"Widgets" = "위젯";
+
 // Search
 
 "Search" = "검색";
@@ -195,6 +236,11 @@
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
+
+// Queue Bar
+"Packages in Queue" = "패키지가 대기열에 있습니다.";
+"Package in Queue" = "패키지가 대기열에 있습니다.";
+"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
 
 // Queue
 
