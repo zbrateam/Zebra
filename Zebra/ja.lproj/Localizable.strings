@@ -62,7 +62,7 @@
 "Black" = "黒";
 
 "Dark Mode" = "ダークモード";
-"Default" = "Default";
+"Default" = "デフォルト";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "追加";
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "お待ちください...";
+"Verifying Source(s)" = "ソースの検証中";
 "Unable to verify Repo" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
 "Log Out" = "ログアウト";
@@ -130,7 +130,7 @@
 "Select Version" = "バージョンを選択";
 "Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
 "Package" = "パッケージ";
-"Information" = "Information";
+"Information" = "情報";
 "Upgrade All" = "すべてアップグレード";
 "Loaded" = "読み込み済み";
 "ABC" = "ABC";
@@ -187,13 +187,13 @@
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "ユーティリティ";
 "Wallpaper" = "壁紙";
 "Widgets" = "ウィジェット";
 
 // Search
 
-"Search" = "Search";
+"Search" = "検索";
 "Clear Search" = "検索履歴をクリア";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
 "No Results Found" = "検索結果が見つかりませんでした。";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "キュー";
 "Queue cleared" = "キューをクリアしました";
 "Install" = "インストール";
 "Reinstall" = "再インストール";
