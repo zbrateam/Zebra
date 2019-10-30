@@ -32,8 +32,8 @@
 "Join our Discord" = "Bli med i Discorden vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
 
- //Credits
- 
+//Credits
+
 "Credits" = "Bidragsytere";
 "Creators" = "Forfattere";
 "Contributors" = "Bidragsytere";
@@ -62,7 +62,7 @@
 "Black" = "Svart";
 
 "Dark Mode" = "Mørkmodus";
-"Default" = "Standard";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Legg til";
 "Add Multiple" = "Legg til Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du legge til nettadressen fra utklippstavlen?";
-"Please Wait..." = "Vennligst Vent...";
-"Verifying Source(s)" = "Verifiserer Kilde(r)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Kan ikke verifisere Kilde";
 "Refresh" = "Oppdater";
 "Log Out" = "Logg Ut";
@@ -130,7 +130,7 @@
 "Select Version" = "Velg Versjon";
 "Select a version to upgrade to" = "Velg versjonen du vil oppdatere til";
 "Package" = "Pakke";
-"Information" = "Informasjon";
+"Information" = "Information";
 "Upgrade All" = "Oppdater Alle";
 "Loaded" = "Lastet";
 "ABC" = "ABC";
@@ -187,13 +187,13 @@
 "Themes" = "Temaer";
 "Toys" = "Leker";
 "Tweaks" = "Tweaks";
-"Utilities" = "Verktøy";
+"Utilities" = "Utilities";
 "Wallpaper" = "Bakgrunner";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Søk";
+"Search" = "Search";
 "Clear Search" = "Tøm søkeloggen";
 "This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for et komplett søk. Vennligst bruk et lengre søkeord.";
 "No Results Found" = "Ingen Resultater Funnet";
@@ -237,14 +237,14 @@
 "One or more packages failed to download." = "Nedlasting av en eller flere pakker feilet.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnere til køen og prøve nedlastingen på nytt.";
 
-// Tab controller
+// Queue Bar
 "Packages in Queue" = "Pakker i Kø";
 "Package in Queue" = "Pakke i Kø";
 "Tap to manage Queue" = "Trykk for å administrere Kø";
 
 // Queue
 
-"Queue" = "Kø";
+"Queue" = "Queue";
 "Queue cleared" = "Kø tømt";
 "Install" = "Installer";
 "Reinstall" = "Installer på nytt";

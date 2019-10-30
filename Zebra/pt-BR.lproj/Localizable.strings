@@ -27,7 +27,7 @@
 "Stores" = "Lojas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
-"Unlist" = "Remover da lista";
+"Unwish" = "Unwish";
 "Community" = "Comunidade";
 "Join our Discord" = "Entre no nosso Discord";
 "Follow me on Twitter" = "Me siga no Twitter";
@@ -48,7 +48,7 @@
 "Graphics" = "Gráficos";
 "Featured" = "Em destaque";
 "News" = "Notícias";
-"Search" = "Busca";
+"Search" = "Buscar";
 "Miscellaneous" = "Diversos";
 "Advanced" = "Advançado";
 
@@ -62,7 +62,7 @@
 "Black" = "Preto";
 
 "Dark Mode" = "Modo Noturno";
-"Default" = "Padrão";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Múltiplos";
 "Would you like to add the URL from your clipboard?" = "Deseja adicionar o URL da sua área de transferência?";
-"Please Wait..." = "Por favor, aguarde...";
-"Verifying Source(s)" = "Verificando Fonte(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Não foi possível verificar o Repo";
 "Refresh" = "Atualizar";
 "Log Out" = "Sair";
@@ -130,7 +130,7 @@
 "Select Version" = "Selecionar versão";
 "Select a version to upgrade to" = "Selecione a versão para atualizar para";
 "Package" = "Pacote";
-"Information" = "Informação";
+"Information" = "Information";
 "Upgrade All" = "Atualizar Todos";
 "Loaded" = "Carregado";
 "ABC" = "ABC";
@@ -187,13 +187,13 @@
 "Themes" = "Temas";
 "Toys" = "Brinquedos";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilidades";
+"Utilities" = "Utilities";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Buscar";
+"Search" = "Search";
 "Clear Search" = "Limpar Pesquisa";
 "This search query is too short for the full search, please use a longer query." = "Este termo é muito curto para a pesquisa completa, por favor, utilize um termo mais longo.";
 "No Results Found" = "Nenhum resultado encontrado";
@@ -213,7 +213,7 @@
 
 // Console
 
-"Console" = "Console";
+"Console" = "Consola";
 "Performing actions" = "Executando ações";
 "Updating icon cache asynchronously..." = "Atualizando o cache do ícone de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isso pode demorar um pouco e o Zebra pode falhar. Tudo bem se isso acontecer.";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Fila";
+"Queue" = "Queue";
 "Queue cleared" = "Fila limpa";
 "Install" = "Instalar";
 "Reinstall" = "Reinstalar";

@@ -10,11 +10,6 @@
 "Close" = "Zavřít";
 "Done" = "Hotovo";
 
-// Tab controller
-"Packages in Queue" = "Balíčky ve frontě";
-"Package in Queue" = "Balíček ve frontě";
-"Tap to manage Queue" = "Spravovat frontu";
-
 // Home
 
 "Home" = "Domů";
@@ -28,15 +23,22 @@
 "Transfer Sources" = "Přenést Repozitáře";
 "Utilities" = "Nástroje";
 "Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování repozitáře(ů)";
+"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
 "Stores" = "Stores";
 "Purchases" = "Nákupy";
 "Wish List" = "Wish List";
-"Unlist" = "Odstranit";
+"Unwish" = "Unwish";
 "Community" = "Komunita";
 "Join our Discord" = "Připoj se ka našmu Discordu";
 "Follow me on Twitter" = "Sleduj mě na Twitteru";
+
+//Credits
+
 "Credits" = "Kredity";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "Černá";
 
 "Dark Mode" = "Tmavý režim";
-"Default" = "Výchozí";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
-"Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Chyba při ověřování repozitáře";
 "Refresh" = "Refreshnout";
 "Log Out" = "Odhlásit se";
@@ -128,7 +130,7 @@
 "Select Version" = "Vyberte Verzi";
 "Select a version to upgrade to" = "Vyberte verzi, na kterou chcete aktualizovat";
 "Package" = "Balíček";
-"Information" = "Informace";
+"Information" = "Information";
 "Upgrade All" = "Upgradovat vše";
 "Loaded" = "Načteno";
 "ABC" = "ABC";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Přidat na Wish List";
 "Remove from Wish List" = "Odstranit z Wish Listu";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Hledat";
+"Search" = "Search";
 "Clear Search" = "Vyčistit hledání";
 "This search query is too short for the full search, please use a longer query." = "Tento dotaz je příliš krátký pro úplné hledání, prosím zadejte více.";
 "No Results Found" = "Žádné Výsledky Nenalezeny";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
 
+// Queue Bar
+"Packages in Queue" = "Balíčky ve frontě";
+"Package in Queue" = "Balíček ve frontě";
+"Tap to manage Queue" = "Spravovat frontu";
+
 // Queue
 
-"Queue" = "Fronta";
+"Queue" = "Queue";
 "Queue cleared" = "Fronta vyčištěna";
 "Install" = "Instalovat";
 "Reinstall" = "Přeinstalovat";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ závisí na %@";
 "Removed by" = "Odstaněno kvůli";
 "Required by" = "Vyžadováno kvůli";
+"Confirm" = "Confirm";

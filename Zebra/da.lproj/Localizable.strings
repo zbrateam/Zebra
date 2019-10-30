@@ -10,11 +10,6 @@
 "Close" = "Luk";
 "Done" = "Færdig";
 
-// Tab controller
-"Packages in Queue" = "Pakker i Kø";
-"Package in Queue" = "Pakke i Kø";
-"Tap to manage Queue" = "Tryk for at administrere kø";
-
 // Home
 
 "Home" = "Hjem";
@@ -32,11 +27,18 @@
 "Stores" = "Butikker";
 "Purchases" = "Køb";
 "Wish List" = "Ønskeliste";
-"Unlist" = "Fjern fra listen";
+"Unwish" = "Unwish";
 "Community" = "Fællesskab";
 "Join our Discord" = "Meld dig ind i vores Discord";
 "Follow me on Twitter" = "Følg mig på Twitter";
+
+//Credits
+
 "Credits" = "Anerkendelser";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "Sort";
 
 "Dark Mode" = "Mørke Tilstand";
-"Default" = "Standard";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
-"Please Wait..." = "Vent Venligst...";
-"Verifying Source(s)" = "Verificerer Kilde(r)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
 "Refresh" = "opdatere";
 "Log Out" = "Log af";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Tilføj til Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Søgning";
+"Search" = "Search";
 "Clear Search" = "Ryd Søgning";
 "This search query is too short for the full search, please use a longer query." = "Denne søgeforespørgsel er for kort til den fulde søgning. Brug en længere forespørgsel.";
 "No Results Found" = "Ingen Resultater Fundet";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
 
+// Queue Bar
+"Packages in Queue" = "Pakker i Kø";
+"Package in Queue" = "Pakke i Kø";
+"Tap to manage Queue" = "Tryk for at administrere kø";
+
 // Queue
 
-"Queue" = "Kø";
+"Queue" = "Queue";
 "Queue cleared" = "Kø ryddet";
 "Install" = "Installer";
 "Reinstall" = "Geninstallere";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ afhænger på %@";
 "Removed by" = "Fjernet af";
 "Required by" = "Forlanget af";
+"Confirm" = "Confirm";

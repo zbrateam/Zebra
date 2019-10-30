@@ -22,12 +22,12 @@
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaatsen geslaagd!";
 "Utilities" = "Benodigheden";
-"Please Wait..." = "Een ogenblink geduld alstublieft...";
-"Verifying Source(s)" = "Controleer Bron(nen)";
+"Please Wait..." = "Een ogenblik geduld alstublieft...";
+"Verifying Source(s)" = "Bron(nen) verifiëren";
 "Stores" = "Winkel";
 "Purchases" = "Kopen";
 "Wish List" = "Verlanglijst";
-"Unlist" = "Verwijder van de lijst";
+"Unwish" = "Unwish";
 "Community" = "Community";
 "Join our Discord" = "Join onze Discord";
 "Follow me on Twitter" = "Volg mij op Twitter";
@@ -62,7 +62,7 @@
 "Black" = "Zwart";
 
 "Dark Mode" = "Donkere modus";
-"Default" = "Standaard";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
 "Would you like to add the URL from your clipboard?" = "Wil je de URL uit je klembord toevoegen?";
-"Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source(s)" = "Bron(nen) verifiëren";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Kan de bron niet verifiëren";
 "Refresh" = "Ververs";
 "Log Out" = "Log Uit";
@@ -130,7 +130,7 @@
 "Select Version" = "Kies versie";
 "Select a version to upgrade to" = "Kies een versie om naar up te graden";
 "Package" = "Pakket";
-"Information" = "Informatie";
+"Information" = "Information";
 "Upgrade All" = "Upgrade alles";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
@@ -157,7 +157,7 @@
 "Administration" = "Administratie";
 "App Addons" = "App Toevoeginen";
 "Archiving" = "Archivering";
-"Carrier Blanks" = "Carrier Blanks";
+"Carrier Support" = "Carrier Support";
 "Communication" = "Communicatie";
 "Data Storage" = "Data Opslag";
 "Development" = "Ontwikkeling";
@@ -193,7 +193,7 @@
 
 // Search
 
-"Search" = "Zoeken";
+"Search" = "Search";
 "Clear Search" = "Leeg de zoekbalk";
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Wachtrij";
+"Queue" = "Queue";
 "Queue cleared" = "Wachtrij leeggemaakt";
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";
