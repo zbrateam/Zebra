@@ -21,7 +21,7 @@
 "Move all sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
 "Utility repo for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
-"Utilities" = "工具";
+"Utilities" = "实用工具";
 "Please Wait..." = "请稍候……";
 "Verifying Source(s)" = "验证软件源";
 "Stores" = "商店";
@@ -62,7 +62,7 @@
 "Black" = "黑色";
 
 "Dark Mode" = "黑暗模式";
-"Default" = "默认";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "添加";
 "Add Multiple" = "批量添加";
 "Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
-"Please Wait..." = "请稍候……";
-"Verifying Source(s)" = "验证软件源";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "无法验证软件源";
 "Refresh" = "刷新";
 "Log Out" = "注销";
@@ -130,7 +130,7 @@
 "Select Version" = "选择版本";
 "Select a version to upgrade to" = "选择需要更新的版本";
 "Package" = "软件包";
-"Information" = "信息";
+"Information" = "Information";
 "Upgrade All" = "全部更新";
 "Loaded" = "已加载";
 "ABC" = "ABC";
@@ -187,13 +187,13 @@
 "Themes" = "主题";
 "Toys" = "玩具";
 "Tweaks" = "插件";
-"Utilities" = "实用工具";
+"Utilities" = "Utilities";
 "Wallpaper" = "壁纸";
 "Widgets" = "小工具";
 
 // Search
 
-"Search" = "搜索";
+"Search" = "Search";
 "Clear Search" = "清除搜索";
 "This search query is too short for the full search, please use a longer query." = "你输入的文字太短，无法进行搜索。请使用更长的文字。";
 "No Results Found" = "未找到结果";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "队列";
+"Queue" = "Queue";
 "Queue cleared" = "队列已清空";
 "Install" = "安装";
 "Reinstall" = "重新安装";
