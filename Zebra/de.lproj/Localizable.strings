@@ -10,11 +10,6 @@
 "Close" = "Schließen";
 "Done" = "Fertig";
 
-// Tab controller
-"Packages in Queue" = "Pakete in Warteschlange";
-"Package in Queue" = "Paket in Warteschlange";
-"Tap to manage Queue" = "Warteschlange verwalten";
-
 // Home
 
 "Home" = "Start";
@@ -36,7 +31,14 @@
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord bei";
 "Follow me on Twitter" = "Folgt mir auf Twitter";
-"Credits" = "Authoren";
+
+//Credits
+
+"Credits" = "Autoren";
+"Creators" = "Erschaffer";
+"Contributors" = "Beitragende";
+"Translators" = "Übersetzer";
+"Libraries" = "Bibliotheken";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Zur Wunschliste hinzufügen";
 "Remove from Wish List" = "Von Wunschliste entfernen";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Erweiterungen";
+"Archiving" = "Archivierung";
+"Carrier Support" = "Netzbetreiber Unterstützung";
+"Communication" = "Kommunikation";
+"Data Storage" = "Daten Speicher";
+"Development" = "Entwicklung";
+"Dictionaries" = "Wörterbücher";
+"Education" = "Bildung";
+"Entertainment" = "Unterhaltung";
+"Games" = "Spiele";
+"Health and Fitness" = "Gesundheit und Fitneß";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Tastaturen";
+"Localization" = "Lokalisierung";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedien";
+"Navigation" = "Navigation";
+"Networking" = "Netzwerk";
+"Packaging" = "Packaging";
+"Productivity" = "Produktivität";
+"Repositories" = "Quellen";
+"Ringtones" = "Klingeltöne";
+"Scripting" = "Skripten";
+"Security" = "Sicherheit";
+"Social" = "Sozial";
+"System" = "System";
+"Terminal Support" = "Terminal Unterstützung";
+"Text Editors" = "Text Bearbeiter";
+"Themes" = "Motive";
+"Toys" = "Spielzeuge";
+"Tweaks" = "Tweaks";
+"Utilities" = "Dienstprogramme";
+"Wallpaper" = "Hintergründe";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "Suchen";
@@ -195,6 +236,11 @@
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \“Zurück zur Warteschlange“\, um zur Warteschlange zurückzukehren und versuche es erneut.";
+
+// Queue Bar
+"Packages in Queue" = "Pakete in Warteschlange";
+"Package in Queue" = "Paket in Warteschlange";
+"Tap to manage Queue" = "Warteschlange verwalten";
 
 // Queue
 
