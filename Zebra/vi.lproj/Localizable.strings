@@ -10,11 +10,6 @@
 "Close" = "Đóng";
 "Done" = "Xong";
 
-// Tab controller
-"Packages in Queue" = "Các gói trong hàng đợi";
-"Package in Queue" = "Các gói trong hàng đợi";
-"Tap to manage Queue" = "Nhấn để quản lý hàng đợi";
-
 // Home
 
 "Home" = "Trang Chủ";
@@ -32,11 +27,18 @@
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
-"Unlist" = "Bỏ danh sách";
+"Unwish" = "Unwish";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
 "Follow me on Twitter" = "Theo dõi tôi trên Twitter";
+
+//Credits
+
 "Credits" = "Credits";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "Đen";
 
 "Dark Mode" = "Chế độ tối";
-"Default" = "Mặc định";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
 "Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
-"Please Wait..." = "Vui lòng chờ...";
-"Verifying Source(s)" = "Xác minh nguồn(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Không thể xác minh Repo";
 "Refresh" = "Làm mới";
 "Log Out" = "Đăng xuất";
@@ -128,7 +130,7 @@
 "Select Version" = "Chọn phiên bản";
 "Select a version to upgrade to" = "Chọn một phiên bản để nâng cấp";
 "Package" = "Gói";
-"Information" = "Thông tin";
+"Information" = "Information";
 "Upgrade All" = "Nâng cấp tất cả";
 "Loaded" = "Tải";
 "ABC" = "ABC";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Thêm vào danh sách mong muốn";
 "Remove from Wish List" = "Xóa khỏi danh sách mong muốn";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Tìm kiếm";
+"Search" = "Search";
 "Clear Search" = "Xóa bỏ tìm kiếm";
 "This search query is too short for the full search, please use a longer query." = "Truy vấn tìm kiếm này quá ngắn cho tìm kiếm đầy đủ, vui lòng sử dụng truy vấn dài hơn.";
 "No Results Found" = "Không có kết quả nào được tìm thấy";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
 
+// Queue Bar
+"Packages in Queue" = "Các gói trong hàng đợi";
+"Package in Queue" = "Các gói trong hàng đợi";
+"Tap to manage Queue" = "Nhấn để quản lý hàng đợi";
+
 // Queue
 
-"Queue" = "Xếp hàng";
+"Queue" = "Queue";
 "Queue cleared" = "Hàng đợi đã được xóa";
 "Install" = "Cài đặt";
 "Reinstall" = "Cài đặt lại";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ phụ thuộc %@";
 "Removed by" = "Xóa bởi";
 "Required by" = "Yêu cầu bởi";
+"Confirm" = "Confirm";
