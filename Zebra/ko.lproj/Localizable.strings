@@ -10,11 +10,6 @@
 "Close" = "닫기";
 "Done" = "완료";
 
-// Tab controller
-"Packages in Queue" = "패키지가 대기열에 있습니다.";
-"Package in Queue" = "패키지가 대기열에 있습니다.";
-"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
-
 // Home
 
 "Home" = "홈";
@@ -32,11 +27,18 @@
 "Stores" = "스토어";
 "Purchases" = "구매 기록";
 "Wish List" = "위시 리스트";
-"Unlist" = "미등록";
+"Unwish" = "Unwish";
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord 참여";
 "Follow me on Twitter" = "Twitter에서 나를 팔로우하세요!";
+
+//Credits
+
 "Credits" = "크레딧";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "검은색";
 
 "Dark Mode" = "다크 모드";
-"Default" = "기본";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "추가";
 "Add Multiple" = "여러개 추가";
 "Would you like to add the URL from your clipboard?" = "클립보드에서 가져온 URL을 추가할까요?";
-"Please Wait..." = "잠시만 기다려주세요...";
-"Verifying Source(s)" = "소스를 검증하는 중";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "레포를 검증할 수 없음";
 "Refresh" = "새로고침";
 "Log Out" = "로그아웃";
@@ -128,7 +130,7 @@
 "Select Version" = "버전 선택";
 "Select a version to upgrade to" = "업그레이드할 버전 선택";
 "Package" = "패키지";
-"Information" = "정보";
+"Information" = "Information";
 "Upgrade All" = "모두 업그레이드";
 "Loaded" = "로드 됨";
 "ABC" = "ABC";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "위시 리스트에 추가";
 "Remove from Wish List" = "위시 리스트에서 제거";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "검색";
+"Search" = "Search";
 "Clear Search" = "검색 제거";
 "This search query is too short for the full search, please use a longer query." = "이 검색 쿼리는 전체 검색을 하기엔 너무 짧습니다. 더 긴 쿼리를 사용하세요.";
 "No Results Found" = "결과 없음";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
 
+// Queue Bar
+"Packages in Queue" = "패키지가 대기열에 있습니다.";
+"Package in Queue" = "패키지가 대기열에 있습니다.";
+"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
+
 // Queue
 
-"Queue" = "대기열";
+"Queue" = "Queue";
 "Queue cleared" = "대기열 제거 됨";
 "Install" = "설치";
 "Reinstall" = "재설치";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@가 %@에 의존합니다.";
 "Removed by" = "다음에 의해 제거 됨: ";
 "Required by" = "다음에 위해 필요함: ";
+"Confirm" = "Confirm";
