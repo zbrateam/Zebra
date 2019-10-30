@@ -35,10 +35,10 @@
 //Credits
 
 "Credits" = "크레딧";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "만든 사람";
+"Contributors" = "기여자";
+"Translators" = "번역자";
+"Libraries" = "라이브러리들";
 
 // Settings
 
@@ -154,42 +154,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "관리";
+"App Addons" = "앱 에드온";
+"Archiving" = "아카이빙";
+"Carrier Support" = "통신사 지원";
+"Communication" = "커뮤니케이션";
+"Data Storage" = "데이터 저장소";
+"Development" = "개발";
+"Dictionaries" = "사전";
+"Education" = "교육";
+"Entertainment" = "엔터테이먼트";
+"Games" = "게임";
+"Health and Fitness" = "건강과 피트니스";
+"Imaging" = "이미지";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "키보드";
+"Localization" = "현지화";
+"Messaging" = "메시징";
+"Multimedia" = "멀티미디어";
+"Navigation" = "네비게이션";
+"Networking" = "네트워킹";
+"Packaging" = "패키징";
+"Productivity" = "생산성";
+"Repositories" = "저장소";
+"Ringtones" = "벨소리";
+"Scripting" = "스크립팅";
+"Security" = "보안";
+"Social" = "소셜";
+"System" = "시스템";
+"Terminal Support" = "터미널 지원";
+"Text Editors" = "텍스트 편집기";
+"Themes" = "테마";
+"Toys" = "장난감";
+"Tweaks" = "트윅";
 "Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "배경화면";
+"Widgets" = "위젯";
 
 // Search
 
@@ -259,4 +259,4 @@
 "%@ depends on %@" = "%@가 %@에 의존합니다.";
 "Removed by" = "다음에 의해 제거 됨: ";
 "Required by" = "다음에 위해 필요함: ";
-"Confirm" = "Confirm";
+"Confirm" = "확인";
