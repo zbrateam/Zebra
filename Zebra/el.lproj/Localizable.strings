@@ -27,7 +27,7 @@
 "Stores" = "Καταστήματα";
 "Purchases" = "Αγορές";
 "Wish List" = "Λίστα Επιθυμιών";
-"Unwish" = "Unwish";
+"Unwish" = "Αφαίρεσε από την Λίστα Επιθυμιών";
 "Community" = "Κοινότητα";
 "Join our Discord" = "Γίνε μέλος στο Discord μας";
 "Follow me on Twitter" = "Ακολούθησέ με στο Twitter";
@@ -37,8 +37,8 @@
 "Credits" = "Εύσημα";
 "Creators" = "Creators";
 "Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Translators" = "Μεταφραστές";
+"Libraries" = "Βιβλιοθήκες";
 
 // Settings
 
@@ -62,7 +62,7 @@
 "Black" = "Μαύρο";
 
 "Dark Mode" = "Σκουρόχρωμη Λειτουργία";
-"Default" = "Default";
+"Default" = "Προεπιλογή";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Πρόσθεσε";
 "Add Multiple" = "Πρόσθεσε Πολλαπλά";
 "Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Παρακαλώ Περιμένετε...";
+"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
 "Unable to verify Repo" = "Αδυναμία επαλήθευσης Repo";
 "Refresh" = "Ανανέωση";
 "Log Out" = "Αποσύνδεση";
@@ -130,7 +130,7 @@
 "Select Version" = "Διάλεξε Έκδοση";
 "Select a version to upgrade to" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε";
 "Package" = "Πακέτο";
-"Information" = "Information";
+"Information" = "Πληροφορίες";
 "Upgrade All" = "Αναβάθμιση Όλων";
 "Loaded" = "Φόρτωσε";
 "ABC" = "ΑΒΓ";
@@ -154,22 +154,22 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
+"Administration" = "Διαχείριση";
+"App Addons" = "Πρόσθετα Εφαρμογών";
+"Archiving" = "Αρχειοθέτηση";
+"Carrier Support" = "Υποστήριξη Παρόχου";
+"Communication" = "Επικοινωνία";
+"Data Storage" = "Αποθήκη Δεδομένων";
+"Development" = "Προγραμματισμός";
+"Dictionaries" = "Λεξικά";
+"Education" = "Εκπαίδευση";
+"Entertainment" = "Ψυχαγωγία";
+"Games" = "Ηλεκτρονικά Παιχνίδια";
+"Health and Fitness" = "Υγεία & Ευεξία";
 "Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
+"Keyboards" = "Πληκτρολόγια";
+"Localization" = "Τοπικοποίηση";
 "Messaging" = "Messaging";
 "Multimedia" = "Multimedia";
 "Navigation" = "Navigation";
@@ -193,7 +193,7 @@
 
 // Search
 
-"Search" = "Search";
+"Search" = "Αναζήτηση";
 "Clear Search" = "Καθάρισε την Αναζήτηση";
 "This search query is too short for the full search, please use a longer query." = "Αυτό το ερώτημα αναζήτησης είναι πολύ μικρό για την πλήρη αναζήτηση, παρακαλώ χρησιμοποίησε ένα μεγαλύτερο ερώτημα.";
 "No Results Found" = "Δεν βρέθηκαν αποτελέσματα";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Ουρά";
 "Queue cleared" = "Ουρά καθαρίστηκε";
 "Install" = "Εγκατάσταση";
 "Reinstall" = "Επανεγκατάσταση";
@@ -259,4 +259,4 @@
 "%@ depends on %@" = "%@ εξαρτάται από το %@";
 "Removed by" = "Αφαιρέθηκε από";
 "Required by" = "Απαιτείται από";
-"Confirm" = "Confirm";
+"Confirm" = "Επιβεβαίωση";
