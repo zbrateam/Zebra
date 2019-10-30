@@ -1,4 +1,4 @@
-commit_message: "[Localization] Update %osx_code%"                
+commit_message: '[Localization] Update %osx_code%'
 append_commit_message: false
 files:
   - source: /Zebra/Base.lproj/Localizable.strings
