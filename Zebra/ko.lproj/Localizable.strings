@@ -259,3 +259,4 @@
 "%@ depends on %@" = "%@가 %@에 의존합니다.";
 "Removed by" = "다음에 의해 제거 됨: ";
 "Required by" = "다음에 위해 필요함: ";
+"Confirm" = "확인";
