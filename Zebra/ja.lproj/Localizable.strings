@@ -19,7 +19,7 @@
 "Community Repos" = "公式リポジトリ ";
 "Transfer Sources from %@" = "%@ からソースを読み込む";
 "Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
-"Utility repo for %@" = "%@ のための有効なリポジトリ";
+"Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
 "Utilities" = "有効なリポジトリ";
 "Please Wait..." = "お待ちください...";
@@ -78,9 +78,10 @@
 
 "Search while Typing" = "入力と同時に検索する";
 
-"Swipe Actions Display As" = "スワイプで表示する：";
+"Swipe Actions Display As" = "スワイプで表示するタイプ";
 "Text" = "テキスト";
 "Icon" = "アイコン";
+"Drop Tables" = "テーブルの削除";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
 "Clear Image Cache" = "画像キャッシュをクリア";
 "Clear Keychain" = "キーチェーンをクリア";
@@ -154,16 +155,18 @@
 
 // Package Section Names
 
+"Addons" = "アドオン";
 "Administration" = "管理";
 "App Addons" = "アプリのアドオン";
 "Archiving" = "アーカイブ";
 "Carrier Support" = "キャリアサポート";
 "Communication" = "コミュニケーション";
 "Data Storage" = "データ容量";
-"Development" = "開発";
+"Development" = "開発用途";
 "Dictionaries" = "辞書";
 "Education" = "教育";
 "Entertainment" = "エンターテイメント";
+"Fonts" = "フォント";
 "Games" = "ゲーム";
 "Health and Fitness" = "ヘルスケア";
 "Imaging" = "画像";
@@ -174,7 +177,7 @@
 "Multimedia" = "マルチメディア";
 "Navigation" = "ナビゲーション";
 "Networking" = "ネットワーク関連";
-"Packaging" = "パッケージング";
+"Packaging" = "パッケージインストーラー";
 "Productivity" = "効率化";
 "Repositories" = "リポジトリ";
 "Ringtones" = "着信音";
@@ -184,9 +187,11 @@
 "System" = "システム";
 "Terminal Support" = "ターミナルサポート";
 "Text Editors" = "テキスト編集";
+"Theme" = "テーマ";
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
+"Utility" = "ユーティリティ";
 "Utilities" = "ユーティリティ";
 "Wallpaper" = "壁紙";
 "Widgets" = "ウィジェット";
@@ -253,7 +258,7 @@
 "Downgrade" = "ダウングレード";
 "Abort" = "中止";
 "Continue" = "続行";
-"Download Size" = "ダウンロードサイズ";
+"Download Size" = "(サイズ";
 "Could not resolve dependency for %@" = "%@ の依存関係を解決できませんでした";
 "%@ conflicts with %@" = "%@ が %@ と競合しています";
 "%@ depends on %@" = "%@ は %@ に依存しています";
