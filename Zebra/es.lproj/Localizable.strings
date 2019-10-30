@@ -10,11 +10,6 @@
 "Close" = "Cerrar";
 "Done" = "Listo";
 
-// Tab controller
-"Packages in Queue" = "Paquetes en cola";
-"Package in Queue" = "Paquete en cola";
-"Tap to manage Queue" = "Toca para gestionar cola";
-
 // Home
 
 "Home" = "Inicio";
@@ -32,11 +27,18 @@
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de deseos";
-"Unlist" = "Quitar de la lista";
+"Unwish" = "Unwish";
 "Community" = "Comunidad";
 "Join our Discord" = "Únete a nuestro Discord";
 "Follow me on Twitter" = "Sígueme en Twitter";
+
+//Credits
+
 "Credits" = "Créditos";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -53,14 +55,14 @@
 "Report a Bug" = "Reportar un problema";
 
 "Tint Color" = "Color de tinte";
-"Default" = "Por omisión";
+"Default" = "Por defecto";
 "Blue" = "Azul";
 "Orange" = "Naranja";
 "White" = "Blanco";
 "Black" = "Negro";
 
 "Dark Mode" = "Modo oscuro";
-"Default" = "Por defecto";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Añadir";
 "Add Multiple" = "Añadir múltiples";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
-"Please Wait..." = "Por favor espere...";
-"Verifying Source(s)" = "Verificando fuente(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "No es posible verificar el repositorio";
 "Refresh" = "Actualizar";
 "Log Out" = "Cerrar sesión";
@@ -128,7 +130,7 @@
 "Select Version" = "Seleccionar versión";
 "Select a version to upgrade to" = "Seleccionar versión a actualizar";
 "Package" = "Paquete";
-"Information" = "Información";
+"Information" = "Information";
 "Upgrade All" = "Actualizar todo";
 "Loaded" = "Cargado";
 "ABC" = "ABC";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Agregar a la lista de deseos";
 "Remove from Wish List" = "Quitar de la lista de deseos";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Buscar";
+"Search" = "Search";
 "Clear Search" = "Limpiar búsqueda";
 "This search query is too short for the full search, please use a longer query." = "Esta consulta es muy corta para realizar la búsqueda, por favor usa una mas larga";
 "No Results Found" = "No se encontró ningún resultado";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 
+// Queue Bar
+"Packages in Queue" = "Paquetes en cola";
+"Package in Queue" = "Paquete en cola";
+"Tap to manage Queue" = "Toca para gestionar cola";
+
 // Queue
 
-"Queue" = "Cola";
+"Queue" = "Queue";
 "Queue cleared" = "Cola vacía";
 "Install" = "Instalar";
 "Reinstall" = "Reinstalar";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ depende de %@";
 "Removed by" = "Quitado por";
 "Required by" = "Requerido por";
+"Confirm" = "Confirm";
