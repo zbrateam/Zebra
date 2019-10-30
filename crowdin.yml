@@ -1,0 +1,3 @@
+files:
+  - source: /Zebra/Base.lproj/Localizable.strings
+    translation: /Zebra/%osx_code%/Localizable.strings
