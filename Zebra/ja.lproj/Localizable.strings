@@ -10,11 +10,6 @@
 "Close" = "閉じる";
 "Done" = "完了";
 
-// Tab controller
-"Packages in Queue" = "個のキュー済みのパッケージ";
-"Package in Queue" = "個のキュー済みのパッケージ";
-"Tap to manage Queue" = "タップしてキューを管理";
-
 // Home
 
 "Home" = "ホーム";
@@ -32,11 +27,18 @@
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
-"Unlist" = "リストから外す";
+"Unwish" = "リストから外す";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
 "Follow me on Twitter" = "Twitter でフォロー";
+
+//Credits
+
 "Credits" = "名誉";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "ほしい物リストに追加する";
 "Remove from Wish List" = "ほしい物リストから削除";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "検索";
@@ -196,6 +237,11 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
+// Tab controller
+"Packages in Queue" = "個のキュー済みのパッケージ";
+"Package in Queue" = "個のキュー済みのパッケージ";
+"Tap to manage Queue" = "タップしてキューを管理";
+
 // Queue
 
 "Queue" = "キュー";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ は %@ に依存しています";
 "Removed by" = "によって削除されました";
 "Required by" = "より必要";
+"Confirm" = "Confirm";
