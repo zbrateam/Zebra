@@ -103,8 +103,8 @@
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "الرجاء الإنتظار...";
+"Verifying Source(s)" = "التحقق من المصدر/المصادر";
 "Unable to verify Repo" = "تعذر التحقق من المستودع";
 "Refresh" = "تحديث";
 "Log Out" = "تسجيل خروج";
