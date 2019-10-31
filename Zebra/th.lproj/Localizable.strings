@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
-"Utilities" = "จิปาถะ";
 "Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
 "Stores" = "ร้านค้า";
@@ -44,25 +43,22 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Information" = "ข้อมูล";
 "Graphics" = "การแสดงผล";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
-"Search" = "ค้นหา";
 "Miscellaneous" = "อื่นๆ";
 "Advanced" = "ขั้นสูง";
 
 "Report a Bug" = "รายงานข้อผิดพลาดของโปรแกรม";
 
 "Tint Color" = "สีตัวอักษร";
-"Default" = "ค่าเริ่มต้น";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
 "White" = "ขาว";
 "Black" = "ดำ";
 
 "Dark Mode" = "โหมดมืด";
-"Default" = "Default";
+"Default" = "ค่าเริ่มต้น";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Error verifying repository" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
 "Error verifying repositories" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
-"Unknown error." = "ข้อผิดพลาดที่ไม่รู้จัก";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "URL ผิด";
 "Enter URL" = "ใส่ URL";
 "Add Repo(s)" = "เพิ่มซอร์ส";
@@ -130,13 +126,12 @@
 "Select Version" = "เลือกรุ่น";
 "Select a version to upgrade to" = "เลือกรู่นที่จะทำการติดตั้ง";
 "Package" = "โปรแกรม";
-"Information" = "Information";
+"Information" = "ข้อมูล";
 "Upgrade All" = "อัพเดตทั้งหมด";
 "Loaded" = "โหลดแล้ว";
 "ABC" = "กขค";
 "Date" = "วันที่";
 "Size" = "ขนาด";
-"Queue" = "คิว";
 "Clear" = "ล้าง";
 "Are you sure you want to clear Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
 "Available Upgrades" = "รุ่นใหม่ที่มี";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "จิปาถะ";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "ค้นหา";
 "Clear Search" = "ลบผลการค้นหา";
 "This search query is too short for the full search, please use a longer query." = "ข้อความค้นหาสั้นเกินไปสำหรับการค้นหาเต็มรูปแบบ กรุณาใช้ความยาวมากกว่านี้";
 "No Results Found" = "ไม่พบรายการ";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "คิว";
 "Queue cleared" = "คิวถูกล้างแล้ว";
 "Install" = "ติดตั้ง";
 "Reinstall" = "ติดตั้งซ้ำ";
