@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Pārvietot visus avotus no %@ uz Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
-"Utilities" = "Darbarīki";
 "Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
 "Stores" = "Veikali";
@@ -44,18 +43,15 @@
 
 "Settings" = "Iestatījumi";
 "Version" = "Versija";
-"Information" = "Informācija";
 "Graphics" = "Designs";
 "Featured" = "Piedāvājumi";
 "News" = "Jaunumi";
-"Search" = "Meklēt";
 "Miscellaneous" = "Dažādi";
 "Advanced" = "Progresīvs";
 
 "Report a Bug" = "Paziņot par kļūdu";
 
 "Tint Color" = "Toņa krāsa";
-"Default" = "Normāls";
 "Blue" = "Zils";
 "Orange" = "Oranžs";
 "White" = "Balts";
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Tu jau pievienoji šos avotus.";
 "Error verifying repository" = "Ķlūda verificējot avotu";
 "Error verifying repositories" = "Ķlūda verificējot avotus";
-"Unknown error." = "Nezināma kļūda.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Nederīga URL";
 "Enter URL" = "Ievadi URL";
 "Add Repo(s)" = "Pievienot avotu(s)";
@@ -130,13 +126,12 @@
 "Select Version" = "Ieslēgt versiju";
 "Select a version to upgrade to" = "Izvēlies versiju, uz kuru jaunināt";
 "Package" = "Pakete";
-"Information" = "Information";
+"Information" = "Informācija";
 "Upgrade All" = "Visus jaunināt";
 "Loaded" = "Ielādēts";
 "ABC" = "ABC";
 "Date" = "Datums";
 "Size" = "Lielums";
-"Queue" = "Rinda";
 "Clear" = "Notīrīt";
 "Are you sure you want to clear Queue?" = "Vai tiešām vēlies notīrīt rindu?";
 "Available Upgrades" = "Pieejamie atjauninājumi";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Darbarīki";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Meklēt";
 "Clear Search" = "Notīrīt meklēšanu";
 "This search query is too short for the full search, please use a longer query." = "Šis meklēšānas veicinājums ir pārāk īss, lai veiktu pilnīgu meklēšanu, izmantojiet garāku veicinājumu.";
 "No Results Found" = "Neviens rezultāts atrasts";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Rinda";
 "Queue cleared" = "Rinda ir notīrīta";
 "Install" = "Instalēt";
 "Reinstall" = "Pārinstalēt";
