@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Hủy Bỏ";
-"No" = "No";
+"No" = "Không";
 "Ok" = "Ok";
 "Error" = "Lỗi";
 "Retry" = "Thử lại";
@@ -103,8 +103,8 @@
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
 "Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Vui lòng chờ...";
+"Verifying Source(s)" = "Xác minh nguồn(s)";
 "Unable to verify Repo" = "Không thể xác minh Repo";
 "Refresh" = "Làm mới";
 "Log Out" = "Đăng xuất";
