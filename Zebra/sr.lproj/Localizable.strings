@@ -22,7 +22,7 @@
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
 "Utilities" = "Korisne";
-"Please Wait..." = "Molimo vas sačekajte...";
+"Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifikacija izvora";
 "Stores" = "Stores";
 "Purchases" = "Kupljeno";
@@ -48,7 +48,7 @@
 "Graphics" = "Grfika";
 "Featured" = "Istaknuto";
 "News" = "Novosti";
-"Search" = "Pretraga";
+"Search" = "Search";
 "Miscellaneous" = "Detalji";
 "Advanced" = "Napredno";
 
@@ -62,7 +62,7 @@
 "Black" = "Crna";
 
 "Dark Mode" = "Dark Mod";
-"Default" = "Default";
+"Default" = "Podrazumevano";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -108,7 +108,7 @@
 "Add Multiple" = "Dodaj više";
 "Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
 "Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "Verifikacija izvora";
 "Unable to verify Repo" = "Nije moguće verifikovati Repo";
 "Refresh" = "Osveži";
 "Log Out" = "Odjavi se";
@@ -136,7 +136,7 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Veličina";
-"Queue" = "Lista Čekanja";
+"Queue" = "Queue";
 "Clear" = "Obriši";
 "Are you sure you want to clear Queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
 "Available Upgrades" = "Dostupne nadogradnje";
@@ -208,7 +208,7 @@
 "Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
 "Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
 "Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
-"%@ hasn't been modified" = "%@ hasn't been modified";
+"%@ hasn't been modified" = "%@ nije izmenjen";
 "Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
 
 // Console
@@ -257,6 +257,6 @@
 "Could not resolve dependency for %@" = "Nisu pronadjene dependency za %@";
 "%@ conflicts with %@" = "%@ je u konfliktu sa %@";
 "%@ depends on %@" = "%@ zavisi od %@";
-"Removed by" = "Removed by";
+"Removed by" = "Uklonio";
 "Required by" = "Potrebno od";
 "Confirm" = "Confirm";
