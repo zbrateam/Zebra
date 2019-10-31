@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Έχεις ήδη προσθέσει αυτά τα repositories.";
 "Error verifying repository" = "Σφάλμα επαλήθευσης repository";
 "Error verifying repositories" = "Σφάλμα επαλήθευσης repositories";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Άγνωστο σφάλμα";
 "Invalid URL" = "Λανθασμένο URL";
 "Enter URL" = "Καταχώρισε URL";
 "Add Repo(s)" = "Πρόσθεσε Repo(s)";
