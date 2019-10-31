@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Flytta alla källor från %@ till Zebra";
 "Utility repo for %@" = "Verktygsförråd för %@";
 "Transfer Sources" = "Överför källor";
-"Utilities" = "Verktyg";
 "Please Wait..." = "Vänta...";
 "Verifying Source(s)" = "Verifierar källor";
 "Stores" = "Butiker";
@@ -44,25 +43,22 @@
 
 "Settings" = "Inställningar";
 "Version" = "Version";
-"Information" = "Information";
 "Graphics" = "Grafik";
 "Featured" = "Utvalt";
 "News" = "Nyheter";
-"Search" = "Sök";
 "Miscellaneous" = "Övrigt";
 "Advanced" = "Avancerat";
 
 "Report a Bug" = "Rapportera en bugg";
 
 "Tint Color" = "Tonfärg";
-"Default" = "Standard";
 "Blue" = "Blå";
 "Orange" = "Orange";
 "White" = "Vit";
 "Black" = "Svart";
 
 "Dark Mode" = "Mörkt läge";
-"Default" = "Default";
+"Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Du har redan lagt till de här förråden.";
 "Error verifying repository" = "Fel när förrådet verifierades";
 "Error verifying repositories" = "Fel när förråden verifierades";
-"Unknown error." = "Okänt fel.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Ogiltig URL";
 "Enter URL" = "Ange URL";
 "Add Repo(s)" = "Lägg till förråd";
@@ -136,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Storlek";
-"Queue" = "Kö";
 "Clear" = "Rensa";
 "Are you sure you want to clear Queue?" = "Är du säker på att du vill rensa kön?";
 "Available Upgrades" = "Tillgängliga uppgraderingar";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Verktyg";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Sök";
 "Clear Search" = "Rensa sökning";
 "This search query is too short for the full search, please use a longer query." = "Det här sökordet är för kort för fullständig sökning, använd ett längre sökord.";
 "No Results Found" = "Inga resultat hittades";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Kö";
 "Queue cleared" = "Kön rensades";
 "Install" = "Installera";
 "Reinstall" = "Installera om";
