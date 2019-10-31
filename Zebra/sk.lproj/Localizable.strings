@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Presuň všetky repozitáre z %@ to Zebra";
 "Utility repo for %@" = "Repozitáre nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
-"Utilities" = "Nástroje";
 "Please Wait..." = "Prosím čakajťe...";
 "Verifying Source(s)" = "Overovanie repozitárov";
 "Stores" = "Obchody";
@@ -44,25 +43,22 @@
 
 "Settings" = "Nastavenie";
 "Version" = "Verzia";
-"Information" = "Informácie";
 "Graphics" = "Grafika";
 "Featured" = "Odporúčané";
 "News" = "Novinky";
-"Search" = "Hľadať";
 "Miscellaneous" = "Rôzne";
 "Advanced" = "Pokročilé";
 
 "Report a Bug" = "Nahlásiť Bug";
 
 "Tint Color" = "Odtieň Farby";
-"Default" = "Predvolené";
 "Blue" = "Modrá";
 "Orange" = "Oranžová";
 "White" = "Biela";
 "Black" = "Čierna";
 
 "Dark Mode" = "Tmavý režim";
-"Default" = "Default";
+"Default" = "Predvolené";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Tieto repozitáre ste už pridali.";
 "Error verifying repository" = "Chyba pri overovaní repozitára";
 "Error verifying repositories" = "Chyba pri overovaní repozitárov";
-"Unknown error." = "Neznáma chyba";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadaj URL";
 "Add Repo(s)" = "Pridať repozitár(a)";
@@ -130,13 +126,12 @@
 "Select Version" = "Vyber verziu";
 "Select a version to upgrade to" = "Vyberte verziu, na ktorú chcete aktualizovať";
 "Package" = "Balíček";
-"Information" = "Information";
+"Information" = "Informácie";
 "Upgrade All" = "Aktualizovať všetko";
 "Loaded" = "Načítané";
 "ABC" = "ABC";
 "Date" = "Dátum";
 "Size" = "Veľkosť";
-"Queue" = "Fronta";
 "Clear" = "Vyčistiť";
 "Are you sure you want to clear Queue?" = "Naozaj chcete vymazať frontu?";
 "Available Upgrades" = "Dostupné aktualizácie";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Nástroje";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Hľadať";
 "Clear Search" = "Vyčistiť hľadanie";
 "This search query is too short for the full search, please use a longer query." = "Tento vyhľadávací dopyt je príliš krátky na úplné vyhľadávanie. Použite dlhší dopyt.";
 "No Results Found" = "Neboli nájdené žiadne výsledky";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Fronta";
 "Queue cleared" = "Fronta vyčistená";
 "Install" = "Inštalovať";
 "Reinstall" = "Preinštalovať";
