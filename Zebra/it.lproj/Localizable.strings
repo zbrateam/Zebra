@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Trasferisci tutte le sorgenti da %@ a Zebra";
 "Utility repo for %@" = "Repo essenziale for %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
-"Utilities" = "Utility";
 "Please Wait..." = "Attendere...";
 "Verifying Source(s)" = "Verifica Sorgente/i";
 "Stores" = "Store";
@@ -44,18 +43,15 @@
 
 "Settings" = "Impostazioni";
 "Version" = "Versione";
-"Information" = "Informazione";
 "Graphics" = "Grafica";
 "Featured" = "In primo piano";
 "News" = "Notizie";
-"Search" = "Cerca";
 "Miscellaneous" = "Misto";
 "Advanced" = "Avanzato";
 
 "Report a Bug" = "Segnala un Bug";
 
 "Tint Color" = "Colore Tinta";
-"Default" = "Default";
 "Blue" = "Blu";
 "Orange" = "Arancione";
 "White" = "Bianco";
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Hai già aggiunto queste repository.";
 "Error verifying repository" = "Errore durante la verifica del repository";
 "Error verifying repositories" = "Errore durante la verifica dei repository";
-"Unknown error." = "Errore sconosciuto.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "URL non valido";
 "Enter URL" = "Inserisci URL";
 "Add Repo(s)" = "Aggiungi Repo";
@@ -130,13 +126,12 @@
 "Select Version" = "Seleziona Versione";
 "Select a version to upgrade to" = "Seleziona una versione per l'aggiornamento";
 "Package" = "Pacchetto";
-"Information" = "Information";
+"Information" = "Informazione";
 "Upgrade All" = "Aggiorna Tutto";
 "Loaded" = "Caricato";
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Dimensione";
-"Queue" = "Coda";
 "Clear" = "Pulisci";
 "Are you sure you want to clear Queue?" = "Sei sicuro di voler pulire la Coda?";
 "Available Upgrades" = "Aggiornamenti Disponibili";
@@ -187,13 +182,13 @@
 "Themes" = "Temi";
 "Toys" = "Giochi";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Utility";
 "Wallpaper" = "Sfondi";
 "Widgets" = "Widget";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Cerca";
 "Clear Search" = "Pulisci Ricerca";
 "This search query is too short for the full search, please use a longer query." = "Questa query di ricerca è troppo breve per la ricerca completa, utilizza una query più lunga.";
 "No Results Found" = "Nessun Risultato Trovato";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Coda";
 "Queue cleared" = "Coda cancellata";
 "Install" = "Installa";
 "Reinstall" = "Reinstalla";
