@@ -240,14 +240,14 @@
                         }
                     } else {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            respond(NO, NSLocalizedString(@"Unknown error.", @""), @[]);
+                            respond(NO, NSLocalizedString(@"Unknown error", @""), @[]);
                         });
                     }
                 });
             }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                respond(NO, NSLocalizedString(@"Unknown error.", @""), @[]);
+                respond(NO, NSLocalizedString(@"Unknown error", @""), @[]);
             });
         }
     });
@@ -274,7 +274,7 @@
                 }];
             }
         } else {
-            respond(NO, NSLocalizedString(@"Unknown error.", @""), responseURL);
+            respond(NO, NSLocalizedString(@"Unknown error", @""), responseURL);
         }
     }];
 }

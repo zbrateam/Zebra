@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
 "Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Transfer Sources";
-"Utilities" = "Utilities";
 "Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Stores" = "Stores";
@@ -44,18 +43,15 @@
 
 "Settings" = "Settings";
 "Version" = "Version";
-"Information" = "Information";
 "Graphics" = "Graphics";
 "Featured" = "Featured";
 "News" = "News";
-"Search" = "Search";
 "Miscellaneous" = "Miscellaneous";
 "Advanced" = "Advanced";
 
 "Report a Bug" = "Report a Bug";
 
 "Tint Color" = "Tint Color";
-"Default" = "Default";
 "Blue" = "Blue";
 "Orange" = "Orange";
 "White" = "White";
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "You have already added these repositories.";
 "Error verifying repository" = "Error verifying repository";
 "Error verifying repositories" = "Error verifying repositories";
-"Unknown error." = "Unknown error.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Invalid URL";
 "Enter URL" = "Enter URL";
 "Add Repo(s)" = "Add Repo(s)";
@@ -136,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "Date";
 "Size" = "Size";
-"Queue" = "Queue";
 "Clear" = "Clear";
 "Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
 "Available Upgrades" = "Available Upgrades";
