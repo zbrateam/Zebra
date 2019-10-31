@@ -103,8 +103,8 @@
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Multiplos";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Por favor aguarda...";
+"Verifying Source(s)" = "A Verificar Fonte(s)";
 "Unable to verify Repo" = "Não foi possivel verificar o Repo";
 "Refresh" = "Atualidade";
 "Log Out" = "Sair";
