@@ -2,7 +2,7 @@
 
 "Cancel" = "Hủy Bỏ";
 "No" = "Không";
-"Ok" = "Ok";
+"Ok" = "Đồng ý";
 "Error" = "Lỗi";
 "Retry" = "Thử lại";
 "Edit" = "Soạn thảo";
@@ -26,18 +26,18 @@
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
-"Unwish" = "Unwish";
+"Unwish" = "Không muốn";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
 "Follow me on Twitter" = "Theo dõi tôi trên Twitter";
 
 //Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "Tín Dụng";
+"Creators" = "Tác giả";
+"Contributors" = "Người đóng góp";
+"Translators" = "Biên dịch viên";
+"Libraries" = "Thư viện";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Bạn đã thêm các kho lưu trữ này.";
 "Error verifying repository" = "Lỗi khi xác minh kho lưu trữ";
 "Error verifying repositories" = "Lỗi khi xác minh kho lưu trữ";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Lỗi không xác định";
 "Invalid URL" = "URL không hợp lệ";
 "Enter URL" = "Nhập URL";
 "Add Repo(s)" = "Thêm Repo(s)";
@@ -149,41 +149,41 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Quyền quản trị";
+"App Addons" = "Ứng dụng bổ trợ";
+"Archiving" = "Lưu trữ";
+"Carrier Support" = "Hỗ trợ Carrier";
+"Communication" = "Giao tiếp";
+"Data Storage" = "Lưu trữ dữ liệu";
+"Development" = "Người phát triển";
+"Dictionaries" = "Từ điển";
+"Education" = "Giáo dục";
+"Entertainment" = "Giải trí";
+"Games" = "Trò chơi";
+"Health and Fitness" = "Sức khỏe và năng lực";
+"Imaging" = "Hình ảnh";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "Bàn phím";
+"Localization" = "Bản đồ hoá";
+"Messaging" = "Tin nhắn";
+"Multimedia" = "Đa phương tiện";
+"Navigation" = "Điều hướng";
+"Networking" = "Mạng";
+"Packaging" = "Đóng gói";
+"Productivity" = "Năng suất";
+"Repositories" = "Kho lưu trữ";
+"Ringtones" = "Nhạc chuông";
+"Scripting" = "Kịch bản";
+"Security" = "Bảo mật";
+"Social" = "Xã hội";
+"System" = "Hệ thống";
+"Terminal Support" = "Hỗ trợ terminal";
+"Text Editors" = "Sửa văn bản";
+"Themes" = "Giao diện";
+"Toys" = "Đồ chơi";
+"Tweaks" = "Tinh chỉnh";
 "Utilities" = "Tiện ích";
-"Wallpaper" = "Wallpaper";
+"Wallpaper" = "Hình nền";
 "Widgets" = "Widgets";
 
 // Search
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ phụ thuộc %@";
 "Removed by" = "Xóa bởi";
 "Required by" = "Yêu cầu bởi";
-"Confirm" = "Confirm";
+"Confirm" = "Xác nhận";
