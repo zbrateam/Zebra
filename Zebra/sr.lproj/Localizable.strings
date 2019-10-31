@@ -21,7 +21,7 @@
 "Move all sources from %@ to Zebra" = "Move all sources from Prebaci sve izvorne Repoe %@ u Zebru";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Molimo vas sačekajte...";
 "Verifying Source(s)" = "Verifikacija izvora";
 "Stores" = "Stores";
 "Purchases" = "Kupljeno";
@@ -188,7 +188,7 @@
 
 // Search
 
-"Search" = "Search";
+"Search" = "Pretraga";
 "Clear Search" = "Izbriši pretragu";
 "This search query is too short for the full search, please use a longer query." = "Molimo vas unesite veću recč za pretragu.";
 "No Results Found" = "Nema rezultata";
@@ -239,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Čekanje";
 "Queue cleared" = "Lista Čekanja obrisana";
 "Install" = "Instaliraj";
 "Reinstall" = "Reinstaliraj";
