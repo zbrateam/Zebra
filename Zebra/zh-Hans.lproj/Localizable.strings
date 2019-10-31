@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
 "Utility repo for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
-"Utilities" = "实用工具";
 "Please Wait..." = "请稍候……";
 "Verifying Source(s)" = "验证软件源";
 "Stores" = "商店";
@@ -44,18 +43,15 @@
 
 "Settings" = "设置";
 "Version" = "版本";
-"Information" = "信息";
 "Graphics" = "画面";
 "Featured" = "功能";
 "News" = "新闻";
-"Search" = "搜索";
 "Miscellaneous" = "其它";
 "Advanced" = "高级";
 
 "Report a Bug" = "报告 Bug";
 
 "Tint Color" = "主题颜色";
-"Default" = "默认";
 "Blue" = "蓝色";
 "Orange" = "橙色";
 "White" = "白色";
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "你已经添加过这些软件源。";
 "Error verifying repository" = "验证软件源失败";
 "Error verifying repositories" = "验证软件源失败";
-"Unknown error." = "未知错误。";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "无效的 URL";
 "Enter URL" = "输入 URL";
 "Add Repo(s)" = "添加软件源";
@@ -136,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "日期";
 "Size" = "大小";
-"Queue" = "队列";
 "Clear" = "清除";
 "Are you sure you want to clear Queue?" = "确定要清除队列吗？";
 "Available Upgrades" = "可更新";

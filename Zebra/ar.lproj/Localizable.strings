@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "نقل كل المصادر من  %@ إلى Zebra";
 "Utility repo for %@" = "فائدة المستودع لـ %@";
 "Transfer Sources" = "تحويل المصادر";
-"Utilities" = "خدمات";
 "Please Wait..." = "الرجاء الإنتظار...";
 "Verifying Source(s)" = "التحقق من المصدر/المصادر";
 "Stores" = "المتاجر";
@@ -44,25 +43,22 @@
 
 "Settings" = "الإعدادات";
 "Version" = "الإصدار";
-"Information" = "معلومات";
 "Graphics" = "الرسومات";
 "Featured" = "مميز";
 "News" = "الأخبار";
-"Search" = "بحث";
 "Miscellaneous" = "متنوع";
 "Advanced" = "متقدم";
 
 "Report a Bug" = "الإبلاغ عن خطأ";
 
 "Tint Color" = "لون الخط";
-"Default" = "افتراضي";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
 "White" = "أبيض";
 "Black" = "أسود";
 
 "Dark Mode" = "الوضع الداكن";
-"Default" = "Default";
+"Default" = "افتراضي";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "أنت أضفت هذه المستودعات بالفعل.";
 "Error verifying repository" = "تعذر التحقق من المستودع";
 "Error verifying repositories" = "تعذر التحقق من المستودعات";
-"Unknown error." = "خطأ غير معروف.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "عنوان URL غير صحيح";
 "Enter URL" = "أدخل عنوان URL";
 "Add Repo(s)" = "أضف المستودع/المستودعات";
@@ -130,13 +126,12 @@
 "Select Version" = "اختيار إصدار";
 "Select a version to upgrade to" = "اختر إصدار للترقية إليه";
 "Package" = "حزمة";
-"Information" = "Information";
+"Information" = "معلومات";
 "Upgrade All" = "ترقية الكل";
 "Loaded" = "تم التحميل";
 "ABC" = "أبجديًا";
 "Date" = "التاريخ";
 "Size" = "الحجم";
-"Queue" = "قائمة الإنتظار";
 "Clear" = "مسح";
 "Are you sure you want to clear Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
 "Available Upgrades" = "الترقيات المتاحة";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "خدمات";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "بحث";
 "Clear Search" = "مسح البحث";
 "This search query is too short for the full search, please use a longer query." = "الإستعلام هذا قصير جدًا للبحث الكامل ، يرجى استخدام استعلام أطول.";
 "No Results Found" = "لاتوجد نتائج";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "قائمة الإنتظار";
 "Queue cleared" = "تم مسح قائمة الإنتظار";
 "Install" = "تثبيت";
 "Reinstall" = "إعادة تثبيت";

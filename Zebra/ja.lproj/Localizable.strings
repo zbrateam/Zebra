@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
-"Utilities" = "ユーティリティ";
 "Please Wait..." = "お待ちください...";
 "Verifying Source(s)" = "ソースの検証中";
 "Stores" = "ストア";
@@ -44,25 +43,22 @@
 
 "Settings" = "設定";
 "Version" = "バージョン";
-"Information" = "情報";
 "Graphics" = "表示方法";
 "Featured" = "パッケージ特集";
 "News" = "ニュース";
-"Search" = "検索";
 "Miscellaneous" = "その他";
 "Advanced" = "高度";
 
 "Report a Bug" = "バグを報告";
 
 "Tint Color" = "色合い";
-"Default" = "既定";
 "Blue" = "青";
 "Orange" = "橙";
 "White" = "白";
 "Black" = "黒";
 
 "Dark Mode" = "ダークモード";
-"Default" = "デフォルト";
+"Default" = "既定";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "これらのリポジトリはすでに追加されています。";
 "Error verifying repository" = "リポジトリの検証エラー";
 "Error verifying repositories" = "リポジトリの検証エラー";
-"Unknown error." = "不明なエラー。";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "無効なURL";
 "Enter URL" = "URLを入力";
 "Add Repo(s)" = "リポジトリを追加";
@@ -136,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "日付";
 "Size" = "サイズ";
-"Queue" = "キュー";
 "Clear" = "クリア";
 "Are you sure you want to clear Queue?" = "キューをクリアしてもよろしいですか？";
 "Available Upgrades" = "利用可能なアップグレード";

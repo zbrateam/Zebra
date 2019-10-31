@@ -1,4 +1,3 @@
-
 // Common
 
 "Cancel" = "Odustani";
@@ -11,14 +10,6 @@
 "Close" = "Zatvori";
 "Done" = "Uradjeno";
 
-
-// Tab controller
-
-"Packages in Queue" = "Paketa na Čekanju";
-"Package in Queue" = "Paket na Čekanju";
-"Tap to manage Queue" = "Uredi listu Čekanja";
-
-
 // Home
 
 "Home" = "Početna";
@@ -30,40 +21,49 @@
 "Move all sources from %@ to Zebra" = "Move all sources from Prebaci sve izvorne Repoe %@ u Zebru";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
-"Utilities" = "Korisne";"Please Wait..." = "Molimo vas sačekajte...";
-"Verifying Source(s)" = "Verifikacija izvora";"Stores" = "Prodavnice";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifikacija izvora";
+"Stores" = "Stores";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
-"Unlist" = "Ukloni";
+"Unwish" = "Unwish";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridruži nam se na Discord";
 "Follow me on Twitter" = "Zaprati me na Twitteru";
-"Credits" = "Zasluge";
 
+//Credits
+
+"Credits" = "Zasluge";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
 "Settings" = "Podešavanja";
 "Version" = "Verzija";
-"Information" = "Informacija";
 "Graphics" = "Grfika";
 "Featured" = "Istaknuto";
 "News" = "Novosti";
-"Search" = "Pretraga";
 "Miscellaneous" = "Detalji";
 "Advanced" = "Napredno";
+
 "Report a Bug" = "Prijavi gresku";
+
 "Tint Color" = "Tint Boja";
-"Default" = "Podrazumevano";
 "Blue" = "Plava";
 "Orange" = "Narandžasta";
 "White" = "Bela";
 "Black" = "Crna";
+
 "Dark Mode" = "Dark Mod";
 "Default" = "Podrazumevano";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
+
 "Change Icon" = "Promeni ikonicu";
+
 "Enable Featured Packages" = "Dozvoli Istaknute Pakete";
 "Repo Featured" = "Istaknuti repo";
 "Random" = "Nasumično";
@@ -73,6 +73,7 @@
 "Enable News" = "Dozvoli prikaz vesti";
 
 "Search while Typing" = "Pretrazi dok kucaš";
+
 "Swipe Actions Display As" = "Prevlačenje prikaži kao";
 "Text" = "Tekst";
 "Icon" = "Ikonica";
@@ -95,14 +96,14 @@
 "You have already added these repositories." = "Vec ste dodali ove repo-e.";
 "Error verifying repository" = "Greška u verifikaciji repo-a";
 "Error verifying repositories" = "Greška u verifikacije repoa";
-"Unknown error." = "Nepoznata greška.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Nepravilan URL";
 "Enter URL" = "Unesite URL";
 "Add Repo(s)" = "Dodaj Repo(e)";
 "Add" = "Dodaj";
 "Add Multiple" = "Dodaj više";
 "Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
-"Please Wait..." = "Molimo vas sačekajte...";
+"Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifikacija izvora";
 "Unable to verify Repo" = "Nije moguće verifikovati Repo";
 "Refresh" = "Osveži";
@@ -112,8 +113,6 @@
 
 "All Packages" = "Svi paketi";
 "Delete" = "Izbriši";
-
-
 
 // Changes
 
@@ -133,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Veličina";
-"Queue" = "Čekanje";
 "Clear" = "Obriši";
 "Are you sure you want to clear Queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
 "Available Upgrades" = "Dostupne nadogradnje";
@@ -145,13 +143,52 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Molimo vas da se ponovo logujete na nalog kojim ste kupili ovaj paket (Najverovatnije %@)";
 "More by this Developer" = "Još od ovog Programera";
 "Installed Version" = "Instalirana verzija";
+
 "Add to Wish List" = "Dodaj u listu želja";
 "Remove from Wish List" = "Ukloni iz liste želja";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Korisne";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Pretraga";
+"Search" = "Search";
 "Clear Search" = "Izbriši pretragu";
 "This search query is too short for the full search, please use a longer query." = "Molimo vas unesite veću recč za pretragu.";
 "No Results Found" = "Nema rezultata";
@@ -165,7 +202,8 @@
 "Please remove this repo from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
 "Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
 "Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
-"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";"%@ hasn't been modified" = "%@ nije izmenjen";
+"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
+"%@ hasn't been modified" = "%@ nije izmenjen";
 "Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
 
 // Console
@@ -194,10 +232,14 @@
 "One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
 
+// Queue Bar
+"Packages in Queue" = "Paketa na Čekanju";
+"Package in Queue" = "Paket na Čekanju";
+"Tap to manage Queue" = "Uredi listu Čekanja";
 
 // Queue
 
-"Queue" = "Lista Čekanja";
+"Queue" = "Queue";
 "Queue cleared" = "Lista Čekanja obrisana";
 "Install" = "Instaliraj";
 "Reinstall" = "Reinstaliraj";
@@ -209,5 +251,7 @@
 "Download Size" = "Veličina preuzimanja";
 "Could not resolve dependency for %@" = "Nisu pronadjene dependency za %@";
 "%@ conflicts with %@" = "%@ je u konfliktu sa %@";
-"%@ depends on %@" = "%@ zavisi od %@";"Removed by" = "Uklonio";
+"%@ depends on %@" = "%@ zavisi od %@";
+"Removed by" = "Uklonio";
 "Required by" = "Potrebno od";
+"Confirm" = "Confirm";

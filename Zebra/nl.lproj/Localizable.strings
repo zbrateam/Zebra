@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Verplaats alle bronnen van %@ naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaatsen geslaagd!";
-"Utilities" = "Benodigheden";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
 "Stores" = "Winkel";
@@ -44,25 +43,22 @@
 
 "Settings" = "Instellingen";
 "Version" = "Versie";
-"Information" = "Informatie";
 "Graphics" = "Beeldkwaliteit";
 "Featured" = "Uitgelicht";
 "News" = "Nieuws";
-"Search" = "Zoeken";
 "Miscellaneous" = "Diversen";
 "Advanced" = "Geadvenceerd";
 
 "Report a Bug" = "Meld een fout";
 
 "Tint Color" = "Tint kleur";
-"Default" = "Standaard";
 "Blue" = "Blauw";
 "Orange" = "Oranje";
 "White" = "Wit";
 "Black" = "Zwart";
 
 "Dark Mode" = "Donkere modus";
-"Default" = "Default";
+"Default" = "Standaard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Deze bronnen heb je al toegevoegd";
 "Error verifying repository" = "Er is een fout opgetreden tijdens het verifiëren van de bron.";
 "Error verifying repositories" = "Er is een fout opgetreden tijdens het verifiëren van de bronnen.";
-"Unknown error." = "Onbekende fout";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Ongeldige URLD";
 "Enter URL" = "Voer een URL in";
 "Add Repo(s)" = "Voeg bron(nen) toe";
@@ -130,13 +126,12 @@
 "Select Version" = "Kies versie";
 "Select a version to upgrade to" = "Kies een versie om naar up te graden";
 "Package" = "Pakket";
-"Information" = "Information";
+"Information" = "Informatie";
 "Upgrade All" = "Upgrade alles";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
-"Queue" = "Wachtrij";
 "Clear" = "Leeg";
 "Are you sure you want to clear Queue?" = "Weet je zeker dat je de wachtrij wilt legen?";
 "Available Upgrades" = "Beschikbare upgrades";
@@ -187,13 +182,13 @@
 "Themes" = "Themas";
 "Toys" = "Speelgoed";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Benodigheden";
 "Wallpaper" = "Achtergronden";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Zoeken";
 "Clear Search" = "Leeg de zoekbalk";
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Wachtrij";
 "Queue cleared" = "Wachtrij leeggemaakt";
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";

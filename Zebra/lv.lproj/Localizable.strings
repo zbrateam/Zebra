@@ -21,8 +21,7 @@
 "Move all sources from %@ to Zebra" = "Pārvietot visus avotus no %@ uz Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
-"Utilities" = "Darbarīki";
-"Please Wait..." = "Lūdzu, uzgaidiet...";
+"Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
@@ -44,18 +43,15 @@
 
 "Settings" = "Iestatījumi";
 "Version" = "Versija";
-"Information" = "Informācija";
 "Graphics" = "Designs";
 "Featured" = "Piedāvājumi";
 "News" = "Jaunumi";
-"Search" = "Meklēšana";
 "Miscellaneous" = "Dažādi";
 "Advanced" = "Progresīvs";
 
 "Report a Bug" = "Paziņot par kļūdu";
 
 "Tint Color" = "Toņa krāsa";
-"Default" = "Normāls";
 "Blue" = "Zils";
 "Orange" = "Oranžs";
 "White" = "Balts";
@@ -100,15 +96,15 @@
 "You have already added these repositories." = "Tu jau pievienoji šos avotus.";
 "Error verifying repository" = "Ķlūda verificējot avotu";
 "Error verifying repositories" = "Ķlūda verificējot avotus";
-"Unknown error." = "Nezināma kļūda.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Nederīga URL";
 "Enter URL" = "Ievadi URL";
 "Add Repo(s)" = "Pievienot avotu(s)";
 "Add" = "Pievienot";
 "Add Multiple" = "Pievienot vairākus";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
-"Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verificējam avotu(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nevar verificēt avotu(s)";
 "Refresh" = "Atjaunot";
 "Log Out" = "Izlogoties";
@@ -136,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "Datums";
 "Size" = "Lielums";
-"Queue" = "Rinda";
 "Clear" = "Notīrīt";
 "Are you sure you want to clear Queue?" = "Vai tiešām vēlies notīrīt rindu?";
 "Available Upgrades" = "Pieejamie atjauninājumi";
@@ -187,7 +182,7 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Darbarīki";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 

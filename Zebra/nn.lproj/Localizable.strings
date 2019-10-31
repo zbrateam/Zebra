@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Overfør alle kjelder frå %@ til Zebra";
 "Utility repo for %@" = "Verktøykjelde for %@";
 "Transfer Sources" = "Overfør Kjelder";
-"Utilities" = "Verktøy";
 "Please Wait..." = " Ver Vennleg Og Vent...";
 "Verifying Source(s)" = "Verifiserer Kjelde(r)";
 "Stores" = "Butikkar";
@@ -44,25 +43,22 @@
 
 "Settings" = "Innstillingar";
 "Version" = "Versjon";
-"Information" = "Informasjon";
 "Graphics" = "Grafikk";
 "Featured" = "Utvalt";
 "News" = "Nyheiter";
-"Search" = "Søk";
 "Miscellaneous" = "Diverse";
 "Advanced" = "Avansert";
 
 "Report a Bug" = "Rapporter ein Feil";
 
 "Tint Color" = "Fargetone";
-"Default" = "Standard";
 "Blue" = "Blå";
 "Orange" = "Oransje";
 "White" = "Kvit";
 "Black" = "Svart";
 
 "Dark Mode" = "Mørkmodus";
-"Default" = "Default";
+"Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Du har allereie lagt til dei kjeldene.";
 "Error verifying repository" = "Feil under verifisering av kjelde";
 "Error verifying repositories" = "Feil under verifisering av kjelder";
-"Unknown error." = "Ukjend feil.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Ugyldig nettadresse";
 "Enter URL" = "Skriv inn nettadresse";
 "Add Repo(s)" = "Legg til Kjelde(r)";
@@ -130,13 +126,12 @@
 "Select Version" = "Vel Versjon";
 "Select a version to upgrade to" = "Vel versjonen du vil oppdatera til";
 "Package" = "Pakke";
-"Information" = "Information";
+"Information" = "Informasjon";
 "Upgrade All" = "Oppdater Alle";
 "Loaded" = "Lasta";
 "ABC" = "ABC";
 "Date" = "Dato";
 "Size" = "Storleik";
-"Queue" = "Kø";
 "Clear" = "Taum";
 "Are you sure you want to clear Queue?" = "Er du sikker på at du vil tømma køen?";
 "Available Upgrades" = "Tilgjengelege Oppdateringar";
@@ -187,13 +182,13 @@
 "Themes" = "Tema";
 "Toys" = "Leikar";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Verktøy";
 "Wallpaper" = "Bakgrunnar";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Søk";
 "Clear Search" = "Taum søkeloggen";
 "This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for eit komplett søk. Vennlegast bruk eit lengre søkeord.";
 "No Results Found" = "Ingen Resultat Funne";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Kø";
 "Queue cleared" = "Kø tømt";
 "Install" = "Installer";
 "Reinstall" = "Installer på nytt";

@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Перенести все источники из %@ в Zebra";
 "Utility repo for %@" = "Репозиторий утилит для %@";
 "Transfer Sources" = "Перенести Источники";
-"Utilities" = "Утилиты";
 "Please Wait..." = "Пожалуйста Ожидайте...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
 "Stores" = "Магазины";
@@ -44,25 +43,22 @@
 
 "Settings" = "Настройки";
 "Version" = "Версия";
-"Information" = "Информация";
 "Graphics" = "Интерфейс";
 "Featured" = "Избранное";
 "News" = "Новости";
-"Search" = "Поиск";
 "Miscellaneous" = "Другое";
 "Advanced" = "Расширенное";
 
 "Report a Bug" = "Сообщить об Ошибке";
 
 "Tint Color" = "Цвет";
-"Default" = "Обычный";
 "Blue" = "Синий";
 "Orange" = "Оранж.";
 "White" = "Белый";
 "Black" = "Черный";
 
 "Dark Mode" = "Темный режим";
-"Default" = "Default";
+"Default" = "Обычный";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Вы уже добавили эти репозитории.";
 "Error verifying repository" = "Ошибка проверки репозитория";
 "Error verifying repositories" = "Ошибка проверки репозиториев";
-"Unknown error." = "Неизвестная ошибка.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Неверный URL";
 "Enter URL" = "Введите URL";
 "Add Repo(s)" = "Добавить репозиторий(и)";
@@ -130,13 +126,12 @@
 "Select Version" = "Выберите Версию";
 "Select a version to upgrade to" = "Выберите версию до которой обновить пакет";
 "Package" = "Пакет";
-"Information" = "Information";
+"Information" = "Информация";
 "Upgrade All" = "Обновить Все";
 "Loaded" = "Загружно";
 "ABC" = "Алфавит";
 "Date" = "Дата";
 "Size" = "Размер";
-"Queue" = "Очередь";
 "Clear" = "Очистить";
 "Are you sure you want to clear Queue?" = "Вы уверены что хотить очистить Очередь?";
 "Available Upgrades" = "Доступные Обновления";
@@ -187,13 +182,13 @@
 "Themes" = "Темы";
 "Toys" = "Игрушки";
 "Tweaks" = "Твики";
-"Utilities" = "Utilities";
+"Utilities" = "Утилиты";
 "Wallpaper" = "Обои";
 "Widgets" = "Виджеты";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Поиск";
 "Clear Search" = "Очистить Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
 "No Results Found" = "Нет результатов";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Очередь";
 "Queue cleared" = "Очередь очищена";
 "Install" = "Установить";
 "Reinstall" = "Переустановить";
