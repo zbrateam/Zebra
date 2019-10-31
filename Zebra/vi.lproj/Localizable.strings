@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Di chuyển tất cả các nguồn từ %@ đến Zebra";
 "Utility repo for %@" = "Repo tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
-"Utilities" = "Tiện ích";
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
 "Stores" = "Cửa hàng";
@@ -44,25 +43,22 @@
 
 "Settings" = "Cài đặt";
 "Version" = "Phiên bản";
-"Information" = "Thông tin";
 "Graphics" = "Đồ họa";
 "Featured" = "Tính năng";
 "News" = "Tin tức";
-"Search" = "Tìm kiếm";
 "Miscellaneous" = "Điều khoản khác";
 "Advanced" = "Nâng cao";
 
 "Report a Bug" = "Báo cáo lỗi";
 
 "Tint Color" = "Màu sắc";
-"Default" = "Mặc định";
 "Blue" = "Lam";
 "Orange" = "Cam";
 "White" = "Trắng";
 "Black" = "Đen";
 
 "Dark Mode" = "Chế độ tối";
-"Default" = "Default";
+"Default" = "Mặc định";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Bạn đã thêm các kho lưu trữ này.";
 "Error verifying repository" = "Lỗi khi xác minh kho lưu trữ";
 "Error verifying repositories" = "Lỗi khi xác minh kho lưu trữ";
-"Unknown error." = "Lỗi không xác định.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "URL không hợp lệ";
 "Enter URL" = "Nhập URL";
 "Add Repo(s)" = "Thêm Repo(s)";
@@ -130,13 +126,12 @@
 "Select Version" = "Chọn phiên bản";
 "Select a version to upgrade to" = "Chọn một phiên bản để nâng cấp";
 "Package" = "Gói";
-"Information" = "Information";
+"Information" = "Thông tin";
 "Upgrade All" = "Nâng cấp tất cả";
 "Loaded" = "Tải";
 "ABC" = "ABC";
 "Date" = "Ngày";
 "Size" = "Kích thước";
-"Queue" = "Xếp hàng";
 "Clear" = "Xoá bỏ";
 "Are you sure you want to clear Queue?" = "Bạn có chắc chắn muốn xóa Hàng đợi?";
 "Available Upgrades" = "Nâng cấp có sẵn";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Tiện ích";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Tìm kiếm";
 "Clear Search" = "Xóa bỏ tìm kiếm";
 "This search query is too short for the full search, please use a longer query." = "Truy vấn tìm kiếm này quá ngắn cho tìm kiếm đầy đủ, vui lòng sử dụng truy vấn dài hơn.";
 "No Results Found" = "Không có kết quả nào được tìm thấy";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Xếp hàng";
 "Queue cleared" = "Hàng đợi đã được xóa";
 "Install" = "Cài đặt";
 "Reinstall" = "Cài đặt lại";
