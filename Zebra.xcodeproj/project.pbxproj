@@ -1209,7 +1209,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				89C5FDE721B1B13700A10E58 /* Base */,
-				47B047FF236B5D400093D608 /* zh-Hant-HK */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
