@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Du har allereie lagt til dei kjeldene.";
 "Error verifying repository" = "Feil under verifisering av kjelde";
 "Error verifying repositories" = "Feil under verifisering av kjelder";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Ukjend Feil";
 "Invalid URL" = "Ugyldig nettadresse";
 "Enter URL" = "Skriv inn nettadresse";
 "Add Repo(s)" = "Legg til Kjelde(r)";
 "Add" = "Legg til";
 "Add Multiple" = "Legg til Fleire";
 "Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Ver Vennleg Og Vent...";
+"Verifying Source(s)" = "Verifiserer Kjelde(r)";
 "Unable to verify Repo" = "Kan ikkje verifisere Kjelde";
 "Refresh" = "Oppdater";
 "Log Out" = "Logg Ut";
@@ -149,7 +149,7 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
+"Administration" = "Administrasjon";
 "App Addons" = "App Utvidingar";
 "Archiving" = "Arkivering";
 "Carrier Support" = "Operatør Støtte";
@@ -184,7 +184,7 @@
 "Tweaks" = "Tweaks";
 "Utilities" = "Verktøy";
 "Wallpaper" = "Bakgrunnar";
-"Widgets" = "Widgets";
+"Widgets" = "Widgeter";
 
 // Search
 

@@ -26,7 +26,7 @@
 "Stores" = "Marketler";
 "Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
-"Unwish" = "Unwish";
+"Unwish" = "Listeden Kaldır";
 "Community" = "Topluluk";
 "Join our Discord" = "Discord'umuza katıl!";
 "Follow me on Twitter" = "Beni Twitter'dan takip edin!";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Emeği Geçenler";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Yapımcılar";
+"Contributors" = "Katkıda Bulunanlar";
+"Translators" = "Çevirmenler";
+"Libraries" = "Kütüphaneler";
 
 // Settings
 
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Zaten bu kaynakları ekledin.";
 "Error verifying repository" = "Kaynağı onaylarken hata oluştu";
 "Error verifying repositories" = "Kaynakları onaylarken hata oluştu";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
 "Enter URL" = "Link Girin";
 "Add Repo(s)" = "Kaynak(ları) Ekle";
 "Add" = "Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
 "Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Lütfen Bekleyin...";
+"Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
 "Unable to verify Repo" = "Kaynağı Onaylayamıyoruz";
 "Refresh" = "Yenile";
 "Log Out" = "Çıkış Yap";
@@ -211,7 +211,7 @@
 "Console" = "Konsol";
 "Performing actions" = "İşlemler Yapılıyor...";
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
 "Downloading" = "İndiriliyor";

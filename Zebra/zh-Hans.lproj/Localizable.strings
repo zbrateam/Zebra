@@ -96,7 +96,7 @@
 "You have already added these repositories." = "你已经添加过这些软件源。";
 "Error verifying repository" = "验证软件源失败";
 "Error verifying repositories" = "验证软件源失败";
-"Unknown error" = "Unknown error";
+"Unknown error" = "未知错误";
 "Invalid URL" = "无效的 URL";
 "Enter URL" = "输入 URL";
 "Add Repo(s)" = "添加软件源";

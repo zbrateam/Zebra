@@ -6,7 +6,7 @@
 "Error" = "Errore";
 "Retry" = "Riprova";
 "Edit" = "Modifica";
-"Login" = "Login";
+"Login" = "Accedi";
 "Close" = "Chiudi";
 "Done" = "Fatto";
 
@@ -96,18 +96,18 @@
 "You have already added these repositories." = "Hai già aggiunto queste repository.";
 "Error verifying repository" = "Errore durante la verifica del repository";
 "Error verifying repositories" = "Errore durante la verifica dei repository";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Errore sconosciuto";
 "Invalid URL" = "URL non valido";
 "Enter URL" = "Inserisci URL";
 "Add Repo(s)" = "Aggiungi Repo";
 "Add" = "Aggiungi";
 "Add Multiple" = "Aggiungi Multiple";
 "Would you like to add the URL from your clipboard?" = "Vuoi aggiungere l'URL presente negli appunti?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Attendere...";
+"Verifying Source(s)" = "Verifica Sorgente/i";
 "Unable to verify Repo" = "Impossibile verificare Repo";
 "Refresh" = "Ricarica";
-"Log Out" = "Log Out";
+"Log Out" = "Esci";
 "Purchased Packages" = "Pacchetti Comprati";
 "Purchased" = "Comprato";
 
@@ -161,14 +161,14 @@
 "Entertainment" = "Intrattenimento";
 "Games" = "Giochi";
 "Health and Fitness" = "Salute e Benessere";
-"Imaging" = "Imaging";
+"Imaging" = "Immagini";
 "Java" = "Java";
 "Keyboards" = "Tastiere";
 "Localization" = "Localizzazione";
 "Messaging" = "Messaggistica";
 "Multimedia" = "Multimedia";
 "Navigation" = "Navigazione";
-"Networking" = "Networking";
+"Networking" = "Rete";
 "Packaging" = "Packaging";
 "Productivity" = "Produttività";
 "Repositories" = "Repository";

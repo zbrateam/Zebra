@@ -6,7 +6,7 @@
 "Error" = "Erro";
 "Retry" = "Repetir";
 "Edit" = "Editar";
-"Login" = "Login";
+"Login" = "Iniciar sessão";
 "Close" = "Fechar";
 "Done" = "Feito";
 
@@ -26,7 +26,7 @@
 "Stores" = "Lojas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
-"Unwish" = "Unwish";
+"Unwish" = "Remover da Lista";
 "Community" = "Comunidade";
 "Join our Discord" = "Entre no nosso Discord";
 "Follow me on Twitter" = "Me siga no Twitter";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Você já adicionou esses repositórios.";
 "Error verifying repository" = "Erro ao verificar o repositório";
 "Error verifying repositories" = "Erro ao verificar repositórios";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Erro desconhecido";
 "Invalid URL" = "URL inválida";
 "Enter URL" = "Inserir URL";
 "Add Repo(s)" = "Adicionar Repo(s)";
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Múltiplos";
 "Would you like to add the URL from your clipboard?" = "Deseja adicionar o URL da sua área de transferência?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Por favor, aguarde...";
+"Verifying Source(s)" = "Verificando Fonte(s)";
 "Unable to verify Repo" = "Não foi possível verificar o Repo";
 "Refresh" = "Atualizar";
 "Log Out" = "Sair";
@@ -181,7 +181,7 @@
 "Text Editors" = "Editores de Texto";
 "Themes" = "Temas";
 "Toys" = "Brinquedos";
-"Tweaks" = "Tweaks";
+"Tweaks" = "Modificações";
 "Utilities" = "Utilidades";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";

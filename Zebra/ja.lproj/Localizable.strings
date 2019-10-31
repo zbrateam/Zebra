@@ -96,7 +96,7 @@
 "You have already added these repositories." = "これらのリポジトリはすでに追加されています。";
 "Error verifying repository" = "リポジトリの検証エラー";
 "Error verifying repositories" = "リポジトリの検証エラー";
-"Unknown error" = "Unknown error";
+"Unknown error" = "不明なエラー";
 "Invalid URL" = "無効なURL";
 "Enter URL" = "URLを入力";
 "Add Repo(s)" = "リポジトリを追加";

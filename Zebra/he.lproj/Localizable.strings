@@ -26,7 +26,7 @@
 "Stores" = "חנויות";
 "Purchases" = "רכישות";
 "Wish List" = "רשימת משאלות";
-"Unwish" = "Unwish";
+"Unwish" = "הורד מרשימת המשאלות";
 "Community" = "קהילה";
 "Join our Discord" = "הצטרף\\/י ל-Discord שלנו";
 "Follow me on Twitter" = "עקוב\\/י אחריי ב-Twitter";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "כבר הוספת את מקורות אלו.";
 "Error verifying repository" = "תקלה באימות מקור";
 "Error verifying repositories" = "תקלה באימות מקורות";
-"Unknown error" = "Unknown error";
+"Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
 "Enter URL" = "הזן\\/י כתובת";
 "Add Repo(s)" = "הוסף מקור(ות)";
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "נא להמתין...";
+"Verifying Source(s)" = "מאמת מקור(ות)";
 "Unable to verify Repo" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
 "Log Out" = "התנתק";
