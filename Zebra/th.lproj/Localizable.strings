@@ -103,8 +103,8 @@
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "โปรดรอ...";
+"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
 "Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
 "Log Out" = "ลงชื่อออก";
