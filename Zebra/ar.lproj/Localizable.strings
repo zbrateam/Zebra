@@ -26,7 +26,7 @@
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
-"Unwish" = "Unwish";
+"Unwish" = "إزالة من القائمة";
 "Community" = "المجتمع";
 "Join our Discord" = "انضم لنا على Discord";
 "Follow me on Twitter" = "تابعنا على تويتر";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "الإعتمادات";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "المنشئون";
+"Contributors" = "المساهمون";
+"Translators" = "المترجمون";
+"Libraries" = "المكتبات";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "أنت أضفت هذه المستودعات بالفعل.";
 "Error verifying repository" = "تعذر التحقق من المستودع";
 "Error verifying repositories" = "تعذر التحقق من المستودعات";
-"Unknown error" = "Unknown error";
+"Unknown error" = "خطأ غير معروف";
 "Invalid URL" = "عنوان URL غير صحيح";
 "Enter URL" = "أدخل عنوان URL";
 "Add Repo(s)" = "أضف المستودع/المستودعات";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
-"Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Administration" = "الإدارة";
+"App Addons" = "إضافات التطبيقات";
+"Archiving" = "الأرشفة";
+"Carrier Support" = "دعم الاتصال";
+"Communication" = "التواصل";
+"Data Storage" = "تخزين البيانات";
+"Development" = "التطوير";
+"Dictionaries" = "القواميس";
+"Education" = "التعليم";
+"Entertainment" = "الترفيه";
+"Games" = "الألعاب";
+"Health and Fitness" = "الصحة واللياقة";
+"Imaging" = "التصوير";
+"Java" = "جافا";
+"Keyboards" = "لوحات المفاتيح";
+"Localization" = "الترجمة";
+"Messaging" = "الرسائل";
+"Multimedia" = "الوسائط المتعددة";
+"Navigation" = "الملاحة";
+"Networking" = "الشبكات";
+"Packaging" = "التحزيم";
+"Productivity" = "الإنتاجية";
+"Repositories" = "المستودعات";
+"Ringtones" = "النغمات";
+"Scripting" = "البرمجيات";
+"Security" = "الأمان";
+"Social" = "اجتماعي";
+"System" = "النظام";
+"Terminal Support" = "دعم الوحدة الطرفية";
+"Text Editors" = "محررين النصوص";
+"Themes" = "الموضوعات";
+"Toys" = "ألعاب الأطفال";
+"Tweaks" = "الأدوات";
 "Utilities" = "خدمات";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "الخلفيات";
+"Widgets" = "الويدجات";
 
 // Search
 
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ يعتمد على %@";
 "Removed by" = "تمت إزالته بواسطة";
 "Required by" = "مطلوب بواسطة";
-"Confirm" = "Confirm";
+"Confirm" = "تأكيد";
