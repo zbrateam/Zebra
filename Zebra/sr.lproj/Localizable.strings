@@ -1,0 +1,213 @@
+
+// Common
+
+"Cancel" = "Odustani";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Greška";
+"Retry" = "Ponovi";
+"Edit" = "Uredi";
+"Login" = "Prijava";
+"Close" = "Zatvori";
+"Done" = "Uradjeno";
+
+
+// Tab controller
+
+"Packages in Queue" = "Paketa na Čekanju";
+"Package in Queue" = "Paket na Čekanju";
+"Tap to manage Queue" = "Uredi listu Čekanja";
+
+
+// Home
+
+"Home" = "Početna";
+"Info" = "Info";
+"Welcome to the Zebra Beta!" = "Dobro došli u Zebru!";
+"Changelog" = "Promene";
+"Community Repos" = "Repos Udruženja";
+"Transfer Sources from %@" = "Prebaci izvorne Repoe iz %@";
+"Move all sources from %@ to Zebra" = "Move all sources from Prebaci sve izvorne Repoe %@ u Zebru";
+"Utility repo for %@" = "Korisni repo za %@";
+"Transfer Sources" = "Prebaci izvore";
+"Utilities" = "Korisne";"Please Wait..." = "Molimo vas sačekajte...";
+"Verifying Source(s)" = "Verifikacija izvora";"Stores" = "Prodavnice";
+"Purchases" = "Kupljeno";
+"Wish List" = "Lista želja";
+"Unlist" = "Ukloni";
+"Community" = "Zajednica";
+"Join our Discord" = "Pridruži nam se na Discord";
+"Follow me on Twitter" = "Zaprati me na Twitteru";
+"Credits" = "Zasluge";
+
+
+// Settings
+
+"Settings" = "Podešavanja";
+"Version" = "Verzija";
+"Information" = "Informacija";
+"Graphics" = "Grfika";
+"Featured" = "Istaknuto";
+"News" = "Novosti";
+"Search" = "Pretraga";
+"Miscellaneous" = "Detalji";
+"Advanced" = "Napredno";
+"Report a Bug" = "Prijavi gresku";
+"Tint Color" = "Tint Boja";
+"Default" = "Podrazumevano";
+"Blue" = "Plava";
+"Orange" = "Narandžasta";
+"White" = "Bela";
+"Black" = "Crna";
+"Dark Mode" = "Dark Mod";
+"Default" = "Podrazumevano";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+"Change Icon" = "Promeni ikonicu";
+"Enable Featured Packages" = "Dozvoli Istaknute Pakete";
+"Repo Featured" = "Istaknuti repo";
+"Random" = "Nasumično";
+"Feature Type" = "Istaknuti tip";
+"Select Repos to be Featured" = "Izaberi Repo da bude istaknut";
+
+"Enable News" = "Dozvoli prikaz vesti";
+
+"Search while Typing" = "Pretrazi dok kucaš";
+"Swipe Actions Display As" = "Prevlačenje prikaži kao";
+"Text" = "Tekst";
+"Icon" = "Ikonica";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Ukloni keš";
+"Clear Keychain" = "Ukloni Keychain";
+
+"Loading..." = "Učitavanje...";
+
+"Resetting image cache completed" = "Resetovanje keša završeno";
+"Clearing keychain completed" = "Uklanjanje keychain završeno";
+
+// Sources
+
+"Sources" = "Izvori";
+"Local Repository" = "Lokalni Repo";
+"Locally installed packages" = "Lokalno instalirani paketi";
+"Unknown" = "Nepoznato";
+"No repository urls detected." = "Url ne sadrzi Repo.";
+"You have already added these repositories." = "Vec ste dodali ove repo-e.";
+"Error verifying repository" = "Greška u verifikaciji repo-a";
+"Error verifying repositories" = "Greška u verifikacije repoa";
+"Unknown error." = "Nepoznata greška.";
+"Invalid URL" = "Nepravilan URL";
+"Enter URL" = "Unesite URL";
+"Add Repo(s)" = "Dodaj Repo(e)";
+"Add" = "Dodaj";
+"Add Multiple" = "Dodaj više";
+"Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
+"Please Wait..." = "Molimo vas sačekajte...";
+"Verifying Source(s)" = "Verifikacija izvora";
+"Unable to verify Repo" = "Nije moguće verifikovati Repo";
+"Refresh" = "Osveži";
+"Log Out" = "Odjavi se";
+"Purchased Packages" = "Kupljeni paketi";
+"Purchased" = "Kupljeno";
+
+"All Packages" = "Svi paketi";
+"Delete" = "Izbriši";
+
+
+
+// Changes
+
+"Changes" = "Izmene";
+
+// Packages
+
+"Packages" = "Paketi";
+"Show Updates" = "Prikaži nadogradnje";
+"Ignore Updates" = "Ignoriši nadogradnje";
+"Select Version" = "Izaberi verziju";
+"Select a version to upgrade to" = "Izaberi verziju za nadogradnju";
+"Package" = "Paket";
+"Information" = "Informacija";
+"Upgrade All" = "Nadogradi sve";
+"Loaded" = "Učitano";
+"ABC" = "ABC";
+"Date" = "Datum";
+"Size" = "Veličina";
+"Queue" = "Čekanje";
+"Clear" = "Obriši";
+"Are you sure you want to clear Queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
+"Available Upgrades" = "Dostupne nadogradnje";
+"Ignored Upgrades" = "Ignorisanje nadogradnje";
+"Recent" = "Skorašnji";
+"Installed Files" = "Instalirani fajlovi";
+"Modify" = "Izmeni";
+"Authenticate to initiate purchase." = "Priavute se za početak kupovine.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Molimo vas da se ponovo logujete na nalog kojim ste kupili ovaj paket (Najverovatnije %@)";
+"More by this Developer" = "Još od ovog Programera";
+"Installed Version" = "Instalirana verzija";
+"Add to Wish List" = "Dodaj u listu želja";
+"Remove from Wish List" = "Ukloni iz liste želja";
+
+
+// Search
+
+"Search" = "Pretraga";
+"Clear Search" = "Izbriši pretragu";
+"This search query is too short for the full search, please use a longer query." = "Molimo vas unesite veću recč za pretragu.";
+"No Results Found" = "Nema rezultata";
+
+// Downloads
+
+"Downloads" = "Preuzimanja";
+"Error while opening sources.list" = "Greška prilikom preuzimanja sources.list";
+"The repo %@ is incompatible with your jailbreak." = "Repo %@ nije komatibilan sa vašim jailbreak-om.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ovim možete izazvati probleme ako ga dodate u Zebri.";
+"Please remove this repo from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
+"Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
+"Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
+"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";"%@ hasn't been modified" = "%@ nije izmenjen";
+"Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
+
+// Console
+
+"Console" = "Konzola";
+"Performing actions" = "Izvršavam akcije";
+"Updating icon cache asynchronously..." = "Nadogradjujem keš ikona asinhrono...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može oboriti. To ne predstavlja problem.";
+"Close Zebra" = "Zatvori Zebru";
+"Restart SpringBoard" = "Restartuj SpringBoard";
+"Downloading" = "Preuzimanje";
+"Downloading Packages..." = "Preuzimanje Paketa...";
+"Installing" = "Instaliranje";
+"Installing Packages..." = "Instaliranje Paketa...";
+"Removing" = "Uklanjanje";
+"Removing Packages..." = "Uklanjanje Paketa...";
+"Reinstalling" = "Reinstaliranje";
+"Reinstalling Packages..." = "Reinstaliranje Paketa...";
+"Upgrading" = "Nadogradjivanje";
+"Upgrading Packages..." = "Nadogradjivanje Paketa...";
+"Complete" = "Kompletirano";
+"Finished!" = "Završeno!";
+"Return to Queue" = "Vrati se na listu Čekanja";
+"Importing local packages." = "Importovanje lokalnih paketa.";
+"Finished importing local packages." = "Završeno importovanje lokalnih paketa.";
+"One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
+
+
+// Queue
+
+"Queue" = "Lista Čekanja";
+"Queue cleared" = "Lista Čekanja obrisana";
+"Install" = "Instaliraj";
+"Reinstall" = "Reinstaliraj";
+"Remove" = "Ukloni";
+"Upgrade" = "Nadogradi";
+"Downgrade" = "Preuzmi";
+"Abort" = "Obustavi";
+"Continue" = "Nastavi";
+"Download Size" = "Veličina preuzimanja";
+"Could not resolve dependency for %@" = "Nisu pronadjene dependency za %@";
+"%@ conflicts with %@" = "%@ je u konfliktu sa %@";
+"%@ depends on %@" = "%@ zavisi od %@";"Removed by" = "Uklonio";
+"Required by" = "Potrebno od";
