@@ -14,7 +14,7 @@
 
 "Home" = "หน้าหลัก";
 "Info" = "ข้อมูล";
-"Welcome to the Zebra Beta!" = "ยินดีต้อนรับสู่ Zebra Beta!";
+"Welcome to the Zebra Beta!" = "ยินดีต้อนรับสู่ Zebra รุ่นบุกเบิก!";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Community Repos" = "รวมซอร์สจากชุมชน";
 "Transfer Sources from %@" = "โอนซอร์สจาก %@";
@@ -29,15 +29,15 @@
 "Unwish" = "Unwish";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
-"Follow me on Twitter" = "ติดตามฉันใน Twitter";
+"Follow me on Twitter" = "ติดตามเราใน Twitter";
 
 //Credits
 
 "Credits" = "รายการขอบคุณ";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "ผู้ออกแบบ";
+"Contributors" = "ผู้ร่วมพัฒนา";
+"Translators" = "ผู้แปล";
+"Libraries" = "ไลบรารี่";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Error verifying repository" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
 "Error verifying repositories" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
-"Unknown error" = "Unknown error";
+"Unknown error" = "ข้อผิดพลาดที่ไม่รู้จัก";
 "Invalid URL" = "URL ผิด";
 "Enter URL" = "ใส่ URL";
 "Add Repo(s)" = "เพิ่มซอร์ส";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
-"Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Administration" = "ดูแลระบบ";
+"App Addons" = "ส่วนเสริมโปรแกรม";
+"Archiving" = "จัดเก็บเอกสาร";
+"Carrier Support" = "เครือข่ายมือถือ";
+"Communication" = "ติดต่อสื่อสาร";
+"Data Storage" = "จัดเก็บข้อมูล";
+"Development" = "นักพัฒนา";
+"Dictionaries" = "พจนานุกรม";
+"Education" = "การศึกษา";
+"Entertainment" = "บันเทืง";
+"Games" = "เกมส์";
+"Health and Fitness" = "สุขภาพ";
+"Imaging" = "รูปภาพ";
+"Java" = "จาวา";
+"Keyboards" = "แป้นพิมพ์";
+"Localization" = "ท้องถิ่น";
+"Messaging" = "ติดต่อสื่อสาร";
+"Multimedia" = "สื่อประสม";
+"Navigation" = "การนำทาง";
+"Networking" = "ระบบเครือข่าย";
+"Packaging" = "จัดการเอกสาร";
+"Productivity" = "ผลิตภาพ";
+"Repositories" = "ซอร์ส";
+"Ringtones" = "ริงโทน";
+"Scripting" = "ชุดคำสั่ง";
+"Security" = "ความปลอดภัย";
+"Social" = "สังคม";
+"System" = "ระบบ";
+"Terminal Support" = "จัดการ Terminal";
+"Text Editors" = "แก้ไขเอกสาร";
+"Themes" = "ธีม";
+"Toys" = "ของเล่น";
+"Tweaks" = "ทวีค";
 "Utilities" = "จิปาถะ";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "ภาพพื้นหลัง";
+"Widgets" = "โปรแกรมตกแต่ง";
 
 // Search
 
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ ต้องการ %@";
 "Removed by" = "ถูกลบโดย";
 "Required by" = "ต้องการโดย";
-"Confirm" = "Confirm";
+"Confirm" = "ยืนยัน";
