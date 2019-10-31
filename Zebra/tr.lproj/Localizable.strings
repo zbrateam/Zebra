@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı.";
 "Utility repo for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
-"Utilities" = "Araçlar";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
 "Stores" = "Marketler";
@@ -44,25 +43,22 @@
 
 "Settings" = "Ayarlar";
 "Version" = "Versiyon";
-"Information" = "Bilgi";
 "Graphics" = "Grafikler";
 "Featured" = "Öne Çıkanlar";
 "News" = "Haberler";
-"Search" = "Ara";
 "Miscellaneous" = "Diğer";
 "Advanced" = "Gelişmiş";
 
 "Report a Bug" = "Hata Bildir";
 
 "Tint Color" = "Tema Rengi";
-"Default" = "Orjinal";
 "Blue" = "Mavi";
 "Orange" = "Turuncu";
 "White" = "Beyaz";
 "Black" = "Siyah";
 
 "Dark Mode" = "Karanlık Mod";
-"Default" = "Default";
+"Default" = "Orjinal";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Zaten bu kaynakları ekledin.";
 "Error verifying repository" = "Kaynağı onaylarken hata oluştu";
 "Error verifying repositories" = "Kaynakları onaylarken hata oluştu";
-"Unknown error." = "Bilinmeyen Hata.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Geçersiz Link";
 "Enter URL" = "Link Girin";
 "Add Repo(s)" = "Kaynak(ları) Ekle";
@@ -130,13 +126,12 @@
 "Select Version" = "Versiyon Seçin";
 "Select a version to upgrade to" = "Yüklenecek versiyonu seçin";
 "Package" = "Paket";
-"Information" = "Information";
+"Information" = "Bilgi";
 "Upgrade All" = "Hepsini Güncelle";
 "Loaded" = "Yüklendi";
 "ABC" = "ABC";
 "Date" = "Tarih";
 "Size" = "Boyut";
-"Queue" = "Sıra";
 "Clear" = "Temizle";
 "Are you sure you want to clear Queue?" = "Sırayı temizlemek istediğine emin misin?";
 "Available Upgrades" = "Uygun Güncellemeler";
@@ -187,13 +182,13 @@
 "Themes" = "Temalar";
 "Toys" = "Oyuncaklar";
 "Tweaks" = "Tweaklar";
-"Utilities" = "Utilities";
+"Utilities" = "Araçlar";
 "Wallpaper" = "Duvar Kağıtları";
 "Widgets" = "Widgetler";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Ara";
 "Clear Search" = "Aramayı Temizle";
 "This search query is too short for the full search, please use a longer query." = "Yaptığınız arama, arama yapmak için çok kısaydı. Lütfen daha uzun bir şey arayın.";
 "No Results Found" = "Sonuç Yok";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Sıra";
 "Queue cleared" = "Sıra temizlendi";
 "Install" = "Yükle";
 "Reinstall" = "Tekrar yükle";
