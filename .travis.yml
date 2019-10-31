@@ -1,6 +1,10 @@
 language: objective-c
 osx_image: xcode10.2
 
+branches:
+  except:
+    - localization
+
 env:
   global:
     - THEOS=theos
