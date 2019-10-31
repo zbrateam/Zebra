@@ -14,7 +14,7 @@
 
 "Home" = "الرئيسية";
 "Info" = "معلومات";
-"Welcome to the Zebra Beta!" = "مرحباً بك في Zebra التجريبي!";
+"Welcome to the Zebra Beta!" = "مرحبًا بك في Zebra التجريبي!";
 "Changelog" = "التغييرات";
 "Community Repos" = "مجتمع المستودعات";
 "Transfer Sources from %@" = "تحويل المصادر من %@";
@@ -26,7 +26,7 @@
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
-"Unwish" = "Unwish";
+"Unwish" = "إزالة من القائمة";
 "Community" = "المجتمع";
 "Join our Discord" = "انضم لنا على Discord";
 "Follow me on Twitter" = "تابعنا على تويتر";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "الإعتمادات";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "المنشئون";
+"Contributors" = "المساهمون";
+"Translators" = "المترجمون";
+"Libraries" = "المكتبات";
 
 // Settings
 
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "الإبلاغ عن خطأ";
 
-"Tint Color" = "لون الخط";
+"Tint Color" = "لون الصبغة";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
 "White" = "أبيض";
@@ -83,7 +83,7 @@
 
 "Loading..." = "جارِ التحميل...";
 
-"Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
+"Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقتة للصور مكتملة";
 "Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
 
 // Sources
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
-"Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Administration" = "الإدارة";
+"App Addons" = "إضافات التطبيقات";
+"Archiving" = "الأرشفة";
+"Carrier Support" = "دعم الناقل";
+"Communication" = "التواصل";
+"Data Storage" = "تخزين البيانات";
+"Development" = "التطوير";
+"Dictionaries" = "القواميس";
+"Education" = "التعليم";
+"Entertainment" = "وسائل الترفيه";
+"Games" = "الألعاب";
+"Health and Fitness" = "الصحة واللياقة";
+"Imaging" = "التصوير";
+"Java" = "جافا";
+"Keyboards" = "لوحات المفاتيح";
+"Localization" = "الترجمات";
+"Messaging" = "الرسائل";
+"Multimedia" = "الوسائط المتعددة";
+"Navigation" = "التنقل";
+"Networking" = "الشبكات";
+"Packaging" = "التهيئة";
+"Productivity" = "الإنتاجية";
+"Repositories" = "المستودعات";
+"Ringtones" = "النغمات";
+"Scripting" = "البرمجة";
+"Security" = "الأمان";
+"Social" = "اجتماعي";
+"System" = "النظام";
+"Terminal Support" = "دعم الوحدة الطرفية";
+"Text Editors" = "محررين النصوص";
+"Themes" = "الموضوعات";
+"Toys" = "ألعاب الأطفال";
+"Tweaks" = "الأدوات";
 "Utilities" = "خدمات";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "الخلفيات";
+"Widgets" = "الويدجات";
 
 // Search
 
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ يعتمد على %@";
 "Removed by" = "تمت إزالته بواسطة";
 "Required by" = "مطلوب بواسطة";
-"Confirm" = "Confirm";
+"Confirm" = "تأكيد";
