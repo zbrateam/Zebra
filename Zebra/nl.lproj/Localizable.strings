@@ -2,20 +2,20 @@
 
 "Cancel" = "Annuleer";
 "No" = "Nee";
-"Ok" = "Ok";
-"Error" = "Error";
+"Ok" = "Oké";
+"Error" = "Fout";
 "Retry" = "Probeer opnieuw";
 "Edit" = "Wijzig";
-"Login" = "Login";
+"Login" = "Aanmelden";
 "Close" = "Sluit";
 "Done" = "Klaar";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
+"Home" = "Thuis";
+"Info" = "Informatie";
 "Welcome to the Zebra Beta!" = "Welkom bij de beta van Zebra!";
-"Changelog" = "Changelog";
+"Changelog" = "Wijzigingslogboek";
 "Community Repos" = "Community Bronnen";
 "Transfer Sources from %@" = "Verplaats bronnen van %@";
 "Move all sources from %@ to Zebra" = "Verplaats alle bronnen van %@ naar Zebra";
@@ -26,18 +26,18 @@
 "Stores" = "Winkel";
 "Purchases" = "Kopen";
 "Wish List" = "Verlanglijst";
-"Unwish" = "Unwish";
-"Community" = "Community";
+"Unwish" = "Ongewenst";
+"Community" = "Gemeenschap";
 "Join our Discord" = "Join onze Discord";
 "Follow me on Twitter" = "Volg mij op Twitter";
 
 //Credits
 
-"Credits" = "Credits";
+"Credits" = "Met dank aan";
 "Creators" = "Makers";
 "Contributors" = "Bijdragers";
 "Translators" = "Vertalers";
-"Libraries" = "Libraries";
+"Libraries" = "Bibliotheken";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Deze bronnen heb je al toegevoegd";
 "Error verifying repository" = "Er is een fout opgetreden tijdens het verifiëren van de bron.";
 "Error verifying repositories" = "Er is een fout opgetreden tijdens het verifiëren van de bronnen.";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Onbekende fout";
 "Invalid URL" = "Ongeldige URLD";
 "Enter URL" = "Voer een URL in";
 "Add Repo(s)" = "Voeg bron(nen) toe";
@@ -152,27 +152,27 @@
 "Administration" = "Administratie";
 "App Addons" = "App Toevoeginen";
 "Archiving" = "Archivering";
-"Carrier Support" = "Carrier Support";
+"Carrier Support" = "Provider Hulp";
 "Communication" = "Communicatie";
 "Data Storage" = "Data Opslag";
 "Development" = "Ontwikkeling";
 "Dictionaries" = "Woordenboeken";
 "Education" = "Educatie";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
+"Entertainment" = "Vermaak";
+"Games" = "Spellen";
 "Health and Fitness" = "Gezondheid en Fitness";
 "Imaging" = "Fotografie";
 "Java" = "Java";
 "Keyboards" = "Toetsenborden";
 "Localization" = "Lokalisatie";
-"Messaging" = "Messaging";
+"Messaging" = "Berichten";
 "Multimedia" = "Multimedia";
 "Navigation" = "Navigatie";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
+"Networking" = "Netwerken";
+"Packaging" = "Verpakking";
 "Productivity" = "Productiviteit";
 "Repositories" = "Bronnen";
-"Ringtones" = "Ringtones";
+"Ringtones" = "Beltonen";
 "Scripting" = "Scripting";
 "Security" = "Beveiliging";
 "Social" = "Sociaal";
@@ -181,7 +181,7 @@
 "Text Editors" = "Tekstverwerkers";
 "Themes" = "Themas";
 "Toys" = "Speelgoed";
-"Tweaks" = "Tweaks";
+"Tweaks" = "Aanpassingen";
 "Utilities" = "Benodigheden";
 "Wallpaper" = "Achtergronden";
 "Widgets" = "Widgets";
