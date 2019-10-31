@@ -22,7 +22,7 @@
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
 "Utilities" = "Darbarīki";
-"Please Wait..." = "Lūdzu, uzgaidiet...";
+"Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
@@ -48,7 +48,7 @@
 "Graphics" = "Designs";
 "Featured" = "Piedāvājumi";
 "News" = "Jaunumi";
-"Search" = "Meklēšana";
+"Search" = "Meklēt";
 "Miscellaneous" = "Dažādi";
 "Advanced" = "Progresīvs";
 
@@ -62,7 +62,7 @@
 "Black" = "Melns";
 
 "Dark Mode" = "Tumšais režīms";
-"Default" = "Normāls";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Pievienot";
 "Add Multiple" = "Pievienot vairākus";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
-"Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verificējam avotu(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nevar verificēt avotu(s)";
 "Refresh" = "Atjaunot";
 "Log Out" = "Izlogoties";
@@ -130,7 +130,7 @@
 "Select Version" = "Ieslēgt versiju";
 "Select a version to upgrade to" = "Izvēlies versiju, uz kuru jaunināt";
 "Package" = "Pakete";
-"Information" = "Informācija";
+"Information" = "Information";
 "Upgrade All" = "Visus jaunināt";
 "Loaded" = "Ielādēts";
 "ABC" = "ABC";
@@ -193,7 +193,7 @@
 
 // Search
 
-"Search" = "Meklēt";
+"Search" = "Search";
 "Clear Search" = "Notīrīt meklēšanu";
 "This search query is too short for the full search, please use a longer query." = "Šis meklēšānas veicinājums ir pārāk īss, lai veiktu pilnīgu meklēšanu, izmantojiet garāku veicinājumu.";
 "No Results Found" = "Neviens rezultāts atrasts";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Rinda";
+"Queue" = "Queue";
 "Queue cleared" = "Rinda ir notīrīta";
 "Install" = "Instalēt";
 "Reinstall" = "Pārinstalēt";
