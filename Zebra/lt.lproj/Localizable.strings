@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Perkelti visus šaltinius iš %@ į Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
 "Transfer Sources" = "Perkelti Šaltinius";
-"Utilities" = "Naudingos programos";
 "Please Wait..." = "Prašom palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
 "Stores" = "Parduotuvės";
@@ -44,25 +43,22 @@
 
 "Settings" = "Nustatymai";
 "Version" = "Versija";
-"Information" = "Informacija";
 "Graphics" = "Grafika";
 "Featured" = "Rodomiausi";
 "News" = "Naujienos";
-"Search" = "Paieška";
 "Miscellaneous" = "Įvairūs";
 "Advanced" = "Išplėstiniai nustatymai";
 
 "Report a Bug" = "Pranešti apie klaidą";
 
 "Tint Color" = "Atspalvis";
-"Default" = "Numatytas";
 "Blue" = "Mėlynas";
 "Orange" = "Orandž.";
 "White" = "Baltas";
 "Black" = "Juodas";
 
 "Dark Mode" = "Tamsus režimas";
-"Default" = "Default";
+"Default" = "Numatytas";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Jūs jau esate pridėję šias saugyklas.";
 "Error verifying repository" = "Ištiko klaida tikrinant saugyklą";
 "Error verifying repositories" = "Ištiko klaida tikrinant saugyklas";
-"Unknown error." = "Nežinoma klaida.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Netinkamas šaltinio adresas";
 "Enter URL" = "Įveskite šaltinio adresą";
 "Add Repo(s)" = "Pridėti saugyklą(as)";
@@ -130,13 +126,12 @@
 "Select Version" = "Pasirinkti versiją";
 "Select a version to upgrade to" = "Pasirinkti naujinimo versiją";
 "Package" = "Paketas";
-"Information" = "Information";
+"Information" = "Informacija";
 "Upgrade All" = "Naujinti visus";
 "Loaded" = "Pakrautas";
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Dydis";
-"Queue" = "Eilė";
 "Clear" = "Išvalyti";
 "Are you sure you want to clear Queue?" = "Ar tikrai norite išvalyti eilę?";
 "Available Upgrades" = "Prieinami naujinimai";
@@ -187,13 +182,13 @@
 "Themes" = "Apipavidalinimas";
 "Toys" = "Žaislai";
 "Tweaks" = "Pataisymai";
-"Utilities" = "Utilities";
+"Utilities" = "Naudingos programos";
 "Wallpaper" = "Darbalaukio fonai";
 "Widgets" = "Valdikliai";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Paieška";
 "Clear Search" = "Išvalyti paiešką";
 "This search query is too short for the full search, please use a longer query." = "Ši paieškos užklausa per trumpa pilnai paieškai, prašom naudoti ilgesnę užklausą.";
 "No Results Found" = "Nieko nerasta";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Eilė";
 "Queue cleared" = "Eilė išvalyta";
 "Install" = "Įdiegti";
 "Reinstall" = "Įdiegti iš naujo";
