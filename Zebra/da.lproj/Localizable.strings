@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Flyt alle kilder fra %@ til Zebra";
 "Utility repo for %@" = "Utility arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
-"Utilities" = "Utilities";
 "Please Wait..." = "Vent Venligst...";
 "Verifying Source(s)" = "Verificerer Kilde(r)";
 "Stores" = "Butikker";
@@ -44,25 +43,22 @@
 
 "Settings" = "Indstillinger";
 "Version" = "Udgave";
-"Information" = "Information";
 "Graphics" = "Grafik";
 "Featured" = "Udvalgte";
 "News" = "Nyheder";
-"Search" = "Søgning";
 "Miscellaneous" = "Diverse";
 "Advanced" = "Avanceret";
 
 "Report a Bug" = "Rapporter en Fejl";
 
 "Tint Color" = "Farvenuancer";
-"Default" = "Standard";
 "Blue" = "Blå";
 "Orange" = "Orange";
 "White" = "Hvid";
 "Black" = "Sort";
 
 "Dark Mode" = "Mørke Tilstand";
-"Default" = "Default";
+"Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Du har allerede tilføjet disse arkiver.";
 "Error verifying repository" = "Fejl med at verificere arkiv";
 "Error verifying repositories" = "Fejl med at verificere arkiver";
-"Unknown error." = "Ukendt Fejl.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Ugyldig Webadresse";
 "Enter URL" = "Indtast Webadresse";
 "Add Repo(s)" = "Tilføj Arkiv(er)";
@@ -136,7 +132,6 @@
 "ABC" = "ABC";
 "Date" = "Dato";
 "Size" = "Størrelse";
-"Queue" = "Kø";
 "Clear" = "Ryd";
 "Are you sure you want to clear Queue?" = "Er du sikker på at du vil rydde køen?";
 "Available Upgrades" = "Tilgængelig Opgraderinger";
@@ -193,7 +188,7 @@
 
 // Search
 
-"Search" = "Search";
+"Search" = "Søgning";
 "Clear Search" = "Ryd Søgning";
 "This search query is too short for the full search, please use a longer query." = "Denne søgeforespørgsel er for kort til den fulde søgning. Brug en længere forespørgsel.";
 "No Results Found" = "Ingen Resultater Fundet";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Kø";
 "Queue cleared" = "Kø ryddet";
 "Install" = "Installer";
 "Reinstall" = "Geninstallere";
