@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Mover todas as Fontes de %@ para o Zebra";
 "Utility repo for %@" = "Repo utilitário para %@";
 "Transfer Sources" = "Transferir Fontes";
-"Utilities" = "Utilitários";
 "Please Wait..." = "Por favor aguarda...";
 "Verifying Source(s)" = "A Verificar Fonte(s)";
 "Stores" = "Lojas";
@@ -44,25 +43,22 @@
 
 "Settings" = "Definições";
 "Version" = "Versão";
-"Information" = "Informação";
 "Graphics" = "Graficos";
 "Featured" = "Destaque";
 "News" = "Notícias";
-"Search" = "Procurar";
 "Miscellaneous" = "Diversos";
 "Advanced" = "Avançado";
 
 "Report a Bug" = "Reportar um Bug";
 
 "Tint Color" = "Tonalidade";
-"Default" = "Original";
 "Blue" = "Azul";
 "Orange" = "Laranja";
 "White" = "Branco";
 "Black" = "Preto";
 
 "Dark Mode" = "Dark Mode";
-"Default" = "Default";
+"Default" = "Original";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Repos adicionados anteriormente.";
 "Error verifying repository" = "Erro na verificação de repositório";
 "Error verifying repositories" = "Erro na verificação de repositórios";
-"Unknown error." = "Erro desconhecido.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "URL inválido";
 "Enter URL" = "Inserir URL";
 "Add Repo(s)" = "Adicionar Repo(s)";
@@ -130,13 +126,12 @@
 "Select Version" = "Selecionar Versão";
 "Select a version to upgrade to" = "Selecionar uma versão para atualizar";
 "Package" = "Pacote";
-"Information" = "Information";
+"Information" = "Informação";
 "Upgrade All" = "Atualizar TODOS";
 "Loaded" = "Carregado";
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Tamanho";
-"Queue" = "Fila";
 "Clear" = "Apagar";
 "Are you sure you want to clear Queue?" = "Tens a certeza que queres apagar a Fila?";
 "Available Upgrades" = "Atualizações Disponíveis";
@@ -187,13 +182,13 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Utilitários";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Procurar";
 "Clear Search" = "Apagar Procura";
 "This search query is too short for the full search, please use a longer query." = "Esta consulta é muito curta, por favor usa uma consulta mais longa";
 "No Results Found" = "0 Resultados Encontrados";
@@ -244,7 +239,7 @@
 
 // Queue
 
-"Queue" = "Queue";
+"Queue" = "Fila";
 "Queue cleared" = "Fila apagada";
 "Install" = "Instalada";
 "Reinstall" = "Reinstalada";
