@@ -1,0 +1,129 @@
+/* Class = "UITextView"; text = "https://"; ObjectID = "0Ww-bu-v6H"; */
+"0Ww-bu-v6H.text" = "https://";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "2br-hO-A7c"; */
+"2br-hO-A7c.title" = "Home";
+
+/* Class = "UINavigationItem"; title = "Alternate Icons"; ObjectID = "4hP-li-yF0"; */
+"4hP-li-yF0.title" = "Alternate Icons";
+
+/* Class = "UIBarButtonItem"; title = "Add"; ObjectID = "6kO-W0-z9d"; */
+"6kO-W0-z9d.title" = "Add";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "6rV-5L-Zj6"; */
+"6rV-5L-Zj6.text" = "Name";
+
+/* Class = "UITabBarItem"; title = "Search"; ObjectID = "7Ob-xQ-Odl"; */
+"7Ob-xQ-Odl.title" = "Search";
+
+/* Class = "UINavigationItem"; title = "Sources"; ObjectID = "08I-GH-0Ip"; */
+"08I-GH-0Ip.title" = "Sources";
+
+/* Class = "UINavigationItem"; title = "Search"; ObjectID = "31H-5B-Xgc"; */
+"31H-5B-Xgc.title" = "Search";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "b2f-RD-kgA"; */
+"b2f-RD-kgA.text" = "Library Name";
+
+/* Class = "UILabel"; text = "package-name"; ObjectID = "bLd-KE-N3G"; */
+"bLd-KE-N3G.text" = "package-name";
+
+/* Class = "UIBarButtonItem"; title = "Continue"; ObjectID = "Bpj-dl-pWU"; */
+"Bpj-dl-pWU.title" = "Continue";
+
+/* Class = "UILabel"; text = "Progress Text"; ObjectID = "BuP-O1-Zgo"; */
+"BuP-O1-Zgo.text" = "Progress Text";
+
+/* Class = "UINavigationItem"; title = "Changes"; ObjectID = "eZC-Ua-ycq"; */
+"eZC-Ua-ycq.title" = "Changes";
+
+/* Class = "UITableViewController"; title = "Wish List"; ObjectID = "EZp-oK-GMJ"; */
+"EZp-oK-GMJ.title" = "Wish List";
+
+/* Class = "UINavigationItem"; title = "Stores"; ObjectID = "Fol-dR-guQ"; */
+"Fol-dR-guQ.title" = "Stores";
+
+/* Class = "UINavigationItem"; title = "Packages"; ObjectID = "gE6-EQ-6Uj"; */
+"gE6-EQ-6Uj.title" = "Packages";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "gzb-2p-Jk6"; */
+"gzb-2p-Jk6.text" = "Email";
+
+/* Class = "UIBarButtonItem"; title = "Install"; ObjectID = "hET-rE-7Dw"; */
+"hET-rE-7Dw.title" = "Install";
+
+/* Class = "UIBarButtonItem"; title = "DarkMode"; ObjectID = "hXW-6i-kIV"; */
+"hXW-6i-kIV.title" = "DarkMode";
+
+/* Class = "UILabel"; text = "UDID"; ObjectID = "I0l-s2-v3D"; */
+"I0l-s2-v3D.text" = "UDID";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "j1j-pb-Xsj"; */
+"j1j-pb-Xsj.text" = "Title";
+
+/* Class = "UITabBarItem"; title = "Packages"; ObjectID = "LuL-3D-0wp"; */
+"LuL-3D-0wp.title" = "Packages";
+
+/* Class = "UINavigationItem"; title = "Add Repo(s)"; ObjectID = "mbr-uZ-nXO"; */
+"mbr-uZ-nXO.title" = "Add Repo(s)";
+
+/* Class = "UINavigationItem"; title = "Install External Package"; ObjectID = "MQI-VB-IdN"; */
+"MQI-VB-IdN.title" = "Install External Package";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "NsY-iH-dLr"; */
+"NsY-iH-dLr.text" = "Detail";
+
+/* Class = "UITabBarItem"; title = "Changes"; ObjectID = "Nxh-VC-OjH"; */
+"Nxh-VC-OjH.title" = "Changes";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "oh8-5M-vz9"; */
+"oh8-5M-vz9.text" = "Name";
+
+/* Class = "UILabel"; text = "Zebra Info"; ObjectID = "OLj-LP-ZdY"; */
+"OLj-LP-ZdY.text" = "Zebra Info";
+
+/* Class = "UITabBarItem"; title = "Sources"; ObjectID = "P6k-Pc-rHZ"; */
+"P6k-Pc-rHZ.title" = "Sources";
+
+/* Class = "UINavigationItem"; title = "Account"; ObjectID = "qF9-ad-Phi"; */
+"qF9-ad-Phi.title" = "Account";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "Qre-6t-1Jn"; */
+"Qre-6t-1Jn.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "rZ1-lO-iJO"; */
+"rZ1-lO-iJO.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "Clear"; ObjectID = "SKk-kx-VYh"; */
+"SKk-kx-VYh.title" = "Clear";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "sOd-6W-q9J"; */
+"sOd-6W-q9J.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "tew-zJ-h7b"; */
+"tew-zJ-h7b.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Queue"; ObjectID = "uSZ-TC-nHR"; */
+"uSZ-TC-nHR.title" = "Queue";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "utG-bq-Bqo"; */
+"utG-bq-Bqo.text" = "Detail";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Veu-eR-jvK"; */
+"Veu-eR-jvK.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "Confirm"; ObjectID = "vfP-8Y-pVN"; */
+"vfP-8Y-pVN.title" = "Confirm";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "x2h-wr-du6"; */
+"x2h-wr-du6.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "XlQ-5c-DZ1"; */
+"XlQ-5c-DZ1.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Zebra + Version"; ObjectID = "Yye-PV-Xqq"; */
+"Yye-PV-Xqq.text" = "Zebra + Version";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "zte-bN-R1X"; */
+"zte-bN-R1X.normalTitle" = "Cancel";
+
