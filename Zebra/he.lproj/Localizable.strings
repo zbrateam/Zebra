@@ -103,8 +103,8 @@
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "נא להמתין...";
+"Verifying Source(s)" = "מאמת מקור(ות)";
 "Unable to verify Repo" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
 "Log Out" = "התנתק";
