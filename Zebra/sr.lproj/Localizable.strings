@@ -21,7 +21,6 @@
 "Move all sources from %@ to Zebra" = "Move all sources from Prebaci sve izvorne Repoe %@ u Zebru";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
-"Utilities" = "Korisne";
 "Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifikacija izvora";
 "Stores" = "Stores";
@@ -44,18 +43,15 @@
 
 "Settings" = "Podešavanja";
 "Version" = "Verzija";
-"Information" = "Informacija";
 "Graphics" = "Grfika";
 "Featured" = "Istaknuto";
 "News" = "Novosti";
-"Search" = "Search";
 "Miscellaneous" = "Detalji";
 "Advanced" = "Napredno";
 
 "Report a Bug" = "Prijavi gresku";
 
 "Tint Color" = "Tint Boja";
-"Default" = "Podrazumevano";
 "Blue" = "Plava";
 "Orange" = "Narandžasta";
 "White" = "Bela";
@@ -100,7 +96,7 @@
 "You have already added these repositories." = "Vec ste dodali ove repo-e.";
 "Error verifying repository" = "Greška u verifikaciji repo-a";
 "Error verifying repositories" = "Greška u verifikacije repoa";
-"Unknown error." = "Nepoznata greška.";
+"Unknown error" = "Unknown error";
 "Invalid URL" = "Nepravilan URL";
 "Enter URL" = "Unesite URL";
 "Add Repo(s)" = "Dodaj Repo(e)";
@@ -130,13 +126,12 @@
 "Select Version" = "Izaberi verziju";
 "Select a version to upgrade to" = "Izaberi verziju za nadogradnju";
 "Package" = "Paket";
-"Information" = "Information";
+"Information" = "Informacija";
 "Upgrade All" = "Nadogradi sve";
 "Loaded" = "Učitano";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Veličina";
-"Queue" = "Queue";
 "Clear" = "Obriši";
 "Are you sure you want to clear Queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
 "Available Upgrades" = "Dostupne nadogradnje";
@@ -187,7 +182,7 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
+"Utilities" = "Korisne";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
