@@ -26,7 +26,7 @@
 "Stores" = "Sklepy";
 "Purchases" = "Zakupione";
 "Wish List" = "Lista Życzeń";
-"Unwish" = "Unwish";
+"Unwish" = "Usuń z listy życzeń";
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
 "Follow me on Twitter" = "Śledź mnie na Twitterze";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Te repozytoria zostały już dodane.";
 "Error verifying repository" = "Błąd weryfykacji repozytorium";
 "Error verifying repositories" = "Błąd weryfykacji repozytoriów";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Nieznany błąd";
 "Invalid URL" = "Błędny URL";
 "Enter URL" = "Wpisz URL";
 "Add Repo(s)" = "Dodaj repozytoria";
 "Add" = "Dodaj";
 "Add Multiple" = "Dodaj wiele";
 "Would you like to add the URL from your clipboard?" = "Czy chcesz skopiować URL do schowka?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Proszę czekać...";
+"Verifying Source(s)" = "Weryfikowanie źródeł";
 "Unable to verify Repo" = "Nie można zweryfikować repozytorium";
 "Refresh" = "Odśwież";
 "Log Out" = "Wyloguj się";
@@ -152,7 +152,7 @@
 "Administration" = "Administracyjne";
 "App Addons" = "Dodatki do aplikacji";
 "Archiving" = "Archiwizacja";
-"Carrier Support" = "Carrier Support";
+"Carrier Support" = "Wsparcie operatorów";
 "Communication" = "Komunikacja";
 "Data Storage" = "Przechowywanie danych";
 "Development" = "Dewelopment";
