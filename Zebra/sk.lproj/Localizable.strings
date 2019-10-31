@@ -10,11 +10,6 @@
 "Close" = "Zavrieť";
 "Done" = "Hotovo";
 
-// Tab controller
-"Packages in Queue" = "Balíčky vo fronte";
-"Package in Queue" = "Balíček vo fronte";
-"Tap to manage Queue" = "Tapni, a spravuj frontu";
-
 // Home
 
 "Home" = "Domú";
@@ -27,16 +22,23 @@
 "Utility repo for %@" = "Repozitáre nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Utilities" = "Nástroje";
-"Please Wait..." = "Prosím čekajte...";
-"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
+"Please Wait..." = "Prosím čakajťe...";
+"Verifying Source(s)" = "Overovanie repozitárov";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
 "Wish List" = "Wish List";
-"Unlist" = "Odebrať";
+"Unwish" = "Unwish";
 "Community" = "Komunita";
 "Join our Discord" = "Pripoj sa na náš Discord";
 "Follow me on Twitter" = "Sleduj ma na Twitteri";
+
+//Credits
+
 "Credits" = "Kredity";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "Čierna";
 
 "Dark Mode" = "Tmavý režim";
-"Default" = "Predvolené";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Pridať";
 "Add Multiple" = "Pridať viac";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
-"Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovanie repozitárov";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nie je možné overiť repozitár";
 "Refresh" = "Refreshút";
 "Log Out" = "Odhlásiť sa";
@@ -128,7 +130,7 @@
 "Select Version" = "Vyber verziu";
 "Select a version to upgrade to" = "Vyberte verziu, na ktorú chcete aktualizovať";
 "Package" = "Balíček";
-"Information" = "Informácie";
+"Information" = "Information";
 "Upgrade All" = "Aktualizovať všetko";
 "Loaded" = "Načítané";
 "ABC" = "ABC";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Pridať na Wish List";
 "Remove from Wish List" = "Odstrániť z Wish Listu";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Hľadať";
+"Search" = "Search";
 "Clear Search" = "Vyčistiť hľadanie";
 "This search query is too short for the full search, please use a longer query." = "Tento vyhľadávací dopyt je príliš krátky na úplné vyhľadávanie. Použite dlhší dopyt.";
 "No Results Found" = "Neboli nájdené žiadne výsledky";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "Nepodarilo sa stiahnuť jeden alebo viac balíčkov.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do fronty\" pre vrátenie do fronty a opakujte sťahovanie";
 
+// Queue Bar
+"Packages in Queue" = "Balíčky vo fronte";
+"Package in Queue" = "Balíček vo fronte";
+"Tap to manage Queue" = "Tapni, a spravuj frontu";
+
 // Queue
 
-"Queue" = "Fronta";
+"Queue" = "Queue";
 "Queue cleared" = "Fronta vyčistená";
 "Install" = "Inštalovať";
 "Reinstall" = "Preinštalovať";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ je závislý na %@";
 "Removed by" = "Odstránené používateľom";
 "Required by" = "Vyžadované kvôli";
+"Confirm" = "Confirm";

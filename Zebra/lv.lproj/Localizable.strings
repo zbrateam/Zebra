@@ -10,11 +10,6 @@
 "Close" = "Aizvērt";
 "Done" = "Gatavs";
 
-// Tab controller
-"Packages in Queue" = "Paketes rindā";
-"Package in Queue" = "Pakete rindā";
-"Tap to manage Queue" = "Pieskarties, lai pārvaldātu rindu";
-
 // Home
 
 "Home" = "Sākums";
@@ -32,11 +27,18 @@
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
 "Wish List" = "Vēlmju saraksts";
-"Unlist" = "Noņemt no saraksta";
+"Unwish" = "Unwish";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
 "Follow me on Twitter" = "Seko man Twitterī";
+
+//Credits
+
 "Credits" = "Kredīti";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Pievienot vēlmju sarakstam";
 "Remove from Wish List" = "Noņemt no vēlmju sarakstam";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "Meklēt";
@@ -196,6 +237,11 @@
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
 
+// Queue Bar
+"Packages in Queue" = "Paketes rindā";
+"Package in Queue" = "Pakete rindā";
+"Tap to manage Queue" = "Pieskarties, lai pārvaldātu rindu";
+
 // Queue
 
 "Queue" = "Rinda";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ ir atkarīgs no %@";
 "Removed by" = "Izdzēsts no";
 "Required by" = "Nepieciešams no";
+"Confirm" = "Confirm";

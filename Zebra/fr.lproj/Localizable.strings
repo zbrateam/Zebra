@@ -10,11 +10,6 @@
 "Close" = "Fermer";
 "Done" = "Fini";
 
-// Tab controller
-"Packages in Queue" = "Paquets en File d'Attente";
-"Package in Queue" = "Paquet en File d'Attente";
-"Tap to manage Queue" = "Appuyer pour modifier la File d'Attente";
-
 // Home
 
 "Home" = "Accueil";
@@ -32,11 +27,18 @@
 "Stores" = "Magasins";
 "Purchases" = "Achats";
 "Wish List" = "Liste de souhait";
-"Unlist" = "Enlever de la liste";
+"Unwish" = "Unwish";
 "Community" = "Communauté";
 "Join our Discord" = "Rejoindre notre serveur Discord";
 "Follow me on Twitter" = "Me suivre sur Twitter";
+
+//Credits
+
 "Credits" = "Crédits";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -46,7 +48,7 @@
 "Graphics" = "Graphiques";
 "Featured" = "En Vedette";
 "News" = "Nouveautés";
-"Search" = "Rechercher";
+"Search" = "Recherche";
 "Miscellaneous" = "Divers";
 "Advanced" = "Avancé";
 
@@ -60,7 +62,7 @@
 "Black" = "Noir";
 
 "Dark Mode" = "Mode Sombre";
-"Default" = "Défaut";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "Ajouter";
 "Add Multiple" = "Ajouter plusieurs";
 "Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter cet URL à votre presse-papiers?";
-"Please Wait..." = "Patientez...";
-"Verifying Source(s)" = "Vérification de la(des) Source(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Impossible de vérifier la(les) Source(s)";
 "Refresh" = "Rafraîchir";
 "Log Out" = "Déconnexion";
@@ -128,13 +130,13 @@
 "Select Version" = "Selectionner la Version";
 "Select a version to upgrade to" = "Selectionner une version à mettre à jour vers";
 "Package" = "Paquet";
-"Information" = "Informations";
+"Information" = "Information";
 "Upgrade All" = "Tout Mettre à Jour";
 "Loaded" = "Chargé";
 "ABC" = "ABC";
 "Date" = "Date";
 "Size" = "Taille";
-"Queue" = "File d'attente";
+"Queue" = "File d'Attente";
 "Clear" = "Vider";
 "Are you sure you want to clear Queue?" = "Etes vous sur de vouloir vider la File d'Attente?";
 "Available Upgrades" = "Mises à Niveau Disponibles";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "Ajouter à la Liste de Souhait";
 "Remove from Wish List" = "Supprimer de la Liste de Souhait";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "Recherche";
+"Search" = "Search";
 "Clear Search" = "Vider la Recherche";
 "This search query is too short for the full search, please use a longer query." = "Cette recherche est trop courte, veuillez en utiliser une plus longue.";
 "No Results Found" = "Aucun Résultat Trouvé";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "Un ou plusieurs paquets n'ont pas pu être téléchargés.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clic \"Retour à la File d'Attente\" pour retourner à la File d'Attente et réessayer le téléchargement.";
 
+// Queue Bar
+"Packages in Queue" = "Paquets en File d'Attente";
+"Package in Queue" = "Paquet en File d'Attente";
+"Tap to manage Queue" = "Appuyer pour modifier la File d'Attente";
+
 // Queue
 
-"Queue" = "File d'Attente";
+"Queue" = "Queue";
 "Queue cleared" = "File d'Attente nettoyée";
 "Install" = "Installer";
 "Reinstall" = "Réinstaller";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ dépend de %@";
 "Removed by" = "Supprimé par";
 "Required by" = "Souhaité par";
+"Confirm" = "Confirm";

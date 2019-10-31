@@ -1,206 +1,262 @@
-"%@ conflicts with %@"="%@ מתנגש עם %@";
-"%@ depends on %@"="%@ תלוי ב-%@";
-"%@ hasn't been modified"="לא בוצעו שינויים ב-%@";
-"ABC"="אבג";
-"Abort"="ביטול";
-"Add"="הוסף";
-"Add Multiple"="הוסף מרובים";
-"Add Repo(s)"="הוסף מקור(ות)";
-"Add to Wish List"="הוסף לרשימת המשאלות";
-"Administration"="ניהול";
-"Advanced"="מתקדם";
-"All Packages"="כל החבילות";
-"App Addons"="תוספות ליישומים";
-"Archiving"="ארכיון";
-"Are you sure you want to clear Queue?"="האם את\/ה בטוח\/ה שברצונך לנקות את התור?";
-"Authenticate to initiate purchase."="בצע\/י אימות כדי להתחיל רכישה.";
-"Available Upgrades"="עדכונים זמינים";
-"Black"="שחור";
-"Blue"="כחול";
-"Cancel"="ביטול";
-"Carrier Support"="תמיכת מפעילים";
-"Change Icon"="שנה אייקון";
-"Changelog"="מה חדש";
-"Changes"="שינויים";
-"Clear"="נקה";
-"Clear Image Cache"="נקה מטמון תמונות";
-"Clear Keychain"="נקה צרור";
-"Clear Search"="נקה חיפוש";
-"Clearing keychain completed"="ניקוי צרור הושלם";
-"Click \"Return to Queue\" to return to the Queue and retry the download."="לחץ\/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
-"Close"="סגור";
-"Close Zebra"="סגור את זברה";
-"Communication"="תקשורת";
-"Community"="קהילה";
-"Community Repos"="מקורות קהילתיים";
-"Complete"="הושלם";
-"Confirm"="אישור";
-"Console"="מסוף";
-"Continue"="המשך";
-"Contributors"="תורמים";
-"Could not determine device information."="לא ניתן לקבוע פרטי מכשיר.";
-"Could not find a download URL for"="לא ניתן למצוא כתובת הורדה עבור";
-"Could not parse %@ from %@"="לא ניתן לנתח את %@ מ-%@";
-"Could not resolve dependency for %@"="לא ניתן לפתור תלות עבור %@";
-"Creators"="יוצרים";
-"Credits"="זכויות";
-"Dark Mode"="מצב לילה";
-"Data Storage"="ניהול נתונים";
-"Date"="תאריך";
-"Default"="ברירת מחדל";
-"Delete"="מחק";
-"Development"="פיתוח";
-"Dictionaries"="מילונים";
-"Done"="סיום";
-"Downgrade"="שנמך";
-"Download Size"="גודל הורדה";
-"Downloading"="מוריד";
-"Downloading Packages..."="מוריד חבילות...";
-"Downloads"="הורדות";
-"Edit"="עריכה";
-"Education"="חינוך";
-"Enable Featured Packages"="אפשר חבילות מומלצות";
-"Enable News"="אפשר חדשות";
-"Enter URL"="הזן\/י כתובת";
-"Entertainment"="בידור";
-"Error"="תקלה";
-"Error verifying repositories"="תקלה באימות מקורות";
-"Error verifying repository"="תקלה באימות מקור";
-"Error while opening sources.list"="תקלה בפתיחת sources.list";
-"Feature Type"="סוג המלצה";
-"Featured"="מומלץ";
-"Finished importing local packages."="ייבוא חבילות מקומיות הושלם.";
-"Finished!"="הושלם!";
-"Follow me on Twitter"="עקוב\/י אחריי ב-Twitter";
-"Games"="משחקים";
-"Graphics"="עיצוב";
-"Health and Fitness"="בריאות וכושר";
-"Home"="בית";
-"Icon"="אייקון";
-"Ignore Updates"="התעלם מעדכונים";
-"Ignored Upgrades"="עדכונים שנדחו";
-"Imaging"="תמונות";
-"Importing local packages."="מייבא חבילות מקומיות.";
-"Incorrect documents permissions."="הרשאות מסמכים שגויות.";
-"Info"="מידע";
-"Information"="מידע";
-"Install"="התקן";
-"Installed Files"="קבצים מותקנים";
-"Installed Version"="גירסה מותקנת";
-"Installing"="מתקין";
-"Installing Packages..."="מתקין חבילות...";
-"Invalid URL"="כתובת לא תקינה";
-"It may cause issues if you add it to Zebra resulting in possible restore."="אם תוסיף\/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
-"Java"="Java";
-"Join our Discord"="הצטרף\/י ל-Discord שלנו";
-"Keyboards"="מקלדות";
-"Libraries"="ספריות";
-"Loaded"="נטען";
-"Loading..."="טוען...";
-"Local Repository"="מקור מקומי";
-"Localization"="תרגומים";
-"Locally installed packages"="חבילות שהותקנו מקומית";
-"Log Out"="התנתק";
-"Login"="התחבר";
-"Messaging"="הודעות";
-"Miscellaneous"="שונות";
-"Modify"="נהל";
-"More by this Developer"="עוד ממפתח זה";
-"Move all sources from %@ to Zebra"="ייבא את כל המקורות מ-%@ לזברה";
-"Multimedia"="מולטימדיה";
-"Navigation"="ניווט";
-"Networking"="רשתות";
-"News"="חדשות";
-"No"="לא";
-"No Results Found"="לא נמצאו תוצאות";
-"No repository urls detected."="לא אותרו כתובות מקור.";
-"OLED"="OLED";
-"Ok"="אישור";
-"One or more packages failed to download."="חבילה אחת או יותר נכשלו בהורדה.";
-"Open Documents Directory"="פתח תיקיית מסמכים";
-"Orange"="כתום";
-"Package"="חבילה";
-"Package in Queue"="חבילה בתור";
-"Packages"="חבילות";
-"Packages in Queue"="חבילות בתור";
-"Packaging"="חבילות";
-"Performing actions"="מבצע פעולות";
-"Please Wait..."="נא להמתין...";
-"Please relogin your account that is used to purchase this package (Possibly %@)"="אנא התחבר\/י מחדש לחשבונך ששומש לרכישת חבילה זו (עלול להיות %@)";
-"Please remove this repo from your sources.list file."="אנא הסר\/י את מקור זה מקובץ ה-sources.list שלך.";
-"Productivity"="יעילות";
-"Purchased"="נרכש";
-"Purchased Packages"="חבילות שנרכשו";
-"Purchases"="רכישות";
-"Queue"="תור";
-"Queue cleared"="תור נוקה";
-"Random"="אקראי";
-"Recent"="אחרונים";
-"Refresh"="רענן";
-"Reinstall"="התקן מחדש";
-"Reinstalling"="מתקין מחדש";
-"Reinstalling Packages..."="מתקין מחדש חבילות...";
-"Remove"="הסר";
-"Remove from Wish List"="הסר מרשימת המשאלות";
-"Removed by"="הוסר ע\"י";
-"Removing"="מסיר";
-"Removing Packages..."="מסיר חבילות...";
-"Repo Featured"="מומלץ מקור";
-"Report a Bug"="דווח\/י על באג";
-"Repositories"="מקורות";
-"Required by"="נדרש ע\"י";
-"Resetting image cache completed"="איפוס מטמון תמונות הושלם";
-"Restart SpringBoard"="הפעל מחדש את מסך הבית";
-"Retry"="נסה שוב";
-"Return to Queue"="חזרה לתור";
-"Ringtones"="צלצולים";
-"Scripting"="תסריטים";
-"Search"="חיפוש";
-"Search while Typing"="חפש במהלך ההקלדה";
-"Security"="אבטחה";
-"Select Repos to be Featured"="בחר\/י מקורות שיהיו מומלצים";
-"Select Version"="בחר גירסה";
-"Select a version to upgrade to"="בחר\/י גירסה לעדכן אליה";
-"Settings"="הגדרות";
-"Show Updates"="הצג עדכונים";
-"Size"="גודל";
-"Social"="חברתי";
-"Sources"="מקורות";
-"Stores"="חנויות";
-"Swipe Actions Display As"="פעולות החלקה מוצגות בתור";
-"System"="מערכת";
-"Tap to manage Queue"="לחץ\/י כדי לנהל את התור";
-"Terminal Support"="תמיכת מסוף";
-"Text"="טקסט";
-"Text Editors"="עורכי טקסט";
-"The repo %@ is incompatible with your jailbreak."="המקור %@ אינו תואם לפריצה שלך.";
-"Themes"="ערכות נושא";
-"This may take awhile and Zebra may crash. It is okay if it does."="זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
-"This search query is too short for the full search, please use a longer query."="מושג חיפוש זה קצר מידיי עבור החיפוש המלא, אנא השתמש\/י במושג ארוך יותר.";
-"Tint Color"="צבע גוון";
-"Toys"="צעצועים";
-"Transfer Sources"="ייבוא מקורות";
-"Transfer Sources from %@"="ייבא מקורות מ-%@";
-"Translators"="מתרגמים";
-"Tweaks"="טוויקים";
-"Unable to verify Repo"="לא ניתן לאמת מקור";
-"Unknown"="לא ידוע";
-"Unknown error."="תקלה לא ידועה.";
-"Unlist"="הסר מהרשימה";
-"Updating icon cache asynchronously..."="מעדכן מטמון אייקונים באופן אסינכרוני...";
-"Upgrade"="עדכן";
-"Upgrade All"="עדכן הכל";
-"Upgrading"="מעדכן";
-"Upgrading Packages..."="מעדכן חבילות...";
-"Utilities"="כלים";
-"Utility repo for %@"="מקור כלים עבור %@";
-"Verifying Source(s)"="מאמת מקור(ות)";
-"Version"="גירסה";
-"Wallpaper"="טפטים";
-"Welcome to the Zebra Beta!"="ברוכים הבאים לבטא של זברה!";
-"White"="לבן";
-"Widgets"="וידג'טים";
-"Wish List"="רשימת משאלות";
-"Would you like to add the URL from your clipboard?"="האם ברצונך להוסיף את הכתובת שהעתקת?";
-"You have already added these repositories."="כבר הוספת את מקורות אלו.";
-"iOS 13"="iOS 13";
+// Common
+
+"Cancel" = "ביטול";
+"No" = "לא";
+"Ok" = "אישור";
+"Error" = "תקלה";
+"Retry" = "נסה שוב";
+"Edit" = "עריכה";
+"Login" = "התחבר";
+"Close" = "סגור";
+"Done" = "סיום";
+
+// Home
+
+"Home" = "בית";
+"Info" = "מידע";
+"Welcome to the Zebra Beta!" = "ברוכים הבאים לבטא של זברה!";
+"Changelog" = "מה חדש";
+"Community Repos" = "מקורות קהילתיים";
+"Transfer Sources from %@" = "ייבא מקורות מ-%@";
+"Move all sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
+"Utility repo for %@" = "מקור כלים עבור %@";
+"Transfer Sources" = "ייבוא מקורות";
+"Utilities" = "כלים";
+"Please Wait..." = "נא להמתין...";
+"Verifying Source(s)" = "מאמת מקור(ות)";
+"Stores" = "חנויות";
+"Purchases" = "רכישות";
+"Wish List" = "רשימת משאלות";
+"Unwish" = "Unwish";
+"Community" = "קהילה";
+"Join our Discord" = "הצטרף\\/י ל-Discord שלנו";
+"Follow me on Twitter" = "עקוב\\/י אחריי ב-Twitter";
+
+//Credits
+
+"Credits" = "זכויות";
+"Creators" = "יוצרים";
+"Contributors" = "תורמים";
+"Translators" = "מתרגמים";
+"Libraries" = "ספריות";
+
+// Settings
+
+"Settings" = "הגדרות";
+"Version" = "גירסה";
+"Information" = "מידע";
+"Graphics" = "עיצוב";
+"Featured" = "מומלץ";
+"News" = "חדשות";
+"Search" = "חיפוש";
+"Miscellaneous" = "שונות";
+"Advanced" = "מתקדם";
+
+"Report a Bug" = "דווח\\/י על באג";
+
+"Tint Color" = "צבע גוון";
+"Default" = "ברירת מחדל";
+"Blue" = "כחול";
+"Orange" = "כתום";
+"White" = "לבן";
+"Black" = "שחור";
+
+"Dark Mode" = "מצב לילה";
+"Default" = "Default";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "שנה אייקון";
+
+"Enable Featured Packages" = "אפשר חבילות מומלצות";
+"Repo Featured" = "מומלץ מקור";
+"Random" = "אקראי";
+"Feature Type" = "סוג המלצה";
+"Select Repos to be Featured" = "בחר\\/י מקורות שיהיו מומלצים";
+
+"Enable News" = "אפשר חדשות";
+
+"Search while Typing" = "חפש במהלך ההקלדה";
+
+"Swipe Actions Display As" = "פעולות החלקה מוצגות בתור";
+"Text" = "טקסט";
+"Icon" = "אייקון";
+"Open Documents Directory" = "פתח תיקיית מסמכים";
+"Clear Image Cache" = "נקה מטמון תמונות";
+"Clear Keychain" = "נקה צרור";
+
+"Loading..." = "טוען...";
+
+"Resetting image cache completed" = "איפוס מטמון תמונות הושלם";
+"Clearing keychain completed" = "ניקוי צרור הושלם";
+
+// Sources
+
+"Sources" = "מקורות";
+"Local Repository" = "מקור מקומי";
+"Locally installed packages" = "חבילות שהותקנו מקומית";
+"Unknown" = "לא ידוע";
+"No repository urls detected." = "לא אותרו כתובות מקור.";
+"You have already added these repositories." = "כבר הוספת את מקורות אלו.";
+"Error verifying repository" = "תקלה באימות מקור";
+"Error verifying repositories" = "תקלה באימות מקורות";
+"Unknown error." = "תקלה לא ידועה.";
+"Invalid URL" = "כתובת לא תקינה";
+"Enter URL" = "הזן\\/י כתובת";
+"Add Repo(s)" = "הוסף מקור(ות)";
+"Add" = "הוסף";
+"Add Multiple" = "הוסף מרובים";
+"Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Unable to verify Repo" = "לא ניתן לאמת מקור";
+"Refresh" = "רענן";
+"Log Out" = "התנתק";
+"Purchased Packages" = "חבילות שנרכשו";
+"Purchased" = "נרכש";
+
+"All Packages" = "כל החבילות";
+"Delete" = "מחק";
+
+// Changes
+
+"Changes" = "שינויים";
+
+// Packages
+
+"Packages" = "חבילות";
+"Show Updates" = "הצג עדכונים";
+"Ignore Updates" = "התעלם מעדכונים";
+"Select Version" = "בחר גירסה";
+"Select a version to upgrade to" = "בחר\\/י גירסה לעדכן אליה";
+"Package" = "חבילה";
+"Information" = "Information";
+"Upgrade All" = "עדכן הכל";
+"Loaded" = "נטען";
+"ABC" = "אבג";
+"Date" = "תאריך";
+"Size" = "גודל";
+"Queue" = "תור";
+"Clear" = "נקה";
+"Are you sure you want to clear Queue?" = "האם את\\/ה בטוח\\/ה שברצונך לנקות את התור?";
+"Available Upgrades" = "עדכונים זמינים";
+"Ignored Upgrades" = "עדכונים שנדחו";
+"Recent" = "אחרונים";
+"Installed Files" = "קבצים מותקנים";
+"Modify" = "נהל";
+"Authenticate to initiate purchase." = "בצע\\/י אימות כדי להתחיל רכישה.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "אנא התחבר\\/י מחדש לחשבונך ששומש לרכישת חבילה זו (עלול להיות %@)";
+"More by this Developer" = "עוד ממפתח זה";
+"Installed Version" = "גירסה מותקנת";
+
+"Add to Wish List" = "הוסף לרשימת המשאלות";
+"Remove from Wish List" = "הסר מרשימת המשאלות";
+
+// Package Section Names
+
+"Administration" = "ניהול";
+"App Addons" = "תוספות ליישומים";
+"Archiving" = "ארכיון";
+"Carrier Support" = "תמיכת מפעילים";
+"Communication" = "תקשורת";
+"Data Storage" = "ניהול נתונים";
+"Development" = "פיתוח";
+"Dictionaries" = "מילונים";
+"Education" = "חינוך";
+"Entertainment" = "בידור";
+"Games" = "משחקים";
+"Health and Fitness" = "בריאות וכושר";
+"Imaging" = "תמונות";
+"Java" = "Java";
+"Keyboards" = "מקלדות";
+"Localization" = "תרגומים";
+"Messaging" = "הודעות";
+"Multimedia" = "מולטימדיה";
+"Navigation" = "ניווט";
+"Networking" = "רשתות";
+"Packaging" = "חבילות";
+"Productivity" = "יעילות";
+"Repositories" = "מקורות";
+"Ringtones" = "צלצולים";
+"Scripting" = "תסריטים";
+"Security" = "אבטחה";
+"Social" = "חברתי";
+"System" = "מערכת";
+"Terminal Support" = "תמיכת מסוף";
+"Text Editors" = "עורכי טקסט";
+"Themes" = "ערכות נושא";
+"Toys" = "צעצועים";
+"Tweaks" = "טוויקים";
+"Utilities" = "Utilities";
+"Wallpaper" = "טפטים";
+"Widgets" = "וידג'טים";
+
+// Search
+
+"Search" = "Search";
+"Clear Search" = "נקה חיפוש";
+"This search query is too short for the full search, please use a longer query." = "מושג חיפוש זה קצר מידיי עבור החיפוש המלא, אנא השתמש\\/י במושג ארוך יותר.";
+"No Results Found" = "לא נמצאו תוצאות";
+
+// Downloads
+
+"Downloads" = "הורדות";
+"Error while opening sources.list" = "תקלה בפתיחת sources.list";
+"The repo %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף\\/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
+"Please remove this repo from your sources.list file." = "אנא הסר\\/י את מקור זה מקובץ ה-sources.list שלך.";
+"Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
+"Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
+"Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
+"%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
+"Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
+
+// Console
+
+"Console" = "מסוף";
+"Performing actions" = "מבצע פעולות";
+"Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
+"Close Zebra" = "סגור את זברה";
+"Restart SpringBoard" = "הפעל מחדש את מסך הבית";
+"Downloading" = "מוריד";
+"Downloading Packages..." = "מוריד חבילות...";
+"Installing" = "מתקין";
+"Installing Packages..." = "מתקין חבילות...";
+"Removing" = "מסיר";
+"Removing Packages..." = "מסיר חבילות...";
+"Reinstalling" = "מתקין מחדש";
+"Reinstalling Packages..." = "מתקין מחדש חבילות...";
+"Upgrading" = "מעדכן";
+"Upgrading Packages..." = "מעדכן חבילות...";
+"Complete" = "הושלם";
+"Finished!" = "הושלם!";
+"Return to Queue" = "חזרה לתור";
+"Importing local packages." = "מייבא חבילות מקומיות.";
+"Finished importing local packages." = "ייבוא חבילות מקומיות הושלם.";
+"One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ\\/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
+
+// Queue Bar
+"Packages in Queue" = "חבילות בתור";
+"Package in Queue" = "חבילה בתור";
+"Tap to manage Queue" = "לחץ\\/י כדי לנהל את התור";
+
+// Queue
+
+"Queue" = "Queue";
+"Queue cleared" = "תור נוקה";
+"Install" = "התקן";
+"Reinstall" = "התקן מחדש";
+"Remove" = "הסר";
+"Upgrade" = "עדכן";
+"Downgrade" = "שנמך";
+"Abort" = "ביטול";
+"Continue" = "המשך";
+"Download Size" = "גודל הורדה";
+"Could not resolve dependency for %@" = "לא ניתן לפתור תלות עבור %@";
+"%@ conflicts with %@" = "%@ מתנגש עם %@";
+"%@ depends on %@" = "%@ תלוי ב-%@";
+"Removed by" = "הוסר ע\"י";
+"Required by" = "נדרש ע\"י";
+"Confirm" = "אישור";

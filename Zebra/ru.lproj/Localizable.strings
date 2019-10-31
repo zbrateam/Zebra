@@ -22,12 +22,12 @@
 "Utility repo for %@" = "Репозиторий утилит для %@";
 "Transfer Sources" = "Перенести Источники";
 "Utilities" = "Утилиты";
-"Please Wait..." = "Пожалуйста, подождите...";
-"Verifying Source(s)" = "Проварка Источника(ов)";
+"Please Wait..." = "Пожалуйста Ожидайте...";
+"Verifying Source(s)" = "Проверка Источника(ов)";
 "Stores" = "Магазины";
 "Purchases" = "Покупки";
 "Wish List" = "Список желаний";
-"Unlist" = "Удалить";
+"Unwish" = "Unwish";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
 "Follow me on Twitter" = "Twitter Разработчика";
@@ -62,7 +62,7 @@
 "Black" = "Черный";
 
 "Dark Mode" = "Темный режим";
-"Default" = "Обычный";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Добавить";
 "Add Multiple" = "Добавить Несколько";
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
-"Please Wait..." = "Пожалуйста Ожидайте...";
-"Verifying Source(s)" = "Проверка Источника(ов)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Невозможно проверить Репозиторий";
 "Refresh" = "Обновить";
 "Log Out" = "Выйти";
@@ -130,7 +130,7 @@
 "Select Version" = "Выберите Версию";
 "Select a version to upgrade to" = "Выберите версию до которой обновить пакет";
 "Package" = "Пакет";
-"Information" = "Информация";
+"Information" = "Information";
 "Upgrade All" = "Обновить Все";
 "Loaded" = "Загружно";
 "ABC" = "Алфавит";
@@ -187,13 +187,13 @@
 "Themes" = "Темы";
 "Toys" = "Игрушки";
 "Tweaks" = "Твики";
-"Utilities" = "Утилиты";
+"Utilities" = "Utilities";
 "Wallpaper" = "Обои";
 "Widgets" = "Виджеты";
 
 // Search
 
-"Search" = "Поиск";
+"Search" = "Search";
 "Clear Search" = "Очистить Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
 "No Results Found" = "Нет результатов";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "Очередь";
+"Queue" = "Queue";
 "Queue cleared" = "Очередь очищена";
 "Install" = "Установить";
 "Reinstall" = "Переустановить";

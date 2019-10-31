@@ -27,7 +27,7 @@
 "Stores" = "스토어";
 "Purchases" = "구매 기록";
 "Wish List" = "위시 리스트";
-"Unlist" = "미등록";
+"Unwish" = "Unwish";
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord 참여";
 "Follow me on Twitter" = "Twitter에서 나를 팔로우하세요!";
@@ -62,7 +62,7 @@
 "Black" = "검은색";
 
 "Dark Mode" = "다크 모드";
-"Default" = "기본";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "추가";
 "Add Multiple" = "여러개 추가";
 "Would you like to add the URL from your clipboard?" = "클립보드에서 가져온 URL을 추가할까요?";
-"Please Wait..." = "잠시만 기다려주세요...";
-"Verifying Source(s)" = "소스를 검증하는 중";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "레포를 검증할 수 없음";
 "Refresh" = "새로고침";
 "Log Out" = "로그아웃";
@@ -130,7 +130,7 @@
 "Select Version" = "버전 선택";
 "Select a version to upgrade to" = "업그레이드할 버전 선택";
 "Package" = "패키지";
-"Information" = "정보";
+"Information" = "Information";
 "Upgrade All" = "모두 업그레이드";
 "Loaded" = "로드 됨";
 "ABC" = "ABC";
@@ -193,7 +193,7 @@
 
 // Search
 
-"Search" = "검색";
+"Search" = "Search";
 "Clear Search" = "검색 제거";
 "This search query is too short for the full search, please use a longer query." = "이 검색 쿼리는 전체 검색을 하기엔 너무 짧습니다. 더 긴 쿼리를 사용하세요.";
 "No Results Found" = "결과 없음";
@@ -244,7 +244,7 @@
 
 // Queue
 
-"Queue" = "대기열";
+"Queue" = "Queue";
 "Queue cleared" = "대기열 제거 됨";
 "Install" = "설치";
 "Reinstall" = "재설치";

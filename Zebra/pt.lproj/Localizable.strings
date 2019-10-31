@@ -10,11 +10,6 @@
 "Close" = "Fechar";
 "Done" = "Concluir";
 
-// Tab controller
-"Packages in Queue" = "Pacotes na Fila";
-"Package in Queue" = "Pacote na Fila";
-"Tap to manage Queue" = "Clica para gerir Fila";
-
 // Home
 
 "Home" = "Início";
@@ -27,16 +22,23 @@
 "Utility repo for %@" = "Repo utilitário para %@";
 "Transfer Sources" = "Transferir Fontes";
 "Utilities" = "Utilitários";
-"Please Wait..." = "Por favor aguarde...";
-"Verifying Source(s)" = "A verificar Fonte(s)";
+"Please Wait..." = "Por favor aguarda...";
+"Verifying Source(s)" = "A Verificar Fonte(s)";
 "Stores" = "Lojas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
-"Unlist" = "Remover";
+"Unwish" = "Unwish";
 "Community" = "Comunidade";
 "Join our Discord" = "Junta-te ao nosso Discord";
 "Follow me on Twitter" = "Segue-me no Twitter";
+
+//Credits
+
 "Credits" = "Creditos";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -60,7 +62,7 @@
 "Black" = "Preto";
 
 "Dark Mode" = "Dark Mode";
-"Default" = "Original";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -150,6 +152,45 @@
 "Add to Wish List" = "Adicionar à Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
 "Search" = "Procurar";
@@ -196,6 +237,11 @@
 "One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
 
+// Queue Bar
+"Packages in Queue" = "Pacotes na Fila";
+"Package in Queue" = "Pacote na Fila";
+"Tap to manage Queue" = "Clica para gerir Fila";
+
 // Queue
 
 "Queue" = "Fila";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ depende de %@";
 "Removed by" = "Removido por";
 "Required by" = "Solicitado por";
+"Confirm" = "Confirm";

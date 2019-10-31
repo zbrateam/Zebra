@@ -10,11 +10,6 @@
 "Close" = "ปิด";
 "Done" = "เสร็จสิ้น";
 
-// Tab controller
-"Packages in Queue" = "โปรแกรมในคิว";
-"Package in Queue" = "โปรแกรมในคิว";
-"Tap to manage Queue" = "แตะเพื่อจัดการคิว";
-
 // Home
 
 "Home" = "หน้าหลัก";
@@ -27,16 +22,23 @@
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Utilities" = "จิปาถะ";
-"Please Wait..." = "กรุณารอ...";
+"Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
 "Wish List" = "รายการอยากได้";
-"Unlist" = "นำออก";
+"Unwish" = "Unwish";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
 "Follow me on Twitter" = "ติดตามฉันใน Twitter";
+
+//Credits
+
 "Credits" = "รายการขอบคุณ";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
@@ -46,7 +48,7 @@
 "Graphics" = "การแสดงผล";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
-"Search" = "การค้นหา";
+"Search" = "ค้นหา";
 "Miscellaneous" = "อื่นๆ";
 "Advanced" = "ขั้นสูง";
 
@@ -60,7 +62,7 @@
 "Black" = "ดำ";
 
 "Dark Mode" = "โหมดมืด";
-"Default" = "ค่าเริ่มต้น";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -105,8 +107,8 @@
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
-"Please Wait..." = "โปรดรอ...";
-"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
 "Log Out" = "ลงชื่อออก";
@@ -128,7 +130,7 @@
 "Select Version" = "เลือกรุ่น";
 "Select a version to upgrade to" = "เลือกรู่นที่จะทำการติดตั้ง";
 "Package" = "โปรแกรม";
-"Information" = "ข้อมูล";
+"Information" = "Information";
 "Upgrade All" = "อัพเดตทั้งหมด";
 "Loaded" = "โหลดแล้ว";
 "ABC" = "กขค";
@@ -150,9 +152,48 @@
 "Add to Wish List" = "เพิ่มในรายการอยากได้";
 "Remove from Wish List" = "ลบจากรายการอยากได้";
 
+// Package Section Names
+
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
+
 // Search
 
-"Search" = "ค้นหา";
+"Search" = "Search";
 "Clear Search" = "ลบผลการค้นหา";
 "This search query is too short for the full search, please use a longer query." = "ข้อความค้นหาสั้นเกินไปสำหรับการค้นหาเต็มรูปแบบ กรุณาใช้ความยาวมากกว่านี้";
 "No Results Found" = "ไม่พบรายการ";
@@ -196,9 +237,14 @@
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
 
+// Queue Bar
+"Packages in Queue" = "โปรแกรมในคิว";
+"Package in Queue" = "โปรแกรมในคิว";
+"Tap to manage Queue" = "แตะเพื่อจัดการคิว";
+
 // Queue
 
-"Queue" = "คิว";
+"Queue" = "Queue";
 "Queue cleared" = "คิวถูกล้างแล้ว";
 "Install" = "ติดตั้ง";
 "Reinstall" = "ติดตั้งซ้ำ";
@@ -213,3 +259,4 @@
 "%@ depends on %@" = "%@ ต้องการ %@";
 "Removed by" = "ถูกลบโดย";
 "Required by" = "ต้องการโดย";
+"Confirm" = "Confirm";

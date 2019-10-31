@@ -21,7 +21,7 @@
 "Move all sources from %@ to Zebra" = "Perkelti visus šaltinius iš %@ į Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
 "Transfer Sources" = "Perkelti Šaltinius";
-"Utilities" = "Naudingi Šaltiniai";
+"Utilities" = "Naudingos programos";
 "Please Wait..." = "Prašom palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
 "Stores" = "Parduotuvės";
@@ -62,7 +62,7 @@
 "Black" = "Juodas";
 
 "Dark Mode" = "Tamsus režimas";
-"Default" = "Numatytas";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -107,8 +107,8 @@
 "Add" = "Pridėti";
 "Add Multiple" = "Pridėti kelis";
 "Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
-"Please Wait..." = "Prašom palaukti...";
-"Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nepavyko patikrinti šaltinio";
 "Refresh" = "Atnaujinti";
 "Log Out" = "Atsijungti";
@@ -130,7 +130,7 @@
 "Select Version" = "Pasirinkti versiją";
 "Select a version to upgrade to" = "Pasirinkti naujinimo versiją";
 "Package" = "Paketas";
-"Information" = "Informacija";
+"Information" = "Information";
 "Upgrade All" = "Naujinti visus";
 "Loaded" = "Pakrautas";
 "ABC" = "ABC";
@@ -187,13 +187,13 @@
 "Themes" = "Apipavidalinimas";
 "Toys" = "Žaislai";
 "Tweaks" = "Pataisymai";
-"Utilities" = "Naudingos programos";
+"Utilities" = "Utilities";
 "Wallpaper" = "Darbalaukio fonai";
 "Widgets" = "Valdikliai";
 
 // Search
 
-"Search" = "Paieška";
+"Search" = "Search";
 "Clear Search" = "Išvalyti paiešką";
 "This search query is too short for the full search, please use a longer query." = "Ši paieškos užklausa per trumpa pilnai paieškai, prašom naudoti ilgesnę užklausą.";
 "No Results Found" = "Nieko nerasta";
@@ -238,14 +238,13 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
 
 // Queue Bar
-
 "Packages in Queue" = "Paketų eilėje";
 "Package in Queue" = "Paketas eilėje";
 "Tap to manage Queue" = "Paspauskite eilės tvarkymui";
 
 // Queue
 
-"Queue" = "Eilė";
+"Queue" = "Queue";
 "Queue cleared" = "Eilė išvalyta";
 "Install" = "Įdiegti";
 "Reinstall" = "Įdiegti iš naujo";
