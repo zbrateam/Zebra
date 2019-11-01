@@ -26,7 +26,7 @@
 "Stores" = "商店";
 "Purchases" = "購買";
 "Wish List" = "願望清單";
-"Unwish" = "從心願單中移除";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "社群";
 "Join our Discord" = "加入我們的 Discord 服務器";
 "Follow me on Twitter" = "請在推特上關注我們";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "控制檯";
-"Performing actions" = "正在進行操作";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "正在異步刷新圖標緩存……";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要壹段時間，Zebra 可能會閃退，無需擔心.";
 "Close Zebra" = "關閉 Zebra";
@@ -230,7 +230,7 @@
 "Importing local packages." = "正在導入本地軟件包";
 "Finished importing local packages." = "導入本地軟件包完成。";
 "One or more packages failed to download." = "壹個或多個軟件包下載失敗";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "點擊 \"返回隊列\" 以返回至隊列頁面並嘗試重新下載";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "點擊 \\"返回隊列\\" 以返回至隊列頁面並嘗試重新下載";
 
 // Queue Bar
 "Packages in Queue" = "軟件包隊列";
@@ -249,9 +249,9 @@
 "Abort" = "停止";
 "Continue" = "繼續";
 "Download Size" = "下載大小：";
-"Could not resolve dependency for %@" = "無法找到 %@ 所需要的的依賴包";
-"%@ conflicts with %@" = "%@ 與 %@ 不兼容";
-"%@ depends on %@" = "%@ 需要 %@ 依賴包";
-"Removed by" = "移除以";
-"Required by" = "需要依赖包—";
 "Confirm" = "確認";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
