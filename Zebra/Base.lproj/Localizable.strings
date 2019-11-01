@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Console";
-"Performing actions" = "Performing actions";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Close Zebra";
