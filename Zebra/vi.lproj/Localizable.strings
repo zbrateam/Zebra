@@ -26,7 +26,7 @@
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
-"Unwish" = "Không muốn";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
 "Follow me on Twitter" = "Theo dõi tôi trên Twitter";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Bảng điều khiển";
-"Performing actions" = "Thực hiện hành động";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Hủy bỏ";
 "Continue" = "Tiếp tục";
 "Download Size" = "Kích thước tải xuống";
-"Could not resolve dependency for %@" = "Không thể giải quyết sự phụ thuộc cho %@";
-"%@ conflicts with %@" = "%@ xung đột với %@";
-"%@ depends on %@" = "%@ phụ thuộc %@";
-"Removed by" = "Xóa bởi";
-"Required by" = "Yêu cầu bởi";
 "Confirm" = "Xác nhận";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
