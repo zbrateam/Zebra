@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Odustani";
-"No" = "No";
+"No" = "Ne";
 "Ok" = "Ok";
 "Error" = "Greška";
 "Retry" = "Ponovi";
@@ -23,10 +23,10 @@
 "Transfer Sources" = "Prebaci izvore";
 "Please Wait..." = "Molimo vas sačekajte...";
 "Verifying Source(s)" = "Verifikacija izvora";
-"Stores" = "Stores";
+"Stores" = "Prodavnice";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
-"Unwish" = "Unwish";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridruži nam se na Discord";
 "Follow me on Twitter" = "Zaprati me na Twitteru";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Zasluge";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Kreatori";
+"Contributors" = "Saradnici";
+"Translators" = "Prevodioci";
+"Libraries" = "Biblioteke";
 
 // Settings
 
@@ -77,7 +77,7 @@
 "Swipe Actions Display As" = "Prevlačenje prikaži kao";
 "Text" = "Tekst";
 "Icon" = "Ikonica";
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Otvori folder dokumenata";
 "Clear Image Cache" = "Ukloni keš";
 "Clear Keychain" = "Ukloni Keychain";
 
@@ -96,14 +96,14 @@
 "You have already added these repositories." = "Vec ste dodali ove repo-e.";
 "Error verifying repository" = "Greška u verifikaciji repo-a";
 "Error verifying repositories" = "Greška u verifikacije repoa";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Nepoznata greška";
 "Invalid URL" = "Nepravilan URL";
 "Enter URL" = "Unesite URL";
 "Add Repo(s)" = "Dodaj Repo(e)";
 "Add" = "Dodaj";
 "Add Multiple" = "Dodaj više";
 "Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Molimo vas sačekajte...";
 "Verifying Source(s)" = "Verifikacija izvora";
 "Unable to verify Repo" = "Nije moguće verifikovati Repo";
 "Refresh" = "Osveži";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Administracija";
+"App Addons" = "Dodaci za Aplikacije";
+"Archiving" = "Arhiviranje";
+"Carrier Support" = "Podrška za operatera";
+"Communication" = "Komunikacije";
+"Data Storage" = "Skladište podataka";
+"Development" = "Razvoj";
+"Dictionaries" = "Rečnici";
+"Education" = "Edukacija";
+"Entertainment" = "Zabava";
+"Games" = "Igre";
+"Health and Fitness" = "Zdravlje i Fitnes";
+"Imaging" = "Sistem za obradu slike";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "Tastature";
+"Localization" = "Lokalizacija";
+"Messaging" = "Slanje poruka";
+"Multimedia" = "Multimedija";
+"Navigation" = "Navigacija";
+"Networking" = "Umrežavanje";
+"Packaging" = "Pakovanje";
+"Productivity" = "Produktivnost";
+"Repositories" = "Spremišta";
+"Ringtones" = "Melodija zvona";
+"Scripting" = "Skripting";
+"Security" = "Sigurnost";
+"Social" = "Društvene";
+"System" = "Sistem";
+"Terminal Support" = "Terminalna podrška";
+"Text Editors" = "Text Uređivači";
+"Themes" = "Teme";
+"Toys" = "Igračke";
+"Tweaks" = "Tvik";
 "Utilities" = "Korisne";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "Pozadina";
+"Widgets" = "Dodaci";
 
 // Search
 
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konzola";
-"Performing actions" = "Izvršavam akcije";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Nadogradjujem keš ikona asinhrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može oboriti. To ne predstavlja problem.";
 "Close Zebra" = "Zatvori Zebru";
@@ -249,9 +249,9 @@
 "Abort" = "Obustavi";
 "Continue" = "Nastavi";
 "Download Size" = "Veličina preuzimanja";
-"Could not resolve dependency for %@" = "Nisu pronadjene dependency za %@";
-"%@ conflicts with %@" = "%@ je u konfliktu sa %@";
-"%@ depends on %@" = "%@ zavisi od %@";
-"Removed by" = "Uklonio";
-"Required by" = "Potrebno od";
-"Confirm" = "Confirm";
+"Confirm" = "Potvrdi";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";

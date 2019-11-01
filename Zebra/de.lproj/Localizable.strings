@@ -23,10 +23,10 @@
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
 "Verifying Source(s)" = "Quelle(n) verifizieren";
-"Stores" = "Stores";
+"Stores" = "Shop";
 "Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
-"Unwish" = "Unwish";
+"No items in Wish List" = "Keine Artikel in der Wunschliste";
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord bei";
 "Follow me on Twitter" = "Folgt mir auf Twitter";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Du hast diese Quellen bereits hinzugefügt.";
 "Error verifying repository" = "Beim Verifizieren der Quelle ist ein Fehler aufgetreten";
 "Error verifying repositories" = "Beim Verifizieren der Quellen ist ein Fehler aufgetreten";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Unbekannter Fehler";
 "Invalid URL" = "Ungültige URL";
 "Enter URL" = "URL eingeben";
 "Add Repo(s)" = "Quelle(n) hinzufügen";
 "Add" = "Hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Bitte warten...";
+"Verifying Source(s)" = "Quelle(n) verifizieren";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";
 "Log Out" = "Abmelden";
@@ -161,11 +161,11 @@
 "Entertainment" = "Unterhaltung";
 "Games" = "Spiele";
 "Health and Fitness" = "Gesundheit und Fitneß";
-"Imaging" = "Imaging";
+"Imaging" = "Abbildung";
 "Java" = "Java";
 "Keyboards" = "Tastaturen";
 "Localization" = "Lokalisierung";
-"Messaging" = "Messaging";
+"Messaging" = "Mitteilungen";
 "Multimedia" = "Multimedien";
 "Navigation" = "Navigation";
 "Networking" = "Netzwerk";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsole";
-"Performing actions" = "Laufende Aktivitäten";
+"Performing Actions..." = "Prozesse werden durchgeführt...";
 "Updating icon cache asynchronously..." = "Icon Zwischenspeicher wird asynchron aktualisiert...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Weile dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
 "Close Zebra" = "Zebra schließen";
@@ -249,9 +249,9 @@
 "Abort" = "Abbrechen";
 "Continue" = "Weiter";
 "Download Size" = "Downloadgröße";
-"Could not resolve dependency for %@" = "Abhängigkeit konnte für %@ nicht gelöst werden";
-"%@ conflicts with %@" = "%@ steht im Konflikt mit %@";
-"%@ depends on %@" = "%@ hängt ab von %@";
-"Removed by" = "Entfernt von";
-"Required by" = "Benötigt von";
 "Confirm" = "Bestätigen";
+"%@ must be removed because it depends on %@" = "%@ muss entfernt werden weil es von %@ abhängt";
+"Required Package" = "Benötigtes Paket";
+"%@ is required by:" = "%@ wird benötigt von:";
+"Issues" = "Probleme";
+"%@ has issues that cannot be resolved:" = "%@ hat Probleme die nicht gelöst werden konnten:";

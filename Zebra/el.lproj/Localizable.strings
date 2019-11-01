@@ -26,7 +26,7 @@
 "Stores" = "Καταστήματα";
 "Purchases" = "Αγορές";
 "Wish List" = "Λίστα Επιθυμιών";
-"Unwish" = "Αφαίρεσε από την Λίστα Επιθυμιών";
+"No items in Wish List" = "Δεν υπάρχουν αντικείμενα στην Λίστα Επιθυμιών";
 "Community" = "Κοινότητα";
 "Join our Discord" = "Γίνε μέλος στο Discord μας";
 "Follow me on Twitter" = "Ακολούθησέ με στο Twitter";
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Έχεις ήδη προσθέσει αυτά τα repositories.";
 "Error verifying repository" = "Σφάλμα επαλήθευσης repository";
 "Error verifying repositories" = "Σφάλμα επαλήθευσης repositories";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Άγνωστο σφάλμα";
 "Invalid URL" = "Λανθασμένο URL";
 "Enter URL" = "Καταχώρισε URL";
 "Add Repo(s)" = "Πρόσθεσε Repo(s)";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Κονσόλα";
-"Performing actions" = "Εκτέλεση πράξεων";
+"Performing Actions..." = "Γίνεται εκτέλεση Πράξεων...";
 "Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
 "Close Zebra" = "Κλείσε το Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Ματαίωση";
 "Continue" = "Συνέχεια";
 "Download Size" = "Μέγεθος Λήψης";
-"Could not resolve dependency for %@" = "Αδυναμία επίλυσης εξάρτησης για %@";
-"%@ conflicts with %@" = "%@ συγκρούεται με %@";
-"%@ depends on %@" = "%@ εξαρτάται από το %@";
-"Removed by" = "Αφαιρέθηκε από";
-"Required by" = "Απαιτείται από";
 "Confirm" = "Επιβεβαίωση";
+"%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
+"Required Package" = "Απαιτούμενο Πακέτο";
+"%@ is required by:" = "%@ απαιτείται από:";
+"Issues" = "Προβλήματα";
+"%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";

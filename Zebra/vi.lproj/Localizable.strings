@@ -1,8 +1,8 @@
 // Common
 
 "Cancel" = "Hủy Bỏ";
-"No" = "No";
-"Ok" = "Ok";
+"No" = "Không";
+"Ok" = "Đồng ý";
 "Error" = "Lỗi";
 "Retry" = "Thử lại";
 "Edit" = "Soạn thảo";
@@ -26,18 +26,18 @@
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
-"Unwish" = "Unwish";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
 "Follow me on Twitter" = "Theo dõi tôi trên Twitter";
 
 //Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "Tín Dụng";
+"Creators" = "Tác giả";
+"Contributors" = "Người đóng góp";
+"Translators" = "Biên dịch viên";
+"Libraries" = "Thư viện";
 
 // Settings
 
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Bạn đã thêm các kho lưu trữ này.";
 "Error verifying repository" = "Lỗi khi xác minh kho lưu trữ";
 "Error verifying repositories" = "Lỗi khi xác minh kho lưu trữ";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Lỗi không xác định";
 "Invalid URL" = "URL không hợp lệ";
 "Enter URL" = "Nhập URL";
 "Add Repo(s)" = "Thêm Repo(s)";
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
 "Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Vui lòng chờ...";
+"Verifying Source(s)" = "Xác minh nguồn(s)";
 "Unable to verify Repo" = "Không thể xác minh Repo";
 "Refresh" = "Làm mới";
 "Log Out" = "Đăng xuất";
@@ -149,41 +149,41 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Quyền quản trị";
+"App Addons" = "Ứng dụng bổ trợ";
+"Archiving" = "Lưu trữ";
+"Carrier Support" = "Hỗ trợ Carrier";
+"Communication" = "Giao tiếp";
+"Data Storage" = "Lưu trữ dữ liệu";
+"Development" = "Người phát triển";
+"Dictionaries" = "Từ điển";
+"Education" = "Giáo dục";
+"Entertainment" = "Giải trí";
+"Games" = "Trò chơi";
+"Health and Fitness" = "Sức khỏe và năng lực";
+"Imaging" = "Hình ảnh";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "Bàn phím";
+"Localization" = "Bản đồ hoá";
+"Messaging" = "Tin nhắn";
+"Multimedia" = "Đa phương tiện";
+"Navigation" = "Điều hướng";
+"Networking" = "Mạng";
+"Packaging" = "Đóng gói";
+"Productivity" = "Năng suất";
+"Repositories" = "Kho lưu trữ";
+"Ringtones" = "Nhạc chuông";
+"Scripting" = "Kịch bản";
+"Security" = "Bảo mật";
+"Social" = "Xã hội";
+"System" = "Hệ thống";
+"Terminal Support" = "Hỗ trợ terminal";
+"Text Editors" = "Sửa văn bản";
+"Themes" = "Giao diện";
+"Toys" = "Đồ chơi";
+"Tweaks" = "Tinh chỉnh";
 "Utilities" = "Tiện ích";
-"Wallpaper" = "Wallpaper";
+"Wallpaper" = "Hình nền";
 "Widgets" = "Widgets";
 
 // Search
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Bảng điều khiển";
-"Performing actions" = "Thực hiện hành động";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Hủy bỏ";
 "Continue" = "Tiếp tục";
 "Download Size" = "Kích thước tải xuống";
-"Could not resolve dependency for %@" = "Không thể giải quyết sự phụ thuộc cho %@";
-"%@ conflicts with %@" = "%@ xung đột với %@";
-"%@ depends on %@" = "%@ phụ thuộc %@";
-"Removed by" = "Xóa bởi";
-"Required by" = "Yêu cầu bởi";
-"Confirm" = "Confirm";
+"Confirm" = "Xác nhận";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";

@@ -26,7 +26,7 @@
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
-"Unwish" = "リストから外す";
+"No items in Wish List" = "ほしいものリストには何もありません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
 "Follow me on Twitter" = "Twitter でフォロー";
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "これらのリポジトリはすでに追加されています。";
 "Error verifying repository" = "リポジトリの検証エラー";
 "Error verifying repositories" = "リポジトリの検証エラー";
-"Unknown error" = "Unknown error";
+"Unknown error" = "不明なエラー";
 "Invalid URL" = "無効なURL";
 "Enter URL" = "URLを入力";
 "Add Repo(s)" = "リポジトリを追加";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "コンソール";
-"Performing actions" = "実行しています";
+"Performing Actions..." = "実行中...";
 "Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
@@ -249,9 +249,9 @@
 "Abort" = "中止";
 "Continue" = "続行";
 "Download Size" = "(サイズ";
-"Could not resolve dependency for %@" = "%@ の依存関係を解決できませんでした";
-"%@ conflicts with %@" = "%@ が %@ と競合しています";
-"%@ depends on %@" = "%@ は %@ に依存しています";
-"Removed by" = "によって削除されました";
-"Required by" = "より必要";
 "Confirm" = "実行";
+"%@ must be removed because it depends on %@" = "%@ は %@ と競合しているため削除されます";
+"Required Package" = "要求されたパッケージ";
+"%@ is required by:" = "%@ は右記に必要です:";
+"Issues" = "問題点";
+"%@ has issues that cannot be resolved:" = "%@ は右記の問題が解決できません:";

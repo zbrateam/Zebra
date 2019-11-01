@@ -26,7 +26,7 @@
 "Stores" = "Butikkar";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
-"Unwish" = "Fjern";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Sosialt";
 "Join our Discord" = "Bli med i Discorda vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Du har allereie lagt til dei kjeldene.";
 "Error verifying repository" = "Feil under verifisering av kjelde";
 "Error verifying repositories" = "Feil under verifisering av kjelder";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Ukjend Feil";
 "Invalid URL" = "Ugyldig nettadresse";
 "Enter URL" = "Skriv inn nettadresse";
 "Add Repo(s)" = "Legg til Kjelde(r)";
 "Add" = "Legg til";
 "Add Multiple" = "Legg til Fleire";
 "Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Ver Vennleg Og Vent...";
+"Verifying Source(s)" = "Verifiserer Kjelde(r)";
 "Unable to verify Repo" = "Kan ikkje verifisere Kjelde";
 "Refresh" = "Oppdater";
 "Log Out" = "Logg Ut";
@@ -149,7 +149,7 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
+"Administration" = "Administrasjon";
 "App Addons" = "App Utvidingar";
 "Archiving" = "Arkivering";
 "Carrier Support" = "Operatør Støtte";
@@ -184,7 +184,7 @@
 "Tweaks" = "Tweaks";
 "Utilities" = "Verktøy";
 "Wallpaper" = "Bakgrunnar";
-"Widgets" = "Widgets";
+"Widgets" = "Widgeter";
 
 // Search
 
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsoll";
-"Performing actions" = "Utfører handlingar";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta ei stund og det kan hende at Zebra krasjar. Dette vil ikkje føra til skade.";
 "Close Zebra" = "Lukk Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Avbryt";
 "Continue" = "Fortset";
 "Download Size" = "Nedlasting Storleik";
-"Could not resolve dependency for %@" = "Kunne ikkje løysa nødvendigheit for %@";
-"%@ conflicts with %@" = "%@ er i konflikt med %@";
-"%@ depends on %@" = "%@ avheng av %@";
-"Removed by" = "Fjerna av";
-"Required by" = "Blir kravd av";
 "Confirm" = "Stadfest";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";

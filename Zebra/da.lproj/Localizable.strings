@@ -6,7 +6,7 @@
 "Error" = "Fejl";
 "Retry" = "Prøv igen";
 "Edit" = "Rediger";
-"Login" = "Login";
+"Login" = "Log på";
 "Close" = "Luk";
 "Done" = "Færdig";
 
@@ -26,7 +26,7 @@
 "Stores" = "Butikker";
 "Purchases" = "Køb";
 "Wish List" = "Ønskeliste";
-"Unwish" = "Unwish";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Fællesskab";
 "Join our Discord" = "Meld dig ind i vores Discord";
 "Follow me on Twitter" = "Følg mig på Twitter";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Anerkendelser";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Skabere";
+"Contributors" = "Bidragsydere";
+"Translators" = "Oversættere";
+"Libraries" = "Biblioteker";
 
 // Settings
 
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Du har allerede tilføjet disse arkiver.";
 "Error verifying repository" = "Fejl med at verificere arkiv";
 "Error verifying repositories" = "Fejl med at verificere arkiver";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
 "Enter URL" = "Indtast Webadresse";
 "Add Repo(s)" = "Tilføj Arkiv(er)";
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Vent Venligst...";
+"Verifying Source(s)" = "Verificerer Kilde(r)";
 "Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
 "Refresh" = "opdatere";
 "Log Out" = "Log af";
@@ -150,40 +150,40 @@
 // Package Section Names
 
 "Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
+"App Addons" = "App Tilføjelser";
+"Archiving" = "Arkivering";
 "Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
+"Communication" = "Kommunikation";
+"Data Storage" = "Data Opbevaring";
+"Development" = "Udvikling";
 "Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Education" = "Uddannelse";
+"Entertainment" = "Underholdning";
+"Games" = "Spil";
+"Health and Fitness" = "Helse og Fitness";
+"Imaging" = "Billedbehandling";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
+"Keyboards" = "Tastaturer";
+"Localization" = "Lokalisering";
+"Messaging" = "Meddelelser";
+"Multimedia" = "Multimedier";
+"Navigation" = "Navigering";
+"Networking" = "Netværk";
+"Packaging" = "Indpakning";
+"Productivity" = "Produktivitet";
 "Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
+"Ringtones" = "Ringetoner";
 "Scripting" = "Scripting";
-"Security" = "Security";
+"Security" = "Sikkerhed";
 "Social" = "Social";
 "System" = "System";
 "Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Text Editors" = "Tekstredigeringsværktøj";
+"Themes" = "Temaer";
+"Toys" = "Legetøj";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
+"Utilities" = "Værktøjer";
+"Wallpaper" = "Baggrunde";
 "Widgets" = "Widgets";
 
 // Search
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsol";
-"Performing actions" = "Udføre handlinger";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
 "Close Zebra" = "Luk Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Afbryd";
 "Continue" = "Fortsæt";
 "Download Size" = "Overførsels størrelse";
-"Could not resolve dependency for %@" = "Kunne ikke løse afhængighed til %@";
-"%@ conflicts with %@" = "%@ konflikter med %@";
-"%@ depends on %@" = "%@ afhænger på %@";
-"Removed by" = "Fjernet af";
-"Required by" = "Forlanget af";
-"Confirm" = "Confirm";
+"Confirm" = "Bekræft";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";

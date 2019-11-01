@@ -6,7 +6,7 @@
 "Error" = "Erro";
 "Retry" = "Repetir";
 "Edit" = "Editar";
-"Login" = "Login";
+"Login" = "Iniciar sessão";
 "Close" = "Fechar";
 "Done" = "Feito";
 
@@ -26,7 +26,7 @@
 "Stores" = "Lojas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
-"Unwish" = "Unwish";
+"No items in Wish List" = "Sem itens na Lista de Desejos";
 "Community" = "Comunidade";
 "Join our Discord" = "Entre no nosso Discord";
 "Follow me on Twitter" = "Me siga no Twitter";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Você já adicionou esses repositórios.";
 "Error verifying repository" = "Erro ao verificar o repositório";
 "Error verifying repositories" = "Erro ao verificar repositórios";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Erro desconhecido";
 "Invalid URL" = "URL inválida";
 "Enter URL" = "Inserir URL";
 "Add Repo(s)" = "Adicionar Repo(s)";
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Múltiplos";
 "Would you like to add the URL from your clipboard?" = "Deseja adicionar o URL da sua área de transferência?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Por favor, aguarde...";
+"Verifying Source(s)" = "Verificando Fonte(s)";
 "Unable to verify Repo" = "Não foi possível verificar o Repo";
 "Refresh" = "Atualizar";
 "Log Out" = "Sair";
@@ -181,7 +181,7 @@
 "Text Editors" = "Editores de Texto";
 "Themes" = "Temas";
 "Toys" = "Brinquedos";
-"Tweaks" = "Tweaks";
+"Tweaks" = "Modificações";
 "Utilities" = "Utilidades";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Consola";
-"Performing actions" = "Executando ações";
+"Performing Actions..." = "Executando ações...";
 "Updating icon cache asynchronously..." = "Atualizando o cache do ícone de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isso pode demorar um pouco e o Zebra pode falhar. Tudo bem se isso acontecer.";
 "Close Zebra" = "Fechar Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Abortar";
 "Continue" = "Continuar";
 "Download Size" = "Tamanho do Download";
-"Could not resolve dependency for %@" = "Não foi possível resolver a dependência para %@";
-"%@ conflicts with %@" = "%@ conflita com %@";
-"%@ depends on %@" = "%@ depende de %@";
-"Removed by" = "Removido por";
-"Required by" = "Pedido por";
 "Confirm" = "Confirmar";
+"%@ must be removed because it depends on %@" = "%@ deve ser removido porque depende de %@";
+"Required Package" = "Pacote Requerido";
+"%@ is required by:" = "%@ é requerido por:";
+"Issues" = "Problemas";
+"%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";

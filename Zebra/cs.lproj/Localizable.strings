@@ -15,7 +15,7 @@
 "Home" = "Domů";
 "Info" = "Info";
 "Welcome to the Zebra Beta!" = "Vítej v Zebra Beta!";
-"Changelog" = "Changelog";
+"Changelog" = "Seznam změn";
 "Community Repos" = "Repozitáře komunity";
 "Transfer Sources from %@" = "Přenést repozitáře z %@";
 "Move all sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ to Zebra";
@@ -23,10 +23,10 @@
 "Transfer Sources" = "Přenést Repozitáře";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Stores" = "Stores";
+"Stores" = "Obchody";
 "Purchases" = "Nákupy";
-"Wish List" = "Wish List";
-"Unwish" = "Unwish";
+"Wish List" = "Seznam přání";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Komunita";
 "Join our Discord" = "Připoj se ka našmu Discordu";
 "Follow me on Twitter" = "Sleduj mě na Twitteru";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Kredity";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Autoři";
+"Contributors" = "Přispívající";
+"Translators" = "Překladatelé";
+"Libraries" = "Knihovny";
 
 // Settings
 
@@ -64,7 +64,7 @@
 
 "Change Icon" = "Změnit ikonu";
 
-"Enable Featured Packages" = "Enable Featured Packages";
+"Enable Featured Packages" = "Povolit doporučené balíčky";
 "Repo Featured" = "Návrhy repozitářů";
 "Random" = "Náhodně";
 "Feature Type" = "Typy Návrhů";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Tyto repozitáře již byly přidány.";
 "Error verifying repository" = "Chyba při ověřování repozitáře";
 "Error verifying repositories" = "Chyba při ověřování repozitářů";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadej URL";
 "Add Repo(s)" = "Přidat repozitář(e)";
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Prosím čekejte...";
+"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
 "Unable to verify Repo" = "Chyba při ověřování repozitáře";
 "Refresh" = "Refreshnout";
 "Log Out" = "Odhlásit se";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Správa";
+"App Addons" = "Doplňky aplikací";
+"Archiving" = "Archivace";
+"Carrier Support" = "Podpora operátora";
+"Communication" = "Komunikace";
+"Data Storage" = "Úložiště dat";
+"Development" = "Vývoj";
+"Dictionaries" = "Slovníky";
+"Education" = "Vzdělávání";
+"Entertainment" = "Zábava";
+"Games" = "Hry";
+"Health and Fitness" = "Zdraví a fitness";
+"Imaging" = "Zobrazování";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "Klávesnice";
+"Localization" = "Lokalizace";
+"Messaging" = "Zasílání zpráv";
+"Multimedia" = "Multimédia";
+"Navigation" = "Navigace";
+"Networking" = "Sítě";
+"Packaging" = "Balení";
+"Productivity" = "Produktivita";
+"Repositories" = "Repozitáře";
+"Ringtones" = "Vyzváněcí tóny";
+"Scripting" = "Skriptování";
+"Security" = "Zabezpečení";
+"Social" = "Sociální sítě";
+"System" = "Systém";
+"Terminal Support" = "Podpora terminálu";
+"Text Editors" = "Textové editory";
+"Themes" = "Motivy";
+"Toys" = "Hračky";
+"Tweaks" = "Tweaky";
 "Utilities" = "Nástroje";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "Pozadí";
+"Widgets" = "Miniaplikace";
 
 // Search
 
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konzole";
-"Performing actions" = "Akce probíhají";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Probíhá asynchonní update icon cache...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Toto může trvat delší dobu a Zebra může spadnout. Nevadí pokud se tak stane.";
 "Close Zebra" = "Zavřít Zebru";
@@ -249,9 +249,9 @@
 "Abort" = "Storno";
 "Continue" = "Pokračovat";
 "Download Size" = "Velikost stažení";
-"Could not resolve dependency for %@" = "Nebyly splněny závislosti pro %@";
-"%@ conflicts with %@" = "%@ v konfliktu s %@";
-"%@ depends on %@" = "%@ závisí na %@";
-"Removed by" = "Odstaněno kvůli";
-"Required by" = "Vyžadováno kvůli";
-"Confirm" = "Confirm";
+"Confirm" = "Potvrdit";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";

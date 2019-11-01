@@ -26,7 +26,7 @@
 "Stores" = "Sklepy";
 "Purchases" = "Zakupione";
 "Wish List" = "Lista Życzeń";
-"Unwish" = "Unwish";
+"No items in Wish List" = "Brak produktów na liście życzeń";
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
 "Follow me on Twitter" = "Śledź mnie na Twitterze";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "Te repozytoria zostały już dodane.";
 "Error verifying repository" = "Błąd weryfykacji repozytorium";
 "Error verifying repositories" = "Błąd weryfykacji repozytoriów";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Nieznany błąd";
 "Invalid URL" = "Błędny URL";
 "Enter URL" = "Wpisz URL";
 "Add Repo(s)" = "Dodaj repozytoria";
 "Add" = "Dodaj";
 "Add Multiple" = "Dodaj wiele";
 "Would you like to add the URL from your clipboard?" = "Czy chcesz skopiować URL do schowka?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Proszę czekać...";
+"Verifying Source(s)" = "Weryfikowanie źródeł";
 "Unable to verify Repo" = "Nie można zweryfikować repozytorium";
 "Refresh" = "Odśwież";
 "Log Out" = "Wyloguj się";
@@ -152,7 +152,7 @@
 "Administration" = "Administracyjne";
 "App Addons" = "Dodatki do aplikacji";
 "Archiving" = "Archiwizacja";
-"Carrier Support" = "Carrier Support";
+"Carrier Support" = "Wsparcie operatorów";
 "Communication" = "Komunikacja";
 "Data Storage" = "Przechowywanie danych";
 "Development" = "Dewelopment";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsola";
-"Performing actions" = "Wykonywanie akcji";
+"Performing Actions..." = "Wykonywanie akcji...";
 "Updating icon cache asynchronously..." = "Aktualizowanie pamięci ikon asynchronicznie...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "To może chwile zająć i Zebra może się zamknąć. Nic złego się nie stanie jeżeli to się wydarzy.";
 "Close Zebra" = "Zamknij Zebrę";
@@ -249,9 +249,9 @@
 "Abort" = "Anuluj";
 "Continue" = "Kontynuuj";
 "Download Size" = "Rozmiar pobierania";
-"Could not resolve dependency for %@" = "Nie można rozwiązać zależnośći dla %@";
-"%@ conflicts with %@" = "%@ koliduje z %@";
-"%@ depends on %@" = "%@ polega na %@";
-"Removed by" = "Usunięte przez";
-"Required by" = "Wymagane przez";
 "Confirm" = "Potwierdź";
+"%@ must be removed because it depends on %@" = "%@ musi zostać usunięte, bo polega na %@";
+"Required Package" = "Wymagany pakiet";
+"%@ is required by:" = "%@ jest wymagany przez:";
+"Issues" = "Błędy";
+"%@ has issues that cannot be resolved:" = "%@ ma błędy, których nie udało się rozwiązać:";

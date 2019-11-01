@@ -26,7 +26,7 @@
 "Stores" = "חנויות";
 "Purchases" = "רכישות";
 "Wish List" = "רשימת משאלות";
-"Unwish" = "Unwish";
+"No items in Wish List" = "אין פריטים ברשימת המשאלות";
 "Community" = "קהילה";
 "Join our Discord" = "הצטרף\\/י ל-Discord שלנו";
 "Follow me on Twitter" = "עקוב\\/י אחריי ב-Twitter";
@@ -96,15 +96,15 @@
 "You have already added these repositories." = "כבר הוספת את מקורות אלו.";
 "Error verifying repository" = "תקלה באימות מקור";
 "Error verifying repositories" = "תקלה באימות מקורות";
-"Unknown error" = "Unknown error";
+"Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
 "Enter URL" = "הזן\\/י כתובת";
 "Add Repo(s)" = "הוסף מקור(ות)";
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "נא להמתין...";
+"Verifying Source(s)" = "מאמת מקור(ות)";
 "Unable to verify Repo" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
 "Log Out" = "התנתק";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "מסוף";
-"Performing actions" = "מבצע פעולות";
+"Performing Actions..." = "מבצע פעולות...";
 "Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
@@ -249,9 +249,9 @@
 "Abort" = "ביטול";
 "Continue" = "המשך";
 "Download Size" = "גודל הורדה";
-"Could not resolve dependency for %@" = "לא ניתן לפתור תלות עבור %@";
-"%@ conflicts with %@" = "%@ מתנגש עם %@";
-"%@ depends on %@" = "%@ תלוי ב-%@";
-"Removed by" = "הוסר ע\"י";
-"Required by" = "נדרש ע\"י";
 "Confirm" = "אישור";
+"%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
+"Required Package" = "חבילה נדרשת";
+"%@ is required by:" = "%@ נדרש ע\"י:";
+"Issues" = "בעיות";
+"%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";

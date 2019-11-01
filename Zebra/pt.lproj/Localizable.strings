@@ -26,7 +26,7 @@
 "Stores" = "Lojas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
-"Unwish" = "Unwish";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Comunidade";
 "Join our Discord" = "Junta-te ao nosso Discord";
 "Follow me on Twitter" = "Segue-me no Twitter";
@@ -103,8 +103,8 @@
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Multiplos";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Por favor aguarda...";
+"Verifying Source(s)" = "A Verificar Fonte(s)";
 "Unable to verify Repo" = "Não foi possivel verificar o Repo";
 "Refresh" = "Atualidade";
 "Log Out" = "Sair";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Consola";
-"Performing actions" = "A executar ações";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "A atualizar o cache do ícon de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isto pode demorar e o Zebra pode crashar. Não ha problema se isso acontecer.";
 "Close Zebra" = "Fechar o Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Abortar";
 "Continue" = "Continuar";
 "Download Size" = "Tamanho do Download";
-"Could not resolve dependency for %@" = "Não foi possível resolver a dependência para %@";
-"%@ conflicts with %@" = "%@ entra em conflito com %@";
-"%@ depends on %@" = "%@ depende de %@";
-"Removed by" = "Removido por";
-"Required by" = "Solicitado por";
 "Confirm" = "Confirm";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";

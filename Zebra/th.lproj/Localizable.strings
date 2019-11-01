@@ -26,7 +26,7 @@
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
 "Wish List" = "รายการอยากได้";
-"Unwish" = "Unwish";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
 "Follow me on Twitter" = "ติดตามฉันใน Twitter";
@@ -103,8 +103,8 @@
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "โปรดรอ...";
+"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
 "Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
 "Log Out" = "ลงชื่อออก";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "คอนโซล";
-"Performing actions" = "กำลังทำงาน";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "อัพเดตแคชไอคอนใหม่...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
 "Close Zebra" = "ปิด Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "หยุด";
 "Continue" = "ทำต่อ";
 "Download Size" = "ขนาดดาวน์โหลด";
-"Could not resolve dependency for %@" = "ไม่สามารถคำนวณโปรแกรมที่ %@ ต้องการได้";
-"%@ conflicts with %@" = "%@ ไม่รองรับ %@";
-"%@ depends on %@" = "%@ ต้องการ %@";
-"Removed by" = "ถูกลบโดย";
-"Required by" = "ต้องการโดย";
 "Confirm" = "Confirm";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
