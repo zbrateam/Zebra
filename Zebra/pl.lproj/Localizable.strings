@@ -26,7 +26,7 @@
 "Stores" = "Sklepy";
 "Purchases" = "Zakupione";
 "Wish List" = "Lista Życzeń";
-"Unwish" = "Usuń z listy życzeń";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
 "Follow me on Twitter" = "Śledź mnie na Twitterze";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsola";
-"Performing actions" = "Wykonywanie akcji";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Aktualizowanie pamięci ikon asynchronicznie...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "To może chwile zająć i Zebra może się zamknąć. Nic złego się nie stanie jeżeli to się wydarzy.";
 "Close Zebra" = "Zamknij Zebrę";
@@ -249,9 +249,9 @@
 "Abort" = "Anuluj";
 "Continue" = "Kontynuuj";
 "Download Size" = "Rozmiar pobierania";
-"Could not resolve dependency for %@" = "Nie można rozwiązać zależnośći dla %@";
-"%@ conflicts with %@" = "%@ koliduje z %@";
-"%@ depends on %@" = "%@ polega na %@";
-"Removed by" = "Usunięte przez";
-"Required by" = "Wymagane przez";
 "Confirm" = "Potwierdź";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
