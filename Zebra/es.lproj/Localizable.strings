@@ -2,7 +2,7 @@
 
 "Cancel" = "Cancelar";
 "No" = "No";
-"Ok" = "Ok";
+"Ok" = "Aceptar";
 "Error" = "Error";
 "Retry" = "Reintentar";
 "Edit" = "Editar";
@@ -34,7 +34,7 @@
 //Credits
 
 "Credits" = "Créditos";
-"Creators" = "Creators";
+"Creators" = "Creadores";
 "Contributors" = "Contributors";
 "Translators" = "Translators";
 "Libraries" = "Libraries";
