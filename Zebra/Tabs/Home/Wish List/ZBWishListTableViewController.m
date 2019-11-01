@@ -28,6 +28,8 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    self.title = NSLocalizedString(@"Wish List", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -63,15 +65,33 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([wishedPackages count] == 0) {
+        return 1;
+    }
+    
     return [wishedPackages count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    [cell setColors];
-    ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
-    [(ZBPackageTableViewCell *)cell updateData:package];
-    return cell;
+    if ([wishedPackages count] == 0) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noWishesCell"];
+        cell.textLabel.text = NSLocalizedString(@"No items in Wish List", @"");
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        return cell;
+    }
+    else {
+        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        [cell setColors];
+        
+        ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
+        [(ZBPackageTableViewCell *)cell updateData:package];
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,10 +104,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
-    NSMutableArray *actions = [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"Unwish", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self->wishedPackages removeObject:package];
         NSMutableArray *wishedPackageIDs = [[self->defaults objectForKey:wishListKey] mutableCopy];
         [wishedPackageIDs removeObject:[package identifier]];
@@ -99,8 +116,7 @@
         [self.tableView endUpdates];
     }];
     remove.backgroundColor = [UIColor systemPinkColor];
-    [actions addObject:remove];
-    return actions;
+    return @[remove];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
