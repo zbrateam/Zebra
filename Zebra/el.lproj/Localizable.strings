@@ -26,7 +26,7 @@
 "Stores" = "Καταστήματα";
 "Purchases" = "Αγορές";
 "Wish List" = "Λίστα Επιθυμιών";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Δεν υπάρχουν αντικείμενα στην Λίστα Επιθυμιών";
 "Community" = "Κοινότητα";
 "Join our Discord" = "Γίνε μέλος στο Discord μας";
 "Follow me on Twitter" = "Ακολούθησέ με στο Twitter";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Κονσόλα";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Γίνεται εκτέλεση Πράξεων...";
 "Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
 "Close Zebra" = "Κλείσε το Zebra";
@@ -250,8 +250,8 @@
 "Continue" = "Συνέχεια";
 "Download Size" = "Μέγεθος Λήψης";
 "Confirm" = "Επιβεβαίωση";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
+"Required Package" = "Απαιτούμενο Πακέτο";
+"%@ is required by:" = "%@ απαιτείται από:";
+"Issues" = "Προβλήματα";
+"%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
