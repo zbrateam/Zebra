@@ -26,7 +26,7 @@
 "Stores" = "חנויות";
 "Purchases" = "רכישות";
 "Wish List" = "רשימת משאלות";
-"Unwish" = "הורד מרשימת המשאלות";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "קהילה";
 "Join our Discord" = "הצטרף\\/י ל-Discord שלנו";
 "Follow me on Twitter" = "עקוב\\/י אחריי ב-Twitter";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "מסוף";
-"Performing actions" = "מבצע פעולות";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
@@ -249,9 +249,9 @@
 "Abort" = "ביטול";
 "Continue" = "המשך";
 "Download Size" = "גודל הורדה";
-"Could not resolve dependency for %@" = "לא ניתן לפתור תלות עבור %@";
-"%@ conflicts with %@" = "%@ מתנגש עם %@";
-"%@ depends on %@" = "%@ תלוי ב-%@";
-"Removed by" = "הוסר ע\"י";
-"Required by" = "נדרש ע\"י";
 "Confirm" = "אישור";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
