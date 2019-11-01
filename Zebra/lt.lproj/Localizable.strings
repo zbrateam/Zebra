@@ -26,7 +26,7 @@
 "Stores" = "Parduotuvės";
 "Purchases" = "Pirkimų sąrašas";
 "Wish List" = "Norų sąrašas";
-"Unwish" = "Išbraukti norą";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Bendruomenė";
 "Join our Discord" = "Prisijunkite prie mūsų Discord";
 "Follow me on Twitter" = "Sekite mane Twitteryje";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsolė";
-"Performing actions" = "Atliekami veiksmai";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Asinchroniškai atnaujinami piktogramų podeliai...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tai gali užtrukti ir Zebra gali užstrigti/išsijungti. Jei taip atsitiks, tai normalu.";
 "Close Zebra" = "Uždaryti Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Nutraukti";
 "Continue" = "Tęsti";
 "Download Size" = "Atsiuntimo dydis";
-"Could not resolve dependency for %@" = "Nepavyko išspręsti %@ priklausomybės";
-"%@ conflicts with %@" = "%@ nesuderinamas su %@";
-"%@ depends on %@" = "%@ priklausomas nuo %@";
-"Removed by" = "Pašalino";
-"Required by" = "Reikalauja";
 "Confirm" = "Patvirtinti";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
