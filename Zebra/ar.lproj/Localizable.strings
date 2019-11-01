@@ -26,7 +26,7 @@
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
-"Unwish" = "إزالة من القائمة";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "المجتمع";
 "Join our Discord" = "انضم لنا على Discord";
 "Follow me on Twitter" = "تابعنا على تويتر";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "وحدة التحكم";
-"Performing actions" = "تنفيذ الإجراءات";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن ...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "إيقاف";
 "Continue" = "استمرار";
 "Download Size" = "حجم التنزيل";
-"Could not resolve dependency for %@" = "لا يمكن حل التبعية لـ %@";
-"%@ conflicts with %@" = "%@ يتعارض مع %@";
-"%@ depends on %@" = "%@ يعتمد على %@";
-"Removed by" = "تمت إزالته بواسطة";
-"Required by" = "مطلوب بواسطة";
 "Confirm" = "تأكيد";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
