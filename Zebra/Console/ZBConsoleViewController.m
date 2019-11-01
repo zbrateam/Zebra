@@ -479,8 +479,15 @@
         }
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-
-        [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs]];
+        
+        //Adds a newline if there is not already one
+        NSString *string = [str copy];
+        NSString *lastChar = [string substringFromIndex:[string length] - 1];
+        if (![lastChar isEqualToString:@"\n"]) {
+            string = [str stringByAppendingString:@"\n"];
+        }
+        
+        [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:string attributes:attrs]];
 
         if (self->consoleView.text.length) {
             NSRange bottom = NSMakeRange(self->consoleView.text.length - 1, 1);
