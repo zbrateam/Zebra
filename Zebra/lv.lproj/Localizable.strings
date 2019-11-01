@@ -26,7 +26,7 @@
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
 "Wish List" = "Vēlmju saraksts";
-"Unwish" = "Nevēlēties";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
 "Follow me on Twitter" = "Seko man Twitterī";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "konsole";
-"Performing actions" = "Veicam darbības";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Ikona kešatmiņa tiek atjaunota asinhroni...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tas var aizņemt laiku, un Zebra var crashot. Nav slikti, ja tā notiek.";
 "Close Zebra" = "Aizvert Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Pārtraukt";
 "Continue" = "Turpināt";
 "Download Size" = "Lejupielādes lielums";
-"Could not resolve dependency for %@" = "Nevarēja atrisināt %@ atkarības";
-"%@ conflicts with %@" = "%@ konfliktē ar %@";
-"%@ depends on %@" = "%@ ir atkarīgs no %@";
-"Removed by" = "Izdzēsts no";
-"Required by" = "Nepieciešams no";
 "Confirm" = "Apstiprināt";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
