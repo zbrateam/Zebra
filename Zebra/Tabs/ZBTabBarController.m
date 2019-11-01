@@ -81,8 +81,10 @@
     }
     
     //poor hack to get the tab bar to re-layout
-    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
-    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    if (@available(iOS 11.0, *)) {
+        self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
+        self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    }
 }
 
 - (void)setPackageUpdateBadgeValue:(int)updates {
