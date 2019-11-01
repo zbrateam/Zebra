@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Medverkande";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Skaparna";
+"Contributors" = "Bidragsgivare";
+"Translators" = "Översättare";
+"Libraries" = "Bibliotek";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Du har redan lagt till de här förråden.";
 "Error verifying repository" = "Fel när förrådet verifierades";
 "Error verifying repositories" = "Fel när förråden verifierades";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Okänt fel";
 "Invalid URL" = "Ogiltig URL";
 "Enter URL" = "Ange URL";
 "Add Repo(s)" = "Lägg till förråd";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
+"Administration" = "Administrering";
+"App Addons" = "App-tillägg";
+"Archiving" = "Arkivering";
 "Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
+"Communication" = "Kommunikation";
+"Data Storage" = "Datalagring";
+"Development" = "Utveckling";
 "Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Education" = "Utbildning";
+"Entertainment" = "Underhållning";
+"Games" = "Spel";
+"Health and Fitness" = "Hälsa och Träning";
+"Imaging" = "Avbildning";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
+"Keyboards" = "Tangentbord";
+"Localization" = "Lokalisering";
+"Messaging" = "Meddelanden";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
+"Navigation" = "Navigering";
+"Networking" = "Nätverk";
+"Packaging" = "Förpackning";
+"Productivity" = "Produktivitet";
 "Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
+"Ringtones" = "Ringsignaler";
 "Scripting" = "Scripting";
-"Security" = "Security";
+"Security" = "Säkerhet";
 "Social" = "Social";
 "System" = "System";
 "Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Text Editors" = "Textredigerare";
+"Themes" = "Teman";
+"Toys" = "Leksaker";
 "Tweaks" = "Tweaks";
 "Utilities" = "Verktyg";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "Bakgrund";
+"Widgets" = "Widgetar";
 
 // Search
 
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ beror på %@";
 "Removed by" = "Tas bort av";
 "Required by" = "Krävs av";
-"Confirm" = "Confirm";
+"Confirm" = "Bekräfta";
