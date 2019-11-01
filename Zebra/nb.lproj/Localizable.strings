@@ -26,7 +26,7 @@
 "Stores" = "Butikker";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
-"Unwish" = "Fjern";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Sosialt";
 "Join our Discord" = "Bli med i Discorden vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konsoll";
-"Performing actions" = "Utfører handlinger";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta en stund og det kan hende at Zebra krasjer. Dette vil ikke føre til skade.";
 "Close Zebra" = "Lukk Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Avbryt";
 "Continue" = "Fortsett";
 "Download Size" = "Nedlasting Størrelse";
-"Could not resolve dependency for %@" = "Kunne ikke løse nødvendighet for %@";
-"%@ conflicts with %@" = "%@ er i konflikt med %@";
-"%@ depends on %@" = "%@ avhenger av %@";
-"Removed by" = "Fjernet av";
-"Required by" = "Kreves av";
 "Confirm" = "Bekreft";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
