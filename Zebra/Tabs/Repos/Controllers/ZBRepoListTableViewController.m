@@ -224,6 +224,11 @@
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        if ([ZBDevice darkModeEnabled]) {
+            textField.backgroundColor = [UIColor cellSeparatorColor];
+            textField.superview.backgroundColor = [UIColor cellSeparatorColor];
+            textField.textColor = [UIColor whiteColor];
+        }
         if (url != NULL) {
             textField.text = [url absoluteString];
         } else {
