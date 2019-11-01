@@ -26,7 +26,7 @@
 "Stores" = "Prodavnice";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
-"Unwish" = "Ukloni sa liste želja";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridruži nam se na Discord";
 "Follow me on Twitter" = "Zaprati me na Twitteru";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Konzola";
-"Performing actions" = "Izvršavam akcije";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Nadogradjujem keš ikona asinhrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može oboriti. To ne predstavlja problem.";
 "Close Zebra" = "Zatvori Zebru";
@@ -249,9 +249,9 @@
 "Abort" = "Obustavi";
 "Continue" = "Nastavi";
 "Download Size" = "Veličina preuzimanja";
-"Could not resolve dependency for %@" = "Nisu pronadjene dependency za %@";
-"%@ conflicts with %@" = "%@ je u konfliktu sa %@";
-"%@ depends on %@" = "%@ zavisi od %@";
-"Removed by" = "Uklonio";
-"Required by" = "Potrebno od";
 "Confirm" = "Potvrdi";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
