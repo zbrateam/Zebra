@@ -26,7 +26,7 @@
 "Stores" = "Магазины";
 "Purchases" = "Покупки";
 "Wish List" = "Список желаний";
-"Unwish" = "Не желать";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
 "Follow me on Twitter" = "Twitter Разработчика";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Консоль";
-"Performing actions" = "Выполняются действия";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Асинхронное обновление кэша иконок...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Это может занять несколько минут, и Zebra может крашнуться. Это нормально.";
 "Close Zebra" = "Закрыть Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Отмена";
 "Continue" = "Продолжить";
 "Download Size" = "Размер загрузки";
-"Could not resolve dependency for %@" = "Невозможно найти зависимость для %@";
-"%@ conflicts with %@" = "%@ конфликтует с %@";
-"%@ depends on %@" = "%@ зависит от %@";
-"Removed by" = "Удалено";
-"Required by" = "Требуется";
 "Confirm" = "Подтвердить";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
