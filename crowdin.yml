@@ -1,4 +1,4 @@
-commit_message: '[Localization] Update %language%'
+commit_message: '[Localization] Update %language% translations'
 append_commit_message: false
 files:
   - source: /Zebra/Base.lproj/Localizable.strings
