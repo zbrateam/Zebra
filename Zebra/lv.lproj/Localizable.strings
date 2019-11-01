@@ -26,7 +26,7 @@
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
 "Wish List" = "Vēlmju saraksts";
-"Unwish" = "Unwish";
+"Unwish" = "Nevēlēties";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
 "Follow me on Twitter" = "Seko man Twitterī";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Kredīti";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Autori";
+"Contributors" = "Atbalstītāji";
+"Translators" = "Tulkotāji";
+"Libraries" = "Bibliotēkas";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Tu jau pievienoji šos avotus.";
 "Error verifying repository" = "Ķlūda verificējot avotu";
 "Error verifying repositories" = "Ķlūda verificējot avotus";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Nezināma kļūda";
 "Invalid URL" = "Nederīga URL";
 "Enter URL" = "Ievadi URL";
 "Add Repo(s)" = "Pievienot avotu(s)";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Administrācija";
+"App Addons" = "Appa plugini";
+"Archiving" = "Arhivēšana";
+"Carrier Support" = "Mobilā pārvadātāja plugini";
+"Communication" = "Komunikācija";
+"Data Storage" = "Datu glabāšana";
+"Development" = "Izstrāde";
+"Dictionaries" = "Vārdnīcas";
+"Education" = "Izglītība";
+"Entertainment" = "Izklaide";
+"Games" = "Spēles";
+"Health and Fitness" = "Veselība un fitness";
+"Imaging" = "Bildes";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "Tastatūra";
+"Localization" = "Lokalizācija";
+"Messaging" = "Ziņapmaiņa";
+"Multimedia" = "Multimedija";
+"Navigation" = "Navigācija";
+"Networking" = "Tīklošana";
+"Packaging" = "Pakēšana";
+"Productivity" = "Produktivitāte";
+"Repositories" = "Avoti";
+"Ringtones" = "Zvanu signāli";
+"Scripting" = "Skriptu veidošana";
+"Security" = "Drošība";
+"Social" = "Sociālie tīkli";
+"System" = "Sistēma";
+"Terminal Support" = "Termināla plugins";
+"Text Editors" = "Teksta editors";
+"Themes" = "Icona motīvi";
+"Toys" = "Spēļumantas";
+"Tweaks" = "Tweaki";
 "Utilities" = "Darbarīki";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "Fona attēls";
+"Widgets" = "Logrīki";
 
 // Search
 
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ ir atkarīgs no %@";
 "Removed by" = "Izdzēsts no";
 "Required by" = "Nepieciešams no";
-"Confirm" = "Confirm";
+"Confirm" = "Apstiprināt";
