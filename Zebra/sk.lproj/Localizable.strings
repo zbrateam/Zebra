@@ -2,7 +2,7 @@
 
 "Cancel" = "Zrušiť";
 "No" = "Nie";
-"Ok" = "Ok";
+"Ok" = "OK";
 "Error" = "Chyba";
 "Retry" = "Znova";
 "Edit" = "Upraviť";
@@ -15,7 +15,7 @@
 "Home" = "Domú";
 "Info" = "Info";
 "Welcome to the Zebra Beta!" = "Vitaj v Zebra Beta!";
-"Changelog" = "Changelog";
+"Changelog" = "Zoznam zmien";
 "Community Repos" = "Repozitáre komunity";
 "Transfer Sources from %@" = "Prenes repozitáre z %@";
 "Move all sources from %@ to Zebra" = "Presuň všetky repozitáre z %@ to Zebra";
@@ -25,8 +25,8 @@
 "Verifying Source(s)" = "Overovanie repozitárov";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
-"Wish List" = "Wish List";
-"Unwish" = "Unwish";
+"Wish List" = "Zoznam želaní";
+"Unwish" = "Odstrániť";
 "Community" = "Komunita";
 "Join our Discord" = "Pripoj sa na náš Discord";
 "Follow me on Twitter" = "Sleduj ma na Twitteri";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Kredity";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Tvorca";
+"Contributors" = "Prispievatelia";
+"Translators" = "Prekladatelia";
+"Libraries" = "Knižnice";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Tieto repozitáre ste už pridali.";
 "Error verifying repository" = "Chyba pri overovaní repozitára";
 "Error verifying repositories" = "Chyba pri overovaní repozitárov";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Neznáma chyba";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadaj URL";
 "Add Repo(s)" = "Pridať repozitár(a)";
@@ -136,7 +136,7 @@
 "Are you sure you want to clear Queue?" = "Naozaj chcete vymazať frontu?";
 "Available Upgrades" = "Dostupné aktualizácie";
 "Ignored Upgrades" = "Ignorované aktualizácie";
-"Recent" = "Recent";
+"Recent" = "Nedávne";
 "Installed Files" = "Nainštalované súbory";
 "Modify" = "Upraviť";
 "Authenticate to initiate purchase." = "Autorizuj se pro nákup.";
@@ -149,42 +149,42 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Administrácia";
+"App Addons" = "Doplnky Aplikácií";
+"Archiving" = "Archivácia";
+"Carrier Support" = "Podpora Operátora";
+"Communication" = "Komunikácia";
+"Data Storage" = "Úložisko Dát";
+"Development" = "Vývoj";
+"Dictionaries" = "Slovníky";
+"Education" = "Vzdelávanie";
+"Entertainment" = "Zábava";
+"Games" = "Hry";
+"Health and Fitness" = "Zdravie a Fitness";
+"Imaging" = "Zobrazovanie";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Keyboards" = "Klávesnice";
+"Localization" = "Jazykové preklady";
+"Messaging" = "Odosielanie správ";
+"Multimedia" = "Multimédiá";
+"Navigation" = "Navigácia";
+"Networking" = "Sieť";
+"Packaging" = "Balenie";
+"Productivity" = "Produktivita";
+"Repositories" = "Repozitáre";
+"Ringtones" = "Vyzváňacie tóny";
+"Scripting" = "Skriptovanie";
+"Security" = "Zabezpečenie";
+"Social" = "Sociálne siete";
+"System" = "Systém";
+"Terminal Support" = "Podpora terminálu";
+"Text Editors" = "Textové editory";
+"Themes" = "Témy";
+"Toys" = "Hračky";
+"Tweaks" = "Vylepšenia";
 "Utilities" = "Nástroje";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "Pozadie";
+"Widgets" = "Miniaplikácie";
 
 // Search
 
@@ -220,7 +220,7 @@
 "Installing Packages..." = "Inštalácia balíčkov ...";
 "Removing" = "Odštraňovanie";
 "Removing Packages..." = "Odstraňujú sa balíčky ...";
-"Reinstalling" = "Reinstalling";
+"Reinstalling" = "Preinštalovánie";
 "Reinstalling Packages..." = "Preinštalovanie balíkov ...";
 "Upgrading" = "Aktualizovanie";
 "Upgrading Packages..." = "Aktualizujú sa balíčky";
@@ -254,4 +254,4 @@
 "%@ depends on %@" = "%@ je závislý na %@";
 "Removed by" = "Odstránené používateľom";
 "Required by" = "Vyžadované kvôli";
-"Confirm" = "Confirm";
+"Confirm" = "Potvrdiť";
