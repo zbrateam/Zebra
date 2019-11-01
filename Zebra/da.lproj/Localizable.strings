@@ -6,7 +6,7 @@
 "Error" = "Fejl";
 "Retry" = "Prøv igen";
 "Edit" = "Rediger";
-"Login" = "Login";
+"Login" = "Log på";
 "Close" = "Luk";
 "Done" = "Færdig";
 
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "Anerkendelser";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "Skabere";
+"Contributors" = "Bidragsydere";
+"Translators" = "Oversættere";
+"Libraries" = "Biblioteker";
 
 // Settings
 
@@ -96,7 +96,7 @@
 "You have already added these repositories." = "Du har allerede tilføjet disse arkiver.";
 "Error verifying repository" = "Fejl med at verificere arkiv";
 "Error verifying repositories" = "Fejl med at verificere arkiver";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
 "Enter URL" = "Indtast Webadresse";
 "Add Repo(s)" = "Tilføj Arkiv(er)";
@@ -150,40 +150,40 @@
 // Package Section Names
 
 "Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
+"App Addons" = "App Tilføjelser";
+"Archiving" = "Arkivering";
 "Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
+"Communication" = "Kommunikation";
+"Data Storage" = "Data Opbevaring";
+"Development" = "Udvikling";
 "Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Education" = "Uddannelse";
+"Entertainment" = "Underholdning";
+"Games" = "Spil";
+"Health and Fitness" = "Helse og Fitness";
+"Imaging" = "Billedbehandling";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
+"Keyboards" = "Tastaturer";
+"Localization" = "Lokalisering";
+"Messaging" = "Meddelelser";
+"Multimedia" = "Multimedier";
+"Navigation" = "Navigering";
+"Networking" = "Netværk";
+"Packaging" = "Indpakning";
+"Productivity" = "Produktivitet";
 "Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
+"Ringtones" = "Ringetoner";
 "Scripting" = "Scripting";
-"Security" = "Security";
+"Security" = "Sikkerhed";
 "Social" = "Social";
 "System" = "System";
 "Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Text Editors" = "Tekstredigeringsværktøj";
+"Themes" = "Temaer";
+"Toys" = "Legetøj";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
+"Utilities" = "Værktøjer";
+"Wallpaper" = "Baggrunde";
 "Widgets" = "Widgets";
 
 // Search
@@ -249,7 +249,7 @@
 "Abort" = "Afbryd";
 "Continue" = "Fortsæt";
 "Download Size" = "Overførsels størrelse";
-"Confirm" = "Confirm";
+"Confirm" = "Bekræft";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
