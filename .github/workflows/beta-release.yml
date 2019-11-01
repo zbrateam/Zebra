@@ -2,7 +2,7 @@ name: Upload Zebra Beta Release
 
 on:
   release:
-    types: [prereleased]
+    types: [published]
 
 jobs:
   build:
