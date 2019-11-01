@@ -249,9 +249,9 @@
 "Abort" = "Abort";
 "Continue" = "Continue";
 "Download Size" = "Download Size";
-"Could not resolve dependency for %@" = "Could not resolve dependency for %@";
-"%@ conflicts with %@" = "%@ conflicts with %@";
-"%@ depends on %@" = "%@ depends on %@";
-"Removed by" = "Removed by";
-"Required by" = "Required by";
 "Confirm" = "Confirm";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package"
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
