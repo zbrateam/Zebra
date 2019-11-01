@@ -26,7 +26,7 @@
 "Stores" = "Winkel";
 "Purchases" = "Aankopen";
 "Wish List" = "Verlanglijst";
-"Unwish" = "Ongewenst";
+"No items in Wish List" = "No items in Wish List";
 "Community" = "Gemeenschap";
 "Join our Discord" = "Treed toe tot onze Discord";
 "Follow me on Twitter" = "Volg mij op Twitter";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "Console";
-"Performing actions" = "Acties aan het uitvoeren";
+"Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
@@ -249,9 +249,9 @@
 "Abort" = "Stop";
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
-"Could not resolve dependency for %@" = "Kan niet de benodigde pakketten voor %@ vinden";
-"%@ conflicts with %@" = "%@ werkt niet samen met %@";
-"%@ depends on %@" = "%@ is afhankelijk van %@";
-"Removed by" = "Verwijderd door";
-"Required by" = "Is nodig bij";
 "Confirm" = "Bevestig";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
