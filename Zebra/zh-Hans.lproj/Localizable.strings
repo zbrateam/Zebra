@@ -26,7 +26,7 @@
 "Stores" = "商店";
 "Purchases" = "购买";
 "Wish List" = "心愿单";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "愿望单中无项目";
 "Community" = "交流";
 "Join our Discord" = "加入我们的 Discord";
 "Follow me on Twitter" = "在 Twitter 上关注我们";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "控制台";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "正在执行操作……";
 "Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
 "Close Zebra" = "关闭 Zebra";
@@ -250,8 +250,8 @@
 "Continue" = "继续";
 "Download Size" = "下载大小";
 "Confirm" = "确认";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
+"Required Package" = "需要的软件包";
+"%@ is required by:" = "需要 %@ 依赖包：";
+"Issues" = "问题";
+"%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
