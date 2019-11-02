@@ -1,15 +1,3 @@
-// Common
-
-"Cancel" = "Cancel";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Login" = "Login";
-"Close" = "Close";
-"Done" = "Done";
-
 /* Community News section title */
 "COMMUNITY_NEWS_HEADER" = "Community News";
 
@@ -48,6 +36,17 @@
 
 /* Credits button on homepage */
 "CREDITS_LINK_BUTTON" = "Credits";
+
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
+
 "Community Repos" = "Community Repos";
 "Transfer Sources from %@" = "Transfer Sources from %@";
 "Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";

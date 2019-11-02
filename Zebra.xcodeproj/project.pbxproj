@@ -748,10 +748,10 @@
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
 				369F9E9D22BC850000D6CCF3 /* Wish List */,
+				895A808023637C3F00C166AC /* Credits */,
 				897A7968231A085E0033C0BB /* Cells */,
 				897A7965231A04310033C0BB /* ZBHomeTableViewController.h */,
 				897A7966231A04310033C0BB /* ZBHomeTableViewController.m */,
-				895A808023637C3F00C166AC /* Credits */,
 			);
 			path = Home;
 			sourceTree = "<group>";

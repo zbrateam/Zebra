@@ -28,6 +28,8 @@
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Packages/Controllers/ZBPackageDepictionViewController.h>
 
+#import <Credits/ZBCreditsTableViewController.h>
+
 @interface ZBHomeTableViewController () {
     NSMutableArray *featuredPackages;
     NSMutableArray *communityNewsPosts;
@@ -535,7 +537,8 @@
 }
 
 - (void)showCredits {
-    NSLog(@"[Zebra] Showing credits");
+    ZBCreditsTableViewController *creditsController = [[ZBCreditsTableViewController alloc] init];
+    [[self navigationController] pushViewController:creditsController animated:true];
 }
 
 - (void)openRedditURL:(NSString *)permalink {
