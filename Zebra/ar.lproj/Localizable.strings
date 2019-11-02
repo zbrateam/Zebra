@@ -26,7 +26,7 @@
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "%1 عنصر في قائمة الأمنيات";
 "Community" = "المجتمع";
 "Join our Discord" = "انضم لنا على Discord";
 "Follow me on Twitter" = "تابعنا على تويتر";
