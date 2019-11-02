@@ -37,7 +37,7 @@
 "Creators" = "Kūrėjai";
 "Contributors" = "Modifikacijų autoriai";
 "Translators" = "Vertėjai";
-"Libraries" = "Biliotekos";
+"Libraries" = "Bibliotekos";
 
 // Settings
 
@@ -86,7 +86,7 @@
 "Resetting image cache completed" = "Vaizdo podelio atkūrimas baigtas";
 "Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Pašalinti lenteles";
 
 // Sources
 
