@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Legen van de afbeeldingencache is gelukt";
 "Clearing keychain completed" = "Legen van de sleutelhanger is gelukt";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Bronnen";
