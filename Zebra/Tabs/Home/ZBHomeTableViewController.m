@@ -343,7 +343,7 @@
             NSDictionary *post = [communityNewsPosts objectAtIndex:indexPath.row];
             NSMutableArray *components = [[[post objectForKey:@"title"] componentsSeparatedByString:@"] "] mutableCopy];
 
-            NSString *title = @"Could not load post";
+            NSString *title = NSLocalizedString(@"ERROR_LOADING_POST", @"Could not load post error");
             if ([components count] > 2) {
                 [components removeObjectAtIndex:0];
                 title = [components componentsJoinedByString:@"] "];
@@ -356,7 +356,9 @@
             }
 
             cell.titleLabel.text = title;
-            cell.tagLabel.text = [[post objectForKey:@"link_flair_text"] uppercaseString];
+            
+            NSString *flair = [NSLocalizedString([[[post objectForKey:@"link_flair_text"] uppercaseString] stringByAppendingString:@"_TAG"], @"Flair title") uppercaseString];
+            cell.tagLabel.text = flair;
             cell.permalink = [post objectForKey:@"permalink"];
 
             return cell;
@@ -364,7 +366,7 @@
         case 2: { //Changelog
             ZBIconTableViewCell *cell = (ZBIconTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
 
-            cell.titleLabel.text = @"Changelog";
+            cell.titleLabel.text = NSLocalizedString(@"VIEW_CHANGELOG_BUTTON", @"Changelog button");
             cell.iconImageView.image = [UIImage imageNamed:@"Changelog"];
             cell.storyboardID = @"changelogController";
 
@@ -375,15 +377,15 @@
 
             switch (indexPath.row) {
                 case 0:
-                    cell.actionLabel.text = @"Join Our Discord";
+                    cell.actionLabel.text = NSLocalizedString(@"DISCORD_LINK_BUTTON", @"Join Discord button");
                     cell.actionLink = @"https://discordapp.com/invite/6CPtHBU";
                     break;
                 case 1:
-                    cell.actionLabel.text = @"Follow @getZebra on Twitter";
+                    cell.actionLabel.text = NSLocalizedString(@"TWITTER_LINK_BUTTON", @"Follow us on Twitter button");
                     cell.actionLink = @"twitter";
                     break;
                 case 2:
-                    cell.actionLabel.text = @"Buy the Team Coffee";
+                    cell.actionLabel.text = NSLocalizedString(@"DONATE_LINK_BUTTON", @"Donation button");
                     cell.actionLink = @"https://paypal.me/wstyres";
                     break;
             }
@@ -392,6 +394,7 @@
         }
         case 4: { //Credits and Device information
             ZBFootnotesTableViewCell *cell = (ZBFootnotesTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"footnotesTableCell" forIndexPath:indexPath];
+            [cell.creditsButton setTitle:NSLocalizedString(@"CREDITS_LINK_BUTTON", @"Credits button on the homepage") forState:UIControlStateNormal];
             [cell.creditsButton addTarget:self action:@selector(showCredits) forControlEvents:UIControlEventTouchUpInside];
 
             [cell.deviceInfoLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@ \n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]]];
@@ -426,7 +429,7 @@
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[sectionLabel]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sectionLabel)]];
 
 
-        sectionLabel.text = @"Community News";
+        sectionLabel.text = NSLocalizedString(@"COMMUNITY_NEWS_HEADER", @"Community News section title");
 
         return view;
     }

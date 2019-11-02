@@ -10,12 +10,44 @@
 "Close" = "Close";
 "Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to the Zebra Beta!" = "Welcome to the Zebra Beta!";
-"Changelog" = "Changelog";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "News";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Changelog";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Join our Discord";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Credits";
 "Community Repos" = "Community Repos";
 "Transfer Sources from %@" = "Transfer Sources from %@";
 "Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
@@ -28,12 +60,9 @@
 "Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
 "Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow me on Twitter" = "Follow me on Twitter";
 
 //Credits
 
-"Credits" = "Credits";
 "Creators" = "Creators";
 "Contributors" = "Contributors";
 "Translators" = "Translators";
