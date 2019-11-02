@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Nulstilling af billed cache færdig";
 "Clearing keychain completed" = "Ryddelse af Keychain færdig";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Kilder";
