@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Attēla kešatmiņu notīrīšana ir pabeigta";
 "Clearing keychain completed" = "Pieslēgšanas notīrīšana ir pabeigta";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Avoti";
