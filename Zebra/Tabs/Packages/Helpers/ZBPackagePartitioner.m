@@ -50,6 +50,10 @@
                     groupedDate = [package installedDate];
                 if (groupedDate == nil)
                     continue;
+                if (selector == @selector(installedDate)) {
+                    NSTimeInterval time = floor([groupedDate timeIntervalSinceReferenceDate] / 60.0) * 60.0;
+                    groupedDate = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
+                }
                 if (partitions[groupedDate] == nil) {
                     partitions[groupedDate] = [NSMutableArray array];
                 }
