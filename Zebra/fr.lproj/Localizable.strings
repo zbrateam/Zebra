@@ -1,6 +1,6 @@
 // Common
 
-"Cancel" = "Retour";
+"Cancel" = "Annuler";
 "No" = "Non";
 "Ok" = "Ok";
 "Error" = "Erreur";
@@ -85,6 +85,8 @@
 
 "Resetting image cache completed" = "Cache de l'image nettoyé";
 "Clearing keychain completed" = "Keychain nettoyé";
+
+"Drop Tables" = "Drop Tables";
 
 // Sources
 
