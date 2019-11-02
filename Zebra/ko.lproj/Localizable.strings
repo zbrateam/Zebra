@@ -26,7 +26,7 @@
 "Stores" = "스토어";
 "Purchases" = "구매 기록";
 "Wish List" = "위시 리스트";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "위시리스트가 비었습니다.";
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord 참여";
 "Follow me on Twitter" = "Twitter에서 나를 팔로우하세요!";
@@ -209,7 +209,7 @@
 // Console
 
 "Console" = "콘솔";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "작업 수행 중...";
 "Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
 "Close Zebra" = "Zebra 닫기";
@@ -250,8 +250,8 @@
 "Continue" = "계속";
 "Download Size" = "다운로드 사이즈";
 "Confirm" = "확인";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
+"Required Package" = "필요한 패키지";
+"%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
+"Issues" = "이슈";
+"%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
