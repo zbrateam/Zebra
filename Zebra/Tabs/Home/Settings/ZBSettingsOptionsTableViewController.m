@@ -13,7 +13,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = NSLocalizedString(_settingTitle, @"");
+    self.title = NSLocalizedString(self.title, @"");
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
@@ -37,7 +37,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.textLabel.text = NSLocalizedString(_settingOptions[indexPath.row], @"");
     if (_settingSelectedRow == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

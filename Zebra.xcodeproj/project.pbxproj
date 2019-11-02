@@ -464,10 +464,11 @@
 		367D80EF22C3D17F00581D60 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				BFC6DB16236D9B4300DA5534 /* Graphics */,
 				36200B6422D2B38400C13F6D /* FeaturedRepoBlacklist */,
 				367D80F422C3D1CF00581D60 /* ZBSettingsTableViewController.h */,
 				367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */,
+				BFC6DB1C236D9B9000DA5534 /* ZBSettingsOptionsTableViewController.h */,
+				BFC6DB1D236D9BD500DA5534 /* ZBSettingsOptionsTableViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -917,15 +918,6 @@
 				9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */,
 			);
 			path = Changes;
-			sourceTree = "<group>";
-		};
-		BFC6DB16236D9B4300DA5534 /* Graphics */ = {
-			isa = PBXGroup;
-			children = (
-				BFC6DB1C236D9B9000DA5534 /* ZBSettingsOptionsTableViewController.h */,
-				BFC6DB1D236D9BD500DA5534 /* ZBSettingsOptionsTableViewController.m */,
-			);
-			path = Graphics;
 			sourceTree = "<group>";
 		};
 		D1BF9C6D22A826B300DD9266 /* Stores */ = {

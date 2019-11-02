@@ -100,7 +100,7 @@ enum ZBMiscOrder {
     self.navigationController.navigationBar.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
     self.navigationController.navigationBar.translucent = NO;
-    // self.navigationController.navigationBar.barStyle = [ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationBar.barStyle = [ZBDevice darkModeEnabled] ? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]};
 }
@@ -217,7 +217,7 @@ enum ZBMiscOrder {
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     cell.imageView.image = nil;
     cell.accessoryView = nil;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.accessoryType = UITableViewCellAccessoryNone;
     ZBSectionOrder section = indexPath.section;
     switch (section) {
@@ -272,6 +272,7 @@ enum ZBMiscOrder {
                             cell.imageView.clipsToBounds = YES;
                         }
                     }
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
                 case ZBChangeTint: {
@@ -322,6 +323,7 @@ enum ZBMiscOrder {
                     [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
                     [enableSwitch setOnTintColor:[UIColor tintColor]];
                     cell.accessoryView = enableSwitch;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.textLabel.text = NSLocalizedString(@"Enable Featured Packages", @"");
                     break;
                 }
@@ -353,6 +355,7 @@ enum ZBMiscOrder {
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Enable News", @"");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
@@ -363,6 +366,7 @@ enum ZBMiscOrder {
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Search while Typing", @"");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
@@ -559,7 +563,7 @@ enum ZBMiscOrder {
         theme = @"White";
     }
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Tint Color";
+    controller.title = @"Tint Color";
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
@@ -585,7 +589,7 @@ enum ZBMiscOrder {
 
 - (void)changeMode {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Dark Mode";
+    controller.title = @"Dark Mode";
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
         controller.settingSelectedRow = ZBThirteen;
@@ -609,7 +613,7 @@ enum ZBMiscOrder {
 
 - (void)featureOrRandomToggle {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Feature Type";
+    controller.title = @"Feature Type";
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
         controller.settingSelectedRow = 1;
     } else {
@@ -717,7 +721,7 @@ enum ZBMiscOrder {
 
 - (void) misc {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Swipe Actions Display As";
+    controller.title = @"Swipe Actions Display As";
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
         controller.settingSelectedRow = 1;
     } else {
