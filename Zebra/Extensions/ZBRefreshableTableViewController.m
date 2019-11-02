@@ -106,6 +106,7 @@
     if (![[self class] supportRefresh] || [self updateRefreshView]) {
         return;
     }
+    [self setEditing:NO animated:YES];
     [self setRepoRefreshIndicatorVisible:YES];
     BOOL singleRepo = NO;
     if ([self respondsToSelector:@selector(repo)]) {
