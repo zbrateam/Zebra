@@ -8,6 +8,7 @@
 
 #import "ZBDependencyResolver.h"
 
+#import <ZBLog.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 
 #import <Database/ZBDatabaseManager.h>
@@ -45,8 +46,10 @@
     //On the first pass, remove any dependencies that are already satisfied
     NSMutableArray *unresolvedDependencies = [NSMutableArray new];
     for (NSString *dependency in [package dependsOn]) {
-        if (![self isDependencyResolved:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""] forPackage:package]) {
-            [unresolvedDependencies addObject:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]];
+        NSString *unresolvedDependency = [dependency stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if (![self isDependencyResolved:unresolvedDependency forPackage:package]) {
+            ZBLog(@"Adding unresolved dependency for %@: %@", package, unresolvedDependency);
+            [unresolvedDependencies addObject:unresolvedDependency];
         }
     }
     
@@ -112,6 +115,7 @@
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
         if (![self resolveDependency:dependency forPackage:package]) {
+            ZBLog(@"Adding unresolved dependency for %@: %@", package, dependency);
             [package addIssue:dependency];
             return false;
         }

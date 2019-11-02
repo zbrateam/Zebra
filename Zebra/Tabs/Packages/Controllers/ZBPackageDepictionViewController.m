@@ -248,9 +248,9 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         
         if ([ZBDevice darkModeEnabled]) {
             NSString *path;
-            if([ZBDevice darkModeOledEnabled]) {
+            if ([ZBDevice darkModeOledEnabled]) {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-            }else {
+            } else {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
             }
             
@@ -329,9 +329,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)configureNavButton {
-    if (self->navButtonsBeingConfigured) {
+    if (self->navButtonsBeingConfigured)
         return;
-    }
     self->navButtonsBeingConfigured = YES;
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
@@ -567,10 +566,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    if (presented) {
+    if ([self presentingViewController]) {
         [self dismissViewControllerAnimated:true completion:^{
             [[ZBAppDelegate tabBarController] openQueue:YES];
         }];
+    } else {
+        [[ZBAppDelegate tabBarController] openQueue:YES];
     }
 }
 
