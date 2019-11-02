@@ -545,8 +545,12 @@
 }
 
 - (NSDate *)installedDate {
-    if ([ZBDevice needsSimulation])
-        return nil;
+    if ([ZBDevice needsSimulation]) {
+        // Just to make sections in simulators less cluttered
+        // https://stackoverflow.com/questions/1149256/round-nsdate-to-the-nearest-5-minutes/19123570
+        NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
+        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+    }
 	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
 	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
 	return attributes[NSFileModificationDate];
