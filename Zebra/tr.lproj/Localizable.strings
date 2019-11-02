@@ -1,255 +1,284 @@
 // Common
 
-"Cancel" = "İptal";
-"No" = "Hayır";
-"Ok" = "Tamam";
-"Error" = "Hata";
-"Retry" = "Tekrar Dene";
-"Edit" = "Düzenle";
-"Login" = "Giriş Yap";
-"Close" = "Kapat";
-"Done" = "Tamamla";
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Ana Sayfa";
-"Info" = "Bilgi";
-"Welcome to the Zebra Beta!" = "Zebra Beta'ya hoş geldiniz!";
-"Changelog" = "Değişiklikler";
-"Community Repos" = "Topluluk Kaynakları";
-"Transfer Sources from %@" = "Kaynkaları %@ 'dan içeri aktar.";
-"Move all sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı.";
-"Utility repo for %@" = "%@ için araç kaynağı";
-"Transfer Sources" = "Kaynakları Transfer Et";
-"Please Wait..." = "Lütfen Bekleyin...";
-"Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Stores" = "Marketler";
-"Purchases" = "Satın Alımlar";
-"Wish List" = "İstek Listesi";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Haberler";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Değişiklikler";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Discord'umuza katıl!";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Emeği Geçenler";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "Topluluk";
-"Join our Discord" = "Discord'umuza katıl!";
-"Follow me on Twitter" = "Beni Twitter'dan takip edin!";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "Emeği Geçenler";
-"Creators" = "Yapımcılar";
-"Contributors" = "Katkıda Bulunanlar";
-"Translators" = "Çevirmenler";
-"Libraries" = "Kütüphaneler";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Ayarlar";
-"Version" = "Versiyon";
-"Graphics" = "Grafikler";
-"Featured" = "Öne Çıkanlar";
-"News" = "Haberler";
-"Miscellaneous" = "Diğer";
-"Advanced" = "Gelişmiş";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Hata Bildir";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Tema Rengi";
-"Blue" = "Mavi";
-"Orange" = "Turuncu";
-"White" = "Beyaz";
-"Black" = "Siyah";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Karanlık Mod";
-"Default" = "Orjinal";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "İkonu Değiştir";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Öne Çıkan Paketleri Aktif Et!";
-"Repo Featured" = "Kaynağın Öne Çıkanları";
-"Random" = "Rastgele";
-"Feature Type" = "Öne Çıkanların Tarzı";
-"Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Haberleri Aktif Et";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Yazarken Ara";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Kaydırma Animasyonlarını Şöyle Göster;";
-"Text" = "Yazı";
-"Icon" = "İkon";
-"Open Documents Directory" = "Dökümanlar Dosya Bölümünü Aç";
-"Clear Image Cache" = "Resim Hafızasını Temizle";
-"Clear Keychain" = "Anahtar Zincirini Temizle";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Yükleniyor...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Resim hafızasını temizleme tamamlandı";
-"Clearing keychain completed" = "Anahtar Zincirini temizleme tamamlandı";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Kaynaklar";
-"Local Repository" = "Yüklü Kaynaklar";
-"Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
-"Unknown" = "Bilinmiyor";
-"No repository urls detected." = "Kaynak linki algılanamadı.";
-"You have already added these repositories." = "Zaten bu kaynakları ekledin.";
-"Error verifying repository" = "Kaynağı onaylarken hata oluştu";
-"Error verifying repositories" = "Kaynakları onaylarken hata oluştu";
-"Unknown error" = "Bilinmeyen Hata";
-"Invalid URL" = "Geçersiz Link";
-"Enter URL" = "Link Girin";
-"Add Repo(s)" = "Kaynak(ları) Ekle";
-"Add" = "Ekle";
-"Add Multiple" = "Birden Fazla Ekle";
-"Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Unable to verify Repo" = "Kaynağı Onaylayamıyoruz";
-"Refresh" = "Yenile";
-"Log Out" = "Çıkış Yap";
-"Purchased Packages" = "Satın Alınan Paketler";
-"Purchased" = "Satın Alındı";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Bütün Paketler";
-"Delete" = "Sil";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Değişiklikler";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Paketler";
-"Show Updates" = "Güncellemeleri Göster";
-"Ignore Updates" = "Güncellemeleri Gizle";
-"Select Version" = "Versiyon Seçin";
-"Select a version to upgrade to" = "Yüklenecek versiyonu seçin";
-"Package" = "Paket";
-"Information" = "Bilgi";
-"Upgrade All" = "Hepsini Güncelle";
-"Loaded" = "Yüklendi";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Tarih";
-"Size" = "Boyut";
-"Clear" = "Temizle";
-"Are you sure you want to clear Queue?" = "Sırayı temizlemek istediğine emin misin?";
-"Available Upgrades" = "Uygun Güncellemeler";
-"Ignored Upgrades" = "Gizlenen Güncellemeler";
-"Recent" = "En Son";
-"Installed Files" = "Yüklenen Dosyalar";
-"Modify" = "Düzenle";
-"Authenticate to initiate purchase." = "İç satın alımı onayla.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Lütfen bu paketi almak için kullandığınız hesaba giriş yapın. (Muhtemelen %@)";
-"More by this Developer" = "Bu yapımcıdan daha fazla paket";
-"Installed Version" = "Yüklenen Versiyon";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "İstek Listesine ekle";
-"Remove from Wish List" = "İstek Listesinden kaldır";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Yönetim";
-"App Addons" = "Uygulama Eklentileri";
-"Archiving" = "Arşivleme";
-"Carrier Support" = "Telekominasyon";
-"Communication" = "İletişim";
-"Data Storage" = "Depolama";
-"Development" = "Geliştirme";
-"Dictionaries" = "Sözlükler";
-"Education" = "Eğitim";
-"Entertainment" = "Eğlence";
-"Games" = "Oyunlar";
-"Health and Fitness" = "Sağlık ve Spoe";
-"Imaging" = "Imajlama";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Klavyeler";
-"Localization" = "Dil Desteği";
-"Messaging" = "Mesajlaşma";
-"Multimedia" = "Multimedya";
-"Navigation" = "Yönlendirme";
-"Networking" = "Ağ";
-"Packaging" = "Paketleme";
-"Productivity" = "Verimlilik";
-"Repositories" = "Kaynaklar";
-"Ringtones" = "Zil Sesleri";
-"Scripting" = "Komut Paketleri";
-"Security" = "Güvenlik";
-"Social" = "Sosyal";
-"System" = "Sistem";
-"Terminal Support" = "Terminal Desteği";
-"Text Editors" = "Metin Editörleri";
-"Themes" = "Temalar";
-"Toys" = "Oyuncaklar";
-"Tweaks" = "Tweaklar";
-"Utilities" = "Araçlar";
-"Wallpaper" = "Duvar Kağıtları";
-"Widgets" = "Widgetler";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Ara";
-"Clear Search" = "Aramayı Temizle";
-"This search query is too short for the full search, please use a longer query." = "Yaptığınız arama, arama yapmak için çok kısaydı. Lütfen daha uzun bir şey arayın.";
-"No Results Found" = "Sonuç Yok";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "İndirmeler";
-"Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
-"The repo %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygun değil.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
-"Please remove this repo from your sources.list file." = "Lütden bu kaynağı sources.list dosyasından kaldırın.";
-"Incorrect documents permissions." = "Yanlış döküman yetkileri.";
-"Could not determine device information." = "Cihaz bilgisi alınaması.";
-"Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
-"%@ hasn't been modified" = "%@ Düzenlenmemiş";
-"Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "Konsol";
+"Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
-"Close Zebra" = "Zebra'yı Kapat";
-"Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
-"Downloading" = "İndiriliyor";
-"Downloading Packages..." = "Paketler İndiriliyor...";
-"Installing" = "Yükleniyor";
-"Installing Packages..." = "Paketler Yükleniyor...";
-"Removing" = "Kaldırılıyor";
-"Removing Packages..." = "Paketler Kaldırılıyor...";
-"Reinstalling" = "Tekrar Yükleniyor";
-"Reinstalling Packages..." = "Paketler Tekrar Yükleniyor...";
-"Upgrading" = "Güncelleniyor";
-"Upgrading Packages..." = "Paketler Güncelleniyor...";
-"Complete" = "Tamamlandı";
-"Finished!" = "Bitti!";
-"Return to Queue" = "Sıraya Geri Dön";
-"Importing local packages." = "Lokal paketler içeri alınıyor.";
-"Finished importing local packages." = "Lokal paketleri içeri alma bitti.";
-"One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Sıradaki Paketler";
-"Package in Queue" = "Sıradaki Paket";
-"Tap to manage Queue" = "Sırayı Düzenlemek İçin Dokun";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Sıra";
-"Queue cleared" = "Sıra temizlendi";
-"Install" = "Yükle";
-"Reinstall" = "Tekrar yükle";
-"Remove" = "Kaldır";
-"Upgrade" = "Güncelle";
-"Downgrade" = "Sürüm düşür";
-"Abort" = "İptal";
-"Continue" = "Devam";
-"Download Size" = "İndirme Boyutu";
-"Confirm" = "Onayla";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
