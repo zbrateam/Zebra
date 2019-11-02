@@ -489,8 +489,7 @@
 }
 
 - (BOOL)hasIssues {
-//    return false;
-    return [[self issues] count] > 0;
+    return [[self issues] count];
 }
 
 - (NSArray <NSArray <NSString *> *> *)issues {

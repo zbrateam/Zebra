@@ -567,10 +567,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    if (presented) {
+    if ([self presentingViewController]) {
         [self dismissViewControllerAnimated:true completion:^{
             [[ZBAppDelegate tabBarController] openQueue:YES];
         }];
+    } else {
+        [[ZBAppDelegate tabBarController] openQueue:YES];
     }
 }
 
