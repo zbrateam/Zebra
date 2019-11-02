@@ -294,6 +294,7 @@
     [self clearConsole];
     [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
         [[ZBAppDelegate tabBarController] updateQueueNav];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
     }];
 }
 

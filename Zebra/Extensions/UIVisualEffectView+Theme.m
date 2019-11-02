@@ -13,16 +13,18 @@
 
 @implementation UIVisualEffectView (Theme)
 
+BOOL alreadySet;
+
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class thisClass = self;
         
-        SEL methodSEL = @selector(effect);
+        SEL methodSEL = @selector(layoutSubviews);
         Method og_Method = class_getInstanceMethod(thisClass, methodSEL);
         IMP methodIMP = method_getImplementation(og_Method);
         
-        SEL mg_methodSEL = @selector(zb_effect);
+        SEL mg_methodSEL = @selector(zb_layoutSubviews);
         Method mg_Method = class_getInstanceMethod(thisClass, mg_methodSEL);
         IMP mg_methodIMP = method_getImplementation(mg_Method);
         
@@ -36,12 +38,18 @@
     });
 }
 
-- (UIVisualEffect *)zb_effect {
+- (void)zb_layoutSubviews {
+    if (alreadySet) {
+        alreadySet = false;
+        return;
+    }
     if ([ZBDevice darkModeEnabled]) {
-        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        alreadySet = true;
+        self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     }
     else {
-        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        alreadySet = true;
+        self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     }
 }
 

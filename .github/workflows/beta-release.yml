@@ -19,7 +19,7 @@ jobs:
         brew install ldid dpkg
         git clone --recursive https://github.com/theos/theos.git $THEOS
         git submodule update --init --recursive
-        
+
     - name: Build Package
       env:
         THEOS: theos
