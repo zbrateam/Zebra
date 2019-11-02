@@ -26,7 +26,7 @@
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
 "Wish List" = "รายการอยากได้";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "ไม่มีรายการที่อยากได้";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
 "Follow me on Twitter" = "ติดตามฉันใน Twitter";
@@ -34,7 +34,7 @@
 //Credits
 
 "Credits" = "รายการขอบคุณ";
-"Creators" = "Creators";
+"Creators" = "ผู้สร้าง";
 "Contributors" = "Contributors";
 "Translators" = "Translators";
 "Libraries" = "Libraries";
