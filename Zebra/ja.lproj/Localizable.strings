@@ -86,7 +86,7 @@
 "Resetting image cache completed" = "画像キャッシュをクリアしました";
 "Clearing keychain completed" = "キーチェーンをクリアしました";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "テーブルの削除";
 
 // Sources
 
