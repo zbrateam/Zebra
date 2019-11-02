@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "ล้างแคชรูปภาพเสร็จสิ้น";
 "Clearing keychain completed" = "ล้างกุญแจเข้ารหัสเสร็จสิ้น";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "ซอร์ส";
