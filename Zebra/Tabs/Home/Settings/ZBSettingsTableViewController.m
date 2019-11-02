@@ -406,6 +406,13 @@ enum ZBMiscOrder {
             [self toggleNews:switcher];
             break;
         }
+        case ZBSearch: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleLiveSearch:switcher];
+            break;
+        }
         case ZBAdvanced: {
             ZBAdvancedOrder row = indexPath.row;
             switch (row) {

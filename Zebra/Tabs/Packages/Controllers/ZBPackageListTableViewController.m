@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     [self applyLocalization];
 
     selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
+    if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
+        selectedSortingType = ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -206,13 +208,10 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
-        if (self->repo.repoID) {
+        if (self->repo.repoID)
             [items removeLastObject];
-            segmentedControl.selectedSegmentIndex = MIN(1, (NSInteger)self->selectedSortingType);
-        }
-        else
-            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+        segmentedControl.selectedSegmentIndex = self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
     });
@@ -365,7 +364,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    [cell updateData:package];
+    [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize];
     if ([repo repoID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];

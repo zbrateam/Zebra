@@ -178,12 +178,13 @@
 #pragma mark - Populating the database
 
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested {
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
     BOOL needsUpdate = NO;
     if (requested && haltdDatabaseOperations) {
         [self setHaltDatabaseOperations:false];
-    }
-    else {
-        NSLog(@"[Zebra] Database operations halted");
     }
     
     if (!requested) {
@@ -200,10 +201,6 @@
             needsUpdate = YES;
         }
     }
-    
-    if (databaseBeingUpdated)
-        return;
-    databaseBeingUpdated = YES;
     
     if (requested || needsUpdate) {
         [self checkForZebraRepo];

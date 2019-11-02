@@ -605,7 +605,7 @@
 }
 
 - (BOOL)hasIssues {
-    return [issues count] > 0;
+    return [issues count];
 }
 
 @end
