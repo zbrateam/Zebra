@@ -365,7 +365,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    [cell updateData:package];
+    [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize];
     if ([repo repoID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];

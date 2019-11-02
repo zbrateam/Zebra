@@ -31,12 +31,16 @@
 }
 
 - (void)updateData:(ZBPackage *)package {
+    [self updateData:package calculateSize:NO];
+}
+
+- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
     ZBRepo *repo = package.repo;
     NSString *repoName = repo.origin;
     NSString *author = [self stripEmailFromAuthor:package.author];
-    NSString *installedSize = [package installedSize];
+    NSString *installedSize = calculateSize ? [package installedSize] : nil;
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (author.length)
         [info addObject:author];
