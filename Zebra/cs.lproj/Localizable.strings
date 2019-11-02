@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Resetováví image cache dokončeno";
 "Clearing keychain completed" = "Čištění klíčenky dokončeno";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Repozitáře";
