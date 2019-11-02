@@ -232,7 +232,7 @@
 "Importing local packages." = "正在導入本地軟件包";
 "Finished importing local packages." = "導入本地軟件包完成。";
 "One or more packages failed to download." = "壹個或多個軟件包下載失敗";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "點擊 \"返回隊列\" 以返回至隊列頁面並嘗試重新下載";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "點擊 \\"返回隊列\\" 以返回至隊列頁面並嘗試重新下載";
 
 // Queue Bar
 "Packages in Queue" = "軟件包隊列";
