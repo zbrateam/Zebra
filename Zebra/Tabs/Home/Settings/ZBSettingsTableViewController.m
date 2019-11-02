@@ -230,13 +230,13 @@ enum ZBMiscOrder {
             }
             cell.textLabel.text = labelText;
             cell.imageView.image = cellImage;
-            CGSize itemSize = CGSizeMake(40, 40);
+            CGSize itemSize = CGSizeMake(30, 30);
             UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
             [cell.imageView.image drawInRect:imageRect];
             cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
-            cell.imageView.layer.cornerRadius = 10;
+            cell.imageView.layer.cornerRadius = 5;
             cell.imageView.clipsToBounds = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
@@ -250,23 +250,25 @@ enum ZBMiscOrder {
                     if (@available(iOS 10.3, *)) {
                         if ([[UIApplication sharedApplication] alternateIconName]) {
                             cell.imageView.image = [UIImage imageNamed:[[UIApplication sharedApplication] alternateIconName]];
-                            CGSize itemSize = CGSizeMake(40, 40);
+                            
+                            CGSize itemSize = CGSizeMake(30, 30);
                             UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
                             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
                             [cell.imageView.image drawInRect:imageRect];
                             cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
                             UIGraphicsEndImageContext();
-                            cell.imageView.layer.cornerRadius = 10;
+                            cell.imageView.layer.cornerRadius = 5;
                             cell.imageView.clipsToBounds = YES;
                         } else {
                             cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
-                            CGSize itemSize = CGSizeMake(40, 40);
+                            
+                            CGSize itemSize = CGSizeMake(30, 30);
                             UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
                             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
                             [cell.imageView.image drawInRect:imageRect];
                             cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
                             UIGraphicsEndImageContext();
-                            cell.imageView.layer.cornerRadius = 10;
+                            cell.imageView.layer.cornerRadius = 5;
                             cell.imageView.clipsToBounds = YES;
                         }
                     }
