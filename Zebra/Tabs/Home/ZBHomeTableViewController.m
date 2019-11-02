@@ -543,7 +543,7 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com%@", permalink]]];
     }
     else {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", permalink]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com%@", permalink]];
         SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
         if (@available(iOS 10.0, *)) {
             safariViewController.preferredControlTintColor = [UIColor tintColor];
