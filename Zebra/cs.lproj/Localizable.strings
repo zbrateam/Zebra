@@ -1,255 +1,284 @@
 // Common
 
-"Cancel" = "Zrušit";
-"No" = "Ne";
+"Cancel" = "Cancel";
+"No" = "No";
 "Ok" = "Ok";
-"Error" = "Chyba";
-"Retry" = "Zkusit znova";
-"Edit" = "Upravit";
-"Login" = "Přihlásit";
-"Close" = "Zavřít";
-"Done" = "Hotovo";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Domů";
-"Info" = "Info";
-"Welcome to the Zebra Beta!" = "Vítej v Zebra Beta!";
-"Changelog" = "Seznam změn";
-"Community Repos" = "Repozitáře komunity";
-"Transfer Sources from %@" = "Přenést repozitáře z %@";
-"Move all sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ to Zebra";
-"Utility repo for %@" = "Repozitář nástrojů pro %@";
-"Transfer Sources" = "Přenést Repozitáře";
-"Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Stores" = "Obchody";
-"Purchases" = "Nákupy";
-"Wish List" = "Seznam přání";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Novinky";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Seznam změn";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Připoj se ka našmu Discordu";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Kredity";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "Komunita";
-"Join our Discord" = "Připoj se ka našmu Discordu";
-"Follow me on Twitter" = "Sleduj mě na Twitteru";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "Kredity";
-"Creators" = "Autoři";
-"Contributors" = "Přispívající";
-"Translators" = "Překladatelé";
-"Libraries" = "Knihovny";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Nastavení";
-"Version" = "Verze";
-"Graphics" = "Grafika";
-"Featured" = "Návrhy";
-"News" = "Novinky";
-"Miscellaneous" = "Různé";
-"Advanced" = "Pokročilé";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Nahlásit Bug";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Barva odstínu";
-"Blue" = "Modrá";
-"Orange" = "Oranžová";
-"White" = "Bílá";
-"Black" = "Černá";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Tmavý režim";
-"Default" = "Výchozí";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Změnit ikonu";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Povolit doporučené balíčky";
-"Repo Featured" = "Návrhy repozitářů";
-"Random" = "Náhodně";
-"Feature Type" = "Typy Návrhů";
-"Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Zapnout novinky";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Vyhledávat zárověň se zedáváním";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Akce přejetí prstem zobrazovat jako";
+"Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Text";
-"Icon" = "Ikona";
-"Open Documents Directory" = "Otevřít adresář dokumentů";
-"Clear Image Cache" = "Vyčistit Image Cache";
-"Clear Keychain" = "Vyčistit klíčenku";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Načítání...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Resetováví image cache dokončeno";
-"Clearing keychain completed" = "Čištění klíčenky dokončeno";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Repozitáře";
-"Local Repository" = "Místní Repozitář";
-"Locally installed packages" = "Místně nainstalované balíčky";
-"Unknown" = "Neznámý";
-"No repository urls detected." = "Nebyly detekované žádné URL Repozitářů.";
-"You have already added these repositories." = "Tyto repozitáře již byly přidány.";
-"Error verifying repository" = "Chyba při ověřování repozitáře";
-"Error verifying repositories" = "Chyba při ověřování repozitářů";
-"Unknown error" = "Neznámá chyba";
-"Invalid URL" = "Chybné URL";
-"Enter URL" = "Zadej URL";
-"Add Repo(s)" = "Přidat repozitář(e)";
-"Add" = "Přidat";
-"Add Multiple" = "Přidat více najednou";
-"Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Unable to verify Repo" = "Chyba při ověřování repozitáře";
-"Refresh" = "Refreshnout";
-"Log Out" = "Odhlásit se";
-"Purchased Packages" = "Zakoupené balíčky";
-"Purchased" = "Zakoupené";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Všechny balíčky";
-"Delete" = "Vymazat";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Změny";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Balíčky";
-"Show Updates" = "Zobrazit Aktualizace";
-"Ignore Updates" = "Ignorovat Aktualizace";
-"Select Version" = "Vyberte Verzi";
-"Select a version to upgrade to" = "Vyberte verzi, na kterou chcete aktualizovat";
-"Package" = "Balíček";
-"Information" = "Informace";
-"Upgrade All" = "Upgradovat vše";
-"Loaded" = "Načteno";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Datum";
-"Size" = "Velikost";
-"Clear" = "Vyčistit";
-"Are you sure you want to clear Queue?" = "Jste si jistí, že chcete vyčistit frontu?";
-"Available Upgrades" = "Dostupné Aktualizace";
-"Ignored Upgrades" = "Ignorované Aktualizace";
-"Recent" = "Nedávné";
-"Installed Files" = "Instalované Soubory";
-"Modify" = "Upravit";
-"Authenticate to initiate purchase." = "Autorizovat se k zakoupení.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Prosím, znovu se přihlaste k účtu, krerý chcete použít k zakoupení tohoto balíčku. (Případně %@)";
-"More by this Developer" = "Více od tohoto vývojáře.";
-"Installed Version" = "Instalovaná Verze";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "Přidat na Wish List";
-"Remove from Wish List" = "Odstranit z Wish Listu";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Správa";
-"App Addons" = "Doplňky aplikací";
-"Archiving" = "Archivace";
-"Carrier Support" = "Podpora operátora";
-"Communication" = "Komunikace";
-"Data Storage" = "Úložiště dat";
-"Development" = "Vývoj";
-"Dictionaries" = "Slovníky";
-"Education" = "Vzdělávání";
-"Entertainment" = "Zábava";
-"Games" = "Hry";
-"Health and Fitness" = "Zdraví a fitness";
-"Imaging" = "Zobrazování";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Klávesnice";
-"Localization" = "Lokalizace";
-"Messaging" = "Zasílání zpráv";
-"Multimedia" = "Multimédia";
-"Navigation" = "Navigace";
-"Networking" = "Sítě";
-"Packaging" = "Balení";
-"Productivity" = "Produktivita";
-"Repositories" = "Repozitáře";
-"Ringtones" = "Vyzváněcí tóny";
-"Scripting" = "Skriptování";
-"Security" = "Zabezpečení";
-"Social" = "Sociální sítě";
-"System" = "Systém";
-"Terminal Support" = "Podpora terminálu";
-"Text Editors" = "Textové editory";
-"Themes" = "Motivy";
-"Toys" = "Hračky";
-"Tweaks" = "Tweaky";
-"Utilities" = "Nástroje";
-"Wallpaper" = "Pozadí";
-"Widgets" = "Miniaplikace";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Hledat";
-"Clear Search" = "Vyčistit hledání";
-"This search query is too short for the full search, please use a longer query." = "Tento dotaz je příliš krátký pro úplné hledání, prosím zadejte více.";
-"No Results Found" = "Žádné Výsledky Nenalezeny";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Stažené";
-"Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this repo from your sources.list file." = "Prosím odstrańte tento repozitář ze souboru sources.list.";
-"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
-"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
-"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
-"%@ hasn't been modified" = "%@ nebylo upraveno";
-"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "Konzole";
+"Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Probíhá asynchonní update icon cache...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Toto může trvat delší dobu a Zebra může spadnout. Nevadí pokud se tak stane.";
-"Close Zebra" = "Zavřít Zebru";
-"Restart SpringBoard" = "Restartovat SpringBoard";
-"Downloading" = "Stahování";
-"Downloading Packages..." = "Stahování balíčků...";
-"Installing" = "Instalování";
-"Installing Packages..." = "Instalování balíčků...";
-"Removing" = "Odstraňování";
-"Removing Packages..." = "Odstraňování balíčků...";
-"Reinstalling" = "Přeinstalovávání";
-"Reinstalling Packages..." = "Přeinstalovávání balíčků...";
-"Upgrading" = "Vylepšování";
-"Upgrading Packages..." = "Aktualizace balíčků...";
-"Complete" = "Hotovo";
-"Finished!" = "Dokončeno!";
-"Return to Queue" = "Návrat do Fronty";
-"Importing local packages." = "Importování místních balíčků.";
-"Finished importing local packages." = "Importování místních balíčků bylo dokončeno.";
-"One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Balíčky ve frontě";
-"Package in Queue" = "Balíček ve frontě";
-"Tap to manage Queue" = "Spravovat frontu";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Fronta";
-"Queue cleared" = "Fronta vyčištěna";
-"Install" = "Instalovat";
-"Reinstall" = "Přeinstalovat";
-"Remove" = "Odstranit";
-"Upgrade" = "Vylepšit";
-"Downgrade" = "Downgradovat";
-"Abort" = "Storno";
-"Continue" = "Pokračovat";
-"Download Size" = "Velikost stažení";
-"Confirm" = "Potvrdit";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
