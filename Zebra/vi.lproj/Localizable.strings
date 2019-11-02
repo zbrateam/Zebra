@@ -1,255 +1,284 @@
 // Common
 
-"Cancel" = "Hủy Bỏ";
-"No" = "Không";
-"Ok" = "Đồng ý";
-"Error" = "Lỗi";
-"Retry" = "Thử lại";
-"Edit" = "Soạn thảo";
-"Login" = "Đăng nhập";
-"Close" = "Đóng";
-"Done" = "Xong";
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Trang Chủ";
-"Info" = "Thông tin";
-"Welcome to the Zebra Beta!" = "Chào mừng đến với Zebra Beta!";
-"Changelog" = "Thay đổi";
-"Community Repos" = "Cộng đồng Repos";
-"Transfer Sources from %@" = "Chuyển nguồn từ %@";
-"Move all sources from %@ to Zebra" = "Di chuyển tất cả các nguồn từ %@ đến Zebra";
-"Utility repo for %@" = "Repo tiện ích cho %@";
-"Transfer Sources" = "Chuyển nguồn";
-"Please Wait..." = "Vui lòng chờ...";
-"Verifying Source(s)" = "Xác minh nguồn(s)";
-"Stores" = "Cửa hàng";
-"Purchases" = "Mua hàng";
-"Wish List" = "Danh sách mong muốn";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Tin tức";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Thay đổi";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Tham gia Discord của chúng tôi";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Tín Dụng";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "Cộng đồng";
-"Join our Discord" = "Tham gia Discord của chúng tôi";
-"Follow me on Twitter" = "Theo dõi tôi trên Twitter";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "Tín Dụng";
-"Creators" = "Tác giả";
-"Contributors" = "Người đóng góp";
-"Translators" = "Biên dịch viên";
-"Libraries" = "Thư viện";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Cài đặt";
-"Version" = "Phiên bản";
-"Graphics" = "Đồ họa";
-"Featured" = "Tính năng";
-"News" = "Tin tức";
-"Miscellaneous" = "Điều khoản khác";
-"Advanced" = "Nâng cao";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Báo cáo lỗi";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Màu sắc";
-"Blue" = "Lam";
-"Orange" = "Cam";
-"White" = "Trắng";
-"Black" = "Đen";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Chế độ tối";
-"Default" = "Mặc định";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Thay đổi biểu tượng";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Kích hoạt gói nổi bật";
-"Repo Featured" = "Repo nổi bật";
-"Random" = "Ngẫu nhiên";
-"Feature Type" = "Loại tính năng";
-"Select Repos to be Featured" = "Chọn Repo nổi bật";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Kích hoạt tin tức";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Tìm kiếm trong khi gõ";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Thao tác vuốt hiển thị dưới dạng";
-"Text" = "Văn bản";
-"Icon" = "Biểu tượng";
-"Open Documents Directory" = "Mở thư mục tài liệu";
-"Clear Image Cache" = "Xóa bộ nhớ cache hình ảnh";
-"Clear Keychain" = "Xóa Keychain";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Đang tải...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Đặt lại bộ đệm hình ảnh đã hoàn thành";
-"Clearing keychain completed" = "Dọn dẹp keychain hoàn thành";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Nguồn";
-"Local Repository" = "Kho lưu trữ cục bộ";
-"Locally installed packages" = "Gói cài đặt cục bộ";
-"Unknown" = "Không xác định";
-"No repository urls detected." = "Không có url kho lưu trữ được phát hiện.";
-"You have already added these repositories." = "Bạn đã thêm các kho lưu trữ này.";
-"Error verifying repository" = "Lỗi khi xác minh kho lưu trữ";
-"Error verifying repositories" = "Lỗi khi xác minh kho lưu trữ";
-"Unknown error" = "Lỗi không xác định";
-"Invalid URL" = "URL không hợp lệ";
-"Enter URL" = "Nhập URL";
-"Add Repo(s)" = "Thêm Repo(s)";
-"Add" = "Thêm";
-"Add Multiple" = "Thêm nhiều";
-"Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
-"Unable to verify Repo" = "Không thể xác minh Repo";
-"Refresh" = "Làm mới";
-"Log Out" = "Đăng xuất";
-"Purchased Packages" = "Gói mua";
-"Purchased" = "Đã mua";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Tất cả các gói";
-"Delete" = "Xóa bỏ";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Thay đổi";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Gói";
-"Show Updates" = "Hiển thị cập nhật";
-"Ignore Updates" = "Bỏ qua cập nhật";
-"Select Version" = "Chọn phiên bản";
-"Select a version to upgrade to" = "Chọn một phiên bản để nâng cấp";
-"Package" = "Gói";
-"Information" = "Thông tin";
-"Upgrade All" = "Nâng cấp tất cả";
-"Loaded" = "Tải";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Ngày";
-"Size" = "Kích thước";
-"Clear" = "Xoá bỏ";
-"Are you sure you want to clear Queue?" = "Bạn có chắc chắn muốn xóa Hàng đợi?";
-"Available Upgrades" = "Nâng cấp có sẵn";
-"Ignored Upgrades" = "Bỏ qua Nâng cấp";
-"Recent" = "Gần đây";
-"Installed Files" = "Tập tin đã cài đặt";
-"Modify" = "Sửa đổi";
-"Authenticate to initiate purchase." = "Xác thực để bắt đầu mua hàng.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vui lòng đăng nhập lại tài khoản của bạn được sử dụng để mua gói này (Possibly %@)";
-"More by this Developer" = "Thêm bởi Nhà phát triển này";
-"Installed Version" = "Phiên bản đã cài đặt";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "Thêm vào danh sách mong muốn";
-"Remove from Wish List" = "Xóa khỏi danh sách mong muốn";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Quyền quản trị";
-"App Addons" = "Ứng dụng bổ trợ";
-"Archiving" = "Lưu trữ";
-"Carrier Support" = "Hỗ trợ Carrier";
-"Communication" = "Giao tiếp";
-"Data Storage" = "Lưu trữ dữ liệu";
-"Development" = "Người phát triển";
-"Dictionaries" = "Từ điển";
-"Education" = "Giáo dục";
-"Entertainment" = "Giải trí";
-"Games" = "Trò chơi";
-"Health and Fitness" = "Sức khỏe và năng lực";
-"Imaging" = "Hình ảnh";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Bàn phím";
-"Localization" = "Bản đồ hoá";
-"Messaging" = "Tin nhắn";
-"Multimedia" = "Đa phương tiện";
-"Navigation" = "Điều hướng";
-"Networking" = "Mạng";
-"Packaging" = "Đóng gói";
-"Productivity" = "Năng suất";
-"Repositories" = "Kho lưu trữ";
-"Ringtones" = "Nhạc chuông";
-"Scripting" = "Kịch bản";
-"Security" = "Bảo mật";
-"Social" = "Xã hội";
-"System" = "Hệ thống";
-"Terminal Support" = "Hỗ trợ terminal";
-"Text Editors" = "Sửa văn bản";
-"Themes" = "Giao diện";
-"Toys" = "Đồ chơi";
-"Tweaks" = "Tinh chỉnh";
-"Utilities" = "Tiện ích";
-"Wallpaper" = "Hình nền";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Tìm kiếm";
-"Clear Search" = "Xóa bỏ tìm kiếm";
-"This search query is too short for the full search, please use a longer query." = "Truy vấn tìm kiếm này quá ngắn cho tìm kiếm đầy đủ, vui lòng sử dụng truy vấn dài hơn.";
-"No Results Found" = "Không có kết quả nào được tìm thấy";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Tải xuống";
-"Error while opening sources.list" = "Lỗi trong khi mở danh sách nguồn";
-"The repo %@ is incompatible with your jailbreak." = "Các repo %@ không tương thích với bản bẻ khóa của bạn.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
-"Please remove this repo from your sources.list file." = "Vui lòng xóa repo này khỏi tệp danh sách nguồn của bạn.";
-"Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
-"Could not determine device information." = "Không thể xác định thông tin thiết bị.";
-"Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
-"%@ hasn't been modified" = "%@ chưa được sửa đổi";
-"Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "Bảng điều khiển";
+"Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
-"Close Zebra" = "Đóng Zebra";
-"Restart SpringBoard" = "Khởi động lại SpringBoard";
-"Downloading" = "Đang tải xuống";
-"Downloading Packages..." = "Đang tải xuống gói...";
-"Installing" = "Đang cài đặt";
-"Installing Packages..." = "Đang cài đặt gói...";
-"Removing" = "Đang gỡ bỏ";
-"Removing Packages..." = "Đang gỡ bỏ gói...";
-"Reinstalling" = "Cài đặt lại";
-"Reinstalling Packages..." = "Cài đặt lại gói...";
-"Upgrading" = "Nâng cấp";
-"Upgrading Packages..." = "Nâng cấp gói...";
-"Complete" = "Hoàn thành";
-"Finished!" = "Kết thúc!";
-"Return to Queue" = "Trở lại hàng đợi";
-"Importing local packages." = "Nhập gói nội địa.";
-"Finished importing local packages." = "Hoàn tất nhập các gói nội địa.";
-"One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Các gói trong hàng đợi";
-"Package in Queue" = "Các gói trong hàng đợi";
-"Tap to manage Queue" = "Nhấn để quản lý hàng đợi";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Xếp hàng";
-"Queue cleared" = "Hàng đợi đã được xóa";
-"Install" = "Cài đặt";
-"Reinstall" = "Cài đặt lại";
-"Remove" = "Xóa bỏ";
-"Upgrade" = "Nâng cấp";
-"Downgrade" = "Hạ cấp";
-"Abort" = "Hủy bỏ";
-"Continue" = "Tiếp tục";
-"Download Size" = "Kích thước tải xuống";
-"Confirm" = "Xác nhận";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
