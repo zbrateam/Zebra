@@ -433,8 +433,6 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     if (selectedSortingType == ZBSortingTypeABC)
         return sectionIndexTitles;
-    /*if (selectedSortingType == ZBSortingTypeDate)
-        return [ZBPackagePartitioner titleForHeaderInDateSection:section sectionIndexTitles:sectionIndexTitles];*/
     return nil;
 }
 
