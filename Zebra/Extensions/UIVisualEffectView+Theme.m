@@ -43,13 +43,15 @@ BOOL alreadySet;
         alreadySet = false;
         return;
     }
-    if ([ZBDevice darkModeEnabled]) {
-        alreadySet = true;
-        self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    }
-    else {
-        alreadySet = true;
-        self.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    if (!self.layer.animationKeys.count) {
+        if ([ZBDevice darkModeEnabled]) {
+            alreadySet = true;
+            [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        }
+        else {
+            alreadySet = true;
+            [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        }
     }
 }
 
