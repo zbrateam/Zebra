@@ -301,6 +301,7 @@
 		896F11C221B231900017B581 /* ZBRepo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepo.m; sourceTree = "<group>"; };
 		8977B6922206424B00CBACBB /* ZBPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackage.h; sourceTree = "<group>"; };
 		8977B6932206424B00CBACBB /* ZBPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackage.m; sourceTree = "<group>"; };
+		8987802D236DC49B005291EC /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		898AAE8C226561C800C38FB1 /* ZBDatabaseDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDatabaseDelegate.h; sourceTree = "<group>"; };
 		898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoSectionsListTableViewController.h; sourceTree = "<group>"; };
 		898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoSectionsListTableViewController.m; sourceTree = "<group>"; };
@@ -360,7 +361,6 @@
 		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 		89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
-		89F674F0236CB50300A61378 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89F86869236377660057D3D9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Theme.h"; sourceTree = "<group>"; };
 		89F8730223653D280070160A /* UIVisualEffectView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIVisualEffectView+Theme.m"; sourceTree = "<group>"; };
@@ -1203,6 +1203,7 @@
 				89448818236A5BFB00523D7C /* sr */,
 				89A44B06236B575500D92DC9 /* zh-Hant */,
 				47B047FE236B5D400093D608 /* zh-Hant-HK */,
+				8987802D236DC49B005291EC /* hr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1349,7 +1350,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D6LGHN97FQ;
+				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1383,7 +1384,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D6LGHN97FQ;
+				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
