@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "이미지 캐시 초기화 완료";
 "Clearing keychain completed" = "키체인 지우기 완료";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "소스";
