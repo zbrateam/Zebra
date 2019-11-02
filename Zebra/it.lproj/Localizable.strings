@@ -1,257 +1,286 @@
 // Common
 
-"Cancel" = "Annulla";
+"Cancel" = "Cancel";
 "No" = "No";
 "Ok" = "Ok";
-"Error" = "Errore";
-"Retry" = "Riprova";
-"Edit" = "Modifica";
-"Login" = "Accedi";
-"Close" = "Chiudi";
-"Done" = "Fatto";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to the Zebra Beta!" = "Benvenuto nella Beta di Zebra!";
-"Changelog" = "Changelog";
-"Community Repos" = "Repo della Community";
-"Transfer Sources from %@" = "Trasferisci repo da %@";
-"Move all sources from %@ to Zebra" = "Trasferisci tutte le sorgenti da %@ a Zebra";
-"Utility repo for %@" = "Repo essenziale for %@";
-"Transfer Sources" = "Trasferisci Sorgenti";
-"Please Wait..." = "Attendere...";
-"Verifying Source(s)" = "Verifica Sorgente/i";
-"Stores" = "Store";
-"Purchases" = "Acquisti";
-"Wish List" = "Lista dei Desideri";
-"No items in Wish List" = "No items in Wish List";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Notizie";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Changelog";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Unisciti al nostro Discord";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Crediti";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
+"No items in Wish List" = "Nessun oggetto nella Lista Desideri";
 "Community" = "Community";
-"Join our Discord" = "Unisciti al nostro Discord";
-"Follow me on Twitter" = "Seguimi su Twitter";
 
 //Credits
 
-"Credits" = "Crediti";
-"Creators" = "Creatori";
-"Contributors" = "Contributori";
-"Translators" = "Traduttori";
-"Libraries" = "Librerie";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Impostazioni";
-"Version" = "Versione";
-"Graphics" = "Grafica";
-"Featured" = "In primo piano";
-"News" = "Notizie";
-"Miscellaneous" = "Misto";
-"Advanced" = "Avanzato";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Segnala un Bug";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Colore Tinta";
-"Blue" = "Blu";
-"Orange" = "Arancione";
-"White" = "Bianco";
-"Black" = "Nero";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Modalità Scura";
+"Dark Mode" = "Dark Mode";
 "Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Cambia Icona";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Abilita Pacchetti in primo piano";
-"Repo Featured" = "Repo in primo piano";
-"Random" = "Casuale";
-"Feature Type" = "Tipo Primo Piano";
-"Select Repos to be Featured" = "Seleziona le Repo da mettere in primo piano";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Abilita Notizie";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Cerca durante la Digitazione";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Mostra le Azioni a Scorrimento come";
-"Text" = "Testo";
-"Icon" = "Icona";
-"Open Documents Directory" = "Apri Cartella Documenti";
-"Clear Image Cache" = "Pulisci Cache Immagini";
-"Clear Keychain" = "Pulisci Portachiavi";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Caricamento...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Ripristino della cache immagini completato";
-"Clearing keychain completed" = "Pulizia portachiavi completata";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Sorgenti";
-"Local Repository" = "Repository Locale";
-"Locally installed packages" = "Pacchetti installati localmente";
-"Unknown" = "Sconosciuto";
-"No repository urls detected." = "Nessun URL di repository rilevato.";
-"You have already added these repositories." = "Hai già aggiunto queste repository.";
-"Error verifying repository" = "Errore durante la verifica del repository";
-"Error verifying repositories" = "Errore durante la verifica dei repository";
-"Unknown error" = "Errore sconosciuto";
-"Invalid URL" = "URL non valido";
-"Enter URL" = "Inserisci URL";
-"Add Repo(s)" = "Aggiungi Repo";
-"Add" = "Aggiungi";
-"Add Multiple" = "Aggiungi Multiple";
-"Would you like to add the URL from your clipboard?" = "Vuoi aggiungere l'URL presente negli appunti?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Attendere...";
 "Verifying Source(s)" = "Verifica Sorgente/i";
-"Unable to verify Repo" = "Impossibile verificare Repo";
-"Refresh" = "Ricarica";
-"Log Out" = "Esci";
-"Purchased Packages" = "Pacchetti Comprati";
-"Purchased" = "Comprato";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Tutti i Pacchetti";
-"Delete" = "Elimina";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Novità";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Pacchetti";
-"Show Updates" = "Mostra Aggiornamenti";
-"Ignore Updates" = "Ignora Aggiornamenti";
-"Select Version" = "Seleziona Versione";
-"Select a version to upgrade to" = "Seleziona una versione per l'aggiornamento";
-"Package" = "Pacchetto";
-"Information" = "Informazione";
-"Upgrade All" = "Aggiorna Tutto";
-"Loaded" = "Caricato";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Data";
-"Size" = "Dimensione";
-"Clear" = "Pulisci";
-"Are you sure you want to clear Queue?" = "Sei sicuro di voler pulire la Coda?";
-"Available Upgrades" = "Aggiornamenti Disponibili";
-"Ignored Upgrades" = "Aggiornamenti Ignorati";
-"Recent" = "Recente";
-"Installed Files" = "File Installati";
-"Modify" = "Modifica";
-"Authenticate to initiate purchase." = "Autenticati per iniziare l'acquisto.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Accedi nuovamente al tuo account utilizzato per acquistare questo pacchetto (Possibilmente %@)";
-"More by this Developer" = "Altro da questo Sviluppatore";
-"Installed Version" = "Versione Installata";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "Aggiungi alla Lista dei Desideri";
-"Remove from Wish List" = "Rimuovi dalla Lista dei Desideri";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Amministrazione";
-"App Addons" = "Componenti Aggiuntivi App";
-"Archiving" = "Archiviazione";
-"Carrier Support" = "Supporto Gestore";
-"Communication" = "Comunicazione";
-"Data Storage" = "Archivio Dati";
-"Development" = "Sviluppo";
-"Dictionaries" = "Dizionari";
-"Education" = "Educazione";
-"Entertainment" = "Intrattenimento";
-"Games" = "Giochi";
-"Health and Fitness" = "Salute e Benessere";
-"Imaging" = "Immagini";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Tastiere";
-"Localization" = "Localizzazione";
-"Messaging" = "Messaggistica";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigazione";
-"Networking" = "Rete";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
 "Packaging" = "Packaging";
-"Productivity" = "Produttività";
-"Repositories" = "Repository";
-"Ringtones" = "Suonerie";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
-"Security" = "Sicurezza";
+"Security" = "Security";
 "Social" = "Social";
-"System" = "Sistema";
-"Terminal Support" = "Supporto Terminale";
-"Text Editors" = "Editor Testo";
-"Themes" = "Temi";
-"Toys" = "Giochi";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utility";
-"Wallpaper" = "Sfondi";
-"Widgets" = "Widget";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Cerca";
-"Clear Search" = "Pulisci Ricerca";
-"This search query is too short for the full search, please use a longer query." = "Questa query di ricerca è troppo breve per la ricerca completa, utilizza una query più lunga.";
-"No Results Found" = "Nessun Risultato Trovato";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Download";
-"Error while opening sources.list" = "Errore durante l'apertura del sources.list";
-"The repo %@ is incompatible with your jailbreak." = "La repo %@ è incompatibile con il tuo jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Potrebbe causare problemi se la aggiungi a Zebra risultanto in un possibile ripristino.";
-"Please remove this repo from your sources.list file." = "Rimuovi questa repo dal tuo file sources.list";
-"Incorrect documents permissions." = "Autorizzazioni per documenti errate.";
-"Could not determine device information." = "Impossibile determinare le informazioni sul dispositivo.";
-"Could not find a download URL for" = "Impossibile trovare un URL di download per";
-"%@ hasn't been modified" = "%@ non è stato modificato";
-"Could not parse %@ from %@" = "Impossibile analizzare %@ da %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
 "Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Aggiornamento cache icone in modo asincrono...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Questo potrebbe richiedere del tempo e Zebra potrebbe chiudersi.È ok se lo fa.";
-"Close Zebra" = "Chiudi Zebra";
-"Restart SpringBoard" = "Riavvia SpringBoard";
-"Downloading" = "Scaricamento";
-"Downloading Packages..." = "Scaricamento Pacchetti...";
-"Installing" = "Installazione";
-"Installing Packages..." = "Installazione Pacchetti...";
-"Removing" = "Rimozione";
-"Removing Packages..." = "Rimozione Pacchetti";
-"Reinstalling" = "Reinstallazione";
-"Reinstalling Packages..." = "Reinstallazione Pacchetti...";
-"Upgrading" = "Aggiornamento";
-"Upgrading Packages..." = "Aggiornamento Pacchetti...";
-"Complete" = "Completato";
-"Finished!" = "Finito!";
-"Return to Queue" = "Ritorna alla Coda";
-"Importing local packages." = "importazione di pacchetti locali.";
-"Finished importing local packages." = "Terminata l'importazione dei pacchetti locali.";
-"One or more packages failed to download." = "Impossibile scaricare uno o più pacchetti.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clicca \"Ritorna alla Coda\" per tornare alla Coda e riprovare il dowload.";
+"Performing Actions..." = "Eseguo azioni...";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Pacchetti in Coda";
-"Package in Queue" = "Pacchetto in Coda";
-"Tap to manage Queue" = "Tocca per gestire la Coda";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Coda";
-"Queue cleared" = "Coda cancellata";
-"Install" = "Installa";
-"Reinstall" = "Reinstalla";
-"Remove" = "Rimuovi";
-"Upgrade" = "Aggiorna";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
 "Downgrade" = "Downgrade";
-"Abort" = "Annulla";
-"Continue" = "Continua";
-"Download Size" = "Dimensione del Download";
-"Confirm" = "Conferma";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
+"%@ must be removed because it depends on %@" = "%@ deve essere rimosso perché dipende da %@";
+"Required Package" = "Pacchetti richiesti";
+"%@ is required by:" = "%@ è richiesto da:";
+"Issues" = "Problemi";
+"%@ has issues that cannot be resolved:" = "%@ ha dei problemi che non possono essere risolti:";
