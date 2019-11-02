@@ -21,7 +21,7 @@
 "Move all sources from %@ to Zebra" = "نقل كل المصادر من  %@ إلى Zebra";
 "Utility repo for %@" = "فائدة المستودع لـ %@";
 "Transfer Sources" = "تحويل المصادر";
-"Please Wait..." = "الرجاء الإنتظار...";
+"Please Wait..." = "يرجى الإنتظار...";
 "Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
@@ -105,7 +105,7 @@
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
-"Please Wait..." = "الرجاء الإنتظار...";
+"Please Wait..." = "يرجى الإنتظار...";
 "Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Unable to verify Repo" = "تعذر التحقق من المستودع";
 "Refresh" = "تحديث";
