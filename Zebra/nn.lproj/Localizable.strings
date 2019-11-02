@@ -86,6 +86,8 @@
 "Resetting image cache completed" = " Tilbakestilling av bildebuffer fullført";
 "Clearing keychain completed" = "Tilbakestilling av nøkkelring fullført";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Kjelder";
