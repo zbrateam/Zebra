@@ -1,257 +1,286 @@
 // Common
 
-"Cancel" = "キャンセル";
-"No" = "いいえ";
-"Ok" = "はい";
-"Error" = "エラー";
-"Retry" = "再試行";
-"Edit" = "編集";
-"Login" = "ログイン";
-"Close" = "閉じる";
-"Done" = "完了";
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "ホーム";
-"Info" = "情報";
-"Welcome to the Zebra Beta!" = "Zebra Beta版 にようこそ!";
-"Changelog" = "変更履歴";
-"Community Repos" = "公式リポジトリ ";
-"Transfer Sources from %@" = "%@ からソースを読み込む";
-"Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
-"Utility repo for %@" = "%@ 専用リポジトリ";
-"Transfer Sources" = "ソースの読み込み";
-"Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "ソースの検証中";
-"Stores" = "ストア";
-"Purchases" = "購入リスト";
-"Wish List" = "ほしいものリスト";
-"No items in Wish List" = "ほしいものリストには何もありません";
-"Community" = "コミュニティ";
-"Join our Discord" = "Discord に参加";
-"Follow me on Twitter" = "Twitter でフォロー";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "ニュース";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "変更履歴";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Discord に参加";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "クレジット";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
+"No items in Wish List" = "No items in Wish List";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "クレジット";
-"Creators" = "作成者";
-"Contributors" = "貢献者";
-"Translators" = "翻訳者";
-"Libraries" = "ライブラリー";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "設定";
-"Version" = "バージョン";
-"Graphics" = "表示方法";
-"Featured" = "パッケージ特集";
-"News" = "ニュース";
-"Miscellaneous" = "その他";
-"Advanced" = "高度";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "バグを報告";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "色合い";
-"Blue" = "青";
-"Orange" = "橙";
-"White" = "白";
-"Black" = "黒";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "ダークモード";
-"Default" = "既定";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "アイコンを変更";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "パッケージ特集の表示をする";
-"Repo Featured" = "リポジトリ特集";
-"Random" = "ランダム";
-"Feature Type" = "表示方法";
-"Select Repos to be Featured" = "特集するリポジトリを選択";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "ニュースを表示";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "入力と同時に検索する";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "スワイプで表示するタイプ";
-"Text" = "テキスト";
-"Icon" = "アイコン";
-"Open Documents Directory" = "ドキュメントディレクトリを開く";
-"Clear Image Cache" = "画像キャッシュをクリア";
-"Clear Keychain" = "キーチェーンをクリア";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "読み込み中...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "画像キャッシュをクリアしました";
-"Clearing keychain completed" = "キーチェーンをクリアしました";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "ソース";
-"Local Repository" = "ローカルリポジトリ";
-"Locally installed packages" = "ローカルでインストールされたパッケージ";
-"Unknown" = "不明";
-"No repository urls detected." = "リポジトリのURLは検出されませんでした。";
-"You have already added these repositories." = "これらのリポジトリはすでに追加されています。";
-"Error verifying repository" = "リポジトリの検証エラー";
-"Error verifying repositories" = "リポジトリの検証エラー";
-"Unknown error" = "不明なエラー";
-"Invalid URL" = "無効なURL";
-"Enter URL" = "URLを入力";
-"Add Repo(s)" = "リポジトリを追加";
-"Add" = "追加";
-"Add Multiple" = "複数追加";
-"Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "お待ちください...";
 "Verifying Source(s)" = "ソースの検証中";
-"Unable to verify Repo" = "リポジトリを検証できませんでした";
-"Refresh" = "再読み込み";
-"Log Out" = "ログアウト";
-"Purchased Packages" = "購入したパッケージ";
-"Purchased" = "購入済み";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "すべてのパッケージ";
-"Delete" = "削除";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "更新履歴";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "パッケージ";
-"Show Updates" = "アップデートを表示";
-"Ignore Updates" = "アップデートを無視";
-"Select Version" = "バージョンを選択";
-"Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
-"Package" = "パッケージ";
-"Information" = "情報";
-"Upgrade All" = "すべてアップグレード";
-"Loaded" = "読み込み済み";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "日付";
-"Size" = "サイズ";
-"Clear" = "クリア";
-"Are you sure you want to clear Queue?" = "キューをクリアしてもよろしいですか？";
-"Available Upgrades" = "利用可能なアップグレード";
-"Ignored Upgrades" = "無視したアップグレード";
-"Recent" = "最近";
-"Installed Files" = "インストールされたファイル";
-"Modify" = "変更";
-"Authenticate to initiate purchase." = "認証してから購入します。";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
-"More by this Developer" = "この開発者による他のパッケージ";
-"Installed Version" = "インストール済みバージョン";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "ほしい物リストに追加する";
-"Remove from Wish List" = "ほしい物リストから削除";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "管理";
-"App Addons" = "アプリのアドオン";
-"Archiving" = "アーカイブ";
-"Carrier Support" = "キャリアサポート";
-"Communication" = "コミュニケーション";
-"Data Storage" = "データ容量";
-"Development" = "開発用途";
-"Dictionaries" = "辞書";
-"Education" = "教育";
-"Entertainment" = "エンターテイメント";
-"Games" = "ゲーム";
-"Health and Fitness" = "ヘルスケア";
-"Imaging" = "画像";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "キーボード";
-"Localization" = "言語";
-"Messaging" = "メッセージ";
-"Multimedia" = "マルチメディア";
-"Navigation" = "ナビゲーション";
-"Networking" = "ネットワーク関連";
-"Packaging" = "パッケージインストーラー";
-"Productivity" = "効率化";
-"Repositories" = "リポジトリ";
-"Ringtones" = "着信音";
-"Scripting" = "スクリプト関連";
-"Security" = "セキュリティ";
-"Social" = "ソーシャル";
-"System" = "システム";
-"Terminal Support" = "ターミナルサポート";
-"Text Editors" = "テキスト編集";
-"Themes" = "テーマ";
-"Toys" = "おもちゃ";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "ユーティリティ";
-"Wallpaper" = "壁紙";
-"Widgets" = "ウィジェット";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "検索";
-"Clear Search" = "検索履歴をクリア";
-"This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
-"No Results Found" = "検索結果が見つかりませんでした。";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "ダウンロード";
-"Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
-"The repo %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
-"Please remove this repo from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
-"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
-"Could not determine device information." = "デバイス情報を特定できませんでした。";
-"Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
-"%@ hasn't been modified" = "%@ は変更されていません";
-"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "コンソール";
-"Performing Actions..." = "実行中...";
-"Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
-"Close Zebra" = "Zebra を閉じる";
-"Restart SpringBoard" = "SpringBoard を再起動";
-"Downloading" = "ダウンロードしています：";
-"Downloading Packages..." = "パッケージをダウンロードします...";
-"Installing" = "インストールしています";
-"Installing Packages..." = "パッケージをインストールします...";
-"Removing" = "削除しています";
-"Removing Packages..." = "パッケージを削除しています...";
-"Reinstalling" = "再インストールしています";
-"Reinstalling Packages..." = "パッケージを再インストールします...";
-"Upgrading" = "アップグレードしています";
-"Upgrading Packages..." = "パッケージをアップグレードします...";
-"Complete" = "完了";
-"Finished!" = "完了！";
-"Return to Queue" = "キューに戻る";
-"Importing local packages." = "ローカルパッケージをインポートしています。";
-"Finished importing local packages." = "ローカルパッケージをインポートしました。";
-"One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "\\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Console" = "Console";
+"Performing Actions..." = "Performing Actions...";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "個のキュー済みのパッケージ";
-"Package in Queue" = "個のキュー済みのパッケージ";
-"Tap to manage Queue" = "タップしてキューを管理";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "キュー";
-"Queue cleared" = "キューをクリアしました";
-"Install" = "インストール";
-"Reinstall" = "再インストール";
-"Remove" = "削除";
-"Upgrade" = "アップグレード";
-"Downgrade" = "ダウングレード";
-"Abort" = "中止";
-"Continue" = "続行";
-"Download Size" = "(サイズ";
-"Confirm" = "実行";
-"%@ must be removed because it depends on %@" = "%@ は %@ と競合しているため削除されます";
-"Required Package" = "要求されたパッケージ";
-"%@ is required by:" = "%@ は右記に必要です:";
-"Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は右記の問題が解決できません:";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
