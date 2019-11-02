@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
 "Clearing keychain completed" = "Keychain erfolgreich geleert";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Quellen";
