@@ -1,39 +1,68 @@
 // Common
 
-"Cancel" = "ยกเลิก";
-"No" = "ไม่";
-"Ok" = "ตกลง";
-"Error" = "ข้อผิดพลาด";
-"Retry" = "ลองอีกครั้ง";
-"Edit" = "แก้ไข";
-"Login" = "ลงชื่อเข้าใช้";
-"Close" = "ปิด";
-"Done" = "เสร็จสิ้น";
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "หน้าหลัก";
-"Info" = "ข้อมูล";
-"Welcome to the Zebra Beta!" = "ยินดีต้อนรับสู่ Zebra Beta!";
-"Changelog" = "รายการเปลี่ยนแปลง";
-"Community Repos" = "รวมซอร์สจากชุมชน";
-"Transfer Sources from %@" = "โอนซอร์สจาก %@";
-"Move all sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
-"Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
-"Transfer Sources" = "ถ่ายโอนซอร์ส";
-"Please Wait..." = "โปรดรอ...";
-"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
-"Stores" = "ร้านค้า";
-"Purchases" = "ที่ซื้อไว้";
-"Wish List" = "รายการอยากได้";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "ข่าวสาร";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "รายการเปลี่ยนแปลง";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "มาร่วม Discord ของเรา";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "รายการขอบคุณ";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "ชุมชน";
-"Join our Discord" = "มาร่วม Discord ของเรา";
-"Follow me on Twitter" = "ติดตามฉันใน Twitter";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "รายการขอบคุณ";
 "Creators" = "Creators";
 "Contributors" = "Contributors";
 "Translators" = "Translators";
@@ -41,111 +70,111 @@
 
 // Settings
 
-"Settings" = "การตั้งค่า";
-"Version" = "รุ่น";
-"Graphics" = "การแสดงผล";
-"Featured" = "โปรแกรมยอดนิยม";
-"News" = "ข่าวสาร";
-"Miscellaneous" = "อื่นๆ";
-"Advanced" = "ขั้นสูง";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "รายงานข้อผิดพลาดของโปรแกรม";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "สีตัวอักษร";
-"Blue" = "น้ำเงิน";
-"Orange" = "ส้ม";
-"White" = "ขาว";
-"Black" = "ดำ";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "โหมดมืด";
-"Default" = "ค่าเริ่มต้น";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "เปลี่ยนไอคอน";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "แสดงโปรแกรมยอดนิยม";
-"Repo Featured" = "แนะนำโดยซอร์ส";
-"Random" = "สุ่ม";
-"Feature Type" = "วิธีแสดง";
-"Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "แสดงข่าวสาร";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "ค้นหาขณะพิมพ์";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "คำสั่งเมื่อปัดขวาให้แสดงผลเป็น";
-"Text" = "ข้อความ";
-"Icon" = "ไอคอน";
-"Open Documents Directory" = "เปิดที่อยู่ของข้อมูลโปรแกรม";
-"Clear Image Cache" = "ล้างแคชรูปภาพ";
-"Clear Keychain" = "ล้างกุญแจเข้ารหัส";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "กำลังโหลด...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "ล้างแคชรูปภาพเสร็จสิ้น";
-"Clearing keychain completed" = "ล้างกุญแจเข้ารหัสเสร็จสิ้น";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "ซอร์ส";
-"Local Repository" = "ซอร์สในเครื่อง";
-"Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
-"Unknown" = "ไม่รู้จัก";
-"No repository urls detected." = "ไม่พบซอร์ส";
-"You have already added these repositories." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
-"Error verifying repository" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
-"Error verifying repositories" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
 "Unknown error" = "Unknown error";
-"Invalid URL" = "URL ผิด";
-"Enter URL" = "ใส่ URL";
-"Add Repo(s)" = "เพิ่มซอร์ส";
-"Add" = "เพิ่ม";
-"Add Multiple" = "เพิ่มหลายอัน";
-"Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
-"Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
-"Refresh" = "โหลดใหม่";
-"Log Out" = "ลงชื่อออก";
-"Purchased Packages" = "โปรแกรมที่ซื้อไว้";
-"Purchased" = "ซื้อไว้แล้ว";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "โปรแกรมทั้งหมด";
-"Delete" = "ลบ";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "ที่เปลี่ยนแปลง";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "โปรแกรม";
-"Show Updates" = "แสดงรุ่นใหม่ถ้ามี";
-"Ignore Updates" = "ไม่สนใจรุ่นใหม่";
-"Select Version" = "เลือกรุ่น";
-"Select a version to upgrade to" = "เลือกรู่นที่จะทำการติดตั้ง";
-"Package" = "โปรแกรม";
-"Information" = "ข้อมูล";
-"Upgrade All" = "อัพเดตทั้งหมด";
-"Loaded" = "โหลดแล้ว";
-"ABC" = "กขค";
-"Date" = "วันที่";
-"Size" = "ขนาด";
-"Clear" = "ล้าง";
-"Are you sure you want to clear Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
-"Available Upgrades" = "รุ่นใหม่ที่มี";
-"Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
-"Recent" = "เร็วๆ นี้";
-"Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
-"Modify" = "แก้ไข";
-"Authenticate to initiate purchase." = "ยืนยันตัวตนเพื่อเริ่มการซื้อ";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "กรุณาลงชื่อเข้าใช้บัญชีที่คุณใช้ในการซื้อโปรแกรมนี้อีกครั้ง (คาดว่าคือ %@)";
-"More by this Developer" = "โปรแกรมอื่นๆ จากนักพัฒนาคนนี้";
-"Installed Version" = "รุ่นที่ติดตั้ง";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
+"ABC" = "ABC";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "เพิ่มในรายการอยากได้";
-"Remove from Wish List" = "ลบจากรายการอยากได้";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
@@ -182,73 +211,73 @@
 "Themes" = "Themes";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "จิปาถะ";
+"Utilities" = "Utilities";
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "ค้นหา";
-"Clear Search" = "ลบผลการค้นหา";
-"This search query is too short for the full search, please use a longer query." = "ข้อความค้นหาสั้นเกินไปสำหรับการค้นหาเต็มรูปแบบ กรุณาใช้ความยาวมากกว่านี้";
-"No Results Found" = "ไม่พบรายการ";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "ดาวน์โหลด";
-"Error while opening sources.list" = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list";
-"The repo %@ is incompatible with your jailbreak." = "ซอร์สนี้ %@ ไม่รองรับโปรแกรมเจลเบรคของอุปกรณ์คุณ";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "อาจเกิดปัญหาได้หากซอร์สนี้ถูกเพิ่มลง Zebra และอาจถึงขั้นต้องล้างเครื่อง";
-"Please remove this repo from your sources.list file." = "โปรดลบซอร์สนี้จากไฟล์ sources.list ของคุณ";
-"Incorrect documents permissions." = "สิทธิ์การเข้าถึงที่อยู่เอกสารไม่ถูกต้อง";
-"Could not determine device information." = "ไม่สามารถอ่านข้อมูลของอุปกรณ์ได้";
-"Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
-"%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
-"Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "คอนโซล";
+"Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "อัพเดตแคชไอคอนใหม่...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
-"Close Zebra" = "ปิด Zebra";
-"Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
-"Downloading" = "กำลังดาวน์โหลด";
-"Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
-"Installing" = "กำลังติดตั้ง";
-"Installing Packages..." = "กำลังติดตั้งโปรแกรม...";
-"Removing" = "กำลังลบ";
-"Removing Packages..." = "กำลังลบโปรแกรม...";
-"Reinstalling" = "กำลังติดตั้งซ้ำ";
-"Reinstalling Packages..." = "กำลังติดตั้งโปรแกรมซ้ำ...";
-"Upgrading" = "กำลังอัพเดต";
-"Upgrading Packages..." = "กำลังอัพเดตโปรแกรม...";
-"Complete" = "เสร็จสิ้น";
-"Finished!" = "เสร็จสิ้น!";
-"Return to Queue" = "กลับไปยังคิว";
-"Importing local packages." = "นำเข้าโปรแกรมจากในเครื่อง";
-"Finished importing local packages." = "เสร็จสิ้นการนำเข้าโปรแกรมจากในเครื่อง";
-"One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "โปรแกรมในคิว";
-"Package in Queue" = "โปรแกรมในคิว";
-"Tap to manage Queue" = "แตะเพื่อจัดการคิว";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "คิว";
-"Queue cleared" = "คิวถูกล้างแล้ว";
-"Install" = "ติดตั้ง";
-"Reinstall" = "ติดตั้งซ้ำ";
-"Remove" = "ลบ";
-"Upgrade" = "อัพเดต";
-"Downgrade" = "ดาวน์เกรด";
-"Abort" = "หยุด";
-"Continue" = "ทำต่อ";
-"Download Size" = "ขนาดดาวน์โหลด";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
 "Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
