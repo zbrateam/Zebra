@@ -19,7 +19,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
-#import <Tabs/Repos/Helpers/ZBRepo.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
@@ -285,26 +285,26 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
-                        NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
-                        if (source != NULL) {
-                            if ([ZBRepo exists:source]) {
+                        NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
+                        if (sourceURL != NULL) {
+                            if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
-                                ZBRepo *repo = [ZBRepo repoFromBaseURL:source];
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
+                                ZBSource *source = [ZBSource repoFromBaseURL:sourceURL];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:source];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                     [tabController presentViewController:navController animated:YES completion:nil];
                                 }
                                 else {
-                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [repo origin]]];
+                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
                                 }
                             }
                             else {
                                 NSString *packageID = [path substringFromIndex:1];
                                 [tabController setForwardToPackageID:packageID];
-                                [tabController setForwardedRepoBaseURL:source];
+                                [tabController setForwardedRepoBaseURL:sourceURL];
 
-                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                                 [[UIApplication sharedApplication] openURL:newURL];
                             }
                         }

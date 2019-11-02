@@ -7,7 +7,7 @@
 //
 
 #import "UIVisualEffectView+Theme.h"
-#import "UIColor+GlobalColors.h"
+#import "UIColor+Zebra.h"
 #import <ZBDevice.h>
 #import <objc/runtime.h>
 

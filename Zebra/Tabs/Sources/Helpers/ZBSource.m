@@ -33,7 +33,7 @@
 }
 
 + (ZBSource *)localRepo:(int)repoID {
-    ZBSource *local = [[ZBRepo alloc] init];
+    ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setDesc:NSLocalizedString(@"Locally installed packages", @"")];
     [local setRepoID:repoID];
@@ -41,8 +41,8 @@
     return local;
 }
 
-+ (ZBRepo *)repoFromBaseURL:(NSString *)baseURL {
-    return [[ZBDatabaseManager sharedInstance] repoFromBaseURL:baseURL];
++ (ZBSource *)repoFromBaseURL:(NSString *)baseURL {
+    return [[ZBDatabaseManager sharedInstance] sourceFromBaseURL:baseURL];
 }
 
 + (BOOL)exists:(NSString *)urlString {

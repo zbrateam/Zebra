@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo {
+- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
 

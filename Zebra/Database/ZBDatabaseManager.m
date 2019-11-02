@@ -507,7 +507,7 @@
     return -1;
 }
 
-- (ZBRepo *)repoFromBaseURL:(NSString *)burl {
+- (ZBSource *)sourceFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
     NSString *baseURL = [burl substringFromIndex:divide];
@@ -516,10 +516,10 @@
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
         
         sqlite3_stmt *statement;
-        ZBRepo *repo;
+        ZBSource *source;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                repo = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+                source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 break;
             }
         } else {
@@ -528,7 +528,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return repo;
+        return source;
     }
     [self printDatabaseError];
     return NULL;
@@ -1243,11 +1243,11 @@
     return [self allVersionsForPackageID:packageIdentifier inRepo:NULL];
 }
 
-- (NSArray *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo {
+- (NSArray *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo {
     return [self allVersionsForPackageID:package.identifier inRepo:repo];
 }
 
-- (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo {
+- (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *allVersions = [NSMutableArray new];
         
@@ -1378,11 +1378,11 @@
     return [self topVersionForPackageID:packageIdentifier inRepo:NULL];
 }
 
-- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo {
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo {
     return [self topVersionForPackageID:package.identifier inRepo:repo];
 }
 
-- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo {
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo {
     NSArray *allVersions = [self allVersionsForPackageID:packageIdentifier inRepo:repo];
     return allVersions.count ? allVersions[0] : nil;
 }

@@ -7,7 +7,7 @@
 //
 
 #import "ZBCreditsTableViewController.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 #import <ZBDevice.h>
 
 @interface ZBCreditsTableViewController ()
@@ -25,7 +25,7 @@
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
     
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     if (@available(iOS 11.0, *)) {
         [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
     }
@@ -33,8 +33,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (credits == NULL) {
         [self fetchCredits];
@@ -82,7 +82,7 @@
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+//        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
@@ -90,10 +90,10 @@
             [cell.textLabel setTextColor:[UIColor tintColor]];
         }
         else {
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+//            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
         }
     }
-    [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
+//    [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
     
     cell.textLabel.text = [item objectForKey:@"name"];
     cell.detailTextLabel.text = [item objectForKey:@"subtitle"];

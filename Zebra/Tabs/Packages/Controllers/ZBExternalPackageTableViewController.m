@@ -11,6 +11,7 @@
 #import <ZBDevice.h>
 #import <Console/ZBConsoleViewController.h>
 #import "UIColor+Zebra.h"
+#import <Database/ZBDatabaseManager.h>
 
 @interface ZBExternalPackageTableViewController () {
     NSDictionary *details;
