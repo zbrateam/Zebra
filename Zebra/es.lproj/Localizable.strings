@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Reseteo de caché de imagen completado";
 "Clearing keychain completed" = "Limpieza de llavero completada";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Fuentes";
