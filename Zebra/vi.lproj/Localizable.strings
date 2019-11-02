@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Đặt lại bộ đệm hình ảnh đã hoàn thành";
 "Clearing keychain completed" = "Dọn dẹp keychain hoàn thành";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Nguồn";
