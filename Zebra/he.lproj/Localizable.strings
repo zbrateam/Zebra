@@ -28,8 +28,8 @@
 "Wish List" = "רשימת משאלות";
 "No items in Wish List" = "אין פריטים ברשימת המשאלות";
 "Community" = "קהילה";
-"Join our Discord" = "הצטרף\\/י ל-Discord שלנו";
-"Follow me on Twitter" = "עקוב\\/י אחריי ב-Twitter";
+"Join our Discord" = "הצטרף/י ל-Discord שלנו";
+"Follow me on Twitter" = "עקוב/י אחריי ב-Twitter";
 
 //Credits
 
@@ -49,7 +49,7 @@
 "Miscellaneous" = "שונות";
 "Advanced" = "מתקדם";
 
-"Report a Bug" = "דווח\\/י על באג";
+"Report a Bug" = "דווח/י על באג";
 
 "Tint Color" = "צבע גוון";
 "Blue" = "כחול";
@@ -68,7 +68,7 @@
 "Repo Featured" = "מומלץ מקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
-"Select Repos to be Featured" = "בחר\\/י מקורות שיהיו מומלצים";
+"Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
 
 "Enable News" = "אפשר חדשות";
 
@@ -86,7 +86,7 @@
 "Resetting image cache completed" = "איפוס מטמון תמונות הושלם";
 "Clearing keychain completed" = "ניקוי צרור הושלם";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "הפל טבלאות";
 
 // Sources
 
@@ -100,7 +100,7 @@
 "Error verifying repositories" = "תקלה באימות מקורות";
 "Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
-"Enter URL" = "הזן\\/י כתובת";
+"Enter URL" = "הזן/י כתובת";
 "Add Repo(s)" = "הוסף מקור(ות)";
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
@@ -126,7 +126,7 @@
 "Show Updates" = "הצג עדכונים";
 "Ignore Updates" = "התעלם מעדכונים";
 "Select Version" = "בחר גירסה";
-"Select a version to upgrade to" = "בחר\\/י גירסה לעדכן אליה";
+"Select a version to upgrade to" = "בחר/י גירסה לעדכן אליה";
 "Package" = "חבילה";
 "Information" = "מידע";
 "Upgrade All" = "עדכן הכל";
@@ -135,14 +135,14 @@
 "Date" = "תאריך";
 "Size" = "גודל";
 "Clear" = "נקה";
-"Are you sure you want to clear Queue?" = "האם את\\/ה בטוח\\/ה שברצונך לנקות את התור?";
+"Are you sure you want to clear Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
 "Installed Files" = "קבצים מותקנים";
 "Modify" = "נהל";
-"Authenticate to initiate purchase." = "בצע\\/י אימות כדי להתחיל רכישה.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "אנא התחבר\\/י מחדש לחשבונך ששומש לרכישת חבילה זו (עלול להיות %@)";
+"Authenticate to initiate purchase." = "בצע/י אימות כדי להתחיל רכישה.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "אנא התחבר/י מחדש לחשבונך ששומש לרכישת חבילה זו (עלול להיות %@)";
 "More by this Developer" = "עוד ממפתח זה";
 "Installed Version" = "גירסה מותקנת";
 
@@ -192,7 +192,7 @@
 
 "Search" = "חיפוש";
 "Clear Search" = "נקה חיפוש";
-"This search query is too short for the full search, please use a longer query." = "מושג חיפוש זה קצר מידיי עבור החיפוש המלא, אנא השתמש\\/י במושג ארוך יותר.";
+"This search query is too short for the full search, please use a longer query." = "מושג חיפוש זה קצר מידיי עבור החיפוש המלא, אנא השתמש/י במושג ארוך יותר.";
 "No Results Found" = "לא נמצאו תוצאות";
 
 // Downloads
@@ -200,8 +200,8 @@
 "Downloads" = "הורדות";
 "Error while opening sources.list" = "תקלה בפתיחת sources.list";
 "The repo %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף\\/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
-"Please remove this repo from your sources.list file." = "אנא הסר\\/י את מקור זה מקובץ ה-sources.list שלך.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
+"Please remove this repo from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
 "Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
 "Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
@@ -232,12 +232,12 @@
 "Importing local packages." = "מייבא חבילות מקומיות.";
 "Finished importing local packages." = "ייבוא חבילות מקומיות הושלם.";
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ\\/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 
 // Queue Bar
 "Packages in Queue" = "חבילות בתור";
 "Package in Queue" = "חבילה בתור";
-"Tap to manage Queue" = "לחץ\\/י כדי לנהל את התור";
+"Tap to manage Queue" = "לחץ/י כדי לנהל את התור";
 
 // Queue
 
@@ -254,6 +254,6 @@
 "Confirm" = "אישור";
 "%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
 "Required Package" = "חבילה נדרשת";
-"%@ is required by:" = "%@ נדרש ע\"י:";
+"%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
 "Issues" = "בעיות";
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
