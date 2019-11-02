@@ -10,6 +10,7 @@
 #import <ZBLog.h>
 #import <ZBTab.h>
 #import <ZBSettings.h>
+#import <ZBPackagePartitioner.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -20,12 +21,6 @@
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBDevice.h"
-
-typedef NS_ENUM(NSInteger, ZBSortingType) {
-    ZBSortingTypeABC,
-    ZBSortingTypeDate,
-    ZBSortingTypeInstalledSize
-};
 
 @interface ZBPackageListTableViewController () {
     ZBSortingType selectedSortingType;
@@ -104,7 +99,17 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 }
 
 - (void)updateCollation {
-    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+    switch (selectedSortingType) {
+        case ZBSortingTypeABC:
+            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+            break;
+        case ZBSortingTypeDate:
+            self.tableData = [self partitionObjects:packages collationStringSelector:repo.repoID ? @selector(lastSeenDate) : @selector(installedDate)];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 - (void)refreshTable {
@@ -133,13 +138,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
             self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
-        if (self->selectedSortingType == ZBSortingTypeDate) {
-            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
-                NSDate *first = [a installedDate];
-                NSDate *second = [b installedDate];
-                return [second compare:first];
-            }];
-        } else if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
+        if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
             self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
                 NSInteger sizeA = [a numericInstalledSize];
                 NSInteger sizeB = [b numericInstalledSize];
@@ -315,7 +314,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     if (needsIgnoredUpdatesSection && indexPath.section == needsUpdatesSection) {
         return [ignoredUpdates objectAtIndex:indexPath.row];
     }
-    if (selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
         return package;
     }
@@ -332,7 +331,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [sectionIndexTitles count] + needsUpdatesSection + needsIgnoredUpdatesSection;
     }
     return 1 + needsUpdatesSection + needsIgnoredUpdatesSection;
@@ -356,7 +355,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     if (needsIgnoredUpdatesSection && section == needsUpdatesSection) {
         return ignoredUpdates.count;
     }
-    if (self->selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [[self objectAtSection:section] count];
     }
     return sortedPackages.count;
@@ -405,12 +404,16 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
         if (isIgnoredUpdateSection) {
             return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Ignored Upgrades", @""), (unsigned long)ignoredUpdates.count];
         }
-        if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
-            return [self sectionIndexTitlesForTableView:tableView][[self trueSection:section]];
+        if (hasDataInSection) {
+            NSInteger trueSection = [self trueSection:section];
+            if (selectedSortingType == ZBSortingTypeABC)
+                return [self sectionIndexTitlesForTableView:tableView][trueSection];
+            if (selectedSortingType == ZBSortingTypeDate)
+                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles];
         }
-        if (selectedSortingType == ZBSortingTypeDate) {
-            return NSLocalizedString(@"Recent", @"");
-        }
+//        if (selectedSortingType == ZBSortingTypeDate) {
+//            return NSLocalizedString(@"Recent", @"");
+//        }
         if (selectedSortingType == ZBSortingTypeInstalledSize) {
             return @"Size";
         }
@@ -423,37 +426,15 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 }
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
-    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-    sectionIndexTitles = [NSMutableArray arrayWithArray:[collation sectionIndexTitles]];
-    NSInteger sectionCount = [[collation sectionTitles] count];
-    NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (int i = 0; i < sectionCount; ++i) {
-        [unsortedSections addObject:[NSMutableArray array]];
-    }
-    for (id object in array) {
-        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
-        [[unsortedSections objectAtIndex:index] addObject:object];
-    }
-    NSUInteger lastIndex = 0;
-    NSMutableIndexSet *sectionsToRemove = [NSMutableIndexSet indexSet];
-    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (NSMutableArray *section in unsortedSections) {
-        if ([section count] == 0) {
-            NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
-            [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
-            lastIndex = [sectionsToRemove lastIndex] + 1;
-        } else {
-            [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
-        }
-    }
-    [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
-    return sections;
+    sectionIndexTitles = [NSMutableArray array];
+    return [ZBPackagePartitioner partitionObjects:array collationStringSelector:selector sectionIndexTitles:sectionIndexTitles packages:packages type:selectedSortingType];
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    if (self->selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC)
         return sectionIndexTitles;
-    }
+    /*if (selectedSortingType == ZBSortingTypeDate)
+        return [ZBPackagePartitioner titleForHeaderInDateSection:section sectionIndexTitles:sectionIndexTitles];*/
     return nil;
 }
 
