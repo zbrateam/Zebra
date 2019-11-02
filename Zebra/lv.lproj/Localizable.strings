@@ -1,255 +1,284 @@
 // Common
 
-"Cancel" = "Atcelt";
-"No" = "Nē";
+"Cancel" = "Cancel";
+"No" = "No";
 "Ok" = "Ok";
-"Error" = "Kļūda";
-"Retry" = "Atkārtot";
-"Edit" = "Rediģēt";
-"Login" = "Pieslēgties";
-"Close" = "Aizvērt";
-"Done" = "Gatavs";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Sākums";
-"Info" = "Informācija";
-"Welcome to the Zebra Beta!" = "Laipni lūdzam pie Zebra betas!";
-"Changelog" = "Izmaiņas žurnāls";
-"Community Repos" = "Citi avoti";
-"Transfer Sources from %@" = "Pārvietot avotus no %@";
-"Move all sources from %@ to Zebra" = "Pārvietot visus avotus no %@ uz Zebra";
-"Utility repo for %@" = " Darbarīku avots no %@";
-"Transfer Sources" = "Pārvietot avotus";
-"Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verificējam avotu(s)";
-"Stores" = "Veikali";
-"Purchases" = "Pirkumi";
-"Wish List" = "Vēlmju saraksts";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Jaunumi";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Izmaiņas žurnāls";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Pievienojies mūsu Discordam";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Kredīti";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "Kopiena";
-"Join our Discord" = "Pievienojies mūsu Discordam";
-"Follow me on Twitter" = "Seko man Twitterī";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "Kredīti";
-"Creators" = "Autori";
-"Contributors" = "Atbalstītāji";
-"Translators" = "Tulkotāji";
-"Libraries" = "Bibliotēkas";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Iestatījumi";
-"Version" = "Versija";
-"Graphics" = "Designs";
-"Featured" = "Piedāvājumi";
-"News" = "Jaunumi";
-"Miscellaneous" = "Dažādi";
-"Advanced" = "Progresīvs";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Paziņot par kļūdu";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Toņa krāsa";
-"Blue" = "Zils";
-"Orange" = "Oranžs";
-"White" = "Balts";
-"Black" = "Melns";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Tumšais režīms";
-"Default" = "Normāls";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Mainīt ikonu";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Ieslēgt piedāvātās paketes";
-"Repo Featured" = "Avota piedāvātās paketes";
-"Random" = "Nejaušs";
-"Feature Type" = "Piedāvāšanas veids";
-"Select Repos to be Featured" = "Izvēlies avotus, kuri piedāvā paketes";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Ieslēgt ziņas";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Meklēt rakstīšanas laikā";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Pārvelciena darbību rādīt kā";
-"Text" = "Tekstu";
-"Icon" = "Ikonu";
-"Open Documents Directory" = "Atvērt dokumentus";
-"Clear Image Cache" = "Notīrīt attēla kešatmiņu";
-"Clear Keychain" = "Notīrīt pieslēgšanas";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Tiek ielādēts...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Attēla kešatmiņu notīrīšana ir pabeigta";
-"Clearing keychain completed" = "Pieslēgšanas notīrīšana ir pabeigta";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Avoti";
-"Local Repository" = "Lokālais avots";
-"Locally installed packages" = "Lokāli instalētas paketes";
-"Unknown" = "Nezināms";
-"No repository urls detected." = "Nevarēja atrast avota URL.";
-"You have already added these repositories." = "Tu jau pievienoji šos avotus.";
-"Error verifying repository" = "Ķlūda verificējot avotu";
-"Error verifying repositories" = "Ķlūda verificējot avotus";
-"Unknown error" = "Nezināma kļūda";
-"Invalid URL" = "Nederīga URL";
-"Enter URL" = "Ievadi URL";
-"Add Repo(s)" = "Pievienot avotu(s)";
-"Add" = "Pievienot";
-"Add Multiple" = "Pievienot vairākus";
-"Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
-"Unable to verify Repo" = "Nevar verificēt avotu(s)";
-"Refresh" = "Atjaunot";
-"Log Out" = "Izlogoties";
-"Purchased Packages" = "Nopirktās paketes";
-"Purchased" = "Nopirkts";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Visas pakas";
-"Delete" = "Dzēst";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Izmaiņas";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Paketes";
-"Show Updates" = "Rādīt atjauninājumus";
-"Ignore Updates" = "Ignorēt atjauninājumus";
-"Select Version" = "Ieslēgt versiju";
-"Select a version to upgrade to" = "Izvēlies versiju, uz kuru jaunināt";
-"Package" = "Pakete";
-"Information" = "Informācija";
-"Upgrade All" = "Visus jaunināt";
-"Loaded" = "Ielādēts";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Datums";
-"Size" = "Lielums";
-"Clear" = "Notīrīt";
-"Are you sure you want to clear Queue?" = "Vai tiešām vēlies notīrīt rindu?";
-"Available Upgrades" = "Pieejamie atjauninājumi";
-"Ignored Upgrades" = "Ignorētie atjauninājumi";
-"Recent" = "Nesen";
-"Installed Files" = "Instalētie faili";
-"Modify" = "Modificēt";
-"Authenticate to initiate purchase." = "Autentificējies, lai sākt pirkumu.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Lūdzu, pieslēdzies vēlreiz ar kontu, kas tieka izmantots, lai iegādātos šo paketi (iespējams %@)";
-"More by this Developer" = "Vairāk no šī izstrādātāja";
-"Installed Version" = "Instalētā versija";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "Pievienot vēlmju sarakstam";
-"Remove from Wish List" = "Noņemt no vēlmju sarakstam";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Administrācija";
-"App Addons" = "Appa plugini";
-"Archiving" = "Arhivēšana";
-"Carrier Support" = "Mobilā pārvadātāja plugini";
-"Communication" = "Komunikācija";
-"Data Storage" = "Datu glabāšana";
-"Development" = "Izstrāde";
-"Dictionaries" = "Vārdnīcas";
-"Education" = "Izglītība";
-"Entertainment" = "Izklaide";
-"Games" = "Spēles";
-"Health and Fitness" = "Veselība un fitness";
-"Imaging" = "Bildes";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Tastatūra";
-"Localization" = "Lokalizācija";
-"Messaging" = "Ziņapmaiņa";
-"Multimedia" = "Multimedija";
-"Navigation" = "Navigācija";
-"Networking" = "Tīklošana";
-"Packaging" = "Pakēšana";
-"Productivity" = "Produktivitāte";
-"Repositories" = "Avoti";
-"Ringtones" = "Zvanu signāli";
-"Scripting" = "Skriptu veidošana";
-"Security" = "Drošība";
-"Social" = "Sociālie tīkli";
-"System" = "Sistēma";
-"Terminal Support" = "Termināla plugins";
-"Text Editors" = "Teksta editors";
-"Themes" = "Icona motīvi";
-"Toys" = "Spēļumantas";
-"Tweaks" = "Tweaki";
-"Utilities" = "Darbarīki";
-"Wallpaper" = "Fona attēls";
-"Widgets" = "Logrīki";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Meklēt";
-"Clear Search" = "Notīrīt meklēšanu";
-"This search query is too short for the full search, please use a longer query." = "Šis meklēšānas veicinājums ir pārāk īss, lai veiktu pilnīgu meklēšanu, izmantojiet garāku veicinājumu.";
-"No Results Found" = "Neviens rezultāts atrasts";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Lejupielādes";
-"Error while opening sources.list" = "Ķlūda, atverot sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
-"Please remove this repo from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
-"Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
-"Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
-"Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
-"%@ hasn't been modified" = "%@ nav modificēts";
-"Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "konsole";
+"Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Ikona kešatmiņa tiek atjaunota asinhroni...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Tas var aizņemt laiku, un Zebra var crashot. Nav slikti, ja tā notiek.";
-"Close Zebra" = "Aizvert Zebra";
-"Restart SpringBoard" = "Restartēt SpringBoard";
-"Downloading" = "Lejupielādē";
-"Downloading Packages..." = "Lejupielādē paketes...";
-"Installing" = "Instalē";
-"Installing Packages..." = "Instalē paketes...";
-"Removing" = "Izdzēš";
-"Removing Packages..." = "Izdzēš paketes...";
-"Reinstalling" = "Pārinstalē";
-"Reinstalling Packages..." = "Pārinstalē paketes...";
-"Upgrading" = "Atjaunina";
-"Upgrading Packages..." = "Atjaunina paketes...";
-"Complete" = "Pabeigts";
-"Finished!" = "Gatavs!";
-"Return to Queue" = "Atgriezties rindā";
-"Importing local packages." = "Importē vietējās paketes.";
-"Finished importing local packages." = "Pabeidza importēt vietējās paketes.";
-"One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Paketes rindā";
-"Package in Queue" = "Pakete rindā";
-"Tap to manage Queue" = "Pieskarties, lai pārvaldātu rindu";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Rinda";
-"Queue cleared" = "Rinda ir notīrīta";
-"Install" = "Instalēt";
-"Reinstall" = "Pārinstalēt";
-"Remove" = "Izdzēst";
-"Upgrade" = "Atjaunināt";
-"Downgrade" = "Instalē vecāku versiju";
-"Abort" = "Pārtraukt";
-"Continue" = "Turpināt";
-"Download Size" = "Lejupielādes lielums";
-"Confirm" = "Apstiprināt";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
