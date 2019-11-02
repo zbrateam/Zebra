@@ -10,6 +10,9 @@
 #import "ZBDevice.h"
 #import <Extensions/UIColor+GlobalColors.h>
 
-@interface ZBSettingsGraphicsTintTableViewController : UITableViewController
-
+@interface ZBSettingsOptionsTableViewController : UITableViewController
+@property NSString *settingTitle;
+@property NSArray<NSString *> *settingOptions;
+@property NSInteger settingSelectedRow;
+@property void (^settingChanged)(NSInteger newValue);
 @end
