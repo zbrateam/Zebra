@@ -7,6 +7,7 @@
 //
 
 #import "ZBSettingsTableViewController.h"
+#import "ZBSettingsOptionsTableViewController.h"
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 
@@ -196,10 +197,22 @@ enum ZBMiscOrder {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"settingsCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    UITableViewCell *cell;
+    if ((indexPath.section == ZBGraphics &&
+        (indexPath.row == ZBChangeTint || indexPath.row == ZBChangeMode)) ||
+        (indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) ||
+        indexPath.section == ZBMisc){
+        static NSString *cellIdentifier = @"settingsRightDetailCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        }
+    } else {
+        static NSString *cellIdentifier = @"settingsCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
     }
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     cell.imageView.image = nil;
@@ -260,24 +273,41 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBChangeTint: {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Default", @""), NSLocalizedString(@"Blue", @""), NSLocalizedString(@"Orange", @""), NSLocalizedString(ZBDevice.darkModeEnabled ? @"White" : @"Black", @"")]];
-                    segmentedControl.selectedSegmentIndex = (NSInteger)self->tintColorType;
-                    segmentedControl.tintColor = [UIColor tintColor];
-                    [segmentedControl addTarget:self action:@selector(tintColorSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-                    cell.accessoryView = segmentedControl;
+                    if (self->tintColorType == ZBDefaultTint) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
+                    } else if (self->tintColorType == ZBBlue) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
+                    } else if (self->tintColorType == ZBOrange) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
+                    } else if (self->tintColorType == ZBWhiteOrBlack) {
+                        if (ZBDevice.darkModeEnabled) {
+                            cell.detailTextLabel.text = NSLocalizedString(@"White", @"");
+                        } else {
+                            cell.detailTextLabel.text = NSLocalizedString(@"Black", @"");
+                        }
+                    } else {
+                        cell.detailTextLabel.text = @"";
+                    }
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.textLabel.text = NSLocalizedString(@"Tint Color", @"");
                     break;
                 }
                 case ZBChangeMode: {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Default", @""), NSLocalizedString(@"OLED", @""), NSLocalizedString(@"iOS 13", @"")]];
-                    segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedMode;
-                    segmentedControl.tintColor = [UIColor tintColor];
-                    [segmentedControl addTarget:self action:@selector(modeValueChanged:) forControlEvents:UIControlEventValueChanged];
-                    cell.accessoryView = segmentedControl;
+                    if (self->selectedMode == ZBDefaultMode) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
+                    } else if (self->selectedMode == ZBOled) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"OLED", @"");
+                    } else if (self->selectedMode == ZBThirteen) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"iOS 13", @"");
+                    } else {
+                        cell.detailTextLabel.text = @"";
+                    }
                     cell.textLabel.text = NSLocalizedString(@"Dark Mode", @"");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
             }
+            cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
@@ -294,11 +324,14 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBFeatureOrRandomToggle: {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Repo Featured", @""), NSLocalizedString(@"Random", @"")]];
-                    segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
-                    segmentedControl.tintColor = [UIColor tintColor];
-                    [segmentedControl addTarget:self action:@selector(featuredSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-                    cell.accessoryView = segmentedControl;
+                    NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
+
+                    if (selected == 0) {
+                        cell.detailTextLabel.text = NSLocalizedString(@"Repo Featured", @"");
+                    } else {
+                        cell.detailTextLabel.text = NSLocalizedString(@"Random", @"");
+                    }
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.textLabel.text = NSLocalizedString(@"Feature Type", @"");
                     break;
                 }
@@ -335,11 +368,13 @@ enum ZBMiscOrder {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
                 text = NSLocalizedString(@"Swipe Actions Display As", @"");
-                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Text", @""), NSLocalizedString(@"Icon", @"")]];
-                segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue];
-                segmentedControl.tintColor = [UIColor tintColor];
-                [segmentedControl addTarget:self action:@selector(iconActionSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-                cell.accessoryView = segmentedControl;
+                NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue];
+                if (selected == 0) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"Text", @"");
+                } else {
+                    cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
+                }
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             }
             cell.textLabel.text = text;
@@ -377,6 +412,12 @@ enum ZBMiscOrder {
         }
         case ZBGraphics: {
             switch (indexPath.row) {
+                case ZBChangeTint:
+                    [self changeTint];
+                    break;
+                case ZBChangeMode:
+                    [self changeMode];
+                    break;
                 case ZBChangeIcon:
                     [self changeIcon];
                     break;
@@ -390,6 +431,7 @@ enum ZBMiscOrder {
                     [self getTappedSwitch:indexPath];
                     break;
                 case ZBFeatureOrRandomToggle:
+                    [self featureOrRandomToggle];
                     break;
                 case ZBFeatureBlacklist:
                     [self openBlackList];
@@ -404,6 +446,10 @@ enum ZBMiscOrder {
             UISwitch *switcher = (UISwitch *)cell.accessoryView;
             [switcher setOn:!switcher.on animated:YES];
             [self toggleNews:switcher];
+            break;
+        }
+        case ZBMisc: {
+            [self misc];
             break;
         }
         case ZBSearch: {
@@ -505,6 +551,87 @@ enum ZBMiscOrder {
     [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Clearing keychain completed", @"")];
 }
 
+- (void)changeTint {
+    NSString *theme = @"Black";
+    if (ZBDevice.darkModeEnabled) {
+        theme = @"White";
+    }
+    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+    controller.settingTitle = @"Tint Color";
+    controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
+    if (number) {
+        controller.settingSelectedRow = (ZBTintSelection)[number integerValue];
+    } else {
+        controller.settingSelectedRow = ZBDefaultTint;
+    }
+    controller.settingChanged = ^(NSInteger newValue) {
+        self->tintColorType = (ZBTintSelection) newValue;
+        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [ZBDevice hapticButton];
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.tableView reloadData];
+            [self configureNavBar];
+            [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
+            [ZBDevice refreshViews];
+            [self setNeedsStatusBarAppearanceUpdate];
+        } completion:nil];
+    };
+    [self.navigationController pushViewController: controller animated:YES];
+}
+
+- (void)changeMode {
+    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+    controller.settingTitle = @"Dark Mode";
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
+        controller.settingSelectedRow = ZBThirteen;
+    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
+        controller.settingSelectedRow = ZBOled;
+    } else {
+        controller.settingSelectedRow = ZBDefaultMode;
+    }
+    controller.settingOptions = @[@"Default", @"OLED", @"iOS 13"];
+    controller.settingChanged = ^(NSInteger newValue) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        self->selectedMode = (ZBModeSelection)newValue;
+        [defaults setBool:self->selectedMode == ZBThirteen forKey:thirteenModeKey];
+        [defaults setBool:self->selectedMode == ZBOled forKey:oledModeKey];
+        [defaults synchronize];
+        [ZBDevice hapticButton];
+        [self oledAnimation];
+    };
+    [self.navigationController pushViewController: controller animated:YES];
+}
+
+- (void)featureOrRandomToggle {
+    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+    controller.settingTitle = @"Feature Type";
+    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
+        controller.settingSelectedRow = 1;
+    } else {
+        controller.settingSelectedRow = 0;
+    }
+    controller.settingOptions = @[@"Repo Featured", @"Random"];
+    controller.settingChanged = ^(NSInteger newValue) {
+        BOOL selectedMode = [[NSNumber numberWithInteger:newValue] boolValue];
+        [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [ZBDevice hapticButton];
+        [self.tableView reloadData];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
+        CATransition *transition = [CATransition animation];
+        transition.type = kCATransitionFade;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.fillMode = kCAFillModeForwards;
+        transition.duration = 0.35;
+        transition.subtype = kCATransitionFromTop;
+        [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+    };
+    [self.navigationController pushViewController: controller animated:YES];
+}
+
 - (void)changeIcon {
     if (@available(iOS 10.3, *)) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -556,6 +683,7 @@ enum ZBMiscOrder {
         [self toggleFeatured:switcher];
     }
 }
+
 - (void)oledAnimation {
     [self.tableView reloadData];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -585,53 +713,22 @@ enum ZBMiscOrder {
     }
 }
 
-- (void)tintColorSegmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    tintColorType = (ZBTintSelection)segmentedControl.selectedSegmentIndex;
-    [[NSUserDefaults standardUserDefaults] setObject:@(tintColorType) forKey:tintSelectionKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [ZBDevice hapticButton];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.tableView reloadData];
-        [self configureNavBar];
-        [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-        [ZBDevice refreshViews];
-        [self setNeedsStatusBarAppearanceUpdate];
-    } completion:nil];
-}
-
-- (void)featuredSegmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    BOOL selectedMode = [[NSNumber numberWithInteger:segmentedControl.selectedSegmentIndex] boolValue];
-    [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [ZBDevice hapticButton];
-    [self.tableView reloadData];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-}
-
-- (void)modeValueChanged:(UISegmentedControl *)segmentedControl {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    selectedMode = (ZBModeSelection)segmentedControl.selectedSegmentIndex;
-    [defaults setBool:selectedMode == ZBThirteen forKey:thirteenModeKey];
-    [defaults setBool:selectedMode == ZBOled forKey:oledModeKey];
-    [defaults synchronize];
-    
-    [ZBDevice hapticButton];
-    [self oledAnimation];
-}
-
-- (void)iconActionSegmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
-    BOOL useIcon = segmentedControl.selectedSegmentIndex == 1;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:useIcon forKey:iconActionKey];
-    [defaults synchronize];
+- (void) misc {
+    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+    controller.settingTitle = @"Swipe Actions Display As";
+    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
+        controller.settingSelectedRow = 1;
+    } else {
+        controller.settingSelectedRow = 0;
+    }
+    controller.settingOptions = @[@"Text", @"Icon"];
+    controller.settingChanged = ^(NSInteger newValue) {
+        BOOL useIcon = newValue == 1;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:useIcon forKey:iconActionKey];
+        [defaults synchronize];
+    };
+    [self.navigationController pushViewController: controller animated:YES];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {
