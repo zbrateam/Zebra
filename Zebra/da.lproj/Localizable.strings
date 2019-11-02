@@ -1,255 +1,284 @@
 // Common
 
-"Cancel" = "Annuller";
-"No" = "Nej";
+"Cancel" = "Cancel";
+"No" = "No";
 "Ok" = "Ok";
-"Error" = "Fejl";
-"Retry" = "Prøv igen";
-"Edit" = "Rediger";
-"Login" = "Log på";
-"Close" = "Luk";
-"Done" = "Færdig";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Hjem";
-"Info" = "Info";
-"Welcome to the Zebra Beta!" = "Velkommen til Zebra Betaen!";
-"Changelog" = "Ændringslog";
-"Community Repos" = "Fællesskabs Arkiver";
-"Transfer Sources from %@" = "Overfør Kilder fra %@";
-"Move all sources from %@ to Zebra" = "Flyt alle kilder fra %@ til Zebra";
-"Utility repo for %@" = "Utility arkiv til %@";
-"Transfer Sources" = "Overfør Kilder";
-"Please Wait..." = "Vent Venligst...";
-"Verifying Source(s)" = "Verificerer Kilde(r)";
-"Stores" = "Butikker";
-"Purchases" = "Køb";
-"Wish List" = "Ønskeliste";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Nyheder";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Ændringslog";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Meld dig ind i vores Discord";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Anerkendelser";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "Fællesskab";
-"Join our Discord" = "Meld dig ind i vores Discord";
-"Follow me on Twitter" = "Følg mig på Twitter";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "Anerkendelser";
-"Creators" = "Skabere";
-"Contributors" = "Bidragsydere";
-"Translators" = "Oversættere";
-"Libraries" = "Biblioteker";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Indstillinger";
-"Version" = "Udgave";
-"Graphics" = "Grafik";
-"Featured" = "Udvalgte";
-"News" = "Nyheder";
-"Miscellaneous" = "Diverse";
-"Advanced" = "Avanceret";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Rapporter en Fejl";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Farvenuancer";
-"Blue" = "Blå";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
 "Orange" = "Orange";
-"White" = "Hvid";
-"Black" = "Sort";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Mørke Tilstand";
-"Default" = "Standard";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Skift Ikon";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Aktiver Udvalgte Pakker";
-"Repo Featured" = "Udvalgt Arkiv";
-"Random" = "Tilfældig";
-"Feature Type" = "Udvalgt Type";
-"Select Repos to be Featured" = "Vælg arkiver der skal vises";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Slå nyheder til";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Søg mens du Skriver";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Svirp Handling Vises Som";
-"Text" = "Tekst";
-"Icon" = "Ikon";
-"Open Documents Directory" = "Åben Dokumentmappen";
-"Clear Image Cache" = "Ryd Billed Cache";
-"Clear Keychain" = "Ryd Keychain";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Indlæser...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Nulstilling af billed cache færdig";
-"Clearing keychain completed" = "Ryddelse af Keychain færdig";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Kilder";
-"Local Repository" = "Lokalt Arkiv";
-"Locally installed packages" = "Lokalt installeret pakker";
-"Unknown" = "Ukendt";
-"No repository urls detected." = "Ingen arkiv webadresse fundet.";
-"You have already added these repositories." = "Du har allerede tilføjet disse arkiver.";
-"Error verifying repository" = "Fejl med at verificere arkiv";
-"Error verifying repositories" = "Fejl med at verificere arkiver";
-"Unknown error" = "Ukendt fejl";
-"Invalid URL" = "Ugyldig Webadresse";
-"Enter URL" = "Indtast Webadresse";
-"Add Repo(s)" = "Tilføj Arkiv(er)";
-"Add" = "Tilføj";
-"Add Multiple" = "Tilføj Flere";
-"Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Vent Venligst...";
 "Verifying Source(s)" = "Verificerer Kilde(r)";
-"Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
-"Refresh" = "opdatere";
-"Log Out" = "Log af";
-"Purchased Packages" = "Købte Pakker";
-"Purchased" = "Købt";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Alle Pakker";
-"Delete" = "Slet";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Ændringer";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Pakker";
-"Show Updates" = "Vis Opdateringer";
-"Ignore Updates" = "Ignorer Opdateringer";
-"Select Version" = "Vælg Udgave";
-"Select a version to upgrade to" = "Vælg en udgave at opgraderer til";
-"Package" = "Pakker";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
 "Information" = "Information";
-"Upgrade All" = "Opgrader Alle";
-"Loaded" = "Indlæst";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Dato";
-"Size" = "Størrelse";
-"Clear" = "Ryd";
-"Are you sure you want to clear Queue?" = "Er du sikker på at du vil rydde køen?";
-"Available Upgrades" = "Tilgængelig Opgraderinger";
-"Ignored Upgrades" = "Ignorer Opgraderinger";
-"Recent" = "Nylig";
-"Installed Files" = "Installeret Filer";
-"Modify" = "Modificer";
-"Authenticate to initiate purchase." = "Autentificere for at igangsætte køb.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vær sød at logge ind på kontoen der er brugt til at købe denne pakke (Muligvis %@)";
-"More by this Developer" = "Mere fra denne Udvikler";
-"Installed Version" = "Installeret Udgave";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "Tilføj til Ønskelisten";
-"Remove from Wish List" = "Fjern fra Ønskelisten";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
 "Administration" = "Administration";
-"App Addons" = "App Tilføjelser";
-"Archiving" = "Arkivering";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
 "Carrier Support" = "Carrier Support";
-"Communication" = "Kommunikation";
-"Data Storage" = "Data Opbevaring";
-"Development" = "Udvikling";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
 "Dictionaries" = "Dictionaries";
-"Education" = "Uddannelse";
-"Entertainment" = "Underholdning";
-"Games" = "Spil";
-"Health and Fitness" = "Helse og Fitness";
-"Imaging" = "Billedbehandling";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Tastaturer";
-"Localization" = "Lokalisering";
-"Messaging" = "Meddelelser";
-"Multimedia" = "Multimedier";
-"Navigation" = "Navigering";
-"Networking" = "Netværk";
-"Packaging" = "Indpakning";
-"Productivity" = "Produktivitet";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
 "Repositories" = "Repositories";
-"Ringtones" = "Ringetoner";
+"Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
-"Security" = "Sikkerhed";
+"Security" = "Security";
 "Social" = "Social";
 "System" = "System";
 "Terminal Support" = "Terminal Support";
-"Text Editors" = "Tekstredigeringsværktøj";
-"Themes" = "Temaer";
-"Toys" = "Legetøj";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Værktøjer";
-"Wallpaper" = "Baggrunde";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Søgning";
-"Clear Search" = "Ryd Søgning";
-"This search query is too short for the full search, please use a longer query." = "Denne søgeforespørgsel er for kort til den fulde søgning. Brug en længere forespørgsel.";
-"No Results Found" = "Ingen Resultater Fundet";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Overførsler";
-"Error while opening sources.list" = "Fejl imens åbning af sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Arkivet %@ er inkompatibel med dit jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan måske fremkalde problemer hvis du tilføjer det til Zebra resultere i potentiel genoprettelse.";
-"Please remove this repo from your sources.list file." = "Vær sød at fjerne dette arkiv fra din sources.list fil.";
-"Incorrect documents permissions." = "Ukorrekt dokument tilladelse.";
-"Could not determine device information." = "Kunne ikke fastslå enheds information.";
-"Could not find a download URL for" = "Kunne ikke finde et overførsels webadresse til";
-"%@ hasn't been modified" = "%@ er ikke blevet modificeret";
-"Could not parse %@ from %@" = "Kunne ikke fortolke %@ fra %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "Konsol";
+"Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
-"Close Zebra" = "Luk Zebra";
-"Restart SpringBoard" = "Genstart SpringBoard";
-"Downloading" = "Overfører";
-"Downloading Packages..." = "Overfører Pakker...";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
 "Installing" = "Installing";
-"Installing Packages..." = "Installerer Pakker...";
-"Removing" = "Fjerner";
-"Removing Packages..." = "Fjerner Pakker...";
-"Reinstalling" = "Geninstallerer";
-"Reinstalling Packages..." = "Geninstallerer Pakker...";
-"Upgrading" = "Opgraderer";
-"Upgrading Packages..." = "Opgraderer Pakker...";
-"Complete" = "Færdig";
-"Finished!" = "Færdiggjort!";
-"Return to Queue" = "Gå tilbage til Køen";
-"Importing local packages." = "Importere lokale pakker.";
-"Finished importing local packages." = "Færdiggjorde importen af lokale pakker.";
-"One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Pakker i Kø";
-"Package in Queue" = "Pakke i Kø";
-"Tap to manage Queue" = "Tryk for at administrere kø";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Kø";
-"Queue cleared" = "Kø ryddet";
-"Install" = "Installer";
-"Reinstall" = "Geninstallere";
-"Remove" = "Fjern";
-"Upgrade" = "Opgrader";
-"Downgrade" = "Nedgrader";
-"Abort" = "Afbryd";
-"Continue" = "Fortsæt";
-"Download Size" = "Overførsels størrelse";
-"Confirm" = "Bekræft";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
