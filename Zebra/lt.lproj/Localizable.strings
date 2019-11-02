@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Vaizdo podelio atkūrimas baigtas";
 "Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Šaltiniai";
