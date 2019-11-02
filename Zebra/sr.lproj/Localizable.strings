@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "Resetovanje keša završeno";
 "Clearing keychain completed" = "Uklanjanje keychain završeno";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "Izvori";
