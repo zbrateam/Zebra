@@ -100,7 +100,9 @@
     if ([ZBQueue count] == 0) {
         [queue clear];
         [self clearQueueBarData];
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
+        }];
         return;
     }
     
