@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     [self applyLocalization];
 
     selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
+    if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
+        selectedSortingType = ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -209,10 +211,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
         if (self->repo.repoID)
             [items removeLastObject];
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
-        if (self->repo.repoID)
-            segmentedControl.selectedSegmentIndex = MIN(1, (NSInteger)self->selectedSortingType);
-        else
-            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        segmentedControl.selectedSegmentIndex = self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
     });
