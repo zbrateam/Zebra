@@ -1,0 +1,257 @@
+// Common
+
+"Cancel" = "Ακύρωση";
+"No" = "Όχι";
+"Ok" = "Εντάξει";
+"Error" = "Σφάλμα";
+"Retry" = "Ξαναπροσπάθησε";
+"Edit" = "Επεξεργασία";
+"Login" = "Σύνδεση";
+"Close" = "Κλείσε";
+"Done" = "Τέλος";
+
+// Home
+
+"Home" = "Αρχική";
+"Info" = "Πληροφορίες";
+"Welcome to the Zebra Beta!" = "Καλωσήρθες στο Zebra Beta!";
+"Changelog" = "Καταγραφή Αλλαγών";
+"Community Repos" = "Repos της κοινότητας";
+"Transfer Sources from %@" = "Μετατόπισε Πηγές από %@";
+"Move all sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
+"Utility repo for %@" = "Πρακτικό repo για %@";
+"Transfer Sources" = "Μετατόπισε Πηγές";
+"Please Wait..." = "Παρακαλώ Περιμένετε...";
+"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
+"Stores" = "Καταστήματα";
+"Purchases" = "Αγορές";
+"Wish List" = "Λίστα Επιθυμιών";
+"No items in Wish List" = "Δεν υπάρχουν αντικείμενα στην Λίστα Επιθυμιών";
+"Community" = "Κοινότητα";
+"Join our Discord" = "Γίνε μέλος στο Discord μας";
+"Follow me on Twitter" = "Ακολούθησέ με στο Twitter";
+
+//Credits
+
+"Credits" = "Εύσημα";
+"Creators" = "Δημιουργοί";
+"Contributors" = "Συνεισφέροντες";
+"Translators" = "Μεταφραστές";
+"Libraries" = "Βιβλιοθήκες";
+
+// Settings
+
+"Settings" = "Ρυθμίσεις";
+"Version" = "Έκδοση";
+"Graphics" = "Γραφικά";
+"Featured" = "Προτεινόμενα";
+"News" = "Νέα";
+"Miscellaneous" = "Διάφορα";
+"Advanced" = "Προχωρημένα";
+
+"Report a Bug" = "Αναφορά σφάλματος";
+
+"Tint Color" = "Χροιά Χρώματος";
+"Blue" = "Μπλε";
+"Orange" = "Πορτοκαλί";
+"White" = "Άσπρο";
+"Black" = "Μαύρο";
+
+"Dark Mode" = "Σκουρόχρωμη Λειτουργία";
+"Default" = "Προεπιλεγμένο";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Άλλαξε Εικονίδιο";
+
+"Enable Featured Packages" = "Ενεργοποίησε Προτεινόμενα Πακέτα";
+"Repo Featured" = "Προτεινόμενα Repo";
+"Random" = "Τυχαίο";
+"Feature Type" = "Τύπος Προτεινόμενου";
+"Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
+
+"Enable News" = "Ενεργοποίηση Νέων";
+
+"Search while Typing" = "Αναζήτησε ενώ Πληκτρολογείς";
+
+"Swipe Actions Display As" = "Swipe Actions Εμφανίζονται Ως";
+"Text" = "Κείμενο";
+"Icon" = "Εικονίδιο";
+"Open Documents Directory" = "Κατάλογος Ανοιχτών Αρχείων";
+"Clear Image Cache" = "Καθάρισε Κρυφή Μνήμη Εικόνων";
+"Clear Keychain" = "Καθάρισε Keychain";
+
+"Loading..." = "Γίνεται φόρτωση...";
+
+"Resetting image cache completed" = "Η επαναφορά της κρυφής μνήμης εικόνων ολοκληρώθηκε";
+"Clearing keychain completed" = "Ο καθαρισμός του keychain ολοκληρώθηκε";
+
+// Sources
+
+"Sources" = "Πηγές";
+"Local Repository" = "Τοπικό Repository";
+"Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
+"Unknown" = "Άγνωστο";
+"No repository urls detected." = "Δεν εντοπίστηκαν repository urls.";
+"You have already added these repositories." = "Έχεις ήδη προσθέσει αυτά τα repositories.";
+"Error verifying repository" = "Σφάλμα επαλήθευσης repository";
+"Error verifying repositories" = "Σφάλμα επαλήθευσης repositories";
+"Unknown error" = "Άγνωστο σφάλμα";
+"Invalid URL" = "Λανθασμένο URL";
+"Enter URL" = "Καταχώρισε URL";
+"Add Repo(s)" = "Πρόσθεσε Repo(s)";
+"Add" = "Πρόσθεσε";
+"Add Multiple" = "Πρόσθεσε Πολλαπλά";
+"Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
+"Please Wait..." = "Παρακαλώ Περιμένετε...";
+"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
+"Unable to verify Repo" = "Αδυναμία επαλήθευσης Repo";
+"Refresh" = "Ανανέωση";
+"Log Out" = "Αποσύνδεση";
+"Purchased Packages" = "Αγορασμένα Πακέτα";
+"Purchased" = "Πακέτα";
+
+"All Packages" = "Όλα τα Πακέτα";
+"Delete" = "Διαγραφή";
+
+// Changes
+
+"Changes" = "Αλλαγές";
+
+// Packages
+
+"Packages" = "Πακέτα";
+"Show Updates" = "Εμφάνισε Ενημερώσεις";
+"Ignore Updates" = "Αγνόησε Ενημερώσεις";
+"Select Version" = "Διάλεξε Έκδοση";
+"Select a version to upgrade to" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε";
+"Package" = "Πακέτο";
+"Information" = "Πληροφορίες";
+"Upgrade All" = "Αναβάθμιση Όλων";
+"Loaded" = "Φόρτωσε";
+"ABC" = "ΑΒΓ";
+"Date" = "Ημερομηνία";
+"Size" = "Μέγεθος";
+"Clear" = "Εκκαθάριση";
+"Are you sure you want to clear Queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά?";
+"Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
+"Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
+"Recent" = "Πρόσφατα";
+"Installed Files" = "Εγκατεστημένα Αρχεία";
+"Modify" = "Τροποποίησε";
+"Authenticate to initiate purchase." = "Επαληθεύσου για να πραγματοποιήσεις την αγορά.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Παρακαλώ ξανασυνδέσου στον λογαριασμό σου που χρησιμοποιείται για την αγορά αυτού του πακέτου (Πιθανόν %@)";
+"More by this Developer" = "Περισσότερα από αυτόν τον Προγραμματιστή";
+"Installed Version" = "Εγκατεστημένη Έκδοση";
+
+"Add to Wish List" = "Πρόσθεσε στην Λίστα Επιθυμιών";
+"Remove from Wish List" = "Αφαίρεσε από την Λίστα Επιθυμιών";
+
+// Package Section Names
+
+"Administration" = "Διαχείριση";
+"App Addons" = "Πρόσθετα Εφαρμογών";
+"Archiving" = "Αρχειοθέτηση";
+"Carrier Support" = "Υποστήριξη Παρόχου";
+"Communication" = "Επικοινωνία";
+"Data Storage" = "Αποθήκη Δεδομένων";
+"Development" = "Προγραμματισμός";
+"Dictionaries" = "Λεξικά";
+"Education" = "Εκπαίδευση";
+"Entertainment" = "Ψυχαγωγία";
+"Games" = "Ηλεκτρονικά Παιχνίδια";
+"Health and Fitness" = "Υγεία & Ευεξία";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Πληκτρολόγια";
+"Localization" = "Τοπικοποίηση";
+"Messaging" = "Μηνύματα";
+"Multimedia" = "Πολυμέσα";
+"Navigation" = "Πλοήγηση";
+"Networking" = "Δικτύωση";
+"Packaging" = "Πακετάρισμα";
+"Productivity" = "Παραγωγικότητα";
+"Repositories" = "Repositories";
+"Ringtones" = "Ήχοι κλήσης";
+"Scripting" = "Scripting";
+"Security" = "Ασφάλεια";
+"Social" = "Κοινωνικά";
+"System" = "Σύστημα";
+"Terminal Support" = "Υποστήριξη Τερματικού";
+"Text Editors" = "Επεξεργαστές Κειμένου";
+"Themes" = "Θέματα";
+"Toys" = "Παιχνίδια";
+"Tweaks" = "Tweaks";
+"Utilities" = "Χρήσιμα";
+"Wallpaper" = "Ταπετσαρία";
+"Widgets" = "Widgets";
+
+// Search
+
+"Search" = "Αναζήτηση";
+"Clear Search" = "Καθάρισε την Αναζήτηση";
+"This search query is too short for the full search, please use a longer query." = "Αυτό το ερώτημα αναζήτησης είναι πολύ μικρό για την πλήρη αναζήτηση, παρακαλώ χρησιμοποίησε ένα μεγαλύτερο ερώτημα.";
+"No Results Found" = "Δεν βρέθηκαν αποτελέσματα";
+
+// Downloads
+
+"Downloads" = "Λήψεις";
+"Error while opening sources.list" = "Σφάλμα κατά το άνοιγμα του sources.list";
+"The repo %@ is incompatible with your jailbreak." = "Το repo %@ είναι ασύμβατο με το jailbreak σου.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
+"Please remove this repo from your sources.list file." = "Παρακαλώ αφαίρεσε αυτό το repo από το sources.list αρχείο σου.";
+"Incorrect documents permissions." = "Λανθασμένες άδειες αρχείων.";
+"Could not determine device information." = "Αδυναμία προσδιορισμού πληροφοριών συσκευής.";
+"Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
+"%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
+"Could not parse %@ from %@" = "Αδυναμία ανάλυσης %@ από %@";
+
+// Console
+
+"Console" = "Κονσόλα";
+"Performing Actions..." = "Γίνεται εκτέλεση Πράξεων...";
+"Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
+"Close Zebra" = "Κλείσε το Zebra";
+"Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
+"Downloading" = "Γίνεται λήψη";
+"Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
+"Installing" = "Γίνεται εγκατάσταση";
+"Installing Packages..." = "Γίνεται εγκατάσταση Πακέτων...";
+"Removing" = "Γίνεται αφαίρεση";
+"Removing Packages..." = "Γίνεται αφαίρεση Πακέτων...";
+"Reinstalling" = "Γίνεται επανεγκατάσταση";
+"Reinstalling Packages..." = "Γίνεται επανεγκατάσταση Πακέτων...";
+"Upgrading" = "Γίνεται αναβάθμιση";
+"Upgrading Packages..." = "Γίνεται αναβάθμιση Πακέτων...";
+"Complete" = "Ολοκλήρωση";
+"Finished!" = "Ολοκληρώθηκε!";
+"Return to Queue" = "Επιστροφή στην Ουρά";
+"Importing local packages." = "Γίνεται εισαγωγή τοπικών πακέτων.";
+"Finished importing local packages." = "Ολοκληρώθηκε η εισαγωγή τοπικών πακέτων.";
+"One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
+
+// Queue Bar
+"Packages in Queue" = "Πακέτα στην Ουρά";
+"Package in Queue" = "Πακέτο στην Ουρά";
+"Tap to manage Queue" = "Πάτα για να διαχειρίσεις την Ουρά";
+
+// Queue
+
+"Queue" = "Ουρά";
+"Queue cleared" = "Ουρά καθαρίστηκε";
+"Install" = "Εγκατάσταση";
+"Reinstall" = "Επανεγκατάσταση";
+"Remove" = "Αφαίρεση";
+"Upgrade" = "Αναβάθμιση";
+"Downgrade" = "Υποβάθμιση";
+"Abort" = "Ματαίωση";
+"Continue" = "Συνέχεια";
+"Download Size" = "Μέγεθος Λήψης";
+"Confirm" = "Επιβεβαίωση";
+"%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
+"Required Package" = "Απαιτούμενο Πακέτο";
+"%@ is required by:" = "%@ απαιτείται από:";
+"Issues" = "Προβλήματα";
+"%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";

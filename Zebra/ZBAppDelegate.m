@@ -19,8 +19,11 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
+#import <Tabs/Repos/Helpers/ZBRepo.h>
 
-@interface ZBAppDelegate ()
+@interface ZBAppDelegate () {
+    NSString *forwardToPackageID;
+}
 
 @end
 
@@ -46,13 +49,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         NSLog(@"[Zebra] Creating documents directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
-        
+
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
         }
     }
-    
+
     return path;
 }
 
@@ -70,13 +73,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         NSLog(@"[Zebra] Creating caches directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
-        
+
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating caches directory: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating caches directory: %@.", error.localizedDescription);
         }
     }
-    
+
     return path;
 }
 
@@ -88,7 +91,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         NSLog(@"[Zebra] Creating lists directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
-        
+
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating lists directory: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
@@ -107,7 +110,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         NSLog(@"[Zebra] Creating sources.list.");
         NSError *error;
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
-        
+
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating sources.list: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating sources.list: %@.", error.localizedDescription);
@@ -128,7 +131,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         NSLog(@"[Zebra] Creating debs directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
-        
+
         if (error != NULL) {
             [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating debs directory: %@.", error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
@@ -145,27 +148,35 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     return tabBarController;
 }
 
-+ (void)sendErrorToTabController:(NSString *)error blockAction:(NSString *)action block:(void (^)(void))block {
-    ZBTabBarController *tabController = [self tabBarController];
-    if (tabController != NULL) {
++ (void)sendAlertFrom:(UIViewController *)vc title:(NSString *)title message:(NSString *)message actionLabel:(NSString *)actionLabel okLabel:(NSString *)okLabel block:(void (^)(void))block {
+    UIViewController *trueVC = vc ? vc : [self tabBarController];
+    if (trueVC != NULL) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"An Error Occured" message:error preferredStyle:UIAlertControllerStyleAlert];
-            
-            if (action != nil && block != NULL) {
-                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:action style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+
+            if (actionLabel != nil && block != NULL) {
+                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:actionLabel style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
                     block();
                 }];
-                [errorAlert addAction:blockAction];
+                [alert addAction:blockAction];
             }
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil];
-            [errorAlert addAction:okAction];
-            [tabController presentViewController:errorAlert animated:YES completion:nil];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:okLabel style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:okAction];
+            [trueVC presentViewController:alert animated:YES completion:nil];
         });
     }
 }
 
++ (void)sendAlertFrom:(UIViewController *)vc message:(NSString *)message {
+    [self sendAlertFrom:vc title:@"Zebra" message:message actionLabel:nil okLabel:@"Ok" block:NULL];
+}
+
++ (void)sendErrorToTabController:(NSString *)error actionLabel:(NSString *)actionLabel block:(void (^)(void))block {
+    [self sendAlertFrom:nil title:@"An Error Occurred" message:error actionLabel:actionLabel okLabel:@"Dismiss" block:block];
+}
+
 + (void)sendErrorToTabController:(NSString *)error {
-    [self sendErrorToTabController:error blockAction:nil block:NULL];
+    [self sendErrorToTabController:error actionLabel:nil block:NULL];
 }
 
 - (void)setDefaultValues {
@@ -188,10 +199,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-    
+
     [self setupSDWebImageCache];
     [ZBDevice applyThemeSettings];
-    
+
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (error) {
@@ -204,43 +215,46 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         }];
     } else {
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
+            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];
         }
     }
-    
+
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     [self setDefaultValues];
-    [self stablilityCheck];
+//    [self stablilityCheck];
     return YES;
 }
 
-- (void)stablilityCheck {
-    if (![ZBDevice needsSimulation] && ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
-        [[self class] sendErrorToTabController:@"apt not found in your system, please try reinstalling \"APT\" from Cydia"];
-    }
-}
+//- (void)stablilityCheck {
+//    if (![ZBDevice needsSimulation]) {
+//        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+//            [[self class] sendErrorToTabController:@"apt not found in your system, please try reinstalling \"APT\" from Cydia"];
+//        }
+//    }
+//}
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
     int index = (int)[choices indexOfObject:[url scheme]];
-    
+
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                if (![ZBDevice needsSimulation]) {
+//                if (![ZBDevice needsSimulation]) {
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                     UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
-                    
+
                     ZBExternalPackageTableViewController *external = vc.viewControllers[0];
                     external.fileURL = url;
-                    
+
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                     [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
-                }
+                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:true];
+//                }
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
-                
+
                 ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 [sourceController handleImportOf:url];
             }
@@ -251,7 +265,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
             index = (int)[choices indexOfObject:components[0]];
-            
+
             switch (index) {
                 case 0: {
                     [tabController setSelectedIndex:ZBTabHome];
@@ -259,7 +273,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 }
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
-                    
+
                     ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [sourceController handleURL:url];
                     break;
@@ -271,20 +285,49 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
-                        NSString *packageID = [path substringFromIndex:1];
-                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
-                        if (packageController) {
-                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                            [tabController presentViewController:navController animated:YES completion:nil];
+                        NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
+                        if (source != NULL) {
+                            if ([ZBRepo exists:source]) {
+                                NSString *packageID = [path substringFromIndex:1];
+                                ZBRepo *repo = [ZBRepo repoFromBaseURL:source];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
+                                if (packageController) {
+                                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                                    [tabController presentViewController:navController animated:YES completion:nil];
+                                }
+                                else {
+                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [repo origin]]];
+                                }
+                            }
+                            else {
+                                NSString *packageID = [path substringFromIndex:1];
+                                [tabController setForwardToPackageID:packageID];
+                                [tabController setForwardedRepoBaseURL:source];
+
+                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                                [[UIApplication sharedApplication] openURL:newURL];
+                            }
                         }
-                    } else {
+                        else {
+                            NSString *packageID = [path substringFromIndex:1];
+                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
+                            if (packageController) {
+                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+                                [tabController presentViewController:navController animated:YES completion:nil];
+                            }
+                            else {
+                                [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@", @""), packageID]];
+                            }
+                        }
+                    }
+                    else {
                         [tabController setSelectedIndex:ZBTabPackages];
                     }
                     break;
                 }
                 case 4: {
                     [tabController setSelectedIndex:ZBTabSearch];
-                    
+
                     ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [searchController handleURL:url];
                     break;
@@ -297,7 +340,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"installed", @"package", @"search", @"url"];
             index = (int)[choices indexOfObject:components[0]];
-            
+
             switch (index) {
                 case 0 ... 3: {
                     [tabController setSelectedIndex:index];
@@ -307,7 +350,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     NSString *path = [url path];
                     if (path.length > 1) {
                         NSString *packageID = [path substringFromIndex:1];
-                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID];
+                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
                         if (packageController) {
                             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                             [tabController presentViewController:navController animated:YES completion:nil];
@@ -317,7 +360,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 }
                 case 5: {
                     [tabController setSelectedIndex:ZBTabSearch];
-                    
+
                     ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [searchController handleURL:url];
                     break;
@@ -325,13 +368,18 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 6: {
                     NSArray *components = [[url absoluteString] componentsSeparatedByString:@"share#?source="];
                     if ([components count] == 2) {
-                        NSString *sourceURL = [components[1] componentsSeparatedByString:@"&package"][0];
-                        [tabController setSelectedIndex:ZBTabSources];
-                        
-                        ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                        
-                        NSURL *url = [NSURL URLWithString:[@"zbra://sources/add/" stringByAppendingString:sourceURL]];
-                        [sourceController handleURL:url];
+                        NSArray *urlComponents = [components[1] componentsSeparatedByString:@"&package="];
+                        NSString *sourceURL = urlComponents[0];
+                        NSURL *url;
+                        if ([urlComponents count] > 1) {
+                            NSString *packageID = urlComponents[1];
+                            url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://packages/%@?source=%@", packageID, sourceURL]];
+                        }
+                        else {
+                            url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
+                        }
+
+                        [[UIApplication sharedApplication] openURL:url];
                     }
                     break;
                 }
@@ -355,16 +403,16 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                         break;
                     }
                 }
-                
+
             }
             break;
-            
+
         }
         default: { // WHO ARE YOU????
             return NO;
         }
     }
-    
+
     return YES;
 }
 
@@ -372,12 +420,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
-        
+
         ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [searchController handleURL:NULL];
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
-        
+
         ZBSourcesListTableViewController *sourceController = (ZBSourcesListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [sourceController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     }

@@ -54,26 +54,20 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID {
-    self = [super init];
-    
+- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        
-        self.package = [databaseManager topVersionForPackageID:packageID];
-        
-        if (self.package) {
-            ZBPackage *candidate = [self.package installableCandidate];
-            if (candidate) {
-                self.package = candidate;
-            }
-        } else {
-            // Package not found, we resign
-            return nil;
+
+        self.package = [databaseManager topVersionForPackageID:packageID inRepo:repo];
+        if (self.package == NULL) {
+            return NULL;
         }
         presented = YES;
     }
-    
+
     return self;
 }
 
@@ -81,23 +75,23 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     if (presented) {
-        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
     }
-    
+
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
+
 //    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
-    
+
 //    [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
     infos = [NSMutableDictionary new];
     [self setPackage];
-    
+
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     if ([ZBDevice darkModeEnabled]) {
         if ([ZBDevice darkModeOledEnabled]) {
@@ -108,31 +102,31 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     } else {
         configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
     }
-    
+
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
-    
+
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [self.tableView.tableHeaderView addSubview:progressView];
     [self.tableView setTableFooterView:webView];
-    
+
     // Progress View Layout
     [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
-    
+
     [progressView setTintColor:[UIColor tintColor]];
-    
+
     webView.navigationDelegate = self;
     webView.opaque = NO;
 //    webView.backgroundColor = [UIColor tableViewBackgroundColor];
-    
+
     if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
     } else {
@@ -153,7 +147,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
-    
+
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     if ([ZBDevice darkModeEnabled]) {
         [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
@@ -172,7 +166,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
     [request setValue:[UIColor hexStringFromColor:[UIColor tintColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
-    
+
     [webView loadRequest:request];
 }
 
@@ -180,7 +174,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
         [progressView setAlpha:1.0f];
         [progressView setProgress:webView.estimatedProgress animated:YES];
-        
+
         if (webView.estimatedProgress >= 1.0f) {
             [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 [self->progressView setAlpha:0.0f];
@@ -210,7 +204,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     NSArray *contents = [message.body componentsSeparatedByString:@"~"];
     NSString *destination = (NSString *)contents[0];
     NSString *action = contents[1];
-    
+
 //    if ([destination isEqual:@"local"]) {
 //        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 //        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
@@ -218,7 +212,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 //        filesController.navigationItem.title = @"Installed Files";
 //        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
 //        [filesController setValue:url forKey:@"_url"];
-//        
+//
 //        [[self navigationController] pushViewController:filesController animated:YES];
 //    }
 }
@@ -239,18 +233,18 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         }
     }];
     // webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [webView evaluateJavaScript:@"document.height" completionHandler:nil]);
-    
+
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
-    
+
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
-        
+
         [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, 200)];
         /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
         [self.tableView beginUpdates];
         [self.tableView setTableFooterView:webView];
         [self.tableView endUpdates];
-        
+
         if ([ZBDevice darkModeEnabled]) {
             NSString *path;
             if([ZBDevice darkModeOledEnabled]) {
@@ -258,7 +252,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             }else {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
             }
-            
+
             NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
             cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -273,16 +267,16 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                           }
                       }];
         }
-        
+
         if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
             [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-            
+
             NSString *originalDescription = [package longDescription];
             NSMutableString *description = [NSMutableString stringWithCapacity:originalDescription.length];
             [description appendString:originalDescription];
-            
+
             [self escape:description];
-            
+
             NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
             NSArray *matches = [linkDetector matchesInString:description options:0 range:NSMakeRange(0, description.length)];
             NSUInteger rangeShift = 0;
@@ -293,7 +287,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 [description replaceCharactersInRange:NSMakeRange(result.range.location + rangeShift, result.range.length) withString:anchor];
                 rangeShift += anchor.length - before;
             }
-            
+
             [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
         } else {
             [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
@@ -304,9 +298,9 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURLRequest *request = [navigationAction request];
     NSURL *url = [request URL];
-    
+
     WKNavigationType type = navigationAction.navigationType;
-    
+
     if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
@@ -329,7 +323,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)addModifyButton {
-    UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:@"Modify" style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
+    UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
     self.navigationItem.rightBarButtonItem = modifyButton;
 }
 
@@ -372,12 +366,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if ([keychain[baseURL] length] != 0) {
         if ([package isPaid]) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-            
+
             NSDictionary *test = @{ @"token": keychain[baseURL],
                                     @"udid": [ZBDevice UDID],
                                     @"device": [ZBDevice deviceModelID] };
             NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:kNilOptions error:nil];
-            
+
             NSMutableURLRequest *request = [NSMutableURLRequest new];
             [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info", baseURL, package.identifier]]];
             [request setHTTPMethod:@"POST"];
@@ -413,7 +407,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                         }
                     }
                     if (!set) {
-                        title = @"Modify";
+                        title = NSLocalizedString(@"Modify", @"");
                         selector = @selector(modifyPackage);
                     }
                 } else if ([purchaseInfo.available boolValue]) {
@@ -431,7 +425,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                     [self.navigationItem setRightBarButtonItem:button animated:YES];
                     [uiBusy stopAnimating];
                 });
-                
+
             }] resume];
         }
     }
@@ -464,7 +458,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 NSError *error = nil;
                 [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                       authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                keychain.authenticationPrompt = @"Authenticate to initiate purchase.";
+                keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
                 secret = keychain[idThing];
                 dispatch_semaphore_signal(sema);
                 if (error) {
@@ -479,7 +473,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                                                @"udid": [ZBDevice UDID],
                                                @"device": [ZBDevice deviceModelID] };
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-                
+
                 NSMutableURLRequest *request = [NSMutableURLRequest new];
                 [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
                 [request setHTTPMethod:@"POST"];
@@ -508,7 +502,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)initPurchaseLink:(NSString *)link {
     if (link == nil) {
-        [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:@"Please relogin your account that is used to purchase this package (Possibly %@)", package.repo.origin]];
+        [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Please relogin your account that is used to purchase this package (Possibly %@)", @""), package.repo.origin]];
         return;
     }
     NSURL *destinationUrl = [NSURL URLWithString:link];
@@ -529,19 +523,19 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                            }
                            // NSString *token = queryByKeys[@"token"];
                            // NSString *payment = queryByKeys[@"payment_secret"];
-                           
+
                            NSError *error = NULL;
                            // [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
                            if (error) {
                                ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
                            }
-                           
+
                        } else {
                            [self configureNavButton];
                            return;
                        }
-                       
-                       
+
+
                    }];
         [session start];
     } else {
@@ -572,7 +566,11 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    [[ZBAppDelegate tabBarController] openQueue:YES];
+    if (presented) {
+        [self dismissViewControllerAnimated:true completion:^{
+            [[ZBAppDelegate tabBarController] openQueue:YES];
+        }];
+    }
 }
 
 // 3D Touch Actions
@@ -610,6 +608,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     static NSArray *packageInfoOrder = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        // FIXME: Refactor this so it supports localization.
         packageInfoOrder = @[
                              @"PackageID",
                              @"Author",
@@ -627,20 +626,20 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
 //    self.packageName.textColor = [UIColor cellPrimaryTextColor];
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
         if (sectionImage == NULL) {
             sectionImage = [UIImage imageNamed:@"Other"];
         }
-        
+
         NSString *iconURL = @"";
         if (package.iconPath) {
             iconURL = [package iconPath];
         } else {
             iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
         }
-        
+
         if (iconURL.length) {
             [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
         }
@@ -657,7 +656,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)setMoreByText:(ZBPackage *)package {
     if (package.author) {
-        infos[@"MoreBy"] = @"More by this Developer";
+        infos[@"MoreBy"] = NSLocalizedString(@"More by this Developer", @"");
     } else {
         [infos removeObjectForKey:@"MoreBy"];
     }
@@ -739,7 +738,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             self.authorEmail = cutCopy;
         }
     }
-    
+
     return [cleanedStrings componentsJoinedByString:@" "];
 }
 
@@ -753,7 +752,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         NSString *body = [NSString stringWithFormat:@"%@: %@\n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
         [mail setMessageBody:body isHTML:NO];
         [mail setToRecipients:@[self.authorEmail]];
-        
+
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
         NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@ Support Zebra %@", self.authorEmail, package.name, @"Arbitrary Number"];
@@ -781,14 +780,14 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
-    
+
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
+
     NSString *property = [self packageInfoOrder][indexPath.row];
     NSString *value = infos[property];
-    
+
     ZBPackageInfoOrder row = indexPath.row;
-    
+
     if (cell == nil) {
         if (row == ZBPackageInfoSize || row == ZBPackageInfoVersion || row == ZBPackageInfoRepo) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
@@ -797,7 +796,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         }
     }
 //    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    
+
     switch (row) {
         case ZBPackageInfoInstalledFiles:
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -818,7 +817,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         case ZBPackageInfoWishList: {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
-            cell.textLabel.text = inWishList ? @"Remove from Wish List" : @"Add to Wish List";
+            cell.textLabel.text = NSLocalizedString(inWishList ? @"Remove from Wish List" : @"Add to Wish List", @"");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }

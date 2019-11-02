@@ -13,6 +13,7 @@
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBDevice.h>
+#import <Console/ZBStage.h>
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
@@ -168,11 +169,27 @@
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
-    NSArray *baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
+    NSArray *baseCommand;
+    if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/apt"]) {
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
+    }
+    else if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
+        baseCommand = @[@"dpkg"];
+    }
+    else {
+        return NULL;
+    }
+    
+    NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
         NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        [removeCommand addObject:@"remove"];
+        if ([binary isEqualToString:@"apt"]) {
+            [removeCommand addObject:@"remove"];
+        }
+        else {
+            [removeCommand addObject:@"-r"];
+        }
         
         for (ZBPackage *package in [self removeQueue]) {
             [removeCommand addObject:package.identifier];
@@ -182,53 +199,86 @@
             [removeCommand addObject:package.identifier];
         }
         
-        [commands addObject:@[@(ZBQueueTypeRemove)]];
+        [commands addObject:@[@(ZBStageRemove)]];
         [commands addObject:removeCommand];
     }
     
     if ([self queueHasPackages:ZBQueueTypeInstall]) {
         NSMutableArray *installCommand = [baseCommand mutableCopy];
-        [installCommand addObject:@"install"];
-        [installCommand addObject:@"--reinstall"];
+        if ([binary isEqualToString:@"apt"]) {
+            [installCommand addObject:@"install"];
+        }
+        else {
+            [installCommand addObject:@"-i"];
+        }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
         [installCommand addObjectsFromArray:paths];
         
-        [commands addObject:@[@(ZBQueueTypeInstall)]];
+        [commands addObject:@[@(ZBStageInstall)]];
         [commands addObject:installCommand];
     }
     
     if ([self queueHasPackages:ZBQueueTypeReinstall]) {
-        NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
-        [reinstallCommand addObject:@"install"];
-        [reinstallCommand addObject:@"--reinstall"];
-        
-        NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
-        [reinstallCommand addObjectsFromArray:paths];
-        
-        [commands addObject:@[@(ZBQueueTypeReinstall)]];
-        [commands addObject:reinstallCommand];
+        [commands addObject:@[@(ZBStageReinstall)]];
+        if ([binary isEqualToString:@"apt"]) {
+            NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
+            [reinstallCommand addObject:@"install"];
+            [reinstallCommand addObject:@"--reinstall"];
+            
+            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
+            [reinstallCommand addObjectsFromArray:paths];
+            [commands addObject:reinstallCommand];
+        }
+        else if ([binary isEqualToString:@"dpkg"]) {
+            //Remove package first
+            NSMutableArray *removeCommand = [baseCommand mutableCopy];
+            
+            [removeCommand insertObject:@"-r" atIndex:1];
+            [removeCommand insertObject:@"--force-depends" atIndex:2];
+            for (ZBPackage *package in [self reinstallQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            [commands addObject:removeCommand];
+            
+            //Install new version
+            NSMutableArray *installCommand = [baseCommand mutableCopy];
+            [installCommand insertObject:@"-i" atIndex:1];
+            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
+            [installCommand addObjectsFromArray:paths];
+            [commands addObject:installCommand];
+        }
     }
     
     if ([self queueHasPackages:ZBQueueTypeUpgrade]) {
         NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
-        [upgradeCommand addObject:@"install"];
+        if ([binary isEqualToString:@"apt"]) {
+            [upgradeCommand addObject:@"install"];
+        }
+        else {
+            [upgradeCommand addObject:@"-i"];
+        }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeUpgrade filenames:debs];
         [upgradeCommand addObjectsFromArray:paths];
 
-        [commands addObject:@[@(ZBQueueTypeUpgrade)]];
+        [commands addObject:@[@(ZBStageUpgrade)]];
         [commands addObject:upgradeCommand];
     }
     
     if ([self queueHasPackages:ZBQueueTypeDowngrade]) {
         NSMutableArray *downgradeCommand = [baseCommand mutableCopy];
-        [downgradeCommand addObject:@"install"];
+        if ([binary isEqualToString:@"apt"]) {
+            [downgradeCommand addObject:@"install"];
+        }
+        else {
+            [downgradeCommand addObject:@"-i"];
+        }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDowngrade filenames:debs];
         [downgradeCommand addObjectsFromArray:paths];
 
-        [commands addObject:@[@(ZBQueueTypeDowngrade)]];
+        [commands addObject:@[@(ZBStageDowngrade)]];
         [commands addObject:downgradeCommand];
     }
     
@@ -286,15 +336,15 @@
     
     switch (queue) {
         case ZBQueueTypeInstall:
-            return useIcon ? @"↓" : @"Install";
+            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
         case ZBQueueTypeReinstall:
-            return useIcon ? @"↺" : @"Reinstall";
+            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
         case ZBQueueTypeRemove:
-            return useIcon ? @"╳" : @"Remove";
+            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         case ZBQueueTypeUpgrade:
-            return useIcon ? @"↑" : @"Upgrade";
+            return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBQueueTypeDowngrade:
-            return useIcon ? @"⇵" : @"Downgrade";
+            return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
         default:
             break;
     }

@@ -13,6 +13,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+Zebra.h>
+#import <ZBDevice.h>
 @import SDWebImage;
 @import LNPopupController;
 
@@ -28,34 +29,41 @@
     [super loadView];
     queue = [ZBQueue sharedQueue];
     packages = [queue topDownQueue];
-    NSLog(@"Conflict Queue: %@", [queue conflictQueue]);
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
 //    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self refreshBarButtons];
-    self.title = @"Queue";
+    [self applyLocalization];
+    self.title = NSLocalizedString(@"Queue", @"");
+}
+
+- (void)applyLocalization {
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"Confirm", @"");
+    self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
+    self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
 }
 
 - (void)clearQueueBarData {
-    self.navigationController.popupItem.title = @"Queue cleared";
+    self.navigationController.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
     self.navigationController.popupItem.subtitle = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    NSLog(@"Dependency Queue: %@", [queue dependencyQueue]);
+    if ([ZBDevice darkModeEnabled]) {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    }
+    else {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    }
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [self refreshTable];
 }
 
 - (IBAction)confirm:(id)sender {
-    [self clearQueueBarData];
-    ZBTabBarController *tab = [ZBAppDelegate tabBarController];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBConsoleViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    [tab presentViewController:vc animated:YES completion:^(void) {
-        [tab dismissPopupBarAnimated:NO completion:nil];
-    }];
+    ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
+    [self.navigationController pushViewController:console animated:true];
 }
 
 - (IBAction)abort:(id)sender {
@@ -76,14 +84,13 @@
 - (void)refreshBarButtons {
     if ([queue hasIssues]) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        self.navigationItem.leftBarButtonItems[0].title = @"Abort";
-        self.navigationItem.leftBarButtonItems[1].title = @"Clear";
+        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Abort", @"");
+        self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = YES;
     }
     else {
-
         self.navigationItem.rightBarButtonItem.enabled = YES;
-        self.navigationItem.leftBarButtonItems[0].title = @"Continue";
+        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
         self.navigationItem.leftBarButtonItems[1].enabled = NO;
     }
 }
@@ -116,7 +123,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     ZBQueueType action = [queue actionsToPerform][section].intValue;
     if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-        return [NSString stringWithFormat:@"%@ (Download Size: %@)", [queue displayableNameForQueueType:action useIcon:false], [queue downloadSizeForQueue:action]];
+        return [NSString stringWithFormat:@"%@ %@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
     }
     return [queue displayableNameForQueueType:action useIcon:false];
 }
@@ -187,16 +194,16 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = packages[indexPath.section][indexPath.row];
     if ([package hasIssues]) {
-        NSMutableString *message = [[NSString stringWithFormat:@"%@ has issues that cannot be resolved:", [package name]] mutableCopy];
+        NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ has issues that cannot be resolved:", @""), [package name]] mutableCopy];
         for (NSString *issue in [package issues]) {
             [message appendFormat:@"\n%@", issue];
         }
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Issues" message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Issues", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [self->queue removePackage:package];
             [self refreshTable];
         }];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
         }];
         [alert addAction:deleteAction];
@@ -204,21 +211,21 @@
         [self presentViewController:alert animated:true completion:nil];
     }
     else if ([package removedBy] != NULL) {
-        NSString *message = [NSString stringWithFormat:@"%@ must be removed because it depends on %@", [package name], [[package removedBy] name]];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Package" message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ must be removed because it depends on %@", @""), [package name], [[package removedBy] name]];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
         }];
         [alert addAction:okAction];
         [self presentViewController:alert animated:true completion:nil];
     }
     else if ([[package dependsOn] count] > 0) {
-        NSMutableString *message = [[NSString stringWithFormat:@"%@ is required by:", [package name]] mutableCopy];
+        NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ is required by:", @""), [package name]] mutableCopy];
         for (ZBPackage *parent in [package dependencyOf]) {
             [message appendFormat:@"\n%@", [parent name]];
         }
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Package" message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
         }];
         [alert addAction:okAction];
@@ -233,7 +240,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
     }];
     return @[deleteAction];

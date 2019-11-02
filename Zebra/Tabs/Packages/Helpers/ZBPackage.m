@@ -19,6 +19,7 @@
 
 @interface ZBPackage () {
     NSUInteger possibleActions;
+    int numericInstalledSize;
 }
 @end
 
@@ -46,7 +47,7 @@
 @synthesize issues;
 @synthesize removedBy;
 
-+ (NSArray *)filesInstalled:(NSString *)packageID {
++ (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
@@ -68,7 +69,7 @@
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
-+ (BOOL)containsRespringable:(NSString *)packageID {
++ (BOOL)respringRequiredFor:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return YES;
     }
@@ -96,7 +97,7 @@
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
-                contains = [self containsRespringable:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                contains = [self respringRequiredFor:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 *stop = YES;
             }
         }];
@@ -104,7 +105,7 @@
         return contains;
     }
     
-    NSArray *files = [self filesInstalled:packageID];
+    NSArray *files = [self filesInstalledBy:packageID];
     
     for (NSString *path in files) {
         // Usual tweaks
@@ -123,10 +124,10 @@
     return NO;
 }
 
-+ (BOOL)containsApp:(NSString *)packageID {
++ (BOOL)containsApplicationBundle:(NSString *)packageID {
     ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([ZBDevice needsSimulation]) {
-        return YES;
+        return NO;
     }
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
@@ -151,7 +152,7 @@
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Package"]) {
-                contains = [self containsApp:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
+                contains = [self containsApplicationBundle:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
                 *stop = YES;
             }
         }];
@@ -159,10 +160,10 @@
         return contains;
     }
     
-    NSArray *files = [self filesInstalled:packageID];
+    NSArray *files = [self filesInstalledBy:packageID];
     
     for (NSString *path in files) {
-        if ([path rangeOfString:@".app/Info.plist"].location != NSNotFound) {
+        if ([path containsString:@".app/Info.plist"]) {
             return YES;
         }
     }
@@ -204,7 +205,7 @@
         return path;
     }
     
-    NSArray *files = [self filesInstalled:packageID];
+    NSArray *files = [self filesInstalledBy:packageID];
     
     NSString *appPath;
     for (NSString *path in files) {
@@ -429,9 +430,12 @@
 }
 
 - (int)numericInstalledSize {
+    if (numericInstalledSize)
+        return numericInstalledSize;
     NSString *sizeField = [self getField:@"Installed-Size"];
     if (!sizeField) return 0;
-    return [sizeField intValue];
+    numericInstalledSize = [sizeField intValue];
+    return numericInstalledSize;
 }
 
 - (NSString *)installedSize {

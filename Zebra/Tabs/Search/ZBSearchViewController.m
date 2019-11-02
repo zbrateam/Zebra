@@ -39,6 +39,8 @@ enum ZBSearchSection {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
     if (!recentSearches) {
@@ -47,16 +49,16 @@ enum ZBSearchSection {
     if (!databaseManager) {
         databaseManager = [ZBDatabaseManager sharedInstance];
     }
-    
+
     if (!searchController) {
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     }
-    
+
     searchController.delegate = self;
     searchController.searchBar.delegate = self;
     searchController.searchBar.tintColor = [UIColor tintColor];
-    searchController.searchBar.placeholder = @"Packages";
-    
+    searchController.searchBar.placeholder = NSLocalizedString(@"Packages", @"");
+
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = NO;
@@ -68,13 +70,18 @@ enum ZBSearchSection {
         self.tableView.tableHeaderView = searchController.searchBar;
     }
     self.tableView.tableFooterView = [UIView new];
-    
+
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    
+
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self configureClearSearchButton];
     [self refreshTable];
+}
+
+- (void)applyLocalization {
+    // This isn't exactly "best practice", but this way the text in IB isn't useless.
+    self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,7 +91,7 @@ enum ZBSearchSection {
 }
 
 - (void)configureClearSearchButton {
-    self.navigationItem.rightBarButtonItem = recentSearches.count ? [[UIBarButtonItem alloc] initWithTitle:@"Clear Search" style:UIBarButtonItemStylePlain target:self action:@selector(clearSearches)] : nil;
+    self.navigationItem.rightBarButtonItem = recentSearches.count ? [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear Search", @"") style:UIBarButtonItemStylePlain target:self action:@selector(clearSearches)] : nil;
 }
 
 - (void)clearSearches {
@@ -119,11 +126,11 @@ enum ZBSearchSection {
             if (!databaseManager) {
                 databaseManager = [ZBDatabaseManager sharedInstance];
             }
-            
+
             if (!searchController) {
                 searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
             }
-            
+
             NSString *searchTerm = path[1];
             [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
             [self searchBarSearchButtonClicked:self.searchController.searchBar];
@@ -152,7 +159,7 @@ enum ZBSearchSection {
     // Make sure the query has no extra whitespace
     query = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (query.length <= 1) {
-        [ZBAppDelegate sendErrorToTabController:@"This search query is too short for the full search, please use a longer query."];
+        [ZBAppDelegate sendErrorToTabController:NSLocalizedString(@"This search query is too short for the full search, please use a longer query.", @"")];
         return;
     }
     results = [databaseManager searchForPackageName:query numberOfResults:-1];
@@ -220,8 +227,8 @@ enum ZBSearchSection {
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:notFoundID];
             }
-            cell.textLabel.text = @"No Results Found";
-//            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.textLabel.text = NSLocalizedString(@"No Results Found", @"");
+            // cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             return cell;
         }

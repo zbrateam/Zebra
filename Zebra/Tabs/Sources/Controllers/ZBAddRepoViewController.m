@@ -21,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 //    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -32,6 +34,12 @@
         self.addRepoTextView.text = self.text;
         self.addButton.enabled = self.addRepoTextView.text.length;
     }
+}
+
+- (void)applyLocalization {
+    // This isn't exactly "best practice", but this way the text in IB isn't useless.
+    self.addButton.title = NSLocalizedString(self.addButton.title, @"");
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"");
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -33,6 +33,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     currentRepoEndpoint = @"";
     [self refreshTable];
+
+    if (@available(iOS 11.0, *)) {
+        [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,9 +60,9 @@
 - (void)updateStores {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     sources = [[databaseManager sources] mutableCopy];
-    
+
     self.tableData = [[NSMutableArray alloc] init];
-    
+
     for (ZBSource *repo in sources) {
         if ([[self.keychain stringForKey:repo.baseURL] length] != 0) {
             [self.tableData addObject:repo];
@@ -87,7 +91,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
 //    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
-    
+
 //    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
 //
 //    cell.repoLabel.text = [source origin];
@@ -133,15 +137,15 @@
                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                                    [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                                                 authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                                   
+
                                    securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
                                });
                                [self refreshTable];
                            } else {
                                return;
                            }
-                           
-                           
+
+
                        }];
             [session start];
         } else {
@@ -162,7 +166,7 @@
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    
+
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {

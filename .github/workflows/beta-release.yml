@@ -2,7 +2,7 @@ name: Upload Zebra Beta Release
 
 on:
   release:
-    types: [prereleased]
+    types: [published, edited]
 
 jobs:
   build:
@@ -18,6 +18,7 @@ jobs:
       run: |
         brew install ldid dpkg
         git clone --recursive https://github.com/theos/theos.git $THEOS
+        git submodule update --init --recursive
         
     - name: Build Package
       env:

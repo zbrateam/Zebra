@@ -59,7 +59,7 @@ enum ZBMiscOrder {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Settings";
+    self.navigationItem.title = NSLocalizedString(@"Settings", @"");
     self.headerView.image = [UIImage imageNamed:@"banner"];
     self.headerView.clipsToBounds = YES;
 //    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -105,7 +105,7 @@ enum ZBMiscOrder {
 }
 
 - (void)configureTitleLabel {
-    NSString *versionString = [NSString stringWithFormat:@"Version: %@", PACKAGE_VERSION];
+    NSString *versionString = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Version", @""), PACKAGE_VERSION];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Zebra\n%@", versionString]];
     [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:36], NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0,5)];
     [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:26], NSForegroundColorAttributeName: [[UIColor whiteColor] colorWithAlphaComponent:0.85]} range:[titleString.string rangeOfString:versionString]];
@@ -138,19 +138,19 @@ enum ZBMiscOrder {
     ZBSectionOrder section = section_;
     switch (section) {
         case ZBInfo:
-            return @"Information";
+            return NSLocalizedString(@"Information", @"");
         case ZBGraphics:
-            return @"Graphics";
+            return NSLocalizedString(@"Graphics", @"");
         case ZBFeatured:
-            return @"Featured";
+            return NSLocalizedString(@"Featured", @"");
         case ZBNews:
-            return @"News";
+            return NSLocalizedString(@"News", @"");
         case ZBSearch:
-            return @"Search";
+            return NSLocalizedString(@"Search", @"");
         case ZBMisc:
-            return @"Miscellaneous";
+            return NSLocalizedString(@"Miscellaneous", @"");
         case ZBAdvanced:
-            return @"Advanced";
+            return NSLocalizedString(@"Advanced", @"");
         default:
             return nil;
     }
@@ -212,7 +212,7 @@ enum ZBMiscOrder {
             NSString *labelText;
             UIImage *cellImage = [UIImage new];
             if (indexPath.row == ZBBugs) {
-                labelText = @"Report a Bug";
+                labelText = NSLocalizedString(@"Report a Bug", @"");
                 cellImage = [UIImage imageNamed:@"report"];
             }
             cell.textLabel.text = labelText;
@@ -233,7 +233,7 @@ enum ZBMiscOrder {
             ZBUIOrder row = indexPath.row;
             switch (row) {
                 case ZBChangeIcon: {
-                    cell.textLabel.text = @"Change Icon";
+                    cell.textLabel.text = NSLocalizedString(@"Change Icon", @"");
                     if (@available(iOS 10.3, *)) {
                         if ([[UIApplication sharedApplication] alternateIconName]) {
                             cell.imageView.image = [UIImage imageNamed:[[UIApplication sharedApplication] alternateIconName]];
@@ -260,27 +260,21 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBChangeTint: {
-                    NSString *forthTint;
-                    if ([ZBDevice darkModeEnabled]) {
-                        forthTint = @"White";
-                    } else {
-                        forthTint = @"Black";
-                    }
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Default", @"Blue", @"Orange", forthTint]];
+                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Default", @""), NSLocalizedString(@"Blue", @""), NSLocalizedString(@"Orange", @""), NSLocalizedString(ZBDevice.darkModeEnabled ? @"White" : @"Black", @"")]];
                     segmentedControl.selectedSegmentIndex = (NSInteger)self->tintColorType;
                     segmentedControl.tintColor = [UIColor tintColor];
                     [segmentedControl addTarget:self action:@selector(tintColorSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
                     cell.accessoryView = segmentedControl;
-                    cell.textLabel.text = @"Tint Color";
+                    cell.textLabel.text = NSLocalizedString(@"Tint Color", @"");
                     break;
                 }
                 case ZBChangeMode: {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Default", @"OLED", @"iOS 13"]];
+                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Default", @""), NSLocalizedString(@"OLED", @""), NSLocalizedString(@"iOS 13", @"")]];
                     segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedMode;
                     segmentedControl.tintColor = [UIColor tintColor];
                     [segmentedControl addTarget:self action:@selector(modeValueChanged:) forControlEvents:UIControlEventValueChanged];
                     cell.accessoryView = segmentedControl;
-                    cell.textLabel.text = @"Dark Mode";
+                    cell.textLabel.text = NSLocalizedString(@"Dark Mode", @"");
                     break;
                 }
             }
@@ -296,20 +290,20 @@ enum ZBMiscOrder {
                     [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
                     [enableSwitch setOnTintColor:[UIColor tintColor]];
                     cell.accessoryView = enableSwitch;
-                    cell.textLabel.text = @"Enable Featured Packages";
+                    cell.textLabel.text = NSLocalizedString(@"Enable Featured Packages", @"");
                     break;
                 }
                 case ZBFeatureOrRandomToggle: {
-                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Repo Featured", @"Random"]];
+                    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Repo Featured", @""), NSLocalizedString(@"Random", @"")]];
                     segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
                     segmentedControl.tintColor = [UIColor tintColor];
                     [segmentedControl addTarget:self action:@selector(featuredSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
                     cell.accessoryView = segmentedControl;
-                    cell.textLabel.text = @"Feature Type";
+                    cell.textLabel.text = NSLocalizedString(@"Feature Type", @"");
                     break;
                 }
                 default: {
-                    cell.textLabel.text = @"Select Repos to be Featured";
+                    cell.textLabel.text = NSLocalizedString(@"Select Repos to be Featured", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
@@ -323,8 +317,8 @@ enum ZBMiscOrder {
             [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
-            cell.textLabel.text = @"Enable News";
-//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.text = NSLocalizedString(@"Enable News", @"");
+            // cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBSearch: {
@@ -333,15 +327,15 @@ enum ZBMiscOrder {
             [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
-            cell.textLabel.text = @"Search while Typing";
-//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.text = NSLocalizedString(@"Search while Typing", @"");
+            // cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBMisc: {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
-                text = @"Swipe Actions Display As";
-                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Text", @"Icon"]];
+                text = NSLocalizedString(@"Swipe Actions Display As", @"");
+                UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Text", @""), NSLocalizedString(@"Icon", @"")]];
                 segmentedControl.selectedSegmentIndex = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue];
                 segmentedControl.tintColor = [UIColor tintColor];
                 [segmentedControl addTarget:self action:@selector(iconActionSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -354,13 +348,13 @@ enum ZBMiscOrder {
         case ZBAdvanced: {
             NSString *text = nil;
             if (indexPath.row == ZBDropTables) {
-                text = @"Drop Tables";
+                text = @"Drop Tables"; // This should probably not be localized since DROP TABLE is a SQL thing
             } else if (indexPath.row == ZBOpenDocs) {
-                text = @"Open Documents Directory";
+                text = NSLocalizedString(@"Open Documents Directory", @"");
             } else if (indexPath.row == ZBClearImageCache) {
-                text = @"Clear Image Cache";
+                text = NSLocalizedString(@"Clear Image Cache", @"");
             } else if (indexPath.row == ZBClearKeychain) {
-                text = @"Clear Keychain";
+                text = NSLocalizedString(@"Clear Keychain", @"");
             }
             cell.textLabel.text = text;
             cell.textLabel.textColor = [UIColor tintColor];
@@ -469,6 +463,7 @@ enum ZBMiscOrder {
 - (void)resetImageCache {
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Resetting image cache completed", @"")];
 }
 
 - (void)clearKeychain {
@@ -481,6 +476,7 @@ enum ZBMiscOrder {
         NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
         SecItemDelete((__bridge CFDictionaryRef)spec);
     }
+    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Clearing keychain completed", @"")];
 }
 
 - (void)changeIcon {
@@ -543,7 +539,7 @@ enum ZBMiscOrder {
     [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
@@ -553,7 +549,7 @@ enum ZBMiscOrder {
     transition.subtype = kCATransitionFromTop;
     [self.view.layer addAnimation:transition forKey:nil];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
-    
+
     CGFloat offsetY = self.tableView.contentOffset.y;
     if (offsetY <= 0) {
         CGRect frame = self.headerView.frame;
@@ -600,7 +596,7 @@ enum ZBMiscOrder {
     [defaults setBool:selectedMode == ZBThirteen forKey:thirteenModeKey];
     [defaults setBool:selectedMode == ZBOled forKey:oledModeKey];
     [defaults synchronize];
-    
+
     [ZBDevice hapticButton];
     [self oledAnimation];
 }

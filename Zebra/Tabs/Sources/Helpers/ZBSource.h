@@ -26,9 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *shortURL;
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
-
 + (ZBSource *)repoMatchingRepoID:(int)repoID;
 + (ZBSource *)localRepo:(int)repoID;
++ (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
++ (BOOL)exists:(NSString *)urlString;
 - (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isSecure;

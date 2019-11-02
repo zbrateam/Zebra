@@ -30,10 +30,13 @@
 
 @implementation ZBTabBarController
 
+@synthesize forwardedRepoBaseURL;
+@synthesize forwardToPackageID;
 @synthesize repoBusyList;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self applyLocalization];
 
     if (@available(iOS 10.0, *)) {
         UITabBar.appearance.tintColor = [UIColor tintColor];
@@ -56,6 +59,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
 }
 
+- (void)applyLocalization {
+    for(UINavigationController *vc in self.viewControllers) {
+        assert([vc isKindOfClass:UINavigationController.class]);
+        // This isn't exactly "best practice", but this way the text in IB isn't useless.
+        vc.tabBarItem.title = NSLocalizedString([vc.tabBarItem.title capitalizedString], @"");
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -67,6 +78,12 @@
         refreshController.dropTables = YES;
         
         [self presentViewController:refreshController animated:YES completion:nil];
+    }
+    
+    //poor hack to get the tab bar to re-layout
+    if (@available(iOS 11.0, *)) {
+        self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
+        self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     }
 }
 
@@ -166,9 +183,13 @@
 
 - (void)checkQueueNav {
     if (queueNav == nil) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
+        [self updateQueueNav];
     }
+}
+
+- (void)updateQueueNav {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
 }
 
 - (void)updateQueueBarData {
@@ -177,8 +198,8 @@
         [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
         return;
     }
-    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@ in Queue", totalPackages, totalPackages > 1 ? @"Packages" : @"Package"];
-    queueNav.popupItem.subtitle = @"Tap to manage Queue";
+    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", totalPackages, NSLocalizedString(totalPackages > 1 ? @"Packages in Queue" : @"Package in Queue", @"")];
+    queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage Queue", @"");
 }
 
 - (void)openQueue:(BOOL)openPopup {
@@ -206,6 +227,18 @@
         [self openQueue:NO];
     }
     [self updateQueueBarData];
+}
+
+- (void)forwardToPackage {
+    if (forwardToPackageID != NULL) { //this is pretty hacky
+        NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
+        if (forwardedRepoBaseURL != NULL) {
+            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedRepoBaseURL];
+            forwardedRepoBaseURL = NULL;
+        }
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+        forwardToPackageID = NULL;
+    }
 }
 
 @end

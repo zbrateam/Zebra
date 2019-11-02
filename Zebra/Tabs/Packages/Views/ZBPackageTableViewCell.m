@@ -35,16 +35,21 @@
     self.descriptionLabel.text = package.shortDescription;
     ZBSource *repo = package.repo;
     NSString *repoName = repo.origin;
-    if (package.author) {
-        self.authorAndRepo.text = [NSString stringWithFormat:@"%@ • %@", [self stripEmailFromAuthor:package.author], repoName];
-    } else {
-        self.authorAndRepo.text = repoName;
-    }
+    NSString *author = [self stripEmailFromAuthor:package.author];
+    NSString *installedSize = [package installedSize];
+    NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
+    if (author.length)
+        [info addObject:author];
+    if (repoName.length)
+        [info addObject:repoName];
+    if (installedSize)
+        [info addObject:installedSize];
+    self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
         sectionImage = [UIImage imageNamed:@"Other"];
     }
-    
+
     if (package.iconPath) {
         // [self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
         // [self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
@@ -52,13 +57,13 @@
     } else {
         self.iconImageView.image = sectionImage;
     }
-    
+
     BOOL installed = [package isInstalled:NO];
     BOOL paid = [package isPaid];
-    
+
     self.isInstalledImageView.hidden = !installed;
     self.isPaidImageView.hidden = !paid;
-    
+
     if (!self.isInstalledImageView.hidden) {
         self.isInstalledImageView.image = [UIImage imageNamed:@"Installed"];
     }
@@ -71,7 +76,7 @@
             self.isPaidImageView.image = [UIImage imageNamed:@"Paid"];
         }
     }
-    
+
     [self updateQueueStatus:package];
 }
 

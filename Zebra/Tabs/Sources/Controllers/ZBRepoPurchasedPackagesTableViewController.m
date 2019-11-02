@@ -38,7 +38,7 @@
         self.navigationItem.titleView = container;
     }
     self.title = self.repoName;
-    self.logOut = [[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStylePlain actionHandler:^{
+    self.logOut = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Log Out", @"") style:UIBarButtonItemStylePlain actionHandler:^{
         [self logoutRepo];
     }];
     [self.navigationItem setRightBarButtonItem:self.logOut];
@@ -172,7 +172,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Purchased Packages";
+    return NSLocalizedString(@"Purchased Packages", @"");
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

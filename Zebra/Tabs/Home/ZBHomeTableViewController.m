@@ -39,20 +39,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.tableView setBackgroundColor:[UIColor whiteColor]]; //Change for dark mode later
-    
+
     if (featuredPackages == NULL) {
         featuredPackages = [NSMutableArray new];
     }
-    
+
     if (communityNewsPosts == NULL) {
         communityNewsPosts = [NSMutableArray new];
     }
-    
+
     [self downloadFeaturedPackages:false];
     [self getRedditPosts];
-    
+
     if (SYSTEM_VERSION_LESS_THAN(@"13.0")) {
         //From: https://stackoverflow.com/a/48837322
         UIVisualEffectView *fxView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
@@ -67,12 +67,12 @@
     UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(16, 0, frame.size.width - 32, 0.5)];
     bar.backgroundColor = [UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1.0];
     [self.view addSubview:bar];
-    
+
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 0.01f)]; // For removing gap at the top of the table view
-    
+
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-    
+
     if (@available(iOS 10.0, *)) {
         self.tableView.refreshControl = refreshControl;
     } else {
@@ -102,34 +102,34 @@
 - (void)getRedditToken {
     NSURL *tokenURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
     NSString *grantType = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
-    
+
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:tokenURL];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"Zebra %@ iOS:%@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
     [request setHTTPBody:[grantType dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dataTaskError) {
         if (dataTaskError != NULL) {
             NSLog(@"[Zebra] Error while getting reddit token: %@", dataTaskError);
             return;
         }
-        
+
         NSError *jsonError;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
         if (jsonError != NULL) {
             NSLog(@"[Zebra] Error while parsing reddit token JSON: %@", jsonError);
             return;
         }
-        
+
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:[json objectForKey:@"access_token"] forKey:@"redditToken"];
         [defaults setObject:[NSDate date] forKey:@"redditCheck"];
         [defaults synchronize];
         [self getCommunityNewsPosts];
     }];
-    
+
     [task resume];
 }
 
@@ -138,29 +138,29 @@
     [request setHTTPMethod:@"GET"];
     [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
-    
+
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable dataTaskError) {
         if (dataTaskError != NULL) {
             NSLog(@"[Zebra] Error while getting reddit token: %@", dataTaskError);
             return;
         }
-        
+
         NSError *jsonError;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         if (jsonError != NULL) {
             NSLog(@"[Zebra] Error while parsing reddit token JSON: %@", jsonError);
             return;
         }
-        
+
         NSArray<NSDictionary <NSString *, NSDictionary *> *> *children = [[json objectForKey:@"data"] objectForKey:@"children"];
-        
+
         for (NSDictionary *child in children) {
             NSDictionary *post = [child objectForKey:@"data"];
-            
+
             if ([[post objectForKey:@"stickied"] boolValue] == false && [self acceptableFlair:[post objectForKey:@"link_flair_text"]]) {
                 [self->communityNewsPosts addObject:post];
             }
-            
+
             if ([self->communityNewsPosts count] == 3) break;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -170,7 +170,7 @@
             [self.tableView endUpdates];
         });
     }];
-    
+
     [task resume];
 }
 
@@ -179,42 +179,42 @@
         NSArray *acceptableFlairs = @[@"release", @"update", @"upcoming", @"news", @"tutorial", @"jailbreak release"];
         return [acceptableFlairs containsObject:[flairText lowercaseString]];
     }
-    
+
     return false;
 }
 
 - (void)downloadFeaturedPackages:(BOOL)ignoreCaching {
     NSMutableArray <ZBSource *> *repos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     dispatch_group_t downloadGroup = dispatch_group_create();
-    
+
     for (ZBSource *repo in repos) {
         dispatch_group_enter(downloadGroup);
-        
+
         NSURLSession *session;
         NSString *filePath = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Featured", [repo baseFileName]]];
         if (!ignoreCaching && [[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
             NSError *fileError;
             NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&fileError];
             NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
-            
+
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
             [formatter setTimeZone:gmt];
             [formatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
-            
+
             NSString *modificationDate = [NSString stringWithFormat:@"%@ GMT", [formatter stringFromDate:date]];
-            
+
             NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
             configuration.HTTPAdditionalHeaders = @{@"If-Modified-Since": modificationDate};;
-            
+
             session = [NSURLSession sessionWithConfiguration:configuration];
         }
         else {
             session = [NSURLSession sharedSession];
         }
-        
+
         NSMutableArray *featuredPackages = [NSMutableArray new];
-        
+
         NSString *featuredURLString = repo.isSecure ? [NSString stringWithFormat:@"https://%@", repo.baseURL] : [NSString stringWithFormat:@"http://%@", repo.baseURL];
 
         NSURL *featuredURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:featuredURLString]];
@@ -225,7 +225,7 @@
                 dispatch_group_leave(downloadGroup);
                 return;
             }
-            
+
             if (data != NULL && [httpResponse statusCode] != 404) {
                 NSError *jsonReadError;
                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonReadError];
@@ -234,7 +234,7 @@
                     dispatch_group_leave(downloadGroup);
                     return;
                 }
-                
+
                 if ([json objectForKey:@"banners"]) {
                     NSArray *banners = [json objectForKey:@"banners"];
                     if (banners.count) {
@@ -242,18 +242,18 @@
                     }
                 }
             }
-            
+
             NSString *filename = [NSString stringWithFormat:@"%@_Featured", [repo baseFileName]];
             if ([featuredPackages count] > 0) {
                 [featuredPackages writeToFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename] atomically:true];
             }
-            
+
             dispatch_group_leave(downloadGroup);
         }];
-        
+
         [task resume];
     }
-    
+
     dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
         [self loadFeaturedPackagesFromCache];
     });
@@ -268,9 +268,9 @@
         NSArray *contents = [NSArray arrayWithContentsOfFile:[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:path]];
         for (NSDictionary *cache in contents) {
             dispatch_group_enter(downloadGroup);
-            
+
             NSURL *bannerImageURL = [NSURL URLWithString:cache[@"url"]];
-            
+
             if (bannerImageURL != NULL) {
                 NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:bannerImageURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                     if ([(NSHTTPURLResponse *)response statusCode] == 404) {
@@ -280,19 +280,19 @@
                         ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cache[@"package"]];
                         if (package != NULL) {
                             package.bannerImageURL = bannerImageURL;
-                            
+
                             [self->featuredPackages addObject:package];
                         }
                     }
-                    
+
                     dispatch_group_leave(downloadGroup);
                 }];
-                
+
                 [task resume];
             }
         }
     }
-    
+
     dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView beginUpdates];
@@ -339,10 +339,10 @@
         }
         case 1: { //Community News
             ZBCommunityNewsTableViewCell *cell = (ZBCommunityNewsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"newsTableCell" forIndexPath:indexPath];
-            
+
             NSDictionary *post = [communityNewsPosts objectAtIndex:indexPath.row];
             NSMutableArray *components = [[[post objectForKey:@"title"] componentsSeparatedByString:@"] "] mutableCopy];
-            
+
             NSString *title = @"Could not load post";
             if ([components count] > 2) {
                 [components removeObjectAtIndex:0];
@@ -354,25 +354,25 @@
             else {
                 title = components[0];
             }
-            
+
             cell.titleLabel.text = title;
             cell.tagLabel.text = [[post objectForKey:@"link_flair_text"] uppercaseString];
             cell.permalink = [post objectForKey:@"permalink"];
-            
+
             return cell;
         }
         case 2: { //Changelog
             ZBIconTableViewCell *cell = (ZBIconTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"iconTableCell" forIndexPath:indexPath];
-            
+
             cell.titleLabel.text = @"Changelog";
             cell.iconImageView.image = [UIImage imageNamed:@"Changelog"];
             cell.storyboardID = @"changelogController";
-            
+
             return cell;
         }
         case 3: { //Links
             ZBButtonTableViewCell *cell = (ZBButtonTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"buttonTableCell" forIndexPath:indexPath];
-            
+
             switch (indexPath.row) {
                 case 0:
                     cell.actionLabel.text = @"Join Our Discord";
@@ -387,15 +387,15 @@
                     cell.actionLink = @"https://paypal.me/wstyres";
                     break;
             }
-            
+
             return cell;
         }
         case 4: { //Credits and Device information
             ZBFootnotesTableViewCell *cell = (ZBFootnotesTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"footnotesTableCell" forIndexPath:indexPath];
             [cell.creditsButton addTarget:self action:@selector(showCredits) forControlEvents:UIControlEventTouchUpInside];
-            
+
             [cell.deviceInfoLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@ \n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]]];
-            
+
             return cell;
         }
         default: {
@@ -414,23 +414,23 @@
     if (section == 1 && [communityNewsPosts count] != 0) {
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, 38)];
-        
+
         UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         UIFont *newFont = [UIFont systemFontOfSize:22 weight:UIFontWeightBold];
         sectionLabel.font = newFont;
-        
+
         [view addSubview:sectionLabel];
-                
+
         [sectionLabel setTranslatesAutoresizingMaskIntoConstraints: NO];
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[sectionLabel]-16-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sectionLabel)]];
         [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[sectionLabel]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sectionLabel)]];
 
-        
+
         sectionLabel.text = @"Community News";
-        
+
         return view;
     }
-    
+
     return NULL;
 }
 
@@ -482,7 +482,7 @@
         case 1: { //Community News
             if ([cell isKindOfClass:[ZBCommunityNewsTableViewCell class]]) {
                 ZBCommunityNewsTableViewCell *newsCell = (ZBCommunityNewsTableViewCell *)cell;
-                
+
                 [self openRedditURL:newsCell.permalink];
             }
             break;
@@ -490,10 +490,10 @@
         case 2: { //Changelog
             if ([cell isKindOfClass:[ZBIconTableViewCell class]]) {
                 ZBIconTableViewCell *iconCell = (ZBIconTableViewCell *)cell;
-                
+
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
                 ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:iconCell.storyboardID];
-                
+
                 [[self navigationController] pushViewController:changelogController animated:true];
             }
             break;
@@ -501,9 +501,9 @@
         case 3: { //Links
             if ([cell isKindOfClass:[ZBButtonTableViewCell class]]) {
                 ZBButtonTableViewCell *buttonCell = (ZBButtonTableViewCell *)cell;
-                
+
                 NSURL *url = [NSURL URLWithString:buttonCell.actionLink];
-                
+
                 if ([buttonCell.actionLink isEqualToString:@"twitter"]) {
                     [self openTwitter:@"getZebra"];
                 }
@@ -512,14 +512,14 @@
                     if (@available(iOS 10.0, *)) {
                         safariViewController.preferredControlTintColor = [UIColor tintColor];
                     }
-                    
+
                     [self presentViewController:safariViewController animated:true completion:nil];
                 }
             }
             break;
         }
     }
-    
+
     [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 
@@ -527,7 +527,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBPackageDepictionViewController *depiction = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     depiction.package = package;
-    
+
     [[self navigationController] pushViewController:depiction animated:true];
 }
 
@@ -548,7 +548,7 @@
         if (@available(iOS 10.0, *)) {
             safariViewController.preferredControlTintColor = [UIColor tintColor];
         }
-        
+
         [self presentViewController:safariViewController animated:true completion:nil];
     }
 }
@@ -568,7 +568,7 @@
         if (@available(iOS 10.0, *)) {
             safariViewController.preferredControlTintColor = [UIColor tintColor];
         }
-        
+
         [self presentViewController:safariViewController animated:true completion:nil];
     }
 }

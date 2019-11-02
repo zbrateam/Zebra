@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isDatabaseBeingUpdated;
 - (void)setDatabaseBeingUpdated:(BOOL)updated;
-- (void)setHaltDatabaseOperations;
+- (void)setHaltDatabaseOperations:(BOOL)halt;
 
 - (void)bulkDatabaseStartedUpdate;
 - (void)bulkDatabaseCompletedUpdate:(int)updates;
@@ -167,6 +167,20 @@ NS_ASSUME_NONNULL_BEGIN
  @return A repoID for the matching base file name. -1 if no match was found.
  */
 - (int)repoIDFromBaseFileName:(NSString *)bfn;
+
+/*!
+@brief Get a repoID from a base url
+@param baseURL the base url
+@return A repoID for the matching base url. -1 if no match was found.
+*/
+- (int)repoIDFromBaseURL:(NSString *)baseURL;
+
+/*!
+@brief Get a ZBRepo instance  from a base url
+@param baseURL the base url
+@return A ZBRepo instance for the matching base url.
+*/
+- (ZBRepo *)repoFromBaseURL:(NSString *)baseURL;
 
 /*!
  @brief The next repoID in the database.
@@ -379,6 +393,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A sorted array of every version of a package in the database.
  */
 - (NSArray <ZBPackage *> *)allVersionsForPackageID:(NSString *)packageIdentifier;
+- (NSArray <ZBPackage *> *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo;
 
 /*!
  @brief An array of every version of a package in the database.
@@ -386,6 +401,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A sorted array of every version of a package in the database.
  */
 - (NSArray <ZBPackage *> *)allVersionsForPackage:(ZBPackage *)package;
+- (NSArray <ZBPackage *> *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo;
 
 /*!
  @brief An array of every other version of a package in the database.
@@ -408,6 +424,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A ZBPackage instance representing the highest version in the database.
  */
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package;
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo;
 
 /*!
  @brief The highest version of a package that exists in the database.
@@ -415,6 +432,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A ZBPackage instance representing the highest version in the database.
  */
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo;
 
 /*!
 @brief Packages that depend on another package

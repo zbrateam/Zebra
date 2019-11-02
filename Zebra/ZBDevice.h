@@ -33,6 +33,7 @@
 + (BOOL)isChimera;
 + (BOOL)isElectra;
 + (BOOL)isUncover;
++ (NSString *_Nullable)packageManagementBinary;
 
 // Dark Mode
 + (BOOL)darkModeEnabled;

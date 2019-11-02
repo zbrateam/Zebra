@@ -1,0 +1,257 @@
+// Common
+
+"Cancel" = "Atšaukti";
+"No" = "Ne";
+"Ok" = "Gerai";
+"Error" = "Klaida";
+"Retry" = "Pakartoti";
+"Edit" = "Keisti";
+"Login" = "Prisijungti";
+"Close" = "Uždaryti";
+"Done" = "Atlikta";
+
+// Home
+
+"Home" = "Pradžia";
+"Info" = "Info";
+"Welcome to the Zebra Beta!" = "Sveiki atvykę į Zebra Beta!";
+"Changelog" = "Pasikeitimų sąrašas";
+"Community Repos" = "Bendruomenės saugyklos";
+"Transfer Sources from %@" = "Perkelti šaltinius iš %@";
+"Move all sources from %@ to Zebra" = "Perkelti visus šaltinius iš %@ į Zebra";
+"Utility repo for %@" = "Naudinga %@ saugykla";
+"Transfer Sources" = "Perkelti Šaltinius";
+"Please Wait..." = "Prašom palaukti...";
+"Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
+"Stores" = "Parduotuvės";
+"Purchases" = "Pirkimų sąrašas";
+"Wish List" = "Norų sąrašas";
+"No items in Wish List" = "Nėra įrašų norų sąraše";
+"Community" = "Bendruomenė";
+"Join our Discord" = "Prisijunkite prie mūsų Discord";
+"Follow me on Twitter" = "Sekite mane Twitteryje";
+
+//Credits
+
+"Credits" = "Kūrėjų sąrašas";
+"Creators" = "Kūrėjai";
+"Contributors" = "Modifikacijų autoriai";
+"Translators" = "Vertėjai";
+"Libraries" = "Biliotekos";
+
+// Settings
+
+"Settings" = "Nustatymai";
+"Version" = "Versija";
+"Graphics" = "Grafika";
+"Featured" = "Rodomiausi";
+"News" = "Naujienos";
+"Miscellaneous" = "Įvairūs";
+"Advanced" = "Išplėstiniai nustatymai";
+
+"Report a Bug" = "Pranešti apie klaidą";
+
+"Tint Color" = "Atspalvis";
+"Blue" = "Mėlynas";
+"Orange" = "Orandž.";
+"White" = "Baltas";
+"Black" = "Juodas";
+
+"Dark Mode" = "Tamsus režimas";
+"Default" = "Numatytas";
+"OLED" = "OLED";
+"iOS 13" = "iOS 13";
+
+"Change Icon" = "Keisti piktogramą";
+
+"Enable Featured Packages" = "Aktyvinti rodomiausius paketus";
+"Repo Featured" = "Saugyklų rodomiausi";
+"Random" = "Atsitiktiniai";
+"Feature Type" = "Tipas";
+"Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
+
+"Enable News" = "Aktyvinti naujienas";
+
+"Search while Typing" = "Ieškoti paketus rąšant";
+
+"Swipe Actions Display As" = "Veiksmų braukimo juosta";
+"Text" = "Tekstas";
+"Icon" = "Piktograma";
+"Open Documents Directory" = "Atidaryti dokumentų katalogą";
+"Clear Image Cache" = "Išvalyti vaizdo podelį";
+"Clear Keychain" = "Išvalyti raktų grandinę";
+
+"Loading..." = "Kraunasi...";
+
+"Resetting image cache completed" = "Vaizdo podelio atkūrimas baigtas";
+"Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
+
+// Sources
+
+"Sources" = "Šaltiniai";
+"Local Repository" = "Vietinė saugykla";
+"Locally installed packages" = "Įdiegti vietiniai paketai";
+"Unknown" = "Nežinomas";
+"No repository urls detected." = "Neaptikti saugyklos adresai.";
+"You have already added these repositories." = "Jūs jau esate pridėję šias saugyklas.";
+"Error verifying repository" = "Ištiko klaida tikrinant saugyklą";
+"Error verifying repositories" = "Ištiko klaida tikrinant saugyklas";
+"Unknown error" = "Nežinoma klaida";
+"Invalid URL" = "Netinkamas šaltinio adresas";
+"Enter URL" = "Įveskite šaltinio adresą";
+"Add Repo(s)" = "Pridėti saugyklą(as)";
+"Add" = "Pridėti";
+"Add Multiple" = "Pridėti kelis";
+"Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
+"Please Wait..." = "Prašom palaukti...";
+"Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
+"Unable to verify Repo" = "Nepavyko patikrinti šaltinio";
+"Refresh" = "Atnaujinti";
+"Log Out" = "Atsijungti";
+"Purchased Packages" = "Nupirkti paketai";
+"Purchased" = "Nupirktas";
+
+"All Packages" = "Visi paketai";
+"Delete" = "Šalinti";
+
+// Changes
+
+"Changes" = "Pasikeitimai";
+
+// Packages
+
+"Packages" = "Paketai";
+"Show Updates" = "Rodyti atnaujinimus";
+"Ignore Updates" = "Ignoruoti atnaujinimus";
+"Select Version" = "Pasirinkti versiją";
+"Select a version to upgrade to" = "Pasirinkti naujinimo versiją";
+"Package" = "Paketas";
+"Information" = "Informacija";
+"Upgrade All" = "Naujinti visus";
+"Loaded" = "Pakrautas";
+"ABC" = "ABC";
+"Date" = "Data";
+"Size" = "Dydis";
+"Clear" = "Išvalyti";
+"Are you sure you want to clear Queue?" = "Ar tikrai norite išvalyti eilę?";
+"Available Upgrades" = "Prieinami naujinimai";
+"Ignored Upgrades" = "Praignoruoti naujinimai";
+"Recent" = "Naujausi";
+"Installed Files" = "Įdiegti failai";
+"Modify" = "Modifikuoti";
+"Authenticate to initiate purchase." = "Norėdami apsipirkti, patvirtinkite savo tapatybę.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Prašau prisijunkite iš naujo prie paskyros, kuri buvo naudojama perkant šį paketą (Possibly %@)";
+"More by this Developer" = "Daugiau iš šio kūrėjo";
+"Installed Version" = "Įdiegta versija";
+
+"Add to Wish List" = "Pridėti į norų sąrašą";
+"Remove from Wish List" = "Išimti iš norų sąrašo";
+
+// Package Section Names
+
+"Administration" = "Valdymas";
+"App Addons" = "Programų papildymai";
+"Archiving" = "Archyvavimas";
+"Carrier Support" = "Operatoriaus palaikymas";
+"Communication" = "Komunikacija";
+"Data Storage" = "Duomenų kaupiklis";
+"Development" = "Kūrimas";
+"Dictionaries" = "Žodynai";
+"Education" = "Švietimas";
+"Entertainment" = "Pramogos";
+"Games" = "Žaidimai";
+"Health and Fitness" = "Sveikata ir Treniruotės";
+"Imaging" = "Vaizdavimas";
+"Java" = "Java";
+"Keyboards" = "Klaviatūros";
+"Localization" = "Lokalizacija";
+"Messaging" = "Pranešimai";
+"Multimedia" = "Multimedija";
+"Navigation" = "Navigacija";
+"Networking" = "Darbas tinkle";
+"Packaging" = "Pakavimas";
+"Productivity" = "Našumas";
+"Repositories" = "Saugyklos";
+"Ringtones" = "Skambučių melodijos";
+"Scripting" = "Skriptinimas";
+"Security" = "Saugumas";
+"Social" = "Socialinis";
+"System" = "Sistema";
+"Terminal Support" = "Terminalo palaikymas";
+"Text Editors" = "Teksto redaktoriai";
+"Themes" = "Apipavidalinimas";
+"Toys" = "Žaislai";
+"Tweaks" = "Pataisymai";
+"Utilities" = "Naudingos programos";
+"Wallpaper" = "Darbalaukio fonai";
+"Widgets" = "Valdikliai";
+
+// Search
+
+"Search" = "Paieška";
+"Clear Search" = "Išvalyti paiešką";
+"This search query is too short for the full search, please use a longer query." = "Ši paieškos užklausa per trumpa pilnai paieškai, prašom naudoti ilgesnę užklausą.";
+"No Results Found" = "Nieko nerasta";
+
+// Downloads
+
+"Downloads" = "Siuntiniai";
+"Error while opening sources.list" = "Įvyko klaida atidarant sources.list";
+"The repo %@ is incompatible with your jailbreak." = "Saugykla %@ nesuderinama su jūsų nulaužimu.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Gali kilti problemų, jei pridėsite tai į Zebra, galimai reikės atkūrimo.";
+"Please remove this repo from your sources.list file." = "Prašom pašalinti šią saugyklą iš sources.list failo.";
+"Incorrect documents permissions." = "Neteisingi dokumentų leidimai.";
+"Could not determine device information." = "Neaptikta įrenginio informacija.";
+"Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
+"%@ hasn't been modified" = "%@ nebuvo modifikuotas";
+"Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
+
+// Console
+
+"Console" = "Konsolė";
+"Performing Actions..." = "Atliekami veiksmai...";
+"Updating icon cache asynchronously..." = "Asinchroniškai atnaujinami piktogramų podeliai...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Tai gali užtrukti ir Zebra gali užstrigti/išsijungti. Jei taip atsitiks, tai normalu.";
+"Close Zebra" = "Uždaryti Zebra";
+"Restart SpringBoard" = "Perkrauti SpringBoard";
+"Downloading" = "Atsiunčiama";
+"Downloading Packages..." = "Paketai atsiunčiami...";
+"Installing" = "Įdiegiama";
+"Installing Packages..." = "Paketai įdiegiami...";
+"Removing" = "Šalinama";
+"Removing Packages..." = "Paketai šalinami...";
+"Reinstalling" = "Įdiegiama iš naujo";
+"Reinstalling Packages..." = "Paketai įdiegiami iš naujo...";
+"Upgrading" = "Naujinama";
+"Upgrading Packages..." = "Paketai naujinami...";
+"Complete" = "Baigta";
+"Finished!" = "Užbaigta!";
+"Return to Queue" = "Grįžti į eilę";
+"Importing local packages." = "Importuojami vietiniai paketai.";
+"Finished importing local packages." = "Pabaigta importuoti vietinius paketus.";
+"One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
+
+// Queue Bar
+"Packages in Queue" = "Paketų eilėje";
+"Package in Queue" = "Paketas eilėje";
+"Tap to manage Queue" = "Paspauskite eilės tvarkymui";
+
+// Queue
+
+"Queue" = "Eilė";
+"Queue cleared" = "Eilė išvalyta";
+"Install" = "Įdiegti";
+"Reinstall" = "Įdiegti iš naujo";
+"Remove" = "Šalinti";
+"Upgrade" = "Naujinti";
+"Downgrade" = "Grįžti į sen.";
+"Abort" = "Nutraukti";
+"Continue" = "Tęsti";
+"Download Size" = "Atsiuntimo dydis";
+"Confirm" = "Patvirtinti";
+"%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
+"Required Package" = "Reikalingas paketas";
+"%@ is required by:" = "%@ reikalauja:";
+"Issues" = "Problemos";
+"%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";

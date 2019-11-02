@@ -21,6 +21,7 @@
 #import <sys/stat.h>
 #import <unistd.h>
 @import SafariServices;
+@import LNPopupController;
 
 @implementation ZBDevice
 
@@ -124,13 +125,13 @@
                 execed = YES;
             }
         }
-        
+
         if (!hasSbreload || execed || [task terminationStatus] != 0) {
             NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
             // Ideally, this is only if sbreload fails
             [task setLaunchPath:@"/bin/launchctl"];
             [self asRoot:task arguments:@[@"stop", @"com.apple.backboardd"]];
-            
+
             [task launch];
         }
     }
@@ -141,7 +142,7 @@
         NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/bin/uicache"];
         [self task:task withArguments:arguments];
-        
+
         if (observer) {
             NSPipe *outputPipe = [[NSPipe alloc] init];
             NSFileHandle *output = [outputPipe fileHandleForReading];
@@ -154,7 +155,7 @@
             [task setStandardOutput:outputPipe];
             [task setStandardError:errorPipe];
         }
-        
+
         [task launch];
     }
 }
@@ -196,6 +197,20 @@
         value = [self needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
     });
     return value;
+}
+
++ (NSString *)packageManagementBinary {
+    static NSString *packageManagementBinary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
+            packageManagementBinary = @"/usr/bin/apt";
+        }
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/dpkg"]) {
+            packageManagementBinary = @"/usr/bin/dpkg";
+        }
+    });
+    return packageManagementBinary;
 }
 
 + (NSString * _Nonnull)deviceType {

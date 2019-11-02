@@ -1,6 +1,10 @@
 language: objective-c
 osx_image: xcode10.2
 
+branches:
+  except:
+    - localization
+
 env:
   global:
     - THEOS=theos
@@ -9,5 +13,6 @@ script:
 - make package
 
 before_install:
+- gem install xcpretty
 - brew install ldid
 - git clone --recursive https://github.com/theos/theos.git $THEOS

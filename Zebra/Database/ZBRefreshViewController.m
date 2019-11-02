@@ -32,11 +32,13 @@ typedef enum {
 @implementation ZBRefreshViewController
 
 @synthesize messages;
+@synthesize completeOrCancelButton;
+@synthesize consoleView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_dropTables) {
-        self.completeOrCancelButton.hidden = YES;
+        [self setCompleteOrCancelButtonHidden:true];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     if ([ZBDevice darkModeEnabled]) {
@@ -59,15 +61,15 @@ typedef enum {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     if (!messages) {
         databaseManager = [ZBDatabaseManager sharedInstance];
         [databaseManager addDatabaseDelegate:self];
-        
+
         if (_dropTables) {
             [databaseManager dropTables];
         }
-        
+
         if (self.repoURLs.count) {
             // Update only the repos specified
             [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
@@ -88,14 +90,15 @@ typedef enum {
 - (IBAction)completeOrCancelButton:(id)sender {
     if (buttonState == ZBStateDone) {
         [self goodbye];
-    } else {
+    }
+    else {
         if (_dropTables) {
             return;
         }
         [databaseManager cancelUpdates:self];
         [((ZBTabBarController *)self.tabBarController) clearRepos];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
-        
+
         buttonState = ZBStateDone;
         [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
     }
@@ -104,7 +107,7 @@ typedef enum {
 - (void)clearProblems {
     messages = NULL;
     hadAProblem = NO;
-    self->_consoleView.text = nil;
+    [self clearConsoleText];
 }
 
 - (void)goodbye {
@@ -112,8 +115,27 @@ typedef enum {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     } else {
         [self clearProblems];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
+        [self dismissViewControllerAnimated:YES completion:^{
+            if ([controller isKindOfClass:[ZBTabBarController class]]) {
+                [controller forwardToPackage];
+            }
+        }];
     }
+}
+
+#pragma mark - UI Updates
+
+- (void)setCompleteOrCancelButtonHidden:(BOOL)hidden {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->completeOrCancelButton setHidden:hidden];
+    });
+}
+
+- (void)clearConsoleText {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->consoleView setText:nil];
+    });
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
@@ -147,15 +169,16 @@ typedef enum {
         }
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-        
-        [self->_consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
-        if (self->_consoleView.text.length) {
-            NSRange bottom = NSMakeRange(self->_consoleView.text.length -1, 1);
-            [self->_consoleView scrollRangeToVisible:bottom];
+        [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+
+        if (self->consoleView.text.length) {
+            NSRange bottom = NSMakeRange(self->consoleView.text.length -1, 1);
+            [self->consoleView scrollRangeToVisible:bottom];
         }
     });
 }
+
 
 #pragma mark - Database Delegate
 
@@ -171,6 +194,7 @@ typedef enum {
     if (!hadAProblem) {
         [self goodbye];
     } else {
+        [self setCompleteOrCancelButtonHidden:false];
         [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
     }
     [[ZBSourceManager sharedInstance] needRecaching];

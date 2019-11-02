@@ -26,13 +26,13 @@ enum ZBSourcesOrder {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self.navigationItem setTitle:@"Community Repos"];
+    // self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self.navigationItem setTitle:NSLocalizedString(@"Community Repos", @"")];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     availableManagers = [NSMutableArray new];
     self.repoManager = [ZBSourceManager sharedInstance];
-    
+
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
@@ -47,7 +47,7 @@ enum ZBSourcesOrder {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:@"https://getzbra.com/api/communityrepos.json"]];
-    
+
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
       ^(NSData * _Nullable data,
         NSURLResponse * _Nullable response,
@@ -66,7 +66,7 @@ enum ZBSourcesOrder {
               NSLog(@"[Zebra] Github error %@", error);
           }
       }] resume];
-    
+
 }
 
 - (NSString *)determineJailbreakRepo {
@@ -120,25 +120,25 @@ enum ZBSourcesOrder {
         } else {
             iconURL = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/icons/sileo@3x.png"];
         }
-        cellText = [NSString stringWithFormat:@"Transfer Sources from %@", [availableManagers objectAtIndex:indexPath.row]];
-        subText = [NSString stringWithFormat:@"Move all sources from %@ to Zebra", [availableManagers objectAtIndex:indexPath.row]];
+        cellText = [NSString stringWithFormat:NSLocalizedString(@"Transfer Sources from %@", @""), [availableManagers objectAtIndex:indexPath.row]];
+        subText = [NSString stringWithFormat:NSLocalizedString(@"Move all sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
     } else if (indexPath.section == 1) {
         if ([ZBDevice isChimera]) { // chimera
             cellText = @"Chimera";
             iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
-            subText = @"Utility repo for Chimera jailbreak";
+            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Chimera jailbreak"];
         } else if ([ZBDevice isUncover]) { // uncover
             cellText = @"Bingner/Elucubratus";
             iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
-            subText = @"Utility repo for unc0ver jailbreak";
+            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"unc0ver jailbreak"];
         } else if ([ZBDevice isElectra]) { // electra
             cellText = @"Electra's iOS Utilities";
             iconURL = [NSURL URLWithString:@"https://github.com/coolstar/electra/raw/master/electra/Resources/AppIcon60x60%402x.png"];
-            subText = @"Utility repo for Electra jailbreak";
+            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Electra jailbreak"];
         } else { // cydia
             cellText = @"Cydia/Telesphoreo";
             iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
-            subText = @"Cydia utility repo";
+            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Cydia"];
         }
     } else {
         NSDictionary *dataDict = [communityRepos objectAtIndex:indexPath.row];
@@ -146,14 +146,14 @@ enum ZBSourcesOrder {
         repoURL = [NSURL URLWithString:dataDict[@"url"]];
         iconURL = [NSURL URLWithString:dataDict[@"icon"]];
     }
-    
+
     if (cellText) {
         [cell.sourceNameLabel setText:cellText];
 //        [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
     } else {
         cell.sourceNameLabel.text = nil;
     }
-    
+
     if (subText && !repoURL) {
         [cell.sourceNameLabel setText:subText];
 //        [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
@@ -164,7 +164,7 @@ enum ZBSourcesOrder {
         cell.sourceNameLabel.text = nil;
     }
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    
+
     return cell;
 }
 
@@ -179,11 +179,11 @@ enum ZBSourcesOrder {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return @"Transfer Sources";
+            return NSLocalizedString(@"Transfer Sources", @"");
         case 1:
-            return @"Utilities";
+            return NSLocalizedString(@"Utilities", @"");
         case 2:
-            return @"Community Repositories";
+            return NSLocalizedString(@"Community Repos", @"");
         default:
             return nil;
     }
@@ -223,33 +223,33 @@ enum ZBSourcesOrder {
 #pragma mark Add Repos
 
 - (void)addReposWithText:(NSString *)text {
-    UIAlertController *wait = [UIAlertController alertControllerWithTitle:@"Please Wait..." message:@"Verifying Source(s)" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *wait = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:NSLocalizedString(@"Verifying Source(s)", @"") preferredStyle:UIAlertControllerStyleAlert];
     [self presentViewController:wait animated:YES completion:nil];
-    
+
     __weak typeof(self) weakSelf = self;
     __weak typeof(ZBSourceManager *) repoManager = self.repoManager;
-    
+
     [repoManager addSourcesFromString:text response:^(BOOL success, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{
             if (!success) {
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:error preferredStyle:UIAlertControllerStyleAlert];
-                
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", @"") message:error preferredStyle:UIAlertControllerStyleAlert];
+
                 if (failedURLs.count) {
-                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         [weakSelf addReposWithText:text];
                     }];
-                    
+
                     [errorAlert addAction:retryAction];
-                    
-                    UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+                    UIAlertAction *editAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         if ([failedURLs count] > 1) {
                             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                             ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
                             addRepo.delegate = weakSelf;
                             addRepo.text = text;
-                            
+
                             UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
-                            
+
                             [weakSelf presentViewController:navCon animated:YES completion:nil];
                         }
                         /*else {
@@ -257,14 +257,14 @@ enum ZBSourcesOrder {
                             [weakSelf showAddRepoAlert:failedURL];
                         }*/
                     }];
-                    
+
                     [errorAlert addAction:editAction];
                 }
-                
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-                
+
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+
                 [errorAlert addAction:cancelAction];
-                
+
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
