@@ -86,7 +86,7 @@
 "Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
 "Clearing keychain completed" = "Keychain erfolgreich geleert";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Datenbanktabellen leeren";
 
 // Sources
 
@@ -171,7 +171,7 @@
 "Multimedia" = "Multimedien";
 "Navigation" = "Navigation";
 "Networking" = "Netzwerk";
-"Packaging" = "Packaging";
+"Packaging" = "Paketmanagement";
 "Productivity" = "Produktivität";
 "Repositories" = "Quellen";
 "Ringtones" = "Klingeltöne";
