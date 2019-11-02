@@ -26,7 +26,7 @@
 "Stores" = "Butikker";
 "Purchases" = "Køb";
 "Wish List" = "Ønskeliste";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Ingen varer på Ønskelisten";
 "Community" = "Fællesskab";
 "Join our Discord" = "Meld dig ind i vores Discord";
 "Follow me on Twitter" = "Følg mig på Twitter";
@@ -158,7 +158,7 @@
 "Communication" = "Kommunikation";
 "Data Storage" = "Data Opbevaring";
 "Development" = "Udvikling";
-"Dictionaries" = "Dictionaries";
+"Dictionaries" = "Ordbøger";
 "Education" = "Uddannelse";
 "Entertainment" = "Underholdning";
 "Games" = "Spil";
@@ -211,14 +211,14 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Udfører Handlinger...";
 "Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
 "Close Zebra" = "Luk Zebra";
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Downloading" = "Overfører";
 "Downloading Packages..." = "Overfører Pakker...";
-"Installing" = "Installing";
+"Installing" = "Installerer";
 "Installing Packages..." = "Installerer Pakker...";
 "Removing" = "Fjerner";
 "Removing Packages..." = "Fjerner Pakker...";
@@ -254,6 +254,6 @@
 "Confirm" = "Bekræft";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ is required by:" = "%@ er påkrævet af:";
+"Issues" = "Problemer";
+"%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
