@@ -387,6 +387,7 @@
 }
 
 - (IBAction)toggleDarkMode:(id)sender {
+    // TODO: fix issue when switching mode on "Report a bug"
     [ZBDevice hapticButton];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (![ZBDevice darkModeEnabled]) {
