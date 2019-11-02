@@ -26,7 +26,7 @@
 "Stores" = "Marketler";
 "Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "İstek listesinde öğe yok";
 "Community" = "Topluluk";
 "Join our Discord" = "Discord'umuza katıl!";
 "Follow me on Twitter" = "Beni Twitter'dan takip edin!";
@@ -85,6 +85,8 @@
 
 "Resetting image cache completed" = "Resim hafızasını temizleme tamamlandı";
 "Clearing keychain completed" = "Anahtar Zincirini temizleme tamamlandı";
+
+"Drop Tables" = "Drop Tables";
 
 // Sources
 
@@ -209,7 +211,7 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "İşlemler Gerçekleştiriliyor...";
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
@@ -250,8 +252,8 @@
 "Continue" = "Devam";
 "Download Size" = "İndirme Boyutu";
 "Confirm" = "Onayla";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
+"%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
+"Required Package" = "Gerekli Paket";
 "%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Issues" = "Sorunlar";
+"%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
