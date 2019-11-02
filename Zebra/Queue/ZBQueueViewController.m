@@ -58,7 +58,7 @@
         [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     [self refreshTable];
 }
 
