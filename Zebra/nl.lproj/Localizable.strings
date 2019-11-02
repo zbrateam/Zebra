@@ -1,255 +1,284 @@
 // Common
 
-"Cancel" = "Annuleer";
-"No" = "Nee";
-"Ok" = "Oké";
-"Error" = "Fout";
-"Retry" = "Probeer opnieuw";
-"Edit" = "Wijzig";
-"Login" = "Aanmelden";
-"Close" = "Sluit";
-"Done" = "Klaar";
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
-// Home
+/* Community News section title */
+"COMMUNITY_NEWS_HEADER" = "Community News";
 
-"Home" = "Thuis";
-"Info" = "Informatie";
-"Welcome to the Zebra Beta!" = "Welkom bij de beta van Zebra!";
-"Changelog" = "Wijzigingslogboek";
-"Community Repos" = "Community Bronnen";
-"Transfer Sources from %@" = "Verplaats bronnen van %@";
-"Move all sources from %@ to Zebra" = "Verplaats alle bronnen van %@ naar Zebra";
-"Utility repo for %@" = "Benodigde repo voor %@";
-"Transfer Sources" = "Verplaatsen geslaagd!";
-"Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source(s)" = "Bron(nen) verifiëren";
-"Stores" = "Winkel";
-"Purchases" = "Aankopen";
-"Wish List" = "Verlanglijst";
+/* [Release] reddit tag */
+"RELEASE_TAG" = "Release";
+
+/* [Update] reddit tag */
+"UPDATE_TAG" = "Update";
+
+/* [Upcoming] reddit tag */
+"UPCOMING_TAG" = "Upcoming";
+
+/* [News] reddit tag */
+"NEWS_TAG" = "Nieuws";
+
+/* [Tutorial] reddit tag */
+"TUTORIAL_TAG" = "Tutorial";
+
+/* [Jailbreak Release] reddit tag */
+"JAILBREAK_RELEASE_TAG" = "Jailbreak Release";
+
+/* Could not load post error */
+"ERROR_LOADING_POST" = "Could not load post";
+
+/* Changelog button */
+"VIEW_CHANGELOG_BUTTON" = "Wijzigingslogboek";
+
+/* Join Discord button*/
+"DISCORD_LINK_BUTTON" = "Treed toe tot onze Discord";
+
+/* Follow us on Twitter button */
+"TWITTER_LINK_BUTTON" = "Follow us on Twitter";
+
+/* Donation button */
+"DONATE_LINK_BUTTON" = "Buy the Team Coffee";
+
+/* Credits button on homepage */
+"CREDITS_LINK_BUTTON" = "Met dank aan";
+"Community Repos" = "Community Repos";
+"Transfer Sources from %@" = "Transfer Sources from %@";
+"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
 "No items in Wish List" = "No items in Wish List";
-"Community" = "Gemeenschap";
-"Join our Discord" = "Treed toe tot onze Discord";
-"Follow me on Twitter" = "Volg mij op Twitter";
+"Community" = "Community";
 
 //Credits
 
-"Credits" = "Met dank aan";
-"Creators" = "Makers";
-"Contributors" = "Bijdragers";
-"Translators" = "Vertalers";
-"Libraries" = "Bibliotheken";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Instellingen";
-"Version" = "Versie";
-"Graphics" = "Beeldkwaliteit";
-"Featured" = "Uitgelicht";
-"News" = "Nieuws";
-"Miscellaneous" = "Diversen";
-"Advanced" = "Geavanceerd";
+"Settings" = "Settings";
+"Version" = "Version";
+"Graphics" = "Graphics";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "Meld een fout";
+"Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Tint kleur";
-"Blue" = "Blauw";
-"Orange" = "Oranje";
-"White" = "Wit";
-"Black" = "Zwart";
+"Tint Color" = "Tint Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode" = "Donkere modus";
-"Default" = "Standaard";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Verander icoon";
+"Change Icon" = "Change Icon";
 
-"Enable Featured Packages" = "Zet uitgelichte pakketten aan";
-"Repo Featured" = "Uitgelichte Bron";
-"Random" = "Willekeurig";
-"Feature Type" = "Uitgelicht type";
-"Select Repos to be Featured" = "Selecteer een repo om deze uit te lichten";
+"Enable Featured Packages" = "Enable Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Nieuws inschakelen";
+"Enable News" = "Enable News";
 
-"Search while Typing" = "Zoeken terwijl u typt";
+"Search while Typing" = "Search while Typing";
 
-"Swipe Actions Display As" = "Veeg Acties Weergeven Als";
-"Text" = "Tekst";
-"Icon" = "Icoon";
-"Open Documents Directory" = "Open Documentenmap";
-"Clear Image Cache" = "Leeg de afbeeldingencache";
-"Clear Keychain" = "Leeg de sleutelhanger";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Aan het laden...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "Legen van de afbeeldingencache is gelukt";
-"Clearing keychain completed" = "Legen van de sleutelhanger is gelukt";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 // Sources
 
-"Sources" = "Bronnen";
-"Local Repository" = "Lokale bron";
-"Locally installed packages" = "Lokaal geïnstalleerde pakketten";
-"Unknown" = "Onbekend";
-"No repository urls detected." = "Er zijn geen bron-URLS gedetecteerd.";
-"You have already added these repositories." = "Deze bronnen heeft u al toegevoegd.";
-"Error verifying repository" = "Er is een fout opgetreden tijdens het verifiëren van de bron.";
-"Error verifying repositories" = "Er is een fout opgetreden tijdens het verifiëren van de bronnen.";
-"Unknown error" = "Onbekende fout";
-"Invalid URL" = "Ongeldige URL";
-"Enter URL" = "Voer een URL in";
-"Add Repo(s)" = "Voeg bron(nen) toe";
-"Add" = "Voeg toe";
-"Add Multiple" = "Voeg meerdere toe";
-"Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
-"Unable to verify Repo" = "Kan de bron niet verifiëren";
-"Refresh" = "Ververs";
-"Log Out" = "Log Uit";
-"Purchased Packages" = "Gekochte pakketten";
-"Purchased" = "Gekocht";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "Alle pakketten";
-"Delete" = "Verwijder";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "Veranderingen";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "Pakketten";
-"Show Updates" = "Toon updates";
-"Ignore Updates" = "Negeer updates";
-"Select Version" = "Kies versie";
-"Select a version to upgrade to" = "Kies een versie om naar te upgraden";
-"Package" = "Pakket";
-"Information" = "Informatie";
-"Upgrade All" = "Upgrade alles";
-"Loaded" = "Geladen";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to" = "Select a version to upgrade to";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
 "ABC" = "ABC";
-"Date" = "Datum";
-"Size" = "Grootte";
-"Clear" = "Leeg";
-"Are you sure you want to clear Queue?" = "Weet u zeker dat u de wachtrij wilt legen?";
-"Available Upgrades" = "Beschikbare upgrades";
-"Ignored Upgrades" = "Genegeerde upgrades";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
-"Installed Files" = "Geïnstalleerde bestanden";
-"Modify" = "Pas aan";
-"Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Log alstublieft in met het account dat dit pakket gekocht heeft. (Mogelijk %@)";
-"More by this Developer" = "Meer van deze ontwikkelaar";
-"Installed Version" = "Geïnstalleerde versie";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
 
-"Add to Wish List" = "Voeg toe aan verlanglijst";
-"Remove from Wish List" = "Verwijder van verlanglijst";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Administratie";
-"App Addons" = "App Toevoeginen";
-"Archiving" = "Archivering";
-"Carrier Support" = "Provider Hulp";
-"Communication" = "Communicatie";
-"Data Storage" = "Data Opslag";
-"Development" = "Ontwikkeling";
-"Dictionaries" = "Woordenboeken";
-"Education" = "Educatie";
-"Entertainment" = "Vermaak";
-"Games" = "Spellen";
-"Health and Fitness" = "Gezondheid en Fitness";
-"Imaging" = "Fotografie";
+"Administration" = "Administration";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Toetsenborden";
-"Localization" = "Lokalisatie";
-"Messaging" = "Berichten";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigatie";
-"Networking" = "Netwerken";
-"Packaging" = "Verpakking";
-"Productivity" = "Productiviteit";
-"Repositories" = "Bronnen";
-"Ringtones" = "Beltonen";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
-"Security" = "Beveiliging";
-"Social" = "Sociaal";
-"System" = "Systeem";
-"Terminal Support" = "Terminal Ondersteuning";
-"Text Editors" = "Tekstverwerkers";
-"Themes" = "Themas";
-"Toys" = "Speelgoed";
-"Tweaks" = "Aanpassingen";
-"Utilities" = "Benodigheden";
-"Wallpaper" = "Achtergronden";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Zoeken";
-"Clear Search" = "Leeg de zoekbalk";
-"This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
-"No Results Found" = "Geen resultaten gevonden.";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
 "Downloads" = "Downloads";
-"Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
-"The repo %@ is incompatible with your jailbreak." = "De repo %@ is niet compatibel met deze jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
-"Please remove this repo from your sources.list file." = "Verwijder alstublieft deze repo van het sources.list bestand.";
-"Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
-"Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
-"Could not find a download URL for" = "Kan geen downloadlink vinden voor ";
-"%@ hasn't been modified" = "%@ is niet gewijzigd";
-"Could not parse %@ from %@" = "Kan %@ niet verwerken van %@";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
 "Console" = "Console";
 "Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
-"Close Zebra" = "Sluit Zebra";
-"Restart SpringBoard" = "Herstart SpringBoard";
-"Downloading" = "Aan het downloaden";
-"Downloading Packages..." = "Pakketten aan het downloaden...";
-"Installing" = "Aan het installeren";
-"Installing Packages..." = "Pakketten aan het installeren...";
-"Removing" = "Aan het verwijderen";
-"Removing Packages..." = "Pakketten aan het verwijderen...";
-"Reinstalling" = "Opnieuw aan het installeren";
-"Reinstalling Packages..." = "Pakketten opnieuw aan het installeren...";
-"Upgrading" = "Aan het upgraden";
-"Upgrading Packages..." = "Pakketten aan het upgraden...";
-"Complete" = "Compleet";
-"Finished!" = "Klaar!";
-"Return to Queue" = "Terug naar wachtrij";
-"Importing local packages." = "Lokale pakketten aan het importeren";
-"Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
-"One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Pakketen in de wachtrij";
-"Package in Queue" = "Pakket in de wachtrij";
-"Tap to manage Queue" = "Tik om de wachtrij te wijzigingen";
+"Packages in Queue" = "Packages in Queue";
+"Package in Queue" = "Package in Queue";
+"Tap to manage Queue" = "Tap to manage Queue";
 
 // Queue
 
-"Queue" = "Wachtrij";
-"Queue cleared" = "Wachtrij leeggemaakt";
-"Install" = "Installeer";
-"Reinstall" = "Installeer opnieuw";
-"Remove" = "Verwijder";
+"Queue" = "Queue";
+"Queue cleared" = "Queue cleared";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
 "Upgrade" = "Upgrade";
 "Downgrade" = "Downgrade";
-"Abort" = "Stop";
-"Continue" = "Doorgaan";
-"Download Size" = "Downloadgrootte";
-"Confirm" = "Bevestig";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "Required Package" = "Required Package";
 "%@ is required by:" = "%@ is required by:";
