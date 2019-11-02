@@ -86,6 +86,8 @@
 "Resetting image cache completed" = "清除图片缓存完成";
 "Clearing keychain completed" = "Keychain 清除完成";
 
+"Drop Tables" = "Drop Tables";
+
 // Sources
 
 "Sources" = "软件源";
