@@ -88,7 +88,7 @@
 
 "Drop Tables" = "テーブルの削除";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "代替アイコン";
 
 // Sources
 
@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "管理";
-"Addons" = "Addons";
+"Addons" = "アドオン";
 "App Addons" = "アプリのアドオン";
 "Archiving" = "アーカイブ";
 "Carrier Support" = "キャリアサポート";
