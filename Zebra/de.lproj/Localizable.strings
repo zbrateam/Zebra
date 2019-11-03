@@ -88,7 +88,7 @@
 
 "Drop Tables" = "Datenbanktabellen leeren";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternative Symbole";
 
 // Sources
 
@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "Administration";
-"Addons" = "Addons";
+"Addons" = "Erweiterungen";
 "App Addons" = "App Erweiterungen";
 "Archiving" = "Archivierung";
 "Carrier Support" = "Netzbetreiber Unterstützung";
