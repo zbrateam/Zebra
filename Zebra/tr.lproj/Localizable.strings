@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "Yönetim";
+"Addons" = "Addons";
 "App Addons" = "Uygulama Eklentileri";
 "Archiving" = "Arşivleme";
 "Carrier Support" = "Telekominasyon";
