@@ -88,7 +88,7 @@
 
 "Drop Tables" = "删除所有数据";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "备选图标";
 
 // Sources
 
@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "管理";
-"Addons" = "Addons";
+"Addons" = "附加组件";
 "App Addons" = "App 插件";
 "Archiving" = "归档";
 "Carrier Support" = "运营商支持";
