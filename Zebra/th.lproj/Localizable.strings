@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "ผู้ดูแลระบบ";
+"Addons" = "Addons";
 "App Addons" = "ส่วนเสริมโปรแกรม";
 "Archiving" = "การเก็บถาวร";
 "Carrier Support" = "เครือข่ายมือถือ";
