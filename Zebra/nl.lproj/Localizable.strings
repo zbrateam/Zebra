@@ -26,7 +26,7 @@
 "Stores" = "Winkel";
 "Purchases" = "Aankopen";
 "Wish List" = "Verlanglijst";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Geen voorwerpen in de verlanglijst";
 "Community" = "Gemeenschap";
 "Join our Discord" = "Treed toe tot onze Discord";
 "Follow me on Twitter" = "Volg mij op Twitter";
@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Legen van de afbeeldingencache is gelukt";
 "Clearing keychain completed" = "Legen van de sleutelhanger is gelukt";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Tabellen verwijderen";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternatieve iconen";
 
 // Sources
 
@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "Administratie";
-"Addons" = "Addons";
+"Addons" = "Extra's";
 "App Addons" = "App Extra's";
 "Archiving" = "Archivering";
 "Carrier Support" = "Provider Hulp";
@@ -214,7 +214,7 @@
 // Console
 
 "Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Acties uitvoeren...";
 "Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
@@ -255,8 +255,8 @@
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
 "Confirm" = "Bevestig";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
+"Required Package" = "Vereist pakket";
+"%@ is required by:" = "%@ is vereist door:";
+"Issues" = "Problemen";
+"%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
