@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "Администрирование";
+"Addons" = "Addons";
 "App Addons" = "Дополнения к приложениям";
 "Archiving" = "Архивирование";
 "Carrier Support" = "Поддержка для Операторов";
