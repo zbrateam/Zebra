@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "管理 ";
+"Addons" = "Addons";
 "App Addons" = "應用插件";
 "Archiving" = "歸檔";
 "Carrier Support" = "運營商支持";
