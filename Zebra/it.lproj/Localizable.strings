@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "Amministrazione";
+"Addons" = "Addons";
 "App Addons" = "Componenti Aggiuntivi App";
 "Archiving" = "Archiviazione";
 "Carrier Support" = "Supporto Gestore";
