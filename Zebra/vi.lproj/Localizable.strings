@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "Quyền quản trị";
+"Addons" = "Addons";
 "App Addons" = "Ứng dụng bổ trợ";
 "Archiving" = "Lưu trữ";
 "Carrier Support" = "Hỗ trợ Carrier";
