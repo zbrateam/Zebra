@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "관리";
+"Addons" = "Addons";
 "App Addons" = "앱 에드온";
 "Archiving" = "아카이빙";
 "Carrier Support" = "통신사 지원";
