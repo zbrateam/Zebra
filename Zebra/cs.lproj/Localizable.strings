@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "Správa";
+"Addons" = "Addons";
 "App Addons" = "Doplňky aplikací";
 "Archiving" = "Archivace";
 "Carrier Support" = "Podpora operátora";
