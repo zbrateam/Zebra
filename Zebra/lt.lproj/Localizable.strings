@@ -154,6 +154,7 @@
 // Package Section Names
 
 "Administration" = "Valdymas";
+"Addons" = "Addons";
 "App Addons" = "Programų papildymai";
 "Archiving" = "Archyvavimas";
 "Carrier Support" = "Operatoriaus palaikymas";
