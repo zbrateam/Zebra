@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "Administration";
-"Addons" = "Addons";
+"Addons" = "Tilføjelser";
 "App Addons" = "App Tilføjelser";
 "Archiving" = "Arkivering";
 "Carrier Support" = "Carrier Support";
@@ -256,7 +256,7 @@
 "Download Size" = "Overførsels størrelse";
 "Confirm" = "Bekræft";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
+"Required Package" = "Påkrævet Pakke";
 "%@ is required by:" = "%@ er påkrævet af:";
 "Issues" = "Problemer";
 "%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
