@@ -88,7 +88,7 @@
 
 "Drop Tables" = "Pašalinti lenteles";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternatyvios piktogramos";
 
 // Sources
 
@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "Valdymas";
-"Addons" = "Addons";
+"Addons" = "Papildymai";
 "App Addons" = "Programų papildymai";
 "Archiving" = "Archyvavimas";
 "Carrier Support" = "Operatoriaus palaikymas";
