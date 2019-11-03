@@ -88,7 +88,7 @@
 
 "Drop Tables" = "Διαγραφή Πινάκων";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Εναλλαγή Εικονιδίων";
 
 // Sources
 
@@ -154,7 +154,7 @@
 // Package Section Names
 
 "Administration" = "Διαχείριση";
-"Addons" = "Addons";
+"Addons" = "Πρόσθετα";
 "App Addons" = "Πρόσθετα Εφαρμογών";
 "Archiving" = "Αρχειοθέτηση";
 "Carrier Support" = "Υποστήριξη Παρόχου";
