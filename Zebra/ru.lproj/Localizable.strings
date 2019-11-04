@@ -53,7 +53,7 @@
 
 "Tint Color" = "Цвет";
 "Blue" = "Синий";
-"Orange" = "Оранж.";
+"Orange" = "Оранжевый";
 "White" = "Белый";
 "Black" = "Черный";
 
@@ -141,14 +141,14 @@
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";
-"Repo" = "Repo";
+"Repo" = "Репозиторий";
 "Installed Files" = "Установленные Файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста заного войдите в ваш аккаунт который используется для покупки этого пакета (Возможно %@)";
 "More by this Developer" = "Больше от этого Разработчика";
 "Installed Version" = "Установленная Версия";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Размер после установки";
 
 "Add to Wish List" = "Добавить в список желаний";
 "Remove from Wish List" = "Удалить из списка желаний";
