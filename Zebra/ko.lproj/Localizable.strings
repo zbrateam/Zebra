@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "이미지 캐시 초기화 완료";
 "Clearing keychain completed" = "키체인 지우기 완료";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "테이블 버리기";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "대체 아이콘";
 
 // Sources
 
@@ -156,7 +156,7 @@
 // Package Section Names
 
 "Administration" = "관리";
-"Addons" = "Addons";
+"Addons" = "애드온";
 "App Addons" = "앱 에드온";
 "Archiving" = "아카이빙";
 "Carrier Support" = "통신사 지원";
