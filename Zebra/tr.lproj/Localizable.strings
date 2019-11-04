@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Resim hafızasını temizleme tamamlandı";
 "Clearing keychain completed" = "Anahtar Zincirini temizleme tamamlandı";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Tabloları Çıkart";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternatif İkonlar";
 
 // Sources
 
@@ -141,14 +141,14 @@
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Gizlenen Güncellemeler";
 "Recent" = "En Son";
-"Repo" = "Repo";
+"Repo" = "Kaynak";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
 "Authenticate to initiate purchase." = "İç satın alımı onayla.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Lütfen bu paketi almak için kullandığınız hesaba giriş yapın. (Muhtemelen %@)";
 "More by this Developer" = "Bu yapımcıdan daha fazla paket";
 "Installed Version" = "Yüklenen Versiyon";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Yüklü Boyut";
 
 "Add to Wish List" = "İstek Listesine ekle";
 "Remove from Wish List" = "İstek Listesinden kaldır";
@@ -156,7 +156,7 @@
 // Package Section Names
 
 "Administration" = "Yönetim";
-"Addons" = "Addons";
+"Addons" = "Eklentiler";
 "App Addons" = "Uygulama Eklentileri";
 "Archiving" = "Arşivleme";
 "Carrier Support" = "Telekominasyon";
@@ -259,6 +259,6 @@
 "Confirm" = "Onayla";
 "%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
 "Required Package" = "Gerekli Paket";
-"%@ is required by:" = "%@ is required by:";
+"%@ is required by:" = "%@ şunun tarafından isteniyor:";
 "Issues" = "Sorunlar";
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
