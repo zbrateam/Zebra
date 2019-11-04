@@ -141,12 +141,14 @@
 "Available Upgrades" = "Dostupné aktualizácie";
 "Ignored Upgrades" = "Ignorované aktualizácie";
 "Recent" = "Nedávne";
+"Repo" = "Repo";
 "Installed Files" = "Nainštalované súbory";
 "Modify" = "Upraviť";
 "Authenticate to initiate purchase." = "Autorizuj se pro nákup.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Znova prihláste svoj účet, ktorý sa používa na zakúpenie tohto balíčka (Prípadne %@)";
 "More by this Developer" = "Viac od tohto vývojára";
 "Installed Version" = "Inštalovaná verzia";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Pridať na Wish List";
 "Remove from Wish List" = "Odstrániť z Wish Listu";
