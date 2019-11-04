@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Poništavanje predmemorije slike je završeno";
 "Clearing keychain completed" = "Poništavanje lozinki je završeno";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Očitaj tabele izvora";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternativna ikona";
 
 // Sources
 
@@ -156,7 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administracija";
-"Addons" = "Addons";
+"Addons" = "Dodaci";
 "App Addons" = "Dodatci Aplikacijama";
 "Archiving" = "Arhiviranje";
 "Carrier Support" = "Mrežna podrška";
