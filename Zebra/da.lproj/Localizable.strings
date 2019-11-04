@@ -141,12 +141,14 @@
 "Available Upgrades" = "Tilgængelig Opgraderinger";
 "Ignored Upgrades" = "Ignorer Opgraderinger";
 "Recent" = "Nylig";
+"Repo" = "Repo";
 "Installed Files" = "Installeret Filer";
 "Modify" = "Modificer";
 "Authenticate to initiate purchase." = "Autentificere for at igangsætte køb.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vær sød at logge ind på kontoen der er brugt til at købe denne pakke (Muligvis %@)";
 "More by this Developer" = "Mere fra denne Udvikler";
 "Installed Version" = "Installeret Udgave";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Tilføj til Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
