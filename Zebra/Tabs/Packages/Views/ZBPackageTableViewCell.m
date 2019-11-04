@@ -85,20 +85,20 @@
 }
 
 - (void)updateQueueStatus:(ZBPackage *)package {
-//    ZBQueueType queue = [[ZBQueue sharedQueue] queueStatusForPackage:package];
-//    if (queue) {
-//        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:false];
-//        self.queueStatusLabel.hidden = NO;
-//        self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
-//        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.queueStatusLabel sizeToFit];
-//        });
-//    } else {
-//        self.queueStatusLabel.hidden = YES;
-//        self.queueStatusLabel.text = nil;
-//        self.queueStatusLabel.backgroundColor = nil;
-//    }
+    ZBQueueType queue = [[ZBQueue sharedQueue] locate:package];
+    if (queue != ZBQueueTypeClear) {
+        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:false];
+        self.queueStatusLabel.hidden = NO;
+        self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
+        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.queueStatusLabel sizeToFit];
+        });
+    } else {
+        self.queueStatusLabel.hidden = YES;
+        self.queueStatusLabel.text = nil;
+        self.queueStatusLabel.backgroundColor = nil;
+    }
 }
 
 - (void)setColors {
