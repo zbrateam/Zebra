@@ -141,12 +141,14 @@
 "Available Upgrades" = "Aggiornamenti Disponibili";
 "Ignored Upgrades" = "Aggiornamenti Ignorati";
 "Recent" = "Recente";
+"Repo" = "Repo";
 "Installed Files" = "File Installati";
 "Modify" = "Modifica";
 "Authenticate to initiate purchase." = "Autenticati per iniziare l'acquisto.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Accedi nuovamente al tuo account utilizzato per acquistare questo pacchetto (Possibilmente %@)";
 "More by this Developer" = "Altro da questo Sviluppatore";
 "Installed Version" = "Versione Installata";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Aggiungi alla Lista dei Desideri";
 "Remove from Wish List" = "Rimuovi dalla Lista dei Desideri";
