@@ -141,14 +141,14 @@
 "Available Upgrades" = "Prieinami naujinimai";
 "Ignored Upgrades" = "Praignoruoti naujinimai";
 "Recent" = "Naujausi";
-"Repo" = "Repo";
+"Repo" = "Saugykla";
 "Installed Files" = "Įdiegti failai";
 "Modify" = "Modifikuoti";
 "Authenticate to initiate purchase." = "Norėdami apsipirkti, patvirtinkite savo tapatybę.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Prašau prisijunkite iš naujo prie paskyros, kuri buvo naudojama perkant šį paketą (Possibly %@)";
 "More by this Developer" = "Daugiau iš šio kūrėjo";
 "Installed Version" = "Įdiegta versija";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Įdiegtas dydis";
 
 "Add to Wish List" = "Pridėti į norų sąrašą";
 "Remove from Wish List" = "Išimti iš norų sąrašo";
