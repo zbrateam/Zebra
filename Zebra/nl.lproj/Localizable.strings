@@ -141,12 +141,14 @@
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
+"Repo" = "Repo";
 "Installed Files" = "Geïnstalleerde bestanden";
 "Modify" = "Pas aan";
 "Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Log alstublieft in met het account dat dit pakket gekocht heeft. (Mogelijk %@)";
 "More by this Developer" = "Meer van deze ontwikkelaar";
 "Installed Version" = "Geïnstalleerde versie";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Voeg toe aan verlanglijst";
 "Remove from Wish List" = "Verwijder van verlanglijst";
