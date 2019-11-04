@@ -141,14 +141,14 @@
 "Available Upgrades" = "可更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
-"Repo" = "Repo";
+"Repo" = "软件源";
 "Installed Files" = "已安装的文件";
 "Modify" = "修改";
 "Authenticate to initiate purchase." = "登录后购买。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
-"Installed Size" = "Installed Size";
+"Installed Size" = "安装大小";
 
 "Add to Wish List" = "加入心愿单";
 "Remove from Wish List" = "从心愿单中移除";
