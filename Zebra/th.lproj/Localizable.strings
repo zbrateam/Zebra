@@ -141,12 +141,14 @@
 "Available Upgrades" = "รุ่นใหม่ที่มี";
 "Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
 "Recent" = "เร็วๆ นี้";
+"Repo" = "Repo";
 "Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
 "Modify" = "แก้ไข";
 "Authenticate to initiate purchase." = "ยืนยันตัวตนเพื่อเริ่มการซื้อ";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "กรุณาลงชื่อเข้าใช้บัญชีที่คุณใช้ในการซื้อโปรแกรมนี้อีกครั้ง (คาดว่าคือ %@)";
 "More by this Developer" = "โปรแกรมอื่นๆ จากนักพัฒนาคนนี้";
 "Installed Version" = "รุ่นที่ติดตั้ง";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "เพิ่มในรายการอยากได้";
 "Remove from Wish List" = "ลบจากรายการอยากได้";
