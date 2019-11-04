@@ -141,14 +141,14 @@
 "Available Upgrades" = "Dostupna Ažuriranja";
 "Ignored Upgrades" = "Ignorirana Ažuriranja";
 "Recent" = "Nedavno";
-"Repo" = "Repo";
+"Repo" = "Spremište";
 "Installed Files" = "Instalirane Datoteke";
 "Modify" = "Izmjeni";
 "Authenticate to initiate purchase." = "Autentifikacije za pokretanje kupovine.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Molimo ponovnu prijavu u Vaš korisnički račun koji ste upotrijebili za kupovinu ovog paketa (Moguće %@)";
 "More by this Developer" = "Više od ovog Programera";
 "Installed Version" = "Instalirana Inačica";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Instalirana veličina";
 
 "Add to Wish List" = "Dodaj na popis želja";
 "Remove from Wish List" = "Ukloni s popisa želja";
