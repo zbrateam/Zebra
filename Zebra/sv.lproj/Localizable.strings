@@ -141,12 +141,14 @@
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Nytt";
+"Repo" = "Repo";
 "Installed Files" = "Installerade filer";
 "Modify" = "Ändra";
 "Authenticate to initiate purchase." = "Autentisera för att initiera köp.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Logga in igen med ditt konto som används för att köpa det här paketet (Eventuellt %@)";
 "More by this Developer" = "Mer av den här utvecklaren";
 "Installed Version" = "Installerad version";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Lägg till på önskelistan";
 "Remove from Wish List" = "Ta bort från önskelistan";
