@@ -141,12 +141,14 @@
 "Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
 "Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
 "Recent" = "Πρόσφατα";
+"Repo" = "Repo";
 "Installed Files" = "Εγκατεστημένα Αρχεία";
 "Modify" = "Τροποποίησε";
 "Authenticate to initiate purchase." = "Επαληθεύσου για να πραγματοποιήσεις την αγορά.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Παρακαλώ ξανασυνδέσου στον λογαριασμό σου που χρησιμοποιείται για την αγορά αυτού του πακέτου (Πιθανόν %@)";
 "More by this Developer" = "Περισσότερα από αυτόν τον Προγραμματιστή";
 "Installed Version" = "Εγκατεστημένη Έκδοση";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Πρόσθεσε στην Λίστα Επιθυμιών";
 "Remove from Wish List" = "Αφαίρεσε από την Λίστα Επιθυμιών";
