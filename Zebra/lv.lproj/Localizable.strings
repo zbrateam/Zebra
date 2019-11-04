@@ -141,12 +141,14 @@
 "Available Upgrades" = "Pieejamie atjauninājumi";
 "Ignored Upgrades" = "Ignorētie atjauninājumi";
 "Recent" = "Nesen";
+"Repo" = "Repo";
 "Installed Files" = "Instalētie faili";
 "Modify" = "Modificēt";
 "Authenticate to initiate purchase." = "Autentificējies, lai sākt pirkumu.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Lūdzu, pieslēdzies vēlreiz ar kontu, kas tieka izmantots, lai iegādātos šo paketi (iespējams %@)";
 "More by this Developer" = "Vairāk no šī izstrādātāja";
 "Installed Version" = "Instalētā versija";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Pievienot vēlmju sarakstam";
 "Remove from Wish List" = "Noņemt no vēlmju sarakstam";
