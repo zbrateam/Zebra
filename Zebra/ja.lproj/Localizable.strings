@@ -141,12 +141,14 @@
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視したアップグレード";
 "Recent" = "最近";
+"Repo" = "Repo";
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
 "Installed Version" = "インストール済みバージョン";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "ほしい物リストに追加する";
 "Remove from Wish List" = "ほしい物リストから削除";
