@@ -141,12 +141,14 @@
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Gizlenen Güncellemeler";
 "Recent" = "En Son";
+"Repo" = "Repo";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
 "Authenticate to initiate purchase." = "İç satın alımı onayla.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Lütfen bu paketi almak için kullandığınız hesaba giriş yapın. (Muhtemelen %@)";
 "More by this Developer" = "Bu yapımcıdan daha fazla paket";
 "Installed Version" = "Yüklenen Versiyon";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "İstek Listesine ekle";
 "Remove from Wish List" = "İstek Listesinden kaldır";
