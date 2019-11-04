@@ -141,14 +141,14 @@
 "Available Upgrades" = "Tilgjengelege Oppdateringar";
 "Ignored Upgrades" = "Ignorerte Oppdateringar";
 "Recent" = "Nyleg";
-"Repo" = "Repo";
+"Repo" = "Kjelde";
 "Installed Files" = "Installerte Filer";
 "Modify" = "Endre";
 "Authenticate to initiate purchase." = "Autentiser for å kjøpa.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Ver vennleg og logg inn på nytt med kontoen som blir brukt for å kjøpa denne pakken (Kanskje %@)";
 "More by this Developer" = "Meir frå denne Utviklaren";
 "Installed Version" = "Installert Versjon";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Installert storleik";
 
 "Add to Wish List" = "Legg til i Ønskelista";
 "Remove from Wish List" = "Fjern frå Ønskelista";
