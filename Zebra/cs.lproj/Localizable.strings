@@ -141,14 +141,14 @@
 "Available Upgrades" = "Dostupné Aktualizace";
 "Ignored Upgrades" = "Ignorované Aktualizace";
 "Recent" = "Nedávné";
-"Repo" = "Repo";
+"Repo" = "Repozitář";
 "Installed Files" = "Instalované Soubory";
 "Modify" = "Upravit";
 "Authenticate to initiate purchase." = "Autorizovat se k zakoupení.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Prosím, znovu se přihlaste k účtu, krerý chcete použít k zakoupení tohoto balíčku. (Případně %@)";
 "More by this Developer" = "Více od tohoto vývojáře.";
 "Installed Version" = "Instalovaná Verze";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Nainstalovaná velikost";
 
 "Add to Wish List" = "Přidat na Wish List";
 "Remove from Wish List" = "Odstranit z Wish Listu";
