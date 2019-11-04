@@ -141,14 +141,14 @@
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
-"Repo" = "Repo";
+"Repo" = "מקור";
 "Installed Files" = "קבצים מותקנים";
 "Modify" = "נהל";
 "Authenticate to initiate purchase." = "בצע/י אימות כדי להתחיל רכישה.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "אנא התחבר/י מחדש לחשבונך ששומש לרכישת חבילה זו (עלול להיות %@)";
 "More by this Developer" = "עוד ממפתח זה";
 "Installed Version" = "גירסה מותקנת";
-"Installed Size" = "Installed Size";
+"Installed Size" = "גודל מותקן";
 
 "Add to Wish List" = "הוסף לרשימת המשאלות";
 "Remove from Wish List" = "הסר מרשימת המשאלות";
