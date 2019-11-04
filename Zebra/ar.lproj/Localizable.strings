@@ -141,14 +141,14 @@
 "Available Upgrades" = "الترقيات المتاحة";
 "Ignored Upgrades" = "تجاهل الترقيات";
 "Recent" = "مؤخرًا";
-"Repo" = "Repo";
+"Repo" = "المستودع";
 "Installed Files" = "الملفات المثبتة";
 "Modify" = "تعديل";
 "Authenticate to initiate purchase." = "المصادقة لبدء الشراء.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "يرجى إعادة تسجيل الدخول بحسابك الذي تم إستخدامه لشراء هذه الحزمة (ربما %@)";
 "More by this Developer" = "المزيد بواسطة هذا المطور";
 "Installed Version" = "الإصدار المثبت";
-"Installed Size" = "Installed Size";
+"Installed Size" = "حجم التثبيت";
 
 "Add to Wish List" = "إضافة إلى قائمة الأمنيات";
 "Remove from Wish List" = "إزالة من قائمة الأمنيات";
