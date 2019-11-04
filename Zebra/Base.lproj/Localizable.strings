@@ -141,12 +141,14 @@
 "Available Upgrades" = "Available Upgrades";
 "Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
+"Repo" = "Repo";
 "Installed Files" = "Installed Files";
 "Modify" = "Modify";
 "Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
 "More by this Developer" = "More by this Developer";
 "Installed Version" = "Installed Version";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Add to Wish List";
 "Remove from Wish List" = "Remove from Wish List";
