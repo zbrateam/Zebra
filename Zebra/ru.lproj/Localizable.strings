@@ -88,7 +88,7 @@
 
 "Drop Tables" = "Удалить таблицы";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Альтернативные иконки";
 
 // Sources
 
@@ -156,7 +156,7 @@
 // Package Section Names
 
 "Administration" = "Администрирование";
-"Addons" = "Addons";
+"Addons" = "Дополнения";
 "App Addons" = "Дополнения к приложениям";
 "Archiving" = "Архивирование";
 "Carrier Support" = "Поддержка для Операторов";
