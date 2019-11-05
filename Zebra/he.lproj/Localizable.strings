@@ -262,5 +262,5 @@
 "%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
 "Issues" = "בעיות";
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "האם את/ה בטוח/ה?";
+"Are you sure you want to clear the queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
