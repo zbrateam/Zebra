@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@ je potreban od strane:";
 "Issues" = "Problemi";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji se ne mogu riješiti:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
