@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ مطلوبة بواسطة:";
 "Issues" = "أخطاء";
 "%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "هل أنت متأكد؟";
+"Are you sure you want to clear the queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
