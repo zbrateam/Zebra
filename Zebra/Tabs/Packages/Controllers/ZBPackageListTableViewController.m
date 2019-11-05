@@ -84,7 +84,9 @@
 - (void)layoutNavigationButtonsNormal {
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
-        [self configureQueueOrShareButton];
+        
+        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+        self.navigationItem.leftBarButtonItem = shareButton;
     } else {
         [self configureLoadMoreButton];
     }
@@ -213,21 +215,6 @@
         segmentedControl.selectedSegmentIndex = self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
-    });
-}
-
-- (void)configureQueueOrShareButton {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([ZBQueue count] > 0) {
-            self->queueButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Queue", @"") style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-            self->clearButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"") style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
-            self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
-        } else {
-            self->queueButton = self->clearButton = nil;
-            self.navigationItem.leftBarButtonItems = nil;
-            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
-            self.navigationItem.leftBarButtonItem = shareButton;
-        }
     });
 }
 
