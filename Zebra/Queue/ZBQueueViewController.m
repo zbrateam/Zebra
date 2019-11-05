@@ -42,10 +42,6 @@
     self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
 }
 
-- (void)updateQueueBarData {
-    [[ZBAppDelegate tabBarController] updateQueueBarData];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if ([ZBDevice darkModeEnabled]) {
@@ -62,7 +58,6 @@
 - (void)refreshTable {
     if ([ZBQueue count] == 0) {
         [queue clear];
-        [self updateQueueBarData];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
         return;
     }
@@ -90,7 +85,6 @@
     
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self->queue clear];
-        [self updateQueueBarData];
     }];
     [alert addAction:confirm];
     

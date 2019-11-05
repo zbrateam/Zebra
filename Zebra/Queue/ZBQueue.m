@@ -58,6 +58,10 @@
     return self;
 }
 
+- (void)updateQueueBarData {
+    [[ZBAppDelegate tabBarController] updateQueueBarData];
+}
+
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear && type != queue) { //Remove package from queue
@@ -80,6 +84,7 @@
             [self enqueueRemovalOfPackagesThatDependOn:package];
         }
     }
+    [self updateQueueBarData];
 }
 
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
@@ -99,6 +104,7 @@
         
         [[self dependencyQueue] addObject:package];
     }
+    [self updateQueueBarData];
 }
 
 - (void)addConflict:(ZBPackage *)package {
@@ -106,6 +112,7 @@
         [[self conflictQueue] addObject:package];
         [self enqueueRemovalOfPackagesThatDependOn:package];
     }
+    [self updateQueueBarData];
 }
 
 - (BOOL)enqueueDependenciesForPackage:(ZBPackage *)package {
@@ -141,12 +148,14 @@
             [self removePackage:dependencyOf];
         }
     }
+    [self updateQueueBarData];
 }
 
 - (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
     [[package issues] removeAllObjects];
     [package setRemovedBy:NULL];
     [[self queueFromType:queue] removeObject:package];
+    [self updateQueueBarData];
 }
 
 - (void)removePackagesRemovedBy:(ZBPackage *)package {
@@ -165,6 +174,7 @@
     [[self dependencyQueue] removeAllObjects];
     [[self conflictQueue] removeAllObjects];
     [queuedPackagesList removeAllObjects];
+    [self updateQueueBarData];
 }
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
