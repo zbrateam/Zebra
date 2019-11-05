@@ -63,6 +63,11 @@
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89051716237233EF000F0A32 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89051715237233EF000F0A32 /* nanopb.framework */; };
 		8905171823723400000F0A32 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171723723400000F0A32 /* StoreKit.framework */; };
+		8905171B237238E2000F0A32 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89051719237238E1000F0A32 /* Crashlytics.framework */; };
+		8905171C237238E2000F0A32 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171A237238E2000F0A32 /* Fabric.framework */; };
+		8905171E2372398A000F0A32 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
+		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
+		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
@@ -274,6 +279,10 @@
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
 		89051715237233EF000F0A32 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
 		8905171723723400000F0A32 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		89051719237238E1000F0A32 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		8905171A237238E2000F0A32 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		8905171F2372398F000F0A32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		8916912E2367B4D4006E765F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -439,14 +448,19 @@
 			files = (
 				363FE2422287854F00B69929 /* Security.framework in Frameworks */,
 				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
+				8905171B237238E2000F0A32 /* Crashlytics.framework in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
+				8905171E2372398A000F0A32 /* Security.framework in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
+				890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */,
 				89051716237233EF000F0A32 /* nanopb.framework in Frameworks */,
 				896F7312237232A4007727FD /* GoogleDataTransport.framework in Frameworks */,
 				896F730A237232A4007727FD /* FirebaseInstanceID.framework in Frameworks */,
 				9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
 				8905171823723400000F0A32 /* StoreKit.framework in Frameworks */,
+				8905171C237238E2000F0A32 /* Fabric.framework in Frameworks */,
+				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 				896F730B237232A4007727FD /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				896F730C237232A4007727FD /* FirebaseAnalytics.framework in Frameworks */,
 				896F7309237232A4007727FD /* GoogleAppMeasurement.framework in Frameworks */,
@@ -855,6 +869,10 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8905172123723995000F0A32 /* libc++.tbd */,
+				8905171F2372398F000F0A32 /* SystemConfiguration.framework */,
+				89051719237238E1000F0A32 /* Crashlytics.framework */,
+				8905171A237238E2000F0A32 /* Fabric.framework */,
 				8905171723723400000F0A32 /* StoreKit.framework */,
 				89051715237233EF000F0A32 /* nanopb.framework */,
 				896F7313237232D1007727FD /* Firebase.h */,
@@ -994,6 +1012,7 @@
 				89C5FDDA21B1B13700A10E58 /* Frameworks */,
 				89C5FDDB21B1B13700A10E58 /* Resources */,
 				9E0D951D2358AD7000C6C2B2 /* Embed Frameworks */,
+				8905171D23723900000F0A32 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1177,6 +1196,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8905171D23723900000F0A32 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Fabric.framework/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		89C5FDD921B1B13700A10E58 /* Sources */ = {
