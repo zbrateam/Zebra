@@ -80,6 +80,7 @@
 		899203B722490D4C0098AC7B /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 899203B622490D4C0098AC7B /* dict.c */; };
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
 		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
+		89C227CE2371259E001C9C59 /* UITableViewRowAction+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
 		89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */; };
 		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
@@ -322,6 +323,8 @@
 		89A44B06236B575500D92DC9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
 		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
+		89C227CC2371259E001C9C59 /* UITableViewRowAction+Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewRowAction+Image.h"; sourceTree = "<group>"; };
+		89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewRowAction+Image.m"; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
@@ -708,6 +711,8 @@
 				89F8730223653D280070160A /* UIVisualEffectView+Theme.m */,
 				9E36BD17236DE27A000769D6 /* _UITextLayoutView.h */,
 				9E36BD18236DE27A000769D6 /* _UITextLayoutView.m */,
+				89C227CC2371259E001C9C59 /* UITableViewRowAction+Image.h */,
+				89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1142,6 +1147,7 @@
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
+				89C227CE2371259E001C9C59 /* UITableViewRowAction+Image.m in Sources */,
 				369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */,
 				9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
