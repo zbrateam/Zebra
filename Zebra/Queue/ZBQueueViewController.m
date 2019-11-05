@@ -89,9 +89,19 @@
 }
 
 - (IBAction)clearQueue:(id)sender {
-    [queue clear];
-    [self clearQueueBarData];
-    [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"Are you sure you want to clear the queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self->queue clear];
+        [self clearQueueBarData];
+        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+    }];
+    [alert addAction:confirm];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:true completion:nil];
 }
 
 - (IBAction)confirm:(id)sender {
