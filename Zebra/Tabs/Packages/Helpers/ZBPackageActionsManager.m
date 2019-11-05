@@ -216,13 +216,13 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 ZBQueue *queue = [ZBQueue sharedQueue];
                 [queue addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
-                [[ZBAppDelegate tabBarController] openQueue:YES];
+                [[ZBAppDelegate tabBarController] openQueue:NO];
             }];
             
             [alert addAction:action];
         }
         
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:cancel];
         
         if (indexPath) {
@@ -238,12 +238,12 @@
     else if ([greaterVersions count] == 1) {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:greaterVersions[0] toQueue:ZBQueueTypeUpgrade];
-        [[ZBAppDelegate tabBarController] openQueue:YES];
+        [[ZBAppDelegate tabBarController] openQueue:NO];
     }
     else {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
-        [[ZBAppDelegate tabBarController] openQueue:YES];
+        [[ZBAppDelegate tabBarController] openQueue:NO];
     }
 }
 
@@ -256,13 +256,13 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 ZBQueue *queue = [ZBQueue sharedQueue];
                 [queue addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-                [[ZBAppDelegate tabBarController] openQueue:YES];
+                [[ZBAppDelegate tabBarController] openQueue:NO];
             }];
             
             [alert addAction:action];
         }
         
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:cancel];
         
         if (indexPath) {
@@ -278,12 +278,12 @@
     else if ([lesserVersions count] == 1) {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:lesserVersions[0] toQueue:ZBQueueTypeDowngrade];
-        [[ZBAppDelegate tabBarController] openQueue:YES];
+        [[ZBAppDelegate tabBarController] openQueue:NO];
     }
     else {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:package toQueue:ZBQueueTypeDowngrade];
-        [[ZBAppDelegate tabBarController] openQueue:YES];
+        [[ZBAppDelegate tabBarController] openQueue:NO];
     }
 }
 
