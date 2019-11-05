@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@ được yêu cầu bởi:";
 "Issues" = "Các vấn đề";
 "%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
