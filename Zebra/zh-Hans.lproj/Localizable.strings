@@ -262,3 +262,5 @@
 "%@ is required by:" = "需要 %@ 依赖包：";
 "Issues" = "问题";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
