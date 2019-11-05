@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ reikalauja:";
 "Issues" = "Problemos";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Ar esate įsitikinę?";
+"Are you sure you want to clear the queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
