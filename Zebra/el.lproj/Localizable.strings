@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ απαιτείται από:";
 "Issues" = "Προβλήματα";
 "%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Είσαι σίγουρος;";
+"Are you sure you want to clear the queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
