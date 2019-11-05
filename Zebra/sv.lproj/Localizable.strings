@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@ is required by:";
 "Issues" = "Issues";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
