@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@ は右記に必要です:";
 "Issues" = "問題点";
 "%@ has issues that cannot be resolved:" = "%@ は右記の問題が解決できません:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
