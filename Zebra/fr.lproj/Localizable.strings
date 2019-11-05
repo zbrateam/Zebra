@@ -141,14 +141,14 @@
 "Available Upgrades" = "Mises à Niveau Disponibles";
 "Ignored Upgrades" = "Mises à Niveau Ignorées";
 "Recent" = "Récent";
-"Repo" = "Repo";
+"Repo" = "Source";
 "Installed Files" = "Fichiers Installés";
 "Modify" = "Modifier";
 "Authenticate to initiate purchase." = "S'identifier pour acheter.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Veuillez vous reconnecter au compte utilisé lors de l'achat de ce paquet (Possiblement %@)";
 "More by this Developer" = "Plus de paquets de ce Développeur";
 "Installed Version" = "Version Installée";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Taille Installée";
 
 "Add to Wish List" = "Ajouter à la Liste de Souhait";
 "Remove from Wish List" = "Supprimer de la Liste de Souhait";
@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ est requis par :";
 "Issues" = "Anomalies";
 "%@ has issues that cannot be resolved:" = "%@ a des problèmes qui ne peuvent pas être résolus :";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Êtes vous sûr ?";
+"Are you sure you want to clear the queue?" = "Êtes vous sur de vouloir vider la File d'Attente?";
