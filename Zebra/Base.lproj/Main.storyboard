@@ -904,14 +904,14 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Queue" id="uSZ-TC-nHR">
                         <leftBarButtonItems>
-                            <barButtonItem title="Continue" id="Bpj-dl-pWU">
+                            <barButtonItem title="Item" image="Chevron Down" id="al0-qb-ba3">
                                 <connections>
-                                    <action selector="abort:" destination="Utk-Km-MBH" id="1Kx-d2-EMa"/>
+                                    <action selector="dismissQueue:" destination="Utk-Km-MBH" id="5ty-3Y-xq6"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Clear" id="SKk-kx-VYh">
+                            <barButtonItem title="Clear" id="1ny-vH-ulE">
                                 <connections>
-                                    <action selector="clear:" destination="Utk-Km-MBH" id="8Zy-MV-UCk"/>
+                                    <action selector="clearQueue:" destination="Utk-Km-MBH" id="pgn-3p-LDZ"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -1258,6 +1258,7 @@
     </scenes>
     <resources>
         <image name="Changes" width="30" height="30"/>
+        <image name="Chevron Down" width="27.5" height="17"/>
         <image name="Dark" width="24" height="24"/>
         <image name="Home" width="25" height="25"/>
         <image name="Packages" width="25" height="25"/>

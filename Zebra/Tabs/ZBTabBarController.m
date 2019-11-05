@@ -171,6 +171,8 @@
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    if (!errorMessages) errorMessages = [NSMutableArray new];
+    [errorMessages addObject:@"hiya!"];
     if (level == ZBLogLevelError) {
         if (!errorMessages) errorMessages = [NSMutableArray new];
         [errorMessages addObject:status];
