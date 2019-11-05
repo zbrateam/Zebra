@@ -42,9 +42,8 @@
     self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
 }
 
-- (void)clearQueueBarData {
-    self.navigationController.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
-    self.navigationController.popupItem.subtitle = nil;
+- (void)updateQueueBarData {
+    [[ZBAppDelegate tabBarController] updateQueueBarData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,10 +62,8 @@
 - (void)refreshTable {
     if ([ZBQueue count] == 0) {
         [queue clear];
-        [self clearQueueBarData];
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-        }];
+        [self updateQueueBarData];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
         return;
     }
     
@@ -93,8 +90,7 @@
     
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self->queue clear];
-        [self clearQueueBarData];
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
+        [self updateQueueBarData];
     }];
     [alert addAction:confirm];
     

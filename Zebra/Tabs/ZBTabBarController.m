@@ -193,6 +193,8 @@
 - (void)updateQueueBarData {
     int totalPackages = [ZBQueue count];
     if (totalPackages == 0) {
+        queueNav.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
+        queueNav.popupItem.subtitle = nil;
         [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
         }];
