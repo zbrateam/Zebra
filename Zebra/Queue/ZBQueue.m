@@ -59,7 +59,7 @@
 }
 
 - (void)updateQueueBarData {
-    [[ZBAppDelegate tabBarController] updateQueueBarData];
+    [[ZBAppDelegate tabBarController] updateQueueBar];
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
@@ -133,7 +133,6 @@
         }
         [self removePackage:topPackage inQueue:ZBQueueTypeRemove];
         [self removePackagesRemovedBy:topPackage];
-        return;
     }
     else if (action != ZBQueueTypeClear) {
         [self removePackage:package inQueue:action];

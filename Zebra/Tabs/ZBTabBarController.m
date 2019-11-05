@@ -190,17 +190,8 @@
     queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
 }
 
-- (void)updateQueueBarData {
-    int totalPackages = [ZBQueue count];
-    if (totalPackages == 0) {
-        queueNav.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
-        queueNav.popupItem.subtitle = nil;
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-        }];
-        return;
-    }
-    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", totalPackages, NSLocalizedString(totalPackages > 1 ? @"Packages in Queue" : @"Package in Queue", @"")];
+- (void)updateQueueBarData:(int)count {
+    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", count, NSLocalizedString(count > 1 ? @"Packages in Queue" : @"Package in Queue", @"")];
     queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage Queue", @"");
 }
 
@@ -216,7 +207,6 @@
     if (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed)) {
         return;
     }
-    [self updateQueueBarData];
     self.popupInteractionStyle = LNPopupInteractionStyleSnap;
     self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
@@ -224,11 +214,24 @@
 
 - (void)updateQueueBar {
     [self checkQueueNav];
+    int totalPackages = [ZBQueue count];
     LNPopupPresentationState state = self.popupPresentationState;
-    if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-        [self openQueue:NO];
+    if (totalPackages == 0) {
+        queueNav.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
+        queueNav.popupItem.subtitle = nil;
+        
+        if (state == LNPopupPresentationStateOpen) {
+            [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
+            }];
+        }
     }
-    [self updateQueueBarData];
+    else {
+        if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
+            [self openQueue:NO];
+        }
+        [self updateQueueBarData:totalPackages];
+    }
 }
 
 - (void)forwardToPackage {

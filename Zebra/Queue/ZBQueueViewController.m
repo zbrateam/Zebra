@@ -56,12 +56,6 @@
 }
 
 - (void)refreshTable {
-    if ([ZBQueue count] == 0) {
-        [queue clear];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-        return;
-    }
-    
     packages = [queue topDownQueue];
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->queue hasIssues]) {
@@ -239,7 +233,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [queue removePackage:packages[indexPath.section][indexPath.row]];
-    [self refreshTable];
+    if ([ZBQueue count] > 0) {
+        [self refreshTable];
+    }
 }
 
 @end
