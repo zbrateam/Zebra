@@ -21,6 +21,8 @@
 #import <SDImageCache.h>
 #import <Tabs/Repos/Helpers/ZBRepo.h>
 
+@import FirebaseCore;
+
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
 }
@@ -193,6 +195,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     [self setDefaultValues];
+    [FIRApp configure];
 //    [self stablilityCheck];
     return YES;
 }
