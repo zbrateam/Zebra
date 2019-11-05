@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ şunun tarafından isteniyor:";
 "Issues" = "Sorunlar";
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Emin misiniz?";
+"Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
