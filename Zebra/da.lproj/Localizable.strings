@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@ er påkrævet af:";
 "Issues" = "Problemer";
 "%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
