@@ -141,14 +141,14 @@
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
-"Repo" = "Repo";
+"Repo" = "Bron";
 "Installed Files" = "Geïnstalleerde bestanden";
 "Modify" = "Pas aan";
 "Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Log alstublieft in met het account dat dit pakket gekocht heeft. (Mogelijk %@)";
 "More by this Developer" = "Meer van deze ontwikkelaar";
 "Installed Version" = "Geïnstalleerde versie";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Geïnstalleerde grootte";
 
 "Add to Wish List" = "Voeg toe aan verlanglijst";
 "Remove from Wish List" = "Verwijder van verlanglijst";
@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ is vereist door:";
 "Issues" = "Problemen";
 "%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Weet u het zeker?";
+"Are you sure you want to clear the queue?" = "Weet u zeker dat u de wachtrij wilt legen?";
