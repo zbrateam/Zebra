@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ je vyžadovaný:";
 "Issues" = "Problémy";
 "%@ has issues that cannot be resolved:" = "%@ má problémy, ktoré sa nedajú vyriešiť:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Ste si tým istý?";
+"Are you sure you want to clear the queue?" = "Naozaj chcete vymazať frontu?";
