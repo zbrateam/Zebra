@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ wird benötigt von:";
 "Issues" = "Probleme";
 "%@ has issues that cannot be resolved:" = "%@ hat Probleme die nicht gelöst werden konnten:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Bist Du sicher?";
+"Are you sure you want to clear the queue?" = "Möchtest Du die Warteschlange wirklich leeren?";
