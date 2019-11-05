@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
 "Issues" = "이슈";
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
