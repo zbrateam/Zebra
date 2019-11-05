@@ -10,6 +10,7 @@
 #import <ZBSettings.h>
 #import <ZBQueue.h>
 #import <ZBDevice.h>
+#import <Extensions/UITableViewRowAction+Image.h>
 
 @interface ZBWishListTableViewController ()
 
@@ -115,7 +116,10 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     }];
-    remove.backgroundColor = [UIColor systemPinkColor];
+    
+//    [remove setIcon:[UIImage imageNamed:@"Unknown"] withText:NSLocalizedString(@"Remove", @"") color:[UIColor systemPinkColor] rowHeight:65];
+    [remove setBackgroundColor:[UIColor systemPinkColor]];
+    
     return @[remove];
 }
 

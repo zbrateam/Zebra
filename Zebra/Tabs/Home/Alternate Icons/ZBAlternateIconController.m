@@ -22,6 +22,7 @@
     [super viewDidLoad];
     icons = @[@"Default", @"originalBlack", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
     betterNames = @[@"Original", @"Original (Dark)", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
+    self.title = NSLocalizedString(@"Alternate Icons", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,13 +56,13 @@
     } else {
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
     }
-    CGSize itemSize = CGSizeMake(40, 40);
+    CGSize itemSize = CGSizeMake(30, 30);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
     [cell.imageView.image drawInRect:imageRect];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    cell.imageView.layer.cornerRadius = 10;
+    cell.imageView.layer.cornerRadius = 5;
     cell.imageView.clipsToBounds = YES;
     
     return cell;

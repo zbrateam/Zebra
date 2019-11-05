@@ -43,6 +43,7 @@
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
     [self layoutNavigationButtons];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(layoutNavigationButtons) name:@"ZBUpdateNavigationButtons" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

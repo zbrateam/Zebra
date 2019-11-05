@@ -228,8 +228,10 @@ enum ZBSearchSection {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:notFoundID];
             }
             cell.textLabel.text = NSLocalizedString(@"No Results Found", @"");
-            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             return cell;
         }
         case ZBSearchSectionRecent: {
@@ -241,6 +243,7 @@ enum ZBSearchSection {
             cell.textLabel.text = [recentSearches objectAtIndex:indexPath.row];
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             return cell;
         }
         case ZBSearchSectionResults: {
@@ -250,6 +253,7 @@ enum ZBSearchSection {
                 [cell updateData:package];
                 [cell setColors];
             }
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             return cell;
         }
         default:

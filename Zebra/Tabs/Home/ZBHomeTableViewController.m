@@ -510,6 +510,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.tableView reloadData];
     [self colorWindow];
     [self configureFooter];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;

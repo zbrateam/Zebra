@@ -33,20 +33,13 @@
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self refreshBarButtons];
     [self applyLocalization];
     self.title = NSLocalizedString(@"Queue", @"");
 }
 
 - (void)applyLocalization {
     self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"Confirm", @"");
-    self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
     self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
-}
-
-- (void)clearQueueBarData {
-    self.navigationController.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
-    self.navigationController.popupItem.subtitle = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,53 +55,42 @@
     [self refreshTable];
 }
 
+- (void)refreshTable {
+    packages = [queue topDownQueue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self->queue hasIssues]) {
+            self.navigationItem.rightBarButtonItem.enabled = false;
+        }
+        else {
+            self.navigationItem.rightBarButtonItem.enabled = true;
+        }
+        [self.tableView reloadData];
+    });
+}
+
+#pragma mark - Button actions
+
+- (IBAction)dismissQueue:(id)sender {
+    [[ZBAppDelegate tabBarController] closePopupAnimated:YES completion:nil];
+}
+
+- (IBAction)clearQueue:(id)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"Are you sure you want to clear the queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self->queue clear];
+    }];
+    [alert addAction:confirm];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:true completion:nil];
+}
+
 - (IBAction)confirm:(id)sender {
     ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
     [self.navigationController pushViewController:console animated:true];
-}
-
-- (IBAction)abort:(id)sender {
-    if (!self.navigationItem.rightBarButtonItem.enabled) {
-        [queue clear];
-        [self clearQueueBarData];
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
-    } else {
-        [[ZBAppDelegate tabBarController] closePopupAnimated:YES completion:nil];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-}
-
-- (IBAction)clear:(id)sender {
-    [self abort:nil];
-}
-
-- (void)refreshBarButtons {
-    if ([queue hasIssues]) {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Abort", @"");
-        self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
-        self.navigationItem.leftBarButtonItems[1].enabled = YES;
-    }
-    else {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-        self.navigationItem.leftBarButtonItems[0].title = NSLocalizedString(@"Continue", @"");
-        self.navigationItem.leftBarButtonItems[1].enabled = NO;
-    }
-}
-
-- (void)refreshTable {
-    if ([ZBQueue count] == 0) {
-        [queue clear];
-        [self clearQueueBarData];
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
-        return;
-    }
-    
-    [self refreshBarButtons];
-    packages = [queue topDownQueue];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
 }
 
 #pragma mark - Table view data source
@@ -251,7 +233,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [queue removePackage:packages[indexPath.section][indexPath.row]];
-    [self refreshTable];
+    if ([ZBQueue count] > 0) {
+        [self refreshTable];
+    }
 }
 
 @end

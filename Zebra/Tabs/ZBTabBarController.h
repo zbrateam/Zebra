@@ -20,7 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)openQueue:(BOOL)openPopup;
 - (void)clearRepos;
 - (void)updateQueueNav;
+- (void)updateQueueBar;
 - (void)forwardToPackage;
+- (void)updateQueueBarData;
 @end
 
 NS_ASSUME_NONNULL_END
