@@ -262,3 +262,5 @@
 "%@ is required by:" = "%@ требуется пактом:";
 "Issues" = "Проблемы";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
