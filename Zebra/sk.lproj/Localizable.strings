@@ -16,13 +16,13 @@
 "Info" = "Info";
 "Welcome to the Zebra Beta!" = "Vitaj v Zebra Beta!";
 "Changelog" = "Zoznam zmien";
-"Community Repos" = "Repozitáre komunity";
-"Transfer Sources from %@" = "Prenes repozitáre z %@";
-"Move all sources from %@ to Zebra" = "Presuň všetky repozitáre z %@ to Zebra";
-"Utility repo for %@" = "Repozitáre nástrojov pre %@";
+"Community Repos" = "Repozitára komunity";
+"Transfer Sources from %@" = "Prenes repozitára z %@";
+"Move all sources from %@ to Zebra" = "Presuň všetky repozitára z %@ do Zebry";
+"Utility repo for %@" = "Repozitára nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovanie repozitárov";
+"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
 "Wish List" = "Zoznam želaní";
@@ -92,12 +92,12 @@
 
 // Sources
 
-"Sources" = "Repozitáre";
+"Sources" = "Repozitára";
 "Local Repository" = "Miestné repozitára";
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
 "No repository urls detected." = "Žiadne URL repozitárov neboli detekované.";
-"You have already added these repositories." = "Tieto repozitáre ste už pridali.";
+"You have already added these repositories." = "Tieto repozitára ste už pridali.";
 "Error verifying repository" = "Chyba pri overovaní repozitára";
 "Error verifying repositories" = "Chyba pri overovaní repozitárov";
 "Unknown error" = "Neznáma chyba";
@@ -108,7 +108,7 @@
 "Add Multiple" = "Pridať viac";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
 "Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovanie repozitárov";
+"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
 "Unable to verify Repo" = "Nie je možné overiť repozitár";
 "Refresh" = "Refreshút";
 "Log Out" = "Odhlásiť sa";
@@ -178,7 +178,7 @@
 "Networking" = "Sieť";
 "Packaging" = "Balenie";
 "Productivity" = "Produktivita";
-"Repositories" = "Repozitáre";
+"Repositories" = "Repozitára";
 "Ringtones" = "Vyzváňacie tóny";
 "Scripting" = "Skriptovanie";
 "Security" = "Zabezpečenie";
