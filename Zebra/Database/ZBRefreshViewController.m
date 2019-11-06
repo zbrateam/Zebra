@@ -78,8 +78,11 @@ typedef enum {
     } else {
         hadAProblem = YES;
         for (NSString *message in messages) {
-            [self writeToConsole:message atLevel:ZBLogLevelError];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self writeToConsole:message atLevel:ZBLogLevelError];
+            });
         }
+        [consoleView setNeedsLayout];
         buttonState = ZBStateDone;
         [self clearProblems];
     }
