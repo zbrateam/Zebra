@@ -22,6 +22,8 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 
+@import FirebaseAnalytics;
+
 @import SDWebImage;
 
 @interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
@@ -131,6 +133,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self checkClipboard];
+    [self registerView];
 }
 
 - (NSIndexPath *)indexPathForPosition:(NSInteger)pos {
@@ -677,6 +680,14 @@
     [self.tableView reloadData];
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

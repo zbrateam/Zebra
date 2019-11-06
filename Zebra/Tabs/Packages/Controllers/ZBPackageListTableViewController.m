@@ -22,6 +22,8 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBDevice.h"
 
+@import FirebaseAnalytics;
+
 @interface ZBPackageListTableViewController () {
     ZBSortingType selectedSortingType;
     NSArray <ZBPackage *> *packages;
@@ -75,6 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshTable];
+    [self registerView];
 }
 
 - (void)dealloc {
@@ -485,6 +488,14 @@
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setBarTintColor:nil];
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

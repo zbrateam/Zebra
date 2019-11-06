@@ -18,6 +18,8 @@
 #import <UIColor+GlobalColors.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 
+@import FirebaseAnalytics;
+
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *results;
@@ -77,6 +79,11 @@ enum ZBSearchSection {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self configureClearSearchButton];
     [self refreshTable];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self registerView];
 }
 
 - (void)applyLocalization {
@@ -372,6 +379,14 @@ enum ZBSearchSection {
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end
