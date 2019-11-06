@@ -573,7 +573,7 @@
         if (self->errorMessages) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-            refreshController.messages = self->errorMessages;
+            refreshController.messages = [self->errorMessages copy];
             self->errorMessages = NULL;
             [self presentViewController:refreshController animated:YES completion:nil];
         }

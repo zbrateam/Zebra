@@ -159,10 +159,12 @@
     }
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"[Zebra] error messages: %@", self->errorMessages);
         if (self->errorMessages) {
+            NSLog(@"[Zebra] Has errors!");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-            refreshController.messages = self->errorMessages;
+            refreshController.messages = [self->errorMessages copy];
             
             [self presentViewController:refreshController animated:YES completion:nil];
             self->errorMessages = nil;
@@ -171,8 +173,6 @@
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    if (!errorMessages) errorMessages = [NSMutableArray new];
-    
     if (level == ZBLogLevelError) {
         if (!errorMessages) errorMessages = [NSMutableArray new];
         [errorMessages addObject:status];
