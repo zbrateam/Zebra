@@ -380,13 +380,13 @@ Package: xyz.willy.zebra
 Version: 1.0~beta25
 Architecture: iphoneos-arm
 Maintainer: Wilson Styres <wilson@styres.me>
-Installed-Size: 45580
+Installed-Size: 45596
 Depends: dpkg, uikittools
 Filename: ./pkgfiles/xyz.willy.zebra_1.0~beta25_iphoneos-arm.deb
-Size: 12448478
-MD5sum: 31710b102a4c853de6f4030262ded5c8
-SHA1: ec921933ac5c3642e9e8154c0dcfb82d74a78448
-SHA256: 439d63b2890063bb14deeb487949f49effff3f2848d7e60c37c8a20d2f793909
+Size: 12450950
+MD5sum: 9a6bded6e72a78177d84c21c3f0787e8
+SHA1: f5efc395755a04fdcd235280376c02eff3469090
+SHA256: dd4a64a0f29f0b869c3a1abdd904a3d2245aeee4671f87f245b66821112a4d8e
 Section: Packaging
 Description: A Useful Package Manager
 Tag: purpose::x
