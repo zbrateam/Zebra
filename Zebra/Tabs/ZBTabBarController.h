@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateQueueNav;
 - (void)updateQueueBar;
 - (void)forwardToPackage;
-- (void)updateQueueBarData;
+- (void)updateQueueBarData:(int)count;
 @end
 
 NS_ASSUME_NONNULL_END
