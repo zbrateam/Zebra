@@ -159,7 +159,7 @@
 "Addons" = "Tillägg";
 "App Addons" = "App-tillägg";
 "Archiving" = "Arkivering";
-"Carrier Support" = "Operatör Stöd";
+"Carrier Support" = "Carrier Support";
 "Communication" = "Kommunikation";
 "Data Storage" = "Datalagring";
 "Development" = "Utveckling";
@@ -176,7 +176,7 @@
 "Multimedia" = "Multimedia";
 "Navigation" = "Navigering";
 "Networking" = "Nätverk";
-"Packaging" = "Förpackning";
+"Packaging" = "Packaging";
 "Productivity" = "Produktivitet";
 "Repositories" = "Förråd";
 "Ringtones" = "Ringsignaler";
@@ -258,7 +258,7 @@
 "Download Size" = "Nedladdningsstorlek";
 "Confirm" = "Bekräfta";
 "%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
-"Required Package" = "Nödvändig Paket";
+"Required Package" = "Required Package";
 "%@ is required by:" = "%@ krävs av:";
 "Issues" = "Problem";
 "%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
