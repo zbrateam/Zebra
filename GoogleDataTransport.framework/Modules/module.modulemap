@@ -1,0 +1,5 @@
+framework module GoogleDataTransport {
+umbrella header "GoogleDataTransport.h"
+export *
+module * { export * }
+}

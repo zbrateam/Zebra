@@ -11,6 +11,8 @@
 #import "ZBNewsCollectionViewCell.h"
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 
+@import FirebaseAnalytics;
+
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
     ZBViews,
@@ -67,6 +69,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self colorWindow];
+    [self registerView];
 }
 
 - (void)setupFeatured {
@@ -605,7 +608,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self performSegueWithIdentifier:@"segueHomeFeaturedToDepiction" sender:cell.packageID];
 }
 
-#pragma mark Navigation
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
@@ -615,6 +618,14 @@ typedef enum ZBLinksOrder : NSUInteger {
         [databaseManager closeDatabase];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end
