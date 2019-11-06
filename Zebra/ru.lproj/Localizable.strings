@@ -53,7 +53,7 @@
 
 "Tint Color" = "Цвет";
 "Blue" = "Синий";
-"Orange" = "Оранж.";
+"Orange" = "Оранжевый";
 "White" = "Белый";
 "Black" = "Черный";
 
@@ -85,6 +85,10 @@
 
 "Resetting image cache completed" = "Сброс кэша изображений завершен";
 "Clearing keychain completed" = "Очистка Keychain завершена";
+
+"Drop Tables" = "Удалить таблицы";
+
+"Alternate Icons" = "Альтернативные иконки";
 
 // Sources
 
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";
+"Repo" = "Репозиторий";
 "Installed Files" = "Установленные Файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста заного войдите в ваш аккаунт который используется для покупки этого пакета (Возможно %@)";
 "More by this Developer" = "Больше от этого Разработчика";
 "Installed Version" = "Установленная Версия";
+"Installed Size" = "Размер после установки";
 
 "Add to Wish List" = "Добавить в список желаний";
 "Remove from Wish List" = "Удалить из списка желаний";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Администрирование";
+"Addons" = "Дополнения";
 "App Addons" = "Дополнения к приложениям";
 "Archiving" = "Архивирование";
 "Carrier Support" = "Поддержка для Операторов";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ требуется пактом:";
 "Issues" = "Проблемы";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
+"Are you sure?" = "Вы уверены?";
+"Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";

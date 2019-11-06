@@ -26,7 +26,7 @@
 "Stores" = "Butikker";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Ingen elementer i Ønskelisten";
 "Community" = "Sosialt";
 "Join our Discord" = "Bli med i Discorden vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = " Tilbakestilling av bildebuffer fullført";
 "Clearing keychain completed" = "Tilbakestilling av nøkkelring fullført";
 
+"Drop Tables" = "Slipp Tabeller";
+
+"Alternate Icons" = "Alternative Ikoner";
+
 // Sources
 
 "Sources" = "Kilder";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Tilgjengelige Oppdateringer";
 "Ignored Upgrades" = "Ignorerte Oppdateringer";
 "Recent" = "Nylig";
+"Repo" = "Kilde";
 "Installed Files" = "Installerte Filer";
 "Modify" = "Endre";
 "Authenticate to initiate purchase." = "Autentiser for å kjøpe.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vennligst logg inn på nytt med kontoen som brukes for å kjøpe denne pakken (Muligens %@)";
 "More by this Developer" = "Mer fra denne Utvikleren";
 "Installed Version" = "Installert Versjon";
+"Installed Size" = "Installert størrelse";
 
 "Add to Wish List" = "Legg til i Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administrasjon";
+"Addons" = "Utvidelser";
 "App Addons" = "App Utvidelser";
 "Archiving" = "Arkivering";
 "Carrier Support" = "Operatør Støtte";
@@ -169,7 +176,7 @@
 "Multimedia" = "Multimedia";
 "Navigation" = "Navigasjon";
 "Networking" = "Nettverk";
-"Packaging" = "Innpakning";
+"Packaging" = "Pakketering";
 "Productivity" = "Produktivitet";
 "Repositories" = "Kilder";
 "Ringtones" = "Ringetoner";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "Konsoll";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Utfører handlinger...";
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta en stund og det kan hende at Zebra krasjer. Dette vil ikke føre til skade.";
 "Close Zebra" = "Lukk Zebra";
@@ -250,8 +257,10 @@
 "Continue" = "Fortsett";
 "Download Size" = "Nedlasting Størrelse";
 "Confirm" = "Bekreft";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ må fjernes fordi det avhenger av %@";
+"Required Package" = "Påkrevd Pakke";
+"%@ is required by:" = "%@ kreves av:";
+"Issues" = "Problemer";
+"%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
+"Are you sure?" = "Er du sikker?";
+"Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømme køen?";

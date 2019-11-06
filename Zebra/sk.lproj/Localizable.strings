@@ -12,21 +12,21 @@
 
 // Home
 
-"Home" = "Domú";
+"Home" = "Domov";
 "Info" = "Info";
 "Welcome to the Zebra Beta!" = "Vitaj v Zebra Beta!";
 "Changelog" = "Zoznam zmien";
-"Community Repos" = "Repozitáre komunity";
-"Transfer Sources from %@" = "Prenes repozitáre z %@";
-"Move all sources from %@ to Zebra" = "Presuň všetky repozitáre z %@ to Zebra";
-"Utility repo for %@" = "Repozitáre nástrojov pre %@";
+"Community Repos" = "Repozitára komunity";
+"Transfer Sources from %@" = "Prenes repozitára z %@";
+"Move all sources from %@ to Zebra" = "Presuň všetky repozitára z %@ do Zebry";
+"Utility repo for %@" = "Repozitára nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovanie repozitárov";
+"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
 "Wish List" = "Zoznam želaní";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Žiadne položky v zozname želaní";
 "Community" = "Komunita";
 "Join our Discord" = "Pripoj sa na náš Discord";
 "Follow me on Twitter" = "Sleduj ma na Twitteri";
@@ -86,14 +86,18 @@
 "Resetting image cache completed" = "Resetovanie image cache dokončené";
 "Clearing keychain completed" = "Čišťenie kľúčenky bolo dokončené";
 
+"Drop Tables" = "Znovu načítať dáta a repozitára";
+
+"Alternate Icons" = "Alternatívne ikony";
+
 // Sources
 
-"Sources" = "Repozitáre";
+"Sources" = "Repozitára";
 "Local Repository" = "Miestné repozitára";
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
 "No repository urls detected." = "Žiadne URL repozitárov neboli detekované.";
-"You have already added these repositories." = "Tieto repozitáre ste už pridali.";
+"You have already added these repositories." = "Tieto repozitára ste už pridali.";
 "Error verifying repository" = "Chyba pri overovaní repozitára";
 "Error verifying repositories" = "Chyba pri overovaní repozitárov";
 "Unknown error" = "Neznáma chyba";
@@ -104,7 +108,7 @@
 "Add Multiple" = "Pridať viac";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
 "Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovanie repozitárov";
+"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
 "Unable to verify Repo" = "Nie je možné overiť repozitár";
 "Refresh" = "Refreshút";
 "Log Out" = "Odhlásiť sa";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Dostupné aktualizácie";
 "Ignored Upgrades" = "Ignorované aktualizácie";
 "Recent" = "Nedávne";
+"Repo" = "Repozitár";
 "Installed Files" = "Nainštalované súbory";
 "Modify" = "Upraviť";
 "Authenticate to initiate purchase." = "Autorizuj se pro nákup.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Znova prihláste svoj účet, ktorý sa používa na zakúpenie tohto balíčka (Prípadne %@)";
 "More by this Developer" = "Viac od tohto vývojára";
 "Installed Version" = "Inštalovaná verzia";
+"Installed Size" = "Nainštalovaná veľkosť";
 
 "Add to Wish List" = "Pridať na Wish List";
 "Remove from Wish List" = "Odstrániť z Wish Listu";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administrácia";
+"Addons" = "Doplnky";
 "App Addons" = "Doplnky Aplikácií";
 "Archiving" = "Archivácia";
 "Carrier Support" = "Podpora Operátora";
@@ -171,7 +178,7 @@
 "Networking" = "Sieť";
 "Packaging" = "Balenie";
 "Productivity" = "Produktivita";
-"Repositories" = "Repozitáre";
+"Repositories" = "Repozitára";
 "Ringtones" = "Vyzváňacie tóny";
 "Scripting" = "Skriptovanie";
 "Security" = "Zabezpečenie";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "konzola";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Vykonávanie akcií...";
 "Updating icon cache asynchronously..." = "Asynchrónna aktualizácia icon cache...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Môže to chvíľu trvať a Zebra môže spadnúť. Ak sa to stane, je to v poriadku.";
 "Close Zebra" = "Zatvoriť Zebra";
@@ -250,8 +257,10 @@
 "Continue" = "Ďalej";
 "Download Size" = "Veľkosť sťahovania";
 "Confirm" = "Potvrdiť";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ musí byť odstránený, pretože to závisí na %@";
+"Required Package" = "Požadovaný balíček";
+"%@ is required by:" = "%@ je vyžadovaný:";
+"Issues" = "Problémy";
+"%@ has issues that cannot be resolved:" = "%@ má problémy, ktoré sa nedajú vyriešiť:";
+"Are you sure?" = "Ste si tým istý?";
+"Are you sure you want to clear the queue?" = "Naozaj chcete vymazať frontu?";

@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
 "Clearing keychain completed" = "Keychain erfolgreich geleert";
 
+"Drop Tables" = "Datenbanktabellen leeren";
+
+"Alternate Icons" = "Alternative Symbole";
+
 // Sources
 
 "Sources" = "Quellen";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Verfügbare Aktualisierungen";
 "Ignored Upgrades" = "Ignorierte Aktualiserungen";
 "Recent" = "Kürzlich";
+"Repo" = "Quelle";
 "Installed Files" = "Installierte Dateien";
 "Modify" = "Bearbeiten";
 "Authenticate to initiate purchase." = "Zum Kaufen authentifizieren.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Bitte melde dich erneut mit dem Konto an, mit dem das Paket gekauft wurde (Möglicherweise %@)";
 "More by this Developer" = "Mehr vom Entwickler";
 "Installed Version" = "Installierte Version";
+"Installed Size" = "Größe der Installation";
 
 "Add to Wish List" = "Zur Wunschliste hinzufügen";
 "Remove from Wish List" = "Von Wunschliste entfernen";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administration";
+"Addons" = "Erweiterungen";
 "App Addons" = "App Erweiterungen";
 "Archiving" = "Archivierung";
 "Carrier Support" = "Netzbetreiber Unterstützung";
@@ -169,7 +176,7 @@
 "Multimedia" = "Multimedien";
 "Navigation" = "Navigation";
 "Networking" = "Netzwerk";
-"Packaging" = "Packaging";
+"Packaging" = "Paketmanagement";
 "Productivity" = "Produktivität";
 "Repositories" = "Quellen";
 "Ringtones" = "Klingeltöne";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ wird benötigt von:";
 "Issues" = "Probleme";
 "%@ has issues that cannot be resolved:" = "%@ hat Probleme die nicht gelöst werden konnten:";
+"Are you sure?" = "Bist du sicher?";
+"Are you sure you want to clear the queue?" = "Möchtest du die Warteschlange wirklich leeren?";

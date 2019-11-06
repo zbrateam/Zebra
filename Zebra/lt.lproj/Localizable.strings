@@ -37,7 +37,7 @@
 "Creators" = "Kūrėjai";
 "Contributors" = "Modifikacijų autoriai";
 "Translators" = "Vertėjai";
-"Libraries" = "Biliotekos";
+"Libraries" = "Bibliotekos";
 
 // Settings
 
@@ -85,6 +85,10 @@
 
 "Resetting image cache completed" = "Vaizdo podelio atkūrimas baigtas";
 "Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
+
+"Drop Tables" = "Pašalinti lenteles";
+
+"Alternate Icons" = "Alternatyvios piktogramos";
 
 // Sources
 
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Prieinami naujinimai";
 "Ignored Upgrades" = "Praignoruoti naujinimai";
 "Recent" = "Naujausi";
+"Repo" = "Saugykla";
 "Installed Files" = "Įdiegti failai";
 "Modify" = "Modifikuoti";
 "Authenticate to initiate purchase." = "Norėdami apsipirkti, patvirtinkite savo tapatybę.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Prašau prisijunkite iš naujo prie paskyros, kuri buvo naudojama perkant šį paketą (Possibly %@)";
 "More by this Developer" = "Daugiau iš šio kūrėjo";
 "Installed Version" = "Įdiegta versija";
+"Installed Size" = "Įdiegtas dydis";
 
 "Add to Wish List" = "Pridėti į norų sąrašą";
 "Remove from Wish List" = "Išimti iš norų sąrašo";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Valdymas";
+"Addons" = "Papildymai";
 "App Addons" = "Programų papildymai";
 "Archiving" = "Archyvavimas";
 "Carrier Support" = "Operatoriaus palaikymas";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ reikalauja:";
 "Issues" = "Problemos";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
+"Are you sure?" = "Ar esate įsitikinę?";
+"Are you sure you want to clear the queue?" = "Ar esate tikri, kad norite išvalyti eilę?";

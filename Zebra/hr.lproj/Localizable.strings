@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Poništavanje predmemorije slike je završeno";
 "Clearing keychain completed" = "Poništavanje lozinki je završeno";
 
+"Drop Tables" = "Očitaj tabele izvora";
+
+"Alternate Icons" = "Alternativna ikona";
+
 // Sources
 
 "Sources" = "Izvori";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Dostupna Ažuriranja";
 "Ignored Upgrades" = "Ignorirana Ažuriranja";
 "Recent" = "Nedavno";
+"Repo" = "Spremište";
 "Installed Files" = "Instalirane Datoteke";
 "Modify" = "Izmjeni";
 "Authenticate to initiate purchase." = "Autentifikacije za pokretanje kupovine.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Molimo ponovnu prijavu u Vaš korisnički račun koji ste upotrijebili za kupovinu ovog paketa (Moguće %@)";
 "More by this Developer" = "Više od ovog Programera";
 "Installed Version" = "Instalirana Inačica";
+"Installed Size" = "Instalirana veličina";
 
 "Add to Wish List" = "Dodaj na popis želja";
 "Remove from Wish List" = "Ukloni s popisa želja";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administracija";
+"Addons" = "Dodaci";
 "App Addons" = "Dodatci Aplikacijama";
 "Archiving" = "Arhiviranje";
 "Carrier Support" = "Mrežna podrška";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ je potreban od strane:";
 "Issues" = "Problemi";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji se ne mogu riješiti:";
+"Are you sure?" = "Jeste li sigurni?";
+"Are you sure you want to clear the queue?" = "Jeste li sigurni da želite očistiti popis?";

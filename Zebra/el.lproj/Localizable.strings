@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Η επαναφορά της κρυφής μνήμης εικόνων ολοκληρώθηκε";
 "Clearing keychain completed" = "Ο καθαρισμός του keychain ολοκληρώθηκε";
 
+"Drop Tables" = "Διαγραφή Πινάκων";
+
+"Alternate Icons" = "Εναλλαγή Εικονιδίων";
+
 // Sources
 
 "Sources" = "Πηγές";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
 "Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
 "Recent" = "Πρόσφατα";
+"Repo" = "Repo";
 "Installed Files" = "Εγκατεστημένα Αρχεία";
 "Modify" = "Τροποποίησε";
 "Authenticate to initiate purchase." = "Επαληθεύσου για να πραγματοποιήσεις την αγορά.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Παρακαλώ ξανασυνδέσου στον λογαριασμό σου που χρησιμοποιείται για την αγορά αυτού του πακέτου (Πιθανόν %@)";
 "More by this Developer" = "Περισσότερα από αυτόν τον Προγραμματιστή";
 "Installed Version" = "Εγκατεστημένη Έκδοση";
+"Installed Size" = "Εγκατεστημένος Χώρος";
 
 "Add to Wish List" = "Πρόσθεσε στην Λίστα Επιθυμιών";
 "Remove from Wish List" = "Αφαίρεσε από την Λίστα Επιθυμιών";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Διαχείριση";
+"Addons" = "Πρόσθετα";
 "App Addons" = "Πρόσθετα Εφαρμογών";
 "Archiving" = "Αρχειοθέτηση";
 "Carrier Support" = "Υποστήριξη Παρόχου";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ απαιτείται από:";
 "Issues" = "Προβλήματα";
 "%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
+"Are you sure?" = "Είσαι σίγουρος;";
+"Are you sure you want to clear the queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";

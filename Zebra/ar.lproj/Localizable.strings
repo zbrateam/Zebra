@@ -14,19 +14,19 @@
 
 "Home" = "الرئيسية";
 "Info" = "معلومات";
-"Welcome to the Zebra Beta!" = "مرحباً بك في Zebra التجريبي!";
+"Welcome to the Zebra Beta!" = "مرحبًا بك في Zebra التجريبي!";
 "Changelog" = "التغييرات";
 "Community Repos" = "مجتمع المستودعات";
 "Transfer Sources from %@" = "تحويل المصادر من %@";
 "Move all sources from %@ to Zebra" = "نقل كل المصادر من  %@ إلى Zebra";
 "Utility repo for %@" = "فائدة المستودع لـ %@";
 "Transfer Sources" = "تحويل المصادر";
-"Please Wait..." = "الرجاء الإنتظار...";
-"Verifying Source(s)" = "التحقق من المصدر/المصادر";
+"Please Wait..." = "يرجى الإنتظار...";
+"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
 "Community" = "المجتمع";
 "Join our Discord" = "انضم لنا على Discord";
 "Follow me on Twitter" = "تابعنا على تويتر";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "الإبلاغ عن خطأ";
 
-"Tint Color" = "لون الخط";
+"Tint Color" = "لون الصبغة";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
 "White" = "أبيض";
@@ -75,8 +75,8 @@
 "Search while Typing" = "البحث أثناء الكتابة";
 
 "Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
-"Text" = "النص";
-"Icon" = "الأيقونة";
+"Text" = "نص";
+"Icon" = "أيقونة";
 "Open Documents Directory" = "فتح دليل المستندات";
 "Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
 "Clear Keychain" = "مسح سلسلة المفاتيح";
@@ -86,11 +86,15 @@
 "Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
 "Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
 
+"Drop Tables" = "إسقاط الجداول";
+
+"Alternate Icons" = "أيقونات بديلة";
+
 // Sources
 
 "Sources" = "المصادر";
 "Local Repository" = "مستودع محلي";
-"Locally installed packages" = "الحزم المثبتة محليا";
+"Locally installed packages" = "الحزم المثبتة محليًا";
 "Unknown" = "غير معروف";
 "No repository urls detected." = "لم يتم إكتشاف عناوين URL مستودعات.";
 "You have already added these repositories." = "أنت أضفت هذه المستودعات بالفعل.";
@@ -99,12 +103,12 @@
 "Unknown error" = "خطأ غير معروف";
 "Invalid URL" = "عنوان URL غير صحيح";
 "Enter URL" = "أدخل عنوان URL";
-"Add Repo(s)" = "أضف المستودع/المستودعات";
+"Add Repo(s)" = "إضافة مستودع/مستودعات";
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
-"Please Wait..." = "الرجاء الإنتظار...";
-"Verifying Source(s)" = "التحقق من المصدر/المصادر";
+"Please Wait..." = "يرجى الإنتظار...";
+"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Unable to verify Repo" = "تعذر التحقق من المستودع";
 "Refresh" = "تحديث";
 "Log Out" = "تسجيل خروج";
@@ -137,22 +141,25 @@
 "Available Upgrades" = "الترقيات المتاحة";
 "Ignored Upgrades" = "تجاهل الترقيات";
 "Recent" = "مؤخرًا";
+"Repo" = "المستودع";
 "Installed Files" = "الملفات المثبتة";
 "Modify" = "تعديل";
 "Authenticate to initiate purchase." = "المصادقة لبدء الشراء.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "يرجى إعادة تسجيل الدخول بحسابك الذي تم إستخدامه لشراء هذه الحزمة (ربما %@)";
 "More by this Developer" = "المزيد بواسطة هذا المطور";
 "Installed Version" = "الإصدار المثبت";
+"Installed Size" = "حجم التثبيت";
 
-"Add to Wish List" = "اضافة الى قائمة الأنتظار";
-"Remove from Wish List" = "إزالة من قائمة الأنتظار";
+"Add to Wish List" = "إضافة إلى قائمة الأمنيات";
+"Remove from Wish List" = "إزالة من قائمة الأمنيات";
 
 // Package Section Names
 
 "Administration" = "الإدارة";
+"Addons" = "الإضافات";
 "App Addons" = "إضافات التطبيقات";
 "Archiving" = "الأرشفة";
-"Carrier Support" = "دعم الاتصال";
+"Carrier Support" = "دعم الناقل";
 "Communication" = "التواصل";
 "Data Storage" = "تخزين البيانات";
 "Development" = "التطوير";
@@ -182,7 +189,7 @@
 "Themes" = "الموضوعات";
 "Toys" = "ألعاب الأطفال";
 "Tweaks" = "الأدوات";
-"Utilities" = "خدمات";
+"Utilities" = "الخدمات";
 "Wallpaper" = "الخلفيات";
 "Widgets" = "الويدجات";
 
@@ -209,8 +216,8 @@
 // Console
 
 "Console" = "وحدة التحكم";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن ...";
+"Performing Actions..." = "جارِ تنفيذ الإجراءات...";
+"Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
@@ -250,8 +257,10 @@
 "Continue" = "استمرار";
 "Download Size" = "حجم التنزيل";
 "Confirm" = "تأكيد";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
+"Required Package" = "حزمة مطلوبة";
+"%@ is required by:" = "%@ مطلوبة بواسطة:";
+"Issues" = "أخطاء";
+"%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
+"Are you sure?" = "هل أنت متأكد؟";
+"Are you sure you want to clear the queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
