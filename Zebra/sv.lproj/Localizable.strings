@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Återställde bildcachen";
 "Clearing keychain completed" = "Rensade nyckelringen";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Släpp Tabeller";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternativa Ikoner";
 
 // Sources
 
@@ -141,14 +141,14 @@
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Nytt";
-"Repo" = "Repo";
+"Repo" = "Förråd";
 "Installed Files" = "Installerade filer";
 "Modify" = "Ändra";
 "Authenticate to initiate purchase." = "Autentisera för att initiera köp.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Logga in igen med ditt konto som används för att köpa det här paketet (Eventuellt %@)";
 "More by this Developer" = "Mer av den här utvecklaren";
 "Installed Version" = "Installerad version";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Installerad Storlek";
 
 "Add to Wish List" = "Lägg till på önskelistan";
 "Remove from Wish List" = "Ta bort från önskelistan";
@@ -159,7 +159,7 @@
 "Addons" = "Tillägg";
 "App Addons" = "App-tillägg";
 "Archiving" = "Arkivering";
-"Carrier Support" = "Carrier Support";
+"Carrier Support" = "Operatör Stöd";
 "Communication" = "Kommunikation";
 "Data Storage" = "Datalagring";
 "Development" = "Utveckling";
@@ -178,13 +178,13 @@
 "Networking" = "Nätverk";
 "Packaging" = "Förpackning";
 "Productivity" = "Produktivitet";
-"Repositories" = "Repositories";
+"Repositories" = "Förråd";
 "Ringtones" = "Ringsignaler";
-"Scripting" = "Scripting";
+"Scripting" = "Skriptning";
 "Security" = "Säkerhet";
 "Social" = "Social";
 "System" = "System";
-"Terminal Support" = "Terminal Support";
+"Terminal Support" = "Terminalstöd";
 "Text Editors" = "Textredigerare";
 "Themes" = "Teman";
 "Toys" = "Leksaker";
@@ -216,7 +216,7 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Utför Åtgärder...";
 "Updating icon cache asynchronously..." = "Uppdaterar ikoncachen asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Det kan ta en stund och Zebra kan krascha. Det är okej om det gör det.";
 "Close Zebra" = "Stäng Zebra";
@@ -257,10 +257,10 @@
 "Continue" = "Fortsätt";
 "Download Size" = "Nedladdningsstorlek";
 "Confirm" = "Bekräfta";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
+"Required Package" = "Nödvändig Paket";
+"%@ is required by:" = "%@ krävs av:";
+"Issues" = "Problem";
+"%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
+"Are you sure?" = "Är du säker?";
+"Are you sure you want to clear the queue?" = "Är du säker på att du vill rensa kön?";
