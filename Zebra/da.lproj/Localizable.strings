@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Nulstilling af billed cache færdig";
 "Clearing keychain completed" = "Ryddelse af Keychain færdig";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Drop Tabeller";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternative Ikoner";
 
 // Sources
 
@@ -141,14 +141,14 @@
 "Available Upgrades" = "Tilgængelig Opgraderinger";
 "Ignored Upgrades" = "Ignorer Opgraderinger";
 "Recent" = "Nylig";
-"Repo" = "Repo";
+"Repo" = "Arkiv";
 "Installed Files" = "Installeret Filer";
 "Modify" = "Modificer";
 "Authenticate to initiate purchase." = "Autentificere for at igangsætte køb.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vær sød at logge ind på kontoen der er brugt til at købe denne pakke (Muligvis %@)";
 "More by this Developer" = "Mere fra denne Udvikler";
 "Installed Version" = "Installeret Udgave";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Installeret Størrelse";
 
 "Add to Wish List" = "Tilføj til Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
@@ -159,7 +159,7 @@
 "Addons" = "Tilføjelser";
 "App Addons" = "App Tilføjelser";
 "Archiving" = "Arkivering";
-"Carrier Support" = "Carrier Support";
+"Carrier Support" = "Operatørsupport";
 "Communication" = "Kommunikation";
 "Data Storage" = "Data Opbevaring";
 "Development" = "Udvikling";
@@ -178,7 +178,7 @@
 "Networking" = "Netværk";
 "Packaging" = "Indpakning";
 "Productivity" = "Produktivitet";
-"Repositories" = "Repositories";
+"Repositories" = "Arkiver";
 "Ringtones" = "Ringetoner";
 "Scripting" = "Scripting";
 "Security" = "Sikkerhed";
@@ -257,10 +257,10 @@
 "Continue" = "Fortsæt";
 "Download Size" = "Overførsels størrelse";
 "Confirm" = "Bekræft";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"%@ must be removed because it depends on %@" = "%@ skal fjernes, fordi det afhænger af %@";
 "Required Package" = "Påkrævet Pakke";
 "%@ is required by:" = "%@ er påkrævet af:";
 "Issues" = "Problemer";
 "%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Er du sikker?";
+"Are you sure you want to clear the queue?" = "Er du sikker på at du vil rydde køen?";
