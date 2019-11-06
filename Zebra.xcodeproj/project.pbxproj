@@ -61,7 +61,6 @@
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
-		8905171823723400000F0A32 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171723723400000F0A32 /* StoreKit.framework */; };
 		8905171E2372398A000F0A32 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
 		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
@@ -277,7 +276,6 @@
 		7821AF702275F3B2006C0315 /* ZBAddRepoDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoDelegate.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
-		8905171723723400000F0A32 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8905171F2372398F000F0A32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
@@ -465,7 +463,6 @@
 				8947D84623734F9600635396 /* GoogleDataTransportCCTSupport.framework in Frameworks */,
 				8947D84423734F9600635396 /* FirebaseInstanceID.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
-				8905171823723400000F0A32 /* StoreKit.framework in Frameworks */,
 				8947D84A23734F9700635396 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 				89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */,
@@ -884,7 +881,6 @@
 				8947D83A23734F9500635396 /* nanopb.framework */,
 				8905172123723995000F0A32 /* libc++.tbd */,
 				8905171F2372398F000F0A32 /* SystemConfiguration.framework */,
-				8905171723723400000F0A32 /* StoreKit.framework */,
 				89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */,
 				9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */,
 				9E2B413C22C86A31009BC12B /* UIKit.framework */,
