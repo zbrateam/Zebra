@@ -232,6 +232,7 @@ enum ZBSearchSection {
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
             tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
         case ZBSearchSectionRecent: {
@@ -244,6 +245,7 @@ enum ZBSearchSection {
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
         }
         case ZBSearchSectionResults: {
@@ -254,6 +256,7 @@ enum ZBSearchSection {
                 [cell setColors];
             }
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
         }
         default:
@@ -300,6 +303,9 @@ enum ZBSearchSection {
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == ZBSearchSectionNotFound) {
+        return NO;
+    }
     return YES;
 }
 
