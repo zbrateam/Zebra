@@ -148,7 +148,7 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Accedi nuovamente al tuo account utilizzato per acquistare questo pacchetto (Possibilmente %@)";
 "More by this Developer" = "Altro da questo Sviluppatore";
 "Installed Version" = "Versione Installata";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Dimensione Installata";
 
 "Add to Wish List" = "Aggiungi alla Lista dei Desideri";
 "Remove from Wish List" = "Rimuovi dalla Lista dei Desideri";
@@ -156,7 +156,7 @@
 // Package Section Names
 
 "Administration" = "Amministrazione";
-"Addons" = "Addons";
+"Addons" = "Addon";
 "App Addons" = "Componenti Aggiuntivi App";
 "Archiving" = "Archiviazione";
 "Carrier Support" = "Supporto Gestore";
@@ -262,5 +262,5 @@
 "%@ is required by:" = "%@ è richiesto da:";
 "Issues" = "Problemi";
 "%@ has issues that cannot be resolved:" = "%@ ha dei problemi che non possono essere risolti:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure?" = "Sei sicuro?";
+"Are you sure you want to clear the queue?" = "Sei sicuro di voler pulire la coda?";
