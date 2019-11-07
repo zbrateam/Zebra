@@ -26,33 +26,45 @@
 
 @implementation ZBQueueViewController
 
-- (void)loadView {
-    [super loadView];
-    queue = [ZBQueue sharedQueue];
-    packages = [queue topDownQueue];
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self applyLocalization];
-    self.title = NSLocalizedString(@"Queue", @"");
+- (id)init {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
+    
+    if (self) {
+        queue = [ZBQueue sharedQueue];
+    }
+    
+    return self;
 }
 
-- (void)applyLocalization {
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"Confirm", @"");
-    self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self applyLocalization];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    //Appearence stuff
     if ([ZBDevice darkModeEnabled]) {
         [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     }
     else {
         [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
     }
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    
     [self refreshTable];
+}
+
+- (void)applyLocalization {
+    self.navigationItem.title = NSLocalizedString(@"Queue", @"");
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"Confirm", @"");
+    self.navigationItem.leftBarButtonItems[1].title = NSLocalizedString(@"Clear", @"");
 }
 
 - (void)refreshTable {
