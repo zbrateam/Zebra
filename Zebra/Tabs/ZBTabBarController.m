@@ -17,6 +17,9 @@
 #import <UIColor+GlobalColors.h>
 #import <ZBQueue.h>
 #import "ZBTab.h"
+#import <Queue/ZBQueueViewController.h>
+
+
 @import LNPopupController;
 
 @interface ZBTabBarController () {
@@ -109,9 +112,9 @@
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
-    UITabBarItem *sourcesItem = [sourcesController tabBarItem];
     dispatch_async(dispatch_get_main_queue(), ^{
+        UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
+        UITabBarItem *sourcesItem = [sourcesController tabBarItem];
         [sourcesItem setAnimatedBadge:visible];
         if (visible) {
             if (self->sourcesUpdating) {
@@ -129,8 +132,8 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
+        [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
     });
-    [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
 }
 
 #pragma mark - Database Delegate
@@ -138,11 +141,12 @@
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
     if (bfn == NULL) return;
     if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
-    
-    ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-    
     [repoBusyList setObject:@(busy) forKey:bfn];
-    [sourcesVC setSpinnerVisible:busy forRepo:bfn];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
+        [sourcesVC setSpinnerVisible:busy forRepo:bfn];
+    });
 }
 
 - (void)clearRepos {
@@ -186,8 +190,9 @@
 }
 
 - (void)updateQueueNav {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
+    if (!queueNav) {
+        queueNav = [[ZBQueueViewController alloc] init];
+    }
 }
 
 - (void)updateQueueBarData:(int)count {
