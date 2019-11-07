@@ -186,7 +186,7 @@
         baseCommand = @[@"dpkg"];
     }
     else {
-        return NULL;
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
     }
     
     NSString *binary = baseCommand[0];
@@ -220,6 +220,9 @@
         else {
             [installCommand addObject:@"-i"];
         }
+        
+        NSArray *dependencyPaths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDependency filenames:debs];
+        [installCommand addObjectsFromArray:dependencyPaths];
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
         [installCommand addObjectsFromArray:paths];
@@ -354,6 +357,10 @@
             return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBQueueTypeDowngrade:
             return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
+        case ZBQueueTypeDependency:
+            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
+        case ZBQueueTypeConflict:
+            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         default:
             break;
     }

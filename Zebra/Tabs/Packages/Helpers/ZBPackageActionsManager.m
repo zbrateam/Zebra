@@ -37,6 +37,10 @@
             return [UIColor systemBlueColor];
         case ZBQueueTypeDowngrade:
             return [UIColor systemPurpleColor];
+        case ZBQueueTypeDependency:
+            return [UIColor systemTealColor];
+        case ZBQueueTypeConflict:
+            return [UIColor systemPinkColor];
         default:
             return nil;
     }
