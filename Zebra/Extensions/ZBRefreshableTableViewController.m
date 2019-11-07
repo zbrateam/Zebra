@@ -103,7 +103,9 @@
     if (![[self class] supportRefresh]) {
         return;
     }
-    [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+    });
 }
 
 - (void)refreshSources:(id)sender {
@@ -133,11 +135,11 @@
     if (![[self class] supportRefresh]) {
         return;
     }
-    if (packageUpdates != -1) {
-        [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
-    }
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (packageUpdates != -1) {
+            [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+        }
         [self->refreshControl endRefreshing];
         [self didEndRefreshing];
 //        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];

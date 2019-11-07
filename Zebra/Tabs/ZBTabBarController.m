@@ -106,9 +106,11 @@
 }
 
 - (void)updatePackagesTableView {
-    UINavigationController *navController = self.viewControllers[ZBTabPackages];
-    ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
-    [packagesController refreshTable];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UINavigationController *navController = self.viewControllers[ZBTabPackages];
+        ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
+        [packagesController refreshTable];
+    });
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
