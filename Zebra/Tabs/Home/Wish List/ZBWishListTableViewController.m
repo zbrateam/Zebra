@@ -81,6 +81,7 @@
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
     }
@@ -90,16 +91,22 @@
         
         ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
         [(ZBPackageTableViewCell *)cell updateData:package];
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         
         return cell;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"segueWishToPackageDepiction" sender:indexPath];
+    if ([wishedPackages count] != 0) {
+        [self performSegueWithIdentifier:@"segueWishToPackageDepiction" sender:indexPath];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([wishedPackages count] == 0) {
+        return NO;
+    }
     return YES;
 }
 
@@ -112,9 +119,7 @@
         [self->defaults setObject:wishedPackageIDs forKey:wishListKey];
         [self->defaults synchronize];
         
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
+        [self.tableView reloadData];
     }];
     
 //    [remove setIcon:[UIImage imageNamed:@"Unknown"] withText:NSLocalizedString(@"Remove", @"") color:[UIColor systemPinkColor] rowHeight:65];
