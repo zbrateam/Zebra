@@ -156,6 +156,10 @@
         
         [task launch];
         [task waitUntilExit];
+        
+        [self refreshLocalPackages];
+        [self removeAllDebs];
+        [self finishTasks];
     }
     else {
         [self performTasksForDownloadedFiles:NULL];
