@@ -148,7 +148,7 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
 "Installed Version" = "インストール済みバージョン";
-"Installed Size" = "容量";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "ほしい物リストに追加する";
 "Remove from Wish List" = "ほしい物リストから削除";
@@ -259,7 +259,7 @@
 "Confirm" = "実行";
 "%@ must be removed because it depends on %@" = "%@ は %@ と競合しているため削除されます";
 "Required Package" = "要求されたパッケージ";
-"%@ is required by:" = "%@ は右記に必要です:";
+"%@ is required by:" = "%@ is required by:";
 "Issues" = "問題点";
 "%@ has issues that cannot be resolved:" = "%@ は右記の問題が解決できません:";
 "Are you sure?" = "よろしいですか？";
