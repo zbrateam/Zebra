@@ -261,7 +261,6 @@
                 [self updateIconCaches:uicaches];
             }
             
-            [queue clear];
             [self refreshLocalPackages];
             [self removeAllDebs];
             [self finishTasks];
@@ -289,17 +288,13 @@
     [self setProgressViewHidden:true];
     [self updateProgressText:nil];
     [self setProgressTextHidden:true];
-    [queue clear];
     [self removeAllDebs];
     [self updateCancelOrCloseButton];
 }
 
 - (void)close {
-    [self clearConsole];
-    [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
-        [[ZBAppDelegate tabBarController] updateQueueNav];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-    }];
+    [queue clear];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
 }
 
 - (IBAction)cancelOrClose:(id)sender {

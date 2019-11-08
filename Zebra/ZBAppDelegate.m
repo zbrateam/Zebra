@@ -119,9 +119,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (ZBTabBarController *)tabBarController {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
-    });
+    return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
 }
 
 + (void)sendAlertFrom:(UIViewController *)vc title:(NSString *)title message:(NSString *)message actionLabel:(NSString *)actionLabel okLabel:(NSString *)okLabel block:(void (^)(void))block {
