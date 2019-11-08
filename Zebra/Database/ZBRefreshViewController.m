@@ -35,6 +35,94 @@ typedef enum {
 @synthesize completeOrCancelButton;
 @synthesize consoleView;
 
+- (id)init {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+    
+    if (self) {
+        self.messages = NULL;
+        self.dropTables = false;
+        self.repoURLs = NULL;
+    }
+    
+    return self;
+}
+
+- (id)initWithMessages:(NSArray *)messages {
+    self = [self init];
+    
+    if (self) {
+        self.messages = messages;
+    }
+    
+    return self;
+}
+
+- (id)initWithDropTables:(BOOL)dropTables {
+    self = [self init];
+    
+    if (self) {
+        self.dropTables = dropTables;
+    }
+    
+    return self;
+}
+
+- (id)initWithRepoURLs:(NSArray *)repoURLs {
+    self = [self init];
+    
+    if (self) {
+        self.repoURLs = repoURLs;
+    }
+    
+    return self;
+}
+
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables {
+    self = [self init];
+    
+    if (self) {
+        self.messages = messages;
+        self.dropTables = dropTables;
+    }
+    
+    return self;
+}
+
+- (id)initWithMessages:(NSArray *)messages repoURLs:(NSArray *)repoURLs {
+    self = [self init];
+    
+    if (self) {
+        self.messages = messages;
+        self.repoURLs = repoURLs;
+    }
+    
+    return self;
+}
+
+- (id)initWithDropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs {
+    self = [self init];
+    
+    if (self) {
+        self.dropTables = dropTables;
+        self.repoURLs = repoURLs;
+    }
+    
+    return self;
+}
+
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs {
+    self = [self init];
+    
+    if (self) {
+        self.messages = messages;
+        self.dropTables = dropTables;
+        self.repoURLs = repoURLs;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_dropTables) {

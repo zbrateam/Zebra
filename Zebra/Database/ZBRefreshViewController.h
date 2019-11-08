@@ -14,6 +14,13 @@
 @property (nonatomic, strong) NSArray *messages;
 @property (nonatomic, retain) NSArray <NSURL *> *repoURLs;
 @property (nonatomic) BOOL dropTables;
-@property NSUserDefaults *defaults;
+- (id)init;
+- (id)initWithMessages:(NSArray *)messages;
+- (id)initWithDropTables:(BOOL)dropTables;
+- (id)initWithRepoURLs:(NSArray *)repoURLs;
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables;
+- (id)initWithMessages:(NSArray *)messages repoURLs:(NSArray *)repoURLs;
+- (id)initWithDropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs;
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs;
 @end
 

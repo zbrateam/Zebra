@@ -75,11 +75,8 @@
     
     if ([databaseManager needsToPresentRefresh]) {
         [databaseManager setNeedsToPresentRefresh:NO];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        refreshController.messages = nil;
-        refreshController.dropTables = YES;
         
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
         [self presentViewController:refreshController animated:YES completion:nil];
     }
     
@@ -165,13 +162,8 @@
     }
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"[Zebra] error messages: %@", self->errorMessages);
         if (self->errorMessages) {
-            NSLog(@"[Zebra] Has errors!");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-            refreshController.messages = [self->errorMessages copy];
-            
+            ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];
             [self presentViewController:refreshController animated:YES completion:nil];
             self->errorMessages = nil;
         }

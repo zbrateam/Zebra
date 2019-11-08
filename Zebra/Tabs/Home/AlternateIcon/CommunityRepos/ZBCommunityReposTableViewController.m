@@ -215,9 +215,8 @@ enum ZBSourcesOrder {
 }
 
 - (void)presentConsole {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    [self presentViewController:console animated:YES completion:nil];
+    ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
+    [self presentViewController:refreshController animated:YES completion:nil];
 }
 
 #pragma mark Add Repos
@@ -267,10 +266,8 @@ enum ZBSourcesOrder {
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                console.repoURLs = [repoManager verifiedURLs];
-                [weakSelf presentViewController:console animated:YES completion:nil];
+                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithRepoURLs:[repoManager verifiedURLs]];                
+                [weakSelf presentViewController:refreshController animated:YES completion:nil];
             }
         }];
     }];

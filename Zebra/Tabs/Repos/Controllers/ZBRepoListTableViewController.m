@@ -269,8 +269,7 @@
                     NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
+                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] init];
                         console.repoURLs = @[ repoURL ];
                         [weakSelf presentViewController:console animated:YES completion:nil];
                     });
@@ -340,9 +339,7 @@
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                console.repoURLs = [repoManager verifiedURLs];
+                ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithRepoURLs:[repoManager verifiedURLs]];
                 [weakSelf presentViewController:console animated:YES completion:nil];
             }
         }];
@@ -571,11 +568,9 @@
     [super databaseCompletedUpdate:packageUpdates];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-            refreshController.messages = [self->errorMessages copy];
-            self->errorMessages = NULL;
+            ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];
             [self presentViewController:refreshController animated:YES completion:nil];
+            self->errorMessages = NULL;
         }
     });
 }
@@ -617,9 +612,8 @@
                     NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
                 } else {
                     NSLog(@"[Zebra] Successfully merged sources");
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                    [self presentViewController:console animated:YES completion:nil];
+                    ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
+                    [self presentViewController:refreshController animated:YES completion:nil];
                 }
             }];
         }];
@@ -659,9 +653,8 @@
                     NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
                 } else {
                     NSLog(@"[Zebra] Successfully merged sources");
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                    [self presentViewController:console animated:YES completion:nil];
+                    ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
+                    [self presentViewController:refreshController animated:YES completion:nil];
                 }
             }];
         }];

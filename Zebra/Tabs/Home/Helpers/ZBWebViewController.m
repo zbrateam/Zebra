@@ -329,9 +329,8 @@
                 return;
         }
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        [self presentViewController:console animated:YES completion:nil];
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
+        [self presentViewController:refreshController animated:YES completion:nil];
     } else {
         __weak typeof(self) weakSelf = self;
         
@@ -348,11 +347,8 @@
 
 - (void)showRefreshView:(NSNumber *)dropTables {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        console.messages = nil;
-        console.dropTables = [dropTables boolValue];
-        [self presentViewController:console animated:YES completion:nil];
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:[dropTables boolValue]];
+        [self presentViewController:refreshController animated:YES completion:nil];
     });
 }
 
