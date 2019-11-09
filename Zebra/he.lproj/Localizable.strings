@@ -65,7 +65,7 @@
 "Change Icon" = "שנה אייקון";
 
 "Enable Featured Packages" = "אפשר חבילות מומלצות";
-"Repo Featured" = "מומלץ מקור";
+"Repo Featured" = "המלצת המקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 
 // Queue Bar
-"Packages Queued" = "חבילות בתור";
-"Package Queued" = "חבילה בתור";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "לחץ/י לניהול";
 "No Packages Queued" = "אין חבילות בתור";
 
