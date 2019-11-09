@@ -176,6 +176,11 @@
     [[self conflictQueue] removeAllObjects];
     [queuedPackagesList removeAllObjects];
     [self updateQueueBarData];
+    [self dismissQueueBar];
+}
+
+- (void)dismissQueueBar {
+    [[ZBAppDelegate tabBarController] closeQueue];
 }
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {

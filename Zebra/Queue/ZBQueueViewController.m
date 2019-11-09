@@ -70,6 +70,7 @@
 - (void)refreshTable {
     packages = [queue topDownQueue];
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         if ([self->queue hasIssues]) {
             self.navigationItem.rightBarButtonItem.enabled = false;
         }
@@ -77,6 +78,10 @@
             self.navigationItem.rightBarButtonItem.enabled = true;
         }
         [self.tableView reloadData];
+        
+        if ([self->packages count] == 0) {
+            [[ZBAppDelegate tabBarController] closeQueue];
+        }
     });
 }
 
@@ -245,9 +250,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [queue removePackage:packages[indexPath.section][indexPath.row]];
-    if ([ZBQueue count] > 0) {
-        [self refreshTable];
-    }
+    [self refreshTable];
 }
 
 @end
