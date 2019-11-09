@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
 
 // Queue Bar
-"Packages Queued" = "Sıra Barı";
-"Package Queued" = "Paket Sıralandı";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Yönetmek için dokunun";
 "No Packages Queued" = "Sırada Paket Yok";
 
