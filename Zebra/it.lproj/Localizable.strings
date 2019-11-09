@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clicca \"Ritorna alla Coda\" per tornare alla Coda e riprovare il dowload.";
 
 // Queue Bar
-"Packages in Queue" = "Pacchetti in Coda";
-"Package in Queue" = "Pacchetto in Coda";
-"Tap to manage Queue" = "Tocca per gestire la Coda";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Coda";
-"Queue cleared" = "Coda cancellata";
 "Install" = "Installa";
 "Reinstall" = "Reinstalla";
 "Remove" = "Rimuovi";
