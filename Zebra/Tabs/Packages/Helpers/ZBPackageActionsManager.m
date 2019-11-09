@@ -203,6 +203,7 @@
 }
 
 + (void)installPackage:(ZBPackage *)package purchased:(BOOL)purchased {
+    if (package == NULL) return;
     if (purchased) {
         package.sileoDownload = YES;
     }

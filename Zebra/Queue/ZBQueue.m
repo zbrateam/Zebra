@@ -63,6 +63,8 @@
 }
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
+    if (package == NULL) return;
+    
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear && type != queue) { //Remove package from queue
         [[self queueFromType:type] removeObject:package];
