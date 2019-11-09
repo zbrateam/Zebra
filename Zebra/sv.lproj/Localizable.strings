@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 
 // Queue Bar
-"Packages in Queue" = "Paket i kön";
-"Package in Queue" = "Paket i kön";
-"Tap to manage Queue" = "Tryck för att hantera kön";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Kö";
-"Queue cleared" = "Kön rensades";
 "Install" = "Installera";
 "Reinstall" = "Installera om";
 "Remove" = "Ta bort";
