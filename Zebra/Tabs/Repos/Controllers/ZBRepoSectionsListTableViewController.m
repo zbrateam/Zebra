@@ -167,6 +167,11 @@
 - (void)setupRepoLogin {
     if (self.repoEndpoint) {
         NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]]];
+        NSURLComponents *components = [NSURLComponents componentsWithURL:destinationUrl resolvingAgainstBaseURL:YES];
+        if ([components.scheme isEqualToString:@"http"] || [components.scheme isEqualToString:@"https"]) {
+            return;
+        }
+        
         if (@available(iOS 11.0, *)) {
             static SFAuthenticationSession *session;
             session = [[SFAuthenticationSession alloc]
