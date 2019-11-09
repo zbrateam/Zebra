@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
 // Queue Bar
-"Packages in Queue" = "個のキュー済みのパッケージ";
-"Package in Queue" = "個のキュー済みのパッケージ";
-"Tap to manage Queue" = "タップしてキューを管理";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "キュー";
-"Queue cleared" = "キューをクリアしました";
 "Install" = "インストール";
 "Reinstall" = "再インストール";
 "Remove" = "削除";
