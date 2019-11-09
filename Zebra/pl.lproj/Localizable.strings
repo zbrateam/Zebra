@@ -240,10 +240,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknij \"Powrót do kolejki\" żeby powrócić do kolejki i ponowić pobieranie.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"Packages Queued" = "Pakiety w kolejce";
+"Package Queued" = "Pakiet w kolejce";
+"Tap to manage" = "Dotknij, aby zarządzać";
+"No Packages Queued" = "Brak pakietów w kolejce";
 
 // Queue
 
