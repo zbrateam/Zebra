@@ -240,10 +240,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
+"Packages Queued" = "In der Warteschlange befindliche Pakete";
 "Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"Tap to manage" = "Zum Verwalten tippen";
+"No Packages Queued" = "Keine Pakete in der Warteschlange";
 
 // Queue
 
