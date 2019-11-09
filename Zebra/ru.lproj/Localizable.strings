@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 
 // Queue Bar
-"Packages Queued" = "Пакеты в Очереди";
-"Package Queued" = "Пакет в Очереди";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Нажмите для управления";
 "No Packages Queued" = "Нет Пакетов в Очереди";
 
