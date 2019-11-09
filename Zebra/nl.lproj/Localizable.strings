@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 
 // Queue Bar
-"Packages in Queue" = "Pakketen in de wachtrij";
-"Package in Queue" = "Pakket in de wachtrij";
-"Tap to manage Queue" = "Tik om de wachtrij te wijzigingen";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Wachtrij";
-"Queue cleared" = "Wachtrij leeggemaakt";
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";
 "Remove" = "Verwijder";

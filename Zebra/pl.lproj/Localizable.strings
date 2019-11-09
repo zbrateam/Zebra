@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknij \"Powrót do kolejki\" żeby powrócić do kolejki i ponowić pobieranie.";
 
 // Queue Bar
-"Packages in Queue" = "Pakiety w kolejce";
-"Package in Queue" = "Pakiet w kolejce";
-"Tap to manage Queue" = "Kliknij, aby zarządzać kolejką";
+"Packages Queued" = "Pakiety w kolejce";
+"Package Queued" = "Pakiet w kolejce";
+"Tap to manage" = "Dotknij, aby zarządzać";
+"No Packages Queued" = "Brak pakietów w kolejce";
 
 // Queue
 
 "Queue" = "Kolejka";
-"Queue cleared" = "Kolejka wyczyszczona";
 "Install" = "Instaluj";
 "Reinstall" = "Reinstaluj";
 "Remove" = "Usuń";

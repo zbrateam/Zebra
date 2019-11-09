@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
 
 // Queue Bar
-"Packages in Queue" = "Paketes rindā";
-"Package in Queue" = "Pakete rindā";
-"Tap to manage Queue" = "Pieskarties, lai pārvaldātu rindu";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Rinda";
-"Queue cleared" = "Rinda ir notīrīta";
 "Install" = "Instalēt";
 "Reinstall" = "Pārinstalēt";
 "Remove" = "Izdzēst";

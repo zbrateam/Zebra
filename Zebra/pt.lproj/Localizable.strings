@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
 
 // Queue Bar
-"Packages in Queue" = "Pacotes na Fila";
-"Package in Queue" = "Pacote na Fila";
-"Tap to manage Queue" = "Clica para gerir Fila";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Fila";
-"Queue cleared" = "Fila apagada";
 "Install" = "Instalada";
 "Reinstall" = "Reinstalada";
 "Remove" = "Remover";

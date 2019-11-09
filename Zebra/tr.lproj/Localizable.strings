@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
 
 // Queue Bar
-"Packages in Queue" = "Sıradaki Paketler";
-"Package in Queue" = "Sıradaki Paket";
-"Tap to manage Queue" = "Sırayı Düzenlemek İçin Dokun";
+"Packages Queued" = "Sıra Barı";
+"Package Queued" = "Paket Sıralandı";
+"Tap to manage" = "Yönetmek için dokunun";
+"No Packages Queued" = "Sırada Paket Yok";
 
 // Queue
 
 "Queue" = "Sıra";
-"Queue cleared" = "Sıra temizlendi";
 "Install" = "Yükle";
 "Reinstall" = "Tekrar yükle";
 "Remove" = "Kaldır";

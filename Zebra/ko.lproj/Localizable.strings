@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
 
 // Queue Bar
-"Packages in Queue" = "패키지가 대기열에 있습니다.";
-"Package in Queue" = "패키지가 대기열에 있습니다.";
-"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "대기열";
-"Queue cleared" = "대기열 제거 됨";
 "Install" = "설치";
 "Reinstall" = "재설치";
 "Remove" = "삭제";

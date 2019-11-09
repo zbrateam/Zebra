@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 
 // Queue Bar
-"Packages in Queue" = "حزم في الإنتظار";
-"Package in Queue" = "حزمة في الإنتظار";
-"Tap to manage Queue" = "انقر لإدارة قائمة الإنتظار";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "قائمة الإنتظار";
-"Queue cleared" = "تم مسح قائمة الإنتظار";
 "Install" = "تثبيت";
 "Reinstall" = "إعادة تثبيت";
 "Remove" = "إزالة";

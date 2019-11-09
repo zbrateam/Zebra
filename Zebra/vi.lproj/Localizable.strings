@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
 
 // Queue Bar
-"Packages in Queue" = "Các gói trong hàng đợi";
-"Package in Queue" = "Các gói trong hàng đợi";
-"Tap to manage Queue" = "Nhấn để quản lý hàng đợi";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Xếp hàng";
-"Queue cleared" = "Hàng đợi đã được xóa";
 "Install" = "Cài đặt";
 "Reinstall" = "Cài đặt lại";
 "Remove" = "Xóa bỏ";

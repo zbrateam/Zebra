@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnere til køen og prøve nedlastingen på nytt.";
 
 // Queue Bar
-"Packages in Queue" = "Pakker i Kø";
-"Package in Queue" = "Pakke i Kø";
-"Tap to manage Queue" = "Trykk for å administrere Kø";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Kø";
-"Queue cleared" = "Kø tømt";
 "Install" = "Installer";
 "Reinstall" = "Installer på nytt";
 "Remove" = "Fjern";

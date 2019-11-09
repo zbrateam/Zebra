@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
 
 // Queue Bar
-"Packages in Queue" = "Balíčky ve frontě";
-"Package in Queue" = "Balíček ve frontě";
-"Tap to manage Queue" = "Spravovat frontu";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Fronta";
-"Queue cleared" = "Fronta vyčištěna";
 "Install" = "Instalovat";
 "Reinstall" = "Přeinstalovat";
 "Remove" = "Odstranit";

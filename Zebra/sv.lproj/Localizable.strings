@@ -26,7 +26,7 @@
 "Stores" = "Butiker";
 "Purchases" = "Köp";
 "Wish List" = "Önskelista";
-"No items in Wish List" = "Inga artiklar i Önskelista";
+"No items in Wish List" = "Inga artiklar på önskelistan";
 "Community" = "Gemenskap";
 "Join our Discord" = "Gå med i vår Discord";
 "Follow me on Twitter" = "Följ mig på Twitter";
@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Återställde bildcachen";
 "Clearing keychain completed" = "Rensade nyckelringen";
 
-"Drop Tables" = "Släpp Tabeller";
+"Drop Tables" = "Släpp tabeller";
 
-"Alternate Icons" = "Alternativa Ikoner";
+"Alternate Icons" = "Alternativa ikoner";
 
 // Sources
 
@@ -148,7 +148,7 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Logga in igen med ditt konto som används för att köpa det här paketet (Eventuellt %@)";
 "More by this Developer" = "Mer av den här utvecklaren";
 "Installed Version" = "Installerad version";
-"Installed Size" = "Installerad Storlek";
+"Installed Size" = "Installerad storlek";
 
 "Add to Wish List" = "Lägg till på önskelistan";
 "Remove from Wish List" = "Ta bort från önskelistan";
@@ -167,7 +167,7 @@
 "Education" = "Utbildning";
 "Entertainment" = "Underhållning";
 "Games" = "Spel";
-"Health and Fitness" = "Hälsa och Träning";
+"Health and Fitness" = "Hälsa och träning";
 "Imaging" = "Avbildning";
 "Java" = "Java";
 "Keyboards" = "Tangentbord";
@@ -216,7 +216,7 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Utför Åtgärder...";
+"Performing Actions..." = "Utför åtgärder...";
 "Updating icon cache asynchronously..." = "Uppdaterar ikoncachen asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Det kan ta en stund och Zebra kan krascha. Det är okej om det gör det.";
 "Close Zebra" = "Stäng Zebra";
@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 
 // Queue Bar
-"Packages in Queue" = "Paket i kön";
-"Package in Queue" = "Paket i kön";
-"Tap to manage Queue" = "Tryck för att hantera kön";
+"Packages Queued" = "paket köade";
+"Package Queued" = "paket köat";
+"Tap to manage" = "Tryck för att hantera";
+"No Packages Queued" = "Inga paket köade";
 
 // Queue
 
 "Queue" = "Kö";
-"Queue cleared" = "Kön rensades";
 "Install" = "Installera";
 "Reinstall" = "Installera om";
 "Remove" = "Ta bort";

@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
-"Packages in Queue" = "Pakete in Warteschlange";
-"Package in Queue" = "Paket in Warteschlange";
-"Tap to manage Queue" = "Warteschlange verwalten";
+"Packages Queued" = "In der Warteschlange befindliche Pakete";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Zum Verwalten tippen";
+"No Packages Queued" = "Keine Pakete in der Warteschlange";
 
 // Queue
 
 "Queue" = "Warteschlange";
-"Queue cleared" = "Warteschlange geleert";
 "Install" = "Installieren";
 "Reinstall" = "Neu installieren";
 "Remove" = "Entfernen";

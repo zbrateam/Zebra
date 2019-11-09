@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點擊 \"返回隊列\" 以返回至隊列頁面並嘗試重新下載";
 
 // Queue Bar
-"Packages in Queue" = "軟件包隊列";
-"Package in Queue" = "軟件包隊列";
-"Tap to manage Queue" = "點擊此處管理隊列";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "隊列";
-"Queue cleared" = "清空播放佇列";
 "Install" = "安裝";
 "Reinstall" = "重新安裝";
 "Remove" = "移除";
