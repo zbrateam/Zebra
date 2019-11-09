@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
+"%d Packages Queued" = "%d חבילות בתור";
+"%d Package Queued" = "חבילה %d בתור";
 "Tap to manage" = "לחץ/י לניהול";
 "No Packages Queued" = "אין חבילות בתור";
 
