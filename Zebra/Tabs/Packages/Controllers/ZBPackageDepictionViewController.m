@@ -706,20 +706,31 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (NSString *)stripEmailFromAuthor {
-    NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName) {
-        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
-            [cleanedStrings addObject:cut];
-        } else {
-            NSString *cutCopy = [cut copy];
-            cutCopy = [cut substringFromIndex:1];
-            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
-            self.authorEmail = cutCopy;
+    if (package.author != NULL) {
+        NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSMutableArray *cleanedStrings = [NSMutableArray new];
+        for(NSString *cut in authorName) {
+            if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
+                [cleanedStrings addObject:cut];
+            }
+            else {
+                NSString *cutCopy = [cut copy];
+                if ([cutCopy length] > 0) {
+                    cutCopy = [cut substringFromIndex:1];
+                    cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
+                    self.authorEmail = cutCopy;
+                }
+                else {
+                    return NULL;
+                }
+            }
         }
+        
+        return [cleanedStrings componentsJoinedByString:@" "];
     }
-    
-    return [cleanedStrings componentsJoinedByString:@" "];
+    else {
+        return NULL;
+    }
 }
 
 - (void)sendEmailToDeveloper {
