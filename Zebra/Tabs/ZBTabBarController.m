@@ -209,7 +209,8 @@
 
 - (void)updateQueueBarPackageCount:(int)count {
     if (count > 0) {
-        queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", count, NSLocalizedString(count > 1 ? @"Packages Queued" : @"Package Queued", @"")];
+        queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+//        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
         queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
     }
     else {
