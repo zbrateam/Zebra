@@ -26,7 +26,7 @@
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de deseos";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "No hay artículos en la lista de deseos";
 "Community" = "Comunidad";
 "Join our Discord" = "Únete a nuestro Discord";
 "Follow me on Twitter" = "Sígueme en Twitter";
@@ -36,8 +36,8 @@
 "Credits" = "Créditos";
 "Creators" = "Creadores";
 "Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Translators" = "Traductores";
+"Libraries" = "Librerías";
 
 // Settings
 
@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Reseteo de caché de imagen completado";
 "Clearing keychain completed" = "Limpieza de llavero completada";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Eliminar Tablas";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Iconos alternos";
 
 // Sources
 
@@ -100,7 +100,7 @@
 "You have already added these repositories." = "Ya tienes estos repositorios agregados.";
 "Error verifying repository" = "Error verificando repositorio";
 "Error verifying repositories" = "Error verificando repositorios";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Error desconocido";
 "Invalid URL" = "Dirección URL Invalida";
 "Enter URL" = "Ingresa dirección URL";
 "Add Repo(s)" = "Añadir repositorio(s)";
@@ -141,7 +141,7 @@
 "Available Upgrades" = "Actualizaciones disponibles";
 "Ignored Upgrades" = "Actualizaciones ignoradas";
 "Recent" = "Recientes";
-"Repo" = "Repo";
+"Repo" = "Repositorio";
 "Installed Files" = "Archivos instalados";
 "Modify" = "Modificar";
 "Authenticate to initiate purchase." = "Autenticar para iniciar la compra.";
