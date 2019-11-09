@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clic \"Retour à la File d'Attente\" pour retourner à la File d'Attente et réessayer le téléchargement.";
 
 // Queue Bar
-"Packages Queued" = "Paquets en file d'attente";
-"Package Queued" = "Paquet en file d'attente";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Touchez pour gérer";
 "No Packages Queued" = "Pas de Paquets en File D'attente";
 
