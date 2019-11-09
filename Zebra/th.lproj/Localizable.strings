@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
 
 // Queue Bar
-"Packages in Queue" = "โปรแกรมในคิว";
-"Package in Queue" = "โปรแกรมในคิว";
-"Tap to manage Queue" = "แตะเพื่อจัดการคิว";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "คิว";
-"Queue cleared" = "คิวถูกล้างแล้ว";
 "Install" = "ติดตั้ง";
 "Reinstall" = "ติดตั้งซ้ำ";
 "Remove" = "ลบ";
