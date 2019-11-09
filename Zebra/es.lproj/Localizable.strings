@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 
 // Queue Bar
-"Packages in Queue" = "Paquetes en cola";
-"Package in Queue" = "Paquete en cola";
-"Tap to manage Queue" = "Toca para gestionar cola";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Cola";
-"Queue cleared" = "Cola vacía";
 "Install" = "Instalar";
 "Reinstall" = "Reinstalar";
 "Remove" = "Quitar";
