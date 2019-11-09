@@ -1473,7 +1473,7 @@ Section: Tweaks
 Installed-Size: 3124
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.2.22~Beta1
+Version: 1.2.21~Beta1
 Depends: mobilesubstrate, preferenceloader
 Conflicts: anemoneteam.anemone, com.anemonetheming.anemone, winterboard
 Provides: anemoneteam.anemone, com.anemonetheming.anemone, winterboard

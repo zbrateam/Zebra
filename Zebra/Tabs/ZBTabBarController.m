@@ -177,62 +177,6 @@
     }
 }
 
-- (void)checkQueueNav {
-    if (queueNav == nil) {
-        [self updateQueueNav];
-    }
-}
-
-- (void)updateQueueNav {
-    if (!queueNav) {
-        queueNav = [[ZBQueueViewController alloc] init];
-    }
-}
-
-- (void)updateQueueBarData:(int)count {
-    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", count, NSLocalizedString(count > 1 ? @"Packages in Queue" : @"Package in Queue", @"")];
-    queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage Queue", @"");
-}
-
-- (void)openQueue:(BOOL)openPopup {
-    [self checkQueueNav];
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state == LNPopupPresentationStateTransitioning) {
-        return;
-    }
-    if (openPopup && state == LNPopupPresentationStateOpen) {
-        return;
-    }
-    if (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed)) {
-        return;
-    }
-    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
-    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
-    [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
-}
-
-- (void)updateQueueBar {
-    [self checkQueueNav];
-    int totalPackages = [ZBQueue count];
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (totalPackages == 0) {
-        queueNav.popupItem.title = NSLocalizedString(@"Queue cleared", @"");
-        queueNav.popupItem.subtitle = nil;
-        
-        if (state == LNPopupPresentationStateOpen) {
-            [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-            }];
-        }
-    }
-    else {
-        if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-            [self openQueue:NO];
-        }
-        [self updateQueueBarData:totalPackages];
-    }
-}
-
 - (void)forwardToPackage {
     if (forwardToPackageID != NULL) { //this is pretty hacky
         NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
@@ -243,6 +187,54 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         forwardToPackageID = NULL;
     }
+}
+
+#pragma mark - Queue Popup Bar
+
+- (void)checkQueueNav {
+    if (!queueNav) {
+        queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
+    }
+}
+
+- (void)updateQueueBar {
+    [self checkQueueNav];
+    [self updateQueueBarPackageCount:[ZBQueue count]];
+    
+    LNPopupPresentationState state = self.popupPresentationState;
+    if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
+        [self openQueue:NO];
+    }
+}
+
+- (void)updateQueueBarPackageCount:(int)count {
+    if (count > 0) {
+        queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", count, NSLocalizedString(count > 1 ? @"Packages Queued" : @"Package Queued", @"")];
+        queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+    }
+    else {
+        queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+        queueNav.popupItem.subtitle = nil;
+    }
+}
+
+- (void)openQueue:(BOOL)openPopup {
+    [self checkQueueNav];
+    
+    LNPopupPresentationState state = self.popupPresentationState;
+    if (state == LNPopupPresentationStateTransitioning) {
+        return;
+    }
+    if (openPopup && state == LNPopupPresentationStateOpen) {
+        return;
+    }
+    if (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed)) {
+        return;
+    }
+    
+    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
+    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+    [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
 }
 
 @end
