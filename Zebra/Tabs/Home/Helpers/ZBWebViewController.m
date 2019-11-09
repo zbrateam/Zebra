@@ -67,10 +67,7 @@
     webView.tintColor = [UIColor tintColor];
     
     if ([ZBDevice darkModeEnabled]) {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
         webView.scrollView.backgroundColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
-    } else {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     // self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
@@ -382,46 +379,6 @@
     [webView reload];
 }
 
-- (IBAction)toggleDarkMode:(id)sender {
-    // TODO: fix issue when switching mode on "Report a bug"
-    [ZBDevice hapticButton];
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        if (![ZBDevice darkModeEnabled]) {
-            // Want Dark mode
-            [self darkMode];
-        } else {
-            // Want Light
-            [self lightMode];
-        }
-    } completion:nil];
-}
-
-- (void)darkMode {
-    [ZBDevice setDarkModeEnabled:YES];
-    [self colorWindow];
-    [self resetWebView];
-    [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    [ZBDevice configureDarkMode];
-    [ZBDevice refreshViews];
-    [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-}
-
-- (void)lightMode {
-    [ZBDevice setDarkModeEnabled:NO];
-    [self resetWebView];
-    [self colorWindow];
-    [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-    [ZBDevice configureLightMode];
-    [ZBDevice refreshViews];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"lightMode" object:self];
-}
-
 - (void)resetWebView {
     [self colorWindow];
     if (_url != NULL) {
@@ -437,12 +394,6 @@
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"home" withExtension:@".html"];
         [webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
         
-    }
-    
-    if ([ZBDevice darkModeEnabled]) {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    } else {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
 }
 

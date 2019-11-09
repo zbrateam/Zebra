@@ -790,21 +790,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MpE-w2-Q9V">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="tiQ-9E-V7d">
-                                <connections>
-                                    <action selector="refreshPage:" destination="vXr-io-rHa" id="PFc-sM-8kN"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="DarkMode" image="Dark" landscapeImage="Dark" id="hXW-6i-kIV">
-                                <connections>
-                                    <action selector="toggleDarkMode:" destination="vXr-io-rHa" id="Ph3-XQ-Jkd"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="tiQ-9E-V7d">
+                            <connections>
+                                <action selector="refreshPage:" destination="vXr-io-rHa" id="PFc-sM-8kN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="darkModeButton" destination="hXW-6i-kIV" id="rn3-3z-HqM"/>
                         <outlet property="progressView" destination="EUm-Oe-xqt" id="Zle-j6-x0A"/>
                         <outlet property="webView" destination="DeN-Wv-VKH" id="hbf-Jb-WSd"/>
                     </connections>
