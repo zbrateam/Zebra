@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
 
 // Queue Bar
-"Packages in Queue" = "Paketa na Čekanju";
-"Package in Queue" = "Paket na Čekanju";
-"Tap to manage Queue" = "Uredi listu Čekanja";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Čekanje";
-"Queue cleared" = "Lista Čekanja obrisana";
 "Install" = "Instaliraj";
 "Reinstall" = "Reinstaliraj";
 "Remove" = "Ukloni";
