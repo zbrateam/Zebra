@@ -28,7 +28,7 @@
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
     
     if (self) {
         queue = [ZBQueue sharedQueue];
