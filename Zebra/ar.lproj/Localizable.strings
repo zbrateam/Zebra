@@ -242,8 +242,8 @@
 // Queue Bar
 "%d Packages Queued" = "%d Packages Queued";
 "%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"Tap to manage" = "اضغط للإدارة";
+"No Packages Queued" = "لا توجد حزم في قائمة الإنتظار";
 
 // Queue
 
