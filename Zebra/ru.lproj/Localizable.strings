@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 
 // Queue Bar
-"Packages in Queue" = "Пакетов(а) в Очереди";
-"Package in Queue" = "Пакет в Очереди";
-"Tap to manage Queue" = "Нажмите для управления Очередью";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Очередь";
-"Queue cleared" = "Очередь очищена";
 "Install" = "Установить";
 "Reinstall" = "Переустановить";
 "Remove" = "Удалить";
