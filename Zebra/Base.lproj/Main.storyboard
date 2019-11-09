@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1089,25 +1089,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="V62-Gd-WSx">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="eeA-zf-gAO">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" id="tew-zJ-h7b">
-                                <rect key="frame" x="313" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelOrClose:" destination="KgF-4e-H9k" eventType="touchUpInside" id="lTy-Vw-Tr3"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="4Ec-af-JZg">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="confirm:" destination="kI6-98-Uzq" id="Q1y-Xt-1Gd"/>
+                                <action selector="cancelOrClose:" destination="KgF-4e-H9k" id="G05-tp-J2L"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
-                        <outlet property="cancelOrCloseButton" destination="tew-zJ-h7b" id="mV2-bA-KuW"/>
                         <outlet property="completeButton" destination="Dwm-vr-TSr" id="pUE-50-T7j"/>
                         <outlet property="consoleView" destination="lpS-Lu-3mG" id="HdC-0Y-Hug"/>
                         <outlet property="progressText" destination="BuP-O1-Zgo" id="fz7-VU-Op6"/>
@@ -1115,7 +1105,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Klv-G8-GIq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="kI6-98-Uzq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="8744.7999999999993" y="-287.40629685157421"/>
         </scene>
