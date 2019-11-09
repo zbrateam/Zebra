@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 
 // Queue Bar
-"Packages Queued" = "软件包队列";
-"Package Queued" = "软件包队列";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "点击以管理";
 "No Packages Queued" = "队列中无软件包";
 
