@@ -240,10 +240,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"Packages Queued" = "Τα Πακέτα μπήκαν στην Ουρά";
+"Package Queued" = "Το Πακέτο μπήκε στην Ουρά";
+"Tap to manage" = "Πάτα για διαχείριση";
+"No Packages Queued" = "Κανένα Πακέτο δεν μπήκε στην Ουρά";
 
 // Queue
 
