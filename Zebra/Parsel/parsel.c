@@ -187,7 +187,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
     char *baseFilename = multi_tok(fullfilename, &t, "_Release");
     dict_add(repo, "BaseFileName", baseFilename);
     
-    char secureURL[128];
+    char secureURL[256];
     strcpy(secureURL, baseFilename);
     int secure = isRepoSecure(sourcePath, secureURL);
     
@@ -261,7 +261,7 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
     char *baseFilename = multi_tok(fullfilename, &t, "_Packages");
     dict_add(repo, "BaseFileName", baseFilename);
     
-    char secureURL[128];
+    char secureURL[256];
     strcpy(secureURL, baseFilename);
     int secure = isRepoSecure(sourcePath, secureURL);
     
