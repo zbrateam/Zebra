@@ -294,6 +294,7 @@
 
 - (void)close {
     [queue clear];
+    [[self navigationController] popToRootViewControllerAnimated:true];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
 }
 
