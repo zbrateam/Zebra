@@ -240,8 +240,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 
 // Queue Bar
-"Packages Queued" = "paket köade";
-"Package Queued" = "paket köat";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Tryck för att hantera";
 "No Packages Queued" = "Inga paket köade";
 
