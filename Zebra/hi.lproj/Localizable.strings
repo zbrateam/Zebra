@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Packages in Queue";
-"Package in Queue" = "Package in Queue";
-"Tap to manage Queue" = "Tap to manage Queue";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Queue";
-"Queue cleared" = "Queue cleared";
 "Install" = "Install";
 "Reinstall" = "Reinstall";
 "Remove" = "Remove";
