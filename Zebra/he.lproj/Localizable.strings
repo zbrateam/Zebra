@@ -240,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 
 // Queue Bar
-"Packages in Queue" = "חבילות בתור";
-"Package in Queue" = "חבילה בתור";
-"Tap to manage Queue" = "לחץ/י כדי לנהל את התור";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "תור";
-"Queue cleared" = "תור נוקה";
 "Install" = "התקן";
 "Reinstall" = "התקן מחדש";
 "Remove" = "הסר";
