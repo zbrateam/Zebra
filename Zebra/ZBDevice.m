@@ -127,6 +127,10 @@
         }
         
         if (!hasSbreload || execed || [task terminationStatus] != 0) {
+            if ([task isRunning]) {
+                [task terminate];
+            }
+            
             NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
             // Ideally, this is only if sbreload fails
             [task setLaunchPath:@"/bin/launchctl"];
