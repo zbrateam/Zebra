@@ -88,8 +88,10 @@
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
         
-        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
-        self.navigationItem.leftBarButtonItem = shareButton;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+            self.navigationItem.leftBarButtonItem = shareButton;
+        });
     } else {
         [self configureLoadMoreButton];
     }

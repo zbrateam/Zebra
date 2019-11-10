@@ -119,6 +119,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (ZBTabBarController *)tabBarController {
+    //FIXME: This should only be run from the main thread
     return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
 }
 
