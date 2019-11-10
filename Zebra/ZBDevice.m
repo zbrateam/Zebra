@@ -176,6 +176,15 @@
     return S_ISDIR(path_stat.st_mode);
 }
 
++ (BOOL)isCheckrain {
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? YES : [self _isRegularFile:"/.bootstrapped"];
+    });
+    return value;
+}
+
 + (BOOL)isChimera {
     static BOOL value = NO;
     static dispatch_once_t onceToken;

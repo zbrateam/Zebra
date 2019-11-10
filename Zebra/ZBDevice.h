@@ -30,6 +30,7 @@
 + (void)openURL:(NSURL *_Nonnull)url delegate:(UIViewController <SFSafariViewControllerDelegate> *_Nonnull)delegate;
 
 // Jailbreak tools
++ (BOOL)isCheckrain;
 + (BOOL)isChimera;
 + (BOOL)isElectra;
 + (BOOL)isUncover;
