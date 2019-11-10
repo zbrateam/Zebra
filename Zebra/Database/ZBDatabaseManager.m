@@ -6,6 +6,8 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+@import Crashlytics;
+
 #import <ZBLog.h>
 #import "ZBDatabaseManager.h"
 #import <ZBDevice.h>
@@ -128,6 +130,7 @@
     databaseBeingUpdated = NO;
     const char *error = sqlite3_errmsg(database);
     if (error) {
+        CLS_LOG(@"Database Error: %s", error);
         NSLog(@"[Zebra] Database Error: %s", error);
     }
 }
