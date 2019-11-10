@@ -1091,6 +1091,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
+                        <outlet property="cancelOrCloseButton" destination="4Ec-af-JZg" id="DPY-yz-vMJ"/>
                         <outlet property="completeButton" destination="Dwm-vr-TSr" id="pUE-50-T7j"/>
                         <outlet property="consoleView" destination="lpS-Lu-3mG" id="HdC-0Y-Hug"/>
                         <outlet property="progressText" destination="BuP-O1-Zgo" id="fz7-VU-Op6"/>

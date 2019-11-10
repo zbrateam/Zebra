@@ -34,7 +34,7 @@
     BOOL zebraRestartRequired;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
-@property (strong, nonatomic) IBOutlet UIButton *cancelOrCloseButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelOrCloseButton;
 @property (strong, nonatomic) IBOutlet UILabel *progressText;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
@@ -506,15 +506,22 @@
 - (void)updateCancelOrCloseButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->suppressCancel) {
-            self.cancelOrCloseButton.hidden = YES;
+            self.cancelOrCloseButton.enabled = NO;
         }
         else if (self->currentStage == ZBStageFinished) {
-            self.cancelOrCloseButton.hidden = self->zebraRestartRequired;
-            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Close", @"") forState:UIControlStateNormal];
+            self.cancelOrCloseButton.enabled = !self->zebraRestartRequired;
+            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Close", @"")];
         }
         else {
-            self.cancelOrCloseButton.hidden = NO;
-            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
+            self.cancelOrCloseButton.enabled = YES;
+            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Cancel", @"")];
+        }
+        
+        if (self.cancelOrCloseButton.enabled) {
+            [self.cancelOrCloseButton setTintColor:[UIColor whiteColor]];
+        }
+        else {
+            [self.cancelOrCloseButton setTintColor:[UIColor clearColor]];
         }
     });
 }
