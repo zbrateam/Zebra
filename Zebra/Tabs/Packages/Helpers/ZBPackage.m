@@ -560,8 +560,8 @@
     if ([ZBDevice needsSimulation])
         return self.version;
 	NSTask *installedVersionTask = [[NSTask alloc] init];
-    [installedVersionTask setLaunchPath:@"/usr/bin/dpkg"];
-    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"-s", self.identifier, nil];
+    [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
+    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"dpkg", @"-s", self.identifier, nil];
     [installedVersionTask setArguments:versionArgs];
     
     NSPipe *outPipe = [NSPipe pipe];
