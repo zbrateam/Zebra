@@ -151,19 +151,19 @@
 "Installed Size" = "Taille Installée";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Version installée : %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Taille installée : %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d octets";
 //Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
+"%d KB" = "%d Ko";
 //Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
+"%.2f KB" = "%.2f Ko";
 //Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
+"%.2f MB" = "%.2f Mo";
 
 "Add to Wish List" = "Ajouter à la Liste de Souhait";
 "Remove from Wish List" = "Supprimer de la Liste de Souhait";
@@ -255,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clic \"Retour à la File d'Attente\" pour retourner à la File d'Attente et réessayer le téléchargement.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
+"%d Packages Queued" = "%d Paquets en file d'attente";
+"%d Package Queued" = "%d Paquet en file d'attente";
 "Tap to manage" = "Touchez pour gérer";
 "No Packages Queued" = "Pas de Paquets en File D'attente";
 
