@@ -151,10 +151,10 @@
 "Installed Size" = "実際の容量";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@(インストール済み:%@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -255,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d 個のパッケージがキューされてます";
+"%d Package Queued" = "%d 個のパッケージがキューされてます";
+"Tap to manage" = "タップして管理";
+"No Packages Queued" = "パッケージはキューされていません";
 
 // Queue
 
