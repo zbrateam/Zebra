@@ -151,10 +151,10 @@
 "Installed Size" = "Installerad storlek";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installerad version: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installerad storlek: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
