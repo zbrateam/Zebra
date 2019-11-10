@@ -243,13 +243,16 @@
 - (void)parseRepos:(NSDictionary *)filenames {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltdDatabaseOperations) {
+        CLS_LOG(@"Database operations halted.");
         NSLog(@"[Zebra] Database operations halted");
         return;
     }
     [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
     self.downloadManager = nil;
     NSArray *releaseFiles = filenames[@"release"];
+    CLS_LOG(@"Release Files: %@", releaseFiles);
     NSArray *packageFiles = filenames[@"packages"];
+    CLS_LOG(@"Package Files: %@", packageFiles);
     
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
@@ -715,6 +718,7 @@
             NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' %@ LIMIT %d OFFSET %d", section, repoPart, limit, start];
         }
+        CLS_LOG(@"startingAt query: %@", query);
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
