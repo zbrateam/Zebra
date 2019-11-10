@@ -49,7 +49,7 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSRange dividerRange = [urlString rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseURL = [urlString substringFromIndex:divide];
+    NSString *baseURL = divide > [urlString length] ? urlString : [urlString substringFromIndex:divide];
     
     return [databaseManager repoIDFromBaseURL:baseURL] > 0;
 }

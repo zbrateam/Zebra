@@ -507,7 +507,7 @@
 - (ZBRepo *)repoFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseURL = [burl substringFromIndex:divide];
+    NSString *baseURL = divide > [burl length] ? burl : [burl substringFromIndex:divide];
     
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
