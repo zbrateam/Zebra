@@ -82,7 +82,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
     
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
     
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];

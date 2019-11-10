@@ -34,7 +34,7 @@ enum ZBSourcesOrder {
     self.repoManager = [ZBRepoManager sharedInstance];
     
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
 }
 

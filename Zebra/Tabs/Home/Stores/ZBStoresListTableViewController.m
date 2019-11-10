@@ -36,7 +36,7 @@
     self.title = NSLocalizedString(@"Stores", @"");
     
     if (@available(iOS 11.0, *)) {
-        [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
 }
 

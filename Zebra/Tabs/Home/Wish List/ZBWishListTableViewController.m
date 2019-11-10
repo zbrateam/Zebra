@@ -27,7 +27,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
     
     self.title = NSLocalizedString(@"Wish List", @"");

@@ -39,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+    }
     [self applyLocalization];
 }
 
