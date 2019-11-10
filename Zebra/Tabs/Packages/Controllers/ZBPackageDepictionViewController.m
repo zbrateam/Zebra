@@ -658,7 +658,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     } else if (size) {
         infos[@(ZBPackageInfoSize)] = size;
     } else {
-        [infos removeObjectForKey:@(ZBPackageInfoSize)];
+        infos[@(ZBPackageInfoSize)] = @"-";
     }
 }
 
