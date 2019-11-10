@@ -257,8 +257,8 @@
 // Queue Bar
 "%d Packages Queued" = "%d Packages Queued";
 "%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"Tap to manage" = "탭하여 관리하기";
+"No Packages Queued" = "대기열에 추가된 패키지 없음";
 
 // Queue
 
