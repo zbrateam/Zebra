@@ -151,10 +151,10 @@
 "Installed Size" = "Größe der Installation";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installierte Version: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installierte Größe: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -255,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
+"%d Packages Queued" = "%d Pakete in der Warteschlange";
+"%d Package Queued" = "%d Paket in der Warteschlange";
 "Tap to manage" = "Zum Verwalten tippen";
 "No Packages Queued" = "Keine Pakete in der Warteschlange";
 
