@@ -1437,7 +1437,7 @@
         
         for (ZBPackage *conflictingPackage in [packages copy]) {
             for (NSString *conflict in [conflictingPackage conflictsWith]) {
-                if ([conflict containsString:[package identifier]]) {
+                if (([conflict containsString:@"("] || [conflict containsString:@")"]) && [conflict containsString:[package identifier]]) {
                     NSArray *versionComparison = [self separateVersionComparison:conflict];
                     if (![self doesPackage:package satisfyComparison:versionComparison[1] ofVersion:versionComparison[2]]) {
                         [packages removeObject:conflictingPackage];
