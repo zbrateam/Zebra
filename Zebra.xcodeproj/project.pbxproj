@@ -61,7 +61,6 @@
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
-		8905171E2372398A000F0A32 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
 		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
@@ -449,7 +448,6 @@
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				8947D84823734F9600635396 /* Fabric.framework in Frameworks */,
 				8947D84D23734F9700635396 /* FIRAnalyticsConnector.framework in Frameworks */,
-				8905171E2372398A000F0A32 /* Security.framework in Frameworks */,
 				8947D84B23734F9700635396 /* GoogleUtilities.framework in Frameworks */,
 				8947D84C23734F9700635396 /* Crashlytics.framework in Frameworks */,
 				8947D84523734F9600635396 /* GoogleAppMeasurement.framework in Frameworks */,
@@ -1028,7 +1026,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Wilson Styres";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
