@@ -420,12 +420,12 @@
     if (!numericSize) return NULL;
     double size = (double)numericSize;
     if (size > 1024 * 1024) {
-        return [NSString stringWithFormat:@"%.2f MB", size / 1024 / 1024];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
     }
     if (size > 1024) {
-        return [NSString stringWithFormat:@"%.2f KB", size / 1024];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:@"%d bytes", numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), numericSize];
 }
 
 - (int)numericInstalledSize {
@@ -442,9 +442,9 @@
     if (!numericSize) return NULL;
     double size = (double)numericSize;
     if (size > 1024) {
-        return [NSString stringWithFormat:@"%.2f MB", size / 1024];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:@"%d KB", numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), numericSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
