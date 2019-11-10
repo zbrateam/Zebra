@@ -459,7 +459,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
+    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"] && [[segue destinationViewController] isKindOfClass:[ZBPackageDepictionViewController class]]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         if (@available(iOS 11.0, *)) {
