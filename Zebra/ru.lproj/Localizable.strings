@@ -151,19 +151,19 @@
 "Installed Size" = "Размер после установки";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (установленная версия: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Размер После Установки: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d байт";
 //Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
+"%d KB" = "%d КБ";
 //Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
+"%.2f KB" = "%.2f КБ";
 //Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
+"%.2f MB" = "%.2f МБ";
 
 "Add to Wish List" = "Добавить в список желаний";
 "Remove from Wish List" = "Удалить из списка желаний";
@@ -255,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
+"%d Packages Queued" = "%d Пакетов в Очереди";
+"%d Package Queued" = "%d Пакет в Очереди";
 "Tap to manage" = "Нажмите для управления";
 "No Packages Queued" = "Нет Пакетов в Очереди";
 
