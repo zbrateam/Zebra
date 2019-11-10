@@ -1232,6 +1232,7 @@
 
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version {
     NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
     if (version == NULL || comparison == NULL)
         return YES;
@@ -1433,10 +1434,39 @@
                 [packages addObject:found];
             }
         }
+        
+        for (ZBPackage *conflictingPackage in [packages copy]) {
+            for (NSString *conflict in [conflictingPackage conflictsWith]) {
+                if ([conflict containsString:[package identifier]]) {
+                    NSArray *versionComparison = [self separateVersionComparison:conflict];
+                    if (![self doesPackage:package satisfyComparison:versionComparison[1] ofVersion:versionComparison[2]]) {
+                        [packages removeObject:conflictingPackage];
+                    }
+                }
+            }
+        }
+        
         return [packages count] > 0 ? packages : NULL;
     }
     [self printDatabaseError];
     return NULL;
+}
+
+- (NSArray *)separateVersionComparison:(NSString *)dependency {
+    NSUInteger openIndex = [dependency rangeOfString:@"("].location;
+    NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
+    
+    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *comparison;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:version];
+    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
+    [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
+    [scanner scanCharactersFromSet:versionChars intoString:&version];
+    
+    return @[packageIdentifier, comparison, version];
 }
 
 #pragma mark - Hyena Delegate

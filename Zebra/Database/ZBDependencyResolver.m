@@ -58,19 +58,7 @@
 
 - (BOOL)calculateConflictsForPackage:(ZBPackage *)package {
     //First lets check to see if any installed packages conflict with this package
-    NSMutableArray *packagesThatConflictWith = [[databaseManager packagesThatConflictWith:package] mutableCopy];
-    for (ZBPackage *conflictingPackage in packagesThatConflictWith) {
-        for (NSString *conflict in [conflictingPackage conflictsWith]) {
-            if ([conflict containsString:[package identifier]]) {
-                NSArray *versionComparison = [self separateVersionComparison:conflict];
-                if (![self doesVersion:[package version] satisfyComparison:versionComparison[1] ofVersion:versionComparison[2]]) {
-                    [packagesThatConflictWith removeObject:conflictingPackage];
-                }
-            }
-        }
-    }
-    
-    
+    NSArray *packagesThatConflictWith = [[databaseManager packagesThatConflictWith:package] mutableCopy];
     if ([packagesThatConflictWith count] > 0) {
         //We cannot install this package as there are some already installed packages that conflict here
         for (ZBPackage *conflict in packagesThatConflictWith) {
