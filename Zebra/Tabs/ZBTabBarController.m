@@ -131,7 +131,7 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
-        [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
+        [self clearRepos];
     });
 }
 

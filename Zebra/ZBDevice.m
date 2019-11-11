@@ -107,16 +107,16 @@
 
 + (void)sbreload {
     if (![self needsSimulation]) {
-        NSTask *task = [[NSTask alloc] init];
+        NSTask *sbreloadTask = [[NSTask alloc] init];
         BOOL hasSbreload = [[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/sbreload"];
         BOOL execed = NO;
         if (hasSbreload) {
-            [task setLaunchPath:@"/usr/bin/sbreload"];
-            [self asRoot:task arguments:nil];
-            if (![task isRunning]) {
+            [sbreloadTask setLaunchPath:@"/usr/bin/sbreload"];
+            [self asRoot:sbreloadTask arguments:nil];
+            if (![sbreloadTask isRunning]) {
                 @try {
-                    [task launch];
-                    [task waitUntilExit];
+                    [sbreloadTask launch];
+                    [sbreloadTask waitUntilExit];
                 }
                 @catch (NSException *e) {
                     execed = YES;
@@ -126,17 +126,18 @@
             }
         }
         
-        if (!hasSbreload || execed || [task terminationStatus] != 0) {
-            if ([task isRunning]) {
-                [task terminate];
+        if (!hasSbreload || execed || [sbreloadTask terminationStatus] != 0) {
+            if ([sbreloadTask isRunning]) {
+                [sbreloadTask terminate];
             }
             
+            NSTask *launchCTLTask = [[NSTask alloc] init];
             NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
             // Ideally, this is only if sbreload fails
-            [task setLaunchPath:@"/bin/launchctl"];
-            [self asRoot:task arguments:@[@"stop", @"com.apple.backboardd"]];
+            [launchCTLTask setLaunchPath:@"/bin/launchctl"];
+            [self asRoot:launchCTLTask arguments:@[@"stop", @"com.apple.backboardd"]];
             
-            [task launch];
+            [launchCTLTask launch];
         }
     }
 }

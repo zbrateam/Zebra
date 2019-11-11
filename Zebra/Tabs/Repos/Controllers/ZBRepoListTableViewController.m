@@ -154,13 +154,6 @@
     });
 }
 
-- (void)clearAllSpinners {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[ZBAppDelegate tabBarController] clearRepos];
-        [self.tableView reloadData];
-    });
-}
-
 - (void)editMode:(id)sender {
     [self setEditing:!self.editing animated:YES];
     [self layoutNavigationButtons];
@@ -428,6 +421,12 @@
     cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
     cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBRepo *source = [self sourceAtIndexPath:indexPath];
+    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+    [self setSpinnerVisible:[busyList[[source baseFileName]] boolValue] forCell:cell];
 }
 
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
