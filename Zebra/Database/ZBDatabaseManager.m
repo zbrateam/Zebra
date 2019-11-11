@@ -70,7 +70,7 @@
 
 - (int)openDatabase {
     if (![self isDatabaseOpen] || !database) {
-        sqlite3_shutdown();
+//        sqlite3_shutdown();
         sqlite3_config(SQLITE_CONFIG_SERIALIZED);
         sqlite3_initialize();
         assert(sqlite3_threadsafe());
