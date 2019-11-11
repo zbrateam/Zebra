@@ -22,6 +22,7 @@
 #import <Tabs/Repos/Helpers/ZBRepo.h>
 
 @import FirebaseCore;
+@import Crashlytics;
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
@@ -197,6 +198,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     [self setDefaultValues];
     [FIRApp configure];
+    CLS_LOG(@"Version: %@", PACKAGE_VERSION);
 //    [self stablilityCheck];
     return YES;
 }
