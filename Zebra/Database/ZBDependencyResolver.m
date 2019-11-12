@@ -168,7 +168,7 @@
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL];
-        if (conflictingPackage && ![conflictingPackage isEqual:package]) [self enqueueConflict:conflictingPackage forPackage:package];
+        if (conflictingPackage && ![[conflictingPackage identifier] isEqual:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
 }
 
