@@ -760,9 +760,11 @@
                 NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
                 NSString *packageVersion = [NSString stringWithUTF8String:versionChars];
                 ZBPackage *package = [self packageForID:packageID equalVersion:packageVersion];
-                package.version = packageVersion;
-                [installedPackageIDs addObject:package.identifier];
-                [installedPackages addObject:package];
+                if (package) {
+                    package.version = packageVersion;
+                    [installedPackageIDs addObject:package.identifier];
+                    [installedPackages addObject:package];
+                }
             }
         } else {
             [self printDatabaseError];
