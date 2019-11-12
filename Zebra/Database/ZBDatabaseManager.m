@@ -1433,7 +1433,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID = 0 AND CONFLICTS LIKE \'%%%@\%%\';", [package identifier]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE (CONFLICTS LIKE \'%%%@ (\%%\' OR CONFLICTS LIKE \'%%%@, \%%\' OR CONFLICTS = \'%@\') AND REPOID = 0;", [package identifier], [package identifier], [package identifier]];
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {

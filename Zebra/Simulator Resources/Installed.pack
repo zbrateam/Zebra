@@ -2555,3 +2555,19 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: me.alfhaily.cercube
+Status: install ok installed
+Name: Cercube for YouTube
+Version: 5.1.0
+Description: Download YouTube videos and more!
+Section: Tweaks
+Depends: firmware (>= 9.0), mobilesubstrate, com.rpetrich.rocketbootstrap
+Conflicts: me.freemanrepo.cercube, com.unlimapps.ytpp, com.yourepo.goldcydia.cercube3ios789, com.yourepo.mohadu31.cercube3ios789, com.yourepo.canolli.cercube3ios789, com.repo.xarold.com.cercube3, com.hackyouriphone.cercube3, com.biteyourapple.net.cercube3, com.yourepo.arabicydia.cercube2, me.alfhaily.adblockforyoutube, me.alfhaily.cercube.lib, com.pulandres.cercubecrack
+Priority: optional
+Architecture: iphoneos-arm
+Author: Majd Alfhaily
+Depiction: https://api-v5.cercube.com/depiction/cydia
+SileoDepiction: https://api-v5.cercube.com/depiction/sileo
+Icon: https://api-v5.cercube.com/resources/depiction/images/icon.png
+Maintainer: Majd Alfhaily <freemanrepo@me.com>
