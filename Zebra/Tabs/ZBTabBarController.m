@@ -131,7 +131,7 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
-        [(ZBRepoListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
+        [self clearRepos];
     });
 }
 
@@ -209,7 +209,8 @@
 
 - (void)updateQueueBarPackageCount:(int)count {
     if (count > 0) {
-        queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", count, NSLocalizedString(count > 1 ? @"Packages Queued" : @"Package Queued", @"")];
+        queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+//        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
         queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
     }
     else {
@@ -241,6 +242,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
         if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
             [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
             }];

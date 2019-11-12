@@ -88,8 +88,10 @@
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
         
-        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
-        self.navigationItem.leftBarButtonItem = shareButton;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+            self.navigationItem.leftBarButtonItem = shareButton;
+        });
     } else {
         [self configureLoadMoreButton];
     }
@@ -457,11 +459,11 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
+    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"] && [[segue destinationViewController] isKindOfClass:[ZBPackageDepictionViewController class]]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         if (@available(iOS 11.0, *)) {
-            destination.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+            self.navigationController.navigationBar.prefersLargeTitles = FALSE;
         }
         [self setDestinationVC:indexPath destination:destination];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];

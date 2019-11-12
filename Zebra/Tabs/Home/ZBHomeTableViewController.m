@@ -476,7 +476,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
     if (@available(iOS 11.0, *)) {
-        settingsController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }

@@ -92,11 +92,13 @@
 }
 
 - (void)layoutNavigationButtons {
-    if (self.refreshControl.refreshing) {
-        [self layoutNavigationButtonsRefreshing];
-    } else {
-        [self layoutNavigationButtonsNormal];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.refreshControl.refreshing) {
+            [self layoutNavigationButtonsRefreshing];
+        } else {
+            [self layoutNavigationButtonsNormal];
+        }
+    });
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {

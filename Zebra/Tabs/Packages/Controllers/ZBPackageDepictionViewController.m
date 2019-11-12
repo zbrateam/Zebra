@@ -82,7 +82,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
     
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
     
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -646,7 +646,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
         infos[@(ZBPackageInfoVersion)] = package.version;
     } else {
-        infos[@(ZBPackageInfoVersion)] = [NSString stringWithFormat:@"%@ (%@: %@)", package.version, NSLocalizedString(@"Installed Version", @""), [package installedVersion]];
+        infos[@(ZBPackageInfoVersion)] = [NSString stringWithFormat:NSLocalizedString(@"%@ (Installed Version: %@)", @""), package.version, [package installedVersion]];
     }
 }
 
@@ -654,11 +654,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *size = [package size];
     NSString *installedSize = [package installedSize];
     if (size && installedSize) {
-        infos[@(ZBPackageInfoSize)] = [NSString stringWithFormat:@"%@ (%@: %@)", size, NSLocalizedString(@"Installed Size", @""), installedSize];
+        infos[@(ZBPackageInfoSize)] = [NSString stringWithFormat:NSLocalizedString(@"%@ (Installed Size: %@)", @""), size, installedSize];
     } else if (size) {
         infos[@(ZBPackageInfoSize)] = size;
     } else {
-        [infos removeObjectForKey:@(ZBPackageInfoSize)];
+        infos[@(ZBPackageInfoSize)] = @"-";
     }
 }
 

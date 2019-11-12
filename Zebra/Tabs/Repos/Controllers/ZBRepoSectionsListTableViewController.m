@@ -41,7 +41,7 @@
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
     // Purchased Buttons
     self.login = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"") style:UIBarButtonItemStylePlain actionHandler:^{
@@ -168,7 +168,7 @@
     if (self.repoEndpoint) {
         NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]]];
         NSURLComponents *components = [NSURLComponents componentsWithURL:destinationUrl resolvingAgainstBaseURL:YES];
-        if ([components.scheme isEqualToString:@"http"] || [components.scheme isEqualToString:@"https"]) {
+        if (![components.scheme isEqualToString:@"http"] && ![components.scheme isEqualToString:@"https"]) {
             return;
         }
         

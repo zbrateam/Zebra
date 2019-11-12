@@ -823,6 +823,7 @@ Version: 1.1.13-5
 Depends: coreutils-bin
 Description: UIKit/GraphicsServices command line access
 Name: UIKit Tools
+Conflicts: org.coolstar.sileo (<= 0.8b9)
 Homepage: http://tukaani.org/lzma/
 Depiction: http://cydia.saurik.com/info/uikittools/
 
@@ -1466,6 +1467,24 @@ Name: Zebra (BETA)
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/
 Tag: purpose::x
+
+Package: org.coolstar.sileo
+Status: install ok installed
+Version: 1.5.1
+Architecture: iphoneos-arm
+Maintainer: CoolStar <coolstarorganization@gmail.com>
+Pre-Depends: debianutils, dpkg (>= 1.18)
+Depends: apt (>= 1.8.0), apt-lib (>= 1.8.0-sileo), apt-key (>= 1.8.0), dpkg (>= 1.19.2-4), cydia (>= 2.2), cy+cpu.arm64, firmware(>=12.2) | org.swift.libswift (>=5.0), zsh
+Conflicts: cydia-gui (<<99.0)
+Installed-Size: 3124
+Section: Packaging
+Priority: required
+Description: A proper APT client for iOS 11 and higher. (View this package in Sileo to see the full depiction)
+Tag: cydia::essential
+Author: Sileo Team <getsileoapp@gmail.com>
+Name: Sileo
+Sileodepiction: https://coolstar.moe/sileoassets/depictionoverride.php?package=org.coolstar.sileo
+
 
 Package: com.spark.snowboard
 Status: install ok installed
@@ -2536,3 +2555,19 @@ Architecture: iphoneos-arm
 Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
+
+Package: me.alfhaily.cercube
+Status: install ok installed
+Name: Cercube for YouTube
+Version: 5.1.0
+Description: Download YouTube videos and more!
+Section: Tweaks
+Depends: firmware (>= 9.0), mobilesubstrate, com.rpetrich.rocketbootstrap
+Conflicts: me.freemanrepo.cercube, com.unlimapps.ytpp, com.yourepo.goldcydia.cercube3ios789, com.yourepo.mohadu31.cercube3ios789, com.yourepo.canolli.cercube3ios789, com.repo.xarold.com.cercube3, com.hackyouriphone.cercube3, com.biteyourapple.net.cercube3, com.yourepo.arabicydia.cercube2, me.alfhaily.adblockforyoutube, me.alfhaily.cercube.lib, com.pulandres.cercubecrack
+Priority: optional
+Architecture: iphoneos-arm
+Author: Majd Alfhaily
+Depiction: https://api-v5.cercube.com/depiction/cydia
+SileoDepiction: https://api-v5.cercube.com/depiction/sileo
+Icon: https://api-v5.cercube.com/resources/depiction/images/icon.png
+Maintainer: Majd Alfhaily <freemanrepo@me.com>
