@@ -236,12 +236,12 @@
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
-"Downloading" = "ダウンロードしています：";
+"Downloading" = "ダウンロードしています";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
 "Removing" = "削除しています";
-"Removing Packages..." = "パッケージを削除しています...";
+"Removing Packages..." = "パッケージを削除します...";
 "Reinstalling" = "再インストールしています";
 "Reinstalling Packages..." = "パッケージを再インストールします...";
 "Upgrading" = "アップグレードしています";
@@ -252,7 +252,7 @@
 "Importing local packages." = "ローカルパッケージをインポートしています。";
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "\\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
 
 // Queue Bar
 "%d Packages Queued" = "%d 個のパッケージがキューされてます";
@@ -276,6 +276,6 @@
 "Required Package" = "要求されたパッケージ";
 "%@ is required by:" = "%@ は以下のTweaksに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は右記の問題が解決できません:";
+"%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure?" = "よろしいですか？";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
