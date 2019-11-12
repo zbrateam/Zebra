@@ -1,14 +1,14 @@
 // Common
 
-"Cancel" = "Cancel";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Login" = "Login";
-"Close" = "Close";
-"Done" = "Done";
+"Cancel" = "Anulo";
+"No" = "Jo";
+"Ok" = "Në rregull";
+"Error" = "Problem";
+"Retry" = "Provo përsëri";
+"Edit" = "Ndrysho";
+"Login" = "Futu";
+"Close" = "Mbyll";
+"Done" = "Përfudo";
 
 // Home
 
