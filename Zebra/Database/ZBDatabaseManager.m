@@ -6,6 +6,8 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+@import Crashlytics;
+
 #import <ZBLog.h>
 #import "ZBDatabaseManager.h"
 #import <ZBDevice.h>
@@ -68,7 +70,7 @@
 
 - (int)openDatabase {
     if (![self isDatabaseOpen] || !database) {
-        sqlite3_shutdown();
+//        sqlite3_shutdown();
         sqlite3_config(SQLITE_CONFIG_SERIALIZED);
         sqlite3_initialize();
         assert(sqlite3_threadsafe());
@@ -128,6 +130,7 @@
     databaseBeingUpdated = NO;
     const char *error = sqlite3_errmsg(database);
     if (error) {
+        CLS_LOG(@"Database Error: %s", error);
         NSLog(@"[Zebra] Database Error: %s", error);
     }
 }
@@ -178,12 +181,13 @@
 #pragma mark - Populating the database
 
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested {
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
     BOOL needsUpdate = NO;
     if (requested && haltdDatabaseOperations) {
         [self setHaltDatabaseOperations:false];
-    }
-    else {
-        NSLog(@"[Zebra] Database operations halted");
     }
     
     if (!requested) {
@@ -200,10 +204,6 @@
             needsUpdate = YES;
         }
     }
-    
-    if (databaseBeingUpdated)
-        return;
-    databaseBeingUpdated = YES;
     
     if (requested || needsUpdate) {
         [self checkForZebraRepo];
@@ -243,13 +243,16 @@
 - (void)parseRepos:(NSDictionary *)filenames {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltdDatabaseOperations) {
+        CLS_LOG(@"Database operations halted.");
         NSLog(@"[Zebra] Database operations halted");
         return;
     }
     [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
     self.downloadManager = nil;
     NSArray *releaseFiles = filenames[@"release"];
+    CLS_LOG(@"Release Files: %@", releaseFiles);
     NSArray *packageFiles = filenames[@"packages"];
+    CLS_LOG(@"Package Files: %@", packageFiles);
     
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
@@ -510,7 +513,7 @@
 - (ZBSource *)sourceFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseURL = [burl substringFromIndex:divide];
+    NSString *baseURL = divide > [burl length] ? burl : [burl substringFromIndex:divide];
     
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
@@ -715,6 +718,7 @@
             NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' %@ LIMIT %d OFFSET %d", section, repoPart, limit, start];
         }
+        CLS_LOG(@"startingAt query: %@", query);
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1112,6 +1116,27 @@
     return NULL;
 }
 
+- (ZBPackage *)installedPackageThatProvides:(NSString *)identifier {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID = 0 LIMIT 1;", identifier];
+        
+        ZBPackage *package = nil;
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        return package;
+    }
+    [self printDatabaseError];
+    return NULL;
+}
+
 - (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID > 0 LIMIT 1;", identifier];
@@ -1180,7 +1205,7 @@
         
         // Only try to resolve "Provides" if we can't resolve the normal package.
         if (package == NULL && version == NULL && comparison == NULL) {
-            package = [self packageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
+            package = [self installedPackageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
         
         if (package != NULL) {
@@ -1214,6 +1239,7 @@
 
 - (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version {
     NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
     if (version == NULL || comparison == NULL)
         return YES;
@@ -1418,10 +1444,39 @@
                 [packages addObject:found];
             }
         }
+        
+        for (ZBPackage *conflictingPackage in [packages copy]) {
+            for (NSString *conflict in [conflictingPackage conflictsWith]) {
+                if (([conflict containsString:@"("] || [conflict containsString:@")"]) && [conflict containsString:[package identifier]]) {
+                    NSArray *versionComparison = [self separateVersionComparison:conflict];
+                    if (![self doesPackage:package satisfyComparison:versionComparison[1] ofVersion:versionComparison[2]]) {
+                        [packages removeObject:conflictingPackage];
+                    }
+                }
+            }
+        }
+        
         return [packages count] > 0 ? packages : NULL;
     }
     [self printDatabaseError];
     return NULL;
+}
+
+- (NSArray *)separateVersionComparison:(NSString *)dependency {
+    NSUInteger openIndex = [dependency rangeOfString:@"("].location;
+    NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
+    
+    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *comparison;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:version];
+    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
+    [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
+    [scanner scanCharactersFromSet:versionChars intoString:&version];
+    
+    return @[packageIdentifier, comparison, version];
 }
 
 #pragma mark - Hyena Delegate

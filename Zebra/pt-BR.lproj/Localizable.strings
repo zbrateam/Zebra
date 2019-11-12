@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Redefinindo o cache de imagem completo";
 "Clearing keychain completed" = "Limpando keychain completo";
 
+"Drop Tables" = "Soltar tabelas";
+
+"Alternate Icons" = "Ícones Alternativos";
+
 // Sources
 
 "Sources" = "Fontes";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Atualizações disponíveis";
 "Ignored Upgrades" = "Atualizações ignoradas";
 "Recent" = "Recentes";
+"Repo" = "Repositório";
 "Installed Files" = "Arquivos Instalados";
 "Modify" = "Modificar";
 "Authenticate to initiate purchase." = "Autentique para iniciar a compra.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Faça login novamente na sua conta usada para comprar este pacote (possivelmente %@)";
 "More by this Developer" = "Mais deste desenvolvedor";
 "Installed Version" = "Versão Instalada";
+"Installed Size" = "Tamanho instalado";
 
 "Add to Wish List" = "Adicionar na Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administração";
+"Addons" = "Complementos";
 "App Addons" = "Complementos para Apps";
 "Archiving" = "Arquivamento";
 "Carrier Support" = "Suporte de Operadora";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clique em \"Retorne a Fila\" para retornar à fila e tentar novamente o download.";
 
 // Queue Bar
-"Packages in Queue" = "Pacotes na fila";
-"Package in Queue" = "Pacote na fila";
-"Tap to manage Queue" = "Toque para gerenciar a fila";
+"Packages Queued" = "Pacotes na fila";
+"Package Queued" = "Pacote na fila";
+"Tap to manage" = "Toque para gerenciar";
+"No Packages Queued" = "Não há pacotes na fila";
 
 // Queue
 
 "Queue" = "Fila";
-"Queue cleared" = "Fila limpa";
 "Install" = "Instalar";
 "Reinstall" = "Reinstalar";
 "Remove" = "Remover";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ é requerido por:";
 "Issues" = "Problemas";
 "%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
+"Are you sure?" = "Você tem certeza?";
+"Are you sure you want to clear the queue?" = "Você tem certeza que deseja limpar a fila?";

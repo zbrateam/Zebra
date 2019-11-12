@@ -26,7 +26,7 @@
 "Stores" = "Marketler";
 "Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "İstek listesinde öğe yok";
 "Community" = "Topluluk";
 "Join our Discord" = "Discord'umuza katıl!";
 "Follow me on Twitter" = "Beni Twitter'dan takip edin!";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Resim hafızasını temizleme tamamlandı";
 "Clearing keychain completed" = "Anahtar Zincirini temizleme tamamlandı";
 
+"Drop Tables" = "Tabloları Çıkart";
+
+"Alternate Icons" = "Alternatif İkonlar";
+
 // Sources
 
 "Sources" = "Kaynaklar";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Gizlenen Güncellemeler";
 "Recent" = "En Son";
+"Repo" = "Kaynak";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
 "Authenticate to initiate purchase." = "İç satın alımı onayla.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Lütfen bu paketi almak için kullandığınız hesaba giriş yapın. (Muhtemelen %@)";
 "More by this Developer" = "Bu yapımcıdan daha fazla paket";
 "Installed Version" = "Yüklenen Versiyon";
+"Installed Size" = "Yüklü Boyut";
 
 "Add to Wish List" = "İstek Listesine ekle";
 "Remove from Wish List" = "İstek Listesinden kaldır";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Yönetim";
+"Addons" = "Eklentiler";
 "App Addons" = "Uygulama Eklentileri";
 "Archiving" = "Arşivleme";
 "Carrier Support" = "Telekominasyon";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "İşlemler Gerçekleştiriliyor...";
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
 
 // Queue Bar
-"Packages in Queue" = "Sıradaki Paketler";
-"Package in Queue" = "Sıradaki Paket";
-"Tap to manage Queue" = "Sırayı Düzenlemek İçin Dokun";
+"Packages Queued" = "Sıra Barı";
+"Package Queued" = "Paket Sıralandı";
+"Tap to manage" = "Yönetmek için dokunun";
+"No Packages Queued" = "Sırada Paket Yok";
 
 // Queue
 
 "Queue" = "Sıra";
-"Queue cleared" = "Sıra temizlendi";
 "Install" = "Yükle";
 "Reinstall" = "Tekrar yükle";
 "Remove" = "Kaldır";
@@ -250,8 +257,10 @@
 "Continue" = "Devam";
 "Download Size" = "İndirme Boyutu";
 "Confirm" = "Onayla";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
+"Required Package" = "Gerekli Paket";
+"%@ is required by:" = "%@ şunun tarafından isteniyor:";
+"Issues" = "Sorunlar";
+"%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
+"Are you sure?" = "Emin misiniz?";
+"Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";

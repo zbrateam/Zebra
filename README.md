@@ -54,6 +54,7 @@ If you want to compile Zebra yourself, you can use the following steps. A comput
 
 1. Clone this repository using `git clone --recursive https://github.com/wstyres/Zebra.git`
 2. `cd` into the `Zebra` folder
-3. run `make do`
+3. (One time only) Install `xcpretty` if you haven't already via `sudo gem install xcpretty`
+4. run `make do`
    1. If you don't have `theos` already installed on your computer, follow the steps located [here](https://github.com/theos/theos/wiki/Installation).
-4. Done!
+5. Done!

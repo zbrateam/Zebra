@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)dependencyQueue; // delete this later
 - (NSMutableArray *)conflictQueue;
 - (NSMutableArray <NSString *> *)queuedPackagesList;
+- (ZBQueueType)locate:(ZBPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END

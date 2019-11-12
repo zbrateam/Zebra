@@ -26,7 +26,7 @@
 "Stores" = "스토어";
 "Purchases" = "구매 기록";
 "Wish List" = "위시 리스트";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "위시리스트가 비었습니다.";
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord 참여";
 "Follow me on Twitter" = "Twitter에서 나를 팔로우하세요!";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "이미지 캐시 초기화 완료";
 "Clearing keychain completed" = "키체인 지우기 완료";
 
+"Drop Tables" = "테이블 버리기";
+
+"Alternate Icons" = "대체 아이콘";
+
 // Sources
 
 "Sources" = "소스";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "사용 가능한 업그레이드";
 "Ignored Upgrades" = "무시된 업그레이드";
 "Recent" = "최근";
+"Repo" = "레포";
 "Installed Files" = "설치된 파일들";
 "Modify" = "수정";
 "Authenticate to initiate purchase." = "인증하여 구매 시작";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "이 패키지를 구매할 때 사용한 내 계정으로 다시 로그인해주세요. (혹시 %@)";
 "More by this Developer" = "이 개발자 패키지 더 보기";
 "Installed Version" = "설치된 버전";
+"Installed Size" = "설치된 크기";
 
 "Add to Wish List" = "위시 리스트에 추가";
 "Remove from Wish List" = "위시 리스트에서 제거";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "관리";
+"Addons" = "애드온";
 "App Addons" = "앱 에드온";
 "Archiving" = "아카이빙";
 "Carrier Support" = "통신사 지원";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "콘솔";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "작업 수행 중...";
 "Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
 "Close Zebra" = "Zebra 닫기";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
 
 // Queue Bar
-"Packages in Queue" = "패키지가 대기열에 있습니다.";
-"Package in Queue" = "패키지가 대기열에 있습니다.";
-"Tap to manage Queue" = "탭하여 대기열을 관리합니다.";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "대기열";
-"Queue cleared" = "대기열 제거 됨";
 "Install" = "설치";
 "Reinstall" = "재설치";
 "Remove" = "삭제";
@@ -250,8 +257,10 @@
 "Continue" = "계속";
 "Download Size" = "다운로드 사이즈";
 "Confirm" = "확인";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
+"Required Package" = "필요한 패키지";
+"%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
+"Issues" = "이슈";
+"%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
+"Are you sure?" = "확실한가요?";
+"Are you sure you want to clear the queue?" = "정말로 대기열을 지울까요?";

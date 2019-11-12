@@ -114,6 +114,10 @@
 "Resetting image cache completed" = "Resetting image cache completed";
 "Clearing keychain completed" = "Clearing keychain completed";
 
+"Drop Tables" = "Drop Tables";
+
+"Alternate Icons" = "Alternate Icons";
+
 // Sources
 
 "Sources" = "Sources";
@@ -165,12 +169,29 @@
 "Available Upgrades" = "Available Upgrades";
 "Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
+"Repo" = "Repo";
 "Installed Files" = "Installed Files";
 "Modify" = "Modify";
 "Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
 "More by this Developer" = "More by this Developer";
 "Installed Version" = "Installed Version";
+"Installed Size" = "Installed Size";
+
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
 
 "Add to Wish List" = "Add to Wish List";
 "Remove from Wish List" = "Remove from Wish List";
@@ -178,6 +199,7 @@
 // Package Section Names
 
 "Administration" = "Administration";
+"Addons" = "Addons";
 "App Addons" = "App Addons";
 "Archiving" = "Archiving";
 "Carrier Support" = "Carrier Support";
@@ -261,14 +283,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"Packages in Queue" = "Packages in Queue";
-"Package in Queue" = "Package in Queue";
-"Tap to manage Queue" = "Tap to manage Queue";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Queue";
-"Queue cleared" = "Queue cleared";
 "Install" = "Install";
 "Reinstall" = "Reinstall";
 "Remove" = "Remove";
@@ -283,3 +305,5 @@
 "%@ is required by:" = "%@ is required by:";
 "Issues" = "Issues";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";

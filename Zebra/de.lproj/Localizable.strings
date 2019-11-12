@@ -28,8 +28,8 @@
 "Wish List" = "Wunschliste";
 "No items in Wish List" = "Keine Artikel in der Wunschliste";
 "Community" = "Community";
-"Join our Discord" = "Tritt unserem Discord bei";
-"Follow me on Twitter" = "Folgt mir auf Twitter";
+"Join our Discord" = "Trete unserem Discord bei";
+"Follow me on Twitter" = "Folge mir auf Twitter";
 
 //Credits
 
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
 "Clearing keychain completed" = "Keychain erfolgreich geleert";
 
+"Drop Tables" = "Datenbanktabellen leeren";
+
+"Alternate Icons" = "Alternative Symbole";
+
 // Sources
 
 "Sources" = "Quellen";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Verfügbare Aktualisierungen";
 "Ignored Upgrades" = "Ignorierte Aktualiserungen";
 "Recent" = "Kürzlich";
+"Repo" = "Quelle";
 "Installed Files" = "Installierte Dateien";
 "Modify" = "Bearbeiten";
 "Authenticate to initiate purchase." = "Zum Kaufen authentifizieren.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Bitte melde dich erneut mit dem Konto an, mit dem das Paket gekauft wurde (Möglicherweise %@)";
 "More by this Developer" = "Mehr vom Entwickler";
 "Installed Version" = "Installierte Version";
+"Installed Size" = "Größe der Installation";
 
 "Add to Wish List" = "Zur Wunschliste hinzufügen";
 "Remove from Wish List" = "Von Wunschliste entfernen";
@@ -150,18 +156,19 @@
 // Package Section Names
 
 "Administration" = "Administration";
+"Addons" = "Erweiterungen";
 "App Addons" = "App Erweiterungen";
 "Archiving" = "Archivierung";
 "Carrier Support" = "Netzbetreiber Unterstützung";
 "Communication" = "Kommunikation";
-"Data Storage" = "Daten Speicher";
+"Data Storage" = "Speicher";
 "Development" = "Entwicklung";
 "Dictionaries" = "Wörterbücher";
 "Education" = "Bildung";
 "Entertainment" = "Unterhaltung";
 "Games" = "Spiele";
-"Health and Fitness" = "Gesundheit und Fitneß";
-"Imaging" = "Abbildung";
+"Health and Fitness" = "Gesundheit und Fitness";
+"Imaging" = "Imaging";
 "Java" = "Java";
 "Keyboards" = "Tastaturen";
 "Localization" = "Lokalisierung";
@@ -169,7 +176,7 @@
 "Multimedia" = "Multimedien";
 "Navigation" = "Navigation";
 "Networking" = "Netzwerk";
-"Packaging" = "Packaging";
+"Packaging" = "Paketmanagement";
 "Productivity" = "Produktivität";
 "Repositories" = "Quellen";
 "Ringtones" = "Klingeltöne";
@@ -178,8 +185,8 @@
 "Social" = "Sozial";
 "System" = "System";
 "Terminal Support" = "Terminal Unterstützung";
-"Text Editors" = "Text Bearbeiter";
-"Themes" = "Motive";
+"Text Editors" = "Texteditoren";
+"Themes" = "Themes";
 "Toys" = "Spielzeuge";
 "Tweaks" = "Tweaks";
 "Utilities" = "Dienstprogramme";
@@ -197,7 +204,7 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Fehler beim Öffnen von sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist mit deinem Jailbreak inkompatibel.";
+"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist nicht mit deinem Jailbreak kompatibel.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Es könnte Probleme verursachen, wenn du es zu Zebra hinzufügst, was eine mögliche Wiederherstellung von Zebra verursachen könnte.";
 "Please remove this repo from your sources.list file." = "Bitte entferne diese Quelle von deiner sources.list Datei.";
 "Incorrect documents permissions." = "Falsche Dokumentenberechtigung.";
@@ -230,17 +237,17 @@
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf “Zurück zur Warteschlange“, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
-"Packages in Queue" = "Pakete in Warteschlange";
-"Package in Queue" = "Paket in Warteschlange";
-"Tap to manage Queue" = "Warteschlange verwalten";
+"Packages Queued" = "In der Warteschlange befindliche Pakete";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Zum Verwalten tippen";
+"No Packages Queued" = "Keine Pakete in der Warteschlange";
 
 // Queue
 
 "Queue" = "Warteschlange";
-"Queue cleared" = "Warteschlange geleert";
 "Install" = "Installieren";
 "Reinstall" = "Neu installieren";
 "Remove" = "Entfernen";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ wird benötigt von:";
 "Issues" = "Probleme";
 "%@ has issues that cannot be resolved:" = "%@ hat Probleme die nicht gelöst werden konnten:";
+"Are you sure?" = "Bist du sicher?";
+"Are you sure you want to clear the queue?" = "Möchtest du die Warteschlange wirklich leeren?";

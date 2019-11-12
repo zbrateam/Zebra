@@ -10,6 +10,7 @@
 #import <ZBLog.h>
 #import <ZBTab.h>
 #import <ZBSettings.h>
+#import <ZBPackagePartitioner.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -21,11 +22,7 @@
 #import <UIColor+Zebra.h>
 #import "ZBDevice.h"
 
-typedef NS_ENUM(NSInteger, ZBSortingType) {
-    ZBSortingTypeABC,
-    ZBSortingTypeDate,
-    ZBSortingTypeInstalledSize
-};
+@import FirebaseAnalytics;
 
 @interface ZBPackageListTableViewController () {
     ZBSortingType selectedSortingType;
@@ -59,6 +56,8 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     [self applyLocalization];
 
     selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
+    if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
+        selectedSortingType = ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -78,6 +77,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshTable];
+    [self registerView];
 }
 
 - (void)dealloc {
@@ -87,7 +87,11 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 - (void)layoutNavigationButtonsNormal {
     if ([repo repoID] == 0) {
         [self configureUpgradeButton];
-        [self configureQueueOrShareButton];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
+            self.navigationItem.leftBarButtonItem = shareButton;
+        });
     } else {
         [self configureLoadMoreButton];
     }
@@ -102,7 +106,17 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 }
 
 - (void)updateCollation {
-    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+    switch (selectedSortingType) {
+        case ZBSortingTypeABC:
+            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+            break;
+        case ZBSortingTypeDate:
+            self.tableData = [self partitionObjects:packages collationStringSelector:repo.repoID ? @selector(lastSeenDate) : @selector(installedDate)];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 - (void)refreshTable {
@@ -131,13 +145,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
             self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
-        if (self->selectedSortingType == ZBSortingTypeDate) {
-            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
-                NSDate *first = [a installedDate];
-                NSDate *second = [b installedDate];
-                return [second compare:first];
-            }];
-        } else if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
+        if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
             self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
                 NSInteger sizeA = [a numericInstalledSize];
                 NSInteger sizeB = [b numericInstalledSize];
@@ -206,30 +214,12 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
-        if (self->repo.repoID) {
+        if (self->repo.repoID)
             [items removeLastObject];
-            segmentedControl.selectedSegmentIndex = MIN(1, (NSInteger)self->selectedSortingType);
-        }
-        else
-            segmentedControl.selectedSegmentIndex = (NSInteger)self->selectedSortingType;
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+        segmentedControl.selectedSegmentIndex = self->selectedSortingType;
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
-    });
-}
-
-- (void)configureQueueOrShareButton {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([ZBQueue count] > 0) {
-            self->queueButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Queue", @"") style:UIBarButtonItemStylePlain target:self action:@selector(presentQueue)];
-            self->clearButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"") style:UIBarButtonItemStylePlain target:self action:@selector(askClearQueue)];
-            self.navigationItem.leftBarButtonItems = @[ self->queueButton, self->clearButton ];
-        } else {
-            self->queueButton = self->clearButton = nil;
-            self.navigationItem.leftBarButtonItems = nil;
-            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePackages)];
-            self.navigationItem.leftBarButtonItem = shareButton;
-        }
     });
 }
 
@@ -316,7 +306,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     if (needsIgnoredUpdatesSection && indexPath.section == needsUpdatesSection) {
         return [ignoredUpdates objectAtIndex:indexPath.row];
     }
-    if (selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
         return package;
     }
@@ -333,7 +323,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [sectionIndexTitles count] + needsUpdatesSection + needsIgnoredUpdatesSection;
     }
     return 1 + needsUpdatesSection + needsIgnoredUpdatesSection;
@@ -357,7 +347,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     if (needsIgnoredUpdatesSection && section == needsUpdatesSection) {
         return ignoredUpdates.count;
     }
-    if (self->selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [[self objectAtSection:section] count];
     }
     return sortedPackages.count;
@@ -365,7 +355,7 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    [cell updateData:package];
+    [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize];
     if ([repo repoID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
@@ -406,12 +396,16 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
         if (isIgnoredUpdateSection) {
             return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Ignored Upgrades", @""), (unsigned long)ignoredUpdates.count];
         }
-        if (selectedSortingType == ZBSortingTypeABC && hasDataInSection) {
-            return [self sectionIndexTitlesForTableView:tableView][[self trueSection:section]];
+        if (hasDataInSection) {
+            NSInteger trueSection = [self trueSection:section];
+            if (selectedSortingType == ZBSortingTypeABC)
+                return [self sectionIndexTitlesForTableView:tableView][trueSection];
+            if (selectedSortingType == ZBSortingTypeDate)
+                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles];
         }
-        if (selectedSortingType == ZBSortingTypeDate) {
-            return NSLocalizedString(@"Recent", @"");
-        }
+//        if (selectedSortingType == ZBSortingTypeDate) {
+//            return NSLocalizedString(@"Recent", @"");
+//        }
         if (selectedSortingType == ZBSortingTypeInstalledSize) {
             return @"Size";
         }
@@ -424,37 +418,13 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 }
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
-    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-    sectionIndexTitles = [NSMutableArray arrayWithArray:[collation sectionIndexTitles]];
-    NSInteger sectionCount = [[collation sectionTitles] count];
-    NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (int i = 0; i < sectionCount; ++i) {
-        [unsortedSections addObject:[NSMutableArray array]];
-    }
-    for (id object in array) {
-        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
-        [[unsortedSections objectAtIndex:index] addObject:object];
-    }
-    NSUInteger lastIndex = 0;
-    NSMutableIndexSet *sectionsToRemove = [NSMutableIndexSet indexSet];
-    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (NSMutableArray *section in unsortedSections) {
-        if ([section count] == 0) {
-            NSRange range = NSMakeRange(lastIndex, [unsortedSections count] - lastIndex);
-            [sectionsToRemove addIndex:[unsortedSections indexOfObject:section inRange:range]];
-            lastIndex = [sectionsToRemove lastIndex] + 1;
-        } else {
-            [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
-        }
-    }
-    [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
-    return sections;
+    sectionIndexTitles = [NSMutableArray array];
+    return [ZBPackagePartitioner partitionObjects:array collationStringSelector:selector sectionIndexTitles:sectionIndexTitles packages:packages type:selectedSortingType];
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    if (self->selectedSortingType == ZBSortingTypeABC) {
+    if (selectedSortingType == ZBSortingTypeABC)
         return sectionIndexTitles;
-    }
     return nil;
 }
 
@@ -489,11 +459,11 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
+    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"] && [[segue destinationViewController] isKindOfClass:[ZBPackageDepictionViewController class]]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         if (@available(iOS 11.0, *)) {
-            destination.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+            self.navigationController.navigationBar.prefersLargeTitles = FALSE;
         }
         [self setDestinationVC:indexPath destination:destination];
 //        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -520,6 +490,14 @@ typedef NS_ENUM(NSInteger, ZBSortingType) {
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setBarTintColor:nil];
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

@@ -17,6 +17,9 @@
 #import <UIColor+Zebra.h>
 #import <ZBQueue.h>
 #import "ZBTab.h"
+#import <Queue/ZBQueueViewController.h>
+
+
 @import LNPopupController;
 
 @interface ZBTabBarController () {
@@ -42,7 +45,7 @@
         UITabBar.appearance.tintColor = [UIColor tintColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
-    
+
     self->indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     CGRect indicatorFrame = self->indicator.frame;
     self->indicator.frame = indicatorFrame;
@@ -50,7 +53,7 @@
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
-    
+
     databaseManager = [ZBDatabaseManager sharedInstance];
     if (![databaseManager needsToPresentRefresh]) {
         [databaseManager addDatabaseDelegate:self];
@@ -69,17 +72,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     if ([databaseManager needsToPresentRefresh]) {
         [databaseManager setNeedsToPresentRefresh:NO];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-        refreshController.messages = nil;
-        refreshController.dropTables = YES;
-        
+
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
         [self presentViewController:refreshController animated:YES completion:nil];
     }
-    
+
     //poor hack to get the tab bar to re-layout
     if (@available(iOS 11.0, *)) {
         self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
@@ -91,7 +91,7 @@
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
-        
+
         if (updates > 0) {
             [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
@@ -131,7 +131,7 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
-        [(ZBSourcesListTableViewController *)sourcesController.viewControllers[0] clearAllSpinners];
+        [self clearRepos];
     });
 }
 
@@ -141,9 +141,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (bfn == NULL) return;
         if (!self->repoBusyList) self->repoBusyList = [NSMutableDictionary new];
-        
+
         ZBSourcesListTableViewController *sourcesVC = (ZBSourcesListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-        
+
         [self->repoBusyList setObject:@(busy) forKey:bfn];
         [sourcesVC setSpinnerVisible:busy forBaseFileName:bfn];
     });
@@ -164,10 +164,7 @@
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBRefreshViewController *refreshController = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-            refreshController.messages = self->errorMessages;
-            
+            ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];
             [self presentViewController:refreshController animated:YES completion:nil];
             self->errorMessages = nil;
         }
@@ -181,54 +178,6 @@
     }
 }
 
-- (void)checkQueueNav {
-    if (queueNav == nil) {
-        [self updateQueueNav];
-    }
-}
-
-- (void)updateQueueNav {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    queueNav = [storyboard instantiateViewControllerWithIdentifier:@"queueNavigationController"];
-}
-
-- (void)updateQueueBarData {
-    int totalPackages = [ZBQueue count];
-    if (totalPackages == 0) {
-        [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:nil];
-        return;
-    }
-    queueNav.popupItem.title = [NSString stringWithFormat:@"%d %@", totalPackages, NSLocalizedString(totalPackages > 1 ? @"Packages in Queue" : @"Package in Queue", @"")];
-    queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage Queue", @"");
-}
-
-- (void)openQueue:(BOOL)openPopup {
-    [self checkQueueNav];
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state == LNPopupPresentationStateTransitioning) {
-        return;
-    }
-    if (openPopup && state == LNPopupPresentationStateOpen) {
-        return;
-    }
-    if (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed)) {
-        return;
-    }
-    [self updateQueueBarData];
-    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
-    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
-    [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
-}
-
-- (void)updateQueueBar {
-    [self checkQueueNav];
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-        [self openQueue:NO];
-    }
-    [self updateQueueBarData];
-}
-
 - (void)forwardToPackage {
     if (forwardToPackageID != NULL) { //this is pretty hacky
         NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
@@ -239,6 +188,66 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         forwardToPackageID = NULL;
     }
+}
+
+#pragma mark - Queue Popup Bar
+
+- (void)checkQueueNav {
+    if (!queueNav) {
+        queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
+    }
+}
+
+- (void)updateQueueBar {
+    [self checkQueueNav];
+    [self updateQueueBarPackageCount:[ZBQueue count]];
+
+    LNPopupPresentationState state = self.popupPresentationState;
+    if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
+        [self openQueue:NO];
+    }
+}
+
+- (void)updateQueueBarPackageCount:(int)count {
+    if (count > 0) {
+        queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+//        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
+        queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+    }
+    else {
+        queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+        queueNav.popupItem.subtitle = nil;
+    }
+}
+
+- (void)openQueue:(BOOL)openPopup {
+    [self checkQueueNav];
+
+    LNPopupPresentationState state = self.popupPresentationState;
+    if (state == LNPopupPresentationStateTransitioning) {
+        return;
+    }
+    if (openPopup && state == LNPopupPresentationStateOpen) {
+        return;
+    }
+    if (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed)) {
+        return;
+    }
+
+    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
+    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+    [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
+}
+
+- (void)closeQueue {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        LNPopupPresentationState state = self.popupPresentationState;
+        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning) {
+            [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
+            }];
+        }
+    });
 }
 
 @end

@@ -26,7 +26,7 @@
 "Stores" = "Butikker";
 "Purchases" = "Køb";
 "Wish List" = "Ønskeliste";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Ingen varer på Ønskelisten";
 "Community" = "Fællesskab";
 "Join our Discord" = "Meld dig ind i vores Discord";
 "Follow me on Twitter" = "Følg mig på Twitter";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Nulstilling af billed cache færdig";
 "Clearing keychain completed" = "Ryddelse af Keychain færdig";
 
+"Drop Tables" = "Drop Tabeller";
+
+"Alternate Icons" = "Alternative Ikoner";
+
 // Sources
 
 "Sources" = "Kilder";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Tilgængelig Opgraderinger";
 "Ignored Upgrades" = "Ignorer Opgraderinger";
 "Recent" = "Nylig";
+"Repo" = "Arkiv";
 "Installed Files" = "Installeret Filer";
 "Modify" = "Modificer";
 "Authenticate to initiate purchase." = "Autentificere for at igangsætte køb.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vær sød at logge ind på kontoen der er brugt til at købe denne pakke (Muligvis %@)";
 "More by this Developer" = "Mere fra denne Udvikler";
 "Installed Version" = "Installeret Udgave";
+"Installed Size" = "Installeret Størrelse";
 
 "Add to Wish List" = "Tilføj til Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
@@ -150,13 +156,14 @@
 // Package Section Names
 
 "Administration" = "Administration";
+"Addons" = "Tilføjelser";
 "App Addons" = "App Tilføjelser";
 "Archiving" = "Arkivering";
-"Carrier Support" = "Carrier Support";
+"Carrier Support" = "Operatørsupport";
 "Communication" = "Kommunikation";
 "Data Storage" = "Data Opbevaring";
 "Development" = "Udvikling";
-"Dictionaries" = "Dictionaries";
+"Dictionaries" = "Ordbøger";
 "Education" = "Uddannelse";
 "Entertainment" = "Underholdning";
 "Games" = "Spil";
@@ -169,9 +176,9 @@
 "Multimedia" = "Multimedier";
 "Navigation" = "Navigering";
 "Networking" = "Netværk";
-"Packaging" = "Indpakning";
+"Packaging" = "Pakketering";
 "Productivity" = "Produktivitet";
-"Repositories" = "Repositories";
+"Repositories" = "Arkiver";
 "Ringtones" = "Ringetoner";
 "Scripting" = "Scripting";
 "Security" = "Sikkerhed";
@@ -181,7 +188,7 @@
 "Text Editors" = "Tekstredigeringsværktøj";
 "Themes" = "Temaer";
 "Toys" = "Legetøj";
-"Tweaks" = "Tweaks";
+"Tweaks" = "Finjusteringer";
 "Utilities" = "Værktøjer";
 "Wallpaper" = "Baggrunde";
 "Widgets" = "Widgets";
@@ -209,14 +216,14 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Udfører Handlinger...";
 "Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
 "Close Zebra" = "Luk Zebra";
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Downloading" = "Overfører";
 "Downloading Packages..." = "Overfører Pakker...";
-"Installing" = "Installing";
+"Installing" = "Installerer";
 "Installing Packages..." = "Installerer Pakker...";
 "Removing" = "Fjerner";
 "Removing Packages..." = "Fjerner Pakker...";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
 
 // Queue Bar
-"Packages in Queue" = "Pakker i Kø";
-"Package in Queue" = "Pakke i Kø";
-"Tap to manage Queue" = "Tryk for at administrere kø";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Kø";
-"Queue cleared" = "Kø ryddet";
 "Install" = "Installer";
 "Reinstall" = "Geninstallere";
 "Remove" = "Fjern";
@@ -250,8 +257,10 @@
 "Continue" = "Fortsæt";
 "Download Size" = "Overførsels størrelse";
 "Confirm" = "Bekræft";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ skal fjernes, fordi det afhænger af %@";
+"Required Package" = "Påkrævet Pakke";
+"%@ is required by:" = "%@ er påkrævet af:";
+"Issues" = "Problemer";
+"%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
+"Are you sure?" = "Er du sikker?";
+"Are you sure you want to clear the queue?" = "Er du sikker på at du vil rydde køen?";

@@ -26,7 +26,7 @@
 "Stores" = "Store";
 "Purchases" = "Acquisti";
 "Wish List" = "Lista dei Desideri";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Nessun oggetto nella Lista Desideri";
 "Community" = "Community";
 "Join our Discord" = "Unisciti al nostro Discord";
 "Follow me on Twitter" = "Seguimi su Twitter";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Ripristino della cache immagini completato";
 "Clearing keychain completed" = "Pulizia portachiavi completata";
 
+"Drop Tables" = "Svuota Tabelle";
+
+"Alternate Icons" = "Icone Alternative";
+
 // Sources
 
 "Sources" = "Sorgenti";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Aggiornamenti Disponibili";
 "Ignored Upgrades" = "Aggiornamenti Ignorati";
 "Recent" = "Recente";
+"Repo" = "Repo";
 "Installed Files" = "File Installati";
 "Modify" = "Modifica";
 "Authenticate to initiate purchase." = "Autenticati per iniziare l'acquisto.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Accedi nuovamente al tuo account utilizzato per acquistare questo pacchetto (Possibilmente %@)";
 "More by this Developer" = "Altro da questo Sviluppatore";
 "Installed Version" = "Versione Installata";
+"Installed Size" = "Dimensione Installata";
 
 "Add to Wish List" = "Aggiungi alla Lista dei Desideri";
 "Remove from Wish List" = "Rimuovi dalla Lista dei Desideri";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Amministrazione";
+"Addons" = "Addon";
 "App Addons" = "Componenti Aggiuntivi App";
 "Archiving" = "Archiviazione";
 "Carrier Support" = "Supporto Gestore";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Eseguo azioni...";
 "Updating icon cache asynchronously..." = "Aggiornamento cache icone in modo asincrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Questo potrebbe richiedere del tempo e Zebra potrebbe chiudersi.È ok se lo fa.";
 "Close Zebra" = "Chiudi Zebra";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clicca \"Ritorna alla Coda\" per tornare alla Coda e riprovare il dowload.";
 
 // Queue Bar
-"Packages in Queue" = "Pacchetti in Coda";
-"Package in Queue" = "Pacchetto in Coda";
-"Tap to manage Queue" = "Tocca per gestire la Coda";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Coda";
-"Queue cleared" = "Coda cancellata";
 "Install" = "Installa";
 "Reinstall" = "Reinstalla";
 "Remove" = "Rimuovi";
@@ -250,8 +257,10 @@
 "Continue" = "Continua";
 "Download Size" = "Dimensione del Download";
 "Confirm" = "Conferma";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ deve essere rimosso perché dipende da %@";
+"Required Package" = "Pacchetti richiesti";
+"%@ is required by:" = "%@ è richiesto da:";
+"Issues" = "Problemi";
+"%@ has issues that cannot be resolved:" = "%@ ha dei problemi che non possono essere risolti:";
+"Are you sure?" = "Sei sicuro?";
+"Are you sure you want to clear the queue?" = "Sei sicuro di voler pulire la coda?";

@@ -379,7 +379,7 @@ static NSString *_defaultService;
     if (data) {
         NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if (string) {
-            return string;
+            return [[string componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
         }
         NSError *e = [self.class conversionError:NSLocalizedString(@"failed to convert data to string", nil)];
         if (error) {

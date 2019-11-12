@@ -9,6 +9,8 @@
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import <ZBSettings.h>
+#import <ZBPackagePartitioner.h>
+#import <ZBSortingType.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -17,12 +19,13 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @import SDWebImage;
+@import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
     NSUserDefaults *defaults;
     NSArray *packages;
     NSArray *availableOptions;
-    NSArray *sectionIndexTitles;
+    NSMutableArray *sectionIndexTitles;
     int totalNumberOfPackages;
     int numberOfPackages;
     int databaseRow;
@@ -53,6 +56,11 @@
     defaults = [NSUserDefaults standardUserDefaults];
     self.batchLoadCount = 500;
     [self refreshTable];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self registerView];
 }
 
 - (void)applyLocalization {
@@ -212,7 +220,7 @@
 
 #pragma mark - Table view data source
 
-- (id)objectAtSection:(NSInteger)section {
+- (NSArray <ZBPackage *> *)objectAtSection:(NSInteger)section {
     if ([self.tableData count] == 0)
         return nil;
     return [self.tableData objectAtIndex:section];
@@ -228,29 +236,13 @@
 }
 
 - (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector {
-    NSMutableDictionary <NSDate *, NSMutableArray *> *partitions = [NSMutableDictionary new];
-    for (ZBPackage *package in packages) {
-        NSDate *groupedDate = package.lastSeenDate;
-        if (groupedDate == nil)
-            continue;
-        if (partitions[groupedDate] == nil) {
-            partitions[groupedDate] = [NSMutableArray array];
-        }
-        [partitions[groupedDate] addObject:package];
-    }
-    NSSortDescriptor *dateDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    sectionIndexTitles = [[partitions allKeys] sortedArrayUsingDescriptors:@[dateDescriptor]];
-    NSUInteger sectionCount = [sectionIndexTitles count];
-    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (NSDate *date in sectionIndexTitles) {
-        [sections addObject:partitions[date]];
-    }
-    return sections;
+    sectionIndexTitles = [NSMutableArray array];
+    return [ZBPackagePartitioner partitionObjects:array collationStringSelector:selector sectionIndexTitles:sectionIndexTitles packages:packages type:ZBSortingTypeDate];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([(NSArray *)[self objectAtSection:section] count]) {
-        return [NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle];
+    if ([[self objectAtSection:section] count]) {
+        return [ZBPackagePartitioner titleForHeaderInDateSection:section sectionIndexTitles:sectionIndexTitles];
     }
     return nil;
 }
@@ -260,7 +252,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [(NSArray *)[self objectAtSection:section] count];
+    return [[self objectAtSection:section] count];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -372,6 +364,14 @@
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

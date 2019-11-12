@@ -26,7 +26,7 @@
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
 "Wish List" = "รายการอยากได้";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "ไม่มีรายการที่อยากได้";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
 "Follow me on Twitter" = "ติดตามฉันใน Twitter";
@@ -34,10 +34,10 @@
 //Credits
 
 "Credits" = "รายการขอบคุณ";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Creators" = "ผู้สร้าง";
+"Contributors" = "ผู้ร่วมพัฒนา";
+"Translators" = "ผู้แปลภาษา";
+"Libraries" = "ไลบรารี่";
 
 // Settings
 
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "ล้างแคชรูปภาพเสร็จสิ้น";
 "Clearing keychain completed" = "ล้างกุญแจเข้ารหัสเสร็จสิ้น";
 
+"Drop Tables" = "สร้างฐานข้อมูลใหม่";
+
+"Alternate Icons" = "Alternate Icons";
+
 // Sources
 
 "Sources" = "ซอร์ส";
@@ -96,7 +100,7 @@
 "You have already added these repositories." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Error verifying repository" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
 "Error verifying repositories" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
-"Unknown error" = "Unknown error";
+"Unknown error" = "ข้อผิดพลาดที่ไม่รู้จัก";
 "Invalid URL" = "URL ผิด";
 "Enter URL" = "ใส่ URL";
 "Add Repo(s)" = "เพิ่มซอร์ส";
@@ -137,54 +141,57 @@
 "Available Upgrades" = "รุ่นใหม่ที่มี";
 "Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
 "Recent" = "เร็วๆ นี้";
+"Repo" = "Repo";
 "Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
 "Modify" = "แก้ไข";
 "Authenticate to initiate purchase." = "ยืนยันตัวตนเพื่อเริ่มการซื้อ";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "กรุณาลงชื่อเข้าใช้บัญชีที่คุณใช้ในการซื้อโปรแกรมนี้อีกครั้ง (คาดว่าคือ %@)";
 "More by this Developer" = "โปรแกรมอื่นๆ จากนักพัฒนาคนนี้";
 "Installed Version" = "รุ่นที่ติดตั้ง";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "เพิ่มในรายการอยากได้";
 "Remove from Wish List" = "ลบจากรายการอยากได้";
 
 // Package Section Names
 
-"Administration" = "Administration";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
-"Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
+"Administration" = "ผู้ดูแลระบบ";
+"Addons" = "Addons";
+"App Addons" = "ส่วนเสริมโปรแกรม";
+"Archiving" = "การเก็บถาวร";
+"Carrier Support" = "เครือข่ายมือถือ";
+"Communication" = "การสื่อสาร";
+"Data Storage" = "การจัดเก็บข้อมูล";
+"Development" = "การพัฒนา";
+"Dictionaries" = "พจนานุกรม";
+"Education" = "การศึกษา";
+"Entertainment" = "ความบันเทิง";
+"Games" = "เกมส์";
+"Health and Fitness" = "สุขภาพและการออกกำลังกาย";
+"Imaging" = "รูปภาพ";
+"Java" = "จาวา";
+"Keyboards" = "แป้นพิมพ์";
+"Localization" = "ภาษาท้องถิ่น";
+"Messaging" = "ส่งข้อความ";
+"Multimedia" = "มัลติมีเดีย";
+"Navigation" = "การนำทาง";
+"Networking" = "เครือข่าย";
+"Packaging" = "บรรจุภัณฑ์";
+"Productivity" = "ผลิตภาพ";
+"Repositories" = "ซอร์ส";
+"Ringtones" = "เสียงเรียกเข้า";
+"Scripting" = "ชุดคำสั่ง";
+"Security" = "ความปลอดภัย";
+"Social" = "สังคม";
+"System" = "ระบบ";
+"Terminal Support" = "โปรแกรม Terminal";
+"Text Editors" = "แก้ไขข้อความ";
+"Themes" = "ธีม";
+"Toys" = "ของเล่น";
+"Tweaks" = "ทวีค";
 "Utilities" = "จิปาถะ";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "ภาพพื้นหลัง";
+"Widgets" = "วิดเจ็ท";
 
 // Search
 
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "คอนโซล";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "กำลังทำงาน...";
 "Updating icon cache asynchronously..." = "อัพเดตแคชไอคอนใหม่...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
 "Close Zebra" = "ปิด Zebra";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
 
 // Queue Bar
-"Packages in Queue" = "โปรแกรมในคิว";
-"Package in Queue" = "โปรแกรมในคิว";
-"Tap to manage Queue" = "แตะเพื่อจัดการคิว";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "คิว";
-"Queue cleared" = "คิวถูกล้างแล้ว";
 "Install" = "ติดตั้ง";
 "Reinstall" = "ติดตั้งซ้ำ";
 "Remove" = "ลบ";
@@ -249,9 +256,11 @@
 "Abort" = "หยุด";
 "Continue" = "ทำต่อ";
 "Download Size" = "ขนาดดาวน์โหลด";
-"Confirm" = "Confirm";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Confirm" = "ยืนยัน";
+"%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
+"Required Package" = "โปรแกรมที่จำเป็น";
+"%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
+"Issues" = "ปัญหา";
+"%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";

@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Cache de imagens restablecida completa";
 "Clearing keychain completed" = "Limpeza de keychain completa";
 
+"Drop Tables" = "Drop Tables";
+
+"Alternate Icons" = "Alternate Icons";
+
 // Sources
 
 "Sources" = "Fontes";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Atualizações Disponíveis";
 "Ignored Upgrades" = "Atualizações Ignoradas";
 "Recent" = "Recente";
+"Repo" = "Repo";
 "Installed Files" = "Ficheiros Instalados";
 "Modify" = "Mudar";
 "Authenticate to initiate purchase." = "Ínicia sessão para começar a compra";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Por favor reentre na conta que foi usada para comprar este pacote (Possivelmente %@)";
 "More by this Developer" = "Mais deste Developer";
 "Installed Version" = "Versão Instalada";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Adicionar à Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administration";
+"Addons" = "Addons";
 "App Addons" = "App Addons";
 "Archiving" = "Archiving";
 "Carrier Support" = "Carrier Support";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
 
 // Queue Bar
-"Packages in Queue" = "Pacotes na Fila";
-"Package in Queue" = "Pacote na Fila";
-"Tap to manage Queue" = "Clica para gerir Fila";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Fila";
-"Queue cleared" = "Fila apagada";
 "Install" = "Instalada";
 "Reinstall" = "Reinstalada";
 "Remove" = "Remover";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ is required by:";
 "Issues" = "Issues";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";

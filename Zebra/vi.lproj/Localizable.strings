@@ -26,7 +26,7 @@
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Không có mục nào trong Danh sách mong muốn";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
 "Follow me on Twitter" = "Theo dõi tôi trên Twitter";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Đặt lại bộ đệm hình ảnh đã hoàn thành";
 "Clearing keychain completed" = "Dọn dẹp keychain hoàn thành";
 
+"Drop Tables" = "Drop Tables";
+
+"Alternate Icons" = "Alternate Icons";
+
 // Sources
 
 "Sources" = "Nguồn";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Nâng cấp có sẵn";
 "Ignored Upgrades" = "Bỏ qua Nâng cấp";
 "Recent" = "Gần đây";
+"Repo" = "Repo";
 "Installed Files" = "Tập tin đã cài đặt";
 "Modify" = "Sửa đổi";
 "Authenticate to initiate purchase." = "Xác thực để bắt đầu mua hàng.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vui lòng đăng nhập lại tài khoản của bạn được sử dụng để mua gói này (Possibly %@)";
 "More by this Developer" = "Thêm bởi Nhà phát triển này";
 "Installed Version" = "Phiên bản đã cài đặt";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Thêm vào danh sách mong muốn";
 "Remove from Wish List" = "Xóa khỏi danh sách mong muốn";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Quyền quản trị";
+"Addons" = "Addons";
 "App Addons" = "Ứng dụng bổ trợ";
 "Archiving" = "Lưu trữ";
 "Carrier Support" = "Hỗ trợ Carrier";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "Bảng điều khiển";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Thực hiện các hành động...";
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
 
 // Queue Bar
-"Packages in Queue" = "Các gói trong hàng đợi";
-"Package in Queue" = "Các gói trong hàng đợi";
-"Tap to manage Queue" = "Nhấn để quản lý hàng đợi";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Xếp hàng";
-"Queue cleared" = "Hàng đợi đã được xóa";
 "Install" = "Cài đặt";
 "Reinstall" = "Cài đặt lại";
 "Remove" = "Xóa bỏ";
@@ -250,8 +257,10 @@
 "Continue" = "Tiếp tục";
 "Download Size" = "Kích thước tải xuống";
 "Confirm" = "Xác nhận";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
+"Required Package" = "Gói cần thiết";
+"%@ is required by:" = "%@ được yêu cầu bởi:";
+"Issues" = "Các vấn đề";
+"%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";

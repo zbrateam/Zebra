@@ -36,9 +36,10 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoMoreBy,
     ZBPackageInfoInstalledFiles
 };
+static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 @interface ZBPackageDepictionViewController () {
-    NSMutableDictionary *infos;
+    NSMutableDictionary<NSNumber *, NSString *> *infos;
     UIProgressView *progressView;
     WKWebView *webView;
     BOOL presented;
@@ -80,7 +81,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     }
 
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
 
 //    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -247,9 +248,9 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
         if ([ZBDevice darkModeEnabled]) {
             NSString *path;
-            if([ZBDevice darkModeOledEnabled]) {
+            if ([ZBDevice darkModeOledEnabled]) {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-            }else {
+            } else {
                 path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
             }
 
@@ -328,9 +329,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)configureNavButton {
-    if (self->navButtonsBeingConfigured) {
+    if (self->navButtonsBeingConfigured)
         return;
-    }
     self->navButtonsBeingConfigured = YES;
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
@@ -566,10 +566,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)presentQueue {
-    if (presented) {
+    if ([self presentingViewController]) {
         [self dismissViewControllerAnimated:true completion:^{
             [[ZBAppDelegate tabBarController] openQueue:YES];
         }];
+    } else {
+        [[ZBAppDelegate tabBarController] openQueue:YES];
     }
 }
 
@@ -600,29 +602,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 #pragma mark TableView
 
-- (CGFloat)rowHeight {
-    return 45;
-}
-
-- (NSArray *)packageInfoOrder {
-    static NSArray *packageInfoOrder = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // FIXME: Refactor this so it supports localization.
-        packageInfoOrder = @[
-                             @"PackageID",
-                             @"Author",
-                             @"Version",
-                             @"Size",
-                             @"Repo",
-                             @"WishList",
-                             @"MoreBy",
-                             @"Installed Files"
-                             ];
-    });
-    return packageInfoOrder;
-}
-
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
 //    self.packageName.textColor = [UIColor cellPrimaryTextColor];
@@ -648,25 +627,25 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)readPackageID:(ZBPackage *)package {
     if (package.identifier) {
-        infos[@"PackageID"] = package.identifier;
+        infos[@(ZBPackageInfoID)] = package.identifier;
     } else {
-        [infos removeObjectForKey:@"PackageID"];
+        [infos removeObjectForKey:@(ZBPackageInfoID)];
     }
 }
 
 - (void)setMoreByText:(ZBPackage *)package {
     if (package.author) {
-        infos[@"MoreBy"] = NSLocalizedString(@"More by this Developer", @"");
+        infos[@(ZBPackageInfoMoreBy)] = NSLocalizedString(@"More by this Developer", @"");
     } else {
-        [infos removeObjectForKey:@"MoreBy"];
+        [infos removeObjectForKey:@(ZBPackageInfoMoreBy)];
     }
 }
 
 - (void)readVersion:(ZBPackage *)package {
     if (![package isInstalled:NO] || [package installedVersion] == nil) {
-        infos[@"Version"] = package.version;
+        infos[@(ZBPackageInfoVersion)] = package.version;
     } else {
-        infos[@"Version"] = [NSString stringWithFormat:@"%@ (Installed Version: %@)", package.version, [package installedVersion]];
+        infos[@(ZBPackageInfoVersion)] = [NSString stringWithFormat:NSLocalizedString(@"%@ (Installed Version: %@)", @""), package.version, [package installedVersion]];
     }
 }
 
@@ -674,37 +653,37 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     NSString *size = [package size];
     NSString *installedSize = [package installedSize];
     if (size && installedSize) {
-        infos[@"Size"] = [NSString stringWithFormat:@"%@ (Installed Size: %@)", size, installedSize];
+        infos[@(ZBPackageInfoSize)] = [NSString stringWithFormat:NSLocalizedString(@"%@ (Installed Size: %@)", @""), size, installedSize];
     } else if (size) {
-        infos[@"Size"] = size;
+        infos[@(ZBPackageInfoSize)] = size;
     } else {
-        [infos removeObjectForKey:@"Size"];
+        infos[@(ZBPackageInfoSize)] = @"-";
     }
 }
 
 - (void)readRepo:(ZBPackage *)package {
     NSString *repoName = [[package repo] origin];
     if (repoName) {
-        infos[@"Repo"] = repoName;
+        infos[@(ZBPackageInfoRepo)] = repoName;
     } else {
-        [infos removeObjectForKey:@"Repo"];
+        [infos removeObjectForKey:@(ZBPackageInfoRepo)];
     }
 }
 
 - (void)readFiles:(ZBPackage *)package {
     if ([package isInstalled:NO]) {
-        infos[@"Installed Files"] = @"";
+        infos[@(ZBPackageInfoInstalledFiles)] = @"";
     } else {
-        [infos removeObjectForKey:@"Installed Files"];
+        [infos removeObjectForKey:@(ZBPackageInfoInstalledFiles)];
     }
 }
 
 - (void)readAuthor:(ZBPackage *)package {
     NSString *authorName = [package author];
     if (authorName) {
-        infos[@"Author"] = [self stripEmailFromAuthor];
+        infos[@(ZBPackageInfoAuthor)] = [self stripEmailFromAuthor];
     } else {
-        [infos removeObjectForKey:@"Author"];
+        [infos removeObjectForKey:@(ZBPackageInfoAuthor)];
     }
 }
 
@@ -717,7 +696,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [self readFiles:package];
     [self readPackageID:package];
     [self setMoreByText:package];
-    infos[@"WishList"] = @"";
+    infos[@(ZBPackageInfoWishList)] = @"";
     [self.tableView reloadData];
 }
 
@@ -726,17 +705,30 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (NSString *)stripEmailFromAuthor {
-    NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName) {
-        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
-            [cleanedStrings addObject:cut];
-        } else {
-            NSString *cutCopy = [cut copy];
-            cutCopy = [cut substringFromIndex:1];
-            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
-            self.authorEmail = cutCopy;
+    if (package.author != NULL) {
+        NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSMutableArray *cleanedStrings = [NSMutableArray new];
+        for(NSString *cut in authorName) {
+            if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
+                [cleanedStrings addObject:cut];
+            }
+            else {
+                NSString *cutCopy = [cut copy];
+                if ([cutCopy length] > 0) {
+                    cutCopy = [cut substringFromIndex:1];
+                    cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
+                    self.authorEmail = cutCopy;
+                }
+                else {
+                    return NULL;
+                }
+            }
         }
+
+        return [cleanedStrings componentsJoinedByString:@" "];
+    }
+    else {
+        return NULL;
     }
 
     return [cleanedStrings componentsJoinedByString:@" "];
@@ -773,9 +765,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 #pragma mark - UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *property = [self packageInfoOrder][indexPath.row];
-    NSString *value = infos[property];
-    return value ? [self rowHeight] : 0;
+    return infos[@(indexPath.row)] == nil ? 0 : 45;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -783,29 +773,23 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
 
-    NSString *property = [self packageInfoOrder][indexPath.row];
-    NSString *value = infos[property];
-
-    ZBPackageInfoOrder row = indexPath.row;
+    NSString *value = infos[@(indexPath.row)];
 
     if (cell == nil) {
-        if (row == ZBPackageInfoSize || row == ZBPackageInfoVersion || row == ZBPackageInfoRepo) {
+        if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoRepo) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         }
     }
-//    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
 
-    switch (row) {
-        case ZBPackageInfoInstalledFiles:
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = property;
-            break;
-        case ZBPackageInfoMoreBy:
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = value;
-            break;
+    cell.textLabel.text = nil;
+    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+
+    cell.detailTextLabel.text = nil;
+    cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+
+    switch ((ZBPackageInfoOrder)indexPath.row) {
         case ZBPackageInfoID:
             cell.textLabel.text = value;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -814,25 +798,35 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             cell.textLabel.text = value;
             cell.accessoryType = self.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
             break;
+        case ZBPackageInfoVersion:
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = NSLocalizedString(@"Version", @"");
+            cell.detailTextLabel.text = value;
+            break;
+        case ZBPackageInfoSize:
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = NSLocalizedString(@"Size", @"");
+            cell.detailTextLabel.text = value;
+            break;
+        case ZBPackageInfoRepo:
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = NSLocalizedString(@"Repo", @"");
+            cell.detailTextLabel.text = value;
+            break;
         case ZBPackageInfoWishList: {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
             cell.textLabel.text = NSLocalizedString(inWishList ? @"Remove from Wish List" : @"Add to Wish List", @"");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
-        }
-        default: {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if (value) {
-                cell.textLabel.text = property;
-                cell.detailTextLabel.text = value;
-//                cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
-            } else {
-                cell.textLabel.text = nil;
-                cell.detailTextLabel.text = nil;
-            }
+        } case ZBPackageInfoMoreBy:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = value;
             break;
-        }
+        case ZBPackageInfoInstalledFiles:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = NSLocalizedString(@"Installed Files", @"");
+            break;
     }
     return cell;
 }
@@ -858,31 +852,23 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self packageInfoOrder].count;
+    assert(section == 0);
+    return ZBPackageInfoOrderCount;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageInfoOrder row = indexPath.row;
     switch (row) {
         case ZBPackageInfoID:
-        case ZBPackageInfoRepo:
-        case ZBPackageInfoVersion:
-        case ZBPackageInfoSize:
-            break;
-        case ZBPackageInfoInstalledFiles: {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ZBInstalledFilesTableViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"installedFilesController"];
-            filesController.navigationItem.title = @"Installed Files";
-            [filesController setPackage:package];
-            [[self navigationController] pushViewController:filesController animated:YES];
-            break;
-        }
-        case ZBPackageInfoMoreBy:
-            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
             break;
         case ZBPackageInfoAuthor:
-            if (self.authorEmail)
+            if (self.authorEmail) {
                 [self sendEmailToDeveloper];
+            }
+            break;
+        case ZBPackageInfoVersion:
+        case ZBPackageInfoSize:
+        case ZBPackageInfoRepo:
             break;
         case ZBPackageInfoWishList: {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -896,6 +882,16 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 [defaults setObject:wishList forKey:wishListKey];
             }
             [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        } case ZBPackageInfoMoreBy:
+            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
+            break;
+        case ZBPackageInfoInstalledFiles: {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ZBInstalledFilesTableViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"installedFilesController"];
+            filesController.navigationItem.title = NSLocalizedString(@"Installed Files", @"");
+            [filesController setPackage:package];
+            [[self navigationController] pushViewController:filesController animated:YES];
             break;
         }
     }

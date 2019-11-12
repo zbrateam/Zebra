@@ -58,7 +58,13 @@
     return self;
 }
 
+- (void)updateQueueBarData {
+    [[ZBAppDelegate tabBarController] updateQueueBar];
+}
+
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
+    if (package == NULL) return;
+    
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear && type != queue) { //Remove package from queue
         [[self queueFromType:type] removeObject:package];
@@ -80,6 +86,7 @@
             [self enqueueRemovalOfPackagesThatDependOn:package];
         }
     }
+    [self updateQueueBarData];
 }
 
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
@@ -99,6 +106,7 @@
         
         [[self dependencyQueue] addObject:package];
     }
+    [self updateQueueBarData];
 }
 
 - (void)addConflict:(ZBPackage *)package {
@@ -106,6 +114,7 @@
         [[self conflictQueue] addObject:package];
         [self enqueueRemovalOfPackagesThatDependOn:package];
     }
+    [self updateQueueBarData];
 }
 
 - (BOOL)enqueueDependenciesForPackage:(ZBPackage *)package {
@@ -126,7 +135,6 @@
         }
         [self removePackage:topPackage inQueue:ZBQueueTypeRemove];
         [self removePackagesRemovedBy:topPackage];
-        return;
     }
     else if (action != ZBQueueTypeClear) {
         [self removePackage:package inQueue:action];
@@ -141,12 +149,14 @@
             [self removePackage:dependencyOf];
         }
     }
+    [self updateQueueBarData];
 }
 
 - (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
     [[package issues] removeAllObjects];
     [package setRemovedBy:NULL];
     [[self queueFromType:queue] removeObject:package];
+    [self updateQueueBarData];
 }
 
 - (void)removePackagesRemovedBy:(ZBPackage *)package {
@@ -165,6 +175,12 @@
     [[self dependencyQueue] removeAllObjects];
     [[self conflictQueue] removeAllObjects];
     [queuedPackagesList removeAllObjects];
+    [self updateQueueBarData];
+    [self dismissQueueBar];
+}
+
+- (void)dismissQueueBar {
+    [[ZBAppDelegate tabBarController] closeQueue];
 }
 
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
@@ -177,7 +193,7 @@
         baseCommand = @[@"dpkg"];
     }
     else {
-        return NULL;
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
     }
     
     NSString *binary = baseCommand[0];
@@ -211,6 +227,9 @@
         else {
             [installCommand addObject:@"-i"];
         }
+        
+        NSArray *dependencyPaths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDependency filenames:debs];
+        [installCommand addObjectsFromArray:dependencyPaths];
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
         [installCommand addObjectsFromArray:paths];
@@ -345,6 +364,10 @@
             return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBQueueTypeDowngrade:
             return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
+        case ZBQueueTypeDependency:
+            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
+        case ZBQueueTypeConflict:
+            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         default:
             break;
     }
@@ -489,8 +512,7 @@
 }
 
 - (BOOL)hasIssues {
-//    return false;
-    return [[self issues] count] > 0;
+    return [[self issues] count];
 }
 
 - (NSArray <NSArray <NSString *> *> *)issues {

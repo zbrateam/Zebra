@@ -33,9 +33,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     currentRepoEndpoint = @"";
     [self refreshTable];
+    self.title = NSLocalizedString(@"Stores", @"");
 
     if (@available(iOS 11.0, *)) {
-        [self.navigationItem setLargeTitleDisplayMode:UINavigationItemLargeTitleDisplayModeNever];
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
 }
 

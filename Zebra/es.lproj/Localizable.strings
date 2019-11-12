@@ -26,7 +26,7 @@
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de deseos";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "No hay artículos en la lista de deseos";
 "Community" = "Comunidad";
 "Join our Discord" = "Únete a nuestro Discord";
 "Follow me on Twitter" = "Sígueme en Twitter";
@@ -36,8 +36,8 @@
 "Credits" = "Créditos";
 "Creators" = "Creadores";
 "Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Translators" = "Traductores";
+"Libraries" = "Librerías";
 
 // Settings
 
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Reseteo de caché de imagen completado";
 "Clearing keychain completed" = "Limpieza de llavero completada";
 
+"Drop Tables" = "Eliminar Tablas";
+
+"Alternate Icons" = "Iconos alternos";
+
 // Sources
 
 "Sources" = "Fuentes";
@@ -96,7 +100,7 @@
 "You have already added these repositories." = "Ya tienes estos repositorios agregados.";
 "Error verifying repository" = "Error verificando repositorio";
 "Error verifying repositories" = "Error verificando repositorios";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Error desconocido";
 "Invalid URL" = "Dirección URL Invalida";
 "Enter URL" = "Ingresa dirección URL";
 "Add Repo(s)" = "Añadir repositorio(s)";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Actualizaciones disponibles";
 "Ignored Upgrades" = "Actualizaciones ignoradas";
 "Recent" = "Recientes";
+"Repo" = "Repositorio";
 "Installed Files" = "Archivos instalados";
 "Modify" = "Modificar";
 "Authenticate to initiate purchase." = "Autenticar para iniciar la compra.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Por favor inicia sesión con la cuenta usada para comprar este paquete (posiblemente %@)";
 "More by this Developer" = "Más de este desarrollador";
 "Installed Version" = "Versión instalada";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Agregar a la lista de deseos";
 "Remove from Wish List" = "Quitar de la lista de deseos";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administration";
+"Addons" = "Addons";
 "App Addons" = "App Addons";
 "Archiving" = "Archiving";
 "Carrier Support" = "Carrier Support";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 
 // Queue Bar
-"Packages in Queue" = "Paquetes en cola";
-"Package in Queue" = "Paquete en cola";
-"Tap to manage Queue" = "Toca para gestionar cola";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Cola";
-"Queue cleared" = "Cola vacía";
 "Install" = "Instalar";
 "Reinstall" = "Reinstalar";
 "Remove" = "Quitar";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ is required by:";
 "Issues" = "Issues";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";

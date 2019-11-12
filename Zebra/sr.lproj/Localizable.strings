@@ -26,7 +26,7 @@
 "Stores" = "Prodavnice";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Nema stavki u listi Želja";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridruži nam se na Discord";
 "Follow me on Twitter" = "Zaprati me na Twitteru";
@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Resetovanje keša završeno";
 "Clearing keychain completed" = "Uklanjanje keychain završeno";
 
+"Drop Tables" = "Obnovi tabele";
+
+"Alternate Icons" = "Alternativne ikonice";
+
 // Sources
 
 "Sources" = "Izvori";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Dostupne nadogradnje";
 "Ignored Upgrades" = "Ignorisanje nadogradnje";
 "Recent" = "Skorašnji";
+"Repo" = "Repo";
 "Installed Files" = "Instalirani fajlovi";
 "Modify" = "Izmeni";
 "Authenticate to initiate purchase." = "Priavute se za početak kupovine.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Molimo vas da se ponovo logujete na nalog kojim ste kupili ovaj paket (Najverovatnije %@)";
 "More by this Developer" = "Još od ovog Programera";
 "Installed Version" = "Instalirana verzija";
+"Installed Size" = "Veličina instaliranoe aplikacije";
 
 "Add to Wish List" = "Dodaj u listu želja";
 "Remove from Wish List" = "Ukloni iz liste želja";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administracija";
+"Addons" = "Dodaci";
 "App Addons" = "Dodaci za Aplikacije";
 "Archiving" = "Arhiviranje";
 "Carrier Support" = "Podrška za operatera";
@@ -209,7 +216,7 @@
 // Console
 
 "Console" = "Konzola";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Izvršavam akcije...";
 "Updating icon cache asynchronously..." = "Nadogradjujem keš ikona asinhrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može oboriti. To ne predstavlja problem.";
 "Close Zebra" = "Zatvori Zebru";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
 
 // Queue Bar
-"Packages in Queue" = "Paketa na Čekanju";
-"Package in Queue" = "Paket na Čekanju";
-"Tap to manage Queue" = "Uredi listu Čekanja";
+"Packages Queued" = "Paketa na Čekanju";
+"Package Queued" = "Paket na Čekanju";
+"Tap to manage" = "Dodirnite za podesavanje";
+"No Packages Queued" = "Nema Paketa na Čekanju";
 
 // Queue
 
 "Queue" = "Čekanje";
-"Queue cleared" = "Lista Čekanja obrisana";
 "Install" = "Instaliraj";
 "Reinstall" = "Reinstaliraj";
 "Remove" = "Ukloni";
@@ -250,8 +257,10 @@
 "Continue" = "Nastavi";
 "Download Size" = "Veličina preuzimanja";
 "Confirm" = "Potvrdi";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"%@ must be removed because it depends on %@" = "%@ more se ukloniti zato što zavisi od %@";
+"Required Package" = "Potrebno Pakovanje";
+"%@ is required by:" = "%@ je neophodno za:";
+"Issues" = "Problemi";
+"%@ has issues that cannot be resolved:" = "%@ ima probleme koji nisu rešivi:";
+"Are you sure?" = "Da li ste sigurni?";
+"Are you sure you want to clear the queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";

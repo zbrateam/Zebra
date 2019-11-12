@@ -8,6 +8,7 @@
 
 #import "ZBDependencyResolver.h"
 
+#import <ZBLog.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 
 #import <Database/ZBDatabaseManager.h>
@@ -45,8 +46,10 @@
     //On the first pass, remove any dependencies that are already satisfied
     NSMutableArray *unresolvedDependencies = [NSMutableArray new];
     for (NSString *dependency in [package dependsOn]) {
-        if (![self isDependencyResolved:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""] forPackage:package]) {
-            [unresolvedDependencies addObject:[dependency stringByReplacingOccurrencesOfString:@" " withString:@""]];
+        NSString *unresolvedDependency = [dependency stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if (![self isDependencyResolved:unresolvedDependency forPackage:package]) {
+            ZBLog(@"Adding unresolved dependency for %@: %@", package, unresolvedDependency);
+            [unresolvedDependencies addObject:unresolvedDependency];
         }
     }
 
@@ -55,7 +58,7 @@
 
 - (BOOL)calculateConflictsForPackage:(ZBPackage *)package {
     //First lets check to see if any installed packages conflict with this package
-    NSArray *packagesThatConflictWith = [databaseManager packagesThatConflictWith:package];
+    NSArray *packagesThatConflictWith = [[databaseManager packagesThatConflictWith:package] mutableCopy];
     if ([packagesThatConflictWith count] > 0) {
         //We cannot install this package as there are some already installed packages that conflict here
         for (ZBPackage *conflict in packagesThatConflictWith) {
@@ -112,6 +115,7 @@
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
         if (![self resolveDependency:dependency forPackage:package]) {
+            ZBLog(@"Adding unresolved dependency for %@: %@", package, dependency);
             [package addIssue:dependency];
             return false;
         }
@@ -164,7 +168,7 @@
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL];
-        if (conflictingPackage) [self enqueueConflict:conflictingPackage forPackage:package];
+        if (conflictingPackage && ![conflictingPackage isEqual:package]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
 }
 
@@ -196,6 +200,7 @@
 
 - (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version {
     NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
     if (version == NULL || comparison == NULL) return true;
 

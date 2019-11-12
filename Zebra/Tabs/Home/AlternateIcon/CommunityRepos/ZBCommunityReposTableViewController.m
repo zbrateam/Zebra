@@ -34,7 +34,7 @@ enum ZBSourcesOrder {
     self.repoManager = [ZBSourceManager sharedInstance];
 
     if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
     }
 }
 
@@ -69,15 +69,18 @@ enum ZBSourcesOrder {
 
 }
 
-- (NSString *)determineJailbreakRepo {
-    if ([ZBDevice isChimera]) {
-        return @"https://repo.chimera.sh/";
+- (NSArray *)determineJailbreakRepo {
+    if ([ZBDevice isCheckrain]) {
+        return @[@"https://checkra.in/assets/mobilesubstrate/", @"https://apt.bingner.com/"];
+    }
+    else if ([ZBDevice isChimera]) {
+        return @[@"https://repo.chimera.sh/"];
     } else if ([ZBDevice isUncover]) { // uncover
-        return @"http://apt.bingner.com/";
+        return @[@"http://apt.bingner.com/"];
     } else if ([ZBDevice isElectra]) { // electra
-        return @"https://electrarepo64.coolstar.org/";
+        return @[@"https://electrarepo64.coolstar.org/"];
     } else { // cydia
-        return @"http://apt.saurik.com/";
+        return @[@"http://apt.saurik.com/"];
     }
 }
 
@@ -102,6 +105,9 @@ enum ZBSourcesOrder {
     if (section == 0) {
         return [self numberOfRowsInTransfer];
     } else if (section == 1) {
+        if ([ZBDevice isCheckrain]) {
+            return 2;
+        }
         return 1;
     }
     return [communityRepos count];
@@ -123,7 +129,19 @@ enum ZBSourcesOrder {
         cellText = [NSString stringWithFormat:NSLocalizedString(@"Transfer Sources from %@", @""), [availableManagers objectAtIndex:indexPath.row]];
         subText = [NSString stringWithFormat:NSLocalizedString(@"Move all sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
     } else if (indexPath.section == 1) {
-        if ([ZBDevice isChimera]) { // chimera
+        if ([ZBDevice isCheckrain]) {
+            if (indexPath.row == 0) {
+                cellText = @"checkra1n Substrate Repo";
+                iconURL = NULL;
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
+            }
+            else {
+                cellText = @"Bingner/Elucubratus";
+                iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
+            }
+        }
+        else if ([ZBDevice isChimera]) { // chimera
             cellText = @"Chimera";
             iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
             subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Chimera jailbreak"];
@@ -200,9 +218,11 @@ enum ZBSourcesOrder {
                 [self presentConsole];
             }
             break;
-        case ZBJailbreakRepo:
-            [self addReposWithText:[self determineJailbreakRepo]];
+        case ZBJailbreakRepo: {
+            NSArray *jailbreakRepos = [self determineJailbreakRepo];
+            [self addReposWithText:jailbreakRepos[indexPath.row]];
             break;
+        }
         case ZBCommunity: {
             NSDictionary *dict = [communityRepos objectAtIndex:indexPath.row];
             [self addReposWithText:dict[@"clickLink"]];
@@ -215,9 +235,8 @@ enum ZBSourcesOrder {
 }
 
 - (void)presentConsole {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-    [self presentViewController:console animated:YES completion:nil];
+    ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
+    [self presentViewController:refreshController animated:YES completion:nil];
 }
 
 #pragma mark Add Repos
@@ -267,10 +286,8 @@ enum ZBSourcesOrder {
 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                ZBRefreshViewController *console = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
-                console.repoURLs = [repoManager verifiedURLs];
-                [weakSelf presentViewController:console animated:YES completion:nil];
+                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithRepoURLs:[repoManager verifiedURLs]];                
+                [weakSelf presentViewController:refreshController animated:YES completion:nil];
             }
         }];
     }];

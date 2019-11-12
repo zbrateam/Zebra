@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "清除图片缓存完成";
 "Clearing keychain completed" = "Keychain 清除完成";
 
+"Drop Tables" = "删除所有数据";
+
+"Alternate Icons" = "备选图标";
+
 // Sources
 
 "Sources" = "软件源";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "可更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
+"Repo" = "软件源";
 "Installed Files" = "已安装的文件";
 "Modify" = "修改";
 "Authenticate to initiate purchase." = "登录后购买。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
+"Installed Size" = "安装大小";
 
 "Add to Wish List" = "加入心愿单";
 "Remove from Wish List" = "从心愿单中移除";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "管理";
+"Addons" = "附加组件";
 "App Addons" = "App 插件";
 "Archiving" = "归档";
 "Carrier Support" = "运营商支持";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 
 // Queue Bar
-"Packages in Queue" = "软件包队列";
-"Package in Queue" = "软件包队列";
-"Tap to manage Queue" = "点击此处管理队列";
+"Packages Queued" = "软件包队列";
+"Package Queued" = "软件包队列";
+"Tap to manage" = "点击以管理";
+"No Packages Queued" = "队列中无软件包";
 
 // Queue
 
 "Queue" = "队列";
-"Queue cleared" = "队列已清空";
 "Install" = "安装";
 "Reinstall" = "重新安装";
 "Remove" = "移除";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "需要 %@ 依赖包：";
 "Issues" = "问题";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
+"Are you sure?" = "是否确定？";
+"Are you sure you want to clear the queue?" = "确定要清除队列吗？";

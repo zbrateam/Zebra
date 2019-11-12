@@ -9,30 +9,33 @@
 @import SafariServices;
 
 #import "ZBHomeTableViewController.h"
+#import "ZBNewsCollectionViewCell.h"
+#import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
+@import FirebaseAnalytics;
 
-#import <Cells/ZBFeaturedTableViewCell.h>
-#import <Cells/ZBFeaturedCollectionViewCell.h>
-#import <Cells/ZBCommunityNewsTableViewCell.h>
-#import <Cells/ZBButtonTableViewCell.h>
-#import <Cells/ZBIconTableViewCell.h>
-#import <Cells/ZBFootnotesTableViewCell.h>
-#import <Changelog/ZBChangelogTableViewController.h>
+typedef enum ZBHomeOrder : NSUInteger {
+    ZBWelcome,
+    ZBViews,
+    ZBLinks,
+    ZBCredits,
+    ZBHomeOrderCount
+} ZBHomeOrder;
 
-#import <Database/ZBDatabaseManager.h>
+typedef enum ZBViewOrder : NSUInteger {
+    ZBChangeLog,
+    ZBCommunity,
+    ZBStores,
+    ZBWishList
+} ZBViewOrder;
 
-#import <Tabs/Sources/Helpers/ZBSource.h>
+typedef enum ZBLinksOrder : NSUInteger {
+    ZBDiscord,
+    ZBWilsonTwitter
+} ZBLinksOrder;
 
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Packages/Controllers/ZBPackageDepictionViewController.h>
-
-#import <Credits/ZBCreditsTableViewController.h>
-
-@interface ZBHomeTableViewController () {
-    NSMutableArray *featuredPackages;
-    NSMutableArray *communityNewsPosts;
+@interface ZBHomeTableViewController (){
+    NSMutableArray *redditPosts;
 }
 
 @end
@@ -80,6 +83,10 @@
     } else {
         [self.tableView addSubview:refreshControl];
     }
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    [self colorWindow];
+    [self registerView];
 }
 
 - (void)refreshTable {
@@ -358,7 +365,7 @@
             }
 
             cell.titleLabel.text = title;
-            
+
             NSString *flair = [NSLocalizedString([[[post objectForKey:@"link_flair_text"] uppercaseString] stringByAppendingString:@"_TAG"], @"Flair title") uppercaseString];
             cell.tagLabel.text = flair;
             cell.permalink = [post objectForKey:@"permalink"];
@@ -488,13 +495,14 @@
             if ([cell isKindOfClass:[ZBCommunityNewsTableViewCell class]]) {
                 ZBCommunityNewsTableViewCell *newsCell = (ZBCommunityNewsTableViewCell *)cell;
 
-                [self openRedditURL:newsCell.permalink];
-            }
-            break;
-        }
-        case 2: { //Changelog
-            if ([cell isKindOfClass:[ZBIconTableViewCell class]]) {
-                ZBIconTableViewCell *iconCell = (ZBIconTableViewCell *)cell;
+- (IBAction)settingsButtonTapped:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+    }
+    [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
+}
 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
                 ZBChangelogTableViewController *changelogController = [storyboard instantiateViewControllerWithIdentifier:iconCell.storyboardID];
@@ -507,7 +515,22 @@
             if ([cell isKindOfClass:[ZBButtonTableViewCell class]]) {
                 ZBButtonTableViewCell *buttonCell = (ZBButtonTableViewCell *)cell;
 
-                NSURL *url = [NSURL URLWithString:buttonCell.actionLink];
+- (void)resetTable {
+    [self.tableView reloadData];
+    [self colorWindow];
+    [self configureFooter];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionFade;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.fillMode = kCAFillModeForwards;
+    transition.duration = 0.35;
+    transition.subtype = kCATransitionFromTop;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
+    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+}
 
                 if ([buttonCell.actionLink isEqualToString:@"twitter"]) {
                     [self openTwitter:@"getZebra"];
@@ -528,10 +551,28 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 
-- (void)showPackageDepiction:(ZBPackage *)package {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBPackageDepictionViewController *depiction = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    depiction.package = package;
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
+- (void)colorWindow {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIWindow *window = UIApplication.sharedApplication.delegate.window;
+        [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    });
+}
+
+#pragma mark UICollectionView
+- (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+    if (indexPath.row < selectedFeatured.count) {
+        NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
+        [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        cell.packageID = currentBanner[@"package"];
+        cell.titleLabel.text = currentBanner[@"title"];
+    }
+    return cell;
+}
 
     [[self navigationController] pushViewController:depiction animated:true];
 }
@@ -575,8 +616,24 @@
             safariViewController.preferredControlTintColor = [UIColor tintColor];
         }
 
-        [self presentViewController:safariViewController animated:true completion:nil];
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
+        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+        NSString *packageID = sender;
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        destination.package = [databaseManager topVersionForPackageID:packageID];
+        [databaseManager closeDatabase];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

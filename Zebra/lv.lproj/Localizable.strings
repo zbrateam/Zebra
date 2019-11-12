@@ -86,6 +86,10 @@
 "Resetting image cache completed" = "Attēla kešatmiņu notīrīšana ir pabeigta";
 "Clearing keychain completed" = "Pieslēgšanas notīrīšana ir pabeigta";
 
+"Drop Tables" = "Drop Tables";
+
+"Alternate Icons" = "Alternate Icons";
+
 // Sources
 
 "Sources" = "Avoti";
@@ -137,12 +141,14 @@
 "Available Upgrades" = "Pieejamie atjauninājumi";
 "Ignored Upgrades" = "Ignorētie atjauninājumi";
 "Recent" = "Nesen";
+"Repo" = "Repo";
 "Installed Files" = "Instalētie faili";
 "Modify" = "Modificēt";
 "Authenticate to initiate purchase." = "Autentificējies, lai sākt pirkumu.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Lūdzu, pieslēdzies vēlreiz ar kontu, kas tieka izmantots, lai iegādātos šo paketi (iespējams %@)";
 "More by this Developer" = "Vairāk no šī izstrādātāja";
 "Installed Version" = "Instalētā versija";
+"Installed Size" = "Installed Size";
 
 "Add to Wish List" = "Pievienot vēlmju sarakstam";
 "Remove from Wish List" = "Noņemt no vēlmju sarakstam";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Administrācija";
+"Addons" = "Addons";
 "App Addons" = "Appa plugini";
 "Archiving" = "Arhivēšana";
 "Carrier Support" = "Mobilā pārvadātāja plugini";
@@ -233,14 +240,14 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
 
 // Queue Bar
-"Packages in Queue" = "Paketes rindā";
-"Package in Queue" = "Pakete rindā";
-"Tap to manage Queue" = "Pieskarties, lai pārvaldātu rindu";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Rinda";
-"Queue cleared" = "Rinda ir notīrīta";
 "Install" = "Instalēt";
 "Reinstall" = "Pārinstalēt";
 "Remove" = "Izdzēst";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ is required by:";
 "Issues" = "Issues";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";

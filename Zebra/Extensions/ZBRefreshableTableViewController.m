@@ -33,6 +33,7 @@
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
+            [self didEndRefreshing];
 //            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
         });
     }
@@ -42,6 +43,7 @@
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
     [self layoutNavigationButtons];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(layoutNavigationButtons) name:@"ZBUpdateNavigationButtons" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,11 +61,13 @@
 }
 
 - (BOOL)updateRefreshView {
+    [self setEditing:NO animated:NO];
     if (self.refreshControl) {
         if ([databaseManager isDatabaseBeingUpdated]) {
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.refreshControl beginRefreshing];
+                    [self didEndRefreshing];
 //                    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
                 });
             }
@@ -88,11 +92,13 @@
 }
 
 - (void)layoutNavigationButtons {
-    if (self.refreshControl.refreshing) {
-        [self layoutNavigationButtonsRefreshing];
-    } else {
-        [self layoutNavigationButtonsNormal];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.refreshControl.refreshing) {
+            [self layoutNavigationButtonsRefreshing];
+        } else {
+            [self layoutNavigationButtonsNormal];
+        }
+    });
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
@@ -120,6 +126,7 @@
     if (!singleRepo) {
         [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
     }
+    [self updateRefreshView];
 }
 
 - (void)didEndRefreshing {
@@ -137,6 +144,9 @@
     }
     [self setRepoRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (packageUpdates != -1) {
+            [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+        }
         [self->refreshControl endRefreshing];
         [self didEndRefreshing];
 //        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];

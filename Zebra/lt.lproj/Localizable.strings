@@ -4,7 +4,7 @@
 "No" = "Ne";
 "Ok" = "Gerai";
 "Error" = "Klaida";
-"Retry" = "Pakartoti";
+"Retry" = "Kartoti";
 "Edit" = "Keisti";
 "Login" = "Prisijungti";
 "Close" = "Uždaryti";
@@ -12,16 +12,16 @@
 
 // Home
 
-"Home" = "Pradžia";
+"Home" = "Pagrindinis";
 "Info" = "Info";
 "Welcome to the Zebra Beta!" = "Sveiki atvykę į Zebra Beta!";
-"Changelog" = "Pasikeitimų sąrašas";
+"Changelog" = "Pakeitimų sąrašas";
 "Community Repos" = "Bendruomenės saugyklos";
 "Transfer Sources from %@" = "Perkelti šaltinius iš %@";
 "Move all sources from %@ to Zebra" = "Perkelti visus šaltinius iš %@ į Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
-"Transfer Sources" = "Perkelti Šaltinius";
-"Please Wait..." = "Prašom palaukti...";
+"Transfer Sources" = "Perkelti šaltinius";
+"Please Wait..." = "Prašome palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
 "Stores" = "Parduotuvės";
 "Purchases" = "Pirkimų sąrašas";
@@ -37,7 +37,7 @@
 "Creators" = "Kūrėjai";
 "Contributors" = "Modifikacijų autoriai";
 "Translators" = "Vertėjai";
-"Libraries" = "Biliotekos";
+"Libraries" = "Bibliotekos";
 
 // Settings
 
@@ -53,7 +53,7 @@
 
 "Tint Color" = "Atspalvis";
 "Blue" = "Mėlynas";
-"Orange" = "Orandž.";
+"Orange" = "Orandžinis";
 "White" = "Baltas";
 "Black" = "Juodas";
 
@@ -78,13 +78,17 @@
 "Text" = "Tekstas";
 "Icon" = "Piktograma";
 "Open Documents Directory" = "Atidaryti dokumentų katalogą";
-"Clear Image Cache" = "Išvalyti vaizdo podelį";
+"Clear Image Cache" = "Išvalyti paveikslėlių podėlį";
 "Clear Keychain" = "Išvalyti raktų grandinę";
 
 "Loading..." = "Kraunasi...";
 
-"Resetting image cache completed" = "Vaizdo podelio atkūrimas baigtas";
+"Resetting image cache completed" = "Paveikslėlių podelio atkūrimas baigtas";
 "Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
+
+"Drop Tables" = "Pašalinti lenteles";
+
+"Alternate Icons" = "Alternatyvios piktogramos";
 
 // Sources
 
@@ -103,20 +107,20 @@
 "Add" = "Pridėti";
 "Add Multiple" = "Pridėti kelis";
 "Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
-"Please Wait..." = "Prašom palaukti...";
+"Please Wait..." = "Prašome palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
-"Unable to verify Repo" = "Nepavyko patikrinti šaltinio";
+"Unable to verify Repo" = "Nepavyko patikrinti saugyklos";
 "Refresh" = "Atnaujinti";
 "Log Out" = "Atsijungti";
 "Purchased Packages" = "Nupirkti paketai";
 "Purchased" = "Nupirktas";
 
 "All Packages" = "Visi paketai";
-"Delete" = "Šalinti";
+"Delete" = "Ištrinti";
 
 // Changes
 
-"Changes" = "Pasikeitimai";
+"Changes" = "Pakeitimai";
 
 // Packages
 
@@ -127,22 +131,24 @@
 "Select a version to upgrade to" = "Pasirinkti naujinimo versiją";
 "Package" = "Paketas";
 "Information" = "Informacija";
-"Upgrade All" = "Naujinti visus";
+"Upgrade All" = "Atnaujinti visus";
 "Loaded" = "Pakrautas";
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Dydis";
 "Clear" = "Išvalyti";
 "Are you sure you want to clear Queue?" = "Ar tikrai norite išvalyti eilę?";
-"Available Upgrades" = "Prieinami naujinimai";
-"Ignored Upgrades" = "Praignoruoti naujinimai";
+"Available Upgrades" = "Prieinami atnaujinimai";
+"Ignored Upgrades" = "Praignoruoti atnaujinimai";
 "Recent" = "Naujausi";
+"Repo" = "Saugykla";
 "Installed Files" = "Įdiegti failai";
 "Modify" = "Modifikuoti";
 "Authenticate to initiate purchase." = "Norėdami apsipirkti, patvirtinkite savo tapatybę.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Prašau prisijunkite iš naujo prie paskyros, kuri buvo naudojama perkant šį paketą (Possibly %@)";
 "More by this Developer" = "Daugiau iš šio kūrėjo";
 "Installed Version" = "Įdiegta versija";
+"Installed Size" = "Įdiegtas dydis";
 
 "Add to Wish List" = "Pridėti į norų sąrašą";
 "Remove from Wish List" = "Išimti iš norų sąrašo";
@@ -150,6 +156,7 @@
 // Package Section Names
 
 "Administration" = "Valdymas";
+"Addons" = "Papildymai";
 "App Addons" = "Programų papildymai";
 "Archiving" = "Archyvavimas";
 "Carrier Support" = "Operatoriaus palaikymas";
@@ -233,17 +240,17 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
 
 // Queue Bar
-"Packages in Queue" = "Paketų eilėje";
-"Package in Queue" = "Paketas eilėje";
-"Tap to manage Queue" = "Paspauskite eilės tvarkymui";
+"Packages Queued" = "Packages Queued";
+"Package Queued" = "Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
 "Queue" = "Eilė";
-"Queue cleared" = "Eilė išvalyta";
 "Install" = "Įdiegti";
 "Reinstall" = "Įdiegti iš naujo";
-"Remove" = "Šalinti";
+"Remove" = "Pašalinti";
 "Upgrade" = "Naujinti";
 "Downgrade" = "Grįžti į sen.";
 "Abort" = "Nutraukti";
@@ -255,3 +262,5 @@
 "%@ is required by:" = "%@ reikalauja:";
 "Issues" = "Problemos";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
+"Are you sure?" = "Ar esate įsitikinę?";
+"Are you sure you want to clear the queue?" = "Ar esate tikri, kad norite išvalyti eilę?";

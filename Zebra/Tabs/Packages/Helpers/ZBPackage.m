@@ -421,12 +421,12 @@
     if (!numericSize) return NULL;
     double size = (double)numericSize;
     if (size > 1024 * 1024) {
-        return [NSString stringWithFormat:@"%.2f MB", size / 1024 / 1024];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
     }
     if (size > 1024) {
-        return [NSString stringWithFormat:@"%.2f KB", size / 1024];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:@"%d bytes", numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), numericSize];
 }
 
 - (int)numericInstalledSize {
@@ -443,9 +443,9 @@
     if (!numericSize) return NULL;
     double size = (double)numericSize;
     if (size > 1024) {
-        return [NSString stringWithFormat:@"%.2f MB", size / 1024];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:@"%d KB", numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), numericSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
@@ -546,8 +546,12 @@
 }
 
 - (NSDate *)installedDate {
-    if ([ZBDevice needsSimulation])
-        return nil;
+    if ([ZBDevice needsSimulation]) {
+        // Just to make sections in simulators less cluttered
+        // https://stackoverflow.com/questions/1149256/round-nsdate-to-the-nearest-5-minutes/19123570
+        NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
+        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+    }
 	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
 	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
 	return attributes[NSFileModificationDate];
@@ -557,8 +561,8 @@
     if ([ZBDevice needsSimulation])
         return self.version;
 	NSTask *installedVersionTask = [[NSTask alloc] init];
-    [installedVersionTask setLaunchPath:@"/usr/bin/dpkg"];
-    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"-s", self.identifier, nil];
+    [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
+    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"dpkg", @"-s", self.identifier, nil];
     [installedVersionTask setArguments:versionArgs];
     
     NSPipe *outPipe = [NSPipe pipe];
@@ -606,7 +610,7 @@
 }
 
 - (BOOL)hasIssues {
-    return [issues count] > 0;
+    return [issues count];
 }
 
 @end

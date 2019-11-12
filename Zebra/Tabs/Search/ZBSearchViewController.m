@@ -18,6 +18,8 @@
 #import <UIColor+Zebra.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 
+@import FirebaseAnalytics;
+
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *results;
@@ -77,6 +79,11 @@ enum ZBSearchSection {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self configureClearSearchButton];
     [self refreshTable];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self registerView];
 }
 
 - (void)applyLocalization {
@@ -228,8 +235,11 @@ enum ZBSearchSection {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:notFoundID];
             }
             cell.textLabel.text = NSLocalizedString(@"No Results Found", @"");
-            // cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
         case ZBSearchSectionRecent: {
@@ -239,8 +249,10 @@ enum ZBSearchSection {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearchesID];
             }
             cell.textLabel.text = [recentSearches objectAtIndex:indexPath.row];
-//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-//            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
+            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
         }
         case ZBSearchSectionResults: {
@@ -250,6 +262,8 @@ enum ZBSearchSection {
                 [cell updateData:package];
                 [cell setColors];
             }
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
         }
         default:
@@ -296,6 +310,9 @@ enum ZBSearchSection {
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == ZBSearchSectionNotFound) {
+        return NO;
+    }
     return YES;
 }
 
@@ -368,6 +385,14 @@ enum ZBSearchSection {
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
+#pragma mark - Analytics
+
+- (void)registerView {
+    NSString *screenName = self.title;
+    NSString *screenClass = [[self classForCoder] description];
+    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

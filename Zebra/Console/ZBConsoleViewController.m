@@ -34,7 +34,7 @@
     BOOL zebraRestartRequired;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
-@property (strong, nonatomic) IBOutlet UIButton *cancelOrCloseButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelOrCloseButton;
 @property (strong, nonatomic) IBOutlet UILabel *progressText;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
@@ -91,6 +91,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+    }
     self.title = NSLocalizedString(@"Console", @"");
     [self setupView];
 }
@@ -156,6 +159,10 @@
         
         [task launch];
         [task waitUntilExit];
+        
+        [self refreshLocalPackages];
+        [self removeAllDebs];
+        [self finishTasks];
     }
     else {
         [self performTasksForDownloadedFiles:NULL];
@@ -257,7 +264,6 @@
                 [self updateIconCaches:uicaches];
             }
             
-            [queue clear];
             [self refreshLocalPackages];
             [self removeAllDebs];
             [self finishTasks];
@@ -285,16 +291,14 @@
     [self setProgressViewHidden:true];
     [self updateProgressText:nil];
     [self setProgressTextHidden:true];
-    [queue clear];
     [self removeAllDebs];
     [self updateCancelOrCloseButton];
 }
 
 - (void)close {
-    [self clearConsole];
-    [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
-        [[ZBAppDelegate tabBarController] updateQueueNav];
-    }];
+    [queue clear];
+    [[self navigationController] popToRootViewControllerAnimated:true];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
 }
 
 - (IBAction)cancelOrClose:(id)sender {
@@ -505,15 +509,22 @@
 - (void)updateCancelOrCloseButton {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->suppressCancel) {
-            self.cancelOrCloseButton.hidden = YES;
+            self.cancelOrCloseButton.enabled = NO;
         }
         else if (self->currentStage == ZBStageFinished) {
-            self.cancelOrCloseButton.hidden = self->zebraRestartRequired;
-            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Close", @"") forState:UIControlStateNormal];
+            self.cancelOrCloseButton.enabled = !self->zebraRestartRequired;
+            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Close", @"")];
         }
         else {
-            self.cancelOrCloseButton.hidden = NO;
-            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
+            self.cancelOrCloseButton.enabled = YES;
+            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Cancel", @"")];
+        }
+        
+        if (self.cancelOrCloseButton.enabled) {
+            [self.cancelOrCloseButton setTintColor:[UIColor whiteColor]];
+        }
+        else {
+            [self.cancelOrCloseButton setTintColor:[UIColor clearColor]];
         }
     });
 }

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorAndRepoAndSize;
 - (void)updateData:(ZBPackage *)package;
+- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize;
 - (void)updateQueueStatus:(ZBPackage *)package;
 - (void)setColors;
 @end
