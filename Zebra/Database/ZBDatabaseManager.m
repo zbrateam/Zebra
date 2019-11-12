@@ -245,6 +245,7 @@
     if (haltdDatabaseOperations) {
         CLS_LOG(@"Database operations halted.");
         NSLog(@"[Zebra] Database operations halted");
+        [self bulkDatabaseCompletedUpdate:numberOfUpdates];
         return;
     }
     [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
