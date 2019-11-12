@@ -72,13 +72,9 @@
 
 "Enable News" = "Aktivizo lajmet";
 
-// Tab controller
-"Packages in Queue" = "Paketat në radhë";
-"Package in Queue" = "Paketa në radhë";
-"Tap to manage Queue" = "Kliko per te menagjuar rradhën";
-
 "Search while Typing" = "Search while Typing";
 
+"Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Open Documents Directory" = "Open Documents Directory";
@@ -86,6 +82,9 @@
 "Clear Keychain" = "Clear Keychain";
 
 "Loading..." = "Duke ngarkuar...";
+
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
 "Drop Tables" = "Drop Tables";
 
@@ -209,6 +208,11 @@
 "Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
+// Search
+
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "Nuk janë gjetur rezultate";
 
 // Downloads
@@ -268,8 +272,10 @@
 "Continue" = "Continue";
 "Download Size" = "Download Size";
 "Confirm" = "Confirm";
-"Could not resolve dependency for %@" = "Could not resolve dependency for %@";
-"%@ conflicts with %@" = "%@ conflicts with %@";
-"%@ depends on %@" = "%@ depends on %@";
-"Removed by" = "Removed by";
-"Required by" = "Required by";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
