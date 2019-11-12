@@ -111,6 +111,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
+    webView.scrollView.scrollEnabled = false;
     
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
