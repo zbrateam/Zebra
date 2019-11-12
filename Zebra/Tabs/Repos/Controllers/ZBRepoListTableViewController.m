@@ -104,10 +104,15 @@
     NSMutableArray *repos = [NSMutableArray new];
     
     for (ZBRepo *repo in [self.databaseManager repos]) {
-        if (repo.secure) {
-            [repos addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", repo.baseURL]] host]];
-        } else {
-            [repos addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", repo.baseURL]] host]];
+        if (repo.baseURL != NULL) {
+            if (repo.secure) {
+                [repos addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", repo.baseURL]] host]];
+            } else {
+                [repos addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", repo.baseURL]] host]];
+            }
+        }
+        else {
+            NSLog(@"oh no! %@", repo);
         }
     }
     if ((url && url.scheme && url.host)) {
@@ -254,19 +259,21 @@
         [self->repoManager addSourceWithString:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
             if (!success) {
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-                [wait dismissViewControllerAnimated:YES completion:^{
-                    [weakSelf presentVerificationFailedAlert:error url:url present:NO];
-                }];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [wait dismissViewControllerAnimated:YES completion:^{
+                        [weakSelf presentVerificationFailedAlert:error url:url present:NO];
+                    }];
+                });
             } else {
-                [wait dismissViewControllerAnimated:YES completion:^{
-                    NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [wait dismissViewControllerAnimated:YES completion:^{
+                        NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
+                         
                         ZBRefreshViewController *console = [[ZBRefreshViewController alloc] init];
                         console.repoURLs = @[ repoURL ];
                         [weakSelf presentViewController:console animated:YES completion:nil];
-                    });
-                }];
+                    }];
+                });
             }
         }];
     }]];
