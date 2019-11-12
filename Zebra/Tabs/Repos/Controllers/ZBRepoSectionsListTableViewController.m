@@ -168,7 +168,7 @@
     if (self.repoEndpoint) {
         NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]]];
         NSURLComponents *components = [NSURLComponents componentsWithURL:destinationUrl resolvingAgainstBaseURL:YES];
-        if ([components.scheme isEqualToString:@"http"] || [components.scheme isEqualToString:@"https"]) {
+        if (![components.scheme isEqualToString:@"http"] && ![components.scheme isEqualToString:@"https"]) {
             return;
         }
         
