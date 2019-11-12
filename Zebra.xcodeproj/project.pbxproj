@@ -279,6 +279,7 @@
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		8916912E2367B4D4006E765F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		892552C3237B288000120F9B /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8931E4D2226D6E9300F35DFD /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
 		8932F0C02364A0B200F16E5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0C12364A33000F16E5E /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1070,6 +1071,7 @@
 				hr,
 				hi,
 				sq,
+				fa,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1314,6 +1316,7 @@
 				8987802D236DC49B005291EC /* hr */,
 				89878035236DE6D7005291EC /* hi */,
 				896B4A79237A0E5C007C4ABB /* sq */,
+				892552C3237B288000120F9B /* fa */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
