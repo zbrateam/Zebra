@@ -199,6 +199,23 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [self setDefaultValues];
     [FIRApp configure];
     CLS_LOG(@"Version: %@", PACKAGE_VERSION);
+    [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
+    
+    NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
+    if ([ZBDevice isCheckrain]) {
+        jailbreak = @"checkra1n";
+    }
+    else if ([ZBDevice isChimera]) {
+        jailbreak = @"Chimera";
+    }
+    else if ([ZBDevice isElectra]) {
+        jailbreak = @"Electra";
+    }
+    else if ([ZBDevice isUncover]) {
+        jailbreak = @"unc0ver";
+    }
+    CLS_LOG(@"Jailbreak Type: %@", jailbreak);
+    [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
 //    [self stablilityCheck];
     return YES;
 }
