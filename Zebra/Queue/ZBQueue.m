@@ -351,7 +351,7 @@
 }
 
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)icon {
-    BOOL useIcon = icon ? [ZBDevice useIcon] : false;
+    BOOL useIcon = icon && [ZBDevice useIcon];
     
     switch (queue) {
         case ZBQueueTypeInstall:
