@@ -198,7 +198,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     [self setDefaultValues];
     [FIRApp configure];
-    CLS_LOG(@"Version: %@", PACKAGE_VERSION);
     [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
     
     NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
@@ -214,8 +213,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     else if ([ZBDevice isUncover]) {
         jailbreak = @"unc0ver";
     }
-    CLS_LOG(@"Jailbreak Type: %@", jailbreak);
+    
     [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
+    [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
 //    [self stablilityCheck];
     return YES;
 }

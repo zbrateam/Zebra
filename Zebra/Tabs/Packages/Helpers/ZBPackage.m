@@ -19,7 +19,6 @@
 
 @interface ZBPackage () {
     NSUInteger possibleActions;
-    int numericInstalledSize;
 }
 @end
 
