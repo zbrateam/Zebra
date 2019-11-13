@@ -100,7 +100,7 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
-    NSArray *urlBlacklist = @[@"youtube.com", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
+    NSArray *urlBlacklist = @[@"youtube.com", @"youtu.be", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
     NSMutableArray *repos = [NSMutableArray new];
     
     for (ZBRepo *repo in [self.databaseManager repos]) {
