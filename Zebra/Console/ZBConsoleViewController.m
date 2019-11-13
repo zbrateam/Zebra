@@ -159,8 +159,8 @@
         [task setStandardError:errorPipe];
         
         [task launch];
-        [output closeFile];
-        [error closeFile];
+        [[task.standardOutput fileHandleForReading] readDataToEndOfFile];
+        [[task.standardError fileHandleForReading] readDataToEndOfFile];
         [task waitUntilExit];
         
         [self refreshLocalPackages];
@@ -231,8 +231,8 @@
                         [task setStandardError:errorPipe];
                         
                         [task launch];
-                        [output closeFile];
-                        [error closeFile];
+                        [[task.standardOutput fileHandleForReading] readDataToEndOfFile];
+                        [[task.standardError fileHandleForReading] readDataToEndOfFile];
                         [task waitUntilExit];
                     }
                 }
