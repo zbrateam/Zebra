@@ -76,8 +76,8 @@
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/dpkg"];
-        [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [ZBDevice asRoot:task arguments:@[@"dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
         [task setStandardOutput:pipe];
@@ -131,8 +131,8 @@
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/dpkg"];
-        [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [ZBDevice asRoot:task arguments:@[@"dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
         [task setStandardOutput:pipe];
