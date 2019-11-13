@@ -125,11 +125,17 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    ZBQueueType action = [queue actionsToPerform][section].intValue;
-    if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-        return [NSString stringWithFormat:@"%@ %@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+    NSArray *actions = [queue actionsToPerform];
+    if ([actions count] == 0) {
+        return @"No Actions to Perform";
     }
-    return [queue displayableNameForQueueType:action useIcon:false];
+    else {
+        ZBQueueType action = [queue actionsToPerform][section].intValue;
+        if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
+            return [NSString stringWithFormat:@"%@ %@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+        }
+        return [queue displayableNameForQueueType:action useIcon:false];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
