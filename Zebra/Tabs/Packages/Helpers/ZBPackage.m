@@ -45,6 +45,8 @@
 @synthesize dependencyOf;
 @synthesize issues;
 @synthesize removedBy;
+@synthesize installedSize;
+@synthesize downloadSize;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
@@ -313,6 +315,8 @@
         }
         [self setSectionImageName:sectionStripped];
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
+        [self setInstalledSize:sqlite3_column_int(statement, ZBPackageColumnInstalledSize)];
+        [self setDownloadSize:sqlite3_column_int(statement, ZBPackageColumnDownloadSize)];
     }
     
     return self;
@@ -412,42 +416,25 @@
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
-- (int)numericSize {
-    NSString *sizeField = [self getField:@"Size"];
-    if (!sizeField) return 0;
-    return [sizeField intValue];
-}
-
-- (NSString *)size {
-    int numericSize = [self numericSize];
-    if (!numericSize) return NULL;
-    double size = (double)numericSize;
+- (NSString *)downloadSizeString {
+    if (downloadSize <= 0) return NULL;
+    double size = (double)downloadSize;
     if (size > 1024 * 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
     }
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), downloadSize];
 }
 
-- (int)numericInstalledSize {
-    if (numericInstalledSize)
-        return numericInstalledSize;
-    NSString *sizeField = [self getField:@"Installed-Size"];
-    if (!sizeField) return 0;
-    numericInstalledSize = [sizeField intValue];
-    return numericInstalledSize;
-}
-
-- (NSString *)installedSize {
-    int numericSize = [self numericInstalledSize];
-    if (!numericSize) return NULL;
-    double size = (double)numericSize;
+- (NSString *)installedSizeString {
+    if (installedSize <= 0) return NULL;
+    double size = (double)installedSize;
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), installedSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {

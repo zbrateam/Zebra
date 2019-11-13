@@ -652,8 +652,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readSize:(ZBPackage *)package {
-    NSString *size = [package size];
-    NSString *installedSize = [package installedSize];
+    NSString *size = [package downloadSizeString];
+    NSString *installedSize = [package installedSizeString];
     if (size && installedSize) {
         infos[@(ZBPackageInfoSize)] = [NSString stringWithFormat:NSLocalizedString(@"%@ (Installed Size: %@)", @""), size, installedSize];
     } else if (size) {

@@ -483,7 +483,7 @@
     }
     
     for (ZBPackage *package in packages) {
-        totalDownloadSize += [package numericSize];
+        totalDownloadSize += [package downloadSize];
     }
     if (totalDownloadSize) {
         NSString *unit = @"bytes";

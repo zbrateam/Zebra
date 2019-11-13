@@ -40,7 +40,7 @@
     ZBRepo *repo = package.repo;
     NSString *repoName = repo.origin;
     NSString *author = [self stripEmailFromAuthor:package.author];
-    NSString *installedSize = calculateSize ? [package installedSize] : nil;
+    NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (author.length)
         [info addObject:author];
