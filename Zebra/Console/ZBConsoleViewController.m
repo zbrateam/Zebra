@@ -212,7 +212,7 @@
                     }
                     
                     if (![ZBDevice needsSimulation]) {
-                        ZBLog(@"Executing commands...");
+                        ZBLog(@"[Zebra] Executing commands...");
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
