@@ -23,6 +23,7 @@ If applicable, add screenshots to help explain your problem.
  - iOS Version [e.g. 12.1.2 or 10.3.3]: 
  - Zebra Version [e.g. 1.0\~beta1 or beta1]: 
  - Device Type [e.g. iPhone or iPad]: 
+ - Jailbreak Type [e.g. unc0ver, Chimera, checkra1n, etc.]: 
 
 **Crash Log or System Log**
 Please provide a Crash Log to help us solve the issue.
