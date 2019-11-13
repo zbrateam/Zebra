@@ -50,6 +50,7 @@
     if ([ZBDevice needsSimulation]) {
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
+    ZBLog(@"[Zebra] Getting installed files for %@", packageID);
     NSTask *checkFilesTask = [[NSTask alloc] init];
     NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"-L", packageID, nil];
     [checkFilesTask setLaunchPath:@"/usr/bin/dpkg"];
@@ -59,12 +60,12 @@
     [checkFilesTask setStandardOutput:outPipe];
     
     [checkFilesTask launch];
-    [checkFilesTask waitUntilExit];
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    
+    [read closeFile];
+    [checkFilesTask waitUntilExit];
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
@@ -83,7 +84,6 @@
         [task setStandardOutput:pipe];
         
         [task launch];
-        [task waitUntilExit];
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
@@ -101,6 +101,8 @@
             }
         }];
         
+        [read closeFile];
+        [task waitUntilExit];
         return contains;
     }
     
@@ -124,10 +126,10 @@
 }
 
 + (BOOL)containsApplicationBundle:(NSString *)packageID {
-    ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([ZBDevice needsSimulation]) {
         return NO;
     }
+    ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
@@ -136,9 +138,7 @@
         
         NSPipe *pipe = [NSPipe pipe];
         [task setStandardOutput:pipe];
-        
         [task launch];
-        [task waitUntilExit];
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
@@ -156,6 +156,8 @@
             }
         }];
         
+        [read closeFile];
+        [task waitUntilExit];
         return contains;
     }
     
@@ -183,7 +185,6 @@
         [task setStandardOutput:pipe];
         
         [task launch];
-        [task waitUntilExit];
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
@@ -201,6 +202,8 @@
             }
         }];
         
+        [read closeFile];
+        [task waitUntilExit];
         return path;
     }
     
@@ -568,7 +571,6 @@
     [installedVersionTask setStandardOutput:outPipe];
     
     [installedVersionTask launch];
-    [installedVersionTask waitUntilExit];
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
@@ -583,6 +585,8 @@
         }
 	}];
 
+    [read closeFile];
+    [installedVersionTask waitUntilExit];
     return version;
 }
 

@@ -32,7 +32,6 @@
     [task setStandardOutput:pipe];
     
     [task launch];
-    [task waitUntilExit];
     
     NSFileHandle *read = [pipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
@@ -47,6 +46,9 @@
         NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
         info[key] = value;
     }];
+    
+    [read closeFile];
+    [task waitUntilExit];
     
     details = (NSDictionary *)info;
     keys = [info allKeys];

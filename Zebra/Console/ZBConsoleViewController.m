@@ -16,6 +16,7 @@
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
+#import <ZBLog.h>
 
 @import LNPopupController;
 
@@ -158,6 +159,8 @@
         [task setStandardError:errorPipe];
         
         [task launch];
+        [output closeFile];
+        [error closeFile];
         [task waitUntilExit];
         
         [self refreshLocalPackages];
@@ -209,6 +212,7 @@
                     }
                     
                     if (![ZBDevice needsSimulation]) {
+                        ZBLog(@"Executing commands...");
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
@@ -227,6 +231,8 @@
                         [task setStandardError:errorPipe];
                         
                         [task launch];
+                        [output closeFile];
+                        [error closeFile];
                         [task waitUntilExit];
                     }
                 }
@@ -272,6 +278,7 @@
 }
 
 - (void)finishTasks {
+    ZBLog(@"Finishing tasks");
     [downloadMap removeAllObjects];
     [applicationBundlePaths removeAllObjects];
     [installedPackageIdentifiers removeAllObjects];
@@ -323,8 +330,7 @@
 - (void)restartSpringBoard {
     if (![ZBDevice needsSimulation]) {
         [ZBDevice sbreload];
-    }
-    else {
+    } else {
         [self close];
     }
 }
@@ -411,6 +417,7 @@
 }
 
 - (void)removeAllDebs {
+    ZBLog(@"Removing all debs");
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
     NSString *file;
 
@@ -632,7 +639,9 @@
     [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
 //    ZBLog(@"[Zebra] %d updates available.", packageUpdates);
     if (packageUpdates != -1) {
-        [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
+        });
     }
 }
 
