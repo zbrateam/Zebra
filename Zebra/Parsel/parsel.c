@@ -82,10 +82,10 @@ char *reposSchema() {
 const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *packagesSchema() {
-    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP)";
+    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER)";
 }
 
-const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN, INSTALLEDSIZE) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *updatesSchema() {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION STRING NOT NULL, IGNORE INTEGER DEFAULT 0)";
@@ -377,6 +377,17 @@ bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription,
                 }
             }
             sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
+            if (repoID == 0) {
+                const char *sizeAsString = dict_get(package, "Installed-Size");
+                if (sizeAsString != '\0') {
+                    int size = atoi(sizeAsString);
+                    sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnInstalledSize, size);
+                }
+                else {
+                    sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnInstalledSize, 0);
+                }
+            }
+            
             if (longDescription[0] != '\0')
                 longDescription[strlen(longDescription) - 1] = '\0';
             if (depends[0] != '\0')
