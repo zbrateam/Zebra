@@ -150,6 +150,21 @@
 "Installed Version" = "Installert Versjon";
 "Installed Size" = "Installert storleik";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installert Versjon: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installert Storleik: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d byte";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Legg til i Ønskelista";
 "Remove from Wish List" = "Fjern frå Ønskelista";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnera til køen og prøva nedlastinga på nytt.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Pakkar lagt til i kø";
+"%d Package Queued" = "%d Pakke lagt til i kø";
+"Tap to manage" = "Trykk for å administrera";
+"No Packages Queued" = "Ingen pakkar lagt til i kø";
 
 // Queue
 

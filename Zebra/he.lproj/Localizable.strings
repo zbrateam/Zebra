@@ -65,7 +65,7 @@
 "Change Icon" = "שנה אייקון";
 
 "Enable Featured Packages" = "אפשר חבילות מומלצות";
-"Repo Featured" = "מומלץ מקור";
+"Repo Featured" = "המלצת המקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
@@ -149,6 +149,21 @@
 "More by this Developer" = "עוד ממפתח זה";
 "Installed Version" = "גירסה מותקנת";
 "Installed Size" = "גודל מותקן";
+
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (גירסה מותקנת: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (גודל מותקן: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d בתים";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d ק\"ב";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f ק\"ב";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f מ\"ב";
 
 "Add to Wish List" = "הוסף לרשימת המשאלות";
 "Remove from Wish List" = "הסר מרשימת המשאלות";
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 
 // Queue Bar
-"Packages Queued" = "חבילות בתור";
-"Package Queued" = "חבילה בתור";
+"%d Packages Queued" = "%d חבילות בתור";
+"%d Package Queued" = "חבילה %d בתור";
 "Tap to manage" = "לחץ/י לניהול";
 "No Packages Queued" = "אין חבילות בתור";
 

@@ -28,8 +28,8 @@
 "Wish List" = "Wunschliste";
 "No items in Wish List" = "Keine Artikel in der Wunschliste";
 "Community" = "Community";
-"Join our Discord" = "Trete unserem Discord bei";
-"Follow me on Twitter" = "Folge mir auf Twitter";
+"Join our Discord" = "Tritt unserem Discord bei";
+"Follow me on Twitter" = "Folgt mir auf Twitter";
 
 //Credits
 
@@ -150,6 +150,21 @@
 "Installed Version" = "Installierte Version";
 "Installed Size" = "Größe der Installation";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installierte Version: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installierte Größe: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Zur Wunschliste hinzufügen";
 "Remove from Wish List" = "Von Wunschliste entfernen";
 
@@ -161,14 +176,14 @@
 "Archiving" = "Archivierung";
 "Carrier Support" = "Netzbetreiber Unterstützung";
 "Communication" = "Kommunikation";
-"Data Storage" = "Speicher";
+"Data Storage" = "Daten Speicher";
 "Development" = "Entwicklung";
 "Dictionaries" = "Wörterbücher";
 "Education" = "Bildung";
 "Entertainment" = "Unterhaltung";
 "Games" = "Spiele";
-"Health and Fitness" = "Gesundheit und Fitness";
-"Imaging" = "Imaging";
+"Health and Fitness" = "Gesundheit und Fitneß";
+"Imaging" = "Abbildung";
 "Java" = "Java";
 "Keyboards" = "Tastaturen";
 "Localization" = "Lokalisierung";
@@ -185,8 +200,8 @@
 "Social" = "Sozial";
 "System" = "System";
 "Terminal Support" = "Terminal Unterstützung";
-"Text Editors" = "Texteditoren";
-"Themes" = "Themes";
+"Text Editors" = "Text Bearbeiter";
+"Themes" = "Motive";
 "Toys" = "Spielzeuge";
 "Tweaks" = "Tweaks";
 "Utilities" = "Dienstprogramme";
@@ -204,7 +219,7 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Fehler beim Öffnen von sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist nicht mit deinem Jailbreak kompatibel.";
+"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist mit deinem Jailbreak inkompatibel.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Es könnte Probleme verursachen, wenn du es zu Zebra hinzufügst, was eine mögliche Wiederherstellung von Zebra verursachen könnte.";
 "Please remove this repo from your sources.list file." = "Bitte entferne diese Quelle von deiner sources.list Datei.";
 "Incorrect documents permissions." = "Falsche Dokumentenberechtigung.";
@@ -237,11 +252,11 @@
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf “Zurück zur Warteschlange“, um zur Warteschlange zurückzukehren und versuche es erneut.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
-"Packages Queued" = "In der Warteschlange befindliche Pakete";
-"Package Queued" = "Package Queued";
+"%d Packages Queued" = "%d Pakete in der Warteschlange";
+"%d Package Queued" = "%d Paket in der Warteschlange";
 "Tap to manage" = "Zum Verwalten tippen";
 "No Packages Queued" = "Keine Pakete in der Warteschlange";
 

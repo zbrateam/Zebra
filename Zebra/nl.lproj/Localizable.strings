@@ -150,6 +150,21 @@
 "Installed Version" = "Geïnstalleerde versie";
 "Installed Size" = "Geïnstalleerde grootte";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Voeg toe aan verlanglijst";
 "Remove from Wish List" = "Verwijder van verlanglijst";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Tap to manage";
 "No Packages Queued" = "No Packages Queued";
 

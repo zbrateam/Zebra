@@ -150,6 +150,21 @@
 "Installed Version" = "已安裝的版本";
 "Installed Size" = "已安裝大小";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (版本: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (大小: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "添加到願望清單";
 "Remove from Wish List" = "從願望清單移除";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點擊 \"返回隊列\" 以返回至隊列頁面並嘗試重新下載";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d 個列隊中的套件";
+"%d Package Queued" = "%d 個列隊中的套件";
+"Tap to manage" = "查看列隊";
+"No Packages Queued" = "列隊已清空";
 
 // Queue
 

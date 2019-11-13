@@ -150,6 +150,21 @@
 "Installed Version" = "Versão Instalada";
 "Installed Size" = "Tamanho instalado";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Versão Instalada: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Tamanho Instalado: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Adicionar na Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clique em \"Retorne a Fila\" para retornar à fila e tentar novamente o download.";
 
 // Queue Bar
-"Packages Queued" = "Pacotes na fila";
-"Package Queued" = "Pacote na fila";
+"%d Packages Queued" = "%d pacotes na fila";
+"%d Package Queued" = "%d pacote na fila";
 "Tap to manage" = "Toque para gerenciar";
 "No Packages Queued" = "Não há pacotes na fila";
 

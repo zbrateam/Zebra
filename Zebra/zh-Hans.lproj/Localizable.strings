@@ -150,6 +150,21 @@
 "Installed Version" = "已安装版本";
 "Installed Size" = "安装大小";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d字节";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "加入心愿单";
 "Remove from Wish List" = "从心愿单中移除";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 
 // Queue Bar
-"Packages Queued" = "软件包队列";
-"Package Queued" = "软件包队列";
+"%d Packages Queued" = "队列中有%d个软件包";
+"%d Package Queued" = "队列中有%d个软件包";
 "Tap to manage" = "点击以管理";
 "No Packages Queued" = "队列中无软件包";
 

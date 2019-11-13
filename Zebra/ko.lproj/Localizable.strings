@@ -150,6 +150,21 @@
 "Installed Version" = "설치된 버전";
 "Installed Size" = "설치된 크기";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "위시 리스트에 추가";
 "Remove from Wish List" = "위시 리스트에서 제거";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
+"Tap to manage" = "탭하여 관리하기";
+"No Packages Queued" = "대기열에 추가된 패키지 없음";
 
 // Queue
 

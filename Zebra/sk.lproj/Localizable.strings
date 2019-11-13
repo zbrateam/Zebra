@@ -150,6 +150,21 @@
 "Installed Version" = "Inštalovaná verzia";
 "Installed Size" = "Nainštalovaná veľkosť";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Nainštalovaná Verzia: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Inštalovaná veľkosť: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bajtov";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Pridať na Wish List";
 "Remove from Wish List" = "Odstrániť z Wish Listu";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do fronty\" pre vrátenie do fronty a opakujte sťahovanie";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Balíčkov vo Fronte";
+"%d Package Queued" = "%d Balíček vo fronte";
+"Tap to manage" = "Dotykom spravovať";
+"No Packages Queued" = "Žiadne balíčky vo fronte";
 
 // Queue
 
