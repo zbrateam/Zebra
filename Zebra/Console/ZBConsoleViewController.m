@@ -231,6 +231,14 @@
                         [task launch];
                         [task waitUntilExit];
                     }
+                    else {
+                        [self writeToConsole:@"This device is simulated, here are the packages that would be installed:" atLevel:ZBLogLevelWarning];
+                        for (int i = COMMAND_START; i < [command count]; ++i) {
+                            NSString *packageID = command[i];
+                            if (![self isValidPackageID:packageID]) continue;
+                            [self writeToConsole:[packageID lastPathComponent] atLevel:ZBLogLevelDescript];
+                        }
+                    }
                 }
             }
             
