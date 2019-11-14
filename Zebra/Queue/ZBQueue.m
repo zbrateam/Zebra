@@ -311,12 +311,17 @@
             NSString *finalPath = [filename objectForKey:@"final"];
             NSString *originalFilename = [filename objectForKey:@"original"];
             NSString *packageFilename = [[package filename] lastPathComponent];
+            NSString *originalURL = [filename objectForKey:@"originalURL"];
 
             if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
                 continue;
             }
             
-            if ([finalPath containsString:packageFilename]) {
+            if ([finalPath containsString:[package identifier]]) {
+                [paths addObject:finalPath];
+                break;
+            }
+            else if ([finalPath containsString:packageFilename]) {
                 [paths addObject:finalPath];
                 break;
             }
@@ -324,7 +329,7 @@
                 [paths addObject:finalPath];
                 break;
             }
-            else if ([packageFilename containsString:originalFilename]) {
+            else if ([originalURL containsString:packageFilename]) {
                 [paths addObject:finalPath];
                 break;
             }
