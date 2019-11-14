@@ -64,9 +64,9 @@
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [checkFilesTask waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     [read closeFile];
-    [checkFilesTask waitUntilExit];
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
@@ -88,6 +88,7 @@
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block BOOL contains;
@@ -103,7 +104,6 @@
         }];
         
         [read closeFile];
-        [task waitUntilExit];
         return contains;
     }
     
@@ -143,6 +143,7 @@
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block BOOL contains;
@@ -158,7 +159,6 @@
         }];
         
         [read closeFile];
-        [task waitUntilExit];
         return contains;
     }
     
@@ -189,6 +189,7 @@
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block NSString *path;
@@ -204,7 +205,6 @@
         }];
         
         [read closeFile];
-        [task waitUntilExit];
         return path;
     }
     
@@ -560,6 +560,7 @@
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [installedVersionTask waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     
     __block NSString *version = @"0.0";
@@ -572,7 +573,6 @@
 	}];
 
     [read closeFile];
-    [installedVersionTask waitUntilExit];
     return version;
 }
 
