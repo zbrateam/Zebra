@@ -1209,24 +1209,13 @@
         }
         
         if (package != NULL) {
-            NSArray *otherVersions = [self allVersionsForPackage:package];
             if (version != NULL && comparison != NULL) {
-                if ([otherVersions count] > 1) {
-                    for (ZBPackage *package in otherVersions) {
-                        if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
-                            [self closeDatabase];
-                            return package;
-                        }
-                    }
-                    
-                    [self closeDatabase];
-                    return NULL;
-                }
                 [self closeDatabase];
-                return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
+                return [self doesPackage:package satisfyComparison:comparison ofVersion:version] ? package : NULL;
             }
             else {
-                return otherVersions[0];
+                [self closeDatabase];
+                return package;
             }
         }
         
