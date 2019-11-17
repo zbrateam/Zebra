@@ -199,24 +199,40 @@
     NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
-        NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        if ([binary isEqualToString:@"apt"]) {
-            [removeCommand addObject:@"remove"];
+        if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
+            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
+            
+            for (ZBPackage *package in [self removeQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            for (ZBPackage *package in [self conflictQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            [commands addObject:@[@(ZBStageRemove)]];
+            [commands addObject:removeCommand];
         }
         else {
-            [removeCommand addObject:@"-r"];
+            NSMutableArray *removeCommand = [baseCommand mutableCopy];
+            if ([binary isEqualToString:@"apt"]) {
+                [removeCommand addObject:@"remove"];
+            }
+            else {
+                [removeCommand addObject:@"-r"];
+            }
+            
+            for (ZBPackage *package in [self removeQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            for (ZBPackage *package in [self conflictQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            [commands addObject:@[@(ZBStageRemove)]];
+            [commands addObject:removeCommand];
         }
-        
-        for (ZBPackage *package in [self removeQueue]) {
-            [removeCommand addObject:package.identifier];
-        }
-        
-        for (ZBPackage *package in [self conflictQueue]) {
-            [removeCommand addObject:package.identifier];
-        }
-        
-        [commands addObject:@[@(ZBStageRemove)]];
-        [commands addObject:removeCommand];
     }
     
     if ([self queueHasPackages:ZBQueueTypeInstall]) {
