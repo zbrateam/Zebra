@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure?" = "よろしいですか？";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
+"Remove from Queue" = "キューから削除";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、デバイスに取り返しのつかない損傷が発生し、完全な復元をしないといけなくなります。";
