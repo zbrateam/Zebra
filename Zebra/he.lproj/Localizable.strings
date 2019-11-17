@@ -279,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
 "Are you sure?" = "האם את/ה בטוח/ה?";
 "Are you sure you want to clear the queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Remove from Queue" = "Remove from Queue";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
