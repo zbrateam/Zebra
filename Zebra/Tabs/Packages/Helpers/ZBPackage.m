@@ -46,6 +46,8 @@
 @synthesize removedBy;
 @synthesize installedSize;
 @synthesize downloadSize;
+@synthesize priority;
+@synthesize essential;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
@@ -277,6 +279,8 @@
         const char *replacesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
         const char *filenameChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
         const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
+        const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
+        const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
@@ -289,6 +293,16 @@
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
+        
+        [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : NULL];
+        
+        NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
+        if (es && [es isEqualToString:@"yes"]) {
+            [self setEssential:true];
+        }
+        else if (es && [es isEqualToString:@"no"]) {
+            [self setEssential:false];
+        }
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
