@@ -279,8 +279,8 @@
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
 "Are you sure?" = "האם את/ה בטוח/ה?";
 "Are you sure you want to clear the queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
+"Remove from Queue" = "הסר מהתור";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
