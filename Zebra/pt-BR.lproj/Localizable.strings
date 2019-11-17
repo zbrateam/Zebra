@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
 "Are you sure?" = "Você tem certeza?";
 "Are you sure you want to clear the queue?" = "Você tem certeza que deseja limpar a fila?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório. NÃO deve ser removido a menos que você saiba exatamente o que está fazendo!";
+"Remove from Queue" = "Remover da fila";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório e deve ser removido porque depende de %@. %@ NÃO deve ser removido a menos que você saiba exatamente o que está fazendo!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "Um ou mais pacotes na fila para remoção são essenciais ou necessários. Não é recomendado que você proceda a menos que se saiba exatamente o que está fazendo. Remover estes pacotes pode causar danos irreversíveis no seu dispositivo e pode resultar em uma restauração completa.";
