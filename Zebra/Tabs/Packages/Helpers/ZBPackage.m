@@ -616,4 +616,8 @@
     return [issues count];
 }
 
+- (BOOL)isEssentialOrRequired {
+    return essential || [[priority lowercaseString] isEqualToString:@"required"];
+}
+
 @end

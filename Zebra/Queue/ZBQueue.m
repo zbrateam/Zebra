@@ -533,6 +533,17 @@
     return issues;
 }
 
+- (BOOL)containsEssentialOrRequiredPackage {
+    NSMutableArray *removedPackages = [[self removeQueue] mutableCopy];
+    [removedPackages addObjectsFromArray:[self conflictQueue]];
+    for (ZBPackage *package in removedPackages) {
+        if ([package isEssentialOrRequired]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (NSArray <NSMutableArray *> *)queues {
     return @[[self installQueue], [self reinstallQueue], [self removeQueue], [self upgradeQueue], [self downgradeQueue]];
 }

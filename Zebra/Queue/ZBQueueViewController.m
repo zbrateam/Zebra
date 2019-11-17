@@ -110,8 +110,25 @@
 }
 
 - (IBAction)confirm:(id)sender {
-    ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
-    [self.navigationController pushViewController:console animated:true];
+    if ([queue containsEssentialOrRequiredPackage]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
+            [self.navigationController pushViewController:console animated:true];
+        }];
+        [alert addAction:confirm];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        
+        alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
+        [self presentViewController:alert animated:true completion:nil];
+    }
+    else {
+        ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
+        [self.navigationController pushViewController:console animated:true];
+    }
 }
 
 #pragma mark - Table view data source
@@ -158,7 +175,7 @@
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([[package dependencyOf] count] > 0 || [package hasIssues] || [package removedBy] != NULL)  {
+    if ([[package dependencyOf] count] > 0 || [package hasIssues] || [package removedBy] != NULL || ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]))  {
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
     else {
@@ -187,6 +204,11 @@
         cell.textLabel.textColor = [UIColor systemPinkColor];
         cell.detailTextLabel.textColor = [UIColor systemPinkColor];
     }
+    else if ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]) {
+        [cell setTintColor:[UIColor systemOrangeColor]];
+        cell.textLabel.textColor = [UIColor systemOrangeColor];
+        cell.detailTextLabel.textColor = [UIColor systemOrangeColor];
+    }
     else {
         [cell setTintColor:[UIColor tintColor]];
         cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
@@ -205,21 +227,49 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([package hasIssues]) {
+    if ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]) {
+        if ([package removedBy] != NULL) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:[NSString stringWithFormat:NSLocalizedString(@"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!", @""), [package name], [[package removedBy] name], [[package removedBy] name]] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [self->queue removePackage:package];
+                [self refreshTable];
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [alert dismissViewControllerAnimated:true completion:nil];
+            }];
+            [alert addAction:okAction];
+            [alert addAction:deleteAction];
+            [self presentViewController:alert animated:true completion:nil];
+        }
+        else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:[NSString stringWithFormat:NSLocalizedString(@"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!", @""), [package name]] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [self->queue removePackage:package];
+                [self refreshTable];
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [alert dismissViewControllerAnimated:true completion:nil];
+            }];
+            [alert addAction:okAction];
+            [alert addAction:deleteAction];
+            [self presentViewController:alert animated:true completion:nil];
+        }
+    }
+    else if ([package hasIssues]) {
         NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ has issues that cannot be resolved:", @""), [package name]] mutableCopy];
         for (NSString *issue in [package issues]) {
             [message appendFormat:@"\n%@", issue];
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Issues", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [self->queue removePackage:package];
             [self refreshTable];
         }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [alert dismissViewControllerAnimated:true completion:nil];
         }];
-        [alert addAction:deleteAction];
         [alert addAction:okAction];
+        [alert addAction:deleteAction];
         [self presentViewController:alert animated:true completion:nil];
     }
     else if ([package removedBy] != NULL) {

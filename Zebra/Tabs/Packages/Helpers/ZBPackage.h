@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDependencyOf:(ZBPackage *)package;
 - (void)addIssue:(NSString *)issue;
 - (BOOL)hasIssues;
+- (BOOL)isEssentialOrRequired;
 @end
 
 NS_ASSUME_NONNULL_END
