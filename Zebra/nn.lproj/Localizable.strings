@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ har problem som ikkje kan løysast:";
 "Are you sure?" = "Er du sikker?";
 "Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømma køen?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke. Han burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
+"Remove from Queue" = "Fjern frå køen";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke og må fjernast fordi han avheng av %@. %@ burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "Ein eller fleire av pakka i køen som skal fjernast er essensielle eller påkravd. Det blir ikkje tilrådt å fortsetja med mindre du veit nøyaktig kva du gjer. Viss du fjernar desse pakka, kan det føra til irreversibel skade på eininga di som kan føra til at du må retta opp igjen eininga di.";
