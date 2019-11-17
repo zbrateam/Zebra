@@ -279,8 +279,8 @@
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
 "Are you sure?" = "Er du sikker?";
 "Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømme køen?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er en påkrevd pakke. Den burde IKKE fjernes med mindre du vet nøyaktig hva du gjør!";
+"Remove from Queue" = "Fjern fra køen";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
