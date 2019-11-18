@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji se ne mogu riješiti:";
 "Are you sure?" = "Jeste li sigurni?";
 "Are you sure you want to clear the queue?" = "Jeste li sigurni da želite očistiti popis?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ je potreban paket. NE bi trebao biti uklonjen osim ukoliko ne znate što radite!";
+"Remove from Queue" = "Ukloni iz Liste";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ je potreban paket i mora biti uklonjen je ovisi o %@. %@ NE bi smio biti uklonjen osim ukoliko ne znate što radite!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "Jedan ili više paketa na listi za uklanjanje je neophodno ili je potrebno. Ne preporučuje se nastavak ukoliko ne znate točno što radite. Uklanjanje ovih paketa moglo bi uzrokovati nepovratnu štetu na vašem uređaju i rezultirati potpunom obnavljanjem.";
