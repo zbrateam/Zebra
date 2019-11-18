@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
 "Are you sure?" = "Вы уверены?";
 "Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
+"Remove from Queue" = "Удалить из Очереди";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом и должен быть удален, так как он зависит от %@. %@ НЕ должен быть удален, если вы точно не знаете, что делаете!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "Один или несколько пакетов в Очереди на удаление являются необходимыми или обязательными. Не рекомендуется продолжать, если вы точно не знаете, что делаете. Удаление этих пакетов может привести к необратимому повреждению устройства и привести к полному восстановлению.";
