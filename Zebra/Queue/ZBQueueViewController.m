@@ -234,11 +234,12 @@
                 [self->queue removePackage:package];
                 [self refreshTable];
             }];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [alert dismissViewControllerAnimated:true completion:nil];
             }];
-            [alert addAction:okAction];
+            
             [alert addAction:deleteAction];
+            [alert addAction:okAction];
             [self presentViewController:alert animated:true completion:nil];
         }
         else {
@@ -247,11 +248,12 @@
                 [self->queue removePackage:package];
                 [self refreshTable];
             }];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [alert dismissViewControllerAnimated:true completion:nil];
             }];
-            [alert addAction:okAction];
+            
             [alert addAction:deleteAction];
+            [alert addAction:okAction];
             [self presentViewController:alert animated:true completion:nil];
         }
     }
