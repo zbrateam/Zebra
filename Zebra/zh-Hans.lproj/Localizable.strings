@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
 "Are you sure?" = "是否确定？";
 "Are you sure you want to clear the queue?" = "确定要清除队列吗？";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
+"Remove from Queue" = "从队列移除";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包，因为它依赖于 %@ 所以必须被移除。除非你知道你在干什么，否则你不能将 %@ 移除！";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "移除队列中的软件包带有系统必备包以及依赖包。除非你知道你在干什么，否则我们不建议移除这些软件包。移除这些软件包可能会造成不可逆转损坏，并且导致你的设备需要恢复出厂设置。";
