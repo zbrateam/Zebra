@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
 "Are you sure?" = "Είσαι σίγουρος;";
 "Are you sure you want to clear the queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο. ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
+"Remove from Queue" = "Αφαίρεση από την Ουρά";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο και πρέπει να αφαιρεθεί γιατί εξαρτάται από το %@. %@ ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
