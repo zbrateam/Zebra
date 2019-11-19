@@ -25,7 +25,7 @@
 "Verifying Source(s)" = "Duke verifikuar burimin(et)";
 "Stores" = "Dyqani";
 "Purchases" = "Pagesat";
-"Wish List" = "Listë Dëshirash";
+"Wish List" = "Lista e Dëshirave";
 "No items in Wish List" = "Asnjë gjë në listën e dëshirave";
 "Community" = "Komuniteti";
 "Join our Discord" = "Bashkangjitjuni discordit tonë";
@@ -33,11 +33,11 @@
 
 //Credits
 
-"Credits" = "Kreditat";
+"Credits" = "Kreditet";
 "Creators" = "Krijuesit";
 "Contributors" = "Kontribuesit";
 "Translators" = "Përkthyesit";
-"Libraries" = "Librarite";
+"Libraries" = "Libraritë";
 
 // Settings
 
@@ -285,4 +285,4 @@
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar dhe nuk duhet hequr sepse ajo varet nga %@. %@ nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversable damage to your device and might result in a full restore." = "Një ose më shumë nga paketat në Radhë për heqje janë thelbësore ose të kërkuara. Nuk rekomandohet të vazhdoni nëse nuk e dini saktësisht se çfarë po bëni. Heqja e këtyre paketave mund të shkaktojë dëme të pakthyeshme në pajisjen tuaj dhe mund të rezultojë në një rikthim të plotë.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
