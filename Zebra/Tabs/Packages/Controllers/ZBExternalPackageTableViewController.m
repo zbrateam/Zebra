@@ -35,6 +35,7 @@
     
     NSFileHandle *read = [pipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [task waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     
     NSMutableDictionary *info = [NSMutableDictionary new];
@@ -48,7 +49,6 @@
     }];
     
     [read closeFile];
-    [task waitUntilExit];
     
     details = (NSDictionary *)info;
     keys = [info allKeys];

@@ -627,6 +627,7 @@
                         
                         NSMutableDictionary *dict = [NSMutableDictionary new];
                         [dict setObject:requestedFilename forKey:@"original"];
+                        [dict setObject:[url absoluteString] forKey:@"originalURL"];
                         [dict setObject:finalPath forKey:@"final"];
                         
                         [arr addObject:dict];

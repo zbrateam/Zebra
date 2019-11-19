@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#define COMMAND_START 7
+#define COMMAND_START 1
 
 @class ZBQueue;
 

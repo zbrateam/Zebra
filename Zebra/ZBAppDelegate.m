@@ -196,6 +196,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+    
     [self setDefaultValues];
     [FIRApp configure];
     [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
@@ -300,7 +301,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                                 [tabController setForwardedRepoBaseURL:source];
                                 
                                 NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
-                                [[UIApplication sharedApplication] openURL:newURL];
+                                [self application:application openURL:newURL options:options];
                             }
                         }
                         else {
@@ -374,7 +375,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                             url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                         }
                         
-                        [[UIApplication sharedApplication] openURL:url];
+                        [self application:application openURL:url options:options];
                     }
                     break;
                 }

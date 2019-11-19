@@ -279,6 +279,7 @@
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure?" = "مطمین هستید؟";
 "Are you sure you want to clear the queue?" = "میخواهید صف را پاک کنید؟";
+
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 "Remove from Queue" = "Remove from Queue";
 

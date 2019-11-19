@@ -46,6 +46,8 @@
 @synthesize removedBy;
 @synthesize installedSize;
 @synthesize downloadSize;
+@synthesize priority;
+@synthesize essential;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
@@ -64,9 +66,9 @@
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [checkFilesTask waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     [read closeFile];
-    [checkFilesTask waitUntilExit];
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
@@ -88,6 +90,7 @@
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block BOOL contains;
@@ -103,7 +106,6 @@
         }];
         
         [read closeFile];
-        [task waitUntilExit];
         return contains;
     }
     
@@ -143,6 +145,7 @@
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block BOOL contains;
@@ -158,7 +161,6 @@
         }];
         
         [read closeFile];
-        [task waitUntilExit];
         return contains;
     }
     
@@ -189,6 +191,7 @@
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block NSString *path;
@@ -204,7 +207,6 @@
         }];
         
         [read closeFile];
-        [task waitUntilExit];
         return path;
     }
     
@@ -277,6 +279,8 @@
         const char *replacesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
         const char *filenameChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
         const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
+        const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
+        const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
@@ -289,6 +293,16 @@
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
+        
+        [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : NULL];
+        
+        NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
+        if (es && [es isEqualToString:@"yes"]) {
+            [self setEssential:true];
+        }
+        else if (es && [es isEqualToString:@"no"]) {
+            [self setEssential:false];
+        }
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
@@ -353,6 +367,7 @@
             return NSOrderedAscending;
         return NSOrderedDescending;
     } else {
+        if ((NSString *)object == NULL) return NSOrderedDescending;
         int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
         if (result < 0)
             return NSOrderedAscending;
@@ -560,6 +575,7 @@
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [installedVersionTask waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     
     __block NSString *version = @"0.0";
@@ -572,7 +588,6 @@
 	}];
 
     [read closeFile];
-    [installedVersionTask waitUntilExit];
     return version;
 }
 
@@ -600,6 +615,10 @@
 
 - (BOOL)hasIssues {
     return [issues count];
+}
+
+- (BOOL)isEssentialOrRequired {
+    return essential || [[priority lowercaseString] isEqualToString:@"required"];
 }
 
 @end

@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDependency:(ZBPackage *)package;
 - (void)addConflict:(ZBPackage *)package;
 - (void)removePackage:(ZBPackage *)package;
-//- (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (NSArray<NSNumber *> *)actionsToPerform;
@@ -35,10 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasIssues;
 - (NSArray <NSArray <NSString *> *> *)issues;
 - (void)clear;
-- (NSMutableArray *)dependencyQueue; // delete this later
+- (NSMutableArray *)dependencyQueue;
 - (NSMutableArray *)conflictQueue;
 - (NSMutableArray <NSString *> *)queuedPackagesList;
 - (ZBQueueType)locate:(ZBPackage *)package;
+- (BOOL)containsEssentialOrRequiredPackage;
 @end
 
 NS_ASSUME_NONNULL_END

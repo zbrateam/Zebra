@@ -110,15 +110,17 @@ enum ZBSearchSection {
 }
 
 - (void)refreshTable {
-    [UIView transitionWithView:self.tableView
-      duration:0.35f
-      options:UIViewAnimationOptionTransitionCrossDissolve
-      animations:^(void) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [self setNeedsStatusBarAppearanceUpdate];
-        });
-      } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.tableView
+          duration:0.35f
+          options:UIViewAnimationOptionTransitionCrossDissolve
+          animations:^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self setNeedsStatusBarAppearanceUpdate];
+            });
+          } completion:nil];
+    });
 }
 
 - (void)handleURL:(NSURL *_Nullable)url {

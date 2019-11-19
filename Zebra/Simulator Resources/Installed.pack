@@ -2571,3 +2571,22 @@ Depiction: https://api-v5.cercube.com/depiction/cydia
 SileoDepiction: https://api-v5.cercube.com/depiction/sileo
 Icon: https://api-v5.cercube.com/resources/depiction/images/icon.png
 Maintainer: Majd Alfhaily <freemanrepo@me.com>
+
+Package: com.samgisaninja.tweakcompatible-zebra
+Status: install ok installed
+Version: 1.1.4
+Architecture: iphoneos-arm
+Maintainer: Samg_is_a_Ninja
+Installed-Size: 336
+Depends: mobilesubstrate, xyz.willy.zebra
+Filename: ./debs/com.samgisaninja.tweakcompatible-zebra_1.1.4_iphoneos-arm.deb
+Size: 100626
+MD5sum: 1f2f0f894e9ea0ed2e51e57441b6ba0d
+SHA1: 5c37d5404a516b6640549965b4c1a093741385bb
+SHA256: a3186452bcfd2bf25a103b41371c0b5d0109c58bbbfb3ad407e89098324a8613
+Section: Tweaks
+Description: Adds TweakCompatible to Zebra!
+Author: Samg_is_a_Ninja
+Depiction: https://samgisaninja.github.io/depictions/?p=com.samgisaninja.tweakcompatible-zebra
+Icon: file:///Library/tweakcompatible-zebra/icon.png
+Name: TweakCompatible for Zebra

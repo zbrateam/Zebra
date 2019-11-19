@@ -147,6 +147,7 @@ int compareVersion(const char *A, const char *AEnd, const char *B, const char *B
 }
 
 int compare(const char *A, const char *B) {
+    if (A == NULL || B == NULL) return 0;
     const char* AEnd = &A[strlen(A)];
     const char* BEnd = &B[strlen(B)];
     return compareVersion(A, AEnd, B, BEnd);
