@@ -182,20 +182,20 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    NSString *section = [package sectionImageName];
-    if (package.iconPath) {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:[UIImage imageNamed:@"Other"]];
-        cell.imageView.layer.cornerRadius = 10;
-        cell.imageView.clipsToBounds = YES;
-    } else {
-        UIImage *sectionImage = [UIImage imageNamed:section];
-        if (sectionImage != NULL) {
-            cell.imageView.image = sectionImage;
-            cell.imageView.layer.cornerRadius = 10;
-            cell.imageView.clipsToBounds = YES;
-        }
+    UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
+    if (sectionImage == NULL) {
+        sectionImage = [UIImage imageNamed:@"Other"];
     }
     
+    if (package.iconPath) {
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
+    }
+    else {
+        cell.imageView.image = sectionImage;
+    }
+    
+    cell.imageView.layer.cornerRadius = 10;
+    cell.imageView.clipsToBounds = YES;
     cell.textLabel.text = package.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
     
