@@ -196,6 +196,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+        [appearance configureWithDefaultBackground];
+        [[UINavigationBar appearance] setScrollEdgeAppearance:appearance];
+    }
+    
     [self setDefaultValues];
     [FIRApp configure];
     [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
