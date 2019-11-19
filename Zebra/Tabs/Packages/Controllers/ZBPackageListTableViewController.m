@@ -401,7 +401,7 @@
             if (selectedSortingType == ZBSortingTypeABC)
                 return [self sectionIndexTitlesForTableView:tableView][trueSection];
             if (selectedSortingType == ZBSortingTypeDate)
-                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles];
+                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterShortStyle];
         }
 //        if (selectedSortingType == ZBSortingTypeDate) {
 //            return NSLocalizedString(@"Recent", @"");

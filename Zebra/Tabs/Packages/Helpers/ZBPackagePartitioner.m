@@ -72,8 +72,8 @@
     }
 }
 
-+ (NSString *)titleForHeaderInDateSection:(NSInteger)section sectionIndexTitles:(NSArray *)sectionIndexTitles {
-    return [NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle];
++ (NSString *)titleForHeaderInDateSection:(NSInteger)section sectionIndexTitles:(NSArray *)sectionIndexTitles dateStyle:(NSDateFormatterStyle)dateStyle timeStye:(NSDateFormatterStyle)timeStyle {
+    return [NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:dateStyle timeStyle:timeStyle];
 }
 
 @end
