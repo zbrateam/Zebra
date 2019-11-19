@@ -367,6 +367,7 @@
             return NSOrderedAscending;
         return NSOrderedDescending;
     } else {
+        if ((NSString *)object == NULL) return NSOrderedDescending;
         int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
         if (result < 0)
             return NSOrderedAscending;
