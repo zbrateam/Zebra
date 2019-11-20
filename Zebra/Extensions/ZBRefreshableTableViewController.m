@@ -13,6 +13,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <ZBDevice.h>
 
 @interface ZBRefreshableTableViewController () {
     UIRefreshControl *refreshControl;
@@ -51,6 +52,14 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    
+    if ([ZBDevice darkModeEnabled]) {
+        [refreshControl setTintColor:[UIColor whiteColor]];
+    }
+    else {
+        [refreshControl setTintColor:[UIColor blackColor]];
+    }
+    
     if ([[self class] supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
@@ -63,10 +72,18 @@
 
 - (BOOL)updateRefreshView {
     [self setEditing:NO animated:NO];
+    
     if (self.refreshControl) {
         if ([databaseManager isDatabaseBeingUpdated]) {
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([ZBDevice darkModeEnabled]) {
+                        [refreshControl setTintColor:[UIColor whiteColor]];
+                    }
+                    else {
+                        [refreshControl setTintColor:[UIColor blackColor]];
+                    }
+                    
                     [self.refreshControl beginRefreshing];
                     [self didEndRefreshing];
 //                    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
