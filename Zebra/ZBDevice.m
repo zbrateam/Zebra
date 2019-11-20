@@ -312,6 +312,8 @@
     [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
     [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    [[UITextField appearance] setTextColor:[UIColor whiteColor]];
 }
 
 + (void)configureLightMode {
@@ -356,6 +358,8 @@
     [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    
+    [[UITextField appearance] setTextColor:[UIColor blackColor]];
 }
 
 + (void)applyThemeSettings {
