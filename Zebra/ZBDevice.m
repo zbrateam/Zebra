@@ -165,23 +165,32 @@
     }
 }
 
-+ (BOOL)_isRegularFile:(const char *)path {
-    struct stat path_stat;
-    stat(path, &path_stat);
-    return S_ISREG(path_stat.st_mode);
++ (BOOL)_isRegularFile:(NSString *)path {
+//    struct stat path_stat;
+//    stat(path, &path_stat);
+//    return S_ISREG(path_stat.st_mode);
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    return exists && !isDir;
 }
 
-+ (BOOL)_isRegularDirectory:(const char *)path {
-    struct stat path_stat;
-    stat(path, &path_stat);
-    return S_ISDIR(path_stat.st_mode);
++ (BOOL)_isRegularDirectory:(NSString *)path {
+//    struct stat path_stat;
+//    stat(path, &path_stat);
+//    return S_ISDIR(path_stat.st_mode);
+    
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    return exists && isDir;
 }
 
 + (BOOL)isCheckrain {
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:"/.bootstrapped"];
+        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.bootstrapped"];
     });
     return value;
 }
@@ -190,7 +199,7 @@
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularDirectory:"/chimera"];
+        value = [self needsSimulation] ? NO : [self _isRegularDirectory:@"/chimera"];
     });
     return value;
 }
@@ -199,7 +208,7 @@
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularDirectory:"/electra"];
+        value = [self needsSimulation] ? NO : [self _isRegularDirectory:@"/electra"];
     });
     return value;
 }
@@ -208,7 +217,7 @@
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:"/.installed_unc0ver"];
+        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_unc0ver"];
     });
     return value;
 }
