@@ -14,13 +14,13 @@
 
 "Home" = "Faqja bazë";
 "Info" = "Informacion";
-"Welcome to the Zebra Beta!" = "Mirë se vini në versionin Beta të Zebras!";
+"Welcome to the Zebra Beta!" = "Mirë se vini në Zebra Beta!";
 "Changelog" = "Ndryshimet";
 "Community Repos" = "Repot e komunitetit";
 "Transfer Sources from %@" = "Transfero burimet nga %@";
 "Move all sources from %@ to Zebra" = "Zhvendos të gjitha burimet nga %@ në Zebra";
 "Utility repo for %@" = "Repot e shërbimit për %@";
-"Transfer Sources" = "Transfero burimet";
+"Transfer Sources" = "Transfero Burimet";
 "Please Wait..." = "Të Lutem Prit...";
 "Verifying Source(s)" = "Duke verifikuar burimin(et)";
 "Stores" = "Dyqani";
@@ -96,7 +96,7 @@
 "Local Repository" = "Repo lokale";
 "Locally installed packages" = "Paketat e instaluara në lokalitet";
 "Unknown" = "E panjohur";
-"No repository urls detected." = "Nuk u gjet asnje Url i burimev.";
+"No repository urls detected." = "Nuk u gjet asnje URL i burimev.";
 "You have already added these repositories." = "Ti tashmë ke shtuar këto repo.";
 "Error verifying repository" = "Problem në verifikimin e repos";
 "Error verifying repositories" = "Problem në verifikimin e repove";
@@ -265,7 +265,7 @@
 "Queue" = "Rradhë";
 "Install" = "Instalo";
 "Reinstall" = "Reinstaloje";
-"Remove" = "Hiqe";
+"Remove" = "Hiq";
 "Upgrade" = "Përmirësoje";
 "Downgrade" = "Degrado";
 "Abort" = "Ndërprit";
