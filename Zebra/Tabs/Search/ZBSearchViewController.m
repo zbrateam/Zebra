@@ -95,7 +95,15 @@ enum ZBSearchSection {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.searchController.searchBar.searchTextField.textColor = [UIColor cellPrimaryTextColor];
+    
+    if (@available(iOS 13.0, *)) {
+        self.searchController.searchBar.searchTextField.textColor = [UIColor cellPrimaryTextColor];
+    }
+    else {
+        UITextField *textField = [self.searchController.searchBar valueForKey:@"_searchField"];
+        textField.textColor = [UIColor cellPrimaryTextColor];
+    }
+    
 }
 
 - (void)configureClearSearchButton {
