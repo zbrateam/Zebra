@@ -50,6 +50,7 @@
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     if ([[self class] supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
