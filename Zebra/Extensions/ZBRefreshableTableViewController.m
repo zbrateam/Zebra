@@ -52,6 +52,7 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    [refreshControl endRefreshing];
     
     if ([ZBDevice darkModeEnabled]) {
         [refreshControl setTintColor:[UIColor whiteColor]];
@@ -78,10 +79,10 @@
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if ([ZBDevice darkModeEnabled]) {
-                        [refreshControl setTintColor:[UIColor whiteColor]];
+                        [self->refreshControl setTintColor:[UIColor whiteColor]];
                     }
                     else {
-                        [refreshControl setTintColor:[UIColor blackColor]];
+                        [self->refreshControl setTintColor:[UIColor blackColor]];
                     }
                     
                     [self.refreshControl beginRefreshing];
