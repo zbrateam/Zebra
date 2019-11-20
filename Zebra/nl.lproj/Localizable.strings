@@ -151,10 +151,10 @@
 "Installed Size" = "Geïnstalleerde grootte";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (geïnstalleerde versie: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Geïnstalleerde grootte: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -255,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d pakketten in de wachtrij";
+"%d Package Queued" = "%d Pakket In de wachtrij";
+"Tap to manage" = "Tik om te beheren";
+"No Packages Queued" = "Geen pakketten in de wachtrij";
 
 // Queue
 
@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
 "Are you sure?" = "Weet u het zeker?";
 "Are you sure you want to clear the queue?" = "Weet u zeker dat u de wachtrij wilt legen?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket. Het mag NIET verwijderd worden tenzij u precies weet wat u doet!";
+"Remove from Queue" = "Verwijder uit wachtrij";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket en moet verwijderd worden omdat het afhankelijk is van %@. %@ mag NIET worden verwijderd tenzij u precies weet wat u doet!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Een of meer van de pakketten in de Wachtrij voor verwijdering is essentieel of noodzakelijk. Het is niet aan te raden om verder te gaan tenzij u precies weet wat u doet. Het verwijderen van deze pakketten kan onomkeerbare schade toebrengen aan je apparaat en kan reen volledig herstel veroorzaken.";
