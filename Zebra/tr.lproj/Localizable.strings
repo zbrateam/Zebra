@@ -279,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
 "Are you sure?" = "Emin misiniz?";
 "Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket. Eğer ne yaptığınızı tam olarak bilmiyorsanız kaldırmamalısınız!";
+"Remove from Queue" = "Sıradan çıkar";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket ve %@ paketine bağımlı olduğu için kaldırılmalı. Ne yaptığınızı bilmiyorsanız %@, kaldırılmamalı!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Kaldırılmak için sıraya eklenmiş paketlerden biri veya birden fazlası gerekli veya zorunludur. Ne yaptığınızı bilmiyorsanız devam etmeniz önerilmez. Bu paket(ler)i kaldırmak, cihazınızda geri dönülemez hasarlara yol açabilir ve cihazınızı sıfırlamanız gerekebilir.";

@@ -279,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ a des problèmes qui ne peuvent pas être résolus :";
 "Are you sure?" = "Êtes vous sûr ?";
 "Are you sure you want to clear the queue?" = "Êtes vous sur de vouloir vider la File d'Attente?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ est un package requis. Il ne doit PAS être supprimé à moins que vous ne sachiez exactement ce que vous faites !";
+"Remove from Queue" = "Supprimer de la file d'attente";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ est un paquet requis et doit être supprimé car il dépend de %@. %@ ne devrait PAS être supprimé à moins que vous ne sachiez exactement ce que vous faites !";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Un ou plusieurs des paquets de la file d'attente pour la suppression sont essentiels ou requis. Il n'est pas recommandé de continuer à moins que vous ne sachiez exactement ce que vous faites. La suppression de ces paquets pourrait causer des dommages irréversibles à votre appareil et pourrait entraîner une restauration complète.";

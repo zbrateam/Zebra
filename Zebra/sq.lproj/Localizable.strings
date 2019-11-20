@@ -8,24 +8,24 @@
 "Edit" = "Ndrysho";
 "Login" = "Futu";
 "Close" = "Mbyll";
-"Done" = "Përfudo";
+"Done" = "Përfudo(i)";
 
 // Home
 
 "Home" = "Faqja bazë";
 "Info" = "Informacion";
-"Welcome to the Zebra Beta!" = "Mirë se vini në versionin Beta të Zebras!";
+"Welcome to the Zebra Beta!" = "Mirë se vini në Zebra Beta!";
 "Changelog" = "Ndryshimet";
 "Community Repos" = "Repot e komunitetit";
 "Transfer Sources from %@" = "Transfero burimet nga %@";
 "Move all sources from %@ to Zebra" = "Zhvendos të gjitha burimet nga %@ në Zebra";
 "Utility repo for %@" = "Repot e shërbimit për %@";
-"Transfer Sources" = "Transfero burimet";
+"Transfer Sources" = "Transfero Burimet";
 "Please Wait..." = "Të Lutem Prit...";
 "Verifying Source(s)" = "Duke verifikuar burimin(et)";
 "Stores" = "Dyqani";
 "Purchases" = "Pagesat";
-"Wish List" = "Listë Dëshirash";
+"Wish List" = "Lista e Dëshirave";
 "No items in Wish List" = "Asnjë gjë në listën e dëshirave";
 "Community" = "Komuniteti";
 "Join our Discord" = "Bashkangjitjuni discordit tonë";
@@ -33,11 +33,11 @@
 
 //Credits
 
-"Credits" = "Kreditat";
+"Credits" = "Kreditet";
 "Creators" = "Krijuesit";
 "Contributors" = "Kontribuesit";
 "Translators" = "Përkthyesit";
-"Libraries" = "Librarite";
+"Libraries" = "Libraritë";
 
 // Settings
 
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Raporto nje gabim";
 
-"Tint Color" = "Tint Color";
+"Tint Color" = "Ngjyra";
 "Blue" = "Kaltërt";
 "Orange" = "Portokalli";
 "White" = "Bardhë";
@@ -67,36 +67,36 @@
 "Enable Featured Packages" = "Aktivizo paketat e veçuara";
 "Repo Featured" = "Repot e veçuara";
 "Random" = "I rastësishëm";
-"Feature Type" = "Feature Type";
+"Feature Type" = "Lloji i Kryeartikullit";
 "Select Repos to be Featured" = "Zgjidh repot për tu veçuar";
 
 "Enable News" = "Aktivizo lajmet";
 
-"Search while Typing" = "Search while Typing";
+"Search while Typing" = "Kërko kur je duke shkruar";
 
-"Swipe Actions Display As" = "Swipe Actions Display As";
+"Swipe Actions Display As" = "Veprimi rrëshqit shfaqet si";
 "Text" = "Tekst";
 "Icon" = "Ikona";
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Hap direktorin e skedarëve";
 "Clear Image Cache" = "Fshi 'cache' e imazheve";
-"Clear Keychain" = "Clear Keychain";
+"Clear Keychain" = "Fshij Keychain";
 
 "Loading..." = "Duke ngarkuar...";
 
-"Resetting image cache completed" = "Resetting image cache completed";
-"Clearing keychain completed" = "Clearing keychain completed";
+"Resetting image cache completed" = "Rivendosja e 'cache' së imazhit u krye";
+"Clearing keychain completed" = "Fshirja e \"keychain\" perfundoi";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Rifresko burimet";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Ikona Alternative";
 
 // Sources
 
 "Sources" = "Burimet";
 "Local Repository" = "Repo lokale";
-"Locally installed packages" = "Locally installed packages";
+"Locally installed packages" = "Paketat e instaluara në lokalitet";
 "Unknown" = "E panjohur";
-"No repository urls detected." = "No repository urls detected.";
+"No repository urls detected." = "Nuk u gjet asnje URL i burimev.";
 "You have already added these repositories." = "Ti tashmë ke shtuar këto repo.";
 "Error verifying repository" = "Problem në verifikimin e repos";
 "Error verifying repositories" = "Problem në verifikimin e repove";
@@ -132,7 +132,7 @@
 "Package" = "Paketa";
 "Information" = "Informacion";
 "Upgrade All" = "Përditso të gjitha";
-"Loaded" = "Loaded";
+"Loaded" = "I ngarkuar";
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Madhësia";
@@ -144,8 +144,8 @@
 "Repo" = "Repo";
 "Installed Files" = "Skedarët e instaluar";
 "Modify" = "Modifiko";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"Authenticate to initiate purchase." = "Autentifikoni për të filluar blerjen.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Ju lutemi rihapni llogarinë tuaj që është përdorur për të blerë këtë paketë (Ndoshta %@)";
 "More by this Developer" = "Më shum nga ky Zhvillues";
 "Installed Version" = "Versioni i instaluar";
 "Installed Size" = "Madhësia e instaluar";
@@ -173,17 +173,17 @@
 "Administration" = "Administrim";
 "Addons" = "Shtesat";
 "App Addons" = "Shtesat e aplikacionev";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
+"Archiving" = "Arkivim";
+"Carrier Support" = "Mbështetje per Carrier";
 "Communication" = "Komunikimi";
 "Data Storage" = "Hapësira e të dhënave";
 "Development" = "Zhvillimi";
-"Dictionaries" = "Dictionaries";
+"Dictionaries" = "Fjalorë";
 "Education" = "Edukim";
 "Entertainment" = "Argëtim";
 "Games" = "Lojëra";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Health and Fitness" = "Shëndet dhe Fitnes";
+"Imaging" = "Imazhe";
 "Java" = "Java";
 "Keyboards" = "Tastiera";
 "Localization" = "Lokalizimi";
@@ -192,17 +192,17 @@
 "Navigation" = "Lundrimi";
 "Networking" = "Rrjeti";
 "Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
+"Productivity" = "Produktivitet";
+"Repositories" = "Repozitor";
 "Ringtones" = "Zile";
 "Scripting" = "Scripting";
 "Security" = "Siguria";
 "Social" = "Sociale";
 "System" = "Sistemi";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
+"Terminal Support" = "Mbështetje për Terminal";
+"Text Editors" = "Editor të Tekstit";
 "Themes" = "Themes";
-"Toys" = "Toys";
+"Toys" = "Lojra";
 "Tweaks" = "Tweaks";
 "Utilities" = "Shërbimet";
 "Wallpaper" = "Imazhi i sfondit";
@@ -212,27 +212,27 @@
 
 "Search" = "Kërko";
 "Clear Search" = "Pastro kërkimin";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"This search query is too short for the full search, please use a longer query." = "Kjo pyetje e kërkimit është shumë e shkurtër për kërkimin e plotë, ju lutemi përdorni një pyetje më të gjatë.";
 "No Results Found" = "Nuk janë gjetur rezultate";
 
 // Downloads
 
 "Downloads" = "Shkarkimet";
 "Error while opening sources.list" = "Problem në hapjen e souces.list";
-"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"The repo %@ is incompatible with your jailbreak." = "Repoja %@ nuk është e pështashme me jailbreak-in tuaj.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
 "Please remove this repo from your sources.list file." = "Të lutem largo këto repo nga skedari i sources.list";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
-"Could not determine device information." = "Could not determine device information.";
+"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
+"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
 "Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
 "%@ hasn't been modified" = "%@ nuk është modifikuar";
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
+"Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
 
 // Console
 
 "Console" = "Konsola";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"Performing Actions..." = "Duke performuar veprimet...";
+"Updating icon cache asynchronously..." = "Përditësimi i 'cache' ikonave në mënyrë asinkronike...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Kjo mund të zgjati pak dhe Zebra mund të hiqet. Është në rregull në qoftëse ndodh.";
 "Close Zebra" = "Mbyll Zebran";
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
@@ -255,27 +255,34 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Return to Queue\" Për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Paketa në rradhë";
+"%d Package Queued" = "%d Paket në rradhë";
+"Tap to manage" = "Kliko për të menagjuar";
+"No Packages Queued" = "Asnjë paketë në rradhë";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Queue" = "Rradhë";
+"Install" = "Instalo";
+"Reinstall" = "Reinstaloje";
+"Remove" = "Hiq";
+"Upgrade" = "Përmirësoje";
+"Downgrade" = "Degrado";
+"Abort" = "Ndërprit";
+"Continue" = "Vazhdo";
+"Download Size" = "Madhësia e shkarkimit";
+"Confirm" = "Konfirmo";
+"%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
+"Required Package" = "Paket e kërkuar";
+"%@ is required by:" = "%@ kërkohet nga:";
+"Issues" = "Problem";
+"%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
+"Are you sure?" = "A je i sigurt?";
+"Are you sure you want to clear the queue?" = "Je i sigurt që dëshiron ta zbrazësh radhën?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar. Ajo nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
+"Remove from Queue" = "Hiq nga Radha";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar dhe nuk duhet hequr sepse ajo varet nga %@. %@ nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Një ose më shumë nga paketat në Radhë për heqje janë thelbësore ose të kërkuara. Nuk rekomandohet të vazhdoni nëse nuk e dini saktësisht se çfarë po bëni. Heqja e këtyre paketave mund të shkaktojë dëme të pakthyeshme në pajisjen tuaj dhe mund të rezultojë në një rikthim të plotë.";
