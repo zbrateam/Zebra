@@ -278,11 +278,14 @@
     [[UITabBar appearance] setTintColor:[UIColor tintColor]];
     [[UITabBar appearance] setBackgroundColor:nil];
     [[UITabBar appearance] setBarTintColor:nil];
-    if ([ZBDevice darkModeOledEnabled]){
-        [[UITabBar appearance] setTranslucent:NO];
-    } else {
-        [[UITabBar appearance] setTranslucent:YES];
-    }
+    //This causes issues with dark mode on the popup bar
+//    if ([ZBDevice darkModeOledEnabled]){
+//        [[UITabBar appearance] setTranslucent:NO];
+//        [[LNPopupBar appearance] setTranslucent:YES];
+//    } else {
+//        [[UITabBar appearance] setTranslucent:YES];
+//        [[LNPopupBar appearance] setTranslucent:YES];
+//    }
     // [[UITabBar appearance] setShadowImage:[UIImage new]];
     [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
     
@@ -305,9 +308,10 @@
     [[WKWebView appearance] setOpaque:YES];
     
     //PopupBar
-    [[LNPopupBar appearance] setTranslucent:false];
     [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
     [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
+    [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 + (void)configureLightMode {
@@ -350,12 +354,11 @@
     [[LNPopupBar appearance] setTranslucent:true];
     [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
     [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 
 + (void)applyThemeSettings {
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    BOOL useIcon = [defaults boolForKey:iconActionKey];
-//    [[ZBQueue sharedQueue] setUseIcon:useIcon];
     if ([self darkModeEnabled]) {
         [self configureDarkMode];
     } else {

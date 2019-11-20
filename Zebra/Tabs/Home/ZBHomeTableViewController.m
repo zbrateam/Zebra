@@ -506,6 +506,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
         [self resetTable];
+        [((ZBTabBarController *)self.tabBarController) updateQueueBar];
     });
 }
 
