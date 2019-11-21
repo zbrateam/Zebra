@@ -150,6 +150,21 @@
 "Installed Version" = "Yüklenen Versiyon";
 "Installed Size" = "Yüklü Boyut";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Kurulmuş Sürüm: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Kurulmuş Boyut: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d byte";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "İstek Listesine ekle";
 "Remove from Wish List" = "İstek Listesinden kaldır";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
 
 // Queue Bar
-"Packages Queued" = "Sıra Barı";
-"Package Queued" = "Paket Sıralandı";
+"%d Packages Queued" = "%d Paket Sıralandı";
+"%d Package Queued" = "%d Paket Sıralandı";
 "Tap to manage" = "Yönetmek için dokunun";
 "No Packages Queued" = "Sırada Paket Yok";
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
 "Are you sure?" = "Emin misiniz?";
 "Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket. Eğer ne yaptığınızı tam olarak bilmiyorsanız kaldırmamalısınız!";
+"Remove from Queue" = "Sıradan çıkar";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket ve %@ paketine bağımlı olduğu için kaldırılmalı. Ne yaptığınızı bilmiyorsanız %@, kaldırılmamalı!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Kaldırılmak için sıraya eklenmiş paketlerden biri veya birden fazlası gerekli veya zorunludur. Ne yaptığınızı bilmiyorsanız devam etmeniz önerilmez. Bu paket(ler)i kaldırmak, cihazınızda geri dönülemez hasarlara yol açabilir ve cihazınızı sıfırlamanız gerekebilir.";

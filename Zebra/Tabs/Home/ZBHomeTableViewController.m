@@ -9,30 +9,9 @@
 @import SafariServices;
 
 #import "ZBHomeTableViewController.h"
-#import "ZBNewsCollectionViewCell.h"
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 
 @import FirebaseAnalytics;
-
-typedef enum ZBHomeOrder : NSUInteger {
-    ZBWelcome,
-    ZBViews,
-    ZBLinks,
-    ZBCredits,
-    ZBHomeOrderCount
-} ZBHomeOrder;
-
-typedef enum ZBViewOrder : NSUInteger {
-    ZBChangeLog,
-    ZBCommunity,
-    ZBStores,
-    ZBWishList
-} ZBViewOrder;
-
-typedef enum ZBLinksOrder : NSUInteger {
-    ZBDiscord,
-    ZBWilsonTwitter
-} ZBLinksOrder;
 
 @interface ZBHomeTableViewController (){
     NSMutableArray *redditPosts;

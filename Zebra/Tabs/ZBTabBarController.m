@@ -18,6 +18,7 @@
 #import <ZBQueue.h>
 #import "ZBTab.h"
 #import <Queue/ZBQueueViewController.h>
+#import <ZBDevice.h>
 
 
 @import LNPopupController;
@@ -202,9 +203,29 @@
     [self checkQueueNav];
     [self updateQueueBarPackageCount:[ZBQueue count]];
 
+    if ([ZBDevice darkModeEnabled]) {
+        [[LNPopupBar appearance] setTranslucent:true];
+        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
+
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    }
+    else {
+        [[LNPopupBar appearance] setTranslucent:true];
+        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
+
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    }
+
     LNPopupPresentationState state = self.popupPresentationState;
     if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
         [self openQueue:NO];
+    }
+    else {
+        [[self popupBar] setNeedsLayout];
     }
 }
 
@@ -224,18 +245,13 @@
     [self checkQueueNav];
 
     LNPopupPresentationState state = self.popupPresentationState;
-    if (state == LNPopupPresentationStateTransitioning) {
-        return;
-    }
-    if (openPopup && state == LNPopupPresentationStateOpen) {
-        return;
-    }
-    if (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed)) {
+    if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
         return;
     }
 
     self.popupInteractionStyle = LNPopupInteractionStyleSnap;
     self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
 }
 
@@ -243,6 +259,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
         if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
             [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
             }];

@@ -4,212 +4,285 @@
 "No" = "Jo";
 "Ok" = "Në rregull";
 "Error" = "Problem";
-"Retry" = "Provo përseri";
+"Retry" = "Provo përsëri";
 "Edit" = "Ndrysho";
 "Login" = "Futu";
 "Close" = "Mbyll";
-"Done" = "Përfudo";
-
-// Tab controller
-"Packages in Queue" = "Paketat në radhë";
-"Package in Queue" = "Paketa në radhë";
-"Tap to manage Queue" = "Kliko per te menagjuar rradhën";
+"Done" = "Përfudo(i)";
 
 // Home
 
-"Home" = "Shtëpia";
-"Info" = "Informacipni";
-"Welcome to the Zebra Beta!" = "Mirësevini në versionin Beta te Zebras!";
+"Home" = "Faqja bazë";
+"Info" = "Informacion";
+"Welcome to the Zebra Beta!" = "Mirë se vini në Zebra Beta!";
 "Changelog" = "Ndryshimet";
-"Community Repos" = "Repot e Komunitetit";
+"Community Repos" = "Repot e komunitetit";
 "Transfer Sources from %@" = "Transfero burimet nga %@";
 "Move all sources from %@ to Zebra" = "Zhvendos të gjitha burimet nga %@ në Zebra";
-"Utility repo for %@" = "Repo e shërbimeve per %@";
+"Utility repo for %@" = "Repot e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
-"Utilities" = "Shërbimet";
-"Please Wait..." = "Ju lutem prisni...";
-"Verifying Source(s)" = "Verifying Source(s)";
-"Stores" = "Stores";
-"Purchases" = "Purchases";
-"Wish List" = "Wish List";
-"Unlist" = "Unlist";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow me on Twitter" = "Follow me on Twitter";
-"Credits" = "Credits";
+"Please Wait..." = "Të Lutem Prit...";
+"Verifying Source(s)" = "Duke verifikuar burimin(et)";
+"Stores" = "Dyqani";
+"Purchases" = "Pagesat";
+"Wish List" = "Lista e Dëshirave";
+"No items in Wish List" = "Asnjë gjë në listën e dëshirave";
+"Community" = "Komuniteti";
+"Join our Discord" = "Bashkangjitjuni discordit tonë";
+"Follow me on Twitter" = "Më ndiq mua në Twitter";
+
+//Credits
+
+"Credits" = "Kreditet";
+"Creators" = "Krijuesit";
+"Contributors" = "Kontribuesit";
+"Translators" = "Përkthyesit";
+"Libraries" = "Libraritë";
 
 // Settings
 
-"Settings" = "Settings";
-"Version" = "Version";
-"Information" = "Information";
-"Graphics" = "Graphics";
-"Featured" = "Featured";
-"News" = "News";
-"Search" = "Search";
-"Miscellaneous" = "Miscellaneous";
-"Advanced" = "Advanced";
+"Settings" = "Konfigurimet";
+"Version" = "Versioni";
+"Graphics" = "Grafika";
+"Featured" = "Të Veçuara";
+"News" = "Lajmet";
+"Miscellaneous" = "Të ndryshme";
+"Advanced" = "I avansuar";
 
-"Report a Bug" = "Report a Bug";
+"Report a Bug" = "Raporto nje gabim";
 
-"Tint Color" = "Tint Color";
-"Default" = "Default";
-"Blue" = "Blue";
-"Orange" = "Orange";
-"White" = "White";
-"Black" = "Black";
+"Tint Color" = "Ngjyra";
+"Blue" = "Kaltërt";
+"Orange" = "Portokalli";
+"White" = "Bardhë";
+"Black" = "E Zezë";
 
-"Dark Mode" = "Dark Mode";
-"Default" = "Default";
+"Dark Mode" = "Modeli i Errët";
+"Default" = "Normale";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Change Icon";
+"Change Icon" = "Ndrysho Ikonën";
 
-"Enable Featured Packages" = "Enable Featured Packages";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Feature Type" = "Feature Type";
-"Select Repos to be Featured" = "Select Repos to be Featured";
+"Enable Featured Packages" = "Aktivizo paketat e veçuara";
+"Repo Featured" = "Repot e veçuara";
+"Random" = "I rastësishëm";
+"Feature Type" = "Lloji i Kryeartikullit";
+"Select Repos to be Featured" = "Zgjidh repot për tu veçuar";
 
-"Enable News" = "Enable News";
+"Enable News" = "Aktivizo lajmet";
 
-"Search while Typing" = "Search while Typing";
+"Search while Typing" = "Kërko kur je duke shkruar";
 
-"Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
-"Open Documents Directory" = "Open Documents Directory";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Keychain" = "Clear Keychain";
+"Swipe Actions Display As" = "Veprimi rrëshqit shfaqet si";
+"Text" = "Tekst";
+"Icon" = "Ikona";
+"Open Documents Directory" = "Hap direktorin e skedarëve";
+"Clear Image Cache" = "Fshi 'cache' e imazheve";
+"Clear Keychain" = "Fshij Keychain";
 
-"Loading..." = "Loading...";
+"Loading..." = "Duke ngarkuar...";
 
-"Resetting image cache completed" = "Resetting image cache completed";
-"Clearing keychain completed" = "Clearing keychain completed";
+"Resetting image cache completed" = "Rivendosja e 'cache' së imazhit u krye";
+"Clearing keychain completed" = "Fshirja e \"keychain\" perfundoi";
+
+"Drop Tables" = "Rifresko burimet";
+
+"Alternate Icons" = "Ikona Alternative";
 
 // Sources
 
-"Sources" = "Sources";
-"Local Repository" = "Local Repository";
-"Locally installed packages" = "Locally installed packages";
-"Unknown" = "Unknown";
-"No repository urls detected." = "No repository urls detected.";
-"You have already added these repositories." = "You have already added these repositories.";
-"Error verifying repository" = "Error verifying repository";
-"Error verifying repositories" = "Error verifying repositories";
-"Unknown error." = "Unknown error.";
-"Invalid URL" = "Invalid URL";
-"Enter URL" = "Enter URL";
-"Add Repo(s)" = "Add Repo(s)";
-"Add" = "Add";
-"Add Multiple" = "Add Multiple";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
-"Unable to verify Repo" = "Unable to verify Repo";
-"Refresh" = "Refresh";
-"Log Out" = "Log Out";
-"Purchased Packages" = "Purchased Packages";
-"Purchased" = "Purchased";
+"Sources" = "Burimet";
+"Local Repository" = "Repo lokale";
+"Locally installed packages" = "Paketat e instaluara në lokalitet";
+"Unknown" = "E panjohur";
+"No repository urls detected." = "Nuk u gjet asnje URL i burimev.";
+"You have already added these repositories." = "Ti tashmë ke shtuar këto repo.";
+"Error verifying repository" = "Problem në verifikimin e repos";
+"Error verifying repositories" = "Problem në verifikimin e repove";
+"Unknown error" = "Problem i panjohur";
+"Invalid URL" = "Adrese e gabuar";
+"Enter URL" = "Vendos URL-në";
+"Add Repo(s)" = "Shto Repo(t)";
+"Add" = "Shto";
+"Add Multiple" = "Shto disa";
+"Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
+"Please Wait..." = "Të Lutem Prit...";
+"Verifying Source(s)" = "Duke verifikuar burimin(et)";
+"Unable to verify Repo" = "Nuk mund të verifikoj Repo";
+"Refresh" = "Rifresko";
+"Log Out" = "Dilni";
+"Purchased Packages" = "Paketat e Blera";
+"Purchased" = "Blerë";
 
-"All Packages" = "All Packages";
-"Delete" = "Delete";
+"All Packages" = "Të gjitha paketat";
+"Delete" = "Fshije";
 
 // Changes
 
-"Changes" = "Changes";
+"Changes" = "Ndryshimet";
 
 // Packages
 
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Ignore Updates" = "Ignore Updates";
-"Select Version" = "Select Version";
-"Select a version to upgrade to" = "Select a version to upgrade to";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
+"Packages" = "Paketat";
+"Show Updates" = "Shfaq përditsimet";
+"Ignore Updates" = "Injoro përditsimet";
+"Select Version" = "Zgjidh Versionin";
+"Select a version to upgrade to" = "Zgjidh një verzion për ta përditsuar";
+"Package" = "Paketa";
+"Information" = "Informacion";
+"Upgrade All" = "Përditso të gjitha";
+"Loaded" = "I ngarkuar";
 "ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Queue" = "Queue";
-"Clear" = "Clear";
-"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
+"Date" = "Data";
+"Size" = "Madhësia";
+"Clear" = "Pastro";
+"Are you sure you want to clear Queue?" = "A je i sigurt që deshiron të pastrosh Rradhën?";
+"Available Upgrades" = "Përditësimet në dispozicion";
+"Ignored Upgrades" = "Përditësimet e injoruara";
+"Recent" = "Së fundmi";
+"Repo" = "Repo";
+"Installed Files" = "Skedarët e instaluar";
+"Modify" = "Modifiko";
+"Authenticate to initiate purchase." = "Autentifikoni për të filluar blerjen.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Ju lutemi rihapni llogarinë tuaj që është përdorur për të blerë këtë paketë (Ndoshta %@)";
+"More by this Developer" = "Më shum nga ky Zhvillues";
+"Installed Version" = "Versioni i instaluar";
+"Installed Size" = "Madhësia e instaluar";
 
-"Add to Wish List" = "Add to Wish List";
-"Remove from Wish List" = "Remove from Wish List";
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Versioni i instaluar: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Madhesia e instaluar: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d byte";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
+"Add to Wish List" = "Shto Në Listë Dëshirash";
+"Remove from Wish List" = "Hiq nga lista e dëshirave";
+
+// Package Section Names
+
+"Administration" = "Administrim";
+"Addons" = "Shtesat";
+"App Addons" = "Shtesat e aplikacionev";
+"Archiving" = "Arkivim";
+"Carrier Support" = "Mbështetje per Carrier";
+"Communication" = "Komunikimi";
+"Data Storage" = "Hapësira e të dhënave";
+"Development" = "Zhvillimi";
+"Dictionaries" = "Fjalorë";
+"Education" = "Edukim";
+"Entertainment" = "Argëtim";
+"Games" = "Lojëra";
+"Health and Fitness" = "Shëndet dhe Fitnes";
+"Imaging" = "Imazhe";
+"Java" = "Java";
+"Keyboards" = "Tastiera";
+"Localization" = "Lokalizimi";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Lundrimi";
+"Networking" = "Rrjeti";
+"Packaging" = "Packaging";
+"Productivity" = "Produktivitet";
+"Repositories" = "Repozitor";
+"Ringtones" = "Zile";
+"Scripting" = "Scripting";
+"Security" = "Siguria";
+"Social" = "Sociale";
+"System" = "Sistemi";
+"Terminal Support" = "Mbështetje për Terminal";
+"Text Editors" = "Editor të Tekstit";
+"Themes" = "Themes";
+"Toys" = "Lojra";
+"Tweaks" = "Tweaks";
+"Utilities" = "Shërbimet";
+"Wallpaper" = "Imazhi i sfondit";
+"Widgets" = "Vegla";
 
 // Search
 
-"Search" = "Search";
-"Clear Search" = "Clear Search";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
-"No Results Found" = "No Results Found";
+"Search" = "Kërko";
+"Clear Search" = "Pastro kërkimin";
+"This search query is too short for the full search, please use a longer query." = "Kjo pyetje e kërkimit është shumë e shkurtër për kërkimin e plotë, ju lutemi përdorni një pyetje më të gjatë.";
+"No Results Found" = "Nuk janë gjetur rezultate";
 
 // Downloads
 
-"Downloads" = "Downloads";
-"Error while opening sources.list" = "Error while opening sources.list";
-"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
-"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
-"Could not determine device information." = "Could not determine device information.";
-"Could not find a download URL for" = "Could not find a download URL for";
-"%@ hasn't been modified" = "%@ hasn't been modified";
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
+"Downloads" = "Shkarkimet";
+"Error while opening sources.list" = "Problem në hapjen e souces.list";
+"The repo %@ is incompatible with your jailbreak." = "Repoja %@ nuk është e pështashme me jailbreak-in tuaj.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
+"Please remove this repo from your sources.list file." = "Të lutem largo këto repo nga skedari i sources.list";
+"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
+"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
+"Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
+"%@ hasn't been modified" = "%@ nuk është modifikuar";
+"Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
 
 // Console
 
-"Console" = "Console";
-"Performing actions" = "Performing actions";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
-"Close Zebra" = "Close Zebra";
-"Restart SpringBoard" = "Restart SpringBoard";
-"Downloading" = "Downloading";
-"Downloading Packages..." = "Downloading Packages...";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
-"One or more packages failed to download." = "One or more packages failed to download.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Console" = "Konsola";
+"Performing Actions..." = "Duke performuar veprimet...";
+"Updating icon cache asynchronously..." = "Përditësimi i 'cache' ikonave në mënyrë asinkronike...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Kjo mund të zgjati pak dhe Zebra mund të hiqet. Është në rregull në qoftëse ndodh.";
+"Close Zebra" = "Mbyll Zebran";
+"Restart SpringBoard" = "Rifillo SpringBoard-in";
+"Downloading" = "Duke u shkarkuar";
+"Downloading Packages..." = "Shkarkimi i Paketave...";
+"Installing" = "Instalimi";
+"Installing Packages..." = "Instalimi i Paketave...";
+"Removing" = "Heqja";
+"Removing Packages..." = "Heqja e Paketave...";
+"Reinstalling" = "Instaluar përsëri";
+"Reinstalling Packages..." = "Instalimi përsëri i Paketave...";
+"Upgrading" = "Po përmirësohet";
+"Upgrading Packages..." = "Përditësimi i Paketave...";
+"Complete" = "U kompletua";
+"Finished!" = "Perfundoj!";
+"Return to Queue" = "Kthehu tek rradha";
+"Importing local packages." = "Duke importuat paketat lokale.";
+"Finished importing local packages." = "Përfundoj importimi i paketave lokale.";
+"One or more packages failed to download." = "Një ose më shumë paketa dështuan në shkarkim.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Return to Queue\" Për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
+
+// Queue Bar
+"%d Packages Queued" = "%d Paketa në rradhë";
+"%d Package Queued" = "%d Paket në rradhë";
+"Tap to manage" = "Kliko për të menagjuar";
+"No Packages Queued" = "Asnjë paketë në rradhë";
 
 // Queue
 
-"Queue" = "Queue";
-"Queue cleared" = "Queue cleared";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Could not resolve dependency for %@" = "Could not resolve dependency for %@";
-"%@ conflicts with %@" = "%@ conflicts with %@";
-"%@ depends on %@" = "%@ depends on %@";
-"Removed by" = "Removed by";
-"Required by" = "Required by";
+"Queue" = "Rradhë";
+"Install" = "Instalo";
+"Reinstall" = "Reinstaloje";
+"Remove" = "Hiq";
+"Upgrade" = "Përmirësoje";
+"Downgrade" = "Degrado";
+"Abort" = "Ndërprit";
+"Continue" = "Vazhdo";
+"Download Size" = "Madhësia e shkarkimit";
+"Confirm" = "Konfirmo";
+"%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
+"Required Package" = "Paket e kërkuar";
+"%@ is required by:" = "%@ kërkohet nga:";
+"Issues" = "Problem";
+"%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
+"Are you sure?" = "A je i sigurt?";
+"Are you sure you want to clear the queue?" = "Je i sigurt që dëshiron ta zbrazësh radhën?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar. Ajo nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
+"Remove from Queue" = "Hiq nga Radha";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar dhe nuk duhet hequr sepse ajo varet nga %@. %@ nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Një ose më shumë nga paketat në Radhë për heqje janë thelbësore ose të kërkuara. Nuk rekomandohet të vazhdoni nëse nuk e dini saktësisht se çfarë po bëni. Heqja e këtyre paketave mund të shkaktojë dëme të pakthyeshme në pajisjen tuaj dhe mund të rezultojë në një rikthim të plotë.";

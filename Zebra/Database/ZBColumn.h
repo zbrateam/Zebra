@@ -26,7 +26,11 @@ typedef enum {
     ZBPackageColumnFilename,
     ZBPackageColumnIconURL,
     ZBPackageColumnRepoID,
-    ZBPackageColumnLastSeen
+    ZBPackageColumnLastSeen,
+    ZBPackageColumnInstalledSize,
+    ZBPackageColumnDownloadSize,
+    ZBPackageColumnPriority,
+    ZBPackageColumnEssential
 } ZBPackageColumn;
 
 typedef enum {

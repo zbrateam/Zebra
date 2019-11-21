@@ -150,6 +150,21 @@
 "Installed Version" = "Instalirana verzija";
 "Installed Size" = "Veličina instaliranoe aplikacije";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Dodaj u listu želja";
 "Remove from Wish List" = "Ukloni iz liste želja";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
 
 // Queue Bar
-"Packages Queued" = "Paketa na Čekanju";
-"Package Queued" = "Paket na Čekanju";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Dodirnite za podesavanje";
 "No Packages Queued" = "Nema Paketa na Čekanju";
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji nisu rešivi:";
 "Are you sure?" = "Da li ste sigurni?";
 "Are you sure you want to clear the queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Remove from Queue" = "Remove from Queue";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";

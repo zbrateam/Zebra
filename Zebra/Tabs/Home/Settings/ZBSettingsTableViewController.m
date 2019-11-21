@@ -355,7 +355,7 @@ enum ZBMiscOrder {
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Enable News", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
         case ZBSearch: {
@@ -379,7 +379,7 @@ enum ZBMiscOrder {
                     cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
                 }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+//                cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             }
             cell.textLabel.text = text;
             return cell;

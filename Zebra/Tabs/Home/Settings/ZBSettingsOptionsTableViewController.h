@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZBDevice.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIColor+Zebra.h>
 
 @interface ZBSettingsOptionsTableViewController : UITableViewController
 @property NSString *settingTitle;

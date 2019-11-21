@@ -65,7 +65,7 @@
 "Change Icon" = "שנה אייקון";
 
 "Enable Featured Packages" = "אפשר חבילות מומלצות";
-"Repo Featured" = "מומלץ מקור";
+"Repo Featured" = "המלצת המקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
@@ -149,6 +149,21 @@
 "More by this Developer" = "עוד ממפתח זה";
 "Installed Version" = "גירסה מותקנת";
 "Installed Size" = "גודל מותקן";
+
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (גירסה מותקנת: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (גודל מותקן: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d בתים";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d ק\"ב";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f ק\"ב";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f מ\"ב";
 
 "Add to Wish List" = "הוסף לרשימת המשאלות";
 "Remove from Wish List" = "הסר מרשימת המשאלות";
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 
 // Queue Bar
-"Packages Queued" = "חבילות בתור";
-"Package Queued" = "חבילה בתור";
+"%d Packages Queued" = "%d חבילות בתור";
+"%d Package Queued" = "חבילה %d בתור";
 "Tap to manage" = "לחץ/י לניהול";
 "No Packages Queued" = "אין חבילות בתור";
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
 "Are you sure?" = "האם את/ה בטוח/ה?";
 "Are you sure you want to clear the queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
+"Remove from Queue" = "הסר מהתור";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת ונדרש להסיר אותה מכיוון שהיא מסתמכת על החבילה %@. אין להסיר את %@ אלא אם את/ה יודע/ת מה את/ה עושה!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "אחת או יותר מהחבילות בתור להסרה הינה חיונית או נדרשת. לא מומלץ להמשיך בהסרה אלא אם את/ה יודע/ת בדיוק מה את/ה עושה. הסרה של חבילות חיוניות עלולה לגרום לנזק בלתי הפיך למכשיר שלך ועלולה להוביל לשיחזור מלא.";

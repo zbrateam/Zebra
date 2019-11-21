@@ -150,6 +150,21 @@
 "Installed Version" = "已安装版本";
 "Installed Size" = "安装大小";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d字节";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "加入心愿单";
 "Remove from Wish List" = "从心愿单中移除";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 
 // Queue Bar
-"Packages Queued" = "软件包队列";
-"Package Queued" = "软件包队列";
+"%d Packages Queued" = "队列中有%d个软件包";
+"%d Package Queued" = "队列中有%d个软件包";
 "Tap to manage" = "点击以管理";
 "No Packages Queued" = "队列中无软件包";
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
 "Are you sure?" = "是否确定？";
 "Are you sure you want to clear the queue?" = "确定要清除队列吗？";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
+"Remove from Queue" = "从队列移除";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包，因为它依赖于 %@ 所以必须被移除。除非你知道你在干什么，否则你不能将 %@ 移除！";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "移除队列中的软件包带有系统必备包以及依赖包。除非你知道你在干什么，否则我们不建议移除这些软件包。移除这些软件包可能会造成不可逆转损坏，并且导致你的设备需要恢复出厂设置。";

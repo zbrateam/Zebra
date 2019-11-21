@@ -150,6 +150,21 @@
 "Installed Version" = "الإصدار المثبت";
 "Installed Size" = "حجم التثبيت";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (الإصدار المثبت: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (الحجم المثبت: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d بايت";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d ك.ب.";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f ك.ب.";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f م.ب.";
+
 "Add to Wish List" = "إضافة إلى قائمة الأمنيات";
 "Remove from Wish List" = "إزالة من قائمة الأمنيات";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d حزم في قائمة الإنتظار";
+"%d Package Queued" = "%d حزمة في قائمة الإنتظار";
+"Tap to manage" = "اضغط للإدارة";
+"No Packages Queued" = "لا توجد حزم في قائمة الإنتظار";
 
 // Queue
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
 "Are you sure?" = "هل أنت متأكد؟";
 "Are you sure you want to clear the queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة. لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
+"Remove from Queue" = "إزالة من قائمة الإنتظار";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة ويجب إزالتها لأنها تعتمد على %@. حزمة %@ لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "هناك حزمة واحدة أو أكثر في قائمة الإنتظار للإزالة ضرورية أو مطلوبة. لا ينصح بمتابعة الإزالة إلا إذا كنت على علم بما تفعل. قد تؤدي إزالة هذه الحزمة إلى إلحاق أضرار بجهازك لا يحمد عقباها، وقد تصل في بعض الأحيان إلى استعادة كاملة.";

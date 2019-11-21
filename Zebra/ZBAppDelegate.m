@@ -220,9 +220,27 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
 
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+
     [self setDefaultValues];
     [FIRApp configure];
-    CLS_LOG(@"Version: %@", PACKAGE_VERSION);
+    [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
+
+    NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
+    if ([ZBDevice isCheckrain]) {
+        jailbreak = @"checkra1n";
+    }
+    else if ([ZBDevice isChimera]) {
+        jailbreak = @"Chimera";
+    }
+    else if ([ZBDevice isElectra]) {
+        jailbreak = @"Electra";
+    }
+    else if ([ZBDevice isUncover]) {
+        jailbreak = @"unc0ver";
+    }
+
+    [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
+    [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
 //    [self stablilityCheck];
     return YES;
 }
@@ -304,10 +322,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                             else {
                                 NSString *packageID = [path substringFromIndex:1];
                                 [tabController setForwardToPackageID:packageID];
-                                [tabController setForwardedRepoBaseURL:sourceURL];
+                                [tabController setForwardedRepoBaseURL:source];
 
-                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
-                                [[UIApplication sharedApplication] openURL:newURL];
+                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                                [self application:application openURL:newURL options:options];
                             }
                         }
                         else {
@@ -381,7 +399,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                             url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                         }
 
-                        [[UIApplication sharedApplication] openURL:url];
+                        [self application:application openURL:url options:options];
                     }
                     break;
                 }

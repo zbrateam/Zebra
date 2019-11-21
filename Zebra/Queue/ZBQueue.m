@@ -199,24 +199,40 @@
     NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
-        NSMutableArray *removeCommand = [baseCommand mutableCopy];
-        if ([binary isEqualToString:@"apt"]) {
-            [removeCommand addObject:@"remove"];
+        if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
+            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
+            
+            for (ZBPackage *package in [self removeQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            for (ZBPackage *package in [self conflictQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            [commands addObject:@[@(ZBStageRemove)]];
+            [commands addObject:removeCommand];
         }
         else {
-            [removeCommand addObject:@"-r"];
+            NSMutableArray *removeCommand = [baseCommand mutableCopy];
+            if ([binary isEqualToString:@"apt"]) {
+                [removeCommand addObject:@"remove"];
+            }
+            else {
+                [removeCommand addObject:@"-r"];
+            }
+            
+            for (ZBPackage *package in [self removeQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            for (ZBPackage *package in [self conflictQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            [commands addObject:@[@(ZBStageRemove)]];
+            [commands addObject:removeCommand];
         }
-        
-        for (ZBPackage *package in [self removeQueue]) {
-            [removeCommand addObject:package.identifier];
-        }
-        
-        for (ZBPackage *package in [self conflictQueue]) {
-            [removeCommand addObject:package.identifier];
-        }
-        
-        [commands addObject:@[@(ZBStageRemove)]];
-        [commands addObject:removeCommand];
     }
     
     if ([self queueHasPackages:ZBQueueTypeInstall]) {
@@ -311,12 +327,17 @@
             NSString *finalPath = [filename objectForKey:@"final"];
             NSString *originalFilename = [filename objectForKey:@"original"];
             NSString *packageFilename = [[package filename] lastPathComponent];
+            NSString *originalURL = [filename objectForKey:@"originalURL"];
 
             if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
                 continue;
             }
             
-            if ([finalPath containsString:packageFilename]) {
+            if ([finalPath containsString:[package identifier]]) {
+                [paths addObject:finalPath];
+                break;
+            }
+            else if ([finalPath containsString:packageFilename]) {
                 [paths addObject:finalPath];
                 break;
             }
@@ -324,7 +345,7 @@
                 [paths addObject:finalPath];
                 break;
             }
-            else if ([packageFilename containsString:originalFilename]) {
+            else if ([originalURL containsString:packageFilename]) {
                 [paths addObject:finalPath];
                 break;
             }
@@ -351,7 +372,7 @@
 }
 
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)icon {
-    BOOL useIcon = icon ? [ZBDevice useIcon] : false;
+    BOOL useIcon = icon && [ZBDevice useIcon];
     
     switch (queue) {
         case ZBQueueTypeInstall:
@@ -483,7 +504,7 @@
     }
     
     for (ZBPackage *package in packages) {
-        totalDownloadSize += [package numericSize];
+        totalDownloadSize += [package downloadSize];
     }
     if (totalDownloadSize) {
         NSString *unit = @"bytes";
@@ -526,6 +547,17 @@
         }
     }
     return issues;
+}
+
+- (BOOL)containsEssentialOrRequiredPackage {
+    NSMutableArray *removedPackages = [[self removeQueue] mutableCopy];
+    [removedPackages addObjectsFromArray:[self conflictQueue]];
+    for (ZBPackage *package in removedPackages) {
+        if ([package isEssentialOrRequired]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (NSArray <NSMutableArray *> *)queues {

@@ -82,6 +82,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
 
 //    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
@@ -110,6 +111,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
+    webView.scrollView.scrollEnabled = false;
 
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -650,8 +652,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readSize:(ZBPackage *)package {
-    NSString *size = [package size];
-    NSString *installedSize = [package installedSize];
+    NSString *size = [package downloadSizeString];
+    NSString *installedSize = [package installedSizeString];
     if (size && installedSize) {
         infos[@(ZBPackageInfoSize)] = [NSString stringWithFormat:NSLocalizedString(@"%@ (Installed Size: %@)", @""), size, installedSize];
     } else if (size) {

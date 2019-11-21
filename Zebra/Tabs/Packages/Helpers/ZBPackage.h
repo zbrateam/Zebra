@@ -37,8 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencies;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencyOf;
 @property (nonatomic, strong) NSMutableArray <NSString *> *issues;
-@property (nonatomic, strong)  ZBPackage * _Nullable removedBy;
+@property (nonatomic, strong) ZBPackage * _Nullable removedBy;
+@property (nonatomic, strong) NSString *priority;
+@property int installedSize;
+@property int downloadSize;
 @property BOOL sileoDownload;
+@property BOOL essential;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
@@ -58,10 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)possibleActions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
-- (NSString *)size;
-- (NSString *)installedSize;
-- (int)numericSize;
-- (int)numericInstalledSize;
+- (NSString *)downloadSizeString;
+- (NSString *)installedSizeString;
 - (ZBPackage *)installableCandidate;
 - (NSDate *)installedDate;
 - (NSString *)installedVersion;
@@ -69,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDependencyOf:(ZBPackage *)package;
 - (void)addIssue:(NSString *)issue;
 - (BOOL)hasIssues;
+- (BOOL)isEssentialOrRequired;
 @end
 
 NS_ASSUME_NONNULL_END

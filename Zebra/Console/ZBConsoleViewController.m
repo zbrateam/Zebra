@@ -16,6 +16,7 @@
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
+#import <ZBLog.h>
 
 @import LNPopupController;
 
@@ -209,6 +210,7 @@
                     }
                     
                     if (![ZBDevice needsSimulation]) {
+                        ZBLog(@"[Zebra] Executing commands...");
                         NSTask *task = [[NSTask alloc] init];
                         [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
                         [task setArguments:command];
@@ -228,6 +230,14 @@
                         
                         [task launch];
                         [task waitUntilExit];
+                    }
+                    else {
+                        [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
+                        for (int i = COMMAND_START; i < [command count]; ++i) {
+                            NSString *packageID = command[i];
+                            if (![self isValidPackageID:packageID]) continue;
+                            [self writeToConsole:[packageID lastPathComponent] atLevel:ZBLogLevelDescript];
+                        }
                     }
                 }
             }
@@ -272,6 +282,7 @@
 }
 
 - (void)finishTasks {
+    ZBLog(@"Finishing tasks");
     [downloadMap removeAllObjects];
     [applicationBundlePaths removeAllObjects];
     [installedPackageIdentifiers removeAllObjects];
@@ -323,8 +334,7 @@
 - (void)restartSpringBoard {
     if (![ZBDevice needsSimulation]) {
         [ZBDevice sbreload];
-    }
-    else {
+    } else {
         [self close];
     }
 }
@@ -411,6 +421,7 @@
 }
 
 - (void)removeAllDebs {
+    ZBLog(@"Removing all debs");
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
     NSString *file;
 
@@ -632,7 +643,9 @@
     [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
 //    ZBLog(@"[Zebra] %d updates available.", packageUpdates);
     if (packageUpdates != -1) {
-        [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
+        });
     }
 }
 

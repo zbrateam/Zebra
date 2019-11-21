@@ -191,7 +191,7 @@ typedef enum {
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
 
         buttonState = ZBStateDone;
-        [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.completeOrCancelButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
     }
 }
 
@@ -286,7 +286,7 @@ typedef enum {
         [self goodbye];
     } else {
         [self setCompleteOrCancelButtonHidden:false];
-        [self.completeOrCancelButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.completeOrCancelButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
     }
     [[ZBSourceManager sharedInstance] needRecaching];
 }

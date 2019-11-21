@@ -74,7 +74,7 @@
 
 "Search while Typing" = "入力と同時に検索する";
 
-"Swipe Actions Display As" = "スワイプで表示するタイプ";
+"Swipe Actions Display As" = "スワイプで表示する方法";
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
@@ -150,6 +150,21 @@
 "Installed Version" = "インストール済みバージョン";
 "Installed Size" = "実際の容量";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@(インストール済み:%@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "ほしい物リストに追加する";
 "Remove from Wish List" = "ほしい物リストから削除";
 
@@ -221,12 +236,12 @@
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
-"Downloading" = "ダウンロードしています：";
+"Downloading" = "ダウンロードしています";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
 "Removing" = "削除しています";
-"Removing Packages..." = "パッケージを削除しています...";
+"Removing Packages..." = "パッケージを削除します...";
 "Reinstalling" = "再インストールしています";
 "Reinstalling Packages..." = "パッケージを再インストールします...";
 "Upgrading" = "アップグレードしています";
@@ -237,13 +252,13 @@
 "Importing local packages." = "ローカルパッケージをインポートしています。";
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "\\キューに戻る\" をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d 個のパッケージがキューされてます";
+"%d Package Queued" = "%d 個のパッケージがキューされてます";
+"Tap to manage" = "タップして管理";
+"No Packages Queued" = "パッケージはキューされていません";
 
 // Queue
 
@@ -261,6 +276,13 @@
 "Required Package" = "要求されたパッケージ";
 "%@ is required by:" = "%@ は以下のTweaksに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は右記の問題が解決できません:";
+"%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure?" = "よろしいですか？";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
+"Remove from Queue" = "キューから削除";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、デバイスに取り返しのつかない損傷が発生し、完全な復元をしないといけなくなります。";

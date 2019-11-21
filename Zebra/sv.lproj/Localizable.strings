@@ -150,6 +150,21 @@
 "Installed Version" = "Installerad version";
 "Installed Size" = "Installerad storlek";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installerad version: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installerad storlek: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Lägg till på önskelistan";
 "Remove from Wish List" = "Ta bort från önskelistan";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 
 // Queue Bar
-"Packages Queued" = "paket köade";
-"Package Queued" = "paket köat";
+"%d Packages Queued" = "%d paket köade";
+"%d Package Queued" = "%d paket köat";
 "Tap to manage" = "Tryck för att hantera";
 "No Packages Queued" = "Inga paket köade";
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
 "Are you sure?" = "Är du säker?";
 "Are you sure you want to clear the queue?" = "Är du säker på att du vill rensa kön?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ är ett nödvändigt paket. Det ska INTE tas bort om du inte vet exakt vad du gör!";
+"Remove from Queue" = "Ta bort från kö";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ är ett nödvändigt paket och måste tas bort eftersom det beror på %@. %@ ska INTE tas bort om du inte vet exakt vad du gör!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ett eller flera av paketen i kön för borttagning är viktiga eller nödvändiga. Det rekommenderas inte att fortsätta om du inte vet exakt vad du gör. Att ta bort dessa paket kan orsaka irreversibel skada på din enhet och kan leda till att en fullständig återställning av enheten behövs.";

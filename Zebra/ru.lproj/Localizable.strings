@@ -150,6 +150,21 @@
 "Installed Version" = "Установленная Версия";
 "Installed Size" = "Размер после установки";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (установленная версия: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Размер После Установки: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d байт";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d КБ";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f КБ";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f МБ";
+
 "Add to Wish List" = "Добавить в список желаний";
 "Remove from Wish List" = "Удалить из списка желаний";
 
@@ -240,8 +255,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 
 // Queue Bar
-"Packages Queued" = "Пакеты в Очереди";
-"Package Queued" = "Пакет в Очереди";
+"%d Packages Queued" = "%d Пакетов в Очереди";
+"%d Package Queued" = "%d Пакет в Очереди";
 "Tap to manage" = "Нажмите для управления";
 "No Packages Queued" = "Нет Пакетов в Очереди";
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
 "Are you sure?" = "Вы уверены?";
 "Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
+"Remove from Queue" = "Удалить из Очереди";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом и должен быть удален, так как он зависит от %@. %@ НЕ должен быть удален, если вы точно не знаете, что делаете!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Один или более пакетов в Очереди на удаление являются основными или обязательными. Не рекомендуется продолжать если вы не знаете что вы делаете. Удаление таких пакетов может привести к непоправимому повреждению вашего устройства, и может привести к восстановлению через iTunes/Finder.";

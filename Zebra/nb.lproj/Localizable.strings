@@ -150,6 +150,21 @@
 "Installed Version" = "Installert Versjon";
 "Installed Size" = "Installert størrelse";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Installert Versjon: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Installert Størrelse: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d byte";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Legg til i Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnere til køen og prøve nedlastingen på nytt.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Pakker lagt til i kø";
+"%d Package Queued" = "%d Pakke lagt til i kø";
+"Tap to manage" = "Trykk for å administrere";
+"No Packages Queued" = "Ingen pakker lagt til i kø";
 
 // Queue
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
 "Are you sure?" = "Er du sikker?";
 "Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømme køen?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er en påkrevd pakke. Den burde IKKE fjernes med mindre du vet nøyaktig hva du gjør!";
+"Remove from Queue" = "Fjern fra køen";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er en påkrevd pakke og må fjernes fordi den avhenger av %@. %@ burde IKKE fjernes med mindre du vet nøyaktig hva du gjør!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "En eller flere av pakkene i køen som skal fjernes er essensielle eller påkrevd. Det anbefales ikke å fortsette med mindre du vet nøyaktig hva du gjør. Hvis du fjerner disse pakkene, kan det føre til irreversibel skade på enheten din som kan føre til at du må gjenopprette enheten din.";

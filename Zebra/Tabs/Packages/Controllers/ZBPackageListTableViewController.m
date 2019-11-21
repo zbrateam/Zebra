@@ -147,8 +147,8 @@
         }
         if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
             self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
-                NSInteger sizeA = [a numericInstalledSize];
-                NSInteger sizeB = [b numericInstalledSize];
+                NSInteger sizeA = [a installedSize];
+                NSInteger sizeB = [b installedSize];
                 return sizeB - sizeA;
             }];
         } else {
@@ -401,7 +401,7 @@
             if (selectedSortingType == ZBSortingTypeABC)
                 return [self sectionIndexTitlesForTableView:tableView][trueSection];
             if (selectedSortingType == ZBSortingTypeDate)
-                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles];
+                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterShortStyle];
         }
 //        if (selectedSortingType == ZBSortingTypeDate) {
 //            return NSLocalizedString(@"Recent", @"");

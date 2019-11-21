@@ -19,7 +19,6 @@
 
 @interface ZBPackage () {
     NSUInteger possibleActions;
-    int numericInstalledSize;
 }
 @end
 
@@ -46,11 +45,16 @@
 @synthesize dependencyOf;
 @synthesize issues;
 @synthesize removedBy;
+@synthesize installedSize;
+@synthesize downloadSize;
+@synthesize priority;
+@synthesize essential;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
+    ZBLog(@"[Zebra] Getting installed files for %@", packageID);
     NSTask *checkFilesTask = [[NSTask alloc] init];
     NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"-L", packageID, nil];
     [checkFilesTask setLaunchPath:@"/usr/bin/dpkg"];
@@ -60,12 +64,12 @@
     [checkFilesTask setStandardOutput:outPipe];
     
     [checkFilesTask launch];
-    [checkFilesTask waitUntilExit];
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [checkFilesTask waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    
+    [read closeFile];
     return [stringRead componentsSeparatedByString:@"\n"];
 }
 
@@ -77,17 +81,17 @@
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/dpkg"];
-        [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [ZBDevice asRoot:task arguments:@[@"dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
         [task setStandardOutput:pipe];
         
         [task launch];
-        [task waitUntilExit];
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block BOOL contains;
@@ -102,6 +106,7 @@
             }
         }];
         
+        [read closeFile];
         return contains;
     }
     
@@ -125,24 +130,23 @@
 }
 
 + (BOOL)containsApplicationBundle:(NSString *)packageID {
-    ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([ZBDevice needsSimulation]) {
         return NO;
     }
+    ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([packageID hasSuffix:@".deb"]) {
         // do the ole dpkg -I
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/dpkg"];
-        [ZBDevice asRoot:task arguments:@[@"-I", packageID, @"control"]];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [ZBDevice asRoot:task arguments:@[@"dpkg", @"-I", packageID, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
         [task setStandardOutput:pipe];
-        
         [task launch];
-        [task waitUntilExit];
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block BOOL contains;
@@ -157,6 +161,7 @@
             }
         }];
         
+        [read closeFile];
         return contains;
     }
     
@@ -184,10 +189,10 @@
         [task setStandardOutput:pipe];
         
         [task launch];
-        [task waitUntilExit];
         
         NSFileHandle *read = [pipe fileHandleForReading];
         NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
         __block NSString *path;
@@ -202,6 +207,7 @@
             }
         }];
         
+        [read closeFile];
         return path;
     }
     
@@ -274,6 +280,8 @@
         const char *replacesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
         const char *filenameChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
         const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
+        const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
+        const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
@@ -286,6 +294,16 @@
         [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
+        
+        [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : NULL];
+        
+        NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
+        if (es && [es isEqualToString:@"yes"]) {
+            [self setEssential:true];
+        }
+        else if (es && [es isEqualToString:@"no"]) {
+            [self setEssential:false];
+        }
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
@@ -311,6 +329,8 @@
         }
         [self setSectionImageName:sectionStripped];
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
+        [self setInstalledSize:sqlite3_column_int(statement, ZBPackageColumnInstalledSize)];
+        [self setDownloadSize:sqlite3_column_int(statement, ZBPackageColumnDownloadSize)];
     }
     
     return self;
@@ -348,6 +368,7 @@
             return NSOrderedAscending;
         return NSOrderedDescending;
     } else {
+        if ((NSString *)object == NULL) return NSOrderedDescending;
         int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
         if (result < 0)
             return NSOrderedAscending;
@@ -410,42 +431,25 @@
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
-- (int)numericSize {
-    NSString *sizeField = [self getField:@"Size"];
-    if (!sizeField) return 0;
-    return [sizeField intValue];
-}
-
-- (NSString *)size {
-    int numericSize = [self numericSize];
-    if (!numericSize) return NULL;
-    double size = (double)numericSize;
+- (NSString *)downloadSizeString {
+    if (downloadSize <= 0) return NULL;
+    double size = (double)downloadSize;
     if (size > 1024 * 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
     }
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), downloadSize];
 }
 
-- (int)numericInstalledSize {
-    if (numericInstalledSize)
-        return numericInstalledSize;
-    NSString *sizeField = [self getField:@"Installed-Size"];
-    if (!sizeField) return 0;
-    numericInstalledSize = [sizeField intValue];
-    return numericInstalledSize;
-}
-
-- (NSString *)installedSize {
-    int numericSize = [self numericInstalledSize];
-    if (!numericSize) return NULL;
-    double size = (double)numericSize;
+- (NSString *)installedSizeString {
+    if (installedSize <= 0) return NULL;
+    double size = (double)installedSize;
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), numericSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), installedSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
@@ -569,10 +573,10 @@
     [installedVersionTask setStandardOutput:outPipe];
     
     [installedVersionTask launch];
-    [installedVersionTask waitUntilExit];
     
     NSFileHandle *read = [outPipe fileHandleForReading];
     NSData *dataRead = [read readDataToEndOfFile];
+    [installedVersionTask waitUntilExit];
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     
     __block NSString *version = @"0.0";
@@ -584,6 +588,7 @@
         }
 	}];
 
+    [read closeFile];
     return version;
 }
 
@@ -611,6 +616,10 @@
 
 - (BOOL)hasIssues {
     return [issues count];
+}
+
+- (BOOL)isEssentialOrRequired {
+    return essential || [[priority lowercaseString] isEqualToString:@"required"];
 }
 
 @end

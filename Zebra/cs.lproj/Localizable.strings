@@ -150,6 +150,21 @@
 "Installed Version" = "Instalovaná Verze";
 "Installed Size" = "Nainstalovaná velikost";
 
+//<Version available from repo> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Nainstalovaná verze: %@)";
+
+//<Download size> (Installed Size: <installed size>
+"%@ (Installed Size: %@)" = "%@ (Nainstalovaná velikost: %@)";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bajtů";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
 "Add to Wish List" = "Přidat na Wish List";
 "Remove from Wish List" = "Odstranit z Wish Listu";
 
@@ -240,10 +255,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
 
 // Queue Bar
-"Packages Queued" = "Packages Queued";
-"Package Queued" = "Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d balíčků ve frontě";
+"%d Package Queued" = "%d balíček ve frontě";
+"Tap to manage" = "Dotykem spravovat";
+"No Packages Queued" = "Žádné balíčky nejsou ve frontě";
 
 // Queue
 
@@ -264,3 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ má problémy, které nelze vyřešit:";
 "Are you sure?" = "Opravdu?";
 "Are you sure you want to clear the queue?" = "Jste si jistí, že chcete vyčistit frontu?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Remove from Queue" = "Remove from Queue";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
