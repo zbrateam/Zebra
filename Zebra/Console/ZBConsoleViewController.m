@@ -243,7 +243,8 @@
             }
             
             NSMutableArray *uicaches = [NSMutableArray new];
-            for (NSString *packageIdentifier in installedPackageIdentifiers) {
+            for (int i = 0; i < [installedPackageIdentifiers count]; i++) {
+                NSString *packageIdentifier = installedPackageIdentifiers[i];
                 if ([ZBPackage containsApplicationBundle:packageIdentifier]) {
                     updateIconCache = YES;
                     NSString *actualPackageIdentifier = packageIdentifier;
