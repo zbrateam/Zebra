@@ -279,10 +279,10 @@
 "%@ has issues that cannot be resolved:" = "%@ má problémy, ktoré sa nedajú vyriešiť:";
 "Are you sure?" = "Ste si tým istý?";
 "Are you sure you want to clear the queue?" = "Naozaj chcete vymazať frontu?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "94/5000\n\n94/5000\n%@ je požadovaný balíček. Nemal by sa odstrániť, pokiaľ presne neviete, čo robíte!";
+"Remove from Queue" = "Odstrániť z fronty";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček a musí byť odstránený, pretože závisí na %@. %@ by sa NEMAL odstrániť, pokiaľ presne neviete, čo robíte!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Vo fronte sú dôležité alebo potrebné balíčky. Neodporúča sa pokračovať, ak presne neviete, čo robíte. Odstránenie týchto balíčkov by mohlo spôsobiť nezvratné poškodenie vášho zariadenia.";
