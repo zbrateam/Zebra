@@ -339,7 +339,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
     if ([package isInstalled:NO]) {
         if ([package isReinstallable]) {
-            if ([package isPaid] && baseURL) {
+            if ([package isPaid] && [keychain[baseURL] length] != 0) {
                 [self determinePaidPackage];
             } else {
                 [self addModifyButton];
@@ -349,7 +349,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             removeButton.enabled = package.repo.repoID != -1;
             self.navigationItem.rightBarButtonItem = removeButton;
         }
-    } else if ([package isPaid] && baseURL) {
+    } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
         [self determinePaidPackage];
     } else {
         UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
@@ -366,11 +366,12 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
-    if (baseURL) {
+    if ([keychain[baseURL] length] != 0) {
         if ([package isPaid]) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
             
-            NSDictionary *test = @{ @"udid": [ZBDevice UDID],
+            NSDictionary *test = @{ @"token": keychain[baseURL],
+                                    @"udid": [ZBDevice UDID],
                                     @"device": [ZBDevice deviceModelID] };
             NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:kNilOptions error:nil];
             
@@ -499,9 +500,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 [self configureNavButton];
             }
         }
-    }
-    else { //we must log IN
-        
     }
 }
 
