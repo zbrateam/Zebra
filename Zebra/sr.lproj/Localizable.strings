@@ -129,6 +129,7 @@
 "Ignore Updates" = "Ignoriši nadogradnje";
 "Select Version" = "Izaberi verziju";
 "Select a version to upgrade to" = "Izaberi verziju za nadogradnju";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Paket";
 "Information" = "Informacija";
 "Upgrade All" = "Nadogradi sve";
