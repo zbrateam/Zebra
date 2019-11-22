@@ -78,6 +78,9 @@
     [super viewWillAppear:animated];
     [self refreshTable];
     [self registerView];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = TRUE;
+    }
 }
 
 - (void)dealloc {
