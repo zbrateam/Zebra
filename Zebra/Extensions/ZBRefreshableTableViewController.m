@@ -94,6 +94,7 @@
             return YES;
         }
     }
+    [self layoutNavigationButtonsNormal];
     return NO;
 }
 
