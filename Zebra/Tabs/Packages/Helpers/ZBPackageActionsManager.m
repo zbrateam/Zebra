@@ -255,7 +255,7 @@
 + (void)selectDowngradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
     NSArray *lesserVersions = [package lesserVersions];
     if ([lesserVersions count] > 1) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Version" message:@"Select a version to downgrade to" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to", @"") preferredStyle:UIAlertControllerStyleActionSheet];
         
         for (ZBPackage *otherPackage in [package lesserVersions]) {
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
