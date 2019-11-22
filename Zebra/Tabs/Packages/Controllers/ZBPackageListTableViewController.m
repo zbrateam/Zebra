@@ -94,6 +94,9 @@
         });
     } else {
         [self configureLoadMoreButton];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.leftBarButtonItem = nil;
+        });
     }
     [self configureSegmentedController];
 }
