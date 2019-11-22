@@ -129,6 +129,7 @@
 "Ignore Updates" = "התעלם מעדכונים";
 "Select Version" = "בחר גירסה";
 "Select a version to upgrade to" = "בחר/י גירסה לעדכן אליה";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "חבילה";
 "Information" = "מידע";
 "Upgrade All" = "עדכן הכל";
