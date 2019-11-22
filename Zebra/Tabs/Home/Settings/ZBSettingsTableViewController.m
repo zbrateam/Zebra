@@ -716,7 +716,7 @@ enum ZBMiscOrder {
     }
 }
 
-- (void) misc {
+- (void)misc {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.title = @"Swipe Actions Display As";
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {

@@ -49,6 +49,13 @@
     [self baseViewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = TRUE;
+    }
+}
+
 - (void)applyLocalization {
     // This isn't exactly "best practice", but this way the text in IB isn't useless.
     self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");

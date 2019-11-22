@@ -78,6 +78,9 @@
     [super viewWillAppear:animated];
     [self refreshTable];
     [self registerView];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = TRUE;
+    }
 }
 
 - (void)dealloc {
@@ -94,6 +97,9 @@
         });
     } else {
         [self configureLoadMoreButton];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.leftBarButtonItem = nil;
+        });
     }
     [self configureSegmentedController];
 }
