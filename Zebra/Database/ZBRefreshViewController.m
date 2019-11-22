@@ -158,10 +158,10 @@ typedef enum {
         
         if (self.repoURLs.count) {
             // Update only the repos specified
-            [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
+            [databaseManager updateRepoURLs:self.repoURLs useCaching:YES];
         } else {
             // Update every repo
-            [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
+            [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
         }
     } else {
         hadAProblem = YES;
@@ -189,7 +189,7 @@ typedef enum {
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
         
         buttonState = ZBStateDone;
-        [self.completeOrCancelButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
+        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
 }
 
@@ -221,6 +221,12 @@ typedef enum {
     });
 }
 
+- (void)updateCompleteOrCancelButtonText:(NSString *)text {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.completeOrCancelButton setTitle:text forState:UIControlStateNormal];
+    });
+}
+
 - (void)clearConsoleText {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->consoleView setText:nil];
@@ -230,6 +236,8 @@ typedef enum {
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
     if (str == NULL)
         return;
+    if (![str hasSuffix:@"\n"])
+        str = [str stringByAppendingString:@"\n"];
     __block BOOL isDark = [ZBDevice darkModeEnabled];
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color = [UIColor whiteColor];
@@ -284,7 +292,7 @@ typedef enum {
         [self goodbye];
     } else {
         [self setCompleteOrCancelButtonHidden:false];
-        [self.completeOrCancelButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
+        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
     [[ZBRepoManager sharedInstance] needRecaching];
 }
