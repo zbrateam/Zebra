@@ -54,18 +54,19 @@
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [refreshControl endRefreshing];
     
-    if ([ZBDevice darkModeEnabled]) {
-        [refreshControl setTintColor:[UIColor whiteColor]];
-    }
-    else {
-        [refreshControl setTintColor:[UIColor blackColor]];
-    }
-    
     if ([[self class] supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([ZBDevice darkModeEnabled]) {
+                [self.refreshControl setTintColor:[UIColor whiteColor]];
+            }
+            else {
+                [self.refreshControl setTintColor:[UIColor blackColor]];
+            }
+        });
     }
 //    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self updateRefreshView];
@@ -86,10 +87,10 @@
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if ([ZBDevice darkModeEnabled]) {
-                        [self->refreshControl setTintColor:[UIColor whiteColor]];
+                        [self.refreshControl setTintColor:[UIColor whiteColor]];
                     }
                     else {
-                        [self->refreshControl setTintColor:[UIColor blackColor]];
+                        [self.refreshControl setTintColor:[UIColor blackColor]];
                     }
                     
                     [self.refreshControl beginRefreshing];
