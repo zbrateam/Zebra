@@ -193,30 +193,33 @@
 }
 
 - (NSDictionary *)headers {
-    return [self headersForFile:NULL];
-}
-
-- (NSDictionary *)headersForFile:(NSString *)path {
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
     
-    if (path == NULL) {
-        return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
-    } else {
-        NSError *fileError;
-        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
-        NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-        [formatter setTimeZone:gmt];
-        [formatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
-        
-        NSString *modificationDate = [NSString stringWithFormat:@"%@ GMT", [formatter stringFromDate:date]];
-        
-        return @{@"If-Modified-Since": modificationDate, @"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+}
+
+- (NSString *)baseFilenameLastModified:(NSString *)baseFilename distRepo:(BOOL)dist {
+    NSString *actualFilename;
+    if (dist) {
+        actualFilename = [baseFilename stringByAppendingString:@"_main_binary-iphoneos-arm_Packages"];
     }
+    else {
+        actualFilename = [baseFilename stringByAppendingString:@"_Packages"];
+    }
+    NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:actualFilename];
+    
+    NSError *fileError;
+    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
+    NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [formatter setTimeZone:gmt];
+    [formatter setDateFormat:@"E, d MMM yyyy HH:mm:ss"];
+    
+    return [NSString stringWithFormat:@"%@ GMT", [formatter stringFromDate:date]];
 }
 
 - (void)downloadRepos:(NSArray <NSArray *> *)repos ignoreCaching:(BOOL)ignore {
@@ -228,7 +231,7 @@
     
     self->ignore = ignore;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSDictionary *headers = ignore ? [self headers] : [self headersForFile:@"file"];
+    NSDictionary *headers = [self headers];
     if (headers == NULL) {
         if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)])
             [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
@@ -244,21 +247,26 @@
         NSURL *baseURL = dist ? [NSURL URLWithString:[NSString stringWithFormat:@"%@dists/%@/", repo[0], repo[1]]] : [NSURL URLWithString:repo[0]];
         NSURL *releaseURL = [baseURL URLByAppendingPathComponent:@"Release"];
         NSURL *packagesURL = dist ? [baseURL URLByAppendingPathComponent:@"main/binary-iphoneos-arm/Packages.bz2"] : [baseURL URLByAppendingPathComponent:@"Packages.bz2"];
-        
+
         NSURLSessionTask *releaseTask = [session downloadTaskWithURL:releaseURL];
         releaseTasksMap[@(releaseTask.taskIdentifier)] = releaseURL;
         ++tasks;
         [releaseTask resume];
         
-        NSURLSessionTask *packagesTask = [session downloadTaskWithURL:packagesURL];
-        sourcePackagesTasksMap[@(packagesTask.taskIdentifier)] = packagesURL;
-        ++tasks;
-        [packagesTask resume];
-
         NSString *schemeless = [[baseURL absoluteString] stringByReplacingOccurrencesOfString:[baseURL scheme] withString:@""];
         NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
         NSString *saveName = [NSString stringWithFormat:[[baseURL absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, @"Release"];
         NSString *baseFileName = [self baseFileNameFromFullPath:saveName];
+        
+        NSMutableURLRequest *packagesRequest = [[NSMutableURLRequest alloc] initWithURL:packagesURL];
+        if (!ignore) {
+            [packagesRequest setValue:[self baseFilenameLastModified:baseFileName distRepo:dist] forHTTPHeaderField:@"If-Modified-Since"];
+        }
+        
+        NSURLSessionTask *packagesTask = [session downloadTaskWithRequest:packagesRequest];
+        sourcePackagesTasksMap[@(packagesTask.taskIdentifier)] = packagesURL;
+        ++tasks;
+        [packagesTask resume];
         
         [downloadDelegate predator:self startedDownloadForFile:baseFileName];
     }
@@ -266,7 +274,7 @@
 
 - (void)downloadFromURL:(NSURL *)url ignoreCaching:(BOOL)ignore {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = ignore ? [self headers] : [self headersForFile:@"file"];
+    configuration.HTTPAdditionalHeaders = [self headers];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     
@@ -433,7 +441,7 @@
                 }
                 
                 if (responseCode == 304 && [downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
-                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"%@ hasn't been modified", @""), [url host]] atLevel:ZBLogLevelDescript];
+                    [downloadDelegate postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"%@ hasn't been modified", @""), [url host]] atLevel:ZBLogLevelInfo];
                 }
                 else {
                     NSString *listsPath = [ZBAppDelegate listsLocation];
