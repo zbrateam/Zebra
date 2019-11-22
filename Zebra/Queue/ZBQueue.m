@@ -361,13 +361,13 @@
 
 - (BOOL)queueHasPackages:(ZBQueueType)queue {
     if (queue == ZBQueueTypeRemove) {
-        return [managedQueue[@(queue)] count] > 0 || [[self conflictQueue] count] > 0;
+        return [managedQueue[@(queue)] count] || [[self conflictQueue] count];
     }
     else if (queue == ZBQueueTypeInstall) {
-        return [managedQueue[@(queue)] count] > 0 || [[self dependencyQueue] count] > 0;
+        return [managedQueue[@(queue)] count] || [[self dependencyQueue] count];
     }
     else {
-        return [managedQueue[@(queue)] count] > 0;
+        return [managedQueue[@(queue)] count];
     }
 }
 
@@ -395,14 +395,14 @@
     return @"This shouldn't be here...";
 }
 
-- (NSArray<NSNumber *> *)actionsToPerform {
+- (NSArray <NSNumber *> *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
-        if(
-           managedQueue[@(q)].count > 0
-           || (q == ZBQueueTypeInstall && [self dependencyQueue].count > 0)
-           || (q == ZBQueueTypeRemove && [self conflictQueue].count > 0)
+        if (
+           managedQueue[@(q)].count
+           || (q == ZBQueueTypeInstall && [self dependencyQueue].count)
+           || (q == ZBQueueTypeRemove && [self conflictQueue].count)
         ) {
             [actions addObject:@(q)];
         }
@@ -417,7 +417,7 @@
 
 - (BOOL)needsToDownloadPackages {
     for (NSNumber *key in managedQueue) {
-        if (key.intValue != ZBQueueTypeRemove && [managedQueue[key] count] > 0) {
+        if (key.intValue != ZBQueueTypeRemove && [managedQueue[key] count]) {
             return YES;
         }
     }
@@ -474,13 +474,13 @@
     for (NSArray *queueArray in [self queues]) {
         NSMutableArray *topDownQueue = [queueArray mutableCopy];
 
-        if(queueArray == [self installQueue]) {
+        if (queueArray == [self installQueue]) {
             [topDownQueue addObjectsFromArray:[self dependencyQueue]];
-        } else if(queueArray == [self removeQueue]) {
+        } else if (queueArray == [self removeQueue]) {
             [topDownQueue addObjectsFromArray:[self conflictQueue]];
         }
 
-        if(topDownQueue.count > 0) {
+        if (topDownQueue.count) {
             [result addObject:topDownQueue];
         }
     }
@@ -561,7 +561,8 @@
 }
 
 - (NSArray <NSMutableArray *> *)queues {
-    return @[[self installQueue], [self reinstallQueue], [self removeQueue], [self upgradeQueue], [self downgradeQueue]];
+    // The order must match those in ZBQueueType.h
+    return @[[self installQueue], [self removeQueue], [self reinstallQueue], [self upgradeQueue], [self downgradeQueue]];
 }
 
 - (NSMutableArray *)installQueue {

@@ -48,7 +48,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //Appearence stuff
+    // Appearance stuff
     if ([ZBDevice darkModeEnabled]) {
         [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     }
@@ -142,14 +142,14 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSArray *actions = [queue actionsToPerform];
+    NSArray <NSNumber *> *actions = [queue actionsToPerform];
     if ([actions count] == 0) {
         return @"No Actions to Perform";
     }
     else {
-        ZBQueueType action = [queue actionsToPerform][section].intValue;
+        ZBQueueType action = actions[section].intValue;
         if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-            return [NSString stringWithFormat:@"%@ %@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
         }
         return [queue displayableNameForQueueType:action useIcon:false];
     }
