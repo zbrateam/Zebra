@@ -685,7 +685,7 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
                 if (sectionChars != 0) {
-                    NSString *section = [NSString stringWithUTF8String:sectionChars];
+                    NSString *section = [[NSString stringWithUTF8String:sectionChars] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
                     [sectionReadout setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 1)] forKey:section];
                 }
             }
