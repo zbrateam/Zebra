@@ -129,6 +129,7 @@
 "Ignore Updates" = "Αγνόησε Ενημερώσεις";
 "Select Version" = "Διάλεξε Έκδοση";
 "Select a version to upgrade to" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Πακέτο";
 "Information" = "Πληροφορίες";
 "Upgrade All" = "Αναβάθμιση Όλων";
