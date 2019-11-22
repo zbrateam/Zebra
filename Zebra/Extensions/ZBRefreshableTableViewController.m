@@ -71,6 +71,13 @@
     [self updateRefreshView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.refreshControl) {
+        [self.refreshControl endRefreshing];
+    }
+}
+
 - (BOOL)updateRefreshView {
     [self setEditing:NO animated:NO];
     
