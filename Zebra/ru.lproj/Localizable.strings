@@ -129,6 +129,7 @@
 "Ignore Updates" = "Игнорировать Обновления";
 "Select Version" = "Выберите Версию";
 "Select a version to upgrade to" = "Выберите версию до которой обновить пакет";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Пакет";
 "Information" = "Информация";
 "Upgrade All" = "Обновить Все";
