@@ -66,6 +66,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     } else {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = TRUE;
+    }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self colorWindow];
