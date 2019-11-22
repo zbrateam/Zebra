@@ -120,8 +120,17 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (ZBTabBarController *)tabBarController {
-    //FIXME: This should only be run from the main thread
-    return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+    if ([NSThread isMainThread]) {
+        return (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+    }
+    else {
+        __block ZBTabBarController *tabController;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            tabController = (ZBTabBarController *)((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+        });
+        NSLog(@"Tab Controller: %@", tabController);
+        return tabController;
+    }
 }
 
 + (void)sendAlertFrom:(UIViewController *)vc title:(NSString *)title message:(NSString *)message actionLabel:(NSString *)actionLabel okLabel:(NSString *)okLabel block:(void (^)(void))block {
