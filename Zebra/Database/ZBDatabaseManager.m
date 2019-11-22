@@ -71,8 +71,6 @@
 - (int)openDatabase {
     if (![self isDatabaseOpen] || !database) {
 //        sqlite3_shutdown();
-        sqlite3_config(SQLITE_CONFIG_SERIALIZED);
-        sqlite3_initialize();
         assert(sqlite3_threadsafe());
         int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
         if (result == SQLITE_OK) {
