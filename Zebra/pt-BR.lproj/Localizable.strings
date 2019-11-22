@@ -129,6 +129,7 @@
 "Ignore Updates" = "Ignorar Atualizações";
 "Select Version" = "Selecionar versão";
 "Select a version to upgrade to" = "Selecione a versão para atualizar para";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Pacote";
 "Information" = "Informação";
 "Upgrade All" = "Atualizar Todos";
