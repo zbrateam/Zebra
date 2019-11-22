@@ -129,6 +129,7 @@
 "Ignore Updates" = "رد آپدیت ها";
 "Select Version" = "انتخاب نسخه";
 "Select a version to upgrade to" = "انتخاب یک نسخه برای بروزرسانی";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "پکیج";
 "Information" = "مشخصات";
 "Upgrade All" = "بروزرسانی همه ی پکیج ها";
@@ -279,7 +280,6 @@
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure?" = "مطمین هستید؟";
 "Are you sure you want to clear the queue?" = "میخواهید صف را پاک کنید؟";
-
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 "Remove from Queue" = "Remove from Queue";
 
