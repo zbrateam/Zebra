@@ -226,6 +226,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
     [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
 //    [self stablilityCheck];
+    
+    if (@available(iOS 13.0, *)) {
+        [self.window setOverrideUserInterfaceStyle:1];
+    }
     return YES;
 }
 
