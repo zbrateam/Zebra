@@ -166,7 +166,11 @@
 
 - (void)setupRepoLogin {
     if (self.repoEndpoint) {
-        NSURL *destinationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]]];
+        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]];
+        if (!urlString) return;
+        NSURL *destinationUrl = [NSURL URLWithString:urlString];
+        if (!destinationUrl) return;
+        
         NSURLComponents *components = [NSURLComponents componentsWithURL:destinationUrl resolvingAgainstBaseURL:YES];
         if (![components.scheme isEqualToString:@"http"] && ![components.scheme isEqualToString:@"https"]) {
             return;
