@@ -129,6 +129,7 @@
 "Ignore Updates" = "Negeer updates";
 "Select Version" = "Kies versie";
 "Select a version to upgrade to" = "Kies een versie om naar te upgraden";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Pakket";
 "Information" = "Informatie";
 "Upgrade All" = "Upgrade alles";
