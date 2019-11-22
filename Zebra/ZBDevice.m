@@ -73,6 +73,10 @@
         sysctlbyname("hw.machine", answer, &size, NULL, 0);
         machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
         free(answer);
+        
+        if ([machineIdentifier isEqualToString:@"x86_64"]) {
+            machineIdentifier = @"iPhone11,2";
+        }
     });
     return machineIdentifier;
 }
