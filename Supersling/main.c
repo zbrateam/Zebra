@@ -42,7 +42,7 @@ int main(int argc, char ** argv) {
 
   struct stat correct;
   if (lstat("/Applications/Zebra.app/Zebra", &correct) == -1) {
-    fprintf(stderr, "THE TRUE NEO CHAOS!\n");
+    fprintf(stderr, "THE TRUE AND NEO CHAOS!\n");
     return EX_NOPERM;
   }
   else {
@@ -56,6 +56,11 @@ int main(int argc, char ** argv) {
     else {
       setuid(0);
       setgid(0);
+
+      if (getuid() != 0 || getgid() != 0) {
+        printf("WHO KEEPS SPINNING THE WORLD AROUND?\n");
+        return EX_NOPERM;
+      }
 
       int result = execvp(argv[1], &argv[1]);
 
