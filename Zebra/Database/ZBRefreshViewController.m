@@ -158,10 +158,10 @@ typedef enum {
         
         if (self.repoURLs.count) {
             // Update only the repos specified
-            [databaseManager updateRepoURLs:self.repoURLs useCaching:YES];
+            [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
         } else {
             // Update every repo
-            [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
+            [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
         }
     } else {
         hadAProblem = YES;
