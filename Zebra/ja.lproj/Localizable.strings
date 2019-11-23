@@ -129,6 +129,7 @@
 "Ignore Updates" = "アップデートを無視";
 "Select Version" = "バージョンを選択";
 "Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
+"Select a version to downgrade to" = "ダウングレードしたいバージョンを選択";
 "Package" = "パッケージ";
 "Information" = "情報";
 "Upgrade All" = "すべてアップグレード";
@@ -139,7 +140,7 @@
 "Clear" = "クリア";
 "Are you sure you want to clear Queue?" = "キューをクリアしてもよろしいですか？";
 "Available Upgrades" = "利用可能なアップグレード";
-"Ignored Upgrades" = "無視したアップグレード";
+"Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
 "Repo" = "リポジトリ";
 "Installed Files" = "インストールされたファイル";

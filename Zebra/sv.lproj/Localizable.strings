@@ -129,6 +129,7 @@
 "Ignore Updates" = "Ignorera uppdateringar";
 "Select Version" = "Välj version";
 "Select a version to upgrade to" = "Välj en version att uppgradera till";
+"Select a version to downgrade to" = "Välj en version att nedgradera till";
 "Package" = "Paket";
 "Information" = "Information";
 "Upgrade All" = "Uppgradera alla";

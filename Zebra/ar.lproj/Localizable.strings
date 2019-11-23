@@ -129,6 +129,7 @@
 "Ignore Updates" = "تجاهل التحديثات";
 "Select Version" = "اختيار إصدار";
 "Select a version to upgrade to" = "اختر إصدار للترقية إليه";
+"Select a version to downgrade to" = "اختر إصدار للخفض إليه";
 "Package" = "حزمة";
 "Information" = "معلومات";
 "Upgrade All" = "ترقية الكل";

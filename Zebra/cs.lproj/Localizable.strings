@@ -129,6 +129,7 @@
 "Ignore Updates" = "Ignorovat Aktualizace";
 "Select Version" = "Vyberte Verzi";
 "Select a version to upgrade to" = "Vyberte verzi, na kterou chcete aktualizovat";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Balíček";
 "Information" = "Informace";
 "Upgrade All" = "Upgradovat vše";
@@ -279,10 +280,10 @@
 "%@ has issues that cannot be resolved:" = "%@ má problémy, které nelze vyřešit:";
 "Are you sure?" = "Opravdu?";
 "Are you sure you want to clear the queue?" = "Jste si jistí, že chcete vyčistit frontu?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček. Neměl by být odstraněn, pokud přesně nevíte, co děláte!";
+"Remove from Queue" = "Odebrat z fronty";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček a musí být odstraněn, protože závisí na %@. %@ by neměl být odstraněn, pokud přesně nevíte, co děláte!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ve frontě jsou důležité nebo nutné balíčky. Nedoporučuje se pokračovat, pokud přesně nevíte, co děláte. Odstranění těchto balíčků by mohlo způsobit nevratné poškození vašeho zařízení.";

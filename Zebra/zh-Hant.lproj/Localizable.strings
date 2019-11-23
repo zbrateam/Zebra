@@ -129,6 +129,7 @@
 "Ignore Updates" = "忽略更新";
 "Select Version" = "選擇版本：";
 "Select a version to upgrade to" = "選擇需要更新的版本";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "套裝程式";
 "Information" = "資訊";
 "Upgrade All" = "全部升級";

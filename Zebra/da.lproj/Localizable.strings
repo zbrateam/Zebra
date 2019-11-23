@@ -129,6 +129,7 @@
 "Ignore Updates" = "Ignorer Opdateringer";
 "Select Version" = "Vælg Udgave";
 "Select a version to upgrade to" = "Vælg en udgave at opgraderer til";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "Pakker";
 "Information" = "Information";
 "Upgrade All" = "Opgrader Alle";

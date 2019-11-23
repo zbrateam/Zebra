@@ -129,6 +129,7 @@
 "Ignore Updates" = "업데이트 무시";
 "Select Version" = "버전 선택";
 "Select a version to upgrade to" = "업그레이드할 버전 선택";
+"Select a version to downgrade to" = "Select a version to downgrade to";
 "Package" = "패키지";
 "Information" = "정보";
 "Upgrade All" = "모두 업그레이드";
@@ -279,10 +280,10 @@
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
 "Are you sure?" = "확실한가요?";
 "Are you sure you want to clear the queue?" = "정말로 대기열을 지울까요?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지입니다. 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
+"Remove from Queue" = "대기열에서 제거";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지이며 %@에 의존하기 때문에 삭제되어야 합니다. %@ 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "한개 또는 그 이상의 중요하거나 필요한 패키지가 삭제를 위하여 대기열에 추가되어 있습니다. 이 작업은 내가 정확히 무엇을 하는지 알고 있지 않으면 실행하지 않는 것을 추천합니다. 이러한 패키지를 제거하면 돌이킬 수 없는 손상을 일으킬 수 있으며, 그 결과로 기기를 초기화하게 될 것 입니다.";
