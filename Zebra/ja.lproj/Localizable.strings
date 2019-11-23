@@ -155,7 +155,7 @@
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@(インストール済み:%@)";
+"%@ (Installed Size: %@)" = "%@(インストール時:%@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -271,7 +271,7 @@
 "Downgrade" = "ダウングレード";
 "Abort" = "中止";
 "Continue" = "続行";
-"Download Size" = "(サイズ";
+"Download Size" = "サイズ";
 "Confirm" = "実行";
 "%@ must be removed because it depends on %@" = "%@ は %@ と競合しているため削除されます";
 "Required Package" = "要求されたパッケージ";
