@@ -119,7 +119,7 @@
     return nil;
 }
 
-- (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond {
+- (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond {
     __weak typeof(self) weakSelf = self;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -130,7 +130,7 @@
             NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
             
             if (detectorError) {
-                respond(NO, detectorError.localizedDescription, [NSArray array]);
+                respond(NO, NO, detectorError.localizedDescription, [NSArray array]);
             } else {
                 dispatch_group_t group = dispatch_group_create();
                 
@@ -152,7 +152,7 @@
                 }];
                 
                 if (detectedURLs.count == 0) {
-                    respond(NO, NSLocalizedString(@"No repository urls detected.", @""), @[]);
+                    respond(NO, NO, NSLocalizedString(@"No repository urls detected.", @""), @[]);
                     return;
                 }
                 
@@ -162,7 +162,7 @@
                 
                 if (readError != NULL) {
                     // rip
-                    respond(NO, [NSString stringWithFormat:@"%@ (%@)", readError.localizedDescription, sourcesList], @[]);
+                    respond(NO, NO, [NSString stringWithFormat:@"%@ (%@)", readError.localizedDescription, sourcesList], @[]);
                     return;
                 }
                 
@@ -217,7 +217,7 @@
                     
                     if (strongSelf) {
                         if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
-                            respond(NO, NSLocalizedString(@"You have already added these repositories.", @""), @[]);
+                            respond(NO, NO, NSLocalizedString(@"You have already added these repositories.", @""), @[]);
                         }
                         else {
                             __block NSError *addError = nil;
@@ -233,21 +233,21 @@
                                 if (addError) {
                                     errorMessage = [NSString stringWithFormat:@"%@\n%@", addError.localizedDescription, errorMessage];
                                 }
-                                respond(NO, errorMessage, errorURLs);
+                                respond(NO, detectedURLs.count > 1, errorMessage, errorURLs);
                             } else {
-                                respond(YES, nil, nil);
+                                respond(YES, detectedURLs.count > 1, nil, nil);
                             }
                         }
                     } else {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            respond(NO, NSLocalizedString(@"Unknown error", @""), @[]);
+                            respond(NO, detectedURLs.count > 1, NSLocalizedString(@"Unknown error", @""), @[]);
                         });
                     }
                 });
             }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                respond(NO, NSLocalizedString(@"Unknown error", @""), @[]);
+                respond(NO, NO, NSLocalizedString(@"Unknown error", @""), @[]);
             });
         }
     });

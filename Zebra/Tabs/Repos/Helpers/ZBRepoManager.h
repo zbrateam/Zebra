@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray <NSString *> *)knownDistURLs;
 - (NSMutableDictionary <NSNumber *, ZBRepo *> *)repos;
 - (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
-- (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, NSString *error, NSArray<NSURL *> *failedURLs))respond;
+- (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond;
 - (void)deleteSource:(ZBRepo *)delRepo;
 - (NSString *)debLineFromRepo:(ZBRepo *)repo;
 - (void)addDebLine:(NSString *)sourceLine;
