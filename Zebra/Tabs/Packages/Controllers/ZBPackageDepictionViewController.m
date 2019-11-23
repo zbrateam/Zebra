@@ -82,7 +82,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
     
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
@@ -113,7 +113,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     // Fallback web view height as 300
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
-    webView.scrollView.scrollEnabled = false;
+    webView.scrollView.scrollEnabled = NO;
     
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -155,9 +155,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
     if ([ZBDevice darkModeEnabled]) {
-        [request setValue:@"TRUE" forHTTPHeaderField:@"Dark"];
+        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
         if ([ZBDevice darkModeOledEnabled]) {
-            [request setValue:@"TRUE" forHTTPHeaderField:@"Oled"];
+            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
         } else {
             [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];

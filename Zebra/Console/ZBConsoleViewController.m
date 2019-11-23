@@ -63,8 +63,8 @@
             downloadMap = [NSMutableDictionary new];
         }
         installedPackageIdentifiers = [NSMutableArray new];
-        respringRequired = false;
-        updateIconCache = false;
+        respringRequired = NO;
+        updateIconCache = NO;
     }
     
     return self;
@@ -78,8 +78,8 @@
         applicationBundlePaths = [NSMutableArray new];
         installedPackageIdentifiers = [NSMutableArray new];
         localInstallPath = filePath;
-        respringRequired = false;
-        updateIconCache = false;
+        respringRequired = NO;
+        updateIconCache = NO;
         
         //Resume database operations
         [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
@@ -93,7 +93,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
     self.title = NSLocalizedString(@"Console", @"");
     [self setupView];
@@ -113,11 +113,11 @@
 
 - (void)setupView {
     currentStage = -1;
-    downloadFailed = false;
-    updateIconCache = false;
-    respringRequired = false;
-    suppressCancel = false;
-    zebraRestartRequired = false;
+    downloadFailed = NO;
+    updateIconCache = NO;
+    respringRequired = NO;
+    suppressCancel = NO;
+    zebraRestartRequired = NO;
     installedPackageIdentifiers = [NSMutableArray new];
     applicationBundlePaths = [NSMutableArray new];
     downloadMap = [NSMutableDictionary new];
@@ -193,7 +193,7 @@
                         if (![self isValidPackageID:packageID]) continue;
                         
                         if ([ZBPackage containsApplicationBundle:packageID]) {
-                            updateIconCache = true;
+                            updateIconCache = YES;
                             NSString *path = [ZBPackage pathForApplication:packageID];
                             if (path != NULL) {
                                 [applicationBundlePaths addObject:path];
@@ -613,7 +613,7 @@
     
     NSArray *debs = [filenames objectForKey:@"debs"];
     [self performSelectorInBackground:@selector(performTasksForDownloadedFiles:) withObject:debs];
-    suppressCancel = true;
+    suppressCancel = YES;
     [self updateCancelOrCloseButton];
 }
 
@@ -623,7 +623,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
     if (error != NULL) {
-        downloadFailed = true;
+        downloadFailed = YES;
         [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
     }
     else if (filename) {

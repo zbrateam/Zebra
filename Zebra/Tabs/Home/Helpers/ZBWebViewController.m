@@ -74,7 +74,7 @@
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:YES];
         if (@available(iOS 11.0, *)) {
-            self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+            self.navigationController.navigationBar.prefersLargeTitles = NO;
         }
         
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
@@ -223,7 +223,7 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsViewController"];
             if (@available(iOS 11.0, *)) {
-                self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+                self.navigationController.navigationBar.prefersLargeTitles = NO;
             }
             [[self navigationController] pushViewController:settingsController animated:YES];
         }
@@ -384,7 +384,7 @@
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:YES];
         if (@available(iOS 11.0, *)) {
-            self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+            self.navigationController.navigationBar.prefersLargeTitles = NO;
         }
         
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];

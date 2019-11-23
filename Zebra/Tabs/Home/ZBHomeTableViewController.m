@@ -67,7 +67,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = TRUE;
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
@@ -139,7 +139,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = TRUE;
+        BOOL isDir = YES;
         if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] isDirectory:&isDir]) {
             [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] withIntermediateDirectories:NO attributes:nil error:nil];
         }
@@ -479,7 +479,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }

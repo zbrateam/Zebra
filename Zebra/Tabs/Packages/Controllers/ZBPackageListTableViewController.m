@@ -79,7 +79,7 @@
     [self refreshTable];
     [self registerView];
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = TRUE;
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
 }
 
@@ -469,7 +469,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         if (@available(iOS 11.0, *)) {
-            self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+            self.navigationController.navigationBar.prefersLargeTitles = NO;
         }
         [self setDestinationVC:indexPath destination:destination];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];

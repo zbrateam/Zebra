@@ -30,7 +30,7 @@
     [_postTag setTextColor:[UIColor whiteColor]];
     [_postTitle setTextColor:[UIColor whiteColor]];
     _backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
-    [_backgroundImage setClipsToBounds:TRUE];
+    [_backgroundImage setClipsToBounds:YES];
     [self.contentView addSubview:_backgroundImage];
     [self.contentView addSubview:_postTag];
     [self.contentView addSubview:_postTitle];

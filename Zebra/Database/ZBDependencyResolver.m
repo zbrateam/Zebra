@@ -64,12 +64,12 @@
         for (ZBPackage *conflict in packagesThatConflictWith) {
             [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", [conflict name], [package name]]];
         }
-        return false;
+        return NO;
     }
     
     //Next, check if this package conflicts with any installed packages
     [self resolveConflicts:[package conflictsWith] forPackage:package];
-    return true;
+    return YES;
 }
 
 - (BOOL)isDependencyResolved:(NSString *)dependency forPackage:(ZBPackage *)package {
@@ -77,11 +77,11 @@
         NSArray *orDependencies = [dependency componentsSeparatedByString:@"|"];
         for (NSString *orDependency in orDependencies) {
             if ([self isDependencyResolved:orDependency forPackage:package]) {
-                return true;
+                return YES;
             }
         }
         
-        return false;
+        return NO;
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
@@ -90,7 +90,7 @@
             if (queuedDependency != NULL) {
                 [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:true];
             }
-            return true;
+            return YES;
         }
         
         //We should now have a separate version and a comparison string
@@ -102,7 +102,7 @@
             if (queuedDependency != NULL) {
                 [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:true];
             }
-            return true;
+            return YES;
         }
         
         return [self isPackageInstalled:dependency];
@@ -110,18 +110,18 @@
 }
 
 - (BOOL)resolveDependencies:(NSArray *)dependencies forPackage:(ZBPackage *)package {
-    if ([dependencies count] == 0 || dependencies == NULL) return true;
+    if ([dependencies count] == 0 || dependencies == NULL) return YES;
     
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
         if (![self resolveDependency:dependency forPackage:package]) {
             ZBLog(@"Adding unresolved dependency for %@: %@", package, dependency);
             [package addIssue:dependency];
-            return false;
+            return NO;
         }
     }
     
-    return true;
+    return YES;
 }
 
 - (BOOL)resolveDependency:(NSString *)dependency forPackage:(ZBPackage *)package {
@@ -129,11 +129,11 @@
         NSArray *orDependencies = [dependency componentsSeparatedByString:@"|"];
         for (NSString *orDependency in orDependencies) {
             if ([self resolveDependency:orDependency forPackage:package]) {
-                return true;
+                return YES;
             }
         }
         
-        return false;
+        return NO;
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [self separateVersionComparison:dependency];
@@ -142,13 +142,13 @@
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
         
-        return false;
+        return NO;
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
         if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
         
-        return false;
+        return NO;
     }
 }
 
@@ -186,12 +186,12 @@
         }
         else {
             if ([[package identifier] isEqualToString:providedPackage]) {
-                return true;
+                return YES;
             }
         }
     }
     
-    return false;
+    return NO;
 }
 
 - (void)populateLists { //Populates a list of packages that are installed and a list of virtual packages of which the installed packages provide.
@@ -211,7 +211,7 @@
                 return [self doesVersion:[dict objectForKey:@"version"] satisfyComparison:comparison ofVersion:version];
             }
             
-            return true;
+            return YES;
         }
     }
     
@@ -234,20 +234,20 @@
             }
             else {
                 if ([depID isEqualToString:providedPackage]) {
-                    return true;
+                    return YES;
                 }
             }
         }
     }
     
-    return false;
+    return NO;
 }
 
 - (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version {
     NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
     comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
-    if (candidate == NULL || version == NULL || comparison == NULL) return true;
+    if (candidate == NULL || version == NULL || comparison == NULL) return YES;
 
     int nx = (int)[choices indexOfObject:comparison];
     switch (nx) {
@@ -301,10 +301,7 @@
     [dependency addDependencyOf:package];
     [queue addDependency:dependency];
     
-    if (ignore) {
-        return true;
-    }
-    return [self calculateDependenciesForPackage:dependency];
+    return ignore ? YES : [self calculateDependenciesForPackage:dependency];
 }
 
 - (void)enqueueConflict:(ZBPackage *)conflict forPackage:(ZBPackage *)package {

@@ -40,16 +40,15 @@ BOOL alreadySet;
 
 - (void)zb_layoutSubviews {
     if (alreadySet) {
-        alreadySet = false;
+        alreadySet = NO;
         return;
     }
     if (!self.layer.animationKeys.count) {
+        alreadySet = YES;
         if ([ZBDevice darkModeEnabled]) {
-            alreadySet = true;
             [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
         }
         else {
-            alreadySet = true;
             [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         }
     }

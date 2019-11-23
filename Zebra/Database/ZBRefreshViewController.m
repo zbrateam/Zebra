@@ -41,7 +41,7 @@ typedef enum {
     
     if (self) {
         self.messages = NULL;
-        self.dropTables = false;
+        self.dropTables = NO;
         self.repoURLs = NULL;
     }
     

@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
     [self applyLocalization];
 }
@@ -73,13 +73,7 @@
 - (void)refreshTable {
     packages = [queue topDownQueue];
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        if ([self->queue hasIssues]) {
-            self.navigationItem.rightBarButtonItem.enabled = false;
-        }
-        else {
-            self.navigationItem.rightBarButtonItem.enabled = true;
-        }
+        self.navigationItem.rightBarButtonItem.enabled = ![self->queue hasIssues];
         [self.tableView reloadData];
         
         if ([self->packages count] == 0) {

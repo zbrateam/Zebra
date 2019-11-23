@@ -41,7 +41,7 @@
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = FALSE;
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
     // Purchased Buttons
     self.login = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"") style:UIBarButtonItemStylePlain actionHandler:^{

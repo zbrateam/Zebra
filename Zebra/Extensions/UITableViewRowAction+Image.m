@@ -9,6 +9,7 @@
 #import "UITableViewRowAction+Image.h"
 
 @implementation UITableViewRowAction (Image)
+
 - (void)setIcon:(UIImage *)image withText:(NSString *)text color:(UIColor *)color rowHeight:(CGFloat)height {
     UIImage *mask = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     CGSize stockSize = [[self title] sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}];
@@ -53,4 +54,5 @@
 //
 //    self.backgroundColor = [UIColor colorWithPatternImage:actionImage];
 }
+
 @end

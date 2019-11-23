@@ -457,7 +457,7 @@
 
 - (BOOL)contains:(ZBPackage *)package {
     if ([queuedPackagesList containsObject:[package identifier]]) {
-        return true;
+        return YES;
     }
     
     for (NSNumber *key in managedQueue) {
@@ -582,14 +582,14 @@
 - (BOOL)queueContainsPackageWithIgnoredDependencies:(ZBQueueType)queue {
     for (ZBPackage *package in [self queueFromType:queue]) {
         if ([package ignoreDependencies]) {
-            return true;
+            return YES;
         }
     }
     
     if (queue == ZBQueueTypeRemove) {
         for (ZBPackage *package in [self conflictQueue]) {
             if ([package ignoreDependencies]) {
-                return true;
+                return YES;
             }
         }
     }
@@ -597,12 +597,12 @@
     if (queue == ZBQueueTypeInstall) {
         for (ZBPackage *package in [self dependencyQueue]) {
             if ([package ignoreDependencies]) {
-                return true;
+                return YES;
             }
         }
     }
     
-    return false;
+    return NO;
 }
 
 - (NSArray <NSMutableArray *> *)queues {
