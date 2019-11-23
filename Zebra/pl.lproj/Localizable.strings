@@ -214,14 +214,14 @@
 "Search" = "Szukaj";
 "Clear Search" = "Wyczyść wyszukiwanie";
 "This search query is too short for the full search, please use a longer query." = "To zapytanie jest za krótkie do pełnego wyszukiwania, proszę użyć dłuższego zapytania.";
-"No Results Found" = "Nie znaleziono wyników";
+"No Results Found" = "Niczego nie znaleziono";
 
 // Downloads
 
 "Downloads" = "Pobrane";
 "Error while opening sources.list" = "Błąd podczas otwierania sources.list";
 "The repo %@ is incompatible with your jailbreak." = "Repozytorium %@ jest niekompatybilne z twoim jailbreakiem.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Może powodować problemy, jeżeli dodasz je do Zebry, wywołując możliwość odtworzenia.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Może powodować problemy, jeżeli dodasz je do Zebry, może wywołać potrzebę odtworzenia.";
 "Please remove this repo from your sources.list file." = "Usuń to repozytorium ze swojego pliku sources.list";
 "Incorrect documents permissions." = "Złe uprawnienia dokumentów.";
 "Could not determine device information." = "Nie udało się zdeterminować informacji o urządzeniu.";
@@ -273,7 +273,7 @@
 "Continue" = "Kontynuuj";
 "Download Size" = "Rozmiar pobierania";
 "Confirm" = "Potwierdź";
-"%@ must be removed because it depends on %@" = "%@ musi zostać usunięte, bo polega na %@";
+"%@ must be removed because it depends on %@" = "%@ musi zostać usunięty, bo jest zależny od %@";
 "Required Package" = "Wymagany pakiet";
 "%@ is required by:" = "%@ jest wymagany przez:";
 "Issues" = "Błędy";
@@ -286,6 +286,6 @@
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ jest wymaganym pakietem i musi zostać usunięty, ponieważ zależy od %@. %@ NIE powinien być usunięty, chyba że wiesz dokładnie, co robisz!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Jeden lub więcej pakietów w kolejce do usunięcia jest wymagany. Nie jest zalecane kontynuowanie, chyba że wiesz dokładnie, co robisz. Usuwanie tych pakietów może skutkować nieodwracalnymi uszkodzeniami i może wymagać pełnego odnowienia.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Jeden lub więcej pakietów w kolejce do usunięcia jest wymagany. Nie jest zalecane kontynuowanie, chyba że wiesz dokładnie, co robisz. Usuwanie tych pakietów może skutkować nieodwracalnymi uszkodzeniami i może wymagać pełnego odtworzenia.";
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nie była w stanie wypełnić tej komendy, ponieważ nie posiada odpowiednich uprawnień. Zweryfikuj uprawnienia znajdujące się w /usr/libexec/zebra/supersling i zgłoś ten problem na GitHubie.";
