@@ -7,8 +7,8 @@ Architectures: iphoneos-arm
 Components: main
 Description: APT Repository for beta versions of Zebra.
 SHA1:
- 587408f2bce29862e0220786fe3f9445bf14471e 24275 Packages
- 5cfa301ecba6448dcc6fae15ef0a87996c7bdb8d 4462 Packages.bz2
+ 87f60f3d8fb66e0060f971c638c1ae19394067ee 24959 Packages
+ 8731a1e22e29266a7f9b9b14e0c99eaee827dc9a 4484 Packages.bz2
 SHA256:
- 8f2832e70c99e041b0f080e840b19c4ee0fa663e8a0a3501fa7b44a66dc8dc99 24275 Packages
- 805f253eabe7c692caf8c0a72f04cd036e41e524d9d56c347a01e7b171228d5e 4462 Packages.bz2
+ 9de490c9657563f721bd8110c6e4e9ef5df7727d065cae2f45f66a8d0a337d9b 24959 Packages
+ ee2d51480f97740cc7e94b34b2ae7ada22825d762902cb854362eff8eb0cea5c 4484 Packages.bz2
