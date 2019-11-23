@@ -268,9 +268,30 @@
     [defaults synchronize];
 }
 
++ (void)configureTabBarColors:(UIColor *)tintColor {
+    // Tab
+    [[UITabBar appearance] setTintColor:tintColor];
+    if (@available(iOS 10.0, *)) {
+        [[UITabBar appearance] setUnselectedItemTintColor:[UIColor lightGrayColor]];
+    }
+    [[UITabBar appearance] setBackgroundColor:nil];
+    [[UITabBar appearance] setBarTintColor:nil];
+    //This causes issues with dark mode on the popup bar
+//    if ([ZBDevice darkModeOledEnabled]){
+//        [[UITabBar appearance] setTranslucent:NO];
+//        [[LNPopupBar appearance] setTranslucent:YES];
+//    } else {
+//        [[UITabBar appearance] setTranslucent:YES];
+//        [[LNPopupBar appearance] setTranslucent:YES];
+//    }
+    // [[UITabBar appearance] setShadowImage:[UIImage new]];
+    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+}
+
 + (void)configureDarkMode {
+    UIColor *tintColor = [UIColor tintColor];
     // Navigation bar
-    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
+    [[UINavigationBar appearance] setTintColor:tintColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     if (@available(iOS 11.0, *)) {
@@ -287,25 +308,12 @@
     // Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
-    // Tab
-    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
-    [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
-    //This causes issues with dark mode on the popup bar
-//    if ([ZBDevice darkModeOledEnabled]){
-//        [[UITabBar appearance] setTranslucent:NO];
-//        [[LNPopupBar appearance] setTranslucent:YES];
-//    } else {
-//        [[UITabBar appearance] setTranslucent:YES];
-//        [[LNPopupBar appearance] setTranslucent:YES];
-//    }
-    // [[UITabBar appearance] setShadowImage:[UIImage new]];
-    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+    [self configureTabBarColors:tintColor];
     
     // Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
-    [[UITableView appearance] setTintColor:[UIColor tintColor]];
+    [[UITableView appearance] setTintColor:tintColor];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     
     UIView *dark = [[UIView alloc] init];
@@ -330,8 +338,9 @@
 }
 
 + (void)configureLightMode {
+    UIColor *tintColor = [UIColor tintColor];
     // Navigation bar
-    [[UINavigationBar appearance] setTintColor:[UIColor tintColor]];
+    [[UINavigationBar appearance] setTintColor:tintColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     if (@available(iOS 11.0, *)) {
@@ -344,7 +353,7 @@
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     
     // Tab
-    [[UITabBar appearance] setTintColor:[UIColor tintColor]];
+    [[UITabBar appearance] setTintColor:tintColor];
     [[UITabBar appearance] setBackgroundColor:nil];
     [[UITabBar appearance] setBarTintColor:nil];
     [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
@@ -353,7 +362,7 @@
     
     // Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITableView appearance] setTintColor:[UIColor tintColor]];
+    [[UITableView appearance] setTintColor:tintColor];
     [[UITableView appearance] setTintColor:nil];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [[UITableViewCell appearance] setSelectedBackgroundView:nil];
@@ -406,11 +415,12 @@
 + (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     safariVC.delegate = delegate;
+    UIColor *tintColor = [UIColor tintColor];
     if (@available(iOS 10.0, *)) {
         safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
-        safariVC.preferredControlTintColor = [UIColor tintColor];
+        safariVC.preferredControlTintColor = tintColor;
     } else {
-        safariVC.view.tintColor = [UIColor tintColor];
+        safariVC.view.tintColor = tintColor;
     }
     [delegate presentViewController:safariVC animated:YES completion:nil];
 }
