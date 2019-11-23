@@ -48,6 +48,7 @@
 @synthesize downloadSize;
 @synthesize priority;
 @synthesize essential;
+@synthesize ignoreDependencies;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {

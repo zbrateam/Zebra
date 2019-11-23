@@ -115,6 +115,7 @@
 
 - (void)addConflict:(ZBPackage *)package removeDependencies:(BOOL)remove {
     if (![[self conflictQueue] containsObject:package]) {
+        package.ignoreDependencies = !remove;
         [[self conflictQueue] addObject:package];
         if (remove) [self enqueueRemovalOfPackagesThatDependOn:package];
     }
@@ -203,7 +204,21 @@
     NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
-        if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
+        if ([self queueContainsPackageWithIgnoredDependencies:ZBQueueTypeRemove]) { //We have to force ignore dependencies with dpkg if a package wants its dependencies ignored, otherwise APT will override us
+            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-depends"] mutableCopy];
+            
+            for (ZBPackage *package in [self removeQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            for (ZBPackage *package in [self conflictQueue]) {
+                [removeCommand addObject:package.identifier];
+            }
+            
+            [commands addObject:@[@(ZBStageRemove)]];
+            [commands addObject:removeCommand];
+        }
+        else if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
             NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
             
             for (ZBPackage *package in [self removeQueue]) {
@@ -562,6 +577,32 @@
         }
     }
     return NO;
+}
+
+- (BOOL)queueContainsPackageWithIgnoredDependencies:(ZBQueueType)queue {
+    for (ZBPackage *package in [self queueFromType:queue]) {
+        if ([package ignoreDependencies]) {
+            return true;
+        }
+    }
+    
+    if (queue == ZBQueueTypeRemove) {
+        for (ZBPackage *package in [self conflictQueue]) {
+            if ([package ignoreDependencies]) {
+                return true;
+            }
+        }
+    }
+    
+    if (queue == ZBQueueTypeInstall) {
+        for (ZBPackage *package in [self dependencyQueue]) {
+            if ([package ignoreDependencies]) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }
 
 - (NSArray <NSMutableArray *> *)queues {

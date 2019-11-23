@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int downloadSize;
 @property BOOL sileoDownload;
 @property BOOL essential;
+@property BOOL ignoreDependencies;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
