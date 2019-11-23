@@ -215,14 +215,39 @@
         }
     }
     
-    return [virtualPackagesList containsObject:packageIdentifier];
+    return [self packageIsProvided:packageIdentifier];
+}
+
+- (BOOL)packageIsProvided:(NSString *)depLine {
+    NSArray *depVersionComponenets = [self separateVersionComparison:depLine];
+    NSString *depID = depVersionComponenets[0];
+    
+    for (NSString *providedPackage in virtualPackagesList) {
+        if ([providedPackage containsString:depID]) {
+            if ([providedPackage containsString:@"("] || [providedPackage containsString:@")"]) {
+                NSArray *components = [self separateVersionComparison:providedPackage];
+                //We should now have a separate version and a comparison string
+                
+                if ([depID isEqualToString:components[0]]) {
+                    return [self doesVersion:[depVersionComponenets count] > 1 ? depVersionComponenets[2] : NULL satisfyComparison:components[1] ofVersion:components[2]];
+                }
+            }
+            else {
+                if ([depID isEqualToString:providedPackage]) {
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
 }
 
 - (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version {
     NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
     comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
-    if (version == NULL || comparison == NULL) return true;
+    if (candidate == NULL || version == NULL || comparison == NULL) return true;
 
     int nx = (int)[choices indexOfObject:comparison];
     switch (nx) {
@@ -251,6 +276,9 @@
 }
 
 - (NSArray *)separateVersionComparison:(NSString *)dependency {
+    if (![dependency containsString:@"("] || ![dependency containsString:@")"])
+        return @[dependency];
+    
     NSUInteger openIndex = [dependency rangeOfString:@"("].location;
     NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
     
