@@ -108,8 +108,8 @@ enum ZBMiscOrder {
 - (void)configureTitleLabel {
     NSString *versionString = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Version", @""), PACKAGE_VERSION];
     NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Zebra\n%@", versionString]];
-    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:36], NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0,5)];
-    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".SFUIDisplay-Medium" size:26], NSForegroundColorAttributeName: [[UIColor whiteColor] colorWithAlphaComponent:0.85]} range:[titleString.string rangeOfString:versionString]];
+    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".AppleSystemUIFontMedium" size:36], NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0,5)];
+    [titleString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@".AppleSystemUIFontMedium" size:26], NSForegroundColorAttributeName: [[UIColor whiteColor] colorWithAlphaComponent:0.85]} range:[titleString.string rangeOfString:versionString]];
     self.titleLabel.attributedText = titleString;
     self.titleLabel.textAlignment = NSTextAlignmentNatural;
     self.titleLabel.numberOfLines = 0;
