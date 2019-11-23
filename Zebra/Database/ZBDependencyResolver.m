@@ -163,11 +163,12 @@
         NSArray *components = [self separateVersionComparison:conflict];
         //We should now have a separate version and a comparison string
         
-        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
+        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:false];
         if (conflictingPackage && ![[conflictingPackage identifier] isEqual:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL];
+        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL includeVirtualPackages:false];
+        
         if (conflictingPackage && ![[conflictingPackage identifier] isEqual:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
 }

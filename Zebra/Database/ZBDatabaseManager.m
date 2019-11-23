@@ -1186,6 +1186,10 @@
 }
 
 - (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
+    return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true];
+}
+
+- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 LIMIT 1;", identifier];
         
@@ -1202,7 +1206,7 @@
         sqlite3_finalize(statement);
         
         // Only try to resolve "Provides" if we can't resolve the normal package.
-        if (package == NULL && version == NULL && comparison == NULL) {
+        if (checkVirtual && package == NULL && version == NULL && comparison == NULL) {
             package = [self installedPackageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
         

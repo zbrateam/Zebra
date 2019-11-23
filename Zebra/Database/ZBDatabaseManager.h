@@ -377,6 +377,7 @@ NS_ASSUME_NONNULL_BEGIN
 @return A ZBPackage instance that matches the parameters.
 */
 - (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
+- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual;
 
 /*!
  @brief Mainly used in dependency resolution, this will return whether or not a specific package satisfies a version comparison.
