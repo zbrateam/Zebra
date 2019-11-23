@@ -140,6 +140,9 @@
     if ([actions count] == 0) {
         return @"No Actions to Perform";
     }
+    else if (section > [actions count] - 1) {
+        return @"Unrecognized Action";
+    }
     else {
         ZBQueueType action = actions[section].intValue;
         if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
