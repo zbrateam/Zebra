@@ -110,9 +110,13 @@
 }
 
 - (void)addConflict:(ZBPackage *)package {
+    [self addConflict:package removeDependencies:true];
+}
+
+- (void)addConflict:(ZBPackage *)package removeDependencies:(BOOL)remove {
     if (![[self conflictQueue] containsObject:package]) {
         [[self conflictQueue] addObject:package];
-        [self enqueueRemovalOfPackagesThatDependOn:package];
+        if (remove) [self enqueueRemovalOfPackagesThatDependOn:package];
     }
     [self updateQueueBarData];
 }

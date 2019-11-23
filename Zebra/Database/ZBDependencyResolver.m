@@ -164,7 +164,7 @@
         //We should now have a separate version and a comparison string
         
         ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (conflictingPackage) [self enqueueConflict:conflictingPackage forPackage:package];
+        if (conflictingPackage && ![[conflictingPackage identifier] isEqual:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL];
@@ -173,6 +173,26 @@
 }
 
 #pragma mark - Helper functions
+
+- (BOOL)isPackage:(ZBPackage *)package providedBy:(ZBPackage *)provider {
+    for (NSString *providedPackage in [provider provides]) {
+        if ([providedPackage containsString:@"("] || [providedPackage containsString:@")"]) {
+            NSArray *components = [self separateVersionComparison:providedPackage];
+            //We should now have a separate version and a comparison string
+            
+            if ([[package identifier] isEqualToString:components[0]]) {
+                return [databaseManager doesPackage:package satisfyComparison:components[1] ofVersion:components[2]];
+            }
+        }
+        else {
+            if ([[package identifier] isEqualToString:providedPackage]) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
 
 - (void)populateLists { //Populates a list of packages that are installed and a list of virtual packages of which the installed packages provide.
     NSDictionary *packageList = [databaseManager installedPackagesList];
@@ -263,7 +283,7 @@
     NSLog(@"[Zebra] Adding %@ as a conflict for %@", conflict, package);
     [package addDependency:conflict];
     [conflict addDependencyOf:package];
-    [queue addConflict:conflict];
+    [queue addConflict:conflict removeDependencies:![self isPackage:conflict providedBy:package]];
 }
 
 - (ZBPackage *)packageInDependencyQueue:(NSString *)packageID {
