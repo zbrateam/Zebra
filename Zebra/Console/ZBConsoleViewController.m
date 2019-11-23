@@ -283,7 +283,7 @@
 }
 
 - (void)finishTasks {
-    ZBLog(@"Finishing tasks");
+    ZBLog(@"[Zebra] Finishing tasks");
     [downloadMap removeAllObjects];
     [applicationBundlePaths removeAllObjects];
     [installedPackageIdentifiers removeAllObjects];
@@ -542,6 +542,7 @@
 }
 
 - (void)updateCompleteButton {
+    ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), respringRequired(%d), zebraRestartRequired(%d)", downloadFailed, respringRequired, zebraRestartRequired);
     dispatch_async(dispatch_get_main_queue(), ^{
         self->completeButton.hidden = NO;
         [self updateProgressText:nil];

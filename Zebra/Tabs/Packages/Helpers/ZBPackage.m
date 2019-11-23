@@ -93,7 +93,7 @@
         [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
         
-        __block BOOL contains;
+        __block BOOL contains = NO;
         [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
             NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
