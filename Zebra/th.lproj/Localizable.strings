@@ -287,3 +287,5 @@
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ เป็นโปรแกรมที่จำเป็นต้องติดตั้งไว้บนเครื่อง แต่จะถูกนำออกเนื่องจาก %@ ซึ่ง %@ ไม่ควรถูกลบออกนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร!";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "หนึ่งโปรแกรมหรือมากกว่าในคิวถอนการติดตั้งนั้นจำเป็นต้องมีบนเครื่อง ไม่แนะนำให้ดำเนินการต่อนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร การลบโปรแกรมเหล่านี้อาจส่งผลเสียกับเครื่องของคุณแบบย้อนกลับไม่ได้ และอาจถึงขั้นต้องล้างเครื่องใหม่";
+
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
