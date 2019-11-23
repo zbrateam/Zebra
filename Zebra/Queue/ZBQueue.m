@@ -446,11 +446,14 @@
 
 - (NSArray *)packagesToDownload {
     NSMutableArray *packages = [NSMutableArray new];
-    for (NSNumber *key in managedQueue) {
-        if (key.intValue != ZBQueueTypeRemove) {
-            [packages addObjectsFromArray:managedQueue[key]];
+    
+    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
+        if (q != ZBQueueTypeRemove) {
+            [packages addObjectsFromArray:[self queueFromType:q]];
         }
     }
+    
+    [packages addObjectsFromArray:[self dependencyQueue]];
     
     return (NSArray *)packages;
 }
