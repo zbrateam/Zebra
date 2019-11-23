@@ -208,7 +208,7 @@
     for (NSDictionary *dict in installedPackagesList) {
         if ([[dict objectForKey:@"identifier"] isEqual:packageIdentifier]) {
             if (version != NULL && comparison != NULL) {
-                return [self doesVersion:version satisfyComparison:comparison ofVersion:version];
+                return [self doesVersion:[dict objectForKey:@"version"] satisfyComparison:comparison ofVersion:version];
             }
             
             return true;
