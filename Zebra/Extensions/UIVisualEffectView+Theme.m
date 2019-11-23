@@ -18,11 +18,11 @@
     dispatch_once(&onceToken, ^{
         Class thisClass = self;
         
-        SEL methodSEL = @selector(layoutSubviews);
+        SEL methodSEL = @selector(effect);
         Method og_Method = class_getInstanceMethod(thisClass, methodSEL);
         IMP methodIMP = method_getImplementation(og_Method);
         
-        SEL mg_methodSEL = @selector(zb_layoutSubviews);
+        SEL mg_methodSEL = @selector(zb_effect);
         Method mg_Method = class_getInstanceMethod(thisClass, mg_methodSEL);
         IMP mg_methodIMP = method_getImplementation(mg_Method);
         
@@ -36,30 +36,11 @@
     });
 }
 
-- (void)setAlreadyAppliedTheme:(BOOL)applied {
-    NSNumber *value = [NSNumber numberWithBool:applied];
-    objc_setAssociatedObject(self, @selector(alreadyAppliedTheme), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)alreadyAppliedTheme {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(alreadyAppliedTheme));
-    return value.boolValue;
-}
-
-- (void)zb_layoutSubviews {
-    if (self.alreadyAppliedTheme) {
-        self.alreadyAppliedTheme = NO;
-        return;
+- (UIVisualEffect *)zb_effect {
+    if ([ZBDevice darkModeEnabled]) {
+        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     }
-    if (!self.layer.animationKeys.count) {
-        self.alreadyAppliedTheme = YES;
-        if ([ZBDevice darkModeEnabled]) {
-            [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-        }
-        else {
-            [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-        }
-    }
+    return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 }
 
 @end
