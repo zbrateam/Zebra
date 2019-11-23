@@ -257,7 +257,7 @@
     if ([lesserVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to", @"") preferredStyle:UIAlertControllerStyleActionSheet];
         
-        for (ZBPackage *otherPackage in [package lesserVersions]) {
+        for (ZBPackage *otherPackage in lesserVersions) {
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 ZBQueue *queue = [ZBQueue sharedQueue];
                 [queue addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
