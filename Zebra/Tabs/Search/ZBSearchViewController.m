@@ -96,6 +96,10 @@ enum ZBSearchSection {
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+    }
+    
     if (@available(iOS 13.0, *)) {
         self.searchController.searchBar.searchTextField.textColor = [UIColor cellPrimaryTextColor];
     }
@@ -103,7 +107,13 @@ enum ZBSearchSection {
         UITextField *textField = [self.searchController.searchBar valueForKey:@"_searchField"];
         textField.textColor = [UIColor cellPrimaryTextColor];
     }
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = NO;
+    }
 }
 
 - (void)configureClearSearchButton {
