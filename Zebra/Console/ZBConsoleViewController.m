@@ -475,6 +475,8 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
+    if (str == NULL)
+        return;
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
