@@ -13,8 +13,6 @@
 
 @implementation UIVisualEffectView (Theme)
 
-BOOL alreadySet;
-
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -38,13 +36,23 @@ BOOL alreadySet;
     });
 }
 
+- (void)setAlreadyAppliedTheme:(BOOL)applied {
+    NSNumber *value = [NSNumber numberWithBool:applied];
+    objc_setAssociatedObject(self, @selector(alreadyAppliedTheme), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)alreadyAppliedTheme {
+    NSNumber *value = objc_getAssociatedObject(self, @selector(alreadyAppliedTheme));
+    return value.boolValue;
+}
+
 - (void)zb_layoutSubviews {
-    if (alreadySet) {
-        alreadySet = NO;
+    if (self.alreadyAppliedTheme) {
+        self.alreadyAppliedTheme = NO;
         return;
     }
     if (!self.layer.animationKeys.count) {
-        alreadySet = YES;
+        self.alreadyAppliedTheme = YES;
         if ([ZBDevice darkModeEnabled]) {
             [self setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
         }

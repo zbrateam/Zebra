@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIVisualEffectView (Theme)
+@property (nonatomic, assign) BOOL alreadyAppliedTheme;
 @end
 
 NS_ASSUME_NONNULL_END
