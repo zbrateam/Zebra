@@ -18,6 +18,8 @@
 #import <ZBDevice.h>
 #import <ZBLog.h>
 
+#include <sysexits.h>
+
 @import LNPopupController;
 
 @interface ZBConsoleViewController () {
@@ -230,6 +232,10 @@
                         
                         [task launch];
                         [task waitUntilExit];
+                        
+                        if ([task terminationStatus] == EX_NOPERM) {
+                            [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
+                        }
                     }
                     else {
                         [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
