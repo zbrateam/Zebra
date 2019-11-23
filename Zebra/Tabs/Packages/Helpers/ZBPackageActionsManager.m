@@ -238,7 +238,12 @@
             alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
         }
         
-        [vc presentViewController:alert animated:YES completion:nil];
+        if (vc.view.window != nil) {
+            [vc presentViewController:alert animated:YES completion:nil];
+        }
+        else {
+            [parent presentViewController:alert animated:YES completion:nil];
+        }
     }
     else if ([greaterVersions count] == 1) {
         ZBQueue *queue = [ZBQueue sharedQueue];
@@ -278,7 +283,12 @@
             alert.popoverPresentationController.barButtonItem = vc.navigationItem.rightBarButtonItem;
         }
         
-        [vc presentViewController:alert animated:YES completion:nil];
+        if (vc.view.window != nil) {
+            [vc presentViewController:alert animated:YES completion:nil];
+        }
+        else {
+            [parent presentViewController:alert animated:YES completion:nil];
+        }
     }
     else if ([lesserVersions count] == 1) {
         ZBQueue *queue = [ZBQueue sharedQueue];
