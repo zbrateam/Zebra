@@ -447,7 +447,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     bool longDescFlag = false;
     
     char longDescription[32768] = "";
-    char depends[300] = "";
+    char depends[512] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
@@ -482,7 +482,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             
             if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
                 size_t dependsLen = strlen(depends);
-                if (dependsLen + strlen(value) + 2 < 300) {
+                if (dependsLen + strlen(value) + 2 < 512) {
                     if (dependsLen) {
                         strcat(depends, ", ");
                     }
@@ -532,7 +532,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     bool longDescFlag = false;
     
     char longDescription[32768] = "";
-    char depends[300] = "";
+    char depends[512] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
@@ -567,7 +567,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             
             if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
                 size_t dependsLen = strlen(depends);
-                if (dependsLen + strlen(value) + 2 < 300) {
+                if (dependsLen + strlen(value) + 2 < 512) {
                     if (dependsLen) {
                         strcat(depends, ", ");
                     }
