@@ -232,8 +232,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)sizeWebViewToFit {
     CGRect webFrame = webView.frame;
     CGFloat scrollHeight = webView.scrollView.contentSize.height;
+    webFrame.origin.y = self.tableView.frame.size.height;
     webFrame.size.height = scrollHeight;
     webView.frame = webFrame;
+    [self.tableView setNeedsLayout];
+    [self.tableView layoutIfNeeded];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
