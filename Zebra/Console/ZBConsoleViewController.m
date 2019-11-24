@@ -24,16 +24,17 @@
 
 @interface ZBConsoleViewController () {
     NSMutableArray *applicationBundlePaths;
+    NSMutableArray *uicaches;
+    NSMutableArray *installedPackageIdentifiers;
+    NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
+    NSString *localInstallPath;
+    ZBDownloadManager *downloadManager;
+    ZBQueue *queue;
     ZBStage currentStage;
     BOOL downloadFailed;
-    ZBDownloadManager *downloadManager;
-    NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
-    NSMutableArray *installedPackageIdentifiers;
-    NSString *localInstallPath;
     BOOL respringRequired;
     BOOL suppressCancel;
     BOOL updateIconCache;
-    ZBQueue *queue;
     BOOL zebraRestartRequired;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
@@ -83,7 +84,7 @@
         respringRequired = NO;
         updateIconCache = NO;
         
-        //Resume database operations
+        // Resume database operations
         [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
     }
     
@@ -248,7 +249,7 @@
                 }
             }
             
-            NSMutableArray *uicaches = [NSMutableArray new];
+            uicaches = [NSMutableArray new];
             for (int i = 0; i < [installedPackageIdentifiers count]; i++) {
                 NSString *packageIdentifier = installedPackageIdentifiers[i];
                 if ([ZBPackage containsApplicationBundle:packageIdentifier]) {
@@ -273,12 +274,12 @@
                 }
                 
                 if (!respringRequired) {
-                    respringRequired = [ZBPackage respringRequiredFor:packageIdentifier] ? YES : respringRequired;
+                    respringRequired |= [ZBPackage respringRequiredFor:packageIdentifier];
                 }
             }
             
-            if (updateIconCache) {
-                [self updateIconCaches:uicaches];
+            if (!zebraRestartRequired && updateIconCache) {
+                [self updateIconCaches];
             }
             
             [self refreshLocalPackages];
@@ -333,7 +334,11 @@
 
 - (void)closeZebra {
     if (![ZBDevice needsSimulation]) {
-        [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+        if (uicaches.count > 1) {
+            [self updateIconCaches];
+        } else {
+            [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+        }
     }
     exit(0);
 }
@@ -348,16 +353,16 @@
 
 #pragma mark - Helper Methods
 
-- (void)updateIconCaches:(NSArray *)caches {
+- (void)updateIconCaches {
     [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
     NSMutableArray *arguments = [NSMutableArray new];
-    if ([caches count] + [applicationBundlePaths count] > 1) {
+    if (uicaches.count + applicationBundlePaths.count > 1) {
         [arguments addObject:@"-a"];
         [self writeToConsole:NSLocalizedString(@"This may take awhile and Zebra may crash. It is okay if it does.", @"") atLevel:ZBLogLevelWarning];
     }
     else {
         [arguments addObject:@"-p"];
-        for (NSString *packageID in caches) {
+        for (NSString *packageID in uicaches) {
             if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
                 continue;
             NSString *bundlePath = [ZBPackage pathForApplication:packageID];
