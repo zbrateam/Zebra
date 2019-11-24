@@ -18,11 +18,11 @@
     dispatch_once(&onceToken, ^{
         Class thisClass = self;
         
-        SEL methodSEL = @selector(effect);
+        SEL methodSEL = @selector(setEffect:);
         Method og_Method = class_getInstanceMethod(thisClass, methodSEL);
         IMP methodIMP = method_getImplementation(og_Method);
         
-        SEL mg_methodSEL = @selector(zb_effect);
+        SEL mg_methodSEL = @selector(zb_setEffect:);
         Method mg_Method = class_getInstanceMethod(thisClass, mg_methodSEL);
         IMP mg_methodIMP = method_getImplementation(mg_Method);
         
@@ -36,11 +36,12 @@
     });
 }
 
-- (UIVisualEffect *)zb_effect {
+- (void)zb_setEffect:(UIVisualEffect *)effect {
     if ([ZBDevice darkModeEnabled]) {
-        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    } else {
+        [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     }
-    return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 }
 
 @end
