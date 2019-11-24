@@ -566,7 +566,7 @@
         return self.version;
 	NSTask *installedVersionTask = [[NSTask alloc] init];
     [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"dpkg", @"-s", self.identifier, nil];
+    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"/usr/bin/dpkg", @"-s", self.identifier, nil];
     [installedVersionTask setArguments:versionArgs];
     
     NSPipe *outPipe = [NSPipe pipe];
