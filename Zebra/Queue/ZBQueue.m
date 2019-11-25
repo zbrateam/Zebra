@@ -191,11 +191,13 @@
 - (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand;
-    if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/apt"]) {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
-    }
-    else if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
+    BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
+    
+    if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
         baseCommand = @[@"dpkg"];
+    }
+    else if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/apt"]) {
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
     }
     else {
         baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"];
@@ -204,22 +206,12 @@
     NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
-        if ([self queueContainsPackageWithIgnoredDependencies:ZBQueueTypeRemove]) { //We have to force ignore dependencies with dpkg if a package wants its dependencies ignored, otherwise APT will override us
-            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-depends"] mutableCopy];
-            
-            for (ZBPackage *package in [self removeQueue]) {
-                [removeCommand addObject:package.identifier];
-            }
-            
-            for (ZBPackage *package in [self conflictQueue]) {
-                [removeCommand addObject:package.identifier];
-            }
-            
-            [commands addObject:@[@(ZBStageRemove)]];
-            [commands addObject:removeCommand];
-        }
-        else if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
+        if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
             NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
+            
+            if (ignoreDependencies) {
+                [removeCommand addObject:@"--force-depends"];
+            }
             
             for (ZBPackage *package in [self removeQueue]) {
                 [removeCommand addObject:package.identifier];
@@ -239,6 +231,9 @@
             }
             else {
                 [removeCommand addObject:@"-r"];
+                if (ignoreDependencies) {
+                    [removeCommand addObject:@"--force-depends"];
+                }
             }
             
             for (ZBPackage *package in [self removeQueue]) {
@@ -261,6 +256,9 @@
         }
         else {
             [installCommand addObject:@"-i"];
+            if (ignoreDependencies) {
+                [installCommand addObject:@"--force-depends"];
+            }
         }
         
         NSArray *dependencyPaths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDependency filenames:debs];
@@ -311,6 +309,9 @@
         }
         else {
             [upgradeCommand addObject:@"-i"];
+            if (ignoreDependencies) {
+                [upgradeCommand addObject:@"--force-depends"];
+            }
         }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeUpgrade filenames:debs];
@@ -327,6 +328,9 @@
         }
         else {
             [downgradeCommand addObject:@"-i"];
+            if (ignoreDependencies) {
+                [downgradeCommand addObject:@"--force-depends"];
+            }
         }
         
         NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDowngrade filenames:debs];
@@ -582,29 +586,15 @@
     return NO;
 }
 
-- (BOOL)queueContainsPackageWithIgnoredDependencies:(ZBQueueType)queue {
-    for (ZBPackage *package in [self queueFromType:queue]) {
-        if ([package ignoreDependencies]) {
-            return YES;
-        }
-    }
-    
-    if (queue == ZBQueueTypeRemove) {
-        for (ZBPackage *package in [self conflictQueue]) {
+- (BOOL)containsPackageWithIgnoredDependencies {
+    NSArray *topDownQueue = [self topDownQueue];
+    for (NSArray *queueArray in topDownQueue) {
+        for (ZBPackage *package in queueArray) {
             if ([package ignoreDependencies]) {
                 return YES;
             }
         }
     }
-    
-    if (queue == ZBQueueTypeInstall) {
-        for (ZBPackage *package in [self dependencyQueue]) {
-            if ([package ignoreDependencies]) {
-                return YES;
-            }
-        }
-    }
-    
     return NO;
 }
 
