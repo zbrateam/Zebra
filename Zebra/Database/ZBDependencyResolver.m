@@ -23,6 +23,30 @@
 
 @implementation ZBDependencyResolver
 
+#pragma mark - Version Comparison separation
+
++ (NSArray *)separateVersionComparison:(NSString *)dependency {
+    if (![dependency containsString:@"("] || ![dependency containsString:@")"]) {
+        return @[dependency, [NSNull null], [NSNull null]];
+    }
+    
+    NSUInteger openIndex = [dependency rangeOfString:@"("].location;
+    NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
+    
+    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *comparison;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:version];
+    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
+    [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
+    [scanner scanCharactersFromSet:versionChars intoString:&version];
+    
+    return @[packageIdentifier, comparison, version];
+}
+
+
 - (id)initWithPackage:(ZBPackage *)package {
     self = [super init];
     
@@ -84,7 +108,7 @@
         return NO;
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
-        NSArray *components = [self separateVersionComparison:dependency];
+        NSArray *components = [ZBDependencyResolver separateVersionComparison:dependency];
         if ([[self queuedPackagesList] containsObject:components[0]]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:components[0]];
             if (queuedDependency != NULL) {
@@ -136,7 +160,7 @@
         return NO;
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
-        NSArray *components = [self separateVersionComparison:dependency];
+        NSArray *components = [ZBDependencyResolver separateVersionComparison:dependency];
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
@@ -160,7 +184,7 @@
 
 - (void)resolveConflict:(NSString *)conflict forPackage:(ZBPackage *)package {
     if ([conflict containsString:@"("] || [conflict containsString:@")"]) { //This package conflicts with a specific version
-        NSArray *components = [self separateVersionComparison:conflict];
+        NSArray *components = [ZBDependencyResolver separateVersionComparison:conflict];
         //We should now have a separate version and a comparison string
         
         ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:false];
@@ -178,7 +202,7 @@
 - (BOOL)isPackage:(ZBPackage *)package providedBy:(ZBPackage *)provider {
     for (NSString *providedPackage in [provider provides]) {
         if ([providedPackage containsString:@"("] || [providedPackage containsString:@")"]) {
-            NSArray *components = [self separateVersionComparison:providedPackage];
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:providedPackage];
             //We should now have a separate version and a comparison string
             
             if ([[package identifier] isEqualToString:components[0]]) {
@@ -220,13 +244,13 @@
 }
 
 - (BOOL)packageIsProvided:(NSString *)depLine {
-    NSArray *depVersionComponenets = [self separateVersionComparison:depLine];
+    NSArray *depVersionComponenets = [ZBDependencyResolver separateVersionComparison:depLine];
     NSString *depID = depVersionComponenets[0];
     
     for (NSString *providedPackage in virtualPackagesList) {
         if ([providedPackage containsString:depID]) {
             if ([providedPackage containsString:@"("] || [providedPackage containsString:@")"]) {
-                NSArray *components = [self separateVersionComparison:providedPackage];
+                NSArray *components = [ZBDependencyResolver separateVersionComparison:providedPackage];
                 //We should now have a separate version and a comparison string
                 
                 if ([depID isEqualToString:components[0]]) {
@@ -274,26 +298,6 @@
     if (result > 0)
         return NSOrderedDescending;
     return NSOrderedSame;
-}
-
-- (NSArray *)separateVersionComparison:(NSString *)dependency {
-    if (![dependency containsString:@"("] || ![dependency containsString:@")"])
-        return @[dependency];
-    
-    NSUInteger openIndex = [dependency rangeOfString:@"("].location;
-    NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
-    
-    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *comparison;
-    
-    NSScanner *scanner = [NSScanner scannerWithString:version];
-    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
-    [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
-    [scanner scanCharactersFromSet:versionChars intoString:&version];
-    
-    return @[packageIdentifier, comparison, version];
 }
 
 - (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package ignoreFurtherDependencies:(BOOL)ignore {

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
     ZBPackage *package;
     ZBQueue *queue;
 }
++ (NSArray *)separateVersionComparison:(NSString *)dependency;
 - (id)initWithPackage:(ZBPackage *)package;
 - (BOOL)immediateResolution;
 @end
