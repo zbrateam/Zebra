@@ -362,7 +362,7 @@
     }
     else {
         [arguments addObject:@"-p"];
-        for (NSString *packageID in uicaches) {
+        for (NSString *packageID in [uicaches copy]) {
             if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
                 continue;
             NSString *bundlePath = [ZBPackage pathForApplication:packageID];
