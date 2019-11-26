@@ -129,7 +129,7 @@
 "Ignore Updates" = "Ignoruoti atnaujinimus";
 "Select Version" = "Pasirinkti versiją";
 "Select a version to upgrade to" = "Pasirinkti naujinimo versiją";
-"Select a version to downgrade to" = "Select a version to downgrade to";
+"Select a version to downgrade to" = "Pasirinkite versiją į kurią norite grįžti";
 "Package" = "Paketas";
 "Information" = "Informacija";
 "Upgrade All" = "Atnaujinti visus";
@@ -288,4 +288,4 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Vienas ar keli paketai įdėti į eilę pašalinimui - yra svarbūs ar reikalingi. Nerekomenduojama tęsti, nebent tikrai žinote ką darote. Pašalindami šiuos paketus galite padaryti neatstatomą žalą jūsų prietaisui ir gali tekti visiškai atkurti gamyklinius parametrus, kurie ištrins visus duomenis iš jūsų prietaiso.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra negalėjo atlikti šios komandos, nes ji neturi reikiamų leidimų. Prašome patikrinti leidimus, kurie randasi /usr/libexec/zebra/supersling ir pranešti apie šią problemą Github paskyroje.";
