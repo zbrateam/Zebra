@@ -268,7 +268,7 @@
     [defaults synchronize];
 }
 
-+ (void)configureTabBarColors:(UIColor *)tintColor {
++ (void)configureTabBarColors:(UIColor *)tintColor forDarkMode:(BOOL)darkMode {
     // Tab
     [[UITabBar appearance] setTintColor:tintColor];
     if (@available(iOS 10.0, *)) {
@@ -276,16 +276,13 @@
     }
     [[UITabBar appearance] setBackgroundColor:nil];
     [[UITabBar appearance] setBarTintColor:nil];
-    //This causes issues with dark mode on the popup bar
-//    if ([ZBDevice darkModeOledEnabled]){
-//        [[UITabBar appearance] setTranslucent:NO];
-//        [[LNPopupBar appearance] setTranslucent:YES];
-//    } else {
-//        [[UITabBar appearance] setTranslucent:YES];
-//        [[LNPopupBar appearance] setTranslucent:YES];
-//    }
-    // [[UITabBar appearance] setShadowImage:[UIImage new]];
-    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+
+    if (darkMode) {
+        [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+    }
+    else {
+        [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
+    }
 }
 
 + (void)configureDarkMode {
@@ -308,7 +305,7 @@
     // Status bar
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     
-    [self configureTabBarColors:tintColor];
+    [self configureTabBarColors:tintColor forDarkMode:true];
     
     // Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -353,12 +350,7 @@
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     
     // Tab
-    [[UITabBar appearance] setTintColor:tintColor];
-    [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
-    [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
-    [[UITabBar appearance] setTranslucent:YES];
-    // [[UITabBar appearance] setShadowImage:[UIImage new]];
+    [self configureTabBarColors:tintColor forDarkMode:false];
     
     // Tables
     [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
