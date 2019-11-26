@@ -118,15 +118,16 @@
     NSMutableArray *repos = [NSMutableArray new];
     
     for (ZBRepo *repo in [self.databaseManager repos]) {
-        if (repo.baseURL != NULL) {
-            if (repo.secure) {
-                [repos addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", repo.baseURL]] host]];
-            } else {
-                [repos addObject:[[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", repo.baseURL]] host]];
+        if (repo.secure) {
+            NSString *host = [[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", repo.baseURL]] host];
+            if (host) {
+                [repos addObject:host];
             }
-        }
-        else {
-            NSLog(@"oh no! %@", repo);
+        } else {
+            NSString *host = [[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", repo.baseURL]] host];
+            if (host) {
+                [repos addObject:host];
+            }
         }
     }
     if ((url && url.scheme && url.host)) {
