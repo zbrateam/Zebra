@@ -27,7 +27,7 @@
 
 + (NSArray *)separateVersionComparison:(NSString *)dependency {
     if (![dependency containsString:@"("] || ![dependency containsString:@")"]) {
-        return @[dependency, [NSNull null], [NSNull null]];
+        return @[dependency, @"<=>", @"0:0"];
     }
     
     NSUInteger openIndex = [dependency rangeOfString:@"("].location;
@@ -46,6 +46,45 @@
     return @[packageIdentifier, comparison, version];
 }
 
++ (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version {
+    return [self doesVersion:[package version] satisfyComparison:comparison ofVersion:version];
+}
+
++ (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version {
+    NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
+    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    if (candidate == NULL)
+        return NO;
+    
+    if (version == NULL || comparison == NULL || ([comparison isEqualToString:@"<=>"] && [version isEqualToString:@"0:0"]))
+        return YES;
+
+    int nx = (int)[choices indexOfObject:comparison];
+    switch (nx) {
+        case 0:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending;
+        case 1:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+        case 2:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+        case 3:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+        case 4:
+            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending;
+        default:
+            return NO;
+    }
+}
+
++ (NSComparisonResult)compareVersion:(NSString *)firstVersion toVersion:(NSString *)secondVersion {
+    int result = compare([firstVersion UTF8String], [secondVersion UTF8String]);
+    if (result < 0)
+        return NSOrderedAscending;
+    if (result > 0)
+        return NSOrderedDescending;
+    return NSOrderedSame;
+}
 
 - (id)initWithPackage:(ZBPackage *)package {
     self = [super init];
@@ -206,7 +245,7 @@
             //We should now have a separate version and a comparison string
             
             if ([[package identifier] isEqualToString:components[0]]) {
-                return [databaseManager doesPackage:package satisfyComparison:components[1] ofVersion:components[2]];
+                return [ZBDependencyResolver doesPackage:package satisfyComparison:components[1] ofVersion:components[2]];
             }
         }
         else {
@@ -233,7 +272,7 @@
     for (NSDictionary *dict in installedPackagesList) {
         if ([[dict objectForKey:@"identifier"] isEqual:packageIdentifier]) {
             if (version != NULL && comparison != NULL) {
-                return [self doesVersion:[dict objectForKey:@"version"] satisfyComparison:comparison ofVersion:version];
+                return [ZBDependencyResolver doesVersion:[dict objectForKey:@"version"] satisfyComparison:comparison ofVersion:version];
             }
             
             return YES;
@@ -254,7 +293,7 @@
                 //We should now have a separate version and a comparison string
                 
                 if ([depID isEqualToString:components[0]]) {
-                    return [self doesVersion:[depVersionComponenets count] > 1 ? depVersionComponenets[2] : NULL satisfyComparison:components[1] ofVersion:components[2]];
+                    return [ZBDependencyResolver doesVersion:[depVersionComponenets count] > 1 ? depVersionComponenets[2] : NULL satisfyComparison:components[1] ofVersion:components[2]];
                 }
             }
             else {
@@ -266,38 +305,6 @@
     }
     
     return NO;
-}
-
-- (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version {
-    NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
-    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
-    if (candidate == NULL || version == NULL || comparison == NULL) return YES;
-
-    int nx = (int)[choices indexOfObject:comparison];
-    switch (nx) {
-        case 0:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending;
-        case 1:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
-        case 2:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedSame;
-        case 3:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
-        case 4:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending;
-        default:
-            return NO;
-    }
-}
-
-- (NSComparisonResult)compareVersion:(NSString *)firstVersion toVersion:(NSString *)secondVersion {
-    int result = compare([firstVersion UTF8String], [secondVersion UTF8String]);
-    if (result < 0)
-        return NSOrderedAscending;
-    if (result > 0)
-        return NSOrderedDescending;
-    return NSOrderedSame;
 }
 
 - (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package ignoreFurtherDependencies:(BOOL)ignore {

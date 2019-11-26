@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
     ZBQueue *queue;
 }
 + (NSArray *)separateVersionComparison:(NSString *)dependency;
++ (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version;
++ (BOOL)doesVersion:(NSString *)candidate satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
++ (NSComparisonResult)compareVersion:(NSString *)firstVersion toVersion:(NSString *)secondVersion;
 - (id)initWithPackage:(ZBPackage *)package;
 - (BOOL)immediateResolution;
 @end
