@@ -279,25 +279,22 @@
         }
     }
     
-    return [self packageIsProvided:packageIdentifier];
+    return [self isPackageProvided:packageIdentifier thatSatisfiesComparison:comparison ofVersion:version];
 }
 
-- (BOOL)packageIsProvided:(NSString *)depLine {
-    NSArray *depVersionComponenets = [ZBDependencyResolver separateVersionComparison:depLine];
-    NSString *depID = depVersionComponenets[0];
-    
+- (BOOL)isPackageProvided:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *_Nullable)comparison ofVersion:(NSString *_Nullable)version {
     for (NSString *providedPackage in virtualPackagesList) {
-        if ([providedPackage containsString:depID]) {
+        if ([providedPackage containsString:packageIdentifier]) {
             if ([providedPackage containsString:@"("] || [providedPackage containsString:@")"]) {
                 NSArray *components = [ZBDependencyResolver separateVersionComparison:providedPackage];
                 //We should now have a separate version and a comparison string
                 
-                if ([depID isEqualToString:components[0]]) {
-                    return [ZBDependencyResolver doesVersion:[depVersionComponenets count] > 1 ? depVersionComponenets[2] : NULL satisfyComparison:components[1] ofVersion:components[2]];
+                if ([packageIdentifier isEqualToString:components[0]]) {
+                    return [ZBDependencyResolver doesVersion:components[2] satisfyComparison:comparison ofVersion:version];
                 }
             }
             else {
-                if ([depID isEqualToString:providedPackage]) {
+                if ([packageIdentifier isEqualToString:providedPackage]) {
                     return YES;
                 }
             }
