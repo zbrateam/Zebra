@@ -358,7 +358,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param identifier The identifier of the package in question.
  @return A ZBPackage instance that matches the parameters.
  */
-- (ZBPackage *)packageThatProvides:(NSString *)identifier;
+- (ZBPackage *)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude;
 
 /*!
  @brief Mainly used in dependency resolution, this will return a ZBPackage instance that matches the parameters.
@@ -378,15 +378,6 @@ NS_ASSUME_NONNULL_BEGIN
 */
 - (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
 - (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual;
-
-/*!
- @brief Mainly used in dependency resolution, this will return whether or not a specific package satisfies a version comparison.
- @param package A ZBPackage instance.
- @param comparison Used for version comparison. Must be "<<", "<=", "=", ">=", or ">>".
- @param version Used for version comparison.
- @return YES if the package does satisfy this version comparison, NO otherwise.
- */
-- (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(NSString *)comparison ofVersion:(NSString *)version;
 
 /*!
  @brief An array of every version of a package in the database.

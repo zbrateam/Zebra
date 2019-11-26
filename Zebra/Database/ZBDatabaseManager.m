@@ -8,8 +8,10 @@
 
 @import Crashlytics;
 
-#import <ZBLog.h>
 #import "ZBDatabaseManager.h"
+#import "ZBDependencyResolver.h"
+
+#import <ZBLog.h>
 #import <ZBDevice.h>
 #import <Parsel/parsel.h>
 #import <Parsel/vercmp.h>
@@ -1093,49 +1095,107 @@
 
 #pragma mark - Package lookup
 
-- (ZBPackage *)packageThatProvides:(NSString *)identifier {
+- (ZBPackage *)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
+    return [self packageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:NULL];
+}
+
+- (ZBPackage *)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID > 0 LIMIT 1;", identifier];
+        NSString *query;
+        if (exclude) {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID > 0 AND PACKAGE != '%@' LIMIT 1;", identifier, [exclude identifier]];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID > 0 LIMIT 1;", identifier];
+        }
         
-        ZBPackage *package = nil;
+        //FIXME: Better search terms (fix zip, bzip2, gzip bug)
+        NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                break;
+                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                [packages addObject:package];
             }
         } else {
             [self printDatabaseError];
+            return NULL;
         }
         sqlite3_finalize(statement);
-        return package;
+        
+        for (ZBPackage *package in packages) {
+            //If there is a comparison and a version then we return the first package that satisfies this comparison, otherwise we return the first package we see
+            //(this also sets us up better later for interactive dependency resolution)
+            if (comparison && version && [ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                [self closeDatabase];
+                return package;
+            }
+            else if (!comparison || !version) {
+                [self closeDatabase];
+                return package;
+            }
+        }
+        
+        [self closeDatabase];
+        return NULL;
     }
     [self printDatabaseError];
     return NULL;
 }
 
-- (ZBPackage *)installedPackageThatProvides:(NSString *)identifier {
+- (ZBPackage *)installedPackageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
+    return [self installedPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:NULL];
+}
+
+- (ZBPackage *)installedPackageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID = 0 LIMIT 1;", identifier];
+        NSString *query;
+        if (exclude) {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID = 0 AND PACKAGE != '%@' LIMIT 1;", identifier, [exclude identifier]];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PROVIDES LIKE \'%%%@\%%\' AND REPOID = 0 LIMIT 1;", identifier];
+        }
         
-        ZBPackage *package = nil;
+        //FIXME: Better search terms (fix zip, bzip2, gzip bug)
+        NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                break;
+                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                [packages addObject:package];
             }
         } else {
             [self printDatabaseError];
+            return NULL;
         }
         sqlite3_finalize(statement);
-        return package;
+        
+        for (ZBPackage *package in packages) {
+            //If there is a comparison and a version then we return the first package that satisfies this comparison, otherwise we return the first package we see
+            //(this also sets us up better later for interactive dependency resolution)
+            if (comparison && version && [ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                [self closeDatabase];
+                return package;
+            }
+            else if (!comparison || !version) {
+                [self closeDatabase];
+                return package;
+            }
+        }
+        
+        [self closeDatabase];
+        return NULL;
     }
     [self printDatabaseError];
     return NULL;
 }
 
 - (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
+    return [self packageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true];
+}
+
+- (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID > 0 LIMIT 1;", identifier];
         
@@ -1152,8 +1212,8 @@
         sqlite3_finalize(statement);
         
         // Only try to resolve "Provides" if we can't resolve the normal package.
-        if (package == NULL && version == NULL && comparison == NULL) {
-            package = [self packageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
+        if (checkVirtual && package == NULL) {
+            package = [self installedPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
         
         if (package != NULL) {
@@ -1161,7 +1221,7 @@
             if (version != NULL && comparison != NULL) {
                 if ([otherVersions count] > 1) {
                     for (ZBPackage *package in otherVersions) {
-                        if ([self doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                        if ([ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version]) {
                             [self closeDatabase];
                             return package;
                         }
@@ -1171,7 +1231,7 @@
                     return NULL;
                 }
                 [self closeDatabase];
-                return [self doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
+                return [ZBDependencyResolver doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
             }
             else {
                 return otherVersions[0];
@@ -1186,12 +1246,22 @@
 }
 
 - (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
-    return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true];
+    return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true thatIsNot:NULL];
 }
 
 - (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
+    return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:checkVirtual thatIsNot:NULL];
+}
+
+- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 LIMIT 1;", identifier];
+        NSString *query;
+        if (exclude) {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 AND PACKAGE != '\%@\' LIMIT 1;", identifier, [exclude identifier]];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 LIMIT 1;", identifier];
+        }
         
         ZBPackage *package;
         sqlite3_stmt *statement;
@@ -1206,14 +1276,14 @@
         sqlite3_finalize(statement);
         
         // Only try to resolve "Provides" if we can't resolve the normal package.
-        if (checkVirtual && package == NULL && version == NULL && comparison == NULL) {
-            package = [self installedPackageThatProvides:identifier]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
+        if (checkVirtual && package == NULL) {
+            package = [self installedPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:exclude]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
         
         if (package != NULL) {
             if (version != NULL && comparison != NULL) {
                 [self closeDatabase];
-                return [self doesPackage:package satisfyComparison:comparison ofVersion:version] ? package : NULL;
+                return [ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version] ? package : NULL;
             }
             else {
                 [self closeDatabase];
@@ -1226,30 +1296,6 @@
     }
     [self printDatabaseError];
     return NULL;
-}
-
-- (BOOL)doesPackage:(ZBPackage *)package satisfyComparison:(nonnull NSString *)comparison ofVersion:(nonnull NSString *)version {
-    NSArray *choices = @[@"<<", @"<=", @"=", @">=", @">>"];
-    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
-    if (version == NULL || comparison == NULL)
-        return YES;
-
-    int nx = (int)[choices indexOfObject:comparison];
-    switch (nx) {
-        case 0:
-            return [package compare:version] == NSOrderedAscending;
-        case 1:
-            return [package compare:version] == NSOrderedAscending || [package compare:version] == NSOrderedSame;
-        case 2:
-            return [package compare:version] == NSOrderedSame;
-        case 3:
-            return [package compare:version] == NSOrderedDescending || [package compare:version] == NSOrderedSame;
-        case 4:
-            return [package compare:version] == NSOrderedDescending;
-        default:
-            return NO;
-    }
 }
 
 - (NSArray *)allVersionsForPackage:(ZBPackage *)package {
@@ -1402,14 +1448,18 @@
 }
 
 - (NSArray <ZBPackage *> *)packagesThatDependOn:(ZBPackage *)package {
+    return [self packagesThatDependOnPackageIdentifier:[package identifier] removedPackage:package];
+}
+
+- (NSArray <ZBPackage *> *)packagesThatDependOnPackageIdentifier:(NSString *)packageIdentifier removedPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         
-        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", [package identifier]] UTF8String];
-        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", [package identifier]] UTF8String];
-        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", [package identifier]] UTF8String];
-        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", [package identifier]] UTF8String];
-        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", [package identifier]] UTF8String];
+        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
+        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIdentifier] UTF8String];
+        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
+        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIdentifier] UTF8String];
+        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIdentifier] UTF8String];
         
         const char *query = "SELECT * FROM PACKAGES WHERE (DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS = ?) AND REPOID = 0;";
         sqlite3_stmt *statement;
@@ -1419,13 +1469,21 @@
             sqlite3_bind_text(statement, 3, thirdSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 4, fourthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 5, fifthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 6, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 6, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *found = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 [found setRemovedBy:package];
-                [packages addObject:found];
                 
+                [packages addObject:found];
+            }
+        }
+        
+        for (NSString *provided in [package provides]) { //If the package is removed and there is no other package that provides this dependency, we have to remove those as well
+            if ([provided containsString:packageIdentifier]) continue;
+            NSArray *componenets = [ZBDependencyResolver separateVersionComparison:provided];
+            if (![self installedPackageForIdentifier:componenets[0] thatSatisfiesComparison:componenets[1] ofVersion:componenets[2] includeVirtualPackages:true thatIsNot:package]) {
+                [packages addObjectsFromArray:[self packagesThatDependOnPackageIdentifier:provided removedPackage:package]];
             }
         }
         
@@ -1463,8 +1521,8 @@
         for (ZBPackage *conflictingPackage in [packages copy]) {
             for (NSString *conflict in [conflictingPackage conflictsWith]) {
                 if (([conflict containsString:@"("] || [conflict containsString:@")"]) && [conflict containsString:[package identifier]]) {
-                    NSArray *versionComparison = [self separateVersionComparison:conflict];
-                    if (![self doesPackage:package satisfyComparison:versionComparison[1] ofVersion:versionComparison[2]]) {
+                    NSArray *versionComparison = [ZBDependencyResolver separateVersionComparison:conflict];
+                    if (![ZBDependencyResolver doesPackage:package satisfyComparison:versionComparison[1] ofVersion:versionComparison[2]]) {
                         [packages removeObject:conflictingPackage];
                     }
                 }
@@ -1475,23 +1533,6 @@
     }
     [self printDatabaseError];
     return NULL;
-}
-
-- (NSArray *)separateVersionComparison:(NSString *)dependency {
-    NSUInteger openIndex = [dependency rangeOfString:@"("].location;
-    NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
-    
-    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *comparison;
-    
-    NSScanner *scanner = [NSScanner scannerWithString:version];
-    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
-    [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
-    [scanner scanCharactersFromSet:versionChars intoString:&version];
-    
-    return @[packageIdentifier, comparison, version];
 }
 
 #pragma mark - Hyena Delegate
