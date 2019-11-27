@@ -54,8 +54,8 @@
     }
     
     //Check the uid/gid bits of permissions
-    BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) != 0;
-    BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) != 0;
+    BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) == 0;
+    BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) == 0;
     if (cannot_set_uid || cannot_set_gid) {
         return YES;
     }
