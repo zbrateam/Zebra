@@ -128,8 +128,8 @@
 "Show Updates" = "Rādīt atjauninājumus";
 "Ignore Updates" = "Ignorēt atjauninājumus";
 "Select Version" = "Ieslēgt versiju";
-"Select a version to upgrade to" = "Izvēlies versiju, uz kuru jaunināt";
-"Select a version to downgrade to" = "Select a version to downgrade to";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Pakete";
 "Information" = "Informācija";
 "Upgrade All" = "Visus jaunināt";
