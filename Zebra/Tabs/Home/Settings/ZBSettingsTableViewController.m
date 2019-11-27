@@ -389,7 +389,7 @@ enum ZBMiscOrder {
         case ZBAdvanced: {
             NSString *text = nil;
             if (indexPath.row == ZBDropTables) {
-                text = @"Drop Tables"; // This should probably not be localized since DROP TABLE is a SQL thing
+                text = NSLocalizedString(@"Drop Tables", @""); // This should probably not be localized since DROP TABLE is a SQL thing
             } else if (indexPath.row == ZBOpenDocs) {
                 text = NSLocalizedString(@"Open Documents Directory", @"");
             } else if (indexPath.row == ZBClearImageCache) {
