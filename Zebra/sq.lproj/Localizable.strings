@@ -86,7 +86,7 @@
 "Resetting image cache completed" = "Rivendosja e 'cache' së imazhit u krye";
 "Clearing keychain completed" = "Fshirja e \"keychain\" perfundoi";
 
-"Drop Tables" = "Rifresko burimet";
+"Drop Tables" = "Rifresko Burimet";
 
 "Alternate Icons" = "Ikona Alternative";
 
@@ -128,8 +128,8 @@
 "Show Updates" = "Shfaq përditsimet";
 "Ignore Updates" = "Injoro përditsimet";
 "Select Version" = "Zgjidh Versionin";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "Zgjidh një verzion për ta përditsuar në:";
+"Select a version to downgrade to:" = "Zgjidhni një version për të zbritur në:";
 "Package" = "Paketa";
 "Information" = "Informacion";
 "Upgrade All" = "Përditso të gjitha";
@@ -290,8 +290,8 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nuk ishte në gjendje ta plotësonte këtë komandë sepse nuk ka lejet e duhura. Ju lutemi verifikoni lejet e vendosura në /usr/libexec/zebra/supersling dhe raportoni këtë çështje në GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "E pamundur për të hyrë në su/sling. Ju lutemi verifikoni që ekziston /usr/libexec/zebra/supersling.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk është në pronësi të root:wheel. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk ka leje për të përcaktuar uid ose gid. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
