@@ -128,8 +128,8 @@
 "Show Updates" = "Visa uppdateringar";
 "Ignore Updates" = "Ignorera uppdateringar";
 "Select Version" = "Välj version";
-"Select a version to upgrade to" = "Välj en version att uppgradera till";
-"Select a version to downgrade to" = "Välj en version att nedgradera till";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Paket";
 "Information" = "Information";
 "Upgrade All" = "Uppgradera alla";
