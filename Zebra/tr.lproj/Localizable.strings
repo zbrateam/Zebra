@@ -128,8 +128,8 @@
 "Show Updates" = "Güncellemeleri Göster";
 "Ignore Updates" = "Güncellemeleri Gizle";
 "Select Version" = "Versiyon Seçin";
-"Select a version to upgrade to" = "Yüklenecek versiyonu seçin";
-"Select a version to downgrade to" = "Select a version to downgrade to";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Paket";
 "Information" = "Bilgi";
 "Upgrade All" = "Hepsini Güncelle";
