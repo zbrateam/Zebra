@@ -38,6 +38,31 @@
 #endif
 }
 
+//Check to see if su/sling has the proper setuid/setgid bit
+//We shouldn't do a dispatch_once because who knows when the file could be changed
+//Returns YES if su/sling's setuid/setgid permissions need to be reset
++ (BOOL)slingshotBroken {
+    if ([ZBDevice needsSimulation]) return NO; //Simulated devices don't have su/sling so they're ok
+    
+    struct stat path_stat;
+    if (stat("/usr/libexec/zebra/supersling", &path_stat) != 0) {
+        return YES; //If we can't access the file, it is likely broken
+    }
+    
+    if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
+        return YES; //If the uid/gid aren't 0 then theres a problem
+    }
+    
+    //Check the uid/gid bits of permissions
+    BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) != 0;
+    BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) != 0;
+    if (cannot_set_uid || cannot_set_gid) {
+        return YES;
+    }
+    
+    return NO; //su/sling is  ok
+}
+
 + (NSString *)UDID {
     static NSString *udid = nil;
     static dispatch_once_t onceToken;
