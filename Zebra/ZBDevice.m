@@ -41,15 +41,23 @@
 //Check to see if su/sling has the proper setuid/setgid bit
 //We shouldn't do a dispatch_once because who knows when the file could be changed
 //Returns YES if su/sling's setuid/setgid permissions need to be reset
-+ (BOOL)slingshotBroken {
++ (BOOL)isSlingshotBrokenWithError:(NSError *_Nullable*_Nullable)error {
     if ([ZBDevice needsSimulation]) return NO; //Simulated devices don't have su/sling so they're ok
     
     struct stat path_stat;
-    if (stat("/usr/libexec/zebra/supersling", &path_stat) != 0) {
+    stat("/usr/libexec/zebra/supersling", &path_stat);
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"]) { //this doesn't work??
+        NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:50 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.", @"")}];
+        *error = cannotAccessError;
+        
         return YES; //If we can't access the file, it is likely broken
     }
     
     if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
+        NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];
+        *error = cannotAccessError;
+        
         return YES; //If the uid/gid aren't 0 then theres a problem
     }
     
@@ -57,6 +65,9 @@
     BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) == 0;
     BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) == 0;
     if (cannot_set_uid || cannot_set_gid) {
+        NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];
+        *error = cannotAccessError;
+        
         return YES;
     }
     

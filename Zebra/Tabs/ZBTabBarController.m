@@ -62,8 +62,9 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
     
-    if ([ZBDevice slingshotBroken]) {
-        [ZBAppDelegate sendErrorToTabController:@"Su/sling is broken."];
+    NSError *error;
+    if ([ZBDevice isSlingshotBrokenWithError:&error]) { //error should never be null if the function returns YES
+        [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
     }
 }
 
