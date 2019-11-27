@@ -128,8 +128,8 @@
 "Show Updates" = "إظهار التحديثات";
 "Ignore Updates" = "تجاهل التحديثات";
 "Select Version" = "اختيار إصدار";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "اختر إصدار للترقية إليه:";
+"Select a version to downgrade to:" = "اختر إصدار للخفض إليه:";
 "Package" = "حزمة";
 "Information" = "معلومات";
 "Upgrade All" = "ترقية الكل";
@@ -290,8 +290,8 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "لم يتمكن Zebra من إكمال هذا الأمر البرمجي لأنه لا يملك الأذونات الصحيحة. يرجى التحقق من الأذونات الموجودة في /usr/libexec/zebra/supersling والإبلاغ عن هذه المشكلة على GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "غير قادر على الوصول إلى su/sling. يرجى التحقق من وجود /usr/libexec/zebra/supersling.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليست مملوكة من قبل root:wheel. يرجى التحقق من أذونات الملف الموجودة في /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
