@@ -42,12 +42,13 @@
 //We shouldn't do a dispatch_once because who knows when the file could be changed
 //Returns YES if su/sling's setuid/setgid permissions need to be reset
 + (BOOL)isSlingshotBrokenWithError:(NSError *_Nullable*_Nullable)error {
-    if ([ZBDevice needsSimulation]) return NO; //Simulated devices don't have su/sling so they're ok
-    
+#if TARGET_OS_SIMULATOR
+    return NO;
+#else
     struct stat path_stat;
     stat("/usr/libexec/zebra/supersling", &path_stat);
     
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"]) { //this doesn't work??
+    if (![self _isRegularFile:@"/usr/libexec/zebra/supersling"]) { //this doesn't work?? edit: im a fool??
         NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:50 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.", @"")}];
         *error = cannotAccessError;
         
@@ -72,6 +73,7 @@
     }
     
     return NO; //su/sling is  ok
+#endif
 }
 
 + (NSString *)UDID {
