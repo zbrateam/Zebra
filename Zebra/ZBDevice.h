@@ -14,7 +14,7 @@
 @interface ZBDevice : NSObject
 // Device management
 + (BOOL)needsSimulation;
-+ (BOOL)slingshotBroken
++ (BOOL)slingshotBroken;
 + (NSString *_Nullable)UDID;
 + (NSString *_Nullable)deviceModelID;
 + (NSString *_Nullable)machineID;

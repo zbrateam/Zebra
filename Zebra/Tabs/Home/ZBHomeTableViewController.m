@@ -73,6 +73,10 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self colorWindow];
     [self registerView];
+    
+    if ([ZBDevice slingshotBroken]) {
+        [ZBAppDelegate sendErrorToTabController:@"Su/sling is broken."];
+    }
 }
 
 - (void)setupFeatured {
