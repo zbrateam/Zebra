@@ -128,8 +128,8 @@
 "Show Updates" = "Rodyti atnaujinimus";
 "Ignore Updates" = "Ignoruoti atnaujinimus";
 "Select Version" = "Pasirinkti versiją";
-"Select a version to upgrade to" = "Pasirinkti naujinimo versiją";
-"Select a version to downgrade to" = "Pasirinkite versiją į kurią norite grįžti";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Paketas";
 "Information" = "Informacija";
 "Upgrade All" = "Atnaujinti visus";
