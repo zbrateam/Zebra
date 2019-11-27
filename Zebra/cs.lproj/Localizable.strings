@@ -128,8 +128,8 @@
 "Show Updates" = "Zobrazit Aktualizace";
 "Ignore Updates" = "Ignorovat Aktualizace";
 "Select Version" = "Vyberte Verzi";
-"Select a version to upgrade to" = "Vyberte verzi, na kterou chcete aktualizovat";
-"Select a version to downgrade to" = "Select a version to downgrade to";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Balíček";
 "Information" = "Informace";
 "Upgrade All" = "Upgradovat vše";
