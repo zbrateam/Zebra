@@ -99,6 +99,12 @@
         self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
     self.title = NSLocalizedString(@"Console", @"");
+    
+    NSError *error;
+    if ([ZBDevice isSlingshotBrokenWithError:&error]) {
+        [ZBAppDelegate sendAlertFrom:self message:error.localizedDescription];
+    }
+    
     [self setupView];
 }
 
