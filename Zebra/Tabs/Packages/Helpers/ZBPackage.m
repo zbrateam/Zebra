@@ -562,34 +562,7 @@
 }
 
 - (NSString *)installedVersion {
-    if ([ZBDevice needsSimulation])
-        return self.version;
-	NSTask *installedVersionTask = [[NSTask alloc] init];
-    [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"/usr/bin/dpkg", @"-s", self.identifier, nil];
-    [installedVersionTask setArguments:versionArgs];
-    
-    NSPipe *outPipe = [NSPipe pipe];
-    [installedVersionTask setStandardOutput:outPipe];
-    
-    [installedVersionTask launch];
-    
-    NSFileHandle *read = [outPipe fileHandleForReading];
-    NSData *dataRead = [read readDataToEndOfFile];
-    [installedVersionTask waitUntilExit];
-    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    
-    __block NSString *version = @"0.0";
-	[stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-		if ([line hasPrefix:@"Version:"]) {
-            line = [line stringByReplacingOccurrencesOfString:@" " withString:@""];
-            version = [line substringFromIndex:8];
-            *stop = YES;
-        }
-	}];
-
-    [read closeFile];
-    return version;
+    return self.version;
 }
 
 - (void)addDependency:(ZBPackage *)package {
