@@ -128,8 +128,8 @@
 "Show Updates" = "Shfaq përditsimet";
 "Ignore Updates" = "Injoro përditsimet";
 "Select Version" = "Zgjidh Versionin";
-"Select a version to upgrade to" = "Zgjidh një verzion për ta përditsuar";
-"Select a version to downgrade to" = "Zgjidhni një version për të zbritur në";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Paketa";
 "Information" = "Informacion";
 "Upgrade All" = "Përditso të gjitha";
