@@ -225,21 +225,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
     [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
-//    [self stablilityCheck];
     
     if (@available(iOS 13.0, *)) {
         [self.window setOverrideUserInterfaceStyle:1];
     }
     return YES;
 }
-
-//- (void)stablilityCheck {
-//    if (![ZBDevice needsSimulation]) {
-//        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
-//            [[self class] sendErrorToTabController:@"apt not found in your system, please try reinstalling \"APT\" from Cydia"];
-//        }
-//    }
-//}
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];

@@ -409,9 +409,6 @@
             if (selectedSortingType == ZBSortingTypeDate)
                 return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterShortStyle];
         }
-//        if (selectedSortingType == ZBSortingTypeDate) {
-//            return NSLocalizedString(@"Recent", @"");
-//        }
         if (selectedSortingType == ZBSortingTypeInstalledSize) {
             return @"Size";
         }

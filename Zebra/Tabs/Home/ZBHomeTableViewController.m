@@ -187,11 +187,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [filtered addObject:repo];
             }
         }
-        /*while (self -> allFeatured.count < 100) {
-            
-            NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesFromRepo:NULL inSection:NULL numberOfPackages:300 startingAt:0];
-        }*/
-        // NSMutableArray *filtered
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [self createHeader];

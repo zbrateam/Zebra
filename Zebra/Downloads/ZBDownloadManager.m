@@ -669,7 +669,7 @@
         if ([extension isEqualToString:@"txt"]) { //Likely Packages.txt or Release.txt
             return @"text/plain";
         }
-        else if ([extension isEqualToString:@"deb"] || [extension containsString:@"deb"]) { //A deb
+        else if ([extension containsString:@"deb"]) { //A deb
             return @"application/x-deb";
         }
         else if ([extension isEqualToString:@"bz2"]) { //.bz2
@@ -679,11 +679,8 @@
             return @"application/x-gzip";
         }
     }
-    else { //We're going to assume this is a Release or uncompressed Packages file
-        return @"text/plain";
-    }
-    
-    return @"not-found";
+    // We're going to assume this is a Release or uncompressed Packages file
+    return @"text/plain";
 }
 
 - (NSString *)repoSaveName:(NSURL *)url filename:(NSString *)filename {
@@ -790,7 +787,7 @@
 }
 
 - (BOOL)isSessionOutOfTasks:(NSURLSession *)sesh {
-    __block BOOL outOfTasks;
+    __block BOOL outOfTasks = NO;
     [sesh getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         outOfTasks = dataTasks.count == 0;
     }];

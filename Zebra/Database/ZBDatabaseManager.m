@@ -1481,8 +1481,9 @@
         
         for (NSString *provided in [package provides]) { //If the package is removed and there is no other package that provides this dependency, we have to remove those as well
             if ([provided containsString:packageIdentifier]) continue;
-            NSArray *componenets = [ZBDependencyResolver separateVersionComparison:provided];
-            if (![self installedPackageForIdentifier:componenets[0] thatSatisfiesComparison:componenets[1] ofVersion:componenets[2] includeVirtualPackages:true thatIsNot:package]) {
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:provided];
+            if (![self installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:true thatIsNot:package]) {
+                // FIXME: possible recursion overflow
                 [packages addObjectsFromArray:[self packagesThatDependOnPackageIdentifier:provided removedPackage:package]];
             }
         }

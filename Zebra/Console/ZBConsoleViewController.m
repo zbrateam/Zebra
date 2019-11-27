@@ -433,7 +433,7 @@
 }
 
 - (void)removeAllDebs {
-    ZBLog(@"Removing all debs");
+    ZBLog(@"[Zebra] Removing all debs");
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[ZBAppDelegate debsLocation]];
     NSString *file;
 

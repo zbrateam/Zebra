@@ -195,23 +195,14 @@
 }
 
 + (BOOL)_isRegularFile:(NSString *)path {
-//    struct stat path_stat;
-//    stat(path, &path_stat);
-//    return S_ISREG(path_stat.st_mode);
-    BOOL isDir;
+    BOOL isDir = NO;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
-    
     return exists && !isDir;
 }
 
 + (BOOL)_isRegularDirectory:(NSString *)path {
-//    struct stat path_stat;
-//    stat(path, &path_stat);
-//    return S_ISDIR(path_stat.st_mode);
-    
-    BOOL isDir;
+    BOOL isDir = NO;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
-    
     return exists && isDir;
 }
 
@@ -266,17 +257,14 @@
 }
 
 + (NSString * _Nonnull)deviceType {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         return @"iPad"; /* Device is iPad */
-    } else {
-        return @"iPhone/iPod";
-    }
+    return @"iPhone/iPod";
 }
 
 // Dark mode
 + (BOOL)darkModeEnabled {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:@"darkMode"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"];
 }
 
 + (BOOL)darkModeOledEnabled {
@@ -304,8 +292,7 @@
 
     if (darkMode) {
         [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
-    }
-    else {
+    } else {
         [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
     }
 }
@@ -319,7 +306,7 @@
     if (@available(iOS 11.0, *)) {
         [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     }
-    if ([ZBDevice darkModeOledEnabled]){
+    if ([ZBDevice darkModeOledEnabled]) {
         [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
         [[UINavigationBar appearance] setTranslucent:NO];
     } else {
@@ -443,8 +430,7 @@
 }
 
 + (BOOL)useIcon {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:iconActionKey];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey];
 }
 
 @end

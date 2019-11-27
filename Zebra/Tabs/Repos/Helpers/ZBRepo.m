@@ -176,7 +176,7 @@
     if (![object isKindOfClass:[ZBRepo class]])
         return NO;
     
-    return ([[object baseFileName] isEqual:[self baseFileName]]);
+    return [[object baseFileName] isEqual:[self baseFileName]];
 }
 
 - (NSString *)description {

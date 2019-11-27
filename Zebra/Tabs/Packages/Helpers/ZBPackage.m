@@ -285,7 +285,7 @@
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
-        [self setName:packageNameChars != 0 ? [NSString stringWithUTF8String:packageNameChars] : self.identifier]; // fall back to ID if NULL
+        [self setName:packageNameChars != 0 ? [NSString stringWithUTF8String:packageNameChars] : (self.identifier ?: @"Unknown")]; // fall back to ID if NULL, or Unknown if things get worse
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
         [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
@@ -562,34 +562,7 @@
 }
 
 - (NSString *)installedVersion {
-    if ([ZBDevice needsSimulation])
-        return self.version;
-	NSTask *installedVersionTask = [[NSTask alloc] init];
-    [installedVersionTask setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    NSArray *versionArgs = [[NSArray alloc] initWithObjects:@"/usr/bin/dpkg", @"-s", self.identifier, nil];
-    [installedVersionTask setArguments:versionArgs];
-    
-    NSPipe *outPipe = [NSPipe pipe];
-    [installedVersionTask setStandardOutput:outPipe];
-    
-    [installedVersionTask launch];
-    
-    NSFileHandle *read = [outPipe fileHandleForReading];
-    NSData *dataRead = [read readDataToEndOfFile];
-    [installedVersionTask waitUntilExit];
-    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    
-    __block NSString *version = @"0.0";
-	[stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-		if ([line hasPrefix:@"Version:"]) {
-            line = [line stringByReplacingOccurrencesOfString:@" " withString:@""];
-            version = [line substringFromIndex:8];
-            *stop = YES;
-        }
-	}];
-
-    [read closeFile];
-    return version;
+    return self.version;
 }
 
 - (void)addDependency:(ZBPackage *)package {
