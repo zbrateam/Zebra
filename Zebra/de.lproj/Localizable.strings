@@ -128,8 +128,8 @@
 "Show Updates" = "Aktualisierungen anzeigen";
 "Ignore Updates" = "Aktualisierungen ignorieren";
 "Select Version" = "Version auswählen";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "Version auswählen, auf die aktualisiert werden soll:";
+"Select a version to downgrade to:" = "Version auswählen, auf die heruntergestuft werden soll:";
 "Package" = "Paket";
 "Information" = "Informationen";
 "Upgrade All" = "Alles Aktualisieren";
