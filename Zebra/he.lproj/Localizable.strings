@@ -128,8 +128,8 @@
 "Show Updates" = "הצג עדכונים";
 "Ignore Updates" = "התעלם מעדכונים";
 "Select Version" = "בחר גירסה";
-"Select a version to upgrade to" = "בחר/י גירסה לעדכן אליה";
-"Select a version to downgrade to" = "בחר/י גירסה לשנמך אליה";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "חבילה";
 "Information" = "מידע";
 "Upgrade All" = "עדכן הכל";
@@ -290,8 +290,8 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "זברה לא הצליחה להשלים פקודה זו מכיוון שאין לה את ההרשאות המתאימות. אנא אמת/י את ההרשאות הממוקמות ב- \n /usr/libexec/zebra/supersling ודווח/י על בעיה זו בעזרת GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "לא ניתן לגשת ל-su/sling. אנא ודא/י כי /usr/libexec/zebra/supersling קיים.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "הבעלות של su/sling אינה מוגדרת ל-root:wheel. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "חסרה ל-su/sling הרשאה להגדיר את ה-uid או ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
