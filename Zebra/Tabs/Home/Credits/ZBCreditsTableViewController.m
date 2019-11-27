@@ -106,7 +106,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSDictionary *person = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
     NSURL *url = [NSURL URLWithString:[person objectForKey:@"link"]];

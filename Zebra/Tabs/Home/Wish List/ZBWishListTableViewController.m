@@ -98,16 +98,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([wishedPackages count] != 0) {
+    if (wishedPackages.count != 0) {
         [self performSegueWithIdentifier:@"segueWishToPackageDepiction" sender:indexPath];
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([wishedPackages count] == 0) {
-        return NO;
-    }
-    return YES;
+    return wishedPackages.count != 0;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
