@@ -128,8 +128,8 @@
 "Show Updates" = "アップデートを表示";
 "Ignore Updates" = "アップデートを無視";
 "Select Version" = "バージョンを選択";
-"Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
-"Select a version to downgrade to" = "ダウングレードしたいバージョンを選択";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "パッケージ";
 "Information" = "情報";
 "Upgrade All" = "すべてアップグレード";
