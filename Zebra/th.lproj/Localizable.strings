@@ -128,8 +128,8 @@
 "Show Updates" = "แสดงรุ่นใหม่ถ้ามี";
 "Ignore Updates" = "ไม่สนใจรุ่นใหม่";
 "Select Version" = "เลือกรุ่น";
-"Select a version to upgrade to" = "เลือกรู่นที่จะทำการติดตั้ง";
-"Select a version to downgrade to" = "Select a version to downgrade to";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "โปรแกรม";
 "Information" = "ข้อมูล";
 "Upgrade All" = "อัพเดตทั้งหมด";
