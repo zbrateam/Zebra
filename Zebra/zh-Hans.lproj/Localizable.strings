@@ -128,8 +128,8 @@
 "Show Updates" = "显示更新";
 "Ignore Updates" = "忽略更新";
 "Select Version" = "选择版本";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "选择需要更新的版本：";
+"Select a version to downgrade to:" = "选择需要降级版本：";
 "Package" = "软件包";
 "Information" = "信息";
 "Upgrade All" = "全部更新";
