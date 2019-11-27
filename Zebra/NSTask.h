@@ -18,7 +18,7 @@
 @property (retain) id standardOutput;
 @property (retain) id standardError;
 @property (readonly) int processIdentifier;
-@property (getter=isRunning,readonly) BOOL running;
+@property (getter=isRunning, readonly) BOOL running;
 @property (readonly) int terminationStatus;
 @property (readonly) long long terminationReason;
 @property (copy) id terminationHandler;
