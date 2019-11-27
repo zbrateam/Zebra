@@ -128,8 +128,8 @@
 "Show Updates" = "Prikaži ažuriranja";
 "Ignore Updates" = "Ignoriraj ažuriranja";
 "Select Version" = "Odaberi verziju";
-"Select a version to upgrade to" = "Odaberite na koju se verziju želite nadograditi";
-"Select a version to downgrade to" = "Odaberite verziju na koju se želite spustiti";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Paket";
 "Information" = "Informacija";
 "Upgrade All" = "Nadogradi Sve";
