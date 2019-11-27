@@ -61,6 +61,10 @@
         [databaseManager updateDatabaseUsingCaching:YES userRequested:NO];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
+    
+    if ([ZBDevice slingshotBroken]) {
+        [ZBAppDelegate sendErrorToTabController:@"Su/sling is broken."];
+    }
 }
 
 - (void)applyLocalization {
