@@ -288,7 +288,7 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "한개 또는 그 이상의 중요하거나 필요한 패키지가 삭제를 위하여 대기열에 추가되어 있습니다. 이 작업은 내가 정확히 무엇을 하는지 알고 있지 않으면 실행하지 않는 것을 추천합니다. 이러한 패키지를 제거하면 돌이킬 수 없는 손상을 일으킬 수 있으며, 그 결과로 기기를 초기화하게 될 것 입니다.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra가 적절한 권한을 가지고 있지 않기 때문에 이 명령을 완료할 수 없습니다. /usr/libexec/zebra/supersling의 권한을 확인하고 GitHub에 이 문제를 신고해주세요.";
 
 "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
