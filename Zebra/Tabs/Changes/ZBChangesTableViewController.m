@@ -67,7 +67,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self registerView];
 }
 
 - (void)applyLocalization {
@@ -503,14 +502,6 @@
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-}
-
-#pragma mark - Analytics
-
-- (void)registerView {
-    NSString *screenName = self.title;
-    NSString *screenClass = [[self classForCoder] description];
-    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end

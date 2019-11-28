@@ -26,6 +26,8 @@
 #import "ZBPurchaseInfo.h"
 @import SDWebImage;
 
+@import Crashlytics;
+
 
 typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoID = 0,
@@ -138,6 +140,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] baseURL]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
