@@ -1610,4 +1610,32 @@
     }
 }
 
+- (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE = '%@' AND REPOID = 0", [package identifier]];
+        
+        NSString *version;
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                const char *versionChars = (const char *)sqlite3_column_text(statement, 0);
+                if (versionChars != 0) {
+                    version = [NSString stringWithUTF8String:versionChars];
+                }
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        return version;
+    }
+    
+    [self printDatabaseError];
+    [self closeDatabase];
+    return NULL;
+}
+
 @end

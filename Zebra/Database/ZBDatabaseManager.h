@@ -464,6 +464,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of all packages with a reachable icon.
  */
 - (NSArray *)packagesWithReachableIconsForRows:(int)limit;
+
+- (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END
