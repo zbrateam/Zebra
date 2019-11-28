@@ -371,11 +371,7 @@
                 continue;
             }
             
-            if ([finalPath containsString:[package identifier]]) {
-                [paths addObject:finalPath];
-                break;
-            }
-            else if ([finalPath containsString:packageFilename]) {
+            if ([finalPath containsString:packageFilename]) {
                 [paths addObject:finalPath];
                 break;
             }
