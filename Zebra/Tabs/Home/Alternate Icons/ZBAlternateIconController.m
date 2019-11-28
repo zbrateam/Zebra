@@ -8,6 +8,7 @@
 
 #import "ZBAlternateIconController.h"
 #import "UIColor+GlobalColors.h"
+#import <ZBDevice.h>
 
 @interface ZBAlternateIconController ()
 
@@ -69,12 +70,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [ZBDevice hapticButton];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         [self setIconWithName:nil fromIndex:indexPath];
     } else {
         [self setIconWithName:[icons objectAtIndex:indexPath.row] fromIndex:indexPath];
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {
