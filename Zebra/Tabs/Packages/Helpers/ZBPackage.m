@@ -75,7 +75,7 @@
 
 + (BOOL)respringRequiredFor:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
-        return YES;
+        return NO;
     }
     ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
