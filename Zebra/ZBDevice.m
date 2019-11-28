@@ -223,8 +223,8 @@
 + (void)uicache:(NSArray *)arguments observer:(NSObject <ZBConsoleCommandDelegate> *)observer {
     if (![self needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/uicache"];
-        [self task:task withArguments:arguments];
+        [task setLaunchPath:@"uicache"];
+        [self asRoot:task arguments:arguments];
         
         if (observer) {
             NSPipe *outputPipe = [[NSPipe alloc] init];
