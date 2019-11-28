@@ -296,4 +296,4 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Hjälpa till att översätta Zebra!";
