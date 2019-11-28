@@ -295,3 +295,5 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
+
+"Help translate Zebra!" = "Help translate Zebra!";
