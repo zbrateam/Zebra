@@ -26,7 +26,7 @@
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
 "Wish List" = "Vēlmju saraksts";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Vēlmju sarakstā nav paketes";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
 "Follow me on Twitter" = "Seko man Twitterī";
@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Attēla kešatmiņu notīrīšana ir pabeigta";
 "Clearing keychain completed" = "Pieslēgšanas notīrīšana ir pabeigta";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Noņem galdus";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Citi Iconi";
 
 // Sources
 
@@ -142,23 +142,23 @@
 "Available Upgrades" = "Pieejamie atjauninājumi";
 "Ignored Upgrades" = "Ignorētie atjauninājumi";
 "Recent" = "Nesen";
-"Repo" = "Repo";
+"Repo" = "Avots";
 "Installed Files" = "Instalētie faili";
 "Modify" = "Modificēt";
 "Authenticate to initiate purchase." = "Autentificējies, lai sākt pirkumu.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Lūdzu, pieslēdzies vēlreiz ar kontu, kas tieka izmantots, lai iegādātos šo paketi (iespējams %@)";
 "More by this Developer" = "Vairāk no šī izstrādātāja";
 "Installed Version" = "Instalētā versija";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Instalētais Lielums";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Instalētā versija: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Instalētais lielums: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d baiti";
 //Package size in Kilobytes (no decimal)
 "%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
@@ -172,7 +172,7 @@
 // Package Section Names
 
 "Administration" = "Administrācija";
-"Addons" = "Addons";
+"Addons" = "Papildinājumi";
 "App Addons" = "Appa plugini";
 "Archiving" = "Arhivēšana";
 "Carrier Support" = "Mobilā pārvadātāja plugini";
@@ -232,7 +232,7 @@
 // Console
 
 "Console" = "konsole";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Veicam darbības...";
 "Updating icon cache asynchronously..." = "Ikona kešatmiņa tiek atjaunota asinhroni...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tas var aizņemt laiku, un Zebra var crashot. Nav slikti, ja tā notiek.";
 "Close Zebra" = "Aizvert Zebra";
@@ -256,10 +256,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Pakas Rindā";
+"%d Package Queued" = "%d Paka Rindā";
+"Tap to manage" = "Piespied, lai pārvaldītu";
+"No Packages Queued" = "Nav pakešu rindā";
 
 // Queue
 
@@ -273,20 +273,20 @@
 "Continue" = "Turpināt";
 "Download Size" = "Lejupielādes lielums";
 "Confirm" = "Apstiprināt";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ must be removed because it depends on %@" = "%@ ir jānoņem, jo tas ir atkarīgs no %@";
+"Required Package" = "Nepieciešama Pakete";
+"%@ is required by:" = "%@ pieprasa:";
+"Issues" = "Problēmas";
+"%@ has issues that cannot be resolved:" = "%@ ir problēmas, kuras nevar atrisināt:";
+"Are you sure?" = "Vai esi pārliecināts?";
+"Are you sure you want to clear the queue?" = "Vai tiešām vēlies notīrīt rindu?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ ir nepieciešama pakete. To NEDRĪKST noņemt, ja vien precīzi nezini, ko dari!";
+"Remove from Queue" = "Noņemt no rindas";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ ir nepieciešama pakete, un tā ir jānoņem, jo tā ir atkarīga no %@. %@ NEDRĪKST noņemt, ja vien precīzi nezini, ko dari!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Viena, vai vairākas paketes no rindas ir svarīgi, vai nepieciešami. Nav ieteicams turpināt, ja precīzi nezināt, ko darāt. Noņemot šīs paketes, ierīcei var tikt nodarīts neatgriezenisks kaitējums un tā var tikt pilnībā atjaunota.";
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
