@@ -960,7 +960,7 @@
 
 - (BOOL)packageIDIsInstalled:(NSString *)packageIdentifier version:(NSString *_Nullable)version {
     if (version == NULL && [installedPackageIDs count] != 0) {
-        BOOL packageIsInstalled = [installedPackageIDs containsObject:packageIdentifier];
+        BOOL packageIsInstalled = [[installedPackageIDs copy] containsObject:packageIdentifier];
         ZBLog(@"[Zebra] [installedPackageIDs] Is %@ (version: %@) installed? : %d", packageIdentifier, version, packageIsInstalled);
         if (packageIsInstalled) {
             return packageIsInstalled;
