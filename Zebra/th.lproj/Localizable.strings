@@ -51,7 +51,7 @@
 
 "Report a Bug" = "รายงานข้อผิดพลาดของโปรแกรม";
 
-"Tint Color" = "สีตัวอักษร";
+"Tint Color" = "โทนสี";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
 "White" = "ขาว";
@@ -95,12 +95,12 @@
 "Sources" = "ซอร์ส";
 "Local Repository" = "ซอร์สในเครื่อง";
 "Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
-"Unknown" = "ไม่รู้จัก";
+"Unknown" = "ไม่ทราบ";
 "No repository urls detected." = "ไม่พบซอร์ส";
 "You have already added these repositories." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Error verifying repository" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
 "Error verifying repositories" = "เกิดข้อผิดพลาดในการตรวจสอบซอร์ส";
-"Unknown error" = "ข้อผิดพลาดที่ไม่รู้จัก";
+"Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
 "Enter URL" = "ใส่ URL";
 "Add Repo(s)" = "เพิ่มซอร์ส";
