@@ -22,6 +22,7 @@
 #import <unistd.h>
 @import SafariServices;
 @import LNPopupController;
+@import Crashlytics;
 
 @implementation ZBDevice
 
@@ -149,11 +150,15 @@
 
 + (void)sbreload {
     if (![self needsSimulation]) {
-        NSTask *sbreloadTask = [[NSTask alloc] init];
-        BOOL hasSbreload = [[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/sbreload"];
-        BOOL execed = NO;
+        BOOL failed;
+        
+        //Try sbreload
+        BOOL hasSbreload = [[NSFileManager defaultManager] isExecutableFileAtPath:@"/usr/bin/sbreload"];
         if (hasSbreload) {
-            [sbreloadTask setLaunchPath:@"/usr/bin/sbreload"];
+            failed = NO;
+            
+            NSTask *sbreloadTask = [[NSTask alloc] init];
+            [sbreloadTask setLaunchPath:@"sbreload"];
             [self asRoot:sbreloadTask arguments:nil];
             if (![sbreloadTask isRunning]) {
                 @try {
@@ -161,25 +166,56 @@
                     [sbreloadTask waitUntilExit];
                 }
                 @catch (NSException *e) {
-                    execed = YES;
+                    CLS_LOG(@"Could not spawn sbreload. Reason: %@", e.reason);
+                    failed = YES;
                 }
             } else {
-                execed = YES;
+                failed = YES;
             }
         }
         
-        if (!hasSbreload || execed || [sbreloadTask terminationStatus] != 0) {
-            if ([sbreloadTask isRunning]) {
-                [sbreloadTask terminate];
-            }
+        //Try launchctl
+        BOOL hasLaunchCTL = [[NSFileManager defaultManager] isExecutableFileAtPath:@"/sbin/launchctl"];
+        if (hasLaunchCTL && (!hasSbreload || failed)) {
+            failed = NO;
             
             NSTask *launchCTLTask = [[NSTask alloc] init];
-            NSLog(@"[Zebra] SBReload Failed. Trying to restart backboardd");
-            // Ideally, this is only if sbreload fails
-            [launchCTLTask setLaunchPath:@"/bin/launchctl"];
+            [launchCTLTask setLaunchPath:@"launchctl"];
             [self asRoot:launchCTLTask arguments:@[@"stop", @"com.apple.backboardd"]];
+            if (![launchCTLTask isRunning]) {
+                @try {
+                    [launchCTLTask launch];
+                    [launchCTLTask waitUntilExit];
+                }
+                @catch (NSException *e) {
+                    CLS_LOG(@"Could not spawn launchctl. Reason: %@", e.reason);
+                    failed = YES;
+                }
+            } else {
+                failed = YES;
+            }
+        }
+        
+        //Try killall
+        BOOL hasKillAll = [[NSFileManager defaultManager] isExecutableFileAtPath:@"/usr/bin/killall"];
+        if (hasKillAll && ((!hasSbreload && !hasLaunchCTL) || failed)) {
+            failed = NO;
             
-            [launchCTLTask launch];
+            NSTask *killallTask = [[NSTask alloc] init];
+            [killallTask setLaunchPath:@"killall"];
+            [self asRoot:killallTask arguments:@[@"-9", @"com.apple.backboardd"]];
+            if (![killallTask isRunning]) {
+                @try {
+                    [killallTask launch];
+                    [killallTask waitUntilExit];
+                }
+                @catch (NSException *e) {
+                    CLS_LOG(@"Could not spawn killall. Reason: %@", e.reason);
+                    failed = YES;
+                }
+            } else {
+                failed = YES;
+            }
         }
     }
 }
