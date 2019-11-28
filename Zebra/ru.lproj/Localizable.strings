@@ -295,3 +295,5 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не принадлежит root:wheel. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не имеет разрешения на установку uid или gid. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
+
+"Help translate Zebra!" = "Help translate Zebra!";
