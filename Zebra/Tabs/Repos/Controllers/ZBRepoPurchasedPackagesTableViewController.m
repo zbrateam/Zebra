@@ -163,12 +163,13 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
+    view.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    view.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+        
+    return view;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
