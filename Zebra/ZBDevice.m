@@ -150,73 +150,133 @@
 
 + (void)sbreload {
     if (![self needsSimulation]) {
-        BOOL failed;
+        BOOL failed = NO;
         
         //Try sbreload
-        BOOL hasSbreload = [[NSFileManager defaultManager] isExecutableFileAtPath:@"/usr/bin/sbreload"];
-        if (hasSbreload) {
-            failed = NO;
-            
-            NSTask *sbreloadTask = [[NSTask alloc] init];
-            [sbreloadTask setLaunchPath:@"sbreload"];
-            [self asRoot:sbreloadTask arguments:nil];
-            if (![sbreloadTask isRunning]) {
-                @try {
-                    [sbreloadTask launch];
-                    [sbreloadTask waitUntilExit];
-                }
-                @catch (NSException *e) {
-                    CLS_LOG(@"Could not spawn sbreload. Reason: %@", e.reason);
-                    failed = YES;
-                }
-            } else {
-                failed = YES;
-            }
+        NSLog(@"[Zebra] Trying sbreload");
+        @try {
+            [self runCommandInPath:@"sbreload"];
+        }
+        @catch (NSException *e) {
+            CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
+            NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
+            failed = YES;
         }
         
         //Try launchctl
-        BOOL hasLaunchCTL = [[NSFileManager defaultManager] isExecutableFileAtPath:@"/sbin/launchctl"];
-        if (hasLaunchCTL && (!hasSbreload || failed)) {
+        if (failed) {
+            NSLog(@"[Zebra] Trying launchctl");
             failed = NO;
             
-            NSTask *launchCTLTask = [[NSTask alloc] init];
-            [launchCTLTask setLaunchPath:@"launchctl"];
-            [self asRoot:launchCTLTask arguments:@[@"stop", @"com.apple.backboardd"]];
-            if (![launchCTLTask isRunning]) {
-                @try {
-                    [launchCTLTask launch];
-                    [launchCTLTask waitUntilExit];
-                }
-                @catch (NSException *e) {
-                    CLS_LOG(@"Could not spawn launchctl. Reason: %@", e.reason);
-                    failed = YES;
-                }
-            } else {
+            @try {
+                [self runCommandAsRootInPath:@"launchctl stop com.apple.backboardd"];
+            }
+            @catch (NSException *e) {
+                CLS_LOG(@"Could not spawn launchctl. %@: %@", e.name, e.reason);
+                NSLog(@"[Zebra] Could not spawn launchctl. %@: %@", e.name, e.reason);
                 failed = YES;
             }
         }
         
         //Try killall
-        BOOL hasKillAll = [[NSFileManager defaultManager] isExecutableFileAtPath:@"/usr/bin/killall"];
-        if (hasKillAll && ((!hasSbreload && !hasLaunchCTL) || failed)) {
+        if (failed) {
+            NSLog(@"[Zebra] Trying killall");
             failed = NO;
             
-            NSTask *killallTask = [[NSTask alloc] init];
-            [killallTask setLaunchPath:@"killall"];
-            [self asRoot:killallTask arguments:@[@"-9", @"com.apple.backboardd"]];
-            if (![killallTask isRunning]) {
-                @try {
-                    [killallTask launch];
-                    [killallTask waitUntilExit];
-                }
-                @catch (NSException *e) {
-                    CLS_LOG(@"Could not spawn killall. Reason: %@", e.reason);
-                    failed = YES;
-                }
-            } else {
+            @try {
+                [self runCommandInPath:@"killall -9 backboardd"];
+            }
+            @catch (NSException *e) {
+                CLS_LOG(@"Could not spawn killall. %@: %@", e.name, e.reason);
+                NSLog(@"[Zebra] Could not spawn killall. %@: %@", e.name, e.reason);
                 failed = YES;
             }
         }
+        
+        if (failed) {
+            [ZBAppDelegate sendErrorToTabController:NSLocalizedString(@"Could not respring. Please respring manually.", @"")];
+        }
+    }
+}
+
++ (NSString *)locateCommandInPath:(NSString *)command {
+    NSLog(@"[Zebra] Locating %@", command);
+    
+    NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
+    NSString *shellString = [environmentDict objectForKey:@"SHELL"];
+    
+    NSLog(@"[Zebra] Shell: %@", shellString);
+    
+    NSTask *which = [[NSTask alloc] init];
+    [which setLaunchPath:shellString];
+    [which setArguments:@[@"-c", [NSString stringWithFormat:@"which %@", command]]];
+
+    NSPipe *outPipe = [NSPipe pipe];
+    [which setStandardOutput:outPipe];
+
+    [which launch];
+    [which waitUntilExit];
+
+    NSFileHandle *read = [outPipe fileHandleForReading];
+    NSData *dataRead = [read readDataToEndOfFile];
+    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+    if ([stringRead containsString:@"not found"] || [stringRead isEqualToString:@""]) {
+        NSLog(@"[Zebra] Can't find %@", command);
+        return NULL;
+    }
+    
+    NSLog(@"[Zebra] %@ location: %@", command, stringRead);
+    
+    return stringRead;
+}
+
++ (void)runCommandInPath:(NSString *)command {
+    NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
+    NSString *shellString = [environmentDict objectForKey:@"SHELL"];
+    
+    NSString *binary = [command componentsSeparatedByString:@" "][0];
+    if (![self locateCommandInPath:binary]) {
+        NSException *exception = [NSException exceptionWithName:@"Binary not found" reason:[NSString stringWithFormat:@"%@ doesn't exist in $PATH", binary] userInfo:nil];
+        @throw exception;
+    }
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:shellString];
+    [task setArguments:@[@"-c", command]];
+    
+    @try {
+        [task launch];
+        [task waitUntilExit];
+    }
+    @catch (NSException *e) {
+        CLS_LOG(@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        @throw e;
+    }
+}
+
++ (void)runCommandAsRootInPath:(NSString *)command {
+    NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
+    NSString *shellString = [environmentDict objectForKey:@"SHELL"];
+    
+    NSString *binary = [command componentsSeparatedByString:@" "][0];
+    if (![self locateCommandInPath:binary]) {
+        NSException *exception = [NSException exceptionWithName:@"Binary not found" reason:[NSString stringWithFormat:@"%@ doesn't exist in $PATH", binary] userInfo:nil];
+        @throw exception;
+    }
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+    [task setArguments:@[shellString, @"-c", command]];
+    
+    @try {
+        [task launch];
+        [task waitUntilExit];
+    }
+    @catch (NSException *e) {
+        CLS_LOG(@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        @throw e;
     }
 }
 
