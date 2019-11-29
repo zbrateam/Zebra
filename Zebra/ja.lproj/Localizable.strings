@@ -128,8 +128,8 @@
 "Show Updates" = "アップデートを表示";
 "Ignore Updates" = "アップデートを無視";
 "Select Version" = "バージョンを選択";
-"Select a version to upgrade to" = "アップグレードしたいバージョンを選択";
-"Select a version to downgrade to" = "ダウングレードしたいバージョンを選択";
+"Select a version to upgrade to:" = "アップグレードしたいバージョンを選択:";
+"Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
 "Package" = "パッケージ";
 "Information" = "情報";
 "Upgrade All" = "すべてアップグレード";
@@ -155,7 +155,7 @@
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@(インストール済み:%@)";
+"%@ (Installed Size: %@)" = "%@(インストール時:%@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -271,9 +271,9 @@
 "Downgrade" = "ダウングレード";
 "Abort" = "中止";
 "Continue" = "続行";
-"Download Size" = "(サイズ";
+"Download Size" = "サイズ";
 "Confirm" = "実行";
-"%@ must be removed because it depends on %@" = "%@ は %@ と競合しているため削除されます";
+"%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "Required Package" = "要求されたパッケージ";
 "%@ is required by:" = "%@ は以下のTweaksに必要です";
 "Issues" = "問題点";
@@ -287,3 +287,13 @@
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、デバイスに取り返しのつかない損傷が発生し、完全な復元をしないといけなくなります。";
+
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
+
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
+
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
+
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
+
+"Help translate Zebra!" = "Zebra の翻訳に協力する!";

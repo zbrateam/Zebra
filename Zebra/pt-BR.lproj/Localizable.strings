@@ -128,8 +128,8 @@
 "Show Updates" = "Mostrar Atualizações";
 "Ignore Updates" = "Ignorar Atualizações";
 "Select Version" = "Selecionar versão";
-"Select a version to upgrade to" = "Selecione a versão para atualizar para";
-"Select a version to downgrade to" = "Selecione uma versão para fazer o downgrade";
+"Select a version to upgrade to:" = "Selecione a versão para atualizar para:";
+"Select a version to downgrade to:" = "Selecione uma versão para fazer o downgrade:";
 "Package" = "Pacote";
 "Information" = "Informação";
 "Upgrade All" = "Atualizar Todos";
@@ -287,3 +287,13 @@
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório e deve ser removido porque depende de %@. %@ NÃO deve ser removido a menos que você saiba exatamente o que está fazendo!";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Um ou mais pacotes na fila para remoção são essenciais ou necessários. Não é recomendado que você proceda a menos que se saiba exatamente o que está fazendo. Remover estes pacotes pode causar danos irreversíveis no seu dispositivo e pode resultar em uma restauração completa.";
+
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra não foi capaz de completar este comando porque ele não tem as permissões adequadas. Por favor, verifique as permissões localizadas em /usr/libexec/zebra/supersling e reporte este problema no GitHub.";
+
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Não é possível acessar su/sling. Por favor, verifique se /usr/libexec/zebra/supersling existe.";
+
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não é propriedade de root:wheel. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/zebra/supersling.";
+
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não tem permissão para definir o uid ou gid. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/ze/supersling.";
+
+"Help translate Zebra!" = "Ajude a traduzir o Zebra!";
