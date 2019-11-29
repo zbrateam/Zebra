@@ -128,8 +128,8 @@
 "Show Updates" = "Güncellemeleri Göster";
 "Ignore Updates" = "Güncellemeleri Gizle";
 "Select Version" = "Versiyon Seçin";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "Yüklenecek versiyonu seçin:";
+"Select a version to downgrade to:" = "Düşürülücek versiyonu seçin:";
 "Package" = "Paket";
 "Information" = "Bilgi";
 "Upgrade All" = "Hepsini Güncelle";
@@ -290,9 +290,9 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebre bu komutu gerekli yetkileri olmadığından dolayı gerçekleştiremedi. Lütfen \"/usr/libexec/zebra/supersling\" deki yetkileri kontrol edin ve bu hatayı GitHub üzerinden bize bildirin.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling e erişilemiyor. Lütfen /usr/libexec/zebra/supersling in mevcut olduğunu doğrulayın.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling in sahibi root:wheel değil. Lütfen /usr/libexec/zebra/supersling konumundaki dosyanın yetkilerini kontrol edin.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
