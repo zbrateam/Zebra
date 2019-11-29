@@ -297,3 +297,5 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não tem permissão para definir o uid ou gid. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/ze/supersling.";
 
 "Help translate Zebra!" = "Ajude a traduzir o Zebra!";
+
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
