@@ -67,6 +67,9 @@
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    
+    self.section = [self.section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    NSLog(@"Section: %@", self.section);
 }
 
 - (void)applyLocalization {
