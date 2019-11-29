@@ -381,14 +381,17 @@
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([[self objectAtSection:section] count]) {
-        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        header.tintColor = [UIColor clearColor];
-        [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
+        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
+        view.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        view.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+        
+        return view;
     }
+    
+    return NULL;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
