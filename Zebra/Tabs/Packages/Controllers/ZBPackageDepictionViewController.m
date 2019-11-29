@@ -112,8 +112,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
     
-    // Fallback web view height as 300
-    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
+    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
     
@@ -226,23 +225,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id  _Nonnull context) {} completion:^(id  _Nonnull context) {
-        [self sizeWebViewToFit];
-    }];
-}
-
-- (void)sizeWebViewToFit {
-    CGRect webFrame = webView.frame;
-    CGFloat scrollHeight = webView.scrollView.contentSize.height;
-    webFrame.origin.y = self.tableView.frame.size.height;
-    webFrame.size.height = scrollHeight;
-    webView.frame = webFrame;
-    [self.tableView setNeedsLayout];
-    [self.tableView layoutIfNeeded];
-}
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
@@ -252,10 +234,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue])];
                 /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
                 [self.tableView beginUpdates];
-                [self sizeWebViewToFit];
                 [self.tableView setTableFooterView:webView];
                 [self.tableView endUpdates];
-                ZBLog(@"[Zebra] Depiction load completed");
+                ZBLog(@"DONE");
             }];
         }
     }];
@@ -269,7 +250,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, 200)];
         /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
         [self.tableView beginUpdates];
-        [self sizeWebViewToFit];
         [self.tableView setTableFooterView:webView];
         [self.tableView endUpdates];
         
