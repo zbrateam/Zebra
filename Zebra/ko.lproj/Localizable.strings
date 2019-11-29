@@ -128,8 +128,8 @@
 "Show Updates" = "업데이트 표시";
 "Ignore Updates" = "업데이트 무시";
 "Select Version" = "버전 선택";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "업그레이드할 버전 선택:";
+"Select a version to downgrade to:" = "다운그레이드할 버전 선택:";
 "Package" = "패키지";
 "Information" = "정보";
 "Upgrade All" = "모두 업그레이드";
@@ -290,10 +290,10 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra가 적절한 권한을 가지고 있지 않기 때문에 이 명령을 완료할 수 없습니다. /usr/libexec/zebra/supersling의 권한을 확인하고 GitHub에 이 문제를 신고해주세요.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling에 엑세스할 수 없습니다. /usr/libexec/zebra/supersling이 존재하는지 확인해주세요.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling을 root:wheel이 소유하지 않고 있습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Zebra의 번역을 도와주세요!";
