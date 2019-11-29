@@ -112,7 +112,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
     
-    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 600) configuration:configuration];
+    webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
     
@@ -230,7 +230,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         return;
     [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
         if (completed != nil) {
-            [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable height, NSError * _Nullable error) {
+            [webView evaluateJavaScript:@"document.documentElement.getBoundingClientRect().height" completionHandler:^(id _Nullable height, NSError * _Nullable error) {
                 [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue])];
                 /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
                 [self.tableView beginUpdates];
@@ -246,13 +246,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [webView evaluateJavaScript:js completionHandler:nil];
     
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
-        
-        [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, 200)];
-        /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
-        [self.tableView beginUpdates];
-        [self.tableView setTableFooterView:webView];
-        [self.tableView endUpdates];
-        
         if ([ZBDevice darkModeEnabled]) {
             NSString *path;
             if ([ZBDevice darkModeOledEnabled]) {
@@ -300,6 +293,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         } else {
             [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         }
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, 1000)];
+//            [self.tableView.tableFooterView setFrame:webView.bounds];
+//            [self.tableView beginUpdates];
+//            [self.tableView setTableFooterView:webView];
+//            [self.tableView endUpdates];
+//        });
     }
 }
 
