@@ -49,7 +49,7 @@
 "Miscellaneous" = "อื่นๆ";
 "Advanced" = "ขั้นสูง";
 
-"Report a Bug" = "รายงานข้อผิดพลาดของโปรแกรม";
+"Report a Bug" = "รายงานปัญหา";
 
 "Tint Color" = "โทนสี";
 "Blue" = "น้ำเงิน";
@@ -298,4 +298,4 @@
 
 "Help translate Zebra!" = "ช่วยแปลภาษาใน Zebra กัน!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
