@@ -56,7 +56,7 @@
     }
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
     NSTask *checkFilesTask = [[NSTask alloc] init];
-    NSArray *filesArgs = [[NSArray alloc] initWithObjects: @"-L", packageID, nil];
+    NSArray *filesArgs = @[@"-L", packageID];
     [checkFilesTask setLaunchPath:@"/usr/bin/dpkg"];
     [ZBDevice asRoot:checkFilesTask arguments:filesArgs];
     
