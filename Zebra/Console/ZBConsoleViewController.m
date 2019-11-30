@@ -353,7 +353,7 @@
 
 - (void)restartSpringBoard {
     if (![ZBDevice needsSimulation]) {
-        [ZBDevice sbreload];
+        [ZBDevice restartSpringBoard ];
     } else {
         [self close];
     }

@@ -148,14 +148,14 @@
     [task setArguments:trueArguments];
 }
 
-+ (void)sbreload {
++ (void)restartSpringBoard {
     if (![self needsSimulation]) {
         BOOL failed = NO;
         
         //Try sbreload
         NSLog(@"[Zebra] Trying sbreload");
         @try {
-            [self runCommandInPath:@"sbreload"];
+            [self runCommandInPath:@"sbreload" asRoot:false observer:nil];
         }
         @catch (NSException *e) {
             CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
@@ -169,7 +169,7 @@
             failed = NO;
             
             @try {
-                [self runCommandAsRootInPath:@"launchctl stop com.apple.backboardd"];
+                [self runCommandInPath:@"launchctl stop com.apple.backboardd" asRoot:true observer:nil];
             }
             @catch (NSException *e) {
                 CLS_LOG(@"Could not spawn launchctl. %@: %@", e.name, e.reason);
@@ -184,7 +184,7 @@
             failed = NO;
             
             @try {
-                [self runCommandInPath:@"killall -9 backboardd"];
+                [self runCommandInPath:@"killall -9 backboardd" asRoot:true observer:nil];
             }
             @catch (NSException *e) {
                 CLS_LOG(@"Could not spawn killall. %@: %@", e.name, e.reason);
@@ -199,16 +199,74 @@
     }
 }
 
-+ (NSString *)locateCommandInPath:(NSString *)command {
-    NSLog(@"[Zebra] Locating %@", command);
++ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer {
+    NSMutableString *command = [@"uicache" mutableCopy];
+    for (NSString *argument in arguments) {
+        [command appendString:@" "];
+        [command appendString:argument];
+    }
     
+    @try {
+        [self runCommandInPath:command asRoot:false observer:observer];
+    }
+    @catch (NSException *e) {
+        CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+        NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+    }
+}
+
++ (void)runCommandInPath:(NSString *)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer {
     NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
-    NSString *shellString = [environmentDict objectForKey:@"SHELL"];
+    NSString *shellPath = [environmentDict objectForKey:@"SHELL"];
     
-    NSLog(@"[Zebra] Shell: %@", shellString);
+    NSString *binary = [command componentsSeparatedByString:@" "][0];
+    if (![self locateCommandInPath:binary shell:shellPath]) {
+        NSException *exception = [NSException exceptionWithName:@"Binary not found" reason:[NSString stringWithFormat:@"%@ doesn't exist in $PATH", binary] userInfo:nil];
+        @throw exception;
+    }
+    
+    NSTask *task = [[NSTask alloc] init];
+    
+    if (sling) {
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [task setArguments:@[shellPath, @"-c", command]];
+    }
+    else {
+        [task setLaunchPath:shellPath];
+        [task setArguments:@[@"-c", command]];
+    }
+    
+    if (observer) {
+        NSPipe *outputPipe = [[NSPipe alloc] init];
+        NSFileHandle *output = [outputPipe fileHandleForReading];
+        [output waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
+        NSPipe *errorPipe = [[NSPipe alloc] init];
+        NSFileHandle *error = [errorPipe fileHandleForReading];
+        [error waitForDataInBackgroundAndNotify];
+        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
+        
+        [task setStandardOutput:outputPipe];
+        [task setStandardError:errorPipe];
+    }
+    
+    @try {
+        [task launch];
+        [task waitUntilExit];
+    }
+    @catch (NSException *e) {
+        CLS_LOG(@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        @throw e;
+    }
+}
+
++ (NSString *)locateCommandInPath:(NSString *)command shell:(NSString *)shellPath {
+    NSLog(@"[Zebra] Locating %@", command);
+    NSLog(@"[Zebra] Shell: %@", shellPath);
     
     NSTask *which = [[NSTask alloc] init];
-    [which setLaunchPath:shellString];
+    [which setLaunchPath:shellPath];
     [which setArguments:@[@"-c", [NSString stringWithFormat:@"which %@", command]]];
 
     NSPipe *outPipe = [NSPipe pipe];
@@ -228,79 +286,6 @@
     NSLog(@"[Zebra] %@ location: %@", command, stringRead);
     
     return stringRead;
-}
-
-+ (void)runCommandInPath:(NSString *)command {
-    NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
-    NSString *shellString = [environmentDict objectForKey:@"SHELL"];
-    
-    NSString *binary = [command componentsSeparatedByString:@" "][0];
-    if (![self locateCommandInPath:binary]) {
-        NSException *exception = [NSException exceptionWithName:@"Binary not found" reason:[NSString stringWithFormat:@"%@ doesn't exist in $PATH", binary] userInfo:nil];
-        @throw exception;
-    }
-    
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:shellString];
-    [task setArguments:@[@"-c", command]];
-    
-    @try {
-        [task launch];
-        [task waitUntilExit];
-    }
-    @catch (NSException *e) {
-        CLS_LOG(@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
-        NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
-        @throw e;
-    }
-}
-
-+ (void)runCommandAsRootInPath:(NSString *)command {
-    NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
-    NSString *shellString = [environmentDict objectForKey:@"SHELL"];
-    
-    NSString *binary = [command componentsSeparatedByString:@" "][0];
-    if (![self locateCommandInPath:binary]) {
-        NSException *exception = [NSException exceptionWithName:@"Binary not found" reason:[NSString stringWithFormat:@"%@ doesn't exist in $PATH", binary] userInfo:nil];
-        @throw exception;
-    }
-    
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    [task setArguments:@[shellString, @"-c", command]];
-    
-    @try {
-        [task launch];
-        [task waitUntilExit];
-    }
-    @catch (NSException *e) {
-        CLS_LOG(@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
-        NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
-        @throw e;
-    }
-}
-
-+ (void)uicache:(NSArray *)arguments observer:(NSObject <ZBConsoleCommandDelegate> *)observer {
-    if (![self needsSimulation]) {
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"uicache"];
-        [self asRoot:task arguments:arguments];
-        
-        if (observer) {
-            NSPipe *outputPipe = [[NSPipe alloc] init];
-            NSFileHandle *output = [outputPipe fileHandleForReading];
-            [output waitForDataInBackgroundAndNotify];
-            [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-            NSPipe *errorPipe = [[NSPipe alloc] init];
-            NSFileHandle *error = [errorPipe fileHandleForReading];
-            [error waitForDataInBackgroundAndNotify];
-            [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-            [task setStandardOutput:outputPipe];
-            [task setStandardError:errorPipe];
-        }
-        
-        [task launch];
-    }
 }
 
 + (BOOL)_isRegularFile:(NSString *)path {
