@@ -59,6 +59,8 @@
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
+    }
+    if (self.refreshControl) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([ZBDevice darkModeEnabled]) {
                 [self.refreshControl setTintColor:[UIColor whiteColor]];

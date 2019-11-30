@@ -84,13 +84,6 @@
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
-    
-    if ([ZBDevice darkModeEnabled]) {
-        [self.refreshControl setTintColor:[UIColor whiteColor]];
-    }
-    else {
-        [self.refreshControl setTintColor:nil];
-    }
 }
 
 - (void)dealloc {

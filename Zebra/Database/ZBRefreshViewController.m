@@ -126,7 +126,9 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_dropTables) {
-        [self setCompleteOrCancelButtonHidden:true];
+        [self setCompleteOrCancelButtonHidden:YES];
+    } else {
+        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Cancel", @"")];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     if ([ZBDevice darkModeEnabled]) {
@@ -138,7 +140,7 @@ typedef enum {
 
 - (void)disableCancelButton {
     buttonState = ZBStateDone;
-    [self setCompleteOrCancelButtonHidden:true];
+    [self setCompleteOrCancelButtonHidden:YES];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -186,7 +188,7 @@ typedef enum {
         }
         [databaseManager cancelUpdates:self];
         [((ZBTabBarController *)self.tabBarController) clearRepos];
-        [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo];
+        [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
         
         buttonState = ZBStateDone;
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
@@ -291,7 +293,7 @@ typedef enum {
     if (!hadAProblem) {
         [self goodbye];
     } else {
-        [self setCompleteOrCancelButtonHidden:false];
+        [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
     [[ZBRepoManager sharedInstance] needRecaching];
