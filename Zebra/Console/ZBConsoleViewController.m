@@ -416,9 +416,7 @@
         case ZBStageFinished:
             [self updateTitle:NSLocalizedString(@"Complete", @"")];
             [self writeToConsole:NSLocalizedString(@"Finished!", @"") atLevel:ZBLogLevelInfo];
-            
             [self updateCompleteButton];
-            [self updateCancelOrCloseButton];
             break;
         default:
             break;
