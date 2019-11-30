@@ -1219,6 +1219,68 @@
     return NULL;
 }
 
+- (BOOL)isThereAnInstalledPackageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
+    if ([self openDatabase] == SQLITE_OK) {
+        const char *query;
+        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
+        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIdentifier] UTF8String];
+        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
+        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIdentifier] UTF8String];
+        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIdentifier] UTF8String];
+        
+        if (exclude) {
+            query = "SELECT VERSION FROM PACKAGES WHERE PACKAGE != ? AND REPOID = 0 AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND REPOID > 0 LIMIT 1;";
+        }
+        else {
+            query = "SELECT VERSION FROM PACKAGES WHERE REPOID = 0 AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
+        }
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            if (exclude) {
+                sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            }
+            sqlite3_bind_text(statement, exclude ? 2 : 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, exclude ? 3 : 2, secondSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, exclude ? 4 : 3, thirdSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, exclude ? 5 : 4, fourthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, exclude ? 6 : 5, fifthSearchTerm, -1, SQLITE_TRANSIENT);
+            
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                if (comparison && version) {
+                    //Compare version
+                    const char *foundVersion = (const char *)sqlite3_column_text(statement, 0);
+                    
+                    if (foundVersion != 0) {
+                        if ([ZBDependencyResolver doesVersion:[NSString stringWithUTF8String:foundVersion] satisfyComparison:comparison ofVersion:version]) {
+                            sqlite3_finalize(statement);
+                            
+                            [self closeDatabase];
+                            return true;
+                        }
+                    }
+                }
+                else {
+                    sqlite3_finalize(statement);
+                    
+                    [self closeDatabase];
+                    return true;
+                }
+            }
+        } else {
+            [self printDatabaseError];
+            [self closeDatabase];
+            return false;
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        return false;
+    }
+    [self printDatabaseError];
+    return false;
+}
+
 - (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
     return [self packageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true];
 }
@@ -1325,6 +1387,55 @@
     [self printDatabaseError];
     return NULL;
 }
+
+- (BOOL)isThereAnInstalledPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query;
+        if (exclude) {
+            query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 AND PACKAGE != '\%@\' LIMIT 1;", identifier, [exclude identifier]];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE = '\%@\' AND REPOID = 0 LIMIT 1;", identifier];
+        }
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                if (comparison && version) {
+                    //Compare version
+                    const char *foundVersion = (const char *)sqlite3_column_text(statement, 0);
+                    
+                    if (foundVersion != 0) {
+                        if ([ZBDependencyResolver doesVersion:[NSString stringWithUTF8String:foundVersion] satisfyComparison:comparison ofVersion:version]) {
+                            sqlite3_finalize(statement);
+                            [self closeDatabase];
+                            return true;
+                        }
+                    }
+                }
+                else {
+                    sqlite3_finalize(statement);
+                    [self closeDatabase];
+                    return true;
+                }
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        // Only try to resolve "Provides" if we can't resolve the normal package.
+        if (checkVirtual) {
+            return [self isThereAnInstalledPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:exclude]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
+        }
+        
+        [self closeDatabase];
+        return false;
+    }
+    [self printDatabaseError];
+    return false;
+}
+
 
 - (NSArray *)allVersionsForPackage:(ZBPackage *)package {
     return [self allVersionsForPackageID:package.identifier inRepo:NULL];
@@ -1511,8 +1622,8 @@
             if ([provided containsString:packageIdentifier]) continue;
             if (![[package identifier] isEqualToString:packageIdentifier] && [[package provides] containsObject:provided]) continue;
             NSArray *components = [ZBDependencyResolver separateVersionComparison:provided];
-            if (![self installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:true thatIsNot:package]) {
-                // FIXME: possible recursion overflow
+            if (![self isThereAnInstalledPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:true thatIsNot:package]) {
+                // FIXME: This is slooooooowwwwww
                 [packages addObjectsFromArray:[self packagesThatDependOnPackageIdentifier:provided removedPackage:package]];
             }
         }
