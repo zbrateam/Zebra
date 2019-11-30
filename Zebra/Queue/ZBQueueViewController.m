@@ -158,7 +158,7 @@
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         header.textLabel.textColor = [UIColor cellPrimaryTextColor];
         header.tintColor = [UIColor clearColor];
-        [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        header.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 
