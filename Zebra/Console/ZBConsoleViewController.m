@@ -132,6 +132,8 @@
     downloadMap = [NSMutableDictionary new];
     
     [self updateProgress:0.0];
+    progressText.layer.cornerRadius = 3.0;
+    progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
     [self setProgressViewHidden:true];
     [self setProgressTextHidden:true];
@@ -479,7 +481,7 @@
 
 - (void)updateTitle:(NSString *)title {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setTitle:title];
+        [self setTitle:[NSString stringWithFormat:@" %@ ", title]];
     });
 }
 
