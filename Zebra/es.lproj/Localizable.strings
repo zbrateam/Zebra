@@ -149,13 +149,13 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Por favor inicia sesión con la cuenta usada para comprar este paquete (posiblemente %@)";
 "More by this Developer" = "Más de este desarrollador";
 "Installed Version" = "Versión instalada";
-"Installed Size" = "Installed Size";
+"Installed Size" = "Tamaño de archivos instalados";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Versión Instalada: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Tamaño Instalado: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -171,10 +171,10 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
-"Addons" = "Addons";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
+"Administration" = "Administración";
+"Addons" = "Complementos";
+"App Addons" = "Complementos de la aplicación";
+"Archiving" = "Archivando";
 "Carrier Support" = "Carrier Support";
 "Communication" = "Communication";
 "Data Storage" = "Data Storage";
