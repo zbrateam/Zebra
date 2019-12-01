@@ -6,16 +6,16 @@
 "Error" = "Erro";
 "Retry" = "Repetir";
 "Edit" = "Editar";
-"Login" = "Login";
+"Login" = "Entre";
 "Close" = "Fechar";
 "Done" = "Concluir";
 
 // Home
 
 "Home" = "Início";
-"Info" = "Info";
+"Info" = "Informações";
 "Welcome to the Zebra Beta!" = "Bem-vindo ao Zebra Beta!";
-"Changelog" = "Changelog";
+"Changelog" = "Alterações";
 "Community Repos" = "Repos Comunitários";
 "Transfer Sources from %@" = "Tranferir Fontes de %@";
 "Move all sources from %@ to Zebra" = "Mover todas as Fontes de %@ para o Zebra";
@@ -26,7 +26,7 @@
 "Stores" = "Lojas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de Desejos";
-"No items in Wish List" = "No items in Wish List";
+"No items in Wish List" = "Nenhum item na lista de favoritos";
 "Community" = "Comunidade";
 "Join our Discord" = "Junta-te ao nosso Discord";
 "Follow me on Twitter" = "Segue-me no Twitter";
@@ -34,9 +34,9 @@
 //Credits
 
 "Credits" = "Creditos";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
+"Creators" = "Criadores";
+"Contributors" = "Contribuidores";
+"Translators" = "Tradutored";
 "Libraries" = "Libraries";
 
 // Settings
@@ -57,7 +57,7 @@
 "White" = "Branco";
 "Black" = "Preto";
 
-"Dark Mode" = "Dark Mode";
+"Dark Mode" = "Modo Escuro";
 "Default" = "Original";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
@@ -76,7 +76,7 @@
 
 "Swipe Actions Display As" = "Ações de Gesto Mostram Como";
 "Text" = "Texto";
-"Icon" = "Icon";
+"Icon" = "Ícone";
 "Open Documents Directory" = "Abrir Diretório de Documentos";
 "Clear Image Cache" = "Limpar Cache de Imagens";
 "Clear Keychain" = "Limpar Keychain";
@@ -88,7 +88,7 @@
 
 "Drop Tables" = "Drop Tables";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Ícones Alternativos";
 
 // Sources
 
@@ -100,7 +100,7 @@
 "You have already added these repositories." = "Repos adicionados anteriormente.";
 "Error verifying repository" = "Erro na verificação de repositório";
 "Error verifying repositories" = "Erro na verificação de repositórios";
-"Unknown error" = "Unknown error";
+"Unknown error" = "Erro desconhecido";
 "Invalid URL" = "URL inválido";
 "Enter URL" = "Inserir URL";
 "Add Repo(s)" = "Adicionar Repo(s)";
@@ -128,7 +128,7 @@
 "Show Updates" = "Mostrar Atualizações";
 "Ignore Updates" = "Ignorar Atualizações";
 "Select Version" = "Selecionar Versão";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to upgrade to:" = "Selecione a versão que pretende atualizar para:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Pacote";
 "Information" = "Informação";
@@ -142,7 +142,7 @@
 "Available Upgrades" = "Atualizações Disponíveis";
 "Ignored Upgrades" = "Atualizações Ignoradas";
 "Recent" = "Recente";
-"Repo" = "Repo";
+"Repo" = "Repositório";
 "Installed Files" = "Ficheiros Instalados";
 "Modify" = "Mudar";
 "Authenticate to initiate purchase." = "Ínicia sessão para começar a compra";
@@ -171,7 +171,7 @@
 
 // Package Section Names
 
-"Administration" = "Administration";
+"Administration" = "Administração";
 "Addons" = "Addons";
 "App Addons" = "App Addons";
 "Archiving" = "Archiving";
