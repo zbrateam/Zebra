@@ -68,13 +68,32 @@
 }
 
 - (void)setTextColor {
-    self.view.tintColor = [UIColor tintColor];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //Set title color
+        NSString *title = self.title;
+        NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
+        [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, title.length)];
+        
+        [self setValue:attributedTitle forKey:@"attributedTitle"];
+        
+        //Set message color
+        NSString *message = self.message;
+        NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:message];
+        [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, message.length)];
+        
+        [self setValue:attributedMessage forKey:@"attributedMessage"];
+    });
 }
 
 - (void)zb_viewDidLayoutSubviews {
+    if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
+        [self setTextColor];
+    }
+    else {
+        self.view.tintColor = [UIColor tintColor];
+    }
     [self zb_viewDidLayoutSubviews];
     [self setBackgroundColor];
-    [self setTextColor];
 }
 
 @end
