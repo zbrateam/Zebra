@@ -17,6 +17,8 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 
+@import Crashlytics;
+
 @interface ZBPackage () {
     NSUInteger possibleActions;
 }
@@ -51,26 +53,36 @@
 @synthesize ignoreDependencies;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
+    ZBLog(@"[Zebra] Getting installed files for %@", packageID);
     if ([ZBDevice needsSimulation]) {
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
-    ZBLog(@"[Zebra] Getting installed files for %@", packageID);
-    NSTask *checkFilesTask = [[NSTask alloc] init];
-    NSArray *filesArgs = @[@"-L", packageID];
-    [checkFilesTask setLaunchPath:@"/usr/bin/dpkg"];
-    [ZBDevice asRoot:checkFilesTask arguments:filesArgs];
     
-    NSPipe *outPipe = [NSPipe pipe];
-    [checkFilesTask setStandardOutput:outPipe];
+    NSMutableData *output = [NSMutableData new];
+    NSTask *checkFiles = [[NSTask alloc] init];
+    [checkFiles setLaunchPath:@"/usr/bin/dpkg"];
+    [checkFiles setArguments:@[@"-L", packageID]];
     
-    [checkFilesTask launch];
+    checkFiles.standardOutput = [NSPipe pipe];
+    [[checkFiles.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
+        NSData *data = [file availableData];
+        [output appendData:data];
+    }];
     
-    NSFileHandle *read = [outPipe fileHandleForReading];
-    NSData *dataRead = [read readDataToEndOfFile];
-    [checkFilesTask waitUntilExit];
-    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    [read closeFile];
-    return [stringRead componentsSeparatedByString:@"\n"];
+    @try {
+        [checkFiles launch];
+        [checkFiles waitUntilExit];
+        [checkFiles.standardOutput fileHandleForReading].readabilityHandler = nil;
+        
+        NSString *stringRead = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
+        return [stringRead componentsSeparatedByString:@"\n"];
+    }
+    @catch (NSException *e) {
+        CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
+        NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
+        
+        return NULL;
+    }
 }
 
 + (BOOL)respringRequiredFor:(NSString *)packageID {
@@ -93,6 +105,7 @@
         NSData *dataRead = [read readDataToEndOfFile];
         [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        [read closeFile];
         
         __block BOOL contains = NO;
         [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -106,7 +119,6 @@
             }
         }];
         
-        [read closeFile];
         return contains;
     }
     
@@ -148,6 +160,7 @@
         NSData *dataRead = [read readDataToEndOfFile];
         [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        [read closeFile];
         
         __block BOOL contains;
         [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -161,7 +174,6 @@
             }
         }];
         
-        [read closeFile];
         return contains;
     }
     
@@ -194,6 +206,7 @@
         NSData *dataRead = [read readDataToEndOfFile];
         [task waitUntilExit];
         NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        [read closeFile];
         
         __block NSString *path;
         [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -207,7 +220,6 @@
             }
         }];
         
-        [read closeFile];
         return path;
     }
     
