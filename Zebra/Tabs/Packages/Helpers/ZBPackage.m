@@ -89,37 +89,49 @@
     if ([ZBDevice needsSimulation]) {
         return NO;
     }
-    ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
+    NSLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
-        // do the ole dpkg -I
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-        [ZBDevice asRoot:task arguments:@[@"dpkg", @"-I", packageID, @"control"]];
+        NSLog(@"[Zebra] Locating package ID for %@", packageID);
+        //We need to look up the *actual* package ID of this deb from the deb's control file
+        NSMutableData *output = [NSMutableData new];
+        NSTask *locatePackage = [[NSTask alloc] init];
+        [locatePackage setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [locatePackage setArguments:@[@"dpkg", @"-I", packageID, @"control"]];
         
-        NSPipe *pipe = [NSPipe pipe];
-        [task setStandardOutput:pipe];
-        
-        [task launch];
-        
-        NSFileHandle *read = [pipe fileHandleForReading];
-        NSData *dataRead = [read readDataToEndOfFile];
-        [task waitUntilExit];
-        NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-        [read closeFile];
-        
-        __block BOOL contains = NO;
-        [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
-            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
-            if (pair.count != 2) return;
-            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            if ([key isEqualToString:@"Package"]) {
-                contains = [self respringRequiredFor:[pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet]];
-                *stop = YES;
-            }
+        locatePackage.standardOutput = [NSPipe pipe];
+        [[locatePackage.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
+            NSData *data = [file availableData];
+            [output appendData:data];
         }];
         
-        return contains;
+        @try {
+            [locatePackage launch];
+            [locatePackage waitUntilExit];
+            [locatePackage.standardOutput fileHandleForReading].readabilityHandler = nil;
+            
+            NSString *stringRead = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
+            __block BOOL contains = NO;
+            [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+                NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+                if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+                if (pair.count != 2) return;
+                NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                if ([key isEqualToString:@"Package"]) {
+                    NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                    NSLog(@"[Zebra] Package ID found %@", value);
+                    contains = [self respringRequiredFor:value];
+                    *stop = YES;
+                }
+            }];
+            
+            return contains;
+        }
+        @catch (NSException *e) {
+            CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
+            NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
+            
+            return NULL;
+        }
     }
     
     NSArray *files = [self filesInstalledBy:packageID];
