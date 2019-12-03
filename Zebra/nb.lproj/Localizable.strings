@@ -21,20 +21,20 @@
 "Move all sources from %@ to Zebra" = "Overfør alle kilder fra %@ til Zebra";
 "Utility repo for %@" = "Verktøyskilde for %@";
 "Transfer Sources" = "Overfør kilder";
-"Please Wait..." = "Vennligst Vent...";
-"Verifying Source(s)" = "Verifiserer Kilde(r)";
+"Please Wait..." = "Vennligst vent...";
+"Verifying Source(s)" = "Verifiserer kilde(r)";
 "Stores" = "Butikker";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
-"No items in Wish List" = "Ingen elementer i Ønskelisten";
+"No items in Wish List" = "Ingen elementer i ønskelisten";
 "Community" = "Sosialt";
-"Join our Discord" = "Bli med i Discorden vår";
+"Join our Discord" = "Bli med i vår Discord";
 "Follow me on Twitter" = "Følg meg på Twitter";
 
 //Credits
 
 "Credits" = "Bidragsytere";
-"Creators" = "Forfattere";
+"Creators" = "Utviklere";
 "Contributors" = "Bidragsytere";
 "Translators" = "Oversettere";
 "Libraries" = "Biblioteker";
@@ -49,7 +49,7 @@
 "Miscellaneous" = "Diverse";
 "Advanced" = "Avansert";
 
-"Report a Bug" = "Rapporter en Feil";
+"Report a Bug" = "Rapporter en feil";
 
 "Tint Color" = "Fargetone";
 "Blue" = "Blå";
@@ -62,10 +62,10 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Bytt Ikon";
+"Change Icon" = "Bytt ikon";
 
-"Enable Featured Packages" = "Aktiver Utvalgte Pakker";
-"Repo Featured" = "Kilder Utvalgt";
+"Enable Featured Packages" = "Aktiver utvalgte pakker";
+"Repo Featured" = "Kilder utvalgt";
 "Random" = "Tilfeldig";
 "Feature Type" = "Utvalgt Type";
 "Select Repos to be Featured" = "Velg Utvalgte Kilder";
