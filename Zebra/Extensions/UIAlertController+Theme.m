@@ -70,18 +70,22 @@
 - (void)setTextColor {
     dispatch_async(dispatch_get_main_queue(), ^{
         //Set title color
-        NSString *title = self.title;
-        NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-        [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, title.length)];
-        
-        [self setValue:attributedTitle forKey:@"attributedTitle"];
+        if (self.title) {
+            NSString *title = self.title;
+            NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
+            [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, title.length)];
+            
+            [self setValue:attributedTitle forKey:@"attributedTitle"];
+        }
         
         //Set message color
-        NSString *message = self.message;
-        NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:message];
-        [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, message.length)];
-        
-        [self setValue:attributedMessage forKey:@"attributedMessage"];
+        if (self.message) {
+            NSString *message = self.message;
+            NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:message];
+            [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, message.length)];
+            
+            [self setValue:attributedMessage forKey:@"attributedMessage"];
+        }
     });
 }
 
