@@ -127,35 +127,35 @@
 "Packages" = "Pakker";
 "Show Updates" = "Vis oppdateringer";
 "Ignore Updates" = "Ignorer oppdateringer";
-"Select Version" = "Velg Versjon";
+"Select Version" = "Velg versjon";
 "Select a version to upgrade to:" = "Velg versjonen du vil oppdatere til:";
 "Select a version to downgrade to:" = "Velg versjonen du vil nedgradere til:";
 "Package" = "Pakke";
 "Information" = "Informasjon";
-"Upgrade All" = "Oppdater Alle";
+"Upgrade All" = "Oppdater alle";
 "Loaded" = "Lastet";
 "ABC" = "ABC";
 "Date" = "Dato";
 "Size" = "Størrelse";
 "Clear" = "Tøm";
 "Are you sure you want to clear Queue?" = "Er du sikker på at du vil tømme køen?";
-"Available Upgrades" = "Tilgjengelige Oppdateringer";
-"Ignored Upgrades" = "Ignorerte Oppdateringer";
+"Available Upgrades" = "Tilgjengelige oppdateringer";
+"Ignored Upgrades" = "Ignorerte oppdateringer";
 "Recent" = "Nylig";
 "Repo" = "Kilde";
-"Installed Files" = "Installerte Filer";
+"Installed Files" = "Installerte filer";
 "Modify" = "Endre";
 "Authenticate to initiate purchase." = "Autentiser for å kjøpe.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vennligst logg inn på nytt med kontoen som brukes for å kjøpe denne pakken (Muligens %@)";
-"More by this Developer" = "Mer fra denne Utvikleren";
-"Installed Version" = "Installert Versjon";
+"More by this Developer" = "Mer fra denne utvikleren";
+"Installed Version" = "Installert versjon";
 "Installed Size" = "Installert størrelse";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installert Versjon: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installert versjon: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installert Størrelse: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installert størrelse: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d byte";
@@ -166,24 +166,24 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Legg til i Ønskelisten";
-"Remove from Wish List" = "Fjern fra Ønskelisten";
+"Add to Wish List" = "Legg til i ønskelisten";
+"Remove from Wish List" = "Fjern fra ønskelisten";
 
 // Package Section Names
 
 "Administration" = "Administrasjon";
 "Addons" = "Utvidelser";
-"App Addons" = "App Utvidelser";
+"App Addons" = "App utvidelser";
 "Archiving" = "Arkivering";
-"Carrier Support" = "Operatør Støtte";
+"Carrier Support" = "Operatør støtte";
 "Communication" = "Kommunikasjon";
-"Data Storage" = "Data Lagring";
+"Data Storage" = "Data lagring";
 "Development" = "Utvikling";
 "Dictionaries" = "Biblioteker";
 "Education" = "Utdanning";
 "Entertainment" = "Underholdning";
 "Games" = "Spill";
-"Health and Fitness" = "Helse og Trening";
+"Health and Fitness" = "Helse og trening";
 "Imaging" = "Bildebehandling";
 "Java" = "Java";
 "Keyboards" = "Tastaturer";
@@ -214,16 +214,16 @@
 "Search" = "Søk";
 "Clear Search" = "Tøm søkeloggen";
 "This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for et komplett søk. Vennligst bruk et lengre søkeord.";
-"No Results Found" = "Ingen Resultater Funnet";
+"No Results Found" = "Ingen resultater funnet";
 
 // Downloads
 
 "Downloads" = "Nedlastinger";
 "Error while opening sources.list" = "Feil under åpning av sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Kilde %@ er ikke kompatibel med din jailbreak.";
+"The repo %@ is incompatible with your jailbreak." = "Kilden %@ er ikke kompatibel med din jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette enheten din.";
 "Please remove this repo from your sources.list file." = "Vennligst fjern denne kilden fra din sources.list fil.";
-"Incorrect documents permissions." = "Feil dokumenttillatelser";
+"Incorrect documents permissions." = "Feil dokumenttillatelser.";
 "Could not determine device information." = "Kunne ikke finne enhetsinformasjon.";
 "Could not find a download URL for" = "Kunne ikke finne en nedlastingsnettadresse for";
 "%@ hasn't been modified" = "%@ har ikke blitt modifisert";
@@ -236,17 +236,17 @@
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta en stund og det kan hende at Zebra krasjer. Dette vil ikke føre til skade.";
 "Close Zebra" = "Lukk Zebra";
-"Restart SpringBoard" = "Start SpringBoard På Nytt";
+"Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Laster ned";
-"Downloading Packages..." = "Laster ned Pakker...";
+"Downloading Packages..." = "Laster ned pakker...";
 "Installing" = "Installerer";
-"Installing Packages..." = "Installerer Pakker...";
+"Installing Packages..." = "Installerer pakker...";
 "Removing" = "Fjerner";
-"Removing Packages..." = "Fjerner Pakker...";
-"Reinstalling" = "Installerer På Nytt";
-"Reinstalling Packages..." = "Installerer Pakker På Nytt...";
+"Removing Packages..." = "Fjerner pakker...";
+"Reinstalling" = "Installerer på nytt";
+"Reinstalling Packages..." = "Installerer pakker på nytt...";
 "Upgrading" = "Oppgraderer";
-"Upgrading Packages..." = "Oppgraderer Pakker...";
+"Upgrading Packages..." = "Oppgraderer pakker...";
 "Complete" = "Ferdig";
 "Finished!" = "Ferdig!";
 "Return to Queue" = "Tilbake til Kø";
