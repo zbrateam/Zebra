@@ -75,7 +75,6 @@
     }
     
     return NO; //su/sling is  ok
-#endif
 }
 
 + (NSString *)UDID {
