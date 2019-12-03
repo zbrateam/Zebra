@@ -294,15 +294,22 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)layoutDepictionWebView:(WKWebView *)webView {
-    [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
-        if ([[completed stringValue] isEqualToString:@"complete"]) {
-            //body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
-            NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); height";
-            [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
-                [self layoutDepictionWebView:webView height:[height floatValue]];
-            }];
-        }
-    }];
+    if (webView) {
+        [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
+            if (error) {
+                CLS_LOG(@"Error when getting depiction height: %@", error.localizedDescription);
+            }
+            else {
+                if ([[completed stringValue] isEqualToString:@"complete"]) {
+                    //body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
+                    NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); height";
+                    [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
+                        [self layoutDepictionWebView:webView height:[height floatValue]];
+                    }];
+                }
+            }
+        }];
+    }
 }
 
 - (void)layoutDepictionWebView:(WKWebView *)webView height:(CGFloat)height {
