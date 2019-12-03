@@ -581,6 +581,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
+    [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
 }
 
 - (void)presentQueue {
