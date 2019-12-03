@@ -249,11 +249,11 @@
 "Upgrading Packages..." = "Oppgraderer pakker...";
 "Complete" = "Ferdig";
 "Finished!" = "Ferdig!";
-"Return to Queue" = "Tilbake til Kø";
+"Return to Queue" = "Tilbake til kø";
 "Importing local packages." = "Importerer lokale pakker.";
 "Finished importing local packages." = "Ferdig med å importere lokale pakker.";
 "One or more packages failed to download." = "Nedlasting av en eller flere pakker feilet.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnere til køen og prøve nedlastingen på nytt.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnere til køen og prøve nedlastingen på nytt.";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakker lagt til i kø";
@@ -271,10 +271,10 @@
 "Downgrade" = "Nedgrader";
 "Abort" = "Avbryt";
 "Continue" = "Fortsett";
-"Download Size" = "Nedlasting Størrelse";
+"Download Size" = "Nedlasting størrelse";
 "Confirm" = "Bekreft";
 "%@ must be removed because it depends on %@" = "%@ må fjernes fordi det avhenger av %@";
-"Required Package" = "Påkrevd Pakke";
+"Required Package" = "Påkrevd pakke";
 "%@ is required by:" = "%@ kreves av:";
 "Issues" = "Problemer";
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
