@@ -131,7 +131,7 @@
             CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             
-            return NULL;
+            return NO;
         }
     }
     
@@ -200,7 +200,7 @@
             CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             
-            return NULL;
+            return NO;
         }
     }
     
