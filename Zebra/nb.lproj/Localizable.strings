@@ -67,17 +67,17 @@
 "Enable Featured Packages" = "Aktiver utvalgte pakker";
 "Repo Featured" = "Kilder utvalgt";
 "Random" = "Tilfeldig";
-"Feature Type" = "Utvalgt Type";
-"Select Repos to be Featured" = "Velg Utvalgte Kilder";
+"Feature Type" = "Utvalgt type";
+"Select Repos to be Featured" = "Velg utvalgte kilder";
 
-"Enable News" = "Aktiver Nyheter";
+"Enable News" = "Aktiver nyheter";
 
-"Search while Typing" = "Søk mens du Taster";
+"Search while Typing" = "Søk mens du taster";
 
-"Swipe Actions Display As" = "Sveiphandlinger Vises Som";
+"Swipe Actions Display As" = "Sveiphandlinger vises som";
 "Text" = "Tekst";
 "Icon" = "Ikoner";
-"Open Documents Directory" = "Åpne Dokument Filplassering";
+"Open Documents Directory" = "Åpne dokument filplassering";
 "Clear Image Cache" = "Tøm bildebufferen";
 "Clear Keychain" = "Tøm nøkkelring";
 
@@ -86,14 +86,14 @@
 "Resetting image cache completed" = " Tilbakestilling av bildebuffer fullført";
 "Clearing keychain completed" = "Tilbakestilling av nøkkelring fullført";
 
-"Drop Tables" = "Slipp Tabeller";
+"Drop Tables" = "Slipp tabeller";
 
-"Alternate Icons" = "Alternative Ikoner";
+"Alternate Icons" = "Alternative ikoner";
 
 // Sources
 
 "Sources" = "Kilder";
-"Local Repository" = "Lokal Kilde";
+"Local Repository" = "Lokal kilde";
 "Locally installed packages" = "Lokalt installerte pakker";
 "Unknown" = "Ukjent";
 "No repository urls detected." = "Ingen kildenettadresse oppdaget.";
@@ -103,16 +103,16 @@
 "Unknown error" = "Ukjent feil";
 "Invalid URL" = "Ugyldig nettadresse";
 "Enter URL" = "Skriv inn nettadresse";
-"Add Repo(s)" = "Legg til Kilde(r)";
+"Add Repo(s)" = "Legg til kilde(r)";
 "Add" = "Legg til";
-"Add Multiple" = "Legg til Flere";
+"Add Multiple" = "Legg til flere";
 "Would you like to add the URL from your clipboard?" = "Vil du legge til nettadressen fra utklippstavlen?";
-"Please Wait..." = "Vennligst Vent...";
-"Verifying Source(s)" = "Verifiserer Kilde(r)";
-"Unable to verify Repo" = "Kan ikke verifisere Kilde";
+"Please Wait..." = "Vennligst vent...";
+"Verifying Source(s)" = "Verifiserer kilde(r)";
+"Unable to verify Repo" = "Kan ikke verifisere kilde";
 "Refresh" = "Oppdater";
-"Log Out" = "Logg Ut";
-"Purchased Packages" = "Mine Kjøp";
+"Log Out" = "Logg ut";
+"Purchased Packages" = "Mine kjøp";
 "Purchased" = "Kjøpt";
 
 "All Packages" = "Alle pakker";
@@ -125,8 +125,8 @@
 // Packages
 
 "Packages" = "Pakker";
-"Show Updates" = "Vis Oppdateringer";
-"Ignore Updates" = "Ignorer Oppdateringer";
+"Show Updates" = "Vis oppdateringer";
+"Ignore Updates" = "Ignorer oppdateringer";
 "Select Version" = "Velg Versjon";
 "Select a version to upgrade to:" = "Velg versjonen du vil oppdatere til:";
 "Select a version to downgrade to:" = "Velg versjonen du vil nedgradere til:";
