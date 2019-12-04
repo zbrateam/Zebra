@@ -64,7 +64,7 @@
 
 "Change Icon" = "Byt ikon";
 
-"Enable Featured Packages" = "Aktiver utvalde pakker";
+"Enable Featured Packages" = "Aktiver utvalde pakkar";
 "Repo Featured" = "Kjelder utvalt";
 "Random" = "Tilfeldig";
 "Feature Type" = "Utvald type";
@@ -152,10 +152,10 @@
 "Installed Size" = "Installert storleik";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installert Versjon: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installert versjon: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installert Storleik: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installert storleik: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d byte";
@@ -173,17 +173,17 @@
 
 "Administration" = "Administrasjon";
 "Addons" = "Utvidingar";
-"App Addons" = "App Utvidingar";
+"App Addons" = "App utvidingar";
 "Archiving" = "Arkivering";
-"Carrier Support" = "Operatør Støtte";
+"Carrier Support" = "Operatør støtte";
 "Communication" = "Kommunikasjon";
-"Data Storage" = "Data Lagring";
+"Data Storage" = "Data lagring";
 "Development" = "Utvikling";
 "Dictionaries" = "Bibliotek";
 "Education" = "Utdanning";
 "Entertainment" = "Underhaldning";
 "Games" = "Spel";
-"Health and Fitness" = "Helse og Trening";
+"Health and Fitness" = "Helse og trening";
 "Imaging" = "Bildebehandling";
 "Java" = "Java";
 "Keyboards" = "Tastatur";
@@ -214,16 +214,16 @@
 "Search" = "Søk";
 "Clear Search" = "Taum søkeloggen";
 "This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for eit komplett søk. Vennlegast bruk eit lengre søkeord.";
-"No Results Found" = "Ingen Resultat Funne";
+"No Results Found" = "Ingen resultat funne";
 
 // Downloads
 
 "Downloads" = "Nedlastingar";
 "Error while opening sources.list" = "Feil under opning av sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Kjelde %@ er ikkje kompatibel med din jailbreak.";
+"The repo %@ is incompatible with your jailbreak." = "Kjelda %@ er ikkje kompatibel med din jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Han kan forårsaka problem viss du legg han til i Zebra. Det kan eventuelt føra til at du må retta opp igjen eininga di.";
 "Please remove this repo from your sources.list file." = "Ver vennleg og fjern denne kjelda frå din sources.list fil.";
-"Incorrect documents permissions." = "Feil dokumentløyve";
+"Incorrect documents permissions." = "Feil dokumentløyve.";
 "Could not determine device information." = "Kunne ikkje finna einingsinformasjon.";
 "Could not find a download URL for" = "Kunne ikkje finna ein nedlastingsnettadresse for";
 "%@ hasn't been modified" = "%@ har ikkje vorte modifisert";
@@ -236,24 +236,24 @@
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta ei stund og det kan hende at Zebra krasjar. Dette vil ikkje føra til skade.";
 "Close Zebra" = "Lukk Zebra";
-"Restart SpringBoard" = "Start SpringBoard På Nytt";
+"Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Lastar ned";
-"Downloading Packages..." = "Lastar ned Pakkar...";
+"Downloading Packages..." = "Lastar ned pakkar...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakkar...";
 "Removing" = "Fjernar";
-"Removing Packages..." = "Fjernar Pakkar...";
+"Removing Packages..." = "Fjernar pakkar...";
 "Reinstalling" = "Installerer på nytt";
 "Reinstalling Packages..." = "Installerer pakkar på nytt...";
 "Upgrading" = "Oppgraderer";
-"Upgrading Packages..." = "Oppgraderer Pakkar...";
+"Upgrading Packages..." = "Oppgraderer pakkar...";
 "Complete" = "Ferdig";
 "Finished!" = "Ferdig!";
-"Return to Queue" = "Tilbake til Kø";
+"Return to Queue" = "Tilbake til kø";
 "Importing local packages." = "Importerer lokale pakkar.";
 "Finished importing local packages." = "Ferdig med å importere lokale pakkar.";
 "One or more packages failed to download." = "Nedlasting av ein eller fleire pakkar feila.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til Kø\" for å returnera til køen og prøva nedlastinga på nytt.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnera til køen og prøva nedlastinga på nytt.";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakkar lagt til i kø";
@@ -271,10 +271,10 @@
 "Downgrade" = "Nedgrader";
 "Abort" = "Avbryt";
 "Continue" = "Fortset";
-"Download Size" = "Nedlasting Storleik";
+"Download Size" = "Nedlasting storleik";
 "Confirm" = "Stadfest";
 "%@ must be removed because it depends on %@" = "%@ må fjernast fordi det avheng av %@";
-"Required Package" = "Påkrevd Pakke";
+"Required Package" = "Påkrevd pakke";
 "%@ is required by:" = "%@ blir kravd av:";
 "Issues" = "Problem";
 "%@ has issues that cannot be resolved:" = "%@ har problem som ikkje kan løysast:";
