@@ -28,13 +28,13 @@
 "Wish List" = "Ønskeliste";
 "No items in Wish List" = "Ingen element i ønskelisten";
 "Community" = "Sosialt";
-"Join our Discord" = "Bli med i Discorda vår";
+"Join our Discord" = "Bli med i vår Discord";
 "Follow me on Twitter" = "Følg meg på Twitter";
 
 //Credits
 
 "Credits" = "Bidragsytarar";
-"Creators" = "Forfattarar";
+"Creators" = "Utviklarar";
 "Contributors" = "Bidragsytarar";
 "Translators" = "Omsetjarar";
 "Libraries" = "Bibliotek";
@@ -49,7 +49,7 @@
 "Miscellaneous" = "Diverse";
 "Advanced" = "Avansert";
 
-"Report a Bug" = "Rapporter ein Feil";
+"Report a Bug" = "Rapporter ein feil";
 
 "Tint Color" = "Fargetone";
 "Blue" = "Blå";
@@ -62,22 +62,22 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Byt Ikon";
+"Change Icon" = "Byt ikon";
 
-"Enable Featured Packages" = "Aktiver Utvalde Pakker";
+"Enable Featured Packages" = "Aktiver utvalde pakker";
 "Repo Featured" = "Kjelder utvalt";
 "Random" = "Tilfeldig";
-"Feature Type" = "Utvald Type";
+"Feature Type" = "Utvald type";
 "Select Repos to be Featured" = "Vel utvalde kjelder";
 
-"Enable News" = "Aktiver Nyheiter";
+"Enable News" = "Aktiver nyheiter";
 
-"Search while Typing" = "Søk medan du Tastar";
+"Search while Typing" = "Søk medan du tastar";
 
-"Swipe Actions Display As" = "Sveiphandlingar Blir Vist Som";
+"Swipe Actions Display As" = "Sveiphandlingar blir vist som";
 "Text" = "Tekst";
 "Icon" = "Ikon";
-"Open Documents Directory" = "Opne Dokument Filplassering";
+"Open Documents Directory" = "Opne dokument filplassering";
 "Clear Image Cache" = "Taum bildebufferen";
 "Clear Keychain" = "Taum nøkkelring";
 
@@ -86,14 +86,14 @@
 "Resetting image cache completed" = " Tilbakestilling av bildebuffer fullført";
 "Clearing keychain completed" = "Tilbakestilling av nøkkelring fullført";
 
-"Drop Tables" = "Slipp Tabeller";
+"Drop Tables" = "Slipp tabeller";
 
-"Alternate Icons" = "Alternative Ikon";
+"Alternate Icons" = "Alternative ikon";
 
 // Sources
 
 "Sources" = "Kjelder";
-"Local Repository" = "Lokal Kjelde";
+"Local Repository" = "Lokal kjelde";
 "Locally installed packages" = "Lokalt installerte pakkar";
 "Unknown" = "Ukjent";
 "No repository urls detected." = "Ingen kjeldenettadresse oppdaga.";
@@ -103,16 +103,16 @@
 "Unknown error" = "Ukjend Feil";
 "Invalid URL" = "Ugyldig nettadresse";
 "Enter URL" = "Skriv inn nettadresse";
-"Add Repo(s)" = "Legg til Kjelde(r)";
+"Add Repo(s)" = "Legg til kjelde(r)";
 "Add" = "Legg til";
-"Add Multiple" = "Legg til Fleire";
+"Add Multiple" = "Legg til fleire";
 "Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
 "Please Wait..." = "Ver vennleg og vent...";
 "Verifying Source(s)" = "Verifiserer kjelde(r)";
-"Unable to verify Repo" = "Kan ikkje verifisere Kjelde";
+"Unable to verify Repo" = "Kan ikkje verifisere kjelde";
 "Refresh" = "Oppdater";
-"Log Out" = "Logg Ut";
-"Purchased Packages" = "Kjøpa Mine";
+"Log Out" = "Logg ut";
+"Purchased Packages" = "Kjøpa mine";
 "Purchased" = "Kjøpt";
 
 "All Packages" = "Alle pakkar";
@@ -125,30 +125,30 @@
 // Packages
 
 "Packages" = "Pakkar";
-"Show Updates" = "Vis Oppdateringar";
-"Ignore Updates" = "Ignorer Oppdateringar";
-"Select Version" = "Vel Versjon";
+"Show Updates" = "Vis oppdateringar";
+"Ignore Updates" = "Ignorer oppdateringar";
+"Select Version" = "Vel versjon";
 "Select a version to upgrade to:" = "Vel versjonen du vil oppdatera til:";
 "Select a version to downgrade to:" = "Vel versjonen du vil nedgradera til:";
 "Package" = "Pakke";
 "Information" = "Informasjon";
-"Upgrade All" = "Oppdater Alle";
+"Upgrade All" = "Oppdater alle";
 "Loaded" = "Lasta";
 "ABC" = "ABC";
 "Date" = "Dato";
 "Size" = "Storleik";
 "Clear" = "Taum";
 "Are you sure you want to clear Queue?" = "Er du sikker på at du vil tømma køen?";
-"Available Upgrades" = "Tilgjengelege Oppdateringar";
-"Ignored Upgrades" = "Ignorerte Oppdateringar";
+"Available Upgrades" = "Tilgjengelege oppdateringar";
+"Ignored Upgrades" = "Ignorerte oppdateringar";
 "Recent" = "Nyleg";
 "Repo" = "Kjelde";
-"Installed Files" = "Installerte Filer";
+"Installed Files" = "Installerte filer";
 "Modify" = "Endre";
 "Authenticate to initiate purchase." = "Autentiser for å kjøpa.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Ver vennleg og logg inn på nytt med kontoen som blir brukt for å kjøpa denne pakken (Kanskje %@)";
-"More by this Developer" = "Meir frå denne Utviklaren";
-"Installed Version" = "Installert Versjon";
+"More by this Developer" = "Meir frå denne utviklaren";
+"Installed Version" = "Installert versjon";
 "Installed Size" = "Installert storleik";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
@@ -240,11 +240,11 @@
 "Downloading" = "Lastar ned";
 "Downloading Packages..." = "Lastar ned Pakkar...";
 "Installing" = "Installerer";
-"Installing Packages..." = "Installerer Pakkar...";
+"Installing Packages..." = "Installerer pakkar...";
 "Removing" = "Fjernar";
 "Removing Packages..." = "Fjernar Pakkar...";
-"Reinstalling" = "Installerer På Nytt";
-"Reinstalling Packages..." = "Installerer Pakkar På Nytt...";
+"Reinstalling" = "Installerer på nytt";
+"Reinstalling Packages..." = "Installerer pakkar på nytt...";
 "Upgrading" = "Oppgraderer";
 "Upgrading Packages..." = "Oppgraderer Pakkar...";
 "Complete" = "Ferdig";
