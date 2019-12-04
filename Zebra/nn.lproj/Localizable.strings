@@ -17,16 +17,16 @@
 "Welcome to the Zebra Beta!" = "Velkommen til Zebra beta!";
 "Changelog" = "Endringslogg";
 "Community Repos" = "Felleskjelder";
-"Transfer Sources from %@" = "Overfør Kjelder frå %@";
+"Transfer Sources from %@" = "Overfør kjelder frå %@";
 "Move all sources from %@ to Zebra" = "Overfør alle kjelder frå %@ til Zebra";
 "Utility repo for %@" = "Verktøykjelde for %@";
-"Transfer Sources" = "Overfør Kjelder";
-"Please Wait..." = " Ver Vennleg Og Vent...";
-"Verifying Source(s)" = "Verifiserer Kjelde(r)";
+"Transfer Sources" = "Overfør kjelder";
+"Please Wait..." = "Ver vennleg og vent...";
+"Verifying Source(s)" = "Verifiserer kjelde(r)";
 "Stores" = "Butikkar";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
-"No items in Wish List" = "Ingen element i Ønskelisten";
+"No items in Wish List" = "Ingen element i ønskelisten";
 "Community" = "Sosialt";
 "Join our Discord" = "Bli med i Discorda vår";
 "Follow me on Twitter" = "Følg meg på Twitter";
@@ -65,10 +65,10 @@
 "Change Icon" = "Byt Ikon";
 
 "Enable Featured Packages" = "Aktiver Utvalde Pakker";
-"Repo Featured" = "Kjelder Utvalt";
+"Repo Featured" = "Kjelder utvalt";
 "Random" = "Tilfeldig";
 "Feature Type" = "Utvald Type";
-"Select Repos to be Featured" = "Vel Utvalde Kjelder";
+"Select Repos to be Featured" = "Vel utvalde kjelder";
 
 "Enable News" = "Aktiver Nyheiter";
 
@@ -107,8 +107,8 @@
 "Add" = "Legg til";
 "Add Multiple" = "Legg til Fleire";
 "Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
-"Please Wait..." = "Ver Vennleg Og Vent...";
-"Verifying Source(s)" = "Verifiserer Kjelde(r)";
+"Please Wait..." = "Ver vennleg og vent...";
+"Verifying Source(s)" = "Verifiserer kjelde(r)";
 "Unable to verify Repo" = "Kan ikkje verifisere Kjelde";
 "Refresh" = "Oppdater";
 "Log Out" = "Logg Ut";
@@ -166,8 +166,8 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Legg til i Ønskelista";
-"Remove from Wish List" = "Fjern frå Ønskelista";
+"Add to Wish List" = "Legg til i ønskelista";
+"Remove from Wish List" = "Fjern frå ønskelista";
 
 // Package Section Names
 
