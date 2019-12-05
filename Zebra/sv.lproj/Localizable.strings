@@ -299,3 +299,7 @@
 "Help translate Zebra!" = "Hjälpa till att översätta Zebra!";
 
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
