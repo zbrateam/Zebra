@@ -9,6 +9,7 @@
 #import "UIAlertController+Theme.h"
 #import <UIColor+GlobalColors.h>
 #import <objc/runtime.h>
+#import <ZBDevice.h>
 
 @implementation UIAlertController (Theme)
 
@@ -90,6 +91,12 @@
 }
 
 - (void)zb_viewDidLayoutSubviews {
+    if (@available(iOS 13.0, *)) {
+        if ([ZBDevice darkModeEnabled]) {
+            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        }
+    }
+    
     if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
         [self setTextColor];
     }
