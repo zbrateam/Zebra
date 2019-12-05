@@ -211,7 +211,7 @@
                                 [applicationBundlePaths addObject:path];
                             }
                         }
-                            
+
                         if (!respringRequired) {
                             respringRequired = [ZBPackage respringRequiredFor:packageID];
                         }
@@ -240,11 +240,30 @@
                         [task setStandardOutput:outputPipe];
                         [task setStandardError:errorPipe];
                         
-                        [task launch];
-                        [task waitUntilExit];
-                        
-                        if ([task terminationStatus] == EX_NOPERM) {
-                            [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
+                        @try {
+                            [task launch];
+                            [task waitUntilExit];
+                        } @catch (NSException *e) {
+                            NSString *message = [NSString stringWithFormat:@"Could not complete %@ process. Reason: %@.", [ZBDevice packageManagementBinary],  e.reason];
+                            
+                            CLS_LOG(@"%@", message);
+                            NSLog(@"[Zebra] %@", message);
+                            [self writeToConsole:message atLevel:ZBLogLevelError];
+                        } @finally {
+                            int terminationStatus = [task terminationStatus];
+                            long terminationReason = [task terminationReason];
+                            NSLog(@"[Zebra] Termination Status: %d Reason: %ld", terminationStatus, terminationReason);
+                            switch (terminationStatus) {
+                                case EX_NOPERM:
+                                    [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
+                                    break;
+                                case EDEADLK:
+                                    [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
+                                    break;
+                                case 85: //ERESTART apparently
+                                    [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
+                                    break;
+                            }
                         }
                     }
                     else {
@@ -605,7 +624,7 @@
     if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        CLS_Log(@"DPKG/APT Error: %@", str);
+        CLS_LOG(@"DPKG/APT Error: %@", str);
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
