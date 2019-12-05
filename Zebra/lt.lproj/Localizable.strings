@@ -299,3 +299,7 @@
 "Help translate Zebra!" = "Padėkite išversti Zebra!";
 
 "Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
