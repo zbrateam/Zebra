@@ -299,3 +299,7 @@
 "Help translate Zebra!" = "Pomozite prevesti Zebru!";
 
 "Could not respring. Please respring manually." = "Ne mogu respring. Molimo izvršite respring ručno.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
