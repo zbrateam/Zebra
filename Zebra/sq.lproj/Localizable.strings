@@ -172,42 +172,42 @@
 // Package Section Names
 
 "Administration" = "Administrim";
-"Addons" = "Shtesat";
-"App Addons" = "Shtesat e aplikacionev";
+"Addons" = "Addons";
+"App Addons" = "App Addons";
 "Archiving" = "Arkivim";
-"Carrier Support" = "Mbështetje per Carrier";
+"Carrier Support" = "Carrier Support";
 "Communication" = "Komunikimi";
-"Data Storage" = "Hapësira e të dhënave";
+"Data Storage" = "Data Storage";
 "Development" = "Zhvillimi";
-"Dictionaries" = "Fjalorë";
+"Dictionaries" = "Dictionaries";
 "Education" = "Edukim";
-"Entertainment" = "Argëtim";
+"Entertainment" = "Entertainment";
 "Games" = "Lojëra";
-"Health and Fitness" = "Shëndet dhe Fitnes";
+"Health and Fitness" = "Health and Fitness";
 "Imaging" = "Imazhe";
 "Java" = "Java";
-"Keyboards" = "Tastiera";
+"Keyboards" = "Keyboards";
 "Localization" = "Lokalizimi";
 "Messaging" = "Messaging";
 "Multimedia" = "Multimedia";
-"Navigation" = "Lundrimi";
-"Networking" = "Rrjeti";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
 "Packaging" = "Packaging";
-"Productivity" = "Produktivitet";
-"Repositories" = "Repozitor";
-"Ringtones" = "Zile";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
-"Security" = "Siguria";
-"Social" = "Sociale";
-"System" = "Sistemi";
-"Terminal Support" = "Mbështetje për Terminal";
-"Text Editors" = "Editor të Tekstit";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
 "Themes" = "Themes";
-"Toys" = "Lojra";
+"Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Shërbimet";
-"Wallpaper" = "Imazhi i sfondit";
-"Widgets" = "Vegla";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
@@ -253,7 +253,7 @@
 "Importing local packages." = "Duke importuat paketat lokale.";
 "Finished importing local packages." = "Përfundoj importimi i paketave lokale.";
 "One or more packages failed to download." = "Një ose më shumë paketa dështuan në shkarkim.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Return to Queue\" Për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Ktheu tek Rradha\" për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketa në rradhë";
@@ -299,3 +299,7 @@
 "Help translate Zebra!" = "Ndihmo për të përkthyer Zebran!";
 
 "Could not respring. Please respring manually." = "Nuk mund të rifilloj. Ju lutemi rifilloni manualisht.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
