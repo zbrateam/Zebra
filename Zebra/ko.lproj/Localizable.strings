@@ -299,3 +299,7 @@
 "Help translate Zebra!" = "Zebra의 번역을 도와주세요!";
 
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
