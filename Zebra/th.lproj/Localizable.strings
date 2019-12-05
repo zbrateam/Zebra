@@ -299,3 +299,7 @@
 "Help translate Zebra!" = "ช่วยแปลภาษาใน Zebra กัน!";
 
 "Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
