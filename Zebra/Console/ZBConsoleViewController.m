@@ -20,6 +20,7 @@
 
 #include <sysexits.h>
 
+@import Crashlytics;
 @import LNPopupController;
 
 @interface ZBConsoleViewController () {
@@ -604,6 +605,7 @@
     if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        CLS_Log(@"DPKG/APT Error: %@", str);
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
