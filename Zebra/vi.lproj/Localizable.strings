@@ -57,12 +57,13 @@
 "White" = "Trắng";
 "Black" = "Đen";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Chế độ tối";
 "Default" = "Mặc định";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Featured Packages";
 "Repo Featured" = "Repo nổi bật";
