@@ -245,9 +245,9 @@ enum ZBMiscOrder {
             ZBUIOrder row = indexPath.row;
             switch (row) {
                 case ZBChangeIcon: {
-                    cell.textLabel.text = NSLocalizedString(@"Change Icon", @"");
-                    cell.detailTextLabel.text = [self iconName:[[UIApplication sharedApplication] alternateIconName]];
+                    cell.textLabel.text = NSLocalizedString(@"Current Icon", @"");
                     if (@available(iOS 10.3, *)) {
+                        cell.detailTextLabel.text = [self iconName:[[UIApplication sharedApplication] alternateIconName]];
                         if ([[UIApplication sharedApplication] alternateIconName]) {
                             cell.imageView.image = [UIImage imageNamed:[[UIApplication sharedApplication] alternateIconName]];
                             
