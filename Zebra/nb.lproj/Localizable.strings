@@ -43,7 +43,7 @@
 
 "Settings" = "Innstillinger";
 "Version" = "Versjon";
-"Interface" = "Interface";
+"Interface" = "Grensesnitt";
 "Featured" = "Utvalgt";
 "News" = "Nyheter";
 "Miscellaneous" = "Diverse";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Rapporter en feil";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Aksentfarge";
 "Blue" = "Blå";
 "Orange" = "Oransje";
 "White" = "Hvit";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Valgt ikon";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Utvalgte pakker";
 "Repo Featured" = "Kilder utvalgt";
 "Random" = "Tilfeldig";
 "Feature Type" = "Utvalgt type";
@@ -72,7 +72,7 @@
 
 "News" = "Nyheter";
 
-"Live Search" = "Live Search";
+"Live Search" = "Live søk";
 
 "Swipe Actions Display As" = "Sveiphandlinger vises som";
 "Text" = "Tekst";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Kunne ikke starte SpringBoard på nytt. Vennligst start SpringBoard på nytt selv.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "FEIL: Kan ikke låse statusfil. Vennligst prøv på nytt.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "FEIL: Prosessen må startes på nytt. Vennligst prøv på nytt.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Konfigurere utseendet til Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Vis utvalgte pakker på hjemmesiden.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Vis nye innlegg fra /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søk etter pakker mens du taster. Deaktivering av denne funksjonen kan redusere etterslepet på eldre enheter.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfigurer utseendet til sveip handlinger på tabellvisninger.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
