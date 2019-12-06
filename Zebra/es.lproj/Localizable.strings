@@ -190,23 +190,23 @@
 "Localization" = "Localización";
 "Messaging" = "Mensajería";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
+"Navigation" = "Navegación";
+"Networking" = "Redes";
+"Packaging" = "Paquetes";
+"Productivity" = "Productividad";
+"Repositories" = "Repositorios";
+"Ringtones" = "Tonos de llamada";
 "Scripting" = "Scripting";
-"Security" = "Security";
+"Security" = "Seguridad";
 "Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"System" = "Sistema";
+"Terminal Support" = "Soporte de terminal";
+"Text Editors" = "Editores de texto";
+"Themes" = "Temas";
+"Toys" = "Juguetes";
 "Tweaks" = "Tweaks";
 "Utilities" = "Utilidades";
-"Wallpaper" = "Wallpaper";
+"Wallpaper" = "Fondo de pantalla";
 "Widgets" = "Widgets";
 
 // Search
@@ -232,7 +232,7 @@
 // Console
 
 "Console" = "Consola";
-"Performing Actions..." = "Performing Actions...";
+"Performing Actions..." = "Realizando acciones...";
 "Updating icon cache asynchronously..." = "Actualizando caché de iconos asincrónicamente...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Esto puede tardar un momento y Zebra puede cerrarse. Es normal si ocurre.";
 "Close Zebra" = "Cerrar Zebra";
@@ -256,10 +256,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d paquetes en cola";
+"%d Package Queued" = "Paquete %d en cola";
+"Tap to manage" = "Toca para gestionar";
+"No Packages Queued" = "No hay paquetes en cola";
 
 // Queue
 
@@ -272,33 +272,33 @@
 "Abort" = "Abortar";
 "Continue" = "Continuar";
 "Download Size" = "Tamaño de descarga";
-"Confirm" = "Confirm";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"Confirm" = "Confirmar";
+"%@ must be removed because it depends on %@" = "%@ debe ser eliminado, porque depende de %@";
+"Required Package" = "Paquete requerido";
+"%@ is required by:" = "%@ es requerido por:";
+"Issues" = "Problemas";
+"%@ has issues that cannot be resolved:" = "%@ tiene problemas que no se pueden resolver:";
+"Are you sure?" = "¿Estás seguro/a?";
+"Are you sure you want to clear the queue?" = "¿Estas seguro/a de que quieres limpiar la cola?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ es un paquete necesario. ¡NO debe ser eliminado a menos que sepas lo que estás haciendo!";
+"Remove from Queue" = "Quitar de la cola";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ es un paquete necesario y debe ser eliminado porque depende de %@. ¡%@ NO debe ser eliminado a menos que sepas lo que estás haciendo!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Uno o más paquetes de la cola para quitar es esencial o un requerimiento de otro paquete. No es recomendable continuar a menos que sepas lo que estás haciendo. Eliminar estos paquetes podría causar daños irreparables en tu dispositivo y podría requerir una restauración completa.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra no ha podido completar este comando porque no tiene los permisos adecuados. Por favor, verifica los permisos del archivo ubicado en /usr/libexec/zebra/supersling e informa de este error en GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "No se ha podido acceder a su/sling. Por favor, comprueba que existe /usr/libexec/zebra/supersling.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling no es propiedad de root:wheel. Por favor, verifica los permisos del archivo ubicado en /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling no tiene permisos para establecer el uid o el gid. Por favor, comprueba los permisos del archivo ubicado en /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "¡Ayuda a traducir Zebra!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "No se pudo hacer respring. Por favor, inténtalo manualmente.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
