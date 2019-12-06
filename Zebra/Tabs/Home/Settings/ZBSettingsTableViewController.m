@@ -365,7 +365,7 @@ enum ZBMiscOrder {
             [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             cell.accessoryView = enableSwitch;
-            cell.textLabel.text = NSLocalizedString(@"Search while Typing", @"");
+            cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
