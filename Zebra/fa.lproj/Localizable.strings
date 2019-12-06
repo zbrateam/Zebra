@@ -57,12 +57,13 @@
 "White" = "سفید";
 "Black" = "مشکی";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "حالت تیره";
 "Default" = "پیشفرض";
 "OLED" = "نمایشگرهای ال ای دی ";
 "iOS 13" = "آی او اس ۱۳";
 
-"Current Icon" = "Current Icon";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Featured Packages";
 "Repo Featured" = "مخزن های ویژه";
