@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Signaler un bug";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Couleur d'accentuation";
 "Blue" = "Bleu";
 "Orange" = "Orange";
 "White" = "Blanc";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Icône actuelle";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Paquets recommandés";
 "Repo Featured" = "Sources Mises en Vedette";
 "Random" = "Aléatoire";
 "Feature Type" = "Type de Mise en Vedette";
@@ -72,7 +72,7 @@
 
 "News" = "Nouveautés";
 
-"Live Search" = "Live Search";
+"Live Search" = "Recherche en direct";
 
 "Swipe Actions Display As" = "Afficher les Informations en Balayant";
 "Text" = "Texte";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Impossible de relancer le springboard. Veuillez le relancer manuellement.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ERREUR : Impossible de verrouiller le fichier d'état. Veuillez réessayer.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ERREUR : le processus doit être redémarré. Veuillez réessayer.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Configurez l'apparence de Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Afficher les paquets mis en avant sur la page d'accueil.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Afficher les messages récents de la communauté /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Rechercher des paquets lors de la saisie. Désactiver cette fonctionnalité peut réduire les ralentissements sur les appareils plus anciens.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Configurer l'apparence des actions lors du balayage sur les paquets.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
