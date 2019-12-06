@@ -13,7 +13,7 @@
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInfo,
-    ZBGraphics,
+    ZBInterface,
     ZBFeatured,
     ZBNews,
     ZBSearch,
@@ -140,8 +140,8 @@ enum ZBMiscOrder {
     switch (section) {
         case ZBInfo:
             return NSLocalizedString(@"Information", @"");
-        case ZBGraphics:
-            return NSLocalizedString(@"Graphics", @"");
+        case ZBInterface:
+            return NSLocalizedString(@"Interface", @"");
         case ZBFeatured:
             return NSLocalizedString(@"Featured", @"");
         case ZBNews:
@@ -171,7 +171,7 @@ enum ZBMiscOrder {
         case ZBMisc:
         case ZBSearch:
             return 1;
-        case ZBGraphics:
+        case ZBInterface:
             if (@available(iOS 10.3, *)) {
                 return 3;
             }
@@ -198,7 +198,7 @@ enum ZBMiscOrder {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-    if ((indexPath.section == ZBGraphics &&
+    if ((indexPath.section == ZBInterface &&
         (indexPath.row == ZBChangeTint || indexPath.row == ZBChangeMode)) ||
         (indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) ||
         indexPath.section == ZBMisc){
@@ -242,7 +242,7 @@ enum ZBMiscOrder {
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
             return cell;
         }
-        case ZBGraphics: {
+        case ZBInterface: {
             ZBUIOrder row = indexPath.row;
             switch (row) {
                 case ZBChangeIcon: {
@@ -416,7 +416,7 @@ enum ZBMiscOrder {
             }
             break;
         }
-        case ZBGraphics: {
+        case ZBInterface: {
             switch (indexPath.row) {
                 case ZBChangeTint:
                     [self changeTint];
