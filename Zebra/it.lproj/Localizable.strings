@@ -43,7 +43,7 @@
 
 "Settings" = "Impostazioni";
 "Version" = "Versione";
-"Interface" = "Interface";
+"Interface" = "Interfaccia";
 "Featured" = "In primo piano";
 "News" = "Notizie";
 "Miscellaneous" = "Misto";
@@ -51,29 +51,29 @@
 
 "Report a Bug" = "Segnala un Bug";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Colore Secondario";
 "Blue" = "Blu";
 "Orange" = "Arancione";
 "White" = "Bianco";
 "Black" = "Nero";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Stile Modalità Scura";
 "Dark Mode" = "Modalità Scura";
 "Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Icona App";
 
-"Featured Packages" = "Featured Packages";
-"Repo Featured" = "Repo in primo piano";
+"Featured Packages" = "Pacchetti in evidenza";
+"Repo Featured" = "Repo in evidenza";
 "Random" = "Casuale";
 "Feature Type" = "Tipo Primo Piano";
-"Select Repos to be Featured" = "Seleziona le Repo da mettere in primo piano";
+"Select Repos to be Featured" = "Seleziona le Repo da mettere in Evidenza";
 
 "News" = "Notizie";
 
-"Live Search" = "Live Search";
+"Live Search" = "Ricerca in tempo reale";
 
 "Swipe Actions Display As" = "Mostra le Azioni a Scorrimento come";
 "Text" = "Testo";
@@ -299,27 +299,27 @@
 
 "Help translate Zebra!" = "Aiuta a tradurre Zebra!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Impossibile eseguire il respring. Fare il respring manualmente.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ERRORE: Impossibile bloccare il file di stato. Si prega di riprovare.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ERRORE: il processo deve essere riavviato. Si prega di riprovare.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Configura l'aspetto di Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Visualizza i pacchetti in evidenza nella homepage.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Visualizza i post recenti della comunità di /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Cerca i pacchetti durante la digitazione. Disabilitare questa funzione può ridurre il lag sui dispositivi più vecchi.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Configura l'aspetto delle azioni a scorrimento.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Cambia il colore secondario che viene visualizzato su Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Cambia il tema della modalità scura di Zebra quando è abilitata.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Modificare la fonte dei pacchetti in evidenza nella homepage.\n\n\"Repo in Evidenza\" mostrerà pacchetti casuali da repo che supportano l'API dei pacchetti in evidenza.\n\n\"Casuale\" mostrerà i pacchetti casuali di tutti i repository che hai aggiunto a Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
