@@ -57,12 +57,13 @@
 "White" = "Branco";
 "Black" = "Preto";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Modo Noturno";
 "Default" = "Padrão";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Ícone atual";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Pacotes em destaque";
 "Repo Featured" = "Repo em destaque";
