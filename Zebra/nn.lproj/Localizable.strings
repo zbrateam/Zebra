@@ -57,12 +57,13 @@
 "White" = "Kvit";
 "Black" = "Svart";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Mørk modus";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Valt ikon";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Utvalde pakkar";
 "Repo Featured" = "Kjelder utvalt";
