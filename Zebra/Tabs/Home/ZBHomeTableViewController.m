@@ -408,6 +408,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
+        case ZBInfo:
+            switch (indexPath.row) {
+                case ZBBug:
+                    [self openBug];
+                    break;
+            }
+            break;
         case ZBViews:
             [self pushToView:indexPath.row];
             break;
@@ -456,6 +463,18 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBCreditsTableViewController *creditsController = [storyboard instantiateViewControllerWithIdentifier:@"creditsController"];
     
     [[self navigationController] pushViewController:creditsController animated:YES];
+}
+
+- (void)openBug {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+    webController.navigationDelegate = webController;
+    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
+    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [webController setValue:url forKey:@"_url"];
+    [[self navigationController] pushViewController:webController animated:YES];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {

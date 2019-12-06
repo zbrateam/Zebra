@@ -73,9 +73,6 @@
     
     if (_url != NULL) {
         [webView setAllowsBackForwardNavigationGestures:YES];
-        if (@available(iOS 11.0, *)) {
-            self.navigationController.navigationBar.prefersLargeTitles = NO;
-        }
         
         NSURLRequest *request = [NSURLRequest requestWithURL:_url];
         [webView loadRequest:request];
@@ -95,6 +92,9 @@
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)colorWindow {
