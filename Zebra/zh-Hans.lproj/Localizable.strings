@@ -43,7 +43,7 @@
 
 "Settings" = "设置";
 "Version" = "版本";
-"Interface" = "Interface";
+"Interface" = "界面";
 "Featured" = "功能";
 "News" = "新闻";
 "Miscellaneous" = "其它";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "报告 Bug";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "主题颜色";
 "Blue" = "蓝色";
 "Orange" = "橙色";
 "White" = "白色";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "当前图标";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "精选软件包";
 "Repo Featured" = "推荐的软件源";
 "Random" = "随机";
 "Feature Type" = "推荐类型";
@@ -72,7 +72,7 @@
 
 "News" = "新闻";
 
-"Live Search" = "Live Search";
+"Live Search" = "实时搜索";
 
 "Swipe Actions Display As" = "滑动选项显示为";
 "Text" = "文字";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "配置 Zebra 的外观。";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "在主页上显示精选软件包。";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "实时显示软件包搜索结果。在旧设备上禁用此功能可能会减少卡顿。";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观。";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
