@@ -57,12 +57,13 @@
 "White" = "하얀색";
 "Black" = "검은색";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "다크 모드";
 "Default" = "기본";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Featured Packages";
 "Repo Featured" = "레포에서 선정";
