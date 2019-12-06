@@ -43,7 +43,7 @@
 
 "Settings" = "Ustawienia";
 "Version" = "Wersja";
-"Interface" = "Interface";
+"Interface" = "Interfejs";
 "Featured" = "Wyróżnione";
 "News" = "Nowości";
 "Miscellaneous" = "Różne";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Zgłoś błąd";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Kolor akcentujący";
 "Blue" = "Niebieski";
 "Orange" = "Pomarańczowy";
 "White" = "Biały";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Obecna ikona";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Wyróżnione pakiety";
 "Repo Featured" = "Wyróżnione repozytorium";
 "Random" = "Losowe";
 "Feature Type" = "Typ wyróżnienia";
