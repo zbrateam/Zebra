@@ -57,12 +57,13 @@
 "White" = "白";
 "Black" = "黒";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "ダークモード";
 "Default" = "既定";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "現在のアイコン";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "注目されているパッケージ";
 "Repo Featured" = "リポジトリ特集";
