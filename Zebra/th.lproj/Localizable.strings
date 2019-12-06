@@ -43,7 +43,7 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Graphics" = "การแสดงผล";
+"Interface" = "Interface";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "รายงานปัญหา";
 
-"Tint Color" = "โทนสี";
+"Accent Color" = "Accent Color";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
 "White" = "ขาว";
@@ -62,17 +62,17 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "เปลี่ยนไอคอน";
+"Current Icon" = "Current Icon";
 
-"Enable Featured Packages" = "แสดงโปรแกรมยอดนิยม";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "แนะนำโดยซอร์ส";
 "Random" = "สุ่ม";
 "Feature Type" = "วิธีแสดง";
 "Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
 
-"Enable News" = "แสดงข่าวสาร";
+"News" = "ข่าวสาร";
 
-"Search while Typing" = "ค้นหาขณะพิมพ์";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "คำสั่งเมื่อปัดขวาให้แสดงผลเป็น";
 "Text" = "ข้อความ";
@@ -303,3 +303,14 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";
