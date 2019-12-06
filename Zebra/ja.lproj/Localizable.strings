@@ -43,7 +43,7 @@
 
 "Settings" = "設定";
 "Version" = "バージョン";
-"Interface" = "Interface";
+"Interface" = "インタフェース";
 "Featured" = "パッケージ特集";
 "News" = "ニュース";
 "Miscellaneous" = "その他";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "バグを報告";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "アクセントカラー";
 "Blue" = "青";
 "Orange" = "橙";
 "White" = "白";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "現在のアイコン";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "注目されているパッケージ";
 "Repo Featured" = "リポジトリ特集";
 "Random" = "ランダム";
 "Feature Type" = "表示方法";
@@ -72,7 +72,7 @@
 
 "News" = "ニュース";
 
-"Live Search" = "Live Search";
+"Live Search" = "ライブ サーチ";
 
 "Swipe Actions Display As" = "スワイプで表示する方法";
 "Text" = "テキスト";
@@ -304,13 +304,13 @@
 
 "ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
-"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+"Configure the appearence of Zebra." = "Zebra の外観を構成します。";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力しながらパッケージを検索します。 この機能を無効にすると、古いデバイスの遅延を減らすことができます。";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
