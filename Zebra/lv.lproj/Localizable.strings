@@ -43,7 +43,7 @@
 
 "Settings" = "Iestatījumi";
 "Version" = "Versija";
-"Interface" = "Interface";
+"Interface" = "Saskarne";
 "Featured" = "Piedāvājumi";
 "News" = "Jaunumi";
 "Miscellaneous" = "Dažādi";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Paziņot par kļūdu";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Akcentu krāsa";
 "Blue" = "Zils";
 "Orange" = "Oranžs";
 "White" = "Balts";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Pašreizais Ikons";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Piedāvātās paketes";
 "Repo Featured" = "Avota piedāvātās paketes";
 "Random" = "Nejaušs";
 "Feature Type" = "Piedāvāšanas veids";
@@ -72,7 +72,7 @@
 
 "News" = "Jaunumi";
 
-"Live Search" = "Live Search";
+"Live Search" = "Interaktīva meklēšana";
 
 "Swipe Actions Display As" = "Pārvelciena darbību rādīt kā";
 "Text" = "Tekstu";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Nevarēja respringot. Lūdzu, respringo manuāli.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "KĻŪDA: Nevar bloķēt statusa failu. Lūdzu mēģiniet vēlreiz.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Konfigurējiet Zebra izskatu.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Meklēt paketes rakstīšanas laikā. Izslēdzot šo funkciju, vecāku ierīču darbība var salaboties.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfigurē pārvilkšanas darbību izskatu.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
