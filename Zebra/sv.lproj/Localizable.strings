@@ -57,13 +57,13 @@
 "White" = "Vit";
 "Black" = "Svart";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Stil för mörkt läge";
 "Dark Mode" = "Mörkt läge";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Appikon";
 
 "Featured Packages" = "Utvalda paket";
 "Repo Featured" = "Förråd utvalt";
@@ -73,7 +73,7 @@
 
 "News" = "Nyheter";
 
-"Live Search" = "Live Search";
+"Live Search" = "Livesökning";
 
 "Swipe Actions Display As" = "Svepåtgärder visas som";
 "Text" = "Text";
@@ -307,7 +307,7 @@
 
 "Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Visa utvalda paket på startsidan.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
