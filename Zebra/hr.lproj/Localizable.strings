@@ -57,12 +57,13 @@
 "White" = "Bijela";
 "Black" = "Crna";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Tamni način";
 "Default" = "Zadano";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Trenutna ikona";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Istaknuti paketi";
 "Repo Featured" = "Istaknuti Izvor";
