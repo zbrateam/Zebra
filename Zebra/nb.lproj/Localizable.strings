@@ -312,7 +312,7 @@
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søk etter pakker mens du taster. Deaktivering av denne funksjonen kan redusere etterslepet på eldre enheter.";
 
-"Configure the appearance of table view swipe actions." = "Konfigurer utseendet til sveip handlinger på tabellvisninger.";
+"Configure the appearance of table view swipe actions." = "Konfigurer utseendet til sveiphandlinger på tabellvisninger.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
