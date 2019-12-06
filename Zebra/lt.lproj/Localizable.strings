@@ -57,13 +57,13 @@
 "White" = "Baltas";
 "Black" = "Juodas";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Tamsaus režimo stilius";
 "Dark Mode" = "Tamsus režimas";
 "Default" = "Numatytas";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Programos piktograma";
 
 "Featured Packages" = "Rodomiausi paketai";
 "Repo Featured" = "Saugyklų rodomiausi";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "Konfiguruokit lentelių peržiūros gestų veiksmų išvaizdą.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Pakeisti Zebra programėlės atspalvį.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Pakeisti Zebra tamsaus režimo apipavidalinimą, kai jis įjungtas.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Pakeisti rodomiausių paketų šaltinį pagrindiniame puslapyje.\n\"Rodomiausia saugykla\" parodys atsitiktinius saugyklų paketus, kurios palaiko rodomiausių paketų API.\n\"Atsitiktinis\" parodys atsitiktinius paketus iš visų saugyklų, kurias pridėjote į Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
