@@ -300,6 +300,6 @@
 
 "Could not respring. Please respring manually." = "לא ניתן להפעיל מחדש את מסך הבית. יש לנסות הפעלה מחדש ידנית.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "תקלה: לא ניתן לנעול קובץ סטטוס. אנא נסה/י שנית.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
