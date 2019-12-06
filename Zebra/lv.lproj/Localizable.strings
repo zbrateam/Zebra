@@ -57,12 +57,13 @@
 "White" = "Balts";
 "Black" = "Melns";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Tumšais režīms";
 "Default" = "Normāls";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Pašreizais Ikons";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Piedāvātās paketes";
 "Repo Featured" = "Avota piedāvātās paketes";
