@@ -57,12 +57,13 @@
 "White" = "أبيض";
 "Black" = "أسود";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "الوضع الداكن";
 "Default" = "افتراضي";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "الأيقونة الحالية";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "الحزم المميزة";
 "Repo Featured" = "المستودع المميز";
