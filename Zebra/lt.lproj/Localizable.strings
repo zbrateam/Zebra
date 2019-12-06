@@ -43,7 +43,7 @@
 
 "Settings" = "Nustatymai";
 "Version" = "Versija";
-"Interface" = "Interface";
+"Interface" = "Sąsaja";
 "Featured" = "Rodomiausi";
 "News" = "Naujienos";
 "Miscellaneous" = "Įvairūs";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Pranešti apie klaidą";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Atspalvis";
 "Blue" = "Mėlynas";
 "Orange" = "Orandžinis";
 "White" = "Baltas";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Dabartinė piktograma";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Rodomiausi paketai";
 "Repo Featured" = "Saugyklų rodomiausi";
 "Random" = "Atsitiktiniai";
 "Feature Type" = "Tipas";
@@ -72,7 +72,7 @@
 
 "News" = "Naujienos";
 
-"Live Search" = "Live Search";
+"Live Search" = "Tiesioginė paieška";
 
 "Swipe Actions Display As" = "Veiksmų braukimo juosta";
 "Text" = "Tekstas";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "Klaida: Nepavyko užrakinti failo būsenos. Prašome pabandyti dar kartą.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Konfiguruokit Zebra išvaizdą.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Rodyti naujausius bendruomenės įrašus /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Ieškoti paketų kol rašot. Išjungus šią funkciją, pagerinsite veikimą senuose prietaisuose.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfiguruokit lentelių peržiūros gestų veiksmų išvaizdą.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
