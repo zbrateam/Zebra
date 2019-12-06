@@ -43,7 +43,7 @@
 
 "Settings" = "设置";
 "Version" = "版本";
-"Graphics" = "画面";
+"Interface" = "Interface";
 "Featured" = "功能";
 "News" = "新闻";
 "Miscellaneous" = "其它";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "报告 Bug";
 
-"Tint Color" = "主题颜色";
+"Accent Color" = "Accent Color";
 "Blue" = "蓝色";
 "Orange" = "橙色";
 "White" = "白色";
@@ -62,17 +62,17 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "更换图标";
+"Current Icon" = "Current Icon";
 
-"Enable Featured Packages" = "启用推荐软件包";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "推荐的软件源";
 "Random" = "随机";
 "Feature Type" = "推荐类型";
 "Select Repos to be Featured" = "选择会被推荐的软件源";
 
-"Enable News" = "启用新闻";
+"News" = "新闻";
 
-"Search while Typing" = "打字时搜索";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "滑动选项显示为";
 "Text" = "文字";
@@ -303,3 +303,14 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";
