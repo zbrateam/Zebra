@@ -304,13 +304,15 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERRO: O processo deve ser reiniciado. Por favor, tente novamente.";
 
-"Configure the appearence of Zebra." = "Configure a aparência do Zebra.";
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
 "Display featured packages on the homepage." = "Exibir pacotes em destaque na página inicial.";
 
 "Display recent community posts from /r/jailbreak." = "Exibir publicações recentes da comunidade /r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Pesquisar pacotes durante a digitação. Desativar este recurso pode reduzir o lag em dispositivos mais antigos.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
