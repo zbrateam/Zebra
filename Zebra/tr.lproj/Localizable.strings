@@ -57,12 +57,13 @@
 "White" = "Beyaz";
 "Black" = "Siyah";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Karanlık Mod";
 "Default" = "Orjinal";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Featured Packages";
 "Repo Featured" = "Kaynağın Öne Çıkanları";
