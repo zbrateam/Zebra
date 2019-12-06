@@ -57,12 +57,13 @@
 "White" = "לבן";
 "Black" = "שחור";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "מצב לילה";
 "Default" = "ברירת מחדל";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "אייקון נוכחי";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "חבילות מומלצות";
 "Repo Featured" = "המלצת המקור";
