@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Reporte um Bug";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Cor de destaque";
 "Blue" = "Azul";
 "Orange" = "Laranja";
 "White" = "Branco";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Ícone atual";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Pacotes em destaque";
 "Repo Featured" = "Repo em destaque";
 "Random" = "Aleatório";
 "Feature Type" = "Tipo de destaque";
@@ -72,7 +72,7 @@
 
 "News" = "Notícias";
 
-"Live Search" = "Live Search";
+"Live Search" = "Pesquisa ao vivo";
 
 "Swipe Actions Display As" = "Ações de deslize são mostradas como";
 "Text" = "Texto";
@@ -304,13 +304,13 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERRO: O processo deve ser reiniciado. Por favor, tente novamente.";
 
-"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+"Configure the appearence of Zebra." = "Configure a aparência do Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Exibir pacotes em destaque na página inicial.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Exibir publicações recentes da comunidade /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Pesquisar pacotes durante a digitação. Desativar este recurso pode reduzir o lag em dispositivos mais antigos.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
