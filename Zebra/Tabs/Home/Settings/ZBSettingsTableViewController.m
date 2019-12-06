@@ -198,8 +198,7 @@ enum ZBMiscOrder {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-    if ((indexPath.section == ZBInterface &&
-        (indexPath.row == ZBChangeTint || indexPath.row == ZBChangeMode)) ||
+    if ((indexPath.section == ZBInterface) ||
         (indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) ||
         indexPath.section == ZBMisc){
         static NSString *cellIdentifier = @"settingsRightDetailCell";
@@ -247,6 +246,7 @@ enum ZBMiscOrder {
             switch (row) {
                 case ZBChangeIcon: {
                     cell.textLabel.text = NSLocalizedString(@"Change Icon", @"");
+                    cell.detailTextLabel.text = [self iconName:[[UIApplication sharedApplication] alternateIconName]];
                     if (@available(iOS 10.3, *)) {
                         if ([[UIApplication sharedApplication] alternateIconName]) {
                             cell.imageView.image = [UIImage imageNamed:[[UIApplication sharedApplication] alternateIconName]];
@@ -403,6 +403,30 @@ enum ZBMiscOrder {
         }
     }
     return nil;
+}
+
+- (NSString *)iconName:(NSString *)fileName {
+    if (fileName) {
+        NSArray *choices = @[@"darkZebraSkin", @"lightZebraSkin", @"originalBlack", @"zBlack", @"zWhite"];
+        NSUInteger choice = [choices indexOfObject:fileName];
+        switch (choice) {
+            case 0:
+                return @"Dark Zebra Pattern";
+            case 1:
+                return @"Light Zebra Pattern";
+            case 2:
+                return @"Original (Dark)";
+            case 3:
+                return @"Dark Zebra Pattern with Z";
+            case 4:
+                return @"Light Zebra Pattern with Z";
+            default:
+                return @"Original";
+        }
+    }
+    else {
+        return @"Original";
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
