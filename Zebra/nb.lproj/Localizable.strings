@@ -300,7 +300,7 @@
 
 "Could not respring. Please respring manually." = "Kunne ikke starte SpringBoard på nytt. Vennligst start SpringBoard på nytt selv.";
 
-"ERROR: Unable to lock status file. Please try again." = "FEIL: Kan ikke låse statusfil. Vennligst prøv på nytt.";
+"ERROR: Unable to lock status file. Please try again." = "FEIL: Kunne ikke låse statusfil. Vennligst prøv på nytt.";
 
 "ERROR: Process must be restarted. Please try again." = "FEIL: Prosessen må startes på nytt. Vennligst prøv på nytt.";
 
