@@ -43,7 +43,7 @@
 
 "Settings" = "الإعدادات";
 "Version" = "الإصدار";
-"Interface" = "Interface";
+"Interface" = "الواجهة";
 "Featured" = "مميز";
 "News" = "الأخبار";
 "Miscellaneous" = "متنوع";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "الإبلاغ عن خطأ";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "اللون الثانوي";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
 "White" = "أبيض";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "الأيقونة الحالية";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "الحزم المميزة";
 "Repo Featured" = "المستودع المميز";
 "Random" = "عشوائي";
 "Feature Type" = "نوع الميزة";
@@ -72,7 +72,7 @@
 
 "News" = "الأخبار";
 
-"Live Search" = "Live Search";
+"Live Search" = "بحث مباشر";
 
 "Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
 "Text" = "نص";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "خطأ: غير قادر على قفل ملف الحالة. يرجى المحاولة مرة أخرى.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "خطأ: يجب إعادة تشغيل العملية. يرجى المحاولة مرة أخرى.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "تكوين مظهر Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "عرض الحزم المميزة على الصفحة الرئيسية.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "عرض أحدث منشورات المجتمع من /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "البحث عن الحزم أثناء الكتابة. تعطيل هذه الميزة قد يؤدي إلى تقليل التأخر في الأجهزة القديمة.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "تكوين مظهر إجراءات تمرير جدول العرض.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
