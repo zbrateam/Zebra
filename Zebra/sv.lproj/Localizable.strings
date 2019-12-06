@@ -57,12 +57,13 @@
 "White" = "Vit";
 "Black" = "Svart";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Mörkt läge";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Utvalda paket";
 "Repo Featured" = "Förråd utvalt";
