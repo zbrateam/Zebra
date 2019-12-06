@@ -73,7 +73,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
@@ -500,9 +500,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (IBAction)settingsButtonTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }
 

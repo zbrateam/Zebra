@@ -65,6 +65,9 @@ enum ZBMiscOrder {
     [super viewWillAppear:YES];
     [self.tableView reloadData];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)configureSelectedTint {
