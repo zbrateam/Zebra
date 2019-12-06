@@ -43,7 +43,7 @@
 
 "Settings" = "Konfigurimet";
 "Version" = "Versioni";
-"Interface" = "Interface";
+"Interface" = "Ndërfaqe";
 "Featured" = "Të Veçuara";
 "News" = "Lajmet";
 "Miscellaneous" = "Të ndryshme";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Raporto nje gabim";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Ngjyra të theksuara";
 "Blue" = "Kaltërt";
 "Orange" = "Portokalli";
 "White" = "Bardhë";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Ikona aktuale";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Paketat e Veçuara";
 "Repo Featured" = "Repot e veçuara";
 "Random" = "I rastësishëm";
 "Feature Type" = "Lloji i Kryeartikullit";
@@ -72,7 +72,7 @@
 
 "News" = "Lajmet";
 
-"Live Search" = "Live Search";
+"Live Search" = "Kërkimi i Drejtpërdrejtë";
 
 "Swipe Actions Display As" = "Veprimi rrëshqit shfaqet si";
 "Text" = "Tekst";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Nuk mund të rifilloj. Ju lutemi rifilloni manualisht.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ERROR: E pamundur që të bllokoj skedarin e statusit. Ju lutemi provoni përsëri.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Konfiguroni pamjen e Zebrës.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Shfaq postimet e fundit të komunitetit nga /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Kërkoni paketat kur jeni duke shkruar. Disaktivizimi i kësaj veçorie mund të zvogëlojë vonesën në pajisjet e vjetra.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfiguroni pamjen e veprimeve të rrëshqitjes së pamjes së tabelës.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
