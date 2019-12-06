@@ -43,7 +43,7 @@
 
 "Settings" = "Ρυθμίσεις";
 "Version" = "Έκδοση";
-"Graphics" = "Γραφικά";
+"Interface" = "Interface";
 "Featured" = "Προτεινόμενα";
 "News" = "Νέα";
 "Miscellaneous" = "Διάφορα";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Αναφορά σφάλματος";
 
-"Tint Color" = "Χροιά Χρώματος";
+"Accent Color" = "Accent Color";
 "Blue" = "Μπλε";
 "Orange" = "Πορτοκαλί";
 "White" = "Άσπρο";
@@ -62,17 +62,17 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Άλλαξε Εικονίδιο";
+"Current Icon" = "Current Icon";
 
-"Enable Featured Packages" = "Ενεργοποίησε Προτεινόμενα Πακέτα";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Προτεινόμενα Repo";
 "Random" = "Τυχαίο";
 "Feature Type" = "Τύπος Προτεινόμενου";
 "Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
 
-"Enable News" = "Ενεργοποίηση Νέων";
+"News" = "Νέα";
 
-"Search while Typing" = "Αναζήτησε ενώ Πληκτρολογείς";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Swipe Actions Εμφανίζονται Ως";
 "Text" = "Κείμενο";
@@ -303,3 +303,14 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";
