@@ -43,7 +43,7 @@
 
 "Settings" = "Postavke";
 "Version" = "Inačica";
-"Interface" = "Interface";
+"Interface" = "Sučelje";
 "Featured" = "Izdvojeno";
 "News" = "Novosti";
 "Miscellaneous" = "Ostalo";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Prijavi grešku";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Akcentna boja";
 "Blue" = "Plava";
 "Orange" = "Narančasta";
 "White" = "Bijela";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Trenutna ikona";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Istaknuti paketi";
 "Repo Featured" = "Istaknuti Izvor";
 "Random" = "Nasumično";
 "Feature Type" = "Istaknuti Tip";
@@ -72,7 +72,7 @@
 
 "News" = "Novosti";
 
-"Live Search" = "Live Search";
+"Live Search" = "Pretraživanje uživo";
 
 "Swipe Actions Display As" = "Prelazak prstom prikazan je kao";
 "Text" = "Tekst";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Ne mogu respring. Molimo izvršite respring ručno.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "POGREŠKA: neuspješno zaključavanje statusa datoteke. Molimo, pokušajte ponovo.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "POGREŠKA: Proces se mora ponoviti. Molimo, pokušajte ponovo.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Postavke izgleda Zebre.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Prikaži nedavne objave iz zajednice /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Pretraži pakete za vrijeme tipkanja. Gašenjem ove opcije će se smanjiti zastajkivanja na starijim uređajima.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Postavke izgleda opcije prelaska prstom za odabir akcije.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
