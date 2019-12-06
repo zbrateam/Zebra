@@ -312,5 +312,7 @@
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
 #Zebra version
 "Zebra %@" = "Zebra %@";
