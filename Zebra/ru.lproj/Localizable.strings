@@ -57,12 +57,13 @@
 "White" = "Белый";
 "Black" = "Черный";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Темный режим";
 "Default" = "Обычный";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Текущая Иконка";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Избранные Пакеты";
 "Repo Featured" = "Избранное из репозитория";
