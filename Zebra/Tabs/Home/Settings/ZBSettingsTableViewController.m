@@ -292,7 +292,7 @@ enum ZBMiscOrder {
                         cell.detailTextLabel.text = @"";
                     }
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.text = NSLocalizedString(@"Tint Color", @"");
+                    cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
                     break;
                 }
                 case ZBChangeMode: {
@@ -584,7 +584,7 @@ enum ZBMiscOrder {
         theme = @"White";
     }
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Tint Color";
+    controller.title = @"Accent Color";
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
