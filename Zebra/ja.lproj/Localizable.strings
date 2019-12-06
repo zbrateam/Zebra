@@ -304,13 +304,15 @@
 
 "ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
-"Configure the appearence of Zebra." = "Zebra の外観を構成します。";
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
 "Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力しながらパッケージを検索します。 この機能を無効にすると、古いデバイスの遅延を減らすことができます。";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
