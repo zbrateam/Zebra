@@ -57,12 +57,13 @@
 "White" = "Baltas";
 "Black" = "Juodas";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Tamsus režimas";
 "Default" = "Numatytas";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Dabartinė piktograma";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Rodomiausi paketai";
 "Repo Featured" = "Saugyklų rodomiausi";
