@@ -298,7 +298,7 @@
 
 "Help translate Zebra!" = "Βοηθήστε να μεταφραστεί το Zebra!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Αδυναμία respring. Παρακαλώ κάνε respring χειροκίνητα.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
