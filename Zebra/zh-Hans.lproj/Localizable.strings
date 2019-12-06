@@ -57,13 +57,13 @@
 "White" = "白色";
 "Black" = "黑色";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "黑暗模式样式";
 "Dark Mode" = "黑暗模式";
 "Default" = "默认";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "App 图标";
 
 "Featured Packages" = "精选软件包";
 "Repo Featured" = "推荐的软件源";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观。";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色。";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题。";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "更改主页上精选软件包的源。\n\n“精选软件源”将显示来自支持精选软件包 API 软件源的随机软件包。\n\n“随机”将显示你添加到 Zebra 中所有软件源中的随机软件包。";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
