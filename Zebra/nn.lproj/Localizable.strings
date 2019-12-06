@@ -57,13 +57,13 @@
 "White" = "Kvit";
 "Black" = "Svart";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Mørk modus stil";
 "Dark Mode" = "Mørk modus";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "App ikon";
 
 "Featured Packages" = "Utvalde pakkar";
 "Repo Featured" = "Kjelder utvalt";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "Konfigurer utsjånaden til sveiphandlingar på tabellvisningar.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Endre aksentfargen som blir vist i Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Endre temaet for Zebras mørk modus når den er aktivert.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Endre kjelda til dei utvalde pakkane på heimesida.\n\n\"Kjelder utvalt\" vil visa tilfeldige pakkar frå kjelda som støttar Featured Package API.\n\n\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
