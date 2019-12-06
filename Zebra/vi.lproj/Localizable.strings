@@ -43,7 +43,7 @@
 
 "Settings" = "Cài đặt";
 "Version" = "Phiên bản";
-"Graphics" = "Đồ họa";
+"Interface" = "Interface";
 "Featured" = "Tính năng";
 "News" = "Tin tức";
 "Miscellaneous" = "Điều khoản khác";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Báo cáo lỗi";
 
-"Tint Color" = "Màu sắc";
+"Accent Color" = "Accent Color";
 "Blue" = "Lam";
 "Orange" = "Cam";
 "White" = "Trắng";
@@ -62,17 +62,17 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Thay đổi biểu tượng";
+"Current Icon" = "Current Icon";
 
-"Enable Featured Packages" = "Kích hoạt gói nổi bật";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Repo nổi bật";
 "Random" = "Ngẫu nhiên";
 "Feature Type" = "Loại tính năng";
 "Select Repos to be Featured" = "Chọn Repo nổi bật";
 
-"Enable News" = "Kích hoạt tin tức";
+"News" = "Tin tức";
 
-"Search while Typing" = "Tìm kiếm trong khi gõ";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Thao tác vuốt hiển thị dưới dạng";
 "Text" = "Văn bản";
@@ -303,3 +303,14 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";
