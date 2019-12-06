@@ -57,12 +57,13 @@
 "White" = "Bardhë";
 "Black" = "E Zezë";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Modeli i Errët";
 "Default" = "Normale";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Ikona aktuale";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "Paketat e Veçuara";
 "Repo Featured" = "Repot e veçuara";
