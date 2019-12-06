@@ -43,7 +43,7 @@
 
 "Settings" = "Настройки";
 "Version" = "Версия";
-"Interface" = "Interface";
+"Interface" = "Интерфейс";
 "Featured" = "Избранное";
 "News" = "Новости";
 "Miscellaneous" = "Другое";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Сообщить об Ошибке";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Цвет";
 "Blue" = "Синий";
 "Orange" = "Оранжевый";
 "White" = "Белый";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Текущая Иконка";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Избранные Пакеты";
 "Repo Featured" = "Избранное из репозитория";
 "Random" = "Случайно";
 "Feature Type" = "Тип Избранного";
@@ -72,7 +72,7 @@
 
 "News" = "Новости";
 
-"Live Search" = "Live Search";
+"Live Search" = "Живой Поиск";
 
 "Swipe Actions Display As" = "Вид Свайп-действий";
 "Text" = "Текст";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "Не удалось перезапустить SpringBoard. Пожалуйста, перезапустите SpringBoard вручную.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ОШИБКА: Невозможно найти файл статуса блокировки. Пожалуйста попробуйте снова.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста попробуйте снова.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Настройте внешний вид Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Искать пакеты во время ввода. Отключение этой функции может улучшить производительность на старых устройствах.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Настройте внешний вид таблицы действий свайпом.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
