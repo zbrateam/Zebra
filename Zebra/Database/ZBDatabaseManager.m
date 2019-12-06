@@ -1438,11 +1438,17 @@
     return NULL;
 }
 
-- (NSArray *)packagesWithReachableIconsForRows:(int)limit{
+- (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBRepo *> *_Nullable)blacklistedRepos {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
+        NSMutableArray *repoIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
         
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE ICONURL IS NOT NULL ORDER BY LASTSEEN DESC LIMIT %d;", limit];
+        for (ZBRepo *repo in blacklistedRepos) {
+            [repoIDs addObject:[NSNumber numberWithInt:[repo repoID]]];
+        }
+        NSString *excludeString = [NSString stringWithFormat:@"(%@)", [repoIDs componentsJoinedByString:@", "]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICONURL IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
+        
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1451,7 +1457,7 @@
  
             }
         }
-        return packages;
+        return [self cleanUpDuplicatePackages:packages];
     }
     [self printDatabaseError];
     return NULL;

@@ -463,7 +463,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param limit Specify how many rows are selected.
  @return An array of all packages with a reachable icon.
  */
-- (NSArray *)packagesWithReachableIconsForRows:(int)limit;
+- (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBRepo *> *_Nullable)blacklistedRepos;
 
 - (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end

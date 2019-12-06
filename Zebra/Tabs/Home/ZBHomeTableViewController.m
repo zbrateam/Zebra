@@ -158,37 +158,29 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIconsForRows:500];
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
-    NSLog(@"[Zebra] Blocked REPOS %@", blockedRepos);
-    if (!blockedRepos) {
-        blockedRepos = [NSArray new];
+    NSMutableArray *blacklist = [NSMutableArray new];
+    for (NSString *baseURL in blockedRepos) {
+        [blacklist addObject:[ZBRepo repoFromBaseURL:baseURL]];
     }
+    
+    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
     dispatch_group_t group = dispatch_group_create();
     for (ZBPackage *package in packages) {
         dispatch_group_enter(group);
         NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (![blockedRepos containsObject:package.repo.baseURL]) {
-            if (package.iconPath) {
-                if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
-                    [dict setObject:package.iconPath forKey:@"url"];
-                    [dict setObject:package.identifier forKey:@"package"];
-                    [dict setObject:package.name forKey:@"title"];
-                    [self->allFeatured addObject:dict];
-                }
+        if (package.iconPath) {
+            if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
+                [dict setObject:package.iconPath forKey:@"url"];
+                [dict setObject:package.identifier forKey:@"package"];
+                [dict setObject:package.name forKey:@"title"];
+                
+                [self->allFeatured addObject:dict];
             }
         }
         dispatch_group_leave(group);
     }
-    if (self->allFeatured.count < 100) {
-        NSArray *repos = [[ZBDatabaseManager sharedInstance] repos];
-        NSMutableArray *filtered = [NSMutableArray new];
-        for (ZBRepo *repo in repos) {
-            if (![blockedRepos containsObject:repo.baseURL]) {
-                [filtered addObject:repo];
-            }
-        }
-    }
+    
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [self createHeader];
     });
@@ -200,18 +192,16 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
         [self.selectedFeatured removeAllObjects];
         self.cellNumber = [self cellCount];
+        
         for (int i = 1; i <= self.cellNumber; ++i) {
             NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
-            if ([[ZBDatabaseManager sharedInstance] packageIDIsInstalled:dict[@"package"] version:nil]) {
-                --i;
-                continue;
-            }
             if (![selectedFeatured containsObject:dict]) {
                 [self->selectedFeatured addObject:dict];
             } else {
                 --i;
             }
         }
+        
         [UIView animateWithDuration:.25f animations:^{
             self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
         }];
