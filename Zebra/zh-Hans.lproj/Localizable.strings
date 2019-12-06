@@ -57,12 +57,13 @@
 "White" = "白色";
 "Black" = "黑色";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "黑暗模式";
 "Default" = "默认";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "当前图标";
+"App Icon" = "App Icon";
 
 "Featured Packages" = "精选软件包";
 "Repo Featured" = "推荐的软件源";
