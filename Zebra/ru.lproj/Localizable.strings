@@ -302,7 +302,7 @@
 
 "ERROR: Unable to lock status file. Please try again." = "ОШИБКА: Невозможно найти файл статуса блокировки. Пожалуйста попробуйте снова.";
 
-"ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста попробуйте снова.";
+"ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста, попробуйте снова.";
 
 "Configure the appearance of Zebra." = "Настройте внешний вид Zebra.";
 
