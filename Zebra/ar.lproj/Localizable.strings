@@ -57,13 +57,13 @@
 "White" = "أبيض";
 "Black" = "أسود";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "نمط الوضع الداكن";
 "Dark Mode" = "الوضع الداكن";
 "Default" = "افتراضي";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "أيقونة التطبيق";
 
 "Featured Packages" = "الحزم المميزة";
 "Repo Featured" = "المستودع المميز";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "تكوين مظهر إجراءات تمرير جدول العرض.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "تغيير اللون الثانوي الذي يظهر عبر Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "تغيير وضع موضوع Zebra الداكن عند تفعيله.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "تغيير مصدر الحزم المميزة على الصفحة الرئيسية.\n\nستعرض ميزة  \"المستودع المميز\" حزم عشوائية من المستودعات التي تدعم API الحزمة المميزة.\n\nسيعرض خيار \"عشوائي\" حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
