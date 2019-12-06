@@ -43,7 +43,7 @@
 
 "Settings" = "הגדרות";
 "Version" = "גירסה";
-"Graphics" = "עיצוב";
+"Interface" = "Interface";
 "Featured" = "מומלץ";
 "News" = "חדשות";
 "Miscellaneous" = "שונות";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "דווח/י על באג";
 
-"Tint Color" = "צבע גוון";
+"Accent Color" = "Accent Color";
 "Blue" = "כחול";
 "Orange" = "כתום";
 "White" = "לבן";
@@ -62,17 +62,17 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "שנה אייקון";
+"Current Icon" = "Current Icon";
 
-"Enable Featured Packages" = "אפשר חבילות מומלצות";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "המלצת המקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
 
-"Enable News" = "אפשר חדשות";
+"News" = "חדשות";
 
-"Search while Typing" = "חפש במהלך ההקלדה";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "פעולות החלקה מוצגות בתור";
 "Text" = "טקסט";
@@ -303,3 +303,14 @@
 "ERROR: Unable to lock status file. Please try again." = "תקלה: לא ניתן לנעול קובץ סטטוס. אנא נסה/י שנית.";
 
 "ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
+
+"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";
