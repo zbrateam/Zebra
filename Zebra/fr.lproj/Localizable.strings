@@ -57,13 +57,13 @@
 "White" = "Blanc";
 "Black" = "Noir";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Style du mode sombre";
 "Dark Mode" = "Mode Sombre";
 "Default" = "Défaut";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Icône de l'App";
 
 "Featured Packages" = "Paquets recommandés";
 "Repo Featured" = "Sources Mises en Vedette";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "Configurer l'apparence des actions lors du balayage sur les paquets.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Changez la couleur d’accentuation de Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Changer le thème du mode sombre de Zebra lorsqu'il est activé.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Changez la source des paquets en vedette sur la page d'accueil.\n\n\"Sources en Vedette\" affichera des paquets aléatoires de repos qui prennent en charge l'API des paquets en vedette.\n\n\"Aléatoire\" affichera des paquets aléatoires de tous les dépôts que vous avez ajoutés à Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
