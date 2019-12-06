@@ -43,7 +43,7 @@
 
 "Settings" = "Einstellungen";
 "Version" = "Version";
-"Interface" = "Interface";
+"Interface" = "Benutzeroberfläche";
 "Featured" = "Vorgestellt";
 "News" = "Neuigkeiten";
 "Miscellaneous" = "Sonstiges";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Einen Fehler melden";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Akzentfarbe";
 "Blue" = "Blau";
 "Orange" = "Orange";
 "White" = "Weiß";
@@ -62,9 +62,9 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Current Icon" = "Current Icon";
+"Current Icon" = "Aktuelles Symbol";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Vorgestellte Pakete";
 "Repo Featured" = "Vorgestellte Quelle";
 "Random" = "Zufällig";
 "Feature Type" = "Vorgestellter Typ";
@@ -72,7 +72,7 @@
 
 "News" = "Neuigkeiten";
 
-"Live Search" = "Live Search";
+"Live Search" = "Live-Suche";
 
 "Swipe Actions Display As" = "Wischgesten angezeigen als";
 "Text" = "Text";
@@ -300,19 +300,19 @@
 
 "Could not respring. Please respring manually." = "SpringBoard konnte nicht neugestartet werden. Bitte versuche den Neustart manuell durchzuführen.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "FEHLER: Statusdatei konnte nicht gesperrt werden. Bitte versuchen Sie es erneut.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "FEHLER: Prozess muss neu gestartet werden. Bitte versuchen Sie es erneut.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Konfigurieren Sie das Aussehen von Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Empfohlene Pakete auf der Homepage anzeigen.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Zeige aktuelle Community-Beiträge von /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Beim Tippen nach Paketen suchen. Deaktivieren dieser Funktion kann die Verzögerung auf älteren Geräten verringern.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfigurieren Sie das Aussehen von Wischaktionen.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
