@@ -60,7 +60,7 @@
 "Dark Mode" = "حالت تیره";
 "Default" = "پیشفرض";
 "OLED" = "نمایشگرهای ال ای دی ";
-"iOS 13" = "iOS 13";
+"iOS 13" = "آی او اس ۱۳";
 
 "Current Icon" = "Current Icon";
 
@@ -128,8 +128,8 @@
 "Show Updates" = "نمایش آپدیت ها";
 "Ignore Updates" = "رد آپدیت ها";
 "Select Version" = "انتخاب نسخه";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "انتخاب یک نسخه برای بروزرسانی:";
+"Select a version to downgrade to:" = "انتخاب یک نسخه برای پایین آوردن:";
 "Package" = "پکیج";
 "Information" = "مشخصات";
 "Upgrade All" = "بروزرسانی همه ی پکیج ها";
@@ -152,19 +152,19 @@
 "Installed Size" = "اندازه ی پکیج نصب شده";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@(نسخه نصب شده: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (حجم بعد از نصب: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d بایت";
 //Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
+"%d KB" = "%d کیلوبایت";
 //Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
+"%.2f KB" = "%.2f کیلوبایت";
 //Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
+"%.2f MB" = "%.2f مگابایت";
 
 "Add to Wish List" = "اضافه  کردن به خرید های آینده";
 "Remove from Wish List" = "حذف از خرید های آینده";
@@ -281,7 +281,7 @@
 "Are you sure?" = "مطمین هستید؟";
 "Are you sure you want to clear the queue?" = "میخواهید صف را پاک کنید؟";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"Remove from Queue" = "حذف از صف";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
