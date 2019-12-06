@@ -34,10 +34,6 @@
     currentRepoEndpoint = @"";
     [self refreshTable];
     self.title = NSLocalizedString(@"Stores", @"");
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,6 +41,10 @@
     [self refreshTable];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)refreshTable {

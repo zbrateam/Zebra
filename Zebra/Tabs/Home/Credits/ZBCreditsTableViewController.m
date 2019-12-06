@@ -26,9 +26,6 @@
     [spinner startAnimating];
     
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,6 +35,10 @@
     
     if (credits == NULL) {
         [self fetchCredits];
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
 }
 
