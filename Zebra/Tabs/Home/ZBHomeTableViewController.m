@@ -14,12 +14,17 @@
 @import FirebaseAnalytics;
 
 typedef enum ZBHomeOrder : NSUInteger {
-    ZBWelcome,
+    ZBInfo,
     ZBViews,
     ZBLinks,
     ZBCredits,
     ZBHomeOrderCount
 } ZBHomeOrder;
+
+typedef enum ZBInfoOrder : NSUInteger {
+    ZBWelcome,
+    ZBBug
+} ZBInfoOrder;
 
 typedef enum ZBViewOrder : NSUInteger {
     ZBChangeLog,
@@ -235,8 +240,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case ZBWelcome:
-            return 1;
+        case ZBInfo:
+            return 2;
         case ZBViews:
             return 4;
         case ZBLinks:
@@ -250,18 +255,43 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case ZBWelcome: {
-            static NSString *cellIdentifier = @"flavorTextCell";
-            
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        case ZBInfo: {
+            switch (indexPath.row) {
+                case ZBWelcome: {
+                    static NSString *cellIdentifier = @"flavorTextCell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    }
+                    cell.textLabel.text = NSLocalizedString(@"Welcome to the Zebra Beta!", @"");
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    return cell;
+                }
+                case ZBBug: {
+                    static NSString *cellIdentifier = @"viewCell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    }
+                    NSString *text;
+                    UIImage *image;
+                    text = NSLocalizedString(@"Report a Bug", @"");
+                    image = [UIImage imageNamed:@"Bugs"];
+                    [cell.textLabel setText:text];
+                    [cell.imageView setImage:image];
+                    [self setImageSize:cell.imageView];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    [cell.textLabel sizeToFit];
+                    
+                    return cell;
+                }
             }
-            cell.textLabel.text = NSLocalizedString(@"Welcome to the Zebra Beta!", @"");
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
         }
         case ZBViews: {
             static NSString *cellIdentifier = @"viewCell";
@@ -276,19 +306,19 @@ typedef enum ZBLinksOrder : NSUInteger {
             switch (indexPath.row) {
                 case ZBChangeLog:
                     text = NSLocalizedString(@"Changelog", @"");
-                    image = [UIImage imageNamed:@"changelog"];
+                    image = [UIImage imageNamed:@"Changelog"];
                     break;
                 case ZBCommunity:
                     text = NSLocalizedString(@"Community Repos", @"");
-                    image = [UIImage imageNamed:@"repos"];
+                    image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
                     text = NSLocalizedString(@"Stores", @"");
-                    image = [UIImage imageNamed:@"stores"];
+                    image = [UIImage imageNamed:@"Stores"];
                     break;
                 case ZBWishList:
                     text = NSLocalizedString(@"Wish List", @"");
-                    image = [UIImage imageNamed:@"stores"];
+                    image = [UIImage imageNamed:@"Wishlist"];
                     break;
                 default:
                     break;
@@ -314,15 +344,15 @@ typedef enum ZBLinksOrder : NSUInteger {
             switch (indexPath.row) {
                 case ZBDiscord:
                     text = NSLocalizedString(@"Join our Discord", @"");
-                    image = [UIImage imageNamed:@"discord"];
+                    image = [UIImage imageNamed:@"Discord"];
                     break;
                 case ZBWilsonTwitter:
                     text = NSLocalizedString(@"Follow me on Twitter", @"");
-                    image = [UIImage imageNamed:@"twitter"];
+                    image = [UIImage imageNamed:@"Twitter"];
                     break;
                 case ZBTranslate:
                     text = NSLocalizedString(@"Help translate Zebra!", @"");
-                    image = [UIImage imageNamed:@"url"];
+                    image = [UIImage imageNamed:@"Translations"];
             }
             [cell.textLabel setText:text];
             [cell.imageView setImage:image];
@@ -342,7 +372,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
             [cell.textLabel setText:NSLocalizedString(@"Credits", @"")];
-            [cell.imageView setImage:[UIImage imageNamed:@"url"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"Credits"]];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
