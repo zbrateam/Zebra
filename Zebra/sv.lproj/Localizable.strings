@@ -43,7 +43,7 @@
 
 "Settings" = "Inställningar";
 "Version" = "Version";
-"Interface" = "Interface";
+"Interface" = "Gränssnitt";
 "Featured" = "Utvalt";
 "News" = "Nyheter";
 "Miscellaneous" = "Övrigt";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Rapportera en bugg";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Accentfärg";
 "Blue" = "Blå";
 "Orange" = "Orange";
 "White" = "Vit";
@@ -64,7 +64,7 @@
 
 "Current Icon" = "Current Icon";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Utvalda paket";
 "Repo Featured" = "Förråd utvalt";
 "Random" = "Slumpmässig";
 "Feature Type" = "Utväljningstyp";
