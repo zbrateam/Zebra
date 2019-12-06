@@ -43,7 +43,7 @@
 
 "Settings" = "Postavke";
 "Version" = "Inačica";
-"Graphics" = "Grafika";
+"Interface" = "Interface";
 "Featured" = "Izdvojeno";
 "News" = "Novosti";
 "Miscellaneous" = "Ostalo";
@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Prijavi grešku";
 
-"Tint Color" = "Boja elemenata";
+"Accent Color" = "Accent Color";
 "Blue" = "Plava";
 "Orange" = "Narančasta";
 "White" = "Bijela";
@@ -62,17 +62,17 @@
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Promjeni ikonu";
+"Current Icon" = "Current Icon";
 
-"Enable Featured Packages" = "Omogući Istaknute Pakete";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Istaknuti Izvor";
 "Random" = "Nasumično";
 "Feature Type" = "Istaknuti Tip";
 "Select Repos to be Featured" = "Odaberite Izvore koje želite istaknuti";
 
-"Enable News" = "Omogući Novosti";
+"News" = "Novosti";
 
-"Search while Typing" = "Pretaga za vrijeme tipkanja";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Prelazak prstom prikazan je kao";
 "Text" = "Tekst";
@@ -303,3 +303,14 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearence of Zebra." = "Configure the appearence of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";
