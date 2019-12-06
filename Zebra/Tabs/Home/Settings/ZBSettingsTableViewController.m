@@ -528,7 +528,8 @@ enum ZBMiscOrder {
         theme = @"White";
     }
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Accent Color";
+    controller.settingTitle = @"Accent Color";
+    controller.settingFooter = @"Change the accent color that displays across Zebra.";
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
@@ -553,7 +554,8 @@ enum ZBMiscOrder {
 
 - (void)changeMode {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Dark Mode Style";
+    controller.settingTitle = @"Dark Mode Style";
+    controller.settingFooter = @"Change the theme of Zebra's dark mode when it is enabled.";
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
         controller.settingSelectedRow = ZBThirteen;
@@ -577,12 +579,14 @@ enum ZBMiscOrder {
 
 - (void)featureOrRandomToggle {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Feature Type";
+    controller.settingTitle = @"Feature Type";
+    controller.settingFooter = @"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display rancom packages from all repositories that you have added to Zebra.";
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
         controller.settingSelectedRow = 1;
     } else {
         controller.settingSelectedRow = 0;
     }
+    
     controller.settingOptions = @[@"Repo Featured", @"Random"];
     controller.settingChanged = ^(NSInteger newValue) {
         BOOL selectedMode = [[NSNumber numberWithInteger:newValue] boolValue];
