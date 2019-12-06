@@ -342,15 +342,15 @@ enum ZBMiscOrder {
         NSUInteger choice = [choices indexOfObject:fileName];
         switch (choice) {
             case 0:
-                return @"Dark Zebra Pattern";
+                return @"Pattern (Dark)";
             case 1:
-                return @"Light Zebra Pattern";
+                return @"Pattern (Light)";
             case 2:
                 return @"Original (Dark)";
             case 3:
-                return @"Dark Zebra Pattern with Z";
+                return @"Embossed (Dark)";
             case 4:
-                return @"Light Zebra Pattern with Z";
+                return @"Embossed (Light)";
             default:
                 return @"Original";
         }

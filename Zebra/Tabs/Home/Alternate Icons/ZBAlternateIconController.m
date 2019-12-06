@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     icons = @[@"Default", @"originalBlack", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
-    betterNames = @[@"Original", @"Original (Dark)", @"Light Zebra Pattern", @"Dark Zebra Pattern", @"Zebra Pattern with Z (Light)", @"Zebra Pattern with Z (Dark)"];
+    betterNames = @[@"Original", @"Original (Dark)", @"Zebra Pattern (Light)", @"Zebra Pattern (Dark)", @"Embossed Zebra Pattern (Light)", @"Embossed Zebra Pattern (Dark)"];
     self.title = NSLocalizedString(@"Alternate Icons", @"");
 }
 
