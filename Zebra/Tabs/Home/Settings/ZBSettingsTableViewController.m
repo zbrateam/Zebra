@@ -176,7 +176,7 @@ enum ZBMiscOrder {
             ZBUIOrder row = indexPath.row;
             switch (row) {
                 case ZBChangeIcon: {
-                    cell.textLabel.text = NSLocalizedString(@"Current Icon", @"");
+                    cell.textLabel.text = NSLocalizedString(@"App Icon", @"");
                     if (@available(iOS 10.3, *)) {
                         cell.detailTextLabel.text = [self iconName:[[UIApplication sharedApplication] alternateIconName]];
                         if ([[UIApplication sharedApplication] alternateIconName]) {
@@ -236,7 +236,7 @@ enum ZBMiscOrder {
                     } else {
                         cell.detailTextLabel.text = @"";
                     }
-                    cell.textLabel.text = NSLocalizedString(@"Dark Mode", @"");
+                    cell.textLabel.text = NSLocalizedString(@"Dark Mode Style", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
@@ -550,7 +550,7 @@ enum ZBMiscOrder {
 
 - (void)changeMode {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Dark Mode";
+    controller.title = @"Dark Mode Style";
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
         controller.settingSelectedRow = ZBThirteen;
