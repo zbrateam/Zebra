@@ -57,13 +57,13 @@
 "White" = "Bardhë";
 "Black" = "E Zezë";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Stili i modës së errët";
 "Dark Mode" = "Modeli i Errët";
 "Default" = "Normale";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Ikona e aplikacionit";
 
 "Featured Packages" = "Paketat e Veçuara";
 "Repo Featured" = "Repot e veçuara";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "Konfiguroni pamjen e veprimeve të rrëshqitjes së pamjes së tabelës.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Ndryshoni ngjyrën e theksit që shfaqet në të gjithë Zebrën.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Ndryshoni temën e modës së errët të Zebra kur është aktivizuar.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Ndryshoni burimin e paketave të paraqitura në faqen kryesore.\n\n\"Paketat e veçuara\" do të shfaq paketat e rastësishme nga repot që mbështesin API-në e Paketave të Veçuara.\n\n\"I Rastësishëm\" do të shfaq paketat e rastësishme nga të gjitha repot që keni shtuar në Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
