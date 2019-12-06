@@ -57,7 +57,7 @@
 "White" = "Biały";
 "Black" = "Czarny";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Styl trybu ciemnego";
 "Dark Mode" = "Tryb ciemny";
 "Default" = "Domyślny";
 "OLED" = "OLED";
@@ -314,6 +314,12 @@
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
 "Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display rancom packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display rancom packages from all repositories that you have added to Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
