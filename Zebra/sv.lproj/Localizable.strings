@@ -317,15 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Ändra accentfärgen som visas i Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Ändra stilen för Zebras mörka läge när det är aktiverat.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Ändra källan för de utvalda paketen på startsidan.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Utvalt av förråd\" kommer att visa slumpmässiga paket från förråd som stöder API:et för utvalda paket.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till i Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Gemenskapsnyheter";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
