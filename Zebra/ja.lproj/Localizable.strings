@@ -317,9 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Zebra 全体に表示されるアクセントカラーを変更します。";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効になったら、テーマを変更します。";
+"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "ホームページで機能パッケージのソースを変更します。\n\n「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。\n\n「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
+"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"Community News" = "Community News";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
