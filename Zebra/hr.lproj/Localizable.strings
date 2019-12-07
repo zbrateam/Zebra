@@ -57,13 +57,13 @@
 "White" = "Bijela";
 "Black" = "Crna";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Tamni stil";
 "Dark Mode" = "Tamni način";
 "Default" = "Zadano";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Ikona aplikacije";
 
 "Featured Packages" = "Istaknuti paketi";
 "Repo Featured" = "Istaknuti Izvor";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "Postavke izgleda opcije prelaska prstom za odabir akcije.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Promijeni boju koja se prikazuje kroz Zebru.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Promijeni temu Zebrunog tamnog stila kada je aktiviran.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Promijeni izvor istaknutih paketa koji se prikazuju na naslovnoj stranici.\n\n\n“Istaknuti Izvor” će prikazivati izmjenično pakete iz izvora koji podržavaju API istaknutih paketa.\n\n“Nasumično” će prikazivati nasumično pakete iz svih izvora koje ste dodali u Zebru.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
