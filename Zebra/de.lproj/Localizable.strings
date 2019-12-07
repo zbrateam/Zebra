@@ -57,13 +57,13 @@
 "White" = "Weiß";
 "Black" = "Schwarz";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Dunkelmodus-Stil";
 "Dark Mode" = "Dunkelmodus";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "App-Symbol";
 
 "Featured Packages" = "Vorgestellte Pakete";
 "Repo Featured" = "Vorgestellte Quelle";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "Konfigurieren Sie das Aussehen von Wischaktionen.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Ändere Sie die in Zebra angezeigte Akzentfarbe.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Thema von Zebras zum dunklen Modus ändern, wenn dieser aktiviert ist.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Quelle der vorgestellten Pakete auf der Homepage ändern.\n\n„Quellen empfohlen” zeigt zufällige Pakete aus Quellen, die die \nAPI „Ausgewählte Pakete” unterstützen.\n\n„Zufällig” zeigt zufällige Pakete aus allen Quellen an, die Sie zu Zebra hinzugefügt haben.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
