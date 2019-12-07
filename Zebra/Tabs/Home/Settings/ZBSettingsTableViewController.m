@@ -442,7 +442,7 @@ enum ZBMiscOrder {
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         case ZBInterface:
-            return NSLocalizedString(@"Configure the appearence of Zebra.", @"");
+            return NSLocalizedString(@"Configure the appearance of Zebra.", @"");
         case ZBFeatured:
             return NSLocalizedString(@"Display featured packages on the homepage.", @"");
         case ZBNews:
@@ -450,7 +450,7 @@ enum ZBMiscOrder {
         case ZBSearch:
             return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
         case ZBMisc:
-            return NSLocalizedString(@"Configure the appearence of table view swipe actions.", @"");
+            return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
         case ZBAdvanced:
             return [NSString stringWithFormat:NSLocalizedString(@"Zebra %@", @""), PACKAGE_VERSION];
         default:
@@ -529,7 +529,7 @@ enum ZBMiscOrder {
     }
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.settingTitle = @"Accent Color";
-    controller.settingFooter = @"Change the accent color that displays across Zebra.";
+    controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
@@ -555,7 +555,7 @@ enum ZBMiscOrder {
 - (void)changeMode {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.settingTitle = @"Dark Mode Style";
-    controller.settingFooter = @"Change the theme of Zebra's dark mode when it is enabled.";
+    controller.settingFooter = @[@"Change the style of Zebra's dark mode when it is enabled."];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
         controller.settingSelectedRow = ZBThirteen;
@@ -580,7 +580,7 @@ enum ZBMiscOrder {
 - (void)featureOrRandomToggle {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.settingTitle = @"Feature Type";
-    controller.settingFooter = @"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display rancom packages from all repositories that you have added to Zebra.";
+    controller.settingFooter = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display rancom packages from all repositories that you have added to Zebra."];
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
         controller.settingSelectedRow = 1;
     } else {

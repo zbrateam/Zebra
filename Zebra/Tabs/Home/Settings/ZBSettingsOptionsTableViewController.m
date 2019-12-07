@@ -14,7 +14,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(self.settingTitle, @"");
-    self.settingFooter = NSLocalizedString(self.settingFooter, @"");
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
@@ -51,7 +50,11 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return self.settingFooter;
+    NSMutableArray *localize = [NSMutableArray new];
+    for (NSString *string in self.settingFooter) {
+        [localize addObject:NSLocalizedString(string, @"")];
+    }
+    return [localize componentsJoinedByString:@"\n\n"];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
