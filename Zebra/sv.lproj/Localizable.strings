@@ -66,10 +66,10 @@
 "App Icon" = "Appikon";
 
 "Featured Packages" = "Utvalda paket";
-"Repo Featured" = "Förråd utvalt";
-"Random" = "Slumpmässig";
-"Feature Type" = "Utväljningstyp";
-"Select Repos to be Featured" = "Välj förråd att välja ut";
+"Repo Featured" = "Utvalt av förråd";
+"Random" = "Slumpmässigt";
+"Feature Type" = "Metod för utväljning";
+"Select Repos to be Featured" = "Välj förråd att välja ut från";
 
 "News" = "Nyheter";
 
@@ -301,7 +301,7 @@
 
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
 
-"ERROR: Unable to lock status file. Please try again." = "FEL: Kan inte låsa statusfil. Var god försök igen.";
+"ERROR: Unable to lock status file. Please try again." = "FEL: Kunde inte låsa statusfil. Var god försök igen.";
 
 "ERROR: Process must be restarted. Please try again." = "FEL: Processen måste startas om. Var god försök igen.";
 
@@ -319,7 +319,7 @@
 
 "Change the theme of Zebra's dark mode when it is enabled." = "Ändra temat för Zebras mörka läge när det är aktiverat.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Ändra källan för de utvalda paketen på startsidan.\n\n\"Utvalt av förråd\" kommer att visa slumpmässiga paket från förråd som stöder API:et för utvalda paket.\n\n\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till Zebra.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
