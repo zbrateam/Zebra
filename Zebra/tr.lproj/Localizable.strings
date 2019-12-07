@@ -43,7 +43,7 @@
 
 "Settings" = "Ayarlar";
 "Version" = "Versiyon";
-"Graphics" = "Grafikler";
+"Interface" = "Arayüz";
 "Featured" = "Öne Çıkanlar";
 "News" = "Haberler";
 "Miscellaneous" = "Diğer";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Hata Bildir";
 
-"Tint Color" = "Tema Rengi";
+"Accent Color" = "Varsayılan Renk";
 "Blue" = "Mavi";
 "Orange" = "Turuncu";
 "White" = "Beyaz";
 "Black" = "Siyah";
 
+"Dark Mode Style" = "Karanlık Mod Stili";
 "Dark Mode" = "Karanlık Mod";
 "Default" = "Orjinal";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "İkonu Değiştir";
+"App Icon" = "Uygulama Simgesi";
 
-"Enable Featured Packages" = "Öne Çıkan Paketleri Aktif Et!";
+"Featured Packages" = "Öne Çıkan Paketler";
 "Repo Featured" = "Kaynağın Öne Çıkanları";
 "Random" = "Rastgele";
 "Feature Type" = "Öne Çıkanların Tarzı";
 "Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
 
-"Enable News" = "Haberleri Aktif Et";
+"News" = "Haberler";
 
-"Search while Typing" = "Yazarken Ara";
+"Live Search" = "Anlık Arama";
 
 "Swipe Actions Display As" = "Kaydırma Animasyonlarını Şöyle Göster;";
 "Text" = "Yazı";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "/su/sling in uid veya gid i ayarlama yetkisş yok. Lütfen /usr/libexec/zebra/supersling konumundaki dosyanin yetkilerini kontrol edin.";
 
 "Help translate Zebra!" = "Zebra'yı çevirmemize yardım et!";
+
+"Could not respring. Please respring manually." = "Respring edilemiyor. Lütfen manuel olarak respring edin.";
+
+"ERROR: Unable to lock status file. Please try again." = "HATA: Durum dosyası kilitlenemiyor. Lütfen tekrar deneyin.";
+
+"ERROR: Process must be restarted. Please try again." = "İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
+
+"Configure the appearance of Zebra." = "Zebra'nın görünüşünü düzenle.";
+
+"Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
+
+"Display recent community posts from /r/jailbreak." = "/r/jailbreak dan son topluluk gönderilerini göster.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Paketleri yazarken ara. Bunu devre dışı bırakmak, eski cihazlarda gecikmeye sebep olabilir.";
+
+"Configure the appearance of table view swipe actions." = "Tablo görünümü kaydırma aksiyonlarının görünüşünü düzenle.";
+
+"Change the accent color that displays across Zebra." = "Bütün Zebra'da gösterilen ikincil renkleri düzenle.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Zebra'nın karanlık modunun temasını aktifken değiştir.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Anasayfadaki öne çıkarılan paketlerin kaynağını değiştir.\n\n\\"Kaynakta Öne Çıkarılan\\" seçeneği Öne Çıkarılanlar API'sin desteklediği kaynaklardan rastgele olarak öne çıkarılanları gösterir.\n\n\\"Rastgele\\" Zebra'ya eklediğiniz bütün kaynaklardan rastgele paketleri gösterir.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

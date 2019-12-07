@@ -43,7 +43,7 @@
 
 "Settings" = "Nustatymai";
 "Version" = "Versija";
-"Graphics" = "Grafika";
+"Interface" = "Sąsaja";
 "Featured" = "Rodomiausi";
 "News" = "Naujienos";
 "Miscellaneous" = "Įvairūs";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Pranešti apie klaidą";
 
-"Tint Color" = "Atspalvis";
+"Accent Color" = "Atspalvis";
 "Blue" = "Mėlynas";
 "Orange" = "Orandžinis";
 "White" = "Baltas";
 "Black" = "Juodas";
 
+"Dark Mode Style" = "Tamsaus režimo stilius";
 "Dark Mode" = "Tamsus režimas";
 "Default" = "Numatytas";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Keisti piktogramą";
+"App Icon" = "Programos piktograma";
 
-"Enable Featured Packages" = "Aktyvinti rodomiausius paketus";
+"Featured Packages" = "Rodomiausi paketai";
 "Repo Featured" = "Saugyklų rodomiausi";
 "Random" = "Atsitiktiniai";
 "Feature Type" = "Tipas";
 "Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
 
-"Enable News" = "Aktyvinti naujienas";
+"News" = "Naujienos";
 
-"Search while Typing" = "Ieškoti paketus rąšant";
+"Live Search" = "Tiesioginė paieška";
 
 "Swipe Actions Display As" = "Veiksmų braukimo juosta";
 "Text" = "Tekstas";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Padėkite išversti Zebra!";
+
+"Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
+
+"ERROR: Unable to lock status file. Please try again." = "Klaida: Nepavyko užrakinti failo būsenos. Prašome pabandyti dar kartą.";
+
+"ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
+
+"Configure the appearance of Zebra." = "Konfiguruokit Zebra išvaizdą.";
+
+"Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
+
+"Display recent community posts from /r/jailbreak." = "Rodyti naujausius bendruomenės įrašus /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Ieškoti paketų kol rašot. Išjungus šią funkciją, pagerinsite veikimą senuose prietaisuose.";
+
+"Configure the appearance of table view swipe actions." = "Konfiguruokit lentelių peržiūros gestų veiksmų išvaizdą.";
+
+"Change the accent color that displays across Zebra." = "Pakeisti Zebra programėlės atspalvį.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Pakeisti Zebra tamsaus režimo apipavidalinimą, kai jis įjungtas.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Pakeisti rodomiausių paketų šaltinį pagrindiniame puslapyje.\n\"Rodomiausia saugykla\" parodys atsitiktinius saugyklų paketus, kurios palaiko rodomiausių paketų API.\n\"Atsitiktinis\" parodys atsitiktinius paketus iš visų saugyklų, kurias pridėjote į Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

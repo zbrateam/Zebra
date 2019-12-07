@@ -43,7 +43,7 @@
 
 "Settings" = "Settings";
 "Version" = "Version";
-"Graphics" = "Graphics";
+"Interface" = "Interface";
 "Featured" = "Featured";
 "News" = "News";
 "Miscellaneous" = "Miscellaneous";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Report a Bug";
 
-"Tint Color" = "Tint Color";
+"Accent Color" = "Accent Color";
 "Blue" = "Blue";
 "Orange" = "Orange";
 "White" = "White";
 "Black" = "Black";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Dark Mode";
 "Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Change Icon";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "Enable Featured Packages";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Repo Featured";
 "Random" = "Random";
 "Feature Type" = "Feature Type";
 "Select Repos to be Featured" = "Select Repos to be Featured";
 
-"Enable News" = "Enable News";
+"News" = "News";
 
-"Search while Typing" = "Search while Typing";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Text";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Help translate Zebra!";
+
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

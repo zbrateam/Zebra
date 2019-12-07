@@ -43,7 +43,7 @@
 
 "Settings" = "Inställningar";
 "Version" = "Version";
-"Graphics" = "Grafik";
+"Interface" = "Gränssnitt";
 "Featured" = "Utvalt";
 "News" = "Nyheter";
 "Miscellaneous" = "Övrigt";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Rapportera en bugg";
 
-"Tint Color" = "Tonfärg";
+"Accent Color" = "Accentfärg";
 "Blue" = "Blå";
 "Orange" = "Orange";
 "White" = "Vit";
 "Black" = "Svart";
 
+"Dark Mode Style" = "Stil för mörkt läge";
 "Dark Mode" = "Mörkt läge";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Byt ikon";
+"App Icon" = "Appikon";
 
-"Enable Featured Packages" = "Aktivera utvalda paket";
-"Repo Featured" = "Förråd utvalt";
-"Random" = "Slumpmässig";
-"Feature Type" = "Utväljningstyp";
-"Select Repos to be Featured" = "Välj förråd att välja ut";
+"Featured Packages" = "Utvalda paket";
+"Repo Featured" = "Utvalt av förråd";
+"Random" = "Slumpmässigt";
+"Feature Type" = "Metod för utväljning";
+"Select Repos to be Featured" = "Välj förråd att välja ut från";
 
-"Enable News" = "Aktivera nyheter";
+"News" = "Nyheter";
 
-"Search while Typing" = "Sök medan du skriver";
+"Live Search" = "Livesökning";
 
 "Swipe Actions Display As" = "Svepåtgärder visas som";
 "Text" = "Text";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Hjälpa till att översätta Zebra!";
+
+"Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
+
+"ERROR: Unable to lock status file. Please try again." = "FEL: Kunde inte låsa statusfil. Var god försök igen.";
+
+"ERROR: Process must be restarted. Please try again." = "FEL: Processen måste startas om. Var god försök igen.";
+
+"Configure the appearance of Zebra." = "Konfigurera utseendet på Zebra.";
+
+"Display featured packages on the homepage." = "Visa utvalda paket på startsidan.";
+
+"Display recent community posts from /r/jailbreak." = "Visa nya inlägg från /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Sök efter paket medan du skriver. Att inaktivera den här funktionen kan minska lagg på äldre enheter.";
+
+"Configure the appearance of table view swipe actions." = "Konfigurera utseendet på svepåtgärder i tabellvyer.";
+
+"Change the accent color that displays across Zebra." = "Ändra accentfärgen som visas i Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Ändra temat för Zebras mörka läge när det är aktiverat.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Ändra källan för de utvalda paketen på startsidan.\n\n\"Utvalt av förråd\" kommer att visa slumpmässiga paket från förråd som stöder API:et för utvalda paket.\n\n\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

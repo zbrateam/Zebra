@@ -43,7 +43,7 @@
 
 "Settings" = "Nastavení";
 "Version" = "Verze";
-"Graphics" = "Grafika";
+"Interface" = "Interface";
 "Featured" = "Návrhy";
 "News" = "Novinky";
 "Miscellaneous" = "Různé";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Nahlásit Bug";
 
-"Tint Color" = "Barva odstínu";
+"Accent Color" = "Accent Color";
 "Blue" = "Modrá";
 "Orange" = "Oranžová";
 "White" = "Bílá";
 "Black" = "Černá";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Tmavý režim";
 "Default" = "Výchozí";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Změnit ikonu";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "Povolit doporučené balíčky";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Návrhy repozitářů";
 "Random" = "Náhodně";
 "Feature Type" = "Typy Návrhů";
 "Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
 
-"Enable News" = "Zapnout novinky";
+"News" = "Novinky";
 
-"Search while Typing" = "Vyhledávat zárověň se zedáváním";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Akce přejetí prstem zobrazovat jako";
 "Text" = "Text";
@@ -128,8 +129,8 @@
 "Show Updates" = "Zobrazit Aktualizace";
 "Ignore Updates" = "Ignorovat Aktualizace";
 "Select Version" = "Vyberte Verzi";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "Vyberte verzi, na kterou chcete aktualizovat:";
+"Select a version to downgrade to:" = "Vyberte verzi, na kterou se chcete vrátit:";
 "Package" = "Balíček";
 "Information" = "Informace";
 "Upgrade All" = "Upgradovat vše";
@@ -288,12 +289,37 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ve frontě jsou důležité nebo nutné balíčky. Nedoporučuje se pokračovat, pokud přesně nevíte, co děláte. Odstranění těchto balíčků by mohlo způsobit nevratné poškození vašeho zařízení.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nebyla schopna dokončit tento příkaz, protože nemá správná oprávnění. Prosím ověřte oprávnění v /usr/libexec/zebra/supersling a nahlaste tento problém na GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Nelze získat přístup k su/sling. Prosím ověřte, že /usr/libexec/zebra/supersling existuje.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling není vlastněn root:wheel. Prosím ověřte oprávnění souboru umístěného na /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Pomozte přeložit Zebru!";
+
+"Could not respring. Please respring manually." = "Chyba během auto respringu. Proveďte respring ručně.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

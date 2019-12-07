@@ -43,7 +43,7 @@
 
 "Settings" = "الإعدادات";
 "Version" = "الإصدار";
-"Graphics" = "الرسومات";
+"Interface" = "الواجهة";
 "Featured" = "مميز";
 "News" = "الأخبار";
 "Miscellaneous" = "متنوع";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "الإبلاغ عن خطأ";
 
-"Tint Color" = "لون الصبغة";
+"Accent Color" = "اللون الثانوي";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
 "White" = "أبيض";
 "Black" = "أسود";
 
+"Dark Mode Style" = "نمط الوضع الداكن";
 "Dark Mode" = "الوضع الداكن";
 "Default" = "افتراضي";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "تغيير الأيقونة";
+"App Icon" = "أيقونة التطبيق";
 
-"Enable Featured Packages" = "تفعيل الحزم المميزة";
+"Featured Packages" = "الحزم المميزة";
 "Repo Featured" = "المستودع المميز";
 "Random" = "عشوائي";
 "Feature Type" = "نوع الميزة";
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 
-"Enable News" = "تفعيل الأخبار";
+"News" = "الأخبار";
 
-"Search while Typing" = "البحث أثناء الكتابة";
+"Live Search" = "بحث مباشر";
 
 "Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
 "Text" = "نص";
@@ -296,4 +297,29 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
+
+"Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
+
+"ERROR: Unable to lock status file. Please try again." = "خطأ: غير قادر على قفل ملف الحالة. يرجى المحاولة مرة أخرى.";
+
+"ERROR: Process must be restarted. Please try again." = "خطأ: يجب إعادة تشغيل العملية. يرجى المحاولة مرة أخرى.";
+
+"Configure the appearance of Zebra." = "تكوين مظهر Zebra.";
+
+"Display featured packages on the homepage." = "عرض الحزم المميزة على الصفحة الرئيسية.";
+
+"Display recent community posts from /r/jailbreak." = "عرض أحدث منشورات المجتمع من /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "البحث عن الحزم أثناء الكتابة. تعطيل هذه الميزة قد يؤدي إلى تقليل التأخر في الأجهزة القديمة.";
+
+"Configure the appearance of table view swipe actions." = "تكوين مظهر إجراءات تمرير جدول العرض.";
+
+"Change the accent color that displays across Zebra." = "تغيير اللون الثانوي الذي يظهر عبر Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "تغيير وضع موضوع Zebra الداكن عند تفعيله.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "تغيير مصدر الحزم المميزة على الصفحة الرئيسية.\n\nستعرض ميزة  \"المستودع المميز\" حزم عشوائية من المستودعات التي تدعم API الحزمة المميزة.\n\nسيعرض خيار \"عشوائي\" حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

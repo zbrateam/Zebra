@@ -43,7 +43,7 @@
 
 "Settings" = "Paramètres";
 "Version" = "Version";
-"Graphics" = "Graphiques";
+"Interface" = "Interface";
 "Featured" = "En Vedette";
 "News" = "Nouveautés";
 "Miscellaneous" = "Divers";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Signaler un bug";
 
-"Tint Color" = "Teinte";
+"Accent Color" = "Couleur d'accentuation";
 "Blue" = "Bleu";
 "Orange" = "Orange";
 "White" = "Blanc";
 "Black" = "Noir";
 
+"Dark Mode Style" = "Style du mode sombre";
 "Dark Mode" = "Mode Sombre";
 "Default" = "Défaut";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Changer l'Icône";
+"App Icon" = "Icône de l'App";
 
-"Enable Featured Packages" = "Activer la Mise en Vedette de Paquets";
+"Featured Packages" = "Paquets recommandés";
 "Repo Featured" = "Sources Mises en Vedette";
 "Random" = "Aléatoire";
 "Feature Type" = "Type de Mise en Vedette";
 "Select Repos to be Featured" = "Selectionner les Sources à Mettre en Vedette";
 
-"Enable News" = "Activer la section \"Nouveautés\"";
+"News" = "Nouveautés";
 
-"Search while Typing" = "Rechercher tout en écrivant";
+"Live Search" = "Recherche en direct";
 
 "Swipe Actions Display As" = "Afficher les Informations en Balayant";
 "Text" = "Texte";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling n'a pas la permission de définir l’uid ou le gid. Veuillez vérifier les permissions du fichier situé dans /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Aidez à traduire Zebra !";
+
+"Could not respring. Please respring manually." = "Impossible de relancer le springboard. Veuillez le relancer manuellement.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERREUR : Impossible de verrouiller le fichier d'état. Veuillez réessayer.";
+
+"ERROR: Process must be restarted. Please try again." = "ERREUR : le processus doit être redémarré. Veuillez réessayer.";
+
+"Configure the appearance of Zebra." = "Configurez l'apparence de Zebra.";
+
+"Display featured packages on the homepage." = "Afficher les paquets mis en avant sur la page d'accueil.";
+
+"Display recent community posts from /r/jailbreak." = "Afficher les messages récents de la communauté /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Rechercher des paquets lors de la saisie. Désactiver cette fonctionnalité peut réduire les ralentissements sur les appareils plus anciens.";
+
+"Configure the appearance of table view swipe actions." = "Configurer l'apparence des actions lors du balayage sur les paquets.";
+
+"Change the accent color that displays across Zebra." = "Changez la couleur d’accentuation de Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Changer le thème du mode sombre de Zebra lorsqu'il est activé.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Changez la source des paquets en vedette sur la page d'accueil.\n\n\"Sources en Vedette\" affichera des paquets aléatoires de repos qui prennent en charge l'API des paquets en vedette.\n\n\"Aléatoire\" affichera des paquets aléatoires de tous les dépôts que vous avez ajoutés à Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

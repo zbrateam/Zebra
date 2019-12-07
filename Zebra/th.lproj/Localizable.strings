@@ -43,36 +43,37 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Graphics" = "การแสดงผล";
+"Interface" = "Interface";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
 "Advanced" = "ขั้นสูง";
 
-"Report a Bug" = "รายงานข้อผิดพลาดของโปรแกรม";
+"Report a Bug" = "รายงานปัญหา";
 
-"Tint Color" = "โทนสี";
+"Accent Color" = "Accent Color";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
 "White" = "ขาว";
 "Black" = "ดำ";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "โหมดมืด";
 "Default" = "ค่าเริ่มต้น";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "เปลี่ยนไอคอน";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "แสดงโปรแกรมยอดนิยม";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "แนะนำโดยซอร์ส";
 "Random" = "สุ่ม";
 "Feature Type" = "วิธีแสดง";
 "Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
 
-"Enable News" = "แสดงข่าวสาร";
+"News" = "ข่าวสาร";
 
-"Search while Typing" = "ค้นหาขณะพิมพ์";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "คำสั่งเมื่อปัดขวาให้แสดงผลเป็น";
 "Text" = "ข้อความ";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ยังไม่มีสิทธิ์ในการกำหนดค่า uid or gid กรุณาตรวจสอบให้แน่ใจว่าสิทธ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
 
 "Help translate Zebra!" = "ช่วยแปลภาษาใน Zebra กัน!";
+
+"Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

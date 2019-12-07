@@ -43,7 +43,7 @@
 
 "Settings" = "Podešavanja";
 "Version" = "Verzija";
-"Graphics" = "Grfika";
+"Interface" = "Interfejs";
 "Featured" = "Istaknuto";
 "News" = "Novosti";
 "Miscellaneous" = "Detalji";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Prijavi gresku";
 
-"Tint Color" = "Tint Boja";
+"Accent Color" = "Naglašena boja";
 "Blue" = "Plava";
 "Orange" = "Narandžasta";
 "White" = "Bela";
 "Black" = "Crna";
 
+"Dark Mode Style" = "Tamna verzija";
 "Dark Mode" = "Dark Mod";
 "Default" = "Podrazumevano";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Promeni ikonicu";
+"App Icon" = "Ikona aplikacije";
 
-"Enable Featured Packages" = "Dozvoli Istaknute Pakete";
+"Featured Packages" = "Istaknuti Paketi";
 "Repo Featured" = "Istaknuti repo";
 "Random" = "Nasumično";
 "Feature Type" = "Istaknuti tip";
 "Select Repos to be Featured" = "Izaberi Repo da bude istaknut";
 
-"Enable News" = "Dozvoli prikaz vesti";
+"News" = "Novosti";
 
-"Search while Typing" = "Pretrazi dok kucaš";
+"Live Search" = "Pretraga uživo";
 
 "Swipe Actions Display As" = "Prevlačenje prikaži kao";
 "Text" = "Tekst";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ne pripada korisniku root: wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Pomognite u prevodjenju Zebre!";
+
+"Could not respring. Please respring manually." = "Ne može se respringovati. Molimo vas probajte manuelno.";
+
+"ERROR: Unable to lock status file. Please try again." = "Greška: Nije moguće zaključati status fajla. Molimo vas probajte opet.";
+
+"ERROR: Process must be restarted. Please try again." = "Greška: Proces se mora restartovat. Molimo vas probajte opet.";
+
+"Configure the appearance of Zebra." = "Konfigurišite prikaz Zebre.";
+
+"Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
+
+"Display recent community posts from /r/jailbreak." = "Prikaži najnovije postove sa /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Pretraži pakete dok kucaš. Deaktiviranje ove opcije može da smanji lag na starijim uređajima.";
+
+"Configure the appearance of table view swipe actions." = "Konfiguriši izgled prelaska prsta preko ekrana.";
+
+"Change the accent color that displays across Zebra." = "Promeni glavnu boju koja se prikazuje u Zebri.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Promeni temu Zebrinog tamnog moda kada je to moguće.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Promeni izvor istaknutih paketa na početnoj stranici.\n\n\"Istaknuti Repo\" će prikazati nasumice pakete repoa koji podržava Feautured Package API.\n\n\"Nasumice\" će prikazati nasumične pakete iz svih repoa koje ste dodali u Zebri.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

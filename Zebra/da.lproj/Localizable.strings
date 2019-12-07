@@ -43,7 +43,7 @@
 
 "Settings" = "Indstillinger";
 "Version" = "Udgave";
-"Graphics" = "Grafik";
+"Interface" = "Interface";
 "Featured" = "Udvalgte";
 "News" = "Nyheder";
 "Miscellaneous" = "Diverse";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Rapporter en Fejl";
 
-"Tint Color" = "Farvenuancer";
+"Accent Color" = "Accent Color";
 "Blue" = "Blå";
 "Orange" = "Orange";
 "White" = "Hvid";
 "Black" = "Sort";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Mørke Tilstand";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Skift Ikon";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "Aktiver Udvalgte Pakker";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Udvalgt Arkiv";
 "Random" = "Tilfældig";
 "Feature Type" = "Udvalgt Type";
 "Select Repos to be Featured" = "Vælg arkiver der skal vises";
 
-"Enable News" = "Slå nyheder til";
+"News" = "Nyheder";
 
-"Search while Typing" = "Søg mens du Skriver";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Svirp Handling Vises Som";
 "Text" = "Tekst";
@@ -128,8 +129,8 @@
 "Show Updates" = "Vis Opdateringer";
 "Ignore Updates" = "Ignorer Opdateringer";
 "Select Version" = "Vælg Udgave";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "Vælg version for opgradering:";
+"Select a version to downgrade to:" = "Vælg version for nedgradering:";
 "Package" = "Pakker";
 "Information" = "Information";
 "Upgrade All" = "Opgrader Alle";
@@ -280,11 +281,11 @@
 "%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
 "Are you sure?" = "Er du sikker?";
 "Are you sure you want to clear the queue?" = "Er du sikker på at du vil rydde køen?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er vigtig. Den burde IKKE blive fjernet, medmindre du ved præcist hvad du laver!";
+"Remove from Queue" = "Fjern fra kø";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er vigtig og burde ikke fjernes da den er krævet af %@. %@ burde IKKE blive fjernet medmindre du ved præcist hvad du laver!";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
 
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Help translate Zebra!";
+
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

@@ -43,7 +43,7 @@
 
 "Settings" = "Iestatījumi";
 "Version" = "Versija";
-"Graphics" = "Designs";
+"Interface" = "Saskarne";
 "Featured" = "Piedāvājumi";
 "News" = "Jaunumi";
 "Miscellaneous" = "Dažādi";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "Paziņot par kļūdu";
 
-"Tint Color" = "Toņa krāsa";
+"Accent Color" = "Akcentu krāsa";
 "Blue" = "Zils";
 "Orange" = "Oranžs";
 "White" = "Balts";
 "Black" = "Melns";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Tumšais režīms";
 "Default" = "Normāls";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "Mainīt ikonu";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "Ieslēgt piedāvātās paketes";
+"Featured Packages" = "Piedāvātās paketes";
 "Repo Featured" = "Avota piedāvātās paketes";
 "Random" = "Nejaušs";
 "Feature Type" = "Piedāvāšanas veids";
 "Select Repos to be Featured" = "Izvēlies avotus, kuri piedāvā paketes";
 
-"Enable News" = "Ieslēgt ziņas";
+"News" = "Jaunumi";
 
-"Search while Typing" = "Meklēt rakstīšanas laikā";
+"Live Search" = "Interaktīva meklēšana";
 
 "Swipe Actions Display As" = "Pārvelciena darbību rādīt kā";
 "Text" = "Tekstu";
@@ -129,7 +130,7 @@
 "Ignore Updates" = "Ignorēt atjauninājumus";
 "Select Version" = "Ieslēgt versiju";
 "Select a version to upgrade to:" = "Izvēlies versiju, uz kuru jaunināt:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to downgrade to:" = "Izvēlies versiju, kuru vaijag instalēt:";
 "Package" = "Pakete";
 "Information" = "Informācija";
 "Upgrade All" = "Visus jaunināt";
@@ -288,12 +289,37 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Viena, vai vairākas paketes no rindas ir svarīgi, vai nepieciešami. Nav ieteicams turpināt, ja precīzi nezināt, ko darāt. Noņemot šīs paketes, ierīcei var tikt nodarīts neatgriezenisks kaitējums un tā var tikt pilnībā atjaunota.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nevarēja izpildīt šo komandu, jo tai nav atbilstošu atļauju. Lūdzu, pārbaudiet atļaujas, kas atrodas /usr/libexec/zebra/supersling, un ziņo par šo problēmu GitHubē.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Nevar piekļūt pie su/sling. Lūdzu, pārbaudi, vai /usr/libexec/zebra/supersling pastāv.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nepieder root:wheel. Lūdzu, pārbaudi faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nav atļaujas iestatīt uid vai gid. Lūdzu, pārbaudiet faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Palīdzi tulkot Zebra!";
+
+"Could not respring. Please respring manually." = "Nevarēja respringot. Lūdzu, respringo manuāli.";
+
+"ERROR: Unable to lock status file. Please try again." = "KĻŪDA: Nevar bloķēt statusa failu. Lūdzu mēģiniet vēlreiz.";
+
+"ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
+
+"Configure the appearance of Zebra." = "Konfigurējiet Zebra izskatu.";
+
+"Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
+
+"Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Meklēt paketes rakstīšanas laikā. Izslēdzot šo funkciju, vecāku ierīču darbība var salaboties.";
+
+"Configure the appearance of table view swipe actions." = "Konfigurē pārvilkšanas darbību izskatu.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

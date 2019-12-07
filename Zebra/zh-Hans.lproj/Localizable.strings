@@ -43,7 +43,7 @@
 
 "Settings" = "设置";
 "Version" = "版本";
-"Graphics" = "画面";
+"Interface" = "界面";
 "Featured" = "功能";
 "News" = "新闻";
 "Miscellaneous" = "其它";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "报告 Bug";
 
-"Tint Color" = "主题颜色";
+"Accent Color" = "主题颜色";
 "Blue" = "蓝色";
 "Orange" = "橙色";
 "White" = "白色";
 "Black" = "黑色";
 
+"Dark Mode Style" = "黑暗模式样式";
 "Dark Mode" = "黑暗模式";
 "Default" = "默认";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "更换图标";
+"App Icon" = "App 图标";
 
-"Enable Featured Packages" = "启用推荐软件包";
+"Featured Packages" = "精选软件包";
 "Repo Featured" = "推荐的软件源";
 "Random" = "随机";
 "Feature Type" = "推荐类型";
 "Select Repos to be Featured" = "选择会被推荐的软件源";
 
-"Enable News" = "启用新闻";
+"News" = "新闻";
 
-"Search while Typing" = "打字时搜索";
+"Live Search" = "实时搜索";
 
 "Swipe Actions Display As" = "滑动选项显示为";
 "Text" = "文字";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
 "Help translate Zebra!" = "帮助翻译 Zebra ！";
+
+"Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
+
+"ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
+
+"ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
+
+"Configure the appearance of Zebra." = "配置 Zebra 的外观。";
+
+"Display featured packages on the homepage." = "在主页上显示精选软件包。";
+
+"Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子。";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "实时显示软件包搜索结果。在旧设备上禁用此功能可能会减少卡顿。";
+
+"Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观。";
+
+"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色。";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题。";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "更改主页上精选软件包的源。\n\n“精选软件源”将显示来自支持精选软件包 API 软件源的随机软件包。\n\n“随机”将显示你添加到 Zebra 中所有软件源中的随机软件包。";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

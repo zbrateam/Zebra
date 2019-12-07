@@ -43,7 +43,7 @@
 
 "Settings" = "設定";
 "Version" = "版本";
-"Graphics" = "圖像";
+"Interface" = "Interface";
 "Featured" = "精選";
 "News" = "新聞 ";
 "Miscellaneous" = "其他設定";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "报告bug（程序缺陷）";
 
-"Tint Color" = "主題顏色";
+"Accent Color" = "Accent Color";
 "Blue" = "藍色";
 "Orange" = "橘色";
 "White" = "白色";
 "Black" = "黑色";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "暗色主題";
 "Default" = "默認";
 "OLED" = "OLED";
 "iOS 13" = "IOS 13";
 
-"Change Icon" = "變更圖示";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "啟用推薦軟件包";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "推薦的軟件源";
 "Random" = "隨機";
 "Feature Type" = "推薦類型";
 "Select Repos to be Featured" = "選擇會被推薦的軟件源";
 
-"Enable News" = "開啟新聞";
+"News" = "新聞 ";
 
-"Search while Typing" = "打字時搜索";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "滑動選項顯示為";
 "Text" = "文本";
@@ -128,8 +129,8 @@
 "Show Updates" = "顯示更新";
 "Ignore Updates" = "忽略更新";
 "Select Version" = "選擇版本：";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "選擇更新版本";
+"Select a version to downgrade to:" = "選擇降級版本";
 "Package" = "套裝程式";
 "Information" = "資訊";
 "Upgrade All" = "全部升級";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "Help translate Zebra!";
+
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

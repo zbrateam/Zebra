@@ -43,7 +43,7 @@
 
 "Settings" = "설정";
 "Version" = "버전";
-"Graphics" = "그래픽";
+"Interface" = "Interface";
 "Featured" = "선정된 패키지";
 "News" = "뉴스";
 "Miscellaneous" = "기타 여러가지 기능";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "버그 신고";
 
-"Tint Color" = "Tint 색상";
+"Accent Color" = "Accent Color";
 "Blue" = "파란색";
 "Orange" = "노란색";
 "White" = "하얀색";
 "Black" = "검은색";
 
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "다크 모드";
 "Default" = "기본";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "아이콘 변경";
+"App Icon" = "App Icon";
 
-"Enable Featured Packages" = "선정된 패키지 보이기";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "레포에서 선정";
 "Random" = "랜덤";
 "Feature Type" = "선정 방법: ";
 "Select Repos to be Featured" = "선정될 레포 선택";
 
-"Enable News" = "뉴스 활성화";
+"News" = "뉴스";
 
-"Search while Typing" = "입력하여 검색";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "스와이프 동작 표시";
 "Text" = "텍스트";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
 "Help translate Zebra!" = "Zebra의 번역을 도와주세요!";
+
+"Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
+
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"#Zebra version
+Zebra %@" = "Zebra %@";

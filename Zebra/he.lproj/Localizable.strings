@@ -43,7 +43,7 @@
 
 "Settings" = "הגדרות";
 "Version" = "גירסה";
-"Graphics" = "עיצוב";
+"Interface" = "ממשק";
 "Featured" = "מומלץ";
 "News" = "חדשות";
 "Miscellaneous" = "שונות";
@@ -51,28 +51,29 @@
 
 "Report a Bug" = "דווח/י על באג";
 
-"Tint Color" = "צבע גוון";
+"Accent Color" = "צבע הדגשה";
 "Blue" = "כחול";
 "Orange" = "כתום";
 "White" = "לבן";
 "Black" = "שחור";
 
+"Dark Mode Style" = "סגנון מצב לילה";
 "Dark Mode" = "מצב לילה";
 "Default" = "ברירת מחדל";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"Change Icon" = "שנה אייקון";
+"App Icon" = "אייקון היישום";
 
-"Enable Featured Packages" = "אפשר חבילות מומלצות";
+"Featured Packages" = "חבילות מומלצות";
 "Repo Featured" = "המלצת המקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
 
-"Enable News" = "אפשר חדשות";
+"News" = "חדשות";
 
-"Search while Typing" = "חפש במהלך ההקלדה";
+"Live Search" = "חיפוש חי";
 
 "Swipe Actions Display As" = "פעולות החלקה מוצגות בתור";
 "Text" = "טקסט";
@@ -297,3 +298,28 @@
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "אין ל-su/sling הרשאה להגדיר את ה-uid או את ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
 
 "Help translate Zebra!" = "עזור/י לתרגם את זברה!";
+
+"Could not respring. Please respring manually." = "לא ניתן להפעיל מחדש את מסך הבית. יש לנסות הפעלה מחדש ידנית.";
+
+"ERROR: Unable to lock status file. Please try again." = "תקלה: לא ניתן לנעול קובץ סטטוס. אנא נסה/י שנית.";
+
+"ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
+
+"Configure the appearance of Zebra." = "הגדר את המראה של זברה.";
+
+"Display featured packages on the homepage." = "הצג חבילות מומלצות בדף הבית.";
+
+"Display recent community posts from /r/jailbreak." = "הצג פרסומי קהילה אחרונית מ-/r/jailbreak.";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "חפש חבילות בזמן ההקלדה. גיבוי מאפיין זה עלול להפחית איטיות במכשירים ישנים יותר.";
+
+"Configure the appearance of table view swipe actions." = "הגדר את המראה של פעולות החלקה על תאי טבלאות.";
+
+"Change the accent color that displays across Zebra." = "שנה את צבע ההדגשה שמוצג ברחבי זברה.";
+
+"Change the theme of Zebra's dark mode when it is enabled." = "שנה את ערכת הנושא של מצב הלילה של זברה כאשר הוא דולק.";
+
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "שנה את מקור החבילות המומלצות במסך הבית.\n\n\"המלצת המקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.\n\n\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+
+"#Zebra version
+Zebra %@" = "זברה %@";
