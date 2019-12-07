@@ -57,13 +57,13 @@
 "White" = "白";
 "Black" = "黒";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "ダークモード";
 "Dark Mode" = "ダークモード";
 "Default" = "既定";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "アプリのアイコン";
 
 "Featured Packages" = "注目されているパッケージ";
 "Repo Featured" = "リポジトリ特集";
@@ -315,11 +315,11 @@
 
 "Configure the appearance of table view swipe actions." = "スワイプした後の表示内容を構成します。";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Zebra 全体に表示されるアクセントカラーを変更します。";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効になったら、テーマを変更します。";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "ホームページで機能パッケージのソースを変更します。\n\n「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。\n\n「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
