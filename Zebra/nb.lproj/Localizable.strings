@@ -319,13 +319,13 @@
 
 "Change the style of Zebra's dark mode when it is enabled." = "Endre stilen på Zebra sin mørk modus. Dette påvirker kun Zebra når mørk modus er aktivert.";
 
-"Change the source of the featured packages on the homepage." = "Endre kilden til de utvalgte pakkene på hjemmesiden.";
+"Change the source of the featured packages on the homepage." = "Endre kilden til de utvalgte pakkene som vises på hjemmesiden.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Kilder utvalgt\" vil vise tilfeldige pakker fra kilder som støtter Featured Package API.";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil vise tilfeldige pakker fra alle kildene du har lagt til i Zebra.";
 
-"Community News" = "Samfunnsnyheter";
+"Community News" = "Fellesskapets nyheter";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
