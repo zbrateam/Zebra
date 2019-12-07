@@ -239,11 +239,6 @@
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        if ([ZBDevice darkModeEnabled]) {
-            textField.backgroundColor = [UIColor cellSeparatorColor];
-            textField.superview.backgroundColor = [UIColor cellSeparatorColor];
-            textField.textColor = [UIColor whiteColor];
-        }
         if (url != NULL) {
             textField.text = [url absoluteString];
         } else {
@@ -253,9 +248,19 @@
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.keyboardType = UIKeyboardTypeURL;
         textField.returnKeyType = UIReturnKeyNext;
+        textField.borderStyle = UITextBorderStyleRoundedRect;
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];
+    
+    if ([ZBDevice darkModeEnabled]) {
+        for (UITextField *textField in alertController.textFields) {
+            textField.textColor = [UIColor cellPrimaryTextColor];
+            textField.backgroundColor = [UIColor cellSeparatorColor];
+            textField.superview.backgroundColor = [UIColor clearColor];
+            textField.superview.layer.borderColor = [UIColor clearColor].CGColor;
+        }
+    }
 }
 
 - (void)showAddRepoFromClipboardAlert:(NSURL *)repoURL {

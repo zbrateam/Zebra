@@ -28,6 +28,13 @@
     [self refreshTable];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+}
+
 - (void)baseViewDidLoad {}
 
 - (void)layoutNavigationButtonsNormal {}

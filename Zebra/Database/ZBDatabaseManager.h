@@ -358,7 +358,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param identifier The identifier of the package in question.
  @return A ZBPackage instance that matches the parameters.
  */
-- (ZBPackage *)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude;
+- (ZBPackage *_Nullable)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude;
 
 /*!
  @brief Mainly used in dependency resolution, this will return a ZBPackage instance that matches the parameters.
@@ -376,8 +376,8 @@ NS_ASSUME_NONNULL_BEGIN
 @param version (Nullable) Used for version comparison. Pass NULL if no comparison needed.
 @return A ZBPackage instance that matches the parameters.
 */
-- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
-- (ZBPackage *)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual;
+- (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
+- (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual;
 
 /*!
  @brief An array of every version of a package in the database.
@@ -463,7 +463,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param limit Specify how many rows are selected.
  @return An array of all packages with a reachable icon.
  */
-- (NSArray *)packagesWithReachableIconsForRows:(int)limit;
+- (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBRepo *> *_Nullable)blacklistedRepos;
 
 - (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end

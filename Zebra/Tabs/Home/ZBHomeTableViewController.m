@@ -14,12 +14,17 @@
 @import FirebaseAnalytics;
 
 typedef enum ZBHomeOrder : NSUInteger {
-    ZBWelcome,
+    ZBInfo,
     ZBViews,
     ZBLinks,
     ZBCredits,
     ZBHomeOrderCount
 } ZBHomeOrder;
+
+typedef enum ZBInfoOrder : NSUInteger {
+    ZBWelcome,
+    ZBBug
+} ZBInfoOrder;
 
 typedef enum ZBViewOrder : NSUInteger {
     ZBChangeLog,
@@ -68,7 +73,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
     }
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
@@ -158,37 +163,29 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIconsForRows:500];
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
-    NSLog(@"[Zebra] Blocked REPOS %@", blockedRepos);
-    if (!blockedRepos) {
-        blockedRepos = [NSArray new];
+    NSMutableArray *blacklist = [NSMutableArray new];
+    for (NSString *baseURL in blockedRepos) {
+        [blacklist addObject:[ZBRepo repoFromBaseURL:baseURL]];
     }
+    
+    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
     dispatch_group_t group = dispatch_group_create();
     for (ZBPackage *package in packages) {
         dispatch_group_enter(group);
         NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (![blockedRepos containsObject:package.repo.baseURL]) {
-            if (package.iconPath) {
-                if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
-                    [dict setObject:package.iconPath forKey:@"url"];
-                    [dict setObject:package.identifier forKey:@"package"];
-                    [dict setObject:package.name forKey:@"title"];
-                    [self->allFeatured addObject:dict];
-                }
+        if (package.iconPath) {
+            if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
+                [dict setObject:package.iconPath forKey:@"url"];
+                [dict setObject:package.identifier forKey:@"package"];
+                [dict setObject:package.name forKey:@"title"];
+                
+                [self->allFeatured addObject:dict];
             }
         }
         dispatch_group_leave(group);
     }
-    if (self->allFeatured.count < 100) {
-        NSArray *repos = [[ZBDatabaseManager sharedInstance] repos];
-        NSMutableArray *filtered = [NSMutableArray new];
-        for (ZBRepo *repo in repos) {
-            if (![blockedRepos containsObject:repo.baseURL]) {
-                [filtered addObject:repo];
-            }
-        }
-    }
+    
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [self createHeader];
     });
@@ -200,18 +197,16 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
         [self.selectedFeatured removeAllObjects];
         self.cellNumber = [self cellCount];
+        
         for (int i = 1; i <= self.cellNumber; ++i) {
             NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
-            if ([[ZBDatabaseManager sharedInstance] packageIDIsInstalled:dict[@"package"] version:nil]) {
-                --i;
-                continue;
-            }
             if (![selectedFeatured containsObject:dict]) {
                 [self->selectedFeatured addObject:dict];
             } else {
                 --i;
             }
         }
+        
         [UIView animateWithDuration:.25f animations:^{
             self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
         }];
@@ -245,8 +240,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case ZBWelcome:
-            return 1;
+        case ZBInfo:
+            return 2;
         case ZBViews:
             return 4;
         case ZBLinks:
@@ -260,18 +255,43 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case ZBWelcome: {
-            static NSString *cellIdentifier = @"flavorTextCell";
-            
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-            
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        case ZBInfo: {
+            switch (indexPath.row) {
+                case ZBWelcome: {
+                    static NSString *cellIdentifier = @"flavorTextCell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    }
+                    cell.textLabel.text = NSLocalizedString(@"Welcome to the Zebra Beta!", @"");
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    return cell;
+                }
+                case ZBBug: {
+                    static NSString *cellIdentifier = @"viewCell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    }
+                    NSString *text;
+                    UIImage *image;
+                    text = NSLocalizedString(@"Report a Bug", @"");
+                    image = [UIImage imageNamed:@"Bugs"];
+                    [cell.textLabel setText:text];
+                    [cell.imageView setImage:image];
+                    [self setImageSize:cell.imageView];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    [cell.textLabel sizeToFit];
+                    
+                    return cell;
+                }
             }
-            cell.textLabel.text = NSLocalizedString(@"Welcome to the Zebra Beta!", @"");
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
         }
         case ZBViews: {
             static NSString *cellIdentifier = @"viewCell";
@@ -286,19 +306,19 @@ typedef enum ZBLinksOrder : NSUInteger {
             switch (indexPath.row) {
                 case ZBChangeLog:
                     text = NSLocalizedString(@"Changelog", @"");
-                    image = [UIImage imageNamed:@"changelog"];
+                    image = [UIImage imageNamed:@"Changelog"];
                     break;
                 case ZBCommunity:
                     text = NSLocalizedString(@"Community Repos", @"");
-                    image = [UIImage imageNamed:@"repos"];
+                    image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
                     text = NSLocalizedString(@"Stores", @"");
-                    image = [UIImage imageNamed:@"stores"];
+                    image = [UIImage imageNamed:@"Stores"];
                     break;
                 case ZBWishList:
                     text = NSLocalizedString(@"Wish List", @"");
-                    image = [UIImage imageNamed:@"stores"];
+                    image = [UIImage imageNamed:@"Wishlist"];
                     break;
                 default:
                     break;
@@ -324,15 +344,15 @@ typedef enum ZBLinksOrder : NSUInteger {
             switch (indexPath.row) {
                 case ZBDiscord:
                     text = NSLocalizedString(@"Join our Discord", @"");
-                    image = [UIImage imageNamed:@"discord"];
+                    image = [UIImage imageNamed:@"Discord"];
                     break;
                 case ZBWilsonTwitter:
                     text = NSLocalizedString(@"Follow me on Twitter", @"");
-                    image = [UIImage imageNamed:@"twitter"];
+                    image = [UIImage imageNamed:@"Twitter"];
                     break;
                 case ZBTranslate:
                     text = NSLocalizedString(@"Help translate Zebra!", @"");
-                    image = [UIImage imageNamed:@"url"];
+                    image = [UIImage imageNamed:@"Translations"];
             }
             [cell.textLabel setText:text];
             [cell.imageView setImage:image];
@@ -352,7 +372,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
             [cell.textLabel setText:NSLocalizedString(@"Credits", @"")];
-            [cell.imageView setImage:[UIImage imageNamed:@"url"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"Credits"]];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
@@ -388,6 +408,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
+        case ZBInfo:
+            switch (indexPath.row) {
+                case ZBBug:
+                    [self openBug];
+                    break;
+            }
+            break;
         case ZBViews:
             [self pushToView:indexPath.row];
             break;
@@ -438,6 +465,18 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[self navigationController] pushViewController:creditsController animated:YES];
 }
 
+- (void)openBug {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+    webController.navigationDelegate = webController;
+    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
+    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+    [webController setValue:url forKey:@"_url"];
+    [[self navigationController] pushViewController:webController animated:YES];
+}
+
 - (void)openLinkFromRow:(NSUInteger)row {
     UIApplication *application = [UIApplication sharedApplication];
     switch (row) {
@@ -480,9 +519,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (IBAction)settingsButtonTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }
 

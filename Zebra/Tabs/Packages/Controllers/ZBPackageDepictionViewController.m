@@ -47,6 +47,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     WKWebView *webView;
     BOOL presented;
     BOOL navButtonsBeingConfigured;
+    CGFloat webViewSize;
 }
 @end
 
@@ -112,6 +113,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [controller addScriptMessageHandler:self name:@"observe"];
     configuration.userContentController = controller;
     
+    webViewSize = 0;
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
@@ -139,6 +141,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
     CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] baseURL]);
 }
@@ -190,7 +193,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 [self->progressView setProgress:0.0f animated:NO];
             }];
         }
-    } else {
+    } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
+        CGFloat newSize = [(UIScrollView *)object contentSize].height;
+        if (newSize != webViewSize) {
+            webViewSize = newSize;
+            [self layoutDepictionWebView:webView];
+        }
+    }
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -228,19 +238,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
-    [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
-        if (completed != nil) {
-            [webView evaluateJavaScript:@"document.documentElement.getBoundingClientRect().height" completionHandler:^(id _Nullable height, NSError * _Nullable error) {
-                [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue])];
-                /*self.tableView.tableFooterView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [height floatValue]);*/
-                [self.tableView beginUpdates];
-                [self.tableView setTableFooterView:webView];
-                [self.tableView endUpdates];
-                ZBLog(@"DONE");
-            }];
-        }
-    }];
-    // webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [webView evaluateJavaScript:@"document.height" completionHandler:nil]);
+    
+    [self layoutDepictionWebView:webView];
     
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
@@ -293,15 +292,35 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         } else {
             [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
         }
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, 1000)];
-//            [self.tableView.tableFooterView setFrame:webView.bounds];
-//            [self.tableView beginUpdates];
-//            [self.tableView setTableFooterView:webView];
-//            [self.tableView endUpdates];
-//        });
     }
+}
+
+- (void)layoutDepictionWebView:(WKWebView *)webView {
+    if (webView) {
+        [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
+            if (error) {
+                CLS_LOG(@"Error when getting depiction height: %@", error.localizedDescription);
+            }
+            else {
+                if ([completed isEqualToString:@"complete"]) {
+                    //body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
+                    NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); height";
+                    [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
+                        [self layoutDepictionWebView:webView height:[height floatValue]];
+                    }];
+                }
+            }
+        }];
+    }
+}
+
+- (void)layoutDepictionWebView:(WKWebView *)webView height:(CGFloat)height {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, height)];
+        [self.tableView beginUpdates];
+        [self.tableView setTableFooterView:webView];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -571,6 +590,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
+    [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
 }
 
 - (void)presentQueue {
@@ -713,27 +733,32 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (NSString *)stripEmailFromAuthor {
-    if (package.author != NULL) {
-        NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NSMutableArray *cleanedStrings = [NSMutableArray new];
-        for(NSString *cut in authorName) {
-            if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
-                [cleanedStrings addObject:cut];
-            }
-            else {
-                NSString *cutCopy = [cut copy];
-                if ([cutCopy length] > 0) {
-                    cutCopy = [cut substringFromIndex:1];
-                    cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
-                    self.authorEmail = cutCopy;
+    if (package.author != NULL && package.author.length > 0) {
+        if ([package.author containsString:@"<"] && [package.author containsString:@">"]) {
+            NSArray *authorName = [package.author componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSMutableArray *cleanedStrings = [NSMutableArray new];
+            for(NSString *cut in authorName) {
+                if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
+                    [cleanedStrings addObject:cut];
                 }
                 else {
-                    return NULL;
+                    NSString *cutCopy = [cut copy];
+                    if ([cutCopy length] > 0) {
+                        cutCopy = [cut substringFromIndex:1];
+                        cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
+                        self.authorEmail = cutCopy;
+                    }
+                    else {
+                        return NULL;
+                    }
                 }
             }
+            
+            return [cleanedStrings componentsJoinedByString:@" "];
         }
-        
-        return [cleanedStrings componentsJoinedByString:@" "];
+        else {
+            return package.author;
+        }
     }
     else {
         return NULL;

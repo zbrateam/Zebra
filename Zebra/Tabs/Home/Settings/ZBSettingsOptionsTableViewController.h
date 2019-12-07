@@ -12,6 +12,7 @@
 
 @interface ZBSettingsOptionsTableViewController : UITableViewController
 @property NSString *settingTitle;
+@property NSString *settingFooter;
 @property NSArray<NSString *> *settingOptions;
 @property NSInteger settingSelectedRow;
 @property void (^settingChanged)(NSInteger newValue);

@@ -24,8 +24,8 @@
 // Commands
 + (void)task:(NSTask *_Nullable)task withArguments:(NSArray *_Nullable)arguments;
 + (void)asRoot:(NSTask *_Nullable)task arguments:(NSArray *_Nullable)arguments;
-+ (void)sbreload;
-+ (void)uicache:(NSArray *_Nonnull)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
++ (void)restartSpringBoard;
++ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
 
 // Utils
 + (void)openURL:(NSURL *_Nonnull)url delegate:(UIViewController <SFSafariViewControllerDelegate> *_Nonnull)delegate;

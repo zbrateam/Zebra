@@ -13,7 +13,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = NSLocalizedString(self.title, @"");
+    self.title = NSLocalizedString(self.settingTitle, @"");
+    self.settingFooter = NSLocalizedString(self.settingFooter, @"");
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
@@ -47,6 +48,10 @@
     [cell setTintColor: [UIColor tintColor]];
     cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return self.settingFooter;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
