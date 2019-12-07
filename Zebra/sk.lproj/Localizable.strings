@@ -43,7 +43,7 @@
 
 "Settings" = "Nastavenie";
 "Version" = "Verzia";
-"Interface" = "Interface";
+"Interface" = "Rozhranie";
 "Featured" = "Odporúčané";
 "News" = "Novinky";
 "Miscellaneous" = "Rôzne";
@@ -51,21 +51,21 @@
 
 "Report a Bug" = "Nahlásiť Bug";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Doplnková farba";
 "Blue" = "Modrá";
 "Orange" = "Oranžová";
 "White" = "Biela";
 "Black" = "Čierna";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Štýl Tmavého Režimu";
 "Dark Mode" = "Tmavý režim";
 "Default" = "Predvolené";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Ikona Aplikácie";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Odporúčané Balíčky";
 "Repo Featured" = "Odporúčané balíčky repozitára";
 "Random" = "Náhodné";
 "Feature Type" = "Typ odporúčania";
@@ -73,7 +73,7 @@
 
 "News" = "Novinky";
 
-"Live Search" = "Live Search";
+"Live Search" = "Živé Vyhľadavanie";
 
 "Swipe Actions Display As" = "Akcie prstom sa zobrazia ako";
 "Text" = "Text";
@@ -301,15 +301,15 @@
 
 "Could not respring. Please respring manually." = "Respring sa nepodaril. Prosím, urobte respring ručne.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "CHYBA: Nemožno uzamknúť stavový súbor. Prosím skúste to znova.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "CHYBA: Proces sa musí reštartovať. Prosím skúste to znova.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Konfigurujte vzhľad Zebry.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Zobraziť odporúčané balíčky na domovskej stránke.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Zobraziť posledné príspevky komunity z /r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
