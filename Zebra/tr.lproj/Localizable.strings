@@ -43,7 +43,7 @@
 
 "Settings" = "Ayarlar";
 "Version" = "Versiyon";
-"Interface" = "Interface";
+"Interface" = "Arayüz";
 "Featured" = "Öne Çıkanlar";
 "News" = "Haberler";
 "Miscellaneous" = "Diğer";
@@ -51,21 +51,21 @@
 
 "Report a Bug" = "Hata Bildir";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Varsayılan Renk";
 "Blue" = "Mavi";
 "Orange" = "Turuncu";
 "White" = "Beyaz";
 "Black" = "Siyah";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Karanlık Mod Stili";
 "Dark Mode" = "Karanlık Mod";
 "Default" = "Orjinal";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Uygulama Simgesi";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Öne Çıkan Paketler";
 "Repo Featured" = "Kaynağın Öne Çıkanları";
 "Random" = "Rastgele";
 "Feature Type" = "Öne Çıkanların Tarzı";
@@ -73,7 +73,7 @@
 
 "News" = "Haberler";
 
-"Live Search" = "Live Search";
+"Live Search" = "Anlık Arama";
 
 "Swipe Actions Display As" = "Kaydırma Animasyonlarını Şöyle Göster;";
 "Text" = "Yazı";
@@ -301,25 +301,25 @@
 
 "Could not respring. Please respring manually." = "Respring edilemiyor. Lütfen manuel olarak respring edin.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "HATA: Durum dosyası kilitlenemiyor. Lütfen tekrar deneyin.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Zebra'nın görünüşünü düzenle.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "/r/jailbreak dan son topluluk gönderilerini göster.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Paketleri yazarken ara. Bunu devre dışı bırakmak, eski cihazlarda gecikmeye sebep olabilir.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Tablo görünümü kaydırma aksiyonlarının görünüşünü düzenle.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Bütün Zebra'da gösterilen ikincil renkleri düzenle.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the theme of Zebra's dark mode when it is enabled." = "Zebra'nın karanlık modunun temasını aktifken değiştir.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Anasayfadaki öne çıkarılan paketlerin kaynağını değiştir.\n\n\\"Kaynakta Öne Çıkarılan\\" seçeneği Öne Çıkarılanlar API'sin desteklediği kaynaklardan rastgele olarak öne çıkarılanları gösterir.\n\n\\"Rastgele\\" Zebra'ya eklediğiniz bütün kaynaklardan rastgele paketleri gösterir.";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
