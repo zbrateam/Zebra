@@ -43,7 +43,7 @@
 
 "Settings" = "Cài đặt";
 "Version" = "Phiên bản";
-"Interface" = "Interface";
+"Interface" = "Giao diện";
 "Featured" = "Tính năng";
 "News" = "Tin tức";
 "Miscellaneous" = "Điều khoản khác";
@@ -51,19 +51,19 @@
 
 "Report a Bug" = "Báo cáo lỗi";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Màu đậm";
 "Blue" = "Lam";
 "Orange" = "Cam";
 "White" = "Trắng";
 "Black" = "Đen";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Giao diện tối";
 "Dark Mode" = "Chế độ tối";
 "Default" = "Mặc định";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Biểu tượng ứng dụng";
 
 "Featured Packages" = "Featured Packages";
 "Repo Featured" = "Repo nổi bật";
