@@ -317,15 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "שנה את צבע ההדגשה שמוצג ברחבי זברה.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "שנה את סגנון מצב הלילה של זברה כאשר הוא דולק.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "שנה את מקור החבילות המומלצות במסך הבית.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת המקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
 
-"Community News" = "Community News";
+"Community News" = "חדשות הקהילה";
 
 "#Zebra version
 Zebra %@" = "זברה %@";
