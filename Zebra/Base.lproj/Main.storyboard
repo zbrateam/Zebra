@@ -609,7 +609,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="changeLogController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="88x-Fj-jmg" customClass="ZBChangeLogTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fnp-w0-926">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -648,7 +648,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="settingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="el5-GG-Whe" customClass="ZBSettingsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="n9g-nq-pJf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <connections>
@@ -657,7 +657,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Fkg-eG-Qdm">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="WlL-gm-KEb">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="WlL-gm-KEb">
                             <connections>
                                 <action selector="doneButtonPressed:" destination="el5-GG-Whe" id="3DA-tf-5L7"/>
                             </connections>
@@ -1205,7 +1205,7 @@
         <image name="Sources" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y2Z-lg-2Ym"/>
+        <segue reference="63g-98-fnw"/>
         <segue reference="xJk-zG-Xgb"/>
         <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
