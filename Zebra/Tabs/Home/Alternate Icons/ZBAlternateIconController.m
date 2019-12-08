@@ -45,7 +45,7 @@
     return icons.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(10.3)) {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *altIcon = @"alternateIconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:altIcon];
     
