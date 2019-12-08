@@ -317,15 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Ubah warna aksen yang ditampilkan di seluruh Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Ubah gaya mode gelap Zebra saat diaktifkan.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Ubah sumber paket unggulan di beranda.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Unggulan\" akan menampilkan paket acak dari repos yang mendukung API Paket Unggulan.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Acak\" akan menampilkan paket acak dari semua repositori yang telah Anda tambahkan ke Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Berita Komunitas";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
