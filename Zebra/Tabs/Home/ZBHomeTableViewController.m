@@ -166,7 +166,10 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
     NSMutableArray *blacklist = [NSMutableArray new];
     for (NSString *baseURL in blockedRepos) {
-        [blacklist addObject:[ZBRepo repoFromBaseURL:baseURL]];
+        ZBRepo *repo = [ZBRepo repoFromBaseURL:baseURL];
+        if (repo) {
+            [blacklist addObject:repo];
+        }
     }
     
     NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
