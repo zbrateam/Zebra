@@ -69,7 +69,24 @@
     UIGraphicsEndImageContext();
     cell.imageView.layer.cornerRadius = 5;
     cell.imageView.clipsToBounds = YES;
-    
+    NSString *iconSelected = nil;
+    if (@available(iOS 10.3, *)) {
+        iconSelected = [[UIApplication sharedApplication] alternateIconName];
+    }
+    NSString *iconName = nil;
+    if ([indexPath row] > 0) {
+        iconName = [icons objectAtIndex:indexPath.row];
+    }
+    if (@available(iOS 10.3, *)) {
+        if ([iconSelected isEqualToString:iconName] || iconSelected == iconName) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    [cell setTintColor: [UIColor tintColor]];
     return cell;
 }
 
