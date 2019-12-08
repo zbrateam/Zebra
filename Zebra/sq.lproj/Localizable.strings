@@ -51,7 +51,7 @@
 
 "Report a Bug" = "Raporto nje gabim";
 
-"Accent Color" = "Ngjyra të theksuara";
+"Accent Color" = "Ngjyrat e tekstit";
 "Blue" = "Kaltërt";
 "Orange" = "Portokalli";
 "White" = "Bardhë";
@@ -315,7 +315,7 @@
 
 "Configure the appearance of table view swipe actions." = "Konfiguroni pamjen e veprimeve të rrëshqitjes së pamjes së tabelës.";
 
-"Change the accent color that displays across Zebra." = "Ndryshoni ngjyrën e theksit që shfaqet në të gjithë Zebrën.";
+"Change the accent color that displays across Zebra." = "Ndryshoni ngjyrën e tekstit që shfaqet në të gjithë Zebrën.";
 
 "Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
