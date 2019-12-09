@@ -687,12 +687,12 @@ enum ZBMiscOrder {
 
 - (void)misc {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Swipe Actions Display As";
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
         controller.settingSelectedRow = 1;
     } else {
         controller.settingSelectedRow = 0;
     }
+    controller.settingTitle = @"Swipe Actions Display As";
     controller.settingOptions = @[@"Text", @"Icon"];
     controller.settingChanged = ^(NSInteger newValue) {
         BOOL useIcon = newValue == 1;
