@@ -569,6 +569,11 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.view.layer addAnimation:transition forKey:nil];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+    if (self.navigationItem.rightBarButtonItems != nil) {
+        for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+            item.tintColor = [UIColor tintColor];
+        }
+    }
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
