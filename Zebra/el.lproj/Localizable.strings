@@ -301,31 +301,31 @@
 
 "Could not respring. Please respring manually." = "Αδυναμία respring. Παρακαλώ κάνε respring χειροκίνητα.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ΣΦΑΛΜΑ: Αδυναμία κλειδώματος του αρχείου κατάστασης. Παρακαλώ ξαναπροσπάθησε.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ΣΦΑΛΜΑ: Η διαδικασία πρέπει να επανεκκινηθεί. Παρακαλώ ξαναπροσπάθησε.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Ρύθμισε την εμφάνιση του Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Εμφάνισε προτεινόμενα πακέτα στην αρχική οθόνη.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Εμφάνισε πρόσφατες αναρτήσεις της κοινότητας του /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Αναζήτησε πακέτα καθώς πληκτρολογείς. Απενεργοποιώντας αυτή την λειτουργία ενδεχόμενος να μειώσει την καθυστέρηση σε παλαιότερες συσκευές.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Ρύθμισε την εμφάνιση των swipe actions της προβολής πινάκων.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Άλλαξε την απόχρωση που προβάλλεται σε όλο το Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Άλλαξε το στιλ της σκουρόχρωμης λειτουργίας του Zebra όταν είναι ενεργοποιημένη.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Άλλαξε την πηγή των προτεινόμενων πακέτων της αρχικής οθόνης.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Προτεινόμενα Repo\" θα εμφανίζει τυχαία πακέτα από repos που υποστηρίζουν το Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Νέα Κοινότητας";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
