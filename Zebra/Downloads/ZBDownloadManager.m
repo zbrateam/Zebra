@@ -409,7 +409,7 @@
     switch ([acceptableMIMETypes indexOfObject:MIMEType]) {
         case 0: { //Release file or uncompressed Packages file most likely
             if (downloadFailed) { //Big sad :(
-                if (![suggestedFilename isEqualToString:@"Release"]) {
+                if (![requestedFilename isEqualToString:@"Release"]) {
                     if (responseCode >= 400 && [[[httpResponse allHeaderFields] objectForKey:@"Content-Type"] isEqualToString:@"text/plain"]) {
                         // Allows custom error message to be displayed by the repository using the body
                         NSError *readError = NULL;

@@ -166,7 +166,10 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
     NSMutableArray *blacklist = [NSMutableArray new];
     for (NSString *baseURL in blockedRepos) {
-        [blacklist addObject:[ZBRepo repoFromBaseURL:baseURL]];
+        ZBRepo *repo = [ZBRepo repoFromBaseURL:baseURL];
+        if (repo) {
+            [blacklist addObject:repo];
+        }
     }
     
     NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
@@ -566,6 +569,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.view.layer addAnimation:transition forKey:nil];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+    _darkModeButton.tintColor = [UIColor tintColor];
+    _settingsButton.tintColor = [UIColor tintColor];
 }
 
 - (void)refreshCollection:(NSNotification *)notif {

@@ -109,7 +109,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self->wishedPackages removeObject:package];
         NSMutableArray *wishedPackageIDs = [[self->defaults objectForKey:wishListKey] mutableCopy];
         [wishedPackageIDs removeObject:[package identifier]];

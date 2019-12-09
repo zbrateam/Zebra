@@ -360,6 +360,7 @@
 		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
 		89CADA142263FEF3000101EE /* ZBDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDownloadManager.m; sourceTree = "<group>"; };
 		89CADA162263FF00000101EE /* ZBDownloadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadDelegate.h; sourceTree = "<group>"; };
+		89CCC6CC239D696600B7D85C /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89D230172242B27500837C3B /* default.list */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.list; sourceTree = "<group>"; };
 		89DD26842201571900CD31A0 /* ZBQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueue.h; sourceTree = "<group>"; };
 		89DD26852201571900CD31A0 /* ZBQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueue.m; sourceTree = "<group>"; };
@@ -1029,6 +1030,7 @@
 				sq,
 				fa,
 				id,
+				hu,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1260,6 +1262,7 @@
 				896B4A79237A0E5C007C4ABB /* sq */,
 				892552C3237B288000120F9B /* fa */,
 				89C6828D239AACF4007D018C /* id */,
+				89CCC6CC239D696600B7D85C /* hu */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

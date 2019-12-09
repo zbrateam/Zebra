@@ -96,8 +96,8 @@
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
         NSTask *locatePackage = [[NSTask alloc] init];
-        [locatePackage setLaunchPath:@"/usr/libexec/zebra/supersling"]; //not sure this needs root but we'll leave it for now
-        [locatePackage setArguments:@[@"dpkg", @"-I", packageID, @"control"]];
+        [locatePackage setLaunchPath:@"/usr/bin/dpkg"]; //not sure this needs root but we'll leave it for now
+        [locatePackage setArguments:@[@"-I", packageID, @"control"]];
         
         locatePackage.standardOutput = [NSPipe pipe];
         [[locatePackage.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
@@ -165,8 +165,8 @@
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
         NSTask *locatePackage = [[NSTask alloc] init];
-        [locatePackage setLaunchPath:@"/usr/libexec/zebra/supersling"]; //not sure if root is needed but we'll leave it for now
-        [locatePackage setArguments:@[@"dpkg", @"-I", packageID, @"control"]];
+        [locatePackage setLaunchPath:@"/usr/bin/dpkg"]; //not sure if root is needed but we'll leave it for now
+        [locatePackage setArguments:@[@"-I", packageID, @"control"]];
         
         locatePackage.standardOutput = [NSPipe pipe];
         [[locatePackage.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
@@ -225,8 +225,8 @@
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
         NSTask *locatePackage = [[NSTask alloc] init];
-        [locatePackage setLaunchPath:@"/usr/libexec/zebra/supersling"]; //not sure if root is needed but we'll leave it for now
-        [locatePackage setArguments:@[@"dpkg", @"-I", packageID, @"control"]];
+        [locatePackage setLaunchPath:@"/usr/bin/dpkg"]; //not sure if root is needed but we'll leave it for now
+        [locatePackage setArguments:@[@"-I", packageID, @"control"]];
         
         locatePackage.standardOutput = [NSPipe pipe];
         [[locatePackage.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {

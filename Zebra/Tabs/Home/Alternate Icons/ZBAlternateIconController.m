@@ -69,7 +69,17 @@
     UIGraphicsEndImageContext();
     cell.imageView.layer.cornerRadius = 5;
     cell.imageView.clipsToBounds = YES;
-    
+    NSString *iconSelected = [[UIApplication sharedApplication] alternateIconName];
+    NSString *iconName = nil;
+    if ([indexPath row] > 0) {
+        iconName = [icons objectAtIndex:indexPath.row];
+    }
+    if ([iconSelected isEqualToString:iconName] || iconSelected == iconName) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    [cell setTintColor: [UIColor tintColor]];
     return cell;
 }
 

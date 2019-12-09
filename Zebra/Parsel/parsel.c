@@ -34,6 +34,9 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
     if (*string == NULL)
         return *string;
     
+    if (delimiter == NULL)
+        return *string;
+    
     char *end = strstr(*string, delimiter);
     if (end == NULL) {
         char *temp = *string;
@@ -177,7 +180,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
         multi_tok_t s = init();
         
         char *key = multi_tok(info, &s, ": ");
-        char *value = multi_tok(NULL, &s, ": ");
+        char *value = multi_tok(NULL, &s, NULL);
         
         dict_add(repo, key, value);
     }
@@ -473,11 +476,11 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             multi_tok_t s = init();
             
             char *key = multi_tok(info, &s, ": ");
-            char *value = multi_tok(NULL, &s, ": ");
+            char *value = multi_tok(NULL, &s, NULL);
             
             if (key == NULL || value == NULL) { // y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
-                value = multi_tok(NULL, &s, ":");
+                value = multi_tok(NULL, &s, NULL);
             }
             
             if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
@@ -558,11 +561,11 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             multi_tok_t s = init();
             
             char *key = multi_tok(info, &s, ": ");
-            char *value = multi_tok(NULL, &s, ": ");
+            char *value = multi_tok(NULL, &s, NULL);
             
             if (key == NULL || value == NULL) { // y'all suck at maintaining repos, what do you do? make the package files by hand??
                 key = multi_tok(info, &s, ":");
-                value = multi_tok(NULL, &s, ":");
+                value = multi_tok(NULL, &s, NULL);
             }
             
             if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
