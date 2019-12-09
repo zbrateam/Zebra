@@ -580,7 +580,7 @@ enum ZBMiscOrder {
 - (void)featureOrRandomToggle {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.settingTitle = @"Feature Type";
-    controller.settingFooter = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display rancom packages from all repositories that you have added to Zebra."];
+    controller.settingFooter = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."];
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
         controller.settingSelectedRow = 1;
     } else {
