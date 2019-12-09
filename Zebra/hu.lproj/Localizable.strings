@@ -1,165 +1,165 @@
 // Common
 
-"Cancel" = "Cancel";
-"No" = "No";
+"Cancel" = "Mégse";
+"No" = "Nem";
 "Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Login" = "Login";
-"Close" = "Close";
-"Done" = "Done";
+"Error" = "Hiba";
+"Retry" = "Újra";
+"Edit" = "Szerkeszt";
+"Login" = "Bejelentkezés";
+"Close" = "Bezár";
+"Done" = "Kész";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to the Zebra Beta!" = "Welcome to the Zebra Beta!";
-"Changelog" = "Changelog";
-"Community Repos" = "Community Repos";
-"Transfer Sources from %@" = "Transfer Sources from %@";
-"Move all sources from %@ to Zebra" = "Move all sources from %@ to Zebra";
+"Home" = "Kezdőlap";
+"Info" = "Információ";
+"Welcome to the Zebra Beta!" = "Üdvözlünk a Zebra bétában!";
+"Changelog" = "Változások listája";
+"Community Repos" = "Közösségi források";
+"Transfer Sources from %@" = "%@ források importálása";
+"Move all sources from %@ to Zebra" = "Összes forrás átmozgatása %@-ból a Zebrába";
 "Utility repo for %@" = "Utility repo for %@";
-"Transfer Sources" = "Transfer Sources";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
-"Stores" = "Stores";
-"Purchases" = "Purchases";
-"Wish List" = "Wish List";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow me on Twitter" = "Follow me on Twitter";
+"Transfer Sources" = "Források átvitele";
+"Please Wait..." = "Kérlek, várj...";
+"Verifying Source(s)" = "Forrás(ok) ellenőrzése";
+"Stores" = "Áruházak";
+"Purchases" = "Vásárlások";
+"Wish List" = "Kívánságlista";
+"No items in Wish List" = "A kívánságlista üres";
+"Community" = "Közösség";
+"Join our Discord" = "Csatlakozz a mi Discord szerverünkhöz";
+"Follow me on Twitter" = "Kövessen minket a Twitteren";
 
 //Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "Készítők";
+"Creators" = "Alkotók";
+"Contributors" = "Közreműködők";
+"Translators" = "Fordítók";
+"Libraries" = "Könyvtárak";
 
 // Settings
 
-"Settings" = "Settings";
-"Version" = "Version";
-"Interface" = "Interface";
-"Featured" = "Featured";
-"News" = "News";
-"Miscellaneous" = "Miscellaneous";
-"Advanced" = "Advanced";
+"Settings" = "Beállítások";
+"Version" = "Verzió";
+"Interface" = "Felület";
+"Featured" = "Kiemelt";
+"News" = "Hírek";
+"Miscellaneous" = "Egyebek";
+"Advanced" = "Haladó";
 
-"Report a Bug" = "Report a Bug";
+"Report a Bug" = "Hibajelentés";
 
-"Accent Color" = "Accent Color";
-"Blue" = "Blue";
-"Orange" = "Orange";
-"White" = "White";
-"Black" = "Black";
+"Accent Color" = "Kiemelőszín";
+"Blue" = "Kék";
+"Orange" = "Narancssárga";
+"White" = "Fehér";
+"Black" = "Fekete";
 
-"Dark Mode Style" = "Dark Mode Style";
-"Dark Mode" = "Dark Mode";
-"Default" = "Default";
+"Dark Mode Style" = "Sötét mód stílusa";
+"Dark Mode" = "Sötét mód";
+"Default" = "Alapértelmezett";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Alkalmazás ikon";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Kiemelt csomagok";
 "Repo Featured" = "Repo Featured";
-"Random" = "Random";
+"Random" = "Véletlenszerű";
 "Feature Type" = "Feature Type";
 "Select Repos to be Featured" = "Select Repos to be Featured";
 
-"News" = "News";
+"News" = "Hírek";
 
-"Live Search" = "Live Search";
+"Live Search" = "Élő keresés";
 
 "Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
-"Open Documents Directory" = "Open Documents Directory";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Keychain" = "Clear Keychain";
+"Text" = "Szöveg";
+"Icon" = "Ikon";
+"Open Documents Directory" = "Dokumentumok mappa megnyitása";
+"Clear Image Cache" = "Gyorsítótári képek törlése";
+"Clear Keychain" = "Kulcskarika tisztítása";
 
-"Loading..." = "Loading...";
+"Loading..." = "Betöltés...";
 
 "Resetting image cache completed" = "Resetting image cache completed";
 "Clearing keychain completed" = "Clearing keychain completed";
 
 "Drop Tables" = "Drop Tables";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternatív ikonok";
 
 // Sources
 
-"Sources" = "Sources";
+"Sources" = "Források";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
-"Unknown" = "Unknown";
+"Unknown" = "Ismeretlen";
 "No repository urls detected." = "No repository urls detected.";
 "You have already added these repositories." = "You have already added these repositories.";
 "Error verifying repository" = "Error verifying repository";
 "Error verifying repositories" = "Error verifying repositories";
-"Unknown error" = "Unknown error";
-"Invalid URL" = "Invalid URL";
-"Enter URL" = "Enter URL";
-"Add Repo(s)" = "Add Repo(s)";
-"Add" = "Add";
-"Add Multiple" = "Add Multiple";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Unknown error" = "Ismeretlen hiba";
+"Invalid URL" = "Érvénytelen URL";
+"Enter URL" = "URL megadása";
+"Add Repo(s)" = "Forrás(ok) hozzáadása";
+"Add" = "Hozzáad";
+"Add Multiple" = "Több hozzáadáasa";
+"Would you like to add the URL from your clipboard?" = "Szeretnéd a vágólapon lévő URL-t hozzáadni?";
+"Please Wait..." = "Kérlek, várj...";
+"Verifying Source(s)" = "Forrás(ok) ellenőrzése";
 "Unable to verify Repo" = "Unable to verify Repo";
-"Refresh" = "Refresh";
-"Log Out" = "Log Out";
-"Purchased Packages" = "Purchased Packages";
-"Purchased" = "Purchased";
+"Refresh" = "Frissítés";
+"Log Out" = "Kijelentkezés";
+"Purchased Packages" = "Megvásárolt csomagok";
+"Purchased" = "Megvásárolt";
 
-"All Packages" = "All Packages";
-"Delete" = "Delete";
+"All Packages" = "Összes csomag";
+"Delete" = "Törlés";
 
 // Changes
 
-"Changes" = "Changes";
+"Changes" = "Változások";
 
 // Packages
 
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Ignore Updates" = "Ignore Updates";
-"Select Version" = "Select Version";
+"Packages" = "Csomagok";
+"Show Updates" = "Frissítések megjelenítése";
+"Ignore Updates" = "Frissítések mellőzése";
+"Select Version" = "Verzió kiválasztása";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
+"Package" = "Csomag";
+"Information" = "Információ";
+"Upgrade All" = "Összes frissítése";
+"Loaded" = "Betöltve";
 "ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Clear" = "Clear";
-"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
-"Repo" = "Repo";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
+"Date" = "Dátum";
+"Size" = "Méret";
+"Clear" = "Kiürít";
+"Are you sure you want to clear Queue?" = "Biztos, hogy ki akarja törölni a listát?";
+"Available Upgrades" = "Elérhető frissítések";
+"Ignored Upgrades" = "Figyelmen kívül hagyott frissítések";
+"Recent" = "Legutóbbi";
+"Repo" = "Forrás";
+"Installed Files" = "Telepített fájlok";
+"Modify" = "Módosít";
+"Authenticate to initiate purchase." = "Azonosítsd magad a vásárláshoz.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Jelentkezz be újra a csomag megvásárlásához (%@ valószínűleg)";
+"More by this Developer" = "Több ettől a fejlesztőtől";
+"Installed Version" = "Telepített verzió";
+"Installed Size" = "Telepített méret";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Telepített verzió: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Telepített méret: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d bájt";
 //Package size in Kilobytes (no decimal)
 "%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
@@ -167,59 +167,59 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Add to Wish List";
-"Remove from Wish List" = "Remove from Wish List";
+"Add to Wish List" = "Hozzáadás a kívánságlistához";
+"Remove from Wish List" = "Eltávolítás a kívánságlistából";
 
 // Package Section Names
 
-"Administration" = "Administration";
-"Addons" = "Addons";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
+"Administration" = "Adminisztráció";
+"Addons" = "Kiegészítők";
+"App Addons" = "Program kiegészítők";
+"Archiving" = "Archiválás";
 "Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
+"Communication" = "Kommunikáció";
 "Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
+"Development" = "Fejlesztés";
+"Dictionaries" = "Szótárak";
+"Education" = "Oktatás";
+"Entertainment" = "Szórakozás";
+"Games" = "Játékok";
+"Health and Fitness" = "Egészség és fitnesz";
 "Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
+"Keyboards" = "Billentyűzetek";
+"Localization" = "Fordítások";
+"Messaging" = "Üzenetek";
+"Multimedia" = "Multimédia";
+"Navigation" = "Navigáció";
+"Networking" = "Hálózat";
 "Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
+"Productivity" = "Produktivitás";
+"Repositories" = "Források";
+"Ringtones" = "Csengőhangok";
 "Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
+"Security" = "Biztonság";
+"Social" = "Közösségi";
+"System" = "Rendszer";
 "Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
+"Text Editors" = "Szövegszerkesztők";
+"Themes" = "Témák";
 "Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Utilities" = "Kiegészítők";
+"Wallpaper" = "Háttérképek";
+"Widgets" = "Widgetek";
 
 // Search
 
-"Search" = "Search";
-"Clear Search" = "Clear Search";
+"Search" = "Keresés";
+"Clear Search" = "Keresés törlése";
 "This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
-"No Results Found" = "No Results Found";
+"No Results Found" = "Nincs találat";
 
 // Downloads
 
-"Downloads" = "Downloads";
+"Downloads" = "Letöltések";
 "Error while opening sources.list" = "Error while opening sources.list";
 "The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
@@ -232,28 +232,28 @@
 
 // Console
 
-"Console" = "Console";
+"Console" = "Konzol";
 "Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
-"Close Zebra" = "Close Zebra";
-"Restart SpringBoard" = "Restart SpringBoard";
-"Downloading" = "Downloading";
-"Downloading Packages..." = "Downloading Packages...";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
-"One or more packages failed to download." = "One or more packages failed to download.";
+"Close Zebra" = "Zebra bezárása";
+"Restart SpringBoard" = "SpringBoard újraindítása";
+"Downloading" = "Letöltés";
+"Downloading Packages..." = "Csomagok letöltése...";
+"Installing" = "Telepítés";
+"Installing Packages..." = "Csomagok telepítése...";
+"Removing" = "Eltávolítás";
+"Removing Packages..." = "Csomagok eltávolítása...";
+"Reinstalling" = "Újratelepítés";
+"Reinstalling Packages..." = "Csomagok újratelepítése...";
+"Upgrading" = "Frissítés";
+"Upgrading Packages..." = "Csomagok frissítése...";
+"Complete" = "Kész";
+"Finished!" = "Kész!";
+"Return to Queue" = "Vissza a várólistához";
+"Importing local packages." = "Helyi csomagok beolvasása.";
+"Finished importing local packages." = "Helyi csomagok beolvasása kész.";
+"One or more packages failed to download." = "Egy vagy több csomag letöltése sikertelen.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
@@ -264,22 +264,22 @@
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
+"Queue" = "Várólista";
+"Install" = "Telepít";
+"Reinstall" = "Újratelepítés";
+"Remove" = "Eltávolítás";
+"Upgrade" = "Frissítés";
 "Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
+"Abort" = "Megszakít";
+"Continue" = "Folytatás";
+"Download Size" = "Letöltési méret";
+"Confirm" = "Megerősít";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
+"Required Package" = "Szükséges csomag";
 "%@ is required by:" = "%@ is required by:";
-"Issues" = "Issues";
+"Issues" = "Problémák";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure?" = "Are you sure?";
+"Are you sure?" = "Biztos benne?";
 "Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 "Remove from Queue" = "Remove from Queue";
@@ -297,7 +297,7 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Segíts lefordítani a Zebrát!";
 
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
@@ -325,7 +325,7 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Közösségi hírek";
 
-#Zebra version
-"Zebra %@" = "Zebra %@";
+"#Zebra version
+Zebra %@" = "Zebra %@";

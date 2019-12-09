@@ -51,21 +51,21 @@
 
 "Report a Bug" = "Meld een fout";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Accentkleur";
 "Blue" = "Blauw";
 "Orange" = "Oranje";
 "White" = "Wit";
 "Black" = "Zwart";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Donkere Modus Stijl";
 "Dark Mode" = "Donkere modus";
 "Default" = "Standaard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "App Icoon";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Uitgelichte Pakketten";
 "Repo Featured" = "Uitgelichte Bron";
 "Random" = "Willekeurig";
 "Feature Type" = "Uitgelicht type";
@@ -73,7 +73,7 @@
 
 "News" = "Nieuws";
 
-"Live Search" = "Live Search";
+"Live Search" = "Live zoeken";
 
 "Swipe Actions Display As" = "Veeg Acties Weergeven Als";
 "Text" = "Tekst";
@@ -129,8 +129,8 @@
 "Show Updates" = "Toon updates";
 "Ignore Updates" = "Negeer updates";
 "Select Version" = "Kies versie";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Select a version to upgrade to:" = "Selecteer een versie om naar te upgraden:";
+"Select a version to downgrade to:" = "Kies een versie om naar te downgraden:";
 "Package" = "Pakket";
 "Information" = "Informatie";
 "Upgrade All" = "Upgrade alles";
@@ -289,9 +289,9 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Een of meer van de pakketten in de Wachtrij voor verwijdering is essentieel of noodzakelijk. Het is niet aan te raden om verder te gaan tenzij u precies weet wat u doet. Het verwijderen van deze pakketten kan onomkeerbare schade toebrengen aan je apparaat en kan reen volledig herstel veroorzaken.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kon deze opdracht niet voltooien omdat het niet de juiste machtigingen heeft. Controleer de machtigingen in /usr/libexec/zebra/supersling en rapporteer dit probleem op GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kan geen toegang krijgen tot su/sling. Controleer of /usr/libexec/zebra/supersling bestaat.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
@@ -317,9 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"Community News" = "Community News";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

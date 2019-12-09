@@ -317,9 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Promijeni boju koja se prikazuje kroz Zebru.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Promijeni temu Zebrunog tamnog stila kada je aktiviran.";
+"Change the style of Zebra's dark mode when it is enabled." = "Promijeni stil Zebrunog tamnog načina kada je uključen.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Promijeni izvor istaknutih paketa koji se prikazuju na naslovnoj stranici.\n\n\n“Istaknuti Izvor” će prikazivati izmjenično pakete iz izvora koji podržavaju API istaknutih paketa.\n\n“Nasumično” će prikazivati nasumično pakete iz svih izvora koje ste dodali u Zebru.";
+"Change the source of the featured packages on the homepage." = "Promijeni izvor istaknutih paketa na početnoj stranici.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“Istaknuti Izvor” će prikazivati nasumične pakete s izvora koji podržavaju API istaknutih paketa.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“Nasumično” će prikazivati nasumične pakete sa svih izvora koje ste dodali u Zebru.";
+
+"Community News" = "Novosti iz zajednice";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

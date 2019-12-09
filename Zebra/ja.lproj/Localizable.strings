@@ -66,10 +66,10 @@
 "App Icon" = "アプリのアイコン";
 
 "Featured Packages" = "注目されているパッケージ";
-"Repo Featured" = "リポジトリ特集";
+"Repo Featured" = "注目されているパッケージ";
 "Random" = "ランダム";
 "Feature Type" = "表示方法";
-"Select Repos to be Featured" = "特集するリポジトリを選択";
+"Select Repos to be Featured" = "注目されているパッケージリポジトリを選択";
 
 "News" = "ニュース";
 
@@ -89,7 +89,7 @@
 
 "Drop Tables" = "テーブルの削除";
 
-"Alternate Icons" = "代替アイコン";
+"Alternate Icons" = "アプリのアイコン";
 
 // Sources
 
@@ -311,15 +311,21 @@
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力しながらパッケージを検索します。 この機能を無効にすると、古いデバイスの遅延を減らすことができます。";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力中もパッケージを検索します。 この機能を無効にすると、古いデバイスの遅延を減らすことができます。";
 
 "Configure the appearance of table view swipe actions." = "スワイプした後の表示内容を構成します。";
 
 "Change the accent color that displays across Zebra." = "Zebra 全体に表示されるアクセントカラーを変更します。";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効になったら、テーマを変更します。";
+"Change the style of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効になったら、テーマを変更します。";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "ホームページで機能パッケージのソースを変更します。\n\n「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。\n\n「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
+"Change the source of the featured packages on the homepage." = "ホームページで注目されているパッケージのソースを変更します。";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
+
+"Community News" = "コミュニティニュース";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

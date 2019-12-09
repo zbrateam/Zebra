@@ -6,7 +6,7 @@
 "Error" = "Erreur";
 "Retry" = "Réessayer";
 "Edit" = "Éditer";
-"Login" = "Identifiant";
+"Login" = "Connexion";
 "Close" = "Fermer";
 "Done" = "Fini";
 
@@ -26,7 +26,7 @@
 "Stores" = "Magasins";
 "Purchases" = "Achats";
 "Wish List" = "Liste de souhait";
-"No items in Wish List" = "Aucun élément dans la Liste de Souhait";
+"No items in Wish List" = "Aucun élément dans la Liste de Souhaits";
 "Community" = "Communauté";
 "Join our Discord" = "Rejoindre notre serveur Discord";
 "Follow me on Twitter" = "Me suivre sur Twitter";
@@ -317,9 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Changez la couleur d’accentuation de Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Changer le thème du mode sombre de Zebra lorsqu'il est activé.";
+"Change the style of Zebra's dark mode when it is enabled." = "Change le style du mode sombre de Zebra lorsqu'il est activé.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Changez la source des paquets en vedette sur la page d'accueil.\n\n\"Sources en Vedette\" affichera des paquets aléatoires de repos qui prennent en charge l'API des paquets en vedette.\n\n\"Aléatoire\" affichera des paquets aléatoires de tous les dépôts que vous avez ajoutés à Zebra.";
+"Change the source of the featured packages on the homepage." = "Change la source des paquets en vedette sur la page d'accueil.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"En Vedette\" affichera des paquets aléatoires de sources qui prennent en charge l'API des paquets en vedette.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aléatoire\" affichera les paquets aléatoirement de toutes les sources que vous avez ajoutés à Zebra.";
+
+"Community News" = "Actualités de la Communauté";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

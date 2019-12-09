@@ -309,17 +309,23 @@
 
 "Display featured packages on the homepage." = "הצג חבילות מומלצות בדף הבית.";
 
-"Display recent community posts from /r/jailbreak." = "הצג פרסומי קהילה אחרונית מ-/r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "הצג פרסומי קהילה אחרונים מ-/r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "חפש חבילות בזמן ההקלדה. גיבוי מאפיין זה עלול להפחית איטיות במכשירים ישנים יותר.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "חפש חבילות בזמן ההקלדה. כיבוי מאפיין זה עלול להפחית איטיות במכשירים ישנים יותר.";
 
 "Configure the appearance of table view swipe actions." = "הגדר את המראה של פעולות החלקה על תאי טבלאות.";
 
 "Change the accent color that displays across Zebra." = "שנה את צבע ההדגשה שמוצג ברחבי זברה.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "שנה את ערכת הנושא של מצב הלילה של זברה כאשר הוא דולק.";
+"Change the style of Zebra's dark mode when it is enabled." = "שנה את סגנון מצב הלילה של זברה כאשר הוא דולק.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "שנה את מקור החבילות המומלצות במסך הבית.\n\n\"המלצת המקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.\n\n\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+"Change the source of the featured packages on the homepage." = "שנה את מקור החבילות המומלצות במסך הבית.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת המקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+
+"Community News" = "חדשות הקהילה";
 
 "#Zebra version
 Zebra %@" = "זברה %@";

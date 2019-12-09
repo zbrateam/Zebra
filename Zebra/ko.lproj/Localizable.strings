@@ -43,7 +43,7 @@
 
 "Settings" = "설정";
 "Version" = "버전";
-"Interface" = "Interface";
+"Interface" = "인터페이스";
 "Featured" = "선정된 패키지";
 "News" = "뉴스";
 "Miscellaneous" = "기타 여러가지 기능";
@@ -51,21 +51,21 @@
 
 "Report a Bug" = "버그 신고";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "강조 컬러";
 "Blue" = "파란색";
 "Orange" = "노란색";
 "White" = "하얀색";
 "Black" = "검은색";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "다크 모드 스타일";
 "Dark Mode" = "다크 모드";
 "Default" = "기본";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "앱 아이콘";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "선정된 패키지";
 "Repo Featured" = "레포에서 선정";
 "Random" = "랜덤";
 "Feature Type" = "선정 방법: ";
@@ -73,7 +73,7 @@
 
 "News" = "뉴스";
 
-"Live Search" = "Live Search";
+"Live Search" = "실시간 검색";
 
 "Swipe Actions Display As" = "스와이프 동작 표시";
 "Text" = "텍스트";
@@ -301,25 +301,31 @@
 
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "오류: 상태 파일을 잠글 수 없습니다. 다시 시도해주세요.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "오류: 프로세스가 재시작되어야 합니다. 다시 시도해주세요.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Zebra의 테마를 구성합니다.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "선정된 패키지를 홈 화면에서 표시";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "/r/jailbreak의 최근 커뮤니티 게시글을 표시";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "입력하는 동안 패키지를 검색합니다. 오래된 기기에서 이 기능을 비활성화하여 끊김 현상을 줄일 수 있습니다.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "테이블 뷰 스와이프 동작의 테마를 구성합니다.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Zebra에 표시되는 강조 색상을 구성합니다.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Zebra에 다크 모드가 활성화 되었을때의 스타일을 변경합니다.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage." = "홈 화면의 선정된 패키지를 구성할 데이터의 위치를 변경합니다.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"레포에서 선정\"은 선정된 패키지 API를 지원하는 레포의 패키지를 랜덤으로 표시합니다.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 저장소에서 랜덤으로 패키지를 표시합니다.";
+
+"Community News" = "커뮤니티 뉴스";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

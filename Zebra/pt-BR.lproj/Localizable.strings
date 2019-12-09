@@ -57,13 +57,13 @@
 "White" = "Branco";
 "Black" = "Preto";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Estilo do Modo Escuro";
 "Dark Mode" = "Modo Noturno";
 "Default" = "Padrão";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Ícone do App";
 
 "Featured Packages" = "Pacotes em destaque";
 "Repo Featured" = "Repo em destaque";
@@ -315,11 +315,17 @@
 
 "Configure the appearance of table view swipe actions." = "Configurar a aparência das ações de deslizamento de exibição da tabela.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Altere a cor de destaque exibida no Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Change the theme of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Altera o estilo do modo escuro do Zebra, quando ele estiver habilitado.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Change the source of the featured packages on the homepage." = "Altere a fonte dos pacotes em destaque na página inicial.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" irá exibir pacotes aleatórios de repos que suportam a API de Pacote em Destaque.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatório\" irá exibir pacotes aleatórios de todos os repositórios que você adicionou ao Zebra.";
+
+"Community News" = "Notícias da Comunidade";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

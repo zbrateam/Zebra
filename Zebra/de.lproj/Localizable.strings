@@ -317,9 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "Ändere Sie die in Zebra angezeigte Akzentfarbe.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "Thema von Zebras zum dunklen Modus ändern, wenn dieser aktiviert ist.";
+"Change the style of Zebra's dark mode when it is enabled." = "Ändert den Stil von Zebras dunklem Modus, sobald dieser aktiviert wird.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "Quelle der vorgestellten Pakete auf der Homepage ändern.\n\n„Quellen empfohlen” zeigt zufällige Pakete aus Quellen, die die \nAPI „Ausgewählte Pakete” unterstützen.\n\n„Zufällig” zeigt zufällige Pakete aus allen Quellen an, die Sie zu Zebra hinzugefügt haben.";
+"Change the source of the featured packages on the homepage." = "Ändern Sie die Quelle der empfohlenen Pakete auf der Startseite.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Vorgestellte Quelle\" wird zufällige Pakete aus denen Quellen anzeigen welche die Vorgestellte Pakete API unterstützen.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Zufällig\" wird zufällige Pakete aus allen Quellen anzeigen die zu Zebra hinzugefügt wurden.";
+
+"Community News" = "Nachrichten der Gemeinschaft";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

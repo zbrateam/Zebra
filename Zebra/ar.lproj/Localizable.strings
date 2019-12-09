@@ -317,9 +317,15 @@
 
 "Change the accent color that displays across Zebra." = "تغيير اللون الثانوي الذي يظهر عبر Zebra.";
 
-"Change the theme of Zebra's dark mode when it is enabled." = "تغيير وضع موضوع Zebra الداكن عند تفعيله.";
+"Change the style of Zebra's dark mode when it is enabled." = "تغيير نمط وضع Zebra الداكن عند تفعيله.";
 
-"Change the source of the featured packages on the homepage.\n\n\"Repo Featured\" will display random packages from repos that support the Featured Package API.\n\n\"Random\" will display random packages from all repositories that you have added to Zebra." = "تغيير مصدر الحزم المميزة على الصفحة الرئيسية.\n\nستعرض ميزة  \"المستودع المميز\" حزم عشوائية من المستودعات التي تدعم API الحزمة المميزة.\n\nسيعرض خيار \"عشوائي\" حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
+"Change the source of the featured packages on the homepage." = "تغيير مصدر الحزم المميزة على الصفحة الرئيسية.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"المستودع المميز\" سيعرض حزم عشوائية من المستودعات التي تدعم API الحزمة المميزة.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
+
+"Community News" = "أخبار المجتمع";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
