@@ -43,7 +43,7 @@
 
 "Settings" = "Ρυθμίσεις";
 "Version" = "Έκδοση";
-"Interface" = "Interface";
+"Interface" = "Περιβάλλον";
 "Featured" = "Προτεινόμενα";
 "News" = "Νέα";
 "Miscellaneous" = "Διάφορα";
@@ -51,21 +51,21 @@
 
 "Report a Bug" = "Αναφορά σφάλματος";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Απόχρωση";
 "Blue" = "Μπλε";
 "Orange" = "Πορτοκαλί";
 "White" = "Άσπρο";
 "Black" = "Μαύρο";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Στιλ Σκουρόχρωμης Λειτουργίας";
 "Dark Mode" = "Σκουρόχρωμη Λειτουργία";
 "Default" = "Προεπιλεγμένο";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Εικονίδιο εφαρμογής";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Προτεινόμενα Πακέτα";
 "Repo Featured" = "Προτεινόμενα Repo";
 "Random" = "Τυχαίο";
 "Feature Type" = "Τύπος Προτεινόμενου";
@@ -73,7 +73,7 @@
 
 "News" = "Νέα";
 
-"Live Search" = "Live Search";
+"Live Search" = "Ζωντανή Αναζήτηση";
 
 "Swipe Actions Display As" = "Swipe Actions Εμφανίζονται Ως";
 "Text" = "Κείμενο";
