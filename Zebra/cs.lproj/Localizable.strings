@@ -323,9 +323,9 @@
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "„Návrhy repozitáře“ zobrazí náhodné balíčky z repozitářů, které podporují Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovat náhodné balíčky ze všech repozitářů, které jste přidali do Zebry.";
 
-"Community News" = "Komunitní novinky";
+"Community News" = "Komunitní Novinky";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
