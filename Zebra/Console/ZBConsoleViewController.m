@@ -112,12 +112,14 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (downloadManager) {
-        [self updateStage:ZBStageDownload];
-        [downloadManager downloadPackages:[queue packagesToDownload]];
-    }
-    else {
-        [self performSelectorInBackground:@selector(performTasks) withObject:NULL];
+    if (currentStage == -1) { //Only run the process once per console cycle
+        if (downloadManager) {
+            [self updateStage:ZBStageDownload];
+            [downloadManager downloadPackages:[queue packagesToDownload]];
+        }
+        else {
+            [self performSelectorInBackground:@selector(performTasks) withObject:NULL];
+        }
     }
 }
 
