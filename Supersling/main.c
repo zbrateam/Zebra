@@ -48,8 +48,9 @@ int main(int argc, char ** argv) {
   else {
     pid_t pid = getppid();
     char buffer[4 * PATH_MAX];
-    int ret = proc_pidpath(pid, buffer, sizeof(buffer));
+    int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
     if (ret < 1 || strcmp(buffer, "/Applications/Zebra.app/Zebra") != 0) {
+      printf("proc_pidpath = %s\n", buffer);
       printf("CHAOS, CHAOS!\n");
       return EX_NOPERM;
     }
