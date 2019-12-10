@@ -69,7 +69,15 @@
     UIGraphicsEndImageContext();
     cell.imageView.layer.cornerRadius = 5;
     cell.imageView.clipsToBounds = YES;
-    NSString *iconSelected = [[UIApplication sharedApplication] alternateIconName];
+    
+    NSString *iconSelected;
+    if (@available(iOS 10.3, *)) {
+        iconSelected = [[UIApplication sharedApplication] alternateIconName];
+    }
+    else {
+        iconSelected = @"You shouldn't be here";
+    }
+    
     NSString *iconName = nil;
     if ([indexPath row] > 0) {
         iconName = [icons objectAtIndex:indexPath.row];
