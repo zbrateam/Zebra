@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"Featured Repos"];
+    [self.navigationItem setTitle:NSLocalizedString(@"Featured Repos", @"")];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.estimatedRowHeight = 60.0;
     self.tableView.rowHeight = 60;
