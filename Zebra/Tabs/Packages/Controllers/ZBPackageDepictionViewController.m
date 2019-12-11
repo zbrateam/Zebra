@@ -84,11 +84,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         self.navigationItem.leftBarButtonItem = closeButton;
     }
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-    
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
     
@@ -150,6 +145,10 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [super viewWillAppear:animated];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavButton];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {

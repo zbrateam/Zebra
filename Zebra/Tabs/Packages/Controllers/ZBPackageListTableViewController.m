@@ -80,9 +80,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshTable];
-    [self registerView];
+    
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
 }
 
@@ -471,9 +471,6 @@
     if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"] && [[segue destinationViewController] isKindOfClass:[ZBPackageDepictionViewController class]]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        if (@available(iOS 11.0, *)) {
-            self.navigationController.navigationBar.prefersLargeTitles = NO;
-        }
         [self setDestinationVC:indexPath destination:destination];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
@@ -499,14 +496,6 @@
     self.tableView.sectionIndexColor = [UIColor tintColor];
     [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
     [self.navigationController.navigationBar setBarTintColor:nil];
-}
-
-#pragma mark - Analytics
-
-- (void)registerView {
-    NSString *screenName = self.title;
-    NSString *screenClass = [[self classForCoder] description];
-    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end
