@@ -1407,28 +1407,35 @@
     return NULL;
 }
 
-- (NSArray *)packagesByAuthor:(NSString *)author{
+- (NSArray *)packagesByAuthor:(NSString *)author {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSMutableArray *packageIdentifiers = [NSMutableArray new];
         
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE AUTHOR = ?;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, REPOID FROM PACKAGES WHERE AUTHOR = ?;", -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [author UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
+            int repoID = sqlite3_column_int(statement, 1);
+            
             if (repoID > 0) {
-                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                if (![packageIdentifiers containsObject:package.identifier]) {
-                    [packageIdentifiers addObject:package.identifier];
+                const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
+                if (packageIDChars != 0) {
+                    NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
+                    if (![packageIdentifiers containsObject:packageID]) {
+                        [packageIdentifiers addObject:packageID];
+                    }
                 }
             }
         }
         sqlite3_finalize(statement);
 
         for (NSString *packageID in packageIdentifiers) {
-            [packages addObject:[self topVersionForPackageID:packageID]];
+            ZBPackage *package = [self topVersionForPackageID:packageID];
+            if (package) {
+                [packages addObject:[self topVersionForPackageID:packageID]];
+            }
         }
         [self closeDatabase];
         
