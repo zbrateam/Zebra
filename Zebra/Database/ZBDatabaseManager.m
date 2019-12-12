@@ -1705,7 +1705,7 @@
         NSLog(@"[Zebra] Error while reading source list");
     }
 
-    if (![repos containsString:@"\ndeb https://getzbra.com/repo/ ./\n"]) {
+    if (![repos containsString:@"deb https://getzbra.com/repo/ ./"]) {
         NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:[ZBAppDelegate sourcesListPath]];
         [fileHandle seekToEndOfFile];
         [fileHandle writeData:[@"\ndeb https://getzbra.com/repo/ ./\n" dataUsingEncoding:NSUTF8StringEncoding]];
