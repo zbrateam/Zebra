@@ -91,7 +91,7 @@
 
 "Alternate Icons" = "Alternativní ikony";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Doporučené Repozitáře";
 
 // Sources
 
@@ -307,15 +307,15 @@
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces musí být restartován. Prosím zkuste to znovu.";
 
-"Configure the appearance of Zebra." = "Konfigurovat vzhled Zebry.";
+"Configure the appearance of Zebra." = "Konfiguruje vzhled Zebry.";
 
-"Display featured packages on the homepage." = "Zobrazit doporučené balíčky na domovské stránce.";
+"Display featured packages on the homepage." = "Zobrazí doporučené balíčky na domovské stránce.";
 
-"Display recent community posts from /r/jailbreak." = "Zobrazit poslední příspěvky komunity z /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Hledat balíčky při psaní. Zakázání této funkce může snížit zpoždění na starších zařízeních.";
 
-"Configure the appearance of table view swipe actions." = "Nastavit vzhled akcí přetažením.";
+"Configure the appearance of table view swipe actions." = "Nastaví vzhled akcí přetažením.";
 
 "Change the accent color that displays across Zebra." = "Změnit doplňkovou barvu.";
 
