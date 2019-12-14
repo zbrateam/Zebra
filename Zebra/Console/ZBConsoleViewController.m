@@ -124,11 +124,6 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
-}
-
 - (void)setupView {
     currentStage = -1;
     downloadFailed = NO;
@@ -338,6 +333,7 @@
     [installedPackageIdentifiers removeAllObjects];
     
     [self updateStage:ZBStageFinished];
+    [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
 }
 
 #pragma mark - Button Actions
