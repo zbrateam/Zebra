@@ -303,31 +303,31 @@
 
 "Could not respring. Please respring manually." = "Không thể sống lại. Vui lòng nối lại thủ công.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "LỖI: Không thể khóa tệp trạng thái. Vui lòng thử lại.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Cấu hình sự xuất hiện của Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ / r / jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Tìm kiếm các gói trong khi gõ. Vô hiệu hóa tính năng này có thể làm giảm độ trễ trên các thiết bị cũ.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Cấu hình sự xuất hiện của các hành động vuốt xem bảng.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Thay đổi màu nhấn hiển thị trên Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Thay đổi kiểu chế độ tối của Zebra khi được bật.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Thay đổi nguồn của các gói tính năng trên trang chủ.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo nổi bật\" sẽ hiển thị các gói ngẫu nhiên từ các repos hỗ trợ API gói nổi bật.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các kho lưu trữ mà bạn đã thêm vào Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Tin tức cộng đồng";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
