@@ -101,71 +101,89 @@ enum ZBSourcesOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    if ([self numberOfRowsInTransfer] > 0) {
+        return 3;
+    }
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return [self numberOfRowsInTransfer];
-    } else if (section == 1) {
-        if ([ZBDevice isCheckrain]) {
-            return 2;
-        }
-        return 1;
+    BOOL needsTransferSeciton = [self numberOfRowsInTransfer] > 0;
+    switch (needsTransferSeciton ? section : section + 1) {
+        case 0:
+            return [self numberOfRowsInTransfer];
+        case 1:
+            return [[self determineJailbreakRepo] count];
+        case 2:
+            return [communityRepos count];
+        default:
+            return 0;
     }
-    return [communityRepos count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BOOL needsTransferSeciton = [self numberOfRowsInTransfer] > 0;
+    NSString *cellText;
+    NSString *subText;
+    NSURL *iconURL;
+    NSURL *repoURL;
+    
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
-    NSString *cellText = nil;
-    NSURL *iconURL = nil;
-    NSURL *repoURL = nil;
-    NSString *subText = nil;
-    if (indexPath.section == 0) {
-        if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
-            iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
-        } else {
-            iconURL = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/icons/sileo@3x.png"];
+    switch (needsTransferSeciton ? indexPath.section : indexPath.section + 1) {
+        case 0: {
+                if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
+                    iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
+                } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Sileo"]) {
+                    iconURL = [NSURL URLWithString:@"https://getzbra.com/icons/sileo@3x.png"];
+                } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Installer"]) {
+                    iconURL = [NSURL URLWithString:@"http://apptapp.me/repo/CydiaIcon.png"];
+                }
+                cellText = [NSString stringWithFormat:NSLocalizedString(@"Transfer Sources from %@", @""), [availableManagers objectAtIndex:indexPath.row]];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Move all sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
+                break;
         }
-        cellText = [NSString stringWithFormat:NSLocalizedString(@"Transfer Sources from %@", @""), [availableManagers objectAtIndex:indexPath.row]];
-        subText = [NSString stringWithFormat:NSLocalizedString(@"Move all sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
-    } else if (indexPath.section == 1) {
-        if ([ZBDevice isCheckrain]) {
-            if (indexPath.row == 0) {
-                cellText = @"checkra1n Substrate Repo";
-                iconURL = NULL;
-                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
+        case 1: {
+            if ([ZBDevice isCheckrain]) {
+                if (indexPath.row == 0) {
+                    cellText = @"checkra1n Substrate Repo";
+                    iconURL = NULL;
+                    subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
+                }
+                else {
+                    cellText = @"Bingner/Elucubratus";
+                    iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
+                    subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
+                }
             }
-            else {
+            else if ([ZBDevice isChimera]) { // chimera
+                cellText = @"Chimera";
+                iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Chimera jailbreak"];
+            } else if ([ZBDevice isUncover]) { // uncover
                 cellText = @"Bingner/Elucubratus";
                 iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
-                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"unc0ver jailbreak"];
+            } else if ([ZBDevice isElectra]) { // electra
+                cellText = @"Electra's iOS Utilities";
+                iconURL = [NSURL URLWithString:@"https://github.com/coolstar/electra/raw/master/electra/Resources/AppIcon60x60%402x.png"];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Electra jailbreak"];
+            } else { // cydia
+                cellText = @"Cydia/Telesphoreo";
+                iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Cydia"];
             }
+            break;
         }
-        else if ([ZBDevice isChimera]) { // chimera
-            cellText = @"Chimera";
-            iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
-            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Chimera jailbreak"];
-        } else if ([ZBDevice isUncover]) { // uncover
-            cellText = @"Bingner/Elucubratus";
-            iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
-            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"unc0ver jailbreak"];
-        } else if ([ZBDevice isElectra]) { // electra
-            cellText = @"Electra's iOS Utilities";
-            iconURL = [NSURL URLWithString:@"https://github.com/coolstar/electra/raw/master/electra/Resources/AppIcon60x60%402x.png"];
-            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Electra jailbreak"];
-        } else { // cydia
-            cellText = @"Cydia/Telesphoreo";
-            iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
-            subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Cydia"];
+        case 2: {
+            NSDictionary *dataDict = [communityRepos objectAtIndex:indexPath.row];
+            cellText = dataDict[@"name"];
+            repoURL = [NSURL URLWithString:dataDict[@"url"]];
+            iconURL = [NSURL URLWithString:dataDict[@"icon"]];
+            break;
         }
-    } else {
-        NSDictionary *dataDict = [communityRepos objectAtIndex:indexPath.row];
-        cellText = dataDict[@"name"];
-        repoURL = [NSURL URLWithString:dataDict[@"url"]];
-        iconURL = [NSURL URLWithString:dataDict[@"icon"]];
+        default:
+            break;
     }
     
     if (cellText) {
@@ -190,9 +208,10 @@ enum ZBSourcesOrder {
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    switch (section) {
+    BOOL needsTransferSection = [self numberOfRowsInTransfer] > 0;
+    switch (needsTransferSection ? section : section + 1) {
         case 0:
-            return [self numberOfRowsInTransfer] > 0 ? NSLocalizedString(@"Transfer Sources", @"") : NULL;
+            return NSLocalizedString(@"Transfer Sources", @"");
         case 1:
             return NSLocalizedString(@"Utilities", @"");
         case 2:
