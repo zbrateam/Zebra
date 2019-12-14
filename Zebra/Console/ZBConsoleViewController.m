@@ -107,13 +107,16 @@
     }
     
     [self setupView];
-    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if (currentStage == -1) { //Only run the process once per console cycle
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        });
+        
         if (downloadManager) {
             [self updateStage:ZBStageDownload];
             [downloadManager downloadPackages:[queue packagesToDownload]];
@@ -337,7 +340,9 @@
     [installedPackageIdentifiers removeAllObjects];
     
     [self updateStage:ZBStageFinished];
-    [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    });
 }
 
 #pragma mark - Button Actions
