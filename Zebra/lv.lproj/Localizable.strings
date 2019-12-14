@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Laipni lūdzam pie Zebra betas!";
 "Changelog" = "Izmaiņas žurnāls";
 "Community Repos" = "Citi avoti";
-"Transfer Sources from %@" = "Pārvietot avotus no %@";
-"Move all sources from %@ to Zebra" = "Pārvietot visus avotus no %@ uz Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
 "Please Wait..." = "Lūdzu, uzgaidi...";
