@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Καλωσήρθες στο Zebra Beta!";
 "Changelog" = "Καταγραφή Αλλαγών";
 "Community Repos" = "Repos της κοινότητας";
-"Transfer Sources from %@" = "Μετατόπισε Πηγές από %@";
-"Move all sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Πρακτικό repo για %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
 "Please Wait..." = "Παρακαλώ Περιμένετε...";
