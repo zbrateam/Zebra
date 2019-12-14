@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternatif İkonlar";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Öne Çıkan Kaynaklar";
 
 // Sources
 
@@ -318,9 +318,9 @@
 
 "Change the accent color that displays across Zebra." = "Bütün Zebra'da gösterilen ikincil renkleri düzenle.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Zebra'nın karanlık modunun stilini aktifken değiştir.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Anasayfadaki öne çıkan paketlerin kaynağını değiştir.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
