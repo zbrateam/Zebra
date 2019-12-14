@@ -483,7 +483,7 @@
     NSURL *cydiaListsURL = [NSURL URLWithString:@"file:///var/mobile/Library/Caches/com.saurik.Cydia/sources.list"];
     
     [self mergeSourcesFrom:cydiaListsURL into:listsURL completion:^(NSError * _Nonnull error) {
-        if (error != NULL) {
+        if (error) {
             NSLog(@"[Zebra] Error merging sources: %@", error);
         }
     }];
@@ -494,7 +494,7 @@
     NSURL *sileoListsURL = [NSURL URLWithString:@"file:///etc/apt/sources.list.d/sileo.sources"];
     
     [self mergeSourcesFrom:sileoListsURL into:listsURL completion:^(NSError * _Nonnull error) {
-        if (error != NULL) {
+        if (error) {
             NSLog(@"[Zebra] Error merging sources: %@", error);
         }
     }];
@@ -502,10 +502,10 @@
 
 - (void)transferFromInstaller {
     NSURL *listsURL = [ZBAppDelegate sourcesListURL];
-    NSURL *installerSourcesURL = [NSURL URLWithString:@"file:///var/mobile/Library/Application Support/Installer/APT/sources.list"];
+    NSURL *installerSourcesURL = [NSURL URLWithString:@"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list"];
     
     [self mergeSourcesFrom:installerSourcesURL into:listsURL completion:^(NSError * _Nonnull error) {
-        if (error != NULL) {
+        if (error) {
             NSLog(@"[Zebra] Error merging sources: %@", error);
         }
     }];
