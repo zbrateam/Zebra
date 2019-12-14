@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Sveiki atvykę į Zebra Beta!";
 "Changelog" = "Pakeitimų sąrašas";
 "Community Repos" = "Bendruomenės saugyklos";
-"Transfer Sources from %@" = "Perkelti šaltinius iš %@";
-"Move all sources from %@ to Zebra" = "Perkelti visus šaltinius iš %@ į Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
 "Transfer Sources" = "Perkelti šaltinius";
 "Please Wait..." = "Prašome palaukti...";
