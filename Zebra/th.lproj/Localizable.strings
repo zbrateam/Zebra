@@ -43,7 +43,7 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Interface" = "Interface";
+"Interface" = "อินเทอร์เฟซ";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
@@ -51,21 +51,21 @@
 
 "Report a Bug" = "รายงานปัญหา";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "สีหลัก";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
 "White" = "ขาว";
 "Black" = "ดำ";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "รูปแบบโหมดมืด";
 "Dark Mode" = "โหมดมืด";
 "Default" = "ค่าเริ่มต้น";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "ไอคอนของแอพ";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "โปรแกรมยอดนิยม";
 "Repo Featured" = "แนะนำโดยซอร์ส";
 "Random" = "สุ่ม";
 "Feature Type" = "วิธีแสดง";
@@ -73,7 +73,7 @@
 
 "News" = "ข่าวสาร";
 
-"Live Search" = "Live Search";
+"Live Search" = "ค้นหาทันที";
 
 "Swipe Actions Display As" = "คำสั่งเมื่อปัดขวาให้แสดงผลเป็น";
 "Text" = "ข้อความ";
@@ -91,7 +91,7 @@
 
 "Alternate Icons" = "ไอคอนแบบอื่น";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "ซอร์สยอดนิยม";
 
 // Sources
 
@@ -303,11 +303,11 @@
 
 "Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ข้อผิดพลาด: ไม่สามารถล็อคไฟล์ status ได้ กรุณาลองอีกครั้ง";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ข้อผิดพลาด: โปรแกรมนี้จำเป็นต้องเริ่มใหม่ กรุณาลองอีกครั้ง";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "ปรับหน้าตาของ Zebra";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
@@ -323,11 +323,11 @@
 
 "Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"ซอร์สยอดนิยม\" จะแสดงผลโปรแกรมแบบสุ่มจากซอร์สที่รองรับ API แสดงผลโปรแกรมยอดนิยม";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
 
-"Community News" = "Community News";
+"Community News" = "ข่าวสารชุมชน";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
