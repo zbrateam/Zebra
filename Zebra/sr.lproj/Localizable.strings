@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Dobro došli u Zebru!";
 "Changelog" = "Promene";
 "Community Repos" = "Repos Udruženja";
-"Transfer Sources from %@" = "Prebaci izvorne Repoe iz %@";
-"Move all sources from %@ to Zebra" = "Move all sources from Prebaci sve izvorne Repoe %@ u Zebru";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
 "Please Wait..." = "Molimo vas sačekajte...";
@@ -90,6 +89,8 @@
 "Drop Tables" = "Obnovi tabele";
 
 "Alternate Icons" = "Alternativne ikonice";
+
+"Featured Repos" = "Featured Repos";
 
 // Sources
 

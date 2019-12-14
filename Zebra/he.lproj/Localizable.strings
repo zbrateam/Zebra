@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "ברוכים הבאים לבטא של זברה!";
 "Changelog" = "מה חדש";
 "Community Repos" = "מקורות קהילתיים";
-"Transfer Sources from %@" = "ייבא מקורות מ-%@";
-"Move all sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
+"Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility repo for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
 "Please Wait..." = "נא להמתין...";
@@ -90,6 +89,8 @@
 "Drop Tables" = "הפל טבלאות";
 
 "Alternate Icons" = "אייקוניים חלופיים";
+
+"Featured Repos" = "מקורות מומלצים";
 
 // Sources
 

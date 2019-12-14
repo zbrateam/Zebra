@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "ยินดีต้อนรับสู่ Zebra Beta!";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Community Repos" = "รวมซอร์สจากชุมชน";
-"Transfer Sources from %@" = "โอนซอร์สจาก %@";
-"Move all sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Please Wait..." = "โปรดรอ...";
@@ -43,7 +42,7 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Interface" = "Interface";
+"Interface" = "อินเทอร์เฟซ";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
@@ -51,21 +50,21 @@
 
 "Report a Bug" = "รายงานปัญหา";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "สีหลัก";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
 "White" = "ขาว";
 "Black" = "ดำ";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "รูปแบบโหมดมืด";
 "Dark Mode" = "โหมดมืด";
 "Default" = "ค่าเริ่มต้น";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "ไอคอนของแอพ";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "โปรแกรมยอดนิยม";
 "Repo Featured" = "แนะนำโดยซอร์ส";
 "Random" = "สุ่ม";
 "Feature Type" = "วิธีแสดง";
@@ -73,7 +72,7 @@
 
 "News" = "ข่าวสาร";
 
-"Live Search" = "Live Search";
+"Live Search" = "ค้นหาทันที";
 
 "Swipe Actions Display As" = "คำสั่งเมื่อปัดขวาให้แสดงผลเป็น";
 "Text" = "ข้อความ";
@@ -90,6 +89,8 @@
 "Drop Tables" = "สร้างฐานข้อมูลใหม่";
 
 "Alternate Icons" = "ไอคอนแบบอื่น";
+
+"Featured Repos" = "ซอร์สยอดนิยม";
 
 // Sources
 
@@ -301,31 +302,31 @@
 
 "Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ข้อผิดพลาด: ไม่สามารถล็อคไฟล์ status ได้ กรุณาลองอีกครั้ง";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ข้อผิดพลาด: โปรแกรมนี้จำเป็นต้องเริ่มใหม่ กรุณาลองอีกครั้ง";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "ปรับหน้าตาของ Zebra";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "แสดงโปรแกรมยอดนิยมในหน้าหลัก";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "แสดงโพสล่าสุดใน /r/jailbreak";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "ค้นหาโปรแกรมในขณะที่พิมพ์อยู่ การปิดฟีเจอร์นี้อาจช่วยลดความกระตุกในอุปกรณ์เก่าๆ ได้";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "ปรับลักษณะของคำสั่งเมื่อปัดขวา";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "เปลี่ยนสีหลักของ Zebra";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "เปลี่ยนรูปแบบโหมดมืดของ Zebra เมื่อเปิดใช้งาน";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "เปลี่ยนแหล่งที่มาของโปรแกรมยอดนิยมในหน้าหลัก";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"ซอร์สยอดนิยม\" จะแสดงผลโปรแกรมแบบสุ่มจากซอร์สที่รองรับ API แสดงผลโปรแกรมยอดนิยม";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
 
-"Community News" = "Community News";
+"Community News" = "ข่าวสารชุมชน";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Mirë se vini në Zebra Beta!";
 "Changelog" = "Ndryshimet";
 "Community Repos" = "Repot e komunitetit";
-"Transfer Sources from %@" = "Transfero burimet nga %@";
-"Move all sources from %@ to Zebra" = "Zhvendos të gjitha burimet nga %@ në Zebra";
+"Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
 "Utility repo for %@" = "Repot e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
 "Please Wait..." = "Të Lutem Prit...";
@@ -90,6 +89,8 @@
 "Drop Tables" = "Rifresko Burimet";
 
 "Alternate Icons" = "Ikona Alternative";
+
+"Featured Repos" = "Repot e Veçuara";
 
 // Sources
 

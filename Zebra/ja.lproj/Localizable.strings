@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Zebra Beta版 にようこそ!";
 "Changelog" = "変更履歴";
 "Community Repos" = "公式リポジトリ ";
-"Transfer Sources from %@" = "%@ からソースを読み込む";
-"Move all sources from %@ to Zebra" = "%@ から すべてのソースを読み込む";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
 "Please Wait..." = "お待ちください...";
@@ -68,8 +67,8 @@
 "Featured Packages" = "注目されているパッケージ";
 "Repo Featured" = "注目されているパッケージ";
 "Random" = "ランダム";
-"Feature Type" = "表示方法";
-"Select Repos to be Featured" = "注目されているパッケージリポジトリを選択";
+"Feature Type" = "表示内容";
+"Select Repos to be Featured" = "リポジトリを選択";
 
 "News" = "ニュース";
 
@@ -90,6 +89,8 @@
 "Drop Tables" = "テーブルの削除";
 
 "Alternate Icons" = "アプリのアイコン";
+
+"Featured Repos" = "リポジトリ特集";
 
 // Sources
 
@@ -317,9 +318,9 @@
 
 "Change the accent color that displays across Zebra." = "Zebra 全体に表示されるアクセントカラーを変更します。";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効になったら、テーマを変更します。";
+"Change the style of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効の場合に、テーマを変更します。";
 
-"Change the source of the featured packages on the homepage." = "ホームページで注目されているパッケージのソースを変更します。";
+"Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのソースを変更します。";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 

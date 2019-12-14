@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Bem-vindo ao Zebra Beta!";
 "Changelog" = "Alterações";
 "Community Repos" = "Repos Comunitários";
-"Transfer Sources from %@" = "Tranferir Fontes de %@";
-"Move all sources from %@ to Zebra" = "Mover todas as Fontes de %@ para o Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Repo utilitário para %@";
 "Transfer Sources" = "Transferir Fontes";
 "Please Wait..." = "Por favor aguarda...";
@@ -90,6 +89,8 @@
 "Drop Tables" = "Drop Tables";
 
 "Alternate Icons" = "Ícones Alternativos";
+
+"Featured Repos" = "Featured Repos";
 
 // Sources
 

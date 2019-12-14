@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Zebra Beta에 오신걸 환영합니다!";
 "Changelog" = "변경 사항";
 "Community Repos" = "커뮤니티 레포";
-"Transfer Sources from %@" = "%@(으)로부터 소스 이전";
-"Move all sources from %@ to Zebra" = "%@의 모든 소스를 Zebra로 이동";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "%@를 위한 유틸리티 레포";
 "Transfer Sources" = "소스 이전";
 "Please Wait..." = "잠시만 기다려주세요...";
@@ -90,6 +89,8 @@
 "Drop Tables" = "테이블 버리기";
 
 "Alternate Icons" = "대체 아이콘";
+
+"Featured Repos" = "Featured Repos";
 
 // Sources
 

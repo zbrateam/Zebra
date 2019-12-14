@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Selamat datang di Zebra Beta!";
 "Changelog" = "Changelog";
 "Community Repos" = "Repo Komunitas";
-"Transfer Sources from %@" = "Transfer Sumber Dari %@";
-"Move all sources from %@ to Zebra" = "Pindah semua sumber dari %@ ke Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Repo utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
 "Please Wait..." = "Tunggu Sebentar...";
@@ -90,6 +89,8 @@
 "Drop Tables" = "Drop Tabel";
 
 "Alternate Icons" = "Alternatif Ikon";
+
+"Featured Repos" = "Repo Unggulan";
 
 // Sources
 
