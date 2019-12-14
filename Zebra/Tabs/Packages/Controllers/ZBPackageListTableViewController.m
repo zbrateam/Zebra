@@ -125,7 +125,6 @@
         default:
             break;
     }
-    
 }
 
 - (void)refreshTable {

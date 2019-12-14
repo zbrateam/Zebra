@@ -52,6 +52,7 @@
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.extendedLayoutIncludesOpaqueBars = YES;
     [refreshControl endRefreshing];
     
     if ([[self class] supportRefresh] && refreshControl == nil) {
@@ -82,8 +83,6 @@
 }
 
 - (BOOL)updateRefreshView {
-    [self setEditing:NO animated:NO];
-    
     if (self.refreshControl) {
         if ([databaseManager isDatabaseBeingUpdated]) {
             if (!self.refreshControl.refreshing) {
@@ -144,6 +143,7 @@
     if (![[self class] supportRefresh] || [self updateRefreshView]) {
         return;
     }
+    [self setEditing:NO animated:NO];
     [self setRepoRefreshIndicatorVisible:YES];
     BOOL singleRepo = NO;
     if ([self respondsToSelector:@selector(repo)]) {
