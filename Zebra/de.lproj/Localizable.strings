@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Willkommen zur Zebra Beta!";
 "Changelog" = "Änderungsprotokoll";
 "Community Repos" = "Community Quellen";
-"Transfer Sources from %@" = "Quellen von %@ übertragen";
-"Move all sources from %@ to Zebra" = "Verschiebe alle Quellen von %@ zu Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
