@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "歡迎使用zebra測試版";
 "Changelog" = "更新記錄";
 "Community Repos" = "社區軟件源庫";
-"Transfer Sources from %@" = "從 %@ 中導入軟件源";
-"Move all sources from %@ to Zebra" = "將 %@ 中所有的軟件源轉移至 Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "%@ 的工具軟件源";
 "Transfer Sources" = "導入軟件源";
 "Please Wait..." = "請稍候…";
