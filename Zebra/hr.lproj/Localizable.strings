@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Dobro došli u Zebra Beta!";
 "Changelog" = "Popis promjena";
 "Community Repos" = "Izvori zajednice";
-"Transfer Sources from %@" = "Prenesi Izvore iz %@";
-"Move all sources from %@ to Zebra" = "Prenesi sve izvore iz %@ u Zebru";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Izvori alata za %@";
 "Transfer Sources" = "Prenesi Izvore";
 "Please Wait..." = "Molimo pričekajte...";
