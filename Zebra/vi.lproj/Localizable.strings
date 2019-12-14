@@ -65,13 +65,13 @@
 
 "App Icon" = "Biểu tượng ứng dụng";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Gói Cần Thiết";
 "Repo Featured" = "Repo nổi bật";
 "Random" = "Ngẫu nhiên";
 "Feature Type" = "Loại tính năng";
 "Select Repos to be Featured" = "Chọn Repo nổi bật";
 
-"News" = "News";
+"News" = "Tin tức";
 
 "Live Search" = "Tìm kiếm nhanh";
 
@@ -91,7 +91,7 @@
 
 "Alternate Icons" = "Biểu tượng thay thế";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Repos Nổi Bật";
 
 // Sources
 
@@ -110,8 +110,8 @@
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
 "Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Vui lòng chờ...";
+"Verifying Source(s)" = "Xác minh nguồn(s)";
 "Unable to verify Repo" = "Không thể xác minh Repo";
 "Refresh" = "Làm mới";
 "Log Out" = "Đăng xuất";
@@ -261,8 +261,8 @@
 // Queue Bar
 "%d Packages Queued" = "%d Packages Queued";
 "%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"Tap to manage" = "Nhấn để quản lý";
+"No Packages Queued" = "Không có gói xếp hàng";
 
 // Queue
 
@@ -281,27 +281,27 @@
 "%@ is required by:" = "%@ được yêu cầu bởi:";
 "Issues" = "Các vấn đề";
 "%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
-"Are you sure?" = "Are you sure?";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-"Remove from Queue" = "Remove from Queue";
+"Are you sure?" = "Bạn có chắc không?";
+"Are you sure you want to clear the queue?" = "Bạn có chắc chắn muốn xóa hàng đợi?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc. Nó KHÔNG nên được loại bỏ trừ khi bạn biết chính xác những gì bạn đang làm!";
+"Remove from Queue" = "Xóa khỏi hàng đợi";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc và phải được xóa vì phụ thuộc vào %@. %@ KHÔNG nên bị xóa trừ khi bạn biết chính xác những gì bạn đang làm!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Một hoặc nhiều gói trong Hàng đợi để xóa là cần thiết hoặc bắt buộc. Không nên tiến hành trừ khi bạn biết chính xác những gì bạn đang làm. Việc xóa các gói này có thể gây ra thiệt hại không thể khắc phục cho thiết bị của bạn và có thể dẫn đến khôi phục hoàn toàn.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra không thể hoàn thành lệnh này vì nó không có quyền thích hợp. Vui lòng xác minh các quyền có tại / usr / libexec / ngựa vằn / thay thế và báo cáo vấn đề này trên GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Không thể truy cập su / sling. Vui lòng xác minh rằng / usr / libexec / ngựa vằn / supersling tồn tại.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không thuộc sở hữu của root: bánh xe. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Giúp dịch Zebra!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Không thể sống lại. Vui lòng nối lại thủ công.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
