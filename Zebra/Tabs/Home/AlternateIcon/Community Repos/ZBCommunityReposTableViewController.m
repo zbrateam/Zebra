@@ -139,8 +139,8 @@ enum ZBSourcesOrder {
                 } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Installer"]) {
                     iconURL = [NSURL URLWithString:@"http://apptapp.me/repo/CydiaIcon.png"];
                 }
-                cellText = [NSString stringWithFormat:NSLocalizedString(@"Transfer Sources from %@", @""), [availableManagers objectAtIndex:indexPath.row]];
-                subText = [NSString stringWithFormat:NSLocalizedString(@"Move all sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
+                cellText = [availableManagers objectAtIndex:indexPath.row];
+                subText = [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
                 break;
         }
         case 1: {
