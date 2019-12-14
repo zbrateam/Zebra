@@ -107,6 +107,7 @@
     }
     
     [self setupView];
+    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -121,6 +122,11 @@
             [self performSelectorInBackground:@selector(performTasks) withObject:NULL];
         }
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
 }
 
 - (void)setupView {
