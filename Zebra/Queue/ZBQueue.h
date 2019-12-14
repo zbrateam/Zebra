@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
+@property (nonatomic, strong) NSString *zebraPath;
 + (id)sharedQueue;
 + (int)count;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;

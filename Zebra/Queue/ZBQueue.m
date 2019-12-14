@@ -24,6 +24,7 @@
 
 @synthesize managedQueue;
 @synthesize queuedPackagesList;
+@synthesize zebraPath;
 
 + (id)sharedQueue {
     static ZBQueue *instance = nil;
@@ -361,6 +362,7 @@
 - (NSArray <NSString *> *)pathsForDownloadedDebsInQueue:(ZBQueueType)queue filenames:(NSArray <NSDictionary <NSString*, NSString *> *> *)filenames {
     NSMutableArray *paths = [NSMutableArray new];
     for (ZBPackage *package in [self queueFromType:queue]) {
+        BOOL isZebra = [[package identifier] isEqualToString:@"xyz.willy.zebra"];
         for (NSDictionary *filename in filenames) {
             NSString *finalPath = [filename objectForKey:@"final"];
             NSString *originalFilename = [filename objectForKey:@"original"];
@@ -372,15 +374,24 @@
             }
             
             if ([finalPath containsString:packageFilename]) {
-                [paths addObject:finalPath];
+                if (isZebra)
+                    zebraPath = finalPath;
+                else
+                    [paths addObject:finalPath];
                 break;
             }
             else if ([originalFilename containsString:packageFilename]) {
-                [paths addObject:finalPath];
+                if (isZebra)
+                    zebraPath = finalPath;
+                else
+                    [paths addObject:finalPath];
                 break;
             }
             else if ([originalURL containsString:packageFilename]) {
-                [paths addObject:finalPath];
+                if (isZebra)
+                    zebraPath = finalPath;
+                else
+                    [paths addObject:finalPath];
                 break;
             }
         }
