@@ -14,10 +14,10 @@
 
 "Home" = "Start";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Willkommen zur Zebra Beta!";
+"Welcome to the Zebra Beta!" = "Willkommen in der Zebra Beta!";
 "Changelog" = "Änderungsprotokoll";
 "Community Repos" = "Community Quellen";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
 "Utility repo for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
@@ -27,14 +27,14 @@
 "Wish List" = "Wunschliste";
 "No items in Wish List" = "Keine Artikel in der Wunschliste";
 "Community" = "Community";
-"Join our Discord" = "Tritt unserem Discord bei";
+"Join our Discord" = "Tritt unserem Discord Server bei";
 "Follow me on Twitter" = "Folgt mir auf Twitter";
 
 //Credits
 
-"Credits" = "Autoren";
-"Creators" = "Erschaffer";
-"Contributors" = "Beitragende";
+"Credits" = "Mitwirkende";
+"Creators" = "Ersteller";
+"Contributors" = "Mitwirkende";
 "Translators" = "Übersetzer";
 "Libraries" = "Bibliotheken";
 
@@ -43,7 +43,7 @@
 "Settings" = "Einstellungen";
 "Version" = "Version";
 "Interface" = "Benutzeroberfläche";
-"Featured" = "Vorgestellt";
+"Featured" = "Empfohlen";
 "News" = "Neuigkeiten";
 "Miscellaneous" = "Sonstiges";
 "Advanced" = "Fortgeschritten";
@@ -65,19 +65,19 @@
 "App Icon" = "App-Symbol";
 
 "Featured Packages" = "Vorgestellte Pakete";
-"Repo Featured" = "Vorgestellte Quelle";
+"Repo Featured" = "Empfohlene Quelle";
 "Random" = "Zufällig";
 "Feature Type" = "Vorgestellter Typ";
-"Select Repos to be Featured" = "Wähle Quellen zum vorstellen aus";
+"Select Repos to be Featured" = "Wähle Quellen aus, die vorgestellt werden sollen";
 
 "News" = "Neuigkeiten";
 
 "Live Search" = "Live-Suche";
 
-"Swipe Actions Display As" = "Wischgesten angezeigen als";
+"Swipe Actions Display As" = "Wischgesten anzeigen als";
 "Text" = "Text";
 "Icon" = "Symbol";
-"Open Documents Directory" = "Dokumenten Dateipad öffnen";
+"Open Documents Directory" = "Dokumentenverzeichnis öffnen";
 "Clear Image Cache" = "Bildzwischenspeicher leeren";
 "Clear Keychain" = "Keychain leeren";
 
@@ -134,7 +134,7 @@
 "Select a version to downgrade to:" = "Version auswählen, auf die heruntergestuft werden soll:";
 "Package" = "Paket";
 "Information" = "Informationen";
-"Upgrade All" = "Alles Aktualisieren";
+"Upgrade All" = "Alle aktualisieren";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
@@ -149,7 +149,7 @@
 "Modify" = "Bearbeiten";
 "Authenticate to initiate purchase." = "Zum Kaufen authentifizieren.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Bitte melde dich erneut mit dem Konto an, mit dem das Paket gekauft wurde (Möglicherweise %@)";
-"More by this Developer" = "Mehr vom Entwickler";
+"More by this Developer" = "Mehr von diesem Entwickler";
 "Installed Version" = "Installierte Version";
 "Installed Size" = "Größe der Installation";
 
@@ -185,13 +185,13 @@
 "Education" = "Bildung";
 "Entertainment" = "Unterhaltung";
 "Games" = "Spiele";
-"Health and Fitness" = "Gesundheit und Fitneß";
+"Health and Fitness" = "Gesundheit und Fitness";
 "Imaging" = "Abbildung";
 "Java" = "Java";
 "Keyboards" = "Tastaturen";
 "Localization" = "Lokalisierung";
 "Messaging" = "Mitteilungen";
-"Multimedia" = "Multimedien";
+"Multimedia" = "Multimedia";
 "Navigation" = "Navigation";
 "Networking" = "Netzwerk";
 "Packaging" = "Paketmanagement";
@@ -203,8 +203,8 @@
 "Social" = "Sozial";
 "System" = "System";
 "Terminal Support" = "Terminal Unterstützung";
-"Text Editors" = "Text Bearbeiter";
-"Themes" = "Motive";
+"Text Editors" = "Texteditoren";
+"Themes" = "Themes";
 "Toys" = "Spielzeuge";
 "Tweaks" = "Tweaks";
 "Utilities" = "Dienstprogramme";
