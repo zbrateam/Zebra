@@ -309,19 +309,19 @@
 
 "Configure the appearance of Zebra." = "ปรับหน้าตาของ Zebra";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "แสดงโปรแกรมยอดนิยมในหน้าหลัก";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "แสดงโพสล่าสุดใน /r/jailbreak";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "ค้นหาโปรแกรมในขณะที่พิมพ์อยู่ การปิดฟีเจอร์นี้อาจช่วยลดความกระตุกในอุปกรณ์เก่าๆ ได้";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "ปรับลักษณะของคำสั่งเมื่อปัดขวา";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "เปลี่ยนสีหลักของ Zebra";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "เปลี่ยนรูปแบบโหมดมืดของ Zebra เมื่อเปิดใช้งาน";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "เปลี่ยนแหล่งที่มาของโปรแกรมยอดนิยมในหน้าหลัก";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"ซอร์สยอดนิยม\" จะแสดงผลโปรแกรมแบบสุ่มจากซอร์สที่รองรับ API แสดงผลโปรแกรมยอดนิยม";
 
