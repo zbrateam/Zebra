@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Välkommen till betan av Zebra!";
 "Changelog" = "Ändringslogg";
 "Community Repos" = "Gemenskapsförråd";
-"Transfer Sources from %@" = "Överför källor från %@";
-"Move all sources from %@ to Zebra" = "Flytta alla källor från %@ till Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Verktygsförråd för %@";
 "Transfer Sources" = "Överför källor";
 "Please Wait..." = "Vänta...";
