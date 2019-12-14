@@ -87,22 +87,22 @@
 "Resetting image cache completed" = "Resetting image cache completed";
 "Clearing keychain completed" = "Clearing keychain completed";
 
-"Drop Tables" = "Drop Tables";
+"Drop Tables" = "Táblák eldobása";
 
 "Alternate Icons" = "Alternatív ikonok";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Kiemelt források";
 
 // Sources
 
 "Sources" = "Források";
 "Local Repository" = "Local Repository";
-"Locally installed packages" = "Locally installed packages";
+"Locally installed packages" = "Helyileg telepített csomagok";
 "Unknown" = "Ismeretlen";
 "No repository urls detected." = "No repository urls detected.";
-"You have already added these repositories." = "You have already added these repositories.";
-"Error verifying repository" = "Error verifying repository";
-"Error verifying repositories" = "Error verifying repositories";
+"You have already added these repositories." = "Már hozzáadtad ezeket a forrásokat.";
+"Error verifying repository" = "Hiba a forrás ellenőrzésekor";
+"Error verifying repositories" = "Hiba a források ellenőrzésekor";
 "Unknown error" = "Ismeretlen hiba";
 "Invalid URL" = "Érvénytelen URL";
 "Enter URL" = "URL megadása";
