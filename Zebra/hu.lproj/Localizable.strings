@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Üdvözlünk a Zebra bétában!";
 "Changelog" = "Változások listája";
 "Community Repos" = "Közösségi források";
-"Transfer Sources from %@" = "%@ források importálása";
-"Move all sources from %@ to Zebra" = "Összes forrás átmozgatása %@-ból a Zebrába";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Források átvitele";
 "Please Wait..." = "Kérlek, várj...";
