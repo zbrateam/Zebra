@@ -24,6 +24,7 @@
 
 @synthesize managedQueue;
 @synthesize queuedPackagesList;
+@synthesize removingZebra;
 @synthesize zebraPath;
 
 + (id)sharedQueue {
@@ -215,10 +216,18 @@
             }
             
             for (ZBPackage *package in [self removeQueue]) {
+                if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
+                    removingZebra = true;
+                    continue;
+                }
                 [removeCommand addObject:package.identifier];
             }
             
             for (ZBPackage *package in [self conflictQueue]) {
+                if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
+                    removingZebra = true;
+                    continue;
+                }
                 [removeCommand addObject:package.identifier];
             }
             
@@ -238,10 +247,18 @@
             }
             
             for (ZBPackage *package in [self removeQueue]) {
+                if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
+                    removingZebra = true;
+                    continue;
+                }
                 [removeCommand addObject:package.identifier];
             }
             
             for (ZBPackage *package in [self conflictQueue]) {
+                if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
+                    removingZebra = true;
+                    continue;
+                }
                 [removeCommand addObject:package.identifier];
             }
             

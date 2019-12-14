@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueue : NSObject
+@property BOOL removingZebra;
 @property (nonatomic, strong) NSString *zebraPath;
 + (id)sharedQueue;
 + (int)count;

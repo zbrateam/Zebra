@@ -233,7 +233,7 @@
                         }
                     }
                     
-                    zebraRestartRequired = queue.zebraPath;
+                    zebraRestartRequired = queue.zebraPath || queue.removingZebra;
                     
                     if (![ZBDevice needsSimulation]) {
                         ZBLog(@"[Zebra] Executing commands...");
@@ -321,17 +321,24 @@
                 }
             }
             
-            if (queue.zebraPath) { //Zebra should be the last thing installed so here is our chance to install it.
-                [self postStatusUpdate:@"Installing Zebra..." atLevel:ZBLogLevelInfo];
+            if (queue.zebraPath || queue.removingZebra) { //Zebra should be the last thing installed so here is our chance to install it.
+                if (queue.removingZebra) {
+                    [self postStatusUpdate:@"Removing Zebra..." atLevel:ZBLogLevelInfo];
+                    [self postStatusUpdate:@"Goodbye forever :(" atLevel:ZBLogLevelDescript];
+                }
+                else {
+                    [self postStatusUpdate:@"Installing Zebra..." atLevel:ZBLogLevelInfo];
+                }
+                    
                 
                 NSString *path = queue.zebraPath;
                 
                 NSArray *baseCommand;
                 if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
-                    baseCommand = @[@"dpkg", @"-i", path];
+                    baseCommand = @[@"dpkg", queue.removingZebra ? @"-r" : @"-i", queue.zebraPath ? path : @"xyz.willy.zebra"];
                 }
                 else {
-                    baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"install", path];
+                    baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", queue.removingZebra ? @"remove" : @"install", queue.zebraPath ? path : @"xyz.willy.zebra"];
                 }
                 
                 if (![ZBDevice needsSimulation]) {
@@ -384,7 +391,7 @@
                 }
                 else {
                     [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
-                    [self writeToConsole:[path lastPathComponent] atLevel:ZBLogLevelDescript];
+                    queue.removingZebra ? [self writeToConsole:@"xyz.willy.zebra" atLevel:ZBLogLevelDescript] : [self writeToConsole:[path lastPathComponent] atLevel:ZBLogLevelDescript];
                 }
             }
             
