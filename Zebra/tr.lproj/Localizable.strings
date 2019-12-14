@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Zebra Beta'ya hoş geldiniz!";
 "Changelog" = "Değişiklikler";
 "Community Repos" = "Topluluk Kaynakları";
-"Transfer Sources from %@" = "Kaynkaları %@ 'dan içeri aktar.";
-"Move all sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı.";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
 "Please Wait..." = "Lütfen Bekleyin...";
