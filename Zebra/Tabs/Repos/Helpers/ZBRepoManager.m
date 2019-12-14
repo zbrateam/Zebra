@@ -502,7 +502,7 @@
 
 - (void)transferFromInstaller {
     NSURL *listsURL = [ZBAppDelegate sourcesListURL];
-    NSURL *installerSourcesURL = [NSURL URLWithString:@"file:///var/mobile/Library/Application Support/Installer/sources.list"];
+    NSURL *installerSourcesURL = [NSURL URLWithString:@"file:///var/mobile/Library/Application Support/Installer/APT/sources.list"];
     
     [self mergeSourcesFrom:installerSourcesURL into:listsURL completion:^(NSError * _Nonnull error) {
         if (error != NULL) {
