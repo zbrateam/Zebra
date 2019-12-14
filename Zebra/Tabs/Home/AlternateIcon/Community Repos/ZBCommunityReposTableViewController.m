@@ -92,6 +92,9 @@ enum ZBSourcesOrder {
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
         [availableManagers addObject:@"Cydia"];
     }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app"]) {
+        [availableManagers addObject:@"Installer"];
+    }
     return [availableManagers count];
 }
 
@@ -186,18 +189,10 @@ enum ZBSourcesOrder {
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return NSLocalizedString(@"Transfer Sources", @"");
+            return [self numberOfRowsInTransfer] > 0 ? NSLocalizedString(@"Transfer Sources", @"") : NULL;
         case 1:
             return NSLocalizedString(@"Utilities", @"");
         case 2:
@@ -215,6 +210,9 @@ enum ZBSourcesOrder {
                 [self presentConsole];
             } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Sileo"]) {
                 [self.repoManager transferFromSileo];
+                [self presentConsole];
+            } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Installer"]) {
+                [self.repoManager transferFromInstaller];
                 [self presentConsole];
             }
             break;
