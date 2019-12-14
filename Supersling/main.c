@@ -43,6 +43,7 @@ int main(int argc, char ** argv) {
   struct stat correct;
   if (lstat("/Applications/Zebra.app/Zebra", &correct) == -1) {
     printf("THE TRUE AND NEO CHAOS!\n");
+    fflush(stdout);
     return EX_NOPERM;
   }
   else {
@@ -50,8 +51,8 @@ int main(int argc, char ** argv) {
     char buffer[4 * PATH_MAX];
     int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
     if (ret < 1 || strcmp(buffer, "/Applications/Zebra.app/Zebra") != 0) {
-      printf("proc_pidpath = %s\n", buffer);
       printf("CHAOS, CHAOS!\n");
+      fflush(stdout);
       return EX_NOPERM;
     }
     else {
@@ -60,6 +61,7 @@ int main(int argc, char ** argv) {
 
       if (getuid() != 0 || getgid() != 0) {
         printf("WHO KEEPS SPINNING THE WORLD AROUND?\n");
+        fflush(stdout);
         return EX_NOPERM;
       }
 
