@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "به زبرا نسخه ی بتا خوش آمدید";
 "Changelog" = "لیست تغییرات";
 "Community Repos" = "مخزن های معتبر";
-"Transfer Sources from %@" = "انتقال منابع از %@";
-"Move all sources from %@ to Zebra" = "انتقال تمام منابع از %@ به زبرا";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "مخرن های نرم افزار های کاربردی برای %@";
 "Transfer Sources" = "جابجایی منابع";
 "Please Wait..." = "...منتظر بمانید";
