@@ -329,7 +329,6 @@
                 else {
                     [self postStatusUpdate:@"Installing Zebra..." atLevel:ZBLogLevelInfo];
                 }
-                    
                 
                 NSString *path = queue.zebraPath;
                 
