@@ -86,14 +86,14 @@ enum ZBSourcesOrder {
 
 - (NSInteger)numberOfRowsInTransfer {
     [availableManagers removeAllObjects];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"]) {
-        [availableManagers addObject:@"Sileo"];
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) {
         [availableManagers addObject:@"Cydia"];
     }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app"]) {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app"]) {
         [availableManagers addObject:@"Installer"];
+    }
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app"]) {
+        [availableManagers addObject:@"Sileo"];
     }
     return [availableManagers count];
 }
