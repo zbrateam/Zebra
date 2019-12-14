@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "Welkom bij de beta van Zebra!";
 "Changelog" = "Wijzigingslogboek";
 "Community Repos" = "Community Bronnen";
-"Transfer Sources from %@" = "Verplaats bronnen van %@";
-"Move all sources from %@ to Zebra" = "Verplaats alle bronnen van %@ naar Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaatsen geslaagd!";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
