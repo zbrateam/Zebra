@@ -17,8 +17,7 @@
 "Welcome to the Zebra Beta!" = "ยินดีต้อนรับสู่ Zebra Beta!";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Community Repos" = "รวมซอร์สจากชุมชน";
-"Transfer Sources from %@" = "โอนซอร์สจาก %@";
-"Move all sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Please Wait..." = "โปรดรอ...";
