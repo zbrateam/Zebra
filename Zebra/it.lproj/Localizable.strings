@@ -91,7 +91,7 @@
 
 "Alternate Icons" = "Icone Alternative";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Repo in evidenza";
 
 // Sources
 
@@ -319,9 +319,9 @@
 
 "Change the accent color that displays across Zebra." = "Cambia il colore secondario che viene visualizzato su Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Cambia lo stile della modalità scura di Zebra quando è abilitata.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Cambia la sorgente dei pacchetti in primo piano nella homepage.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
