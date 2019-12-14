@@ -133,11 +133,11 @@ enum ZBSourcesOrder {
     switch (needsTransferSeciton ? indexPath.section : indexPath.section + 1) {
         case 0: {
                 if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
-                    iconURL = [NSURL URLWithString:@"http://apt.saurik.com/dists/ios/CydiaIcon.png"];
+                    iconURL = [NSURL URLWithString:@"file:///Applications/Cydia.app/Icon-60@2x.png"];
                 } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Sileo"]) {
-                    iconURL = [NSURL URLWithString:@"https://getzbra.com/icons/sileo@3x.png"];
+                    iconURL = [NSURL URLWithString:@"file:///Applications/Sileo.app/AppIcon60x60@2x.png"];
                 } else if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Installer"]) {
-                    iconURL = [NSURL URLWithString:@"http://apptapp.me/repo/CydiaIcon.png"];
+                    iconURL = [NSURL URLWithString:@"file:///Applications/Installer.app/AppIcon60x60@2x.png"];
                 }
                 cellText = [availableManagers objectAtIndex:indexPath.row];
                 subText = [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), [availableManagers objectAtIndex:indexPath.row]];
