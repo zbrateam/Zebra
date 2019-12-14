@@ -17,7 +17,7 @@
 "Welcome to the Zebra Beta!" = "Zebra Beta版 にようこそ!";
 "Changelog" = "変更履歴";
 "Community Repos" = "公式リポジトリ ";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "%@ から Zebra にソースを移動";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
 "Please Wait..." = "お待ちください...";
