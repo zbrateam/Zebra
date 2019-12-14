@@ -216,18 +216,18 @@
 "Search" = "Suchen";
 "Clear Search" = "Suche leeren";
 "This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage";
-"No Results Found" = "Keine Ergebnisse";
+"No Results Found" = "Keine Ergebnisse gefunden";
 
 // Downloads
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Fehler beim Öffnen von sources.list";
 "The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist mit deinem Jailbreak inkompatibel.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Es könnte Probleme verursachen, wenn du es zu Zebra hinzufügst, was eine mögliche Wiederherstellung von Zebra verursachen könnte.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Wenn du das zu Zebra hinzufügst, könnten Probleme auftreten, die möglicherweise eine Wiederherstellung erforderlich machen.";
 "Please remove this repo from your sources.list file." = "Bitte entferne diese Quelle von deiner sources.list Datei.";
 "Incorrect documents permissions." = "Falsche Dokumentenberechtigung.";
 "Could not determine device information." = "Geräteinformationen nicht gefunden.";
-"Could not find a download URL for" = "Keine Download-URL dafür gefunden";
+"Could not find a download URL for" = "Konnte keine Download-URL finden für";
 "%@ hasn't been modified" = "%@ wurde nicht bearbeitet";
 "Could not parse %@ from %@" = "Konnte  %@ von %@ nicht analysieren";
 
@@ -247,7 +247,7 @@
 "Removing Packages..." = "Pakete werden entfernt...";
 "Reinstalling" = "Neu Installiert";
 "Reinstalling Packages..." = "Pakete werden neu installiert...";
-"Upgrading" = "Wird aktualisiert";
+"Upgrading" = "Aktualisiere";
 "Upgrading Packages..." = "Pakete werden aktualisiert...";
 "Complete" = "Fertig";
 "Finished!" = "Fertig!";
