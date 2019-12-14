@@ -252,20 +252,24 @@
                         @try {
                             [task launch];
                             [task waitUntilExit];
+                            
+                            int terminationStatus = [task terminationStatus];
+                            switch (terminationStatus) {
+                                case EX_NOPERM:
+                                    [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
+                                    break;
+                                default:
+                                    break;
+                            }
                         } @catch (NSException *e) {
                             NSString *message = [NSString stringWithFormat:@"Could not complete %@ process. Reason: %@.", [ZBDevice packageManagementBinary],  e.reason];
                             
                             CLS_LOG(@"%@", message);
                             NSLog(@"[Zebra] %@", message);
                             [self writeToConsole:message atLevel:ZBLogLevelError];
-                        } @finally {
-                            int terminationStatus = [task terminationStatus];
+                            
                             long terminationReason = [task terminationReason];
-                            NSLog(@"[Zebra] Termination Status: %d Reason: %ld", terminationStatus, terminationReason);
-                            switch (terminationStatus) {
-                                case EX_NOPERM:
-                                    [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
-                                    break;
+                            switch (terminationReason) {
                                 case EDEADLK:
                                     [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
                                     break;
