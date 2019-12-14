@@ -1,5 +1,5 @@
 # Zebra [![Build Status](https://travis-ci.org/wstyres/Zebra.svg?branch=master)](https://travis-ci.org/wstyres/Zebra) [![Crowdin](https://badges.crowdin.net/zebra/localized.svg)](https://translate.getzbra.com/project/zebra)
-Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 9 up to iOS 12 and for iPhones and iPads alike.
+Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 9 up to iOS 13 and for iPhones and iPads alike.
 
 ## Translations
 
