@@ -367,6 +367,12 @@
                             case EX_NOPERM:
                                 [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
                                 break;
+                            case EDEADLK:
+                                [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
+                                break;
+                            case 85: //ERESTART apparently
+                                [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
+                                    break;
                             default:
                                 break;
                         }
@@ -376,16 +382,6 @@
                         CLS_LOG(@"%@", message);
                         NSLog(@"[Zebra] %@", message);
                         [self writeToConsole:message atLevel:ZBLogLevelError];
-                        
-                        long terminationReason = [task terminationReason];
-                        switch (terminationReason) {
-                            case EDEADLK:
-                                [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
-                                break;
-                            case 85: //ERESTART apparently
-                                [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
-                                break;
-                        }
                     }
                 }
                 else {
