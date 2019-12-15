@@ -70,12 +70,9 @@ enum ZBSourcesOrder {
 }
 
 - (NSArray *)determineJailbreakRepo {
-    if ([ZBDevice isCheckrain]) {
-        return @[@"https://checkra.in/assets/mobilesubstrate/", @"https://apt.bingner.com/"];
-    }
-    else if ([ZBDevice isChimera]) {
+    if ([ZBDevice isChimera]) {
         return @[@"https://repo.chimera.sh/"];
-    } else if ([ZBDevice isUncover]) { // uncover
+    } else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // uncover
         return @[@"http://apt.bingner.com/"];
     } else if ([ZBDevice isElectra]) { // electra
         return @[@"https://electrarepo64.coolstar.org/"];
@@ -144,23 +141,11 @@ enum ZBSourcesOrder {
                 break;
         }
         case 1: {
-            if ([ZBDevice isCheckrain]) {
-                if (indexPath.row == 0) {
-                    cellText = @"checkra1n Substrate Repo";
-                    iconURL = NULL;
-                    subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
-                }
-                else {
-                    cellText = @"Bingner/Elucubratus";
-                    iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
-                    subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"checkra1n jailbreak"];
-                }
-            }
-            else if ([ZBDevice isChimera]) { // chimera
+            if ([ZBDevice isChimera]) { // chimera
                 cellText = @"Chimera";
                 iconURL = [NSURL URLWithString:@"https://repo.chimera.sh/CydiaIcon.png"];
                 subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"Chimera jailbreak"];
-            } else if ([ZBDevice isUncover]) { // uncover
+            } else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // uncover
                 cellText = @"Bingner/Elucubratus";
                 iconURL = [NSURL URLWithString:@"https://apt.bingner.com/CydiaIcon.png"];
                 subText = [NSString stringWithFormat:NSLocalizedString(@"Utility repo for %@", @""), @"unc0ver jailbreak"];
