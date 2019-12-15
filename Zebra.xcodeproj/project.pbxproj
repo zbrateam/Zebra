@@ -66,6 +66,7 @@
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
+		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		8947D84423734F9600635396 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8947D83723734F9500635396 /* FirebaseInstanceID.framework */; };
@@ -277,6 +278,8 @@
 		8932F0D02364F8A500F16E5E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
+		893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+Theme.h"; sourceTree = "<group>"; };
+		893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+Theme.m"; sourceTree = "<group>"; };
 		893CB6522363A0C400204E27 /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6532363A23500204E27 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6542363A40D00204E27 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -727,6 +730,8 @@
 				89F8730223653D280070160A /* UIVisualEffectView+Theme.m */,
 				89C227CC2371259E001C9C59 /* UITableViewRowAction+Image.h */,
 				89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */,
+				893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */,
+				893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1188,6 +1193,7 @@
 				367D80F922C3D2FE00581D60 /* ZBAlternateIconController.m in Sources */,
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */,
+				893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */,
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
 				89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,

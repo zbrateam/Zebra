@@ -45,6 +45,17 @@
     databaseManager = [ZBDatabaseManager sharedInstance];
     [self layoutNavigationButtons];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(layoutNavigationButtons) name:@"ZBUpdateNavigationButtons" object:nil];
+    
+//    if (self.refreshControl) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if ([ZBDevice darkModeEnabled]) {
+//                [self.refreshControl setTintColor:[UIColor whiteColor]];
+//            }
+//            else {
+//                [self.refreshControl setTintColor:[UIColor blackColor]];
+//            }
+//        });
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,16 +71,6 @@
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
-    }
-    if (self.refreshControl) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([ZBDevice darkModeEnabled]) {
-                [self.refreshControl setTintColor:[UIColor whiteColor]];
-            }
-            else {
-                [self.refreshControl setTintColor:[UIColor blackColor]];
-            }
-        });
     }
 //    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self updateRefreshView];
@@ -87,12 +88,12 @@
         if ([databaseManager isDatabaseBeingUpdated]) {
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if ([ZBDevice darkModeEnabled]) {
-                        [self.refreshControl setTintColor:[UIColor whiteColor]];
-                    }
-                    else {
-                        [self.refreshControl setTintColor:[UIColor blackColor]];
-                    }
+//                    if ([ZBDevice darkModeEnabled]) {
+//                        [self.refreshControl setTintColor:[UIColor whiteColor]];
+//                    }
+//                    else {
+//                        [self.refreshControl setTintColor:[UIColor blackColor]];
+//                    }
                     
                     [self.refreshControl beginRefreshing];
                     [self didEndRefreshing];

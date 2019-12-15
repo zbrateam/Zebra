@@ -438,6 +438,8 @@
     [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     [[UITextField appearance] setTextColor:[UIColor whiteColor]];
+    
+    [[UIRefreshControl appearance] setTintColor:[UIColor whiteColor]];
 }
 
 + (void)configureLightMode {
@@ -480,6 +482,8 @@
     [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     
     [[UITextField appearance] setTextColor:[UIColor blackColor]];
+    
+    [[UIRefreshControl appearance] setTintColor:[UIColor blackColor]];
 }
 
 + (void)applyThemeSettings {
