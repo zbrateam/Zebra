@@ -57,7 +57,7 @@
 "Black" = "Черный";
 
 "Dark Mode Style" = "Стиль Тёмного Режима";
-"Dark Mode" = "Темный режим";
+"Dark Mode" = "Тёмный Режим";
 "Default" = "Обычный";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
@@ -65,7 +65,7 @@
 "App Icon" = "Иконка Приложения";
 
 "Featured Packages" = "Избранные Пакеты";
-"Repo Featured" = "Избранное из репозитория";
+"Repo Featured" = "Избранное из Репозитория";
 "Random" = "Случайно";
 "Feature Type" = "Тип Избранного";
 "Select Repos to be Featured" = "Выберите отбражаемые репозитории";
@@ -86,9 +86,9 @@
 "Resetting image cache completed" = "Сброс кэша изображений завершен";
 "Clearing keychain completed" = "Очистка Keychain завершена";
 
-"Drop Tables" = "Удалить таблицы";
+"Drop Tables" = "Очистить Таблицы";
 
-"Alternate Icons" = "Альтернативные иконки";
+"Alternate Icons" = "Альтернативные Иконки";
 
 "Featured Repos" = "Рекомендуемые Репозитории";
 
@@ -148,7 +148,7 @@
 "Installed Files" = "Установленные Файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста заного войдите в ваш аккаунт который используется для покупки этого пакета (Возможно %@)";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста перезайдите в ваш аккаунт, используемый для покупки этого пакета (Возможно %@)";
 "More by this Developer" = "Больше от этого Разработчика";
 "Installed Version" = "Установленная Версия";
 "Installed Size" = "Размер после установки";
@@ -168,16 +168,16 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f МБ";
 
-"Add to Wish List" = "Добавить в список желаний";
-"Remove from Wish List" = "Удалить из списка желаний";
+"Add to Wish List" = "Добавить в Список Желаний";
+"Remove from Wish List" = "Удалить из Списка Желаний";
 
 // Package Section Names
 
 "Administration" = "Администрирование";
 "Addons" = "Дополнения";
-"App Addons" = "Дополнения к приложениям";
+"App Addons" = "Дополнения к Приложениям";
 "Archiving" = "Архивирование";
-"Carrier Support" = "Поддержка для Операторов";
+"Carrier Support" = "Поддержка Операторов";
 "Communication" = "Связь";
 "Data Storage" = "Хранение Данных";
 "Development" = "Разработка";
@@ -185,7 +185,7 @@
 "Education" = "Образование";
 "Entertainment" = "Развлечения";
 "Games" = "Игры";
-"Health and Fitness" = "Здоровье и Форма";
+"Health and Fitness" = "Здоровье и Фитнес";
 "Imaging" = "Образы";
 "Java" = "Java";
 "Keyboards" = "Клавиатуры";
@@ -202,7 +202,7 @@
 "Security" = "Безопасность";
 "Social" = "Социальные (сети и.т.д)";
 "System" = "Система";
-"Terminal Support" = "Поддержка для Консоли";
+"Terminal Support" = "Поддержка Терминала";
 "Text Editors" = "Текстовые Редакторы";
 "Themes" = "Темы";
 "Toys" = "Игрушки";
@@ -216,7 +216,7 @@
 "Search" = "Поиск";
 "Clear Search" = "Очистить Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
-"No Results Found" = "Нет результатов";
+"No Results Found" = "Результаты Не Найдены";
 
 // Downloads
 
@@ -252,7 +252,7 @@
 "Complete" = "Закончено";
 "Finished!" = "Готово!";
 "Return to Queue" = "Вернуться к Очереди";
-"Importing local packages." = "Импортирование локальных пакетов.";
+"Importing local packages." = "Импортирование Локальных Пакетов.";
 "Finished importing local packages." = "Импортирование локальных пакетов завершено.";
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
