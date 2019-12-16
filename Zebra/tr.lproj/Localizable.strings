@@ -22,7 +22,7 @@
 "Transfer Sources" = "Kaynakları Transfer Et";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Stores" = "Marketler";
+"Stores" = "Market";
 "Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
 "No items in Wish List" = "İstek listesinde öğe yok";
@@ -142,7 +142,7 @@
 "Clear" = "Temizle";
 "Are you sure you want to clear Queue?" = "Sırayı temizlemek istediğine emin misin?";
 "Available Upgrades" = "Uygun Güncellemeler";
-"Ignored Upgrades" = "Gizlenen Güncellemeler";
+"Ignored Upgrades" = "Yoksayılan Güncellemeler";
 "Recent" = "En Son";
 "Repo" = "Kaynak";
 "Installed Files" = "Yüklenen Dosyalar";
@@ -185,7 +185,7 @@
 "Education" = "Eğitim";
 "Entertainment" = "Eğlence";
 "Games" = "Oyunlar";
-"Health and Fitness" = "Sağlık ve Spoe";
+"Health and Fitness" = "Sağlık ve Spor";
 "Imaging" = "Imajlama";
 "Java" = "Java";
 "Keyboards" = "Klavyeler";
@@ -216,7 +216,7 @@
 "Search" = "Ara";
 "Clear Search" = "Aramayı Temizle";
 "This search query is too short for the full search, please use a longer query." = "Yaptığınız arama, arama yapmak için çok kısaydı. Lütfen daha uzun bir şey arayın.";
-"No Results Found" = "Sonuç Yok";
+"No Results Found" = "Hiçbir Sonuç Bulunamadı";
 
 // Downloads
 
