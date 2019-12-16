@@ -17,7 +17,7 @@
 "Welcome to the Zebra Beta!" = "Benvenuto nella Beta di Zebra!";
 "Changelog" = "Changelog";
 "Community Repos" = "Repo della Community";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Trasferisci le sorgenti da %@ a Zebra";
 "Utility repo for %@" = "Repo essenziale for %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
 "Please Wait..." = "Attendere...";
@@ -65,7 +65,7 @@
 "App Icon" = "Icona App";
 
 "Featured Packages" = "Pacchetti in evidenza";
-"Repo Featured" = "Repo in evidenza";
+"Repo Featured" = "Repo in Evidenza";
 "Random" = "Casuale";
 "Feature Type" = "Tipo Primo Piano";
 "Select Repos to be Featured" = "Seleziona le Repo da mettere in Evidenza";
@@ -322,11 +322,11 @@
 
 "Change the source of the featured packages on the homepage." = "Cambia la sorgente dei pacchetti in primo piano nella homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo in Evidenza\" mostrerà i pacchetti casuali dei repo che supportano le API dei pacchetti in evidenza.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Casuale\" mostrerà pacchetti casuali di tutte le repository che hai aggiunto a Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Notizie Community";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
