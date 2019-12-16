@@ -17,7 +17,7 @@
 "Welcome to the Zebra Beta!" = "Laipni lūdzam pie Zebra betas!";
 "Changelog" = "Izmaiņas žurnāls";
 "Community Repos" = "Citi avoti";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
 "Please Wait..." = "Lūdzu, uzgaidi...";
@@ -56,13 +56,13 @@
 "White" = "Balts";
 "Black" = "Melns";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Tumšā režīma stils";
 "Dark Mode" = "Tumšais režīms";
 "Default" = "Normāls";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "Lietotnes Ikons";
 
 "Featured Packages" = "Piedāvātās paketes";
 "Repo Featured" = "Avota piedāvātās paketes";
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Citi Iconi";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Piedāvāšanas Avoti";
 
 // Sources
 
@@ -316,17 +316,17 @@
 
 "Configure the appearance of table view swipe actions." = "Konfigurē pārvilkšanas darbību izskatu.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Maini akcenta krāsu, kas tiek parādīta visā Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Mainiet Zebra tumšā režīma stilu, kad tas ir ieslēgts.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Mainiet piedāvāto pakešu avotu mājas lapā.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Avotu Piedāvāšana\" parādīs izlases paketes no avotu, kas atbalsta piedāvātās paketes API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Nejaušs\" parādīs paketes no visām krātuvēm, kuras ir pievienotas Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Kopienas Ziņas";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
