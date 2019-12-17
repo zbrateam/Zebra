@@ -238,7 +238,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (package == nil)
         return;
     
-    [self layoutDepictionWebView:webView];
+    [self performSelector:@selector(layoutDepictionWebView:) withObject:webView afterDelay:1.0];
     
     NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
     [webView evaluateJavaScript:js completionHandler:nil];
