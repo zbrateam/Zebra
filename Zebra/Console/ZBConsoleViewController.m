@@ -630,6 +630,9 @@
             string = [str stringByAppendingString:@"\n"];
         }
         
+        if (string == NULL)
+            return;
+        
         [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:string attributes:attrs]];
 
         if (self->consoleView.text.length) {
