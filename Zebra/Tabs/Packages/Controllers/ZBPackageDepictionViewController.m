@@ -375,9 +375,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
         [self determinePaidPackage];
     } else {
-        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-        installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
-        self.navigationItem.rightBarButtonItem = installButton;
+        if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFORM
+            UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
+            self.navigationItem.rightBarButtonItem = modifyButton;
+        }
+        else {
+            UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+            installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
+            self.navigationItem.rightBarButtonItem = installButton;
+        }
     }
     self->navButtonsBeingConfigured = NO;
 }
@@ -583,6 +589,37 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
         [alert addAction:action];
     }
+    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)ignoredModify {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *installAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Install", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self installPackage];
+    }];
+    [alert addAction:installAction];
+    
+    if ([package ignoreUpdates]) {
+        UIAlertAction *unignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Show Updates", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->package setIgnoreUpdates:NO];
+        }];
+        
+        [alert addAction:unignore];
+    } else {
+        UIAlertAction *ignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ignore Updates", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->package setIgnoreUpdates:YES];
+        }];
+        
+        [alert addAction:ignore];
+    }
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert dismissViewControllerAnimated:true completion:nil];
+    }];
+    [alert addAction:cancelAction];
+    
     alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     [self presentViewController:alert animated:YES completion:nil];
 }
