@@ -17,5 +17,16 @@ after-stage::
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/LNPopupController.framework/LNPopupController
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 
+ipa::
+	make all
+	mkdir -p $(THEOS_STAGING_DIR)/Payload
+	mv Zebra.xcarchive/Products/Applications/Zebra.app $(THEOS_STAGING_DIR)/Payload/Zebra.app
+	rm -rf Zebra.xcarchive
+	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
+	cd $(THEOS_STAGING_DIR) && zip -r Zebra.zip Payload
+	rm -rf $(THEOS_STAGING_DIR)/Payload
+	mkdir -p ipas
+	mv $(THEOS_STAGING_DIR)/Zebra.zip ipas/Zebra-$(THEOS_PACKAGE_VERSION).ipa
+
 after-install::
 	install.exec "killall \"Zebra\" || true"
