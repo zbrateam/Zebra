@@ -273,7 +273,7 @@
                             NSLog(@"[Zebra] %@", message);
                             [self writeToConsole:message atLevel:ZBLogLevelError];
                             
-                            long terminationReason = [task terminationReason];
+                            long long terminationReason = [task terminationReason];
                             switch (terminationReason) {
                                 case EDEADLK:
                                     [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
