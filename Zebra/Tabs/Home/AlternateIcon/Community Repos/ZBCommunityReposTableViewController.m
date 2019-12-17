@@ -207,7 +207,7 @@ enum ZBSourcesOrder {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
+    switch ([self numberOfRowsInTransfer] > 0 ? indexPath.section : indexPath.section + 1) {
         case ZBTransfer:
             if ([[availableManagers objectAtIndex:indexPath.row] isEqualToString:@"Cydia"]) {
                 [self.repoManager transferFromCydia];
