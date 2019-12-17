@@ -17,7 +17,7 @@
 "Welcome to the Zebra Beta!" = "Velkommen til Zebra Betaen!";
 "Changelog" = "Ændringslog";
 "Community Repos" = "Fællesskabs Arkiver";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
 "Utility repo for %@" = "Utility arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
 "Please Wait..." = "Vent Venligst...";
@@ -42,7 +42,7 @@
 
 "Settings" = "Indstillinger";
 "Version" = "Udgave";
-"Interface" = "Interface";
+"Interface" = "Grænseflade";
 "Featured" = "Udvalgte";
 "News" = "Nyheder";
 "Miscellaneous" = "Diverse";
@@ -50,21 +50,21 @@
 
 "Report a Bug" = "Rapporter en Fejl";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Markeringsfarve";
 "Blue" = "Blå";
 "Orange" = "Orange";
 "White" = "Hvid";
 "Black" = "Sort";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Stil for mørkt udseende";
 "Dark Mode" = "Mørke Tilstand";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "App Ikon";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Udvalgte Pakker";
 "Repo Featured" = "Udvalgt Arkiv";
 "Random" = "Tilfældig";
 "Feature Type" = "Udvalgt Type";
@@ -72,7 +72,7 @@
 
 "News" = "Nyheder";
 
-"Live Search" = "Live Search";
+"Live Search" = "Live Søgning";
 
 "Swipe Actions Display As" = "Svirp Handling Vises Som";
 "Text" = "Tekst";
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternative Ikoner";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Udvalgte Arkiver";
 
 // Sources
 
@@ -288,45 +288,45 @@
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er vigtig og burde ikke fjernes da den er krævet af %@. %@ burde IKKE blive fjernet medmindre du ved præcist hvad du laver!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "En eller flere af pakkerne i køen til sletning, er grundlæggene eller krævet af andre pakker. Stop medmindre du ved præcist hvad du laver. Sletning af disse pakker kan skabe uoprettelig skade til din enhed der vil resultere i at den eneste udvej er en gendannelse.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kunne ikke udføre denne kommando, da rettighederne mangler. Tjek venligst rettighederne på filen placeret ved /usr/libexec/supersling og anmeld denne fejl på GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kunne ikke finde su/sling. Tjek venligst at /usr/libexec/zebra/supersling findes.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling er ikke ejet af root:wheel. Tjek venligst rettighederne af filen placeret ved /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikke tilladelse til at ændre uid eller gid. Tjek venligst rettighederne af filen placeret ved /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Hjælp med at oversætte Zebra!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Kunne ikke udføre respring. Respring manuelt.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "FEJL: Status filen kunne ikke låses. Prøv igen.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "FEJL: Processen skal genstartes. Prøv igen.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Ændre udseendet af Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Vis udvalgte pakke på hjemmeskærmen.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Vis seneste opslag på /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søg efter pakker imens der søges. Ved at slå dette fra kan det fjerne lag på ældre enheder.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Ændre udseendet når der swipes på tå et table view.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Ændre markeringsfarven der vises i Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Ændre stilen af Zebras mørk tilstand når den er aktiveret.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Ændre kilden til udvalgte arkiver på hjemmeskærmen.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Arkivets Udvalgte\" vil vise tilfælde pakker fra arkiver der understøtter Udvalgte Arkiver API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfældig\" vil vise tilfældige pakker fra alle arkiver du har tilføjet til Zebra.";
 
-"Community News" = "Community News";
+"Community News" = "Fællesskabs Nyheder";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

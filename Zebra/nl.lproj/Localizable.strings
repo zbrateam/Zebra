@@ -1,13 +1,13 @@
 // Common
 
-"Cancel" = "Annuleer";
+"Cancel" = "Annuleren";
 "No" = "Nee";
 "Ok" = "Oké";
 "Error" = "Fout";
 "Retry" = "Probeer opnieuw";
 "Edit" = "Wijzig";
 "Login" = "Aanmelden";
-"Close" = "Sluit";
+"Close" = "Sluiten";
 "Done" = "Klaar";
 
 // Home
@@ -17,9 +17,9 @@
 "Welcome to the Zebra Beta!" = "Welkom bij de beta van Zebra!";
 "Changelog" = "Wijzigingslogboek";
 "Community Repos" = "Community Bronnen";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
-"Transfer Sources" = "Verplaatsen geslaagd!";
+"Transfer Sources" = "Verplaats Bronnen";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
 "Stores" = "Winkel";
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternatieve iconen";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Aanbevolen Repos";
 
 // Sources
 
@@ -294,39 +294,39 @@
 
 "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kan geen toegang krijgen tot su/sling. Controleer of /usr/libexec/zebra/supersling bestaat.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is geen eigendom van root:wheel. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling heeft geen toestemming om de uid of gid in te stellen. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Help Zebra te vertalen!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Kon niet herladen. Laad handmatig opnieuw.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "FOUT: kan statusbestand niet vergrendelen. Probeer het opnieuw.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Verander Zebra's uiterlijk.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Toon aanbevolen pakketten op de startpagina.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Toon recente gemeenschap berichten van /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Doorzoek pakketten tijdens het typen. Het uitschakelen van deze functie kan de vertraging op oudere apparaten verminderen.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Verander het uiterlijk van tafel weergave swipe acties.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Wijzig de accent kleur die wordt weergegeven door Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Wijzig de stijl van de donkere modus van Zebra wanneer deze is ingeschakeld.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Repos \" zullen willekeurige pakketten weergeven van repo's die de Featured Package API ondersteunen.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
 
-"Community News" = "Community News";
+"Community News" = "Gemeenschapsnieuws";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";

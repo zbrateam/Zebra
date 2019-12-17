@@ -17,7 +17,7 @@
 "Welcome to the Zebra Beta!" = "Vitaj v Zebra Beta!";
 "Changelog" = "Zoznam zmien";
 "Community Repos" = "Repozitára komunity";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
 "Utility repo for %@" = "Repozitára nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Please Wait..." = "Prosím čakajťe...";
@@ -25,7 +25,7 @@
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
 "Wish List" = "Zoznam želaní";
-"No items in Wish List" = "Na Zozname Želaní nie sú žiadne položky.";
+"No items in Wish List" = "Nič tu nie je.";
 "Community" = "Komunita";
 "Join our Discord" = "Pripoj sa na náš Discord";
 "Follow me on Twitter" = "Sleduj ma na Twitteri";
@@ -33,7 +33,7 @@
 //Credits
 
 "Credits" = "Kredity";
-"Creators" = "Tvorca";
+"Creators" = "Tvorcovia";
 "Contributors" = "Prispievatelia";
 "Translators" = "Prekladatelia";
 "Libraries" = "Knižnice";
@@ -233,7 +233,7 @@
 
 // Console
 
-"Console" = "konzola";
+"Console" = "Konzola";
 "Performing Actions..." = "Vykonávanie akcií...";
 "Updating icon cache asynchronously..." = "Asynchrónna aktualizácia icon cache...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Môže to chvíľu trvať a Zebra môže spadnúť. Ak sa to stane, je to v poriadku.";
