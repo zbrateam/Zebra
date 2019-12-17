@@ -1,19 +1,3 @@
-Package: applist
-Status: install ok installed
-Section: System
-Installed-Size: 780
-Maintainer: Ryan Petrich <rpetrich@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.5.15~beta1
-Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 3.0), com.rpetrich.rocketbootstrap (>= 1.0.7~beta3) | firmware (<< 7.0)
-Conflicts: com.a3tweaks.polus (<< 2.0.7)
-Description: Allow extensions to read the list of installed apps
-Name: AppList
-Author: Ryan Petrich <rpetrich@gmail.com>
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=AppListDp
-Website: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=AppListDp
-dev: rpetrich
-
 Package: apt
 Status: install ok installed
 Priority: standard
@@ -29,6 +13,7 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: apt7 (<< 1:0), apt1.4 (<< 1:0), apt1.8
 Description: the advanced packaging tool from Debian
 Name: APT
+Tag: purpose::console, role::hacker
 
 Package: apt-key
 Status: install ok installed
@@ -45,6 +30,7 @@ Breaks: apt7-key (<< 1:0)
 Conflicts: apt7-key (<< 1:0)
 Description: repository encryption key management tool
 Name: APT (apt-key)
+Tag: purpose::console, role::hacker
 
 Package: apt1.4
 Status: install ok installed
@@ -57,6 +43,19 @@ Depends: apt
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: the advanced packaging tool from Debian
 Name: APT 1.4 Transitional
+Tag: purpose::console, role::hacker
+
+Package: apt7-key
+Status: install ok installed
+Priority: optional
+Section: Packaging
+Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Architecture: iphoneos-arm
+Version: 1:0
+Depends: apt-key
+Description: the advanced packaging library from Debian
+Name: APT 0.7 Transitional (apt-key)
+Tag: purpose::console, role::hacker
 
 Package: base
 Essential: yes
@@ -70,6 +69,7 @@ Version: 1-5
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: underlying system directory structure
 Name: Base Structure
+Tag: purpose::backend, role::hacker
 
 Package: bash
 Status: install ok installed
@@ -82,8 +82,9 @@ Version: 5.0.3-2
 Depends: grep, ncurses, readline, sed
 Pre-Depends: readline (>= 8.0)
 Description: the best shell ever written by Brian Fox
-Name: Bourne-Again SHell
 Homepage: http://www.gnu.org/software/bash/
+Name: Bourne-Again SHell
+Tag: purpose::console, role::hacker
 
 Package: berkeleydb
 Status: install ok installed
@@ -95,26 +96,9 @@ Architecture: iphoneos-arm
 Version: 6.2.32-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Oracle's embeddable database engine
-Name: Berkeley DB
 Homepage: http://www.oracle.com/technology/products/berkeley-db/index.html
-
-Package: bz.jed.tweakcompatible
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 292
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 0.1.5
-Depends: firmware (>= 9.0), mobilesubstrate (>= 0.9.5000), preferenceloader
-Description: Adds a way to check tweak compatibility in cydia
-Author: treAson <treasonftg@gmail.com>
-Name: tweakCompatible
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=tweakcompatibleDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=tweakcompatibleDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: jed
-Tag: purpose::extension, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
-Icon: file:///Library/PreferenceBundles/tweakCompatible_prefs.bundle/icon@2x.png
+Name: Berkeley DB
+Tag: purpose::library, role::developer
 
 Package: bzip2
 Status: install ok installed
@@ -126,6 +110,7 @@ Architecture: iphoneos-arm
 Version: 1.0.6-1
 Description: compression that's slightly better than gzip
 Homepage: http://www.bzip.org/
+Tag: purpose::console, role::hacker
 
 Package: ca-certificates
 Status: install ok installed
@@ -140,1174 +125,21 @@ Provides: org.thebigboss.cacerts
 Depends: firmware (>= 2.0)
 Conflicts: org.thebigboss.cacerts, openssl (<< 1.0.2r)
 Description: CA certs for curl, wget, git.
+Tag: purpose::console, role::hacker
 Name: CA Certs
-Tag: purpose::console, role::hacker
 
-Package: co.dynastic.tsssaver
-Status: install ok installed
-Section: Utilities
-Installed-Size: 444
-Maintainer: Jamie Bishop <jamie@dynastic.co>
-Architecture: iphoneos-arm
-Version: 1.2.0
-Depends: com.modmyi.libswift4 (>= 4.0.3), firmware (>= 8.0)
-Description: A one-click tool to save blobs using TSSsaver.1conan.com
-Name: TSS Saver
-Depiction: https://repo.nullpixel.uk/depiction/co.dynastic.tsssaver/
-Author: Jamie Bishop <jamie@dynastic.co>
-
-Package: cokepokes.jp.ashikase.libpackageinfo
-Status: install ok installed
-Section: Development
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.1.0.1-3
-Replaces: jp.ashikase.libpackageinfo
-Pre-Depends: firmware (>= 3.0)
-Description: Library to retrieve package information.
-Name: libpackageinfo (cokepokes)
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libpackageinfoData
-Homepage: http://github.com/ashikase/libpackageinfo
-Author: Lance Fetters (ashikase) <support@ashikase.com>
-Sponsor: thebigboss.org <http://thebigboss.org>
-Tag: role::developer
-dev: ashikase
-
-Package: com.180.antirevoke
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 396
-Maintainer: stem grade
-Architecture: iphoneos-arm
-Version: 0.0.1
-Depends: mobilesubstrate
-Name: antirevoke
-Author: stem grade
-
-Package: com.4nni3.coolcc
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 448
-Maintainer: 4nni3 <4nni3.14@gmail.com>
-Architecture: iphoneos-arm
-Version: 1:3.4
-Depends: mobilesubstrate, preferenceloader, com.creaturesurvive.libcscolorpicker
-Description: Makes ControlCenter cool.
-Name: CoolCC
-Author: 4nni3 <4nni3.14@gmail.com>
-
-Package: com.a3tweaks.flipswitch
+Package: com.bingner.snappy
 Status: install ok installed
 Section: System
-Installed-Size: 2396
-Maintainer: rpetrich & a3tweaks <rpetrich+flipswitch@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.0.16~beta5
-Replaces: com.jerryen.rotationlockflipswitch, tw.garynil.ccfixer93, tw.hiraku.nightshift
-Provides: com.jerryen.rotationlockflipswitch, tw.garynil.ccfixer93, tw.hiraku.nightshift
-Depends: mobilesubstrate (>= 0.9.5001), com.rpetrich.rocketbootstrap (>= 1.0.7~beta1) | firmware (<< 7.0)
-Conflicts: com.rpetrich.donotdisturbtoggle (<= 1.0-1), com.jerryen.rotationlockflipswitch
-Description: Centralized toggle system for iOS
-Name: Flipswitch
-Homepage: https://rpetri.ch/cydia/flipswitch/beta/
-Depiction: https://rpetri.ch/cydia/flipswitch/beta/
-Author: rpetrich <rpetrich+flipswitch@gmail.com>
-Tag: purpose::extension, role::developer
-Icon: file:///Applications/Preferences.app/icon-table.png
-dev: flipswitch
-
-Package: com.aditkamath.flame
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 367
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.3
-Depends: firmware (>= 7.0), mobilesubstrate, preferenceloader, cydia (>= 1.1.19), org.thebigboss.libcolorpicker
-Conflicts: com.aditkamath.cydiatimeout, com.aditkamath.exterminator, net.kister.apttimeout
-Description: Make Cydia Yours
-Name: Flame
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=flameDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=flameDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-Author: Adit Kamath <adit@aditkamath.com>
-Tag: purpose::extension, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10
-dev: aditkamath
-Icon: file:///Library/PreferenceBundles/Flame.bundle/Flame@2x.png
-
-Package: com.alex.tweakcount2
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 220
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.1
-Replaces: com.alex.tweaksnumber
-Depends: firmware (>= 6.0), mobilesubstrate (>= 0.9.5000), cydia (>= 1.1.19), preferenceloader
-Conflicts: com.alex.tweaksnumber
-Description: count of installed tweaks in Cydia
-Author: Alexandre <Alexandre31.tweak@gmail.com>
-Name: Tweak Count 2
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=tweakcountDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=tweakcountDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: alexandre31
-Tag: purpose::extension, compatible::ios8, compatible::ios9
-Icon: file:///Library/PreferenceBundles/TweakCount2.bundle/TweakCount2@2x.png
-
-Package: com.alwayslatesttimeline
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 200
-Maintainer: aesthyrica
-Architecture: iphoneos-arm
-Version: 1.0
-Depends: mobilesubstrate
-Description: Make it be always the latest timeline!
-Name: AlwaysLatestTimeline
-Author: aesthyrica
-
-Package: com.anthopak.appaze
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 1984
-Maintainer: AnthoPak
-Architecture: iphoneos-arm
-Version: 2.1.1
-Depends: mobilesubstrate, ws.hbang.common (>= 1.11), firmware (>= 11.0), com.a3tweaks.flipswitch
-Description: Set custom volume/brightness/toggles per app, directly from 3D Touch menu
-Name: Appaze
-Author: AnthoPak
-
-Package: com.ashapps.wifipasswordslist
-Status: install ok installed
-Section: Utilities
-Installed-Size: 3512
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.1-1
-Depends: firmware (>= 7.0)
-Description: View saved wifi passwords and other info
-Author: Ash Apps <support@multifl0w.com>
-Name: Wifi Passwords List
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=wifipasswordslistDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=wifipasswordslistDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-Tag: purpose::extension, compatible::ios7, compatible::ios8, compatible::ios9
-dev: aaronash
-Icon: file:///Applications/WifiPasswordList.app/Icon-60.png
-
-Package: com.atwiiks.betterccxi
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 640
-Maintainer: ATWiiks
-Architecture: iphoneos-arm
-Version: 1.6.0
-Depends: mobilesubstrate, com.opa334.ccsupport, preferenceloader
-Description: Enhance your control center on iOS 11 and iOS 12
-Name: BetterCCXI
-Author: ATWiiks
-
-Package: com.bluesquare.linetools
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 648
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 3.1
-Depends: firmware (>= 10.0), mobilesubstrate (>= 0.9.5000), preferenceloader
-Description: More Tools for LINE app
-Author: BlueSquareJB <bluesquarejb@icloud.com>
-Name: LINE Tools
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=linetoolsDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=linetoolsDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: bluesquare
-Tag: purpose::extension, compatible::ios11
-Icon: file:///Library/PreferenceBundles/LineToolsPreference.bundle/icon.png
-
-Package: com.boo.scribble
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 808
-Maintainer: Boo
-Architecture: iphoneos-arm
-Version: 1.0.3-1
-Depends: firmware (>= 11.0), mobilesubstrate, preferenceloader, me.nepeta.libcolorpicker, ws.hbang.common (>= 1.11)
-Description: Unlock your device with a Scribble!
-Name: Scribble
-Author: Boo
-
-Package: com.cannathea.afc2d-arm64
-Status: install ok installed
-Section: System
-Installed-Size: 672
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.1
-Replaces: com.saurik.afc2d, net.angelxwind.afc2d-arm64, com.mrmadtw.afc2forios11, repo.feng.afc2add11, us.scw.afctwoadd, net.angelxwind.afc2ios70, afc2.25pp, afc2.25pp7, afc2.91, app.taig.afc2
-Provides: com.saurik.afc2d, net.angelxwind.afc2d-arm64, com.mrmadtw.afc2forios11, repo.feng.afc2add11, us.scw.afctwoadd, net.angelxwind.afc2ios70, afc2.25pp, afc2.25pp7, afc2.91, app.taig.afc2
-Depends: cy+cpu.arm64, mobilesubstrate, ldid
-Pre-Depends: dpkg (>= 1.14.25-8)
-Conflicts: com.saurik.afc2d, net.angelxwind.afc2d-arm64, com.mrmadtw.afc2forios11, repo.feng.afc2add11, us.scw.afctwoadd, net.angelxwind.afc2ios70, afc2.25pp, afc2.25pp7, afc2.91, app.taig.afc2
-Description: Allow full file-system access over USB for arm64 devices, especially for those using a KPPLess jailbreak.
-Author: saurik, Cannathea <csupport@cannathea.com>
-Name: Apple File Conduit "2" (iOS 11+, arm64)
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=afc2kpplessDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=afc2kpplessDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: cannathea
-Tag: purpose::daemon, compatible::ios10, compatible::ios11, compatible::ios12
-
-Package: com.captinc.batchomatic
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 430
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 4.1.1
-Depends: firmware (>= 11.0), mobilesubstrate, coreutils
-Description: Batch install your tweaks, repos, saved .debs, tweak preferences, and hosts file!
-Author: Capt Inc <teamcaptinc@gmail.com>
-Name: Batchomatic
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=batchomaticDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=batchomaticDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: captinc
-Tag: purpose::extension, compatible::ios11, compatible::ios12, compatible::ios13
-
-Package: com.chpwn.iconsupport
-Status: install ok installed
-Section: Development
-Maintainer: Soh Satoh
-Architecture: iphoneos-arm
-Version: 1.11.1.1
-Depends: mobilesubstrate, firmware (>= 6.0) | jp.ashikase.bugfix.stuckpages, firmware (>= 6.0) | jp.ashikase.bugfix.duplicateicons
-Pre-Depends: firmware (>= 3.0)
-Description: Support library for safe icon tweaks.
-Author: Lance Fetters (ashikase) <support@ashikase.com>
-Name: IconSupport
-dev: ashikase
-Tag: role::developer, purpose::extension, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
-
-Package: com.cokepokes.siriunlock
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Maintainer: CokePokes
-Architecture: iphoneos-arm
-Version: 0.1-1
-Depends: firmware (>= 5.0), mobilesubstrate
-Description: Allows Siri to access sensitive data when your phone is locked. (ie: read last text messages, show notes & contacts.) This is a bit of a security degrading tweak. No options to configure, it just works.
-Name: SiriUnlock
-Author: CokePokes
-dev:
-Homepage:
-Icon:
-
-Package: com.cpdigitaldarkroom.cuttlefish
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 184
-Maintainer: CP Digital Darkroom <tweaks@cpdigitaldarkroom.support>
-Architecture: iphoneos-arm
-Version: 1.2
-Depends: mobilesubstrate
-Description: Use icon color for shortcut menu background tint
-Name: Cuttlefish
-Author: CP Digital Darkroom <tweaks@cpdigitaldarkroom.support>
-Tag: purpose::extension, compatible_min::ios9, compatible_max::ios11.4
-
-Package: com.creaturecoding.cyground
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 400
-Maintainer: CreatureSurvive <support@creaturecoding.com>
-Architecture: iphoneos-arm
-Version: 1.2.0
-Depends: mobilesubstrate
-Description: Run cydia in the background
-Name: cyground
-Author: CreatureSurvive <support@creaturecoding.com>
-dev: CreatureSurvive
-Homepage: https://creaturecoding.com/
-Depiction: https://creaturesurvive.github.io/repo/cydia/cyground/depiction/
-Icon:
-
-Package: com.creaturecoding.libcspreferences
-Status: install ok installed
-Section: System
-Installed-Size: 4776
-Maintainer: CreatureSurvive <support@creaturecoding.com>
-Architecture: iphoneos-arm
-Version: 1.2.5
-Pre-Depends: firmware (>= 8.0), com.ex.libsubstitute | mobilesubstrate, preferenceloader
-Description: A Preference Library that doesn't suck!
-Name: libCSPreferences
-Author: CreatureSurvive <support@creaturecoding.com>
-Homepage: https://creaturecoding.com/
-Depiction: https://creaturecoding.com/?page=depiction&id=libcspreferences
-SileoDepiction: https://creaturecoding.com/sileo/depiction/?package_id=libcspreferences
-Tag: compatible_min::iosiOS9
-
-Package: com.creaturecoding.shuffle
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 1408
-Maintainer: CreatureSurvive <support@creaturecoding.com>
-Architecture: iphoneos-arm
-Version: 1.0.5
-Replaces: com.cpdigitaldarkroom.placeholder
-Depends: com.creaturecoding.libcspreferences
-Pre-Depends: firmware (>= 8.0), com.ex.libsubstitute | mobilesubstrate
-Conflicts: com.cpdigitaldarkroom.placeholder
-Description: Mix up your preferences
-Name: shuffle
-Author: CreatureSurvive <support@creaturecoding.com>
-Homepage: https://creaturecoding.com/
-Depiction: https://creaturecoding.com/?page=depiction&id=shuffle
-SileoDepiction: https://creaturecoding.com/sileo/depiction/?package_id=shuffle
-Tag: purpose::extension, compatible_min::iosiOS10
-Icon: file:///Library/PreferenceBundles/shuffle.bundle/SettingsIcon@3x.png
-
-Package: com.creaturesurvive.libcscolorpicker
-Status: install ok installed
-Section: System
-Installed-Size: 460
-Maintainer: CreatureSurvive <support@creaturecoding.com>
-Architecture: iphoneos-arm
-Version: 1.0.3
-Pre-Depends: firmware (>= 7.0)
-Description: A minimal color picker library for developers
-Name: libCSColorPicker
-Author: CreatureSurvive <support@creaturecoding.com>
-Homepage: https://creaturecoding.com/
-Depiction: https://creaturecoding.com/?page=depiction&id=libcscolorpicker
-SileoDepiction: https://creaturecoding.com/sileo/depiction/?package_id=libcscolorpicker
-Tag: purpose::extension, compatible_min::iosiOS7
-
-Package: com.cryptic.cyurl
-Status: install ok installed
-Section: Tweaks
-Maintainer: Cryptic
-Architecture: iphoneos-arm
-Version: 1.0.2
-Depends: mobilesubstrate
-Description: Adding sources to Cydia automatically defaults to "https://" instead of "http://".
-Name: CyURL
-Author: Cryptic
-
-Package: com.cydia.lnweakky.com.lnweakkyicon
-Essential: yes
-Status: install ok installed
-Priority: extra
-Section: Icon - lnweakky
-Maintainer: lnweakky <lnweakky@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.0
-Replaces: com.cydia.lnweakky.com.lnweakkyicon
-Description: lnweakky Icon Change
-Name: lnweakky Icon
-#Depiction: http://cydia.lnweakky.com/image/lnweakkyicon
-Homepage: http://cydia.lnweakky.com
-Author: lnweakky <lnweakky@gmail.com>
-Icon: file:///Applications/Cydia.app/Sections/lnweakky.png
-
-Package: com.cydiageek.morelinesnotifications
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 271
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.2
-Depends: mobilesubstrate, firmware (>= 8.0)
-Description: Increase the Lines for the Notifications!
-Name: MoreLinesNotifications
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=morelinesnotificationDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=morelinesnotificationDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-Author: CydiaGeek <lucaluca86@aol.com>
-Tag: purpose::extension, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
-dev: lucaluca86
-
-Package: com.cydiageek.nomoredisabled
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 199
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.2
-Depends: mobilesubstrate, firmware (>= 10.0)
-Description: Prevent Permanent Passcode Locking by Mistake!
-Name: NoMoreDisabled
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=nomoredisabledDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=nomoredisabledDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-Author: CydiaGeek <lucaluca86@aol.com>
-Tag: purpose::extension, compatible::ios10, compatible::ios11, compatible::ios12
-dev: lucaluca86
-
-Package: com.ex.substitute
-Status: install ok not-installed
-Priority: optional
-Section: System
-Architecture: iphoneos-arm
-
-Package: com.exile90.icleanerpro
-Status: install ok installed
-Section: Utilities
-Maintainer: Ivano Bilenchi <support@ib-soft.net>
-Architecture: iphoneos-arm
-Version: 7.7.5
-Replaces: org.altervista.exilecom.icleaner
-Depends: firmware (>= 4.0), findutils, shell-cmds, apt | apt7
-Conflicts: org.altervista.exilecom.icleaner
-Description: The first real iOS system cleaner & optimizer
-Name: iCleaner Pro
-Author: Ivano Bilenchi <support@ib-soft.net>
-Homepage: http://ib-soft.net/icleaner
-Depiction: http://ib-soft.net/depictions/?pkgId=com.exile90.icleanerpro
-Icon: file:///Applications/iCleaner.app/Icon.png
-
-Package: com.gilesgc.cccalc
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 204
-Maintainer: gilesgc
-Architecture: iphoneos-arm
-Version: 1.1.1
-Depends: mobilesubstrate
-Description: Turn your calculator module into a real calculator
-Name: CCCalc
-Author: gilesgc
-Depiction: https://gilesgc.github.io/repo/depictions/?p=com.gilesgc.cccalc
-Icon: https://gilesgc.github.io/repo/depictions/com.gilesgc.cccalc/cccalc-icon.png
-
-Package: com.gilshahar7.avlock
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 232
-Maintainer: gilshahar7
-Architecture: iphoneos-arm
-Version: 1.0.4
-Depends: mobilesubstrate
-Description: Add an orientation lock button to the stock iOS video player
-Name: AVLock
-Author: gilshahar7
-
-Package: com.golddavid.colorbadges-new
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 560
-Maintainer: David Goldman <help@golddavid.com>
-Architecture: iphoneos-arm
-Version: 1.4.3
-Replaces: org.thebigboss.colorbadges
-Depends: firmware (>= 7.0), mobilesubstrate (>= 0.9.5.000), preferenceloader
-Conflicts: org.thebigboss.colorbadges
-Description: Colorize your badges
-Name: ColorBadges (Packix)
-Author: David Goldman <help@golddavid.com>
-Depiction: http://apt.golddavid.com/depictions/ColorBadges.html
-Icon: file:///Library/PreferenceBundles/cbprefs.bundle/CBCydiaIcon.png
-
-Package: com.greeny.restats
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 408
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.1-28
-Depends: mobilesubstrate, firmware (>= 7.0), preferenceloader
-Conflicts: com.greeny.autostatisticsreset
-Description: Updated by CokePokes to work on iOS9-iOS11. Choose day to auto-reset Cellular stats
-Homepage:
-Depiction:
-Author: GreenyDev <greenydev@greenmail.net.au>
-Name: ReStats
-dev: greeny
-Tag: purpose::extension, ios7support::1, ios8support::1, ios9support::1, ios10support::1, ios11support::1
-Icon: file:///Library/PreferenceBundles/RCSPrefs.bundle/RCSPrefs@2x.png
-
-Package: com.hackyouriphone.iconrepo
-Essential: yes
-Status: install ok installed
-Section: HYI
-Maintainer: iDevid <repo@hackyouriphone.org>
-Architecture: iphoneos-arm
-Version: 8.0.4
-Description: Officials HYI Repo Icons
-Name: HYI Repo Icons
-Author: HackYouriPhone <repo@hackyouriphone.org>
-Homepage: http://repo.hackyouriphone.org/depiction/depiction.php?filename=IconRepo
-Depiction: http://repo.hackyouriphone.org/depiction/depiction.php?filename=IconRepo
-
-Package: com.hackyouriphone.watchdogpro
-Status: install ok installed
-Section: HYI - Tweaks
-Maintainer: iLeoLion <repo@hackyouriphone.org>
-Architecture: iphoneos-arm
-Version: 1.0.2
-Depends: firmware (>= 8.0), mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.2)
-Conflicts: org.thebigboss.watchdoglite, com.theronen.watchdog
-Description: full featured app backgrounding management
-Name: Watchdog Pro
-Author: Allan Kerr <repo@hackyouriphone.org>
-Depiction: http://repo.hackyouriphone.org/depiction/depiction.php?filename=watchdogpro
-Homepage: http://repo.hackyouriphone.org/depiction/depiction.php?filename=watchdogpro
-
-Package: com.ichitaso.powerselector11
-Status: install ok installed
-Section: Utilities
-Installed-Size: 1860
-Maintainer: ichitaso <willfeeltips+ps11@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.2.4
-Replaces: com.ichitaso.powerselector11
-Depends: mobilesubstrate, preferenceloader, com.opa334.ccsupport
-Pre-Depends: firmware (>= 11.0)
-Conflicts: com.ichitaso.powerselector, com.dpkgdan.powertap, com.weesstt.powerdownoptions, com.subdiox.powertap2, com.rustybalboa.powertapxi
-Description: The power supply relation of a device is operated.
-Author: ichitaso <willfeeltips+ps11@gmail.com>
-Name: PowerSelector (iOS 11 to 13)
-Depiction: https://cydia.ichitaso.com/depiction/powerselector11.html
-Homepage: https://cydia.ichitaso.com/depiction/powerselector11.html
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: ichitaso
-Tag: purpose::extension, compatible::ios11, compatible::ios12, compatible::ios13
-Icon: file:///Library/PreferenceBundles/PowerSelectorSettings.bundle/icon@2x.png
-
-Package: com.ichitaso.spectrogram
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 400
-Maintainer: ichitaso <willfeeltips+spg@gmail.com>
-Architecture: iphoneos-arm
-Version: 0.1.0
-Depends: firmware (>= 11.0), mobilesubstrate, preferenceloader (>= 2.2.4~beta1)
-Description: Use volume buttons to control screenshots and more
-Author: ichitaso <willfeeltips+spg@gmail.com>
-Name: Spectrogram
-Depiction: https://cydia.ichitaso.com/depiction/spectrogram.html
-Homepage: https://cydia.ichitaso.com/depiction/spectrogram.html
-dev: ichitaso
-Tag: purpose::extension, compatible::ios11, compatible::ios12, compatible::ios13
-Icon: file:///Library/PreferenceBundles/SpectrogramSettings.bundle/icon@2x.png
-
-Package: com.imkpatil.easyeditalarms
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 136
-Maintainer: P2KDev <p2kdev@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.1
-Depends: mobilesubstrate
-Description: Edit Alarms with a single tap!
-Name: EasyEditAlarms
-Author: P2KDev <p2kdev@gmail.com>
-
-Package: com.imkpatil.floatingdockplus
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 488
-Maintainer: P2KDev <p2kdev@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.3.4.1
-Depends: firmware (>= 11.0), mobilesubstrate, preferenceloader, org.thebigboss.libcolorpicker, com.spark.libsparkapplist
-Conflicts: com.imkpatil.floatingdock, com.synnyg.floatydock
-Description: The Dock you always Wanted!
-Name: FloatingDockPlus
-Author: P2KDev <p2kdev@gmail.com>
-Icon: file:///Library/Application Support/FloatingDockPlus/icon.png
-
-Package: com.ioscreatix.sugarcane
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 120
-Maintainer: iOS Creatix
-Architecture: iphoneos-arm
-Version: 1.0.0
-Depends: mobilesubstrate
-Description: Get percentages for the sliders in the Control Center on iOS 11
-Name: SugarCane
-Author: iOS Creatix
-
-Package: com.iosgods.mariokart
-Status: install ok not-installed
-Section: Tweaks
-Architecture: iphoneos-arm
-
-Package: com.jailbreak365.ccmodulespro
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 1528
-Maintainer: jailbreak365 <jailbreak365@mail.com>
-Architecture: iphoneos-arm
-Version: 1.1.0
-Depends: mobilesubstrate, firmware (>= 11.0), preferenceloader, com.opa334.ccsupport (>= 1.2.1)
-Description: Increase the usability of your control center.
-Name: CCModules Pro
-Author: jailbreak365 <jailbreak365@mail.com>
-
-Package: com.julioverne.cacheclearer11
-Status: install ok installed
-Section: Tweaks
-Maintainer: Julio
-Architecture: iphoneos-arm
-Version: 0.1a
-Depends: firmware (>= 7.0), mobilesubstrate (>= 0.9.5001)
-Conflicts: com.rpetrich.cacheclearer
-Description: Clear app caches from the Usage section in Settings
-Name: CacheClearer (iOS 11)
-Author: Ryan Petrich, julioverne
-dev: rpetrich
-Depiction: http://julioverne.github.io/description.html?id=com.julioverne.cacheclearer11
-
-Package: com.julioverne.jailprotect
-Status: install ok installed
-Section: Tweaks
-Maintainer: Julio
-Architecture: iphoneos-arm
-Version: 0.0~beta4a
-Depends: mobilesubstrate, preferenceloader
-Description: No Substrate Mode Alternative
-Name: JailProtect
-Author: julioverne
-Homepage: http://twitter.com/ijulioverne
-Icon: file:///Library/PreferenceBundles/JailProtectSettings.bundle/icon@2x.png
-Depiction: http://julioverne.github.io/description.html?id=com.julioverne.jailprotect
-
-Package: com.julioverne.ntspeed
-Status: install ok installed
-Section: Tweaks
-Maintainer: Julio
-Architecture: iphoneos-arm
-Version: 0.2~beta7
-Depends: firmware (>= 6.0), mobilesubstrate, preferenceloader
-Description: See Active Traffic Network Speed
-Homepage: http://twitter.com/ijulioverne
-Name: NtSpeed
-Author: julioverne
-Icon: file:///Library/PreferenceBundles/NtSpeedSettings.bundle/icon@2x.png
-Depiction: http://julioverne.github.io/description.html?id=com.julioverne.ntspeed
-
-Package: com.julioverne.trustdevalert
-Status: install ok installed
-Section: Tweaks
-Maintainer: Julio
-Architecture: iphoneos-arm
-Version: 0.2a
-Depends: mobilesubstrate, firmware (>= 8.0)
-Description: Add Trust Button In Alert Of Free Developer Profile Not Trusted.
-Name: trustDevAlert
-Author: julioverne
-Homepage: http://twitter.com/ijulioverne
-Depiction: http://julioverne.github.io/description.html?id=com.julioverne.trustdevalert
-
-Package: com.kaneb.kbpreferences
-Status: install ok installed
-Section: System
-Installed-Size: 396
-Maintainer: Kane Buckthorpe
-Architecture: iphoneos-arm
-Version: 0.0.7
-Description: Kane B's preferences framework
-Name: KBPreferences
-Author: Kane Buckthorpe
-Tag: role::developer
-
-Package: com.karimo299.ccringer
-Status: install ok installed
-Section: Control Center (Modules)
-Installed-Size: 380
-Maintainer: Karimo299 & Kane Buckthorpe
-Architecture: iphoneos-arm
-Version: 2.1.0
-Depends: mobilesubstrate, com.kaneb.kbpreferences, com.opa334.ccsupport
-Description: An awesome Ringer Control Center module! With combined system/ringer volume slider support
-Name: CCRinger
-Author: Karimo299 & Kane Buckthorpe
-
-Package: com.kingpuffdaddi.pauseonmute
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 354
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.2.1
-Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 8.0), preferenceloader
-Description: Automatically pauses/resume music when you turn down the volume to 0
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=pauseonmuteDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=pauseonmuteDp
-Author: KingPuffdaddi <kingpuffdaddi@icloud.com>
-Name: PauseOnMute
-dev: kingpuffdaddi
-Tag: purpose::extension, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
-Icon: file:///Library/PreferenceBundles/PauseOnMutePrefs.bundle/tweakicon@2x.png
-
-Package: com.kurrt.safeshutdown
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 12368
-Maintainer: Kurrt <dev@kurrt.com>
-Architecture: iphoneos-arm
-Version: 1.55
-Depends: mobilesubstrate, firmware (>= 10.0), ws.hbang.common (>= 1.11)
-Description: Avoid re-jailbreaking when battery runs out.
-Name: SafeShutdown
-Author: Kurrt <dev@kurrt.com>
-Homepage: https://kurrt.com/repo/safeshutdown
-Depiction: https://kurrt.com/repo/safeshutdown
-SileoDepiction: https://kurrt.com/repo/safeshutdown/sileo.php
-
-Package: com.laughingquoll.betterrotate
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 688
-Maintainer: LaughingQuoll
-Architecture: iphoneos-arm
-Version: 1.3.4
-Depends: mobilesubstrate, com.rpetrich.rocketbootstrap, preferenceloader, com.laughingquoll.prefixui, com.spark.libsparkapplist
-Description: A Smarter Orientation Lock!
-Name: SmartRotate
-Author: LaughingQuoll
-
-Package: com.laughingquoll.cowbell
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 120
-Maintainer: LaughingQuoll
-Architecture: iphoneos-arm
-Version: 1.2.1
-Depends: mobilesubstrate
-Description: Make the low power module great again.
-Name: Cowbell
-Author: LaughingQuoll
-
-Package: com.laughingquoll.prefixui
-Status: install ok installed
-Section: System
-Installed-Size: 172
-Maintainer: LaughingQuoll
-Architecture: iphoneos-arm
-Version: 1.2.6
-Depends: me.nepeta.libcolorpicker, com.spark.libsparkapplist
-Description: An awesome framework of some sort!
-Name: PrefixUI
-Author: LaughingQuoll
-Tag: role::developer
-
-Package: com.linusyang.localeutf8
-Status: install ok installed
-Section: System
-Installed-Size: 186
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0-1
-Depends: profile.d
-Description: UTF-8 locale files for en_US and zh_CN
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=localeutf8Dp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=localeutf8Dp
-Author: Linus Yang <laokongzi@gmail.com>
-Name: Locale Profiles in UTF-8
-dev: laokongzi
-Tag: purpose::console, role::hacker
-
-Package: com.lpane.browserdefault
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 884
-Maintainer: lpane
-Architecture: iphoneos-arm
-Version: 1.9.7
-Depends: mobilesubstrate, preferenceloader
-Description: BrowserDefault allows users to choose the browser links are opened in.
-Name: BrowserDefault
-Author: lpane
-
-Package: com.matchstic.reprovision
-Status: install ok installed
-Priority: optional
-Section: System
-Maintainer: Matt Clarke <matt@incendo.ws>
-Architecture: iphoneos-arm
-Version: 0.5~experimental8
-Replaces: com.matchstic.extender-installer
-Provides: com.matchstic.extender-installer
-Depends: firmware (>= 9.0)
-Description: Re-sign applications on your device
-Name: ReProvision
-Author: Matt Clarke <matt@incendo.ws>
-dev: Matt Clarke <matt@incendo.ws>
-Homepage: https://github.com/Matchstic/Extender-Installer
-Depiction: http://incendo.ws/repo/depictions/com.matchstic.reprovision.html
-Icon: file:///Applications/ReProvision.app/AppIcon60x60@2x.png
-
-Package: com.midnightchips.localhostssh
-Status: install ok installed
-Section: System
-Maintainer: MidnightChips <midnightchips@gmail.com>
-Architecture: iphoneos-arm
-Version: 0.0.2
-Depends: firmware (>= 11.0), openssh
-Description: Access localhost through SSH on iOS 11
-Name: Local SSH
-Author: MidnightChips <midnightchips@gmail.com>
-Depiction: https://repo.chariz.io/package/com.midnightchips.localhostssh/
-Tag: compatible::ios11
-
-Package: com.modmyi.libswift4
-Status: install ok installed
-Section: Development
-Installed-Size: 170711
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 4.2.1-2
-Depends: firmware (>= 7.0)
-Description: libswift dylibs for iOS
-Name: libswift4
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libswift4Dp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libswift4Dp
-Author: Kabir Oberai <oberai.kabir+libswift@gmail.com>
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: kabiroberai
-Tag: purpose::extension, compatible::ios10, compatible::ios11
-
-Package: com.npupyshev.mobile.house-arrest
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 64
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.0-6
-Depends: firmware (>= 8.3), mobilesubstrate (>= 0.9.5000)
-Description: access app containers over USB, iTools, iFunbox, etc.
-Name: House Arrest Fix
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=housearrestfixDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=housearrestfixDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-Author: Pupyshev Nikita <npupyshev@icloud.com>
-Tag: purpose::extension, compatible::ios8
-dev: npupyshev
-
-Package: com.opa334.ccsupport
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 201
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.2.2
-Replaces: com.ioscreatix.silo
-Provides: com.ioscreatix.silo
-Depends: firmware (>= 11.0), mobilesubstrate (>= 0.9.5000)
-Conflicts: com.ioscreatix.silo
-Description: Support tweak for CC modules!
-Author: opa334 <opa334@protonmail.com>
-Name: CCSupport
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=ccsupportDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=ccsupportDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: opa334
-Tag: purpose::extension, compatible::ios11, compatible::ios12, compatible::ios13
-
-Package: com.p2kdev.safecycle
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 352
-Maintainer: P2KDev <p2kdev@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.1
-Depends: mobilesubstrate, com.rpetrich.rocketbootstrap, net.limneos.libbulletin
-Conflicts: com.p2kdev.wakeup, com.imkpatil.wakeup
-Description: Companion tweak for the SleepCycle App!
-Name: SafeCycle
-Author: P2KDev <p2kdev@gmail.com>
-Icon: file:///Library/Application Support/SafeCycle/Tweakicon.png
-
-Package: com.peterdev.powerguard
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 516
-Maintainer: PeterDev <djperter@icloud.com>
-Architecture: iphoneos-arm
-Version: 2.0.3
-Depends: mobilesubstrate, com.creaturecoding.libcspreferences
-Description: Prevent someone from turning off your iOS device.
-Name: PowerGuard
-Author: PeterDev <djperter@icloud.com>
-Depiction: https://nexusrepo.kro.kr/depictions/com.peterdev.powerguard/
-Icon: https://nexusrepo.kro.kr/depictions/com.peterdev.powerguard/screenshots/icon.png
-
-Package: com.ps.anywherepredict
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 200
-Maintainer: PoomSmart
-Architecture: iphoneos-arm
-Version: 1.1.2
-Depends: mobilesubstrate, firmware (>= 8.0)
-Description: Predictive keyboard anywhere.
-Name: AnywherePredict
-Author: PoomSmart
-
-Package: com.ps.letmeblock
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 200
-Maintainer: PoomSmart
-Architecture: iphoneos-arm
-Version: 0.0.7.1
-Depends: mobilesubstrate, firmware (>= 9.0)
-Description: Make mDNSResponder care more about /etc/hosts
-Name: LetMeBlock
-Author: PoomSmart
-Depiction: https://poomsmart.github.io/repo/depictions/letmeblock.html
-SileoDepiction: https://poomsmart.github.io/repo/sileodepictions/letmeblock.json
-
-Package: com.purdix.muze4
-Status: install ok installed
-Section: Themes
-Maintainer: Kogulan (Purdix)
-Architecture: iphoneos-arm
-Version: 1.04
-Description: Colourful explosions. Now with extra colour.
-Name: Muze 4
-Author: Kogulan (Purdix)
-
-Package: com.pxcex.localiapstore13
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 136
-Maintainer: pxcex
-Architecture: iphoneos-arm
-Version: 0.0.2
-Depends: mobilesubstrate
-Description: Free In-App Purchases include app IOS 13 bypass Lock iCloud (bypass verify Passcode, Touch ID or Face ID).  No options to configure!
-Name: LocalIAPStore13
-Author: pxcex
-
-Package: com.rpetrich.rocketbootstrap
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 596
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.7~beta3
-Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 3.0)
-Description: Support library allowing tweaks to communicate with sandboxed processes
-Name: RocketBootstrap
-Depiction: https://www.rpetrich.com/cydia/rocketbootstrap/beta/
-Homepage: https://www.rpetrich.com/cydia/rocketbootstrap/beta/
-Author: Ryan Petrich <rpetrich+rocketbootstrap@gmail.com>
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: rpetrich
-Tag: purpose::extension, role::developer
-
-Package: com.ruler225.videohud
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 107
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 2.4
-Depends: firmware (>= 11.0), mobilesubstrate (>= 0.9.5000)
-Description: iOS 11 volume HUD used systemwide!
-Author: Youssef Mikhail <ymiscool@hotmail.com>
-Name: VideoHUD
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=videohudDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=videohudDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: ymiscool
-Tag: purpose::extension, compatible::ios11, compatible::ios12
-
-Package: com.ryst.portraitlock
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 362
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.8.4
-Depends: firmware (>= 5.0), mobilesubstrate (>= 0.9.5000), applist, preferenceloader
-Conflicts: com.myrepospace.ryst.portraitlock, com.hackingdartmouth.rotatelock
-Description: rotation lock set on per-app basis.
-Author: Alex Beals <Alex.Beals.18@dartmouth.edu>
-Name: Portrait Lock
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=portraitlockDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=portraitlockDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: hackingdartmouth
-Tag: purpose::extension, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
-Icon: file:///Library/PreferenceBundles/PortraitLock.bundle/PortraitLock@2x.png
-
-Package: com.saurik.substrate
-Status: deinstall ok config-files
-Priority: optional
-Section: System
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.7033
-Config-Version: 0.9.7033
-Replaces: cycript (<= 0.9.594)
-Depends: com.saurik.substrate.safemode
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: uikittools (<< 1.1.1), com.mywi4 (<= 5.03.2), com.phoenix.pandoracontrols (<= 1.1.0-1), com.intelliborn.intelliscreenx (<= 1.0.110), com.evad3rs.evasi0n7 (<< 0.2)
-Conflicts: me.devbug.msreloadfix, com.r3pwn.startsubstrate, com.ragemasta.bootstrap
-Description: powerful code insertion platform
-Name: Cydia Substrate
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Depiction: http://cydia.saurik.com/info/mobilesubstrate/
-
-Package: com.saurik.substrate.safemode
-Status: install ok installed
-Priority: optional
-Section: Tweaks
-Installed-Size: 176
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.6003
-Replaces: safe-mode-fixer-ios7
-Depends: mobilesubstrate (>= 0.9.3367+38)
-Conflicts: safe-mode-fixer-ios7
-Description: safe mode safety extension (safe)
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Name: Substrate Safe Mode
-Depiction: http://cydia.saurik.com/info/com.saurik.substrate.safemode/
-
-Package: com.shiftcmdk.pencilchargingindicator
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 3592
-Maintainer: shiftcmdk
-Architecture: iphoneos-arm
-Version: 1.2~b7
-Depends: mobilesubstrate
-Description: Make charging less boring with the Apple Pencil charging animation from the iPad Pro 2018.
-Name: PencilChargingIndicator
-Author: shiftcmdk
-Depiction: https://shiftcmdk.github.io/repo/depictions/?p=com.shiftcmdk.pencilchargingindicator
-
-Package: com.smokin1337.sleeptoggle
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 732
-Maintainer: smokin1337 <smokin1337@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.0.3
-Depends: mobilesubstrate, com.opa334.ccsupport
-Description: CC module to disable idle sleep/auto lock !
-Name: SleepToggle
-Depiction: https://idevicehacked.com/depictions/?p=com.smokin1337.sleeptoggle
-SileoDepiction: https://idevicehacked.com/depictions/com.smokin1337.sleeptoggle/SleepToggle
-Icon: https://idevicehacked.com/depictions/com.smokin1337.sleeptoggle/icon.png
-Author: smokin1337 <smokin1337@gmail.com>
-
-Package: com.smokin1337.togglow
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 1172
-Maintainer: smokin1337 <smokin1337@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.0.8
-Depends: mobilesubstrate, org.thebigboss.libcolorpicker
-Description: Make the control center your own !
-Name: Togglow
-Depiction: https://www.idevicehacked.com/depictions/?p=com.smokin1337.togglow
-SileoDepiction: https://www.idevicehacked.com/depictions/com.smokin1337.togglow/Togglow
-Author: smokin1337 <smokin1337@gmail.com>
-Icon: https://www.idevicehacked.com/depictions/com.smokin1337.togglow/icon.png
-
-Package: com.spark.doubletaplock
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 576
-Maintainer: Spark
-Architecture: iphoneos-arm
-Version: 1.0.1
-Depends: mobilesubstrate, preferenceloader
-Description: Double tap homescreen wallpaper to lock device
-Name: DoubleTapLock
-Removes: com.spark.DoubleTapLock
-Author: Spark
-
-Package: com.spark.libsparkapplist
-Status: install ok installed
-Section: System
-Installed-Size: 596
-Maintainer: Spark
-Architecture: iphoneos-arm
-Version: 1.0.4
-Description: AppList alternative
-Name: libSparkAppList
-Author: Spark
-Tag: role::developer
-
-Package: com.tigisoftware.filza64bit
-Status: install ok installed
-Section: Utilities
-Installed-Size: 21272
-Maintainer: TIGI Software
-Architecture: iphoneos-arm
-Version: 3.7.3-16
-Depends: zip, unzip, gzip, unrar, p7zip
-Conflicts: com.tigisoftware.filza
-Description: File Manager for iPhone, iPad, iPod Touch. Supports iOS 7+. This special version only supports 64-bit devices
-Name: Filza File Manager 64-bit
-Author: TIGI Software
-
-Package: com.tonykraft.inosleep
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 368
-Maintainer: Tony Kraft <iostonykraft@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.2.4
-Depends: mobilesubstrate
-Description: Allows Wifi to stay connected when the device is locked.
-Name: iNoSleep
-Author: Tony Kraft <iostonykraft@gmail.com>
-Depiction: http://iostonykraft.github.io/depictions/com.tonykraft.inosleep.html
-
-Package: com.xandesign.felicity
-Status: install ok installed
-Section: Themes
-Maintainer: XerusDesign <unixdesignios@gmail.com>
-Architecture: iphoneos-arm
-Version: 5.0
-Description: An Awesome SpringBoard Theme!
-Name: Felicity
-Author: XerusDesign <unixdesignios@gmail.com>
-Homepage: https://twitter.com/xerusdesign
-SileoDepiction: https://github.com/xerusdesign/repo/blob/master/depictions/sileodepictions/Felicity/sileo.json
-Icon: file:///Library/Themes/Felicity.theme/Icon.png
-
-Package: com.xcxiao.simplels2
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 2244
-Maintainer: XCXiao
-Architecture: iphoneos-arm
-Version: 1.2.2
-Depends: mobilesubstrate
-Description: SimpleLS
-Name: SimpleLS2
-Author: XCXiao
-
-Package: com.xerusdesign.melt
-Status: install ok installed
-Section: Themes
-Maintainer: xerusDesign <unixdesignios@gmail.com>
-Architecture: iphoneos-arm
-Version: 1.0.2
-Description: An Awesome Detailed Theme!
-Name: Melt
-Homepage: https://twitter.com/xerusdesign
-Author: xerusDesign <unixdesignios@gmail.com>
+Installed-Size: 304
+Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Architecture: iphoneos-arm
+Version: 1.3.0
+Depends: firmware (>= 10.3)
+Description: A Tool for APFS Snapshot Management
+Name: Snappy
+Author: Sam Bingner <snappy@bingner.com>
+Tag: role::hacker
 
 Package: coreutils
 Status: install ok installed
@@ -1322,8 +154,9 @@ Provides: md5sum, sha1sum
 Depends: bash, coreutils-bin (>= 7.4-5), profile.d
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: core set of Unix shell utilities from GNU
-Name: Core Utilities
 Homepage: http://www.gnu.org/software/coreutils/
+Name: Core Utilities
+Tag: purpose::console, role::hacker
 
 Package: coreutils-bin
 Essential: yes
@@ -1337,8 +170,9 @@ Version: 8.31-1
 Replaces: shell-cmds (<< 118-5), coreutils (<= 7.2-9)
 Provides: dirname, kill, mktemp, su
 Description: just the /bin folder from GNU coreutils
-Name: Core Utilities (/bin)
 Homepage: http://www.gnu.org/software/coreutils/
+Name: Core Utilities (/bin)
+Tag: purpose::console, role::hacker
 
 Package: cy+cpu.arm64
 Essential: yes
@@ -1360,7 +194,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 18.7.0
+Version: 19.0.0
 Description: virtual kernel dependency
 Tag: role::cydia
 
@@ -1372,7 +206,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 1575.17
+Version: 1673.13
 Description: virtual corefoundation dependency
 Tag: role::cydia
 
@@ -1384,7 +218,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 9.1
+Version: 8.1
 Description: virtual model dependency
 Tag: role::cydia
 
@@ -1396,7 +230,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 12.4
+Version: 13.2.3
 Description: virtual operating system dependency
 Tag: role::cydia
 
@@ -1404,21 +238,21 @@ Package: cydia
 Status: install ok installed
 Priority: required
 Section: Packaging
-Installed-Size: 7592
+Installed-Size: 7472
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 1.1.32~b23
+Version: 1.1.32~b22
 Replaces: bigboss, bigbossbetarepo, com.sosiphone.addcydia, cydia-sources, ispazio.net, modmyifone, saurik, ste, yellowsn0w.com, zodttd
 Provides: bigbossbetarepo, cydia-sources
 Depends: libapt | apt7-lib, apt-key | apt7-key, cydia-lproj (>= 1.1.10), darwintools, debianutils, dpkg (>= 1.19.1), org.thebigboss.repo.icons, sed, shell-cmds, system-cmds, uikittools (>= 1.1.14), xz
 Pre-Depends: debianutils, dpkg (>= 1.16.1), firmware (>= 5.0)
 Conflicts: bigboss, bigbossbetarepo, com.sosiphone.addcydia, cydia-sources, ispazio.net, modmyifone, ste, yellowsn0w.com, zodttd
 Description: graphical iPhone front-end for APT
-Name: Cydia Installer
+Tag: purpose::uikit, cydia::essential, role::enduser
 Author: Jay Freeman (saurik) <saurik@saurik.com>
 Depiction: http://cydia.saurik.com/info/cydia/
 Icon: file:///Applications/Cydia.app/Icon-60.png
-Tag: purpose::uikit, cydia::essential, role::enduser
+Name: Cydia Installer
 
 Package: cydia-lproj
 Status: install ok installed
@@ -1433,10 +267,10 @@ Provides: org.thebigboss.russiancydia
 Depends: cydia
 Conflicts: org.thebigboss.russiancydia
 Description: languages and translations for Cydia
-Name: Cydia Translations
+Tag: purpose::uikit, cydia::essential, role::enduser
 Author: Jay Freeman (saurik) <saurik@saurik.com>
 Depiction: http://cydia.saurik.com/info/cydia-lproj/
-Tag: purpose::uikit, cydia::essential, role::enduser
+Name: Cydia Translations
 
 Package: darwintools
 Status: install ok installed
@@ -1449,8 +283,8 @@ Version: 1.1-1
 Depends: dpkg (>= 1.18.25-9), system-cmds, uikittools
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: startupfiletool, sw_vers
+Tag: purpose::console, role::hacker
 Name: Darwin Tools
-Tag: purpose::console
 
 Package: debianutils
 Essential: yes
@@ -1464,19 +298,7 @@ Version: 4.8.6-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: pretty much just run-parts. yep? run-parts
 Name: Debian Utilities
-
-Package: debugserver
-Status: install ok installed
-Priority: optional
-Section: Development
-Installed-Size: 24
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Version: 0.1-1
-Replaces: jailbreak-resources (<< 1.0~b27)
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: jailbreak-resources (<< 1.0~b27)
-Description: Wrapper to make debugserver unsandboxed
+Tag: purpose::console, role::hacker
 
 Package: diffutils
 Status: install ok installed
@@ -1488,8 +310,9 @@ Architecture: iphoneos-arm
 Multi-Arch: foreign
 Version: 3.6-1
 Description: compare two files for differences
-Name: Diff Utilities
 Homepage: http://www.gnu.org/software/diffutils/
+Name: Diff Utilities
+Tag: purpose::console, role::hacker
 
 Package: diskdev-cmds
 Essential: yes
@@ -1502,6 +325,7 @@ Architecture: iphoneos-arm
 Version: 593.221.1-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: mount, quota, fsck, fstyp, fdisk, tunefs
+Tag: purpose::console, role::sysadmn
 
 Package: dpkg
 Essential: yes
@@ -1515,8 +339,9 @@ Version: 1.19.7-1
 Depends: bash, bzip2, coreutils-bin (>= 8.31), diffutils, file, findutils, gzip, ldid (>= 2:2.1.1), lzma, ncurses, tar, xz
 Pre-Depends: tar (>= 1.23)
 Description: package maintainance tools from Debian
-Name: Debian Packager
 Homepage: http://wiki.debian.org/Teams/Dpkg
+Name: Debian Packager
+Tag: purpose::console, role::hacker
 
 Package: essential
 Essential: yes
@@ -1526,12 +351,14 @@ Section: System
 Installed-Size: 8
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 0-2
-Depends: cydia | com.ripdev.icy, cy+model.iphone (<< 11.0) | cy+model.ipad (<< 11.0) | cy+model.ipod | science.xnu.substituted, cy+model.iphone (<< 11.0) | cy+model.ipad (<< 11.0) | cy+model.ipod | com.ex.substitute
+Multi-Arch: foreign
+Version: 0-1
+Depends: cydia | com.ripdev.icy
 Pre-Depends: bootstrap | dpkg (>= 1.13.25-5)
 Description: contains nothing, represents everything
-Name: Essential
 Depiction: http://cydia.saurik.com/info/essential/
+Name: Essential
+Tag: cydia::essential, role::goddess
 
 Package: file
 Status: install ok installed
@@ -1543,6 +370,7 @@ Architecture: iphoneos-arm
 Version: 5.35-2
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: guesses the type of a file from contents
+Tag: purpose::console, role::hacker
 
 Package: findutils
 Status: install ok installed
@@ -1554,8 +382,9 @@ Architecture: iphoneos-arm
 Version: 4.6.0-2
 Depends: bash, sed
 Description: indexes and searches filesystems
-Name: Find Utilities
 Homepage: http://www.gnu.org/software/findutils/
+Name: Find Utilities
+Tag: purpose::console, role::hacker
 
 Package: firmware
 Essential: yes
@@ -1565,7 +394,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 12.4
+Version: 13.2.3
 Description: almost impressive Apple frameworks
 Tag: role::cydia
 Name: iOS Firmware
@@ -1585,45 +414,6 @@ Pre-Depends: dpkg (>= 1.14.25-8), firmware (>= 11.0)
 Description: represents Telesphoreo / iPhoneOS conflicts
 Name: iPhone Firmware (/sbin)
 
-Package: flex3beta
-Status: install ok installed
-Section: Tweaks
-Maintainer: John Coates
-Architecture: iphoneos-arm
-Version: 1:3~Beta86
-Replaces: flexpackage, flexpackagebeta, com.fuyuchi.flex, flex2packagebeta, flex2package, com.fuyuchi.flex2, flex2blackpackagebeta, com.johncoates.flex3, flex3featurecatalog, flex3toolsonly
-Depends: mobilesubstrate, firmware (>= 12.2) | org.swift.libswift (>= 5.0), firmware (>= 9.0)
-Suggests: com.rpetrich.rocketbootstrap
-Conflicts: flexpackage, flexpackagebeta, com.fuyuchi.flex, flex2packagebeta, flex2package, com.fuyuchi.flex2, flex2blackpackagebeta, com.johncoates.flex3, flex3featurecatalog, flex3toolsonly
-Description: Develop your own tweaks and share them on the Flex Community Cloud
-Name: Flex 3 Beta
-Author: John Coates
-
-Package: ga.jakeashacks.sharedfix
-Status: install ok installed
-Section: Tweaks
-Architecture: iphoneos-arm
-Version: 1.1
-Depends: mobilesubstrate
-Description: Fix various packages on Unc0ver
-Author: Jake James <jakeashacks@gmail.com>
-Name: Shared Package Fix for Unc0ver
-Tag: purpose::extension
-
-Package: gawk
-Status: install ok installed
-Priority: important
-Section: Utilities
-Installed-Size: 2952
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 4.2.1-1
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: GNU's heavy-weight implementation of awk
-Name: Gawk
-Homepage: http://www.gnu.org/software/gawk/
-
 Package: gcrypt
 Status: install ok installed
 Priority: optional
@@ -1637,6 +427,7 @@ Depends: libgpg-error
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: LGPL cryptographic algorithm library
 Name: GNU Cryptography
+Tag: purpose::library, role::developer
 
 Package: gettext
 Status: install ok installed
@@ -1650,6 +441,7 @@ Depends: ncurses
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: internationalization helper for strings
 Homepage: http://www.gnu.org/software/gettext/
+Tag: purpose::library, role::developer
 
 Package: gnupg
 Status: install ok installed
@@ -1666,6 +458,7 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: gnupg2
 Description: GNU privacy guard - a free PGP replacement
 Name: GnuPG
+Tag: purpose::console, role::hacker
 
 Package: gnutls
 Status: install ok installed
@@ -1678,8 +471,9 @@ Version: 3.5.19-1
 Depends: gcrypt, gettext, libgmp10, libidn2, libunistring, nettle, p11-kit, readline
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: free sofware alternative to OpenSSL
-Name: GnuTLS
 Homepage: http://www.gnu.org/software/gnutls/
+Name: GnuTLS
+Tag: purpose::library, role::developer
 
 Package: grep
 Status: install ok installed
@@ -1693,6 +487,7 @@ Version: 3.1-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: searches files for regular expressions
 Homepage: http://www.gnu.org/software/grep/
+Tag: purpose::console, role::hacker
 
 Package: gsc.3-gvenice
 Essential: yes
@@ -1774,7 +569,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 2
+Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -2050,19 +845,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 76
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.battery-is-charging
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
+Version: 88
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -2110,7 +893,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 8
+Version: 4
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -2218,7 +1001,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 32784
+Version: 32768
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -2306,7 +1089,7 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.device-color
+Package: gsc.device-enclosure-r-g-b-color
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -2314,43 +1097,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.device-cover-glass-color
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.device-enclosure-color
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.device-housing-color
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
+Version: 12171194
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -2422,7 +1169,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 3881788
+Version: 2565928
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -2510,18 +1257,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.device-supports-camera-haptics
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.device-supports-car-integration
 Essential: yes
 Status: install ok installed
@@ -2534,7 +1269,7 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.device-supports-closed-loop-haptics
+Package: gsc.device-supports-crude-prox
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -2546,7 +1281,7 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.device-supports-crude-prox
+Package: gsc.device-supports-d-clr
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -2678,31 +1413,7 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.device-supports-si-d-p
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.device-supports-simplistic-road-mesh
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.device-supports-tethering
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -2870,42 +1581,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.enforce-shutter-click
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.external-charge-capability
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.external-power-source-connected
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.f-d-r-sealing-status
 Essential: yes
 Status: install ok installed
@@ -3050,18 +1725,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.front-facing-camera-h-d-r-on-capability
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.front-facing-camera-max-video-zoom-factor
 Essential: yes
 Status: install ok installed
@@ -3082,19 +1745,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 100
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.front-facing-camera-video-capture1080p-max-f-p-s
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 30
+Version: 250
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -3170,31 +1821,7 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.h-e-v-c-decoder10bit-supported
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.h-e-v-c-decoder8bit-supported
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.h-e-v-c-encoding-capability
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -3243,30 +1870,6 @@ Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
 Package: gsc.has-battery
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.has-extended-color-display
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.has-icefall
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -3419,18 +2022,6 @@ Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
 Version: 2
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.home-button-type
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -3746,6 +2337,18 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
+Package: gsc.mobile-device-minimum-version
+Essential: yes
+Status: install ok installed
+Priority: required
+Section: System
+Installed-Size: 0
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 1170
+Description: virtual GraphicsServices dependency
+Tag: role::cydia
+
 Package: gsc.multitasking
 Essential: yes
 Status: install ok installed
@@ -3791,18 +2394,6 @@ Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
 Version: 5
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.nfc
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -3867,6 +2458,18 @@ Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
 Package: gsc.opengles-3
+Essential: yes
+Status: install ok installed
+Priority: required
+Section: System
+Installed-Size: 0
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Architecture: iphoneos-arm
+Version: 1
+Description: virtual GraphicsServices dependency
+Tag: role::cydia
+
+Package: gsc.ota-activation
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -4238,18 +2841,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.regional-behavior-shutter-click
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.regional-behavior-valid
 Essential: yes
 Status: install ok installed
@@ -4370,18 +2961,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gsc.sphere-capability
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
 Package: gsc.stand-alone-contacts
 Essential: yes
 Status: install ok installed
@@ -4467,18 +3046,6 @@ Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
 Package: gsc.supports-s-o-s
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.supports-s-s-h-b-button-type
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -4738,7 +3305,7 @@ Section: System
 Installed-Size: 0
 Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 4355
+Version: 4350
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
@@ -4777,92 +3344,22 @@ Multi-Arch: foreign
 Version: 1.9-1
 Description: the standard Unix compression algorithm
 Homepage: http://www.gzip.org/
-
-Package: jailbreak-resources
-Status: install ok installed
-Section: System
-Installed-Size: 488
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Version: 1.0~b27
-Depends: firmware (>= 11.0), firmware (<< 12.0) | science.xnu.substituted | signing-certificate, trustinjector, mobilesubstrate (>= 0.9.7020), firmware (<< 12.0) | mobilesubstrate (>= 0.9.7031), ldid (>= 2:2.1.1+elucubratus1), launchctl, jbctl, debugserver
-Pre-Depends: dpkg (>= 1.18.25-9), launchctl
-Conflicts: science.xnu.undecimus.resources
-Description: Resources used by KPPLess Jailbreaks
-Author: Sam Bingner <maintainer@sbdhi.com>
-Name: Jailbreak Resources
-
-Package: jbctl
-Status: install ok installed
-Priority: optional
-Section: System
-Installed-Size: 120
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Version: 0.2.3-1
-Replaces: jailbreak-resources (<< 1.0~b27)
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: jailbreak-resources (<< 1.0~b27)
-Description: Displays offsets and maybe other things
-
-Package: jp.ashikase.techsupport
-Status: install ok installed
-Section: Development
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.5.0.1-2
-Depends: cokepokes.jp.ashikase.libpackageinfo
-Pre-Depends: firmware (>= 3.0)
-Conflicts: cokepokes.jp.ashikase.techsupport
-Description: Framework to assist in providing feedback to developers.
-Name: TechSupport Framework (cokepokes)
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=techsupportData
-Homepage: http://github.com/ashikase/TechSupport
-Author: Lance Fetters (ashikase) <support@ashikase.com>
-Sponsor: thebigboss.org <http://thebigboss.org>
-Tag: role::developer
-dev: ashikase
-
-Package: jp.soh.iconator2
-Status: install ok installed
-Section: Tweaks
-Maintainer: Soh Satoh
-Architecture: iphoneos-arm
-Version: 3.0
-Depends: mobilesubstrate, ws.hbang.common (>= 1.11), com.spark.libsparkapplist, preferenceloader
-Conflicts: org.cydia.kiimo.cracktool4, com.julioverne.cracktool4
-Description: Control homescreen whatever you want
-Name: Iconator2
-Author: Soh Satoh
-Icon: file:///Library/PreferenceBundles/iconator2.bundle/Icon@3x.png
-
-Package: launchctl
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 336
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Version: 23-1
-Replaces: jailbreak-resources (<< 1.0~b27)
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: Tells launchd what to do
-Name: Launch Daemon Controller
+Tag: purpose::console, role::hacker
 
 Package: ldid
 Status: install ok installed
 Priority: optional
 Section: Development
-Installed-Size: 464
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
+Installed-Size: 928
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
 Architecture: iphoneos-arm
-Version: 2:2.1.2+24497ae-1
+Version: 2:2.1.1+elucubratus2
 Depends: libplist (>= 2.0.0), libssl1.0, dpkg (>= 1.18.25-9)
-Pre-Depends: dpkg (>= 1.14.25-8)
 Description: pseudo-codesign Mach-O files
-Name: Link Identity Editor
+Tag: purpose::console, role::developer
 Author: Jay Freeman (saurik) <saurik@saurik.com>
+Depiction: http://cydia.saurik.com/info/ldid/
+Name: Link Identity Editor
 
 Package: libapt
 Essential: yes
@@ -4879,6 +3376,7 @@ Breaks: cydia (<< 1.1.10), aptitude (<< 0.4.11.11-6), apt7-lib (<< 1:0)
 Conflicts: apt7-lib (<< 1:0), apt7 (<< 1:0), apt7-key (<< 1:0), com.mc.xz
 Description: the advanced packaging library from Debian
 Name: APT Strict (lib)
+Tag: purpose::library, role::developer
 
 Package: libapt-pkg5.0
 Status: install ok installed
@@ -4894,6 +3392,7 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: apt7-lib (<< 1:0), com.mc.xz (<< 5.2.4-7)
 Description: the advanced packaging library from Debian
 Name: APT (libapt-pkg)
+Tag: purpose::library, role::developer
 
 Package: libassuan
 Status: install ok installed
@@ -4908,6 +3407,7 @@ Depends: libgpg-error, npth
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: GnuPG's inter-process communication
 Name: Assuan
+Tag: purpose::library, role::developer
 
 Package: libgmp10
 Status: install ok installed
@@ -4920,8 +3420,9 @@ Multi-Arch: foreign
 Version: 6.1.2-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: GMP is a free library for arbitrary precision arithmetic, operating on signed integers, rational numbers, and floating-point numbers. There is no practical limit to the precision except the ones implied by the available memory in the machine GMP runs on. GMP has a rich set of functions, and the functions have a regular interface.
-Name: GNU Multiple Precision Arithmetic Library
 Homepage: https://gmplib.org/
+Name: GNU Multiple Precision Arithmetic Library
+Tag: purpose::library, role::developer
 
 Package: libgpg-error
 Status: install ok installed
@@ -4936,6 +3437,7 @@ Depends: readline
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: GnuPG's error management library
 Name: GnuPG Errors
+Tag: purpose::library, role::developer
 
 Package: libidn2
 Status: install ok installed
@@ -4949,6 +3451,7 @@ Version: 6.1.2-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Libidn2 is an implementation of the IDNA2008 + TR46 specifications
 Homepage: https://www.gnu.org/software/libidn/#libidn2
+Tag: purpose::library, role::developer
 
 Package: libksba
 Status: install ok installed
@@ -4963,6 +3466,7 @@ Depends: libgpg-error
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: GnuPG's certification management library
 Name: KSBA
+Tag: purpose::library, role::developer
 
 Package: libplist
 Status: install ok installed
@@ -4974,6 +3478,7 @@ Architecture: iphoneos-arm
 Version: 2.0.0-2
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: plist library
+Tag: purpose::library, role::developer
 
 Package: libssl1.0
 Status: install ok installed
@@ -4988,6 +3493,7 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: openssl (<< 1.0.2q)
 Description: OpenSSL Libraries for version 1.0
 Name: OpenSSL 1.0 Libraries
+Tag: purpose::library, role::developer
 
 Package: libtasn1
 Status: install ok installed
@@ -5001,6 +3507,7 @@ Version: 4.13-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Libtasn1 is the ASN.1 library used by GnuTLS, p11-kit and some other packages
 Homepage: https://www.gnu.org/software/libtasn1
+Tag: purpose::library, role::developer
 
 Package: libunistring
 Status: install ok installed
@@ -5014,6 +3521,7 @@ Version: 0.9.10-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Unicode string library for C
 Homepage: https://www.gnu.org/software/libunistring/
+Tag: purpose::library, role::developer
 
 Package: lz4
 Status: install ok installed
@@ -5026,8 +3534,9 @@ Multi-Arch: foreign
 Version: 1.7.5-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Extremely Fast Compression algorithm
-Name: LZ4
 Homepage: http://tukaani.org/lzma/
+Name: LZ4
+Tag: purpose::console, role::hacker
 
 Package: lzma
 Status: install ok installed
@@ -5039,85 +3548,9 @@ Architecture: iphoneos-arm
 Version: 2:4.32.7-2
 Conflicts: com.mc.xz
 Description: slower, but better, compression algorithm
-Name: LZMA Utils
 Homepage: http://tukaani.org/lzma/
-
-Package: me.kritanta.homeplus
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 2836
-Maintainer: Kritanta
-Architecture: iphoneos-arm
-Version: 0.4.9-beta
-Depends: mobilesubstrate
-Description: Dynamic, live homescreen layout with an intuitive UI
-Name: HomePlus Beta
-Depiction: http://repo.kritanta.me/depictions/?id=me.kritanta.homeplus
-Author: Kritanta
-Icon: http://repo.kritanta.me/icon/HomePlus.png
-
-Package: me.nepeta.axon
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 572
-Maintainer: Baw Appie
-Architecture: iphoneos-arm
-Version: 0.2.4
-Depends: mobilesubstrate, ws.hbang.common (>= 1.11), firmware (>= 11.0)
-Conflicts: io.ominousness.stackxi, com.thomasfinch.priorityhub, com.ioscreatix.intelixbeta, com.ioscreatix.intelix, com.spiritoflogic.ncunify, com.spiritoflogic.unifyx, com.hidan.nclink10, org.coolstar.ventana-modern, org.coolstar.ventana, org.s1ris.spinxi
-Description: Priority Hub for iOS 11 and 12
-Name: Axon
-Author: Nepeta & Baw Appie
-
-Package: me.nepeta.libcolorpicker
-Status: install ok installed
-Priority: optional
-Section: Development
-Installed-Size: 629
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.6.2-3
-Replaces: org.thebigboss.libcolorpicker
-Provides: org.thebigboss.libcolorpicker, org.thebigboss.libcolorpicker (= 1.6.1)
-Depends: firmware (>= 9.0)
-Conflicts: org.thebigboss.libcolorpicker
-Description: libcolorpicker with arm64e (A12) support
-Name: libcolorpicker-nepeta
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libcolorpickernepetaDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libcolorpickernepetaDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-Author: Nepeta <Ominousness@protonmail.com>
-dev: pixelfiredev
-Tag: purpose::library, role::developer, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, cydia::obsolete
-
-Package: me.nepeta.relocate
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 552
-Maintainer: Nepeta
-Architecture: iphoneos-arm
-Version: 0.1.11
-Depends: mobilesubstrate, ws.hbang.common (>= 1.11), firmware (>= 11.0), applist, com.rpetrich.rocketbootstrap (>= 0.1.7)
-Description: Minimalist GPS spoofer (free)
-Name: Relocate
-Author: Nepeta
-
-Package: mobilesubstrate
-Status: install ok installed
-Priority: optional
-Section: System
-Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
-Architecture: iphoneos-arm
-Version: 0.9.7100~b4
-Replaces: cycript (<= 0.9.594), com.saurik.substrate
-Depends: com.saurik.substrate.safemode
-Pre-Depends: dpkg (>= 1.14.25-8)
-Breaks: uikittools (<< 1.1.1), com.mywi4 (<= 5.03.2), com.phoenix.pandoracontrols (<= 1.1.0-1), com.intelliborn.intelliscreenx (<= 1.0.110), com.evad3rs.evasi0n7 (<< 0.2)
-Conflicts: me.devbug.msreloadfix, com.r3pwn.startsubstrate, com.ragemasta.bootstrap, com.saurik.substrate
-Description: powerful code insertion platform
-Name: Cydia Substrate
-Author: Jay Freeman (saurik) <saurik@saurik.com>
-Depiction: http://cydia.saurik.com/info/mobilesubstrate/
+Name: LZMA Utils
+Tag: purpose::console, role::hacker
 
 Package: ncurses
 Status: install ok installed
@@ -5131,6 +3564,7 @@ Depends: ncurses5-libs
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: feature-complete terminal library
 Name: New Curses
+Tag: purpose::library, role::developer
 
 Package: ncurses5-libs
 Status: install ok installed
@@ -5143,102 +3577,7 @@ Version: 5.9-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: feature-complete terminal library
 Name: New Curses
-
-Package: net.angelxwind.karenlocalizer
-Status: install ok installed
-Section: Development
-Installed-Size: 231
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.0.5
-Depends: firmware (>= 5.0)
-Description: library for developer localization
-Author: Karen/Akemi (angelXwind) <karen@akemi.ai>
-Name: KarenLocalizer
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=karenlocalizerDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=karenlocalizerDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: angelxwind
-Tag: purpose::library, cydia::obsolete, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
-
-Package: net.angelxwind.karenprefs
-Status: install ok installed
-Section: Development
-Installed-Size: 356
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 1.5
-Depends: preferenceloader
-Description: library for developer preference bundles
-Author: Karen/Akemi <angelXwind@angelxwind.net>
-Name: KarenPrefs
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=karenprefsDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=karenprefsDp
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: angelxwind
-Tag: purpose::library, cydia::obsolete, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
-
-Package: net.angelxwind.mikoto
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 15548
-Maintainer: Karen/あけみ (angelXwind) <karen@angelxwind.net>
-Architecture: iphoneos-arm
-Version: 4.0.3
-Depends: firmware (>= 5.0), mobilesubstrate, preferenceloader (>= 2.2.0-1), net.angelxwind.karenprefs (>= 1.4), net.angelxwind.karenlocalizer
-Conflicts: com.xcxiao.simplelsios10
-Description: Comprehensive iOS System/App Store App customisation suite
-Name: mikoto
-Author: Karen/あけみ (angelXwind) <karen@angelxwind.net>
-Homepage: https://cydia.angelxwind.net/
-Depiction: https://cydia.angelxwind.net/?page/net.angelxwind.mikoto
-Icon: file:///Library/KarenRepoIcons/net.angelxwind.mikoto.png
-
-Package: net.limneos.libbulletin
-Status: install ok installed
-Section: Development
-Installed-Size: 332
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 0.1-153
-Depends: mobilesubstrate (>= 0.9.5000)
-Description: Simple library that displays bulletins
-Name: libbulletin
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libbulletinDp
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libbulletinDp
-Author: Elias Limneos <limneoselias@gmail.com>
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: limneos
-Tag: cydia::obsolete, purpose::extension, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
-
-Package: net.sident.rio.ios.breakthrough
-Status: deinstall ok config-files
-Section: Utilities
-Maintainer: Rio <rio+ipj@sident.net>
-Architecture: iphoneos-arm
-Version: 8.22.5
-Config-Version: 8.22.5
-Depends: firmware (>= 5.0), mobilesubstrate
-Description: Breaks jailbreak detection
-Name: BreakThrough
-Author: Rio <rio+ipj@sident.net>
-Depiction: http://ftp.sident.net/cydia/dep/net.sident.rio.ios.breakthrough_8.22.5.html
-
-Package: net.tetherme.tetherme8
-Status: install ok installed
-Section: Networking
-Installed-Size: 2812
-Maintainer: Sam Bingner <support@tetherme.net>
-Architecture: iphoneos-arm
-Version: 1.2.3~rc4
-Replaces: net.tetherme.tetherme
-Depends: firmware (>= 8.0), preferenceloader (>= 2.2.2), firmware (>= 11.0) | network-cmds, mobilesubstrate (<= 0.9.6301) | mobilesubstrate (= 0.9.7020) | mobilesubstrate (= 0.9.7033) | mobilesubstrate (>= 0.9.7034) | com.ex.substitute (>= 0.1.0), mobilesubstrate (<< 99.0) | com.ex.libsubstitute (>= 0.1.1)
-Pre-Depends: mobilesubstrate (>= 0.9.5101)
-Conflicts: net.tetherme.tetherme
-Description: Dynamically enables native tethering for iOS8+ devices.  This should work on any carrier without the need for customized bundles or preferences.
-Depiction: http://repo.tetherme.net/licensed/net.tetherme.tetherme8.html
-Tag: purpose::extension
-Name: TetherMe for iOS8+
+Tag: purpose::library, role::developer
 
 Package: nettle
 Status: install ok installed
@@ -5251,21 +3590,9 @@ Version: 3.4.1-1
 Depends: libgmp10
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: Nettle is a cryptographic library
-Name: Nettle
 Homepage: https://gmplib.org/
-
-Package: network-cmds
-Status: install ok installed
-Priority: important
-Section: Networking
-Installed-Size: 1968
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Version: 543-1
-Depends: firmware (>= 9.0) | rtadvd
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: arp, ifconfig, netstat, route, traceroute
-Name: Network Commands
+Name: Nettle
+Tag: purpose::library, role::developer
 
 Package: npth
 Status: install ok installed
@@ -5280,6 +3607,7 @@ Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: gnupth
 Description: portable threading library used by X
 Name: New GNU Portable Threads
+Tag: purpose::library, role::developer
 
 Package: openssh
 Status: install ok installed
@@ -5292,25 +3620,9 @@ Version: 7.9p1-3
 Depends: libssl1.0
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: secure remote access between machines
-Name: OpenSSH
 Depiction: http://cydia.saurik.com/info/openssh/
-
-Package: org.swift.libswift
-Status: install ok installed
-Section: Development
-Installed-Size: 183124
-Maintainer: BigBoss <bigboss@thebigboss.org>
-Architecture: iphoneos-arm
-Version: 5.0
-Depends: firmware (>= 7.0)
-Description: Swift runtime for iOS
-Name: libswift (stable)
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libswiftDp
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=libswiftDp
-Author: Kabir Oberai <oberai.kabir+libswift@gmail.com>
-Sponsor: thebigboss.org <http://thebigboss.org>
-dev: kabiroberai
-Tag: purpose::extension, compatible::ios12
+Name: OpenSSH
+Tag: purpose::daemon, purpose::console, role::enduser
 
 Package: org.thebigboss.repo.icons
 Status: install ok installed
@@ -5338,35 +3650,7 @@ Depends: libtasn1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: p11-glue utilities
 Homepage: https://p11-glue.github.io/p11-glue/p11-kit.html
-
-Package: p7zip
-Status: install ok installed
-Priority: optional
-Section: Archiving
-Installed-Size: 9080
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 16.02-1
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: claims to be a good compressor
-Name: 7-zip (POSIX)
-
-Package: preferenceloader
-Status: install ok installed
-Section: System
-Installed-Size: 532
-Maintainer: Dustin Howett <cydia.pl@relay.howett.net>
-Architecture: iphoneos-arm
-Version: 2.2.4~beta1
-Depends: mobilesubstrate
-Description: load preferences in style
-Name: PreferenceLoader
-Author: Dustin Howett <cydia.pl@relay.howett.net>
-dev: dustinhowett
-Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=preferenceloader2Data
-Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=preferenceloader2Data
-Tag: role::hacker, purpose::library
+Tag: purpose::library, role::developer
 
 Package: profile.d
 Status: install ok installed
@@ -5381,6 +3665,7 @@ Depends: bash
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: makes packaging for /etc/profile reasonable
 Name: Profile Directory
+Tag: purpose::console, role::hacker
 
 Package: readline
 Status: install ok installed
@@ -5393,6 +3678,7 @@ Version: 8.0-1
 Depends: ncurses
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: command-line history management
+Tag: purpose::library, role::developer
 
 Package: sed
 Status: install ok installed
@@ -5406,6 +3692,7 @@ Version: 4.5-1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: edits streams of text using patterns
 Homepage: http://www.gnu.org/software/sed/
+Tag: purpose::console, role::hacker
 
 Package: shell-cmds
 Status: install ok installed
@@ -5418,19 +3705,7 @@ Version: 118-8
 Provides: killall, which
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: killall, mktemp, renice, time, which
-
-Package: signing-certificate
-Status: install ok installed
-Section: System
-Installed-Size: 12
-Maintainer: None
-Architecture: iphoneos-arm
-Version: 0.0.1
-Depends: jailbreak-resources (>= 1.0~b4)
-Conflicts: jailbreak-resources (<< 1.0~b4)
-Description: A Certificate to sign things with
-Author: None
-Name: Signing Certificate
+Tag: purpose::console, role::hacker
 
 Package: system-cmds
 Essential: yes
@@ -5445,18 +3720,7 @@ Provides: login, passwd, reboot
 Depends: firmware-sbin
 Pre-Depends: dpkg (>= 1.14.25-8)
 Description: iostat, login, passwd, sync, sysctl
-
-Package: system-memory-reset-fix
-Status: install ok installed
-Section: System
-Installed-Size: 104
-Maintainer: Pwn20wnd
-Architecture: iphoneos-arm
-Version: 2.0
-Depends: mobilesubstrate
-Description: Prevent overnight userspace reboots triggered by mmaintenanced
-Name: System Memory Reset Fix
-Author: Pwn20wnd
+Tag: purpose::console, role::hacker
 
 Package: tar
 Status: install ok installed
@@ -5469,23 +3733,9 @@ Version: 1.30-2
 Depends: bzip2, gzip, lzma, xz
 Conflicts: dpkg (= 1.18.24)
 Description: tool for making tape archives
-Name: Tape Archive
 Homepage: http://www.gnu.org/software/tar/
-
-Package: trustinjector
-Status: install ok installed
-Section: System
-Installed-Size: 252
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Version: 0.4~b5
-Replaces: science.xnu.injector
-Provides: trustinjector, science.xnu.injector
-Conflicts: science.xnu.injector
-Description: Inject files to kernel trust cache
-Name: Trust Cache Injector
-Author: Sam Bingner <maintainer@sbdhi.com>
-Tag: role::hacker
+Name: Tape Archive
+Tag: purpose::console, role::hacker
 
 Package: uikittools
 Status: install ok installed
@@ -5497,108 +3747,31 @@ Architecture: iphoneos-arm
 Version: 1.1.15-2
 Depends: coreutils-bin, findutils
 Description: UIKit/GraphicsServices command line access
-Name: UIKit Tools
 Homepage: http://tukaani.org/lzma/
 Depiction: http://cydia.saurik.com/info/uikittools/
+Name: UIKit Tools
+Tag: purpose::console, role::hacker
 
-Package: unrar
-Status: install ok installed
-Priority: optional
-Section: Archiving
-Installed-Size: 736
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 5.6.4-1
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: de-compresses files in rar format
-Homepage: http://www.rarlab.com/rar_add.htm
-
-Package: unzip
+Package: wget
 Status: install ok installed
 Priority: important
-Section: Archiving
-Installed-Size: 808
+Section: Networking
+Installed-Size: 1112
 Maintainer: Sam Bingner <maintainer@sbdhi.com>
 Architecture: iphoneos-arm
-Version: 6.0+deb9u1-1
+Version: 1.19.5-2
+Depends: gettext, libssl1.0
 Pre-Depends: dpkg (>= 1.14.25-8)
-Description: de-compesses files in zip format
-
-Package: us.nakedproductions.dylibdisabler3
-Status: install ok installed
-Priority: optional
-Section: Utilities
-Maintainer: ichitaso
-Architecture: iphoneos-arm
-Version: 3.0-0
-Replaces: us.nakedproductions.dylibdisabler3
-Depends: firmware (>= 10.0)
-Conflicts: us.nakedproductions.dylibdisabler, us.nakedproductions.dylibdisabler2
-Description: DylibDisabler removes and disables dylibs for mobile substrate tweaks.
- DylibDisabler works for iOS10 and iOS11.4b3. It also works for the iPhone and iPad.
- You might need to make the app run as root. Use the DDChmod script to get the right permissions - then apply with terminal.
- **USE AT YOUR OWN RISK! I TAKE NO RESPONSIBILITY IF YOU NEED TO RESTORE YOUR iOS DEVICE!**
-Name: DylibDisabler 3
-Author: EvilPenguin / ichitaso
-
-Package: ws.hbang.common
-Status: install ok installed
-Section: Development
-Installed-Size: 1984
-Maintainer: HASHBANG Productions <support@hbang.ws>
-Architecture: iphoneos-arm
-Version: 1.14
-Depends: com.rpetrich.rocketbootstrap, firmware (>= 13.0) | jp.ashikase.techsupport
-Description: Support library for tweaks
-Name: Cephei
-Author: HASHBANG Productions <support@hbang.ws>
-Icon: file:///Library/PreferenceBundles/Cephei.bundle/icon@2x.png
-Depiction: https://repo.chariz.com/package/ws.hbang.common/
-Support: https://hashbang.productions/support/
-Tag: role::developer, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
-dev: hbang
-
-Package: ws.hbang.newterm2
-Status: install ok installed
-Section: Terminal Support
-Installed-Size: 6704
-Maintainer: HASHBANG Productions <support@hbang.ws>
-Architecture: iphoneos-arm
-Version: 2.3
-Replaces: ws.hbang.newterm
-Depends: firmware (>= 10.0), firmware (>= 12.2) | org.swift.libswift, ws.hbang.common (>= 1.13), bash, coreutils, ncurses, system-cmds, com.linusyang.localeutf8
-Conflicts: ws.hbang.newterm
-Description: A powerful terminal app for iOS
-Name: NewTerm (iOS 10 – 13)
-Author: HASHBANG Productions <support@hbang.ws>
-Icon: file:///Applications/NewTerm.app/AppIcon60x60@3x.png
-Depiction: https://repo.chariz.com/package/ws.hbang.newterm2/
-Support: https://hashbang.productions/support/
-Tag: compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
-
-Package: xyz.skitty.filzaplus
-Status: install ok installed
-Section: Tweaks
-Installed-Size: 776
-Maintainer: Skitty
-Architecture: iphoneos-arm
-Version: 1.0-1
-Depends: mobilesubstrate, com.tigisoftware.filza | com.tigisoftware.filza64bit
-Description: Turn Filza into a code editor.
-Name: FilzaPlus
-Icon: https://skitty.xyz/repo/icons/xyz.skitty.filzaplus.png
-Depiction: https://skitty.xyz/repo/depictions/?p=xyz.skitty.filzaplus
-SileoDepiction: https://skitty.xyz/repo/depictions/?s=xyz.skitty.filzaplus
-Author: Skitty
+Description: simple HTTP file transfer client
+Tag: purpose::console, role::hacker
 
 Package: xyz.willy.zebra
 Status: install ok installed
 Section: Packaging
-Installed-Size: 48332
+Installed-Size: 47724
 Maintainer: Wilson Styres <wilson@styres.me>
 Architecture: iphoneos-arm
-Version: 1.0~beta32-1
+Version: 1.0~beta29-2
 Depends: dpkg, uikittools, firmware (>= 9.0)
 Conflicts: com.samgisaninja.tweakcompatible-zebra (<= 1.1.3)
 Description: A Useful Package Manager
@@ -5621,18 +3794,6 @@ Depends: lzma (>= 1:0)
 Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: xz-utils, com.mc.xz
 Description: slower, but better, compression algorithm
-Name: XZ Utils
 Homepage: http://tukaani.org/lzma/
-
-Package: zip
-Status: install ok installed
-Priority: important
-Section: Archiving
-Installed-Size: 728
-Maintainer: Sam Bingner <maintainer@sbdhi.com>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 2.32-1
-Pre-Depends: dpkg (>= 1.14.25-8)
-Description: standard Windows compression tool
-
+Name: XZ Utils
+Tag: purpose::console, role::hacker
