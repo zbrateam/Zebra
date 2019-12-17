@@ -382,6 +382,7 @@
                         CLS_LOG(@"%@", message);
                         NSLog(@"[Zebra] %@", message);
                         [self writeToConsole:message atLevel:ZBLogLevelError];
+                        [self writeToConsole:@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." atLevel:ZBLogLevelInfo];
                     }
                 }
                 else {
