@@ -7,8 +7,8 @@ Architectures: iphoneos-arm
 Components: main
 Description: APT Repository for Zebra updates.
 SHA1:
- 41ef94568915d9de8a4a9739d7d075bd7526a575 14984 Packages
- 3aebf69313edf32a4ab7ffae49e6bf080a616bdc 2987 Packages.bz2
+ ea9c46018be9dfa11ac24de79e4c46ff52695b59 15662 Packages
+ 33d37b4444eed77a8f14ab89d0d22b6c65fcecf7 3205 Packages.bz2
 SHA256:
- 679594845157dbc48a2bbbd70162dbb738ee2d60137140572838ce264d93ce94 14984 Packages
- e0dfdc6ed98e5e712af1a85284d921a076535515ce7a489285c3339d1a9d746f 2987 Packages.bz2
+ 2b3e809af861a4228bb5f129cf7c1515a4bd4cabddd3451e9e943131873df943 15662 Packages
+ 2574a589bbf722c3e2d72321271f6b9fe416ce1c562e9a0ade4e4e71a86e95fc 3205 Packages.bz2
