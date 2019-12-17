@@ -382,7 +382,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-
+        
         // Check for updates
         NSLog(@"[Zebra] Checking for updates...");
         NSMutableArray *found = [NSMutableArray new];
@@ -436,6 +436,48 @@
             }
             [found addObject:package.identifier];
         }
+        
+        //In order to make this easy, we're going to check for "Essential" packages that aren't installed and mark them as updates
+        NSMutableArray *essentials = [NSMutableArray new];
+        sqlite3_stmt *essentialStatement; //v important statement
+        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, VERSION FROM PACKAGES WHERE REPOID > 0 AND ESSENTIAL = \'yes\'", -1, &essentialStatement, nil) == SQLITE_OK) {
+            while (sqlite3_step(essentialStatement) == SQLITE_ROW) {
+                const char *identifierChars = (const char *)sqlite3_column_text(essentialStatement, 0);
+                const char *versionChars = (const char *)sqlite3_column_text(essentialStatement, 1);
+                
+                NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
+                NSString *version = [NSString stringWithUTF8String:versionChars];
+                
+                if (![self packageIDIsInstalled:packageIdentifier version:version]) {
+                    NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
+                    [essentials addObject:essentialPackage];
+                }
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(essentialStatement);
+        
+        for (NSDictionary *essentialPackage in essentials) {
+            NSString *identifier = [essentialPackage objectForKey:@"id"];
+            NSString *version = [essentialPackage objectForKey:@"version"];
+            
+            BOOL ignoreUpdates = [self areUpdatesIgnoredForPackageIdentifier:[essentialPackage objectForKey:@"id"]];
+            if (!ignoreUpdates) numberOfUpdates++;
+            NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", identifier, version, ignoreUpdates ? 1 : 0];
+            
+            if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+                while (sqlite3_step(statement) == SQLITE_ROW) {
+                    break;
+                }
+            } else {
+                [self printDatabaseError];
+            }
+            sqlite3_finalize(statement);
+            
+            [upgradePackageIDs addObject:identifier];
+        }
+        
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -1050,8 +1092,12 @@
 }
 
 - (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package {
+    return [self areUpdatesIgnoredForPackageIdentifier:[package identifier]];
+}
+
+- (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT IGNORE FROM UPDATES WHERE PACKAGE = '\%@\' LIMIT 1;", package.identifier];
+        NSString *query = [NSString stringWithFormat:@"SELECT IGNORE FROM UPDATES WHERE PACKAGE = '\%@\' LIMIT 1;", identifier];
         
         BOOL ignored = NO;
         sqlite3_stmt *statement;
