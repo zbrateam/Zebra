@@ -14,7 +14,7 @@
 
 "Home" = "홈";
 "Info" = "정보";
-"Welcome to Zebra!" = "Welcome to Zebra!";
+"Welcome to Zebra!" = "Zebra에 오신걸 환영합니다!";
 "Changelog" = "변경 사항";
 "Community Repos" = "커뮤니티 레포";
 "Transfer sources from %@ to Zebra" = "%@에서 Zebra로 소스 가져오기";
