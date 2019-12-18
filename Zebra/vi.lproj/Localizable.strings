@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Thay đổi";
 "Community Repos" = "Cộng đồng Repos";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
 "Utility repo for %@" = "Repo tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
 "Please Wait..." = "Vui lòng chờ...";
