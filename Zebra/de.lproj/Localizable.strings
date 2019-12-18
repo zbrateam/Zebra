@@ -14,7 +14,7 @@
 
 "Home" = "Start";
 "Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
+"Welcome to Zebra!" = "Willkommen bei Zebra!";
 "Changelog" = "Änderungsprotokoll";
 "Community Repos" = "Community Quellen";
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
@@ -110,7 +110,7 @@
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
 "Please Wait..." = "Bitte warten...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "Verifizierung der Quelle(n)";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";
 "Log Out" = "Abmelden";
