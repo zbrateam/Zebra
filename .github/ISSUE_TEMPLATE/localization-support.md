@@ -1,7 +1,7 @@
 ---
 name: Localization support
 about: Add support for a new language in Zebra
-title: "[Localize]"
+title: ''
 labels: localization
 assignees: ''
 

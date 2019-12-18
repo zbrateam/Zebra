@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Having an issue with Zebra? Report it here!
-title: "[BUG]"
+title: ''
 labels: bug
 assignees: ''
 
