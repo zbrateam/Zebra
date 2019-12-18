@@ -14,7 +14,7 @@
 
 "Home" = "Domov";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Vitaj v Zebra Beta!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Zoznam zmien";
 "Community Repos" = "Repozitára komunity";
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
