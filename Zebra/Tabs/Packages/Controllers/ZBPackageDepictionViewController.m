@@ -788,19 +788,19 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)sendEmailToDeveloper {
+    NSString *subject = [NSString stringWithFormat:@"Zebra/APT(Z): %@ (%@)", package.name, package.version]; //don't really know what the (Z) is for but Sileo uses (M) and Cydia uses (A) so i figured (Z) was cool
+    NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-        NSString *subject = [NSString stringWithFormat:@"Zebra %@: %@ Support (%@)", PACKAGE_VERSION, package.name, package.version];
         [mail setSubject:subject];
-        NSString *body = [NSString stringWithFormat:@"%@: %@\n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
         [mail setMessageBody:body isHTML:NO];
         [mail setToRecipients:@[self.authorEmail]];
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
-        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@ Support Zebra %@", self.authorEmail, package.name, @"Arbitrary Number"];
+        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.authorEmail, subject, body];
         NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
