@@ -69,7 +69,7 @@
     
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear && type != queue) { //Remove package from queue
-        [[self queueFromType:type] removeObject:package];
+        [self removePackage:package inQueue:type versionStrict:false];
     }
     if (type != queue) {
         [[self queueFromType:queue] addObject:package];
@@ -160,6 +160,22 @@
 }
 
 - (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue {
+    [[package issues] removeAllObjects];
+    [package setRemovedBy:NULL];
+    [[self queueFromType:queue] removeObject:package];
+    [self updateQueueBarData];
+}
+
+- (void)removePackage:(ZBPackage *)package inQueue:(ZBQueueType)queue versionStrict:(BOOL)strict {
+    if (!strict) {
+        for (ZBPackage *queuedPackage in [self queueFromType:queue]) {
+            if ([[package identifier] isEqualToString:[queuedPackage identifier]]) {
+                package = queuedPackage;
+                break;
+            }
+        }
+    }
+    
     [[package issues] removeAllObjects];
     [package setRemovedBy:NULL];
     [[self queueFromType:queue] removeObject:package];
@@ -334,44 +350,6 @@
             [commands addObject:installCommand];
         }
     }
-    
-//    if ([self queueHasPackages:ZBQueueTypeUpgrade]) {
-//        NSMutableArray *upgradeCommand = [baseCommand mutableCopy];
-//        if ([binary isEqualToString:@"apt"]) {
-//            [upgradeCommand addObject:@"install"];
-//        }
-//        else {
-//            [upgradeCommand addObject:@"-i"];
-//            if (ignoreDependencies) {
-//                [upgradeCommand addObject:@"--force-depends"];
-//            }
-//        }
-//
-//        NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeUpgrade filenames:debs];
-//        [upgradeCommand addObjectsFromArray:paths];
-//
-//        [commands addObject:@[@(ZBStageUpgrade)]];
-//        [commands addObject:upgradeCommand];
-//    }
-//
-//    if ([self queueHasPackages:ZBQueueTypeDowngrade]) {
-//        NSMutableArray *downgradeCommand = [baseCommand mutableCopy];
-//        if ([binary isEqualToString:@"apt"]) {
-//            [downgradeCommand addObject:@"install"];
-//        }
-//        else {
-//            [downgradeCommand addObject:@"-i"];
-//            if (ignoreDependencies) {
-//                [downgradeCommand addObject:@"--force-depends"];
-//            }
-//        }
-//
-//        NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDowngrade filenames:debs];
-//        [downgradeCommand addObjectsFromArray:paths];
-//
-//        [commands addObject:@[@(ZBStageDowngrade)]];
-//        [commands addObject:downgradeCommand];
-//    }
     
     return commands;
 }
@@ -589,8 +567,10 @@
 
 - (ZBQueueType)locate:(ZBPackage *)package {
     for (NSNumber *key in managedQueue) {
-        if ([managedQueue[key] containsObject:package]) {
-            return key.intValue;
+        for (ZBPackage *queuedPackage in managedQueue[key]) {
+            if ([[package identifier] isEqualToString:[queuedPackage identifier]]) {
+                return key.intValue;
+            }
         }
     }
     
