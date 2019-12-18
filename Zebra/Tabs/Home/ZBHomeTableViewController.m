@@ -268,7 +268,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     if (cell == nil) {
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                     }
-                    cell.textLabel.text = NSLocalizedString(@"Welcome to the Zebra Beta!", @"");
+                    cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
                     cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
