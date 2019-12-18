@@ -14,7 +14,7 @@
 
 "Home" = "בית";
 "Info" = "מידע";
-"Welcome to the Zebra Beta!" = "ברוכים הבאים לבטא של זברה!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "מה חדש";
 "Community Repos" = "מקורות קהילתיים";
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
