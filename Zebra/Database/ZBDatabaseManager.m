@@ -1572,9 +1572,11 @@
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *found = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                [found setRemovedBy:package];
-                
-                [packages addObject:found];
+                for (NSString *dependsLine in [found dependsOn]) {
+                    if (([dependsLine containsString:packageIdentifier] && [dependsLine containsString:@"|"]) && [self willDependency:dependsLine beSatisfiedAfterTheRemovalOfPackageIdentifier:packageIdentifier]) { //This is an OR dependency, we need to check to see if it is still resolved after the parent package has been removed
+                        continue; //If it will be satisfied then skip it
+                    }
+                }
             }
         }
         sqlite3_finalize(statement);
@@ -1642,7 +1644,20 @@
 }
 
 - (BOOL)willDependency:(NSString *_Nonnull)dependency beSatisfiedAfterTheRemovalOf:(ZBPackage *_Nonnull)package {
-    if ([self openDatabase] == SQLITE_OK) {
+    return [self willDependency:dependency beSatisfiedAfterTheRemovalOfPackageIdentifier:[package identifier]];
+}
+
+- (BOOL)willDependency:(NSString *_Nonnull)dependency beSatisfiedAfterTheRemovalOfPackageIdentifier:(NSString *_Nonnull)packageID {
+    if ([dependency containsString:@"|"]) {
+        NSArray *components = [dependency componentsSeparatedByString:@"|"];
+        for (NSString *dependency in components) {
+            if ([self willDependency:[dependency stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] beSatisfiedAfterTheRemovalOfPackageIdentifier:packageID]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    else if ([self openDatabase] == SQLITE_OK) {
         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:dependency];
         NSString *packageIdentifier = versionComponents[0];
         BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];;
@@ -1652,15 +1667,15 @@
         const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
         const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIdentifier] UTF8String];
         const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIdentifier] UTF8String];
-        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", [package identifier]] UTF8String];
-        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%%@ |%%", [package identifier]] UTF8String];
+        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIdentifier] UTF8String];
+        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%%@ |%%", packageIdentifier] UTF8String];
         
         const char *query = "SELECT VERSION FROM PACKAGES WHERE PACKAGE != ? AND REPOID = 0 AND (PACKAGE = ? OR (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?)) LIMIT 1;";
         
         BOOL found = false;
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 1, [packageID UTF8String], -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 2, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 3, firstSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 4, secondSearchTerm, -1, SQLITE_TRANSIENT);
