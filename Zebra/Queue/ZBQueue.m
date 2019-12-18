@@ -577,6 +577,18 @@
     return ZBQueueTypeClear;
 }
 
+- (NSArray *)packageIDsQueuedForRemoval {
+    NSMutableArray *result = [NSMutableArray new];
+    for (ZBPackage *package in [self removeQueue]) {
+        [result addObject:[package identifier]];
+    }
+    
+    for (ZBPackage *package in [self conflictQueue]) {
+        [result addObject:[package identifier]];
+    }
+    return result;
+}
+
 - (BOOL)hasIssues {
     return [[self issues] count];
 }
