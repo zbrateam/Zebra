@@ -632,6 +632,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     if (indexPath.row < selectedFeatured.count) {
         NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
+        cell.imageView.sd_imageIndicator = nil;
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:currentBanner[@"url"]] placeholderImage:[UIImage imageNamed:currentBanner[@"section"]]];
         cell.packageID = currentBanner[@"package"];
         cell.titleLabel.text = currentBanner[@"title"];
