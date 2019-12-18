@@ -14,7 +14,7 @@
 
 "Home" = "Kezdőlap";
 "Info" = "Információ";
-"Welcome to the Zebra Beta!" = "Üdvözlünk a Zebra bétában!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Változások listája";
 "Community Repos" = "Közösségi források";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
