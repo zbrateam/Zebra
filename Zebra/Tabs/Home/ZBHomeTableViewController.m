@@ -10,6 +10,7 @@
 #import "ZBHomeTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 @import FirebaseAnalytics;
 
@@ -182,6 +183,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [dict setObject:package.iconPath forKey:@"url"];
                 [dict setObject:package.identifier forKey:@"package"];
                 [dict setObject:package.name forKey:@"title"];
+                [dict setObject:package.sectionImageName forKey:@"section"];
                 
                 [self->allFeatured addObject:dict];
             }
@@ -630,7 +632,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     if (indexPath.row < selectedFeatured.count) {
         NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
-        [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:currentBanner[@"url"]] placeholderImage:[UIImage imageNamed:currentBanner[@"section"]]];
         cell.packageID = currentBanner[@"package"];
         cell.titleLabel.text = currentBanner[@"title"];
     }
