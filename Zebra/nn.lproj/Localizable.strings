@@ -14,7 +14,7 @@
 
 "Home" = "Heim";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Velkommen til Zebra beta!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Endringslogg";
 "Community Repos" = "Felleskjelder";
 "Transfer sources from %@ to Zebra" = "Overfør kjelder frå %@ til Zebra";
