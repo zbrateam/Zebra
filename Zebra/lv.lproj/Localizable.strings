@@ -14,7 +14,7 @@
 
 "Home" = "Sākums";
 "Info" = "Informācija";
-"Welcome to the Zebra Beta!" = "Laipni lūdzam pie Zebra betas!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Izmaiņas žurnāls";
 "Community Repos" = "Citi avoti";
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
