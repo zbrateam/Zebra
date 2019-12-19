@@ -83,10 +83,10 @@
         case 0: { // rowAction
             return ^(void) {
                 if (q == ZBQueueTypeUpgrade) {
-                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
                 }
                 else if (q == ZBQueueTypeDowngrade) {
-                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
                 }
                 else if (q == ZBQueueTypeClear) {
                     [queue removePackage:package];
@@ -98,7 +98,8 @@
                 if ([vc isKindOfClass:[ZBPackageListTableViewController class]]) {
                     [(ZBPackageListTableViewController *)vc layoutNavigationButtons];
                 }
-                if (completion) {
+                
+                if (completion && q != ZBQueueTypeUpgrade && q != ZBQueueTypeDowngrade) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         completion();
                     });
@@ -108,10 +109,10 @@
         case 1: { // previewAction
             return ^(void) {
                 if (q == ZBQueueTypeUpgrade) {
-                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
                 }
                 else if (q == ZBQueueTypeDowngrade) {
-                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
                 }
                 else if (q == ZBQueueTypeInstall) {
                     BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
@@ -123,28 +124,34 @@
                 else {
                     [queue addPackage:package toQueue:q];
                 }
+                
+                if (completion && q != ZBQueueTypeUpgrade && q != ZBQueueTypeDowngrade) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
             };
         }
         case 2: { // alertAction
             return ^(void) {
                 if (q == ZBQueueTypeUpgrade) {
-                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                    [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
                 }
                 else if (q == ZBQueueTypeDowngrade) {
-                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent];
+                    [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
                 }
                 else if (q == ZBQueueTypeInstall) {
                     BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
                     [self installPackage:package purchased:purchased];
-                    
-//                    [[ZBAppDelegate tabBarController] openQueue:YES];
-                }
-                else if (q == ZBQueueTypeClear) {
-//                    [[ZBAppDelegate tabBarController] openQueue:YES];
                 }
                 else {
                     [queue addPackage:package toQueue:q];
-//                    [[ZBAppDelegate tabBarController] openQueue:YES];
+                }
+                
+                if (completion && q != ZBQueueTypeUpgrade && q != ZBQueueTypeDowngrade) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
                 }
             };
         }
@@ -212,7 +219,7 @@
     [queue addPackage:package toQueue:ZBQueueTypeInstall];
 }
 
-+ (void)selectUpgradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
++ (void)selectUpgradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     NSArray *greaterVersions = [package greaterVersions];
     if ([greaterVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
@@ -257,7 +264,7 @@
     }
 }
 
-+ (void)selectDowngradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent {
++ (void)selectDowngradeableVersionForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent completion:(void (^)(void))completion {
     NSArray *lesserVersions = [package lesserVersions];
     if ([lesserVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
@@ -266,7 +273,12 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 ZBQueue *queue = [ZBQueue sharedQueue];
                 [queue addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-//                [[ZBAppDelegate tabBarController] openQueue:NO];
+                
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
             }];
             
             [alert addAction:action];
@@ -293,12 +305,22 @@
     else if ([lesserVersions count] == 1) {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:lesserVersions[0] toQueue:ZBQueueTypeDowngrade];
-//        [[ZBAppDelegate tabBarController] openQueue:NO];
+        
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
     else {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:package toQueue:ZBQueueTypeDowngrade];
-//        [[ZBAppDelegate tabBarController] openQueue:NO];
+        
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
 }
 
