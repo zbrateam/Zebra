@@ -79,7 +79,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self colorWindow];
-    [self registerView];
 }
 
 - (void)setupFeatured {
@@ -668,14 +667,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         [databaseManager closeDatabase];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
-}
-
-#pragma mark - Analytics
-
-- (void)registerView {
-    NSString *screenName = self.title;
-    NSString *screenClass = [[self classForCoder] description];
-    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end
