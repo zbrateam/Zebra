@@ -14,7 +14,7 @@
 
 "Home" = "主页";
 "Info" = "信息";
-"Welcome to the Zebra Beta!" = "欢迎来到 Zebra 测试版！";
+"Welcome to Zebra!" = "欢迎使用 Zebra ！";
 "Changelog" = "更新日志";
 "Community Repos" = "第三方软件源";
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";

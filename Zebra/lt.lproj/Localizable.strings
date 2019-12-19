@@ -14,7 +14,7 @@
 
 "Home" = "Pagrindinis";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Sveiki atvykę į Zebra Beta!";
+"Welcome to Zebra!" = "Sveiki atvykę į Zebra!";
 "Changelog" = "Pakeitimų sąrašas";
 "Community Repos" = "Bendruomenės saugyklos";
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";

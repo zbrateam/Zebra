@@ -14,7 +14,7 @@
 
 "Home" = "主頁";
 "Info" = "資訊";
-"Welcome to the Zebra Beta!" = "歡迎使用zebra測試版";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "更新記錄";
 "Community Repos" = "社區軟件源庫";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";

@@ -14,7 +14,7 @@
 
 "Home" = "หน้าหลัก";
 "Info" = "ข้อมูล";
-"Welcome to the Zebra Beta!" = "ยินดีต้อนรับสู่ Zebra Beta!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Community Repos" = "รวมซอร์สจากชุมชน";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
