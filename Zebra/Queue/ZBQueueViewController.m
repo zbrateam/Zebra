@@ -281,7 +281,7 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:true completion:nil];
     }
-    else if ([[package dependsOn] count] > 0) {
+    else if ([[package dependencyOf] count] > 0) {
         NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ is required by:", @""), [package name]] mutableCopy];
         for (ZBPackage *parent in [package dependencyOf]) {
             [message appendFormat:@"\n%@", [parent name]];
