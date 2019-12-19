@@ -116,6 +116,10 @@
 }
 
 - (void)addConflict:(ZBPackage *)package removeDependencies:(BOOL)remove {
+    ZBQueueType location = [self locate:package];
+    if (location != ZBQueueTypeClear) {
+        [self removePackage:package inQueue:location];
+    }
     if (![[self conflictQueue] containsObject:package]) {
         package.ignoreDependencies = !remove;
         [[self conflictQueue] addObject:package];
