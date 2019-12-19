@@ -14,10 +14,10 @@
 
 "Home" = "Kezdőlap";
 "Info" = "Információ";
-"Welcome to the Zebra Beta!" = "Üdvözlünk a Zebra bétában!";
+"Welcome to Zebra!" = "Üdvözöl a Zebra!";
 "Changelog" = "Változások listája";
 "Community Repos" = "Közösségi források";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
 "Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Források átvitele";
 "Please Wait..." = "Kérlek, várj...";
@@ -221,7 +221,7 @@
 // Downloads
 
 "Downloads" = "Letöltések";
-"Error while opening sources.list" = "Error while opening sources.list";
+"Error while opening sources.list" = "Hiba a forráslista megnyitásakor";
 "The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 "Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";

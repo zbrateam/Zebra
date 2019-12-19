@@ -14,7 +14,7 @@
 
 "Home" = "Inicio";
 "Info" = "Información";
-"Welcome to the Zebra Beta!" = "¡Bienvenido a Zebra Beta!";
+"Welcome to Zebra!" = "¡Bienvenido a Zebra!";
 "Changelog" = "Cambios";
 "Community Repos" = "Repositorios de la comunidad";
 "Transfer sources from %@ to Zebra" = "Transferir fuentes de %@ a Zebra";
@@ -52,7 +52,7 @@
 
 "Accent Color" = "Color del acentuado";
 "Blue" = "Azul";
-"Orange" = "Naranja";
+"Orange" = "Anaranjado";
 "White" = "Blanco";
 "Black" = "Negro";
 

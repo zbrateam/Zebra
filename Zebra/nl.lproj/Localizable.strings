@@ -14,7 +14,7 @@
 
 "Home" = "Thuis";
 "Info" = "Informatie";
-"Welcome to the Zebra Beta!" = "Welkom bij de beta van Zebra!";
+"Welcome to Zebra!" = "Welkom bij Zebra!";
 "Changelog" = "Wijzigingslogboek";
 "Community Repos" = "Community Bronnen";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";

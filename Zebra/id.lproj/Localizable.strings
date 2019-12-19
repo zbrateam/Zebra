@@ -14,7 +14,7 @@
 
 "Home" = "Home";
 "Info" = "Info";
-"Welcome to the Zebra Beta!" = "Selamat datang di Zebra Beta!";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Changelog";
 "Community Repos" = "Repo Komunitas";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";

@@ -14,7 +14,7 @@
 
 "Home" = "خانه";
 "Info" = "مشخصات";
-"Welcome to the Zebra Beta!" = "به زبرا نسخه ی بتا خوش آمدید";
+"Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "لیست تغییرات";
 "Community Repos" = "مخزن های معتبر";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
