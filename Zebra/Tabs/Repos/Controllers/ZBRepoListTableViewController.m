@@ -471,7 +471,7 @@
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self->sources removeObject:repo];
             [self->repoManager deleteSource:repo];
-            [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+            [self refreshTable];
         }];
         [actions addObject:deleteAction];
     }
