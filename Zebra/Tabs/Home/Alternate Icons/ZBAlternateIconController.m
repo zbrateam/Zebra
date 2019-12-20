@@ -104,7 +104,6 @@
 - (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {
     if (@available(iOS 10.3, *)) {
         if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
-            [[UIApplication sharedApplication] alternateIconName];
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
                     NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);

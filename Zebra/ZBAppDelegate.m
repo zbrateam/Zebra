@@ -206,7 +206,12 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     
     [self setDefaultValues];
+#if DEBUG
+    NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
+#else
+    NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
     [FIRApp configure];
+#endif
     [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
     
     NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";

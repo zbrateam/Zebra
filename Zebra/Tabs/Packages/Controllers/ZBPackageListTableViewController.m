@@ -69,7 +69,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     
     self.section = [self.section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-    NSLog(@"Section: %@", self.section);
 }
 
 - (void)applyLocalization {
@@ -449,7 +448,7 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 

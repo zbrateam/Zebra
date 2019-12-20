@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -538,14 +538,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="dMk-W6-d0A">
                         <rightBarButtonItems>
-                            <barButtonItem image="Dark" landscapeImage="Dark" largeContentSizeImage="Dark" id="2dE-CN-evu">
-                                <connections>
-                                    <action selector="toggleDarkMode:" destination="hAX-u8-Al6" id="rwD-0S-3ae"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem image="Settings" landscapeImage="Settings" id="5Na-Lv-DT1">
                                 <connections>
                                     <action selector="settingsButtonTapped:" destination="hAX-u8-Al6" id="u9x-LH-PZ2"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="Dark" landscapeImage="Dark" largeContentSizeImage="Dark" id="2dE-CN-evu">
+                                <connections>
+                                    <action selector="toggleDarkMode:" destination="hAX-u8-Al6" id="rwD-0S-3ae"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
