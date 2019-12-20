@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00ED302E235C23C5005E8302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00ED302C235C23C5005E8302 /* Localizable.strings */; };
-		2627B60B2321A63E00B141E5 /* originalBlack_ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60A2321A63E00B141E5 /* originalBlack_ipad@3x.png */; };
-		2627B60D2321A64400B141E5 /* originalBlack_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60C2321A64400B141E5 /* originalBlack_ipad@2x.png */; };
+		2627B60B2321A63E00B141E5 /* originalBlack~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60A2321A63E00B141E5 /* originalBlack~ipad@3x.png */; };
+		2627B60D2321A64400B141E5 /* originalBlack~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60C2321A64400B141E5 /* originalBlack~ipad@2x.png */; };
 		2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60E2321A64D00B141E5 /* originalBlack@3x.png */; };
 		2627B6112321A65200B141E5 /* originalBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B6102321A65200B141E5 /* originalBlack@2x.png */; };
 		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
@@ -180,8 +180,8 @@
 /* Begin PBXFileReference section */
 		00ED302D235C23C5005E8302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		13FE5E702363D4DE0052F0AB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2627B60A2321A63E00B141E5 /* originalBlack_ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack_ipad@3x.png"; sourceTree = "<group>"; };
-		2627B60C2321A64400B141E5 /* originalBlack_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack_ipad@2x.png"; sourceTree = "<group>"; };
+		2627B60A2321A63E00B141E5 /* originalBlack~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack~ipad@3x.png"; sourceTree = "<group>"; };
+		2627B60C2321A64400B141E5 /* originalBlack~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack~ipad@2x.png"; sourceTree = "<group>"; };
 		2627B60E2321A64D00B141E5 /* originalBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@3x.png"; sourceTree = "<group>"; };
 		2627B6102321A65200B141E5 /* originalBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@2x.png"; sourceTree = "<group>"; };
 		36200B6522D2B3E000C13F6D /* ZBRepoBlacklistTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoBlacklistTableViewController.h; sourceTree = "<group>"; };
@@ -564,8 +564,8 @@
 				36F77AE522A3414B00A4604C /* darkZebraSkin~ipad@3x.png */,
 				36F77AE322A3412C00A4604C /* darkZebraSkin~ipad@2x.png */,
 				36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */,
-				2627B60C2321A64400B141E5 /* originalBlack_ipad@2x.png */,
-				2627B60A2321A63E00B141E5 /* originalBlack_ipad@3x.png */,
+				2627B60C2321A64400B141E5 /* originalBlack~ipad@2x.png */,
+				2627B60A2321A63E00B141E5 /* originalBlack~ipad@3x.png */,
 				2627B6102321A65200B141E5 /* originalBlack@2x.png */,
 				36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */,
 				2627B60E2321A64D00B141E5 /* originalBlack@3x.png */,
@@ -1120,9 +1120,9 @@
 				36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */,
 				00ED302E235C23C5005E8302 /* Localizable.strings in Resources */,
 				2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */,
-				2627B60B2321A63E00B141E5 /* originalBlack_ipad@3x.png in Resources */,
+				2627B60B2321A63E00B141E5 /* originalBlack~ipad@3x.png in Resources */,
 				36AC5A6A22AB30E4004C2332 /* zWhite@2x.png in Resources */,
-				2627B60D2321A64400B141E5 /* originalBlack_ipad@2x.png in Resources */,
+				2627B60D2321A64400B141E5 /* originalBlack~ipad@2x.png in Resources */,
 				36AC5A6C22AB30E4004C2332 /* zWhite@3x.png in Resources */,
 				896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */,
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
