@@ -449,7 +449,7 @@
                 NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
                 NSString *version = [NSString stringWithUTF8String:versionChars];
                 
-                if (![self packageIDIsInstalled:packageIdentifier version:version]) {
+                if (![self packageIDIsInstalled:packageIdentifier version:NULL]) {
                     NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
                     [essentials addObject:essentialPackage];
                 }
