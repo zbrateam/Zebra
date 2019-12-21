@@ -14,10 +14,10 @@
 
 "Home" = "หน้าหลัก";
 "Info" = "ข้อมูล";
-"Welcome to Zebra!" = "Welcome to Zebra!";
+"Welcome to Zebra!" = "ยินดีต้อนรับสู่ Zebra!";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Community Repos" = "รวมซอร์สจากชุมชน";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Please Wait..." = "โปรดรอ...";
