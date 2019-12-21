@@ -16,7 +16,6 @@
 #import <Console/ZBStage.h>
 
 @interface ZBQueue ()
-@property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray <ZBPackage *> *> *managedQueue;
 @end
 
@@ -160,6 +159,7 @@
             [self removePackage:dependencyOf];
         }
     }
+    [queuedPackagesList removeObject:[package identifier]];
     [self updateQueueBarData];
 }
 
@@ -510,10 +510,6 @@
         }
     }
     return NO;
-}
-
-- (NSArray <NSString *> *)queuedPackagesList {
-    return queuedPackagesList;
 }
 
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue {
