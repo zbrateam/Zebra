@@ -10,5 +10,5 @@
 #import "UIColor+GlobalColors.h"
 
 @interface ZBChangeLogTableViewController : UITableViewController
-@property NSArray *changeLogArray;
+@property NSArray *releases;
 @end

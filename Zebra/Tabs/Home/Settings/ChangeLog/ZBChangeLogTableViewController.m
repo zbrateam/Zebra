@@ -14,17 +14,27 @@
 @end
 
 @implementation ZBChangeLogTableViewController
-@synthesize changeLogArray;
+
+@synthesize releases;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:NSLocalizedString(@"Changelog", @"")];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = spinner;
+    [spinner startAnimating];
+    
+    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self fetchGithubReleases];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    
+    if (releases == NULL) {
+        [self fetchGithubReleases];
+    }
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -36,21 +46,28 @@
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:@"https://api.github.com/repos/wstyres/Zebra/releases"]];
     
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
-            self->changeLogArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
+            self->releases = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         }
-        ZBLog(@"[Zebra] Github error %@", error);
-      }] resume];
+        else {
+            ZBLog(@"[Zebra] Error while trying to access GitHub releases: %@", error);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            self.navigationItem.titleView = NULL;
+            self.navigationItem.title = NSLocalizedString(@"Changelog", @"");
+        });
+    }];
+    
+    [task resume];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [changeLogArray count];
+    return [releases count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -59,7 +76,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"changeLogCell";
-    NSDictionary *dataDict = [changeLogArray objectAtIndex:indexPath.section];
+    NSDictionary *dataDict = [releases objectAtIndex:indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
@@ -83,20 +100,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDictionary *jsonDict = [changeLogArray objectAtIndex:section];
+    NSDictionary *jsonDict = [releases objectAtIndex:section];
     return jsonDict[@"name"] ? jsonDict[@"name"] : @"Error";
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return section == 0 ? 30 : 45;
 }
 
 @end
