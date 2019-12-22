@@ -629,6 +629,62 @@
     return NO;
 }
 
+- (NSArray *)installedPackagesListExcluding:(ZBPackage *_Nullable)exclude {
+    NSMutableArray *result = [NSMutableArray new];
+    
+    for (ZBPackage *package in [self installQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self reinstallQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self upgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self downgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    return result;
+}
+
+- (NSArray *)virtualPackagesListExcluding:(ZBPackage *_Nullable)exclude {
+    NSMutableArray *result = [NSMutableArray new];
+    
+    for (ZBPackage *package in [self installQueue]) {
+        if ([package isEqual:exclude]) continue;
+        [result addObjectsFromArray:[package provides]];
+    }
+    
+    for (ZBPackage *package in [self reinstallQueue]) {
+        if ([package isEqual:exclude]) continue;
+        [result addObjectsFromArray:[package provides]];
+    }
+    
+    for (ZBPackage *package in [self upgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        [result addObjectsFromArray:[package provides]];
+    }
+    
+    for (ZBPackage *package in [self downgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        [result addObjectsFromArray:[package provides]];
+    }
+    
+    return result;
+}
+
 - (NSArray <NSMutableArray *> *)queues {
     // The order must match those in ZBQueueType.h
     return @[[self installQueue], [self removeQueue], [self reinstallQueue], [self upgradeQueue], [self downgradeQueue]];

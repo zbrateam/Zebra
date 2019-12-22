@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)containsEssentialOrRequiredPackage;
 - (void)addConflict:(ZBPackage *)package removeDependencies:(BOOL)remove;
 - (NSArray *)packageIDsQueuedForRemoval;
+- (NSArray *)installedPackagesListExcluding:(ZBPackage *_Nullable)exclude;
+- (NSArray *)virtualPackagesListExcluding:(ZBPackage *_Nullable)exclude;
 @end
 
 NS_ASSUME_NONNULL_END
