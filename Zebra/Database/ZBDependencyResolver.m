@@ -123,10 +123,15 @@
     //First lets check to see if any installed packages conflict with this package
     NSArray *packagesThatConflictWith = [databaseManager packagesThatConflictWith:package];
     if ([packagesThatConflictWith count] > 0) {
-        //We cannot install this package as there are some already installed packages that conflict here
         for (ZBPackage *conflict in packagesThatConflictWith) {
-            [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", [conflict name], [package name]]];
+            if (![[package conflictsWith] containsObject:[conflict identifier]]) {
+                //We cannot install this package as there are some already installed packages that conflict here
+                [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", [conflict name], [package name]]];
+            }
         }
+    }
+    
+    if ([package hasIssues]) {
         return NO;
     }
     
