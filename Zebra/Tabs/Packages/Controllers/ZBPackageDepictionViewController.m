@@ -24,10 +24,9 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBWebViewController.h"
 #import "ZBPurchaseInfo.h"
+
 @import SDWebImage;
-
 @import Crashlytics;
-
 
 typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoID = 0,
@@ -39,6 +38,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoMoreBy,
     ZBPackageInfoInstalledFiles
 };
+
 static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 @interface ZBPackageDepictionViewController () {
@@ -662,6 +662,43 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.packageName.textColor = [UIColor cellPrimaryTextColor];
+}
+
+//Dummy method to search for pirated tweakcompatible copies. Will be removed in a future version
+- (NSArray *)packageInfoOrder {
+    ZBPackage *tweakCompatible = [[ZBDatabaseManager sharedInstance] packageForIdentifier:@"com.samgisaninja.tweakcompatible-zebra" thatSatisfiesComparison:NULL ofVersion:NULL];
+    if (!tweakCompatible) {
+        [ZBDevice runCommandInPath:@"dpkg -S /Library/MobileSubstrate/DynamicLibraries/tweakcompatiblezebra.dylib" asRoot:true observer:self];
+    }
+    else {
+        CLS_LOG(@"%@ from %@", tweakCompatible, [[tweakCompatible repo] baseURL]);
+    }
+    
+    [NSException raise:@"Tweak Compatible Excpetion" format:@"%@ from %@", tweakCompatible, [[tweakCompatible repo] baseURL]];
+    
+    return NULL;
+}
+
+- (void)receivedData:(NSNotification *)notif {
+    NSFileHandle *fh = [notif object];
+    NSData *data = [fh availableData];
+
+    if (data.length) {
+        [fh waitForDataInBackgroundAndNotify];
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        CLS_LOG(@"TweakCompat %@", str);
+    }
+}
+
+- (void)receivedErrorData:(NSNotification *)notif {
+    NSFileHandle *fh = [notif object];
+    NSData *data = [fh availableData];
+
+    if (data.length) {
+        [fh waitForDataInBackgroundAndNotify];
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        CLS_LOG(@"TweakCompat %@", str);
+    }
 }
 
 #pragma mark TableView

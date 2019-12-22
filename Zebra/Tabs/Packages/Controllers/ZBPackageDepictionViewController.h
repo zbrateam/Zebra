@@ -10,6 +10,8 @@
 #import <WebKit/WebKit.h>
 #import <Packages/Controllers/ZBPackagesByAuthorTableViewController.h>
 #import "ZBInstalledFilesTableViewController.h"
+#import <Console/ZBConsoleCommandDelegate.h>
+
 @import SafariServices;
 @import MessageUI;
 
@@ -17,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
+@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, ZBConsoleCommandDelegate>
 @property (nonatomic, strong) ZBPackage *package;
 @property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
