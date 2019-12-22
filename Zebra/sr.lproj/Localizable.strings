@@ -14,10 +14,10 @@
 
 "Home" = "Početna";
 "Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
+"Welcome to Zebra!" = "Dobro došli u Zebru!";
 "Changelog" = "Promene";
 "Community Repos" = "Repos Udruženja";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Transfer sources from %@ to Zebra" = "Prebaci sve izvore %@ u Zebru";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
 "Please Wait..." = "Molimo vas sačekajte...";
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternativne ikonice";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Naglašeni Repoi";
 
 // Sources
 
@@ -318,15 +318,15 @@
 
 "Change the accent color that displays across Zebra." = "Promeni glavnu boju koja se prikazuje u Zebri.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Promeni temu Zebrinog tamnog moda kada je to moguće.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Promeni izvor naglašenih paketa na početnoj stranici.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“Naglašeni Repo” će prikazivati nasumične pakete iz repoa koji podržavaju API za nasumične pakete.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“Nasumično” će prikazivati pakete od svih repoa koje ste dodali u Zabri.";
 
-"Community News" = "Community News";
+"Community News" = "Vesti iz Udruženja";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
