@@ -197,6 +197,11 @@
 
 - (void)clear {
     for (NSMutableArray *array in [self queues]) {
+        for (ZBPackage *package in array) {
+            [[package issues] removeAllObjects];
+            [[package dependencies] removeAllObjects];
+            [[package dependencyOf] removeAllObjects];
+        }
         [array removeAllObjects];
     }
     [[self dependencyQueue] removeAllObjects];
