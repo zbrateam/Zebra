@@ -215,7 +215,7 @@
     }
 }
 
-+ (void)runCommandInPath:(NSString *)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer {
++ (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer {
     NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
     NSString *shellPath = [environmentDict objectForKey:@"SHELL"];
     

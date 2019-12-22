@@ -26,7 +26,7 @@
 + (void)asRoot:(NSTask *_Nullable)task arguments:(NSArray *_Nullable)arguments;
 + (void)restartSpringBoard;
 + (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
-+ (void)runCommandInPath:(NSString *)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer;
++ (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer;
 
 // Utils
 + (void)openURL:(NSURL *_Nonnull)url delegate:(UIViewController <SFSafariViewControllerDelegate> *_Nonnull)delegate;
