@@ -67,8 +67,9 @@
     if (package == NULL) return;
     
     ZBQueueType type = [self locate:package];
-    if (type != ZBQueueTypeClear && type != queue) { //Remove package from queue
+    if (type != ZBQueueTypeClear) { //Remove package from queue, this probably needs to be rewritten to support the same package with a different version being added to the same queue
         [self removePackage:package inQueue:type versionStrict:false];
+        type = ZBQueueTypeClear;
     }
     if (type != queue) {
         [[self queueFromType:queue] addObject:package];
