@@ -1586,7 +1586,7 @@
                 for (NSString *dependsLine in dependsOn) {
                     NSError *error = NULL;
                     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"\\b%@\\b", [package identifier]] options:NSRegularExpressionCaseInsensitive error:&error];
-                    if ([regex numberOfMatchesInString:dependsLine options:0 range:NSMakeRange(0, [dependsLine length])] && ![self willDependency:dependsLine beSatisfiedAfterTheRemovalOfPackageIdentifiers:[[ZBQueue sharedQueue] packageIDsQueuedForRemoval]]) { //Use regex to search with block words
+                    if ([regex numberOfMatchesInString:dependsLine options:0 range:NSMakeRange(0, [dependsLine length])] && ![self willDependencyBeSatisfiedAfterQueueOperations:dependsLine]) { //Use regex to search with block words
                         packageNeedsToBeRemoved = YES;
                     }
                 }
@@ -1605,7 +1605,7 @@
         for (NSString *provided in [package provides]) { //If the package is removed and there is no other package that provides this dependency, we have to remove those as well
             if ([provided containsString:packageIdentifier]) continue;
             if (![[package identifier] isEqualToString:packageIdentifier] && [[package provides] containsObject:provided]) continue;
-            if (![self willDependency:provided beSatisfiedAfterTheRemovalOfPackageIdentifiers:[[ZBQueue sharedQueue] packageIDsQueuedForRemoval]]) {
+            if (![self willDependencyBeSatisfiedAfterQueueOperations:provided]) {
                 [packages addObjectsFromArray:[self packagesThatDependOnPackageIdentifier:provided removedPackage:package]];
             }
         }
@@ -1664,30 +1664,34 @@
     return NULL;
 }
 
-- (BOOL)willDependency:(NSString *_Nonnull)dependency beSatisfiedAfterTheRemovalOf:(NSArray <ZBPackage *> *)packages {
-    NSMutableArray *array = [NSMutableArray new];
-    for (ZBPackage *package in packages) {
-        [array addObject:[NSString stringWithFormat:@"\'%@\'", [package identifier]]];
-    }
-    return [self willDependency:dependency beSatisfiedAfterTheRemovalOfPackageIdentifiers:array];
-}
+//- (BOOL)willDependency:(NSString *_Nonnull)dependency beSatisfiedAfterTheRemovalOf:(NSArray <ZBPackage *> *)packages {
+//    NSMutableArray *array = [NSMutableArray new];
+//    for (ZBPackage *package in packages) {
+//        [array addObject:[NSString stringWithFormat:@"\'%@\'", [package identifier]]];
+//    }
+//    return [self willDependency:dependency beSatisfiedAfterTheRemovalOfPackageIdentifiers:array];
+//}
 
-- (BOOL)willDependency:(NSString *_Nonnull)dependency beSatisfiedAfterTheRemovalOfPackageIdentifiers:(NSArray <NSString *> *_Nonnull)packageIdentifiers {
+- (BOOL)willDependencyBeSatisfiedAfterQueueOperations:(NSString *_Nonnull)dependency {
     if ([dependency containsString:@"|"]) {
         NSArray *components = [dependency componentsSeparatedByString:@"|"];
         for (NSString *dependency in components) {
-            if ([self willDependency:[dependency stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] beSatisfiedAfterTheRemovalOfPackageIdentifiers:packageIdentifiers]) {
+            if ([self willDependencyBeSatisfiedAfterQueueOperations:[dependency stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]]) {
                 return true;
             }
         }
         return false;
     }
     else if ([self openDatabase] == SQLITE_OK) {
+        ZBQueue *queue = [ZBQueue sharedQueue];
+        NSArray *addedPackages =   [queue packagesQueuedForAdddition]; //Packages that are being installed, upgraded, removed, downgraded, etc. (dependencies as well)
+        NSArray *removedPackages = [queue packageIDsQueuedForRemoval]; //Just packageIDs that are queued for removal (conflicts as well)
+        
         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:dependency];
         NSString *packageIdentifier = versionComponents[0];
         BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];;
         
-        NSString *excludeString = [self excludeStringFromArray:packageIdentifiers];
+        NSString *excludeString = [self excludeStringFromArray:removedPackages];
         const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
         const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIdentifier] UTF8String];
         const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
@@ -1727,6 +1731,20 @@
                     found = true;
                     break;
                 }
+            }
+            
+            if (!found) { //Search the array of packages that are queued for installation to see if one of them satisfies the dependency
+                for (NSDictionary *package in addedPackages) {
+                    if ([[package objectForKey:@"identifier"] isEqualToString:packageIdentifier]) {
+                        if (needsVersionComparison && [ZBDependencyResolver doesVersion:[package objectForKey:@"version"] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
+                            return true;
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
             
             sqlite3_finalize(statement);

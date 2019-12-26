@@ -582,7 +582,95 @@
     return ZBQueueTypeClear;
 }
 
-- (NSArray *)packageIDsQueuedForRemoval {
+- (NSArray <NSDictionary *> *)packagesQueuedForAdddition {
+    return [[self installedPackagesListExcluding:NULL] arrayByAddingObjectsFromArray:[self virtualPackagesListExcluding:NULL]];
+}
+
+- (NSArray <NSDictionary *> *)installedPackagesListExcluding:(ZBPackage *_Nullable)exclude {
+    NSMutableArray *result = [NSMutableArray new];
+    
+    for (ZBPackage *package in [self installQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self reinstallQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self upgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self downgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    for (ZBPackage *package in [self dependencyQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    return result;
+}
+
+- (NSArray <NSDictionary *> *)virtualPackagesListExcluding:(ZBPackage *_Nullable)exclude {
+    NSMutableArray *result = [NSMutableArray new];
+    
+    for (ZBPackage *package in [self installQueue]) {
+        if ([package isEqual:exclude]) continue;
+        for (NSString *virtualPackage in [package provides]) {
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
+            [result addObject:dict];
+        }
+    }
+    
+    for (ZBPackage *package in [self reinstallQueue]) {
+        if ([package isEqual:exclude]) continue;
+        for (NSString *virtualPackage in [package provides]) {
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
+            [result addObject:dict];
+        }
+    }
+    
+    for (ZBPackage *package in [self upgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        for (NSString *virtualPackage in [package provides]) {
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
+            [result addObject:dict];
+        }
+    }
+    
+    for (ZBPackage *package in [self downgradeQueue]) {
+        if ([package isEqual:exclude]) continue;
+        for (NSString *virtualPackage in [package provides]) {
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
+            [result addObject:dict];
+        }
+    }
+    
+    for (ZBPackage *package in [self dependencyQueue]) {
+        if ([package isEqual:exclude]) continue;
+        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
+        [result addObject:dict];
+    }
+    
+    return result;
+}
+
+- (NSArray <NSString *> *)packageIDsQueuedForRemoval {
     NSMutableArray *result = [NSMutableArray new];
     for (ZBPackage *package in [self removeQueue]) {
         [result addObject:[package identifier]];
@@ -632,62 +720,6 @@
         }
     }
     return NO;
-}
-
-- (NSArray *)installedPackagesListExcluding:(ZBPackage *_Nullable)exclude {
-    NSMutableArray *result = [NSMutableArray new];
-    
-    for (ZBPackage *package in [self installQueue]) {
-        if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
-    }
-    
-    for (ZBPackage *package in [self reinstallQueue]) {
-        if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
-    }
-    
-    for (ZBPackage *package in [self upgradeQueue]) {
-        if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
-    }
-    
-    for (ZBPackage *package in [self downgradeQueue]) {
-        if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
-    }
-    
-    return result;
-}
-
-- (NSArray *)virtualPackagesListExcluding:(ZBPackage *_Nullable)exclude {
-    NSMutableArray *result = [NSMutableArray new];
-    
-    for (ZBPackage *package in [self installQueue]) {
-        if ([package isEqual:exclude]) continue;
-        [result addObjectsFromArray:[package provides]];
-    }
-    
-    for (ZBPackage *package in [self reinstallQueue]) {
-        if ([package isEqual:exclude]) continue;
-        [result addObjectsFromArray:[package provides]];
-    }
-    
-    for (ZBPackage *package in [self upgradeQueue]) {
-        if ([package isEqual:exclude]) continue;
-        [result addObjectsFromArray:[package provides]];
-    }
-    
-    for (ZBPackage *package in [self downgradeQueue]) {
-        if ([package isEqual:exclude]) continue;
-        [result addObjectsFromArray:[package provides]];
-    }
-    
-    return result;
 }
 
 - (NSArray <NSMutableArray *> *)queues {
