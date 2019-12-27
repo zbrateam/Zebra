@@ -664,8 +664,11 @@
     
     for (ZBPackage *package in [self dependencyQueue]) {
         if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
+        for (NSString *virtualPackage in [package provides]) {
+            NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
+            [result addObject:dict];
+        }
     }
     
     return result;
