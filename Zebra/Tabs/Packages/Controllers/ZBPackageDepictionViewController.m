@@ -666,15 +666,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 //Dummy method to search for pirated tweakcompatible copies. Will be removed in a future version
 - (NSArray *)packageInfoOrder {
-    ZBPackage *tweakCompatible = [[ZBDatabaseManager sharedInstance] packageForIdentifier:@"com.samgisaninja.tweakcompatible-zebra" thatSatisfiesComparison:NULL ofVersion:NULL];
-    if (!tweakCompatible) {
-        [ZBDevice runCommandInPath:@"dpkg -S /Library/MobileSubstrate/DynamicLibraries/tweakcompatiblezebra.dylib" asRoot:true observer:self];
-    }
-    else {
-        CLS_LOG(@"%@ from %@", tweakCompatible, [[tweakCompatible repo] baseURL]);
-    }
+    NSString *message = [NSString stringWithFormat:@"A tweak is calling -packageInfoOrder for ZBPackageDepictionViewController. Please report this issue and remove or update the incompatible tweak (most likely a tweak that hooks into Zebra). Last Call: %@ %@", [NSThread callStackSymbols][0], [NSThread callStackSymbols][1]];
+    UIAlertController *deprecationAlert = [UIAlertController alertControllerWithTitle:@"Incompatible Tweak" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok :(" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [deprecationAlert dismissViewControllerAnimated:true completion:nil];
+    }];
     
-    [NSException raise:@"Tweak Compatible Excpetion" format:@"%@ from %@", tweakCompatible, [[tweakCompatible repo] baseURL]];
+    [deprecationAlert addAction:action];
+    [self presentViewController:deprecationAlert animated:true completion:nil];
     
     return NULL;
 }
