@@ -228,7 +228,12 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 ZBQueue *queue = [ZBQueue sharedQueue];
                 [queue addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
-//                [[ZBAppDelegate tabBarController] openQueue:NO];
+                
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion();
+                    });
+                }
             }];
             
             [alert addAction:action];
@@ -255,12 +260,22 @@
     else if ([greaterVersions count] == 1) {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:greaterVersions[0] toQueue:ZBQueueTypeUpgrade];
-//        [[ZBAppDelegate tabBarController] openQueue:NO];
+        
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
     else {
         ZBQueue *queue = [ZBQueue sharedQueue];
         [queue addPackage:package toQueue:ZBQueueTypeUpgrade];
-//        [[ZBAppDelegate tabBarController] openQueue:NO];
+        
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
     }
 }
 
