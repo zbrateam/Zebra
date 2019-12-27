@@ -61,17 +61,18 @@
         return YES;
 
     int nx = (int)[choices indexOfObject:comparison];
+    NSComparisonResult result = [self compareVersion:candidate toVersion:version];
     switch (nx) {
         case 0:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending;
+            return result == NSOrderedAscending;
         case 1:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedAscending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+            return result == NSOrderedAscending || result == NSOrderedSame;
         case 2:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+            return result == NSOrderedSame;
         case 3:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending || [self compareVersion:candidate toVersion:version] == NSOrderedSame;
+            return result == NSOrderedDescending || result == NSOrderedSame;
         case 4:
-            return [self compareVersion:candidate toVersion:version] == NSOrderedDescending;
+            return result == NSOrderedDescending;
         default:
             return NO;
     }
@@ -310,20 +311,18 @@
 }
 
 - (BOOL)isPackageProvided:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *_Nullable)comparison ofVersion:(NSString *_Nullable)version {
-    for (NSString *providedPackage in virtualPackagesList) {
-        if ([providedPackage containsString:packageIdentifier]) {
-            if ([providedPackage containsString:@"("] || [providedPackage containsString:@")"]) {
-                NSArray *components = [ZBDependencyResolver separateVersionComparison:providedPackage];
-                //We should now have a separate version and a comparison string
-                
-                if ([packageIdentifier isEqualToString:components[0]]) {
-                    return [ZBDependencyResolver doesVersion:components[2] satisfyComparison:comparison ofVersion:version];
+    for (NSDictionary *providedPackage in virtualPackagesList) {
+        NSString *virtualPackageIdentifier = [providedPackage objectForKey:@"identifier"];
+        NSString *virtualPackageVersion    = [providedPackage objectForKey:@"version"];
+        if ([packageIdentifier isEqualToString:virtualPackageIdentifier]) {
+            if (comparison && version) { //If there is a version comparison, we can't return true for packages with no version so we MUST check if the package has a version and continue on otherwise
+                BOOL needsVersionComparison = ![virtualPackageVersion isEqualToString:@"0:0"];
+                if (needsVersionComparison && [ZBDependencyResolver doesVersion:virtualPackageVersion satisfyComparison:comparison ofVersion:version]) {
+                    return YES; //If the virtual package provides a version that satisfies the comparison, we return true, otherwise we continue
                 }
             }
             else {
-                if ([packageIdentifier isEqualToString:providedPackage]) {
-                    return YES;
-                }
+                return YES;
             }
         }
     }
