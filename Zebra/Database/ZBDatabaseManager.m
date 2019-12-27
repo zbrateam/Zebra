@@ -827,7 +827,10 @@
         NSDictionary *installedPackage = @{@"identifier": [package identifier], @"version": [package version]};
         [installedPackages addObject:installedPackage];
         
-        for (NSString *virtualPackage in [package provides]) {
+        for (NSString *virtualPackageLine in [package provides]) {
+            NSArray *comps = [ZBDependencyResolver separateVersionComparison:virtualPackageLine];
+            NSDictionary *virtualPackage = @{@"identifier": comps[0], @"version": comps[2]};
+            
             [virtualPackages addObject:virtualPackage];
         }
     }
@@ -1689,7 +1692,7 @@
         
         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:dependency];
         NSString *packageIdentifier = versionComponents[0];
-        BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];;
+        BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];
         
         NSString *excludeString = [self excludeStringFromArray:removedPackages];
         const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
