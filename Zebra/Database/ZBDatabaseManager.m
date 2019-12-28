@@ -1207,7 +1207,7 @@
         sqlite3_finalize(statement);
         
         [self closeDatabase];
-        return packages[0] ? packages[0] : NULL; //Returns the first package in the array, we could use interactive dependency resolution in the future
+        return [packages count] ? packages[0] : NULL; //Returns the first package in the array, we could use interactive dependency resolution in the future
     }
     [self printDatabaseError];
     return NULL;
