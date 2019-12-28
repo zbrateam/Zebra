@@ -149,13 +149,13 @@
     }
     else if (action != ZBQueueTypeClear) {
         [self removePackage:package inQueue:action];
-        for (ZBPackage *dependency in [package dependencies]) {
+        for (ZBPackage *dependency in [[package dependencies] copy]) {
             [[dependency dependencyOf] removeObject:package];
             if ([[dependency dependencyOf] count] <= 1) {
                 [self removePackage:dependency];
             }
         }
-        for (ZBPackage *dependencyOf in [package dependencyOf]) {
+        for (ZBPackage *dependencyOf in [[package dependencyOf] copy]) {
             [[dependencyOf dependencies] removeObject:package];
             [self removePackage:dependencyOf];
         }
