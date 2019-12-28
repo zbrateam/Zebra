@@ -1184,8 +1184,21 @@
             sqlite3_bind_text(statement, exclude ? 9 : 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                [packages addObject:package];
+                const char *providesLine = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
+                if (providesLine != 0) {
+                    NSString *provides = [[NSString stringWithUTF8String:providesLine] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    NSArray *virtualPackages = [provides componentsSeparatedByString:@","];
+                    
+                    for (NSString *virtualPackage in virtualPackages) {
+                        NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+                        if ([versionComponents[0] isEqualToString:packageIdentifier] &&
+                            (![versionComponents[2] isEqualToString:@"0:0"] || [ZBDependencyResolver doesVersion:versionComponents[2] satisfyComparison:comparison ofVersion:version])) {
+                            ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                            [packages addObject:package];
+                            break;
+                        }
+                    }
+                }
             }
         } else {
             [self printDatabaseError];
@@ -1193,21 +1206,8 @@
         }
         sqlite3_finalize(statement);
         
-        for (ZBPackage *package in packages) {
-            //If there is a comparison and a version then we return the first package that satisfies this comparison, otherwise we return the first package we see
-            //(this also sets us up better later for interactive dependency resolution)
-            if (comparison && version && [ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version]) {
-                [self closeDatabase];
-                return package;
-            }
-            else if (!comparison || !version) {
-                [self closeDatabase];
-                return package;
-            }
-        }
-        
         [self closeDatabase];
-        return NULL;
+        return packages[0] ? packages[0] : NULL; //Returns the first package in the array, we could use interactive dependency resolution in the future
     }
     [self printDatabaseError];
     return NULL;
