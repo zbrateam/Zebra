@@ -1190,9 +1190,9 @@
                     NSArray *virtualPackages = [provides componentsSeparatedByString:@","];
                     
                     for (NSString *virtualPackage in virtualPackages) {
-                        NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+                        NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:[virtualPackage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
                         if ([versionComponents[0] isEqualToString:packageIdentifier] &&
-                            (![versionComponents[2] isEqualToString:@"0:0"] || [ZBDependencyResolver doesVersion:versionComponents[2] satisfyComparison:comparison ofVersion:version])) {
+                            ([versionComponents[2] isEqualToString:@"0:0"] || [ZBDependencyResolver doesVersion:versionComponents[2] satisfyComparison:comparison ofVersion:version])) {
                             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                             [packages addObject:package];
                             break;
@@ -1303,7 +1303,7 @@
         
         // Only try to resolve "Provides" if we can't resolve the normal package.
         if (checkVirtual && package == NULL) {
-            package = [self installedPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
+            package = [self packageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
         
         if (package != NULL) {
