@@ -34,6 +34,7 @@
     NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
     
     NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    packageIdentifier = [packageIdentifier lowercaseString];
     
     NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *comparison;
