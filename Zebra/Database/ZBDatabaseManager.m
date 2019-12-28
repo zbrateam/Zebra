@@ -1596,9 +1596,11 @@
 
                 if (packageNeedsToBeRemoved) {
                     ZBPackage *found = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                    [found setRemovedBy:package];
+                    if ([[ZBQueue sharedQueue] locate:found] == ZBQueueTypeClear) {
+                        [found setRemovedBy:package];
 
-                    [packages addObject:found];
+                        [packages addObject:found];
+                    }
                 }
             }
         }
