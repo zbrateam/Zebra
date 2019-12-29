@@ -36,14 +36,14 @@
 "Creators" = "Créateurs";
 "Contributors" = "Contributeurs";
 "Translators" = "Traducteurs";
-"Libraries" = "Librairies";
+"Libraries" = "Bibliothèques";
 
 // Settings
 
 "Settings" = "Paramètres";
 "Version" = "Version";
 "Interface" = "Interface";
-"Featured" = "En Vedette";
+"Featured" = "À l'affiche";
 "News" = "Nouveautés";
 "Miscellaneous" = "Divers";
 "Advanced" = "Avancé";
