@@ -213,7 +213,7 @@
 
 // Search
 
-"Search" = "Hledat";
+"Search" = "Hledání";
 "Clear Search" = "Vyčistit hledání";
 "This search query is too short for the full search, please use a longer query." = "Tento dotaz je příliš krátký pro úplné hledání, prosím zadejte více.";
 "No Results Found" = "Žádné Výsledky Nenalezeny";
@@ -316,11 +316,11 @@
 
 "Configure the appearance of table view swipe actions." = "Nastaví vzhled akcí přetažením.";
 
-"Change the accent color that displays across Zebra." = "Změnit doplňkovou barvu.";
+"Change the accent color that displays across Zebra." = "Změní doplňkovou barvu.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Změňtit vzhled tmavého režimu Zebry.";
+"Change the style of Zebra's dark mode when it is enabled." = "Změní vzhled tmavého režimu Zebry.";
 
-"Change the source of the featured packages on the homepage." = "Změnit zdroj doporučených balíčků na domovské stránce.";
+"Change the source of the featured packages on the homepage." = "Změní zdroj doporučených balíčků na domovské stránce.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "„Návrhy repozitáře“ zobrazí náhodné balíčky z repozitářů, které podporují Featured Package API.";
 
