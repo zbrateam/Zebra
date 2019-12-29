@@ -14,14 +14,14 @@
 
 "Home" = "Start";
 "Info" = "Info";
-"Welcome to Zebra!" = "Willkommen bei Zebra!";
+"Welcome to Zebra!" = "Willkommen zu Zebra!";
 "Changelog" = "Änderungsprotokoll";
 "Community Repos" = "Community Quellen";
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
 "Utility repo for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
-"Verifying Source(s)" = "Quelle(n) verifizieren";
+"Verifying Source(s)" = "Verifizieren der Quelle(n)";
 "Stores" = "Shop";
 "Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
