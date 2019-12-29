@@ -341,12 +341,17 @@
     else {
         CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
-        ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
-        
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
-        SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
-        
-        return sfVC;
+        if ([self.redditPosts count] && indexPath.row < [self.redditPosts count]) {
+            ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
+            
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
+            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+            
+            return sfVC;
+        }
+        else {
+            return NULL;
+        }
     }
 }
 
