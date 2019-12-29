@@ -157,7 +157,7 @@
 "%@ (Installed Version: %@)" = "%@ (Installierte Version: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installierte Größe: %@)";
+"%@ (Installed Size: %@)" = "%@ (Größe der Installation: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -215,7 +215,7 @@
 
 "Search" = "Suchen";
 "Clear Search" = "Suche leeren";
-"This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage";
+"This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage.";
 "No Results Found" = "Keine Ergebnisse gefunden";
 
 // Downloads
@@ -229,7 +229,7 @@
 "Could not determine device information." = "Geräteinformationen nicht gefunden.";
 "Could not find a download URL for" = "Konnte keine Download-URL finden für";
 "%@ hasn't been modified" = "%@ wurde nicht bearbeitet";
-"Could not parse %@ from %@" = "Konnte  %@ von %@ nicht analysieren";
+"Could not parse %@ from %@" = "Konnte %@ von %@ nicht analysieren";
 
 // Console
 
@@ -245,7 +245,7 @@
 "Installing Packages..." = "Pakete werden installiert...";
 "Removing" = "Wird entfernt";
 "Removing Packages..." = "Pakete werden entfernt...";
-"Reinstalling" = "Neu Installiert";
+"Reinstalling" = "Neu Installieren";
 "Reinstalling Packages..." = "Pakete werden neu installiert...";
 "Upgrading" = "Aktualisiere";
 "Upgrading Packages..." = "Pakete werden aktualisiert...";
@@ -255,7 +255,7 @@
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \\“Zurück zur Warteschlange“\\, um zur Warteschlange zurückzukehren und versuche es erneut.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \"Zurück zur Warteschlange\", um zur Warteschlange zurückzukehren und versuche es erneut.";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakete in der Warteschlange";
@@ -294,7 +294,7 @@
 
 "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Der Zugriff auf su/sling ist nicht möglich. Bitte überprüfen Sie, ob /usr/libexec/zebra/supersling existiert.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ist nicht Besitzer von root:wheel. Bitte überprüfen Sie die Berechtigungen der Datei unter /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "root:wheel ist nicht Besitzer von su/sling. Bitte überprüfen Sie die Berechtigungen der Datei unter /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling verfügt nicht über die Berechtigung, die „uid” oder „gid” festzulegen. Bitte überprüfen Sie die Berechtigungen der Datei unter /usr/libexec/zebra/supersling.";
 
@@ -310,7 +310,7 @@
 
 "Display featured packages on the homepage." = "Empfohlene Pakete auf der Homepage anzeigen.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Zeige aktuelle Community-Beiträge von /r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Beim Tippen nach Paketen suchen. Deaktivieren dieser Funktion kann die Verzögerung auf älteren Geräten verringern.";
 
