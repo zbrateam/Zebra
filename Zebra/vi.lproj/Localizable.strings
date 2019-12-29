@@ -14,7 +14,7 @@
 
 "Home" = "Trang Chủ";
 "Info" = "Thông tin";
-"Welcome to Zebra!" = "Welcome to Zebra!";
+"Welcome to Zebra!" = "Chào mừng đến Zebra!";
 "Changelog" = "Thay đổi";
 "Community Repos" = "Cộng đồng Repos";
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
@@ -65,7 +65,7 @@
 "App Icon" = "Biểu tượng ứng dụng";
 
 "Featured Packages" = "Gói Cần Thiết";
-"Repo Featured" = "Repo nổi bật";
+"Repo Featured" = "Nguồn nổi bật";
 "Random" = "Ngẫu nhiên";
 "Feature Type" = "Loại tính năng";
 "Select Repos to be Featured" = "Chọn Repo nổi bật";
@@ -157,7 +157,7 @@
 "%@ (Installed Version: %@)" = "%@ (Phiên bản đã cài đặt: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Dung lượng đã cài: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -174,7 +174,7 @@
 // Package Section Names
 
 "Administration" = "Quyền quản trị";
-"Addons" = "Addons";
+"Addons" = "Tiện ích";
 "App Addons" = "Ứng dụng bổ trợ";
 "Archiving" = "Lưu trữ";
 "Carrier Support" = "Hỗ trợ Carrier";
@@ -258,8 +258,8 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
 
 // Queue Bar
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
+"%d Packages Queued" = "%d Gói đang chờ";
+"%d Package Queued" = "%d Gói đang chờ";
 "Tap to manage" = "Nhấn để quản lý";
 "No Packages Queued" = "Không có gói xếp hàng";
 
