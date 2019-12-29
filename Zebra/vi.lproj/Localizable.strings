@@ -5,7 +5,7 @@
 "Ok" = "Đồng ý";
 "Error" = "Lỗi";
 "Retry" = "Thử lại";
-"Edit" = "Soạn thảo";
+"Edit" = "Chỉnh sửa";
 "Login" = "Đăng nhập";
 "Close" = "Đóng";
 "Done" = "Xong";
@@ -16,9 +16,9 @@
 "Info" = "Thông tin";
 "Welcome to Zebra!" = "Chào mừng đến Zebra!";
 "Changelog" = "Thay đổi";
-"Community Repos" = "Cộng đồng Repos";
+"Community Repos" = "Cộng đồng Nguồn";
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
-"Utility repo for %@" = "Repo tiện ích cho %@";
+"Utility repo for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
@@ -32,7 +32,7 @@
 
 //Credits
 
-"Credits" = "Tín Dụng";
+"Credits" = "Thẻ Tín Dụng";
 "Creators" = "Tác giả";
 "Contributors" = "Người đóng góp";
 "Translators" = "Biên dịch viên";
