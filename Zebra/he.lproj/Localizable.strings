@@ -32,7 +32,7 @@
 
 //Credits
 
-"Credits" = "זכויות";
+"Credits" = "קרדיטים";
 "Creators" = "יוצרים";
 "Contributors" = "תורמים";
 "Translators" = "מתרגמים";
@@ -65,7 +65,7 @@
 "App Icon" = "אייקון היישום";
 
 "Featured Packages" = "חבילות מומלצות";
-"Repo Featured" = "המלצת המקור";
+"Repo Featured" = "המלצת מקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
@@ -322,7 +322,7 @@
 
 "Change the source of the featured packages on the homepage." = "שנה את מקור החבילות המומלצות במסך הבית.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת המקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת מקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
 
