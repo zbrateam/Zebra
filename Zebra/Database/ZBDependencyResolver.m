@@ -149,15 +149,19 @@
         NSArray *conflict = [ZBDependencyResolver separateVersionComparison:conflictLine];
         BOOL needsVersionComparison = ![conflict[1] isEqualToString:@"<=>"] && ![conflict[2] isEqualToString:@"0:0"];
         
-        //If the virtual packages list contains the package ID at all we assume there is a conflict
-        if ([virtualPackagesList containsObject:conflict[0]]) [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
-        else if (needsVersionComparison) {
-            for (NSString *virtualPackage in virtualPackagesList) {
-                NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
-                BOOL needsVersionComparison = ![components[1] isEqualToString:@"<=>"] && ![components[2] isEqualToString:@"0:0"];
-                if (needsVersionComparison && [ZBDependencyResolver doesVersion:conflict[2] satisfyComparison:components[1] ofVersion:components[2]]) {
-                    [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
-                }
+        for (NSDictionary *virtualPackage in virtualPackagesList) {
+            NSString *version = [virtualPackage objectForKey:@"version"];
+            NSString *identifier = [virtualPackage objectForKey:@"identifier"];
+            
+            //If there is a version comparison and the virtual package has a version, check against the version and add a conflict if true
+            if ((needsVersionComparison && version != NULL) && ([ZBDependencyResolver doesVersion:version satisfyComparison:conflict[1] ofVersion:conflict[2]])) {
+                [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
+                break;
+            }
+            //Otherwise, check if the identifier is equal and there is NO version comparison and NO version provided
+            else if ([identifier isEqualToString:conflict[0]] && (!needsVersionComparison || version == NULL)) {
+                [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
+                break;
             }
         }
     }
