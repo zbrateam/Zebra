@@ -26,6 +26,14 @@
 #pragma mark - Version Comparison separation
 
 + (NSArray *)separateVersionComparison:(NSString *)dependency {
+    if ([dependency isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dep = (NSDictionary *)dependency;
+        NSString *version = [dep objectForKey:@"version"];
+        NSString *identifier = [dep objectForKey:@"identifier"];
+        
+        return @[identifier, @"=", version];
+    }
+    
     if (![dependency containsString:@"("] || ![dependency containsString:@")"]) {
         return @[dependency, @"<=>", @"0:0"];
     }
