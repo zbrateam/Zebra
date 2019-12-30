@@ -134,7 +134,7 @@
 "Select a version to downgrade to:" = "Selecione uma versão para fazer o downgrade:";
 "Package" = "Pacote";
 "Information" = "Informação";
-"Upgrade All" = "Atualizar Todos";
+"Upgrade All" = "Atualizar tudo";
 "Loaded" = "Carregado";
 "ABC" = "ABC";
 "Date" = "Data";
@@ -168,7 +168,7 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Adicionar na Lista de Desejos";
+"Add to Wish List" = "Adicionar à Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
 
 // Package Section Names
