@@ -146,6 +146,7 @@
     }
     
     for (NSString *conflictLine in [package conflictsWith]) {
+        if ([[package replaces] containsObject:conflictLine] || [[package provides] containsObject:conflictLine]) continue;
         NSArray *conflict = [ZBDependencyResolver separateVersionComparison:conflictLine];
         BOOL needsVersionComparison = ![conflict[1] isEqualToString:@"<=>"] && ![conflict[2] isEqualToString:@"0:0"];
         
