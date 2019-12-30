@@ -2,7 +2,7 @@ name: Upload Release
 
 on:
   release:
-    types: [published, prereleased]
+    types: [published]
 
 jobs:
   build:
