@@ -242,13 +242,13 @@
 "Downloading" = "ダウンロードしています";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
-"Installing Packages..." = "パッケージをインストールします...";
+"Installing Packages..." = "パッケージをインストールしています...";
 "Removing" = "削除しています";
 "Removing Packages..." = "パッケージを削除します...";
 "Reinstalling" = "再インストールしています";
-"Reinstalling Packages..." = "パッケージを再インストールします...";
+"Reinstalling Packages..." = "パッケージを再インストールしています...";
 "Upgrading" = "アップグレードしています";
-"Upgrading Packages..." = "パッケージをアップグレードします...";
+"Upgrading Packages..." = "パッケージをアップグレードしています...";
 "Complete" = "完了";
 "Finished!" = "完了！";
 "Return to Queue" = "キューに戻る";
