@@ -95,13 +95,13 @@
 // Sources
 
 "Sources" = "Sorgenti";
-"Local Repository" = "Repository Locale";
+"Local Repository" = "Sorgente Locale";
 "Locally installed packages" = "Pacchetti installati localmente";
 "Unknown" = "Sconosciuto";
-"No repository urls detected." = "Nessun URL di repository rilevato.";
-"You have already added these repositories." = "Hai già aggiunto queste repository.";
-"Error verifying repository" = "Errore durante la verifica del repository";
-"Error verifying repositories" = "Errore durante la verifica dei repository";
+"No repository urls detected." = "Nessun URL di sorgente rilevato.";
+"You have already added these repositories." = "Hai già aggiunto queste sorgenti.";
+"Error verifying repository" = "Errore durante la verifica della sorgente";
+"Error verifying repositories" = "Errore di verifica delle sorgenti";
 "Unknown error" = "Errore sconosciuto";
 "Invalid URL" = "URL non valido";
 "Enter URL" = "Inserisci URL";
