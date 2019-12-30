@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "取消";
-"No" = "拒絕";
+"No" = "否";
 "Ok" = "確認";
 "Error" = "錯誤";
 "Retry" = "重試";
@@ -12,7 +12,7 @@
 
 // Home
 
-"Home" = "主頁";
+"Home" = "首頁";
 "Info" = "資訊";
 "Welcome to Zebra!" = "歡迎使用 Zebra！";
 "Changelog" = "更新記錄";
@@ -114,19 +114,19 @@
 "Unable to verify Repo" = "無法驗證來源";
 "Refresh" = "重新整理";
 "Log Out" = "登出";
-"Purchased Packages" = "已購買軟件包";
+"Purchased Packages" = "已購買套件";
 "Purchased" = "已購買";
 
-"All Packages" = "所有軟件包";
+"All Packages" = "所有套件";
 "Delete" = "刪除";
 
 // Changes
 
-"Changes" = "變更";
+"Changes" = "變更內容";
 
 // Packages
 
-"Packages" = "套件（Packages）";
+"Packages" = "套件";
 "Show Updates" = "顯示更新";
 "Ignore Updates" = "忽略更新";
 "Select Version" = "選擇版本";
@@ -141,13 +141,13 @@
 "Size" = "大小";
 "Clear" = "清除";
 "Are you sure you want to clear Queue?" = "確定要清除佇列嗎？";
-"Available Upgrades" = "可更新";
-"Ignored Upgrades" = "忽略的更新";
+"Available Upgrades" = "可用的更新";
+"Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
-"Repo" = "軟體源";
+"Repo" = "來源";
 "Installed Files" = "已安裝檔案";
 "Modify" = "修改";
-"Authenticate to initiate purchase." = "登錄後購買";
+"Authenticate to initiate purchase." = "請登入以購買";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "請重新登入您曾經用來購買此套件的帳號（可能是 %@）";
 "More by this Developer" = "此開發者的更多作品";
 "Installed Version" = "已安裝的版本";
@@ -189,7 +189,7 @@
 "Imaging" = "圖像";
 "Java" = "Java";
 "Keyboards" = "鍵盤";
-"Localization" = "本地化";
+"Localization" = "在地化";
 "Messaging" = "傳訊";
 "Multimedia" = "多媒體";
 "Navigation" = "導航";
@@ -233,27 +233,27 @@
 
 // Console
 
-"Console" = "控制檯";
+"Console" = "主控台";
 "Performing Actions..." = "執行動作…";
-"Updating icon cache asynchronously..." = "正在異步刷新圖標緩存……";
-"This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要壹段時間，Zebra 可能會閃退，無需擔心.";
+"Updating icon cache asynchronously..." = "正在非同步更新圖示快取...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
 "Close Zebra" = "關閉 Zebra";
-"Restart SpringBoard" = "重啟 SpringBoard";
-"Downloading" = "下載中......";
-"Downloading Packages..." = "正在下載軟件包……";
-"Installing" = "安裝中";
-"Installing Packages..." = "正在安裝軟件包……";
-"Removing" = "删除";
-"Removing Packages..." = "正在移除軟件包……";
+"Restart SpringBoard" = "重新啟動主畫面";
+"Downloading" = "正在下載";
+"Downloading Packages..." = "正在下載套件...";
+"Installing" = "正在安裝";
+"Installing Packages..." = "正在安裝套件...";
+"Removing" = "正在移除";
+"Removing Packages..." = "正在移除套件...";
 "Reinstalling" = "正在重新安裝";
-"Reinstalling Packages..." = "正在重新安裝軟件包……";
-"Upgrading" = "升級中";
-"Upgrading Packages..." = "正在更新軟件包……";
+"Reinstalling Packages..." = "正在重新安裝套件...";
+"Upgrading" = "正在更新";
+"Upgrading Packages..." = "正在更新套件...";
 "Complete" = "完成";
-"Finished!" = "结束！";
-"Return to Queue" = "返回至列表";
-"Importing local packages." = "正在導入本地軟件包";
-"Finished importing local packages." = "導入本地軟件包完成。";
+"Finished!" = "已完成！";
+"Return to Queue" = "返回至佇列";
+"Importing local packages." = "正在匯入本地套件。";
+"Finished importing local packages." = "匯入本地套件已完成。";
 "One or more packages failed to download." = "一個或多個套件下載失敗。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點選「返回佇列」以回到佇列並重新嘗試下載。";
 
