@@ -382,19 +382,6 @@
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([[self objectAtSection:section] count]) {
-        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
-        view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        view.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-        
-        return view;
-    }
-    
-    return NULL;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
     BOOL isIgnoredUpdateSection = [repo repoID] == 0 && needsIgnoredUpdatesSection && section == needsUpdatesSection;
