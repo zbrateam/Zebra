@@ -78,7 +78,7 @@
 "Text" = "Texte";
 "Icon" = "Icône";
 "Open Documents Directory" = "Ouvrir le dossier Documents";
-"Clear Image Cache" = "Nettoyer le Cache de l'Image";
+"Clear Image Cache" = "Vider le cache des images";
 "Clear Keychain" = "Nettoyer la Keychain";
 
 "Loading..." = "Chargement...";
@@ -108,7 +108,7 @@
 "Add Repo(s)" = "Ajouter la(les) source(s)";
 "Add" = "Ajouter";
 "Add Multiple" = "Ajouter plusieurs";
-"Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter cet URL à votre presse-papiers?";
+"Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter l'URL de votre presse-papiers ?";
 "Please Wait..." = "Patientez...";
 "Verifying Source(s)" = "Vérification de la(des) Source(s)";
 "Unable to verify Repo" = "Impossible de vérifier la(les) Source(s)";
@@ -129,7 +129,7 @@
 "Packages" = "Paquets";
 "Show Updates" = "Afficher les Mises à Jour";
 "Ignore Updates" = "Ignorer les Mises à Jour";
-"Select Version" = "Selectionner la Version";
+"Select Version" = "Sélectionner la Version";
 "Select a version to upgrade to:" = "Sélectionnez la version vers laquelle mettre à jour :";
 "Select a version to downgrade to:" = "Sélectionnez la version vers laquelle rétrograder :";
 "Package" = "Paquet";
@@ -203,7 +203,7 @@
 "Social" = "Social";
 "System" = "Système";
 "Terminal Support" = "Support de terminaux";
-"Text Editors" = "Éditeur de texte";
+"Text Editors" = "Éditeurs de texte";
 "Themes" = "Thèmes";
 "Toys" = "Jouets";
 "Tweaks" = "Tweaks";
@@ -249,13 +249,13 @@
 "Reinstalling Packages..." = "Réinstallation des Paquets...";
 "Upgrading" = "Mise à niveau";
 "Upgrading Packages..." = "Mise à niveau des Paquets...";
-"Complete" = "Fini";
+"Complete" = "Terminé";
 "Finished!" = "Terminé!";
 "Return to Queue" = "Retourner à la File d'attente";
 "Importing local packages." = "Importation des paquets locaux.";
 "Finished importing local packages." = "Importation des paquets locaux terminée.";
 "One or more packages failed to download." = "Un ou plusieurs paquets n'ont pas pu être téléchargés.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Clic \"Retour à la File d'Attente\" pour retourner à la File d'Attente et réessayer le téléchargement.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Cliquez sur \"Retour à la File d'Attente\" pour retourner à la File d'Attente et retenter le téléchargement.";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paquets en file d'attente";
