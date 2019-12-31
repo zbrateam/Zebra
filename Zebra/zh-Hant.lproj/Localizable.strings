@@ -27,8 +27,8 @@
 "Wish List" = "願望清單";
 "No items in Wish List" = "願望清單中沒有項目";
 "Community" = "社群";
-"Join our Discord" = "加入我們的 Discord 伺服器";
-"Follow me on Twitter" = "請在 Twitter 上跟隨我們";
+"Join our Discord" = "加入 Discord 伺服器";
+"Follow me on Twitter" = "在 Twitter 上跟隨";
 
 //Credits
 
@@ -74,7 +74,7 @@
 
 "Live Search" = "即時搜尋";
 
-"Swipe Actions Display As" = "講左右滑動顯示方式設為";
+"Swipe Actions Display As" = "套件列表左右滑動功能顯示模式";
 "Text" = "文字";
 "Icon" = "圖示";
 "Open Documents Directory" = "打開文件目錄";
@@ -214,8 +214,8 @@
 // Search
 
 "Search" = "搜尋";
-"Clear Search" = "清除搜尋";
-"This search query is too short for the full search, please use a longer query." = "您輸入的文字太短，因此無法搜尋。請使用更長的文字。";
+"Clear Search" = "清除搜尋紀錄";
+"This search query is too short for the full search, please use a longer query." = "您輸入的關鍵字太短，因此無法搜尋。請使用更長的關鍵字進行搜尋。";
 "No Results Found" = "找不到相符的結果";
 
 // Downloads
@@ -312,7 +312,7 @@
 
 "Display recent community posts from /r/jailbreak." = "顯示 /r/jailbreak 最近的文章。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "在輸入文字時同時搜尋套件。關閉此功能或許會讓舊裝置運作時更順暢。";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "在輸入關鍵字時同時搜尋套件。關閉此功能可以讓舊裝置運作時更順暢。";
 
 "Configure the appearance of table view swipe actions." = "調整左右滑動表單時的外觀";
 
