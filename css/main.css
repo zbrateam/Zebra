@@ -21,6 +21,7 @@ body {
   color: rgb(210, 210, 210);
   margin-top: 0;
   margin-bottom: 3vh;
+  max-width: 25em;
 }
 
 .info-container {
