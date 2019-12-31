@@ -3,14 +3,7 @@ body {
   padding: 0.3em;
 }
 
-.logo-container {
-  display: flex;
-}
-
 .logo {
-  display: inline-flex;
-  align-self: center;
-  border-radius: 20%;
   margin-bottom: 1vh;
   max-width: 45vh;
   max-height: 45vh;
@@ -35,8 +28,7 @@ body {
 }
 
 .screenshot {
-  max-width: 88vw;
-  max-height: 88vh;
+  max-height: 87vh;
   margin-top: 1em;
 }
 
@@ -52,7 +44,7 @@ body {
 }
 
 .white-tinted {
-  color: white !important;
+  color: rgb(210, 210, 210) !important;
 }
 
 .btn-zeeb {
