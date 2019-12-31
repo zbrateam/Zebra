@@ -1,0 +1,71 @@
+body {
+  background-image: linear-gradient(#000000, #000000, #434343);
+  padding: 0.3em;
+}
+
+.logo-container {
+  display: flex;
+}
+
+.logo {
+  display: inline-flex;
+  align-self: center;
+  border-radius: 20%;
+  margin-bottom: 1vh;
+  max-width: 45vh;
+  max-height: 45vh;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 5em;
+  color: white;
+  margin-bottom: 0.1em;
+}
+
+.subtitle {
+  font-size: 1.5em;
+  color: rgb(210, 210, 210);
+  margin-top: 0;
+  margin-bottom: 3vh;
+}
+
+.info-container {
+  padding-top: 25%;
+}
+
+.screenshot {
+  max-width: 88vw;
+  max-height: 88vh;
+  margin-top: 1em;
+}
+
+.tinted {
+  color: #6680F9 !important;
+}
+
+.tinted:hover,
+.tinted:active,
+.tinted:focus,
+.tinted.active {
+  color: #4D67E0 !important;
+}
+
+.white-tinted {
+  color: white !important;
+}
+
+.btn-zeeb {
+  color: #fff;
+  background-color: #6680F9;
+  border-color: #6680F9;
+}
+
+.btn-zeeb:hover,
+.btn-zeeb:active,
+.btn-zeeb:focus,
+.btn-zeeb.active {
+  background: #4D67E0;
+  color: #ffffff;
+  border-color: #4D67E0;
+}

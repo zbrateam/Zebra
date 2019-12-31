@@ -1,142 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL6ZQBQJCE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-JL6ZQBQJCE');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="An alternative package manager for iOS.">
-    <title>Zebra Package Manager</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/main.css">
-  </head>
-  <body>
-    <div class="logo-container">
-      <img src="./assets/zbra.svg" alt="zebra-logo" class="zebraLogo" width="90vw">
-      <h1 class="firstZebraTitle">Zebra</h1>
-    </div>
-  </section>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JL6ZQBQJCE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  <section class="cta" id="credits">
-    <div class="cta-content">
-      <div class="container">
-        <div class="section-heading text-center">
-          <h2 class="text-center" style="display: inline-block !important;">Credits:</h2>
-        </div>
-          <div class="row d-flex justify-content-center">
-            <div class="col-xs-12 col-sm-3 d-flex justify-content-center">
-              <a href="https://twitter.com/xTM3x">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="https://avatars.io/twitter/xTM3x/large" alt="">
-                  <div class="overlay">
-                    <h2>Wilson</h2>
-                    <h3 style="color: white;">Developer</h3>
-                    <i class="fab fa-twitter" style="color: white"></i>
-                  </div>
-                </div>
-              </a>
-            </div>
+    gtag('config', 'G-JL6ZQBQJCE');
+  </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="An alternative package manager for iOS.">
+  <title>Zebra</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="https://kit.fontawesome.com/58fe7700f8.js" crossorigin="anonymous"></script>
+  <script>
+    function download() {
+      let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && !window.MSStream
+      if (isIOS) {
+        alert("ios")
+      }
+      else {
+        alert("Please add https://getzbra.com/repo/ to your package manager's sources, or visit this website from your jailbroken iOS device and try again.")
+      }
+    }
+  </script>
+</head>
 
-            <div class="col-xs-12 col-sm-3 d-flex justify-content-center">
-              <a href="https://twitter.com/andrewabosh">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="https://avatars.io/twitter/andrewabosh/large" alt="">
-                  <div class="overlay">
-                    <h2>Andrew Abosh</h2>
-                    <h3 style="color: white;">Designer</h3>
-                    <i class="fab fa-twitter" style="color: white"></i>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="col-xs-12 col-sm-3 d-flex justify-content-center">
-              <a href="https://twitter.com/poomsmart">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="https://avatars.io/twitter/poomsmart/large" alt="">
-                  <div class="overlay">
-                    <h2>PoomSmart</h2>
-                    <h3 style="color: white;">Developer</h3>
-                    <i class="fab fa-twitter" style="color: white"></i>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="col-xs-12 col-sm-3 d-flex justify-content-center">
-              <a href="https://twitter.com/midnightchip">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="https://avatars.io/twitter/midnightchip/large" alt="">
-                  <div class="overlay">
-                    <h2>MidnightChip</h2>
-                    <h3 style="color: white;">Developer</h3>
-                    <i class="fab fa-twitter" style="color: white"></i>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="col-xs-12 col-sm-3 d-flex justify-content-center">
-              <a href="https://twitter.com/muirey03">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="https://avatars.io/twitter/muirey03/large" alt="">
-                  <div class="overlay">
-                    <h2>Muirey03</h2>
-                    <h3 style="color: white;">Developer</h3>
-                    <i class="fab fa-twitter" style="color: white"></i>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="col-xs-12 col-sm-3 d-flex justify-content-center">
-              <a href="https://twitter.com/skittyblock">
-                <div class="hovereffect">
-                  <img class="img-responsive" src="https://avatars.io/twitter/skittyblock/large" alt="">
-                  <div class="overlay">
-                    <h2>Skitty</h2>
-                    <h3 style="color: white;">Developer</h3>
-                    <i class="fab fa-twitter" style="color: white"></i>
-                  </div>
-                </div>
-              </a>
-            </div>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="info-container">
+          <div class="logo-container">
+            <img src="./assets/zeeb.svg" alt="Zebra Logo" class="logo" width="90vw">
           </div>
-        <!---<a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a> -->
+          <div>
+            <h1 class="title">Zebra</h1> <!-- Free My Boy AUPM -->
+          </div>
+          <h3 class="subtitle">A package manager made by the community, for the community. <a href="idk.html"
+              class="tinted">Learn more.</a></h3>
+          <div>
+            <button type="button" onclick="download()" class="btn btn-zeeb btn-lg">Download Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto">
+        <img src="./assets/screenshot.png" alt="Zebra Packges Screen" class="screenshot">
       </div>
     </div>
-    <div class="overlay"></div>
-  </section>
-
-  <section class="contact bg-primary" id="contact">
-    <div class="container">
-      <h2>Social Links</h2>
-      <ul class="list-inline list-social">
-        <li class="list-inline-item social-twitter">
-          <a href="https://twitter.com/getzebra">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="list-inline-item social-github">
-          <a href="https://github.com/wstyres/Zebra">
-            <i class="fab fa-github"></i>
-          </a>
-        </li>
-      </ul>
+    <hr style="background-color:white;">
+    <div class="row" style="padding-bottom:10px">
+      <div class="col">
+        <p style="color:white;">&copy; 2018-2019 <a class="white-tinted" style="text-decoration: underline;" href="https://styres.me">Wilson Styres</a></p>
+      </div>
+      <div class="col text-right right-block">
+        <a href="https://github.com/wstyres/Zebra"><i class="fab fa-github fa-2x white-tinted" style="margin-right: 5px;"></i></a>
+        <a href="https://twitter.com/getZebra"><i class="fab fa-twitter fa-2x white-tinted"></i></a>
+      </div>
     </div>
-    <img src="./assets/zebra-ss-1.png" alt="zebra-screenshot" class="zebraScreenshot">
-  </body>
+</body>
 </html>
-
-<script>
-  document.getElementById('button-github').onclick = () => window.location = 'https://github.com/wstyres/Zebra';
-  document.getElementById('button-cydia').onclick = () => window.location = 'cydia://url/https://cydia.saurik.com/api/share#?source=https://getzbra.com/repo/';
-</script>
