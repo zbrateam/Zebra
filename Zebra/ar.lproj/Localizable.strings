@@ -16,7 +16,7 @@
 "Info" = "معلومات";
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
 "Changelog" = "التغييرات";
-"Community Repos" = "مجتمع المستودعات";
+"Community Repos" = "مصادر المجتمع";
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
 "Utility repo for %@" = "فائدة المستودع لـ %@";
 "Transfer Sources" = "تحويل المصادر";
@@ -65,7 +65,7 @@
 "App Icon" = "أيقونة التطبيق";
 
 "Featured Packages" = "الحزم المميزة";
-"Repo Featured" = "المستودع المميز";
+"Repo Featured" = "الحزم المميزة في المصدر";
 "Random" = "عشوائي";
 "Feature Type" = "نوع الميزة";
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
@@ -79,14 +79,14 @@
 "Icon" = "أيقونة";
 "Open Documents Directory" = "فتح دليل المستندات";
 "Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
-"Clear Keychain" = "مسح سلسلة المفاتيح";
+"Clear Keychain" = "مسح بيانات تسجيل الدخول";
 
 "Loading..." = "جارِ التحميل...";
 
 "Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
 "Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
 
-"Drop Tables" = "إسقاط الجداول";
+"Drop Tables" = "حذف قاعدة البيانات";
 
 "Alternate Icons" = "أيقونات بديلة";
 
@@ -137,7 +137,7 @@
 "Upgrade All" = "ترقية الكل";
 "Loaded" = "تم التحميل";
 "ABC" = "أبجديًا";
-"Date" = "التاريخ";
+"Date" = "زمنيًا";
 "Size" = "الحجم";
 "Clear" = "مسح";
 "Are you sure you want to clear Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
