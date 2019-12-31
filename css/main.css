@@ -1,88 +1,105 @@
-@import url('https://fonts.googleapis.com/css?family=Arvo|Roboto+Slab|Rubik');
-
 body {
-  background: #E5E5E5;
-  background-color: rgba(245, 245, 245, 1);
-  overflow: hidden;
-  text-align: center;
+  background-image: linear-gradient(#000000, #000000, #434343);
   padding: 0.3em;
+  min-height: 100vh;
 }
 
-.firstZebraTitle {
-  font-family: 'Roboto Slab', serif;
+.logo {
+  margin-bottom: 0.5em;
+  max-width: 7em;
+  max-height: 7em;
+}
+
+.title {
   font-weight: bold;
   font-size: 5em;
-  color: black;
+  color: white;
   margin-bottom: 0.1em;
-  margin-left: 0.3em;
 }
 
-.zebraLogo {
-  display: inline-flex;
-  align-self: center;
-}
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-}
-
-.zebraSubstitle {
-  font-family: 'Roboto Slab', serif;
+.subtitle {
   font-size: 1.5em;
-  color: rgba(112, 112, 112, 1);
+  color: rgba(255, 255, 255, 0.80);
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 1.2em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 15em;
 }
 
-.zebraScreenshot {
-  max-width: 100vw;
-  max-height: 100vh;
+.info-container {
+  padding-top: 75px;
+  padding-bottom: 25px;
+}
+
+@media (min-width: 768px) {
+	.info-container {
+	 	padding-top: 10em;
+	 	padding-bottom: 0px;
+	}
+
+	.subtitle {
+		max-width: 25em;
+		margin-left: 0;
+	}
+
+	.input {
+		text-align: left !important;
+	}
+}
+
+.screenshot {
+  max-height: 47em;
   margin-top: 1em;
 }
 
-.zebraFeatures {
-  overflow: visible;
-  font-family: 'Rubik', sans-serif;
-  font-size: 1.6em;
-  color: black;
-  margin-top: 0.5em;
-  margin-bottom: 2vh;
+.tinted {
+  color: #6680F9 !important;
 }
 
-.zebraFeatures-container {
-  max-width: 70vw;
-  max-height: 70vh;
-  margin: 0 auto;
+.tinted:hover,
+.tinted:active,
+.tinted:focus,
+.tinted.active {
+  color: #4D67E0 !important;
 }
 
-.button {
-  background-color: #2E2E2C;
-  color: white;
-  text-align: center;
-  display: inline-block;
-  padding: 2vh 2.5vw;
-  font-size: 1.2em;
-  border-radius: 0.8em;
-  font-family: 'Arvo', serif;
+.white-tinted {
+  color: rgb(210, 210, 210) !important;
 }
 
-.button:hover {
-  background-color: rgba(46, 46, 44, 0.856);
-  animation: btn-hover 0.5s;
-  cursor: grab;
+.btn-zeeb {
+  color: #fff;
+  background-color: #6680F9;
+  border-color: #6680F9;
 }
 
-@keyframes btn-hover {
-  from { background-color: #2E2E2C }
-  to { background-color: rgba(46, 46, 44, 0.856) }
+.btn-zeeb:hover,
+.btn-zeeb:active,
+.btn-zeeb:focus,
+.btn-zeeb.active {
+  background: #4D67E0;
+  color: #ffffff;
+  border-color: #4D67E0;
 }
 
-@media (max-device-width: 700px) {
-  .zebraFeatures { font-size: 1.2em; }
-  body { overflow: visible; }
-  .zebraFeatures-container {
-    max-width: unset;
-    max-height: unset;
-  }
+.fab:hover,
+.fab:active,
+.fab:focus {
+  opacity: 0.75;
+  text-decoration: none;
+}
+
+.input {
+	background: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.40);
+}
+
+::selection {
+    background-color: rgba(102, 128, 249, 0.25);
 }

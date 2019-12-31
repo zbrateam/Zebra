@@ -1,40 +1,63 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL6ZQBQJCE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-JL6ZQBQJCE');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="An alternative package manager for iOS.">
-    <title>Zebra Package Manager</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/main.css">
-  </head>
-  <body>
-    <div class="logo-container">
-      <img src="./assets/zbra.svg" alt="zebra-logo" class="zebraLogo" width="90vw">
-      <h1 class="firstZebraTitle">Zebra</h1>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JL6ZQBQJCE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-JL6ZQBQJCE');
+  </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="A Useful Package Manager for Jailbroken iOS devices.">
+  <title>Zebra</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="https://kit.fontawesome.com/58fe7700f8.js" crossorigin="anonymous"></script>
+  <script>
+    function download() {
+      let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && !window.MSStream;
+      if (isIOS) {
+        window.location = 'cydia://url/https://cydia.saurik.com/api/share#?source=https://getzbra.com/repo/';
+      }
+      else {
+        alert("Please add https://getzbra.com/repo/ to your package manager's sources, or visit this website from your jailbroken iOS device and try again.");
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col text-md-left text-center">
+        <div class="info-container">
+          <img src="./assets/zeeb.svg" alt="Zebra Logo" class="logo" width="90vw">
+          <h1 class="title">Zebra</h1> <!-- Free My Boy AUPM -->
+          <h3 class="subtitle">A modern, fast, and powerful open source package manager for jailbroken iOS devices.</h3>
+          <button type="button" onclick="download()" class="btn btn-zeeb btn-lg">Download Now</button>
+          <input class="input" type="text" onclick="setSelectionRange(0,25)" value="https://getzbra.com/repo/" readonly>
+        </div>
+      </div>
+      <div class="col-md-auto mx-auto">
+        <div class="text-center">
+          <img src="./assets/screenshot.png" alt="Zebra Packges Screen" class="screenshot">
+        </div>
+      </div>
     </div>
-    <h3 class="zebraSubstitle">An alternative package manager for iOS.</h3>
-    <div class="zebraFeatures-container">
-      <div class="zebraFeatures">With Zebra, you get a powerful package manager for jailbroken devices that enforces freedom, speed, and stability. It is fully open source so that anyone can contribute to improve it.</div>
+    <hr style="background-color:rgba(255,255,255,0.25);">
+    <div class="row align-items-center h-100" style="padding-bottom: 10px;">
+      <div class="col text-md-left text-center">
+        <p style="color:white;">&copy; 2018-2019 <a class="white-tinted" style="text-decoration: underline;" href="https://styres.me">Wilson Styres</a></p>
+      </div>
+      <div class="col-md-auto text-center">
+        <a href="https://github.com/wstyres/Zebra" class="fab fa-github fa-2x white-tinted" style="margin-right: 10px;"></a>
+        <a href="https://twitter.com/getZebra" class="fab fa-twitter fa-2x white-tinted"></a>
+      </div>
     </div>
-    <div>
-      <p class="button" id="button-cydia">Add Repo</p>
-      <p class="button" id="button-github">Visit on GitHub</p>
-    </div>
-    <img src="./assets/zebra-ss-1.png" alt="zebra-screenshot" class="zebraScreenshot">
-  </body>
+</body>
 </html>
-
-<script>
-  document.getElementById('button-github').onclick = () => window.location = 'https://github.com/wstyres/Zebra';
-  document.getElementById('button-cydia').onclick = () => window.location = 'cydia://url/https://cydia.saurik.com/api/share#?source=https://getzbra.com/repo/';
-</script>
