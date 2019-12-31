@@ -40,9 +40,6 @@
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
-    }
     // Purchased Buttons
     self.login = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"") style:UIBarButtonItemStylePlain actionHandler:^{
         [self setupRepoLogin];
@@ -89,6 +86,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+    
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     [self setupEndpointButtons];

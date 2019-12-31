@@ -97,7 +97,7 @@ enum ZBSearchSection {
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     
     if (@available(iOS 13.0, *)) {
@@ -106,13 +106,6 @@ enum ZBSearchSection {
     else {
         UITextField *textField = [self.searchController.searchBar valueForKey:@"_searchField"];
         textField.textColor = [UIColor cellPrimaryTextColor];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = NO;
     }
 }
 
