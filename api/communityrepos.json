@@ -8,9 +8,9 @@
         },
         {
             "name": "Chariz",
-            "clickLink": "https://repo.chariz.io/",
-            "url": "https://repo.chariz.io/",
-            "icon": "https://repo.chariz.io/CydiaIcon.png"
+            "clickLink": "https://repo.chariz.com/",
+            "url": "https://repo.chariz.com/",
+            "icon": "https://repo.chariz.com/CydiaIcon.png"
         },
         {
             "name": "Dynastic Repo",
@@ -25,16 +25,22 @@
             "icon": "http://apt.modmyi.com/dists/stable/CydiaIcon.png"
         },
         {
-            "name": "Nepeta",
-            "clickLink": "https://repo.nepeta.me/",
-            "url": "https://repo.nepeta.me/",
-            "icon": "https://repo.nepeta.me/CydiaIcon.png"
-        },
-        {
             "name": "Packix",
             "clickLink": "https://repo.packix.com/",
             "url": "https://repo.packix.com/",
             "icon": "https://repo.packix.com/CydiaIcon.png"
+        },
+        {
+            "name": "rpetrich repo",
+            "clickLink": "https://rpetri.ch/repo",
+            "url": "https://rpetri.ch/repo",
+            "icon": "https://rpetri.ch/repo/CydiaIcon.png"
+        },
+        {
+            "name": "Zebra Beta Repo",
+            "clickLink": "https://getzbra.com/beta",
+            "url": "https://getzbra.com/beta",
+            "icon": "https://getzbra.com/beta/CydiaIcon.png"
         },
         {
             "name": "ZodTTD & MacCiti (Archive)",

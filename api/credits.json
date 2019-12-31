@@ -1,0 +1,241 @@
+{
+  "sections": [
+    {
+      "title": "Creators",
+      "items": [
+        {
+          "name": "Wilson Styres",
+          "link": "https://styres.me/"
+        },
+        {
+          "name": "Andrew Abosh",
+          "link": "https://andrew-abosh.com/"
+        }
+      ]
+    },
+    {
+      "title": "Contributors",
+      "items": [
+        {
+          "name": "PoomSmart",
+          "link": "https://twitter.com/PoomSmart"
+        },
+        {
+          "name": "MidnightChips",
+          "link": "https://midnightchips.me"
+        },
+        {
+          "name": "Tommy Muir"
+        },
+        {
+          "name": "Reed Weichler",
+          "link": "https://twitter.com/rweichler"
+        }
+      ]
+    },
+    {
+      "title": "Translators",
+      "items": [
+        {
+          "name": "0x9fff00",
+          "subtitle": "Swedish"
+        },
+        {
+          "name": "absidue",
+          "subtitle": "German",
+          "link": "https://absidue.me"
+        },
+        {
+          "name": "Jafar Ali",
+          "subtitle": "Arabic",
+          "link": "https://twitter.com/busadoki"
+        },
+        {
+          "name": "Baw-Appie",
+          "subtitle": "Korean",
+          "link": "https://twitter.com/BawAppie"
+        },
+        {
+          "name": "Augustinbv",
+          "subtitle": "French"
+        },
+        {
+          "name": "Guilherme Benites",
+          "subtitle": "Portuguese (Brazil)",
+          "link": "https://twitter.com/benitesgui"
+        },
+        {
+          "name": "Maciej Borek",
+          "subtitle": "Polish",
+          "link": "https://github.com/maciejborek"
+        },
+        {
+          "name": "Can Destan (NightyFox)",
+          "subtitle": "Turkish",
+          "link": "https://mobile.twitter.com/MrCylops"
+        },
+        {
+          "name": "Embrocation",
+          "subtitle": "Danish",
+          "link": "https://twitter.com/EmbrocationL"
+        },
+        {
+          "name": "Eskaseptian",
+          "subtitle": "Indonesian",
+          "link": "https://www.instagram.com/eskaseptian"
+        },
+        {
+          "name": "eveevekun",
+          "subtitle": "Japanese",
+          "link": "https://twitter.com/eveevekun"
+        },
+        {
+          "name": "Far0pe7",
+          "subtitle": "French",
+          "link": "https://twitter.com/Far0pe7"
+        },
+        {
+          "name": "W. D. Kevon Fernando",
+          "subtitle": "German"
+        },
+        {
+          "name": "Flipp3rrr",
+          "subtitle": "German"
+        },
+        {
+          "name": "GeopJr",
+          "subtitle": "Greek",
+          "link": "https://geopjr.xyz/"
+        },
+        {
+          "name": "gkeep",
+          "subtitle": "Russian",
+          "link": "https://github.com/gkeep"
+        },
+        {
+          "name": "hirakujira",
+          "subtitle": "Chinese (Traditional)",
+          "link": "https://hiraku.tw"
+        },
+        {
+          "name": "iA7myd",
+          "subtitle": "Arabic",
+          "link": "https://twitter.com/iA7myd"
+        },
+        {
+          "name": "iGerman",
+          "subtitle": "Russian",
+          "link": "https://twitter.com/iGerman00"
+        },
+        {
+          "name": "Behrad Jafari",
+          "subtitle": "Persian",
+          "link": "https://twitter.com/behrad_bj"
+        },
+        {
+          "name": "kukulama",
+          "subtitle": "Czech, Slovak"
+        },
+        {
+          "name": "Rilind Kycyku",
+          "subtitle": "Albanian",
+          "link": "https://twitter.com/rilindkycyku16"
+        },
+        {
+          "name": "leoagm",
+          "subtitle": "Spanish"
+        },
+        {
+          "name": "Gladson Loureto",
+          "subtitle": "Portuguese (Brazil)",
+          "link": "https://twitter.com/gladson_loureto"
+        },
+        {
+          "name": "Luka_iDroid",
+          "subtitle": "Croatian",
+          "link": "https://twitter.com/Luka_iDroid"
+        },
+        {
+          "name": "MartinsZar",
+          "subtitle": "Latvian",
+          "link": "https://twitter.com/ZarMartins"
+        },
+        {
+          "name": "mastercreeper66",
+          "subtitle": "Italian",
+          "link": "https://twitter.com/mastercreeper66"
+        },
+        {
+          "name": "Rajeck Massa",
+          "subtitle": "Dutch"
+        },
+        {
+          "name": "michael31_05",
+          "subtitle": "German",
+          "link": "https://twitter.com/lipmichi"
+        },
+        {
+          "name": "nj0rr",
+          "subtitle": "Lithuanian",
+          "link": "https://twitter.com/ni0rr"
+        },
+        {
+          "name": "PoomSmart",
+          "subtitle": "Thai",
+          "link": "https://twitter.com/PoomSmart"
+        },
+        {
+          "name": "Steve-luo",
+          "subtitle": "Chinese (Simplified)",
+          "link": "https://steve-luo.com"
+        },
+        {
+          "name": "Pablo Reyes",
+          "subtitle": "Spanish",
+          "link": "https://twitter.com/pjreyess"
+        },
+        {
+          "name": "Aran Shavit",
+          "subtitle": "Hebrew",
+          "link": "https://twitter.com/Aranshavit"
+        },
+        {
+          "name": "th6688",
+          "subtitle": "Vietnamese",
+          "link": "https://twitter.com/th6688"
+        },
+        {
+          "name": "VaR",
+          "subtitle": "Serbian",
+          "link": "https://twitter.com/vahanet"
+        },
+        {
+          "name": "WorldlyDev",
+          "subtitle": "Norwegian Bokmål, Norwegian Nynorsk",
+          "link": "https://twitter.com/WorldlyDev"
+        },
+        {
+          "name": "Zoniako",
+          "subtitle": "Portuguese (Portugal)"
+        }
+      ]
+    },
+    {
+      "title": "Libraries",
+      "items": [
+        {
+          "name": "LNPopupController",
+          "link": "https://www.github.com/LeoNatan/LNPopupController"
+        },
+        {
+          "name": "SDWebImage",
+          "link": "https://github.com/SDWebImage/SDWebImage"
+        },
+        {
+          "name": "Twemoji",
+          "link": "https://github.com/twitter/twemoji"
+        }
+      ]
+    }
+  ]
+}
