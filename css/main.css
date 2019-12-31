@@ -5,9 +5,9 @@ body {
 }
 
 .logo {
-  margin-bottom: 1vh;
-  max-width: 45vh;
-  max-height: 45vh;
+  margin-bottom: 0.5em;
+  max-width: 7em;
+  max-height: 7em;
 }
 
 .title {
@@ -21,7 +21,7 @@ body {
   font-size: 1.5em;
   color: rgba(255, 255, 255, 0.80);
   margin-top: 0;
-  margin-bottom: 3vh;
+  margin-bottom: 1.2em;
   margin-left: auto;
   margin-right: auto;
   max-width: 15em;
@@ -49,7 +49,7 @@ body {
 }
 
 .screenshot {
-  max-height: 87vh;
+  max-height: 47em;
   margin-top: 1em;
 }
 
