@@ -277,7 +277,7 @@
 "Confirm" = "確認";
 "%@ must be removed because it depends on %@" = "%@ 需要被移除因為它依賴 %@";
 "Required Package" = "必要的套件";
-"%@ is required by:" = "%@ 是必須的：";
+"%@ is required by:" = "%@ 被依賴於：";
 "Issues" = "問題";
 "%@ has issues that cannot be resolved:" = "%@ 存在無法解決的問題：";
 "Are you sure?" = "您確定嗎？";
