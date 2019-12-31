@@ -5,13 +5,13 @@ Zebra (neé AUPM) is a Package Manager for jailbroken iOS devices. It is built t
 
 Zebra supports localization but help is needed in order to translate Zebra!
 
-If you are familiar with a language that is not currently supported by Zebra (you can check out a list of curently supported languages [here](https://github.com/wstyres/Zebra/blob/master/translations.md)), you can help us out by translating Zebra into your language. There are three ways to do this:
+If you are familiar with a language that is not currently supported by Zebra (you can check out a list of curently supported languages [on CrowdIn](https://translate.getzbra.com/)), you can help us out by translating Zebra into your language. There are three ways to do this:
 
 1. The easiest and preffered way is by using Crowdin.
    1. If you want to add support for a new language to Zebra. First, file an issue [here](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=localization&template=localization-support.md&title=%5BLocalize%5D) and tell us which language you'd like to add support for. Once we add it to Crowdin, you can start translating strings at https://translate.getzbra.com/
    2. If you want to update a language already in Zebra and correct some issues, head over to https://translate.getzbra.com/, select your language, and update the new translations.
 
-2. If you do not know how to use Xcode or are not able to use Xcode, you can download Zebra's strings from [here](https://getzbra.com/localization/Localizable.strings), and translate them one-by-one. The English strings are on the left side while the strings that needed to be translated are placed on the right side. Once you are done, you can [file an issue](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=localization&template=localization-support.md&title=%5BLocalize%5D) with a link to your translated Localizable.strings and we will review it for inclusion in Zebra.
+2. If you do not know how to use Xcode or are not able to use Xcode, you can download Zebra's strings from [here](https://raw.githubusercontent.com/wstyres/Zebra/master/Zebra/Base.lproj/Localizable.strings), and translate them one-by-one. The English strings are on the left side while the strings that needed to be translated are placed on the right side. Once you are done, you can [file an issue](https://github.com/wstyres/Zebra/issues/new?assignees=&labels=localization&template=localization-support.md&title=%5BLocalize%5D) with a link to your translated Localizable.strings and we will review it for inclusion in Zebra.
 
 3. If you are comfortable using Xcode, you can add a new language to the Zebra project, translate all of the strings (located in the Base.lproj folder), and then submit a [Pull Request](https://github.com/wstyres/Zebra/compare) with your translated .strings file and we will review it for inclusion in Zebra.
 
