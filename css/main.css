@@ -18,7 +18,7 @@ body {
 
 .subtitle {
   font-size: 1.5em;
-  color: rgb(210, 210, 210);
+  color: rgba(255, 255, 255, 0.80);
   margin-top: 0;
   margin-bottom: 3vh;
   margin-left: auto;
@@ -40,6 +40,10 @@ body {
 	.subtitle {
 		max-width: 25em;
 		margin-left: 0;
+	}
+
+	.input {
+		text-align: left !important;
 	}
 }
 
@@ -83,4 +87,18 @@ body {
 .fab:focus {
   opacity: 0.75;
   text-decoration: none;
+}
+
+.input {
+	background: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.40);
+}
+
+::selection {
+    background-color: rgba(102, 128, 249, 0.25);
 }
