@@ -20,12 +20,12 @@
   <script src="https://kit.fontawesome.com/58fe7700f8.js" crossorigin="anonymous"></script>
   <script>
     function download() {
-      let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && !window.MSStream
+      let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && !window.MSStream;
       if (isIOS) {
-        alert("ios")
+        window.location = 'cydia://url/https://cydia.saurik.com/api/share#?source=https://getzbra.com/repo/';
       }
       else {
-        alert("Please add https://getzbra.com/repo/ to your package manager's sources, or visit this website from your jailbroken iOS device and try again.")
+        alert("Please add https://getzbra.com/repo/ to your package manager's sources, or visit this website from your jailbroken iOS device and try again.");
       }
     }
   </script>
