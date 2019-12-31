@@ -61,3 +61,10 @@ body {
   color: #ffffff;
   border-color: #4D67E0;
 }
+
+.fab:hover,
+.fab:active,
+.fab:focus {
+  opacity: 0.75;
+  text-decoration: none;
+}
