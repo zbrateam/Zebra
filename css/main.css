@@ -1,6 +1,7 @@
 body {
   background-image: linear-gradient(#000000, #000000, #434343);
   padding: 0.3em;
+  min-height: 100vh;
 }
 
 .logo {
