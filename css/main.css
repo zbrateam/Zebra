@@ -21,11 +21,26 @@ body {
   color: rgb(210, 210, 210);
   margin-top: 0;
   margin-bottom: 3vh;
-  max-width: 25em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 15em;
 }
 
 .info-container {
-  padding-top: 25%;
+  padding-top: 75px;
+  padding-bottom: 25px;
+}
+
+@media (min-width: 768px) {
+	.info-container {
+	 	padding-top: 10em;
+	 	padding-bottom: 0px;
+	}
+
+	.subtitle {
+		max-width: 25em;
+		margin-left: 0;
+	}
 }
 
 .screenshot {
