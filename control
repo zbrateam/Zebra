@@ -3,7 +3,6 @@ Name: Zebra
 Version: 1.0
 Architecture: iphoneos-arm
 Depends: dpkg, uikittools, firmware (>= 9.0)
-Conflicts: com.samgisaninja.tweakcompatible-zebra (<= 1.1.4), co.xrepo.appletweakjailbreak.tweakcompatible-zebra, com.hackyouriphone.tweakcompatible-zebra (<= 1.1.4), org.cydia.kiimo.tweakcompatible-zebra (<= 1.1.4)
 Description: A Useful Package Manager
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
