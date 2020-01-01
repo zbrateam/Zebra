@@ -286,7 +286,7 @@
 "Remove from Queue" = "從佇列中移除";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "由於套件相依性，必要的套件 %@ 會在 %@ 安裝時被移除。必要套件 %@ 不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "由於套件相依性，必要的套件 %@ 會隨著 %@ 一同被移除。%@ 不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "一個或多個在移除佇列中的套件是基礎或必要套件。除非您十分清楚了解您正在做什麼，否則不建議繼續執行移除動作。移除這些套件可能會對您的裝置造成無法逆轉的損害，並有可能需要回復系統。";
 
