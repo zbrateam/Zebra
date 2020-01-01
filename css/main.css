@@ -93,6 +93,9 @@ body {
   border-color: #4D67E0;
 }
 
+.fas:hover,
+.fas:active,
+.fas:focus,
 .fab:hover,
 .fab:active,
 .fab:focus {
