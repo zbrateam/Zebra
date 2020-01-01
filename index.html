@@ -48,10 +48,30 @@
         alert("Please add https://getzbra.com/repo/ to your package manager's sources, or visit this website from your jailbroken iOS device and try again.");
       }
     }
+
+    function latestVersion() {
+      download(function(response) {
+        var release = JSON.parse(response);
+        var version = release["tag_name"].substr(1); //Version number substringed from 1 (v1.0 -> 1.0)
+        document.getElementById('versionNumber').innerHTML = "Latest Version: " + version;
+      });
+    }
+
+    function download(callback) {
+      var xobj = new XMLHttpRequest();
+      xobj.overrideMimeType("application/json");
+      xobj.open('GET', 'https://api.github.com/repos/wstyres/Zebra/releases/latest', true);
+      xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+          callback(xobj.responseText);
+        }
+      };
+      xobj.send(null);
+    }
   </script>
 </head>
 
-<body>
+<body onload="latestVersion()">
   <div class="container">
     <div class="row">
       <div class="col text-md-left text-center">
