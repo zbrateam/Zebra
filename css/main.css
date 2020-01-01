@@ -45,7 +45,17 @@ body {
 
 	.input {
 		text-align: left !important;
-	}
+  }
+
+  .button-container {
+    flex-direction: row !important;
+  }
+
+  .version-container {
+    margin-left: 10px !important;
+    flex-direction: row;
+    margin-top: 0px !important;
+  }
 }
 
 .screenshot {
@@ -90,12 +100,22 @@ body {
   text-decoration: none;
 }
 
+.button-container {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.version-container {
+  flex-direction: column;
+  margin-left: 0px;
+  margin-top: 10px;
+}
+
 .input {
 	background: none;
 	border: none;
-	outline: none;
-	width: 100%;
-	margin-top: 10px;
+  outline: none;
+	width: 110%;
 	text-align: center;
 	color: rgba(255, 255, 255, 0.40);
 }

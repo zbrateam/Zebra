@@ -19,23 +19,27 @@
 
   <!-- Title / Description -->
   <meta name="title" content="Zebra">
-  <meta name="description" content="A modern, fast, and powerful open source package manager for jailbroken iOS devices.">
+  <meta name="description"
+    content="A modern, fast, and powerful open source package manager for jailbroken iOS devices.">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://getzbra.com/">
   <meta property="og:title" content="Zebra">
-  <meta property="og:description" content="A modern, fast, and powerful open source package manager for jailbroken iOS devices.">
+  <meta property="og:description"
+    content="A modern, fast, and powerful open source package manager for jailbroken iOS devices.">
   <meta property="og:image" content="https://getzbra.com/assets/banner.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://getzbra.com/">
   <meta property="twitter:title" content="Zebra">
-  <meta property="twitter:description" content="A modern, fast, and powerful open source package manager for jailbroken iOS devices.">
+  <meta property="twitter:description"
+    content="A modern, fast, and powerful open source package manager for jailbroken iOS devices.">
   <meta property="twitter:image" content="https://getzbra.com/assets/banner.jpg">
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/main.css">
   <script src="https://kit.fontawesome.com/58fe7700f8.js" crossorigin="anonymous"></script>
   <script>
@@ -50,7 +54,7 @@
     }
 
     function latestVersion() {
-      getJSON(function(response) {
+      getJSON(function (response) {
         var release = JSON.parse(response);
         var version = release["tag_name"].substr(1); //Version number substringed from 1 (v1.0 -> 1.0)
         document.getElementById('versionNumber').innerHTML = "Version " + version;
@@ -79,8 +83,13 @@
           <img src="./assets/zeeb.svg" alt="Zebra Logo" class="logo" width="90vw">
           <h1 class="title">Zebra</h1> <!-- Free My Boy AUPM -->
           <h3 class="subtitle">A modern, fast, and powerful open source package manager for jailbroken iOS devices.</h3>
-          <button type="button" onclick="download()" class="btn btn-zeeb btn-lg">Download Now</button>
-          <input class="input" type="text" onclick="setSelectionRange(0,25)" value="https://getzbra.com/repo/" readonly>
+          <div class="button-container">
+            <button type="button" onclick="download()" class="btn btn-zeeb btn-lg">Download Now</button>
+            <div class="version-container">
+              <p style="color: rgba(255, 255, 255, 0.80);margin: 0;" id="versionNumber">Version 1.0</p>
+              <input class="input" type="text" onclick="setSelectionRange(0,25)" placeholder="https://getzbra.com/repo/" value="https://getzbra.com/repo/" readonly>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-md-auto mx-auto">
@@ -92,13 +101,16 @@
     <hr style="background-color:rgba(255,255,255,0.25);">
     <div class="row align-items-center h-100" style="padding-bottom: 10px;">
       <div class="col text-md-left text-center">
-        <p style="color:white;">&copy; 2018-2019 <a class="white-tinted" style="text-decoration: underline;" href="https://styres.me">Wilson Styres</a></p>
+        <p style="color:white;">&copy; 2018-2019 <a class="white-tinted" style="text-decoration: underline;"
+            href="https://styres.me">Wilson Styres</a></p>
       </div>
       <div class="col-md-auto text-center">
         <a href="https://discord.gg/6CPtHBU" class="fab fa-discord fa-2x white-tinted" style="margin-right: 10px;"></a>
-        <a href="https://github.com/wstyres/Zebra" class="fab fa-github fa-2x white-tinted" style="margin-right: 10px;"></a>
+        <a href="https://github.com/wstyres/Zebra" class="fab fa-github fa-2x white-tinted"
+          style="margin-right: 10px;"></a>
         <a href="https://twitter.com/getZebra" class="fab fa-twitter fa-2x white-tinted"></a>
       </div>
     </div>
 </body>
+
 </html>
