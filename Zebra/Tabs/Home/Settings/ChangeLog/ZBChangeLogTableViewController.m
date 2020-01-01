@@ -124,4 +124,13 @@
     return jsonDict[@"name"] ? jsonDict[@"name"] : @"Error";
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
+    view.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    view.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+        
+    return view;
+}
+
 @end
