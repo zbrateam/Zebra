@@ -50,14 +50,14 @@
     }
 
     function latestVersion() {
-      download(function(response) {
+      getJSON(function(response) {
         var release = JSON.parse(response);
         var version = release["tag_name"].substr(1); //Version number substringed from 1 (v1.0 -> 1.0)
-        document.getElementById('versionNumber').innerHTML = "Latest Version: " + version;
+        document.getElementById('versionNumber').innerHTML = "Version " + version;
       });
     }
 
-    function download(callback) {
+    function getJSON(callback) {
       var xobj = new XMLHttpRequest();
       xobj.overrideMimeType("application/json");
       xobj.open('GET', 'https://api.github.com/repos/wstyres/Zebra/releases/latest', true);
