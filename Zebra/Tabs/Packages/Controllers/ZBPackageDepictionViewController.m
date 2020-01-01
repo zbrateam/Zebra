@@ -666,7 +666,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 //Dummy method to search for pirated tweakcompatible copies. Will be removed in a future version
 - (NSArray *)packageInfoOrder {
-    NSString *message = [NSString stringWithFormat:@"A tweak is calling -packageInfoOrder for ZBPackageDepictionViewController. Please report this issue and remove or update the incompatible tweak (most likely a tweak that hooks into Zebra). Last Call: %@ %@", [NSThread callStackSymbols][0], [NSThread callStackSymbols][1]];
+    NSString *message = [NSString stringWithFormat:@"A tweak is calling -packageInfoOrder for ZBPackageDepictionViewController. Please report this issue and remove or update the incompatible tweak (most likely a tweak that hooks into Zebra). Last Call: %@ %@ %@", [NSThread callStackSymbols][0], [NSThread callStackSymbols][1], [NSThread callStackSymbols][2]];
     UIAlertController *deprecationAlert = [UIAlertController alertControllerWithTitle:@"Incompatible Tweak" message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok :(" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [deprecationAlert dismissViewControllerAnimated:true completion:nil];
