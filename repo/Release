@@ -1,5 +1,5 @@
-Origin: Zebra Repo
-Label: Zebra Repo
+Origin: Zebra 
+Label: Zebra
 Suite: stable
 Version: 1.0
 Codename: stable
@@ -7,8 +7,8 @@ Architectures: iphoneos-arm
 Components: main
 Description: APT Repository for Zebra updates.
 SHA1:
- 7e7fe2e633059059696db361de844cd49692c211 3457 Packages
- 574fbc4af70d505ec0978e8f828abe892a5d9a6b 1192 Packages.bz2
+ 1ecc639a658573b3ce4ea1f139a68028171f6b54 4259 Packages
+ cf7230c6b404fd1c56839f4d9136ed6811f1f8b2 1294 Packages.bz2
 SHA256:
- 4286b0233b61a1d312ba733d2ab8eaec7b6b2d06d01ed8f12e03f8cf86fe9da7 3457 Packages
- ead75957119511c6d21055e96a829ebcb10531592f4cb421384d2deb801155d2 1192 Packages.bz2
+ 2c6eee45fbea260b649bd67d1a8bf6b3ee5fc8e57d6fd42d56ed408e4d6ea4e1 4259 Packages
+ 24a1ae854aa44a2fea42904bb6eee8a1dc4422aac3ae8d3508bf1c11423559d3 1294 Packages.bz2
