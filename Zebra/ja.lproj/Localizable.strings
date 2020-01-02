@@ -16,13 +16,13 @@
 "Info" = "情報";
 "Welcome to Zebra!" = "Zebra へようこそ！";
 "Changelog" = "変更履歴";
-"Community Sources" = "Community Sources";
-"No More Community Sources" = "No More Community Sources";
-"Transfer sources from %@ to Zebra" = "%@ から Zebra にソースを移動";
+"Community Sources" = "公式リポジトリ";
+"No More Community Sources" = "これ以上 公式リポジトリ はありません";
+"Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
-"Transfer Sources" = "ソースの読み込み";
+"Transfer Sources" = "リポジトリの読み込み";
 "Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "ソースの検証中";
+"Verifying Source(s)" = "リポジトリの検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
@@ -95,7 +95,7 @@
 
 // Sources
 
-"Sources" = "ソース";
+"Sources" = "リポジトリ";
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 "Unknown" = "不明";
@@ -111,7 +111,7 @@
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
 "Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "リポジトリの検証中";
 "Unable to verify Repo" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
 "Log Out" = "ログアウト";
@@ -321,7 +321,7 @@
 
 "Change the style of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効の場合に、テーマを変更します。";
 
-"Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのソースを変更します。";
+"Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのリポジトリを変更します。";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
@@ -332,18 +332,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "リポジトリを追加する";
+"Updating Repositories" = "リポジトリを更新中";
+"Would you like to import the following repositories?" = "次のリポジトリを追加しますか？";
+"Download Completed" = "ダウンロード完了";
+"Removing Zebra..." = "Zebra を削除しています...";
+"Installing Zebra..." = "Zebra をインストールしています...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "%@ を解析しています";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "%@ をダウンロードしています";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "%@ 完了";
