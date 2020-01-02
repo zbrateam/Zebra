@@ -24,7 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:NSLocalizedString(@"Community Sources", @"")];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = spinner;
+    [spinner startAnimating];
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     repoManager = [ZBRepoManager sharedInstance];
 }
@@ -99,6 +102,8 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            self.navigationItem.titleView = NULL;
+            self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
         });
     }];
     
@@ -158,7 +163,7 @@
     if (![ZBRepo exists:@"http://apt.saurik.com/"]) { // cydia
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Cydia/Telesphoreo",
-                               @"url" : @"http://apt.saurik.com",
+                               @"url" : @"http://apt.saurik.com/",
                                @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"};
         [result addObject:dict];
     }
