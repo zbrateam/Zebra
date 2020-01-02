@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Mirë se vini në Zebra!";
 "Changelog" = "Ndryshimet";
 "Community Sources" = "Burimet e Komunitetit";
-"No More Community Sources" = "Nuk ka më burime të komunitetit";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
 "Utility repo for %@" = "Repot e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
