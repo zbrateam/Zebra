@@ -334,15 +334,15 @@ Zebra %@" = "Zebra %@";
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Oppdaterer kilder";
 "Would you like to import the following repositories?" = "Vil du importere følgende kilder?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Download Completed" = "Nedlasting fullført";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Parser %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Laster ned %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Ferdig %@";
