@@ -16,7 +16,7 @@
 "Info" = "Informatie";
 "Welcome to Zebra!" = "Welkom bij Zebra!";
 "Changelog" = "Wijzigingslogboek";
-"Community Sources" = "Community Sources";
+"Community Sources" = "Gemeenschaps Bronnen";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
@@ -332,18 +332,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importeer Bronnen";
+"Updating Repositories" = "Repos Bijwerken";
+"Would you like to import the following repositories?" = "Wilt u de volgende repos importeren?";
+"Download Completed" = "Download Compleet";
+"Removing Zebra..." = "Zebra Verwijderen...";
+"Installing Zebra..." = "Zebra Installeren...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Parseren %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Downloaden %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Voltooid %@";
