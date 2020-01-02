@@ -475,7 +475,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
     webController.navigationDelegate = webController;
     webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
-    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
+    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
     [webController setValue:url forKey:@"_url"];
