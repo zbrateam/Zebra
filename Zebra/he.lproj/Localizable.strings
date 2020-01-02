@@ -16,8 +16,8 @@
 "Info" = "מידע";
 "Welcome to Zebra!" = "ברוכים הבאים לזברה!";
 "Changelog" = "מה חדש";
-"Community Sources" = "Community Sources";
-"No More Community Sources" = "No More Community Sources";
+"Community Sources" = "מקורות קהילתיים";
+"No More Community Sources" = "אין מקורות קהילתיים נוספים";
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility repo for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
