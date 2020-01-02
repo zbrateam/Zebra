@@ -16,7 +16,7 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Sveiki atvykę į Zebra!";
 "Changelog" = "Pakeitimų sąrašas";
-"Community Repos" = "Bendruomenės saugyklos";
+"Community Sources" = "Community Sources";
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
 "Transfer Sources" = "Perkelti šaltinius";
