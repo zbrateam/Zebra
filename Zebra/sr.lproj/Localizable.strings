@@ -16,7 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Dobro došli u Zebru!";
 "Changelog" = "Promene";
-"Community Repos" = "Repos Udruženja";
+"Community Sources" = "Izvori Udruženja";
+"You’ve added all of the community sources" = "Dodali ste sve izvore udruženja";
 "Transfer sources from %@ to Zebra" = "Prebaci sve izvore %@ u Zebru";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Uvezi Izvore";
+"Updating Repositories" = "Updating Repositories";
+"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Download Completed" = "Download Completed";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parsing %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Downloading %@";
+
+"#Done <Filename>
+Done %@" = "Done %@";

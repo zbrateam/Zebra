@@ -14,14 +14,15 @@
 
 "Home" = "Start";
 "Info" = "Info";
-"Welcome to Zebra!" = "Willkommen bei Zebra!";
+"Welcome to Zebra!" = "Willkommen zu Zebra!";
 "Changelog" = "Änderungsprotokoll";
-"Community Repos" = "Community Quellen";
+"Community Sources" = "Community-Quellen";
+"You’ve added all of the community sources" = "Du hast alle Community-Quellen hinzugefügt";
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
 "Utility repo for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
-"Verifying Source(s)" = "Quelle(n) verifizieren";
+"Verifying Source(s)" = "Verifizieren der Quelle(n)";
 "Stores" = "Shop";
 "Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
@@ -79,12 +80,12 @@
 "Icon" = "Symbol";
 "Open Documents Directory" = "Dokumentenverzeichnis öffnen";
 "Clear Image Cache" = "Bildzwischenspeicher leeren";
-"Clear Keychain" = "Keychain leeren";
+"Clear Keychain" = "Schlüsselbund leeren";
 
 "Loading..." = "Laden...";
 
 "Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
-"Clearing keychain completed" = "Keychain erfolgreich geleert";
+"Clearing keychain completed" = "Schlüsselbund erfolgreich geleert";
 
 "Drop Tables" = "Datenbanktabellen leeren";
 
@@ -214,7 +215,7 @@
 // Search
 
 "Search" = "Suchen";
-"Clear Search" = "Suche leeren";
+"Clear Search" = "Suchverlauf leeren";
 "This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage.";
 "No Results Found" = "Keine Ergebnisse gefunden";
 
@@ -235,10 +236,10 @@
 
 "Console" = "Konsole";
 "Performing Actions..." = "Prozesse werden durchgeführt...";
-"Updating icon cache asynchronously..." = "Icon Zwischenspeicher wird asynchron aktualisiert...";
+"Updating icon cache asynchronously..." = "Symbol-Zwischenspeicher wird asynchron aktualisiert...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Weile dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
 "Close Zebra" = "Zebra schließen";
-"Restart SpringBoard" = "SpringBoard neustarten";
+"Restart SpringBoard" = "SpringBoard neu starten";
 "Downloading" = "Herunterladen";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Installing" = "Wird installiert";
@@ -314,7 +315,7 @@
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Beim Tippen nach Paketen suchen. Deaktivieren dieser Funktion kann die Verzögerung auf älteren Geräten verringern.";
 
-"Configure the appearance of table view swipe actions." = "Konfigurieren Sie das Aussehen von Wischaktionen.";
+"Configure the appearance of table view swipe actions." = "Erscheinungsbild von Wisch-Gesten in der Tabellenansicht konfigurieren.";
 
 "Change the accent color that displays across Zebra." = "Ändere Sie die in Zebra angezeigte Akzentfarbe.";
 
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Quellen importieren";
+"Updating Repositories" = "Quellen werden aktualisiert";
+"Would you like to import the following repositories?" = "Möchten Sie folgende Quellen importieren?";
+"Download Completed" = "Herunterladen abgeschlossen";
+"Removing Zebra..." = "Zebra wird entfernt …";
+"Installing Zebra..." = "Zebra wird installiert …";
+
+"#Parsing <Repo Name>
+Parsing %@" = "%@ wird analysiert";
+
+"#Downloading <Filename>
+Downloading %@" = "%@ wird heruntergeladen";
+
+"#Done <Filename>
+Done %@" = "%@ ist abgeschlossen";

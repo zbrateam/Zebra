@@ -16,7 +16,8 @@
 "Info" = "Informatie";
 "Welcome to Zebra!" = "Welkom bij Zebra!";
 "Changelog" = "Wijzigingslogboek";
-"Community Repos" = "Community Bronnen";
+"Community Sources" = "Gemeenschaps Bronnen";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Importeer Bronnen";
+"Updating Repositories" = "Repos Bijwerken";
+"Would you like to import the following repositories?" = "Wilt u de volgende repos importeren?";
+"Download Completed" = "Download Compleet";
+"Removing Zebra..." = "Zebra Verwijderen...";
+"Installing Zebra..." = "Zebra Installeren...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parseren %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Downloaden %@";
+
+"#Done <Filename>
+Done %@" = "Voltooid %@";

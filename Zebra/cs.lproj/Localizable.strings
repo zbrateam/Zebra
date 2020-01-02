@@ -16,7 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Repos" = "Repozitáře komunity";
+"Community Sources" = "Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility repo for %@" = "Repozitář nástrojů pro %@";
 "Transfer Sources" = "Přenést Repozitáře";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Import Sources";
+"Updating Repositories" = "Updating Repositories";
+"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Download Completed" = "Download Completed";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parsing %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Downloading %@";
+
+"#Done <Filename>
+Done %@" = "Done %@";

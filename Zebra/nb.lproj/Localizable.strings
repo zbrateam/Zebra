@@ -16,7 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Velkommen til Zebra!";
 "Changelog" = "Endringslogg";
-"Community Repos" = "Felleskilder";
+"Community Sources" = "Felleskilder";
+"You’ve added all of the community sources" = "Du har lagt til alle felleskildene";
 "Transfer sources from %@ to Zebra" = "Overfør kilder fra %@ til Zebra";
 "Utility repo for %@" = "Verktøyskilde for %@";
 "Transfer Sources" = "Overfør kilder";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Importer kilder";
+"Updating Repositories" = "Oppdaterer kilder";
+"Would you like to import the following repositories?" = "Vil du importere følgende kilder?";
+"Download Completed" = "Nedlasting fullført";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parser %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Laster ned %@";
+
+"#Done <Filename>
+Done %@" = "Ferdig %@";

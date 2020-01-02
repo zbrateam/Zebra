@@ -16,7 +16,8 @@
 "Info" = "Informacion";
 "Welcome to Zebra!" = "Mirë se vini në Zebra!";
 "Changelog" = "Ndryshimet";
-"Community Repos" = "Repot e komunitetit";
+"Community Sources" = "Burimet e Komunitetit";
+"You’ve added all of the community sources" = "Ju keni shtuar të gjitha burimet e komunitetit";
 "Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
 "Utility repo for %@" = "Repot e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Importo Burimet";
+"Updating Repositories" = "Duke përditësuar repot";
+"Would you like to import the following repositories?" = "A dëshironi të importoni repot e mëposhtme?";
+"Download Completed" = "Shkarkimi Përfundoi";
+"Removing Zebra..." = "Duke hequr Zebran...";
+"Installing Zebra..." = "Duke instaluar Zebran...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Duke analizuar %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Duke shkarkuar %@";
+
+"#Done <Filename>
+Done %@" = "Përfundoi %@";

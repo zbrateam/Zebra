@@ -5,7 +5,7 @@
 "Ok" = "Đồng ý";
 "Error" = "Lỗi";
 "Retry" = "Thử lại";
-"Edit" = "Soạn thảo";
+"Edit" = "Chỉnh sửa";
 "Login" = "Đăng nhập";
 "Close" = "Đóng";
 "Done" = "Xong";
@@ -16,9 +16,10 @@
 "Info" = "Thông tin";
 "Welcome to Zebra!" = "Chào mừng đến Zebra!";
 "Changelog" = "Thay đổi";
-"Community Repos" = "Cộng đồng Repos";
+"Community Sources" = "Nguồn cộng đồng";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
-"Utility repo for %@" = "Repo tiện ích cho %@";
+"Utility repo for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
@@ -32,7 +33,7 @@
 
 //Credits
 
-"Credits" = "Tín Dụng";
+"Credits" = "Thẻ Tín Dụng";
 "Creators" = "Tác giả";
 "Contributors" = "Người đóng góp";
 "Translators" = "Biên dịch viên";
@@ -51,7 +52,7 @@
 "Report a Bug" = "Báo cáo lỗi";
 
 "Accent Color" = "Màu đậm";
-"Blue" = "Lam";
+"Blue" = "Xanh";
 "Orange" = "Cam";
 "White" = "Trắng";
 "Black" = "Đen";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Nhập nguồn";
+"Updating Repositories" = "Đang cập nhật nguồn";
+"Would you like to import the following repositories?" = "Bạn có muốn nhập các nguồn sau đây?";
+"Download Completed" = "Tải về hoàn tất";
+"Removing Zebra..." = "Đang xoá Zebra...";
+"Installing Zebra..." = "Đang cài đặt Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Phân tích cú pháp %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Đang tải %@";
+
+"#Done <Filename>
+Done %@" = "Xong %@";

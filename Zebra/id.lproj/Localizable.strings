@@ -16,7 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Selamat Datang di Zebra!";
 "Changelog" = "Changelog";
-"Community Repos" = "Repo Komunitas";
+"Community Sources" = "Sumber Komunitas";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sumber dari %@ ke Zebra";
 "Utility repo for %@" = "Repo utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Import Sumber";
+"Updating Repositories" = "Meng-Update Repositori";
+"Would you like to import the following repositories?" = "Apakah Anda ingin mengimpor repositori berikut?";
+"Download Completed" = "Unduhan Selesai";
+"Removing Zebra..." = "Menghapus Zebra...";
+"Installing Zebra..." = "Memasang Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parsing %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Mengunduh %@";
+
+"#Done <Filename>
+Done %@" = "Selesai %@";

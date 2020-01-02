@@ -16,7 +16,8 @@
 "Info" = "Πληροφορίες";
 "Welcome to Zebra!" = "Καλώς ήλθατε στο Zebra!";
 "Changelog" = "Καταγραφή Αλλαγών";
-"Community Repos" = "Repos της κοινότητας";
+"Community Sources" = "Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
 "Utility repo for %@" = "Πρακτικό repo για %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Import Sources";
+"Updating Repositories" = "Updating Repositories";
+"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Download Completed" = "Download Completed";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parsing %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Downloading %@";
+
+"#Done <Filename>
+Done %@" = "Done %@";

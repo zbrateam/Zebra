@@ -16,7 +16,8 @@
 "Info" = "Informações";
 "Welcome to Zebra!" = "Bem-vindo ao Zebra!";
 "Changelog" = "Novidades";
-"Community Repos" = "Repos da comunidade";
+"Community Sources" = "Fontes da Comunidade";
+"You’ve added all of the community sources" = "Você adicionou todas as fontes da comunidade";
 "Transfer sources from %@ to Zebra" = "Transferir fontes de %@ para o Zebra";
 "Utility repo for %@" = "Repo de utilidades para %@";
 "Transfer Sources" = "Transferir Fontes";
@@ -28,7 +29,7 @@
 "No items in Wish List" = "Sem itens na Lista de Desejos";
 "Community" = "Comunidade";
 "Join our Discord" = "Entre no nosso Discord";
-"Follow me on Twitter" = "Me siga no Twitter";
+"Follow me on Twitter" = "Siga-me no Twitter";
 
 //Credits
 
@@ -57,7 +58,7 @@
 "Black" = "Preto";
 
 "Dark Mode Style" = "Estilo do Modo Escuro";
-"Dark Mode" = "Modo Noturno";
+"Dark Mode" = "Modo Escuro";
 "Default" = "Padrão";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
@@ -134,7 +135,7 @@
 "Select a version to downgrade to:" = "Selecione uma versão para fazer o downgrade:";
 "Package" = "Pacote";
 "Information" = "Informação";
-"Upgrade All" = "Atualizar Todos";
+"Upgrade All" = "Atualizar tudo";
 "Loaded" = "Carregado";
 "ABC" = "ABC";
 "Date" = "Data";
@@ -168,7 +169,7 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Adicionar na Lista de Desejos";
+"Add to Wish List" = "Adicionar à Lista de Desejos";
 "Remove from Wish List" = "Remover da Lista de Desejos";
 
 // Package Section Names
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Importar Fontes";
+"Updating Repositories" = "Atualizando Repositórios";
+"Would you like to import the following repositories?" = "Gostaria de importar os seguintes repositórios?";
+"Download Completed" = "Download concluído";
+"Removing Zebra..." = "Removendo Zebra...";
+"Installing Zebra..." = "Instalando Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Verificando %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Baixando %@";
+
+"#Done <Filename>
+Done %@" = "Concluído %@";

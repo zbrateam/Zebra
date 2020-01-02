@@ -16,7 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Benvenuto in Zebra!";
 "Changelog" = "Changelog";
-"Community Repos" = "Repo della Community";
+"Community Sources" = "Sorgenti della Community";
+"You’ve added all of the community sources" = "Hai aggiunto tutte le sorgenti della community";
 "Transfer sources from %@ to Zebra" = "Trasferisci le sorgenti da %@ a Zebra";
 "Utility repo for %@" = "Repo essenziale for %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
@@ -95,13 +96,13 @@
 // Sources
 
 "Sources" = "Sorgenti";
-"Local Repository" = "Repository Locale";
+"Local Repository" = "Sorgente Locale";
 "Locally installed packages" = "Pacchetti installati localmente";
 "Unknown" = "Sconosciuto";
-"No repository urls detected." = "Nessun URL di repository rilevato.";
-"You have already added these repositories." = "Hai già aggiunto queste repository.";
-"Error verifying repository" = "Errore durante la verifica del repository";
-"Error verifying repositories" = "Errore durante la verifica dei repository";
+"No repository urls detected." = "Nessun URL di sorgente rilevato.";
+"You have already added these repositories." = "Hai già aggiunto queste sorgenti.";
+"Error verifying repository" = "Errore durante la verifica della sorgente";
+"Error verifying repositories" = "Errore di verifica delle sorgenti";
 "Unknown error" = "Errore sconosciuto";
 "Invalid URL" = "URL non valido";
 "Enter URL" = "Inserisci URL";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Importa Sorgenti";
+"Updating Repositories" = "Aggiornando Sorgenti";
+"Would you like to import the following repositories?" = "Vuoi importare queste sorgenti?";
+"Download Completed" = "Download Completato";
+"Removing Zebra..." = "Disinstallando Zebra...";
+"Installing Zebra..." = "Installando Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Analizzando %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Scaricando %@";
+
+"#Done <Filename>
+Done %@" = "Completato %@";

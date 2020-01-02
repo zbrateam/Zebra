@@ -16,7 +16,8 @@
 "Info" = "Информация";
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
 "Changelog" = "Список Изменений";
-"Community Repos" = "Репозитории сообщества";
+"Community Sources" = "Источники Сообщества";
+"You’ve added all of the community sources" = "Вы добавили все источники сообщества";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility repo for %@" = "Репозиторий утилит для %@";
 "Transfer Sources" = "Перенести Источники";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Импортировать Источники";
+"Updating Repositories" = "Обновление Репозиториев";
+"Would you like to import the following repositories?" = "Хотите ли вы импортировать следующие репозитории?";
+"Download Completed" = "Загрузка Завершена";
+"Removing Zebra..." = "Удаление Zebra...";
+"Installing Zebra..." = "Установка Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Анализ %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Загрузка %@";
+
+"#Done <Filename>
+Done %@" = "Выполнено %@";

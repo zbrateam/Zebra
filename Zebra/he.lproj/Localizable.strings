@@ -16,7 +16,8 @@
 "Info" = "מידע";
 "Welcome to Zebra!" = "ברוכים הבאים לזברה!";
 "Changelog" = "מה חדש";
-"Community Repos" = "מקורות קהילתיים";
+"Community Sources" = "מקורות קהילתיים";
+"You’ve added all of the community sources" = "הוספת את כל המקורות הקהילתיים";
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility repo for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "זברה %@";
+
+"Import Sources" = "ייבא מקורות";
+"Updating Repositories" = "מעדכן מקורות";
+"Would you like to import the following repositories?" = "האם ברצונך לייבא את המקורות הבאים?";
+"Download Completed" = "ההורדה הושלמה";
+"Removing Zebra..." = "מסיר את זברה...";
+"Installing Zebra..." = "מתקין את זברה...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "מנתח את %@";
+
+"#Downloading <Filename>
+Downloading %@" = "מוריד את %@";
+
+"#Done <Filename>
+Done %@" = "סיום %@";

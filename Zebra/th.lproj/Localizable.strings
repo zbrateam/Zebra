@@ -16,7 +16,8 @@
 "Info" = "ข้อมูล";
 "Welcome to Zebra!" = "ยินดีต้อนรับสู่ Zebra!";
 "Changelog" = "รายการเปลี่ยนแปลง";
-"Community Repos" = "รวมซอร์สจากชุมชน";
+"Community Sources" = "Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
@@ -330,3 +331,19 @@
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Import Sources";
+"Updating Repositories" = "Updating Repositories";
+"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Download Completed" = "Download Completed";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Parsing %@";
+
+"#Downloading <Filename>
+Downloading %@" = "Downloading %@";
+
+"#Done <Filename>
+Done %@" = "Done %@";

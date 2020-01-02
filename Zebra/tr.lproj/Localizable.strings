@@ -16,7 +16,8 @@
 "Info" = "Bilgi";
 "Welcome to Zebra!" = "Zebra'ya hoş geldiniz!";
 "Changelog" = "Değişiklikler";
-"Community Repos" = "Topluluk Kaynakları";
+"Community Sources" = "Topluluk Kaynakları";
+"You’ve added all of the community sources" = "Bütün topluluk kaynaklarını eklediniz";
 "Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
 "Utility repo for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
@@ -322,11 +323,27 @@
 
 "Change the source of the featured packages on the homepage." = "Anasayfadaki öne çıkan paketlerin kaynağını değiştir.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" Öne Çıkan Paket API’sini destekleyen kaynaklardan rastgele paketler gösterecek.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Kaynağın Öne Çıkanları\" Öne Çıkan Paket API’sini destekleyen kaynaklardan rastgele paketler gösterecek.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
 "Community News" = "Topluluk Haberleri";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Kaynakları İçeri Al";
+"Updating Repositories" = "Kaynaklar Güncelleniyor";
+"Would you like to import the following repositories?" = "Bu kaynakları içeri almak istiyor musunuz?";
+"Download Completed" = "İndirme Tamamlandı";
+"Removing Zebra..." = "Zebra Kaldırılıyor...";
+"Installing Zebra..." = "Zebra Yükleniyor...";
+
+"#Parsing <Repo Name>
+Parsing %@" = "Okunuyor %@";
+
+"#Downloading <Filename>
+Downloading %@" = "İndiriliyor %@";
+
+"#Done <Filename>
+Done %@" = "%@ Tamamlandı";
