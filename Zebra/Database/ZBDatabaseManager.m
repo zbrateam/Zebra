@@ -529,9 +529,15 @@
     return -1;
 }
 
-- (int)repoIDFromBaseURL:(NSString *)baseURL {
+- (int)repoIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
+        NSString *query;
+        if (strict) {
+            query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
+        }
+        else {
+            query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEURL LIKE \'%%%@%%\'", baseURL];
+        }
         
         sqlite3_stmt *statement;
         int repoID = -1;

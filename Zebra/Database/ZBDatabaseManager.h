@@ -173,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 @param baseURL the base url
 @return A repoID for the matching base url. -1 if no match was found.
 */
-- (int)repoIDFromBaseURL:(NSString *)baseURL;
+- (int)repoIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict;
 
 /*!
 @brief Get a ZBRepo instance  from a base url
