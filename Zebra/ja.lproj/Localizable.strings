@@ -16,7 +16,7 @@
 "Info" = "情報";
 "Welcome to Zebra!" = "Zebra へようこそ！";
 "Changelog" = "変更履歴";
-"Community Repos" = "公式リポジトリ ";
+"Community Sources" = "Community Sources";
 "Transfer sources from %@ to Zebra" = "%@ から Zebra にソースを移動";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "ソースの読み込み";
