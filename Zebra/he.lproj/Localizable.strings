@@ -331,12 +331,12 @@
 "#Zebra version
 Zebra %@" = "זברה %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "ייבא מקורות";
+"Updating Repositories" = "מעדכן מקורות";
+"Would you like to import the following repositories?" = "האם ברצונך לייבא את המקורות הבאים?";
+"Download Completed" = "ההורדה הושלמה";
+"Removing Zebra..." = "מסיר את זברה...";
+"Installing Zebra..." = "מתקין את זברה...";
 
 "#Parsing <Repo Name>
 Parsing %@" = "Parsing %@";
