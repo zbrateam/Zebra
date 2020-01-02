@@ -339,10 +339,10 @@ Zebra %@" = "זברה %@";
 "Installing Zebra..." = "מתקין את זברה...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "מנתח את %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "מוריד את %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "סיום %@";
