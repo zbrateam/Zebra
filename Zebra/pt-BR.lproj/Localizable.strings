@@ -331,18 +331,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importar Fontes";
+"Updating Repositories" = "Atualizando Repositórios";
+"Would you like to import the following repositories?" = "Gostaria de importar os seguintes repositórios?";
+"Download Completed" = "Download concluído";
+"Removing Zebra..." = "Removendo Zebra...";
+"Installing Zebra..." = "Instalando Zebra...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Verificando %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Baixando %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Concluído %@";
