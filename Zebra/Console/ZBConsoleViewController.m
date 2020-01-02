@@ -202,7 +202,8 @@
     }
     else {
         NSArray *actions = [queue tasksToPerform:downloadedFiles];
-        if ([actions count] == 0) {
+        BOOL zebraModification = queue.zebraPath || queue.removingZebra;
+        if ([actions count] == 0 && !zebraModification) {
             [self writeToConsole:NSLocalizedString(@"There are no actions to perform", @"") atLevel:ZBLogLevelDescript];
         }
         else {
@@ -318,7 +319,7 @@
                 }
             }
             
-            if (queue.zebraPath || queue.removingZebra) { //Zebra should be the last thing installed so here is our chance to install it.
+            if (zebraModification) { //Zebra should be the last thing installed so here is our chance to install it.
                 if (queue.removingZebra) {
                     [self postStatusUpdate:@"Removing Zebra..." atLevel:ZBLogLevelInfo];
                     [self postStatusUpdate:@"Goodbye forever :(" atLevel:ZBLogLevelDescript];

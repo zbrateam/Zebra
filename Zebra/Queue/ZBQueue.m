@@ -241,6 +241,8 @@
                 [removeCommand addObject:@"--force-depends"];
             }
             
+            NSUInteger commandCount = [removeCommand count];
+            
             for (ZBPackage *package in [self removeQueue]) {
                 if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
                     removingZebra = true;
@@ -257,8 +259,10 @@
                 [removeCommand addObject:package.identifier];
             }
             
-            [commands addObject:@[@(ZBStageRemove)]];
-            [commands addObject:removeCommand];
+            if ([removeCommand count] != commandCount) {
+                [commands addObject:@[@(ZBStageRemove)]];
+                [commands addObject:removeCommand];
+            }
         }
         else {
             NSMutableArray *removeCommand = [baseCommand mutableCopy];
@@ -272,6 +276,8 @@
                 }
             }
             
+            NSUInteger commandCount = [removeCommand count];
+            
             for (ZBPackage *package in [self removeQueue]) {
                 if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
                     removingZebra = true;
@@ -288,8 +294,10 @@
                 [removeCommand addObject:package.identifier];
             }
             
-            [commands addObject:@[@(ZBStageRemove)]];
-            [commands addObject:removeCommand];
+            if ([removeCommand count] != commandCount) {
+                [commands addObject:@[@(ZBStageRemove)]];
+                [commands addObject:removeCommand];
+            }
         }
     }
     
@@ -307,6 +315,8 @@
                 [installCommand addObject:@"--force-depends"];
             }
         }
+        
+        NSUInteger commandCount = [installCommand count];
         
         NSArray *dependencyPaths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDependency filenames:debs];
         [installCommand addObjectsFromArray:dependencyPaths];
@@ -326,8 +336,10 @@
             [installCommand addObjectsFromArray:paths];
         }
         
-        [commands addObject:@[@(ZBStageInstall)]];
-        [commands addObject:installCommand];
+        if ([installCommand count] != commandCount) {
+            [commands addObject:@[@(ZBStageInstall)]];
+            [commands addObject:installCommand];
+        }
     }
     
     if ([self queueHasPackages:ZBQueueTypeReinstall]) {
