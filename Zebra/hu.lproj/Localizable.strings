@@ -16,7 +16,7 @@
 "Info" = "Információ";
 "Welcome to Zebra!" = "Üdvözöl a Zebra!";
 "Changelog" = "Változások listája";
-"Community Repos" = "Közösségi források";
+"Community Sources" = "Community Sources";
 "Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
 "Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Források átvitele";
