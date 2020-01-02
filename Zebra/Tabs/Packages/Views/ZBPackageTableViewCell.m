@@ -51,7 +51,10 @@
     self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];
     UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
     if (sectionImage == NULL) {
-        sectionImage = [UIImage imageNamed:@"Other"];
+        sectionImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", package.sectionImageName]];
+        if (sectionImage == NULL) { //Just in case
+            sectionImage = [UIImage imageNamed:@"Other"];
+        }
     }
     
     if (package.iconPath) {

@@ -10,6 +10,7 @@ after-stage::
 	$(MAKE) -C Supersling LEAN_AND_MEAN=1
 	mkdir -p $(THEOS_STAGING_DIR)/usr/libexec/zebra
 	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/usr/libexec/zebra
+	mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
@@ -22,6 +23,7 @@ ipa::
 	mkdir -p $(THEOS_STAGING_DIR)/Payload
 	mv Zebra.xcarchive/Products/Applications/Zebra.app $(THEOS_STAGING_DIR)/Payload/Zebra.app
 	rm -rf Zebra.xcarchive
+	mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 	cd $(THEOS_STAGING_DIR) && zip -r Zebra.zip Payload
 	rm -rf $(THEOS_STAGING_DIR)/Payload
