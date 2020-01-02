@@ -331,18 +331,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importer kjelder";
+"Updating Repositories" = "Oppdaterer kjelder";
+"Would you like to import the following repositories?" = "Vil du importera følgjande kjelder?";
+"Download Completed" = "Nedlasting fullført";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Parsar %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Lastar ned %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Ferdig %@";
