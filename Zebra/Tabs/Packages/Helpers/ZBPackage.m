@@ -42,6 +42,7 @@
 @synthesize author;
 @synthesize repo;
 @synthesize filename;
+@synthesize debPath;
 @synthesize dependencies;
 @synthesize dependencyOf;
 @synthesize issues;
