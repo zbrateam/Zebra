@@ -93,6 +93,9 @@
         if ([sources count]) {
             [self->communitySources addObject:sources];
         }
+        else {
+            [self->communitySources addObject:@[@{@"type": @"none"}]]; //None left message
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -105,27 +108,27 @@
 
 - (NSArray *)packageManagers {
     NSMutableArray *result = [NSMutableArray new];
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
         NSDictionary *dict = @{@"type": @"transfer",
                                @"name": @"Cydia",
                                @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
                                @"icon": @"file:///Applications/Cydia.app/Icon-60@2x.png"};
         [result addObject:dict];
-//    }
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
         NSDictionary *dict2 = @{@"type": @"transfer",
                                @"name": @"Installer",
                                @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
                                @"icon": @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict2];
-//    }
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
         NSDictionary *dict3 = @{@"type": @"transfer",
                                @"name": @"Sileo",
                                @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
                                @"icon": @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict3];
-//    }
+    }
     return result;
 }
 
@@ -137,19 +140,22 @@
                                @"url" : @"https://repo.chimera.sh/",
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
         [result addObject:dict];
-    } else if (([ZBDevice isUncover] || [ZBDevice isCheckrain]) && ![ZBRepo exists:@"https://apt.bingner.com/"]) { // uncover
+    }
+    if (([ZBDevice isUncover] || [ZBDevice isCheckrain]) && ![ZBRepo exists:@"https://apt.bingner.com/"]) { // uncover
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",
                                @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
         [result addObject:dict];
-    } else if ([ZBDevice isElectra] && ![ZBRepo exists:@"https://electrarepo64.coolstar.org/"]) { // electra
+    }
+    if ([ZBDevice isElectra] && ![ZBRepo exists:@"https://electrarepo64.coolstar.org/"]) { // electra
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Electra's iOS Utilities",
                                @"url" : @"https://electrarepo64.coolstar.org/",
                                @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
         [result addObject:dict];
-    } else if (![ZBRepo exists:@"http://apt.saurik.com/"]) { // cydia
+    }
+    if (![ZBRepo exists:@"http://apt.saurik.com/"]) { // cydia
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Cydia/Telesphoreo",
                                @"url" : @"http://apt.saurik.com",
@@ -162,16 +168,34 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [communitySources count];
+    return [communitySources count] == 0 ? 1 : [communitySources count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[communitySources objectAtIndex:section] count];
+    return [communitySources count] == 0 ? 1 : [[communitySources objectAtIndex:section] count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *info = [[communitySources objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSString *type = [info objectForKey:@"type"];
+    
+    if ([type isEqualToString:@"none"]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noneLeftCell"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noneLeftCell"];
+        }
+        
+        cell.textLabel.text = NSLocalizedString(@"No More Community Sources", @"");
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }
+    
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
     [cell.repoLabel setText:[info objectForKey:@"name"]];
@@ -187,19 +211,24 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDictionary *info = [[communitySources objectAtIndex:section] objectAtIndex:0];
-    NSString *type = [info objectForKey:@"type"];
-    
-    NSArray *options = @[@"transfer", @"utility", @"repo"];
-    switch ([options indexOfObject:type]) {
-        case 0:
-            return NSLocalizedString(@"Transfer Sources", @"");
-        case 1:
-            return NSLocalizedString(@"Utilities", @"");
-        case 2:
-            return NSLocalizedString(@"Community Sources", @"");
-        default:
-            return nil;
+    if ([communitySources count]) {
+        NSDictionary *info = [[communitySources objectAtIndex:section] objectAtIndex:0];
+        NSString *type = [info objectForKey:@"type"];
+
+        NSArray *options = @[@"transfer", @"utility", @"repo", @"none"];
+        switch ([options indexOfObject:type]) {
+            case 0:
+                return NSLocalizedString(@"Transfer Sources", @"");
+            case 1:
+                return NSLocalizedString(@"Utilities", @"");
+            case 2:
+                return NSLocalizedString(@"Community Sources", @"");
+            default:
+                return nil;
+        }
+    }
+    else {
+        return nil;
     }
 }
 
