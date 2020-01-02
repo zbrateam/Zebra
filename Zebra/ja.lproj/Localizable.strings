@@ -111,7 +111,7 @@
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
 "Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "ソースの検証中";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
 "Log Out" = "ログアウト";
