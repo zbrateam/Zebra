@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
 "Changelog" = "Список Изменений";
 "Community Sources" = "Источники Сообщества";
-"No More Community Sources" = "Больше Нет Источников Сообщества";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility repo for %@" = "Репозиторий утилит для %@";
 "Transfer Sources" = "Перенести Источники";
