@@ -124,14 +124,14 @@
         NSDictionary *dict2 = @{@"type": @"transfer",
                                @"name": @"Installer",
                                @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
-                               @"icon": @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
+                               @"icon": @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict2];
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
         NSDictionary *dict3 = @{@"type": @"transfer",
                                @"name": @"Sileo",
                                @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                               @"icon": @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
+                               @"icon": @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict3];
     }
     return result;
@@ -139,28 +139,28 @@
 
 - (NSArray *)utilityRepos {
     NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice isChimera] && ![ZBRepo exists:@"https://repo.chimera.sh/"]) {
+    if ([ZBDevice isChimera]) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Chimera",
                                @"url" : @"https://repo.chimera.sh/",
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
         [result addObject:dict];
     }
-    if (([ZBDevice isUncover] || [ZBDevice isCheckrain]) && ![ZBRepo exists:@"https://apt.bingner.com/"]) { // uncover
+    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // uncover
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",
                                @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
         [result addObject:dict];
     }
-    if ([ZBDevice isElectra] && ![ZBRepo exists:@"https://electrarepo64.coolstar.org/"]) { // electra
+    else if ([ZBDevice isElectra]) { // electra
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Electra's iOS Utilities",
                                @"url" : @"https://electrarepo64.coolstar.org/",
                                @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
         [result addObject:dict];
     }
-    if (![ZBRepo exists:@"http://apt.saurik.com/"]) { // cydia
+    else { // cydia
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Cydia/Telesphoreo",
                                @"url" : @"http://apt.saurik.com/",
