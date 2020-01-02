@@ -39,6 +39,8 @@
 
 - (void)layoutNavigationButtonsNormal {}
 
+- (void)checkClipboard {}
+
 - (void)refreshTable {
     self->sources = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
