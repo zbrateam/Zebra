@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "歡迎使用 Zebra！";
 "Changelog" = "更新記錄";
 "Community Sources" = "Community Sources";
-"No More Community Sources" = "No More Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility repo for %@" = "%@ 的工具軟體來源";
 "Transfer Sources" = "匯入來源";
