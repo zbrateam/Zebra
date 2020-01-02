@@ -16,8 +16,8 @@
 "Info" = "Bilgi";
 "Welcome to Zebra!" = "Zebra'ya hoş geldiniz!";
 "Changelog" = "Değişiklikler";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Topluluk Kaynakları";
+"You’ve added all of the community sources" = "Bütün topluluk kaynaklarını eklediniz";
 "Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
 "Utility repo for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
@@ -332,18 +332,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Kaynakları İçeri Al";
+"Updating Repositories" = "Kaynaklar Güncelleniyor";
+"Would you like to import the following repositories?" = "Bu kaynakları içeri almak istiyor musunuz?";
+"Download Completed" = "İndirme Tamamlandı";
+"Removing Zebra..." = "Zebra Kaldırılıyor...";
+"Installing Zebra..." = "Zebra Yükleniyor...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Okunuyor %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "İndiriliyor %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "%@ Tamamlandı";
