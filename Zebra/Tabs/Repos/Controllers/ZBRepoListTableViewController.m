@@ -605,7 +605,8 @@
 
 - (void)handleImportOf:(NSURL *)url {
     if ([[url pathExtension] isEqualToString:@"list"]) {
-        NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
+        NSMutableString *urls = [NSLocalizedString(@"Would you like to import the following repositories?", @"") mutableCopy];
+        [urls appendString:@"\n"];
         
         NSError *readError;
         NSArray *contents = [[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
@@ -625,9 +626,9 @@
             }
         }
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Import Sources", @"") message:urls preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self->repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
                 if (error != NULL) {
                     NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
@@ -639,14 +640,15 @@
             }];
         }];
         
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:NULL];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:NULL];
         
         [alertController addAction:yesAction];
         [alertController addAction:noAction];
         
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
-        NSMutableString *urls = [@"Would you like to import the following repos?\n" mutableCopy];
+        NSMutableString *urls = [NSLocalizedString(@"Would you like to import the following repositories?", @"") mutableCopy];
+        [urls appendString:@"\n"];
         
         NSError *readError;
         NSArray *contents = [[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&readError] componentsSeparatedByString:@"\n"];
@@ -666,9 +668,9 @@
             }
         }
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Sources" message:urls preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Import Sources", @"") message:urls preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self->repoManager mergeSourcesFrom:url into:[ZBAppDelegate sourcesListURL] completion:^(NSError * _Nonnull error) {
                 if (error != NULL) {
                     NSLog(@"[Zebra] Error when merging sources from %@ into %@: %@", url, [ZBAppDelegate sourcesListURL], error);
@@ -680,7 +682,7 @@
             }];
         }];
         
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:NULL];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:NULL];
         
         [alertController addAction:yesAction];
         [alertController addAction:noAction];

@@ -330,3 +330,19 @@
 
 #Zebra version
 "Zebra %@" = "Zebra %@";
+
+"Import Sources" = "Import Sources";
+"Updating Repositories" = "Updating Repositories";
+"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Download Completed" = "Download Completed";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
+
+#Parsing <Repo Name>
+"Parsing %@" = "Parsing %@";
+
+#Downloading <Filename>
+"Downloading %@" = "Downloading %@";
+
+#Done <Filename>
+"Done %@" = "Done %@";

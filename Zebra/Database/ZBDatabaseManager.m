@@ -210,7 +210,7 @@
         [self checkForZebraRepo];
         [self bulkDatabaseStartedUpdate];
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
-        [self bulkPostStatusUpdate:@"Updating Repositories\n" atLevel:ZBLogLevelInfo];
+        [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Repositories", @"") atLevel:ZBLogLevelInfo];
         [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
     } else {
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];
@@ -249,13 +249,13 @@
         [self bulkDatabaseCompletedUpdate:numberOfUpdates];
         return;
     }
-    [self bulkPostStatusUpdate:@"Download Completed\n" atLevel:ZBLogLevelInfo];
+    [self bulkPostStatusUpdate:NSLocalizedString(@"Download Completed", @"") atLevel:ZBLogLevelInfo];
     self.downloadManager = nil;
     NSArray *releaseFiles = filenames[@"release"];
     NSArray *packageFiles = filenames[@"packages"];
     
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
+//    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
+//    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
 
     if ([self openDatabase] == SQLITE_OK) {
         for (NSString *releasePath in releaseFiles) {
@@ -285,7 +285,7 @@
             
             [self bulkSetRepo:baseFileName busy:YES];
             
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Parsing %@\n", baseFileName] atLevel:ZBLogLevelDescript];
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), baseFileName] atLevel:ZBLogLevelDescript];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName];
             if (repoID == -1) { // Repo does not exist in database, create it (this should never happen).
@@ -306,7 +306,7 @@
         
         sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
         
-        [self bulkPostStatusUpdate:@"Done!\n" atLevel:ZBLogLevelInfo];
+        [self bulkPostStatusUpdate:NSLocalizedString(@"Done", @"") atLevel:ZBLogLevelInfo];
         
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];
         [self updateLastUpdated];
@@ -1779,7 +1779,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
     [self bulkSetRepo:filename busy:YES];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@\n", filename] atLevel:ZBLogLevelDescript];
+    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
@@ -1791,7 +1791,7 @@
             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@\n", error.localizedDescription] atLevel:ZBLogLevelError];
         }
     } else if (filename) {
-        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@\n", filename] atLevel:ZBLogLevelDescript];
+        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@", filename] atLevel:ZBLogLevelDescript];
     }
 }
 
