@@ -17,6 +17,7 @@
 "Welcome to Zebra!" = "Velkommen til Zebra!";
 "Changelog" = "Endringslogg";
 "Community Sources" = "Community Sources";
+"No More Community Sources" = "No More Community Sources";
 "Transfer sources from %@ to Zebra" = "Overfør kilder fra %@ til Zebra";
 "Utility repo for %@" = "Verktøyskilde for %@";
 "Transfer Sources" = "Overfør kilder";
