@@ -301,55 +301,39 @@
 }
 
 + (BOOL)isCheckrain {
-#if TARGET_OS_SIMULATOR
-    return true;
-#else
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.bootstrapped"];
     });
     return value;
-#endif
 }
 
 + (BOOL)isChimera {
-#if TARGET_OS_SIMULATOR
-    return true;
-#else
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         value = [self needsSimulation] ? NO : [self _isRegularDirectory:@"/chimera"];
     });
     return value;
-#endif
 }
 
 + (BOOL)isElectra {
-#ifdef TARGET_OS_SIMULATOR
-    return true;
-#else
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         value = [self needsSimulation] ? NO : [self _isRegularDirectory:@"/electra"];
     });
     return value;
-#endif
 }
 
 + (BOOL)isUncover {
-#if TARGET_OS_SIMULATOR
-    return true;
-#else
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_unc0ver"];
     });
     return value;
-#endif
 }
 
 + (NSString *)packageManagementBinary {
