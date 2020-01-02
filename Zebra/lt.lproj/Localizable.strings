@@ -16,8 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Sveiki atvykę į Zebra!";
 "Changelog" = "Pakeitimų sąrašas";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Bendruomenės šaltiniai";
+"You’ve added all of the community sources" = "Jūs pridėjote visas bendruomenės saugyklas";
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
 "Transfer Sources" = "Perkelti šaltinius";
@@ -332,18 +332,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importuojami šaltiniai";
+"Updating Repositories" = "Atnaujinamos saugyklos";
+"Would you like to import the following repositories?" = "Ar tikrai norite importuoti šias saugyklas?";
+"Download Completed" = "Atsisiuntimas baigtas";
+"Removing Zebra..." = "Šalinama Zebra...";
+"Installing Zebra..." = "Įdiegiama Zebra...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Analizuoja %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Atsiunčiama %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Atlikta %@";
