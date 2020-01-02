@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Laipni lūdzam pie Zebras!";
 "Changelog" = "Izmaiņas žurnāls";
 "Community Sources" = "Community Sources";
-"No More Community Sources" = "No More Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
