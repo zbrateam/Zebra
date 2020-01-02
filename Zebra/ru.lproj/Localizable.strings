@@ -16,7 +16,7 @@
 "Info" = "Информация";
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
 "Changelog" = "Список Изменений";
-"Community Repos" = "Репозитории сообщества";
+"Community Sources" = "Community Sources";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility repo for %@" = "Репозиторий утилит для %@";
 "Transfer Sources" = "Перенести Источники";
