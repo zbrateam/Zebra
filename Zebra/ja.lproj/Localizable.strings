@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Zebra へようこそ！";
 "Changelog" = "変更履歴";
 "Community Sources" = "公式リポジトリ";
-"No More Community Sources" = "これ以上 公式リポジトリ はありません";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
