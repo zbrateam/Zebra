@@ -331,18 +331,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importo Burimet";
+"Updating Repositories" = "Duke përditësuar repot";
+"Would you like to import the following repositories?" = "A dëshironi të importoni repot e mëposhtme?";
+"Download Completed" = "Shkarkimi Përfundoi";
+"Removing Zebra..." = "Duke hequr Zebran...";
+"Installing Zebra..." = "Duke instaluar Zebran...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Duke analizuar %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Duke shkarkuar %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Përfundoi %@";
