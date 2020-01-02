@@ -16,7 +16,7 @@
 "Info" = "Bilgi";
 "Welcome to Zebra!" = "Zebra'ya hoş geldiniz!";
 "Changelog" = "Değişiklikler";
-"Community Repos" = "Topluluk Kaynakları";
+"Community Sources" = "Community Sources";
 "Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
 "Utility repo for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
