@@ -17,6 +17,7 @@
 "Welcome to Zebra!" = "Dobro došli u Zebru!";
 "Changelog" = "Promene";
 "Community Sources" = "Community Sources";
+"No More Community Sources" = "No More Community Sources";
 "Transfer sources from %@ to Zebra" = "Prebaci sve izvore %@ u Zebru";
 "Utility repo for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
