@@ -1,18 +1,18 @@
 // Common
 
-"Cancel" = "Cancel";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Login" = "Login";
-"Close" = "Close";
-"Done" = "Done";
+"Cancel" = "रद्द करें";
+"No" = "नहीं";
+"Ok" = "हनजी";
+"Error" = "त्रुटि";
+"Retry" = "पुन: प्रयास करें";
+"Edit" = "संशोधन करें";
+"Login" = "लॉग इन करें";
+"Close" = "बंद";
+"Done" = "समाप्त";
 
 // Home
 
-"Home" = "Home";
+"Home" = "घऱ";
 "Info" = "Info";
 "Welcome to Zebra!" = "Welcome to Zebra!";
 "Changelog" = "Changelog";
