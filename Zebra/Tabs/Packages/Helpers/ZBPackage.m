@@ -599,7 +599,14 @@
 - (ZBPackage *)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
-    ZBLog(@"Installable candidate for %@ is %@", self, candidate);
+    
+    return candidate;
+}
+
+- (ZBPackage *)removeableCandidate {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    ZBPackage *candidate = [databaseManager installedPackageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
+    
     return candidate;
 }
 

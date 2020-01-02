@@ -8,6 +8,7 @@
 
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
+#import <Repos/Helpers/ZBRepo.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
@@ -66,6 +67,10 @@
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     if (package == NULL) return;
     
+    if (queue == ZBQueueTypeRemove && ![package isInstalled:YES]) { //Trying to remove a package that isn't installed
+        package = [package removeableCandidate];
+    }
+    
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear) { //Remove package from queue, this probably needs to be rewritten to support the same package with a different version being added to the same queue
         [self removePackage:package inQueue:type versionStrict:false];
@@ -86,6 +91,7 @@
         else if (queue == ZBQueueTypeRemove) {
             NSLog(@"[Zebra] Removing packages that depend on %@", package);
             [self enqueueRemovalOfPackagesThatDependOn:package];
+
         }
     }
     [self updateQueueBarData];

@@ -66,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)downloadSizeString;
 - (NSString *)installedSizeString;
 - (ZBPackage *)installableCandidate;
+- (ZBPackage *)removeableCandidate;
 - (NSDate *)installedDate;
 - (NSString *)installedVersion;
 - (void)addDependency:(ZBPackage *)package;
