@@ -216,7 +216,7 @@
     [[ZBAppDelegate tabBarController] closeQueue];
 }
 
-- (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs {
+- (NSArray *)tasksToPerform:(NSArray <ZBPackage *> *)debs {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand;
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
@@ -376,45 +376,51 @@
     return commands;
 }
 
-- (NSArray <NSString *> *)pathsForDownloadedDebsInQueue:(ZBQueueType)queue filenames:(NSArray <NSDictionary <NSString*, NSString *> *> *)filenames {
-    NSMutableArray *paths = [NSMutableArray new];
+- (NSArray <NSString *> *)pathsForDownloadedDebsInQueue:(ZBQueueType)queue filenames:(NSArray <ZBPackage *> *)filenames {
+    NSMutableArray *result = [NSMutableArray new];
     for (ZBPackage *package in [self queueFromType:queue]) {
-        BOOL isZebra = [[package identifier] isEqualToString:@"xyz.willy.zebra"];
-        for (NSDictionary *filename in filenames) {
-            NSString *finalPath = [filename objectForKey:@"final"];
-            NSString *originalFilename = [filename objectForKey:@"original"];
-            NSString *packageFilename = [[package filename] lastPathComponent];
-            NSString *originalURL = [filename objectForKey:@"originalURL"];
-
-            if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
-                continue;
-            }
-            
-            if ([finalPath containsString:packageFilename]) {
-                if (isZebra)
-                    zebraPath = finalPath;
-                else
-                    [paths addObject:finalPath];
-                break;
-            }
-            else if ([originalFilename containsString:packageFilename]) {
-                if (isZebra)
-                    zebraPath = finalPath;
-                else
-                    [paths addObject:finalPath];
-                break;
-            }
-            else if ([originalURL containsString:packageFilename]) {
-                if (isZebra)
-                    zebraPath = finalPath;
-                else
-                    [paths addObject:finalPath];
-                break;
-            }
+        if (package.debPath) {
+            [result addObject:package.debPath];
         }
     }
-    
-    return paths;
+    return result;
+//    for (ZBPackage *package in [self queueFromType:queue]) {
+//        BOOL isZebra = [[package identifier] isEqualToString:@"xyz.willy.zebra"];
+//        for (NSDictionary *filename in filenames) {
+//            NSString *finalPath = [filename objectForKey:@"final"];
+//            NSString *originalFilename = [filename objectForKey:@"original"];
+//            NSString *packageFilename = [[package filename] lastPathComponent];
+//            NSString *originalURL = [filename objectForKey:@"originalURL"];
+//
+//            if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
+//                continue;
+//            }
+//
+//            if ([finalPath containsString:packageFilename]) {
+//                if (isZebra)
+//                    zebraPath = finalPath;
+//                else
+//                    [paths addObject:finalPath];
+//                break;
+//            }
+//            else if ([originalFilename containsString:packageFilename]) {
+//                if (isZebra)
+//                    zebraPath = finalPath;
+//                else
+//                    [paths addObject:finalPath];
+//                break;
+//            }
+//            else if ([originalURL containsString:packageFilename]) {
+//                if (isZebra)
+//                    zebraPath = finalPath;
+//                else
+//                    [paths addObject:finalPath];
+//                break;
+//            }
+//        }
+//    }
+//
+//    return paths;
 }
 
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue {

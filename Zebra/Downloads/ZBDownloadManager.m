@@ -394,10 +394,10 @@
     NSURL *url = [[downloadTask originalRequest] URL];
     NSString *MIMEType = [response MIMEType];
     
-    [self handleFileAtLocation:location withMIMEType:MIMEType url:url response:response];
+    [self handleFileAtLocation:location withMIMEType:MIMEType url:url response:response taskIdentifier:downloadTask.taskIdentifier];
 }
 
-- (void)handleFileAtLocation:(NSURL *)location withMIMEType:(NSString *)MIMEType url:(NSURL *)url response:(NSURLResponse *)response {
+- (void)handleFileAtLocation:(NSURL *)location withMIMEType:(NSString *)MIMEType url:(NSURL *)url response:(NSURLResponse *)response taskIdentifier:(NSUInteger)taskIdentifier {
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     
     NSInteger responseCode = [httpResponse statusCode];
@@ -628,17 +628,15 @@
                         [self cancelAllTasksForSession:self->session];
                         [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
                     } else {
+                        ZBPackage *package = self->packageTasksMap[@(taskIdentifier)];
+                        package.debPath = finalPath;
+                        
                         NSMutableArray *arr = [self->filenames objectForKey:@"debs"];
                         if (arr == NULL) {
                             arr = [NSMutableArray new];
                         }
                         
-                        NSMutableDictionary *dict = [NSMutableDictionary new];
-                        [dict setObject:requestedFilename forKey:@"original"];
-                        [dict setObject:[url absoluteString] forKey:@"originalURL"];
-                        [dict setObject:finalPath forKey:@"final"];
-                        
-                        [arr addObject:dict];
+                        [arr addObject:package];
                         [self->filenames setValue:arr forKey:@"debs"];
                     }
                 }];
@@ -653,7 +651,7 @@
             break;
         }
         default: {
-            [self handleFileAtLocation:location withMIMEType:[self guessMIMETypeForFile:[url absoluteString]] url:url response:response];
+            [self handleFileAtLocation:location withMIMEType:[self guessMIMETypeForFile:[url absoluteString]] url:url response:response taskIdentifier:taskIdentifier];
             break;
         }
     }
