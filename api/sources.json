@@ -1,0 +1,60 @@
+{
+    "repos": [
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "BigBoss",
+            "url": "http://apt.thebigboss.org/repofiles/cydia/",
+            "icon": "http://apt.thebigboss.org/repofiles/cydia/dists/stable/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "Chariz",
+            "url": "https://repo.chariz.com/",
+            "icon": "https://repo.chariz.com/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "Dynastic Repo",
+            "url": "https://repo.dynastic.co/",
+            "icon": "https://repo.dynastic.co/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "ModMyi (Archive)",
+            "url": "http://apt.modmyi.com/",
+            "icon": "http://apt.modmyi.com/dists/stable/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "Packix",
+            "url": "https://repo.packix.com/",
+            "icon": "https://repo.packix.com/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "rpetrich repo",
+            "url": "https://rpetri.ch/repo",
+            "icon": "https://rpetri.ch/repo/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "Zebra Beta",
+            "url": "https://getzbra.com/beta",
+            "icon": "https://getzbra.com/beta/CydiaIcon.png"
+        },
+        {
+            "type": "repo",
+            "appVersion": "1.0.1",
+            "name": "ZodTTD & MacCiti (Archive)",
+            "url": "http://cydia.zodttd.com/repo/cydia/",
+            "icon": "http://cydia.zodttd.com/repo/cydia/dists/stable/CydiaIcon.png"
+        }
+    ]
+}
