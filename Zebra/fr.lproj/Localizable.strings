@@ -16,8 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Bienvenue sur Zebra !";
 "Changelog" = "Historique des modifications";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Sources de la communauté";
+"You’ve added all of the community sources" = "Vous avez ajouté toutes les sources de la communauté";
 "Transfer sources from %@ to Zebra" = "Importer les sources de %@ vers Zebra";
 "Utility repo for %@" = "Source utilitaire pour %@";
 "Transfer Sources" = "Transférer les Sources";
@@ -332,18 +332,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importer des Sources";
+"Updating Repositories" = "Mise à jour des dépôts";
+"Would you like to import the following repositories?" = "Voulez-vous importer les dépôts suivants ?";
+"Download Completed" = "Téléchargement terminé";
+"Removing Zebra..." = "Suppression de Zebra...";
+"Installing Zebra..." = "Installation de Zebra...";
 
 "#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Analyse de %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Téléchargement de %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Terminé : %@";
