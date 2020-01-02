@@ -191,7 +191,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noneLeftCell"];
         }
         
-        cell.textLabel.text = NSLocalizedString(@"No More Community Sources", @"");
+        cell.textLabel.text = NSLocalizedString(@"You’ve added all of the community sources", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
