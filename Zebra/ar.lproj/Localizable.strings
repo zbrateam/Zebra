@@ -17,6 +17,7 @@
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
 "Changelog" = "التغييرات";
 "Community Sources" = "Community Sources";
+"No More Community Sources" = "No More Community Sources";
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
 "Utility repo for %@" = "فائدة المستودع لـ %@";
 "Transfer Sources" = "تحويل المصادر";
