@@ -1,5 +1,5 @@
 //
-//  ZBCommunityReposTableViewController.h
+//  ZBCommunitySourcesTableViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 6/30/19.
@@ -13,9 +13,7 @@
 #import "ZBAddRepoViewController.h"
 @import SDWebImage;
 
-@interface ZBCommunityReposTableViewController : UITableViewController <ZBAddRepoDelegate>
-@property NSString *jailbreakRepo;
-@property NSArray *communityRepos;
-@property NSMutableArray *availableManagers;
+@interface ZBCommunitySourcesTableViewController : UITableViewController <ZBAddRepoDelegate>
+@property NSMutableArray <NSArray <NSDictionary *> *> *communitySources;
 @property ZBRepoManager *repoManager;
 @end

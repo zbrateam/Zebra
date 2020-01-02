@@ -11,6 +11,7 @@
 #import "ZBNewsCollectionViewCell.h"
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Community Repos/ZBCommunitySourcesTableViewController.h>
 
 @import FirebaseAnalytics;
 
@@ -313,7 +314,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     image = [UIImage imageNamed:@"Changelog"];
                     break;
                 case ZBCommunity:
-                    text = NSLocalizedString(@"Community Repos", @"");
+                    text = NSLocalizedString(@"Community Sources", @"");
                     image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
@@ -443,7 +444,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             break;
         }
         case ZBCommunity: {
-            ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
+            ZBCommunitySourcesTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
             [self.navigationController pushViewController:community animated:YES];
             break;
         }

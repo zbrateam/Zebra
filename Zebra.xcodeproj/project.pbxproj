@@ -33,7 +33,7 @@
 		36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FF230A485B002694BE /* ZBRedditPosts.m */; };
 		36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */; };
 		36A33CE222C9AD420054A577 /* ZBChangeLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */; };
-		36A33CED22C9C0C60054A577 /* ZBCommunityReposTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CEC22C9C0C60054A577 /* ZBCommunityReposTableViewController.m */; };
+		36A33CED22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CEC22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m */; };
 		36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6522AB30E3004C2332 /* zWhite~ipad@2x.png */; };
 		36AC5A6A22AB30E4004C2332 /* zWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6622AB30E3004C2332 /* zWhite@2x.png */; };
 		36AC5A6B22AB30E4004C2332 /* zWhite~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6722AB30E3004C2332 /* zWhite~ipad@3x.png */; };
@@ -223,8 +223,8 @@
 		36A1D903230A56A5002694BE /* ZBPurchaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPurchaseInfo.h; sourceTree = "<group>"; };
 		36A33CE022C9AD420054A577 /* ZBChangeLogTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangeLogTableViewController.h; sourceTree = "<group>"; };
 		36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangeLogTableViewController.m; sourceTree = "<group>"; };
-		36A33CEB22C9C0C60054A577 /* ZBCommunityReposTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommunityReposTableViewController.h; sourceTree = "<group>"; };
-		36A33CEC22C9C0C60054A577 /* ZBCommunityReposTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommunityReposTableViewController.m; sourceTree = "<group>"; };
+		36A33CEB22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommunitySourcesTableViewController.h; sourceTree = "<group>"; };
+		36A33CEC22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommunitySourcesTableViewController.m; sourceTree = "<group>"; };
 		36AC5A6522AB30E3004C2332 /* zWhite~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zWhite~ipad@2x.png"; sourceTree = "<group>"; };
 		36AC5A6622AB30E3004C2332 /* zWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zWhite@2x.png"; sourceTree = "<group>"; };
 		36AC5A6722AB30E3004C2332 /* zWhite~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zWhite~ipad@3x.png"; sourceTree = "<group>"; };
@@ -539,8 +539,8 @@
 		36A33CEA22C9C0AC0054A577 /* Community Repos */ = {
 			isa = PBXGroup;
 			children = (
-				36A33CEB22C9C0C60054A577 /* ZBCommunityReposTableViewController.h */,
-				36A33CEC22C9C0C60054A577 /* ZBCommunityReposTableViewController.m */,
+				36A33CEB22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.h */,
+				36A33CEC22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m */,
 			);
 			name = "Community Repos";
 			path = "AlternateIcon/Community Repos";
@@ -1215,7 +1215,7 @@
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89E8633A21D5A1AA0081E485 /* ZBWebViewController.m in Sources */,
-				36A33CED22C9C0C60054A577 /* ZBCommunityReposTableViewController.m in Sources */,
+				36A33CED22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,

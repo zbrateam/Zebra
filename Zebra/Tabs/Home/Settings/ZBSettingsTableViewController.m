@@ -466,12 +466,6 @@ enum ZBMiscOrder {
     [self.navigationController pushViewController:changeLog animated:YES];
 }
 
-- (void)openCommunityRepos {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBCommunityReposTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
-    [self.navigationController pushViewController:community animated:YES];
-}
-
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
