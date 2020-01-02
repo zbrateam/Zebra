@@ -1,333 +1,333 @@
 // Common
 
-"Cancel" = "إلغاء";
-"No" = "لا";
-"Ok" = "حسنًا";
-"Error" = "خطأ";
-"Retry" = "إعادة المحاولة";
-"Edit" = "تعديل";
-"Login" = "تسجيل الدخول";
-"Close" = "إغلاق";
-"Done" = "تم";
+"Cancel" = "Cancel";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Login" = "Login";
+"Close" = "Close";
+"Done" = "Done";
 
 // Home
 
-"Home" = "الرئيسية";
-"Info" = "معلومات";
-"Welcome to Zebra!" = "مرحبًا بك في Zebra!";
-"Changelog" = "التغييرات";
+"Home" = "Home";
+"Info" = "Info";
+"Welcome to Zebra!" = "Welcome to Zebra!";
+"Changelog" = "Changelog";
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
-"Utility repo for %@" = "فائدة المستودع لـ %@";
-"Transfer Sources" = "تحويل المصادر";
-"Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
-"Stores" = "المتاجر";
-"Purchases" = "المشتريات";
-"Wish List" = "قائمة الأمنيات";
-"No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
-"Community" = "المجتمع";
-"Join our Discord" = "انضم لنا على Discord";
-"Follow me on Twitter" = "تابعنا على تويتر";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Utility repo for %@" = "Utility repo for %@";
+"Transfer Sources" = "Transfer Sources";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Stores" = "Stores";
+"Purchases" = "Purchases";
+"Wish List" = "Wish List";
+"No items in Wish List" = "No items in Wish List";
+"Community" = "Community";
+"Join our Discord" = "Join our Discord";
+"Follow me on Twitter" = "Follow me on Twitter";
 
 //Credits
 
-"Credits" = "الإعتمادات";
-"Creators" = "المنشئون";
-"Contributors" = "المساهمون";
-"Translators" = "المترجمون";
-"Libraries" = "المكتبات";
+"Credits" = "Credits";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "الإعدادات";
-"Version" = "الإصدار";
-"Interface" = "الواجهة";
-"Featured" = "مميز";
-"News" = "الأخبار";
-"Miscellaneous" = "متنوع";
-"Advanced" = "متقدم";
+"Settings" = "Settings";
+"Version" = "Version";
+"Interface" = "Interface";
+"Featured" = "Featured";
+"News" = "News";
+"Miscellaneous" = "Miscellaneous";
+"Advanced" = "Advanced";
 
-"Report a Bug" = "الإبلاغ عن خطأ";
+"Report a Bug" = "Report a Bug";
 
-"Accent Color" = "اللون الثانوي";
-"Blue" = "أزرق";
-"Orange" = "برتقالي";
-"White" = "أبيض";
-"Black" = "أسود";
+"Accent Color" = "Accent Color";
+"Blue" = "Blue";
+"Orange" = "Orange";
+"White" = "White";
+"Black" = "Black";
 
-"Dark Mode Style" = "نمط الوضع الداكن";
-"Dark Mode" = "الوضع الداكن";
-"Default" = "افتراضي";
+"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode" = "Dark Mode";
+"Default" = "Default";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "أيقونة التطبيق";
+"App Icon" = "App Icon";
 
-"Featured Packages" = "الحزم المميزة";
-"Repo Featured" = "الحزم المميزة في المصدر";
-"Random" = "عشوائي";
-"Feature Type" = "نوع الميزة";
-"Select Repos to be Featured" = "حدد المصادر لتمييزها";
+"Featured Packages" = "Featured Packages";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Feature Type" = "Feature Type";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 
 "News" = "الأخبار";
 
-"Live Search" = "بحث مباشر";
+"Live Search" = "Live Search";
 
-"Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
-"Text" = "نص";
-"Icon" = "أيقونة";
-"Open Documents Directory" = "فتح دليل المستندات";
-"Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
-"Clear Keychain" = "مسح بيانات تسجيل الدخول";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Open Documents Directory" = "Open Documents Directory";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "جارِ التحميل...";
+"Loading..." = "Loading...";
 
-"Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
-"Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
+"Resetting image cache completed" = "Resetting image cache completed";
+"Clearing keychain completed" = "Clearing keychain completed";
 
-"Drop Tables" = "حذف قاعدة البيانات";
+"Drop Tables" = "Drop Tables";
 
-"Alternate Icons" = "أيقونات بديلة";
+"Alternate Icons" = "Alternate Icons";
 
-"Featured Repos" = "المستودعات المميزة";
+"Featured Repos" = "Featured Repos";
 
 // Sources
 
-"Sources" = "المصادر";
-"Local Repository" = "مستودع محلي";
-"Locally installed packages" = "الحزم المثبتة محليًا";
-"Unknown" = "غير معروف";
-"No repository urls detected." = "لم يتم إكتشاف عناوين URL مستودعات.";
-"You have already added these repositories." = "أنت أضفت هذه المستودعات بالفعل.";
-"Error verifying repository" = "تعذر التحقق من المستودع";
-"Error verifying repositories" = "تعذر التحقق من المستودعات";
-"Unknown error" = "خطأ غير معروف";
-"Invalid URL" = "عنوان URL غير صحيح";
-"Enter URL" = "أدخل عنوان URL";
-"Add Repo(s)" = "إضافة مستودع/مستودعات";
-"Add" = "إضافة";
-"Add Multiple" = "إضافة متعددة";
-"Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
+"Sources" = "Sources";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"Unknown" = "Unknown";
+"No repository urls detected." = "No repository urls detected.";
+"You have already added these repositories." = "You have already added these repositories.";
+"Error verifying repository" = "Error verifying repository";
+"Error verifying repositories" = "Error verifying repositories";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Enter URL" = "Enter URL";
+"Add Repo(s)" = "Add Repo(s)";
+"Add" = "Add";
+"Add Multiple" = "Add Multiple";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "يرجى الإنتظار...";
 "Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
-"Unable to verify Repo" = "تعذر التحقق من المستودع";
-"Refresh" = "تحديث";
-"Log Out" = "تسجيل خروج";
-"Purchased Packages" = "الحزم المشتراة";
-"Purchased" = "المشتريات";
+"Unable to verify Repo" = "Unable to verify Repo";
+"Refresh" = "Refresh";
+"Log Out" = "Log Out";
+"Purchased Packages" = "Purchased Packages";
+"Purchased" = "Purchased";
 
-"All Packages" = "كل الحزم";
-"Delete" = "حذف";
+"All Packages" = "All Packages";
+"Delete" = "Delete";
 
 // Changes
 
-"Changes" = "التغييرات";
+"Changes" = "Changes";
 
 // Packages
 
-"Packages" = "الحزم";
-"Show Updates" = "إظهار التحديثات";
-"Ignore Updates" = "تجاهل التحديثات";
-"Select Version" = "اختيار إصدار";
-"Select a version to upgrade to:" = "اختر إصدار للترقية إليه:";
-"Select a version to downgrade to:" = "اختر إصدار للخفض إليه:";
-"Package" = "حزمة";
-"Information" = "معلومات";
-"Upgrade All" = "ترقية الكل";
-"Loaded" = "تم التحميل";
-"ABC" = "أبجديًا";
-"Date" = "زمنيًا";
-"Size" = "الحجم";
-"Clear" = "مسح";
-"Are you sure you want to clear Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
-"Available Upgrades" = "الترقيات المتاحة";
-"Ignored Upgrades" = "تجاهل الترقيات";
-"Recent" = "مؤخرًا";
-"Repo" = "المستودع";
-"Installed Files" = "الملفات المثبتة";
-"Modify" = "تعديل";
-"Authenticate to initiate purchase." = "المصادقة لبدء الشراء.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "يرجى إعادة تسجيل الدخول بحسابك الذي تم إستخدامه لشراء هذه الحزمة (ربما %@)";
-"More by this Developer" = "المزيد بواسطة هذا المطور";
-"Installed Version" = "الإصدار المثبت";
-"Installed Size" = "حجم التثبيت";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Ignore Updates" = "Ignore Updates";
+"Select Version" = "Select Version";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
+"ABC" = "ABC";
+"Date" = "Date";
+"Size" = "Size";
+"Clear" = "Clear";
+"Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Repo" = "Repo";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
+"Installed Size" = "Installed Size";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (الإصدار المثبت: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (الحجم المثبت: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d بايت";
+"%d bytes" = "%d bytes";
 //Package size in Kilobytes (no decimal)
-"%d KB" = "%d ك.ب.";
+"%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f ك.ب.";
+"%.2f KB" = "%.2f KB";
 //Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f م.ب.";
+"%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "إضافة إلى قائمة الأمنيات";
-"Remove from Wish List" = "إزالة من قائمة الأمنيات";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "الإدارة";
-"Addons" = "الإضافات";
-"App Addons" = "إضافات التطبيقات";
-"Archiving" = "الأرشفة";
-"Carrier Support" = "دعم الناقل";
-"Communication" = "التواصل";
-"Data Storage" = "تخزين البيانات";
-"Development" = "التطوير";
-"Dictionaries" = "القواميس";
-"Education" = "التعليم";
-"Entertainment" = "الترفيه";
-"Games" = "الألعاب";
-"Health and Fitness" = "الصحة واللياقة";
-"Imaging" = "التصوير";
-"Java" = "جافا";
-"Keyboards" = "لوحات المفاتيح";
-"Localization" = "الترجمة";
-"Messaging" = "الرسائل";
-"Multimedia" = "الوسائط المتعددة";
-"Navigation" = "الملاحة";
-"Networking" = "الشبكات";
-"Packaging" = "التحزيم";
-"Productivity" = "الإنتاجية";
-"Repositories" = "المستودعات";
-"Ringtones" = "النغمات";
-"Scripting" = "البرمجيات";
-"Security" = "الأمان";
-"Social" = "اجتماعي";
-"System" = "النظام";
-"Terminal Support" = "دعم الوحدة الطرفية";
-"Text Editors" = "محررين النصوص";
-"Themes" = "الموضوعات";
-"Toys" = "ألعاب الأطفال";
-"Tweaks" = "الأدوات";
-"Utilities" = "الخدمات";
-"Wallpaper" = "الخلفيات";
-"Widgets" = "الويدجات";
+"Administration" = "Administration";
+"Addons" = "Addons";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
+"Imaging" = "Imaging";
+"Java" = "Java";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
+"Repositories" = "Repositories";
+"Ringtones" = "Ringtones";
+"Scripting" = "Scripting";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
+"Tweaks" = "Tweaks";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
+"Widgets" = "Widgets";
 
 // Search
 
-"Search" = "بحث";
-"Clear Search" = "مسح البحث";
-"This search query is too short for the full search, please use a longer query." = "الإستعلام هذا قصير جدًا للبحث الكامل ، يرجى استخدام استعلام أطول.";
-"No Results Found" = "لاتوجد نتائج";
+"Search" = "Search";
+"Clear Search" = "Clear Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "التنزيلات";
-"Error while opening sources.list" = "خطأ أثناء فتح قائمة المصادر";
-"The repo %@ is incompatible with your jailbreak." = "هذا المستودع %@ غير متوافق مع الجيلبريك الخاص بك.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما يؤدي إلى حدوث عملية استعادة.";
-"Please remove this repo from your sources.list file." = "يرجى إزالة هذا المستودع من ملف قائمة المصادر الخاص بك.";
-"Incorrect documents permissions." = "مستندات أذونات غير صحيحة.";
-"Could not determine device information." = "لا يمكن تحديد معلومات الجهاز.";
-"Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
-"%@ hasn't been modified" = "%@ لم يتم تعديله";
-"Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
+"Downloads" = "Downloads";
+"Error while opening sources.list" = "Error while opening sources.list";
+"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Could not determine device information." = "Could not determine device information.";
+"Could not find a download URL for" = "Could not find a download URL for";
+"%@ hasn't been modified" = "%@ hasn't been modified";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
-"Console" = "وحدة التحكم";
-"Performing Actions..." = "جارِ تنفيذ الإجراءات...";
-"Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
-"Close Zebra" = "إغلاق Zebra";
-"Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
-"Downloading" = "جارِ التنزيل";
-"Downloading Packages..." = "تنزيل الحزم...";
-"Installing" = "جارِ التثبيت";
-"Installing Packages..." = "تثبيت الحزم...";
-"Removing" = "جارِ الإزالة";
-"Removing Packages..." = "إزالة الحزم...";
-"Reinstalling" = "جارِ إعادة التثبيت";
-"Reinstalling Packages..." = "إعادة تثبيت الحزم...";
-"Upgrading" = "جارِ الترقية";
-"Upgrading Packages..." = "ترقية الحزم...";
-"Complete" = "إكتمل";
-"Finished!" = "انتهى!";
-"Return to Queue" = "العودة إلى قائمة الإنتظار";
-"Importing local packages." = "استيراد الحزم المحلية.";
-"Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
-"One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
+"Console" = "Console";
+"Performing Actions..." = "Performing Actions...";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Downloading" = "Downloading";
+"Downloading Packages..." = "Downloading Packages...";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 
 // Queue Bar
-"%d Packages Queued" = "%d حزم في قائمة الإنتظار";
-"%d Package Queued" = "%d حزمة في قائمة الإنتظار";
-"Tap to manage" = "اضغط للإدارة";
-"No Packages Queued" = "لا توجد حزم في قائمة الإنتظار";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
-"Queue" = "قائمة الإنتظار";
-"Install" = "تثبيت";
-"Reinstall" = "إعادة تثبيت";
-"Remove" = "إزالة";
-"Upgrade" = "ترقية";
-"Downgrade" = "خفض الإصدار";
-"Abort" = "إيقاف";
-"Continue" = "استمرار";
-"Download Size" = "حجم التنزيل";
-"Confirm" = "تأكيد";
-"%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
-"Required Package" = "حزمة مطلوبة";
-"%@ is required by:" = "%@ مطلوبة بواسطة:";
-"Issues" = "أخطاء";
-"%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
-"Are you sure?" = "هل أنت متأكد؟";
-"Are you sure you want to clear the queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة. لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
-"Remove from Queue" = "إزالة من قائمة الإنتظار";
+"Queue" = "Queue";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"Required Package" = "Required Package";
+"%@ is required by:" = "%@ is required by:";
+"Issues" = "Issues";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure?" = "Are you sure?";
+"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Remove from Queue" = "Remove from Queue";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة ويجب إزالتها لأنها تعتمد على %@. حزمة %@ لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "هناك حزمة واحدة أو أكثر في قائمة الإنتظار للإزالة ضرورية أو مطلوبة. لا ينصح بمتابعة الإزالة إلا إذا كنت على علم بما تفعل. قد تؤدي إزالة هذه الحزمة إلى إلحاق أضرار بجهازك لا يحمد عقباها، وقد تصل في بعض الأحيان إلى استعادة كاملة.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "لم يتمكن Zebra من إكمال هذا الأمر البرمجي لأنه لا يملك الأذونات الصحيحة. يرجى التحقق من الأذونات الموجودة في /usr/libexec/zebra/supersling والإبلاغ عن هذه المشكلة على GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "غير قادر على الوصول إلى su/sling. يرجى التحقق من وجود /usr/libexec/zebra/supersling.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليست مملوكة من قبل root:wheel. يرجى التحقق من أذونات الملف الموجودة في /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
+"Help translate Zebra!" = "Help translate Zebra!";
 
-"Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
-"ERROR: Unable to lock status file. Please try again." = "خطأ: غير قادر على قفل ملف الحالة. يرجى المحاولة مرة أخرى.";
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
-"ERROR: Process must be restarted. Please try again." = "خطأ: يجب إعادة تشغيل العملية. يرجى المحاولة مرة أخرى.";
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Configure the appearance of Zebra." = "تكوين مظهر Zebra.";
+"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
-"Display featured packages on the homepage." = "عرض الحزم المميزة على الصفحة الرئيسية.";
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Display recent community posts from /r/jailbreak." = "عرض أحدث منشورات المجتمع من /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "البحث عن الحزم أثناء الكتابة. تعطيل هذه الميزة قد يؤدي إلى تقليل التأخر في الأجهزة القديمة.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
-"Configure the appearance of table view swipe actions." = "تكوين مظهر إجراءات تمرير جدول العرض.";
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "تغيير اللون الثانوي الذي يظهر عبر Zebra.";
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "تغيير نمط وضع Zebra الداكن عند تفعيله.";
+"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "تغيير مصدر الحزم المميزة على الصفحة الرئيسية.";
+"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"المستودع المميز\" سيعرض حزم عشوائية من المستودعات التي تدعم API الحزمة المميزة.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Community News" = "أخبار المجتمع";
+"Community News" = "Community News";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
