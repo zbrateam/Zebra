@@ -4,6 +4,7 @@ osx_image: xcode11.2
 branches:
   except:
     - localization
+    - localization_1.1
 
 env:
   global:
