@@ -11,7 +11,7 @@
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
-#import <ZBRepoManager.h>
+#import <ZBSourceManager.h>
 #include <Parsel/parsel.h>
 #import "ZBRefreshViewController.h"
 
@@ -297,7 +297,7 @@ typedef enum {
         [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
 //    }
-    [[ZBRepoManager sharedInstance] needRecaching];
+    [[ZBSourceManager sharedInstance] needRecaching];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {

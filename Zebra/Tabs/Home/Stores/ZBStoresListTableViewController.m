@@ -13,7 +13,7 @@
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
 
 @import SDWebImage;

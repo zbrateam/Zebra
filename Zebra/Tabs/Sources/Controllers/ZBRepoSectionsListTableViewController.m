@@ -12,7 +12,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import "UIBarButtonItem+blocks.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"

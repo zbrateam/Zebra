@@ -15,7 +15,7 @@
 #import "ZBAddRepoDelegate.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
@@ -31,7 +31,7 @@
     BOOL askedToAddFromClipboard;
     BOOL isRefreshingTable;
     NSString *lastPaste;
-    ZBRepoManager *repoManager;
+    ZBSourceManager *repoManager;
     ZBQueue *queue;
 }
 @end
@@ -63,7 +63,7 @@
 
 - (void)baseViewDidLoad {
     queue = [ZBQueue sharedQueue];
-    repoManager = [ZBRepoManager sharedInstance];
+    repoManager = [ZBSourceManager sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
@@ -305,7 +305,7 @@
     [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
-    __weak typeof(ZBRepoManager *) repoManager = self->repoManager;
+    __weak typeof(ZBSourceManager *) repoManager = self->repoManager;
     
     [repoManager addSourcesFromString:text response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{

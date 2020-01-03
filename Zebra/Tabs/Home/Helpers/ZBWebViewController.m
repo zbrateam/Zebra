@@ -11,7 +11,7 @@
 #import "ZBWebViewController.h"
 #import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Stores/ZBStoresListTableViewController.h>
 @import SDWebImage;
@@ -22,7 +22,7 @@
     IBOutlet UIProgressView *progressView;
 }
 
-@property (nonatomic, retain) ZBRepoManager *repoManager;
+@property (nonatomic, retain) ZBSourceManager *repoManager;
 
 @end
 
@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
-    self.repoManager = [ZBRepoManager sharedInstance];
+    self.repoManager = [ZBSourceManager sharedInstance];
     [self colorWindow];
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];

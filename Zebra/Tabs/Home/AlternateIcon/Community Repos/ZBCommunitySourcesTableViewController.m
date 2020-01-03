@@ -29,7 +29,7 @@
     [spinner startAnimating];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
-    repoManager = [ZBRepoManager sharedInstance];
+    repoManager = [ZBSourceManager sharedInstance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -279,7 +279,7 @@
     [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
-    __weak typeof(ZBRepoManager *) repoManager = self.repoManager;
+    __weak typeof(ZBSourceManager *) repoManager = self.repoManager;
     
     [repoManager addSourcesFromString:text response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{

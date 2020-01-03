@@ -15,7 +15,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 
 #import <bzlib.h>
 #import <zlib.h>
