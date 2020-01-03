@@ -19,7 +19,7 @@
 "Community Sources" = "Bendruomenės šaltiniai";
 "You’ve added all of the community sources" = "Jūs pridėjote visas bendruomenės saugyklas";
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
-"Utility repo for %@" = "Naudinga %@ saugykla";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Perkelti šaltinius";
 "Please Wait..." = "Prašome palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
@@ -66,10 +66,9 @@
 "App Icon" = "Programos piktograma";
 
 "Featured Packages" = "Rodomiausi paketai";
-"Repo Featured" = "Saugyklų rodomiausi";
 "Random" = "Atsitiktiniai";
 "Feature Type" = "Tipas";
-"Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Naujienos";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternatyvios piktogramos";
 
-"Featured Repos" = "Rodomiausios saugyklos";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Vietinė saugykla";
 "Locally installed packages" = "Įdiegti vietiniai paketai";
 "Unknown" = "Nežinomas";
-"No repository urls detected." = "Neaptikti saugyklos adresai.";
-"You have already added these repositories." = "Jūs jau esate pridėję šias saugyklas.";
-"Error verifying repository" = "Ištiko klaida tikrinant saugyklą";
-"Error verifying repositories" = "Ištiko klaida tikrinant saugyklas";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Nežinoma klaida";
 "Invalid URL" = "Netinkamas šaltinio adresas";
 "Enter URL" = "Įveskite šaltinio adresą";
-"Add Repo(s)" = "Pridėti saugyklą(as)";
+"Add Sources" = "Add Sources";
 "Add" = "Pridėti";
 "Add Multiple" = "Pridėti kelis";
 "Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
 "Please Wait..." = "Prašome palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
-"Unable to verify Repo" = "Nepavyko patikrinti saugyklos";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Atnaujinti";
 "Log Out" = "Atsijungti";
 "Purchased Packages" = "Nupirkti paketai";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Prieinami atnaujinimai";
 "Ignored Upgrades" = "Praignoruoti atnaujinimai";
 "Recent" = "Naujausi";
-"Repo" = "Saugykla";
+"Source" = "Source";
 "Installed Files" = "Įdiegti failai";
 "Modify" = "Modifikuoti";
 "Authenticate to initiate purchase." = "Norėdami apsipirkti, patvirtinkite savo tapatybę.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Įdiegta versija";
 "Installed Size" = "Įdiegtas dydis";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Įdiegta versija: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Siuntiniai";
 "Error while opening sources.list" = "Įvyko klaida atidarant sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Saugykla %@ nesuderinama su jūsų nulaužimu.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Gali kilti problemų, jei pridėsite tai į Zebra, galimai reikės atkūrimo.";
-"Please remove this repo from your sources.list file." = "Prašom pašalinti šią saugyklą iš sources.list failo.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Neteisingi dokumentų leidimai.";
 "Could not determine device information." = "Neaptikta įrenginio informacija.";
 "Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Pakeisti šaltinio rodomiausius paketus, pagrindiniame puslapyje.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Saugyklų rodomiausi\" rodys atsitiktinius paketus iš saugyklų, kurios palaiko rodomiausio paketo API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Atsitiktinis\" rodys atsitiktinius paketus iš visų saugyklų, kurias pridėjote į Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Bendruomenės naujienos";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importuojami šaltiniai";
-"Updating Repositories" = "Atnaujinamos saugyklos";
-"Would you like to import the following repositories?" = "Ar tikrai norite importuoti šias saugyklas?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Atsisiuntimas baigtas";
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Analizuoja %@";
 
 "#Downloading <Filename>
