@@ -74,8 +74,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
 
         [self setArchiveType:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
-        [self setRepositoryURI:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
-        [self setDistribution:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
+        [self setRepositoryURI:[NSString stringWithUTF8String:repositoryURIChars]]; //Should never be NULL
+        [self setDistribution:[NSString stringWithUTF8String:distributionChars]]; //Should never be NULL
         
         if (componenetsChars != 0) {
             NSArray *components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
