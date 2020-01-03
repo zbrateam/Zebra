@@ -106,9 +106,9 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         if ([self.repositoryURI containsString:@"https"]) {
             NSString *requestURL;
             if ([self.repositoryURI hasSuffix:@"/"]) {
-                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint", self.repositoryURI];
+                requestURL = [NSString stringWithFormat:@"%@payment_endpoint", self.repositoryURI];
             } else {
-                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint", self.repositoryURI];
+                requestURL = [NSString stringWithFormat:@"/%@/payment_endpoint", self.repositoryURI];
             }
             NSURL *url = [NSURL URLWithString:requestURL];
             NSURLSession *session = [NSURLSession sharedSession];
@@ -130,9 +130,9 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             // Check for featured string
             NSString *requestURL;
             if ([self.repositoryURI hasSuffix:@"/"]) {
-                requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", self.repositoryURI];
+                requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", self.repositoryURI];
             } else {
-                requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", self.repositoryURI];
+                requestURL = [NSString stringWithFormat:@"/%@/sileo-featured.json", self.repositoryURI];
             }
             NSURL *checkingURL = [NSURL URLWithString:requestURL];
             NSURLSession *session = [NSURLSession sharedSession];
