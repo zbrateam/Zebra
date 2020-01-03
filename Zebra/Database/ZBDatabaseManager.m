@@ -26,6 +26,7 @@
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
     int numberOfUpdates;
+    NSMutableArray *completedSources;
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
     BOOL databaseBeingUpdated;
@@ -296,7 +297,6 @@
                 }
             }
             else {
-                int repoID = [self repoIDFromBaseFileName:baseFileName];
                 if (repoID == -1) { // Repo does not exist in database, create it.
                     repoID = [self nextRepoID];
                     if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
@@ -1793,14 +1793,14 @@
     }
 }
 
-#pragma mark - Hyena Delegate
+#pragma mark - Download Delegate
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
+- (void)startedDownloadForFile:(nonnull NSString *)filename {
     [self bulkSetRepo:filename busy:YES];
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
 }
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
+- (void)finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
     [self bulkSetRepo:filename busy:NO];
     if (error != NULL) {
         if (filename) {
@@ -1814,16 +1814,19 @@
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    ZBLog(@"[Zebra] I'll forward your request... %@", status);
     [self bulkPostStatusUpdate:status atLevel:level];
 }
 
 - (void)finishedAllDownloads {
-    NSLog(@"Finished all downloads");
+    [self parseSources:[completedSources copy]];
+    [completedSources removeAllObjects];
 }
 
 - (void)startedDownloads {
-    NSLog(@"Started all downloads");
+    NSLog(@"Started downloading repositories");
+    if (!completedSources) {
+        completedSources = [NSMutableArray new];
+    }
 }
 
 - (void)startedSourceDownload:(ZBBaseSource *)baseSource {
@@ -1836,10 +1839,7 @@
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
     NSLog(@"Finsihed download for %@ errors %@", baseSource.repositoryURI, errors);
-}
-
-- (void)finishedAllSourceDownloads:(NSArray <ZBBaseSource *> *)sources {
-    [self parseSources:sources];
+    [completedSources addObject:baseSource];
 }
 
 
