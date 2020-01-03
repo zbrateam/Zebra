@@ -16,7 +16,8 @@
 #import <Parsel/parsel.h>
 #import <Parsel/vercmp.h>
 #import <ZBAppDelegate.h>
-#import <Repos/Helpers/ZBSource.h>
+#import <Sources/Helpers/ZBBaseSource.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
@@ -28,7 +29,7 @@
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
     BOOL databaseBeingUpdated;
-    BOOL haltdDatabaseOperations;
+    BOOL haltDatabaseOperations;
 }
 @end
 
@@ -187,7 +188,7 @@
     databaseBeingUpdated = YES;
     
     BOOL needsUpdate = NO;
-    if (requested && haltdDatabaseOperations) {
+    if (requested && haltDatabaseOperations) { //Halt database operations may need to be rethought
         [self setHaltDatabaseOperations:false];
     }
     
@@ -200,15 +201,16 @@
             NSUInteger unitFlags = NSCalendarUnitMinute;
             NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
             
-            needsUpdate = ([components minute] >= 30); // might need to be less
+            needsUpdate = ([components minute] >= 30);
         } else {
             needsUpdate = YES;
         }
     }
     
     if (requested || needsUpdate) {
-        [self checkForZebraRepo];
         [self bulkDatabaseStartedUpdate];
+        
+        NSArray <ZBBaseSource *> *sources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath]];
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
         [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Sources", @"") atLevel:ZBLogLevelInfo];
         [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
@@ -238,12 +240,12 @@
 }
 
 - (void)setHaltDatabaseOperations:(BOOL)halt {
-    haltdDatabaseOperations = halt;
+    haltDatabaseOperations = halt;
 }
 
 - (void)parseRepos:(NSDictionary *)filenames {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
-    if (haltdDatabaseOperations) {
+    if (haltDatabaseOperations) {
         CLS_LOG(@"Database operations halted.");
         NSLog(@"[Zebra] Database operations halted");
         [self bulkDatabaseCompletedUpdate:numberOfUpdates];
@@ -319,7 +321,7 @@
 }
 
 - (void)importLocalPackagesAndCheckForUpdates:(BOOL)checkForUpdates sender:(id)sender {
-    if (haltdDatabaseOperations) {
+    if (haltDatabaseOperations) {
         NSLog(@"[Zebra] Database operations halted");
         return;
     }
@@ -341,7 +343,7 @@
 }
 
 - (void)importLocalPackages {
-    if (haltdDatabaseOperations) {
+    if (haltDatabaseOperations) {
         NSLog(@"[Zebra] Database operations halted");
         return;
     }
