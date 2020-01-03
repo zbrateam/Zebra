@@ -19,7 +19,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
-"Utility repo for %@" = " Darbarīku avots no %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Pārvietot avotus";
 "Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
@@ -66,10 +66,9 @@
 "App Icon" = "Lietotnes Ikons";
 
 "Featured Packages" = "Piedāvātās paketes";
-"Repo Featured" = "Avota piedāvātās paketes";
 "Random" = "Nejaušs";
 "Feature Type" = "Piedāvāšanas veids";
-"Select Repos to be Featured" = "Izvēlies avotus, kuri piedāvā paketes";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Jaunumi";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Citi Iconi";
 
-"Featured Repos" = "Piedāvāšanas Avoti";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Lokālais avots";
 "Locally installed packages" = "Lokāli instalētas paketes";
 "Unknown" = "Nezināms";
-"No repository urls detected." = "Nevarēja atrast avota URL.";
-"You have already added these repositories." = "Tu jau pievienoji šos avotus.";
-"Error verifying repository" = "Ķlūda verificējot avotu";
-"Error verifying repositories" = "Ķlūda verificējot avotus";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Nezināma kļūda";
 "Invalid URL" = "Nederīga URL";
 "Enter URL" = "Ievadi URL";
-"Add Repo(s)" = "Pievienot avotu(s)";
+"Add Sources" = "Add Sources";
 "Add" = "Pievienot";
 "Add Multiple" = "Pievienot vairākus";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
 "Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
-"Unable to verify Repo" = "Nevar verificēt avotu(s)";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Atjaunot";
 "Log Out" = "Izlogoties";
 "Purchased Packages" = "Nopirktās paketes";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Pieejamie atjauninājumi";
 "Ignored Upgrades" = "Ignorētie atjauninājumi";
 "Recent" = "Nesen";
-"Repo" = "Avots";
+"Source" = "Source";
 "Installed Files" = "Instalētie faili";
 "Modify" = "Modificēt";
 "Authenticate to initiate purchase." = "Autentificējies, lai sākt pirkumu.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Instalētā versija";
 "Installed Size" = "Instalētais Lielums";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Instalētā versija: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Lejupielādes";
 "Error while opening sources.list" = "Ķlūda, atverot sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
-"Please remove this repo from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
 "Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
 "Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Mainiet piedāvāto pakešu avotu mājas lapā.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Avotu Piedāvāšana\" parādīs izlases paketes no avotu, kas atbalsta piedāvātās paketes API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Nejaušs\" parādīs paketes no visām krātuvēm, kuras ir pievienotas Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Kopienas Ziņas";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parsing %@";
 
 "#Downloading <Filename>
