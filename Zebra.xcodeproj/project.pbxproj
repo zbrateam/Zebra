@@ -526,14 +526,14 @@
 			path = JSONParsing;
 			sourceTree = "<group>";
 		};
-		36A33CDF22C9ACFB0054A577 /* ChangeLog */ = {
+		36A33CDF22C9ACFB0054A577 /* Changelog */ = {
 			isa = PBXGroup;
 			children = (
 				36A33CE022C9AD420054A577 /* ZBChangeLogTableViewController.h */,
 				36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */,
 			);
-			name = ChangeLog;
-			path = Settings/ChangeLog;
+			name = Changelog;
+			path = Settings/Changelog;
 			sourceTree = "<group>";
 		};
 		36A33CEA22C9C0AC0054A577 /* Community Repos */ = {
@@ -813,7 +813,7 @@
 			isa = PBXGroup;
 			children = (
 				36A33CEA22C9C0AC0054A577 /* Community Repos */,
-				36A33CDF22C9ACFB0054A577 /* ChangeLog */,
+				36A33CDF22C9ACFB0054A577 /* Changelog */,
 				367D80F622C3D2F400581D60 /* AlternateIcon */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
