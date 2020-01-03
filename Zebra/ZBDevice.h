@@ -12,13 +12,16 @@
 @import SafariServices;
 
 @interface ZBDevice : NSObject
-// Device management
+// Device info
 + (BOOL)needsSimulation;
 + (BOOL)isSlingshotBrokenWithError:(NSError *_Nullable*_Nullable)error;
 + (NSString *_Nullable)UDID;
 + (NSString *_Nullable)deviceModelID;
 + (NSString *_Nullable)machineID;
 + (NSString *_Nonnull)deviceType;
++ (NSString *_Nonnull)debianArchitecture;
+
+
 + (void)hapticButton;
 
 // Commands

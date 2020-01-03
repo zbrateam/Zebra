@@ -120,6 +120,10 @@
     return machineIdentifier;
 }
 
++ (NSString * _Nonnull)debianArchitecture {
+    return @"iphoneos-arm";
+}
+
 + (void)hapticButton {
     if (@available(iOS 10.0, *)) {
         UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
