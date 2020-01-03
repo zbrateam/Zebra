@@ -79,10 +79,12 @@ int isRepoSecure(const char *sourcePath, char *repoURL) {
 }
 
 char *reposSchema() {
-    return "REPOS(ORIGIN STRING, DESCRIPTION STRING, BASEFILENAME STRING, BASEURL STRING, SECURE INTEGER, REPOID INTEGER, DEF INTEGER, SUITE STRING, COMPONENTS STRING, ICON BLOB)";
+    return "REPOS(ORIGIN STRING, LABEL STRING, SUITE STRING, VERSION STRING, CODENAME STRING, ARCHITECTURES STRING, COMPONENTS STRING, DESCRIPTION STRING, BASEFILENAME STRING, SECURE INTEGER, BASEURL STRING, REPOID INTEGER)";
 }
 
-const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID, DEF, SUITE, COMPONENTS) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, LABEL, SUITE, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+const char *repoUpdateQuery = "UPDATE REPOS SET (ORIGIN, LABEL, SUITE, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
 char *packagesSchema() {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING)";
@@ -208,31 +210,21 @@ enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const c
     
     sqlite3_stmt *insertStatement;
     
-    const char *insertQuery = update ? "UPDATE REPOS SET (ORIGIN, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, DEF, SUITE, COMPONENTS) = (?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;" : repoInsertQuery;
+    const char *insertQuery = update ? repoUpdateQuery : repoInsertQuery;
     
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-        if (update) {
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseURL, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnSecure, secure);
-            // repoID shift
-            sqlite3_bind_int(insertStatement, ZBRepoColumnDef, def);
-            sqlite3_bind_text(insertStatement, ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_int(insertStatement, 9, repoID);
-        } else {
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseURL, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnSecure, secure);
-            sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnRepoID, repoID);
-            sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnDef, def);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
-        }
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnLabel, dict_get(repo, "Label"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnVersion, dict_get(repo, "Version"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnCodename, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnArchitectures, dict_get(repo, "Architectures"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnSecure, secure);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseURL, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnRepoID, repoID);
         sqlite3_step(insertStatement);
     } else {
         printf("sql error: %s", sqlite3_errmsg(database));
@@ -275,9 +267,10 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
     
     dict_add(repo, "BaseURL", baseFilename);
     dict_add(repo, "Origin", baseFilename);
+    dict_add(repo, "Label", baseFilename);
     dict_add(repo, "Description", "No Description Provided");
-    dict_add(repo, "Suite", "stable");
-    dict_add(repo, "Components", "main");
+    dict_add(repo, "Suite", "./");
+    dict_add(repo, "Version", "1.0");
     
     int def = 0;
     if (strstr(baseFilename, "dists") != NULL) {
@@ -286,16 +279,17 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
     
     sqlite3_stmt *insertStatement;
     
-    if (sqlite3_prepare_v2(database, repoInsertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseURL, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnSecure, secure);
-        sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnRepoID, repoID);
-        sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnDef, def);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
+    if (sqlite3_prepare_v2(database, "INSERT INTO REPOS(ORIGIN, LABEL, SUITE, VERSION, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, &insertStatement, 0) == SQLITE_OK) {
+        sqlite3_bind_text(insertStatement, 1, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 2, dict_get(repo, "Label"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 3, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 4, dict_get(repo, "Version"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 5, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 6, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 7, baseFilename, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 8, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 9, secure);
+        sqlite3_bind_int(insertStatement, 10, repoID);
         sqlite3_step(insertStatement);
     } else {
         printf("sql error: %s", sqlite3_errmsg(database));
@@ -309,20 +303,19 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
 sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int repoID) {
     char query[250];
     snprintf(query, sizeof(query), "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
+    
+    sqlite3_int64 timestamp = -1;
     sqlite3_stmt *statement;
-    sqlite3_int64 timestamp = 0;
-    bool found = false;
     if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
             timestamp = sqlite3_column_int64(statement, 0);
-            found = true;
             break;
         }
     } else {
         printf("[Parsel] Error preparing current package timestamp statement: %s\n", sqlite3_errmsg(database));
     }
     sqlite3_finalize(statement);
-    return found ? timestamp : -1;
+    return timestamp;
 }
 
 bool bindPackage(dict **package_, int repoID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
