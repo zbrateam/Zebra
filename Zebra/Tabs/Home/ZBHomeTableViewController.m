@@ -12,6 +12,7 @@
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Community Repos/ZBCommunitySourcesTableViewController.h>
+#import <Changelog/ZBChangelogTableViewController.h>
 
 @import FirebaseAnalytics;
 
@@ -439,7 +440,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     switch (row) {
         case ZBChangeLog: {
-            ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
+            ZBChangelogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
             [self.navigationController pushViewController:changeLog animated:YES];
             break;
         }
