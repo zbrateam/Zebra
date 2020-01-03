@@ -40,12 +40,19 @@ typedef enum {
 } ZBUpdateColumn;
 
 typedef enum {
-    ZBRepoColumnArchiveType = 0,
-    ZBRepoColumnRepositoryURI,
-    ZBRepoColumnDistribution,
-    ZBRepoColumnComponents,
-    ZBRepoColumnBaseFilename,
-    ZBRepoColumnRepoID
-} ZBRepoColumn;
+    ZBSourceColumnArchiveType = 0,
+    ZBSourceColumnRepositoryURI,
+    ZBSourceColumnDistribution,
+    ZBSourceColumnComponents,
+    ZBSourceColumnDescription,
+    ZBSourceColumnOrigin,
+    ZBSourceColumnLabel,
+    ZBSourceColumnVersion,
+    ZBSourceColumnSuite,
+    ZBSourceColumnCodename,
+    ZBSourceColumnArchitectures,
+    ZBSourceColumnBaseFilename,
+    ZBSourceColumnRepoID
+} ZBSourceColumn;
 
 #endif /* ZBColumn_h */
