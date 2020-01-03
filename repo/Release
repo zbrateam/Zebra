@@ -2,10 +2,10 @@ Origin: Zebra
 Label: Zebra
 Suite: stable
 Version: 1.0
-Codename: stable
+Codename: zbra
 Architectures: iphoneos-arm
 Components: main
-Description: APT Repository for Zebra updates.
+Description: Distribution of stable Zebra updates
 SHA1:
  0e339fa7844f417018c77786cc43958272f1c5b2 1766 Packages
  e60976233244c3be8ab186638669c2f6250b30b9 750 Packages.bz2
