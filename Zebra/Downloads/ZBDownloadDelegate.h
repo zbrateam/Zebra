@@ -22,9 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 
-- (void)startedRepoDownload:(ZBBaseSource *)baseRepo;
-- (void)progressUpdate:(CGFloat)progress forRepo:(ZBBaseSource *)baseRepo;
-- (void)finishedRepoDownload:(ZBBaseSource *)baseRepo withErrors:(NSArray <NSError *> *_Nullable)errors;
+- (void)startedSourceDownload:(ZBBaseSource *)baseSource;
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource;
+- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors;
+- (void)finishedAllSourceDownloads:(NSArray <ZBBaseSource *> *)sources;
 
 - (void)startedPackageDownload:(ZBPackage *)package;
 - (void)progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package;
