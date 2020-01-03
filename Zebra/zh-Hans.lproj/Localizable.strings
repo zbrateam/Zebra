@@ -332,9 +332,9 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "倒入软件源";
+"Import Sources" = "Import Sources";
 "Updating Repositories" = "正在更新软件源";
-"Would you like to import the following repositories?" = "你想倒入以下软件源吗？";
+"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "下载完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
