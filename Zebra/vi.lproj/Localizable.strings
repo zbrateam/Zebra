@@ -19,7 +19,7 @@
 "Community Sources" = "Nguồn cộng đồng";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
-"Utility repo for %@" = "Nguồn tiện ích cho %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Chuyển nguồn";
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
@@ -66,10 +66,9 @@
 "App Icon" = "Biểu tượng ứng dụng";
 
 "Featured Packages" = "Gói Cần Thiết";
-"Repo Featured" = "Nguồn nổi bật";
 "Random" = "Ngẫu nhiên";
 "Feature Type" = "Loại tính năng";
-"Select Repos to be Featured" = "Chọn Repo nổi bật";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Tin tức";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Biểu tượng thay thế";
 
-"Featured Repos" = "Repos Nổi Bật";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Kho lưu trữ cục bộ";
 "Locally installed packages" = "Gói cài đặt cục bộ";
 "Unknown" = "Không xác định";
-"No repository urls detected." = "Không có url kho lưu trữ được phát hiện.";
-"You have already added these repositories." = "Bạn đã thêm các kho lưu trữ này.";
-"Error verifying repository" = "Lỗi khi xác minh kho lưu trữ";
-"Error verifying repositories" = "Lỗi khi xác minh kho lưu trữ";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Lỗi không xác định";
 "Invalid URL" = "URL không hợp lệ";
 "Enter URL" = "Nhập URL";
-"Add Repo(s)" = "Thêm Repo(s)";
+"Add Sources" = "Add Sources";
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
 "Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
-"Unable to verify Repo" = "Không thể xác minh Repo";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Làm mới";
 "Log Out" = "Đăng xuất";
 "Purchased Packages" = "Gói mua";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Nâng cấp có sẵn";
 "Ignored Upgrades" = "Bỏ qua Nâng cấp";
 "Recent" = "Gần đây";
-"Repo" = "Nguồn";
+"Source" = "Source";
 "Installed Files" = "Tập tin đã cài đặt";
 "Modify" = "Sửa đổi";
 "Authenticate to initiate purchase." = "Xác thực để bắt đầu mua hàng.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Phiên bản đã cài đặt";
 "Installed Size" = "Kích thước cài đặt";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Phiên bản đã cài đặt: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Tải xuống";
 "Error while opening sources.list" = "Lỗi trong khi mở danh sách nguồn";
-"The repo %@ is incompatible with your jailbreak." = "Các repo %@ không tương thích với bản bẻ khóa của bạn.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
-"Please remove this repo from your sources.list file." = "Vui lòng xóa repo này khỏi tệp danh sách nguồn của bạn.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
 "Could not determine device information." = "Không thể xác định thông tin thiết bị.";
 "Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Thay đổi nguồn của các gói tính năng trên trang chủ.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo nổi bật\" sẽ hiển thị các gói ngẫu nhiên từ các repos hỗ trợ API gói nổi bật.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các kho lưu trữ mà bạn đã thêm vào Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Tin tức cộng đồng";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Nhập nguồn";
-"Updating Repositories" = "Đang cập nhật nguồn";
-"Would you like to import the following repositories?" = "Bạn có muốn nhập các nguồn sau đây?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Tải về hoàn tất";
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Phân tích cú pháp %@";
 
 "#Downloading <Filename>
