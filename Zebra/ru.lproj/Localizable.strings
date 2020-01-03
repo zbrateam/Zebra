@@ -19,7 +19,7 @@
 "Community Sources" = "Источники Сообщества";
 "You’ve added all of the community sources" = "Вы добавили все источники сообщества";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Источник утилит для %@";
 "Transfer Sources" = "Перенести Источники";
 "Please Wait..." = "Пожалуйста, подождите...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Нет пакетов в Списке Желаний";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Подпишитесь на нас в Twitter";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Избранные Пакеты";
 "Random" = "Случайно";
 "Feature Type" = "Тип Избранного";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Выберите Отображаемые Источники";
 
 "News" = "Новости";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Альтернативные Иконки";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Избранные Источники";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Локальный Репозиторий";
 "Locally installed packages" = "Локально установленные пакеты";
 "Unknown" = "Неизвестно";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "URL источников не обнаружено.";
+"You have already added these sources." = "Вы уже добавили эти источники.";
+"Error verifying source" = "Ошибка проверки источника";
+"Error verifying sources" = "Ошибка проверки источников";
 "Unknown error" = "Неизвестная ошибка";
 "Invalid URL" = "Неверный URL";
 "Enter URL" = "Введите URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Добавить Источники";
 "Add" = "Добавить";
 "Add Multiple" = "Добавить Несколько";
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
 "Please Wait..." = "Пожалуйста Ожидайте...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Не удалось проверить источник";
 "Refresh" = "Обновить";
 "Log Out" = "Выйти";
 "Purchased Packages" = "Приобретенные Пакеты";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";
-"Source" = "Source";
+"Source" = "Источник";
 "Installed Files" = "Установленные Файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Загрузки";
 "Error while opening sources.list" = "Ошибка открытия sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Источник %@ несовместим с вашим джейлбрейком.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Пожалуйста, удалите этот источник из вашего файла sources.list.";
 "Incorrect documents permissions." = "Неверные права доступа документов.";
 "Could not determine device information." = "Невозможно определить информацию об устройстве.";
 "Could not find a download URL for" = "Невозможно найти URL загрузки для";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Изменить источник рекомендуемых пакетов на главной странице.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Избранное\" будут показывать случайные пакеты из источников, поддерживающих API Рекомендуемых Пакетов.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех источников, которые вы добавили в Zebra.";
 
 "Community News" = "Новости Сообщества";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Импортировать Источники";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Обновление Источников";
+"Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
 "Download Completed" = "Загрузка Завершена";
 "Removing Zebra..." = "Удаление Zebra...";
 "Installing Zebra..." = "Установка Zebra...";
