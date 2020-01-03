@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *)components;
 - (id)initFromSourceLine:(NSString *)debLine;
 - (NSString *)debLine;
+- (BOOL)canDelete;
 - (BOOL)isEqual:(ZBBaseSource *)object;
 @end
 

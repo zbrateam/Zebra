@@ -34,7 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
 + (BOOL)exists:(NSString *)urlString;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
-- (BOOL)canDelete;
 @end
 
 NS_ASSUME_NONNULL_END

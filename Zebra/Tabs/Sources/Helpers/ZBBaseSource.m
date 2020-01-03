@@ -130,6 +130,10 @@
     return [NSString stringWithFormat:@"%@ %@ %@\n", self.archiveType, self.repositoryURI, self.distribution];
 }
 
+- (BOOL)canDelete {
+    return true;
+}
+
 - (BOOL)isEqual:(ZBBaseSource *)object {
     if (self == object)
         return YES;
