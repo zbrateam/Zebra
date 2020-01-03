@@ -8,7 +8,7 @@
 
 #import "ZBRepoBlacklistTableViewController.h"
 #import "ZBDatabaseManager.h"
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import "ZBRepoTableViewCell.h"
 #import "UIColor+GlobalColors.h"
 @import SDWebImage;
@@ -52,7 +52,7 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     NSArray *blackListedRepos = [[NSUserDefaults standardUserDefaults] arrayForKey:@"blackListedRepos"];
-    ZBRepo *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
     
     cell.repoLabel.text = [source origin];
     
@@ -79,7 +79,7 @@
     if (!blocked) {
         blocked = [NSMutableArray new];
     }
-    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    ZBSource *repo = [self sourceAtIndexPath:indexPath];
     
     if ([blocked containsObject:repo.baseURL]) {
         [blocked removeObject:repo.baseURL];

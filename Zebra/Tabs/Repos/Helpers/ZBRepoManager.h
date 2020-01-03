@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@class ZBRepo;
+@class ZBSource;
 
 #import <Foundation/Foundation.h>
 
@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBRepoManager : NSObject
 + (instancetype)sharedInstance;
 + (NSArray <NSString *> *)knownDistURLs;
-- (NSMutableDictionary <NSNumber *, ZBRepo *> *)repos;
+- (NSMutableDictionary <NSNumber *, ZBSource *> *)repos;
 - (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond;
-- (void)deleteSource:(ZBRepo *)delRepo;
-- (NSString *)debLineFromRepo:(ZBRepo *)repo;
+- (void)deleteSource:(ZBSource *)delRepo;
+- (NSString *)debLineFromRepo:(ZBSource *)repo;
 - (void)addDebLine:(NSString *)sourceLine;
 - (void)transferFromCydia;
 - (void)transferFromSileo;

@@ -111,10 +111,10 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBRepo *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
     NSMutableArray *saveArray = [NSMutableArray new];
     dispatch_group_t group = dispatch_group_create();
-    for (ZBRepo *repo in featuredRepos) {
+    for (ZBSource *repo in featuredRepos) {
         NSString *basePlusHttp;
         if (repo.isSecure) {
             basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
@@ -168,7 +168,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
     NSMutableArray *blacklist = [NSMutableArray new];
     for (NSString *baseURL in blockedRepos) {
-        ZBRepo *repo = [ZBRepo repoFromBaseURL:baseURL];
+        ZBSource *repo = [ZBSource repoFromBaseURL:baseURL];
         if (repo) {
             [blacklist addObject:repo];
         }

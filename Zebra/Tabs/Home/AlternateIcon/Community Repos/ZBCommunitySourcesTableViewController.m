@@ -10,7 +10,7 @@
 #import <Database/ZBRefreshViewController.h>
 #import <Repos/Helpers/ZBRepoTableViewCell.h>
 #import <ZBLog.h>
-#import <Tabs/Repos/Helpers/ZBRepo.h>
+#import <Tabs/Repos/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
 
 @interface ZBCommunitySourcesTableViewController ()
@@ -83,7 +83,7 @@
                 for (NSDictionary *repo in repos) {
                     NSString *version = [repo objectForKey:@"appVersion"];
                     NSString *url = [repo objectForKey:@"url"];
-                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBRepo exists:url]) {
+                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
                         [sources addObject:repo];
                     }
                 }

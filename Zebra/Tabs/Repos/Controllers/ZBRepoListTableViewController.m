@@ -16,7 +16,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
 #import <Repos/Helpers/ZBRepoManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBSource.h>
 #import <Repos/Helpers/ZBRepoTableViewCell.h>
 #import <Repos/Controllers/ZBRepoSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
@@ -110,7 +110,7 @@
     NSArray *urlBlacklist = @[@"youtube.com", @"youtu.be", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
     NSMutableArray *repos = [NSMutableArray new];
     
-    for (ZBRepo *repo in [self.databaseManager repos]) {
+    for (ZBSource *repo in [self.databaseManager repos]) {
         if (repo.secure) {
             NSString *host = [[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", repo.baseURL]] host];
             if (host) {
@@ -358,7 +358,7 @@
     }];
 }
 
-- (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath {
+- (ZBSource *)sourceAtIndexPath:(NSIndexPath *)indexPath {
     if (![self hasDataInSection:indexPath.section])
         return nil;
     return self.tableData[indexPath.section][indexPath.row];
@@ -375,7 +375,7 @@
     for (int i = 0; i < sectionCount; ++i) {
         [unsortedSections addObject:[NSMutableArray array]];
     }
-    for (ZBRepo *object in array) {
+    for (ZBSource *object in array) {
         NSUInteger index = [collation sectionForObject:object collationStringSelector:selector];
         NSMutableArray *section = [unsortedSections objectAtIndex:index];
         sourceIndexes[[object baseFileName]] = @((index << 16) | section.count);
@@ -422,7 +422,7 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBRepo *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
     
     cell.repoLabel.text = [source origin];
     
@@ -443,7 +443,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepo *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
     [self setSpinnerVisible:[busyList[[source baseFileName]] boolValue] forCell:cell];
 }
@@ -453,12 +453,12 @@
  }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    ZBSource *repo = [self sourceAtIndexPath:indexPath];
     return [repo canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    ZBSource *repo = [self sourceAtIndexPath:indexPath];
     NSMutableArray *actions = [NSMutableArray array];
     if ([repo canDelete]) {
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -572,7 +572,7 @@
 }
 
 - (void)delewhoop:(NSNotification *)notification {
-    ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
+    ZBSource *repo = (ZBSource *)[[notification userInfo] objectForKey:@"repo"];
     NSInteger pos = [sourceIndexes[[repo baseFileName]] integerValue];
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[self indexPathForPosition:pos]];
 }

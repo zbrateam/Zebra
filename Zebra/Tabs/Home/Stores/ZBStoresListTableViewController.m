@@ -10,7 +10,7 @@
 #import <ZBDevice.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
-#import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBSource.h>
 #import <Repos/Helpers/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Repos/Helpers/ZBRepoManager.h>
@@ -64,7 +64,7 @@
     
     self.tableData = [[NSMutableArray alloc] init];
     
-    for (ZBRepo *repo in sources) {
+    for (ZBSource *repo in sources) {
         if ([[self.keychain stringForKey:repo.baseURL] length] != 0) {
             [self.tableData addObject:repo];
         }
@@ -92,7 +92,7 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
+    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
     
     cell.repoLabel.text = [source origin];
 
@@ -107,7 +107,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
+    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
     currentRepoEndpoint = [_keychain stringForKey:[source baseURL]];
     if (![self checkAuthenticatedRepo:currentRepoEndpoint]) {
         NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]];

@@ -19,7 +19,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
-#import <Tabs/Repos/Helpers/ZBRepo.h>
+#import <Tabs/Repos/Helpers/ZBSource.h>
 
 @import FirebaseCore;
 @import Crashlytics;
@@ -293,9 +293,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     if (path.length > 1) {
                         NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
                         if (source != NULL) {
-                            if ([ZBRepo exists:source]) {
+                            if ([ZBSource exists:source]) {
                                 NSString *packageID = [path substringFromIndex:1];
-                                ZBRepo *repo = [ZBRepo repoFromBaseURL:source];
+                                ZBSource *repo = [ZBSource repoFromBaseURL:source];
                                 ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];

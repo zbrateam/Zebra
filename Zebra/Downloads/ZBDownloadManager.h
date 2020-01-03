@@ -7,7 +7,7 @@
 //
 
 @class ZBQueue;
-@class ZBRepo;
+@class ZBSource;
 
 #import <Foundation/Foundation.h>
 #import "ZBDownloadDelegate.h"
@@ -22,11 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDictionary <NSString *, NSMutableArray *> *filenames;
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate;
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate sourceListPath:(NSString *)trail;
-- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo;
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBSource *)repo;
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repoURLs:(NSArray <NSURL *> *)repoURLs;
 - (id)initWithSourceListPath:(NSString *)trail;
-- (void)downloadRepos:(NSArray <ZBRepo *> *)repos ignoreCaching:(BOOL)ignore;
-- (void)downloadRepo:(ZBRepo *)repo;
+- (void)downloadRepos:(NSArray <ZBSource *> *)repos ignoreCaching:(BOOL)ignore;
+- (void)downloadRepo:(ZBSource *)repo;
 - (void)downloadReposAndIgnoreCaching:(BOOL)ignore;
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages;
 - (void)stopAllDownloads;

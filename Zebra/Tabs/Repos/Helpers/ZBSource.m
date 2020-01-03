@@ -1,19 +1,19 @@
 //
-//  ZBRepo.m
+//  ZBSource.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import "ZBRepoManager.h"
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 
-@implementation ZBRepo
+@implementation ZBSource
 
 @synthesize origin;
 @synthesize desc;
@@ -27,12 +27,12 @@
 @synthesize shortURL;
 @synthesize supportSileoPay;
 
-+ (ZBRepo *)repoMatchingRepoID:(int)repoID {
++ (ZBSource *)repoMatchingRepoID:(int)repoID {
     return [[ZBRepoManager sharedInstance] repos][@(repoID)];
 }
 
-+ (ZBRepo *)localRepo:(int)repoID {
-    ZBRepo *local = [[ZBRepo alloc] init];
++ (ZBSource *)localRepo:(int)repoID {
+    ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setDesc:NSLocalizedString(@"Locally installed packages", @"")];
     [local setRepoID:repoID];
@@ -40,7 +40,7 @@
     return local;
 }
 
-+ (ZBRepo *)repoFromBaseURL:(NSString *)baseURL {
++ (ZBSource *)repoFromBaseURL:(NSString *)baseURL {
     return [[ZBDatabaseManager sharedInstance] repoFromBaseURL:baseURL];
 }
 
@@ -81,7 +81,7 @@
         const char *descriptionChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnDescription);
         const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnBaseFilename);
         const char *baseURLChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnBaseURL);
-        const char *suiteChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnSuite);
+        const char *suiteChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnDistribution);
         const char *compChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnComponents);
         
         NSURL *iconURL;
@@ -166,11 +166,11 @@
     return ![[self baseFileName] isEqualToString:@"getzbra.com_repo_."];
 }
 
-- (BOOL)isEqual:(ZBRepo *)object {
+- (BOOL)isEqual:(ZBSource *)object {
     if (self == object)
         return YES;
     
-    if (![object isKindOfClass:[ZBRepo class]])
+    if (![object isKindOfClass:[ZBSource class]])
         return NO;
     
     return [[object baseFileName] isEqual:[self baseFileName]];

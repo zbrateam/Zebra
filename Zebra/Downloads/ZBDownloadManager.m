@@ -14,7 +14,7 @@
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBSource.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 
 #import <bzlib.h>
@@ -74,7 +74,7 @@
     return self;
 }
 
-- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBRepo *)repo {
+- (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate repo:(ZBSource *)repo {
     self = [self init];
     
     if (self) {
@@ -290,7 +290,7 @@
     [downloadDelegate predator:self startedDownloadForFile:baseFileName];
 }
 
-- (void)downloadRepo:(ZBRepo *)repo {
+- (void)downloadRepo:(ZBSource *)repo {
     [self downloadRepos:@[repo] ignoreCaching:NO];
 }
 
@@ -304,7 +304,7 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
-        ZBRepo *repo = [package repo];
+        ZBSource *repo = [package repo];
         NSString *filename = [package filename];
         
         if (repo == NULL || filename == NULL) {

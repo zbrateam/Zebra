@@ -10,7 +10,7 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBSource.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Repos/Helpers/ZBRepoManager.h>
 #import "UIBarButtonItem+blocks.h"

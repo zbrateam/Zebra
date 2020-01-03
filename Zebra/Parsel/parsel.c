@@ -79,12 +79,13 @@ int isRepoSecure(const char *sourcePath, char *repoURL) {
 }
 
 char *reposSchema() {
-    return "REPOS(ORIGIN STRING, LABEL STRING, SUITE STRING, VERSION STRING, CODENAME STRING, ARCHITECTURES STRING, COMPONENTS STRING, DESCRIPTION STRING, BASEFILENAME STRING, SECURE INTEGER, BASEURL STRING, REPOID INTEGER)";
+    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING)";
+    return "REPOS(ORIGIN STRING, LABEL STRING, DISTRIBUTION STRING, VERSION STRING, CODENAME STRING, ARCHITECTURES STRING, COMPONENTS STRING, DESCRIPTION STRING, BASEFILENAME STRING, SECURE INTEGER, BASEURL STRING, REPOID INTEGER)";
 }
 
-const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, LABEL, SUITE, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, LABEL, DISTRIBUTION, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-const char *repoUpdateQuery = "UPDATE REPOS SET (ORIGIN, LABEL, SUITE, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
+const char *repoUpdateQuery = "UPDATE REPOS SET (ORIGIN, LABEL, DISTRIBUTION, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
 char *packagesSchema() {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING)";
@@ -165,7 +166,7 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
-enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
+enum PARSEL_RETURN_TYPE addRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
     FILE *file = fopen(path, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
@@ -215,7 +216,7 @@ enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char 
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnLabel, dict_get(repo, "Label"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDistribution, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnVersion, dict_get(repo, "Version"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnCodename, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnArchitectures, dict_get(repo, "Architectures"), -1, SQLITE_TRANSIENT);
@@ -239,11 +240,11 @@ enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char 
 }
 
 enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
-    return importRepoToDatabaseBase(sourcePath, path, database, repoID, false);
+    return addRepoToDatabase(sourcePath, path, database, repoID, false);
 }
 
 enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
-    return importRepoToDatabaseBase(sourcePath, path, database, repoID, true);
+    return addRepoToDatabase(sourcePath, path, database, repoID, true);
 }
 
 void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {

@@ -7,7 +7,7 @@
 //
 
 @class ZBPackage;
-@class ZBRepo;
+@class ZBSource;
 @class UIImage;
 
 #import <Foundation/Foundation.h>
@@ -102,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param repo The targer repository.
  @param useCaching Same as above.
  */
-- (void)updateRepo:(ZBRepo *)repo useCaching:(BOOL)useCaching;
+- (void)updateRepo:(ZBSource *)repo useCaching:(BOOL)useCaching;
 
 /*!
  @brief Update a repository.
@@ -180,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
 @param baseURL the base url
 @return A ZBRepo instance for the matching base url.
 */
-- (ZBRepo *)repoFromBaseURL:(NSString *)baseURL;
+- (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
 
 /*!
  @brief The next repoID in the database.
@@ -193,39 +193,39 @@ NS_ASSUME_NONNULL_BEGIN
  @param section (Nullable) A subsection of the repo to count the number of packages in.
  @return The number of packages in that repo/section.
  */
-- (int)numberOfPackagesInRepo:(ZBRepo * _Nullable)repo section:(NSString * _Nullable)section;
+- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
  @brief All of the repos that are in the database.
  @return An array of ZBRepos that represent the repos that are in the database.
  */
-- (NSArray <ZBRepo *> *)repos;
+- (NSArray <ZBSource *> *)repos;
 
 /*!
  @brief Deletes the repo and all the packages that have a matching repoID.
  @param repo The repo that needs to be deleted.
  */
-- (void)deleteRepo:(ZBRepo *)repo;
+- (void)deleteRepo:(ZBSource *)repo;
 
 /*!
  @brief The CydiaIcon for a corresponding repo (if there is one).
  @param repo The corresponding repo.
  */
-- (UIImage *)iconForRepo:(ZBRepo *)repo;
+- (UIImage *)iconForRepo:(ZBSource *)repo;
 
 /*!
  @brief Save a UIImage into the database for a corresponding repo's Cydia Icon.
  @param icon The UIImage needing to be saved.
  @param repo The corresponding repo.
  */
-- (void)saveIcon:(UIImage *)icon forRepo:(ZBRepo *)repo;
+- (void)saveIcon:(UIImage *)icon forRepo:(ZBSource *)repo;
 
 /*!
  @brief A list of section names and number of packages in each section.
  @param repo The corresponding repo.
  @return A dictionary of section names and number of packages in a corresponding repo in the format <SectionName: NumberOfPackages>.
  */
-- (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo;
+- (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo;
 
 #pragma mark - Package retrieval
 
@@ -238,7 +238,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param start An offset from row zero in the database.
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBRepo * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
 
 /*!
  @brief A list of packages that the user has installed on their device.
@@ -385,7 +385,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A sorted array of every version of a package in the database.
  */
 - (NSArray <ZBPackage *> *)allVersionsForPackageID:(NSString *)packageIdentifier;
-- (NSArray <ZBPackage *> *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo;
+- (NSArray <ZBPackage *> *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo;
 
 /*!
  @brief An array of every version of a package in the database.
@@ -393,7 +393,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A sorted array of every version of a package in the database.
  */
 - (NSArray <ZBPackage *> *)allVersionsForPackage:(ZBPackage *)package;
-- (NSArray <ZBPackage *> *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo;
+- (NSArray <ZBPackage *> *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo;
 
 /*!
  @brief An array of every other version of a package in the database.
@@ -416,7 +416,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A ZBPackage instance representing the highest version in the database.
  */
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package;
-- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBRepo *_Nullable)repo;
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo;
 
 /*!
  @brief The highest version of a package that exists in the database.
@@ -424,7 +424,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A ZBPackage instance representing the highest version in the database.
  */
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
-- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBRepo *_Nullable)repo;
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo;
 
 /*!
 @brief Packages that depend on another package
@@ -463,7 +463,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param limit Specify how many rows are selected.
  @return An array of all packages with a reachable icon.
  */
-- (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBRepo *> *_Nullable)blacklistedRepos;
+- (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedRepos;
 
 - (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end

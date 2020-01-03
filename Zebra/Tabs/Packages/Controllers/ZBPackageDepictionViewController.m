@@ -19,7 +19,7 @@
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Repos/Helpers/ZBSource.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBWebViewController.h"
@@ -59,7 +59,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo {
+- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     

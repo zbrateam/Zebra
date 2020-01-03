@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Database/ZBDatabaseDelegate.h>
 #import <ZBRefreshableTableViewController.h>
-@class ZBRepo;
+@class ZBSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSource:(id)sender;
 - (void)handleImportOf:(NSURL *)url;
 - (void)updateCollation;
-- (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath;
+- (ZBSource *)sourceAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END
