@@ -19,7 +19,7 @@
 "Community Sources" = "מקורות קהילתיים";
 "You’ve added all of the community sources" = "הוספת את כל המקורות הקהילתיים";
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
-"Utility repo for %@" = "מקור כלים עבור %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "ייבוא מקורות";
 "Please Wait..." = "נא להמתין...";
 "Verifying Source(s)" = "מאמת מקור(ות)";
@@ -66,10 +66,9 @@
 "App Icon" = "אייקון היישום";
 
 "Featured Packages" = "חבילות מומלצות";
-"Repo Featured" = "המלצת מקור";
 "Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
-"Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "חדשות";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "אייקוניים חלופיים";
 
-"Featured Repos" = "מקורות מומלצים";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "מקור מקומי";
 "Locally installed packages" = "חבילות שהותקנו מקומית";
 "Unknown" = "לא ידוע";
-"No repository urls detected." = "לא אותרו כתובות מקור.";
-"You have already added these repositories." = "כבר הוספת את מקורות אלו.";
-"Error verifying repository" = "תקלה באימות מקור";
-"Error verifying repositories" = "תקלה באימות מקורות";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
 "Enter URL" = "הזן/י כתובת";
-"Add Repo(s)" = "הוסף מקור(ות)";
+"Add Sources" = "Add Sources";
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
 "Please Wait..." = "נא להמתין...";
 "Verifying Source(s)" = "מאמת מקור(ות)";
-"Unable to verify Repo" = "לא ניתן לאמת מקור";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "רענן";
 "Log Out" = "התנתק";
 "Purchased Packages" = "חבילות שנרכשו";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
-"Repo" = "מקור";
+"Source" = "Source";
 "Installed Files" = "קבצים מותקנים";
 "Modify" = "נהל";
 "Authenticate to initiate purchase." = "בצע/י אימות כדי להתחיל רכישה.";
@@ -154,7 +153,7 @@
 "Installed Version" = "גירסה מותקנת";
 "Installed Size" = "גודל מותקן";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (גירסה מותקנת: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "הורדות";
 "Error while opening sources.list" = "תקלה בפתיחת sources.list";
-"The repo %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
-"Please remove this repo from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
 "Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "שנה את מקור החבילות המומלצות במסך הבית.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת מקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "חדשות הקהילה";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "זברה %@";
 
 "Import Sources" = "ייבא מקורות";
-"Updating Repositories" = "מעדכן מקורות";
-"Would you like to import the following repositories?" = "האם ברצונך לייבא את המקורות הבאים?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "ההורדה הושלמה";
 "Removing Zebra..." = "מסיר את זברה...";
 "Installing Zebra..." = "מתקין את זברה...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "מנתח את %@";
 
 "#Downloading <Filename>
