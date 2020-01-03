@@ -19,7 +19,7 @@
 "Community Sources" = "Sumber Komunitas";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sumber dari %@ ke Zebra";
-"Utility repo for %@" = "Repo utilitas untuk %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Transfer Sumber";
 "Please Wait..." = "Tunggu Sebentar...";
 "Verifying Source(s)" = "Memverifikasi Sumber";
@@ -66,10 +66,9 @@
 "App Icon" = "Ikon Aplikasi";
 
 "Featured Packages" = "Paket Unggulan";
-"Repo Featured" = "Repo Unggulan";
 "Random" = "Acak";
 "Feature Type" = "Jenis Fitur";
-"Select Repos to be Featured" = "Pilih Repo untuk Diunggulkan";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Berita";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternatif Ikon";
 
-"Featured Repos" = "Repo Unggulan";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Repositori Lokal";
 "Locally installed packages" = "Paket Lokal terinstall";
 "Unknown" = "Tidak Diketahui";
-"No repository urls detected." = "Tidak ada url repositori terdeteksi.";
-"You have already added these repositories." = "Kamu sudah menambahkan repositori ini.";
-"Error verifying repository" = "Kesalahan verifikasi repositori";
-"Error verifying repositories" = "Kesalahan verifikasi repositori";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Kesalahan tidak diketahui";
 "Invalid URL" = "URL tidak valid";
 "Enter URL" = "Masukkan URL";
-"Add Repo(s)" = "Tambah Repo";
+"Add Sources" = "Add Sources";
 "Add" = "Tambah";
 "Add Multiple" = "Tambahkan Beberapa";
 "Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
 "Please Wait..." = "Tunggu Sebentar...";
 "Verifying Source(s)" = "Memverifikasi Sumber";
-"Unable to verify Repo" = "Repo tidak dapat diverifikasi";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Segarkan";
 "Log Out" = "Keluar";
 "Purchased Packages" = "Paket yang Terbeli";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Peningkatan Yang Tersedia";
 "Ignored Upgrades" = "Abaikan Peningkatan";
 "Recent" = "Terkini";
-"Repo" = "Repo";
+"Source" = "Source";
 "Installed Files" = "Menginstall Files";
 "Modify" = "Memodifikasi";
 "Authenticate to initiate purchase." = "Otentikasi untuk memulai pembelian.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Versi Terpasang";
 "Installed Size" = "Ukuran Terpasang";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Terpasang Versi: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Unduhan";
 "Error while opening sources.list" = "Galat ketika membuka sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Repo %@ tidak kompatibel dengan jailbreak anda.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ini dapat menyebabkan masalah jika Anda menambahkannya ke Zebra yang menghasilkan kemungkinan pemulihan.";
-"Please remove this repo from your sources.list file." = "Mohon hapus repo ini dari sources.list file anda.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Izin dokumen salah.";
 "Could not determine device information." = "Tidak dapat menentukan informasi perangkat.";
 "Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Ubah sumber paket unggulan di beranda.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Unggulan\" akan menampilkan paket acak dari repos yang mendukung API Paket Unggulan.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Acak\" akan menampilkan paket acak dari semua repositori yang telah Anda tambahkan ke Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Berita Komunitas";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Import Sumber";
-"Updating Repositories" = "Meng-Update Repositori";
-"Would you like to import the following repositories?" = "Apakah Anda ingin mengimpor repositori berikut?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Unduhan Selesai";
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parsing %@";
 
 "#Downloading <Filename>
