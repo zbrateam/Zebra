@@ -19,7 +19,7 @@
 "Community Sources" = "Community-Quellen";
 "You’ve added all of the community sources" = "Du hast alle Community-Quellen hinzugefügt";
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
-"Utility repo for %@" = "Dienstprogrammquelle für %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
 "Verifying Source(s)" = "Verifizierung der Quelle(n)";
@@ -66,10 +66,9 @@
 "App Icon" = "App-Symbol";
 
 "Featured Packages" = "Vorgestellte Pakete";
-"Repo Featured" = "Empfohlene Quelle";
 "Random" = "Zufällig";
 "Feature Type" = "Vorgestellter Typ";
-"Select Repos to be Featured" = "Wähle Quellen aus, die vorgestellt werden sollen";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Neuigkeiten";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternative Symbole";
 
-"Featured Repos" = "Empfohlene Quellen";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Lokale Quelle";
 "Locally installed packages" = "Lokal installierte Pakete";
 "Unknown" = "Unbekannt";
-"No repository urls detected." = "Keine Quellen-URL gefunden.";
-"You have already added these repositories." = "Du hast diese Quellen bereits hinzugefügt.";
-"Error verifying repository" = "Beim Verifizieren der Quelle ist ein Fehler aufgetreten";
-"Error verifying repositories" = "Beim Verifizieren der Quellen ist ein Fehler aufgetreten";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Unbekannter Fehler";
 "Invalid URL" = "Ungültige URL";
 "Enter URL" = "URL eingeben";
-"Add Repo(s)" = "Quelle(n) hinzufügen";
+"Add Sources" = "Add Sources";
 "Add" = "Hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
 "Please Wait..." = "Bitte warten...";
 "Verifying Source(s)" = "Verifizieren der Quelle(n)";
-"Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Neu laden";
 "Log Out" = "Abmelden";
 "Purchased Packages" = "Gekaufte Pakete";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Verfügbare Aktualisierungen";
 "Ignored Upgrades" = "Ignorierte Aktualiserungen";
 "Recent" = "Kürzlich";
-"Repo" = "Quelle";
+"Source" = "Source";
 "Installed Files" = "Installierte Dateien";
 "Modify" = "Bearbeiten";
 "Authenticate to initiate purchase." = "Zum Kaufen authentifizieren.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Installierte Version";
 "Installed Size" = "Größe der Installation";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installierte Version: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Fehler beim Öffnen von sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Die Quelle %@ ist mit deinem Jailbreak inkompatibel.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Wenn du das zu Zebra hinzufügst, könnten Probleme auftreten, die möglicherweise eine Wiederherstellung erforderlich machen.";
-"Please remove this repo from your sources.list file." = "Bitte entferne diese Quelle von deiner sources.list Datei.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Falsche Dokumentenberechtigung.";
 "Could not determine device information." = "Geräteinformationen nicht gefunden.";
 "Could not find a download URL for" = "Konnte keine Download-URL finden für";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Ändern Sie die Quelle der empfohlenen Pakete auf der Startseite.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Vorgestellte Quelle\" wird zufällige Pakete aus denen Quellen anzeigen welche die Vorgestellte Pakete API unterstützen.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Zufällig\" wird zufällige Pakete aus allen Quellen anzeigen die zu Zebra hinzugefügt wurden.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Nachrichten der Gemeinschaft";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Quellen importieren";
-"Updating Repositories" = "Quellen werden aktualisiert";
-"Would you like to import the following repositories?" = "Möchten Sie folgende Quellen importieren?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Herunterladen abgeschlossen";
 "Removing Zebra..." = "Zebra wird entfernt …";
 "Installing Zebra..." = "Zebra wird installiert …";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "%@ wird analysiert";
 
 "#Downloading <Filename>
