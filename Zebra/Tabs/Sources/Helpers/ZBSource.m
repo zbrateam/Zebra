@@ -15,16 +15,20 @@
 
 @implementation ZBSource
 
+@synthesize sourceDescription;
 @synthesize origin;
-@synthesize desc;
-@synthesize baseFileName;
-@synthesize baseURL;
-@synthesize secure;
-@synthesize repoID;
-@synthesize iconURL;
+@synthesize label;
+@synthesize version;
 @synthesize suite;
-@synthesize shortURL;
+@synthesize codename;
+@synthesize architectures;
+@synthesize baseFilename;
+@synthesize repoID;
 @synthesize supportSileoPay;
+
+const char *textColumn(sqlite3_stmt *statement, int column) {
+    return (const char *)sqlite3_column_text(statement, column);
+}
 
 + (ZBSource *)repoMatchingRepoID:(int)repoID {
     return [[ZBRepoManager sharedInstance] repos][@(repoID)];
@@ -33,9 +37,9 @@
 + (ZBSource *)localRepo:(int)repoID {
     ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
-    [local setDesc:NSLocalizedString(@"Locally installed packages", @"")];
+    [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
     [local setRepoID:repoID];
-    [local setBaseFileName:@"/var/lib/dpkg/status"];
+    [local setBaseFilename:@"/var/lib/dpkg/status"];
     return local;
 }
 
@@ -55,94 +59,101 @@
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
     self = [super init];
     
-//    if (self) {
-//        const char *originChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnOrigin);
-//        const char *descriptionChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnDescription);
-//        const char *baseFilenameChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnBaseFilename);
-//        const char *baseURLChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnBaseURL);
-//        const char *suiteChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnDistribution);
-//        const char *compChars = (const char *)sqlite3_column_text(statement, ZBRepoColumnComponents);
-//
-//        NSURL *iconURL;
-//        NSString *baseURL = baseURLChars != 0 ? [[NSString alloc] initWithUTF8String:baseURLChars] : NULL;
-//        NSArray *separate = [baseURL componentsSeparatedByString:@"dists"];
-//        NSString *shortURL = separate[0];
-//
-//        BOOL secure = sqlite3_column_int(statement, ZBRepoColumnSecure);
-//        NSString *url = [baseURL stringByAppendingPathComponent:@"CydiaIcon.png"];
-//        if ([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]) {
-//            iconURL = [NSURL URLWithString:url];
-//        } else if (secure) {
-//            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", url]];
-//        } else {
-//            iconURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", url]];
-//        }
-//
-//        [self setDesc:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
-//        [self setBaseFileName:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
-//        [self setBaseURL:baseURL];
-//        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : (baseURL ?: NSLocalizedString(@"Unknown", @""))];
-//        [self setSecure:secure];
-//        [self setRepoID:sqlite3_column_int(statement, ZBRepoColumnRepoID)];
-//        [self setIconURL:iconURL];
-//        [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NULL];
-//        [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
-//        [self setShortURL:shortURL];
-//        if (secure) {
-//            NSString *requestURL;
-//            if ([baseURL hasSuffix:@"/"]) {
-//                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint", baseURL];
-//            } else {
-//                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint", baseURL];
-//            }
-//            NSURL *url = [NSURL URLWithString:requestURL];
-//            NSURLSession *session = [NSURLSession sharedSession];
-//            [[session dataTaskWithURL:url
-//                    completionHandler:^(NSData *data,
-//                                        NSURLResponse *response,
-//                                        NSError *error) {
-//                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-//                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-//                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-//                            keychain[baseURL] = endpoint;
-//                            [self setSupportSileoPay:YES];
-//                        }
-//                    }] resume];
-//        }
-//        // prevent constant network spam
-//        if (!self.checkedSupportFeaturedPackages) {
-//            // Check for featured string
-//            NSString *requestURL;
-//            if ([baseURL hasSuffix:@"/"]) {
-//                requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", baseURL];
-//            } else {
-//                requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", baseURL];
-//            }
-//            NSURL *checkingURL = [NSURL URLWithString:requestURL];
-//            NSURLSession *session = [NSURLSession sharedSession];
-//            [[session dataTaskWithURL:checkingURL
-//                    completionHandler:^(NSData *data,
-//                                        NSURLResponse *response,
-//                                        NSError *error) {
-//                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-//                        if (data != nil && (long)[httpResponse statusCode] != 404) {
-//                            [self setSupportsFeaturedPackages:YES];
-//                        }
-//                    }] resume];
-//            [self setCheckedSupportFeaturedPackages:YES];
-//        }
-//    }
+    if (self) {
+        const char *archiveTypeChars   = textColumn(statement, ZBSourceColumnArchiveType);
+        const char *repositoryURIChars = textColumn(statement, ZBSourceColumnRepositoryURI);
+        const char *distributionChars  = textColumn(statement, ZBSourceColumnDistribution);
+        const char *componenetsChars   = textColumn(statement, ZBSourceColumnComponents);
+        const char *descriptionChars   = textColumn(statement, ZBSourceColumnDescription);
+        const char *originChars        = textColumn(statement, ZBSourceColumnOrigin);
+        const char *labelChars         = textColumn(statement, ZBSourceColumnLabel);
+        const char *versionChars       = textColumn(statement, ZBSourceColumnVersion);
+        const char *suiteChars         = textColumn(statement, ZBSourceColumnSuite);
+        const char *codenameChars      = textColumn(statement, ZBSourceColumnCodename);
+        const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
+        const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
+
+        [self setArchiveType:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
+        [self setRepositoryURI:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
+        [self setDistribution:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
+        
+        if (componenetsChars != 0) {
+            NSArray *components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
+            [self setComponents:components];
+        }
+        
+        [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
+        [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NSLocalizedString(@"Unknown", @"")];
+        [self setLabel:labelChars != 0 ? [[NSString alloc] initWithUTF8String:labelChars] : NSLocalizedString(@"Unknown", @"")];
+        [self setVersion:versionChars != 0 ? [[NSString alloc] initWithUTF8String:versionChars] : NSLocalizedString(@"Unknown", @"")];
+        [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NSLocalizedString(@"Unknown", @"")];
+        [self setCodename:codenameChars != 0 ? [[NSString alloc] initWithUTF8String:codenameChars] : NSLocalizedString(@"Unknown", @"")];
+        
+        if (architectureChars != 0) {
+            NSArray *architectures = [[NSString stringWithUTF8String:architectureChars] componentsSeparatedByString:@" "];
+            [self setArchitectures:architectures];
+        }
+        else {
+            [self setArchitectures:@[@"all"]];
+        }
+        
+        [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
+        [self setRepoID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
+        
+        [self setIconURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/CydiaIcon.png", self.repositoryURI]]];
+
+        //rewrite eventually
+        if ([self.repositoryURI containsString:@"https"]) {
+            NSString *requestURL;
+            if ([self.repositoryURI hasSuffix:@"/"]) {
+                requestURL = [NSString stringWithFormat:@"https://%@payment_endpoint", self.repositoryURI];
+            } else {
+                requestURL = [NSString stringWithFormat:@"https://%@/payment_endpoint", self.repositoryURI];
+            }
+            NSURL *url = [NSURL URLWithString:requestURL];
+            NSURLSession *session = [NSURLSession sharedSession];
+            [[session dataTaskWithURL:url
+                    completionHandler:^(NSData *data,
+                                        NSURLResponse *response,
+                                        NSError *error) {
+                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
+                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+                            keychain[self.repositoryURI] = endpoint;
+                            [self setSupportSileoPay:YES];
+                        }
+                    }] resume];
+        }
+        // prevent constant network spam
+        if (!self.checkedSupportFeaturedPackages) {
+            // Check for featured string
+            NSString *requestURL;
+            if ([self.repositoryURI hasSuffix:@"/"]) {
+                requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", self.repositoryURI];
+            } else {
+                requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", self.repositoryURI];
+            }
+            NSURL *checkingURL = [NSURL URLWithString:requestURL];
+            NSURLSession *session = [NSURLSession sharedSession];
+            [[session dataTaskWithURL:checkingURL
+                    completionHandler:^(NSData *data,
+                                        NSURLResponse *response,
+                                        NSError *error) {
+                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                        if (data != nil && (long)[httpResponse statusCode] != 404) {
+                            [self setSupportsFeaturedPackages:YES];
+                        }
+                    }] resume];
+            [self setCheckedSupportFeaturedPackages:YES];
+        }
+    }
     
     return self;
 }
 
-- (BOOL)isSecure {
-    return secure;
-}
-
 - (BOOL)canDelete {
-    return ![[self baseFileName] isEqualToString:@"getzbra.com_repo_."];
+    return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_."];
 }
 
 - (BOOL)isEqual:(ZBSource *)object {
@@ -152,11 +163,11 @@
     if (![object isKindOfClass:[ZBSource class]])
         return NO;
     
-    return [[object baseFileName] isEqual:[self baseFileName]];
+    return [[object baseFilename] isEqual:[self baseFilename]];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ %@ %d", origin, shortURL, repoID];
+    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.repoID];
 }
 
 @end
