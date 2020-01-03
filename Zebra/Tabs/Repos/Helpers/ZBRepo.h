@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL supportSileoPay;
 @property (nonatomic) int repoID;
 @property (nonatomic, strong) NSURL *iconURL;
-@property (nonatomic) BOOL defaultRepo;
 @property (nonatomic, strong) NSString *suite;
 @property (nonatomic, strong) NSString *components;
 @property (nonatomic, strong) NSString *shortURL;
@@ -31,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBRepo *)localRepo:(int)repoID;
 + (ZBRepo *)repoFromBaseURL:(NSString *)baseURL;
 + (BOOL)exists:(NSString *)urlString;
-- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
+- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isSecure;
 - (BOOL)canDelete;

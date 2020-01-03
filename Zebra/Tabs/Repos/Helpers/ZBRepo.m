@@ -22,7 +22,6 @@
 @synthesize secure;
 @synthesize repoID;
 @synthesize iconURL;
-@synthesize defaultRepo;
 @synthesize suite;
 @synthesize components;
 @synthesize shortURL;
@@ -54,7 +53,7 @@
     return [databaseManager repoIDFromBaseURL:baseURL strict:false] > 0;
 }
 
-- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL isDefault:(BOOL)isDefault suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA {
+- (id)initWithOrigin:(NSString *)origin description:(NSString *)description baseFileName:(NSString *)bfn baseURL:(NSString *)baseURL secure:(BOOL)sec repoID:(int)repoIdentifier iconURL:(NSURL *)icoURL suite:(NSString *)sweet components:(NSString *)comp shortURL:(NSString *)shortA {
     
     self = [super init];
     
@@ -66,7 +65,6 @@
         [self setSecure:sec];
         [self setRepoID:repoIdentifier];
         [self setIconURL:icoURL];
-        [self setDefaultRepo:isDefault];
         [self setSuite:sweet];
         [self setComponents:comp];
         [self setShortURL:shortA];
@@ -108,7 +106,6 @@
         [self setSecure:secure];
         [self setRepoID:sqlite3_column_int(statement, ZBRepoColumnRepoID)];
         [self setIconURL:iconURL];
-        [self setDefaultRepo:sqlite3_column_int(statement, ZBRepoColumnDef)];
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NULL];
         [self setComponents:compChars != 0 ? [[NSString alloc] initWithUTF8String:compChars] : NULL];
         [self setShortURL:shortURL];

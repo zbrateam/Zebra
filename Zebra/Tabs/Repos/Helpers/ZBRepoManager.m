@@ -350,20 +350,20 @@
 }
 
 - (NSString *)debLineFromRepo:(ZBRepo *)repo {
-    NSMutableString *output = [NSMutableString string];
-    if ([repo defaultRepo]) {
-        NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
-        if (debLine) {
-            [output appendString:debLine];
-        } else {
-            NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
-            repoURL = [repoURL stringByDeletingLastPathComponent]; // Remove last two path components
-            [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
-        }
-    } else {
-        [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
-    }
-    return output;
+//    NSMutableString *output = [NSMutableString string];
+//    if ([repo defaultRepo]) {
+//        NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
+//        if (debLine) {
+//            [output appendString:debLine];
+//        } else {
+//            NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
+//            repoURL = [repoURL stringByDeletingLastPathComponent]; // Remove last two path components
+//            [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
+//        }
+//    } else {
+//        [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
+//    }
+    return @"Hey, that's pretty good!";
 }
 
 - (void)addSources:(NSArray<NSURL *> *)sourceURLs completion:(void (^)(BOOL success, NSError *error))completion {
