@@ -468,13 +468,14 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBBaseSource *repo = [self sourceAtIndexPath:indexPath];
+    ZBBaseSource *baseSource = [self sourceAtIndexPath:indexPath];
     NSMutableArray *actions = [NSMutableArray array];
-    if ([repo isKindOfClass:[ZBSource class]]) {
-        if ([repo canDelete]) {
+    if ([baseSource isKindOfClass:[ZBSource class]]) {
+        ZBSource *source = (ZBSource *)baseSource;
+        if ([source canDelete]) {
             UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                [self->sources removeObject:repo];
-                [self->repoManager deleteSource:repo];
+                [self->sources removeObject:source];
+                [self->repoManager deleteSource:source];
                 [self refreshTable];
             }];
             [actions addObject:deleteAction];
@@ -496,15 +497,13 @@
             [actions addObject:refreshAction];
         }
     }
-    else {
-        if ([repo canDelete]) {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                [self->sources removeObject:repo];
-                [self->repoManager deleteSource:repo];
-                [self refreshTable];
-            }];
-            [actions addObject:deleteAction];
-        }
+    else if ([baseSource canDelete]) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [self->sources removeObject:baseSource];
+            [self->repoManager deleteBaseSource:baseSource];
+            [self refreshTable];
+        }];
+        [actions addObject:deleteAction];
     }
     
     return actions;

@@ -403,45 +403,32 @@
 }
 
 - (void)deleteSource:(ZBSource *)delRepo {
-    NSMutableString *output = [NSMutableString string];
+    [self deleteBaseSource:(ZBBaseSource *)delRepo];
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBSource *repo in [databaseManager sources]) {
-        if (![[delRepo baseFilename] isEqualToString:[repo baseFilename]]) {
-            [output appendString:[repo debLine]];
-        }
-    }
+    [databaseManager deleteRepo:delRepo];
+}
+
+- (void)deleteBaseSource:(ZBBaseSource *)baseSource {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [paths objectAtIndex:0];
+    NSMutableArray *sourcesToWrite = [[databaseManager sources] mutableCopy];
+    [sourcesToWrite removeObject:baseSource];
     
-    NSString *filePath;
-    NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
-    if ([[cacheDirectory lastPathComponent] isEqualToString:bundleID])
-        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
-    else
-        filePath = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/sources.list", bundleID]];
-    
-    NSError *removeError;
-    NSString *listLocation = [ZBAppDelegate sourcesListPath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:listLocation]) {
-        [[NSFileManager defaultManager] removeItemAtPath:listLocation error:&removeError];
+    [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
+}
+
+- (void)writeBaseSources:(NSArray <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
+    NSMutableArray *debLines = [NSMutableArray new];
+    for (ZBBaseSource *baseSource in sources) {
+        [debLines addObject:[baseSource debLine]];
     }
     
     NSError *error;
-    [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    [[debLines componentsJoinedByString:@""] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-    } else {
-        [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
-        if (error != NULL) {
-            NSLog(@"[Zebra] Error while moving sources to file: %@", error);
-        }
-        
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager deleteRepo:delRepo];
     }
-    recachingNeeded = YES;
 }
 
 - (void)addDebLine:(NSString *)sourceLine {

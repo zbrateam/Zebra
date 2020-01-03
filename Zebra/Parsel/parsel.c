@@ -226,6 +226,7 @@ enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const c
     return addRepoToDatabase(source, releasePath, database, repoID, true);
 }
 
+//FIXME: This needs to be adapted to new database format
 void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID) {
     createTable(database, 0);
     

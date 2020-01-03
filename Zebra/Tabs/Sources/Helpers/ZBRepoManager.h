@@ -7,6 +7,7 @@
 //
 
 @class ZBSource;
+@class ZBBaseSource;
 
 #import <Foundation/Foundation.h>
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond;
 - (void)deleteSource:(ZBSource *)delRepo;
+- (void)deleteBaseSource:(ZBBaseSource *)baseSource;
 - (void)addDebLine:(NSString *)sourceLine;
 - (void)transferFromCydia;
 - (void)transferFromSileo;
