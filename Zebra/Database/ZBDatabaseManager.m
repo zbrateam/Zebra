@@ -60,6 +60,16 @@
     return lastUpdatedDate != NULL ? lastUpdatedDate : [NSDate distantPast];
 }
 
++ (struct ZBBaseSource)baseSourceStructFromSource:(ZBBaseSource *)source {
+    struct ZBBaseSource sourceStruct;
+    sourceStruct.archiveType = [source.archiveType UTF8String];
+    sourceStruct.repositoryURI = [source.repositoryURI UTF8String];
+    sourceStruct.distribution = [source.distribution UTF8String];
+    sourceStruct.components = [[[source components] componentsJoinedByString:@" "] UTF8String];
+    
+    return sourceStruct;
+}
+
 - (id)init {
     self = [super init];
 
@@ -192,20 +202,20 @@
         [self setHaltDatabaseOperations:false];
     }
     
-    if (!requested) {
-        NSDate *currentDate = [NSDate date];
-        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
-        
-        if (lastUpdatedDate != NULL) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSUInteger unitFlags = NSCalendarUnitMinute;
-            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
-            
-            needsUpdate = ([components minute] >= 30);
-        } else {
-            needsUpdate = YES;
-        }
-    }
+//    if (!requested) {
+//        NSDate *currentDate = [NSDate date];
+//        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
+//
+//        if (lastUpdatedDate != NULL) {
+//            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//            NSUInteger unitFlags = NSCalendarUnitMinute;
+//            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+//
+//            needsUpdate = ([components minute] >= 30);
+//        } else {
+//            needsUpdate = YES;
+//        }
+//    }
     
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
@@ -229,10 +239,6 @@
 }
 
 - (void)updateSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching {
-    if (databaseBeingUpdated)
-        return;
-    databaseBeingUpdated = YES;
-    
     [self bulkDatabaseStartedUpdate];
     if (!self.downloadManager) {
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
@@ -254,7 +260,7 @@
     haltDatabaseOperations = halt;
 }
 
-- (void)parseRepos:(NSDictionary *)filenames {
+- (void)parseSources:(NSArray <ZBBaseSource *> *)sources {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltDatabaseOperations) {
         CLS_LOG(@"Database operations halted.");
@@ -264,54 +270,51 @@
     }
     [self bulkPostStatusUpdate:NSLocalizedString(@"Download Completed", @"") atLevel:ZBLogLevelInfo];
     self.downloadManager = nil;
-    NSArray *releaseFiles = filenames[@"release"];
-    NSArray *packageFiles = filenames[@"packages"];
     
 //    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
 //    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
 
     if ([self openDatabase] == SQLITE_OK) {
-        for (NSString *releasePath in releaseFiles) {
-            NSString *baseFileName = [[releasePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-            
-            int repoID = [self repoIDFromBaseFileName:baseFileName];
-            if (repoID == -1) { // Repo does not exist in database, create it.
-                repoID = [self nextRepoID];
-                if (importRepoToDatabase([[ZBAppDelegate sourcesListPath] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
-                }
-            } else {
-                if (updateRepoInDatabase([[ZBAppDelegate sourcesListPath] UTF8String], [releasePath UTF8String], database, repoID) != PARSEL_OK) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", releasePath] atLevel:ZBLogLevelError];
-                }
-            }
-        }
-        
         createTable(database, 1);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
         sqlite3_int64 currentDate = (int)time(NULL);
         
-        for (NSString *packagesPath in packageFiles) {
-            NSString *baseFileName = [[packagesPath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
+        for (ZBBaseSource *source in sources) {
+            NSString *baseFileName = [[source.packagesFilePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
             baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
             
             [self bulkSetRepo:baseFileName busy:YES];
-            
             [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), baseFileName] atLevel:ZBLogLevelDescript];
             
+            //Deal with the repo first
             int repoID = [self repoIDFromBaseFileName:baseFileName];
-            if (repoID == -1) { // Repo does not exist in database, create it (this should never happen).
-                NSLog(@"[Zebra] Repo for BFN %@ does not exist in the database.", baseFileName);
-                repoID = [self nextRepoID];
-                createDummyRepo([[ZBAppDelegate sourcesListPath] UTF8String], [packagesPath UTF8String], database, repoID); // For repos with no release file (notably junesiphone)
-                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID, currentDate) != PARSEL_OK) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
+            if (source.releaseFilePath == NULL) { //We need to create a dummy repo (for repos with no Release file)
+                if (repoID == -1) {
+                    repoID = [self nextRepoID];
+                    createDummyRepo([source.packagesFilePath UTF8String], database, repoID);
                 }
-            } else {
-                if (updatePackagesInDatabase([packagesPath UTF8String], database, repoID, currentDate) != PARSEL_OK) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", packagesPath] atLevel:ZBLogLevelError];
+            }
+            else {
+                int repoID = [self repoIDFromBaseFileName:baseFileName];
+                if (repoID == -1) { // Repo does not exist in database, create it.
+                    repoID = [self nextRepoID];
+                    if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
+                        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                    }
+                } else {
+                    if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
+                        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                    }
                 }
+            }
+            
+            //Deal with the packages
+            if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], database, repoID, currentDate) != PARSEL_OK) {
+                [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.packagesFilePath] atLevel:ZBLogLevelError];
+            }
+            else if (!source.packagesFilePath) {
+                [self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
             }
             
             [self bulkSetRepo:baseFileName busy:NO];
@@ -1792,10 +1795,6 @@
 
 #pragma mark - Hyena Delegate
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(nonnull NSDictionary *)filenames {
-    [self parseRepos:filenames];
-}
-
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
     [self bulkSetRepo:filename busy:YES];
     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
@@ -1818,6 +1817,31 @@
     ZBLog(@"[Zebra] I'll forward your request... %@", status);
     [self bulkPostStatusUpdate:status atLevel:level];
 }
+
+- (void)finishedAllDownloads {
+    NSLog(@"Finished all downloads");
+}
+
+- (void)startedDownloads {
+    NSLog(@"Started all downloads");
+}
+
+- (void)startedSourceDownload:(ZBBaseSource *)baseSource {
+    NSLog(@"Started download for %@", baseSource.repositoryURI);
+}
+
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
+    
+}
+
+- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
+    NSLog(@"Finsihed download for %@ errors %@", baseSource.repositoryURI, errors);
+}
+
+- (void)finishedAllSourceDownloads:(NSArray <ZBBaseSource *> *)sources {
+    [self parseSources:sources];
+}
+
 
 #pragma mark - Helper methods
 

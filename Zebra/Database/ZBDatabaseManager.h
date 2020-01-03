@@ -99,13 +99,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Update a repository.
- @param repo The targer repository.
- @param useCaching Same as above.
- */
-- (void)updateRepo:(ZBSource *)repo useCaching:(BOOL)useCaching;
-
-/*!
- @brief Update a repository.
  @param repoURLs The targer repositories in URL format.
  @param useCaching Same as above.
  */
@@ -114,9 +107,9 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Parses files located in the filenames dictionary.
  @discussion Updates the database from the repos contained in sources.list and from the local packages contained in /var/lib/dpkg/status
- @param filenames An NSDictionary containing "release" and "packages" both of which are NSArrays containing the files to parse into the database.
+ @param sources An NSArray containing completed ZBBaseSources
  */
-- (void)parseRepos:(NSDictionary *)filenames;
+- (void)parseSources:(NSArray <ZBBaseSource *> *)sources;
 
 /*!
  @brief Imports installed packages and checks for updates.
