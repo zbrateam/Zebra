@@ -19,7 +19,7 @@
 "Community Sources" = "Gemeenschaps Bronnen";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
-"Utility repo for %@" = "Benodigde repo voor %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Verplaats Bronnen";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
@@ -66,10 +66,9 @@
 "App Icon" = "App Icoon";
 
 "Featured Packages" = "Uitgelichte Pakketten";
-"Repo Featured" = "Uitgelichte Bron";
 "Random" = "Willekeurig";
 "Feature Type" = "Uitgelicht type";
-"Select Repos to be Featured" = "Selecteer een repo om deze uit te lichten";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Nieuws";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternatieve iconen";
 
-"Featured Repos" = "Aanbevolen Repos";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Lokale bron";
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 "Unknown" = "Onbekend";
-"No repository urls detected." = "Er zijn geen bron-URLS gedetecteerd.";
-"You have already added these repositories." = "Deze bronnen heeft u al toegevoegd.";
-"Error verifying repository" = "Er is een fout opgetreden tijdens het verifiëren van de bron.";
-"Error verifying repositories" = "Er is een fout opgetreden tijdens het verifiëren van de bronnen.";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Onbekende fout";
 "Invalid URL" = "Ongeldige URL";
 "Enter URL" = "Voer een URL in";
-"Add Repo(s)" = "Voeg bron(nen) toe";
+"Add Sources" = "Add Sources";
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
 "Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
-"Unable to verify Repo" = "Kan de bron niet verifiëren";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Ververs";
 "Log Out" = "Log Uit";
 "Purchased Packages" = "Gekochte pakketten";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
-"Repo" = "Bron";
+"Source" = "Source";
 "Installed Files" = "Geïnstalleerde bestanden";
 "Modify" = "Pas aan";
 "Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
@@ -154,7 +153,7 @@
 "Installed Version" = "Geïnstalleerde versie";
 "Installed Size" = "Geïnstalleerde grootte";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (geïnstalleerde versie: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
-"The repo %@ is incompatible with your jailbreak." = "De repo %@ is niet compatibel met deze jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
-"Please remove this repo from your sources.list file." = "Verwijder alstublieft deze repo van het sources.list bestand.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
 "Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
 "Could not find a download URL for" = "Kan geen downloadlink vinden voor ";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Repos \" zullen willekeurige pakketten weergeven van repo's die de Featured Package API ondersteunen.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Gemeenschapsnieuws";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importeer Bronnen";
-"Updating Repositories" = "Repos Bijwerken";
-"Would you like to import the following repositories?" = "Wilt u de volgende repos importeren?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Download Compleet";
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parseren %@";
 
 "#Downloading <Filename>
