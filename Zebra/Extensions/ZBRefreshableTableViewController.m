@@ -150,7 +150,8 @@
     if ([self respondsToSelector:@selector(repo)]) {
         ZBSource *repo = [(ZBPackageListTableViewController *)self repo];
         if ([repo repoID] > 0) {
-            [databaseManager updateRepo:repo useCaching:YES];
+            //FIXME: fix me!
+//            [databaseManager updateRepo:repo useCaching:YES];
             singleRepo = YES;
         }
     }

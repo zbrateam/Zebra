@@ -766,6 +766,16 @@
     [self writeToConsole:status atLevel:level];
 }
 
+- (void)finishedAllDownloads { 
+    NSLog(@"Finished All Downloads!");
+}
+
+
+- (void)startedDownloads { 
+    NSLog(@"Started All Downloads!");
+}
+
+
 - (void)databaseStartedUpdate {
     [self writeToConsole:NSLocalizedString(@"Importing local packages.", @"") atLevel:ZBLogLevelInfo];
 }
