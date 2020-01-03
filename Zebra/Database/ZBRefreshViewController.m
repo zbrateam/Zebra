@@ -291,12 +291,12 @@ typedef enum {
     if (packageUpdates != -1) {
         [tabController setPackageUpdateBadgeValue:packageUpdates];
     }
-    if (!hadAProblem) {
-        [self goodbye];
-    } else {
+//    if (!hadAProblem) {
+//        [self goodbye];
+//    } else {
         [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
-    }
+//    }
     [[ZBRepoManager sharedInstance] needRecaching];
 }
 

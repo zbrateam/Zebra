@@ -245,6 +245,8 @@
     if (!self.downloadManager) {
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
     }
+    
+    [self bulkPostStatusUpdate:NSLocalizedString(@"Starting Download", @"") atLevel:ZBLogLevelInfo];
     [self.downloadManager downloadSources:sources useCaching:useCaching];
 }
 
@@ -281,7 +283,7 @@
         
         for (ZBBaseSource *source in sources) {
             [self bulkSetRepo:[source baseFilename] busy:YES];
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source baseFilename]] atLevel:ZBLogLevelDescript];
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
             
             //Deal with the repo first
             int repoID = [self repoIDFromBaseFileName:[source baseFilename]];
@@ -1827,14 +1829,13 @@
 }
 
 - (void)startedDownloads {
-    NSLog(@"Started downloading repositories");
     if (!completedSources) {
         completedSources = [NSMutableArray new];
     }
 }
 
 - (void)startedSourceDownload:(ZBBaseSource *)baseSource {
-    NSLog(@"Started download for %@", baseSource.repositoryURI);
+    [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
@@ -1842,7 +1843,7 @@
 }
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
-    NSLog(@"Finsihed download for %@ errors %@", baseSource.repositoryURI, errors);
+    [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Done %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
     [completedSources addObject:baseSource];
 }
 
