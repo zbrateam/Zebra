@@ -19,7 +19,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
-"Utility repo for %@" = "Πρακτικό repo για %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
 "Please Wait..." = "Παρακαλώ Περιμένετε...";
 "Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
@@ -66,10 +66,9 @@
 "App Icon" = "Εικονίδιο εφαρμογής";
 
 "Featured Packages" = "Προτεινόμενα Πακέτα";
-"Repo Featured" = "Προτεινόμενα Repo";
 "Random" = "Τυχαίο";
 "Feature Type" = "Τύπος Προτεινόμενου";
-"Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Νέα";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Εναλλαγή Εικονιδίων";
 
-"Featured Repos" = "Προτεινόμενα Repos";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Τοπικό Repository";
 "Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 "Unknown" = "Άγνωστο";
-"No repository urls detected." = "Δεν εντοπίστηκαν repository urls.";
-"You have already added these repositories." = "Έχεις ήδη προσθέσει αυτά τα repositories.";
-"Error verifying repository" = "Σφάλμα επαλήθευσης repository";
-"Error verifying repositories" = "Σφάλμα επαλήθευσης repositories";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Άγνωστο σφάλμα";
 "Invalid URL" = "Λανθασμένο URL";
 "Enter URL" = "Καταχώρισε URL";
-"Add Repo(s)" = "Πρόσθεσε Repo(s)";
+"Add Sources" = "Add Sources";
 "Add" = "Πρόσθεσε";
 "Add Multiple" = "Πρόσθεσε Πολλαπλά";
 "Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
 "Please Wait..." = "Παρακαλώ Περιμένετε...";
 "Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
-"Unable to verify Repo" = "Αδυναμία επαλήθευσης Repo";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Ανανέωση";
 "Log Out" = "Αποσύνδεση";
 "Purchased Packages" = "Αγορασμένα Πακέτα";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
 "Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
 "Recent" = "Πρόσφατα";
-"Repo" = "Repo";
+"Source" = "Source";
 "Installed Files" = "Εγκατεστημένα Αρχεία";
 "Modify" = "Τροποποίησε";
 "Authenticate to initiate purchase." = "Επαληθεύσου για να πραγματοποιήσεις την αγορά.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Εγκατεστημένη Έκδοση";
 "Installed Size" = "Εγκατεστημένος Χώρος";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Εγκατεστημένη Έκδοση: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Λήψεις";
 "Error while opening sources.list" = "Σφάλμα κατά το άνοιγμα του sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Το repo %@ είναι ασύμβατο με το jailbreak σου.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
-"Please remove this repo from your sources.list file." = "Παρακαλώ αφαίρεσε αυτό το repo από το sources.list αρχείο σου.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Λανθασμένες άδειες αρχείων.";
 "Could not determine device information." = "Αδυναμία προσδιορισμού πληροφοριών συσκευής.";
 "Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Άλλαξε την πηγή των προτεινόμενων πακέτων της αρχικής οθόνης.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Προτεινόμενα Repo\" θα εμφανίζει τυχαία πακέτα από repos που υποστηρίζουν το Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Νέα Κοινότητας";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parsing %@";
 
 "#Downloading <Filename>
