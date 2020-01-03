@@ -165,7 +165,7 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
-enum PARSEL_RETURN_TYPE importRepoToDatabaseBase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
+enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
     FILE *file = fopen(path, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
