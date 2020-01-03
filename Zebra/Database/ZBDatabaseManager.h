@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Update the database.
- @discussion Updates the database from the repos contained in sources.list and from the local packages contained in /var/lib/dpkg/status
+ @discussion Updates the database from the sources contained in sources.list and from the local packages contained in /var/lib/dpkg/status
  @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
  @param requested If YES, the user has requested this update and it should be performed. If NO, the database should only be updated if it hasn't been updated in the last 30 minutes.
  */
@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Parses files located in the filenames dictionary.
- @discussion Updates the database from the repos contained in sources.list and from the local packages contained in /var/lib/dpkg/status
+ @discussion Updates the database from the sources contained in sources.list and from the local packages contained in /var/lib/dpkg/status
  @param sources An NSArray containing completed ZBBaseSources
  */
 - (void)parseSources:(NSArray <ZBBaseSource *> *)sources;
@@ -189,10 +189,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
- @brief All of the repos that are in the database.
- @return An array of ZBRepos that represent the repos that are in the database.
+ @brief All of the sources that are in the database.
+ @return An array of ZBRepos that represent the sources that are in the database.
  */
-- (NSArray <ZBSource *> *)repos;
+- (NSArray <ZBSource *> *)sources;
 
 /*!
  @brief Deletes the repo and all the packages that have a matching repoID.

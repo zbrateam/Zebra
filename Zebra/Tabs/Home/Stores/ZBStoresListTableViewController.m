@@ -60,7 +60,7 @@
 
 - (void)updateStores {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    sources = [[databaseManager repos] mutableCopy];
+    sources = [[databaseManager sources] mutableCopy];
     
     self.tableData = [[NSMutableArray alloc] init];
     
@@ -94,7 +94,7 @@
     
     ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
     
-    cell.repoLabel.text = [source origin];
+    cell.repoLabel.text = [source label];
 
     if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source repositoryURI]]]) {
         cell.urlLabel.text = NSLocalizedString(@"Login", @"");

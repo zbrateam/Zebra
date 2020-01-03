@@ -42,7 +42,7 @@
 - (void)checkClipboard {}
 
 - (void)refreshTable {
-    self->sources = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    self->sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateCollation];
         [self.tableView reloadData];
@@ -54,7 +54,7 @@
     NSArray *blackListedRepos = [[NSUserDefaults standardUserDefaults] arrayForKey:@"blackListedRepos"];
     ZBSource *source = [self sourceAtIndexPath:indexPath];
     
-    cell.repoLabel.text = [source origin];
+    cell.repoLabel.text = [source label];
     
     cell.urlLabel.text = [source repositoryURI];
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];

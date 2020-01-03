@@ -651,7 +651,7 @@
     return -1;
 }
 
-- (NSArray <ZBSource *> *)repos {
+- (NSArray <ZBSource *> *)sources {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sources = [NSMutableArray new];
         

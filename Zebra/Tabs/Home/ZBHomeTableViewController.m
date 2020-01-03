@@ -111,7 +111,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     NSMutableArray *saveArray = [NSMutableArray new];
     dispatch_group_t group = dispatch_group_create();
     for (ZBSource *repo in featuredRepos) {

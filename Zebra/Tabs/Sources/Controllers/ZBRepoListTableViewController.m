@@ -43,7 +43,7 @@
     [self applyLocalization];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    sources = [[self.databaseManager repos] mutableCopy];
+    sources = [[self.databaseManager sources] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     [self baseViewDidLoad];
@@ -110,7 +110,7 @@
     NSArray *urlBlacklist = @[@"youtube.com", @"youtu.be", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
     NSMutableArray *repos = [NSMutableArray new];
     
-    for (ZBSource *repo in [self.databaseManager repos]) {
+    for (ZBSource *repo in [self.databaseManager sources]) {
         NSString *host = [[NSURL URLWithString:repo.repositoryURI] host];
         if (host) {
             [repos addObject:host];
@@ -167,7 +167,7 @@
 - (void)refreshTable {
     if (isRefreshingTable)
         return;
-    self->sources = [[self.databaseManager repos] mutableCopy];
+    self->sources = [[self.databaseManager sources] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->isRefreshingTable = YES;
         [self updateCollation];
@@ -417,7 +417,7 @@
     
     ZBSource *source = [self sourceAtIndexPath:indexPath];
     
-    cell.repoLabel.text = [source origin];
+    cell.repoLabel.text = [source label];
     
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
     [self setSpinnerVisible:[busyList[[source baseFilename]] boolValue] forCell:cell];
