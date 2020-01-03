@@ -222,7 +222,13 @@
                         else {
                             __block NSError *addError = nil;
                             
-                            [strongSelf addSources:self->verifiedURLs completion:^(BOOL success, NSError *error) {
+                            NSMutableArray *baseSources = [NSMutableArray new];
+                            for (NSURL *url in self->verifiedURLs) {
+                                ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[url absoluteString] distribution:@"./" components:NULL];
+                                [baseSources addObject:baseSource];
+                            }
+                            
+                            [strongSelf addBaseSources:baseSources completion:^(BOOL success, NSError *error) {
                                 addError = error;
                             }];
 
@@ -265,7 +271,8 @@
                 }
                 NSLog(@"[Zebra] Verified source %@", responseURL);
                 
-                [self addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {
+                ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[sourceURL absoluteString] distribution:@"./" components:NULL];
+                [self addBaseSources:@[baseSource] completion:^(BOOL success, NSError *addError) {
                     if (success) {
                         respond(YES, NULL, NULL);
                     } else {
@@ -349,57 +356,10 @@
     [task resume];
 }
 
-- (void)addSources:(NSArray<NSURL *> *)sourceURLs completion:(void (^)(BOOL success, NSError *error))completion {
-    NSMutableString *output = [NSMutableString string];
-    
+- (void)addBaseSources:(NSArray <ZBBaseSource *> *)baseSources completion:(void (^)(BOOL success, NSError *error))completion {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBSource *repo in [databaseManager sources]) {
-        [output appendString:[repo debLine]];
-    }
     
-    for (NSURL *sourceURL in sourceURLs) {
-        NSString *URL = [sourceURL absoluteString];
-        
-        NSString *debLine = [self knownDebLineFromURLString:URL];
-        if (debLine) {
-            [output appendString:debLine];
-        }
-        else {
-            [output appendFormat:@"deb %@ ./\n", URL];
-        }
-    }
-        
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [paths objectAtIndex:0];
-    
-    NSString *filePath;
-    NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
-    if ([[cacheDirectory lastPathComponent] isEqualToString:bundleID])
-        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
-    else
-        filePath = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/sources.list", bundleID]];
-    
-    NSError *removeError;
-    NSString *listLocation = [ZBAppDelegate sourcesListPath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:listLocation]) {
-        [[NSFileManager defaultManager] removeItemAtPath:listLocation error:&removeError];
-    }
-    
-    NSError *error;
-    [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error != NULL) {
-        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-        completion(NO, error);
-    } else {
-        [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
-        if (error != NULL) {
-            NSLog(@"[Zebra] Error while moving sources to file: %@", error);
-            completion(NO, error);
-        } else {
-            completion(YES, NULL);
-        }
-    }
-    recachingNeeded = YES;
+    [self writeBaseSources:[baseSources arrayByAddingObjectsFromArray:[databaseManager sources]] toFile:[ZBAppDelegate sourcesListPath]];
 }
 
 - (void)deleteSource:(ZBSource *)delRepo {
@@ -429,6 +389,8 @@
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
     }
+    
+    recachingNeeded = TRUE;
 }
 
 - (void)addDebLine:(NSString *)sourceLine {
