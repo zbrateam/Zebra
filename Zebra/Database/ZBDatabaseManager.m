@@ -282,14 +282,14 @@
         sqlite3_int64 currentDate = (int)time(NULL);
         
         for (ZBBaseSource *source in sources) {
-            NSString *baseFileName = [[source.packagesFilePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
-            baseFileName = [baseFileName stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
+            NSString *baseFilename = [[source.packagesFilePath lastPathComponent] stringByReplacingOccurrencesOfString:@"_Packages" withString:@""];
+            baseFilename = [baseFilename stringByReplacingOccurrencesOfString:@"_main_binary-iphoneos-arm" withString:@""];
             
-            [self bulkSetRepo:baseFileName busy:YES];
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), baseFileName] atLevel:ZBLogLevelDescript];
+            [self bulkSetRepo:baseFilename busy:YES];
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), baseFilename] atLevel:ZBLogLevelDescript];
             
             //Deal with the repo first
-            int repoID = [self repoIDFromBaseFileName:baseFileName];
+            int repoID = [self repoIDFromBaseFileName:baseFilename];
             if (source.releaseFilePath == NULL) { //We need to create a dummy repo (for repos with no Release file)
                 if (repoID == -1) {
                     repoID = [self nextRepoID];
@@ -299,11 +299,11 @@
             else {
                 if (repoID == -1) { // Repo does not exist in database, create it.
                     repoID = [self nextRepoID];
-                    if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
+                    if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID, [baseFilename UTF8String]) != PARSEL_OK) {
                         [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
                     }
                 } else {
-                    if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
+                    if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID, [baseFilename UTF8String]) != PARSEL_OK) {
                         [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
                     }
                 }
@@ -317,7 +317,7 @@
                 [self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
             }
             
-            [self bulkSetRepo:baseFileName busy:NO];
+            [self bulkSetRepo:baseFilename busy:NO];
         }
         
         sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
