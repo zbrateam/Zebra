@@ -19,7 +19,7 @@
 "Community Sources" = "Gemenskapskällor";
 "You’ve added all of the community sources" = "Du har lagt till alla gemenskapskällor";
 "Transfer sources from %@ to Zebra" = "Överför källor från %@ till Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Verktygskälla för %@";
 "Transfer Sources" = "Överför källor";
 "Please Wait..." = "Vänta...";
 "Verifying Source(s)" = "Verifierar källor";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Inga artiklar på önskelistan";
 "Community" = "Gemenskap";
 "Join our Discord" = "Gå med i vår Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Följ oss på Twitter";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Utvalda paket";
 "Random" = "Slumpmässigt";
 "Feature Type" = "Metod för utväljning";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Välj källor att välja ut från";
 
 "News" = "Nyheter";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternativa ikoner";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Utvalda källor";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Lokalt förråd";
 "Locally installed packages" = "Lokalt installerade paket";
 "Unknown" = "Okänd";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Inga käll-URL:er upptäcktes.";
+"You have already added these sources." = "Du har redan lagt till dessa källor.";
+"Error verifying source" = "Fel när källan verifierades";
+"Error verifying sources" = "Fel när källorna verifierades";
 "Unknown error" = "Okänt fel";
 "Invalid URL" = "Ogiltig URL";
 "Enter URL" = "Ange URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Lägg till källor";
 "Add" = "Lägg till";
 "Add Multiple" = "Lägg till flera";
 "Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
 "Please Wait..." = "Vänta...";
 "Verifying Source(s)" = "Verifierar källor";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Kunde inte verifiera källa";
 "Refresh" = "Uppdatera";
 "Log Out" = "Logga ut";
 "Purchased Packages" = "Köpta paket";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Nytt";
-"Source" = "Source";
+"Source" = "Källa";
 "Installed Files" = "Installerade filer";
 "Modify" = "Ändra";
 "Authenticate to initiate purchase." = "Autentisera för att initiera köp.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Nedladdningar";
 "Error while opening sources.list" = "Fel när sources.list öppnades";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
 "Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
 "Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
 "Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Ändra källan för de utvalda paketen på startsidan.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Utvalt\" kommer att visa slumpmässiga paket från källor som stöder API:et för utvalda paket.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla källor som du har lagt till i Zebra.";
 
 "Community News" = "Gemenskapsnyheter";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importera källor";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Uppdaterar källor";
+"Would you like to import the following sources?" = "Vill du importera följande källor?";
 "Download Completed" = "Nedladdning slutförd";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
