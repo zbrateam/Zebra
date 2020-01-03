@@ -37,6 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief A file path that points to the downloaded Release file (NULL if no file has been downloaded and the database entry should not be updated) */
 @property (nonatomic, strong) NSString *_Nullable releaseFilePath;
 
+/*! @brief The base filename of the repository, based on the URL */
+@property (nonatomic) NSString *baseFilename;
+
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *)components;
 - (id)initFromSourceLine:(NSString *)debLine;

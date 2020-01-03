@@ -29,6 +29,8 @@
 @synthesize packagesFilePath;
 @synthesize releaseFilePath;
 
+@synthesize baseFilename;
+
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
@@ -65,21 +67,24 @@
             self->components = components;
         }
         
+        NSURL *mainDirectoryURL;
         if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
-            NSURL *mainDirectoryURL = [NSURL URLWithString:mainDirectory];
+            mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
             packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
-
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         else {
-            NSURL *mainDirectoryURL = [NSURL URLWithString:repositoryURI];
+            mainDirectoryURL = [NSURL URLWithString:repositoryURI];
             mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
             
             packagesDirectoryURL = mainDirectoryURL;
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
+        
+        NSString *schemeless = [[[mainDirectoryURL absoluteString] stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
+        self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     }
     
     return self;
@@ -114,10 +119,6 @@
 }
 
 - (NSString *)label {
-    return self.repositoryURI;
-}
-
-- (NSString *)baseFilename {
     return self.repositoryURI;
 }
 

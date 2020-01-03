@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *suite;
 @property (nonatomic) NSString *codename;
 @property (nonatomic) NSArray <NSString *> *architectures;
-@property (nonatomic) NSString *baseFilename;
 @property (nonatomic) int repoID;
 
 @property (nonatomic) BOOL supportSileoPay;

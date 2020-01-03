@@ -22,7 +22,6 @@
 @synthesize suite;
 @synthesize codename;
 @synthesize architectures;
-@synthesize baseFilename;
 @synthesize repoID;
 @synthesize supportSileoPay;
 
