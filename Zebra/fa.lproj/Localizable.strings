@@ -19,7 +19,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility repo for %@" = "مخرن های نرم افزار های کاربردی برای %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "جابجایی منابع";
 "Please Wait..." = "...منتظر بمانید";
 "Verifying Source(s)" = "در حال تایید کردن مخازن";
@@ -66,10 +66,9 @@
 "App Icon" = "App Icon";
 
 "Featured Packages" = "Featured Packages";
-"Repo Featured" = "مخزن های ویژه";
 "Random" = "رندوم";
 "Feature Type" = "نوع ویژه";
-"Select Repos to be Featured" = "انتخاب مخزن ها برای ویژه شدن";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "اخبار";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "آیکون های جایگزین";
 
-"Featured Repos" = "Featured Repos";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "مخزن های موجود";
 "Locally installed packages" = "پکیج های نصب شده از منابع موجود";
 "Unknown" = "نا شناخته";
-"No repository urls detected." = "آدرس مخزنی یافت نشد";
-"You have already added these repositories." = "شما این مخزن ها را قبلا اضافه کرده اید";
-"Error verifying repository" = "ارور در حین تایید کردن مخزن";
-"Error verifying repositories" = "ارور در حین تایید کردن مخزن ها";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "ارور نا شناخته";
 "Invalid URL" = "آدرس نا معتبر";
 "Enter URL" = "آدرس را وارد کنید";
-"Add Repo(s)" = "اضافه کردن مخزن";
+"Add Sources" = "Add Sources";
 "Add" = "اضافه کردن";
 "Add Multiple" = "اضافه کردن چندتایی";
 "Would you like to add the URL from your clipboard?" = "میخواهید آدرسی که کپی کرده اید را اضافه کنید؟";
 "Please Wait..." = "...منتظر بمانید";
 "Verifying Source(s)" = "در حال تایید کردن مخازن";
-"Unable to verify Repo" = "تایید کردن مخزن امکانپذیر نیست";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "ریفرش کردن";
 "Log Out" = "خروج از حساب";
 "Purchased Packages" = "پکیج های خریده شده";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "ارتقا ی موجود برای پکیج ها";
 "Ignored Upgrades" = "رد ارتقا ها";
 "Recent" = "اخیرا";
-"Repo" = "مخزن";
+"Source" = "Source";
 "Installed Files" = "فایل های نصب شده";
 "Modify" = "تغییر";
 "Authenticate to initiate purchase." = "تاییدیه برای آغاز خرید";
@@ -154,7 +153,7 @@
 "Installed Version" = "نسخه ی نصب شده";
 "Installed Size" = "اندازه ی پکیج نصب شده";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(نسخه نصب شده: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "دانلود ها";
 "Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
-"The repo %@ is incompatible with your jailbreak." = "این مخزن %@ با جیلبریک شما ناسازگار است ";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
-"Please remove this repo from your sources.list file." = "این مخزن را از این فیل پاک کنید sources.list ";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "دسترسی اشتباه اسناد";
 "Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
 "Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Community News";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parsing %@";
 
 "#Downloading <Filename>
