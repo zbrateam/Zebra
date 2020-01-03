@@ -19,7 +19,7 @@
 "Community Sources" = "Источники Сообщества";
 "You’ve added all of the community sources" = "Вы добавили все источники сообщества";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
-"Utility repo for %@" = "Репозиторий утилит для %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Перенести Источники";
 "Please Wait..." = "Пожалуйста, подождите...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
@@ -66,10 +66,9 @@
 "App Icon" = "Иконка Приложения";
 
 "Featured Packages" = "Избранные Пакеты";
-"Repo Featured" = "Избранное из Репозитория";
 "Random" = "Случайно";
 "Feature Type" = "Тип Избранного";
-"Select Repos to be Featured" = "Выберите отбражаемые репозитории";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Новости";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Альтернативные Иконки";
 
-"Featured Repos" = "Рекомендуемые Репозитории";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Локальный Репозиторий";
 "Locally installed packages" = "Локально установленные пакеты";
 "Unknown" = "Неизвестно";
-"No repository urls detected." = "URL репозиториев не обнаружены.";
-"You have already added these repositories." = "Вы уже добавили эти репозитории.";
-"Error verifying repository" = "Ошибка проверки репозитория";
-"Error verifying repositories" = "Ошибка проверки репозиториев";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Неизвестная ошибка";
 "Invalid URL" = "Неверный URL";
 "Enter URL" = "Введите URL";
-"Add Repo(s)" = "Добавить репозиторий(и)";
+"Add Sources" = "Add Sources";
 "Add" = "Добавить";
 "Add Multiple" = "Добавить Несколько";
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
 "Please Wait..." = "Пожалуйста Ожидайте...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
-"Unable to verify Repo" = "Невозможно проверить Репозиторий";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Обновить";
 "Log Out" = "Выйти";
 "Purchased Packages" = "Приобретенные Пакеты";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";
-"Repo" = "Репозиторий";
+"Source" = "Source";
 "Installed Files" = "Установленные Файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Установленная Версия";
 "Installed Size" = "Размер после установки";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (установленная версия: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Загрузки";
 "Error while opening sources.list" = "Ошибка открытия sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Репозиторий %@ несовместим с вашим джейлбрейком.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
-"Please remove this repo from your sources.list file." = "Пожалуйста удалите этот репозиторий из вашего файла sources.list.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Неверные права доступа документов.";
 "Could not determine device information." = "Невозможно определить информацию об устройстве.";
 "Could not find a download URL for" = "Невозможно найти URL загрузки для";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Изменить источник рекомендуемых пакетов на главной странице.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Избранное из репозитория\" будет показывыть случайные пакеты из репозиториев, которые поддерживают API Рекомендуемых Пакетов.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех репозиториев, добавленных в Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Новости Сообщества";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Импортировать Источники";
-"Updating Repositories" = "Обновление Репозиториев";
-"Would you like to import the following repositories?" = "Хотите ли вы импортировать следующие репозитории?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Загрузка Завершена";
 "Removing Zebra..." = "Удаление Zebra...";
 "Installing Zebra..." = "Установка Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Анализ %@";
 
 "#Downloading <Filename>
