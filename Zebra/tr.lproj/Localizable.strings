@@ -19,7 +19,7 @@
 "Community Sources" = "Topluluk Kaynakları";
 "You’ve added all of the community sources" = "Bütün topluluk kaynaklarını eklediniz";
 "Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
-"Utility repo for %@" = "%@ için araç kaynağı";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Kaynakları Transfer Et";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
@@ -66,10 +66,9 @@
 "App Icon" = "Uygulama Simgesi";
 
 "Featured Packages" = "Öne Çıkan Paketler";
-"Repo Featured" = "Kaynağın Öne Çıkanları";
 "Random" = "Rastgele";
 "Feature Type" = "Öne Çıkanların Tarzı";
-"Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Haberler";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternatif İkonlar";
 
-"Featured Repos" = "Öne Çıkan Kaynaklar";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Yüklü Kaynaklar";
 "Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
 "Unknown" = "Bilinmiyor";
-"No repository urls detected." = "Kaynak linki algılanamadı.";
-"You have already added these repositories." = "Zaten bu kaynakları ekledin.";
-"Error verifying repository" = "Kaynağı onaylarken hata oluştu";
-"Error verifying repositories" = "Kaynakları onaylarken hata oluştu";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
 "Enter URL" = "Link Girin";
-"Add Repo(s)" = "Kaynak(ları) Ekle";
+"Add Sources" = "Add Sources";
 "Add" = "Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
 "Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Unable to verify Repo" = "Kaynağı Onaylayamıyoruz";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Yenile";
 "Log Out" = "Çıkış Yap";
 "Purchased Packages" = "Satın Alınan Paketler";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Yoksayılan Güncellemeler";
 "Recent" = "En Son";
-"Repo" = "Kaynak";
+"Source" = "Source";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
 "Authenticate to initiate purchase." = "İç satın alımı onayla.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Yüklenen Versiyon";
 "Installed Size" = "Yüklü Boyut";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Kurulmuş Sürüm: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "İndirmeler";
 "Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
-"The repo %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygun değil.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
-"Please remove this repo from your sources.list file." = "Lütden bu kaynağı sources.list dosyasından kaldırın.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Yanlış döküman yetkileri.";
 "Could not determine device information." = "Cihaz bilgisi alınaması.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Anasayfadaki öne çıkan paketlerin kaynağını değiştir.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Kaynağın Öne Çıkanları\" Öne Çıkan Paket API’sini destekleyen kaynaklardan rastgele paketler gösterecek.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Topluluk Haberleri";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Kaynakları İçeri Al";
-"Updating Repositories" = "Kaynaklar Güncelleniyor";
-"Would you like to import the following repositories?" = "Bu kaynakları içeri almak istiyor musunuz?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "İndirme Tamamlandı";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Okunuyor %@";
 
 "#Downloading <Filename>
