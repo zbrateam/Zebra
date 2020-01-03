@@ -230,6 +230,7 @@
         }
         
         [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Sources", @"") atLevel:ZBLogLevelInfo];
+        [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"A total of %d files will be downloaded", @""), [baseSources count] * 2] atLevel:ZBLogLevelDescript];
         [self updateSources:baseSources useCaching:useCaching];
     } else {
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];
@@ -1801,33 +1802,6 @@
 
 #pragma mark - Download Delegate
 
-- (void)startedDownloadForFile:(nonnull NSString *)filename {
-    [self bulkSetRepo:filename busy:YES];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
-}
-
-- (void)finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
-    [self bulkSetRepo:filename busy:NO];
-    if (error != NULL) {
-        if (filename) {
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ for %@\n", error.localizedDescription, filename] atLevel:ZBLogLevelError];
-        } else {
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@\n", error.localizedDescription] atLevel:ZBLogLevelError];
-        }
-    } else if (filename) {
-        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@", filename] atLevel:ZBLogLevelDescript];
-    }
-}
-
-- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    [self bulkPostStatusUpdate:status atLevel:level];
-}
-
-- (void)finishedAllDownloads {
-    [self parseSources:[completedSources copy]];
-    [completedSources removeAllObjects];
-}
-
 - (void)startedDownloads {
     if (!completedSources) {
         completedSources = [NSMutableArray new];
@@ -1839,12 +1813,21 @@
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
-    
+    //TODO: Implement
 }
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Done %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
     [completedSources addObject:baseSource];
+}
+
+- (void)finishedAllDownloads {
+    [self parseSources:[completedSources copy]];
+    [completedSources removeAllObjects];
+}
+
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    [self bulkPostStatusUpdate:status atLevel:level];
 }
 
 

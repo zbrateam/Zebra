@@ -429,6 +429,9 @@
         cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
         cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        
+        cell.tintColor = nil;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
     else {
