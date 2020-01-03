@@ -14,12 +14,12 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
-#import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
-#import <Tabs/Repos/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @import FirebaseCore;
 @import Crashlytics;

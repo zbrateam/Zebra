@@ -10,7 +10,7 @@
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <Parsel/vercmp.h>
-#import <Repos/Helpers/ZBSource.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Queue/ZBQueueType.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>

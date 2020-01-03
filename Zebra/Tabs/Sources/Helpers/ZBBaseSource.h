@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *distribution;
 @property (nonatomic) NSArray <NSString *> *components;
 
-@property (nonatomic) NSURL *mainDirectoryURL;
 @property (nonatomic) NSURL *packagesDirectoryURL;
 @property (nonatomic) NSURL *releaseURL;
 

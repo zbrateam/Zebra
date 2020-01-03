@@ -241,13 +241,13 @@
 }
 
 - (void)updateRepoURLs:(NSArray <NSURL *> *)repoURLs useCaching:(BOOL)useCaching {
-    if (databaseBeingUpdated)
-        return;
-    databaseBeingUpdated = YES;
-    
-    [self bulkDatabaseStartedUpdate];
-    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repoURLs:repoURLs];
-    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+//    if (databaseBeingUpdated)
+//        return;
+//    databaseBeingUpdated = YES;
+//
+//    [self bulkDatabaseStartedUpdate];
+//    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repoURLs:repoURLs];
+//    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
 }
 
 - (void)setHaltDatabaseOperations:(BOOL)halt {
@@ -713,7 +713,7 @@
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate {
     [self setDatabaseBeingUpdated:NO];
     [self setHaltDatabaseOperations:true];
-    [self.downloadManager stopAllDownloads];
+//    [self.downloadManager stopAllDownloads];
     [self bulkDatabaseCompletedUpdate:-1];
     [self removeDatabaseDelegate:delegate];
 }

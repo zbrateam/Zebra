@@ -11,7 +11,7 @@
 #import "ZBWebViewController.h"
 #import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBRepoManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Stores/ZBStoresListTableViewController.h>
 @import SDWebImage;

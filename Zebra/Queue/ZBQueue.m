@@ -8,7 +8,7 @@
 
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
-#import <Repos/Helpers/ZBSource.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>

@@ -9,7 +9,7 @@
 #import "ZBTabBarController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBRepoListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <UITabBarItem.h>

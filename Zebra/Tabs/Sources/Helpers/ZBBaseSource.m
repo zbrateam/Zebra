@@ -17,6 +17,9 @@
 @synthesize distribution;
 @synthesize components;
 
+@synthesize packagesDirectoryURL;
+@synthesize releaseURL;
+
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
@@ -51,20 +54,20 @@
         self->distribution = distribution;
         self->components = components;
         
-//        if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
-//            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
-//            mainDirectoryURL = [NSURL URLWithString:mainDirectory];
-//
-//            NSString *packagesDirectory = [mainDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
-//            packagesDirectoryURL = [NSURL URLWithString:packagesDirectory];
-//
-//            releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
-//        }
-//        else {
-//            mainDirectoryURL = [NSURL URLWithString:repositoryURI];
-//            packagesDirectoryURL = mainDirectoryURL;
-//            releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
-//        }
+        if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
+            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
+            NSURL *mainDirectoryURL = [NSURL URLWithString:mainDirectory];
+
+            NSString *packagesDirectory = [mainDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
+            packagesDirectoryURL = [NSURL URLWithString:packagesDirectory];
+
+            releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
+        }
+        else {
+            NSURL *mainDirectoryURL = [NSURL URLWithString:repositoryURI];
+            packagesDirectoryURL = mainDirectoryURL;
+            releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
+        }
     }
     
     return self;

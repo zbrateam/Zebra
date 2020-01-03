@@ -8,9 +8,9 @@
 
 #import "ZBCommunitySourcesTableViewController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
 #import <ZBLog.h>
-#import <Tabs/Repos/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
 
 @interface ZBCommunitySourcesTableViewController ()

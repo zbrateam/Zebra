@@ -15,10 +15,10 @@
 #import "ZBAddRepoDelegate.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoManager.h>
-#import <Repos/Helpers/ZBSource.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
-#import <Repos/Controllers/ZBRepoSectionsListTableViewController.h>
+#import <Sources/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSource.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 
