@@ -37,7 +37,7 @@ typedef enum ZBViewOrder : NSUInteger {
 
 typedef enum ZBLinksOrder : NSUInteger {
     ZBDiscord,
-    ZBWilsonTwitter,
+    ZBTwitter,
     ZBTranslate
 } ZBLinksOrder;
 
@@ -351,8 +351,8 @@ typedef enum ZBLinksOrder : NSUInteger {
                     text = NSLocalizedString(@"Join our Discord", @"");
                     image = [UIImage imageNamed:@"Discord"];
                     break;
-                case ZBWilsonTwitter:
-                    text = NSLocalizedString(@"Follow me on Twitter", @"");
+                case ZBTwitter:
+                    text = NSLocalizedString(@"Follow us on Twitter", @"");
                     image = [UIImage imageNamed:@"Twitter"];
                     break;
                 case ZBTranslate:
@@ -489,10 +489,10 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
             break;
         }
-        case ZBWilsonTwitter: {
-            NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=xtm3x"];
-            NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/xtm3x"];
-            NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/xtm3x"];
+        case ZBTwitter: {
+            NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=getzebra"];
+            NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/getzebra"];
+            NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/getzebra"];
             if ([application canOpenURL:twitterapp]) {
                 [self openURL:twitterapp];
             } else if ([application canOpenURL:tweetbot]) {
