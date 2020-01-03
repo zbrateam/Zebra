@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *archiveType;
 @property (nonatomic) NSString *repositoryURI;
 @property (nonatomic) NSString *distribution;
-@property (nonatomic) NSArray <NSString *> *components;
+@property (nonatomic) NSArray <NSString *> *_Nullable components;
 
 @property (nonatomic) NSURL *packagesDirectoryURL;
 @property (nonatomic) NSURL *releaseURL;

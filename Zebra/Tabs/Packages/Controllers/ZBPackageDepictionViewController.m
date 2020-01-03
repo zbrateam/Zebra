@@ -138,7 +138,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] baseURL]);
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -359,7 +359,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         return;
     self->navButtonsBeingConfigured = YES;
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
+    NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
     if ([package isInstalled:NO]) {
         if ([package isReinstallable]) {
             if ([package isPaid] && [keychain[baseURL] length] != 0) {
@@ -394,7 +394,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [uiBusy startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
+    NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
     if ([keychain[baseURL] length] != 0) {
         if ([package isPaid]) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -475,10 +475,10 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [uiBusy startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
+    if ([keychain[[keychain stringForKey:[package repo].repositoryURI]] length] != 0) {
         if ([package isPaid] && [package repo].supportSileoPay) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
+            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].repositoryURI]];
 #if ZB_DEBUG
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
             ZBLog(@"[Zebra] Package purchase token: %@", token);
@@ -500,14 +500,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
             // Continue
             if ([secret length] != 0) {
-                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].repositoryURI]],
                                                @"payment_secret": secret,
                                                @"udid": [ZBDevice UDID],
                                                @"device": [ZBDevice deviceModelID] };
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
                 
                 NSMutableURLRequest *request = [NSMutableURLRequest new];
-                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
+                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].repositoryURI], package.identifier]]];
                 [request setHTTPMethod:@"POST"];
                 [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
                 [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

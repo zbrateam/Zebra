@@ -424,7 +424,7 @@
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBSource *repo in [databaseManager repos]) {
-        if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
+        if (![[delRepo baseFilename] isEqualToString:[repo baseFilename]]) {
             [output appendString:[self debLineFromRepo:repo]];
         }
     }

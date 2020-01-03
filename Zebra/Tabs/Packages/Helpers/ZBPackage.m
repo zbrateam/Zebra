@@ -444,11 +444,11 @@
     if (repo == NULL) return NULL;
     
     NSString *listsLocation = [ZBAppDelegate listsLocation];
-    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_Packages"];
+    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFilename], @"_Packages"];
     NSFileManager *filemanager = [NSFileManager defaultManager];
     
     if (![filemanager fileExistsAtPath:filename]) {
-        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_main_binary-iphoneos-arm_Packages"];
+        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFilename], @"_main_binary-iphoneos-arm_Packages"];
         
         if (![filemanager fileExistsAtPath:filename]) {
             return NULL;

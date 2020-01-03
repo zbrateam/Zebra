@@ -56,13 +56,9 @@
     
     cell.repoLabel.text = [source origin];
     
-    if ([source isSecure]) {
-        cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
-    } else {
-        cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
-    }
+    cell.urlLabel.text = [source repositoryURI];
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    if (![blackListedRepos containsObject:source.baseURL]) {
+    if (![blackListedRepos containsObject:source.repositoryURI]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -81,10 +77,10 @@
     }
     ZBSource *repo = [self sourceAtIndexPath:indexPath];
     
-    if ([blocked containsObject:repo.baseURL]) {
-        [blocked removeObject:repo.baseURL];
+    if ([blocked containsObject:repo.repositoryURI]) {
+        [blocked removeObject:repo.repositoryURI];
     } else {
-        [blocked addObject:repo.baseURL];
+        [blocked addObject:repo.repositoryURI];
     }
     [defaults setObject:blocked forKey:@"blackListedRepos"];
     [defaults synchronize];

@@ -115,14 +115,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSMutableArray *saveArray = [NSMutableArray new];
     dispatch_group_t group = dispatch_group_create();
     for (ZBSource *repo in featuredRepos) {
-        NSString *basePlusHttp;
-        if (repo.isSecure) {
-            basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
-        } else {
-            basePlusHttp = [NSString stringWithFormat:@"http://%@", repo.baseURL];
-        }
         dispatch_group_enter(group);
-        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:basePlusHttp]];
+        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.repositoryURI]];
         NSLog(@"[Zebra] Cached JSON request URL: %@", requestURL.absoluteString);
         NSURL *checkingURL = requestURL;
         NSURLSession *session = [NSURLSession sharedSession];
