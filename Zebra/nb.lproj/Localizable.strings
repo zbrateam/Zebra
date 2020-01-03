@@ -19,7 +19,7 @@
 "Community Sources" = "Felleskilder";
 "You’ve added all of the community sources" = "Du har lagt til alle felleskildene";
 "Transfer sources from %@ to Zebra" = "Overfør kilder fra %@ til Zebra";
-"Utility repo for %@" = "Verktøyskilde for %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Overfør kilder";
 "Please Wait..." = "Vennligst vent...";
 "Verifying Source(s)" = "Verifiserer kilde(r)";
@@ -66,10 +66,9 @@
 "App Icon" = "App ikon";
 
 "Featured Packages" = "Utvalgte pakker";
-"Repo Featured" = "Kilder utvalgt";
 "Random" = "Tilfeldig";
 "Feature Type" = "Utvalgt type";
-"Select Repos to be Featured" = "Velg utvalgte kilder";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Nyheter";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternative ikoner";
 
-"Featured Repos" = "Utvalgte kilder";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Lokal kilde";
 "Locally installed packages" = "Lokalt installerte pakker";
 "Unknown" = "Ukjent";
-"No repository urls detected." = "Ingen kildenettadresse oppdaget.";
-"You have already added these repositories." = "Du har allerede lagt til de kildene.";
-"Error verifying repository" = "Feil under verifisering av kilde";
-"Error verifying repositories" = "Feil under verifisering av kilder";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Ukjent feil";
 "Invalid URL" = "Ugyldig nettadresse";
 "Enter URL" = "Skriv inn nettadresse";
-"Add Repo(s)" = "Legg til kilde(r)";
+"Add Sources" = "Add Sources";
 "Add" = "Legg til";
 "Add Multiple" = "Legg til flere";
 "Would you like to add the URL from your clipboard?" = "Vil du legge til nettadressen fra utklippstavlen?";
 "Please Wait..." = "Vennligst vent...";
 "Verifying Source(s)" = "Verifiserer kilde(r)";
-"Unable to verify Repo" = "Kan ikke verifisere kilde";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Oppdater";
 "Log Out" = "Logg ut";
 "Purchased Packages" = "Mine kjøp";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Tilgjengelige oppdateringer";
 "Ignored Upgrades" = "Ignorerte oppdateringer";
 "Recent" = "Nylig";
-"Repo" = "Kilde";
+"Source" = "Source";
 "Installed Files" = "Installerte filer";
 "Modify" = "Endre";
 "Authenticate to initiate purchase." = "Autentiser for å kjøpe.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Installert versjon";
 "Installed Size" = "Installert størrelse";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installert versjon: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Nedlastinger";
 "Error while opening sources.list" = "Feil under åpning av sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Kilden %@ er ikke kompatibel med din jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette enheten din.";
-"Please remove this repo from your sources.list file." = "Vennligst fjern denne kilden fra din sources.list fil.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Feil dokumenttillatelser.";
 "Could not determine device information." = "Kunne ikke finne enhetsinformasjon.";
 "Could not find a download URL for" = "Kunne ikke finne en nedlastingsnettadresse for";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Endre kilden til de utvalgte pakkene som vises på hjemmesiden.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Kilder utvalgt\" vil vise tilfeldige pakker fra kilder som støtter Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil vise tilfeldige pakker fra alle kildene du har lagt til i Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Fellesskapets nyheter";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importer kilder";
-"Updating Repositories" = "Oppdaterer kilder";
-"Would you like to import the following repositories?" = "Vil du importere følgende kilder?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Nedlasting fullført";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parser %@";
 
 "#Downloading <Filename>
