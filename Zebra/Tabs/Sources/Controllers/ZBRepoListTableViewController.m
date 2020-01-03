@@ -468,32 +468,45 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *repo = [self sourceAtIndexPath:indexPath];
+    ZBBaseSource *repo = [self sourceAtIndexPath:indexPath];
     NSMutableArray *actions = [NSMutableArray array];
-    if ([repo canDelete]) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            [self->sources removeObject:repo];
-            [self->repoManager deleteSource:repo];
-            [self refreshTable];
-        }];
-        [actions addObject:deleteAction];
-    }
-    if (![self.databaseManager isDatabaseBeingUpdated]) {
-        NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
-        UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            //FIXME: fix me !
-//            [self.databaseManager updateRepo:repo useCaching:YES];
-        }];
-        
-        if ([[UIColor tintColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
-            refreshAction.backgroundColor = [UIColor grayColor];
+    if ([repo isKindOfClass:[ZBSource class]]) {
+        if ([repo canDelete]) {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                [self->sources removeObject:repo];
+                [self->repoManager deleteSource:repo];
+                [self refreshTable];
+            }];
+            [actions addObject:deleteAction];
         }
-        else {
-            refreshAction.backgroundColor = [UIColor tintColor];
+        if (![self.databaseManager isDatabaseBeingUpdated]) {
+            NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
+            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                //FIXME: fix me !
+        //           [self.databaseManager updateRepo:repo useCaching:YES];
+            }];
+                
+            if ([[UIColor tintColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
+                refreshAction.backgroundColor = [UIColor grayColor];
+            }
+            else {
+                refreshAction.backgroundColor = [UIColor tintColor];
+            }
+                
+            [actions addObject:refreshAction];
         }
-        
-        [actions addObject:refreshAction];
     }
+    else {
+        if ([repo canDelete]) {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                [self->sources removeObject:repo];
+                [self->repoManager deleteSource:repo];
+                [self refreshTable];
+            }];
+            [actions addObject:deleteAction];
+        }
+    }
+    
     return actions;
 }
 
