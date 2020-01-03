@@ -331,7 +331,7 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "倒入软件源";
+"Import Sources" = "导入软件源";
 "Updating Sources" = "Updating Sources";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "下载完成";
