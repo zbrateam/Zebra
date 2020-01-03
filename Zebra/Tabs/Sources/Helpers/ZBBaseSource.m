@@ -20,6 +20,16 @@
 @synthesize packagesDirectoryURL;
 @synthesize releaseURL;
 
+@synthesize releaseTaskIdentifier;
+@synthesize packagesTaskIdentifier;
+
+@synthesize packagesTaskCompleted;
+@synthesize releaseTaskCompleted;
+
+@synthesize packagesFilePath;
+@synthesize releaseFilePath;
+
+
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
