@@ -44,15 +44,7 @@ typedef enum {
     ZBRepoColumnRepositoryURI,
     ZBRepoColumnDistribution,
     ZBRepoColumnComponents,
-    ZBRepoColumnOrigin,
-    ZBRepoColumnLabel,
-    ZBRepoColumnVersion,
-    ZBRepoColumnCodename,
-    ZBRepoColumnArchitectures,
-    ZBRepoColumnDescription,
     ZBRepoColumnBaseFilename,
-    ZBRepoColumnSecure,
-    ZBRepoColumnBaseURL,
     ZBRepoColumnRepoID
 } ZBRepoColumn;
 
