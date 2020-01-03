@@ -19,7 +19,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
-"Utility repo for %@" = "Repozitář nástrojů pro %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Přenést Repozitáře";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
@@ -66,10 +66,9 @@
 "App Icon" = "Ikona aplikace";
 
 "Featured Packages" = "Doporučené balíčky";
-"Repo Featured" = "Návrhy repozitářů";
 "Random" = "Náhodně";
 "Feature Type" = "Typy Návrhů";
-"Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Novinky";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternativní ikony";
 
-"Featured Repos" = "Doporučené Repozitáře";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Místní Repozitář";
 "Locally installed packages" = "Místně nainstalované balíčky";
 "Unknown" = "Neznámý";
-"No repository urls detected." = "Nebyly detekované žádné URL Repozitářů.";
-"You have already added these repositories." = "Tyto repozitáře již byly přidány.";
-"Error verifying repository" = "Chyba při ověřování repozitáře";
-"Error verifying repositories" = "Chyba při ověřování repozitářů";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadej URL";
-"Add Repo(s)" = "Přidat repozitář(e)";
+"Add Sources" = "Add Sources";
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Unable to verify Repo" = "Chyba při ověřování repozitáře";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Refreshnout";
 "Log Out" = "Odhlásit se";
 "Purchased Packages" = "Zakoupené balíčky";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Dostupné Aktualizace";
 "Ignored Upgrades" = "Ignorované Aktualizace";
 "Recent" = "Nedávné";
-"Repo" = "Repozitář";
+"Source" = "Source";
 "Installed Files" = "Instalované Soubory";
 "Modify" = "Upravit";
 "Authenticate to initiate purchase." = "Autorizovat se k zakoupení.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Instalovaná Verze";
 "Installed Size" = "Nainstalovaná velikost";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Nainstalovaná verze: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Stažené";
 "Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this repo from your sources.list file." = "Prosím odstrańte tento repozitář ze souboru sources.list.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
 "Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Změní zdroj doporučených balíčků na domovské stránce.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "„Návrhy repozitáře“ zobrazí náhodné balíčky z repozitářů, které podporují Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovat náhodné balíčky ze všech repozitářů, které jste přidali do Zebry.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Komunitní Novinky";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Parsing %@";
 
 "#Downloading <Filename>
