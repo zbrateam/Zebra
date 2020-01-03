@@ -349,29 +349,12 @@
     [task resume];
 }
 
-- (NSString *)debLineFromRepo:(ZBSource *)repo {
-//    NSMutableString *output = [NSMutableString string];
-//    if ([repo defaultRepo]) {
-//        NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
-//        if (debLine) {
-//            [output appendString:debLine];
-//        } else {
-//            NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
-//            repoURL = [repoURL stringByDeletingLastPathComponent]; // Remove last two path components
-//            [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
-//        }
-//    } else {
-//        [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
-//    }
-    return @"Hey, that's pretty good!";
-}
-
 - (void)addSources:(NSArray<NSURL *> *)sourceURLs completion:(void (^)(BOOL success, NSError *error))completion {
     NSMutableString *output = [NSMutableString string];
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBSource *repo in [databaseManager sources]) {
-        [output appendString:[self debLineFromRepo:repo]];
+        [output appendString:[repo debLine]];
     }
     
     for (NSURL *sourceURL in sourceURLs) {
@@ -425,7 +408,7 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     for (ZBSource *repo in [databaseManager sources]) {
         if (![[delRepo baseFilename] isEqualToString:[repo baseFilename]]) {
-            [output appendString:[self debLineFromRepo:repo]];
+            [output appendString:[repo debLine]];
         }
     }
     

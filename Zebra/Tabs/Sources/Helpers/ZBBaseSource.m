@@ -122,6 +122,14 @@
     return self.repositoryURI;
 }
 
+- (NSString *)debLine {
+    if (self.components && [components count]) {
+        return [NSString stringWithFormat:@"%@ %@ %@ %@\n", self.archiveType, self.repositoryURI, self.distribution, [self.components componentsJoinedByString:@" "]];
+    }
+    
+    return [NSString stringWithFormat:@"%@ %@ %@\n", self.archiveType, self.repositoryURI, self.distribution];
+}
+
 - (BOOL)isEqual:(ZBBaseSource *)object {
     if (self == object)
         return YES;

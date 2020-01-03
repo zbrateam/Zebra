@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *)components;
 - (id)initFromSourceLine:(NSString *)debLine;
+- (NSString *)debLine;
 - (BOOL)isEqual:(ZBBaseSource *)object;
 @end
 
