@@ -210,23 +210,34 @@
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
         
-        NSArray <ZBBaseSource *> *sources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath]];
-        self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
+        NSError *readError;
+        NSArray <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError];
+        if (readError) {
+            //oh no!
+            return;
+        }
+        
         [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Sources", @"") atLevel:ZBLogLevelInfo];
-        [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+        [self updateSources:baseSources useCaching:useCaching];
     } else {
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];
     }
 }
 
-- (void)updateRepo:(ZBSource *)repo useCaching:(BOOL)useCaching {
+- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching {
+    [self updateSources:@[source] useCaching:useCaching];
+}
+
+- (void)updateSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching {
     if (databaseBeingUpdated)
         return;
     databaseBeingUpdated = YES;
     
     [self bulkDatabaseStartedUpdate];
-    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repo:repo];
-    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+    if (!self.downloadManager) {
+        self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+    }
+    [self.downloadManager downloadSources:sources useCaching:useCaching];
 }
 
 - (void)updateRepoURLs:(NSArray <NSURL *> *)repoURLs useCaching:(BOOL)useCaching {
