@@ -19,7 +19,7 @@
 "Community Sources" = "Sources de la communauté";
 "You’ve added all of the community sources" = "Vous avez ajouté toutes les sources de la communauté";
 "Transfer sources from %@ to Zebra" = "Importer les sources de %@ vers Zebra";
-"Utility repo for %@" = "Source utilitaire pour %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Transférer les Sources";
 "Please Wait..." = "Patientez...";
 "Verifying Source(s)" = "Vérification de la(des) Source(s)";
@@ -66,10 +66,9 @@
 "App Icon" = "Icône de l'App";
 
 "Featured Packages" = "Paquets recommandés";
-"Repo Featured" = "Sources Mises en Vedette";
 "Random" = "Aléatoire";
 "Feature Type" = "Type de Mise en Vedette";
-"Select Repos to be Featured" = "Selectionner les Sources à Mettre en Vedette";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "Nouveautés";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Icônes alternatives";
 
-"Featured Repos" = "Repos en vedette";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Sources Installées";
 "Locally installed packages" = "Paquets installés";
 "Unknown" = "Inconnu";
-"No repository urls detected." = "Pas de source détectée.";
-"You have already added these repositories." = "Vous avez déjà ajouté cette source.";
-"Error verifying repository" = "Erreur lors de la vérification de la source";
-"Error verifying repositories" = "Erreur lors de la vérification des sources";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Erreur inconnue";
 "Invalid URL" = "URL invalide";
 "Enter URL" = "Entrer l'URL";
-"Add Repo(s)" = "Ajouter la(les) source(s)";
+"Add Sources" = "Add Sources";
 "Add" = "Ajouter";
 "Add Multiple" = "Ajouter plusieurs";
 "Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter l'URL de votre presse-papiers ?";
 "Please Wait..." = "Veuillez patienter...";
 "Verifying Source(s)" = "Vérification de la(des) Source(s)";
-"Unable to verify Repo" = "Impossible de vérifier la(les) Source(s)";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Rafraîchir";
 "Log Out" = "Déconnexion";
 "Purchased Packages" = "Paquets Achetés";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Mises à Niveau Disponibles";
 "Ignored Upgrades" = "Mises à Niveau Ignorées";
 "Recent" = "Récent";
-"Repo" = "Source";
+"Source" = "Source";
 "Installed Files" = "Fichiers Installés";
 "Modify" = "Modifier";
 "Authenticate to initiate purchase." = "S'identifier pour acheter.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Version Installée";
 "Installed Size" = "Taille Installée";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Version installée : %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Téléchargements";
 "Error while opening sources.list" = "Erreur lors de l'ouverture de sources.list";
-"The repo %@ is incompatible with your jailbreak." = "La source %@ est incompatible avec ce jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Cet ajout peut endommager Zebra et le forcer à se réinitialiser.";
-"Please remove this repo from your sources.list file." = "Veuillez supprimer cette source dans le fichier sources.list.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Permissions incorrectes.";
 "Could not determine device information." = "Impossible de trouver les informations de l'appareil.";
 "Could not find a download URL for" = "Impossible de trouver une URL pour télécharger";
@@ -323,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Change la source des paquets en vedette sur la page d'accueil.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"En Vedette\" affichera des paquets aléatoires de sources qui prennent en charge l'API des paquets en vedette.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aléatoire\" affichera les paquets aléatoirement de toutes les sources que vous avez ajoutés à Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Actualités de la Communauté";
 
@@ -333,13 +332,13 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importer des Sources";
-"Updating Repositories" = "Mise à jour des dépôts";
-"Would you like to import the following repositories?" = "Voulez-vous importer les dépôts suivants ?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Téléchargement terminé";
 "Removing Zebra..." = "Suppression de Zebra...";
 "Installing Zebra..." = "Installation de Zebra...";
 
-"#Parsing <Repo Name>
+"#Parsing <Source Name>
 Parsing %@" = "Analyse de %@";
 
 "#Downloading <Filename>
