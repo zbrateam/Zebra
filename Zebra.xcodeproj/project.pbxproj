@@ -621,14 +621,14 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
-		896F11B421B230A40017B581 /* Repos */ = {
+		896F11B421B230A40017B581 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				89F213C123BED9DE00F3E5E5 /* Views */,
 				896F11C721B231CB0017B581 /* Helpers */,
 				896F11C821B231CF0017B581 /* Controllers */,
 			);
-			path = Repos;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		896F11C521B231AF0017B581 /* Controllers */ = {
@@ -920,7 +920,7 @@
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
 				89E8633621D5A1420081E485 /* Home */,
-				896F11B421B230A40017B581 /* Repos */,
+				896F11B421B230A40017B581 /* Sources */,
 				9E1C85AD22A3900700D93D14 /* Changes */,
 				896F11B321B2309A0017B581 /* Packages */,
 				89E8633721D5A1540081E485 /* Search */,

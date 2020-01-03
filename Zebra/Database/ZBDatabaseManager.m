@@ -210,7 +210,7 @@
         [self checkForZebraRepo];
         [self bulkDatabaseStartedUpdate];
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self sourceListPath:[ZBAppDelegate sourcesListPath]];
-        [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Repositories", @"") atLevel:ZBLogLevelInfo];
+        [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Sources", @"") atLevel:ZBLogLevelInfo];
         [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
     } else {
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];
