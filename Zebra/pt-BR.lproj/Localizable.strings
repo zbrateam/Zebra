@@ -19,7 +19,7 @@
 "Community Sources" = "Fontes da Comunidade";
 "You’ve added all of the community sources" = "Você adicionou todas as fontes da comunidade";
 "Transfer sources from %@ to Zebra" = "Transferir fontes de %@ para o Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Fonte de utilitários para %@";
 "Transfer Sources" = "Transferir Fontes";
 "Please Wait..." = "Por favor, aguarde...";
 "Verifying Source(s)" = "Verificando Fonte(s)";
@@ -68,7 +68,7 @@
 "Featured Packages" = "Pacotes em destaque";
 "Random" = "Aleatório";
 "Feature Type" = "Tipo de destaque";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Selecionar as fontes para estar em destaque";
 
 "News" = "Notícias";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Ícones Alternativos";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Fontes em Destaque";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Repositório local";
 "Locally installed packages" = "Pacotes instalados localmente";
 "Unknown" = "Desconhecido";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Nenhuma URL de origem detectada.";
+"You have already added these sources." = "Você já adicionou estas fontes.";
+"Error verifying source" = "Erro ao verificar a fonte";
+"Error verifying sources" = "Erro ao verificar as fontes";
 "Unknown error" = "Erro desconhecido";
 "Invalid URL" = "URL inválida";
 "Enter URL" = "Inserir URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Adicionar Fontes";
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Múltiplos";
 "Would you like to add the URL from your clipboard?" = "Deseja adicionar o URL da sua área de transferência?";
 "Please Wait..." = "Por favor, aguarde...";
 "Verifying Source(s)" = "Verificando Fonte(s)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Não foi possível verificar a fonte";
 "Refresh" = "Atualizar";
 "Log Out" = "Sair";
 "Purchased Packages" = "Pacotes Comprados";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Atualizações disponíveis";
 "Ignored Upgrades" = "Atualizações ignoradas";
 "Recent" = "Recentes";
-"Source" = "Source";
+"Source" = "Fonte";
 "Installed Files" = "Arquivos Instalados";
 "Modify" = "Modificar";
 "Authenticate to initiate purchase." = "Autentique para iniciar a compra.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Erro ao abrir sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "A origem %@ é incompatível com o seu jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Pode causar problemas se você adicioná-lo ao Zebra, resultando em uma possível restauração.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Por favor, remova essa fonte do seu arquivo sources.list.";
 "Incorrect documents permissions." = "Permissões de documentos incorretas.";
 "Could not determine device information." = "Não foi possível determinar as informações do dispositivo.";
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Altere a fonte dos pacotes em destaque na página inicial.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Destaque\" irá exibir pacotes aleatórios de fontes que suportam a API do Pacote em Destaque.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Aleatório\" irá exibir pacotes aleatórios de todas as fontes que você adicionou ao Zebra.";
 
 "Community News" = "Notícias da Comunidade";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importar Fontes";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Atualizando Fontes";
+"Would you like to import the following sources?" = "Gostaria de importar as seguintes fontes?";
 "Download Completed" = "Download concluído";
 "Removing Zebra..." = "Removendo Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
