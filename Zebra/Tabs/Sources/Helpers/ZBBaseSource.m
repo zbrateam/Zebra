@@ -57,14 +57,14 @@
     return baseRepos;
 }
 
-- (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *)components {
+- (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components {
     self = [super init];
     
     if (self) {
         self->archiveType = archiveType;
         self->repositoryURI = repositoryURI;
         self->distribution = distribution;
-        if ([components count]) {
+        if (components && [components count]) {
             self->components = components;
         }
         
