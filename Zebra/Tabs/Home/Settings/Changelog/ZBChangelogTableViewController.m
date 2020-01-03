@@ -1,19 +1,19 @@
 //
-//  ZBChangeLogTableViewController.m
+//  ZBChangelogTableViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 6/30/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBChangeLogTableViewController.h"
+#import "ZBChangelogTableViewController.h"
 #import <ZBLog.h>
 
-@interface ZBChangeLogTableViewController ()
+@interface ZBChangelogTableViewController ()
 
 @end
 
-@implementation ZBChangeLogTableViewController
+@implementation ZBChangelogTableViewController
 
 @synthesize releases;
 

@@ -13,7 +13,6 @@
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
 #import "ZBAlternateIconController.h"
-#import "ZBChangeLogTableViewController.h"
 #import "ZBRepoBlacklistTableViewController.h"
 @import SDWebImage;
 

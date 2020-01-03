@@ -460,12 +460,6 @@ enum ZBMiscOrder {
 
 # pragma mark selected cells methods
 
-- (void)openChangelog {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
-    [self.navigationController pushViewController:changeLog animated:YES];
-}
-
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
