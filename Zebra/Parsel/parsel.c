@@ -79,13 +79,13 @@ int isRepoSecure(const char *sourcePath, char *repoURL) {
 }
 
 char *reposSchema() {
-    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING)";
+    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, BASEFILENAME STRING, REPOID INTEGER)";
     return "REPOS(ORIGIN STRING, LABEL STRING, DISTRIBUTION STRING, VERSION STRING, CODENAME STRING, ARCHITECTURES STRING, COMPONENTS STRING, DESCRIPTION STRING, BASEFILENAME STRING, SECURE INTEGER, BASEURL STRING, REPOID INTEGER)";
 }
 
-const char *repoInsertQuery = "INSERT INTO REPOS(ORIGIN, LABEL, DISTRIBUTION, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *repoInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?);";
 
-const char *repoUpdateQuery = "UPDATE REPOS SET (ORIGIN, LABEL, DISTRIBUTION, VERSION, CODENAME, ARCHITECTURES, COMPONENTS, DESCRIPTION, BASEFILENAME, SECURE, BASEURL) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
+const char *repoUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, BASEFILENAME, REPOID) = (?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
 char *packagesSchema() {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING)";
@@ -166,8 +166,8 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
-enum PARSEL_RETURN_TYPE addRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID, bool update) {
-    FILE *file = fopen(path, "r");
+enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, bool update) {
+    FILE *file = fopen(releasePath, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
     }
@@ -189,42 +189,20 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(const char *sourcePath, const char *pa
     }
     
     multi_tok_t t = init();
-    char *fullfilename = basename((char *)path);
+    char *fullfilename = basename((char *)releasePath);
     char *baseFilename = multi_tok(fullfilename, &t, "_Release");
-    dict_add(repo, "BaseFileName", baseFilename);
-    
-    char secureURL[256];
-    strcpy(secureURL, baseFilename);
-    int secure = isRepoSecure(sourcePath, secureURL);
-    
-    replace_char(baseFilename, '_', '/');
-    if (baseFilename[strlen(baseFilename) - 1] == '.') {
-        baseFilename[strlen(baseFilename) - 1] = 0;
-    }
-    
-    dict_add(repo, "BaseURL", baseFilename);
-    
-    int def = 0;
-    if (strstr(baseFilename, "dists") != NULL) {
-        def = 1;
-    }
+    dict_add(repo, "BaseFilename", baseFilename);
     
     sqlite3_stmt *insertStatement;
     
     const char *insertQuery = update ? repoUpdateQuery : repoInsertQuery;
     
     if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnLabel, dict_get(repo, "Label"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDistribution, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnVersion, dict_get(repo, "Version"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnCodename, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnArchitectures, dict_get(repo, "Architectures"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, dict_get(repo, "Components"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFileName"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnSecure, secure);
-        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseURL, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnArchiveType, source.archiveType, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnRepositoryURI, source.repositoryURI, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnDistribution, source.distribution, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnComponents, source.components, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBRepoColumnBaseFilename, dict_get(repo, "BaseFilename"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 1 + ZBRepoColumnRepoID, repoID);
         sqlite3_step(insertStatement);
     } else {
@@ -239,27 +217,23 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(const char *sourcePath, const char *pa
     return PARSEL_OK;
 }
 
-enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
-    return addRepoToDatabase(sourcePath, path, database, repoID, false);
+enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID) {
+    return addRepoToDatabase(source, releasePath, database, repoID, false);
 }
 
-enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
-    return addRepoToDatabase(sourcePath, path, database, repoID, true);
+enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID) {
+    return addRepoToDatabase(source, releasePath, database, repoID, true);
 }
 
-void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database, int repoID) {
+void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID) {
     createTable(database, 0);
     
     dict *repo = dict_new();
     
     multi_tok_t t = init();
-    char *fullfilename = basename((char *)path);
+    char *fullfilename = basename((char *)packagesPath);
     char *baseFilename = multi_tok(fullfilename, &t, "_Packages");
     dict_add(repo, "BaseFileName", baseFilename);
-    
-    char secureURL[256];
-    strcpy(secureURL, baseFilename);
-    int secure = isRepoSecure(sourcePath, secureURL);
     
     replace_char(baseFilename, '_', '/');
     if (baseFilename[strlen(baseFilename) - 1] == '.') {
@@ -273,11 +247,6 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
     dict_add(repo, "Suite", "./");
     dict_add(repo, "Version", "1.0");
     
-    int def = 0;
-    if (strstr(baseFilename, "dists") != NULL) {
-        def = 1;
-    }
-    
     sqlite3_stmt *insertStatement;
     
     if (sqlite3_prepare_v2(database, "INSERT INTO REPOS(ORIGIN, LABEL, SUITE, VERSION, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, &insertStatement, 0) == SQLITE_OK) {
@@ -289,7 +258,7 @@ void createDummyRepo(const char *sourcePath, const char *path, sqlite3 *database
         sqlite3_bind_text(insertStatement, 6, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 7, baseFilename, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 8, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 9, secure);
+        sqlite3_bind_int(insertStatement, 9, 1);
         sqlite3_bind_int(insertStatement, 10, repoID);
         sqlite3_step(insertStatement);
     } else {
