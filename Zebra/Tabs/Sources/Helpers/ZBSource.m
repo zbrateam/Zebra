@@ -23,7 +23,6 @@
 @synthesize repoID;
 @synthesize iconURL;
 @synthesize suite;
-@synthesize components;
 @synthesize shortURL;
 @synthesize supportSileoPay;
 

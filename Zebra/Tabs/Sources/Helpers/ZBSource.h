@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@class ZBBaseSource;
+#import "ZBBaseSource.h"
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int repoID;
 @property (nonatomic, strong) NSURL *iconURL;
 @property (nonatomic, strong) NSString *suite;
-@property (nonatomic, strong) NSString *components;
 @property (nonatomic, strong) NSString *shortURL;
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
