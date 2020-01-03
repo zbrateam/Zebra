@@ -77,7 +77,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setRepositoryURI:[NSString stringWithUTF8String:repositoryURIChars]]; //Should never be NULL
         [self setDistribution:[NSString stringWithUTF8String:distributionChars]]; //Should never be NULL
         
-        if (componenetsChars != 0) {
+        if (componenetsChars != 0 && strcmp(componenetsChars, "") != 0) {
             NSArray *components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
             [self setComponents:components];
         }

@@ -177,7 +177,7 @@
 }
 
 - (void)updateCollation {
-    self.tableData = [self partitionObjects:sources collationStringSelector:@selector(origin)];
+    self.tableData = [self partitionObjects:sources collationStringSelector:@selector(label)];
 }
 
 - (void)handleURL:(NSURL *)url {
@@ -351,7 +351,7 @@
     }];
 }
 
-- (ZBSource *)sourceAtIndexPath:(NSIndexPath *)indexPath {
+- (NSObject *)sourceAtIndexPath:(NSIndexPath *)indexPath {
     if (![self hasDataInSection:indexPath.section])
         return nil;
     return self.tableData[indexPath.section][indexPath.row];
@@ -415,20 +415,38 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBSource *source = [self sourceAtIndexPath:indexPath];
-    
-    cell.repoLabel.text = [source label];
-    
-    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    [self setSpinnerVisible:[busyList[[source baseFilename]] boolValue] forCell:cell];
-    
-    cell.urlLabel.text = [source repositoryURI];
-    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
-    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    return cell;
+    NSObject *source = [self sourceAtIndexPath:indexPath];
+    if ([source isKindOfClass:[ZBSource class]]) {
+        ZBSource *trueSource = (ZBSource *)source;
+        cell.repoLabel.text = [trueSource label];
+        
+        NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+        [self setSpinnerVisible:[busyList[[trueSource baseFilename]] boolValue] forCell:cell];
+        
+        cell.urlLabel.text = [trueSource repositoryURI];
+        [cell.iconImageView sd_setImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        
+        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        return cell;
+    }
+    else {
+        ZBBaseSource *baseSource = (ZBBaseSource *)source;
+        
+        cell.repoLabel.text = [baseSource repositoryURI];
+        
+        cell.urlLabel.text = @"Tap to learn more";
+        cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
+        
+        cell.repoLabel.textColor = [UIColor systemPinkColor];
+        cell.urlLabel.textColor = [UIColor systemPinkColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        
+        cell.tintColor = [UIColor systemPinkColor];
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

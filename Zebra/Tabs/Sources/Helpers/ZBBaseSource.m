@@ -29,7 +29,6 @@
 @synthesize packagesFilePath;
 @synthesize releaseFilePath;
 
-
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
@@ -62,7 +61,9 @@
         self->archiveType = archiveType;
         self->repositoryURI = repositoryURI;
         self->distribution = distribution;
-        self->components = components;
+        if ([components count]) {
+            self->components = components;
+        }
         
         if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
@@ -109,6 +110,27 @@
     }
     
     return [super init];
+}
+
+- (NSString *)label {
+    return self.repositoryURI;
+}
+
+- (NSString *)baseFilename {
+    return self.repositoryURI;
+}
+
+- (BOOL)isEqual:(ZBBaseSource *)object {
+    if (self == object)
+        return YES;
+    
+    if (![object isKindOfClass:[ZBBaseSource class]])
+        return NO;
+    
+    return ([[object archiveType] isEqualToString:[self archiveType]] &&
+            [[object repositoryURI] isEqualToString:[self repositoryURI]] &&
+            [[object distribution] isEqualToString:[self distribution]] &&
+            [[object components] count] == [[self components] count]);
 }
 
 @end

@@ -272,9 +272,6 @@
     [self bulkPostStatusUpdate:NSLocalizedString(@"Download Completed", @"") atLevel:ZBLogLevelInfo];
     self.downloadManager = nil;
     
-//    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Release files need to be updated\n", (int)[releaseFiles count]] atLevel:ZBLogLevelInfo];
-//    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%d Package files need to be updated\n", (int)[packageFiles count]] atLevel:ZBLogLevelInfo];
-
     if ([self openDatabase] == SQLITE_OK) {
         createTable(database, 1);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
@@ -653,21 +650,30 @@
 
 - (NSArray <ZBSource *> *)sources {
     if ([self openDatabase] == SQLITE_OK) {
+        NSError *readError;
+        NSMutableArray *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError] mutableCopy];
         NSMutableArray *sources = [NSMutableArray new];
-        
+
         NSString *query = @"SELECT * FROM REPOS";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                [sources addObject:source];
+                for (ZBBaseSource *baseSource in [baseSources copy]) {
+                    if ([baseSource isEqual:source]) {
+                        [sources addObject:source];
+                        [baseSources removeObject:baseSource];
+                        break;
+                    }
+                }
             }
         } else {
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
+        [sources addObjectsFromArray:baseSources];
         return sources;
     }
     [self printDatabaseError];
