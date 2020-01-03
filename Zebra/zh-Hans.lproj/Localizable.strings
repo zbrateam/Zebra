@@ -19,7 +19,7 @@
 "Community Sources" = "第三方软件源";
 "You’ve added all of the community sources" = "您已经添加了所有的第三方软件源";
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
 "Please Wait..." = "请稍候……";
 "Verifying Source(s)" = "验证软件源";
@@ -68,7 +68,7 @@
 "Featured Packages" = "精选软件包";
 "Random" = "随机";
 "Feature Type" = "推荐类型";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "选择会被推荐的精选软件源";
 
 "News" = "新闻";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "备选图标";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "精选软件源";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "本地软件源";
 "Locally installed packages" = "本地已安装软件包";
 "Unknown" = "未知";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "未检测到软件源 URL 。";
+"You have already added these sources." = "你已经添加过这些软件源。";
+"Error verifying source" = "验证软件源时出错";
+"Error verifying sources" = "验证软件源时出错";
 "Unknown error" = "未知错误";
 "Invalid URL" = "无效的 URL";
 "Enter URL" = "输入 URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "添加软件源";
 "Add" = "添加";
 "Add Multiple" = "批量添加";
 "Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
 "Please Wait..." = "请稍候……";
 "Verifying Source(s)" = "验证软件源";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "无法验证软件源";
 "Refresh" = "刷新";
 "Log Out" = "注销";
 "Purchased Packages" = "已购买软件包";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "可更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
-"Source" = "Source";
+"Source" = "软件源";
 "Installed Files" = "已安装的文件";
 "Modify" = "修改";
 "Authenticate to initiate purchase." = "登录后购买。";
@@ -222,9 +222,9 @@
 
 "Downloads" = "下载";
 "Error while opening sources.list" = "打开 sources.list 时错误";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
 "Incorrect documents permissions." = "文档权限不正确。";
 "Could not determine device information." = "无法获取设备信息。";
 "Could not find a download URL for" = "无法获取下载链接";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源。";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包。";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
 
 "Community News" = "社区新闻";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "导入软件源";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "正在更新软件源";
+"Would you like to import the following sources?" = "你想导入以下软件源吗？";
 "Download Completed" = "下载完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
