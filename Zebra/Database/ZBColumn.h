@@ -41,14 +41,17 @@ typedef enum {
 
 typedef enum {
     ZBRepoColumnOrigin = 0,
+    ZBRepoColumnLabel,
+    ZBRepoColumnSuite,
+    ZBRepoColumnVersion,
+    ZBRepoColumnCodename,
+    ZBRepoColumnArchitectures,
+    ZBRepoColumnComponents,
     ZBRepoColumnDescription,
     ZBRepoColumnBaseFilename,
-    ZBRepoColumnBaseURL,
     ZBRepoColumnSecure,
-    ZBRepoColumnRepoID,
-    ZBRepoColumnDef,
-    ZBRepoColumnSuite,
-    ZBRepoColumnComponents
+    ZBRepoColumnBaseURL,
+    ZBRepoColumnRepoID
 } ZBRepoColumn;
 
 #endif /* ZBColumn_h */
