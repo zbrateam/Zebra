@@ -56,13 +56,19 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
-    self = [super init];
+    const char *archiveTypeChars   = textColumn(statement, ZBSourceColumnArchiveType);
+    const char *repositoryURIChars = textColumn(statement, ZBSourceColumnRepositoryURI);
+    const char *distributionChars  = textColumn(statement, ZBSourceColumnDistribution);
+    const char *componenetsChars   = textColumn(statement, ZBSourceColumnComponents);
+    
+    NSArray *components;
+    if (componenetsChars != 0 && strcmp(componenetsChars, "") != 0) {
+        components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
+    }
+    
+    self = [super initWithArchiveType:[NSString stringWithUTF8String:archiveTypeChars] repositoryURI:[NSString stringWithUTF8String:repositoryURIChars] distribution:[NSString stringWithUTF8String:distributionChars] components:components];
     
     if (self) {
-        const char *archiveTypeChars   = textColumn(statement, ZBSourceColumnArchiveType);
-        const char *repositoryURIChars = textColumn(statement, ZBSourceColumnRepositoryURI);
-        const char *distributionChars  = textColumn(statement, ZBSourceColumnDistribution);
-        const char *componenetsChars   = textColumn(statement, ZBSourceColumnComponents);
         const char *descriptionChars   = textColumn(statement, ZBSourceColumnDescription);
         const char *originChars        = textColumn(statement, ZBSourceColumnOrigin);
         const char *labelChars         = textColumn(statement, ZBSourceColumnLabel);
@@ -72,15 +78,6 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
 
-        [self setArchiveType:[NSString stringWithUTF8String:archiveTypeChars]]; //Should never be NULL
-        [self setRepositoryURI:[NSString stringWithUTF8String:repositoryURIChars]]; //Should never be NULL
-        [self setDistribution:[NSString stringWithUTF8String:distributionChars]]; //Should never be NULL
-        
-        if (componenetsChars != 0 && strcmp(componenetsChars, "") != 0) {
-            NSArray *components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
-            [self setComponents:components];
-        }
-        
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NSLocalizedString(@"Unknown", @"")];
         [self setLabel:labelChars != 0 ? [[NSString alloc] initWithUTF8String:labelChars] : NSLocalizedString(@"Unknown", @"")];
@@ -99,7 +96,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setRepoID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
         
-        [self setIconURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/CydiaIcon.png", self.repositoryURI]]];
+        [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
 
         //rewrite eventually
         if ([self.repositoryURI containsString:@"https"]) {

@@ -17,6 +17,7 @@
 @synthesize distribution;
 @synthesize components;
 
+@synthesize mainDirectoryURL;
 @synthesize packagesDirectoryURL;
 @synthesize releaseURL;
 
@@ -67,7 +68,6 @@
             self->components = components;
         }
         
-        NSURL *mainDirectoryURL;
         if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
