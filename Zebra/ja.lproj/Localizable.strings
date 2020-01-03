@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Zebra へようこそ！";
 "Changelog" = "変更履歴";
 "Community Sources" = "公式リポジトリ";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "ほしいものリストには何もありません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Twitter でフォローする";
 
 //Credits
 
