@@ -19,7 +19,7 @@
 "Community Sources" = "Burimet e Komunitetit";
 "You’ve added all of the community sources" = "Ju keni shtuar të gjitha burimet e komunitetit";
 "Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Burimet e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
 "Please Wait..." = "Të Lutem Prit...";
 "Verifying Source(s)" = "Duke verifikuar burimin(et)";
@@ -68,7 +68,7 @@
 "Featured Packages" = "Paketat e Veçuara";
 "Random" = "I rastësishëm";
 "Feature Type" = "Lloji i Kryeartikullit";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Zgjidh burimet për të veçuar";
 
 "News" = "Lajmet";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Ikona Alternative";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Burimet e Veçuara";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Repo lokale";
 "Locally installed packages" = "Paketat e instaluara në lokalitet";
 "Unknown" = "E panjohur";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Nuk u identifikua asnjë URL e burimit.";
+"You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
+"Error verifying source" = "Problem në verifikimin e burimit";
+"Error verifying sources" = "Problem në verifikimin e burimeve";
 "Unknown error" = "Problem i panjohur";
 "Invalid URL" = "Adrese e gabuar";
 "Enter URL" = "Vendos URL-në";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Shto burimet";
 "Add" = "Shto";
 "Add Multiple" = "Shto disa";
 "Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
 "Please Wait..." = "Të Lutem Prit...";
 "Verifying Source(s)" = "Duke verifikuar burimin(et)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "E pamundur që të verifikoj burimin";
 "Refresh" = "Rifresko";
 "Log Out" = "Dilni";
 "Purchased Packages" = "Paketat e Blera";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Përditësimet në dispozicion";
 "Ignored Upgrades" = "Përditësimet e injoruara";
 "Recent" = "Së fundmi";
-"Source" = "Source";
+"Source" = "Burimi";
 "Installed Files" = "Skedarët e instaluar";
 "Modify" = "Modifiko";
 "Authenticate to initiate purchase." = "Autentifikoni për të filluar blerjen.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Shkarkimet";
 "Error while opening sources.list" = "Problem në hapjen e souces.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Ku burim %@ nuk është i përshtatshëm me jailbreak-in tuaj.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Ju lutemi largoni këtë burim nga skedari i source.list.";
 "Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
 "Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
 "Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Ndryshoni burimin e paketave të paraqitura në faqen kryesore.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"E veçuar\" do të shfaq paketat e rastësishme nga burimet që mbështesin API-në e Paketave të Veçuara.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "“I Rastësishëm” do të shfaq paketa të rastësishme nga të gjitha burimet që ju keni shtuat në Zebra.";
 
 "Community News" = "Lajmet e komunitetit";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importo Burimet";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Duke përditsuar burimet";
+"Would you like to import the following sources?" = "A dëshironi të importoni burimet e mëposhtme?";
 "Download Completed" = "Shkarkimi Përfundoi";
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
