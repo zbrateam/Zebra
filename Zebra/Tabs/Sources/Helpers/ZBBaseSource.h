@@ -15,7 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *repositoryURI;
 @property (nonatomic) NSString *distribution;
 @property (nonatomic) NSArray <NSString *> *components;
-- (id)
+
+@property (nonatomic) NSURL *mainDirectoryURL;
+@property (nonatomic) NSURL *packagesDirectoryURL;
+@property (nonatomic) NSURL *releaseURL;
+
++ (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error;
+- (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *)components;
+- (id)initFromSourceLine:(NSString *)debLine;
 @end
 
 NS_ASSUME_NONNULL_END
