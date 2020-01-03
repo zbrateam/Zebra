@@ -19,6 +19,7 @@ struct ZBBaseSource {
     const char *repositoryURI;
     const char *distribution;
     const char *components;
+    const char *baseFilename;
 };
 
 enum PARSEL_RETURN_TYPE {
@@ -28,8 +29,8 @@ enum PARSEL_RETURN_TYPE {
 
 void createTable(sqlite3 *database, int table);
 int needsMigration(sqlite3 *database, int table);
-enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, const char *baseFilename);
-enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, const char *baseFilename);
+enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID);
+enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID);
 void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID, sqlite3_int64 currentDate);

@@ -165,7 +165,7 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
-enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, const char *baseFilename, bool update) {
+enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, bool update) {
     FILE *file = fopen(releasePath, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
@@ -203,7 +203,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, dict_get(repo, "Architectures"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, baseFilename, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnRepoID, repoID);
         sqlite3_step(insertStatement);
     } else {
@@ -218,12 +218,12 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
     return PARSEL_OK;
 }
 
-enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, const char *baseFilename) {
-    return addRepoToDatabase(source, releasePath, database, repoID, baseFilename, false);
+enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID) {
+    return addRepoToDatabase(source, releasePath, database, repoID, false);
 }
 
-enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID, const char *baseFilename) {
-    return addRepoToDatabase(source, releasePath, database, repoID, baseFilename, true);
+enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID) {
+    return addRepoToDatabase(source, releasePath, database, repoID, true);
 }
 
 void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID) {
