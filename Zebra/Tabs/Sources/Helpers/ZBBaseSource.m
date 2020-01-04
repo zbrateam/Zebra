@@ -148,10 +148,15 @@
     if (![object isKindOfClass:[ZBBaseSource class]])
         return NO;
     
-    return ([[object archiveType] isEqualToString:[self archiveType]] &&
-            [[object repositoryURI] isEqualToString:[self repositoryURI]] &&
-            [[object distribution] isEqualToString:[self distribution]] &&
-            [[object components] count] == [[self components] count]);
+    BOOL archiveTypeEqual = [[object archiveType] isEqualToString:[self archiveType]];
+    BOOL repositoryURIEqual = [[object repositoryURI] isEqualToString:[self repositoryURI]];
+    BOOL distributionEqual = [[object distribution] isEqualToString:[self distribution]];
+    
+    BOOL componentsEqual = NO;
+    if ([object components] == NULL && [self components] == NULL) componentsEqual = YES;
+    else if ([[object components] isEqual:[self components]]) componentsEqual = YES;
+    
+    return (archiveTypeEqual && repositoryURIEqual && distributionEqual && componentsEqual);
 }
 
 @end
