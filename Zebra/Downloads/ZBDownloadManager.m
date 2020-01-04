@@ -60,7 +60,7 @@
 
 #pragma mark - Downloading Sources
 
-- (void)downloadSources:(NSArray <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
+- (void)downloadSources:(NSSet <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
     self->ignore = !useCaching;
     [downloadDelegate startedDownloads];
     

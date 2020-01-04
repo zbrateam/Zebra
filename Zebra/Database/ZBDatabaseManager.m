@@ -223,7 +223,7 @@
         [self bulkDatabaseStartedUpdate];
         
         NSError *readError;
-        NSArray <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError];
+        NSSet <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError];
         if (readError) {
             //oh no!
             return;
@@ -241,7 +241,7 @@
     [self updateSources:@[source] useCaching:useCaching];
 }
 
-- (void)updateSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching {
+- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching {
     [self bulkDatabaseStartedUpdate];
     if (!self.downloadManager) {
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];

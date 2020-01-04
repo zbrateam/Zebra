@@ -36,7 +36,7 @@
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
 }
 
-+ (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
     if (readError) {
@@ -46,7 +46,7 @@
     }
     
     NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
-    NSMutableArray *baseRepos = [NSMutableArray new];
+    NSMutableSet *baseRepos = [NSMutableSet new];
     for (NSString *sourceLine in debLines) {
         if (![sourceLine isEqualToString:@""]) {
             if ([sourceLine characterAtIndex:0] == '#') continue;
@@ -59,9 +59,7 @@
     }
 
     ZBBaseSource *zebraSource = [self zebraSource];
-    if (![baseRepos containsObject:zebraSource]) {
-        [baseRepos addObject:zebraSource];
-    }
+    [baseRepos addObject:zebraSource];
 
     return baseRepos;
 }

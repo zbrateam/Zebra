@@ -98,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested;
 
 - (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching;
-- (void)updateSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching;
+- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching;
 
 /*!
  @brief Parses files located in the filenames dictionary.
