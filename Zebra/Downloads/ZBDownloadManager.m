@@ -37,6 +37,15 @@
 
 #pragma mark - Initializers
 
++ (NSDictionary *)headers {
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    NSString *udid = [ZBDevice UDID];
+    NSString *machineIdentifier = [ZBDevice machineID];
+    
+    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+}
+
+
 - (id)init {
     self = [super init];
     
@@ -65,7 +74,7 @@
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSDictionary *headers = [self headers];
+    NSDictionary *headers = [ZBDownloadManager headers];
     if (headers == NULL) {
         [self postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
         return;
@@ -112,7 +121,7 @@
 
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [self headers];
+    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
@@ -404,14 +413,6 @@
 }
 
 #pragma mark - Session Headers
-
-- (NSDictionary *)headers {
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDevice UDID];
-    NSString *machineIdentifier = [ZBDevice machineID];
-    
-    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
-}
 
 - (NSString *)lastModifiedDateForFile:(NSString *)filename {
     NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename];
