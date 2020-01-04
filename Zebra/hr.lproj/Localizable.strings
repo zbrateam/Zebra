@@ -344,6 +344,9 @@ Parsing %@" = "Rasčlanjivanje %@";
 "#Downloading <Filename>
 Downloading %@" = "Preuzimanje %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "Dovršeno %@";
 
