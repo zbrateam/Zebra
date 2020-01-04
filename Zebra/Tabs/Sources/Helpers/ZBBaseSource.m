@@ -32,6 +32,10 @@
 
 @synthesize baseFilename;
 
++ (ZBBaseSource *)zebraSource {
+    return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
+}
+
 + (NSArray <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
@@ -53,7 +57,12 @@
             }
         }
     }
-    
+
+    ZBBaseSource *zebraSource = [self zebraSource];
+    if (![baseRepos containsObject:zebraSource]) {
+        [baseRepos addObject:zebraSource];
+    }
+
     return baseRepos;
 }
 
