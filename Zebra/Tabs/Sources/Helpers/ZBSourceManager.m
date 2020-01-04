@@ -192,17 +192,20 @@
                         } else {
                             ZBBaseSource *source = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[detectedURL absoluteString] distribution:@"./" components:NULL];
                             [source verify:^(BOOL exists) {
-                                dispatch_sync(sourcesQueue, ^{
-                                    if (!exists) {
+                                if (!exists) {
+                                    dispatch_sync(sourcesQueue, ^{
                                         [errors addObject:[NSString stringWithFormat:@"Could not find an APT repository located at %@", detectedURL]];
                                         [errorURLs addObject:detectedURL];
                                         
                                         dispatch_group_leave(group);
-                                    } else {
+                                    });
+                                }
+                                else {
+                                    dispatch_sync(sourcesQueue, ^{
                                         [self->verifiedSources addObject:source];
                                         dispatch_group_leave(group);
-                                    }
-                                });
+                                    });
+                                }
                             }];
                         }
                     }
@@ -218,9 +221,7 @@
                         else {
                             __block NSError *addError = nil;
                             
-                            [strongSelf addBaseSources:self->verifiedSources completion:^(BOOL success, NSError *error) {
-                                addError = error;
-                            }];
+                            [strongSelf addBaseSources:self->verifiedSources];
 
                             if (errors.count) {
                                 NSString *errorMessage = NSLocalizedString(errors.count == 1 ? @"Error verifying repository" : @"Error verifying repositories", @"");
@@ -249,10 +250,8 @@
     });
 }
 
-- (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources completion:(void (^)(BOOL success, NSError *error))completion {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    
-    [self writeBaseSources:[baseSources setByAddingObjectsFromSet:[databaseManager sources]] toFile:[ZBAppDelegate sourcesListPath]];
+- (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
+    [self appendBaseSources:baseSources toFile:[ZBAppDelegate sourcesListPath]];
 }
 
 - (void)deleteSource:(ZBSource *)delRepo {
@@ -269,6 +268,28 @@
     [sourcesToWrite removeObject:baseSource];
     
     [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
+}
+
+- (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
+    NSError *error;
+    NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error) {
+        NSLog(@"[Zebra] ERROR while loading from sources.list: %@", error);
+        return;
+    }
+    else {
+        NSMutableArray *debLines = [NSMutableArray arrayWithObject:[NSString stringWithFormat:@"\n# Added at %@\n", [NSDate date]]];
+        for (ZBBaseSource *baseSource in sources) {
+            [debLines addObject:[baseSource debLine]];
+        }
+        contents = [contents stringByAppendingString:[debLines componentsJoinedByString:@""]];
+        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        
+        if (error) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", error);
+        }
+    }
 }
 
 - (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
