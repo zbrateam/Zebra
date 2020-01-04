@@ -252,13 +252,20 @@
 }
 
 - (void)updateRepoURLs:(NSArray <NSURL *> *)repoURLs useCaching:(BOOL)useCaching {
-//    if (databaseBeingUpdated)
-//        return;
-//    databaseBeingUpdated = YES;
-//
-//    [self bulkDatabaseStartedUpdate];
-//    self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self repoURLs:repoURLs];
-//    [self.downloadManager downloadReposAndIgnoreCaching:!useCaching];
+    if (databaseBeingUpdated)
+        return;
+    databaseBeingUpdated = YES;
+    
+    [self bulkDatabaseStartedUpdate];
+    
+    NSMutableArray *baseSources = [NSMutableArray new];
+    for (NSURL *url in repoURLs) {
+        ZBBaseSource *source = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[url absoluteString] distribution:@"./" components:NULL];
+        
+        [baseSources addObject:source];
+    }
+    
+    [self updateSources:baseSources useCaching:useCaching];
 }
 
 - (void)setHaltDatabaseOperations:(BOOL)halt {
