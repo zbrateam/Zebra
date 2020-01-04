@@ -194,7 +194,7 @@
                             [source verify:^(BOOL exists) {
                                 dispatch_sync(sourcesQueue, ^{
                                     if (!exists) {
-                                        [errors addObject:[NSString stringWithFormat:@"There is not APT repository located at %@", detectedURL]];
+                                        [errors addObject:[NSString stringWithFormat:@"Could not find an APT repository located at %@", detectedURL]];
                                         [errorURLs addObject:detectedURL];
                                         
                                         dispatch_group_leave(group);
