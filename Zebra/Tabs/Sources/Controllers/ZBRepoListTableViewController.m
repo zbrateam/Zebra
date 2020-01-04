@@ -261,12 +261,12 @@
         [self presentViewController:wait animated:YES completion:nil];
         
         __weak typeof(self) weakSelf = self;
-        [self->repoManager addSourceWithString:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
+        [self->repoManager addSourcesFromString:sourceURL response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
             if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+                NSLog(@"[Zebra] Could not add source %@ due to error %@", failedURLs[0].absoluteString, error);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [wait dismissViewControllerAnimated:YES completion:^{
-                        [weakSelf presentVerificationFailedAlert:error url:url present:NO];
+                        [weakSelf presentVerificationFailedAlert:error url:failedURLs[0] present:NO];
                     }];
                 });
             } else {
@@ -275,7 +275,7 @@
                         NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
                         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[repoURL absoluteString] distribution:@"./" components:NULL];
                         
-                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:@[baseSource]];
+                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:@[baseSource]]];
                         [weakSelf presentViewController:console animated:YES completion:nil];
                     }];
                 });

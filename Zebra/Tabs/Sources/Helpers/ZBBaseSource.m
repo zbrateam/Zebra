@@ -59,9 +59,6 @@
         }
     }
 
-    ZBBaseSource *zebraSource = [self zebraSource];
-    [baseRepos addObject:zebraSource];
-
     return baseRepos;
 }
 

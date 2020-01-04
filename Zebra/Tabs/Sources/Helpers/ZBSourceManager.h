@@ -14,11 +14,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceManager : NSObject
-@property (nonatomic) NSMutableArray <ZBBaseSource *> *verifiedSources;
-+ (instancetype)sharedInstance;
-+ (NSArray <NSString *> *)knownDistURLs;
+@property (nonatomic) NSMutableSet <ZBBaseSource *> *verifiedSources;
++ (id)sharedInstance;
 - (NSMutableDictionary <NSNumber *, ZBSource *> *)repos;
-- (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond;
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond;
 - (void)deleteSource:(ZBSource *)delRepo;
 - (void)deleteBaseSource:(ZBBaseSource *)baseSource;
@@ -28,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)transferFromInstaller;
 - (void)needRecaching;
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
-- (NSString *)knownDebLineFromURLString:(NSString *)urlString;
 @end
 
 NS_ASSUME_NONNULL_END

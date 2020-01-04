@@ -238,7 +238,7 @@
 }
 
 - (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching {
-    [self updateSources:@[source] useCaching:useCaching];
+    [self updateSources:[NSSet setWithArray:@[source]] useCaching:useCaching];
 }
 
 - (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching {
@@ -639,11 +639,11 @@
     return -1;
 }
 
-- (NSArray <ZBSource *> *)sources {
+- (NSSet <ZBSource *> *)sources {
     if ([self openDatabase] == SQLITE_OK) {
         NSError *readError;
-        NSMutableArray *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError] mutableCopy];
-        NSMutableArray *sources = [NSMutableArray new];
+        NSMutableSet *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError] mutableCopy];
+        NSMutableSet *sources = [NSMutableSet new];
 
         NSString *query = @"SELECT * FROM REPOS";
         sqlite3_stmt *statement;
@@ -664,8 +664,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
 
-        [sources addObjectsFromArray:baseSources];
-        return sources;
+        return [sources setByAddingObjectsFromSet:baseSources];;
     }
     [self printDatabaseError];
     return NULL;

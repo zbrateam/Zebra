@@ -70,7 +70,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithBaseSources:(NSArray<ZBBaseSource *> *)baseSources {
+- (id)initWithBaseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
@@ -91,7 +91,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages baseSources:(NSArray<ZBBaseSource *> *)baseSources {
+- (id)initWithMessages:(NSArray *)messages baseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
@@ -102,7 +102,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSArray<ZBBaseSource *> *)baseSources {
+- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
@@ -113,7 +113,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSArray<ZBBaseSource *> *)baseSources {
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {

@@ -329,18 +329,19 @@
         
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
         [self presentViewController:refreshController animated:YES completion:nil];
-    } else {
-        __weak typeof(self) weakSelf = self;
-        
-        [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
-            if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-            } else {
-                NSLog(@"[Zebra] Added source.");
-                [weakSelf showRefreshView:@(NO)];
-            }
-        }];
     }
+//    } else {
+//        __weak typeof(self) weakSelf = self;
+//
+////        [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
+////            if (!success) {
+////                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+////            } else {
+////                NSLog(@"[Zebra] Added source.");
+////                [weakSelf showRefreshView:@(NO)];
+////            }
+////        }];
+//    }
 }
 
 - (void)showRefreshView:(NSNumber *)dropTables {

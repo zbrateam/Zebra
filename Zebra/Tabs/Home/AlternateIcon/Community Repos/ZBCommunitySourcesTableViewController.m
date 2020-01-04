@@ -319,7 +319,7 @@
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithBaseSources:[repoManager verifiedSources]];                
+                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithBaseSources:[repoManager verifiedSources]];
                 [weakSelf presentViewController:refreshController animated:YES completion:nil];
             }
         }];
