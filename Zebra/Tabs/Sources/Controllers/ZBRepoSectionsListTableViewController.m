@@ -67,7 +67,7 @@
         
         self.navigationItem.titleView = container;
     }
-    self.title = [repo origin];
+    self.title = [repo label];
     if (@available(iOS 10.0, *)) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     } else {
