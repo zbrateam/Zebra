@@ -99,8 +99,8 @@
 "Local Repository" = "本地套件來源";
 "Locally installed packages" = "本地已安裝套件";
 "Unknown" = "未知";
-"No repository urls detected." = "沒有檢測到套件來源網址";
-"You have already added these repositories." = "你已經加入過這些套件來源";
+"No repository urls detected." = "沒有檢測到套件來源網址。";
+"You have already added these repositories." = "你已經加入過這些套件來源。";
 "Error verifying repository" = "驗證套件來源失敗";
 "Error verifying repositories" = "驗證套件來源失敗";
 "Unknown error" = "未知錯誤";
@@ -325,7 +325,7 @@
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「套件來源精選」將會從在支援「精選套件 API」的套件來源中，選擇隨機套件來顯示。";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」選項將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
 
 "Community News" = "社群新聞";
 
