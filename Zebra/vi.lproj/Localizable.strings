@@ -344,6 +344,9 @@ Parsing %@" = "Phân tích cú pháp %@";
 "#Downloading <Filename>
 Downloading %@" = "Đang tải %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "Xong %@";
 
