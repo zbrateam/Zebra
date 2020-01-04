@@ -96,13 +96,13 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         lines = @[
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
-            @"deb http://apt.modmyi.com/ stable main\n",
-            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
-            [NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
+            @"deb http://apt.modmyi.com/ stable main",
+            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+            [NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main",
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
         ];
     });
     return lines;
@@ -224,7 +224,15 @@
                             
                             NSMutableArray *baseSources = [NSMutableArray new];
                             for (NSURL *url in self->verifiedURLs) {
-                                ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[url absoluteString] distribution:@"./" components:NULL];
+                                NSString *debLine = [self knownDebLineFromURLString:[url absoluteString]];
+                                
+                                ZBBaseSource *baseSource;
+                                if (debLine) {
+                                    baseSource = [[ZBBaseSource alloc] initFromSourceLine:debLine];
+                                }
+                                else {
+                                    baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[url absoluteString] distribution:@"./" components:NULL];
+                                }
                                 [baseSources addObject:baseSource];
                             }
                             
