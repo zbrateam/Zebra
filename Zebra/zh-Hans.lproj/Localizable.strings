@@ -238,7 +238,7 @@
 "Performing Actions..." = "正在执行操作……";
 "Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
-"Close Zebra" = "关闭 Zebra";
+"Close Zebra" = "退出 Zebra";
 "Restart SpringBoard" = "重启 SpringBoard";
 "Downloading" = "正在下载";
 "Downloading Packages..." = "正在下载软件包……";
