@@ -35,6 +35,8 @@ typedef enum {
 @synthesize completeOrCancelButton;
 @synthesize consoleView;
 
+#pragma mark - Initializers
+
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
@@ -42,7 +44,7 @@ typedef enum {
     if (self) {
         self.messages = NULL;
         self.dropTables = NO;
-        self.repoURLs = NULL;
+        self.baseSources = NULL;
     }
     
     return self;
@@ -68,11 +70,11 @@ typedef enum {
     return self;
 }
 
-- (id)initWithRepoURLs:(NSArray *)repoURLs {
+- (id)initWithBaseSources:(NSArray<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
@@ -89,39 +91,41 @@ typedef enum {
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages repoURLs:(NSArray *)repoURLs {
+- (id)initWithMessages:(NSArray *)messages baseSources:(NSArray<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
         self.messages = messages;
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
 }
 
-- (id)initWithDropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs {
+- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSArray<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
         self.dropTables = dropTables;
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs {
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSArray<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
         self.messages = messages;
         self.dropTables = dropTables;
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
 }
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -158,9 +162,9 @@ typedef enum {
             [databaseManager dropTables];
         }
         
-        if (self.repoURLs.count) {
+        if (self.baseSources.count) {
             // Update only the repos specified
-            [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
+            [databaseManager updateSources:self.baseSources useCaching:NO];
         } else {
             // Update every repo
             [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];

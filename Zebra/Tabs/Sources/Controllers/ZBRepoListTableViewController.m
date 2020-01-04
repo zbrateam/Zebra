@@ -273,9 +273,9 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [wait dismissViewControllerAnimated:YES completion:^{
                         NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
-                         
-                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] init];
-                        console.repoURLs = @[ repoURL ];
+                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[repoURL absoluteString] distribution:@"./" components:NULL];
+                        
+                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:@[baseSource]];
                         [weakSelf presentViewController:console animated:YES completion:nil];
                     }];
                 });
@@ -344,7 +344,7 @@
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithRepoURLs:[repoManager verifiedURLs]];
+                ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[repoManager verifiedSources]];
                 [weakSelf presentViewController:console animated:YES completion:nil];
             }
         }];

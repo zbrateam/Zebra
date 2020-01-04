@@ -97,12 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested;
 
-/*!
- @brief Update a repository.
- @param repoURLs The targer repositories in URL format.
- @param useCaching Same as above.
- */
-- (void)updateRepoURLs:(NSArray <NSURL *> *)repoURLs useCaching:(BOOL)useCaching;
+- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching;
+- (void)updateSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching;
 
 /*!
  @brief Parses files located in the filenames dictionary.

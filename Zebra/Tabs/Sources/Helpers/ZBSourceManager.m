@@ -14,13 +14,14 @@
 #import <ZBDevice.h>
 
 @interface ZBSourceManager () {
-    NSMutableArray<NSURL *> *verifiedURLs;
     NSMutableDictionary <NSNumber *, ZBSource *> *repos;
     BOOL recachingNeeded;
 }
 @end
 
 @implementation ZBSourceManager
+
+@synthesize verifiedSources;
 
 + (id)sharedInstance {
     static ZBSourceManager *instance = nil;
@@ -70,10 +71,6 @@
     NSURL *normalizedURL = [self normalizedURL:url];
     NSString *urlString = [normalizedURL absoluteString];
     return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; // Remove http:// or https:// from url
-}
-
-- (NSArray <NSURL *> *)verifiedURLs {
-    return verifiedURLs;
 }
 
 + (NSArray <NSString *> *)knownDistURLs {
@@ -138,7 +135,7 @@
                 
                 NSMutableArray<NSString *> *errors = [NSMutableArray array];
                 NSMutableArray<NSURL *> *errorURLs = [NSMutableArray array];
-                self->verifiedURLs = [NSMutableArray new];
+                self->verifiedSources = [NSMutableArray new];
                 
                 NSMutableSet<NSURL *> *detectedURLs = [NSMutableSet set];
                 
@@ -188,7 +185,7 @@
                     } else {
                         NSString *debLine = [self knownDebLineFromURLString:urlString];
                         if (debLine) {
-                            [self->verifiedURLs addObject:detectedURL];
+                            [self->verifiedSources addObject:[[ZBBaseSource alloc] initFromSourceLine:debLine]];
                             
                             dispatch_group_leave(group);
                         } else {
@@ -202,7 +199,8 @@
                                     });
                                 } else {
                                     dispatch_sync(sourcesQueue, ^{
-                                        [self->verifiedURLs addObject:detectedURL];
+                                        ZBBaseSource *source = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[detectedURL absoluteString] distribution:@"./" components:NULL];
+                                        [self->verifiedSources addObject:source];
                                         
                                         dispatch_group_leave(group);
                                     });
@@ -216,27 +214,13 @@
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
+                        if ([self->verifiedSources count] == 0 && [errorURLs count] == 0) {
                             respond(NO, NO, NSLocalizedString(@"You have already added these repositories.", @""), @[]);
                         }
                         else {
                             __block NSError *addError = nil;
                             
-                            NSMutableArray *baseSources = [NSMutableArray new];
-                            for (NSURL *url in self->verifiedURLs) {
-                                NSString *debLine = [self knownDebLineFromURLString:[url absoluteString]];
-                                
-                                ZBBaseSource *baseSource;
-                                if (debLine) {
-                                    baseSource = [[ZBBaseSource alloc] initFromSourceLine:debLine];
-                                }
-                                else {
-                                    baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[url absoluteString] distribution:@"./" components:NULL];
-                                }
-                                [baseSources addObject:baseSource];
-                            }
-                            
-                            [strongSelf addBaseSources:baseSources completion:^(BOOL success, NSError *error) {
+                            [strongSelf addBaseSources:self->verifiedSources completion:^(BOOL success, NSError *error) {
                                 addError = error;
                             }];
 
