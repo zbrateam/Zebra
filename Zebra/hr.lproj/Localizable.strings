@@ -346,3 +346,5 @@ Downloading %@" = "Preuzimanje %@";
 
 "#Done <Filename>
 Done %@" = "Dovršeno %@";
+
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
