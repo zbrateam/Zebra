@@ -344,6 +344,9 @@ Parsing %@" = "%@ を解析しています";
 "#Downloading <Filename>
 Downloading %@" = "%@ をダウンロードしています";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "%@ 完了";
 
