@@ -546,14 +546,13 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
             [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
         }
-        [ZBDevice refreshViews];
-        [self colorWindow];
         [self setNeedsStatusBarAppearanceUpdate];
         [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+        [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
         [self resetTable];
-        [((ZBTabBarController *)self.tabBarController) updateQueueBar];
+        [ZBDevice refreshViews];
     });
 }
 

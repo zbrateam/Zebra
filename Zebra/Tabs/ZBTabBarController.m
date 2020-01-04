@@ -200,6 +200,26 @@
 - (void)checkQueueNav {
     if (!queueNav) {
         queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
+        [[LNPopupBar appearance] setTranslucent:true];
+    }
+}
+
+- (void)updateQueueBarColors {
+    if ([ZBDevice darkModeEnabled]) {
+        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
+        
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        //[[self popupBar] setTintColor:[UIColor whiteColor]];
+    }
+    else {
+        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
+        
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        //[[self popupBar] setTintColor:[UIColor blackColor]];
     }
 }
 
@@ -207,22 +227,7 @@
     [self checkQueueNav];
     [self updateQueueBarPackageCount:[ZBQueue count]];
     
-    if ([ZBDevice darkModeEnabled]) {
-        [[LNPopupBar appearance] setTranslucent:true];
-        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
-        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
-        
-        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    }
-    else {
-        [[LNPopupBar appearance] setTranslucent:true];
-        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
-        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
-        
-        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    }
+    [self updateQueueBarColors];
     
     LNPopupPresentationState state = self.popupPresentationState;
     if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
