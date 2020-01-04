@@ -137,7 +137,7 @@
 "Information" = "信息";
 "Upgrade All" = "全部更新";
 "Loaded" = "已加载";
-"ABC" = "ABC";
+"ABC" = "名称";
 "Date" = "日期";
 "Size" = "大小";
 "Clear" = "清除";
@@ -152,13 +152,13 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
-"Installed Size" = "安装大小";
+"Installed Size" = "占用空间";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
+"%@ (Installed Size: %@)" = "%@（占用空间：%@）";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d字节";
@@ -238,7 +238,7 @@
 "Performing Actions..." = "正在执行操作……";
 "Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
-"Close Zebra" = "退出 Zebra";
+"Close Zebra" = "关闭 Zebra";
 "Restart SpringBoard" = "重启 SpringBoard";
 "Downloading" = "正在下载";
 "Downloading Packages..." = "正在下载软件包……";
