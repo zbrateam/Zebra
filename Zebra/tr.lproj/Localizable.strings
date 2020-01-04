@@ -344,6 +344,9 @@ Parsing %@" = "Okunuyor %@";
 "#Downloading <Filename>
 Downloading %@" = "İndiriliyor %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "%@ Tamamlandı";
 
