@@ -80,7 +80,7 @@
         [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
         [releaseTask resume];
         
-        [self downloadPackagesFileWithExtension:@"bz2" fromRepo:source ignoreCaching:ignore];
+        [self downloadPackagesFileWithExtension:@"xz" fromRepo:source ignoreCaching:ignore];
         
         [downloadDelegate startedSourceDownload:source];
     }
@@ -398,32 +398,10 @@
 
 - (NSString *)saveNameForURL:(NSURL *)url {
     NSString *filename = [url lastPathComponent]; //Releases
-    if ([filename pathExtension]) {
-        filename = [filename stringByDeletingPathExtension]; //Release
-    }
-    
     NSString *schemeless = [[[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
     NSString *baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     return [baseFilename stringByAppendingString:filename];
 }
-         
-//- (NSString *)repoSaveName:(NSURL *)url filename:(NSString *)filename {
-//    NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-//    NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-//    NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
-//    return saveName;
-//}
-//
-//- (NSString *)baseFileNameFromFullPath:(NSString *)path {
-//    NSString *lastPathComponent = [path lastPathComponent];
-//    if ([lastPathComponent containsString:@"Packages"]) {
-//        NSString *basePath = [lastPathComponent stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
-//        basePath = [basePath stringByReplacingOccurrencesOfString:@"_Packages.gz" withString:@""];
-//        return basePath;
-//    } else {
-//        return [lastPathComponent stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-//    }
-//}
 
 #pragma mark - Session Headers
 
@@ -740,9 +718,15 @@
             } while (status == COMPRESSION_STATUS_OK);
 
             compression_stream_destroy(&stream);
-            [decompressedData writeToFile:path atomically:YES];
+            [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
             
-            return path;
+            NSError *removeError;
+            [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
+            if (removeError) {
+                @throw [NSException exceptionWithName:removeError.localizedDescription reason:removeError.localizedRecoverySuggestion userInfo:nil];
+            }
+            
+            return [path stringByDeletingPathExtension];
         }
         default: { //Decompression of this file is not supported (ideally this should never happen but we'll keep it in case we support more compression types in the future)
             return path;
