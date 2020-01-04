@@ -19,7 +19,7 @@
 "Community Sources" = "Community-Quellen";
 "You’ve added all of the community sources" = "Du hast alle Community-Quellen hinzugefügt";
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
 "Verifying Source(s)" = "Verifizierung der Quelle(n)";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Keine Artikel in der Wunschliste";
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord Server bei";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Folgen Sie uns auf Twitter";
 
 //Credits
 
@@ -100,7 +100,7 @@
 "Unknown" = "Unbekannt";
 "No source URLs detected." = "No source URLs detected.";
 "You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
+"Error verifying source" = "Fehler beim überprüfen der Quelle";
 "Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Unbekannter Fehler";
 "Invalid URL" = "Ungültige URL";
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Quellen importieren";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Quellen werden aktualisiert";
+"Would you like to import the following sources?" = "Möchten Sie die folgenden Quellen importieren?";
 "Download Completed" = "Herunterladen abgeschlossen";
 "Removing Zebra..." = "Zebra wird entfernt …";
 "Installing Zebra..." = "Zebra wird installiert …";
