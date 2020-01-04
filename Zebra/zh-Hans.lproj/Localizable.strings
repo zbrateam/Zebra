@@ -136,7 +136,7 @@
 "Information" = "信息";
 "Upgrade All" = "全部更新";
 "Loaded" = "已加载";
-"ABC" = "ABC";
+"ABC" = "名称";
 "Date" = "日期";
 "Size" = "大小";
 "Clear" = "清除";
@@ -343,6 +343,9 @@ Parsing %@" = "正在解析 %@";
 
 "#Downloading <Filename>
 Downloading %@" = "正在下载 %@";
+
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "已完成 %@";
