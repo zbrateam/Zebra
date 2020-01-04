@@ -16,8 +16,8 @@
 "Info" = "資訊";
 "Welcome to Zebra!" = "歡迎使用 Zebra！";
 "Changelog" = "更新記錄";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "社群套件來源";
+"You’ve added all of the community sources" = "您已經加入所有的社群套件來源";
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "匯入來源";
@@ -331,18 +331,18 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
+"Import Sources" = "匯入來源";
 "Updating Sources" = "Updating Sources";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Download Completed" = "下載完成";
+"Removing Zebra..." = "正在移除 Zebra...";
+"Installing Zebra..." = "正在安裝 Zebra...";
 
 "#Parsing <Source Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "正在解析 %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "正在下載 %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "已完成 %@";
