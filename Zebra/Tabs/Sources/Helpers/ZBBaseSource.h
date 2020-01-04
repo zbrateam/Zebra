@@ -56,10 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL releaseTaskCompleted;
 
 /*! @brief A file path that points to the downloaded Packages file (NULL if no file has been downloaded and the database entry should not be updated) */
-@property (nonatomic, strong) NSString *_Nullable packagesFilePath;
+@property (nonatomic) NSString *_Nullable packagesFilePath;
 
 /*! @brief A file path that points to the downloaded Release file (NULL if no file has been downloaded and the database entry should not be updated) */
-@property (nonatomic, strong) NSString *_Nullable releaseFilePath;
+@property (nonatomic) NSString *_Nullable releaseFilePath;
 
 /*! @brief The base filename of the repository, based on the URL */
 @property (nonatomic) NSString *baseFilename;
@@ -67,7 +67,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components;
 - (id)initFromSourceLine:(NSString *)debLine;
-- (BOOL)verify;
+
+/*!
+    @brief Verifies that a source exists in a proper format by checking for a Packages file that exists in packagesDirectoryURL
+    @discussion First checks Packages.xz, then .bz2, then .gz, then .lzma, then for an uncompressed file to download
+    @param completion the completion block to run once verification completes
+*/
+- (void)verify:(void (^)(BOOL exists))completion;
 - (NSString *)debLine;
 - (BOOL)canDelete;
 - (BOOL)isEqual:(ZBBaseSource *)object;

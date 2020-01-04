@@ -9,6 +9,7 @@
 #import "ZBBaseSource.h"
 
 #import <ZBDevice.h>
+#import <Downloads/ZBDownloadManager.h>
 
 @implementation ZBBaseSource
 
@@ -123,6 +124,91 @@
     }
     
     return [super init];
+}
+
+- (void)verify:(void (^)(BOOL exists))completion {
+    __block int tasks = 5;
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [xzRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        tasks--;
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200) {
+            [session invalidateAndCancel];
+            completion(YES);
+        }
+    }];
+    [xzTask resume];
+    
+    NSMutableURLRequest *bz2Request = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.bz2"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [bz2Request setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        tasks--;
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200) {
+            [session invalidateAndCancel];
+            completion(YES);
+        }
+        else if (tasks == 0) {
+            completion(NO);
+        }
+    }];
+    [bz2Task resume];
+    
+    NSMutableURLRequest *gzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.gz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [gzRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        tasks--;
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200) {
+            [session invalidateAndCancel];
+            completion(YES);
+        }
+        else if (tasks == 0) {
+            completion(NO);
+        }
+    }];
+    [gzTask resume];
+    
+    NSMutableURLRequest *lzmaRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.lzma"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [lzmaRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        tasks--;
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200) {
+            [session invalidateAndCancel];
+            completion(YES);
+        }
+        else if (tasks == 0) {
+            completion(NO);
+        }
+    }];
+    [lzmaTask resume];
+    
+    NSMutableURLRequest *uncompressedRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [uncompressedRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        tasks--;
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200) {
+            [session invalidateAndCancel];
+            completion(YES);
+        }
+        else if (tasks == 0) {
+            completion(NO);
+        }
+    }];
+    [uncompressedTask resume];
 }
 
 - (NSString *)label {
