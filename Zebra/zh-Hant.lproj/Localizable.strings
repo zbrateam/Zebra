@@ -224,7 +224,7 @@
 "Error while opening sources.list" = "打開 sources.list 時發生錯誤";
 "The source %@ is incompatible with your jailbreak." = "來源 %@ 與您的越獄不相容。";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "若您將此新增到 Zebra，可能會發生問題並導致需要還原裝置。";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "請將此來源從 souces.list 檔案中移除。";
 "Incorrect documents permissions." = "文件權限不正確。";
 "Could not determine device information." = "無法檢測裝置資訊。";
 "Could not find a download URL for" = "無法獲得下載網址";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "更改在首頁顯示的精選套件來源。";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "「精選」將會從在支援「精選套件 API」的來源中，選擇隨機套件來顯示。";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有來源中，選擇隨機套件來顯示。";
 
 "Community News" = "社群新聞";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "匯入來源";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "正在更新來源";
+"Would you like to import the following sources?" = "您想要匯入以下的來源嗎？";
 "Download Completed" = "下載完成";
 "Removing Zebra..." = "正在移除 Zebra...";
 "Installing Zebra..." = "正在安裝 Zebra...";
