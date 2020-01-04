@@ -346,3 +346,5 @@ Downloading %@" = "Descargando %@";
 
 "#Done <Filename>
 Done %@" = "Completo %@";
+
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
