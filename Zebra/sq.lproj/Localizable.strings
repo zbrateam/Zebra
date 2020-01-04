@@ -346,3 +346,5 @@ Downloading %@" = "Duke shkarkuar %@";
 
 "#Done <Filename>
 Done %@" = "Përfundoi %@";
+
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
