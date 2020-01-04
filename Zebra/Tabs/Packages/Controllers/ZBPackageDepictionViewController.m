@@ -79,6 +79,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBDatabaseCompletedUpdate" object:nil];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -375,7 +376,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
         [self determinePaidPackage];
     } else {
-        if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFORM
+        if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFIRM
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }
