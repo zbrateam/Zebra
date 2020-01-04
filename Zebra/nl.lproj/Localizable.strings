@@ -344,6 +344,9 @@ Parsing %@" = "Parseren %@";
 "#Downloading <Filename>
 Downloading %@" = "Downloaden %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "Voltooid %@";
 
