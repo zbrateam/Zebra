@@ -344,6 +344,9 @@ Parsing %@" = "Analizzando %@";
 "#Downloading <Filename>
 Downloading %@" = "Scaricando %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "Completato %@";
 
