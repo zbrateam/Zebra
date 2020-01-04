@@ -345,7 +345,7 @@ Parsing %@" = "מנתח את %@";
 Downloading %@" = "מוריד את %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "מוריד את %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "סיום %@";
