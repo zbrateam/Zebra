@@ -345,7 +345,7 @@ Parsing %@" = "Duke analizuar %@";
 Downloading %@" = "Duke shkarkuar %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "Duke shkarkuar %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "Përfundoi %@";
