@@ -394,6 +394,7 @@
 + (void)configureDarkMode {
     UIColor *tintColor = [UIColor tintColor];
     // Navigation bar
+    [[UINavigationBar appearance] setTintColor:nil];
     [[UINavigationBar appearance] setTintColor:tintColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -445,6 +446,7 @@
 + (void)configureLightMode {
     UIColor *tintColor = [UIColor tintColor];
     // Navigation bar
+    [[UINavigationBar appearance] setTintColor:nil];
     [[UINavigationBar appearance] setTintColor:tintColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
