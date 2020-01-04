@@ -25,6 +25,7 @@
 
 @interface ZBConsoleViewController () {
     NSMutableArray *applicationBundlePaths;
+    NSMutableArray *completedDownloads;
     NSMutableArray *uicaches;
     NSMutableArray *installedPackageIdentifiers;
     NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
@@ -191,17 +192,17 @@
         [self finishTasks];
     }
     else {
-        [self performTasksForDownloadedFiles:NULL];
+        [self performTasksForDownloadedFiles];
     }
 }
 
-- (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
+- (void)performTasksForDownloadedFiles {
     if (downloadFailed) {
         [self writeToConsole:[NSString stringWithFormat:@"\n%@\n\n%@", NSLocalizedString(@"One or more packages failed to download.", @""), NSLocalizedString(@"Click \"Return to Queue\" to return to the Queue and retry the download.", @"")] atLevel:ZBLogLevelDescript];
         [self finishTasks];
     }
     else {
-        NSArray *actions = [queue tasksToPerform:downloadedFiles];
+        NSArray *actions = [queue tasksToPerform:completedDownloads];
         BOOL zebraModification = queue.zebraPath || queue.removingZebra;
         if ([actions count] == 0 && !zebraModification) {
             [self writeToConsole:NSLocalizedString(@"There are no actions to perform", @"") atLevel:ZBLogLevelDescript];
@@ -724,9 +725,23 @@
     }
 }
 
+- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
+    [self writeToConsole:status atLevel:level];
+}
+
 #pragma mark - Download Delegate
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
+- (void)startedDownloads {
+    if (!completedDownloads) {
+        completedDownloads = [NSMutableArray new];
+    }
+}
+
+- (void)startedPackageDownload:(ZBPackage *)package {
+    [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@ (%@)", @""), package.name, package.identifier] atLevel:ZBLogLevelDescript];
+}
+
+- (void)progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
     downloadMap[package.identifier] = @(progress);
     CGFloat totalProgress = 0;
     for (NSString *packageID in downloadMap) {
@@ -737,44 +752,25 @@
     [self updateProgressText:[NSString stringWithFormat: @"%@: %.1f%% ", NSLocalizedString(@"Downloading", @""), totalProgress * 100]];
 }
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedAllDownloads:(NSDictionary *)filenames {
-    [self updateProgressText:nil];
+- (void)finishedPackageDownload:(ZBPackage *)package withError:(NSError *_Nullable)error {
+    if (error) {
+        downloadFailed = YES;
+        [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
+    }
+    else {
+        [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Done %@ (%@)", @""), package.name, package.identifier] atLevel:ZBLogLevelDescript];
+        [completedDownloads addObject:package];
+    }
+}
+
+- (void)finishedAllDownloads {
+    [self performSelectorInBackground:@selector(performTasksForDownloadedFiles) withObject:NULL];
     
-    NSArray *debs = [filenames objectForKey:@"debs"];
-    [self performSelectorInBackground:@selector(performTasksForDownloadedFiles:) withObject:debs];
     suppressCancel = YES;
     [self updateCancelOrCloseButton];
 }
 
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
-    [self writeToConsole:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Downloading", @""), filename] atLevel:ZBLogLevelDescript];
-}
-
-- (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
-    if (error != NULL) {
-        downloadFailed = YES;
-        [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
-    }
-    else if (filename) {
-        [self writeToConsole:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Done", @""), filename] atLevel:ZBLogLevelDescript];
-    }
-}
-
 #pragma mark - Database Delegate
-
-- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    [self writeToConsole:status atLevel:level];
-}
-
-- (void)finishedAllDownloads { 
-    NSLog(@"Finished All Downloads!");
-}
-
-
-- (void)startedDownloads { 
-    NSLog(@"Started All Downloads!");
-}
-
 
 - (void)databaseStartedUpdate {
     [self writeToConsole:NSLocalizedString(@"Importing local packages.", @"") atLevel:ZBLogLevelInfo];

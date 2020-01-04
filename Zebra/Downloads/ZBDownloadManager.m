@@ -167,7 +167,7 @@
     
     if (failedTasks == packages.count) {
         failedTasks = 0;
-        [self->downloadDelegate finishedAllDownloads:@{}];
+        [self->downloadDelegate finishedAllDownloads];
     }
 }
 
@@ -528,7 +528,40 @@
             ZBPackage *package = [packageTasksMap objectForKey:@(downloadTask.taskIdentifier)];
             NSLog(@"[Zebra] Successfully downloaded file for %@", package);
             
-            //forward to handler
+            NSString *suggestedFilename = [response suggestedFilename];
+            if (downloadFailed) {
+                NSError *error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
+                
+                [downloadDelegate finishedPackageDownload:package withError:error];
+            }
+            else {
+                NSString *debsPath = [ZBAppDelegate debsLocation];
+                NSString *finalPath = [debsPath stringByAppendingPathComponent:suggestedFilename];
+                
+                if (![[finalPath pathExtension] isEqualToString:@"deb"]) { //create deb extension so apt doesnt freak
+                    finalPath = [[finalPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"deb"];
+                }
+                
+                [self moveFileFromLocation:location to:finalPath completion:^(NSError *error) {
+                    ZBPackage *package = self->packageTasksMap[@(downloadTask.taskIdentifier)];
+                    if (error) {
+                        [self cancelAllTasksForSession:self->session];
+                        [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
+                        
+                        [self->downloadDelegate finishedPackageDownload:package withError:error];
+                    } else {
+                        package.debPath = finalPath;
+                        
+                        [self->downloadDelegate finishedPackageDownload:package withError:NULL];
+                    }
+                    
+                    [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
+                    
+                    if (![self->packageTasksMap count]) {
+                        [self->downloadDelegate finishedAllDownloads];
+                    }
+                }];
+            }
             break;
         }
         default: { //We couldn't determine the file

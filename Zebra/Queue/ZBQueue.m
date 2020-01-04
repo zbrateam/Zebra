@@ -222,7 +222,7 @@
     [[ZBAppDelegate tabBarController] closeQueue];
 }
 
-- (NSArray *)tasksToPerform:(NSArray <ZBPackage *> *)debs {
+- (NSArray *)tasksToPerform:(NSArray <ZBPackage *> *)downloadedPackages {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand;
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
@@ -324,21 +324,21 @@
         
         NSUInteger commandCount = [installCommand count];
         
-        NSArray *dependencyPaths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDependency filenames:debs];
+        NSArray *dependencyPaths = [self pathsForPackagesInQueue:ZBQueueTypeDependency];
         [installCommand addObjectsFromArray:dependencyPaths];
         
         if (installPackages) {
-            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeInstall filenames:debs];
+            NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeInstall];
             [installCommand addObjectsFromArray:paths];
         }
         
         if (upgradePackages) {
-            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeUpgrade filenames:debs];
+            NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeUpgrade];
             [installCommand addObjectsFromArray:paths];
         }
         
         if (downgradePackages) {
-            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeDowngrade filenames:debs];
+            NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeDowngrade];
             [installCommand addObjectsFromArray:paths];
         }
         
@@ -355,7 +355,7 @@
             [reinstallCommand addObject:@"install"];
             [reinstallCommand addObject:@"--reinstall"];
             
-            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
+            NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
             [reinstallCommand addObjectsFromArray:paths];
             [commands addObject:reinstallCommand];
         }
@@ -373,7 +373,7 @@
             //Install new version
             NSMutableArray *installCommand = [baseCommand mutableCopy];
             [installCommand insertObject:@"-i" atIndex:1];
-            NSArray *paths = [self pathsForDownloadedDebsInQueue:ZBQueueTypeReinstall filenames:debs];
+            NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
             [installCommand addObjectsFromArray:paths];
             [commands addObject:installCommand];
         }
@@ -382,7 +382,7 @@
     return commands;
 }
 
-- (NSArray <NSString *> *)pathsForDownloadedDebsInQueue:(ZBQueueType)queue filenames:(NSArray <ZBPackage *> *)filenames {
+- (NSArray <NSString *> *)pathsForPackagesInQueue:(ZBQueueType)queue {
     NSMutableArray *result = [NSMutableArray new];
     for (ZBPackage *package in [self queueFromType:queue]) {
         if (package.debPath) {
@@ -390,43 +390,6 @@
         }
     }
     return result;
-//    for (ZBPackage *package in [self queueFromType:queue]) {
-//        BOOL isZebra = [[package identifier] isEqualToString:@"xyz.willy.zebra"];
-//        for (NSDictionary *filename in filenames) {
-//            NSString *finalPath = [filename objectForKey:@"final"];
-//            NSString *originalFilename = [filename objectForKey:@"original"];
-//            NSString *packageFilename = [[package filename] lastPathComponent];
-//            NSString *originalURL = [filename objectForKey:@"originalURL"];
-//
-//            if (packageFilename == nil || originalFilename == nil || finalPath == nil) {
-//                continue;
-//            }
-//
-//            if ([finalPath containsString:packageFilename]) {
-//                if (isZebra)
-//                    zebraPath = finalPath;
-//                else
-//                    [paths addObject:finalPath];
-//                break;
-//            }
-//            else if ([originalFilename containsString:packageFilename]) {
-//                if (isZebra)
-//                    zebraPath = finalPath;
-//                else
-//                    [paths addObject:finalPath];
-//                break;
-//            }
-//            else if ([originalURL containsString:packageFilename]) {
-//                if (isZebra)
-//                    zebraPath = finalPath;
-//                else
-//                    [paths addObject:finalPath];
-//                break;
-//            }
-//        }
-//    }
-//
-//    return paths;
 }
 
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue {

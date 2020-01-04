@@ -344,6 +344,9 @@
 #Downloading <Filename>
 "Downloading %@" = "Downloading %@";
 
+#Downloading <Package Name> (<Package Identifier>)
+"Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 #Done <Filename>
 "Done %@" = "Done %@";
 
