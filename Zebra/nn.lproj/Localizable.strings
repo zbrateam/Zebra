@@ -344,6 +344,9 @@ Parsing %@" = "Parsar %@";
 "#Downloading <Filename>
 Downloading %@" = "Lastar ned %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "Ferdig %@";
 
