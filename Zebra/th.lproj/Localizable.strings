@@ -16,10 +16,10 @@
 "Info" = "ข้อมูล";
 "Welcome to Zebra!" = "ยินดีต้อนรับสู่ Zebra!";
 "Changelog" = "รายการเปลี่ยนแปลง";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "ซอร์สชุมชน";
+"You’ve added all of the community sources" = "คุณได้เพิ่มซอร์สชุมชนทั้งหมดแล้ว";
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "ไม่มีรายการที่อยากได้";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "ติดตามเราใน Twitter";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "โปรแกรมยอดนิยม";
 "Random" = "สุ่ม";
 "Feature Type" = "วิธีแสดง";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "เลือกซอร์สไปแสดงในโปรแกรมยอดนิยม";
 
 "News" = "ข่าวสาร";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "ไอคอนแบบอื่น";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "ซอร์สยอดนิยม";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "ซอร์สในเครื่อง";
 "Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
 "Unknown" = "ไม่ทราบ";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "ไม่พบ URL ของซอร์ส";
+"You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
+"Error verifying source" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
+"Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
 "Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
 "Enter URL" = "ใส่ URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "เพิ่มซอร์ส";
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
 "Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
 "Log Out" = "ลงชื่อออก";
 "Purchased Packages" = "โปรแกรมที่ซื้อไว้";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "รุ่นใหม่ที่มี";
 "Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
 "Recent" = "เร็วๆ นี้";
-"Source" = "Source";
+"Source" = "ซอร์ส";
 "Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
 "Modify" = "แก้ไข";
 "Authenticate to initiate purchase." = "ยืนยันตัวตนเพื่อเริ่มการซื้อ";
@@ -222,9 +222,9 @@
 
 "Downloads" = "ดาวน์โหลด";
 "Error while opening sources.list" = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "ซอร์สนี้ %@ ไม่รองรับโปรแกรมเจลเบรคของอุปกรณ์คุณ";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "อาจเกิดปัญหาได้หากซอร์สนี้ถูกเพิ่มลง Zebra และอาจถึงขั้นต้องล้างเครื่อง";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "โปรดลบซอร์สนี้จากไฟล์ sources.list ของคุณ";
 "Incorrect documents permissions." = "สิทธิ์การเข้าถึงที่อยู่เอกสารไม่ถูกต้อง";
 "Could not determine device information." = "ไม่สามารถอ่านข้อมูลของอุปกรณ์ได้";
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
@@ -322,27 +322,27 @@
 
 "Change the source of the featured packages on the homepage." = "เปลี่ยนแหล่งที่มาของโปรแกรมยอดนิยมในหน้าหลัก";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"ซอร์สยอดนิยม\" จะแสดงผลโปรแกรมแบบสุ่มจากซอร์สที่รองรับ API แสดงผลโปรแกรมยอดนิยม";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
 
 "Community News" = "ข่าวสารชุมชน";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "นำเข้าซอร์ส";
+"Updating Sources" = "อัพเดตซอร์ส";
+"Would you like to import the following sources?" = "คุณต้องการเพิ่มซอร์สเหล่านี้หรือไม่?";
+"Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
+"Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
+"Installing Zebra..." = "ติดตั้ง Zebra...";
 
 "#Parsing <Source Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "อ่าน %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "กำลังดาวน์โหลด %@";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "เสร็จสิ้น %@";
