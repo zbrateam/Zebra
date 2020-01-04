@@ -344,6 +344,9 @@ Parsing %@" = "正在解析 %@";
 "#Downloading <Filename>
 Downloading %@" = "正在下載 %@";
 
+"#Downloading <Package Name> (<Package Identifier>)
+Downloading %@ (%@)" = "Downloading %@ (%@)";
+
 "#Done <Filename>
 Done %@" = "已完成 %@";
 
