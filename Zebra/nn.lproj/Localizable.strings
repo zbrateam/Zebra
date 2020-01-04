@@ -346,3 +346,5 @@ Downloading %@" = "Lastar ned %@";
 
 "#Done <Filename>
 Done %@" = "Ferdig %@";
+
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
