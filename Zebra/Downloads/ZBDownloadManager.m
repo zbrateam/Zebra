@@ -20,6 +20,7 @@
 #import <bzlib.h>
 #import <zlib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <compression.h>
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -79,7 +80,7 @@
         [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
         [releaseTask resume];
         
-        [self downloadPackagesFileWithExtension:@"bz2" fromRepo:source ignoreCaching:ignore];
+        [self downloadPackagesFileWithExtension:@"xz" fromRepo:source ignoreCaching:ignore];
         
         [downloadDelegate startedSourceDownload:source];
     }
@@ -226,7 +227,7 @@
                 [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
             }
             else { //Tries to download another filetype
-                NSArray *options = @[@"bz2", @"gz"];
+                NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma"];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < [options count]) {
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromRepo:source ignoreCaching:ignore];
@@ -384,6 +385,12 @@
         else if ([extension isEqualToString:@"gz"]) { //.gz
             return @"application/x-gzip";
         }
+        else if ([extension isEqualToString:@"xz"]) { //.xz
+            return @"application/x-xz";
+        }
+        else if ([extension isEqualToString:@"lzma"]) { //.lzma
+            return @"application/x-lzma";
+        }
     }
     // We're going to assume this is a Release or uncompressed Packages file
     return @"text/plain";
@@ -391,32 +398,10 @@
 
 - (NSString *)saveNameForURL:(NSURL *)url {
     NSString *filename = [url lastPathComponent]; //Releases
-    if ([filename pathExtension]) {
-        filename = [filename stringByDeletingPathExtension]; //Release
-    }
-    
     NSString *schemeless = [[[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
     NSString *baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     return [baseFilename stringByAppendingString:filename];
 }
-         
-//- (NSString *)repoSaveName:(NSURL *)url filename:(NSString *)filename {
-//    NSString *schemeless = [[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""];
-//    NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-//    NSString *saveName = [NSString stringWithFormat:[[url absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, filename];
-//    return saveName;
-//}
-//
-//- (NSString *)baseFileNameFromFullPath:(NSString *)path {
-//    NSString *lastPathComponent = [path lastPathComponent];
-//    if ([lastPathComponent containsString:@"Packages"]) {
-//        NSString *basePath = [lastPathComponent stringByReplacingOccurrencesOfString:@"_Packages.bz2" withString:@""];
-//        basePath = [basePath stringByReplacingOccurrencesOfString:@"_Packages.gz" withString:@""];
-//        return basePath;
-//    } else {
-//        return [lastPathComponent stringByReplacingOccurrencesOfString:@"_Release" withString:@""];
-//    }
-//}
 
 #pragma mark - Session Headers
 
@@ -458,7 +443,7 @@
     }
     
     NSString *MIMEType = [response MIMEType];
-    NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-bzip2", @"application/x-gzip", @"application/x-deb", @"application/x-debian-package"];
+    NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-xz", @"application/x-bzip2", @"application/x-gzip", @"application/x-lzma", @"application/x-deb", @"application/x-debian-package"];
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
     if (index == NSNotFound) {
         MIMEType = [self guessMIMETypeForFile:[[response URL] absoluteString]];
@@ -497,7 +482,9 @@
             break;
         }
         case 1:
-        case 2: { //Compressed packages file (.gz or .bz2)
+        case 2:
+        case 3:
+        case 4: { //Compressed packages file (.xz, .bz2, .gz, or .lzma)
             ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
             if (source) {
                 if (downloadFailed) {
@@ -535,8 +522,8 @@
             }
             break;
         }
-        case 3:
-        case 4: { //Package.deb
+        case 5:
+        case 6: { //Package.deb
             ZBPackage *package = [packageTasksMap objectForKey:@(downloadTask.taskIdentifier)];
             NSLog(@"[Zebra] Successfully downloaded file for %@", package);
             
@@ -594,7 +581,7 @@
         compressionType = [self guessMIMETypeForFile:path];
     }
     
-    NSArray *availableTypes = @[@"application/x-gzip", @"application/x-bzip2"];
+    NSArray *availableTypes = @[@"application/x-gzip", @"application/x-bzip2", @"application/x-xz", @"application/x-lzma"];
     switch ([availableTypes indexOfObject:compressionType]) {
         case 0: {
             NSData *data = [NSData dataWithContentsOfFile:path];
@@ -682,6 +669,64 @@
             }
             
             return [path stringByDeletingPathExtension]; //Should be our unzipped file
+        }
+        case 2:
+        case 3: {
+            compression_stream stream;
+            compression_status status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_LZMA);
+            if (status == COMPRESSION_STATUS_ERROR) {
+                @throw [NSException exceptionWithName:@"Compression Status Error" reason:@"Not a proper .XZ or .LZMA archive" userInfo:nil];
+            }
+
+            NSData *compressedData = [NSData dataWithContentsOfFile:path];
+            stream.src_ptr = compressedData.bytes;
+            stream.src_size = compressedData.length;
+
+            size_t destinationBufferSize = 4096;
+            uint8_t *destinationBuffer = malloc(destinationBufferSize);
+            stream.dst_ptr = destinationBuffer;
+            stream.dst_size = destinationBufferSize;
+            
+            NSMutableData *decompressedData = [NSMutableData new];
+
+            do {
+                status = compression_stream_process(&stream, 0);
+                
+                switch (status) {
+                    case COMPRESSION_STATUS_OK:
+                        if (stream.dst_size == 0) {
+                            [decompressedData appendBytes:destinationBuffer length:destinationBufferSize];
+                            
+                            stream.dst_ptr = destinationBuffer;
+                            stream.dst_size = destinationBufferSize;
+                        }
+                        break;
+                        
+                    case COMPRESSION_STATUS_END:
+                        if (stream.dst_ptr > destinationBuffer) {
+                            [decompressedData appendBytes:destinationBuffer length:stream.dst_ptr - destinationBuffer];
+                        }
+                        break;
+                        
+                    case COMPRESSION_STATUS_ERROR:
+                        @throw [NSException exceptionWithName:@"Compression Status Error" reason:@"Not a proper .XZ or .LZMA archive" userInfo:nil];
+                        break;
+                        
+                    default:
+                        break;
+                }
+            } while (status == COMPRESSION_STATUS_OK);
+
+            compression_stream_destroy(&stream);
+            [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
+            
+            NSError *removeError;
+            [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
+            if (removeError) {
+                @throw [NSException exceptionWithName:removeError.localizedDescription reason:removeError.localizedRecoverySuggestion userInfo:nil];
+            }
+            
+            return [path stringByDeletingPathExtension];
         }
         default: { //Decompression of this file is not supported (ideally this should never happen but we'll keep it in case we support more compression types in the future)
             return path;
