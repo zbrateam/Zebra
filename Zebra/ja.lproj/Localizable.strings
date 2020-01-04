@@ -346,3 +346,5 @@ Downloading %@" = "%@ をダウンロードしています";
 
 "#Done <Filename>
 Done %@" = "%@ 完了";
+
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
