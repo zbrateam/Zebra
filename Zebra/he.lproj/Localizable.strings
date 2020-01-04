@@ -347,4 +347,4 @@ Downloading %@" = "מוריד את %@";
 "#Done <Filename>
 Done %@" = "סיום %@";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "לא ניתן למצוא מקור APT בכתובת %@";
