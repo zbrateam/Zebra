@@ -346,3 +346,5 @@ Downloading %@" = "Đang tải %@";
 
 "#Done <Filename>
 Done %@" = "Xong %@";
+
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
