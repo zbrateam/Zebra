@@ -68,11 +68,13 @@
         self.navigationItem.titleView = container;
     }
     self.title = [repo origin];
-    if (@available(iOS 10.0, *)) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    } else {
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         CGFloat top = self.navigationController.navigationBar.bounds.size.height;
         self.tableView.contentInset = UIEdgeInsetsMake(top + 20, 0, 64, 0);
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     // This has to be registered anyway due to repo payment support late check
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
