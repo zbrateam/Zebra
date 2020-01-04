@@ -19,7 +19,7 @@
 "Community Sources" = "社群套件來源";
 "You’ve added all of the community sources" = "您已經加入所有的社群套件來源";
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@ 的工具軟體來源";
 "Transfer Sources" = "匯入來源";
 "Please Wait..." = "請稍候…";
 "Verifying Source(s)" = "正在驗證來源";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "願望清單中沒有項目";
 "Community" = "社群";
 "Join our Discord" = "加入 Discord 伺服器";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "在 Twitter 上跟隨";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "精選套件";
 "Random" = "隨機";
 "Feature Type" = "推薦類型";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "選擇會被推薦的來源";
 
 "News" = "新聞 ";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "替換圖示";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "精選來源";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "本地來源";
 "Locally installed packages" = "本地已安裝套件";
 "Unknown" = "未知";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "沒有檢測到來源網址。";
+"You have already added these sources." = "你已經加入過這些來源。";
+"Error verifying source" = "驗證來源時發生錯誤";
+"Error verifying sources" = "驗證來源時發生錯誤";
 "Unknown error" = "未知錯誤";
 "Invalid URL" = "無效的網址";
 "Enter URL" = "輸入網址";
-"Add Sources" = "Add Sources";
+"Add Sources" = "新增來源";
 "Add" = "新增";
 "Add Multiple" = "新增多個";
 "Would you like to add the URL from your clipboard?" = "是否要新增剪貼簿中的網址？";
 "Please Wait..." = "請稍候…";
 "Verifying Source(s)" = "驗證來源";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "無法驗證來源";
 "Refresh" = "重新整理";
 "Log Out" = "登出";
 "Purchased Packages" = "已購買套件";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "可用的更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
-"Source" = "Source";
+"Source" = "來源";
 "Installed Files" = "已安裝檔案";
 "Modify" = "修改";
 "Authenticate to initiate purchase." = "請登入以購買";
@@ -222,7 +222,7 @@
 
 "Downloads" = "下載";
 "Error while opening sources.list" = "打開 sources.list 時發生錯誤";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "來源 %@ 與您的越獄不相容。";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "若您將此新增到 Zebra，可能會發生問題並導致需要還原裝置。";
 "Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "文件權限不正確。";
