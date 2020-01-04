@@ -425,7 +425,7 @@
     [self updateProgressText:nil];
     [self setProgressTextHidden:true];
     [self removeAllDebs];
-    [self updateCancelOrCloseButton];
+    [self updateStage:ZBStageFinished];
 }
 
 - (void)close {
