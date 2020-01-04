@@ -137,11 +137,13 @@
     [xzRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        tasks--;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             completion(YES);
+        }
+        else if (--tasks == 0) {
+            completion(NO);
         }
     }];
     [xzTask resume];
@@ -150,13 +152,12 @@
     [bz2Request setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        tasks--;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             completion(YES);
         }
-        else if (tasks == 0) {
+        else if (--tasks == 0) {
             completion(NO);
         }
     }];
@@ -166,13 +167,12 @@
     [gzRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        tasks--;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             completion(YES);
         }
-        else if (tasks == 0) {
+        else if (--tasks == 0) {
             completion(NO);
         }
     }];
@@ -182,13 +182,12 @@
     [lzmaRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        tasks--;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             completion(YES);
         }
-        else if (tasks == 0) {
+        else if (--tasks == 0) {
             completion(NO);
         }
     }];
@@ -198,13 +197,12 @@
     [uncompressedRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        tasks--;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             completion(YES);
         }
-        else if (tasks == 0) {
+        else if (--tasks == 0) {
             completion(NO);
         }
     }];
