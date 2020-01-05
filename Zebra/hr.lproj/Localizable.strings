@@ -240,6 +240,7 @@
 "Close Zebra" = "Zatvori Zebru";
 "Restart SpringBoard" = "Ponovo pokrenite SpringBoard";
 "Downloading" = "Preuzimanje";
+"Parsing" = "Rasčlanjivanje";
 "Downloading Packages..." = "Preuzimanje paketa...";
 "Installing" = "Instaliranje";
 "Installing Packages..." = "Instaliranje paketa...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“Nasumično” će prikazivati nasumične pakete sa svih izvora koje ste dodali u Zebru.";
 
 "Community News" = "Novosti iz zajednice";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Uvezite izvore";
 "Updating Sources" = "Nadogradnja izvora";
 "Would you like to import the following sources?" = "Dali bi voljeli uvesti sljedeće izvore?";
 "Download Completed" = "Preuzimanje završeno";
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
-
-"#Parsing <Source Name>
-Parsing %@" = "Rasčlanjivanje %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Preuzimanje %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "Dovršeno %@";
 
 "Could not find an APT repository located at %@" = "Ne može se pronaći APT skladišta lociranog u %@";
