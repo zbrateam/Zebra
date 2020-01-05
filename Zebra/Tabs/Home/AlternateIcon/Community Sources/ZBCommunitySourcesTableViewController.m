@@ -251,10 +251,12 @@
     NSArray *options = @[@"transfer", @"utility", @"repo"];
     switch ([options indexOfObject:type]) {
         case 0: {
-            ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[info objectForKey:@"url"]]];
-            
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
-            [self presentViewController:navController animated:true completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[info objectForKey:@"url"]]];
+                
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
+                [self presentViewController:navController animated:true completion:nil];
+            });
             break;
         }
         case 1:
