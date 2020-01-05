@@ -70,7 +70,7 @@
 "Feature Type" = "Uitgelicht type";
 "Select Sources to be Featured" = "Select Sources to be Featured";
 
-"News" = "News";
+"News" = "Nieuws";
 
 "Live Search" = "Live zoeken";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Zebra Installeren...";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
