@@ -241,6 +241,7 @@
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Downloading" = "ダウンロードしています";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
 "Community News" = "コミュニティニュース";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "リポジトリを追加する";
 "Updating Repositories" = "リポジトリを更新中";
 "Would you like to import the following repositories?" = "次のリポジトリを追加しますか？";
 "Download Completed" = "ダウンロード完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "%@ を解析しています";
-
-"#Downloading <Filename>
-Downloading %@" = "%@ をダウンロードしています";
-
-"#Done <Filename>
-Done %@" = "%@ 完了";
