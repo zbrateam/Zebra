@@ -71,7 +71,7 @@
 "Feature Type" = "Udvalgt Type";
 "Select Repos to be Featured" = "Vælg arkiver der skal vises";
 
-"News" = "Nyheder";
+"News" = "News";
 
 "Live Search" = "Live Søgning";
 
@@ -110,8 +110,8 @@
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
-"Please Wait..." = "Vent Venligst...";
-"Verifying Source(s)" = "Verificerer Kilde(r)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
 "Refresh" = "opdatere";
 "Log Out" = "Log af";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Luk Zebra";
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Downloading" = "Overfører";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Overfører Pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer Pakker...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfældig\" vil vise tilfældige pakker fra alle arkiver du har tilføjet til Zebra.";
 
 "Community News" = "Fællesskabs Nyheder";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";

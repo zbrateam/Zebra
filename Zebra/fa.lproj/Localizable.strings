@@ -71,7 +71,7 @@
 "Feature Type" = "نوع ویژه";
 "Select Repos to be Featured" = "انتخاب مخزن ها برای ویژه شدن";
 
-"News" = "اخبار";
+"News" = "News";
 
 "Live Search" = "Live Search";
 
@@ -110,8 +110,8 @@
 "Add" = "اضافه کردن";
 "Add Multiple" = "اضافه کردن چندتایی";
 "Would you like to add the URL from your clipboard?" = "میخواهید آدرسی که کپی کرده اید را اضافه کنید؟";
-"Please Wait..." = "...منتظر بمانید";
-"Verifying Source(s)" = "در حال تایید کردن مخازن";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "تایید کردن مخزن امکانپذیر نیست";
 "Refresh" = "ریفرش کردن";
 "Log Out" = "خروج از حساب";
@@ -241,6 +241,7 @@
 "Close Zebra" = "بستن زبرا";
 "Restart SpringBoard" = "ری استارت جزءی";
 "Downloading" = "در حال دانلود";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "در حال دانلود پکیج ها";
 "Installing" = "در حال نصب";
 "Installing Packages..." = "در حال نصب پکیج ها";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
 "Community News" = "Community News";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";

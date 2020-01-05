@@ -71,7 +71,7 @@
 "Feature Type" = "Vorgestellter Typ";
 "Select Repos to be Featured" = "Wähle Quellen aus, die vorgestellt werden sollen";
 
-"News" = "Neuigkeiten";
+"News" = "News";
 
 "Live Search" = "Live-Suche";
 
@@ -110,7 +110,7 @@
 "Add" = "Hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
-"Please Wait..." = "Bitte warten...";
+"Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifizierung der Quelle(n)";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Zebra schließen";
 "Restart SpringBoard" = "SpringBoard neu starten";
 "Downloading" = "Herunterladen";
+"Parsing" = "Wird analysiert";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Installing" = "Wird installiert";
 "Installing Packages..." = "Pakete werden installiert...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Zufällig\" wird zufällige Pakete aus allen Quellen anzeigen die zu Zebra hinzugefügt wurden.";
 
 "Community News" = "Nachrichten der Gemeinschaft";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Quellen importieren";
 "Updating Repositories" = "Quellen werden aktualisiert";
 "Would you like to import the following repositories?" = "Möchten Sie folgende Quellen importieren?";
 "Download Completed" = "Herunterladen abgeschlossen";
 "Removing Zebra..." = "Zebra wird entfernt …";
 "Installing Zebra..." = "Zebra wird installiert …";
-
-"#Parsing <Repo Name>
-Parsing %@" = "%@ wird analysiert";
-
-"#Downloading <Filename>
-Downloading %@" = "%@ wird heruntergeladen";
-
-"#Done <Filename>
-Done %@" = "%@ ist abgeschlossen";

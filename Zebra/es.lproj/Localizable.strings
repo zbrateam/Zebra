@@ -16,8 +16,8 @@
 "Info" = "Información";
 "Welcome to Zebra!" = "¡Bienvenido a Zebra!";
 "Changelog" = "Cambios";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Fuentes de la comunidad";
+"You’ve added all of the community sources" = "Has añadido todas las fuentes de la comunidad";
 "Transfer sources from %@ to Zebra" = "Transferir fuentes de %@ a Zebra";
 "Utility repo for %@" = "Repositorio de utilidad para %@";
 "Transfer Sources" = "Transferir fuentes";
@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo de destacado";
 "Select Repos to be Featured" = "Selecciona repositorios para ser destacados";
 
-"News" = "Noticias";
+"News" = "News";
 
 "Live Search" = "Búsqueda en tiempo real";
 
@@ -110,8 +110,8 @@
 "Add" = "Añadir";
 "Add Multiple" = "Añadir múltiples";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
-"Please Wait..." = "Por favor espere...";
-"Verifying Source(s)" = "Verificando fuente(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "No es posible verificar el repositorio";
 "Refresh" = "Actualizar";
 "Log Out" = "Cerrar sesión";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Cerrar Zebra";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Downloading" = "Descargando";
+"Parsing" = "Analizando";
 "Downloading Packages..." = "Descargando paquetes...";
 "Installing" = "Instalando";
 "Installing Packages..." = "Instalando paquetes...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatorio\" mostrará paquetes aleatorios de todos los repositorios que hayas añadido a Zebra.";
 
 "Community News" = "Noticias de la comunidad";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importar fuentes";
 "Updating Repositories" = "Actualizando Repositorios";
 "Would you like to import the following repositories?" = "¿Le gustaría importar los siguientes repositorios?";
 "Download Completed" = "Descarga Completa";
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Analizando %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Descargando %@";
-
-"#Done <Filename>
-Done %@" = "Completo %@";

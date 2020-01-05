@@ -71,7 +71,7 @@
 "Feature Type" = "推荐类型";
 "Select Repos to be Featured" = "选择会被推荐的软件源";
 
-"News" = "新闻";
+"News" = "News";
 
 "Live Search" = "实时搜索";
 
@@ -137,7 +137,7 @@
 "Information" = "信息";
 "Upgrade All" = "全部更新";
 "Loaded" = "已加载";
-"ABC" = "ABC";
+"ABC" = "名称";
 "Date" = "日期";
 "Size" = "大小";
 "Clear" = "清除";
@@ -152,13 +152,13 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
-"Installed Size" = "安装大小";
+"Installed Size" = "占用空间";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
+"%@ (Installed Size: %@)" = "%@（占用空间：%@）";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d字节";
@@ -241,6 +241,7 @@
 "Close Zebra" = "关闭 Zebra";
 "Restart SpringBoard" = "重启 SpringBoard";
 "Downloading" = "正在下载";
+"Parsing" = "正在解析";
 "Downloading Packages..." = "正在下载软件包……";
 "Installing" = "正在安装";
 "Installing Packages..." = "正在安装软件包……";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
 
 "Community News" = "社区新闻";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
-"Import Sources" = "倒入软件源";
+"Import Sources" = "导入软件源";
 "Updating Repositories" = "正在更新软件源";
-"Would you like to import the following repositories?" = "你想倒入以下软件源吗？";
+"Would you like to import the following repositories?" = "你想导入以下软件源吗？";
 "Download Completed" = "下载完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
-
-"#Parsing <Repo Name>
-Parsing %@" = "正在解析 %@";
-
-"#Downloading <Filename>
-Downloading %@" = "正在下载 %@";
-
-"#Done <Filename>
-Done %@" = "已完成 %@";

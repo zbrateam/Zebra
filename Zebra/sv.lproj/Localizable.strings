@@ -71,7 +71,7 @@
 "Feature Type" = "Metod för utväljning";
 "Select Repos to be Featured" = "Välj förråd att välja ut från";
 
-"News" = "Nyheter";
+"News" = "News";
 
 "Live Search" = "Livesökning";
 
@@ -110,8 +110,8 @@
 "Add" = "Lägg till";
 "Add Multiple" = "Lägg till flera";
 "Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
-"Please Wait..." = "Vänta...";
-"Verifying Source(s)" = "Verifierar källor";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Kunde inte verifiera förråd";
 "Refresh" = "Uppdatera";
 "Log Out" = "Logga ut";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Stäng Zebra";
 "Restart SpringBoard" = "Starta om SpringBoard";
 "Downloading" = "Laddar ner";
+"Parsing" = "Tolkar";
 "Downloading Packages..." = "Laddar ner paket...";
 "Installing" = "Installerar";
 "Installing Packages..." = "Installerar paket...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till i Zebra.";
 
 "Community News" = "Gemenskapsnyheter";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importera källor";
 "Updating Repositories" = "Uppdaterar förråd";
 "Would you like to import the following repositories?" = "Vill du importera följande förråd?";
 "Download Completed" = "Nedladdning slutförd";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Tolkar %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Laddar ner %@";
-
-"#Done <Filename>
-Done %@" = "Klar %@";

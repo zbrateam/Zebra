@@ -16,8 +16,8 @@
 "Info" = "Πληροφορίες";
 "Welcome to Zebra!" = "Καλώς ήλθατε στο Zebra!";
 "Changelog" = "Καταγραφή Αλλαγών";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Πηγές της Κοινωνίας";
+"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινωνίας";
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
 "Utility repo for %@" = "Πρακτικό repo για %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
@@ -71,7 +71,7 @@
 "Feature Type" = "Τύπος Προτεινόμενου";
 "Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
 
-"News" = "Νέα";
+"News" = "News";
 
 "Live Search" = "Ζωντανή Αναζήτηση";
 
@@ -241,6 +241,7 @@
 "Close Zebra" = "Κλείσε το Zebra";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
 "Downloading" = "Γίνεται λήψη";
+"Parsing" = "Γίνεται ανάλυση";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
 "Installing" = "Γίνεται εγκατάσταση";
 "Installing Packages..." = "Γίνεται εγκατάσταση Πακέτων...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
 
 "Community News" = "Νέα Κοινότητας";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
+"Import Sources" = "Εισαγωγή Πηγών";
+"Updating Repositories" = "Ενημέρωση Repositories";
+"Would you like to import the following repositories?" = "Θα ήθελες να προσθέσεις τα ακόλουθα repositories;";
+"Download Completed" = "Η Λήψη Ολοκληρώθηκε";
+"Removing Zebra..." = "Γίνεται αφαίρεση του Zebra...";
+"Installing Zebra..." = "Γίνεται Εγκατάσταση του Zebra...";

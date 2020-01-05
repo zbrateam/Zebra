@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo de Destaque";
 "Select Repos to be Featured" = "Seleciona Repositórios para Destacar";
 
-"News" = "Notícias";
+"News" = "News";
 
 "Live Search" = "Pesquisa ao vivo";
 
@@ -110,8 +110,8 @@
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Multiplos";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
-"Please Wait..." = "Por favor aguarde...";
-"Verifying Source(s)" = "A Verificar Fonte(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Não foi possivel verificar o Repo";
 "Refresh" = "Atualidade";
 "Log Out" = "Sair";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Fechar o Zebra";
 "Restart SpringBoard" = "Reiniciar o SpringBoard";
 "Downloading" = "A fazer o download";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "A fazer o download de pacotes...";
 "Installing" = "A instalar";
 "Installing Packages..." = "A instalar pacotes...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
 "Community News" = "Community News";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";

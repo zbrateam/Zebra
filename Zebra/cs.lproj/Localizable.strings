@@ -16,8 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Zdroje Společenství";
+"You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility repo for %@" = "Repozitář nástrojů pro %@";
 "Transfer Sources" = "Přenést Repozitáře";
@@ -71,7 +71,7 @@
 "Feature Type" = "Typy Návrhů";
 "Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
 
-"News" = "Novinky";
+"News" = "News";
 
 "Live Search" = "Živé Vyhledávání";
 
@@ -110,8 +110,8 @@
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
-"Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Chyba při ověřování repozitáře";
 "Refresh" = "Refreshnout";
 "Log Out" = "Odhlásit se";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Zavřít Zebru";
 "Restart SpringBoard" = "Restartovat SpringBoard";
 "Downloading" = "Stahování";
+"Parsing" = "Analýza";
 "Downloading Packages..." = "Stahování balíčků...";
 "Installing" = "Instalování";
 "Installing Packages..." = "Instalování balíčků...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovat náhodné balíčky ze všech repozitářů, které jste přidali do Zebry.";
 
 "Community News" = "Komunitní Novinky";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
+"Import Sources" = "Importovat zdroje";
+"Updating Repositories" = "Aktualizace úložiště";
+"Would you like to import the following repositories?" = "Chcete importovat následující repositáře?";
+"Download Completed" = "Stahování dokončeno";
+"Removing Zebra..." = "Odstraňuji Zebra...";
+"Installing Zebra..." = "Instalace Zebry...";

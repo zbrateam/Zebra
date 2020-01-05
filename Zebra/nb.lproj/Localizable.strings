@@ -71,7 +71,7 @@
 "Feature Type" = "Utvalgt type";
 "Select Repos to be Featured" = "Velg utvalgte kilder";
 
-"News" = "Nyheter";
+"News" = "News";
 
 "Live Search" = "Live søk";
 
@@ -241,6 +241,7 @@
 "Close Zebra" = "Lukk Zebra";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Laster ned";
+"Parsing" = "Parser";
 "Downloading Packages..." = "Laster ned pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakker...";
@@ -329,21 +330,9 @@
 
 "Community News" = "Fellesskapets nyheter";
 
-#Zebra version
-"Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Oppdaterer kilder";
 "Would you like to import the following repositories?" = "Vil du importere følgende kilder?";
 "Download Completed" = "Nedlasting fullført";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
-
-#Parsing <Repo Name>
-"Parsing" = "Parser";
-
-#Downloading <Filename>
-"Downloading %@" = "Laster ned %@";
-
-#Done <Filename>
-"Done %@" = "Ferdig %@";

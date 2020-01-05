@@ -71,7 +71,7 @@
 "Feature Type" = "Lloji i Kryeartikullit";
 "Select Repos to be Featured" = "Zgjidh repot për tu veçuar";
 
-"News" = "Lajmet";
+"News" = "News";
 
 "Live Search" = "Kërkimi i Drejtpërdrejtë";
 
@@ -110,8 +110,8 @@
 "Add" = "Shto";
 "Add Multiple" = "Shto disa";
 "Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
-"Please Wait..." = "Të Lutem Prit...";
-"Verifying Source(s)" = "Duke verifikuar burimin(et)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nuk mund të verifikoj Repo";
 "Refresh" = "Rifresko";
 "Log Out" = "Dilni";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Mbyll Zebran";
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
 "Downloading" = "Duke u shkarkuar";
+"Parsing" = "Duke analizuar";
 "Downloading Packages..." = "Shkarkimi i Paketave...";
 "Installing" = "Instalimi";
 "Installing Packages..." = "Instalimi i Paketave...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"I rastësishëm\" do të shfaq paketat e rastësishme nga të gjitha repot që keni shtuar në Zebra.";
 
 "Community News" = "Lajmet e komunitetit";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importo Burimet";
 "Updating Repositories" = "Duke përditësuar repot";
 "Would you like to import the following repositories?" = "A dëshironi të importoni repot e mëposhtme?";
 "Download Completed" = "Shkarkimi Përfundoi";
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Duke analizuar %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Duke shkarkuar %@";
-
-"#Done <Filename>
-Done %@" = "Përfundoi %@";

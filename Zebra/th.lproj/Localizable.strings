@@ -16,8 +16,8 @@
 "Info" = "ข้อมูล";
 "Welcome to Zebra!" = "ยินดีต้อนรับสู่ Zebra!";
 "Changelog" = "รายการเปลี่ยนแปลง";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "ซอร์สชุมชน";
+"You’ve added all of the community sources" = "คุณได้เพิ่มซอร์สชุมชนทั้งหมดแล้ว";
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
@@ -71,7 +71,7 @@
 "Feature Type" = "วิธีแสดง";
 "Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
 
-"News" = "ข่าวสาร";
+"News" = "News";
 
 "Live Search" = "ค้นหาทันที";
 
@@ -110,8 +110,8 @@
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
-"Please Wait..." = "โปรดรอ...";
-"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
 "Log Out" = "ลงชื่อออก";
@@ -241,6 +241,7 @@
 "Close Zebra" = "ปิด Zebra";
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
 "Downloading" = "กำลังดาวน์โหลด";
+"Parsing" = "อ่าน";
 "Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
 "Installing" = "กำลังติดตั้ง";
 "Installing Packages..." = "กำลังติดตั้งโปรแกรม...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
 
 "Community News" = "ข่าวสารชุมชน";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
+"Import Sources" = "นำเข้าซอร์ส";
+"Updating Repositories" = "อัพเดตซอร์ส";
+"Would you like to import the following repositories?" = "คุณต้องการเพิ่มซอร์สเหล่านี้หรือไม่?";
+"Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
+"Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
+"Installing Zebra..." = "ติดตั้ง Zebra...";

@@ -71,7 +71,7 @@
 "Feature Type" = "Typ odporúčania";
 "Select Repos to be Featured" = "Vyber repozitára, ktoré budú odporúčané";
 
-"News" = "Novinky";
+"News" = "News";
 
 "Live Search" = "Živé Vyhľadavanie";
 
@@ -110,8 +110,8 @@
 "Add" = "Pridať";
 "Add Multiple" = "Pridať viac";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
-"Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nie je možné overiť repozitár";
 "Refresh" = "Refreshút";
 "Log Out" = "Odhlásiť sa";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Zatvoriť Zebra";
 "Restart SpringBoard" = "Reštart SpringBoardu";
 "Downloading" = "Stahovanie";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Sťahujú sa balíčky ...";
 "Installing" = "Inštalovanie";
 "Installing Packages..." = "Inštalácia balíčkov ...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovať náhodné balíčky zo všetkých repozitárov, ktoré ste pridali do Zebry.";
 
 "Community News" = "Komunitné Novinky";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";

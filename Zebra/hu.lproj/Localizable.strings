@@ -71,7 +71,7 @@
 "Feature Type" = "Feature Type";
 "Select Repos to be Featured" = "Select Repos to be Featured";
 
-"News" = "Hírek";
+"News" = "News";
 
 "Live Search" = "Élő keresés";
 
@@ -110,8 +110,8 @@
 "Add" = "Hozzáad";
 "Add Multiple" = "Több hozzáadáasa";
 "Would you like to add the URL from your clipboard?" = "Szeretnéd a vágólapon lévő URL-t hozzáadni?";
-"Please Wait..." = "Kérlek, várj...";
-"Verifying Source(s)" = "Forrás(ok) ellenőrzése";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Unable to verify Repo";
 "Refresh" = "Frissítés";
 "Log Out" = "Kijelentkezés";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Zebra bezárása";
 "Restart SpringBoard" = "SpringBoard újraindítása";
 "Downloading" = "Letöltés";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Csomagok letöltése...";
 "Installing" = "Telepítés";
 "Installing Packages..." = "Csomagok telepítése...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
 "Community News" = "Közösségi hírek";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
