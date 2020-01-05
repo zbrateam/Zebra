@@ -19,7 +19,7 @@
 "Community Sources" = "公式リポジトリ";
 "You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
 "Please Wait..." = "お待ちください...";
 "Verifying Source(s)" = "リポジトリの検証中";
@@ -68,7 +68,7 @@
 "Featured Packages" = "注目されているパッケージ";
 "Random" = "ランダム";
 "Feature Type" = "表示内容";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "リポジトリを選択";
 
 "News" = "ニュース";
 
@@ -99,19 +99,19 @@
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 "Unknown" = "不明";
 "No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"You have already added these sources." = "このリポジトリはすでに追加されています。";
+"Error verifying source" = "リポジトリの検証エラー";
+"Error verifying sources" = "リポジトリの検証エラー";
 "Unknown error" = "不明なエラー";
 "Invalid URL" = "無効なURL";
 "Enter URL" = "URLを入力";
-"Add Sources" = "Add Sources";
+"Add Sources" = "リポジトリを追加";
 "Add" = "追加";
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
 "Please Wait..." = "お待ちください...";
 "Verifying Source(s)" = "リポジトリの検証中";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
 "Log Out" = "ログアウト";
 "Purchased Packages" = "購入したパッケージ";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
-"Source" = "Source";
+"Source" = "リポジトリ";
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "認証してから購入します。";
@@ -222,9 +222,9 @@
 
 "Downloads" = "ダウンロード";
 "Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
 "Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
 "Could not determine device information." = "デバイス情報を特定できませんでした。";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのリポジトリを変更します。";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
 "Community News" = "コミュニティニュース";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "リポジトリを追加する";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "リポジトリを更新中";
+"Would you like to import the following sources?" = "次のリポジトリを追加しますか？";
 "Download Completed" = "ダウンロード完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
