@@ -59,30 +59,19 @@
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
     
-    NSMutableData *output = [NSMutableData new];
-    NSTask *checkFiles = [[NSTask alloc] init];
-    [checkFiles setLaunchPath:@"/usr/bin/dpkg"];
-    [checkFiles setArguments:@[@"-L", packageID]];
-    
-    checkFiles.standardOutput = [NSPipe pipe];
-    [[checkFiles.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
-        NSData *data = [file availableData];
-        [output appendData:data];
-    }];
-    
-    @try {
-        [checkFiles launch];
-        [checkFiles waitUntilExit];
-        [checkFiles.standardOutput fileHandleForReading].readabilityHandler = nil;
-        
-        NSString *stringRead = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
-        return [stringRead componentsSeparatedByString:@"\n"];
+    NSString *path = [NSString stringWithFormat:@"/Library/dpkg/info/%@.list", packageID];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *readError;
+        NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
+        if (!readError) {
+            return [contents componentsSeparatedByString:@"\n"];
+        }
+        else {
+            return @[readError.localizedDescription];
+        }
     }
-    @catch (NSException *e) {
-        CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
-        NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
-        
-        return NULL;
+    else {
+        return @[@"No files found"];
     }
 }
 
