@@ -25,7 +25,6 @@
 
 @interface ZBConsoleViewController () {
     NSMutableArray *applicationBundlePaths;
-    NSMutableArray *uicaches;
     NSMutableArray *installedPackageIdentifiers;
     NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
     NSString *localInstallPath;
@@ -291,11 +290,10 @@
                 }
             }
             
-            uicaches = [NSMutableArray new];
             for (int i = 0; i < [installedPackageIdentifiers count]; i++) {
                 NSString *packageIdentifier = installedPackageIdentifiers[i];
                 NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageIdentifier];
-                if (bundlePath) {
+                if (bundlePath && ![applicationBundlePaths containsObject:bundlePath]) {
                     updateIconCache = YES;
                     NSLog(@"[Zebra] %@ contains an application bundle at %@, we will update uicache", packageIdentifier, bundlePath);
                     [applicationBundlePaths addObject:bundlePath];
@@ -438,7 +436,7 @@
 
 - (void)closeZebra {
     if (![ZBDevice needsSimulation]) {
-        if (uicaches.count > 1) {
+        if (applicationBundlePaths.count > 1) {
             [self updateIconCaches];
         } else {
             [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
@@ -459,24 +457,10 @@
 
 - (void)updateIconCaches {
     [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
-    NSMutableArray *arguments = [NSMutableArray new];
-    NSLog(@"[Zebra] uicaches %@", uicaches);
-    NSLog(@"[Zebra] applicationBundlePaths %@", applicationBundlePaths);
-    if (uicaches.count + applicationBundlePaths.count > 1) {
-        [arguments addObject:@"-a"];
-        [self writeToConsole:NSLocalizedString(@"This may take awhile and Zebra may crash. It is okay if it does.", @"") atLevel:ZBLogLevelWarning];
-    }
-    else {
-        [arguments addObject:@"-p"];
-        for (NSString *packageID in [uicaches copy]) {
-            if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
-                continue;
-            NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageID];
-            if (bundlePath != NULL)
-                [applicationBundlePaths addObject:bundlePath];
-        }
-        [arguments addObjectsFromArray:applicationBundlePaths];
-    }
+    NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"-p"];
+    [arguments addObjectsFromArray:applicationBundlePaths];
+    
+    NSLog(@"[Zebra] UICache Arguemnts: %@", arguments);
     
     if (![ZBDevice needsSimulation]) {
         [ZBDevice uicache:arguments observer:self];
