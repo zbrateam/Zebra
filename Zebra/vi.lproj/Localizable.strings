@@ -240,6 +240,7 @@
 "Close Zebra" = "Đóng Zebra";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
 "Downloading" = "Đang tải xuống";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Đang tải xuống gói...";
 "Installing" = "Đang cài đặt";
 "Installing Packages..." = "Đang cài đặt gói...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các nguồn mà bạn đã thêm vào Zebra.";
 
 "Community News" = "Tin tức cộng đồng";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Nhập nguồn";
 "Updating Sources" = "Đang cập nhật nguồn";
 "Would you like to import the following sources?" = "Bạn có muốn nhập các nguồn sau đây?";
 "Download Completed" = "Tải về hoàn tất";
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
-
-"#Parsing <Source Name>
-Parsing %@" = "Phân tích cú pháp %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Đang tải %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "Xong %@";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
