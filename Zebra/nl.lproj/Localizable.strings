@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Welkom bij Zebra!";
 "Changelog" = "Wijzigingslogboek";
 "Community Sources" = "Gemeenschaps Bronnen";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"You’ve added all of the community sources" = "Je hebt alle gemeenschaps bronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
@@ -241,7 +241,7 @@
 "Close Zebra" = "Sluit Zebra";
 "Restart SpringBoard" = "Herstart SpringBoard";
 "Downloading" = "Aan het downloaden";
-"Parsing" = "Parsing";
+"Parsing" = "Parseren";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
 "Installing" = "Aan het installeren";
 "Installing Packages..." = "Pakketten aan het installeren...";
