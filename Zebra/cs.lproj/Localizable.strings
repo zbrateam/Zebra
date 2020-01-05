@@ -345,9 +345,9 @@ Parsing %@" = "Analýza %@";
 Downloading %@" = "Stahování %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "Stahování %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "Dokončeno %@";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Nelze najít repozitář APT na %@";
