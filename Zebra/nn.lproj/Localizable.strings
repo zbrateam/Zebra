@@ -71,7 +71,7 @@
 "Feature Type" = "Utvald type";
 "Select Repos to be Featured" = "Vel utvalde kjelder";
 
-"News" = "Nyheiter";
+"News" = "News";
 
 "Live Search" = "Live søk";
 
@@ -241,7 +241,7 @@
 "Close Zebra" = "Lukk Zebra";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Lastar ned";
-"Parsing" = "Parsing";
+"Parsing" = "Parsar";
 "Downloading Packages..." = "Lastar ned pakkar...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakkar...";
