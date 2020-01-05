@@ -16,8 +16,8 @@
 "Info" = "Πληροφορίες";
 "Welcome to Zebra!" = "Καλώς ήλθατε στο Zebra!";
 "Changelog" = "Καταγραφή Αλλαγών";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Πηγές της Κοινωνίας";
+"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινωνίας";
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
@@ -331,10 +331,10 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
+"Import Sources" = "Εισαγωγή Πηγών";
 "Updating Sources" = "Updating Sources";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
+"Download Completed" = "Η Λήψη Ολοκληρώθηκε";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
