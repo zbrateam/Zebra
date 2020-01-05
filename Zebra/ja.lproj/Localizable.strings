@@ -146,19 +146,19 @@
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
 "Repo" = "リポジトリ";
-"Installed Files" = "インストールされたファイル";
+"Installed Files" = "インストール済みファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
 "Installed Version" = "インストール済みバージョン";
-"Installed Size" = "実際の容量";
+"Installed Size" = "インストール済みサイズ";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@(インストール時:%@)";
+"%@ (Installed Size: %@)" = "%@(インストール済み:%@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -294,7 +294,7 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
