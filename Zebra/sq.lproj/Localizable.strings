@@ -240,6 +240,7 @@
 "Close Zebra" = "Mbyll Zebran";
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
 "Downloading" = "Duke u shkarkuar";
+"Parsing" = "Duke analizuar";
 "Downloading Packages..." = "Shkarkimi i Paketave...";
 "Installing" = "Instalimi";
 "Installing Packages..." = "Instalimi i Paketave...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“I Rastësishëm” do të shfaq paketa të rastësishme nga të gjitha burimet që ju keni shtuat në Zebra.";
 
 "Community News" = "Lajmet e komunitetit";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importo Burimet";
 "Updating Sources" = "Duke përditsuar burimet";
 "Would you like to import the following sources?" = "A dëshironi të importoni burimet e mëposhtme?";
 "Download Completed" = "Shkarkimi Përfundoi";
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
-
-"#Parsing <Source Name>
-Parsing %@" = "Duke analizuar %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Duke shkarkuar %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Duke shkarkuar %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "Përfundoi %@";
 
 "Could not find an APT repository located at %@" = "Nuk u gjet dot një depo APT e vendosur në %@";
