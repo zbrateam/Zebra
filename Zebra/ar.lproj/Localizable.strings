@@ -71,7 +71,7 @@
 "Feature Type" = "نوع الميزة";
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 
-"News" = "الأخبار";
+"News" = "News";
 
 "Live Search" = "بحث مباشر";
 
@@ -110,8 +110,8 @@
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
-"Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "تعذر التحقق من المستودع";
 "Refresh" = "تحديث";
 "Log Out" = "تسجيل خروج";
