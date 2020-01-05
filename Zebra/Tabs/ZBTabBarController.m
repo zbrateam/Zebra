@@ -211,7 +211,6 @@
         
         [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
         [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-        //[[self popupBar] setTintColor:[UIColor whiteColor]];
     }
     else {
         [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
@@ -219,7 +218,6 @@
         
         [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
         [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-        //[[self popupBar] setTintColor:[UIColor blackColor]];
     }
 }
 

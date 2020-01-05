@@ -55,7 +55,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
@@ -78,9 +78,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    [self colorWindow];
+    [self updateTheme];
 }
 
 - (void)setupFeatured {
@@ -551,16 +549,16 @@ typedef enum ZBLinksOrder : NSUInteger {
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
         [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
-        [self resetTable];
+        [self updateTheme];
         [ZBDevice refreshViews];
     });
 }
 
-- (void)resetTable {
+- (void)updateTheme {
     [self.tableView reloadData];
     [self colorWindow];
-    [self configureFooter];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
@@ -573,6 +571,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
     _darkModeButton.tintColor = [UIColor tintColor];
     _settingsButton.tintColor = [UIColor tintColor];
+    [self configureFooter];
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
@@ -603,17 +602,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
         [self.tableView endUpdates];
     }
-}
-
-- (void)animateTable {
-    [self.tableView reloadData];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

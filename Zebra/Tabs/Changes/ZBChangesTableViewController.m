@@ -157,7 +157,6 @@
             ZBLog(@"[Zebra] Error retrieving news JSON %@", error);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            // [self animateTable];
             [self createHeader];
         });
     }] resume];
@@ -498,7 +497,6 @@
     } else {
         [self.redditPosts removeAllObjects];
         [self hideHeader];
-        // [self animateTable];
     }
 }
 
