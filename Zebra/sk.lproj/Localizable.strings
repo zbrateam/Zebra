@@ -240,6 +240,7 @@
 "Close Zebra" = "Zatvoriť Zebra";
 "Restart SpringBoard" = "Reštart SpringBoardu";
 "Downloading" = "Stahovanie";
+"Parsing" = "Analyzovanie...";
 "Downloading Packages..." = "Sťahujú sa balíčky ...";
 "Installing" = "Inštalovanie";
 "Installing Packages..." = "Inštalácia balíčkov ...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Náhodné\" bude zobrazovať náhodné balíčky zo všetkých repozitárov, ktoré ste pridali do Zebry.";
 
 "Community News" = "Komunitné Novinky";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importovať Zdroje";
 "Updating Sources" = "Zdroje sa aktualizujú\n\n";
 "Would you like to import the following sources?" = "Chcete importovať nasledujúce zdroje?";
 "Download Completed" = "Sťahovanie dokončené";
 "Removing Zebra..." = "Odstraniť Zebru...";
 "Installing Zebra..." = "Inštalácia zebry...";
-
-"#Parsing <Source Name>
-Parsing %@" = "Analýza%@";
-
-"#Downloading <Filename>
-Downloading %@" = "Sťahuje sa%@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Sťahujem %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "Hotovo%@";
 
 "Could not find an APT repository located at %@" = "Nemožno nájsť repozitár APT na %@";
