@@ -21,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteSource:(ZBSource *)delRepo;
 - (void)deleteBaseSource:(ZBBaseSource *)baseSource;
 - (void)addDebLine:(NSString *)sourceLine;
-- (void)transferFromCydia;
-- (void)transferFromSileo;
-- (void)transferFromInstaller;
 - (void)needRecaching;
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
 @end

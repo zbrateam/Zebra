@@ -324,39 +324,6 @@
     }
 }
 
-- (void)transferFromCydia {
-    NSURL *listsURL = [ZBAppDelegate sourcesListURL];
-    NSURL *cydiaListsURL = [NSURL URLWithString:@"file:///var/mobile/Library/Caches/com.saurik.Cydia/sources.list"];
-    
-    [self mergeSourcesFrom:cydiaListsURL into:listsURL completion:^(NSError * _Nonnull error) {
-        if (error) {
-            NSLog(@"[Zebra] Error merging sources: %@", error);
-        }
-    }];
-}
-
-- (void)transferFromSileo {
-    NSURL *listsURL = [ZBAppDelegate sourcesListURL];
-    NSURL *sileoListsURL = [NSURL URLWithString:@"file:///etc/apt/sources.list.d/sileo.sources"];
-    
-    [self mergeSourcesFrom:sileoListsURL into:listsURL completion:^(NSError * _Nonnull error) {
-        if (error) {
-            NSLog(@"[Zebra] Error merging sources: %@", error);
-        }
-    }];
-}
-
-- (void)transferFromInstaller {
-    NSURL *listsURL = [ZBAppDelegate sourcesListURL];
-    NSURL *installerSourcesURL = [NSURL URLWithString:@"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list"];
-    
-    [self mergeSourcesFrom:installerSourcesURL into:listsURL completion:^(NSError * _Nonnull error) {
-        if (error) {
-            NSLog(@"[Zebra] Error merging sources: %@", error);
-        }
-    }];
-}
-
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion {
     if ([[fromURL pathExtension] isEqualToString:@"list"] && [[destinationURL pathExtension] isEqualToString:@"list"]) { // Check to be sure both urls of are type .list
         NSError *readError;
