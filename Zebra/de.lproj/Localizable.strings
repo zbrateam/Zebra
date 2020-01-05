@@ -240,6 +240,7 @@
 "Close Zebra" = "Zebra schließen";
 "Restart SpringBoard" = "SpringBoard neu starten";
 "Downloading" = "Herunterladen";
+"Parsing" = "Wird analysiert";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Installing" = "Wird installiert";
 "Installing Packages..." = "Pakete werden installiert...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "„Zufällig” zeigt zufällige Pakete aus allen Quellen an, die du zu Zebra hinzugefügt hast.";
 
 "Community News" = "Nachrichten der Gemeinschaft";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Quellen importieren";
 "Updating Sources" = "Quellen werden aktualisiert";
 "Would you like to import the following sources?" = "Möchten Sie die folgenden Quellen importieren?";
 "Download Completed" = "Herunterladen abgeschlossen";
 "Removing Zebra..." = "Zebra wird entfernt …";
 "Installing Zebra..." = "Zebra wird installiert …";
-
-"#Parsing <Source Name>
-Parsing %@" = "%@ wird analysiert";
-
-"#Downloading <Filename>
-Downloading %@" = "%@ wird heruntergeladen";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Lade %@ (%@) herunter";
-
-"#Done <Filename>
-Done %@" = "%@ ist abgeschlossen";
 
 "Could not find an APT repository located at %@" = "APT-Repository konnte unter %@ nicht gefunden werden";
