@@ -100,7 +100,7 @@
             @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
             @"deb http://apt.modmyi.com/ stable main\n",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
-            [NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
+            [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
             @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
             @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"
         ];
