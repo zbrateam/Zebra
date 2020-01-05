@@ -70,7 +70,7 @@
 "Feature Type" = "Metod för utväljning";
 "Select Sources to be Featured" = "Välj källor att välja ut från";
 
-"News" = "News";
+"News" = "Nyheter";
 
 "Live Search" = "Livesökning";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Installerar Zebra...";
 
 "Could not find an APT repository located at %@" = "Kunde inte hitta ett APT-förråd på %@";
+
+"Import" = "Import";
