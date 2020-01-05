@@ -241,6 +241,7 @@
 "Close Zebra" = "Zebra'yı Kapat";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
 "Downloading" = "İndiriliyor";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Paketler İndiriliyor...";
 "Installing" = "Yükleniyor";
 "Installing Packages..." = "Paketler Yükleniyor...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
 "Community News" = "Topluluk Haberleri";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Kaynakları İçeri Al";
 "Updating Repositories" = "Kaynaklar Güncelleniyor";
 "Would you like to import the following repositories?" = "Bu kaynakları içeri almak istiyor musunuz?";
 "Download Completed" = "İndirme Tamamlandı";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Okunuyor %@";
-
-"#Downloading <Filename>
-Downloading %@" = "İndiriliyor %@";
-
-"#Done <Filename>
-Done %@" = "%@ Tamamlandı";
