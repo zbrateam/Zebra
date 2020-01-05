@@ -70,7 +70,7 @@
 "Feature Type" = "Utvald type";
 "Select Sources to be Featured" = "Vel utvalde kjelder";
 
-"News" = "News";
+"News" = "Nyheiter";
 
 "Live Search" = "Live søk";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Installerer Zebra...";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
