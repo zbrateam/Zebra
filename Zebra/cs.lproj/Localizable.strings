@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Instalace Zebry...";
 
 "Could not find an APT repository located at %@" = "Nelze najít repozitář APT na %@";
+
+"Import" = "Import";
