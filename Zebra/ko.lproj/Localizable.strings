@@ -16,10 +16,10 @@
 "Info" = "정보";
 "Welcome to Zebra!" = "Zebra에 오신걸 환영합니다!";
 "Changelog" = "변경 사항";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "커뮤니티 소스";
+"You’ve added all of the community sources" = "모든 커뮤니티 소스를 추가했습니다.";
 "Transfer sources from %@ to Zebra" = "%@에서 Zebra로 소스 가져오기";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@(을)를 위한 유틸리티 소스";
 "Transfer Sources" = "소스 이전";
 "Please Wait..." = "잠시만 기다려주세요...";
 "Verifying Source(s)" = "소스를 검증하는 중";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "위시리스트가 비었습니다.";
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord에 참여하세요";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Twitter에서 우리를 팔로우하세요";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "선정된 패키지";
 "Random" = "랜덤";
 "Feature Type" = "선정 방법: ";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "선정될 소스 선택";
 
 "News" = "뉴스";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "대체 아이콘";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "선정된 소스";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "로컬 저장소";
 "Locally installed packages" = "내부에서 설치된 패키지";
 "Unknown" = "알 수 없음";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "소스 URL이 감지되지 않았습니다.";
+"You have already added these sources." = "이미 해당 소스들을 추가했습니다.";
+"Error verifying source" = "소스 검증 오류";
+"Error verifying sources" = "소스 검증 오류";
 "Unknown error" = "알 수 없는 오류";
 "Invalid URL" = "잘못된 URL";
 "Enter URL" = "URL 입력";
-"Add Sources" = "Add Sources";
+"Add Sources" = "소스 추가";
 "Add" = "추가";
 "Add Multiple" = "여러개 추가";
 "Would you like to add the URL from your clipboard?" = "클립보드에서 가져온 URL을 추가할까요?";
 "Please Wait..." = "잠시만 기다려주세요...";
 "Verifying Source(s)" = "소스를 검증하는 중";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "소스를 검증할 수 없음";
 "Refresh" = "새로고침";
 "Log Out" = "로그아웃";
 "Purchased Packages" = "구매된 패키지";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "사용 가능한 업그레이드";
 "Ignored Upgrades" = "무시된 업그레이드";
 "Recent" = "최근";
-"Source" = "Source";
+"Source" = "소스";
 "Installed Files" = "설치된 파일들";
 "Modify" = "수정";
 "Authenticate to initiate purchase." = "인증하여 구매 시작";
@@ -222,9 +222,9 @@
 
 "Downloads" = "다운로드";
 "Error while opening sources.list" = "sources.list를 여는 중 오류가 발생했습니다.";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "%@ 소스는 내 탈옥과 호환되지 않습니다.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "이것을 Zebra에 추가하면 문제가 발생할 수 있습니다..";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "이 소스를 sources.list 파일에서 제거해주세요.";
 "Incorrect documents permissions." = "잘못된 문서 권한.";
 "Could not determine device information." = "기기 정보를 가져올 수 없습니다.";
 "Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
@@ -322,32 +322,32 @@
 
 "Change the source of the featured packages on the homepage." = "홈 화면의 선정된 패키지를 구성할 데이터의 위치를 변경합니다.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"선정된 패키지\"는 선정된 패키지 API를 지원하는 소스의 패키지를 랜덤으로 표시합니다.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 소스에서 랜덤으로 패키지를 표시합니다.";
 
 "Community News" = "커뮤니티 뉴스";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "소스 가져오기";
+"Updating Sources" = "소스 업데이트 중";
+"Would you like to import the following sources?" = "다음 소스들을 가져올까요?";
+"Download Completed" = "다운로드 완료";
+"Removing Zebra..." = "Zebra 제거중...";
+"Installing Zebra..." = "Zebra 설치중...";
 
 "#Parsing <Source Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "%@ 분석 중";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "%@ 다운로드 중";
 
 "#Downloading <Package Name> (<Package Identifier>)
 Downloading %@ (%@)" = "Downloading %@ (%@)";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "%@ 완료";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
