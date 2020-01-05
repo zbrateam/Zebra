@@ -16,7 +16,7 @@
 "Info" = "情報";
 "Welcome to Zebra!" = "Zebra へようこそ！";
 "Changelog" = "変更履歴";
-"Community Sources" = "公式リポジトリ";
+"Community Sources" = "コミュニティリポジトリ";
 "You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility source for %@" = "%@ 専用リポジトリ";
@@ -59,7 +59,7 @@
 
 "Dark Mode Style" = "ダークモード";
 "Dark Mode" = "ダークモード";
-"Default" = "既定";
+"Default" = "デフォルト";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
@@ -72,7 +72,7 @@
 
 "News" = "ニュース";
 
-"Live Search" = "ライブ サーチ";
+"Live Search" = "ライブ検索";
 
 "Swipe Actions Display As" = "スワイプで表示する方法";
 "Text" = "テキスト";
@@ -157,7 +157,7 @@
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@(インストール時:%@)";
+"%@ (Installed Size: %@)" = "%@ (インストール済み: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -195,7 +195,7 @@
 "Navigation" = "ナビゲーション";
 "Networking" = "ネットワーク関連";
 "Packaging" = "パッケージインストーラー";
-"Productivity" = "効率化";
+"Productivity" = "仕事効率化";
 "Repositories" = "リポジトリ";
 "Ringtones" = "着信音";
 "Scripting" = "スクリプト関連";
@@ -277,7 +277,7 @@
 "Confirm" = "実行";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "Required Package" = "要求されたパッケージ";
-"%@ is required by:" = "%@ は以下のTweaksに必要です";
+"%@ is required by:" = "%@ は以下のパッケージ必要です";
 "Issues" = "問題点";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure?" = "よろしいですか？";
