@@ -241,6 +241,7 @@
 "Close Zebra" = "Zatvoriť Zebra";
 "Restart SpringBoard" = "Reštart SpringBoardu";
 "Downloading" = "Stahovanie";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Sťahujú sa balíčky ...";
 "Installing" = "Inštalovanie";
 "Installing Packages..." = "Inštalácia balíčkov ...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovať náhodné balíčky zo všetkých repozitárov, ktoré ste pridali do Zebry.";
 
 "Community News" = "Komunitné Novinky";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
