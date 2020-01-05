@@ -543,14 +543,14 @@
 			path = Settings/Changelog;
 			sourceTree = "<group>";
 		};
-		36A33CEA22C9C0AC0054A577 /* Community Repos */ = {
+		36A33CEA22C9C0AC0054A577 /* Community Sources */ = {
 			isa = PBXGroup;
 			children = (
 				36A33CEB22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.h */,
 				36A33CEC22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m */,
 			);
-			name = "Community Repos";
-			path = "AlternateIcon/Community Repos";
+			name = "Community Sources";
+			path = "AlternateIcon/Community Sources";
 			sourceTree = "<group>";
 		};
 		36F77ADE22A33B6100A4604C /* AltIcons */ = {
@@ -818,7 +818,7 @@
 		89E8633621D5A1420081E485 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				36A33CEA22C9C0AC0054A577 /* Community Repos */,
+				36A33CEA22C9C0AC0054A577 /* Community Sources */,
 				36A33CDF22C9ACFB0054A577 /* Changelog */,
 				367D80F622C3D2F400581D60 /* AlternateIcon */,
 				367D80EF22C3D17F00581D60 /* Settings */,

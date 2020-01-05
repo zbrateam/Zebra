@@ -11,7 +11,7 @@
 #import "ZBNewsCollectionViewCell.h"
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Community Repos/ZBCommunitySourcesTableViewController.h>
+#import <Community Sources/ZBCommunitySourcesTableViewController.h>
 #import <Changelog/ZBChangelogTableViewController.h>
 
 @import FirebaseAnalytics;
