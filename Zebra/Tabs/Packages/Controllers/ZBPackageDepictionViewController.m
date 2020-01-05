@@ -362,37 +362,41 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)configureNavButton {
-    if (self->navButtonsBeingConfigured)
-        return;
-    self->navButtonsBeingConfigured = YES;
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
-    if ([package isInstalled:NO]) {
-        if ([package isReinstallable]) {
-            if ([package isPaid] && [keychain[baseURL] length] != 0) {
-                [self determinePaidPackage];
-            } else {
-                [self addModifyButton];
-            }
-        } else {
-            UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
-            removeButton.enabled = package.repo.repoID != -1;
-            self.navigationItem.rightBarButtonItem = removeButton;
-        }
-    } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
-        [self determinePaidPackage];
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(configureNavButton) withObject:NULL waitUntilDone:NO];
     } else {
-        if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFIRM
-            UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
-            self.navigationItem.rightBarButtonItem = modifyButton;
+        if (self->navButtonsBeingConfigured)
+            return;
+        self->navButtonsBeingConfigured = YES;
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+        NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
+        if ([package isInstalled:NO]) {
+            if ([package isReinstallable]) {
+                if ([package isPaid] && [keychain[baseURL] length] != 0) {
+                    [self determinePaidPackage];
+                } else {
+                    [self addModifyButton];
+                }
+            } else {
+                UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+                removeButton.enabled = package.repo.repoID != -1;
+                self.navigationItem.rightBarButtonItem = removeButton;
+            }
+        } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
+            [self determinePaidPackage];
+        } else {
+            if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFIRM
+                UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
+                self.navigationItem.rightBarButtonItem = modifyButton;
+            }
+            else {
+                UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
+                self.navigationItem.rightBarButtonItem = installButton;
+            }
         }
-        else {
-            UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-            installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
-            self.navigationItem.rightBarButtonItem = installButton;
-        }
+        self->navButtonsBeingConfigured = NO;
     }
-    self->navButtonsBeingConfigured = NO;
 }
 
 - (void)determinePaidPackage {
