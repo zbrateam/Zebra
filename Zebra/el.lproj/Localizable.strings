@@ -241,6 +241,7 @@
 "Close Zebra" = "Κλείσε το Zebra";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
 "Downloading" = "Γίνεται λήψη";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
 "Installing" = "Γίνεται εγκατάσταση";
 "Installing Packages..." = "Γίνεται εγκατάσταση Πακέτων...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
 
 "Community News" = "Νέα Κοινότητας";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
