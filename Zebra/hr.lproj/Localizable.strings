@@ -70,7 +70,7 @@
 "Feature Type" = "Istaknuti Tip";
 "Select Sources to be Featured" = "Odaberite Izvore koje želite istaknuti";
 
-"News" = "News";
+"News" = "Novosti";
 
 "Live Search" = "Pretraživanje uživo";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Instaliranje Zebre...";
 
 "Could not find an APT repository located at %@" = "Ne može se pronaći APT skladišta lociranog u %@";
+
+"Import" = "Import";
