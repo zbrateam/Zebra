@@ -77,6 +77,7 @@
         type = ZBQueueTypeClear;
     }
     if (type != queue) {
+        if (!package || ![package identifier]) return;
         [[self queueFromType:queue] addObject:package];
         [queuedPackagesList addObject:[package identifier]];
         if (queue == ZBQueueTypeInstall || queue == ZBQueueTypeUpgrade || queue == ZBQueueTypeDowngrade) {
