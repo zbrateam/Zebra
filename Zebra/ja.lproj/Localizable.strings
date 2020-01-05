@@ -145,13 +145,13 @@
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
 "Source" = "リポジトリ";
-"Installed Files" = "インストールされたファイル";
+"Installed Files" = "インストール済みファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
 "Installed Version" = "インストール済みバージョン";
-"Installed Size" = "実際の容量";
+"Installed Size" = "インストール済みサイズ";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
