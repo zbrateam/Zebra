@@ -369,7 +369,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             return;
         self->navButtonsBeingConfigured = YES;
         UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-        NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
+        NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
         if ([package isInstalled:NO]) {
             if ([package isReinstallable]) {
                 if ([package isPaid] && [keychain[baseURL] length] != 0) {
