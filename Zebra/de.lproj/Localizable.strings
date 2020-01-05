@@ -70,7 +70,7 @@
 "Feature Type" = "Vorgestellter Typ";
 "Select Sources to be Featured" = "Empfohlene Quellen auswählen";
 
-"News" = "News";
+"News" = "Neuigkeiten";
 
 "Live Search" = "Live-Suche";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Zebra wird installiert …";
 
 "Could not find an APT repository located at %@" = "APT-Repository konnte unter %@ nicht gefunden werden";
+
+"Import" = "Import";
