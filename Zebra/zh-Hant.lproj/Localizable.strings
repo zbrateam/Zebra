@@ -345,9 +345,9 @@ Parsing %@" = "正在解析 %@";
 Downloading %@" = "正在下載 %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "正在下載 %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "已完成 %@";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "無法找到位於 %@ 的 APT 套件來源";
