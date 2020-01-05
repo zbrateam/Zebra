@@ -209,7 +209,8 @@
         else {
             [self setProgressTextHidden:false];
             [self updateProgressText:NSLocalizedString(@"Performing Actions...", @"")];
-            [installedPackageIdentifiers addObjectsFromArray:downloadedFiles];
+            //TODO: Update to fix uicaches/respring IDs
+//            [installedPackageIdentifiers addObjectsFromArray:downloadedFiles];
             for (NSArray *command in actions) {
                 if ([command count] == 1) {
                     [self updateStage:(ZBStage)[command[0] intValue]];
