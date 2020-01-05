@@ -240,6 +240,7 @@
 "Close Zebra" = "סגור את זברה";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
 "Downloading" = "מוריד את";
+"Parsing" = "מנתח";
 "Downloading Packages..." = "מוריד חבילות...";
 "Installing" = "מתקין";
 "Installing Packages..." = "מתקין חבילות...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
 
 "Community News" = "חדשות הקהילה";
-
-"#Zebra version
-Zebra %@" = "זברה %@";
-
 "Import Sources" = "ייבא מקורות";
 "Updating Sources" = "מעדכן מקורות";
 "Would you like to import the following sources?" = "האם ברצונך לייבא את המקורות הבאים?";
 "Download Completed" = "ההורדה הושלמה";
 "Removing Zebra..." = "מסיר את זברה...";
 "Installing Zebra..." = "מתקין את זברה...";
-
-"#Parsing <Source Name>
-Parsing %@" = "מנתח את %@";
-
-"#Downloading <Filename>
-Downloading %@" = "מוריד את %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "מוריד את %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "סיים להוריד את %@";
 
 "Could not find an APT repository located at %@" = "לא ניתן למצוא מקור APT בכתובת %@";
