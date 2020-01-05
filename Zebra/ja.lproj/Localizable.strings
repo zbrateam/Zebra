@@ -16,7 +16,7 @@
 "Info" = "情報";
 "Welcome to Zebra!" = "Zebra へようこそ！";
 "Changelog" = "変更履歴";
-"Community Sources" = "公式リポジトリ";
+"Community Sources" = "コミュニティリポジトリ";
 "You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
@@ -73,7 +73,7 @@
 
 "News" = "ニュース";
 
-"Live Search" = "ライブ サーチ";
+"Live Search" = "ライブ検索";
 
 "Swipe Actions Display As" = "スワイプで表示する方法";
 "Text" = "テキスト";
