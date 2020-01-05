@@ -240,6 +240,7 @@
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Downloading" = "ダウンロードしています";
+"Parsing" = "処理";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
 "Community News" = "コミュニティニュース";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "リポジトリを追加する";
 "Updating Sources" = "リポジトリを更新中";
 "Would you like to import the following sources?" = "次のリポジトリを追加しますか？";
 "Download Completed" = "ダウンロード完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
-
-"#Parsing <Source Name>
-Parsing %@" = "%@ を解析しています";
-
-"#Downloading <Filename>
-Downloading %@" = "%@ をダウンロードしています";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "%@ (%@) をダウンロードしています";
-
-"#Done <Filename>
-Done %@" = "%@ 完了";
 
 "Could not find an APT repository located at %@" = "%@ にある APT リポジトリ が見つかりませんでした";
