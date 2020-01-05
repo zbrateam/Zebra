@@ -8,7 +8,13 @@ Components: main
 Description: Distribution of stable Zebra updates
 SHA1:
  53dd8eafbde24c9254606c82f42b53fbaa770c63 2946 Packages
+ b771e9b78d3cbdda2f6a7ce735b6c2cc10c344f1 860 Packages.xz
  61e0ccdcb06635b993772e4347dca9ba52cad3bb 1021 Packages.bz2
+ e8490a0f346d790171678b0c7c9c7a1f4c0850b3 854 Packages.gz
+ 410cccabc8065abd1773d37a0b2c59d1325de1d0 812 Packages.lzma
 SHA256:
  b014786fcc3b96cc949620362702c47729bcf29449525aaed49cccdcaf9cbb7d 2946 Packages
+ 24224053f535502673ad600d489ea2eea8cf0fe4372b0ea8b4363cb91b64d5dc 860 Packages.xz
  062422452a61df2fdfef909b1168dc0ca35ed7b47ed9769a60001481a1ddaac5 1021 Packages.bz2
+ 7a159d5f23c0b3f9fff7f8fbbe83170ccf5106c4103c59bbada9f0e8965413c9 854 Packages.gz
+ 44c59852adf71974ce749200ea588fb57e69c6a5c904669c4cbdd5245fe80bc7 812 Packages.lzma
