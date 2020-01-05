@@ -82,6 +82,7 @@
     
     ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
+        NSLog(@"[Zebra] I had to use DPKG :(")
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
@@ -151,6 +152,7 @@
     
     ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
     if ([packageID hasSuffix:@".deb"]) {
+        NSLog(@"[Zebra] I had to use DPKG :(")
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
@@ -211,6 +213,7 @@
     
     ZBLog(@"[Zebra] Searching %@ for app path", packageID);
     if ([packageID hasSuffix:@".deb"]) {
+        NSLog(@"[Zebra] I had to use DPKG :(")
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];

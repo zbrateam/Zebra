@@ -196,6 +196,7 @@
 }
 
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
+    NSLog(@"[Zebra] Downloaded Files: %@", downloadedFiles);
     if (downloadFailed) {
         [self writeToConsole:[NSString stringWithFormat:@"\n%@\n\n%@", NSLocalizedString(@"One or more packages failed to download.", @""), NSLocalizedString(@"Click \"Return to Queue\" to return to the Queue and retry the download.", @"")] atLevel:ZBLogLevelDescript];
         [self finishTasks];
@@ -209,29 +210,28 @@
         else {
             [self setProgressTextHidden:false];
             [self updateProgressText:NSLocalizedString(@"Performing Actions...", @"")];
+            [installedPackageIdentifiers addObjectsFromArray:downloadedFiles];
             for (NSArray *command in actions) {
                 if ([command count] == 1) {
                     [self updateStage:(ZBStage)[command[0] intValue]];
                 }
                 else {
-                    for (int i = COMMAND_START; i < [command count]; ++i) {
-                        NSString *packageID = command[i];
-                        if (![self isValidPackageID:packageID]) continue;
-                        
-                        if ([ZBPackage containsApplicationBundle:packageID]) {
-                            updateIconCache = YES;
-                            NSString *path = [ZBPackage pathForApplication:packageID];
-                            if (path != NULL) {
-                                [applicationBundlePaths addObject:path];
+                    if (currentStage == ZBStageRemove) {
+                        for (int i = COMMAND_START; i < [command count]; ++i) {
+                            NSString *packageID = command[i];
+                            if (![self isValidPackageID:packageID]) continue;
+                            
+                            if ([ZBPackage containsApplicationBundle:packageID]) {
+                                updateIconCache = YES;
+                                NSString *path = [ZBPackage pathForApplication:packageID];
+                                if (path != NULL) {
+                                    [applicationBundlePaths addObject:path];
+                                }
                             }
-                        }
 
-                        if (!respringRequired) {
-                            respringRequired = [ZBPackage respringRequiredFor:packageID];
-                        }
-                        
-                        if (currentStage != ZBStageRemove) {
-                            [installedPackageIdentifiers addObject:packageID];
+                            if (!respringRequired) {
+                                respringRequired = [ZBPackage respringRequiredFor:packageID];
+                            }
                         }
                     }
                     
@@ -298,24 +298,16 @@
                 NSString *packageIdentifier = installedPackageIdentifiers[i];
                 if ([ZBPackage containsApplicationBundle:packageIdentifier]) {
                     updateIconCache = YES;
-                    NSString *actualPackageIdentifier = packageIdentifier;
-                    if ([packageIdentifier hasSuffix:@".deb"]) {
-                        // Transform deb-path-like packageID into actual package ID for checking to prevent duplicates
-                        actualPackageIdentifier = [[packageIdentifier lastPathComponent] stringByDeletingPathExtension];
-                        // ex., com.xxx.yyy_1.0.0_iphoneos_arm.deb
-                        NSRange underscoreRange = [actualPackageIdentifier rangeOfString:@"_" options:NSLiteralSearch];
-                        if (underscoreRange.location != NSNotFound) {
-                            actualPackageIdentifier = [actualPackageIdentifier substringToIndex:underscoreRange.location];
-                        }
-                        if ([uicaches containsObject:actualPackageIdentifier])
-                            continue;
-                    }
-                    if (![uicaches containsObject:actualPackageIdentifier])
-                        [uicaches addObject:actualPackageIdentifier];
+                    NSString *bundlePath = [ZBPackage pathForApplication:packageIdentifier];
+                    NSLog(@"[Zebra] %@ contains an application bundle at %@, we will update uicache", packageIdentifier, bundlePath);
+                    [applicationBundlePaths addObject:bundlePath];
                 }
                 
                 if (!respringRequired) {
                     respringRequired |= [ZBPackage respringRequiredFor:packageIdentifier];
+                    if (respringRequired) {
+                        NSLog(@"[Zebra] %@ contains a tweak, we will ask for a respring", packageIdentifier);
+                    }
                 }
             }
             

@@ -636,7 +636,7 @@
                             arr = [NSMutableArray new];
                         }
                         
-                        [arr addObject:package];
+                        [arr addObject:[package identifier]];
                         [self->filenames setValue:arr forKey:@"debs"];
                     }
                 }];
