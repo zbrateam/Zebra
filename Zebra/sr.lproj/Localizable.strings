@@ -334,20 +334,20 @@ Zebra %@" = "Zebra %@";
 "Import Sources" = "Uvezi Izvore";
 "Updating Sources" = "Updating Sources";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Download Completed" = "Preuzimanje je završeno";
+"Removing Zebra..." = "Uklanjam Zerbu...";
+"Installing Zebra..." = "Instaliram Zebru...";
 
 "#Parsing <Source Name>
 Parsing %@" = "Parsing %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Skidam %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
 Downloading %@ (%@)" = "Downloading %@ (%@)";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Urađeno %@";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
