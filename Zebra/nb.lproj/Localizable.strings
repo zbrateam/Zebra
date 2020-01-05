@@ -329,8 +329,8 @@
 
 "Community News" = "Fellesskapets nyheter";
 
-"#Zebra version
-Zebra %@" = "Zebra %@";
+#Zebra version
+"Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Oppdaterer kilder";
@@ -339,11 +339,11 @@ Zebra %@" = "Zebra %@";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
 
-"#Parsing <Repo Name>
-Parsing %@" = "Parser %@";
+#Parsing <Repo Name>
+"Parsing" = "Parser";
 
-"#Downloading <Filename>
-Downloading %@" = "Laster ned %@";
+#Downloading <Filename>
+"Downloading %@" = "Laster ned %@";
 
-"#Done <Filename>
-Done %@" = "Ferdig %@";
+#Done <Filename>
+"Done %@" = "Ferdig %@";

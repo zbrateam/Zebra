@@ -321,11 +321,11 @@
             
             if (zebraModification) { //Zebra should be the last thing installed so here is our chance to install it.
                 if (queue.removingZebra) {
-                    [self postStatusUpdate:@"Removing Zebra..." atLevel:ZBLogLevelInfo];
+                    [self postStatusUpdate:NSLocalizedString(@"Removing Zebra...", @"") atLevel:ZBLogLevelInfo];
                     [self postStatusUpdate:@"Goodbye forever :(" atLevel:ZBLogLevelDescript];
                 }
                 else {
-                    [self postStatusUpdate:@"Installing Zebra..." atLevel:ZBLogLevelInfo];
+                    [self postStatusUpdate:NSLocalizedString(@"Installing Zebra...", @"") atLevel:ZBLogLevelInfo];
                 }
                 
                 NSString *path = queue.zebraPath;

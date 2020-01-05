@@ -285,7 +285,7 @@
             
             [self bulkSetRepo:baseFileName busy:YES];
             
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), baseFileName] atLevel:ZBLogLevelDescript];
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Parsing", @""), baseFileName] atLevel:ZBLogLevelDescript];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName];
             if (repoID == -1) { // Repo does not exist in database, create it (this should never happen).
@@ -1785,7 +1785,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
     [self bulkSetRepo:filename busy:YES];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
+    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Downloading", @""), filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
@@ -1797,7 +1797,7 @@
             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@\n", error.localizedDescription] atLevel:ZBLogLevelError];
         }
     } else if (filename) {
-        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@", filename] atLevel:ZBLogLevelDescript];
+        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Done", @""), filename] atLevel:ZBLogLevelDescript];
     }
 }
 
