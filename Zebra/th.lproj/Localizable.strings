@@ -70,7 +70,7 @@
 "Feature Type" = "วิธีแสดง";
 "Select Sources to be Featured" = "เลือกซอร์สไปแสดงในโปรแกรมยอดนิยม";
 
-"News" = "News";
+"News" = "ข่าวสาร";
 
 "Live Search" = "ค้นหาทันที";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "ติดตั้ง Zebra...";
 
 "Could not find an APT repository located at %@" = "ไม่สามารถหาซอร์ส APT จาก %@";
+
+"Import" = "Import";
