@@ -94,11 +94,11 @@
 
 // Sources
 
-"Sources" = "Repozitáře";
+"Sources" = "Zdroje";
 "Local Repository" = "Místní Repozitář";
 "Locally installed packages" = "Místně nainstalované balíčky";
 "Unknown" = "Neznámý";
-"No source URLs detected." = "Nebyly zjištěny žádné zdrojové URL adresy.";
+"No source URLs detected." = "Nebyly zjištěny žádné URL adresy zdrojů.";
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
 "Error verifying source" = "Chyba ověření zdroje";
 "Error verifying sources" = "Chyba ověření zdroje";
