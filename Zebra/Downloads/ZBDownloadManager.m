@@ -98,7 +98,9 @@
 - (void)downloadPackagesFileWithExtension:(NSString *_Nullable)extension fromRepo:(ZBBaseSource *)source ignoreCaching:(BOOL)ignore {
     self->ignore = ignore;
     
-    NSString *filename = extension ? [NSString stringWithFormat:@"Packages.%@", extension] : @"Packages";
+    if ([extension isEqualToString:@""]) extension = NULL;
+    
+    NSString *filename = (extension) ? [NSString stringWithFormat:@"Packages.%@", extension] : @"Packages";
     NSURL *url = [source.packagesDirectoryURL URLByAppendingPathComponent:filename];
     
     NSMutableURLRequest *packagesRequest = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -236,7 +238,7 @@
                 [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
             }
             else { //Tries to download another filetype
-                NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma"];
+                NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < [options count]) {
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromRepo:source ignoreCaching:ignore];
@@ -444,6 +446,7 @@
     }
     
     NSString *MIMEType = [response MIMEType];
+    NSString *requestedMIMEType = [self guessMIMETypeForFile:[[response URL] lastPathComponent]];
     NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-xz", @"application/x-bzip2", @"application/x-gzip", @"application/x-lzma", @"application/x-deb", @"application/x-debian-package"];
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
     if (index == NSNotFound) {
@@ -451,14 +454,21 @@
         index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
     
-    BOOL downloadFailed = (responseCode != 200 && responseCode != 304);
+    BOOL downloadFailed = (responseCode != 200 && responseCode != 304) || !([MIMEType isEqualToString:requestedMIMEType]);
     switch (index) {
         case 0: { //Uncompressed Packages file or a Release file
             ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
             if (source) {
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
-                    NSError *error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
+                    
+                    NSError *error;
+                    if (![MIMEType isEqualToString:requestedMIMEType]) {
+                        error = [[NSError alloc] initWithDomain:NSURLErrorDomain code:1234 userInfo:@{NSLocalizedDescriptionKey: @"Requested MIME Type is not identical to MIME type received"}];
+                    }
+                    else {
+                        error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
+                    }
                     
                     [self task:downloadTask completedDownloadedForFile:[[response URL] absoluteString] fromSource:source withError:error];
                 }
@@ -467,7 +477,8 @@
                     NSString *listsPath = [ZBAppDelegate listsLocation];
                     NSString *saveName = [self saveNameForURL:[response URL]];
                     NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
-                    if ([finalPath pathExtension] != NULL) {
+                    NSString *originalPathExtension = [[response URL] pathExtension];
+                    if (originalPathExtension != NULL && ![originalPathExtension isEqualToString:@""]) {
                         finalPath = [finalPath stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [finalPath pathExtension]] withString:@""]; //Remove path extension from Packages or Release
                     }
                 
