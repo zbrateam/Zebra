@@ -71,7 +71,7 @@
 "Feature Type" = "Uitgelicht type";
 "Select Repos to be Featured" = "Selecteer een repo om deze uit te lichten";
 
-"News" = "Nieuws";
+"News" = "News";
 
 "Live Search" = "Live zoeken";
 
@@ -110,8 +110,8 @@
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
 "Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
-"Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source(s)" = "Bron(nen) verifiëren";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Kan de bron niet verifiëren";
 "Refresh" = "Ververs";
 "Log Out" = "Log Uit";
