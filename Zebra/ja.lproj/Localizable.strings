@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "アプリのアイコン";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "注目されているリポジトリ";
 
 // Sources
 
@@ -98,7 +98,7 @@
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 "Unknown" = "不明";
-"No source URLs detected." = "No source URLs detected.";
+"No source URLs detected." = "リポジトリ URL が検出されませんでした。";
 "You have already added these sources." = "このリポジトリはすでに追加されています。";
 "Error verifying source" = "リポジトリの検証エラー";
 "Error verifying sources" = "リポジトリの検証エラー";
@@ -345,9 +345,9 @@ Parsing %@" = "%@ を解析しています";
 Downloading %@" = "%@ をダウンロードしています";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "%@ (%@) をダウンロードしています";
 
 "#Done <Filename>
 Done %@" = "%@ 完了";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "%@ にある APT リポジトリ が見つかりませんでした";
