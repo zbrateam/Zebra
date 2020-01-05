@@ -70,7 +70,7 @@
 "Feature Type" = "Öne Çıkanların Tarzı";
 "Select Sources to be Featured" = "Öne çıkarılacak kaynakları seçin";
 
-"News" = "News";
+"News" = "Haberler";
 
 "Live Search" = "Anlık Arama";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Zebra Yükleniyor...";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
