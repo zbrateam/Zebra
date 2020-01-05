@@ -71,7 +71,7 @@
 "Feature Type" = "Lloji i Kryeartikullit";
 "Select Repos to be Featured" = "Zgjidh repot për tu veçuar";
 
-"News" = "Lajmet";
+"News" = "News";
 
 "Live Search" = "Kërkimi i Drejtpërdrejtë";
 
@@ -110,8 +110,8 @@
 "Add" = "Shto";
 "Add Multiple" = "Shto disa";
 "Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
-"Please Wait..." = "Të Lutem Prit...";
-"Verifying Source(s)" = "Duke verifikuar burimin(et)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nuk mund të verifikoj Repo";
 "Refresh" = "Rifresko";
 "Log Out" = "Dilni";
