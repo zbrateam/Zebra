@@ -70,7 +70,7 @@
 "Feature Type" = "Tipo Primo Piano";
 "Select Sources to be Featured" = "Seleziona le Sorgenti da mettere in Evidenza";
 
-"News" = "News";
+"News" = "Notizie";
 
 "Live Search" = "Ricerca in tempo reale";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Installando Zebra...";
 
 "Could not find an APT repository located at %@" = "Impossibile trovare una repository APT situata in %@";
+
+"Import" = "Import";
