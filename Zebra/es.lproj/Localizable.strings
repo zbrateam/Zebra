@@ -70,7 +70,7 @@
 "Feature Type" = "Tipo de destacado";
 "Select Sources to be Featured" = "Seleccione las fuentes a ser destacadas";
 
-"News" = "News";
+"News" = "Noticias";
 
 "Live Search" = "Búsqueda en tiempo real";
 
@@ -334,4 +334,7 @@
 "Download Completed" = "Descarga Completa";
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
+
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
