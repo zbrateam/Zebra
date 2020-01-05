@@ -16,8 +16,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Zdroje Společenství";
+"You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility repo for %@" = "Repozitář nástrojů pro %@";
 "Transfer Sources" = "Přenést Repozitáře";
@@ -241,7 +241,7 @@
 "Close Zebra" = "Zavřít Zebru";
 "Restart SpringBoard" = "Restartovat SpringBoard";
 "Downloading" = "Stahování";
-"Parsing" = "Parsing";
+"Parsing" = "Analýza";
 "Downloading Packages..." = "Stahování balíčků...";
 "Installing" = "Instalování";
 "Installing Packages..." = "Instalování balíčků...";
@@ -329,9 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovat náhodné balíčky ze všech repozitářů, které jste přidali do Zebry.";
 
 "Community News" = "Komunitní Novinky";
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importovat zdroje";
+"Updating Repositories" = "Aktualizace úložiště";
+"Would you like to import the following repositories?" = "Chcete importovat následující repositáře?";
+"Download Completed" = "Stahování dokončeno";
+"Removing Zebra..." = "Odstraňuji Zebra...";
+"Installing Zebra..." = "Instalace Zebry...";
