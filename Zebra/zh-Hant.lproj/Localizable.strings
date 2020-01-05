@@ -241,6 +241,7 @@
 "Close Zebra" = "關閉 Zebra";
 "Restart SpringBoard" = "重新啟動主畫面";
 "Downloading" = "正在下載";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "正在下載套件...";
 "Installing" = "正在安裝";
 "Installing Packages..." = "正在安裝套件...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
 
 "Community News" = "社群新聞";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "匯入來源";
 "Updating Repositories" = "正在更新套件來源";
 "Would you like to import the following repositories?" = "您想要匯入以下的套件來源嗎？";
 "Download Completed" = "下載完成";
 "Removing Zebra..." = "正在移除 Zebra...";
 "Installing Zebra..." = "正在安裝 Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "正在解析 %@";
-
-"#Downloading <Filename>
-Downloading %@" = "正在下載 %@";
-
-"#Done <Filename>
-Done %@" = "已完成 %@";
