@@ -68,7 +68,7 @@
 "Featured Packages" = "Öne Çıkan Paketler";
 "Random" = "Rastgele";
 "Feature Type" = "Öne Çıkanların Tarzı";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Öne çıkarılacak kaynakları seçin";
 
 "News" = "Haberler";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternatif İkonlar";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Öne çıkan kaynaklar";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Yüklü Kaynaklar";
 "Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
 "Unknown" = "Bilinmiyor";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Kaynak URL’si Bulunamadı.";
+"You have already added these sources." = "Zaten bu kaynakları ekledin.";
+"Error verifying source" = "Kaynağı doğrularken hata oluştu";
+"Error verifying sources" = "Kaynakları doğrularken hata oluştu";
 "Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
 "Enter URL" = "Link Girin";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Kaynakları Ekle";
 "Add" = "Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
 "Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Kaynağı Onaylayamıyoruz";
 "Refresh" = "Yenile";
 "Log Out" = "Çıkış Yap";
 "Purchased Packages" = "Satın Alınan Paketler";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Yoksayılan Güncellemeler";
 "Recent" = "En Son";
-"Source" = "Source";
+"Source" = "Kaynak";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
 "Authenticate to initiate purchase." = "İç satın alımı onayla.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "İndirmeler";
 "Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygun değil.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Lütden bu kaynağı sources.list dosyasından kaldırın.";
 "Incorrect documents permissions." = "Yanlış döküman yetkileri.";
 "Could not determine device information." = "Cihaz bilgisi alınaması.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Anasayfadaki öne çıkan paketlerin kaynağını değiştir.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Kaynağın Öne Çıkanları\" Öne Çıkan Paket API’sini destekleyen kaynaklardan rastgele paketler gösterecek.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
 "Community News" = "Topluluk Haberleri";
 
@@ -333,7 +333,7 @@ Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Kaynakları İçeri Al";
 "Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
 "Download Completed" = "İndirme Tamamlandı";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
