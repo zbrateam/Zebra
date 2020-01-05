@@ -68,7 +68,7 @@
 "Featured Packages" = "Vorgestellte Pakete";
 "Random" = "Zufällig";
 "Feature Type" = "Vorgestellter Typ";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Empfohlene Quellen auswählen";
 
 "News" = "Neuigkeiten";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternative Symbole";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Empfohlene Quellen";
 
 // Sources
 
@@ -98,8 +98,8 @@
 "Local Repository" = "Lokale Quelle";
 "Locally installed packages" = "Lokal installierte Pakete";
 "Unknown" = "Unbekannt";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
+"No source URLs detected." = "Keine Quell-URLs erkannt.";
+"You have already added these sources." = "Du hast diese Quellen bereits hinzugefügt.";
 "Error verifying source" = "Fehler beim überprüfen der Quelle";
 "Error verifying sources" = "Fehler beim überprüfen der Quellen";
 "Unknown error" = "Unbekannter Fehler";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Fehler beim Öffnen von sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Die Quelle %@ ist nicht kompatibel mit deinem Jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Wenn du das zu Zebra hinzufügst, könnten Probleme auftreten, die möglicherweise eine Wiederherstellung erforderlich machen.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Bitte entferne diese Quelle aus deiner sources.list Datei.";
 "Incorrect documents permissions." = "Falsche Dokumentenberechtigung.";
 "Could not determine device information." = "Geräteinformationen nicht gefunden.";
 "Could not find a download URL for" = "Konnte keine Download-URL finden für";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Ändern Sie die Quelle der empfohlenen Pakete auf der Startseite.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "„Empfohlen” zeigt zufällige Pakete aus Quellen, die die API „Empfohlenes Paket” unterstützen.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "„Zufällig” zeigt zufällige Pakete aus allen Quellen an, die du zu Zebra hinzugefügt hast.";
 
 "Community News" = "Nachrichten der Gemeinschaft";
 
@@ -345,9 +345,9 @@ Parsing %@" = "%@ wird analysiert";
 Downloading %@" = "%@ wird heruntergeladen";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "Lade %@ (%@) herunter";
 
 "#Done <Filename>
 Done %@" = "%@ ist abgeschlossen";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "APT-Repository konnte unter %@ nicht gefunden werden";
