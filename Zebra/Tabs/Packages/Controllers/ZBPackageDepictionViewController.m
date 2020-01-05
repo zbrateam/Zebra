@@ -22,7 +22,6 @@
 #import <Sources/Helpers/ZBSource.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBWebViewController.h"
 #import "ZBPurchaseInfo.h"
 
 @import SDWebImage;
@@ -230,14 +229,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *action = contents[1];
     
     if ([destination isEqual:@"local"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-        filesController.navigationDelegate = self;
-        filesController.navigationItem.title = NSLocalizedString(@"Installed Files", @"");
-        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
-        [filesController setValue:url forKey:@"_url"];
-        
-        [[self navigationController] pushViewController:filesController animated:YES];
+        //TODO: Make installed files work again
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+//        filesController.navigationDelegate = self;
+//        filesController.navigationItem.title = NSLocalizedString(@"Installed Files", @"");
+//        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
+//        [filesController setValue:url forKey:@"_url"];
+//
+//        [[self navigationController] pushViewController:filesController animated:YES];
     }
 }
 

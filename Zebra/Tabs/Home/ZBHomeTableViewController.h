@@ -12,7 +12,6 @@
 #import "ZBStoresListTableViewController.h"
 #import "ZBSettingsTableViewController.h"
 #import "ZBWishListTableViewController.h"
-#import "ZBWebViewController.h"
 #import "ZBDatabaseManager.h"
 #import "ZBSource.h"
 #import "ZBNoScrollHeaderTableView.h"
