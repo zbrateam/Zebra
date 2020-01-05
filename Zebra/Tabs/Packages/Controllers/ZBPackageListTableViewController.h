@@ -10,13 +10,13 @@
 #import <ZBRefreshableTableViewController.h>
 #import "ZBPackageDepictionViewController.h"
 
-@class ZBRepo;
+@class ZBSource;
 @class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate>
-@property (nonatomic, strong) ZBRepo *repo;
+@property (nonatomic, strong) ZBSource *repo;
 @property (nonatomic, strong) NSString *section;
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;

@@ -14,6 +14,14 @@
 #include <string.h>
 #include <libgen.h>
 
+struct ZBBaseSource {
+    const char *archiveType;
+    const char *repositoryURI;
+    const char *distribution;
+    const char *components;
+    const char *baseFilename;
+};
+
 enum PARSEL_RETURN_TYPE {
     PARSEL_OK,
     PARSEL_FILENOTFOUND
@@ -21,9 +29,9 @@ enum PARSEL_RETURN_TYPE {
 
 void createTable(sqlite3 *database, int table);
 int needsMigration(sqlite3 *database, int table);
-enum PARSEL_RETURN_TYPE importRepoToDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
-enum PARSEL_RETURN_TYPE updateRepoInDatabase(const char *sourcePath, const char *path, sqlite3 *database, int repoID);
-void createDummyRepo (const char *sourcePath, const char *path, sqlite3 *database, int repoID);
+enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID);
+enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID);
+void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID, sqlite3_int64 currentDate);
 

@@ -19,7 +19,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility repo for %@" = "Utility repo for %@";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Transfer Sources";
 "Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifying Source(s)";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "No items in Wish List";
 "Community" = "Community";
 "Join our Discord" = "Join our Discord";
-"Follow me on Twitter" = "Follow me on Twitter";
+"Follow us on Twitter" = "Follow us on Twitter";
 
 //Credits
 
@@ -66,10 +66,9 @@
 "App Icon" = "App Icon";
 
 "Featured Packages" = "Featured Packages";
-"Repo Featured" = "Repo Featured";
 "Random" = "Random";
 "Feature Type" = "Feature Type";
-"Select Repos to be Featured" = "Select Repos to be Featured";
+"Select Sources to be Featured" = "Select Sources to be Featured";
 
 "News" = "News";
 
@@ -91,7 +90,7 @@
 
 "Alternate Icons" = "Alternate Icons";
 
-"Featured Repos" = "Featured Repos";
+"Featured Sources" = "Featured Sources";
 
 // Sources
 
@@ -99,20 +98,20 @@
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
 "Unknown" = "Unknown";
-"No repository urls detected." = "No repository urls detected.";
-"You have already added these repositories." = "You have already added these repositories.";
-"Error verifying repository" = "Error verifying repository";
-"Error verifying repositories" = "Error verifying repositories";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Unknown error";
 "Invalid URL" = "Invalid URL";
 "Enter URL" = "Enter URL";
-"Add Repo(s)" = "Add Repo(s)";
+"Add Sources" = "Add Sources";
 "Add" = "Add";
 "Add Multiple" = "Add Multiple";
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifying Source(s)";
-"Unable to verify Repo" = "Unable to verify Repo";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Refresh";
 "Log Out" = "Log Out";
 "Purchased Packages" = "Purchased Packages";
@@ -145,7 +144,7 @@
 "Available Upgrades" = "Available Upgrades";
 "Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
-"Repo" = "Repo";
+"Source" = "Source";
 "Installed Files" = "Installed Files";
 "Modify" = "Modify";
 "Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
@@ -154,7 +153,7 @@
 "Installed Version" = "Installed Version";
 "Installed Size" = "Installed Size";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
 
 //<Download size> (Installed Size: <installed size>
@@ -223,9 +222,9 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Error while opening sources.list";
-"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
-"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Incorrect documents permissions.";
 "Could not determine device information." = "Could not determine device information.";
 "Could not find a download URL for" = "Could not find a download URL for";
@@ -241,6 +240,7 @@
 "Close Zebra" = "Close Zebra";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Downloading" = "Downloading";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Downloading Packages...";
 "Installing" = "Installing";
 "Installing Packages..." = "Installing Packages...";
@@ -323,27 +323,16 @@
 
 "Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Community News";
-
-#Zebra version
-"Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
-#Parsing <Repo Name>
-"Parsing %@" = "Parsing %@";
-
-#Downloading <Filename>
-"Downloading %@" = "Downloading %@";
-
-#Done <Filename>
-"Done %@" = "Done %@";
+"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";

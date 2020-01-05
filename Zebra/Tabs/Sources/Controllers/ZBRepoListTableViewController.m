@@ -15,10 +15,10 @@
 #import "ZBAddRepoDelegate.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoManager.h>
-#import <Repos/Helpers/ZBRepo.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
-#import <Repos/Controllers/ZBRepoSectionsListTableViewController.h>
+#import <Sources/Helpers/ZBSourceManager.h>
+#import <Sources/Helpers/ZBSource.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 
@@ -31,7 +31,7 @@
     BOOL askedToAddFromClipboard;
     BOOL isRefreshingTable;
     NSString *lastPaste;
-    ZBRepoManager *repoManager;
+    ZBSourceManager *repoManager;
     ZBQueue *queue;
 }
 @end
@@ -43,7 +43,7 @@
     [self applyLocalization];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    sources = [[self.databaseManager repos] mutableCopy];
+    sources = [[self.databaseManager sources] mutableCopy];
     sourceIndexes = [NSMutableDictionary new];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     [self baseViewDidLoad];
@@ -63,7 +63,7 @@
 
 - (void)baseViewDidLoad {
     queue = [ZBQueue sharedQueue];
-    repoManager = [ZBRepoManager sharedInstance];
+    repoManager = [ZBSourceManager sharedInstance];
     
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     
@@ -110,17 +110,10 @@
     NSArray *urlBlacklist = @[@"youtube.com", @"youtu.be", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
     NSMutableArray *repos = [NSMutableArray new];
     
-    for (ZBRepo *repo in [self.databaseManager repos]) {
-        if (repo.secure) {
-            NSString *host = [[NSURL URLWithString:[NSString stringWithFormat:@"https://%@", repo.baseURL]] host];
-            if (host) {
-                [repos addObject:host];
-            }
-        } else {
-            NSString *host = [[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", repo.baseURL]] host];
-            if (host) {
-                [repos addObject:host];
-            }
+    for (ZBSource *repo in [self.databaseManager sources]) {
+        NSString *host = [[NSURL URLWithString:repo.repositoryURI] host];
+        if (host) {
+            [repos addObject:host];
         }
     }
     if ((url && url.scheme && url.host)) {
@@ -174,7 +167,7 @@
 - (void)refreshTable {
     if (isRefreshingTable)
         return;
-    self->sources = [[self.databaseManager repos] mutableCopy];
+    self->sources = [[self.databaseManager sources] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->isRefreshingTable = YES;
         [self updateCollation];
@@ -184,7 +177,7 @@
 }
 
 - (void)updateCollation {
-    self.tableData = [self partitionObjects:sources collationStringSelector:@selector(origin)];
+    self.tableData = [self partitionObjects:sources collationStringSelector:@selector(label)];
 }
 
 - (void)handleURL:(NSURL *)url {
@@ -268,21 +261,21 @@
         [self presentViewController:wait animated:YES completion:nil];
         
         __weak typeof(self) weakSelf = self;
-        [self->repoManager addSourceWithString:sourceURL response:^(BOOL success, NSString *error, NSURL *url) {
+        [self->repoManager addSourcesFromString:sourceURL response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
             if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+                NSLog(@"[Zebra] Could not add source %@ due to error %@", failedURLs[0].absoluteString, error);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [wait dismissViewControllerAnimated:YES completion:^{
-                        [weakSelf presentVerificationFailedAlert:error url:url present:NO];
+                        [weakSelf presentVerificationFailedAlert:error url:failedURLs[0] present:NO];
                     }];
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [wait dismissViewControllerAnimated:YES completion:^{
                         NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
-                         
-                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] init];
-                        console.repoURLs = @[ repoURL ];
+                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[repoURL absoluteString] distribution:@"./" components:NULL];
+                        
+                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:@[baseSource]]];
                         [weakSelf presentViewController:console animated:YES completion:nil];
                     }];
                 });
@@ -312,7 +305,7 @@
     [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
-    __weak typeof(ZBRepoManager *) repoManager = self->repoManager;
+    __weak typeof(ZBSourceManager *) repoManager = self->repoManager;
     
     [repoManager addSourcesFromString:text response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{
@@ -351,14 +344,14 @@
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithRepoURLs:[repoManager verifiedURLs]];
+                ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[repoManager verifiedSources]];
                 [weakSelf presentViewController:console animated:YES completion:nil];
             }
         }];
     }];
 }
 
-- (ZBRepo *)sourceAtIndexPath:(NSIndexPath *)indexPath {
+- (NSObject *)sourceAtIndexPath:(NSIndexPath *)indexPath {
     if (![self hasDataInSection:indexPath.section])
         return nil;
     return self.tableData[indexPath.section][indexPath.row];
@@ -375,10 +368,10 @@
     for (int i = 0; i < sectionCount; ++i) {
         [unsortedSections addObject:[NSMutableArray array]];
     }
-    for (ZBRepo *object in array) {
+    for (ZBSource *object in array) {
         NSUInteger index = [collation sectionForObject:object collationStringSelector:selector];
         NSMutableArray *section = [unsortedSections objectAtIndex:index];
-        sourceIndexes[[object baseFileName]] = @((index << 16) | section.count);
+        sourceIndexes[[object baseFilename]] = @((index << 16) | section.count);
         [section addObject:object];
     }
     NSUInteger lastIndex = 0;
@@ -422,30 +415,47 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBRepo *source = [self sourceAtIndexPath:indexPath];
-    
-    cell.repoLabel.text = [source origin];
-    
-    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    [self setSpinnerVisible:[busyList[[source baseFileName]] boolValue] forCell:cell];
-    
-    if ([source isSecure]) {
-        cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
-    } else {
-        cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
+    NSObject *source = [self sourceAtIndexPath:indexPath];
+    if ([source isKindOfClass:[ZBSource class]]) {
+        ZBSource *trueSource = (ZBSource *)source;
+        cell.repoLabel.text = [trueSource label];
+        
+        NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+        [self setSpinnerVisible:[busyList[[trueSource baseFilename]] boolValue] forCell:cell];
+        
+        cell.urlLabel.text = [trueSource repositoryURI];
+        [cell.iconImageView sd_setImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        
+        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+        cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        
+        cell.tintColor = nil;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
     }
-    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
-    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
-    return cell;
+    else {
+        ZBBaseSource *baseSource = (ZBBaseSource *)source;
+        
+        cell.repoLabel.text = [baseSource repositoryURI];
+        
+        cell.urlLabel.text = @"Tap to learn more";
+        cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
+        
+        cell.repoLabel.textColor = [UIColor systemPinkColor];
+        cell.urlLabel.textColor = [UIColor systemPinkColor];
+        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+        
+        cell.tintColor = [UIColor systemPinkColor];
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepo *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
-    [self setSpinnerVisible:[busyList[[source baseFileName]] boolValue] forCell:cell];
+    [self setSpinnerVisible:[busyList[[source baseFilename]] boolValue] forCell:cell];
 }
 
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -453,36 +463,49 @@
  }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    ZBSource *repo = [self sourceAtIndexPath:indexPath];
     return [repo canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    ZBBaseSource *baseSource = [self sourceAtIndexPath:indexPath];
     NSMutableArray *actions = [NSMutableArray array];
-    if ([repo canDelete]) {
+    if ([baseSource isKindOfClass:[ZBSource class]]) {
+        ZBSource *source = (ZBSource *)baseSource;
+        if ([source canDelete]) {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                [self->sources removeObject:source];
+                [self->repoManager deleteSource:source];
+                [self refreshTable];
+            }];
+            [actions addObject:deleteAction];
+        }
+        if (![self.databaseManager isDatabaseBeingUpdated]) {
+            NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
+            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                //FIXME: fix me !
+        //           [self.databaseManager updateRepo:repo useCaching:YES];
+            }];
+                
+            if ([[UIColor tintColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
+                refreshAction.backgroundColor = [UIColor grayColor];
+            }
+            else {
+                refreshAction.backgroundColor = [UIColor tintColor];
+            }
+                
+            [actions addObject:refreshAction];
+        }
+    }
+    else if ([baseSource canDelete]) {
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            [self->sources removeObject:repo];
-            [self->repoManager deleteSource:repo];
+            [self->sources removeObject:baseSource];
+            [self->repoManager deleteBaseSource:baseSource];
             [self refreshTable];
         }];
         [actions addObject:deleteAction];
     }
-    if (![self.databaseManager isDatabaseBeingUpdated]) {
-        NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
-        UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            [self.databaseManager updateRepo:repo useCaching:YES];
-        }];
-        
-        if ([[UIColor tintColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
-            refreshAction.backgroundColor = [UIColor grayColor];
-        }
-        else {
-            refreshAction.backgroundColor = [UIColor tintColor];
-        }
-        
-        [actions addObject:refreshAction];
-    }
+    
     return actions;
 }
 
@@ -572,8 +595,8 @@
 }
 
 - (void)delewhoop:(NSNotification *)notification {
-    ZBRepo *repo = (ZBRepo *)[[notification userInfo] objectForKey:@"repo"];
-    NSInteger pos = [sourceIndexes[[repo baseFileName]] integerValue];
+    ZBSource *repo = (ZBSource *)[[notification userInfo] objectForKey:@"repo"];
+    NSInteger pos = [sourceIndexes[[repo baseFilename]] integerValue];
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[self indexPathForPosition:pos]];
 }
 

@@ -10,11 +10,11 @@
 #import <ZBDevice.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
-#import <Repos/Helpers/ZBRepo.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Helpers/ZBSource.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepoManager.h>
-#import <Repos/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
+#import <Sources/Helpers/ZBSourceManager.h>
+#import <Sources/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
 
 @import SDWebImage;
 
@@ -60,12 +60,12 @@
 
 - (void)updateStores {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    sources = [[databaseManager repos] mutableCopy];
+    sources = [[databaseManager sources] mutableCopy];
     
     self.tableData = [[NSMutableArray alloc] init];
     
-    for (ZBRepo *repo in sources) {
-        if ([[self.keychain stringForKey:repo.baseURL] length] != 0) {
+    for (ZBSource *repo in sources) {
+        if ([[self.keychain stringForKey:repo.repositoryURI] length] != 0) {
             [self.tableData addObject:repo];
         }
     }
@@ -92,11 +92,11 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
-    ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
+    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
     
-    cell.repoLabel.text = [source origin];
+    cell.repoLabel.text = [source label];
 
-    if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source baseURL]]]) {
+    if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source repositoryURI]]]) {
         cell.urlLabel.text = NSLocalizedString(@"Login", @"");
     } else {
         cell.urlLabel.text = NSLocalizedString(@"Purchases", @"");
@@ -107,8 +107,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
-    currentRepoEndpoint = [_keychain stringForKey:[source baseURL]];
+    ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
+    currentRepoEndpoint = [_keychain stringForKey:[source repositoryURI]];
     if (![self checkAuthenticatedRepo:currentRepoEndpoint]) {
         NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]];
         NSURL *destinationUrl = [NSURL URLWithString:urlString];
@@ -121,7 +121,6 @@
                        initWithURL:destinationUrl
                        callbackURLScheme:@"sileo"
                        completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                           // TODO: Nothing to do here?
                            if (callbackURL) {
                                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                NSArray *queryItems = urlComponents.queryItems;

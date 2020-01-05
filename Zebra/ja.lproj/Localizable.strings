@@ -70,7 +70,7 @@
 "Feature Type" = "表示内容";
 "Select Sources to be Featured" = "リポジトリを選択";
 
-"News" = "ニュース";
+"News" = "News";
 
 "Live Search" = "ライブ検索";
 
@@ -293,7 +293,7 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
@@ -313,7 +313,7 @@
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力中もパッケージを検索します。 この機能を無効にすると、古いデバイスの遅延を減らすことができます。";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力中もパッケージを検索します。 この機能を無効にすると、古いデバイスでの遅延を減らすことができます。";
 
 "Configure the appearance of table view swipe actions." = "スワイプした後の表示内容を構成します。";
 

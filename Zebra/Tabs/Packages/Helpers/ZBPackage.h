@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
-@class ZBRepo;
+@class ZBSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray <NSString *> *provides;
 @property (nonatomic, strong) NSArray <NSString *> *replaces;
 @property (nonatomic, strong) NSString *author;
-@property (nonatomic, strong) ZBRepo *repo;
+@property (nonatomic, strong) ZBSource *repo;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *debPath;
 @property (nonatomic, strong) NSString *iconPath;
@@ -47,8 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
-+ (BOOL)containsApplicationBundle:(NSString *)packageID;
-+ (NSString *)pathForApplication:(NSString *)packageID;
++ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)sameAs:(ZBPackage *)package;

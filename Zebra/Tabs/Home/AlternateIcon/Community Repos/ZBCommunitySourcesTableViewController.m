@@ -8,9 +8,9 @@
 
 #import "ZBCommunitySourcesTableViewController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
 #import <ZBLog.h>
-#import <Tabs/Repos/Helpers/ZBRepo.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
 
 @interface ZBCommunitySourcesTableViewController ()
@@ -29,7 +29,7 @@
     [spinner startAnimating];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
-    repoManager = [ZBRepoManager sharedInstance];
+    repoManager = [ZBSourceManager sharedInstance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,7 +83,7 @@
                 for (NSDictionary *repo in repos) {
                     NSString *version = [repo objectForKey:@"appVersion"];
                     NSString *url = [repo objectForKey:@"url"];
-                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBRepo exists:url]) {
+                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
                         [sources addObject:repo];
                     }
                 }
@@ -146,7 +146,7 @@
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
         [result addObject:dict];
     }
-    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // uncover
+    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",
@@ -279,7 +279,7 @@
     [self presentViewController:wait animated:YES completion:nil];
     
     __weak typeof(self) weakSelf = self;
-    __weak typeof(ZBRepoManager *) repoManager = self.repoManager;
+    __weak typeof(ZBSourceManager *) repoManager = self.repoManager;
     
     [repoManager addSourcesFromString:text response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{
@@ -319,7 +319,7 @@
                 
                 [weakSelf presentViewController:errorAlert animated:YES completion:nil];
             } else {
-                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithRepoURLs:[repoManager verifiedURLs]];                
+                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithBaseSources:[repoManager verifiedSources]];
                 [weakSelf presentViewController:refreshController animated:YES completion:nil];
             }
         }];

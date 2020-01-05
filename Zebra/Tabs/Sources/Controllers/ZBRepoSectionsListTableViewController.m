@@ -10,9 +10,9 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBRepoSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Repos/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import "UIBarButtonItem+blocks.h"
 #import "ZBRepoPurchasedPackagesTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
@@ -41,11 +41,11 @@
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
     // Purchased Buttons
-    self.login = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"") style:UIBarButtonItemStylePlain actionHandler:^{
+    self.login = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain actionHandler:^{
         [self setupRepoLogin];
     }];
     
-    self.purchased = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Purchased", @"") style:UIBarButtonItemStylePlain actionHandler:^{
+    self.purchased = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain actionHandler:^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         ivc.repoName = self.repo.origin;
@@ -67,18 +67,17 @@
         
         self.navigationItem.titleView = container;
     }
-    self.title = [repo origin];
-    if (@available(iOS 10.0, *)) {
+    self.title = [repo label];
+    
+    if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
-    } else {
-        CGFloat top = self.navigationController.navigationBar.bounds.size.height;
-        self.tableView.contentInset = UIEdgeInsetsMake(top + 20, 0, 64, 0);
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     // This has to be registered anyway due to repo payment support late check
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     [self checkFeaturedPackages];
-    if (!self.repoEndpoint && [[_keychain stringForKey:repo.baseURL] length] != 0) {
-        self.repoEndpoint = [_keychain stringForKey:repo.baseURL];
+    if (!self.repoEndpoint && [[_keychain stringForKey:repo.repositoryURI] length] != 0) {
+        self.repoEndpoint = [_keychain stringForKey:repo.repositoryURI];
     }
     [self setupEndpointButtons];
 }
@@ -120,10 +119,10 @@
     [self.tableView layoutIfNeeded];
     if (repo.supportsFeaturedPackages) {
         NSString *requestURL;
-        if ([repo.baseURL hasSuffix:@"/"]) {
-            requestURL = [NSString stringWithFormat:@"https://%@sileo-featured.json", repo.baseURL];
+        if ([repo.repositoryURI hasSuffix:@"/"]) {
+            requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", repo.repositoryURI];
         } else {
-            requestURL = [NSString stringWithFormat:@"https://%@/sileo-featured.json", repo.baseURL];
+            requestURL = [NSString stringWithFormat:@"%@/sileo-featured.json", repo.repositoryURI];
         }
         NSURL *checkingURL = [NSURL URLWithString:requestURL];
         NSURLSession *session = [NSURLSession sharedSession];

@@ -49,7 +49,7 @@
 "Miscellaneous" = "其他設定";
 "Advanced" = "進階設定";
 
-"Report a Bug" = "回報 Bug";
+"Report a Bug" = "回報問題";
 
 "Accent Color" = "強調色";
 "Blue" = "藍色";
@@ -95,7 +95,7 @@
 // Sources
 
 "Sources" = "來源";
-"Local Repository" = "本地來源";
+"Local Repository" = "本地套件來源";
 "Locally installed packages" = "本地已安裝套件";
 "Unknown" = "未知";
 "No source URLs detected." = "沒有檢測到來源網址。";

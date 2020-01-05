@@ -10,7 +10,7 @@
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
 
@@ -37,7 +37,7 @@
 - (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    ZBRepo *repo = package.repo;
+    ZBSource *repo = package.repo;
     NSString *repoName = repo.origin;
     NSString *author = [self stripEmailFromAuthor:package.author];
     NSString *installedSize = calculateSize ? [package installedSizeString] : nil;

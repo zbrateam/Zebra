@@ -70,7 +70,7 @@
 "Feature Type" = "推荐类型";
 "Select Sources to be Featured" = "选择会被推荐的精选软件源";
 
-"News" = "新闻";
+"News" = "News";
 
 "Live Search" = "实时搜索";
 
@@ -151,13 +151,13 @@
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
-"Installed Size" = "安装大小";
+"Installed Size" = "占用空间";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
+"%@ (Installed Size: %@)" = "%@（占用空间：%@）";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d字节";

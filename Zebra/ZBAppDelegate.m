@@ -14,12 +14,12 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
-#import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBRepoListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
-#import <Tabs/Repos/Helpers/ZBRepo.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @import FirebaseCore;
 @import Crashlytics;
@@ -233,7 +233,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     if (@available(iOS 13.0, *)) {
         if ([self.window respondsToSelector:@selector(setOverrideUserInterfaceStyle:)]) { //Because apparently people are faking their iOS version
-            [self.window setOverrideUserInterfaceStyle:1];
+            [self.window setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         }
     }
     return YES;
@@ -293,9 +293,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                     if (path.length > 1) {
                         NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
                         if (source != NULL) {
-                            if ([ZBRepo exists:source]) {
+                            if ([ZBSource exists:source]) {
                                 NSString *packageID = [path substringFromIndex:1];
-                                ZBRepo *repo = [ZBRepo repoFromBaseURL:source];
+                                ZBSource *repo = [ZBSource repoFromBaseURL:source];
                                 ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];

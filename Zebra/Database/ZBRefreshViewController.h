@@ -10,17 +10,19 @@
 #import <ZBDatabaseDelegate.h>
 #import "UIColor+GlobalColors.h"
 
+@class ZBBaseSource;
+
 @interface ZBRefreshViewController : UIViewController <ZBDatabaseDelegate>
 @property (nonatomic, strong) NSArray *messages;
-@property (nonatomic, retain) NSArray <NSURL *> *repoURLs;
+@property (nonatomic, retain) NSSet <ZBBaseSource *> *baseSources;
 @property (nonatomic) BOOL dropTables;
 - (id)init;
 - (id)initWithMessages:(NSArray *)messages;
 - (id)initWithDropTables:(BOOL)dropTables;
-- (id)initWithRepoURLs:(NSArray *)repoURLs;
+- (id)initWithBaseSources:(NSSet <ZBBaseSource *> *)baseSources;
 - (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables;
-- (id)initWithMessages:(NSArray *)messages repoURLs:(NSArray *)repoURLs;
-- (id)initWithDropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs;
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs;
+- (id)initWithMessages:(NSArray *)messages baseSources:(NSSet <ZBBaseSource *> *)baseSources;
+- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSSet <ZBBaseSource *> *)baseSources;
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSSet <ZBBaseSource *> *)baseSources;
 @end
 

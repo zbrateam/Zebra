@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL purchased;
 @property NSString *authorEmail;
 @property (nonatomic, weak) UIViewController *parent;
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo;
+- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo;
 @end
 
 NS_ASSUME_NONNULL_END

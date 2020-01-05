@@ -8,7 +8,7 @@
 
 #import "ZBRepoBlacklistTableViewController.h"
 #import "ZBDatabaseManager.h"
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import "ZBRepoTableViewCell.h"
 #import "UIColor+GlobalColors.h"
 @import SDWebImage;
@@ -42,7 +42,7 @@
 - (void)checkClipboard {}
 
 - (void)refreshTable {
-    self->sources = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    self->sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateCollation];
         [self.tableView reloadData];
@@ -52,17 +52,13 @@
 - (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     NSArray *blackListedRepos = [[NSUserDefaults standardUserDefaults] arrayForKey:@"blackListedRepos"];
-    ZBRepo *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
     
-    cell.repoLabel.text = [source origin];
+    cell.repoLabel.text = [source label];
     
-    if ([source isSecure]) {
-        cell.urlLabel.text = [NSString stringWithFormat:@"https://%@", [source shortURL]];
-    } else {
-        cell.urlLabel.text = [NSString stringWithFormat:@"http://%@", [source shortURL]];
-    }
+    cell.urlLabel.text = [source repositoryURI];
     [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    if (![blackListedRepos containsObject:source.baseURL]) {
+    if (![blackListedRepos containsObject:source.repositoryURI]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -79,12 +75,12 @@
     if (!blocked) {
         blocked = [NSMutableArray new];
     }
-    ZBRepo *repo = [self sourceAtIndexPath:indexPath];
+    ZBSource *repo = [self sourceAtIndexPath:indexPath];
     
-    if ([blocked containsObject:repo.baseURL]) {
-        [blocked removeObject:repo.baseURL];
+    if ([blocked containsObject:repo.repositoryURI]) {
+        [blocked removeObject:repo.repositoryURI];
     } else {
-        [blocked addObject:repo.baseURL];
+        [blocked addObject:repo.repositoryURI];
     }
     [defaults setObject:blocked forKey:@"blackListedRepos"];
     [defaults synchronize];

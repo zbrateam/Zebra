@@ -6,12 +6,13 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import "ZBWebViewController.h"
 #import "ZBAlternateIconController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Repos/Helpers/ZBRepoManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Stores/ZBStoresListTableViewController.h>
 @import SDWebImage;
@@ -22,7 +23,7 @@
     IBOutlet UIProgressView *progressView;
 }
 
-@property (nonatomic, retain) ZBRepoManager *repoManager;
+@property (nonatomic, retain) ZBSourceManager *repoManager;
 
 @end
 
@@ -31,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetWebView) name:@"darkMode" object:nil];
-    self.repoManager = [ZBRepoManager sharedInstance];
+    self.repoManager = [ZBSourceManager sharedInstance];
     [self colorWindow];
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra - %@", PACKAGE_VERSION];
@@ -184,7 +185,7 @@
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
-        } else if ([ZBDevice isUncover]) { // uncover
+        } else if ([ZBDevice isUncover]) { // unc0ver
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
@@ -285,7 +286,7 @@
 }
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-    //    NSLog(@"[Zebra] Handling repo add for method %@", repo);
+    ZBLog(@"[Zebra] Handling repo add for method %@", repo);
     if (local) {
         NSArray *options = @[
                              @"transfercydia",
@@ -329,18 +330,19 @@
         
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
         [self presentViewController:refreshController animated:YES completion:nil];
-    } else {
-        __weak typeof(self) weakSelf = self;
-        
-        [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
-            if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
-            } else {
-                NSLog(@"[Zebra] Added source.");
-                [weakSelf showRefreshView:@(NO)];
-            }
-        }];
     }
+//    } else {
+//        __weak typeof(self) weakSelf = self;
+//
+////        [self.repoManager addSourceWithString:repo response:^(BOOL success, NSString * _Nonnull error, NSURL * _Nonnull url) {
+////            if (!success) {
+////                NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
+////            } else {
+////                NSLog(@"[Zebra] Added source.");
+////                [weakSelf showRefreshView:@(NO)];
+////            }
+////        }];
+//    }
 }
 
 - (void)showRefreshView:(NSNumber *)dropTables {
@@ -367,7 +369,7 @@
     }
     else
     {
-        NSLog(@"[Zebra] This device cannot send email");
+        NSLog(@"[Zebra] This device cannot send email.");
     }
 }
 

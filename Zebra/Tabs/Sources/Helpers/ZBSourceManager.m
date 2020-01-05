@@ -1,32 +1,33 @@
 //
-//  ZBRepoManager.m
+//  ZBSourceManager.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRepoManager.h"
+#import "ZBSourceManager.h"
 #import <UIKit/UIDevice.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 
-@interface ZBRepoManager () {
-    NSMutableArray<NSURL *> *verifiedURLs;
-    NSMutableDictionary <NSNumber *, ZBRepo *> *repos;
+@interface ZBSourceManager () {
+    NSMutableDictionary <NSNumber *, ZBSource *> *repos;
     BOOL recachingNeeded;
 }
 @end
 
-@implementation ZBRepoManager
+@implementation ZBSourceManager
+
+@synthesize verifiedSources;
 
 + (id)sharedInstance {
-    static ZBRepoManager *instance = nil;
+    static ZBSourceManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [ZBRepoManager new];
+        instance = [ZBSourceManager new];
         instance->recachingNeeded = YES;
     });
     return instance;
@@ -36,7 +37,7 @@
     recachingNeeded = YES;
 }
 
-- (NSMutableDictionary <NSNumber *, ZBRepo *> *)repos {
+- (NSMutableDictionary <NSNumber *, ZBSource *> *)repos {
     if (recachingNeeded) {
         recachingNeeded = NO;
         repos = [NSMutableDictionary new];
@@ -48,7 +49,7 @@
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBRepo *source = [[ZBRepo alloc] initWithSQLiteStatement:statement];
+                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 repos[@(source.repoID)] = source;
             }
         } else {
@@ -72,10 +73,6 @@
     return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; // Remove http:// or https:// from url
 }
 
-- (NSArray <NSURL *> *)verifiedURLs {
-    return verifiedURLs;
-}
-
 + (NSArray <NSString *> *)knownDistURLs {
     static NSArray *urls = nil;
     static dispatch_once_t onceToken;
@@ -96,27 +93,28 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         lines = @[
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main\n",
-            @"deb http://apt.modmyi.com/ stable main\n",
-            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
-            [NSString stringWithFormat:@"deb http://apt.bingner.com/ ios/%.2f main\n", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n",
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main\n"
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
+            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
+            @"deb http://apt.modmyi.com/ stable main",
+            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+            [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main",
+            @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
         ];
     });
     return lines;
 }
 
-- (NSString *)knownDebLineFromURLString:(NSString *)urlString {
+- (ZBBaseSource *_Nullable)baseSourceFromDistURL:(NSString *)urlString {
     int index = 0;
-    for (NSString *knownURL in [[self class] knownDistURLs]) {
+    for (NSString *knownURL in [ZBSourceManager knownDistURLs]) {
         if ([urlString containsString:knownURL]) {
-            return [[self class] knownDebLines][index];
+            NSString *debLine = [ZBSourceManager knownDebLines][index];
+            return [[ZBBaseSource alloc] initFromSourceLine:debLine];
         }
         ++index;
     }
-    return nil;
+    return NULL;
 }
 
 - (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond {
@@ -138,7 +136,7 @@
                 
                 NSMutableArray<NSString *> *errors = [NSMutableArray array];
                 NSMutableArray<NSURL *> *errorURLs = [NSMutableArray array];
-                self->verifiedURLs = [NSMutableArray new];
+                self->verifiedSources = [NSMutableSet new];
                 
                 NSMutableSet<NSURL *> *detectedURLs = [NSMutableSet set];
                 
@@ -186,24 +184,25 @@
                         NSLog(@"[Zebra] %@ has already been added.", urlString);
                         dispatch_group_leave(group);
                     } else {
-                        NSString *debLine = [self knownDebLineFromURLString:urlString];
-                        if (debLine) {
-                            [self->verifiedURLs addObject:detectedURL];
+                        ZBBaseSource *baseSource = [self baseSourceFromDistURL:urlString];
+                        if (baseSource) {
+                            [self->verifiedSources addObject:baseSource];
                             
                             dispatch_group_leave(group);
                         } else {
-                            [strongSelf verifySourceExists:detectedURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
-                                if (responseError) {
+                            ZBBaseSource *source = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[detectedURL absoluteString] distribution:@"./" components:NULL];
+                            [source verify:^(BOOL exists) {
+                                if (!exists) {
                                     dispatch_sync(sourcesQueue, ^{
-                                        [errors addObject:[NSString stringWithFormat:@"%@: %@", failingURL, responseError]];
-                                        [errorURLs addObject:failingURL];
+                                        [errors addObject:[NSString stringWithFormat:@"Could not find an APT repository located at %@", detectedURL]];
+                                        [errorURLs addObject:detectedURL];
                                         
                                         dispatch_group_leave(group);
                                     });
-                                } else {
+                                }
+                                else {
                                     dispatch_sync(sourcesQueue, ^{
-                                        [self->verifiedURLs addObject:detectedURL];
-                                        
+                                        [self->verifiedSources addObject:source];
                                         dispatch_group_leave(group);
                                     });
                                 }
@@ -216,15 +215,13 @@
                     typeof(self) strongSelf = weakSelf;
                     
                     if (strongSelf) {
-                        if ([self->verifiedURLs count] == 0 && [errorURLs count] == 0) {
+                        if ([self->verifiedSources count] == 0 && [errorURLs count] == 0) {
                             respond(NO, NO, NSLocalizedString(@"You have already added these repositories.", @""), @[]);
                         }
                         else {
                             __block NSError *addError = nil;
                             
-                            [strongSelf addSources:self->verifiedURLs completion:^(BOOL success, NSError *error) {
-                                addError = error;
-                            }];
+                            [strongSelf addBaseSources:self->verifiedSources];
 
                             if (errors.count) {
                                 NSString *errorMessage = NSLocalizedString(errors.count == 1 ? @"Error verifying repository" : @"Error verifying repositories", @"");
@@ -253,212 +250,61 @@
     });
 }
 
-- (void)addSourceWithURL:(NSURL *)sourceURL response:(void (^)(BOOL success, NSString *error, NSURL *url))respond {
-    [self verifySourceExists:sourceURL completion:^(NSString *responseError, NSURL *failingURL, NSURL *responseURL) {
-        
-        if (self) {
-            if (responseError) {
-                respond(NO, responseError, failingURL);
-            } else {
-                if (responseURL == nil) {
-                    responseURL = sourceURL;
-                }
-                NSLog(@"[Zebra] Verified source %@", responseURL);
-                
-                [self addSources:[NSArray arrayWithObject:sourceURL] completion:^(BOOL success, NSError *addError) {
-                    if (success) {
-                        respond(YES, NULL, NULL);
-                    } else {
-                        respond(NO, addError.localizedDescription, responseURL);
-                    }
-                }];
-            }
-        } else {
-            respond(NO, NSLocalizedString(@"Unknown error", @""), responseURL);
-        }
-    }];
+- (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
+    [self appendBaseSources:baseSources toFile:[ZBAppDelegate sourcesListPath]];
 }
 
-- (void)addSourceWithString:(NSString *)urlString response:(void (^)(BOOL success, NSString *error, NSURL *url))respond {
-    NSLog(@"[Zebra] Attempting to add %@ to sources list", urlString);
+- (void)deleteSource:(ZBSource *)delRepo {
+    [self deleteBaseSource:(ZBBaseSource *)delRepo];
     
-    NSURL *sourceURL = [NSURL URLWithString:urlString];
-    if (!sourceURL) {
-        NSLog(@"[Zebra] Invalid URL: %@", urlString);
-        respond(NO, [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Invalid URL", @""), urlString], sourceURL);
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    [databaseManager deleteRepo:delRepo];
+}
+
+- (void)deleteBaseSource:(ZBBaseSource *)baseSource {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    
+    NSMutableSet *sourcesToWrite = [[databaseManager sources] mutableCopy];
+    [sourcesToWrite removeObject:baseSource];
+    
+    [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
+}
+
+- (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
+    NSError *error;
+    NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error) {
+        NSLog(@"[Zebra] ERROR while loading from sources.list: %@", error);
         return;
     }
-    
-    [self addSourceWithURL:sourceURL response:respond];
-}
-
-- (void)verifySourceExists:(NSURL *)sourceURL completion:(void (^)(NSString *responseError, NSURL *failingURL, NSURL *responseURL))completion {
-    NSURL *url = [sourceURL URLByAppendingPathComponent:@"Packages.bz2"];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDevice UDID];
-    NSString *machineIdentifier = [ZBDevice machineID];
-    
-    [request setValue:@"Telesphoreo APT-HTTP/1.0.592" forHTTPHeaderField:@"User-Agent"];
-    [request setValue:version forHTTPHeaderField:@"X-Firmware"];
-    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
-    [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
-    
-    if ([[url scheme] isEqualToString:@"https"]) {
-        [request setValue:udid forHTTPHeaderField:@"X-Cydia-Id"];
-    }
-    
-    [request setHTTPMethod:@"HEAD"];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        NSURL *responseURL = [httpResponse.URL URLByDeletingLastPathComponent];
-        if (httpResponse.statusCode != 200 || error != NULL) {
-            NSMutableURLRequest *gzRequest = [request copy];
-            [gzRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages.gz"]];
-            NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable gzdata, NSURLResponse * _Nullable gzresponse, NSError * _Nullable gzerror) {
-                NSHTTPURLResponse *gzhttpResponse = (NSHTTPURLResponse *)gzresponse;
-                if (gzhttpResponse.statusCode != 200 || gzerror != NULL) {
-                    NSMutableURLRequest *pureRequest = [request copy];
-                    [pureRequest setURL:[sourceURL URLByAppendingPathComponent:@"Packages"]];
-                    NSURLSessionDataTask *pureTask = [session dataTaskWithRequest:pureRequest completionHandler:^(NSData * _Nullable pureData, NSURLResponse * _Nullable pureResponse, NSError * _Nullable pureError) {
-                        NSHTTPURLResponse * _Nullable pureHttpResponse = (NSHTTPURLResponse *)pureResponse;
-                        if (pureHttpResponse.statusCode != 200 || pureError != NULL) {
-                            NSString *pureErrorMessage = [NSString stringWithFormat:@"Expected status from url %@, received: %d", url, (int)httpResponse.statusCode];
-                            NSLog(@"[Zebra] %@", pureErrorMessage);
-                            completion(pureErrorMessage, [sourceURL URLByAppendingPathComponent:@"Packages"], [pureHttpResponse.URL URLByDeletingLastPathComponent]);
-                        } else {
-                            completion(nil, nil, responseURL);
-                        }
-                    }];
-                    [pureTask resume];
-                } else {
-                    completion(nil, nil, responseURL);
-                }
-            }];
-            [gzTask resume];
-        } 
-        else {
-            completion(nil, nil, responseURL);
+    else {
+        NSMutableArray *debLines = [NSMutableArray arrayWithObject:[NSString stringWithFormat:@"\n# Added at %@\n", [NSDate date]]];
+        for (ZBBaseSource *baseSource in sources) {
+            [debLines addObject:[baseSource debLine]];
         }
-    }];
-    [task resume];
-}
-
-- (NSString *)debLineFromRepo:(ZBRepo *)repo {
-    NSMutableString *output = [NSMutableString string];
-    if ([repo defaultRepo]) {
-        NSString *debLine = [self knownDebLineFromURLString:[repo baseURL]];
-        if (debLine) {
-            [output appendString:debLine];
-        } else {
-            NSString *repoURL = [[repo baseURL] stringByDeletingLastPathComponent];
-            repoURL = [repoURL stringByDeletingLastPathComponent]; // Remove last two path components
-            [output appendFormat:@"deb %@%@/ %@ %@\n", [repo isSecure] ? @"https://" : @"http://", repoURL, [repo suite], [repo components]];
-        }
-    } else {
-        [output appendFormat:@"deb %@%@ ./\n", [repo isSecure] ? @"https://" : @"http://", [repo baseURL]];
-    }
-    return output;
-}
-
-- (void)addSources:(NSArray<NSURL *> *)sourceURLs completion:(void (^)(BOOL success, NSError *error))completion {
-    NSMutableString *output = [NSMutableString string];
-    
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBRepo *repo in [databaseManager repos]) {
-        [output appendString:[self debLineFromRepo:repo]];
-    }
-    
-    for (NSURL *sourceURL in sourceURLs) {
-        NSString *URL = [sourceURL absoluteString];
+        contents = [contents stringByAppendingString:[debLines componentsJoinedByString:@""]];
+        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
         
-        NSString *debLine = [self knownDebLineFromURLString:URL];
-        if (debLine) {
-            [output appendString:debLine];
-        }
-        else {
-            [output appendFormat:@"deb %@ ./\n", URL];
+        if (error) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", error);
         }
     }
-        
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [paths objectAtIndex:0];
-    
-    NSString *filePath;
-    NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
-    if ([[cacheDirectory lastPathComponent] isEqualToString:bundleID])
-        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
-    else
-        filePath = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/sources.list", bundleID]];
-    
-    NSError *removeError;
-    NSString *listLocation = [ZBAppDelegate sourcesListPath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:listLocation]) {
-        [[NSFileManager defaultManager] removeItemAtPath:listLocation error:&removeError];
+}
+
+- (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
+    NSMutableArray *debLines = [NSMutableArray new];
+    for (ZBBaseSource *baseSource in sources) {
+        [debLines addObject:[baseSource debLine]];
     }
     
     NSError *error;
-    [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    [[debLines componentsJoinedByString:@""] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-        completion(NO, error);
-    } else {
-        [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
-        if (error != NULL) {
-            NSLog(@"[Zebra] Error while moving sources to file: %@", error);
-            completion(NO, error);
-        } else {
-            completion(YES, NULL);
-        }
-    }
-    recachingNeeded = YES;
-}
-
-- (void)deleteSource:(ZBRepo *)delRepo {
-    NSMutableString *output = [NSMutableString string];
-    
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    for (ZBRepo *repo in [databaseManager repos]) {
-        if (![[delRepo baseFileName] isEqualToString:[repo baseFileName]]) {
-            [output appendString:[self debLineFromRepo:repo]];
-        }
     }
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [paths objectAtIndex:0];
-    
-    NSString *filePath;
-    NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
-    if ([[cacheDirectory lastPathComponent] isEqualToString:bundleID])
-        filePath = [cacheDirectory stringByAppendingPathComponent:@"sources.list"];
-    else
-        filePath = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/sources.list", bundleID]];
-    
-    NSError *removeError;
-    NSString *listLocation = [ZBAppDelegate sourcesListPath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:listLocation]) {
-        [[NSFileManager defaultManager] removeItemAtPath:listLocation error:&removeError];
-    }
-    
-    NSError *error;
-    [output writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error != NULL) {
-        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-    } else {
-        [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:listLocation error:&error];
-        if (error != NULL) {
-            NSLog(@"[Zebra] Error while moving sources to file: %@", error);
-        }
-        
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager deleteRepo:delRepo];
-    }
-    recachingNeeded = YES;
+    recachingNeeded = TRUE;
 }
 
 - (void)addDebLine:(NSString *)sourceLine {

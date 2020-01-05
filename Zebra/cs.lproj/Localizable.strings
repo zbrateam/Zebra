@@ -16,7 +16,7 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Zdroje Komunity";
+"Community Sources" = "Zdroje Společenství";
 "You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility source for %@" = "Zdroj nástrojů pro %@";
@@ -70,7 +70,7 @@
 "Feature Type" = "Typy Návrhů";
 "Select Sources to be Featured" = "Vyberte zdroje, které mají být doporučeny";
 
-"News" = "Novinky";
+"News" = "News";
 
 "Live Search" = "Živé Vyhledávání";
 
@@ -109,9 +109,9 @@
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
-"Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Unable to verify source" = "Zdroj nelze ověřit";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
+"Unable to verify Repo" = "Chyba při ověřování repozitáře";
 "Refresh" = "Refreshnout";
 "Log Out" = "Odhlásit se";
 "Purchased Packages" = "Zakoupené balíčky";

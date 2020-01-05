@@ -12,6 +12,7 @@
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Community Repos/ZBCommunitySourcesTableViewController.h>
+#import <Changelog/ZBChangelogTableViewController.h>
 
 @import FirebaseAnalytics;
 
@@ -37,7 +38,7 @@ typedef enum ZBViewOrder : NSUInteger {
 
 typedef enum ZBLinksOrder : NSUInteger {
     ZBDiscord,
-    ZBWilsonTwitter,
+    ZBTwitter,
     ZBTranslate
 } ZBLinksOrder;
 
@@ -54,7 +55,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTable) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
@@ -77,9 +78,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    [self colorWindow];
+    [self updateTheme];
 }
 
 - (void)setupFeatured {
@@ -110,18 +109,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBRepo *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] repos] mutableCopy];
+    NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     NSMutableArray *saveArray = [NSMutableArray new];
     dispatch_group_t group = dispatch_group_create();
-    for (ZBRepo *repo in featuredRepos) {
-        NSString *basePlusHttp;
-        if (repo.isSecure) {
-            basePlusHttp = [NSString stringWithFormat:@"https://%@", repo.baseURL];
-        } else {
-            basePlusHttp = [NSString stringWithFormat:@"http://%@", repo.baseURL];
-        }
+    for (ZBSource *repo in featuredRepos) {
         dispatch_group_enter(group);
-        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:basePlusHttp]];
+        NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.repositoryURI]];
         NSLog(@"[Zebra] Cached JSON request URL: %@", requestURL.absoluteString);
         NSURL *checkingURL = requestURL;
         NSURLSession *session = [NSURLSession sharedSession];
@@ -167,7 +160,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
     NSMutableArray *blacklist = [NSMutableArray new];
     for (NSString *baseURL in blockedRepos) {
-        ZBRepo *repo = [ZBRepo repoFromBaseURL:baseURL];
+        ZBSource *repo = [ZBSource repoFromBaseURL:baseURL];
         if (repo) {
             [blacklist addObject:repo];
         }
@@ -351,8 +344,8 @@ typedef enum ZBLinksOrder : NSUInteger {
                     text = NSLocalizedString(@"Join our Discord", @"");
                     image = [UIImage imageNamed:@"Discord"];
                     break;
-                case ZBWilsonTwitter:
-                    text = NSLocalizedString(@"Follow me on Twitter", @"");
+                case ZBTwitter:
+                    text = NSLocalizedString(@"Follow us on Twitter", @"");
                     image = [UIImage imageNamed:@"Twitter"];
                     break;
                 case ZBTranslate:
@@ -439,7 +432,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     switch (row) {
         case ZBChangeLog: {
-            ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
+            ZBChangelogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
             [self.navigationController pushViewController:changeLog animated:YES];
             break;
         }
@@ -489,10 +482,10 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
             break;
         }
-        case ZBWilsonTwitter: {
-            NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=xtm3x"];
-            NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/xtm3x"];
-            NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/xtm3x"];
+        case ZBTwitter: {
+            NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=getzebra"];
+            NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/getzebra"];
+            NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/getzebra"];
             if ([application canOpenURL:twitterapp]) {
                 [self openURL:twitterapp];
             } else if ([application canOpenURL:tweetbot]) {
@@ -545,22 +538,21 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
             [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
         }
-        [ZBDevice refreshViews];
-        [self colorWindow];
         [self setNeedsStatusBarAppearanceUpdate];
         [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-        [self resetTable];
-        [((ZBTabBarController *)self.tabBarController) updateQueueBar];
+        [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
+        [self updateTheme];
+        [ZBDevice refreshViews];
     });
 }
 
-- (void)resetTable {
+- (void)updateTheme {
     [self.tableView reloadData];
     [self colorWindow];
-    [self configureFooter];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
     CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
@@ -573,6 +565,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
     _darkModeButton.tintColor = [UIColor tintColor];
     _settingsButton.tintColor = [UIColor tintColor];
+    [self configureFooter];
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
@@ -603,17 +596,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
         [self.tableView endUpdates];
     }
-}
-
-- (void)animateTable {
-    [self.tableView reloadData];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

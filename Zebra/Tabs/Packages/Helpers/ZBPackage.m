@@ -10,7 +10,7 @@
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <Parsel/vercmp.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Queue/ZBQueueType.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
@@ -59,30 +59,19 @@
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
     
-    NSMutableData *output = [NSMutableData new];
-    NSTask *checkFiles = [[NSTask alloc] init];
-    [checkFiles setLaunchPath:@"/usr/bin/dpkg"];
-    [checkFiles setArguments:@[@"-L", packageID]];
-    
-    checkFiles.standardOutput = [NSPipe pipe];
-    [[checkFiles.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
-        NSData *data = [file availableData];
-        [output appendData:data];
-    }];
-    
-    @try {
-        [checkFiles launch];
-        [checkFiles waitUntilExit];
-        [checkFiles.standardOutput fileHandleForReading].readabilityHandler = nil;
-        
-        NSString *stringRead = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
-        return [stringRead componentsSeparatedByString:@"\n"];
+    NSString *path = [NSString stringWithFormat:@"/Library/dpkg/info/%@.list", packageID];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *readError;
+        NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
+        if (!readError) {
+            return [contents componentsSeparatedByString:@"\n"];
+        }
+        else {
+            return @[readError.localizedDescription];
+        }
     }
-    @catch (NSException *e) {
-        CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
-        NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
-        
-        return NULL;
+    else {
+        return @[@"No files found"];
     }
 }
 
@@ -93,6 +82,7 @@
     
     ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
+        NSLog(@"[Zebra] I had to use DPKG :(")
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
@@ -155,73 +145,14 @@
     return NO;
 }
 
-+ (BOOL)containsApplicationBundle:(NSString *)packageID {
-    if ([ZBDevice needsSimulation]) {
-        return NO;
-    }
-    
-    ZBLog(@"[Zebra] Searching %@ for app bundle", packageID);
-    if ([packageID hasSuffix:@".deb"]) {
-        ZBLog(@"[Zebra] Locating package ID for %@", packageID);
-        //We need to look up the *actual* package ID of this deb from the deb's control file
-        NSMutableData *output = [NSMutableData new];
-        NSTask *locatePackage = [[NSTask alloc] init];
-        [locatePackage setLaunchPath:@"/usr/bin/dpkg"]; //not sure if root is needed but we'll leave it for now
-        [locatePackage setArguments:@[@"-I", packageID, @"control"]];
-        
-        locatePackage.standardOutput = [NSPipe pipe];
-        [[locatePackage.standardOutput fileHandleForReading] setReadabilityHandler:^(NSFileHandle *file) {
-            NSData *data = [file availableData];
-            [output appendData:data];
-        }];
-        
-        @try {
-            [locatePackage launch];
-            [locatePackage waitUntilExit];
-            [locatePackage.standardOutput fileHandleForReading].readabilityHandler = nil;
-            
-            NSString *stringRead = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
-            __block BOOL contains = NO;
-            [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-                NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
-                if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
-                if (pair.count != 2) return;
-                NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-                if ([key isEqualToString:@"Package"]) {
-                    NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-                    ZBLog(@"[Zebra] Package ID found %@", value);
-                    contains = [self containsApplicationBundle:value];
-                    *stop = YES;
-                }
-            }];
-            
-            return contains;
-        }
-        @catch (NSException *e) {
-            CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
-            NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
-            
-            return NO;
-        }
-    }
-    
-    NSArray *files = [self filesInstalledBy:packageID];
-    
-    for (NSString *path in files) {
-        if ([path containsString:@".app/Info.plist"]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-+ (NSString *)pathForApplication:(NSString *)packageID {
++ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return NULL;
     }
     
     ZBLog(@"[Zebra] Searching %@ for app path", packageID);
     if ([packageID hasSuffix:@".deb"]) {
+        NSLog(@"[Zebra] I had to use DPKG :(")
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
@@ -250,7 +181,7 @@
                 if ([key isEqualToString:@"Package"]) {
                     NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
                     ZBLog(@"[Zebra] Package ID found %@", value);
-                    path = [self pathForApplication:value];
+                    path = [self applicationBundlePathForIdentifier:value];
                     *stop = YES;
                 }
             }];
@@ -371,9 +302,9 @@
         
         int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
-            [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
+            [self setRepo:[ZBSource repoMatchingRepoID:repoID]];
         } else {
-            [self setRepo:[ZBRepo localRepo:repoID]];
+            [self setRepo:[ZBSource localRepo:repoID]];
         }
         
         NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -439,16 +370,16 @@
 - (NSString *)getField:(NSString *)field {
     NSString *value;
     
-    ZBRepo *repo = [self repo];
+    ZBSource *repo = [self repo];
     
     if (repo == NULL) return NULL;
     
     NSString *listsLocation = [ZBAppDelegate listsLocation];
-    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_Packages"];
+    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFilename], @"_Packages"];
     NSFileManager *filemanager = [NSFileManager defaultManager];
     
     if (![filemanager fileExistsAtPath:filename]) {
-        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_main_binary-iphoneos-arm_Packages"];
+        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFilename], @"_main_binary-iphoneos-arm_Packages"];
         
         if (![filemanager fileExistsAtPath:filename]) {
             return NULL;

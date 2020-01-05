@@ -9,7 +9,7 @@
 #import "ZBTabBarController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Repos/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBRepoListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <UITabBarItem.h>
@@ -200,15 +200,12 @@
 - (void)checkQueueNav {
     if (!queueNav) {
         queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
+        [[LNPopupBar appearance] setTranslucent:true];
     }
 }
 
-- (void)updateQueueBar {
-    [self checkQueueNav];
-    [self updateQueueBarPackageCount:[ZBQueue count]];
-    
+- (void)updateQueueBarColors {
     if ([ZBDevice darkModeEnabled]) {
-        [[LNPopupBar appearance] setTranslucent:true];
         [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
         [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
         
@@ -216,13 +213,19 @@
         [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     }
     else {
-        [[LNPopupBar appearance] setTranslucent:true];
         [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
         [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
         
         [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
         [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     }
+}
+
+- (void)updateQueueBar {
+    [self checkQueueNav];
+    [self updateQueueBarPackageCount:[ZBQueue count]];
+    
+    [self updateQueueBarColors];
     
     LNPopupPresentationState state = self.popupPresentationState;
     if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {

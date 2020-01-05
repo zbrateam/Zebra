@@ -19,7 +19,7 @@
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActionsManager.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBWebViewController.h"
@@ -59,7 +59,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo {
+- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
@@ -79,6 +79,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBDatabaseCompletedUpdate" object:nil];
     if (presented) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
@@ -135,10 +136,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     } else {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
-    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] baseURL]);
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,9 +145,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavButton];
     
+    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
+    
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
+    [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -359,7 +366,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         return;
     self->navButtonsBeingConfigured = YES;
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
+    NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
     if ([package isInstalled:NO]) {
         if ([package isReinstallable]) {
             if ([package isPaid] && [keychain[baseURL] length] != 0) {
@@ -375,7 +382,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
         [self determinePaidPackage];
     } else {
-        if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFORM
+        if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFIRM
             UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
             self.navigationItem.rightBarButtonItem = modifyButton;
         }
@@ -394,7 +401,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [uiBusy startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSString *baseURL = [keychain stringForKey:package.repo.baseURL];
+    NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
     if ([keychain[baseURL] length] != 0) {
         if ([package isPaid]) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -475,10 +482,10 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [uiBusy startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([keychain[[keychain stringForKey:[package repo].baseURL]] length] != 0) {
+    if ([keychain[[keychain stringForKey:[package repo].repositoryURI]] length] != 0) {
         if ([package isPaid] && [package repo].supportSileoPay) {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].baseURL]];
+            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].repositoryURI]];
 #if ZB_DEBUG
             NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
             ZBLog(@"[Zebra] Package purchase token: %@", token);
@@ -500,14 +507,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
             // Continue
             if ([secret length] != 0) {
-                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].baseURL]],
+                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].repositoryURI]],
                                                @"payment_secret": secret,
                                                @"udid": [ZBDevice UDID],
                                                @"device": [ZBDevice deviceModelID] };
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
                 
                 NSMutableURLRequest *request = [NSMutableURLRequest new];
-                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].baseURL], package.identifier]]];
+                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].repositoryURI], package.identifier]]];
                 [request setHTTPMethod:@"POST"];
                 [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
                 [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -624,11 +631,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)dealloc {
-    [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
-    [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
-}
-
 - (void)presentQueue {
     if ([self presentingViewController]) {
         [self dismissViewControllerAnimated:true completion:^{
@@ -654,13 +656,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)reloadDepiction {
+    UIColor *tableViewBackgroundColor = [UIColor tableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+    webView.backgroundColor = tableViewBackgroundColor;
     [self.tableView reloadData];
-    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
+    self.tableView.backgroundColor = tableViewBackgroundColor;
+    self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
+    self.tableView.tableFooterView.backgroundColor = tableViewBackgroundColor;
     self.packageName.textColor = [UIColor cellPrimaryTextColor];
 }
 

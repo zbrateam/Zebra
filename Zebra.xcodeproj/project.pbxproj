@@ -32,7 +32,7 @@
 		36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FA230A1616002694BE /* ZBUserInfo.m */; };
 		36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FF230A485B002694BE /* ZBRedditPosts.m */; };
 		36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */; };
-		36A33CE222C9AD420054A577 /* ZBChangeLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */; };
+		36A33CE222C9AD420054A577 /* ZBChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CE122C9AD420054A577 /* ZBChangelogTableViewController.m */; };
 		36A33CED22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A33CEC22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m */; };
 		36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6522AB30E3004C2332 /* zWhite~ipad@2x.png */; };
 		36AC5A6A22AB30E4004C2332 /* zWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6622AB30E3004C2332 /* zWhite@2x.png */; };
@@ -84,8 +84,8 @@
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
 		896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */; };
-		896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBRepoManager.m */; };
-		896F11C321B231900017B581 /* ZBRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBRepo.m */; };
+		896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBSourceManager.m */; };
+		896F11C321B231900017B581 /* ZBSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBSource.m */; };
 		896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 896F72E423723139007727FD /* GoogleService-Info.plist */; };
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
 		898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */; };
@@ -116,6 +116,7 @@
 		89E8638821D5B2BE0081E485 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */; };
 		89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; };
 		89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */; };
 		89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F8730223653D280070160A /* UIVisualEffectView+Theme.m */; };
 		9E06A9EF22D0842400DBBC38 /* ZBRepoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */; };
 		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
@@ -221,8 +222,8 @@
 		36A1D900230A485B002694BE /* ZBRedditPosts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRedditPosts.h; sourceTree = "<group>"; };
 		36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBPurchaseInfo.m; sourceTree = "<group>"; };
 		36A1D903230A56A5002694BE /* ZBPurchaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPurchaseInfo.h; sourceTree = "<group>"; };
-		36A33CE022C9AD420054A577 /* ZBChangeLogTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangeLogTableViewController.h; sourceTree = "<group>"; };
-		36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangeLogTableViewController.m; sourceTree = "<group>"; };
+		36A33CE022C9AD420054A577 /* ZBChangelogTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangelogTableViewController.h; sourceTree = "<group>"; };
+		36A33CE122C9AD420054A577 /* ZBChangelogTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangelogTableViewController.m; sourceTree = "<group>"; };
 		36A33CEB22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommunitySourcesTableViewController.h; sourceTree = "<group>"; };
 		36A33CEC22C9C0C60054A577 /* ZBCommunitySourcesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommunitySourcesTableViewController.m; sourceTree = "<group>"; };
 		36AC5A6522AB30E3004C2332 /* zWhite~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zWhite~ipad@2x.png"; sourceTree = "<group>"; };
@@ -289,6 +290,7 @@
 		893CB6652364011B00204E27 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		893CB666236402EE00204E27 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6672364041500204E27 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		893F857323C027E9005C4CF6 /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		8942C8E823639D86002DE095 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448816236A3FF200523D7C /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448817236A41B800523D7C /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -316,10 +318,10 @@
 		896B4A79237A0E5C007C4ABB /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = sq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		896BAC40226D5C440020AC3C /* ZBExternalPackageTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBExternalPackageTableViewController.h; sourceTree = "<group>"; };
 		896BAC41226D5C440020AC3C /* ZBExternalPackageTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBExternalPackageTableViewController.m; sourceTree = "<group>"; };
-		896F11BB21B231490017B581 /* ZBRepoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoManager.h; sourceTree = "<group>"; };
-		896F11BC21B231490017B581 /* ZBRepoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoManager.m; sourceTree = "<group>"; };
-		896F11C121B231900017B581 /* ZBRepo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepo.h; sourceTree = "<group>"; };
-		896F11C221B231900017B581 /* ZBRepo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepo.m; sourceTree = "<group>"; };
+		896F11BB21B231490017B581 /* ZBSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceManager.h; sourceTree = "<group>"; };
+		896F11BC21B231490017B581 /* ZBSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceManager.m; sourceTree = "<group>"; };
+		896F11C121B231900017B581 /* ZBSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSource.h; sourceTree = "<group>"; };
+		896F11C221B231900017B581 /* ZBSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSource.m; sourceTree = "<group>"; };
 		896F72E423723139007727FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8977B6922206424B00CBACBB /* ZBPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackage.h; sourceTree = "<group>"; };
 		8977B6932206424B00CBACBB /* ZBPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackage.m; sourceTree = "<group>"; };
@@ -377,6 +379,8 @@
 		89E8638621D5B2BE0081E485 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		89E8638721D5B2BE0081E485 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 		89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
+		89F213BE23BED9D300F3E5E5 /* ZBBaseSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBBaseSource.h; sourceTree = "<group>"; };
+		89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBBaseSource.m; sourceTree = "<group>"; };
 		89F86869236377660057D3D9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Theme.h"; sourceTree = "<group>"; };
 		89F8730223653D280070160A /* UIVisualEffectView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIVisualEffectView+Theme.m"; sourceTree = "<group>"; };
@@ -526,14 +530,14 @@
 			path = JSONParsing;
 			sourceTree = "<group>";
 		};
-		36A33CDF22C9ACFB0054A577 /* ChangeLog */ = {
+		36A33CDF22C9ACFB0054A577 /* Changelog */ = {
 			isa = PBXGroup;
 			children = (
-				36A33CE022C9AD420054A577 /* ZBChangeLogTableViewController.h */,
-				36A33CE122C9AD420054A577 /* ZBChangeLogTableViewController.m */,
+				36A33CE022C9AD420054A577 /* ZBChangelogTableViewController.h */,
+				36A33CE122C9AD420054A577 /* ZBChangelogTableViewController.m */,
 			);
-			name = ChangeLog;
-			path = Settings/ChangeLog;
+			name = Changelog;
+			path = Settings/Changelog;
 			sourceTree = "<group>";
 		};
 		36A33CEA22C9C0AC0054A577 /* Community Repos */ = {
@@ -618,13 +622,14 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
-		896F11B421B230A40017B581 /* Repos */ = {
+		896F11B421B230A40017B581 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				89F213C123BED9DE00F3E5E5 /* Views */,
 				896F11C721B231CB0017B581 /* Helpers */,
 				896F11C821B231CF0017B581 /* Controllers */,
 			);
-			path = Repos;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		896F11C521B231AF0017B581 /* Controllers */ = {
@@ -647,13 +652,12 @@
 		896F11C721B231CB0017B581 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */,
-				49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */,
-				9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */,
-				896F11C121B231900017B581 /* ZBRepo.h */,
-				896F11C221B231900017B581 /* ZBRepo.m */,
-				896F11BB21B231490017B581 /* ZBRepoManager.h */,
-				896F11BC21B231490017B581 /* ZBRepoManager.m */,
+				89F213BE23BED9D300F3E5E5 /* ZBBaseSource.h */,
+				89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */,
+				896F11C121B231900017B581 /* ZBSource.h */,
+				896F11C221B231900017B581 /* ZBSource.m */,
+				896F11BB21B231490017B581 /* ZBSourceManager.h */,
+				896F11BC21B231490017B581 /* ZBSourceManager.m */,
 				7821AF702275F3B2006C0315 /* ZBAddRepoDelegate.h */,
 			);
 			path = Helpers;
@@ -813,7 +817,7 @@
 			isa = PBXGroup;
 			children = (
 				36A33CEA22C9C0AC0054A577 /* Community Repos */,
-				36A33CDF22C9ACFB0054A577 /* ChangeLog */,
+				36A33CDF22C9ACFB0054A577 /* Changelog */,
 				367D80F622C3D2F400581D60 /* AlternateIcon */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
@@ -838,6 +842,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				893F857323C027E9005C4CF6 /* libcompression.tbd */,
 				8947D84023734F9600635396 /* Crashlytics.framework */,
 				8947D83B23734F9600635396 /* Fabric.framework */,
 				8947D84123734F9600635396 /* FIRAnalyticsConnector.framework */,
@@ -900,6 +905,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		89F213C123BED9DE00F3E5E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */,
+				49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */,
+				9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		89FEBC1B22C293E100B58662 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -907,7 +922,7 @@
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
 				89E8633621D5A1420081E485 /* Home */,
-				896F11B421B230A40017B581 /* Repos */,
+				896F11B421B230A40017B581 /* Sources */,
 				9E1C85AD22A3900700D93D14 /* Changes */,
 				896F11B321B2309A0017B581 /* Packages */,
 				89E8633721D5A1540081E485 /* Search */,
@@ -1171,7 +1186,7 @@
 				36D15328229240F70010EC5C /* FTWCache.m in Sources */,
 				3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */,
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
-				896F11C321B231900017B581 /* ZBRepo.m in Sources */,
+				896F11C321B231900017B581 /* ZBSource.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
@@ -1186,7 +1201,7 @@
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
 				3671B52222CB07F9008FD737 /* ZBHomeTableViewController.m in Sources */,
-				36A33CE222C9AD420054A577 /* ZBChangeLogTableViewController.m in Sources */,
+				36A33CE222C9AD420054A577 /* ZBChangelogTableViewController.m in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				9E9D3130236D52BF00880215 /* ZBPackagePartitioner.m in Sources */,
 				9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */,
@@ -1205,9 +1220,10 @@
 				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
-				896F11BD21B231490017B581 /* ZBRepoManager.m in Sources */,
+				896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */,
 				365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
+				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
@@ -1434,7 +1450,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = "1.1~beta1";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
@@ -1468,7 +1484,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = "1.1~beta1";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;

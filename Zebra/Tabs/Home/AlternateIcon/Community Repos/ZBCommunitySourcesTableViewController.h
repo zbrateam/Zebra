@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ZBDevice.h"
 #import "UIColor+GlobalColors.h"
-#import "ZBRepoManager.h"
+#import "ZBSourceManager.h"
 #import "ZBAddRepoViewController.h"
 @import SDWebImage;
 
 @interface ZBCommunitySourcesTableViewController : UITableViewController <ZBAddRepoDelegate>
 @property NSMutableArray <NSArray <NSDictionary *> *> *communitySources;
-@property ZBRepoManager *repoManager;
+@property ZBSourceManager *repoManager;
 @end

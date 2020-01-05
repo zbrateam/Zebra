@@ -39,12 +39,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.textLabel.text = NSLocalizedString(_settingOptions[indexPath.row], @"");
-    if (_settingSelectedRow == indexPath.row) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    [cell setTintColor: [UIColor tintColor]];
+    cell.accessoryType = _settingSelectedRow == indexPath.row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.tintColor = [UIColor tintColor];
     cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
     return cell;
 }
