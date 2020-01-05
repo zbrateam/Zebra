@@ -333,5 +333,5 @@
 "Updating Repositories" = "Ενημέρωση Repositories";
 "Would you like to import the following repositories?" = "Θα ήθελες να προσθέσεις τα ακόλουθα repositories;";
 "Download Completed" = "Η Λήψη Ολοκληρώθηκε";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Removing Zebra..." = "Γίνεται αφαίρεση του Zebra...";
+"Installing Zebra..." = "Γίνεται Εγκατάσταση του Zebra...";
