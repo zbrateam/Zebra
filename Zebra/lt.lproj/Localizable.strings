@@ -70,7 +70,7 @@
 "Feature Type" = "Tipas";
 "Select Sources to be Featured" = "Pasirinkite šaltinius, kurie bus rodomiausi";
 
-"News" = "News";
+"News" = "Naujienos";
 
 "Live Search" = "Tiesioginė paieška";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Įdiegiama Zebra...";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
