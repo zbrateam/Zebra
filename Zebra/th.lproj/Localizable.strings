@@ -240,6 +240,7 @@
 "Close Zebra" = "ปิด Zebra";
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
 "Downloading" = "กำลังดาวน์โหลด";
+"Parsing" = "อ่าน";
 "Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
 "Installing" = "กำลังติดตั้ง";
 "Installing Packages..." = "กำลังติดตั้งโปรแกรม...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
 
 "Community News" = "ข่าวสารชุมชน";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "นำเข้าซอร์ส";
 "Updating Sources" = "อัพเดตซอร์ส";
 "Would you like to import the following sources?" = "คุณต้องการเพิ่มซอร์สเหล่านี้หรือไม่?";
 "Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
-
-"#Parsing <Source Name>
-Parsing %@" = "อ่าน %@";
-
-"#Downloading <Filename>
-Downloading %@" = "กำลังดาวน์โหลด %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "กำลังดาวน์โหลด %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "เสร็จสิ้น %@";
 
 "Could not find an APT repository located at %@" = "ไม่สามารถหาซอร์ส APT จาก %@";
