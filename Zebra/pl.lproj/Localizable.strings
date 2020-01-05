@@ -345,9 +345,9 @@ Parsing %@" = "Analizowanie %@";
 Downloading %@" = "Pobieranie %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "Pobieranie %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "Ukończono %@";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Nie można znaleźć repozytorium APT zlokalizowanego w %@";
