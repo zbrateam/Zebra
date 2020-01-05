@@ -16,10 +16,10 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Zdroje Společenství";
+"You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Zdroj nástrojů pro %@";
 "Transfer Sources" = "Přenést Repozitáře";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Nic tu není.";
 "Community" = "Komunita";
 "Join our Discord" = "Připoj se k našemu Discordu";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Sledujte nás na Twitter";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Doporučené balíčky";
 "Random" = "Náhodně";
 "Feature Type" = "Typy Návrhů";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Vyberte zdroje, které mají být doporučeny";
 
 "News" = "Novinky";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternativní ikony";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Doporučené zdroje";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Místní Repozitář";
 "Locally installed packages" = "Místně nainstalované balíčky";
 "Unknown" = "Neznámý";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Nebyly zjištěny žádné zdrojové URL adresy.";
+"You have already added these sources." = "Tyto zdroje jste již přidali.";
+"Error verifying source" = "Chyba ověření zdroje";
+"Error verifying sources" = "Chyba ověření zdroje";
 "Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadej URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Přidat zdroje";
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Zdroj nelze ověřit";
 "Refresh" = "Refreshnout";
 "Log Out" = "Odhlásit se";
 "Purchased Packages" = "Zakoupené balíčky";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Dostupné Aktualizace";
 "Ignored Upgrades" = "Ignorované Aktualizace";
 "Recent" = "Nedávné";
-"Source" = "Source";
+"Source" = "Zdroj";
 "Installed Files" = "Instalované Soubory";
 "Modify" = "Upravit";
 "Authenticate to initiate purchase." = "Autorizovat se k zakoupení.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Stažené";
 "Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Zdroj %@ je nekompatibilní s vaším vězeňským žalářem.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
 "Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
 "Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
@@ -322,32 +322,32 @@
 
 "Change the source of the featured packages on the homepage." = "Změní zdroj doporučených balíčků na domovské stránce.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Doporučený\" bude zobrazovat náhodné balíčky ze zdrojů, které podporují API balíčku.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Náhodný\" bude zobrazovat náhodné balíčky ze všech zdrojů, které jste přidali do Zebra.";
 
 "Community News" = "Komunitní Novinky";
 
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importovat zdroje";
+"Updating Sources" = "Aktualizace zdrojů";
+"Would you like to import the following sources?" = "Chcete importovat následující zdroje?";
+"Download Completed" = "Stahování dokončeno";
+"Removing Zebra..." = "Odstraňuji Zebra...";
+"Installing Zebra..." = "Instalace Zebry...";
 
 "#Parsing <Source Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Analýza %@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Stahování %@";
 
 "#Downloading <Package Name> (<Package Identifier>)
 Downloading %@ (%@)" = "Downloading %@ (%@)";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Dokončeno %@";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
