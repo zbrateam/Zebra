@@ -104,7 +104,6 @@
     [request setURL:checkingURL];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    // NSString *authString = @"Basic YnllM25VQzk1VUhNRlE6IA==";
     [request setValue:[NSString stringWithFormat:@"Zebra %@ iOS:%@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
     NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
@@ -344,9 +343,7 @@
             
             return sfVC;
         }
-        else {
-            return NULL;
-        }
+        return NULL;
     }
 }
 
@@ -391,28 +388,20 @@
         cell.postTitle.text = @"Error";
     }
     if (post.url != nil) {
-        // [cell setRedditLink:[NSURL URLWithString:[dict objectForKey:@"url"]]];
         [cell setRedditLink:[NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]]];
         [cell setRedditID:post.identifier];
     } else {
         [cell setRedditLink:[NSURL URLWithString:@"https://reddit.com/r/jailbreak"]];
     }
     
-    //NSDictionary *previews = [dict objectForKey:@"preview"];
     if (post.preview.images.count) {
-        //NSArray *images = [previews objectForKey:@"images"];
-        //NSDictionary *imageDict = [images firstObject];
         ZBImage *first = post.preview.images[0];
-        // ZBLog(@"IMAGE %@", imageDict);
         if (first.source != nil) {
             NSString *link = first.source.url;
             link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
             url = [NSURL URLWithString:link];
-            /*url = [NSURL URLWithString:[[imageDict valueForKeyPath:@"source.url"] stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]];*/
         }
     }
-    
-    //if ([dict valueForKey:@"thumbnail"] != [NSNull null] && ([[dict valueForKey:@"thumbnail"] isEqualToString:@"self"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"default"] || [[dict valueForKey:@"thumbnail"] isEqualToString:@"nsfw"])) {
     
     if (url) {
         [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];

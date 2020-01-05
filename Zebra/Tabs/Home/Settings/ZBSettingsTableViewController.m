@@ -134,8 +134,8 @@ enum ZBMiscOrder {
         case ZBFeatured: {
             int rows = 1;
             BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
-            BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
             if (wantsFeatured) {
+                BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
                 if (randomFeatured) {
                     return 3;
                 }

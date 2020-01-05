@@ -185,7 +185,7 @@
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
-        } else if ([ZBDevice isUncover]) { // uncover
+        } else if ([ZBDevice isUncover]) { // unc0ver
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
