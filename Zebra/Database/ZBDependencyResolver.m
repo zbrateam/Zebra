@@ -155,7 +155,7 @@
             NSString *identifier = [virtualPackage objectForKey:@"identifier"];
             
             //If there is a version comparison and the virtual package has a version, check against the version and add a conflict if true
-            if ((needsVersionComparison && ![version isEqualToString:@"0:0"]) && ([ZBDependencyResolver doesVersion:version satisfyComparison:conflict[1] ofVersion:conflict[2]])) {
+            if ([identifier isEqualToString:conflict[0]] && (needsVersionComparison && ![version isEqualToString:@"0:0"]) && ([ZBDependencyResolver doesVersion:version satisfyComparison:conflict[1] ofVersion:conflict[2]])) {
                 [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
                 break;
             }

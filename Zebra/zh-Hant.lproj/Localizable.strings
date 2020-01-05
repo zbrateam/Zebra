@@ -16,11 +16,11 @@
 "Info" = "資訊";
 "Welcome to Zebra!" = "歡迎使用 Zebra！";
 "Changelog" = "更新記錄";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "社群套件來源";
+"You’ve added all of the community sources" = "您已經加入所有的社群套件來源";
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility repo for %@" = "%@ 的工具軟體來源";
-"Transfer Sources" = "匯入來源";
+"Transfer Sources" = "轉移來源";
 "Please Wait..." = "請稍候…";
 "Verifying Source(s)" = "驗證來源";
 "Stores" = "商店";
@@ -49,7 +49,7 @@
 "Miscellaneous" = "其他設定";
 "Advanced" = "進階設定";
 
-"Report a Bug" = "回報 Bug";
+"Report a Bug" = "回報問題";
 
 "Accent Color" = "強調色";
 "Blue" = "藍色";
@@ -66,10 +66,10 @@
 "App Icon" = "App 圖示";
 
 "Featured Packages" = "精選套件";
-"Repo Featured" = "精選的來源";
+"Repo Featured" = "套件來源精選";
 "Random" = "隨機";
 "Feature Type" = "推薦類型";
-"Select Repos to be Featured" = "選擇會被推薦的來源";
+"Select Repos to be Featured" = "選擇會被推薦的套件來源";
 
 "News" = "新聞";
 
@@ -91,28 +91,28 @@
 
 "Alternate Icons" = "替換圖示";
 
-"Featured Repos" = "精選來源";
+"Featured Repos" = "精選套件來源";
 
 // Sources
 
 "Sources" = "來源";
-"Local Repository" = "本地來源";
+"Local Repository" = "本地套件來源";
 "Locally installed packages" = "本地已安裝套件";
 "Unknown" = "未知";
-"No repository urls detected." = "沒有檢測到來源網址";
-"You have already added these repositories." = "你已經加入過這些套件來源";
+"No repository urls detected." = "沒有檢測到套件來源網址。";
+"You have already added these repositories." = "你已經加入過這些套件來源。";
 "Error verifying repository" = "驗證套件來源失敗";
 "Error verifying repositories" = "驗證套件來源失敗";
 "Unknown error" = "未知錯誤";
 "Invalid URL" = "無效的網址";
 "Enter URL" = "輸入網址";
-"Add Repo(s)" = "新增來源";
+"Add Repo(s)" = "新增套件來源";
 "Add" = "新增";
 "Add Multiple" = "新增多個";
 "Would you like to add the URL from your clipboard?" = "是否要新增剪貼簿中的網址？";
 "Please Wait..." = "請稍候…";
 "Verifying Source(s)" = "正在驗證來源";
-"Unable to verify Repo" = "無法驗證來源";
+"Unable to verify Repo" = "無法驗證套件來源";
 "Refresh" = "重新整理";
 "Log Out" = "登出";
 "Purchased Packages" = "已購買套件";
@@ -223,9 +223,9 @@
 
 "Downloads" = "下載";
 "Error while opening sources.list" = "打開 sources.list 時發生錯誤";
-"The repo %@ is incompatible with your jailbreak." = "來源 %@ 與你的越獄不相容";
+"The repo %@ is incompatible with your jailbreak." = "套件來源 %@ 與你的越獄不相容";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "若您將此新增到 Zebra，可能會發生問題並導致需要還原裝置。";
-"Please remove this repo from your sources.list file." = "請將此來源從 souces.list 檔案中移除。";
+"Please remove this repo from your sources.list file." = "請將此套件來源從 souces.list 檔案中移除。";
 "Incorrect documents permissions." = "文件權限不正確。";
 "Could not determine device information." = "無法檢測裝置資訊。";
 "Could not find a download URL for" = "無法獲得下載網址";
@@ -241,6 +241,7 @@
 "Close Zebra" = "關閉 Zebra";
 "Restart SpringBoard" = "重新啟動主畫面";
 "Downloading" = "正在下載";
+"Parsing" = "正在解析";
 "Downloading Packages..." = "正在下載套件...";
 "Installing" = "正在安裝";
 "Installing Packages..." = "正在安裝套件...";
@@ -323,27 +324,14 @@
 
 "Change the source of the featured packages on the homepage." = "更改在首頁顯示的精選套件來源。";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「來源精選」將會顯示在支援「精選套件 API」的來源中的隨機套件。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「套件來源精選」將會從在支援「精選套件 API」的套件來源中，選擇隨機套件來顯示。";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會顯示從您加入到 Zebra 的所有來源中的隨機套件。";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
 
 "Community News" = "社群新聞";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
+"Import Sources" = "匯入來源";
+"Updating Repositories" = "正在更新套件來源";
+"Would you like to import the following repositories?" = "您想要匯入以下的套件來源嗎？";
+"Download Completed" = "下載完成";
+"Removing Zebra..." = "正在移除 Zebra...";
+"Installing Zebra..." = "正在安裝 Zebra...";

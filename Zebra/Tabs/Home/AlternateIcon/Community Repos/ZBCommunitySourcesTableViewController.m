@@ -146,7 +146,7 @@
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
         [result addObject:dict];
     }
-    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // uncover
+    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",

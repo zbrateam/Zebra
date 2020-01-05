@@ -156,15 +156,17 @@
     if (![self needsSimulation]) {
         BOOL failed = NO;
         
-        //Try sbreload
-        NSLog(@"[Zebra] Trying sbreload");
-        @try {
-            [self runCommandInPath:@"sbreload" asRoot:false observer:nil];
-        }
-        @catch (NSException *e) {
-            CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
-            NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
-            failed = YES;
+        if (@available(iOS 11.0, *)) {
+            //Try sbreload
+            NSLog(@"[Zebra] Trying sbreload");
+            @try {
+                [self runCommandInPath:@"sbreload" asRoot:false observer:nil];
+            }
+            @catch (NSException *e) {
+                CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
+                NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
+                failed = YES;
+            }
         }
         
         //Try launchctl
@@ -398,6 +400,7 @@
 + (void)configureDarkMode {
     UIColor *tintColor = [UIColor tintColor];
     // Navigation bar
+    [[UINavigationBar appearance] setTintColor:nil];
     [[UINavigationBar appearance] setTintColor:tintColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -449,6 +452,7 @@
 + (void)configureLightMode {
     UIColor *tintColor = [UIColor tintColor];
     // Navigation bar
+    [[UINavigationBar appearance] setTintColor:nil];
     [[UINavigationBar appearance] setTintColor:tintColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
     // [[UINavigationBar appearance] setShadowImage:[UIImage new]];

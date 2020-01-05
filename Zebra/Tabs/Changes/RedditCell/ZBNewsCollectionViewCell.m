@@ -52,25 +52,6 @@
     [self.backgroundImage addSubview:blurEffectView];
 }
 
-// Shadow gradient
-/*
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.gradient.frame = self.backgroundImage.frame;
-}
- self.gradient = [CAGradientLayer layer];
- self.gradient.frame = self.backgroundImage.frame;
- self.gradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0].CGColor, (id)[UIColor colorWithRed:0 green:0 blue:0 alpha:.75].CGColor];
- [self.backgroundImage.layer insertSublayer:self.gradient atIndex:0];*/
-
-/*UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
- UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
- // always fill the view
- blurEffectView.frame = self.backgroundImage.bounds;
- blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
- blurEffectView.alpha = .3;
- [self.backgroundImage addSubview:blurEffectView];*/
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.backgroundImage.image = nil;

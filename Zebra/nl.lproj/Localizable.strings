@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Welkom bij Zebra!";
 "Changelog" = "Wijzigingslogboek";
 "Community Sources" = "Gemeenschaps Bronnen";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"You’ve added all of the community sources" = "Je hebt alle gemeenschaps bronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
@@ -71,7 +71,7 @@
 "Feature Type" = "Uitgelicht type";
 "Select Repos to be Featured" = "Selecteer een repo om deze uit te lichten";
 
-"News" = "Nieuws";
+"News" = "News";
 
 "Live Search" = "Live zoeken";
 
@@ -110,8 +110,8 @@
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
 "Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
-"Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source(s)" = "Bron(nen) verifiëren";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Kan de bron niet verifiëren";
 "Refresh" = "Ververs";
 "Log Out" = "Log Uit";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Sluit Zebra";
 "Restart SpringBoard" = "Herstart SpringBoard";
 "Downloading" = "Aan het downloaden";
+"Parsing" = "Parseren";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
 "Installing" = "Aan het installeren";
 "Installing Packages..." = "Pakketten aan het installeren...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
 
 "Community News" = "Gemeenschapsnieuws";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importeer Bronnen";
 "Updating Repositories" = "Repos Bijwerken";
 "Would you like to import the following repositories?" = "Wilt u de volgende repos importeren?";
 "Download Completed" = "Download Compleet";
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parseren %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloaden %@";
-
-"#Done <Filename>
-Done %@" = "Voltooid %@";

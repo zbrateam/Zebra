@@ -71,7 +71,7 @@
 "Feature Type" = "Utvald type";
 "Select Repos to be Featured" = "Vel utvalde kjelder";
 
-"News" = "Nyheiter";
+"News" = "News";
 
 "Live Search" = "Live søk";
 
@@ -241,6 +241,7 @@
 "Close Zebra" = "Lukk Zebra";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Lastar ned";
+"Parsing" = "Parsar";
 "Downloading Packages..." = "Lastar ned pakkar...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakkar...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
 
 "Community News" = "Nyheitene frå fellesskapet";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importer kjelder";
 "Updating Repositories" = "Oppdaterer kjelder";
 "Would you like to import the following repositories?" = "Vil du importera følgjande kjelder?";
 "Download Completed" = "Nedlasting fullført";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsar %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Lastar ned %@";
-
-"#Done <Filename>
-Done %@" = "Ferdig %@";

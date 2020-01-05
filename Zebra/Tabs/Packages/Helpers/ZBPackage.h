@@ -47,8 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
-+ (BOOL)containsApplicationBundle:(NSString *)packageID;
-+ (NSString *)pathForApplication:(NSString *)packageID;
++ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)sameAs:(ZBPackage *)package;

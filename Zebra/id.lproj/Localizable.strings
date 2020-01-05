@@ -17,7 +17,7 @@
 "Welcome to Zebra!" = "Selamat Datang di Zebra!";
 "Changelog" = "Changelog";
 "Community Sources" = "Sumber Komunitas";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"You’ve added all of the community sources" = "Anda telah menambahkan semua sumber komunitas";
 "Transfer sources from %@ to Zebra" = "Transfer sumber dari %@ ke Zebra";
 "Utility repo for %@" = "Repo utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
@@ -71,7 +71,7 @@
 "Feature Type" = "Jenis Fitur";
 "Select Repos to be Featured" = "Pilih Repo untuk Diunggulkan";
 
-"News" = "Berita";
+"News" = "News";
 
 "Live Search" = "Pencarian Live";
 
@@ -110,8 +110,8 @@
 "Add" = "Tambah";
 "Add Multiple" = "Tambahkan Beberapa";
 "Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
-"Please Wait..." = "Tunggu Sebentar...";
-"Verifying Source(s)" = "Memverifikasi Sumber";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Repo tidak dapat diverifikasi";
 "Refresh" = "Segarkan";
 "Log Out" = "Keluar";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Tutup Zebra";
 "Restart SpringBoard" = "Mulai ulang SpringBoard";
 "Downloading" = "Mengunduh";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Mengunduh paket...";
 "Installing" = "Memasang";
 "Installing Packages..." = "Memasang Paket...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Acak\" akan menampilkan paket acak dari semua repositori yang telah Anda tambahkan ke Zebra.";
 
 "Community News" = "Berita Komunitas";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sumber";
 "Updating Repositories" = "Meng-Update Repositori";
 "Would you like to import the following repositories?" = "Apakah Anda ingin mengimpor repositori berikut?";
 "Download Completed" = "Unduhan Selesai";
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Mengunduh %@";
-
-"#Done <Filename>
-Done %@" = "Selesai %@";

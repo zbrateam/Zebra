@@ -121,7 +121,6 @@
                        initWithURL:destinationUrl
                        callbackURLScheme:@"sileo"
                        completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                           // TODO: Nothing to do here?
                            if (callbackURL) {
                                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
                                NSArray *queryItems = urlComponents.queryItems;

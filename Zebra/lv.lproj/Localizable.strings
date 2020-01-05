@@ -71,7 +71,7 @@
 "Feature Type" = "Piedāvāšanas veids";
 "Select Repos to be Featured" = "Izvēlies avotus, kuri piedāvā paketes";
 
-"News" = "Jaunumi";
+"News" = "News";
 
 "Live Search" = "Interaktīva meklēšana";
 
@@ -110,8 +110,8 @@
 "Add" = "Pievienot";
 "Add Multiple" = "Pievienot vairākus";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
-"Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verificējam avotu(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nevar verificēt avotu(s)";
 "Refresh" = "Atjaunot";
 "Log Out" = "Izlogoties";
@@ -241,6 +241,7 @@
 "Close Zebra" = "Aizvert Zebra";
 "Restart SpringBoard" = "Restartēt SpringBoard";
 "Downloading" = "Lejupielādē";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Lejupielādē paketes...";
 "Installing" = "Instalē";
 "Installing Packages..." = "Instalē paketes...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Nejaušs\" parādīs paketes no visām krātuvēm, kuras ir pievienotas Zebra.";
 
 "Community News" = "Kopienas Ziņas";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";

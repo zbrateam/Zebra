@@ -16,8 +16,8 @@
 "Info" = "Informacje";
 "Welcome to Zebra!" = "Witaj w Zebra!";
 "Changelog" = "Zmiany";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Źródła społeczności";
+"You’ve added all of the community sources" = "Dodano wszystkie źródła społeczności";
 "Transfer sources from %@ to Zebra" = "Przenieś wszystkie źródła z %@ do Zebry";
 "Utility repo for %@" = "Użyteczne repozytorium dla %@";
 "Transfer Sources" = "Przenieś źródła";
@@ -71,7 +71,7 @@
 "Feature Type" = "Typ wyróżnienia";
 "Select Repos to be Featured" = "Wybierz repozytoria do wyróżnienia";
 
-"News" = "Nowości";
+"News" = "News";
 
 "Live Search" = "Wyszukiwanie";
 
@@ -241,6 +241,7 @@
 "Close Zebra" = "Zamknij Zebrę";
 "Restart SpringBoard" = "Uruchom ponownie SpringBoard";
 "Downloading" = "Pobieranie";
+"Parsing" = "Analizowanie";
 "Downloading Packages..." = "Pobieranie pakietów...";
 "Installing" = "Instalowanie";
 "Installing Packages..." = "Instalowanie pakietów...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Losowy\" wyświetli losowe pakiety ze wszystkich repozytoriów, które dodałeś do Zebry.";
 
 "Community News" = "Aktualności społeczności";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
+"Import Sources" = "Importuj źródła";
+"Updating Repositories" = "Aktualizowanie źródeł";
+"Would you like to import the following repositories?" = "Czy chcesz zaimportować następujące źródła?";
+"Download Completed" = "Pobieranie zakończone";
+"Removing Zebra..." = "Usuwanie Zebry...";
+"Installing Zebra..." = "Instalowanie Zebry...";

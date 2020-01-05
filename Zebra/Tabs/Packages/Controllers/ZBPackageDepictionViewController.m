@@ -136,8 +136,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     } else {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
-    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
     CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
 }
@@ -147,9 +145,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     [self configureNavButton];
     
+    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
+    
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
+    [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -625,11 +631,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)dealloc {
-    [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
-    [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
-}
-
 - (void)presentQueue {
     if ([self presentingViewController]) {
         [self dismissViewControllerAnimated:true completion:^{
@@ -655,13 +656,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)reloadDepiction {
+    UIColor *tableViewBackgroundColor = [UIColor tableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+    webView.backgroundColor = tableViewBackgroundColor;
     [self.tableView reloadData];
-    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
+    self.tableView.backgroundColor = tableViewBackgroundColor;
+    self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
+    self.tableView.tableFooterView.backgroundColor = tableViewBackgroundColor;
     self.packageName.textColor = [UIColor cellPrimaryTextColor];
 }
 
