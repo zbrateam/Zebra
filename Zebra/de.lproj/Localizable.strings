@@ -71,7 +71,7 @@
 "Feature Type" = "Vorgestellter Typ";
 "Select Repos to be Featured" = "Wähle Quellen aus, die vorgestellt werden sollen";
 
-"News" = "Neuigkeiten";
+"News" = "News";
 
 "Live Search" = "Live-Suche";
 
@@ -110,7 +110,7 @@
 "Add" = "Hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
-"Please Wait..." = "Bitte warten...";
+"Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verifizierung der Quelle(n)";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";
