@@ -241,6 +241,7 @@
 "Close Zebra" = "Tutup Zebra";
 "Restart SpringBoard" = "Mulai ulang SpringBoard";
 "Downloading" = "Mengunduh";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Mengunduh paket...";
 "Installing" = "Memasang";
 "Installing Packages..." = "Memasang Paket...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Acak\" akan menampilkan paket acak dari semua repositori yang telah Anda tambahkan ke Zebra.";
 
 "Community News" = "Berita Komunitas";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sumber";
 "Updating Repositories" = "Meng-Update Repositori";
 "Would you like to import the following repositories?" = "Apakah Anda ingin mengimpor repositori berikut?";
 "Download Completed" = "Unduhan Selesai";
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Mengunduh %@";
-
-"#Done <Filename>
-Done %@" = "Selesai %@";
