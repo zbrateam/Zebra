@@ -240,6 +240,7 @@
 "Close Zebra" = "Lukk Zebra";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Laster ned";
+"Parsing" = "Parser";
 "Downloading Packages..." = "Laster ned pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakker...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Tilfeldig\" vil vise tilfeldige pakker fra alle kildene du har lagt til i Zebra.";
 
 "Community News" = "Fellesskapets nyheter";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importer kilder";
 "Updating Sources" = "Oppdaterer kilder";
 "Would you like to import the following sources?" = "Vil du importere følgende kilder?";
 "Download Completed" = "Nedlasting fullført";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
-
-"#Parsing <Source Name>
-Parsing %@" = "Parser %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Laster ned %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "Ferdig %@";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
