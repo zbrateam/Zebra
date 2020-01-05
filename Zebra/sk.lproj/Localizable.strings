@@ -20,7 +20,7 @@
 "You’ve added all of the community sources" = "Pridali ste všetky zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
 "Utility repo for %@" = "Repozitára nástrojov pre %@";
-"Transfer Sources" = "Prenos Repozitárov";
+"Transfer Sources" = "Preniesť Zdroje";
 "Please Wait..." = "Prosím čakajťe...";
 "Verifying Source(s)" = "Overovánie Repozitáre(ov)";
 "Stores" = "Obchody";
@@ -95,7 +95,7 @@
 
 // Sources
 
-"Sources" = "Repozitára";
+"Sources" = "Zdroje";
 "Local Repository" = "Miestné repozitára";
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
