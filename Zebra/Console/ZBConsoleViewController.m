@@ -221,12 +221,10 @@
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
                             
-                            if ([ZBPackage containsApplicationBundle:packageID]) {
+                            NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageID];
+                            if (bundlePath) {
                                 updateIconCache = YES;
-                                NSString *path = [ZBPackage pathForApplication:packageID];
-                                if (path != NULL) {
-                                    [applicationBundlePaths addObject:path];
-                                }
+                                [applicationBundlePaths addObject:bundlePath];
                             }
 
                             if (!respringRequired) {
@@ -296,9 +294,9 @@
             uicaches = [NSMutableArray new];
             for (int i = 0; i < [installedPackageIdentifiers count]; i++) {
                 NSString *packageIdentifier = installedPackageIdentifiers[i];
-                if ([ZBPackage containsApplicationBundle:packageIdentifier]) {
+                NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageIdentifier];
+                if (bundlePath) {
                     updateIconCache = YES;
-                    NSString *bundlePath = [ZBPackage pathForApplication:packageIdentifier];
                     NSLog(@"[Zebra] %@ contains an application bundle at %@, we will update uicache", packageIdentifier, bundlePath);
                     [applicationBundlePaths addObject:bundlePath];
                 }
@@ -462,6 +460,8 @@
 - (void)updateIconCaches {
     [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
     NSMutableArray *arguments = [NSMutableArray new];
+    NSLog(@"[Zebra] uicaches %@", uicaches);
+    NSLog(@"[Zebra] applicationBundlePaths %@", applicationBundlePaths);
     if (uicaches.count + applicationBundlePaths.count > 1) {
         [arguments addObject:@"-a"];
         [self writeToConsole:NSLocalizedString(@"This may take awhile and Zebra may crash. It is okay if it does.", @"") atLevel:ZBLogLevelWarning];
@@ -471,7 +471,7 @@
         for (NSString *packageID in [uicaches copy]) {
             if ([packageID isEqualToString:[ZBAppDelegate bundleID]])
                 continue;
-            NSString *bundlePath = [ZBPackage pathForApplication:packageID];
+            NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageID];
             if (bundlePath != NULL)
                 [applicationBundlePaths addObject:bundlePath];
         }
