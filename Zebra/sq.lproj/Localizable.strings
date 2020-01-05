@@ -241,6 +241,7 @@
 "Close Zebra" = "Mbyll Zebran";
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
 "Downloading" = "Duke u shkarkuar";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Shkarkimi i Paketave...";
 "Installing" = "Instalimi";
 "Installing Packages..." = "Instalimi i Paketave...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"I rastësishëm\" do të shfaq paketat e rastësishme nga të gjitha repot që keni shtuar në Zebra.";
 
 "Community News" = "Lajmet e komunitetit";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importo Burimet";
 "Updating Repositories" = "Duke përditësuar repot";
 "Would you like to import the following repositories?" = "A dëshironi të importoni repot e mëposhtme?";
 "Download Completed" = "Shkarkimi Përfundoi";
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Duke analizuar %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Duke shkarkuar %@";
-
-"#Done <Filename>
-Done %@" = "Përfundoi %@";
