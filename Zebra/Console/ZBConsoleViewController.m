@@ -195,7 +195,6 @@
 }
 
 - (void)performTasksForDownloadedFiles:(NSArray *_Nullable)downloadedFiles {
-    NSLog(@"[Zebra] Downloaded Files: %@", downloadedFiles);
     if (downloadFailed) {
         [self writeToConsole:[NSString stringWithFormat:@"\n%@\n\n%@", NSLocalizedString(@"One or more packages failed to download.", @""), NSLocalizedString(@"Click \"Return to Queue\" to return to the Queue and retry the download.", @"")] atLevel:ZBLogLevelDescript];
         [self finishTasks];
@@ -295,15 +294,11 @@
                 NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageIdentifier];
                 if (bundlePath && ![applicationBundlePaths containsObject:bundlePath]) {
                     updateIconCache = YES;
-                    NSLog(@"[Zebra] %@ contains an application bundle at %@, we will update uicache", packageIdentifier, bundlePath);
                     [applicationBundlePaths addObject:bundlePath];
                 }
                 
                 if (!respringRequired) {
                     respringRequired |= [ZBPackage respringRequiredFor:packageIdentifier];
-                    if (respringRequired) {
-                        NSLog(@"[Zebra] %@ contains a tweak, we will ask for a respring", packageIdentifier);
-                    }
                 }
             }
             
@@ -459,8 +454,6 @@
     [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
     NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"-p"];
     [arguments addObjectsFromArray:applicationBundlePaths];
-    
-    NSLog(@"[Zebra] UICache Arguemnts: %@", arguments);
     
     if (![ZBDevice needsSimulation]) {
         [ZBDevice uicache:arguments observer:self];
