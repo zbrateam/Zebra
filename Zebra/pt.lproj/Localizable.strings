@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo de Destaque";
 "Select Repos to be Featured" = "Seleciona Repositórios para Destacar";
 
-"News" = "Notícias";
+"News" = "News";
 
 "Live Search" = "Pesquisa ao vivo";
 
@@ -110,8 +110,8 @@
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Multiplos";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
-"Please Wait..." = "Por favor aguarde...";
-"Verifying Source(s)" = "A Verificar Fonte(s)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Não foi possivel verificar o Repo";
 "Refresh" = "Atualidade";
 "Log Out" = "Sair";
