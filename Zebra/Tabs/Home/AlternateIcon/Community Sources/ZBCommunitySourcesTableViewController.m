@@ -113,25 +113,28 @@
 
 - (NSArray *)packageManagers {
     NSMutableArray *result = [NSMutableArray new];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
-        NSDictionary *dict = @{@"type": @"transfer",
-                               @"name": @"Cydia",
-                               @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
-                               @"icon": @"file:///Applications/Cydia.app/Icon-60@2x.png"};
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
+        NSDictionary *dict = @{@"type" : @"transfer",
+                               @"name" : @"Cydia",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
+                               @"url"  : @"/var/mobile/Library/Caches/com.saurik.Cydia/sources.list",
+                               @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
         [result addObject:dict];
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
-        NSDictionary *dict2 = @{@"type": @"transfer",
-                               @"name": @"Installer",
-                               @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
-                               @"icon": @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
+//    }
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
+        NSDictionary *dict2 = @{@"type" : @"transfer",
+                                @"name" : @"Installer",
+                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
+                                @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
+                                @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict2];
-    }
+//    }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
-        NSDictionary *dict3 = @{@"type": @"transfer",
-                               @"name": @"Sileo",
-                               @"url" : [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                               @"icon": @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
+        NSDictionary *dict3 = @{@"type" : @"transfer",
+                                @"name" : @"Sileo",
+                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
+                                @"url"  : @"file:///etc/apt/sources.list.d/sileo.sources",
+                                @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict3];
     }
     return result;
@@ -206,7 +209,8 @@
     [cell.repoLabel setText:[info objectForKey:@"name"]];
     [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
     
-    [cell.urlLabel setText:[info objectForKey:@"url"]];
+    NSString *subtitle = [info objectForKey:@"label"] ? [info objectForKey:@"label"] : [info objectForKey:@"url"];
+    [cell.urlLabel setText:subtitle];
     [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
     
     NSURL *iconURL = [NSURL URLWithString:[info objectForKey:@"icon"]];

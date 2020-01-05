@@ -673,12 +673,12 @@
 				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
 				8944916D21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.h */,
 				8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */,
+				8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */,
+				8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */,
 				363FE24D2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.h */,
 				363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */,
 				898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */,
-				8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */,
-				8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
