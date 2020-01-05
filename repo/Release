@@ -7,8 +7,8 @@ Architectures: iphoneos-arm
 Components: main
 Description: Distribution of stable Zebra updates
 SHA1:
- 455bc52d034f8f2c7a4f7aa6890b78a4f60eefe8 2356 Packages
- 9d034b6642ff022dae43a6e0d794515fd1ba2f19 859 Packages.bz2
+ 53dd8eafbde24c9254606c82f42b53fbaa770c63 2946 Packages
+ 61e0ccdcb06635b993772e4347dca9ba52cad3bb 1021 Packages.bz2
 SHA256:
- 9d4fc856bc469f5e16aa961a7c12f274605e88feadd224f3f12c018e6cd9b482 2356 Packages
- c0ff0208be771d9aa4b306132491c7633ebf829f25bacdc1298b5cc2489d17bb 859 Packages.bz2
+ b014786fcc3b96cc949620362702c47729bcf29449525aaed49cccdcaf9cbb7d 2946 Packages
+ 062422452a61df2fdfef909b1168dc0ca35ed7b47ed9769a60001481a1ddaac5 1021 Packages.bz2
