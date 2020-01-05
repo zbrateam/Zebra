@@ -241,6 +241,7 @@
 "Close Zebra" = "סגור את זברה";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
 "Downloading" = "מוריד";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "מוריד חבילות...";
 "Installing" = "מתקין";
 "Installing Packages..." = "מתקין חבילות...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
 
 "Community News" = "חדשות הקהילה";
-
-"#Zebra version
-Zebra %@" = "זברה %@";
-
 "Import Sources" = "ייבא מקורות";
 "Updating Repositories" = "מעדכן מקורות";
 "Would you like to import the following repositories?" = "האם ברצונך לייבא את המקורות הבאים?";
 "Download Completed" = "ההורדה הושלמה";
 "Removing Zebra..." = "מסיר את זברה...";
 "Installing Zebra..." = "מתקין את זברה...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "מנתח את %@";
-
-"#Downloading <Filename>
-Downloading %@" = "מוריד את %@";
-
-"#Done <Filename>
-Done %@" = "סיום %@";
