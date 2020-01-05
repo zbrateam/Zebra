@@ -94,13 +94,13 @@
 
 // Sources
 
-"Sources" = "Repozitára";
+"Sources" = "Zdroje";
 "Local Repository" = "Miestné repozitára";
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
 "No source URLs detected." = "Neboli zistené žiadne URL adresy zdrojov.";
 "You have already added these sources." = "Tieto repozitáre ste už pridali.";
-"Error verifying source" = "Error verifying source";
+"Error verifying source" = "Chyba pri overovaní repozitára";
 "Error verifying sources" = "Chyba pri overovaní repozitárov";
 "Unknown error" = "Neznáma chyba";
 "Invalid URL" = "Chybné URL";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Zmení zdroj odporúčaných balíčkov na domovskej stránke.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Návrhy\" zobrazí náhodné balíčky z repozitárov, ktoré podporujú Featured Package API.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Náhodné\" bude zobrazovať náhodné balíčky zo všetkých repozitárov, ktoré ste pridali do Zebry.";
 
 "Community News" = "Komunitné Novinky";
 
@@ -345,9 +345,9 @@ Parsing %@" = "Analýza%@";
 Downloading %@" = "Sťahuje sa%@";
 
 "#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
+Downloading %@ (%@)" = "Sťahujem %@ (%@)";
 
 "#Done <Filename>
 Done %@" = "Hotovo%@";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Nemožno nájsť repozitár APT na %@";
