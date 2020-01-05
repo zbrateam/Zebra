@@ -71,7 +71,7 @@
 "Feature Type" = "Udvalgt Type";
 "Select Repos to be Featured" = "Vælg arkiver der skal vises";
 
-"News" = "Nyheder";
+"News" = "News";
 
 "Live Search" = "Live Søgning";
 
@@ -110,8 +110,8 @@
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
-"Please Wait..." = "Vent Venligst...";
-"Verifying Source(s)" = "Verificerer Kilde(r)";
+"Please Wait..." = "Please Wait...";
+"Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
 "Refresh" = "opdatere";
 "Log Out" = "Log af";
