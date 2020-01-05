@@ -233,7 +233,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     if (@available(iOS 13.0, *)) {
         if ([self.window respondsToSelector:@selector(setOverrideUserInterfaceStyle:)]) { //Because apparently people are faking their iOS version
-            [self.window setOverrideUserInterfaceStyle:1];
+            [self.window setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         }
     }
     return YES;

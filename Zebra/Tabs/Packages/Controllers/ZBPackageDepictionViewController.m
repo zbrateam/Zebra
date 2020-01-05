@@ -656,13 +656,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)reloadDepiction {
+    UIColor *tableViewBackgroundColor = [UIColor tableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+    webView.backgroundColor = tableViewBackgroundColor;
     [self.tableView reloadData];
-    self.navigationController.navigationBar.barTintColor = [UIColor tableViewBackgroundColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableHeaderView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.tableFooterView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
+    self.tableView.backgroundColor = tableViewBackgroundColor;
+    self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
+    self.tableView.tableFooterView.backgroundColor = tableViewBackgroundColor;
     self.packageName.textColor = [UIColor cellPrimaryTextColor];
 }
 

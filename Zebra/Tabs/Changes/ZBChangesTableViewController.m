@@ -112,10 +112,8 @@
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
-            // NSLog(@"ZEBRA FINISHED THING %@", [data class]);
-            NSError *error2;
+            NSError *error2 = nil;
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
-            // NSLog(@"ZEBRA DICT %@", dictionary);
             [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
             [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
             [self->defaults synchronize];
@@ -132,22 +130,18 @@
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
     [request setHTTPMethod:@"GET"];
-    // [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
-            //NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSError *err;
+            NSError *err = nil;
             ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
-            NSLog(@"Hello %@", redditPosts.kind);
             for (ZBChild *child in redditPosts.data.children) {
                 if (child.data.title != nil) {
                     NSArray *post = [self getTags:child.data.title];
                     for (NSString *string in self->availableOptions) {
                         if ([post containsObject:string] && ![self.redditPosts containsObject:child.data]) {
                             [self.redditPosts addObject:child.data];
-                            // NSLog(@"redditposts %@", self.redditPosts);
                         }
                     }
                 }
