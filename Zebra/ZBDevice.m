@@ -152,15 +152,17 @@
     if (![self needsSimulation]) {
         BOOL failed = NO;
         
-        //Try sbreload
-        NSLog(@"[Zebra] Trying sbreload");
-        @try {
-            [self runCommandInPath:@"sbreload" asRoot:false observer:nil];
-        }
-        @catch (NSException *e) {
-            CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
-            NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
-            failed = YES;
+        if (@available(iOS 11.0, *)) {
+            //Try sbreload
+            NSLog(@"[Zebra] Trying sbreload");
+            @try {
+                [self runCommandInPath:@"sbreload" asRoot:false observer:nil];
+            }
+            @catch (NSException *e) {
+                CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
+                NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
+                failed = YES;
+            }
         }
         
         //Try launchctl
