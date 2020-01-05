@@ -241,6 +241,7 @@
 "Close Zebra" = "Lukk Zebra";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Downloading" = "Laster ned";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Laster ned pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakker...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil vise tilfeldige pakker fra alle kildene du har lagt til i Zebra.";
 
 "Community News" = "Fellesskapets nyheter";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Oppdaterer kilder";
 "Would you like to import the following repositories?" = "Vil du importere følgende kilder?";
 "Download Completed" = "Nedlasting fullført";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parser %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Laster ned %@";
-
-"#Done <Filename>
-Done %@" = "Ferdig %@";
