@@ -1,5 +1,5 @@
 //
-//  ZBRepoListTableViewController.m
+//  ZBSourceListTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 12/3/18.
@@ -10,7 +10,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBRepoListTableViewController.h"
+#import "ZBSourceListTableViewController.h"
 #import "ZBAddRepoViewController.h"
 #import "ZBAddRepoDelegate.h"
 #import <Database/ZBDatabaseManager.h>
@@ -26,7 +26,7 @@
 
 @import SDWebImage;
 
-@interface ZBRepoListTableViewController () <ZBAddRepoDelegate> {
+@interface ZBSourceListTableViewController () <ZBAddRepoDelegate> {
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
     BOOL isRefreshingTable;
@@ -36,7 +36,7 @@
 }
 @end
 
-@implementation ZBRepoListTableViewController
+@implementation ZBSourceListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -14,7 +14,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
-#import <Sources/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
@@ -261,7 +261,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                 
-                ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 [repoController handleImportOf:url];
             }
             break;
@@ -280,7 +280,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
                     
-                    ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     [repoController handleURL:url];
                     break;
                 }
@@ -432,7 +432,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBRepoListTableViewController *repoController = (ZBRepoListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
     }
 }

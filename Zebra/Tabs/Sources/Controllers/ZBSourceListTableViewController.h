@@ -1,5 +1,5 @@
 //
-//  ZBRepoListTableViewController.h
+//  ZBSourceListTableViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 12/3/18.
@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoListTableViewController : ZBRefreshableTableViewController {
+@interface ZBSourceListTableViewController : ZBRefreshableTableViewController {
     NSMutableArray *sources;
     NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
     NSMutableArray *sectionIndexTitles;

@@ -212,7 +212,7 @@
 
 - (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
     if (error) { //An error occured, we should handle it accordingly
-        if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can funciton without one) but we should at least *warn* the user so that they might bug the repo maintainer :)
+        if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the repo maintainer :)
             NSString *description = [NSString stringWithFormat:@"Could not download Release file from %@. Reason: %@", source.repositoryURI, error.localizedDescription]; //TODO: Localize
             
             source.releaseTaskCompleted = YES;

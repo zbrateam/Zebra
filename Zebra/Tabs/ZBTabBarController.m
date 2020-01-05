@@ -9,7 +9,7 @@
 #import "ZBTabBarController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Sources/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <UITabBarItem.h>
@@ -149,7 +149,7 @@
     [repoBusyList setObject:@(busy) forKey:bfn];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
+        ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
         [sourcesVC setSpinnerVisible:busy forRepo:bfn];
     });
 }

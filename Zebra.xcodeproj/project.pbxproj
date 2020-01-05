@@ -64,10 +64,11 @@
 		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
+		8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
-		8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */; };
+		8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		8947D84423734F9600635396 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8947D83723734F9500635396 /* FirebaseInstanceID.framework */; };
 		8947D84523734F9600635396 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8947D83823734F9500635396 /* GoogleAppMeasurement.framework */; };
@@ -267,6 +268,8 @@
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		8916912E2367B4D4006E765F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		892552C3237B288000120F9B /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportTableViewController.h; sourceTree = "<group>"; };
+		8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportTableViewController.m; sourceTree = "<group>"; };
 		8931E4D2226D6E9300F35DFD /* utiicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = utiicon.png; sourceTree = "<group>"; };
 		8932F0C02364A0B200F16E5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0C12364A33000F16E5E /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -295,8 +298,8 @@
 		89448816236A3FF200523D7C /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448817236A41B800523D7C /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448818236A5BFB00523D7C /* sr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sr; path = sr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRepoListTableViewController.h; sourceTree = "<group>"; };
-		8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRepoListTableViewController.m; sourceTree = "<group>"; };
+		8944916D21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceListTableViewController.h; sourceTree = "<group>"; };
+		8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceListTableViewController.m; sourceTree = "<group>"; };
 		89463CDF2277B5C300A92FC5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8947D83723734F9500635396 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Vendor/FirebaseInstanceID.framework; sourceTree = "<group>"; };
 		8947D83823734F9500635396 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Vendor/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
@@ -668,15 +671,14 @@
 			children = (
 				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
 				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
-				8944916D21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.h */,
-				8944916E21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m */,
+				8944916D21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.h */,
+				8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */,
 				363FE24D2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.h */,
 				363FE24E2287A1DD00B69929 /* ZBRepoPurchasedPackagesTableViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.h */,
 				898E010D22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m */,
-				3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */,
-				3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */,
-				3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */,
+				8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */,
+				8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -908,6 +910,9 @@
 		89F213C123BED9DE00F3E5E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */,
+				3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */,
+				3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */,
 				49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */,
 				49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */,
 				9E06A9EE22D0842400DBBC38 /* ZBRepoTableViewCell.xib */,
@@ -1189,6 +1194,7 @@
 				896F11C321B231900017B581 /* ZBSource.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBRepoSectionsListTableViewController.m in Sources */,
+				8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */,
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
@@ -1238,7 +1244,7 @@
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				BFC6DB1E236D9BD500DA5534 /* ZBSettingsOptionsTableViewController.m in Sources */,
-				8944916F21B5AF5E00DDDEF2 /* ZBRepoListTableViewController.m in Sources */,
+				8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
