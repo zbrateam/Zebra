@@ -12,6 +12,7 @@
 #import <ZBLog.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
+#import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
 
 @interface ZBCommunitySourcesTableViewController ()
 @end
@@ -242,21 +243,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSDictionary *info = [[communitySources objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     NSString *type = [info objectForKey:@"type"];
     
     NSArray *options = @[@"transfer", @"utility", @"repo"];
     switch ([options indexOfObject:type]) {
         case 0: {
-            NSString *manager = [info objectForKey:@"name"];
-            if ([manager isEqualToString:@"Cydia"]) {
-                [self.repoManager transferFromCydia];
-            } else if ([manager isEqualToString:@"Sileo"]) {
-                [self.repoManager transferFromSileo];
-            } else if ([manager isEqualToString:@"Installer"]) {
-                [self.repoManager transferFromInstaller];
-            }
-            [self presentConsole];
+            ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[info objectForKey:@"url"]]];
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
+            [self presentViewController:navController animated:true completion:nil];
             break;
         }
         case 1:
@@ -268,7 +266,6 @@
         default:
             break;
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)presentConsole {
