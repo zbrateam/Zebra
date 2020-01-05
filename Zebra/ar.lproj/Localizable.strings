@@ -70,7 +70,7 @@
 "Feature Type" = "نوع الميزة";
 "Select Sources to be Featured" = "حدد المصادر لتمييزها";
 
-"News" = "News";
+"News" = "الأخبار";
 
 "Live Search" = "بحث مباشر";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
