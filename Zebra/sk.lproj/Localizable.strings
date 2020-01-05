@@ -16,10 +16,10 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vitajte v aplikácii Zebra!";
 "Changelog" = "Zoznam zmien";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Zdroje Komunity";
+"You’ve added all of the community sources" = "Pridali ste všetky zdroje komunity\n";
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Repozitár nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Please Wait..." = "Prosím čakajťe...";
 "Verifying Source(s)" = "Overovánie Repozitáre(ov)";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Nič tu nie je.";
 "Community" = "Komunita";
 "Join our Discord" = "Pripoj sa na náš Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Sledujte nás na Twitteri";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Odporúčané Balíčky";
 "Random" = "Náhodné";
 "Feature Type" = "Typ odporúčania";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Vyber repozitára, ktoré budú odporúčané";
 
 "News" = "Novinky";
 
@@ -99,19 +99,19 @@
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
 "No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
+"You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"Error verifying sources" = "Chyba pri overovaní repozitárov";
 "Unknown error" = "Neznáma chyba";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadaj URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Pridaj Zdroj";
 "Add" = "Pridať";
 "Add Multiple" = "Pridať viac";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
 "Please Wait..." = "Prosím čakajťe...";
 "Verifying Source(s)" = "Overovánie Repozitáre(ov)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Nepodarilo sa overiť zdoj";
 "Refresh" = "Refreshút";
 "Log Out" = "Odhlásiť sa";
 "Purchased Packages" = "Zakúpené balíčky";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Dostupné aktualizácie";
 "Ignored Upgrades" = "Ignorované aktualizácie";
 "Recent" = "Nedávne";
-"Source" = "Source";
+"Source" = "Zdroj";
 "Installed Files" = "Nainštalované súbory";
 "Modify" = "Upraviť";
 "Authenticate to initiate purchase." = "Autorizuj se pro nákup.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Stiahnuté";
 "Error while opening sources.list" = "Chyba pri otváraní sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Repozitár %@ nie je kompatibilný s vaším Jailbreakom.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ak ho pridáte do aplikácie Zebra, môže to spôsobiť problémy, čo môže mať za následok nutné obnovenie softvéru.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Odstráňte tento repozitár zo sources.list súboru.";
 "Incorrect documents permissions." = "Chybné oprávnenia dokumentu.";
 "Could not determine device information." = "Informácie o zariadení sa nepodarilo zistiť.";
 "Could not find a download URL for" = "Nepodarilo sa nájsť webovú adresu pre stiahnutie súboru";
@@ -331,23 +331,23 @@
 "#Zebra version
 Zebra %@" = "Zebra %@";
 
-"Import Sources" = "Import Sources";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importovať Zdroje";
+"Updating Sources" = "Zdroje sa aktualizujú\n\n";
+"Would you like to import the following sources?" = "Chcete importovať nasledujúce zdroje?";
+"Download Completed" = "Sťahovanie dokončené";
+"Removing Zebra..." = "Odstraniť Zebru...";
+"Installing Zebra..." = "Inštalácia zebry...";
 
 "#Parsing <Source Name>
-Parsing %@" = "Parsing %@";
+Parsing %@" = "Analýza%@";
 
 "#Downloading <Filename>
-Downloading %@" = "Downloading %@";
+Downloading %@" = "Sťahuje sa%@";
 
 "#Downloading <Package Name> (<Package Identifier>)
 Downloading %@ (%@)" = "Downloading %@ (%@)";
 
 "#Done <Filename>
-Done %@" = "Done %@";
+Done %@" = "Hotovo%@";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
