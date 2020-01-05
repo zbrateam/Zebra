@@ -68,11 +68,8 @@
         self.navigationItem.titleView = container;
     }
     self.title = [repo origin];
-    if (@available(iOS 11.0, *)) {
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        CGFloat top = self.navigationController.navigationBar.bounds.size.height;
-        self.tableView.contentInset = UIEdgeInsetsMake(top + 20, 0, 64, 0);
-    } else {
+    
+    if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
