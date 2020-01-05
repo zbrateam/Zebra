@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceImportTableViewController : UITableViewController
-
+@property (nonatomic) NSArray <NSString *> *sourceFilesToImport;
+- (id)initWithSourceFiles:(NSArray <NSString *> *)filePaths;
 @end
 
 NS_ASSUME_NONNULL_END
