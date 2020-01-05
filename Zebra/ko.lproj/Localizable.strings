@@ -241,6 +241,7 @@
 "Close Zebra" = "Zebra 닫기";
 "Restart SpringBoard" = "SpringBoard 재시작";
 "Downloading" = "다운로드 중";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "패키지 다운로드 중...";
 "Installing" = "설치 중";
 "Installing Packages..." = "패키지 설치 중...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 저장소에서 랜덤으로 패키지를 표시합니다.";
 
 "Community News" = "커뮤니티 뉴스";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Parsing %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Downloading %@";
-
-"#Done <Filename>
-Done %@" = "Done %@";
