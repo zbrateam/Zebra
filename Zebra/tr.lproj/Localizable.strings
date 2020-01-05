@@ -240,6 +240,7 @@
 "Close Zebra" = "Zebra'yı Kapat";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
 "Downloading" = "İndiriliyor";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Paketler İndiriliyor...";
 "Installing" = "Yükleniyor";
 "Installing Packages..." = "Paketler Yükleniyor...";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
 "Community News" = "Topluluk Haberleri";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Kaynakları İçeri Al";
 "Updating Sources" = "Updating Sources";
 "Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
 "Download Completed" = "İndirme Tamamlandı";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
-
-"#Parsing <Source Name>
-Parsing %@" = "Okunuyor %@";
-
-"#Downloading <Filename>
-Downloading %@" = "İndiriliyor %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "Downloading %@ (%@)";
-
-"#Done <Filename>
-Done %@" = "%@ Tamamlandı";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
