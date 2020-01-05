@@ -240,6 +240,7 @@
 "Close Zebra" = "关闭 Zebra";
 "Restart SpringBoard" = "重启 SpringBoard";
 "Downloading" = "正在下载";
+"Parsing" = "正在解析";
 "Downloading Packages..." = "正在下载软件包……";
 "Installing" = "正在安装";
 "Installing Packages..." = "正在安装软件包……";
@@ -327,27 +328,11 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
 
 "Community News" = "社区新闻";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "导入软件源";
 "Updating Sources" = "正在更新软件源";
 "Would you like to import the following sources?" = "你想导入以下软件源吗？";
 "Download Completed" = "下载完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
-
-"#Parsing <Source Name>
-Parsing %@" = "正在解析 %@";
-
-"#Downloading <Filename>
-Downloading %@" = "正在下载 %@";
-
-"#Downloading <Package Name> (<Package Identifier>)
-Downloading %@ (%@)" = "正在下载 %@ （%@）";
-
-"#Done <Filename>
-Done %@" = "已完成 %@";
 
 "Could not find an APT repository located at %@" = "找不到位于 %@ 的 APT 软件源";
