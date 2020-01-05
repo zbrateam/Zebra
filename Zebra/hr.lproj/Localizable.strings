@@ -241,6 +241,7 @@
 "Close Zebra" = "Zatvori Zebru";
 "Restart SpringBoard" = "Ponovo pokrenite SpringBoard";
 "Downloading" = "Preuzimanje";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Preuzimanje paketa...";
 "Installing" = "Instaliranje";
 "Installing Packages..." = "Instaliranje paketa...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "“Nasumično” će prikazivati nasumične pakete sa svih izvora koje ste dodali u Zebru.";
 
 "Community News" = "Novosti iz zajednice";
-
-"#Zebra version
-Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Uvezite izvore";
 "Updating Repositories" = "Nadogradnja izvora";
 "Would you like to import the following repositories?" = "Dali bi voljeli uvesti sljedeće izvore?";
 "Download Completed" = "Preuzimanje završeno";
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
-
-"#Parsing <Repo Name>
-Parsing %@" = "Rasčlanjivanje %@";
-
-"#Downloading <Filename>
-Downloading %@" = "Preuzimanje %@";
-
-"#Done <Filename>
-Done %@" = "Dovršeno %@";
