@@ -239,7 +239,7 @@
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
-"Downloading" = "מוריד";
+"Downloading" = "מוריד את";
 "Downloading Packages..." = "מוריד חבילות...";
 "Installing" = "מתקין";
 "Installing Packages..." = "מתקין חבילות...";
@@ -348,6 +348,6 @@ Downloading %@" = "מוריד את %@";
 Downloading %@ (%@)" = "מוריד את %@ (%@)";
 
 "#Done <Filename>
-Done %@" = "סיום %@";
+Done %@" = "סיים להוריד את %@";
 
 "Could not find an APT repository located at %@" = "לא ניתן למצוא מקור APT בכתובת %@";
