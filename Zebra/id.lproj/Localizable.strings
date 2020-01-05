@@ -70,7 +70,7 @@
 "Feature Type" = "Jenis Fitur";
 "Select Sources to be Featured" = "Pilih Sumber untuk Diunggulkan";
 
-"News" = "News";
+"News" = "Berita";
 
 "Live Search" = "Pencarian Live";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Memasang Zebra...";
 
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+
+"Import" = "Import";
