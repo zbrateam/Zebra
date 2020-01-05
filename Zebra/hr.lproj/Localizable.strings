@@ -19,7 +19,7 @@
 "Community Sources" = "Izvori zajednice";
 "You’ve added all of the community sources" = "Dodali ste sve izvore iz skladušta zajednice";
 "Transfer sources from %@ to Zebra" = "Prenesi izvore iz %@ u Zebru";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Korisni izvori za %@";
 "Transfer Sources" = "Prenesi Izvore";
 "Please Wait..." = "Molimo pričekajte...";
 "Verifying Source(s)" = "Potvrđujemo Izvor(e)";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Lista želja je prazna";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridružite se našem Discord-u";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Pratite nas na Twitteru";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Istaknuti paketi";
 "Random" = "Nasumično";
 "Feature Type" = "Istaknuti Tip";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Odaberite Izvore koje želite istaknuti";
 
 "News" = "Novosti";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternativna ikona";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Istaknuti izvori";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Lokalno Spremište";
 "Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Nisu detektirani URL-ovi izvora.";
+"You have already added these sources." = "Već ste dodali ove izvore.";
+"Error verifying source" = "Greška pri verifikaciji izvora";
+"Error verifying sources" = "Greška pri verifikaciji izvora";
 "Unknown error" = "Nepoznata pogreška";
 "Invalid URL" = "Neispravan URL";
 "Enter URL" = "Unesite URL";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Dodaj izvore";
 "Add" = "Dodaj";
 "Add Multiple" = "Višestruko dodavanje";
 "Would you like to add the URL from your clipboard?" = "Dali želite dodati URL iz Vašeg međuspremnika?";
 "Please Wait..." = "Molimo pričekajte...";
 "Verifying Source(s)" = "Potvrđujemo Izvor(e)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Ne može se provjeriti Izvor";
 "Refresh" = "Osvježi";
 "Log Out" = "Odjavite se";
 "Purchased Packages" = "Kupljeni paketi";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Dostupna Ažuriranja";
 "Ignored Upgrades" = "Ignorirana Ažuriranja";
 "Recent" = "Nedavno";
-"Source" = "Source";
+"Source" = "Izvor";
 "Installed Files" = "Instalirane Datoteke";
 "Modify" = "Izmjeni";
 "Authenticate to initiate purchase." = "Autentifikacije za pokretanje kupovine.";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Preuzimanja";
 "Error while opening sources.list" = "Pogreška pri otvaranju sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Izvor %@ nije kompatibilan s tvojim jailbreak-om.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Može uzrokovati probleme ukoliko dodate u Zebru i moguće je ponovo postavljanje uređaja.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Molimo, uklonite ovaj izvor iz vaše sources.list datoteke.";
 "Incorrect documents permissions." = "Netočna dopuštanja datotekama.";
 "Could not determine device information." = "Nisu se uspjeli odrediti podaci o uređju.";
 "Could not find a download URL for" = "Ne mogu pronaći URL preuzimanje za";
@@ -322,9 +322,9 @@
 
 "Change the source of the featured packages on the homepage." = "Promijeni izvor istaknutih paketa na početnoj stranici.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "“Istaknuti Izvor” će prikazivati nasumične pakete s izvora koji podržavaju API istaknutih paketa.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "“Nasumično” će prikazivati nasumične pakete sa svih izvora koje ste dodali u Zebru.";
 
 "Community News" = "Novosti iz zajednice";
 
@@ -332,8 +332,8 @@
 Zebra %@" = "Zebra %@";
 
 "Import Sources" = "Uvezite izvore";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Nadogradnja izvora";
+"Would you like to import the following sources?" = "Dali bi voljeli uvesti sljedeće izvore?";
 "Download Completed" = "Preuzimanje završeno";
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
@@ -350,4 +350,4 @@ Downloading %@ (%@)" = "Downloading %@ (%@)";
 "#Done <Filename>
 Done %@" = "Dovršeno %@";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Ne može se pronaći APT skladišta lociranog u %@";
