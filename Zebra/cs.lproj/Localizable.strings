@@ -16,7 +16,7 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Zdroje Společenství";
+"Community Sources" = "Zdroje Komunity";
 "You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility repo for %@" = "Repozitář nástrojů pro %@";
