@@ -16,11 +16,11 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Zdroje Společenství";
+"Community Sources" = "Zdroje Komunity";
 "You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility source for %@" = "Zdroj nástrojů pro %@";
-"Transfer Sources" = "Přenést Repozitáře";
+"Transfer Sources" = "Přenést Zdroje";
 "Please Wait..." = "Prosím čekejte...";
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
 "Stores" = "Obchody";
@@ -100,8 +100,8 @@
 "Unknown" = "Neznámý";
 "No source URLs detected." = "Nebyly zjištěny žádné URL adresy zdrojů.";
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
-"Error verifying source" = "Chyba ověření zdroje";
-"Error verifying sources" = "Chyba ověření zdroje";
+"Error verifying source" = "Chyba při ověřování zdroje";
+"Error verifying sources" = "Chyba při ověřování zdrojů";
 "Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
 "Enter URL" = "Zadej URL";
