@@ -285,7 +285,7 @@
             
             [self bulkSetRepo:baseFileName busy:YES];
             
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), baseFileName] atLevel:ZBLogLevelDescript];
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Parsing", @""), baseFileName] atLevel:ZBLogLevelDescript];
             
             int repoID = [self repoIDFromBaseFileName:baseFileName];
             if (repoID == -1) { // Repo does not exist in database, create it (this should never happen).
@@ -524,8 +524,9 @@
         
         [self closeDatabase];
         return repoID;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return -1;
 }
 
@@ -553,8 +554,9 @@
         
         [self closeDatabase];
         return repoID;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return -1;
 }
 
@@ -580,8 +582,9 @@
         [self closeDatabase];
         
         return repo;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -602,8 +605,9 @@
         
         [self closeDatabase];
         return repoID + 1;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return -1;
 }
 
@@ -630,8 +634,9 @@
         
         [self closeDatabase];
         return packages;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return -1;
 }
 
@@ -653,8 +658,9 @@
         [self closeDatabase];
         
         return sources;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -692,8 +698,9 @@
         [self closeDatabase];
         
         return icon;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -721,8 +728,9 @@
         
         sqlite3_finalize(statement);
         [self closeDatabase];
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
 }
 
 - (NSDictionary *)sectionReadoutForRepo:(ZBRepo *)repo {
@@ -747,8 +755,9 @@
         
         [self closeDatabase];
         return sectionReadout;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -781,8 +790,9 @@
         [self closeDatabase];
         
         return [self cleanUpDuplicatePackages:packages];
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -820,8 +830,9 @@
         [self closeDatabase];
         
         return installedPackages;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -885,8 +896,9 @@
         [self closeDatabase];
         
         return packagesWithIgnoredUpdates;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -919,8 +931,9 @@
         
         [self closeDatabase];
         return packagesWithUpdates;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -949,8 +962,9 @@
         [self closeDatabase];
         
         return [self cleanUpDuplicatePackages:searchResults];
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -972,8 +986,9 @@
         [self closeDatabase];
         
         return [self cleanUpDuplicatePackages:packages];
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1000,8 +1015,9 @@
             [self closeDatabase];
             
             return packageIsInstalled;
+        } else {
+            [self printDatabaseError];
         }
-        [self printDatabaseError];
         return NO;
     }
 }
@@ -1042,8 +1058,9 @@
         
         ZBLog(@"[Zebra] Is %@ (version: %@) installed? : %d", packageIdentifier, version, packageIsInstalled);
         return packageIsInstalled;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NO;
 }
 
@@ -1069,8 +1086,9 @@
         
         [self closeDatabase];
         return packageIsAvailable;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NO;
 }
 
@@ -1096,8 +1114,9 @@
         
         [self closeDatabase];
         return package;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1124,8 +1143,9 @@
         
         [self closeDatabase];
         return ignored;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NO;
 }
 
@@ -1216,8 +1236,9 @@
         
         [self closeDatabase];
         return [packages count] ? packages[0] : NULL; //Returns the first package in the array, we could use interactive dependency resolution in the future
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1284,8 +1305,9 @@
         
         [self closeDatabase];
         return NULL;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1338,8 +1360,9 @@
         
         [self closeDatabase];
         return NULL;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1379,20 +1402,17 @@
         }
         
         if (package != NULL) {
+            [self closeDatabase];
             if (version != NULL && comparison != NULL) {
-                [self closeDatabase];
                 return [ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version] ? package : NULL;
             }
-            else {
-                [self closeDatabase];
-                return package;
-            }
+            return package;
         }
         
         [self closeDatabase];
-        return NULL;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1439,8 +1459,9 @@
         [self closeDatabase];
         
         return sorted;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1472,8 +1493,9 @@
         [self closeDatabase];
         
         return sorted;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1510,8 +1532,9 @@
         [self closeDatabase];
         
         return packages;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1534,9 +1557,11 @@
  
             }
         }
+        [self closeDatabase];
         return [self cleanUpDuplicatePackages:packages];
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1624,8 +1649,9 @@
         }
         
         return [packages count] > 0 ? packages : NULL;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1671,9 +1697,11 @@
             }
         }
         
+        [self closeDatabase];
         return [packages count] > 0 ? packages : NULL;
+    } else {
+        [self printDatabaseError];
     }
-    [self printDatabaseError];
     return NULL;
 }
 
@@ -1752,9 +1780,7 @@
                         if (needsVersionComparison && [ZBDependencyResolver doesVersion:[package objectForKey:@"version"] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
                             return true;
                         }
-                        else {
-                            return true;
-                        }
+                        return true;
                     }
                 }
                 return false;
@@ -1763,13 +1789,11 @@
             sqlite3_finalize(statement);
             [self closeDatabase];
             return found;
-        }
-        else {
+        } else {
             [self printDatabaseError];
-            [self closeDatabase];
-            return FALSE;
         }
-        
+        [self closeDatabase];
+        return FALSE;
     }
     else {
         [self printDatabaseError];
@@ -1785,7 +1809,7 @@
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager startedDownloadForFile:(nonnull NSString *)filename {
     [self bulkSetRepo:filename busy:YES];
-    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Downloading %@", filename] atLevel:ZBLogLevelDescript];
+    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Downloading", @""), filename] atLevel:ZBLogLevelDescript];
 }
 
 - (void)predator:(nonnull ZBDownloadManager *)downloadManager finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError * _Nullable)error {
@@ -1797,7 +1821,7 @@
             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@\n", error.localizedDescription] atLevel:ZBLogLevelError];
         }
     } else if (filename) {
-        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Done %@", filename] atLevel:ZBLogLevelDescript];
+        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Done", @""), filename] atLevel:ZBLogLevelDescript];
     }
 }
 
@@ -1852,10 +1876,10 @@
 }
 
 - (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package {
+    NSString *version = NULL;
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE = '%@' AND REPOID = 0", [package identifier]];
         
-        NSString *version;
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1870,13 +1894,11 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
-        return version;
+    } else {
+        [self printDatabaseError];
     }
     
-    [self printDatabaseError];
-    [self closeDatabase];
-    return NULL;
+    return version;
 }
 
 - (NSString *)excludeStringFromArray:(NSArray *)array {

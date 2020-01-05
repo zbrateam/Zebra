@@ -365,9 +365,11 @@ enum ZBSearchSection {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-    NSIndexPath *indexPath = sender;
-    destination.package = [results objectAtIndex:indexPath.row];
-    destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+    if ([destination isKindOfClass:[ZBPackageDepictionViewController class]]) {
+        NSIndexPath *indexPath = sender;
+        destination.package = [results objectAtIndex:indexPath.row];
+        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+    }
 }
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {

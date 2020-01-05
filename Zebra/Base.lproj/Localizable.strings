@@ -241,6 +241,7 @@
 "Close Zebra" = "Close Zebra";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Downloading" = "Downloading";
+"Parsing" = "Parsing";
 "Downloading Packages..." = "Downloading Packages...";
 "Installing" = "Installing";
 "Installing Packages..." = "Installing Packages...";
@@ -328,22 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
 "Community News" = "Community News";
-
-#Zebra version
-"Zebra %@" = "Zebra %@";
-
 "Import Sources" = "Import Sources";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
 "Download Completed" = "Download Completed";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
-
-#Parsing <Repo Name>
-"Parsing %@" = "Parsing %@";
-
-#Downloading <Filename>
-"Downloading %@" = "Downloading %@";
-
-#Done <Filename>
-"Done %@" = "Done %@";

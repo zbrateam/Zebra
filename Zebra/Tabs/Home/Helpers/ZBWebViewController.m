@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import "ZBWebViewController.h"
@@ -184,7 +185,7 @@
             [webView evaluateJavaScript:@"document.getElementById('uncover').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
-        } else if ([ZBDevice isUncover]) { // uncover
+        } else if ([ZBDevice isUncover]) { // unc0ver
             [webView evaluateJavaScript:@"document.getElementById('chimera').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('electra').outerHTML = \'\'" completionHandler:nil];
             [webView evaluateJavaScript:@"document.getElementById('cydia').outerHTML = \'\'" completionHandler:nil];
@@ -285,7 +286,7 @@
 }
 
 - (void)handleRepoAdd:(NSString *)repo local:(BOOL)local {
-    //    NSLog(@"[Zebra] Handling repo add for method %@", repo);
+    ZBLog(@"[Zebra] Handling repo add for method %@", repo);
     if (local) {
         NSArray *options = @[
                              @"transfercydia",
@@ -336,7 +337,7 @@
             if (!success) {
                 NSLog(@"[Zebra] Could not add source %@ due to error %@", url.absoluteString, error);
             } else {
-                NSLog(@"[Zebra] Added source.");
+                NSLog(@"[Zebra] Added source: %@", url.absoluteString);
                 [weakSelf showRefreshView:@(NO)];
             }
         }];
@@ -367,7 +368,7 @@
     }
     else
     {
-        NSLog(@"[Zebra] This device cannot send email");
+        NSLog(@"[Zebra] This device cannot send email.");
     }
 }
 

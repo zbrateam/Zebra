@@ -134,8 +134,8 @@ enum ZBMiscOrder {
         case ZBFeatured: {
             int rows = 1;
             BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
-            BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
             if (wantsFeatured) {
+                BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
                 if (randomFeatured) {
                     return 3;
                 }
@@ -460,12 +460,6 @@ enum ZBMiscOrder {
 
 # pragma mark selected cells methods
 
-- (void)openChangelog {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBChangeLogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
-    [self.navigationController pushViewController:changeLog animated:YES];
-}
-
 - (void)openWebView:(NSInteger)cellNumber {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
@@ -517,20 +511,13 @@ enum ZBMiscOrder {
 }
 
 - (void)changeTint {
-    NSString *theme = @"Black";
-    if (ZBDevice.darkModeEnabled) {
-        theme = @"White";
-    }
+    NSString *theme = ZBDevice.darkModeEnabled ? @"White" : @"Black";
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.settingTitle = @"Accent Color";
     controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    if (number) {
-        controller.settingSelectedRow = (ZBTintSelection)[number integerValue];
-    } else {
-        controller.settingSelectedRow = ZBDefaultTint;
-    }
+    controller.settingSelectedRow = number ? (ZBTintSelection)[number integerValue] : ZBDefaultTint;
     controller.settingChanged = ^(NSInteger newValue) {
         self->tintColorType = (ZBTintSelection) newValue;
         [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
@@ -541,6 +528,7 @@ enum ZBMiscOrder {
             [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
             [ZBDevice refreshViews];
             [self setNeedsStatusBarAppearanceUpdate];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:nil];
         } completion:nil];
     };
     [self.navigationController pushViewController: controller animated:YES];
