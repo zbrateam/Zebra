@@ -329,7 +329,6 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil vise tilfeldige pakker fra alle kildene du har lagt til i Zebra.";
 
 "Community News" = "Fellesskapets nyheter";
-
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Oppdaterer kilder";
 "Would you like to import the following repositories?" = "Vil du importere følgende kilder?";
