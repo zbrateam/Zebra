@@ -70,7 +70,7 @@
 "Feature Type" = "Тип Избранного";
 "Select Sources to be Featured" = "Выберите Отображаемые Источники";
 
-"News" = "News";
+"News" = "Новости";
 
 "Live Search" = "Живой Поиск";
 
@@ -336,3 +336,5 @@
 "Installing Zebra..." = "Установка Zebra...";
 
 "Could not find an APT repository located at %@" = "Не удалось найти APT репозиторий в %@";
+
+"Import" = "Import";
