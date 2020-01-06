@@ -37,13 +37,15 @@
 }
 
 - (void)setSpinning:(BOOL)spinning {
-    if (spinning) {
-        self.accessoryView = spinner;
-        [spinner startAnimating];
-    } else {
-        [spinner stopAnimating];
-        self.accessoryView = self.chevronView;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (spinning) {
+            self.accessoryView = self->spinner;
+            [self->spinner startAnimating];
+        } else {
+            [self->spinner stopAnimating];
+            self.accessoryView = self.chevronView;
+        }
+    });
 }
 
 @end
