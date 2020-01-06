@@ -15,9 +15,10 @@
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 
-@interface ZBSourceImportTableViewController ()
+@interface ZBSourceImportTableViewController () {
+    NSUInteger sourcesToVerify;
+}
 @property NSArray <ZBBaseSource *> *baseSources;
-@property NSMutableDictionary <NSString *, NSNumber *> *sources;
 @property NSMutableDictionary <NSString *, NSString *> *titles;
 @property NSMutableDictionary <NSString *, NSNumber *> *selectedSources;
 @property ZBSourceManager *sourceManager;
@@ -27,7 +28,6 @@
 
 @synthesize baseSources;
 @synthesize sourceFilesToImport;
-@synthesize sources;
 @synthesize titles;
 @synthesize sourceManager;
 @synthesize selectedSources;
@@ -57,7 +57,6 @@
     UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView:activityView];
     [self.navigationItem setRightBarButtonItem:loadingView];
     [activityView startAnimating];
-
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
@@ -65,7 +64,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (baseSources == NULL || sources == NULL || titles == NULL) {
+    if (baseSources == NULL || titles == NULL) {
         [self processSourcesFromLists];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -93,7 +92,7 @@
     }
     
     ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
-    ZBSourceVerification status = [[sources objectForKey:[source baseFilename]] integerValue];
+    ZBSourceVerification status = source.verificationStatus;
     
     cell.repoLabel.alpha = 1.0;
     cell.urlLabel.alpha = 1.0;
@@ -101,18 +100,12 @@
     [cell setSpinning:false];
     switch (status) {
         case ZBSourceExists: {
-            if ([selectedSources objectForKey:[source baseFilename]]) {
-                BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
-                if (selected) {
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                }
-                else {
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
+            BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
+            if (selected) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             else {
-                [selectedSources setObject:@YES forKey:[source baseFilename]];
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
         }
@@ -158,8 +151,8 @@
 #pragma mark - Processing Sources
 
 - (void)processSourcesFromLists {
-    sources = [NSMutableDictionary new];
     titles = [NSMutableDictionary new];
+    selectedSources = [NSMutableDictionary new];
     sourceManager = [ZBSourceManager sharedInstance];
     
     NSMutableSet *baseSourcesSet = [NSMutableSet new];
@@ -175,10 +168,11 @@
 
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
     baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    sourcesToVerify = [baseSources count];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         for (ZBBaseSource *source in self->baseSources) {
-            [self->sources setObject:@(ZBSourceUnverified) forKey:[source baseFilename]];
             [self->titles setObject:NSLocalizedString(@"Verifying...", @"") forKey:[source baseFilename]];
         }
         
@@ -186,22 +180,34 @@
     });
 }
 
+#pragma mark - Importing Sources
+
+- (void)setSource:(ZBBaseSource *)source selected:(BOOL)selected {
+    if (source.verificationStatus != ZBSourceExists) return;
+    
+    [self->selectedSources setObject:[NSNumber numberWithBool:selected] forKey:[source baseFilename]];
+}
+
+- (void)importSelected {
+    
+}
+
 #pragma mark - Verification Delegate
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)verified {
-    [self->sources setObject:@(verified) forKey:[source baseFilename]];
-    if (verified == ZBSourceExists) {
+- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
+    if (status == ZBSourceExists) {
         [source getLabel:^(NSString * _Nonnull label) {
             if (!label) {
                 label = source.repositoryURI;
             }
             
             [self->titles setObject:label forKey:[source baseFilename]];
+            [self setSource:source selected:YES];
             [self updateCellForSource:source];
         }];
     }
-    else if (verified == ZBSourceImaginary) {
-        [self->titles setObject:@"Unable to verify source" forKey:[source baseFilename]];
+    else if (status == ZBSourceImaginary) {
+        [self->titles setObject:NSLocalizedString(@"Unable to verify source", @"") forKey:[source baseFilename]];
         [self updateCellForSource:source];
     }
 }
