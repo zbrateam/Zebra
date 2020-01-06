@@ -313,20 +313,28 @@
     
     NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        __block NSString *label = NULL;
         [releaseFile enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
             NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
             if (pair.count != 2) return;
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            if ([key isEqualToString:@"Label"]) {
+            if ([key isEqualToString:@"Origin"] || [key isEqualToString:@"Label"]) {
                 NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-                self->label = value;
-                completion(value);
+                label = value;
                 return;
             }
         }];
-        self->label = self->repositoryURI;
-        completion(self->repositoryURI);
+        
+        if (label) {
+            self->label = label;
+            completion(label);
+            return;
+        }
+        
+        self->label = [self->repositoryURI copy];
+        completion(label);
     }];
     [releaseTask resume];
 }

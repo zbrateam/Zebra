@@ -94,6 +94,17 @@
     return cell;
 }
 
+- (void)updateCellForSource:(ZBBaseSource *)source {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSUInteger index = [self->baseSources indexOfObject:source];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
+}
+
 #pragma mark - Processing Sources
 
 - (void)processSourcesFromLists {
@@ -131,6 +142,7 @@
     [self->sources setObject:@(verified) forKey:[source baseFilename]];
     [source getLabel:^(NSString * _Nonnull label) {
         [self->titles setObject:label forKey:[source baseFilename]];
+        [self updateCellForSource:source];
     }];
 }
 
