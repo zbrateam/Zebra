@@ -603,6 +603,26 @@
 			path = Console;
 			sourceTree = "<group>";
 		};
+		8958F28E23C3C56800FB64D9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */,
+				89B20FD121B7635300F7EEFE /* NSTask.h */,
+				895071972239E2FD004AE338 /* MobileGestalt.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		8958F29123C3C59700FB64D9 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				9E87F358231A20350043E7F2 /* ZBSettings.h */,
+				9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */,
+				9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
 		895A808023637C3F00C166AC /* Credits */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,32 +781,28 @@
 		89C5FDDF21B1B13700A10E58 /* Zebra */ = {
 			isa = PBXGroup;
 			children = (
-				89B20FD121B7635300F7EEFE /* NSTask.h */,
-				895071972239E2FD004AE338 /* MobileGestalt.h */,
+				36F77ADE22A33B6100A4604C /* AltIcons */,
+				893952FC220B5CE400995109 /* Console */,
+				8991FFA321B21D26004FCE23 /* Database */,
+				8958F29123C3C59700FB64D9 /* Device */,
+				89CADA122263FED1000101EE /* Downloads */,
+				89BDCB6F2289FEA800FC1345 /* Extensions */,
+				8958F28E23C3C56800FB64D9 /* Headers */,
+				36A1D8F8230A15FC002694BE /* JSONParsing */,
+				8991FF9A21B21069004FCE23 /* Parsel */,
+				89DD2683220156F800CD31A0 /* Queue */,
+				89E8633E21D5A9CE0081E485 /* Resources */,
+				896F11C921B236AC0017B581 /* Simulator Resources */,
+				89FEBC1B22C293E100B58662 /* Tabs */,
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
-				9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */,
-				9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */,
-				89FEBC1B22C293E100B58662 /* Tabs */,
-				89CADA122263FED1000101EE /* Downloads */,
-				8991FF9A21B21069004FCE23 /* Parsel */,
-				8991FFA321B21D26004FCE23 /* Database */,
-				89DD2683220156F800CD31A0 /* Queue */,
-				893952FC220B5CE400995109 /* Console */,
 				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
 				896F72E423723139007727FD /* GoogleService-Info.plist */,
 				89C5FDEF21B1B13800A10E58 /* main.m */,
-				36F77ADE22A33B6100A4604C /* AltIcons */,
-				89BDCB6F2289FEA800FC1345 /* Extensions */,
-				89E8633E21D5A9CE0081E485 /* Resources */,
-				896F11C921B236AC0017B581 /* Simulator Resources */,
-				36A1D8F8230A15FC002694BE /* JSONParsing */,
-				9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */,
 				9EB2AE8D22E5C64400BE99BC /* ZBLog.h */,
-				9E87F358231A20350043E7F2 /* ZBSettings.h */,
 				00ED302C235C23C5005E8302 /* Localizable.strings */,
 			);
 			path = Zebra;
