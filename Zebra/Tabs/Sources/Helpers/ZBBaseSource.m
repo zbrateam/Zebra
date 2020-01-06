@@ -46,15 +46,32 @@
         return NULL;
     }
     
-    NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
     NSMutableSet *baseRepos = [NSMutableSet new];
-    for (NSString *sourceLine in debLines) {
-        if (![sourceLine isEqualToString:@""]) {
-            if ([sourceLine characterAtIndex:0] == '#') continue;
-            
-            ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
-            if (repo) {
-                [baseRepos addObject:repo];
+    if ([[listLocation pathExtension] isEqualToString:@"list"]) { //Debian source format
+        NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
+        
+        for (NSString *sourceLine in debLines) {
+            if (![sourceLine isEqualToString:@""]) {
+                if ([sourceLine characterAtIndex:0] == '#') continue;
+                
+                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
+                if (repo) {
+                    [baseRepos addObject:repo];
+                }
+            }
+        }
+    }
+    else if ([[listLocation pathExtension] isEqualToString:@"sources"]) { //Sileo source format
+        NSArray *sourceGroups = [sourceListContents componentsSeparatedByString:@"\n\n"];
+        
+        for (NSString *sourceGroup in sourceGroups) {
+            if (![sourceGroup isEqualToString:@""]) {
+                if ([sourceGroup characterAtIndex:0] == '#') continue;
+                
+                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceGroup:sourceGroup];
+                if (repo) {
+                    [baseRepos addObject:repo];
+                }
             }
         }
     }
@@ -118,6 +135,35 @@
         }
         
         ZBBaseSource *baseSource = [self initWithArchiveType:archiveType repositoryURI:repositoryURI distribution:distribution components:(NSArray *)sourceComponents];
+        
+        return baseSource;
+    }
+    
+    return [super init];
+}
+
+- (id)initFromSourceGroup:(NSString *)sourceGroup {
+    if ([sourceGroup characterAtIndex:0] == '#') return NULL;
+    
+    NSMutableDictionary *source = [NSMutableDictionary new];
+    [sourceGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+        if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+        if (pair.count != 2) return;
+        NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        source[key] = value;
+    }];
+    
+    if ([source count] >= 3) {
+        NSString *archiveType = source[@"Types"];
+        NSString *repositoryURI = source[@"URIs"];
+        NSString *distribution = source[@"Suites"];
+        
+        NSString *components = source[@"Components"];
+        NSArray *sourceComponents = [components componentsSeparatedByString:@" "];
+        
+        ZBBaseSource *baseSource = [self initWithArchiveType:archiveType repositoryURI:repositoryURI distribution:distribution components:sourceComponents];
         
         return baseSource;
     }

@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components;
 - (id)initFromSourceLine:(NSString *)debLine;
+- (id)initFromSourceGroup:(NSString *)sourceGroup;
 
 /*!
     @brief Verifies that a source exists in a proper format by checking for a Packages file that exists in packagesDirectoryURL
