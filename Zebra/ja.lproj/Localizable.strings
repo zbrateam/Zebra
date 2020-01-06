@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "キャンセル";
-"Yes" = "Yes";
+"Yes" = "はい";
 "No" = "いいえ";
 "Ok" = "はい";
 "Error" = "エラー";
@@ -279,7 +279,7 @@
 "Download Size" = "サイズ";
 "Confirm" = "実行";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
-"Required Package" = "要求されたパッケージ";
+"Required Package" = "変更が必要なパッケージ";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
