@@ -79,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
     @param completion the completion block to run once verification completes
 */
 - (void)verify:(void (^)(BOOL exists))completion;
+- (void)getLabel:(void (^)(NSString *label))completion;
 - (NSString *)debLine;
 - (BOOL)canDelete;
 - (BOOL)isEqual:(ZBBaseSource *)object;

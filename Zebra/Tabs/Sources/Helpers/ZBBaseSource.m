@@ -300,7 +300,7 @@
     [uncompressedTask resume];
 }
 
-- (void)getSourceInformation:(void (^)(NSDictionary *_Nullable information))completion {
+- (void)getLabel:(void (^)(NSString *label))completion {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
     
@@ -308,7 +308,17 @@
     NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     
     NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
+        NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [releaseFile enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            if ([key isEqualToString:@"Label"]) {
+                NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                completion(value);
+            }
+        }];
     }];
     [releaseTask resume];
 }
