@@ -178,7 +178,7 @@
     return [super init];
 }
 
-- (void)verify:(void (^)(BOOL exists))completion {
+- (void)verify:(nullable void (^)(BOOL exists))completion {
     if (hasBeenVerified) {
         completion(verified);
     }
@@ -200,13 +200,13 @@
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
-            completion(YES);
+            if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
-            completion(NO);
+            if (completion) completion(NO);
         }
     }];
     [xzTask resume];
@@ -222,13 +222,13 @@
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
-            completion(YES);
+            if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
-            completion(NO);
+            if (completion) completion(NO);
         }
     }];
     [bz2Task resume];
@@ -244,13 +244,13 @@
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
-            completion(YES);
+            if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
-            completion(NO);
+            if (completion) completion(NO);
         }
     }];
     [gzTask resume];
@@ -266,13 +266,13 @@
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
-            completion(YES);
+            if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
-            completion(NO);
+            if (completion) completion(NO);
         }
     }];
     [lzmaTask resume];
@@ -288,13 +288,13 @@
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
-            completion(YES);
+            if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
-            completion(NO);
+            if (completion) completion(NO);
         }
     }];
     [uncompressedTask resume];

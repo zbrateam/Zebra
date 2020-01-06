@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL verifying;
 @property BOOL verified;
 @property BOOL hasBeenVerified;
+@property NSString *origin;
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components;
@@ -78,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
     @discussion First checks Packages.xz, then .bz2, then .gz, then .lzma, then for an uncompressed file to download
     @param completion the completion block to run once verification completes
 */
-- (void)verify:(void (^)(BOOL exists))completion;
+- (void)verify:(nullable void (^)(BOOL exists))completion;
 - (void)getLabel:(void (^)(NSString *label))completion;
 - (NSString *)debLine;
 - (BOOL)canDelete;
