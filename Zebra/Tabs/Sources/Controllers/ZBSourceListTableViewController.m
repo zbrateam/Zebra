@@ -628,7 +628,7 @@
 }
 
 - (void)handleImportOf:(NSURL *)url {
-    ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[url.absoluteString]];
+    ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[url]];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
     [self presentViewController:navController animated:true completion:nil];

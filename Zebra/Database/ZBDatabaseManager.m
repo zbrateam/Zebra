@@ -223,7 +223,7 @@
         [self bulkDatabaseStartedUpdate];
         
         NSError *readError;
-        NSSet <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError];
+        NSSet <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
         if (readError) {
             //oh no!
             return;
@@ -647,7 +647,7 @@
 - (NSSet <ZBSource *> *)sources {
     if ([self openDatabase] == SQLITE_OK) {
         NSError *readError;
-        NSMutableSet *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListPath] error:&readError] mutableCopy];
+        NSMutableSet *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError] mutableCopy];
         NSMutableSet *sources = [NSMutableSet new];
 
         NSString *query = @"SELECT * FROM REPOS";

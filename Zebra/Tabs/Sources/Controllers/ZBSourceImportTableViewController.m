@@ -8,17 +8,20 @@
 
 #import "ZBSourceImportTableViewController.h"
 
-@interface ZBSourceImportTableViewController ()
+#import <Sources/Helpers/ZBBaseSource.h>
 
+@interface ZBSourceImportTableViewController ()
+@property NSArray <ZBBaseSource *> *baseSources;
 @end
 
 @implementation ZBSourceImportTableViewController
 
 @synthesize sourceFilesToImport;
+@synthesize baseSources;
 
 #pragma mark - Initializers
 
-- (id)initWithSourceFiles:(NSArray <NSString *> *)filePaths {
+- (id)initWithSourceFiles:(NSArray <NSURL *> *)filePaths {
     self = [super init];
     
     if (self) {
@@ -33,11 +36,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"Import", @"");
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = spinner;
+    [spinner startAnimating];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (baseSources == NULL) {
+        NSMutableSet *baseSourcesSet = [NSMutableSet new];
+        
+        for (NSURL *sourcesLocation in sourceFilesToImport) {
+            NSError *error;
+            [baseSourcesSet unionSet:[ZBBaseSource baseSourcesFromList:sourcesLocation error:&error]];
+            
+            if (error) {
+                break;
+            }
+        }
+        
+        baseSources = [baseSourcesSet allObjects];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.titleView = NULL;
+            self.navigationItem.title = NSLocalizedString(@"Import", @"");
+            
+            [self.tableView reloadData];
+        });
+    }
 }
 
 #pragma mark - Table View Data Source
@@ -47,13 +74,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [baseSources count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoImportCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sourceImportCell"];
     
-    cell.textLabel.text = @"Whats up?";
+    ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = source.repositoryURI;
     
     return cell;
 }

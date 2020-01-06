@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief The base filename of the repository, based on the URL */
 @property (nonatomic) NSString *baseFilename;
 
-+ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error;
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components;
 - (id)initFromSourceLine:(NSString *)debLine;
 

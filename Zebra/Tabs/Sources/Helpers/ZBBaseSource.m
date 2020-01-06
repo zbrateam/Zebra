@@ -37,11 +37,11 @@
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
 }
 
-+ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error {
     NSError *readError;
-    NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
+    NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];
     if (readError) {
-        NSLog(@"[Zebra] Could not read sources list contents located at %@ reason: %@", listPath, readError.localizedDescription);
+        NSLog(@"[Zebra] Could not read sources list contents located at %@ reason: %@", [listLocation absoluteString], readError.localizedDescription);
         *error = readError;
         return NULL;
     }
@@ -97,6 +97,8 @@
 
 - (id)initFromSourceLine:(NSString *)debLine {
     if ([debLine characterAtIndex:0] == '#') return NULL;
+    debLine = [debLine stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    debLine = [debLine stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
     NSMutableArray *lineComponents = [[debLine componentsSeparatedByString:@" "] mutableCopy];
     [lineComponents removeObject:@""]; //Remove empty strings from the line which exist for some reason
