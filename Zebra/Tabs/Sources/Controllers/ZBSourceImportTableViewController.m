@@ -6,6 +6,8 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
+@import SDWebImage;
+
 #import "ZBSourceImportTableViewController.h"
 
 #import <Sources/Helpers/ZBBaseSource.h>
@@ -83,6 +85,7 @@
     ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
     
     cell.textLabel.text = source.repositoryURI;
+    [cell.imageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     return cell;
 }
