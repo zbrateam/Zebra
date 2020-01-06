@@ -35,6 +35,7 @@
 
 @synthesize verifying;
 @synthesize verified;
+@synthesize hasBeenVerified;
 
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
@@ -178,6 +179,10 @@
 }
 
 - (void)verify:(void (^)(BOOL exists))completion {
+    if (hasBeenVerified) {
+        completion(verified);
+    }
+    
     __block int tasks = 5;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -192,11 +197,13 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
             completion(NO);
@@ -212,11 +219,13 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
             completion(NO);
@@ -232,11 +241,13 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
             completion(NO);
@@ -252,11 +263,13 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
             completion(NO);
@@ -272,17 +285,32 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->hasBeenVerified = YES;
             self->verifying = NO;
             self->verified = NO;
             completion(NO);
         }
     }];
     [uncompressedTask resume];
+}
+
+- (void)getSourceInformation:(void (^)(NSDictionary *_Nullable information))completion {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    
+    NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+    }];
+    [releaseTask resume];
 }
 
 - (NSString *)label {
