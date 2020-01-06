@@ -49,26 +49,4 @@
     });
 }
 
-- (void)verifyAndSetLabel:(ZBBaseSource *)source {
-    if (!source.hasBeenVerified) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.repoLabel.text = source.repositoryURI;
-        });
-        [self setSpinning:true];
-        [source verify:^(BOOL exists) {
-            if (exists) {
-                [source getLabel:^(NSString * _Nonnull label) {
-                    [self setSpinning:false];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.repoLabel.text = label;
-                    });
-                }];
-            }
-            else {
-                [self setSpinning:false];
-            }
-        }];
-    }
-}
-
 @end

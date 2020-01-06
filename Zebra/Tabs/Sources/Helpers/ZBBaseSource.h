@@ -65,8 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *baseFilename;
 
 @property BOOL verifying;
-@property BOOL verified;
+@property BOOL exists;
 @property BOOL hasBeenVerified;
+@property (nonatomic) NSString *label;
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components;

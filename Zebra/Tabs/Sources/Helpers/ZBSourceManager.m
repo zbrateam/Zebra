@@ -444,4 +444,20 @@
     recachingNeeded = YES;
 }
 
+- (void)verifySources:(NSArray <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
+    for (ZBBaseSource *source in sources) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [delegate source:source status:ZBSourceVerifying];
+            [source verify:^(BOOL exists) {
+                if (exists) {
+                    [delegate source:source status:ZBSourceExists];
+                }
+                else {
+                    [delegate source:source status:ZBSourceImaginary];
+                }
+            }];
+        });
+    }
+}
+
 @end

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "../Helpers/ZBSourceVerificationDelegate.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceImportTableViewController : UITableViewController
+@interface ZBSourceImportTableViewController : UITableViewController <ZBSourceVerificationDelegate>
 @property (nonatomic) NSArray <NSURL *> *sourceFilesToImport;
 - (id)initWithSourceFiles:(NSArray <NSURL *> *)filePaths;
 @end

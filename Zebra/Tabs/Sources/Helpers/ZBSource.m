@@ -17,7 +17,6 @@
 
 @synthesize sourceDescription;
 @synthesize origin;
-@synthesize label;
 @synthesize version;
 @synthesize suite;
 @synthesize codename;

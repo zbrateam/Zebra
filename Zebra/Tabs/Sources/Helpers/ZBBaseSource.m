@@ -34,8 +34,9 @@
 @synthesize baseFilename;
 
 @synthesize verifying;
-@synthesize verified;
+@synthesize exists;
 @synthesize hasBeenVerified;
+@synthesize label;
 
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
@@ -88,10 +89,11 @@
     
     if (self) {
         self->verifying = NO;
-        self->verified = NO;
+        self->exists = NO;
         
         self->archiveType = archiveType;
         self->repositoryURI = repositoryURI;
+        self->label = repositoryURI;
         self->distribution = distribution;
         if (components && [components count]) {
             self->components = components;
@@ -180,7 +182,7 @@
 
 - (void)verify:(nullable void (^)(BOOL exists))completion {
     if (hasBeenVerified) {
-        completion(verified);
+        completion(exists);
     }
     
     __block int tasks = 5;
@@ -199,13 +201,13 @@
             
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = YES;
+            self->exists = YES;
             if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = NO;
+            self->exists = NO;
             if (completion) completion(NO);
         }
     }];
@@ -221,13 +223,13 @@
             
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = YES;
+            self->exists = YES;
             if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = NO;
+            self->exists = NO;
             if (completion) completion(NO);
         }
     }];
@@ -243,13 +245,13 @@
             
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = YES;
+            self->exists = YES;
             if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = NO;
+            self->exists = NO;
             if (completion) completion(NO);
         }
     }];
@@ -265,13 +267,13 @@
             
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = YES;
+            self->exists = YES;
             if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = NO;
+            self->exists = NO;
             if (completion) completion(NO);
         }
     }];
@@ -287,13 +289,13 @@
             
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = YES;
+            self->exists = YES;
             if (completion) completion(YES);
         }
         else if (--tasks == 0) {
             self->hasBeenVerified = YES;
             self->verifying = NO;
-            self->verified = NO;
+            self->exists = NO;
             if (completion) completion(NO);
         }
     }];
@@ -301,6 +303,8 @@
 }
 
 - (void)getLabel:(void (^)(NSString *label))completion {
+    if (![label isEqualToString:repositoryURI]) completion(label);
+    
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
     
@@ -316,15 +320,15 @@
             NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
             if ([key isEqualToString:@"Label"]) {
                 NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                self->label = value;
                 completion(value);
+                return;
             }
         }];
+        self->label = self->repositoryURI;
+        completion(self->repositoryURI);
     }];
     [releaseTask resume];
-}
-
-- (NSString *)label {
-    return self.repositoryURI;
 }
 
 - (NSString *)debLine {

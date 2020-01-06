@@ -9,6 +9,8 @@
 @class ZBSource;
 @class ZBBaseSource;
 
+#import "ZBSourceVerificationDelegate.h"
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDebLine:(NSString *)sourceLine;
 - (void)needRecaching;
 - (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
+- (void)verifySources:(NSArray <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END
