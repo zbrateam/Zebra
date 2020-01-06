@@ -338,3 +338,4 @@
 "Could not find an APT repository located at %@" = "Impossibile trovare una repository APT situata in %@";
 
 "Import Sources" = "Importa Sorgenti";
+"Import" = "Import";
