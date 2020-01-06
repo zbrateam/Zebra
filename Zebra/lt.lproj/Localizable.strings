@@ -71,7 +71,7 @@
 "Feature Type" = "Tipas";
 "Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
 
-"News" = "News";
+"News" = "Naujienos";
 
 "Live Search" = "Tiesioginė paieška";
 
@@ -241,7 +241,7 @@
 "Close Zebra" = "Uždaryti Zebra";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
 "Downloading" = "Atsiunčiama";
-"Parsing" = "Parsing";
+"Parsing" = "Analizuojama";
 "Downloading Packages..." = "Paketai atsiunčiami...";
 "Installing" = "Įdiegiama";
 "Installing Packages..." = "Paketai įdiegiami...";
