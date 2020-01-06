@@ -337,4 +337,4 @@
 
 "Could not find an APT repository located at %@" = "Kunne ikke finne et APT-kilde i %@";
 
-"Import" = "Importer";
+"Import Sources" = "Importer kilder";
