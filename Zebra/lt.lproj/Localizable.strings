@@ -240,7 +240,7 @@
 "Close Zebra" = "Uždaryti Zebra";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
 "Downloading" = "Atsiunčiama";
-"Parsing" = "Parsing";
+"Parsing" = "Analizuojama";
 "Downloading Packages..." = "Paketai atsiunčiami...";
 "Installing" = "Įdiegiama";
 "Installing Packages..." = "Paketai įdiegiami...";
@@ -335,6 +335,6 @@
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Nepavyko rasti APT saugyklos, kuri randasi %@";
 
-"Import" = "Import";
+"Import" = "Importuoti";
