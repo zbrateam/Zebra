@@ -337,4 +337,4 @@
 
 "Could not find an APT repository located at %@" = "Ne može se pronaći APT skladišta lociranog u %@";
 
-"Import" = "Import";
+"Import Sources" = "Uvezite izvore";
