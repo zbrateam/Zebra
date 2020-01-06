@@ -279,7 +279,7 @@
 "Confirm" = "実行";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "Required Package" = "要求されたパッケージ";
-"%@ is required by:" = "%@ は以下のTweaksに必要です";
+"%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure?" = "よろしいですか？";
