@@ -224,24 +224,24 @@
 "Downloads" = "ダウンロード";
 "Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
 "The repo %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、端末を初期化する必要性が出てくる可能性があります。";
 "Please remove this repo from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
 "Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
 "Could not determine device information." = "デバイス情報を特定できませんでした。";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "%@ hasn't been modified" = "%@ は変更されていません";
-"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
+"Could not parse %@ from %@" = "%@ から %@ を処理できませんでした";
 
 // Console
 
 "Console" = "コンソール";
 "Performing Actions..." = "実行中...";
 "Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
+"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても問題ありません。";
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Downloading" = "ダウンロードしています";
-"Parsing" = "処理";
+"Parsing" = "処理中";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
@@ -257,7 +257,7 @@
 "Importing local packages." = "ローカルパッケージをインポートしています。";
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行してください";
 
 // Queue Bar
 "%d Packages Queued" = "%d 個のパッケージがキューされてます";
