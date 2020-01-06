@@ -337,4 +337,4 @@
 
 "Could not find an APT repository located at %@" = "Nuk u gjet dot një depo APT e vendosur në %@";
 
-"Import" = "Import";
+"Import Sources" = "Importo Burimet";
