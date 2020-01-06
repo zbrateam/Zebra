@@ -337,4 +337,4 @@
 
 "Could not find an APT repository located at %@" = "無法找到位於 %@ 的 APT 套件來源";
 
-"Import" = "Import";
+"Import Sources" = "匯入來源";
