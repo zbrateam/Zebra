@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "アプリのアイコン";
 
-"Featured Sources" = "注目されているリポジトリ";
+"Featured Sources" = "リポシドリ特集";
 
 // Sources
 
@@ -330,7 +330,7 @@
 "Community News" = "コミュニティニュース";
 "Import Sources" = "リポジトリを追加する";
 "Updating Sources" = "リポジトリを更新中";
-"Would you like to import the following sources?" = "次のリポジトリを追加しますか？";
+"Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
 "Download Completed" = "ダウンロード完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
@@ -338,4 +338,4 @@
 "Could not find an APT repository located at %@" = "%@ にある APT リポジトリ が見つかりませんでした";
 
 "Import Sources" = "リポジトリを追加する";
-"Import" = "Import";
+"Import" = "インポート";
