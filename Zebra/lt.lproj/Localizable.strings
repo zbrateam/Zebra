@@ -337,4 +337,4 @@
 
 "Could not find an APT repository located at %@" = "Nepavyko rasti APT saugyklos, kuri randasi %@";
 
-"Import" = "Importuoti";
+"Import Sources" = "Importuojami šaltiniai";
