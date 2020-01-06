@@ -10,14 +10,15 @@
 
 #import "ZBSourceImportTableViewController.h"
 
+#import <Extensions/UINavigationBar+Progress.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 
 @interface ZBSourceImportTableViewController () {
+    double individualIncrement;
     NSUInteger sourcesToVerify;
-    UIBarButtonItem *loadingItem;
     UIBarButtonItem *importItem;
 }
 @property NSArray <ZBBaseSource *> *baseSources;
@@ -50,17 +51,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIActivityIndicatorView * activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    [activityView sizeToFit];
-    activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [activityView setAutoresizingMask:(UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin)];
-    
-    loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-    [self.navigationItem setRightBarButtonItem:loadingItem];
-    [activityView startAnimating];
+
+    self.navigationController.navigationBar.navProgressView.progress = 0;
     
     importItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"") style:UIBarButtonItemStyleDone target:self action:@selector(importSelected)];
+    importItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem = importItem;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
@@ -77,6 +73,29 @@
             [self.tableView reloadData];
         });
     }
+}
+
+- (void)increaseProgressBy:(double)progress {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        double trueProgress = self.navigationController.navigationBar.navProgressView.progress + progress;
+        if (trueProgress >= 1.0) {
+            [self.navigationController.navigationBar.navProgressView setProgress:1.0f animated:true];
+            [UIView animateWithDuration:0.5f animations:^{
+                [self.navigationController.navigationBar.navProgressView setAlpha:0.0f];
+            } completion:^(BOOL finished) {
+                [self setImportEnabled:true];
+            }];
+        }
+        else {
+            [self.navigationController.navigationBar.navProgressView setProgress:trueProgress animated:true];
+        }
+    });
+}
+
+- (void)setImportEnabled:(BOOL)enabled {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.rightBarButtonItem.enabled = true;
+    });
 }
 
 #pragma mark - Table View Data Source
@@ -113,24 +132,27 @@
             }
             break;
         }
-        case ZBSourceUnverified:
+        case ZBSourceUnverified: {
+            [cell setSpinning:true];
             cell.accessoryType = UITableViewCellAccessoryNone;
             
             cell.repoLabel.alpha = 0.7;
             cell.urlLabel.alpha = 0.7;
             break;
+        }
         case ZBSourceImaginary: {
             cell.accessoryType = UITableViewCellAccessoryNone;
             
             cell.repoLabel.textColor = [UIColor systemPinkColor];
             break;
         }
-        case ZBSourceVerifying:
+        case ZBSourceVerifying: {
             [cell setSpinning:true];
             
             cell.repoLabel.alpha = 0.7;
             cell.urlLabel.alpha = 0.7;
             break;
+        }
     }
     
     cell.repoLabel.text = [self.titles objectForKey:[source baseFilename]];
@@ -147,7 +169,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         
         [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
     });
 }
@@ -174,6 +196,7 @@
     baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     sourcesToVerify = [baseSources count];
+    individualIncrement = (double) 1 / sourcesToVerify;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         for (ZBBaseSource *source in self->baseSources) {
@@ -190,14 +213,6 @@
     if (source.verificationStatus != ZBSourceExists) return;
     
     [self->selectedSources setObject:[NSNumber numberWithBool:selected] forKey:[source baseFilename]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.navigationItem.rightBarButtonItem != self->importItem) {
-            self.navigationItem.rightBarButtonItem = self->importItem;
-        }
-        
-        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"Import (%d)", @""), [self->selectedSources count]];
-    });
 }
 
 - (void)importSelected {
@@ -216,11 +231,15 @@
             [self->titles setObject:label forKey:[source baseFilename]];
             [self setSource:source selected:YES];
             [self updateCellForSource:source];
+            
+            [self increaseProgressBy:self->individualIncrement];
         }];
     }
     else if (status == ZBSourceImaginary) {
         [self->titles setObject:NSLocalizedString(@"Unable to verify source", @"") forKey:[source baseFilename]];
         [self updateCellForSource:source];
+        
+        [self increaseProgressBy:individualIncrement];
     }
 }
 
