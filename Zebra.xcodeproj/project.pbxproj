@@ -66,6 +66,7 @@
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
+		8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */; };
@@ -279,6 +280,8 @@
 		8932F0CE2364F61100F16E5E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0CF2364F78400F16E5E /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0D02364F8A500F16E5E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8937CA2F23C3DFD400A4644C /* UINavigationBar+Progress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Progress.h"; sourceTree = "<group>"; };
+		8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Progress.m"; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
 		893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+Theme.h"; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 				89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */,
 				893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */,
 				893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */,
+				8937CA2F23C3DFD400A4644C /* UINavigationBar+Progress.h */,
+				8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1256,6 +1261,7 @@
 				49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
+				8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				BFC6DB1E236D9BD500DA5534 /* ZBSettingsOptionsTableViewController.m in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */,
@@ -1473,7 +1479,7 @@
 				MARKETING_VERSION = "1.1~beta1";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra.new;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1507,7 +1513,7 @@
 				MARKETING_VERSION = "1.1~beta1";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra.new;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
