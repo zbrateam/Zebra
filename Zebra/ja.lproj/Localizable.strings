@@ -240,7 +240,7 @@
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Downloading" = "ダウンロードしています";
-"Parsing" = "処理";
+"Parsing" = "処理中";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
