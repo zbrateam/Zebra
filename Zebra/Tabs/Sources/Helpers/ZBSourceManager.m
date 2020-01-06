@@ -447,7 +447,6 @@
 - (void)verifySources:(NSArray <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
     for (ZBBaseSource *source in sources) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [delegate source:source status:ZBSourceVerifying];
             [source verify:^(ZBSourceVerification status) {
                 [delegate source:source status:status];
             }];

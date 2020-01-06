@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
-- (void)verifyAndSetLabel:(ZBBaseSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END

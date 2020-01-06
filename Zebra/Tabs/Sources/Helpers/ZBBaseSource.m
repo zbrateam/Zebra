@@ -183,6 +183,8 @@
         return;
     }
     
+    completion(ZBSourceVerifying);
+    
     __block int tasks = 5;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
