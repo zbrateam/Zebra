@@ -89,6 +89,10 @@
     
     ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
     ZBSourceVerification status = [[sources objectForKey:[source baseFilename]] integerValue];
+    
+    cell.repoLabel.alpha = 1.0;
+    cell.urlLabel.alpha = 1.0;
+    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
     switch (status) {
         case ZBSourceExists: {
             if ([selectedSources objectForKey:[source baseFilename]]) {
@@ -108,12 +112,21 @@
         }
         case ZBSourceUnverified:
             cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            cell.repoLabel.alpha = 0.7;
+            cell.urlLabel.alpha = 0.7;
             break;
-        case ZBSourceImaginary:
+        case ZBSourceImaginary: {
             cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            cell.repoLabel.textColor = [UIColor systemPinkColor];
             break;
+        }
         case ZBSourceVerifying:
             cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            cell.repoLabel.alpha = 0.7;
+            cell.urlLabel.alpha = 0.7;
             break;
     }
     
@@ -171,14 +184,20 @@
 
 - (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)verified {
     [self->sources setObject:@(verified) forKey:[source baseFilename]];
-    [source getLabel:^(NSString * _Nonnull label) {
-        if (!label) {
-            label = source.repositoryURI;
-        }
-        
-        [self->titles setObject:label forKey:[source baseFilename]];
+    if (verified == ZBSourceExists) {
+        [source getLabel:^(NSString * _Nonnull label) {
+            if (!label) {
+                label = source.repositoryURI;
+            }
+            
+            [self->titles setObject:label forKey:[source baseFilename]];
+            [self updateCellForSource:source];
+        }];
+    }
+    else if (verified == ZBSourceImaginary) {
+        [self->titles setObject:@"Unable to verify source" forKey:[source baseFilename]];
         [self updateCellForSource:source];
-    }];
+    }
 }
 
 @end
