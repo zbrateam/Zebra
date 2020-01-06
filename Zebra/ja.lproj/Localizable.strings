@@ -65,17 +65,17 @@
 
 "App Icon" = "アプリのアイコン";
 
-"Featured Packages" = "注目されているパッケージ";
-"Repo Featured" = "注目されているリポジトリ";
+"Featured Packages" = "パッケージ特集";
+"Repo Featured" = "リポジトリ特集";
 "Random" = "ランダム";
-"Feature Type" = "表示内容";
+"Feature Type" = "特集内容";
 "Select Repos to be Featured" = "リポジトリを選択";
 
-"News" = "News";
+"News" = "ニュース";
 
 "Live Search" = "ライブ検索";
 
-"Swipe Actions Display As" = "スワイプで表示する方法";
+"Swipe Actions Display As" = "スワイプで表示する形式";
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
@@ -87,7 +87,7 @@
 "Resetting image cache completed" = "画像キャッシュをクリアしました";
 "Clearing keychain completed" = "キーチェーンをクリアしました";
 
-"Drop Tables" = "テーブルの削除";
+"Drop Tables" = "リポシドリキャッシュのリセット";
 
 "Alternate Icons" = "アプリのアイコン";
 
@@ -196,7 +196,7 @@
 "Navigation" = "ナビゲーション";
 "Networking" = "ネットワーク関連";
 "Packaging" = "パッケージインストーラー";
-"Productivity" = "効率化";
+"Productivity" = "仕事効率化";
 "Repositories" = "リポジトリ";
 "Ringtones" = "着信音";
 "Scripting" = "スクリプト関連";
