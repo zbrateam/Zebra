@@ -49,9 +49,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
-    [spinner startAnimating];
+    UIActivityIndicatorView * activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    [activityView sizeToFit];
+    activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [activityView setAutoresizingMask:(UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin)];
+    
+    UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+    [self.navigationItem setRightBarButtonItem:loadingView];
+    [activityView startAnimating];
+
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
@@ -63,7 +69,6 @@
         [self processSourcesFromLists];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.titleView = NULL;
             self.navigationItem.title = NSLocalizedString(@"Import Sources", @"");
             
             [self.tableView reloadData];
@@ -93,6 +98,7 @@
     cell.repoLabel.alpha = 1.0;
     cell.urlLabel.alpha = 1.0;
     cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+    [cell setSpinning:false];
     switch (status) {
         case ZBSourceExists: {
             if ([selectedSources objectForKey:[source baseFilename]]) {
@@ -123,7 +129,7 @@
             break;
         }
         case ZBSourceVerifying:
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            [cell setSpinning:true];
             
             cell.repoLabel.alpha = 0.7;
             cell.urlLabel.alpha = 0.7;
@@ -144,7 +150,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         
         [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
     });
 }

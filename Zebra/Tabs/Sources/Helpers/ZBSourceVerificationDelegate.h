@@ -8,17 +8,10 @@
 
 @class ZBBaseSource;
 
-#import <Foundation/Foundation.h>
+#import "ZBSourceVerification.h"
 
 #ifndef ZBSourceVerificationDelegate_h
 #define ZBSourceVerificationDelegate_h
-
-typedef enum : NSUInteger {
-    ZBSourceVerifying,  //Currently verifying
-    ZBSourceExists,     //Exists
-    ZBSourceImaginary,  //Doesn't exist
-    ZBSourceUnverified  //Not yet verified
-} ZBSourceVerification;
 
 @protocol ZBSourceVerificationDelegate <NSObject>
 

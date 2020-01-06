@@ -33,9 +33,7 @@
 
 @synthesize baseFilename;
 
-@synthesize verifying;
-@synthesize exists;
-@synthesize hasBeenVerified;
+@synthesize verificationStatus;
 @synthesize label;
 
 + (ZBBaseSource *)zebraSource {
@@ -88,8 +86,7 @@
     self = [super init];
     
     if (self) {
-        self->verifying = NO;
-        self->exists = NO;
+        self->verificationStatus = ZBSourceUnverified;
         
         self->archiveType = archiveType;
         self->repositoryURI = repositoryURI;
@@ -180,9 +177,10 @@
     return [super init];
 }
 
-- (void)verify:(nullable void (^)(BOOL exists))completion {
-    if (hasBeenVerified) {
-        completion(exists);
+- (void)verify:(nullable void (^)(ZBSourceVerification status))completion {
+    if (verificationStatus != ZBSourceUnverified && completion) {
+        completion(verificationStatus);
+        return;
     }
     
     __block int tasks = 5;
@@ -199,16 +197,12 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = YES;
-            if (completion) completion(YES);
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = NO;
-            if (completion) completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [xzTask resume];
@@ -221,16 +215,12 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = YES;
-            if (completion) completion(YES);
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = NO;
-            if (completion) completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [bz2Task resume];
@@ -243,16 +233,12 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = YES;
-            if (completion) completion(YES);
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = NO;
-            if (completion) completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [gzTask resume];
@@ -265,16 +251,12 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = YES;
-            if (completion) completion(YES);
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = NO;
-            if (completion) completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [lzmaTask resume];
@@ -287,16 +269,12 @@
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
             
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = YES;
-            if (completion) completion(YES);
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            self->hasBeenVerified = YES;
-            self->verifying = NO;
-            self->exists = NO;
-            if (completion) completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [uncompressedTask resume];

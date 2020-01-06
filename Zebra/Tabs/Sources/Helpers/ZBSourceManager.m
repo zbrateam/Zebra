@@ -191,8 +191,8 @@
                             dispatch_group_leave(group);
                         } else {
                             ZBBaseSource *source = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[detectedURL absoluteString] distribution:@"./" components:NULL];
-                            [source verify:^(BOOL exists) {
-                                if (!exists) {
+                            [source verify:^(ZBSourceVerification status) {
+                                if (status != ZBSourceExists) {
                                     dispatch_sync(sourcesQueue, ^{
                                         [errors addObject:[NSString stringWithFormat:@"Could not find an APT repository located at %@", detectedURL]];
                                         [errorURLs addObject:detectedURL];
@@ -448,13 +448,8 @@
     for (ZBBaseSource *source in sources) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             [delegate source:source status:ZBSourceVerifying];
-            [source verify:^(BOOL exists) {
-                if (exists) {
-                    [delegate source:source status:ZBSourceExists];
-                }
-                else {
-                    [delegate source:source status:ZBSourceImaginary];
-                }
+            [source verify:^(ZBSourceVerification status) {
+                [delegate source:source status:status];
             }];
         });
     }
