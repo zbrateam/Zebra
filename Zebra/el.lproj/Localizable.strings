@@ -338,3 +338,4 @@
 "Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
 
 "Import Sources" = "Εισαγωγή Πηγών";
+"Import" = "Import";
