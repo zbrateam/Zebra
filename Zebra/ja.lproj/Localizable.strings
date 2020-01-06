@@ -47,7 +47,7 @@
 "Featured" = "パッケージ特集";
 "News" = "ニュース";
 "Miscellaneous" = "その他";
-"Advanced" = "高度";
+"Advanced" = "上級者向け";
 
 "Report a Bug" = "バグを報告";
 
@@ -57,7 +57,7 @@
 "White" = "白";
 "Black" = "黒";
 
-"Dark Mode Style" = "ダークモード";
+"Dark Mode Style" = "ダークモードのテーマ";
 "Dark Mode" = "ダークモード";
 "Default" = "デフォルト";
 "OLED" = "OLED";
