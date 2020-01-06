@@ -11,6 +11,7 @@
 #import "ZBSourceImportTableViewController.h"
 
 #import <Sources/Helpers/ZBBaseSource.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
 
 @interface ZBSourceImportTableViewController ()
 @property NSArray <ZBBaseSource *> *baseSources;
@@ -41,6 +42,8 @@
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,11 +61,12 @@
             }
         }
         
-        baseSources = [baseSourcesSet allObjects];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
+        baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.navigationItem.titleView = NULL;
-            self.navigationItem.title = NSLocalizedString(@"Import", @"");
+            self.navigationItem.title = NSLocalizedString(@"Import Sources", @"");
             
             [self.tableView reloadData];
         });
@@ -80,12 +84,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sourceImportCell"];
+    ZBRepoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell"];
+    if (!cell) {
+        cell = (ZBRepoTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"repoTableViewCell"];
+    }
     
     ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+
+    [cell verifyAndSetLabel:source];
+    cell.urlLabel.text = source.repositoryURI;
     
-    cell.textLabel.text = source.repositoryURI;
-    [cell.imageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     return cell;
 }
