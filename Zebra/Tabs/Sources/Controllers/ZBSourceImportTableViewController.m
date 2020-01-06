@@ -13,11 +13,13 @@
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
+#import <UIColor+GlobalColors.h>
 
 @interface ZBSourceImportTableViewController ()
 @property NSArray <ZBBaseSource *> *baseSources;
 @property NSMutableDictionary <NSString *, NSNumber *> *sources;
 @property NSMutableDictionary <NSString *, NSString *> *titles;
+@property NSMutableDictionary <NSString *, NSNumber *> *selectedSources;
 @property ZBSourceManager *sourceManager;
 @end
 
@@ -28,6 +30,7 @@
 @synthesize sources;
 @synthesize titles;
 @synthesize sourceManager;
+@synthesize selectedSources;
 
 #pragma mark - Initializers
 
@@ -85,6 +88,34 @@
     }
     
     ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+    ZBSourceVerification status = [[sources objectForKey:[source baseFilename]] integerValue];
+    switch (status) {
+        case ZBSourceExists: {
+            if ([selectedSources objectForKey:[source baseFilename]]) {
+                BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
+                if (selected) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                }
+                else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+            }
+            else {
+                [selectedSources setObject:@YES forKey:[source baseFilename]];
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            break;
+        }
+        case ZBSourceUnverified:
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        case ZBSourceImaginary:
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        case ZBSourceVerifying:
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+    }
     
     cell.repoLabel.text = [self.titles objectForKey:[source baseFilename]];
     cell.urlLabel.text = source.repositoryURI;
@@ -141,6 +172,10 @@
 - (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)verified {
     [self->sources setObject:@(verified) forKey:[source baseFilename]];
     [source getLabel:^(NSString * _Nonnull label) {
+        if (!label) {
+            label = source.repositoryURI;
+        }
+        
         [self->titles setObject:label forKey:[source baseFilename]];
         [self updateCellForSource:source];
     }];
