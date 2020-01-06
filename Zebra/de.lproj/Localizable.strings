@@ -337,4 +337,4 @@
 
 "Could not find an APT repository located at %@" = "APT-Repository konnte unter %@ nicht gefunden werden";
 
-"Import" = "Import";
+"Import Sources" = "Quellen importieren";
