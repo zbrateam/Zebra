@@ -335,6 +335,6 @@
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Kunne ikkje finna eit APT-kjelde i %@";
 
-"Import" = "Import";
+"Import" = "Importer";
