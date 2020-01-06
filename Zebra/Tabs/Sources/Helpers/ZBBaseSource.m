@@ -33,6 +33,9 @@
 
 @synthesize baseFilename;
 
+@synthesize verifying;
+@synthesize verified;
+
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
 }
@@ -83,6 +86,9 @@
     self = [super init];
     
     if (self) {
+        self->verifying = NO;
+        self->verified = NO;
+        
         self->archiveType = archiveType;
         self->repositoryURI = repositoryURI;
         self->distribution = distribution;
@@ -185,9 +191,14 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
+            
+            self->verifying = NO;
+            self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->verifying = NO;
+            self->verified = NO;
             completion(NO);
         }
     }];
@@ -200,9 +211,14 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
+            
+            self->verifying = NO;
+            self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->verifying = NO;
+            self->verified = NO;
             completion(NO);
         }
     }];
@@ -215,9 +231,14 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
+            
+            self->verifying = NO;
+            self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->verifying = NO;
+            self->verified = NO;
             completion(NO);
         }
     }];
@@ -230,9 +251,14 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
+            
+            self->verifying = NO;
+            self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->verifying = NO;
+            self->verified = NO;
             completion(NO);
         }
     }];
@@ -245,9 +271,14 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
+            
+            self->verifying = NO;
+            self->verified = YES;
             completion(YES);
         }
         else if (--tasks == 0) {
+            self->verifying = NO;
+            self->verified = NO;
             completion(NO);
         }
     }];
