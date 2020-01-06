@@ -17,6 +17,8 @@
 
 @interface ZBSourceImportTableViewController () {
     NSUInteger sourcesToVerify;
+    UIBarButtonItem *loadingItem;
+    UIBarButtonItem *importItem;
 }
 @property NSArray <ZBBaseSource *> *baseSources;
 @property NSMutableDictionary <NSString *, NSString *> *titles;
@@ -54,9 +56,11 @@
     activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [activityView setAutoresizingMask:(UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin)];
     
-    UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-    [self.navigationItem setRightBarButtonItem:loadingView];
+    loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+    [self.navigationItem setRightBarButtonItem:loadingItem];
     [activityView startAnimating];
+    
+    importItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"") style:UIBarButtonItemStyleDone target:self action:@selector(importSelected)];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
@@ -186,6 +190,14 @@
     if (source.verificationStatus != ZBSourceExists) return;
     
     [self->selectedSources setObject:[NSNumber numberWithBool:selected] forKey:[source baseFilename]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.navigationItem.rightBarButtonItem != self->importItem) {
+            self.navigationItem.rightBarButtonItem = self->importItem;
+        }
+        
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:NSLocalizedString(@"Import (%d)", @""), [self->selectedSources count]];
+    });
 }
 
 - (void)importSelected {
