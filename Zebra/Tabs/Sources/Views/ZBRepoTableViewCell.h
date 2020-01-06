@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBBaseSource;
+
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
+- (void)verifyAndSetLabel:(ZBBaseSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END
