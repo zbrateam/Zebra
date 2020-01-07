@@ -228,7 +228,7 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、端末を初期化する必要性が出てくる可能性があります。";
 "Please remove this repo from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
 "Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
-"Could not determine device information." = "デバイス情報を特定できませんでした。";
+"Could not determine device information." = "端末情報を特定できませんでした。";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "%@ hasn't been modified" = "%@ は変更されていません";
 "Could not parse %@ from %@" = "%@ から %@ を処理できませんでした";
@@ -255,8 +255,8 @@
 "Complete" = "完了";
 "Finished!" = "完了！";
 "Return to Queue" = "キューに戻る";
-"Importing local packages." = "ローカルパッケージをインポートしています。";
-"Finished importing local packages." = "ローカルパッケージをインポートしました。";
+"Importing local packages." = "パッケージをインポートしています。";
+"Finished importing local packages." = "パッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行してください";
 
@@ -315,7 +315,7 @@
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力中もパッケージを検索します。 この機能を無効にすると、古いデバイスでの遅延を減らすことができます。";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力中もパッケージを検索します。 この機能を無効にすると、古い端末での遅延を減らすことができます。";
 
 "Configure the appearance of table view swipe actions." = "スワイプした後の表示内容を構成します。";
 
