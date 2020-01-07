@@ -26,8 +26,8 @@
 "Verifying Source(s)" = "リポジトリの検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
-"Wish List" = "ほしいものリスト";
-"No items in Wish List" = "ほしいものリストには何もありません";
+"Wish List" = "欲しいものリスト";
+"No items in Wish List" = "欲しいものリストには何もありません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
 "Follow me on Twitter" = "Twitter でフォロー";
@@ -152,8 +152,8 @@
 "Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
-"Installed Version" = "インストール済みバージョン";
-"Installed Size" = "インストール済みサイズ";
+"Installed Version" = "インストール済みのバージョン";
+"Installed Size" = "インストール済みのサイズ";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
@@ -170,8 +170,8 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "ほしい物リストに追加する";
-"Remove from Wish List" = "ほしい物リストから削除";
+"Add to Wish List" = "欲しいものリストに追加する";
+"Remove from Wish List" = "欲しいものリストから削除";
 
 // Package Section Names
 
