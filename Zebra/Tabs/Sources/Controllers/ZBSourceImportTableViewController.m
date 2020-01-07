@@ -19,7 +19,6 @@
 @interface ZBSourceImportTableViewController () {
     double individualIncrement;
     NSUInteger sourcesToVerify;
-    UIBarButtonItem *importItem;
 }
 @property NSArray <ZBBaseSource *> *baseSources;
 @property NSMutableDictionary <NSString *, NSString *> *titles;
@@ -41,6 +40,9 @@
     self = [super init];
     
     if (self) {
+        if (@available(iOS 13.0, *)) {
+            self.modalInPresentation = true;
+        }
         self.sourceFilesToImport = filePaths;
     }
     
@@ -54,7 +56,10 @@
 
     self.navigationController.navigationBar.navProgressView.progress = 0;
     
-    importItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"") style:UIBarButtonItemStyleDone target:self action:@selector(importSelected)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.leftBarButtonItem = cancelItem;
+    
+    UIBarButtonItem *importItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"") style:UIBarButtonItemStyleDone target:self action:@selector(importSelected)];
     importItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = importItem;
     
@@ -96,6 +101,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.navigationItem.rightBarButtonItem.enabled = true;
     });
+}
+
+- (void)cancel {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - Table View Data Source
@@ -163,6 +172,16 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+    if (source.verificationStatus == ZBSourceExists) {
+        BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
+        
+        [self setSource:source selected:!selected];
+        [self updateCellForSource:source];
+    }
+}
+
 - (void)updateCellForSource:(ZBBaseSource *)source {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSUInteger index = [self->baseSources indexOfObject:source];
@@ -216,7 +235,7 @@
 }
 
 - (void)importSelected {
-    
+    NSLog(@"%@", selectedSources);
 }
 
 #pragma mark - Verification Delegate
