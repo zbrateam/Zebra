@@ -338,4 +338,4 @@
 "Could not find an APT repository located at %@" = "Kunde inte hitta ett APT-förråd på %@";
 
 "Import Sources" = "Importera källor";
-"Import" = "Import";
+"Import" = "Importera";
