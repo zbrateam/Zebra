@@ -111,66 +111,80 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [sourceFilesToImport count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [baseSources count];
+    return [baseSources count] ? [baseSources count] : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell"];
-    if (!cell) {
-        cell = (ZBRepoTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"repoTableViewCell"];
-    }
-    
-    ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
-    ZBSourceVerification status = source.verificationStatus;
-    
-    cell.repoLabel.alpha = 1.0;
-    cell.urlLabel.alpha = 1.0;
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    [cell setSpinning:false];
-    switch (status) {
-        case ZBSourceExists: {
-            BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
-            if (selected) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if ([baseSources count]) {
+        ZBRepoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell"];
+        if (!cell) {
+            cell = (ZBRepoTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"repoTableViewCell"];
+        }
+        
+        ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+        ZBSourceVerification status = source.verificationStatus;
+        
+        cell.repoLabel.alpha = 1.0;
+        cell.urlLabel.alpha = 1.0;
+        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
+        [cell setSpinning:false];
+        switch (status) {
+            case ZBSourceExists: {
+                BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
+                if (selected) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                }
+                else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                break;
             }
-            else {
+            case ZBSourceUnverified: {
+                [cell setSpinning:true];
                 cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                cell.repoLabel.alpha = 0.7;
+                cell.urlLabel.alpha = 0.7;
+                break;
             }
-            break;
+            case ZBSourceImaginary: {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                cell.repoLabel.textColor = [UIColor systemPinkColor];
+                break;
+            }
+            case ZBSourceVerifying: {
+                [cell setSpinning:true];
+                
+                cell.repoLabel.alpha = 0.7;
+                cell.urlLabel.alpha = 0.7;
+                break;
+            }
         }
-        case ZBSourceUnverified: {
-            [cell setSpinning:true];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            
-            cell.repoLabel.alpha = 0.7;
-            cell.urlLabel.alpha = 0.7;
-            break;
-        }
-        case ZBSourceImaginary: {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            
-            cell.repoLabel.textColor = [UIColor systemPinkColor];
-            break;
-        }
-        case ZBSourceVerifying: {
-            [cell setSpinning:true];
-            
-            cell.repoLabel.alpha = 0.7;
-            cell.urlLabel.alpha = 0.7;
-            break;
-        }
+        
+        cell.repoLabel.text = [self.titles objectForKey:[source baseFilename]];
+        cell.urlLabel.text = source.repositoryURI;
+        
+        [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        
+        return cell;
     }
-    
-    cell.repoLabel.text = [self.titles objectForKey:[source baseFilename]];
-    cell.urlLabel.text = source.repositoryURI;
-    
-    [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    
-    return cell;
+    else {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noSourcesCell"];
+        
+        cell.textLabel.text = NSLocalizedString(@"No sources to import", @"");
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -212,9 +226,6 @@
         }
     }
 
-    NSError *error;
-    [baseSourcesSet minusSet:[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&error]]; //Removes all duplicate sources
-    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
     baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
