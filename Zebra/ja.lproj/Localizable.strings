@@ -147,7 +147,7 @@
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
 "Repo" = "リポジトリ";
-"Installed Files" = "インストール済みファイル";
+"Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
