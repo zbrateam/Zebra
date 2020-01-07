@@ -26,8 +26,8 @@
 "Verifying Source(s)" = "リポジトリの検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
-"Wish List" = "欲しいものリスト";
-"No items in Wish List" = "欲しいものリストには何もありません";
+"Wish List" = "ほしい物リスト";
+"No items in Wish List" = "ほしい物リストには何もありません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
 "Follow me on Twitter" = "Twitter でフォロー";
@@ -170,8 +170,8 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "欲しいものリストに追加する";
-"Remove from Wish List" = "欲しいものリストから削除";
+"Add to Wish List" = "ほしい物リストに追加する";
+"Remove from Wish List" = "ほしい物リストから削除";
 
 // Package Section Names
 
