@@ -10,6 +10,7 @@
 
 #import "ZBSourceImportTableViewController.h"
 
+#import <ZBAppDelegate.h>
 #import <Extensions/UINavigationBar+Progress.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
@@ -211,6 +212,9 @@
         }
     }
 
+    NSError *error;
+    [baseSourcesSet minusSet:[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&error]]; //Removes all duplicate sources
+    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
     baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
@@ -235,7 +239,22 @@
 }
 
 - (void)importSelected {
-    NSLog(@"%@", selectedSources);
+    NSMutableSet *sources = [NSMutableSet new];
+    
+    NSMutableArray *baseFilenames = [NSMutableArray new];
+    for (NSString *baseFilename in [selectedSources allKeys]) {
+        if ([[selectedSources objectForKey:baseFilename] boolValue]) {
+            [baseFilenames addObject:baseFilename];
+        }
+    }
+    
+    for (ZBBaseSource *source in baseSources) {
+        if ([baseFilenames containsObject:[source baseFilename]]) {
+            [sources addObject:source];
+        }
+    }
+    
+    [sourceManager addBaseSources:sources];
 }
 
 #pragma mark - Verification Delegate
