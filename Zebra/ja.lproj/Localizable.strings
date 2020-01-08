@@ -22,7 +22,8 @@
 "Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
 "Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "リポジトリの検証中";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
@@ -109,7 +110,7 @@
 "Add" = "追加";
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
-"Please Wait..." = "お待ちください...";
+"Please Wait..." = "しばらくお待ちください...";
 "Verifying Source(s)" = "リポジトリの検証中";
 "Unable to verify source" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
