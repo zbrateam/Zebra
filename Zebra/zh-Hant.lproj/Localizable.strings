@@ -22,7 +22,8 @@
 "Utility source for %@" = "%@ 的工具軟體來源";
 "Transfer Sources" = "匯入來源";
 "Please Wait..." = "請稍候…";
-"Verifying Source(s)" = "正在驗證來源";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "商店";
 "Purchases" = "購買項目";
 "Wish List" = "願望清單";
@@ -110,7 +111,7 @@
 "Add Multiple" = "新增多個";
 "Would you like to add the URL from your clipboard?" = "是否要新增剪貼簿中的網址？";
 "Please Wait..." = "請稍候…";
-"Verifying Source(s)" = "驗證來源";
+"Verifying Source(s)" = "正在驗證來源";
 "Unable to verify source" = "無法驗證來源";
 "Refresh" = "重新整理";
 "Log Out" = "登出";
