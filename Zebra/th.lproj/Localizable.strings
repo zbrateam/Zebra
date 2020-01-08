@@ -22,7 +22,8 @@
 "Utility source for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Please Wait..." = "โปรดรอ...";
-"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
 "Wish List" = "รายการอยากได้";
