@@ -22,7 +22,8 @@
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "جابجایی منابع";
 "Please Wait..." = "...منتظر بمانید";
-"Verifying Source(s)" = "در حال تایید کردن مخازن";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "فروشگاه ها";
 "Purchases" = "خرید ها";
 "Wish List" = "لیست خرید های آینده";
