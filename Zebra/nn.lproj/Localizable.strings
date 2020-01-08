@@ -22,7 +22,8 @@
 "Utility source for %@" = "Verktøykjelde for %@";
 "Transfer Sources" = "Overfør kjelder";
 "Please Wait..." = "Ver vennleg og vent...";
-"Verifying Source(s)" = "Verifiserer kjelde(r)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Butikkar";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
