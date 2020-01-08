@@ -22,7 +22,8 @@
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Pārvietot avotus";
 "Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verificējam avotu(s)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
 "Wish List" = "Vēlmju saraksts";
