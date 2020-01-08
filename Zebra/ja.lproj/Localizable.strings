@@ -50,7 +50,7 @@
 "Miscellaneous" = "その他";
 "Advanced" = "上級者向け";
 
-"Report a Bug" = "バグを報告";
+"Report a Bug" = "バグを報告する";
 
 "Accent Color" = "アクセントカラー";
 "Blue" = "青";
@@ -88,11 +88,11 @@
 "Resetting image cache completed" = "画像キャッシュをクリアしました";
 "Clearing keychain completed" = "キーチェーンをクリアしました";
 
-"Drop Tables" = "リポジトリキャッシュのリセット";
+"Drop Tables" = "リポジトリキャッシュをリセット";
 
 "Alternate Icons" = "アプリのアイコン";
 
-"Featured Repos" = "リポジトリ特集";
+"Featured Repos" = "注目のリポジトリ";
 
 // Sources
 
@@ -205,7 +205,7 @@
 "Social" = "ソーシャル";
 "System" = "システム";
 "Terminal Support" = "ターミナルサポート";
-"Text Editors" = "テキスト編集";
+"Text Editors" = "テキストエディタ";
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
