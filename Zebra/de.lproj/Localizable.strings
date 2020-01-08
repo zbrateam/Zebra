@@ -22,7 +22,8 @@
 "Utility source for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Please Wait..." = "Bitte warten...";
-"Verifying Source(s)" = "Verifizierung der Quelle(n)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Shop";
 "Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
@@ -110,7 +111,7 @@
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
 "Please Wait..." = "Bitte warten...";
-"Verifying Source(s)" = "Verifizieren der Quelle(n)";
+"Verifying Source(s)" = "Verifizierung der Quelle(n)";
 "Unable to verify source" = "Quelle nicht überprüfbar";
 "Refresh" = "Neu laden";
 "Log Out" = "Abmelden";
