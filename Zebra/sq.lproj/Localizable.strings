@@ -22,7 +22,8 @@
 "Utility source for %@" = "Burimet e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
 "Please Wait..." = "Të Lutem Prit...";
-"Verifying Source(s)" = "Duke verifikuar burimin(et)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Dyqani";
 "Purchases" = "Pagesat";
 "Wish List" = "Lista e Dëshirave";
