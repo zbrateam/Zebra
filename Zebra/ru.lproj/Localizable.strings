@@ -22,7 +22,8 @@
 "Utility source for %@" = "Источник утилит для %@";
 "Transfer Sources" = "Перенести Источники";
 "Please Wait..." = "Пожалуйста, подождите...";
-"Verifying Source(s)" = "Проверка Источника(ов)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Магазины";
 "Purchases" = "Покупки";
 "Wish List" = "Список желаний";
