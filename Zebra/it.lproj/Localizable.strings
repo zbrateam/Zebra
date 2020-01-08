@@ -22,7 +22,8 @@
 "Utility source for %@" = "Sorgente utility per %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
 "Please Wait..." = "Attendere...";
-"Verifying Source(s)" = "Verifica Sorgente/i";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Store";
 "Purchases" = "Acquisti";
 "Wish List" = "Lista dei Desideri";
