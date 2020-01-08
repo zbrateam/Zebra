@@ -22,7 +22,8 @@
 "Utility source for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
 "Please Wait..." = "Vui lòng chờ...";
-"Verifying Source(s)" = "Xác minh nguồn(s)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
