@@ -336,7 +336,7 @@
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "No se pudo encontrar un repositorio APT ubicado en %@";
 
 "Import Sources" = "Importar fuentes";
-"Import" = "Import";
+"Import" = "Importar";
