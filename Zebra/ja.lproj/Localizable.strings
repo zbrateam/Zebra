@@ -3,7 +3,7 @@
 "Cancel" = "キャンセル";
 "Yes" = "はい";
 "No" = "いいえ";
-"Ok" = "はい";
+"Ok" = "OK";
 "Error" = "エラー";
 "Retry" = "再試行";
 "Edit" = "編集";
@@ -261,10 +261,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、再試行してください";
 
 // Queue Bar
-"%d Packages Queued" = "%d 個のパッケージがキューされてます";
-"%d Package Queued" = "%d 個のパッケージがキューされてます";
+"%d Packages Queued" = "%d 個のパッケージがキューに追加されています";
+"%d Package Queued" = "%d 個のパッケージがキューに追加されています";
 "Tap to manage" = "タップして管理";
-"No Packages Queued" = "パッケージはキューされていません";
+"No Packages Queued" = "キューに追加されているパッケージはありません";
 
 // Queue
 
@@ -283,13 +283,13 @@
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
 "%@ has issues that cannot be resolved:" = "%@ は以下の問題が解決できません";
-"Are you sure?" = "よろしいですか？";
+"Are you sure?" = "確認";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。意味が理解ができない方は削除しないでください！";
 "Remove from Queue" = "キューから削除";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 意味が理解ができない方、%@ を削除しないでください！";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、あなたの端末が使えなくなり、初期化する必要性が出てきます。";
 
@@ -297,7 +297,7 @@
 
 "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling にアクセスできません。\n/usr/libexec/zebra/supersling が存在することを確認してください。";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "root:wheel が su/sling を所有していません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
 
@@ -307,11 +307,11 @@
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
-"ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再度実行する必要があります。 もう一度やり直してください。";
+"ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再実行する必要があります。 もう一度やり直してください。";
 
-"Configure the appearance of Zebra." = "Zebra の外観を構成します。";
+"Configure the appearance of Zebra." = "Zebra の外観を設定します。";
 
-"Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
+"Display featured packages on the homepage." = "注目のパッケージをホームに表示します。";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
