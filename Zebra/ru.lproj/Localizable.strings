@@ -22,8 +22,8 @@
 "Utility source for %@" = "Источник утилит для %@";
 "Transfer Sources" = "Перенести Источники";
 "Please Wait..." = "Пожалуйста, подождите...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Проверка Источника";
+"Verifying Sources" = "Проверка Источников";
 "Stores" = "Магазины";
 "Purchases" = "Покупки";
 "Wish List" = "Список желаний";
@@ -339,4 +339,4 @@
 "Could not find an APT repository located at %@" = "Не удалось найти APT репозиторий в %@";
 
 "Import Sources" = "Импортировать Источники";
-"Import" = "Import";
+"Import" = "Импорт";
