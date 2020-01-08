@@ -22,7 +22,8 @@
 "Utility source for %@" = "Verktygskälla för %@";
 "Transfer Sources" = "Överför källor";
 "Please Wait..." = "Vänta...";
-"Verifying Source(s)" = "Verifierar källor";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Butiker";
 "Purchases" = "Köp";
 "Wish List" = "Önskelista";
