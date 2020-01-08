@@ -22,7 +22,8 @@
 "Utility source for %@" = "Sumber utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
 "Please Wait..." = "Tunggu Sebentar...";
-"Verifying Source(s)" = "Memverifikasi Sumber";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Toko";
 "Purchases" = "Pembelian";
 "Wish List" = "Daftar Keinginan";
