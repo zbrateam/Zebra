@@ -22,7 +22,8 @@
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Verplaats Bronnen";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source(s)" = "Bron(nen) verifiëren";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Winkel";
 "Purchases" = "Aankopen";
 "Wish List" = "Verlanglijst";
