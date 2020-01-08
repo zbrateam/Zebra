@@ -22,7 +22,8 @@
 "Utility source for %@" = "Naudingas šaltinis %@";
 "Transfer Sources" = "Perkelti šaltinius";
 "Please Wait..." = "Prašome palaukti...";
-"Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Parduotuvės";
 "Purchases" = "Pirkimų sąrašas";
 "Wish List" = "Norų sąrašas";
