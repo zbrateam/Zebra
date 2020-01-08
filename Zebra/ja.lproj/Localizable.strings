@@ -27,7 +27,7 @@
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしい物リスト";
-"No items in Wish List" = "ほしい物リストには何もありません";
+"No items in Wish List" = "ほしい物リストは空です";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加";
 "Follow me on Twitter" = "Twitter でフォロー";
@@ -66,8 +66,8 @@
 
 "App Icon" = "アプリのアイコン";
 
-"Featured Packages" = "パッケージ特集";
-"Repo Featured" = "リポジトリ特集";
+"Featured Packages" = "注目のパッケージ";
+"Repo Featured" = "注目のリポジトリ";
 "Random" = "ランダム";
 "Feature Type" = "特集内容";
 "Select Repos to be Featured" = "リポジトリを選択";
