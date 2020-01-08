@@ -22,7 +22,8 @@
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
 "Please Wait..." = "Παρακαλώ Περιμένετε...";
-"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Καταστήματα";
 "Purchases" = "Αγορές";
 "Wish List" = "Λίστα Επιθυμιών";
