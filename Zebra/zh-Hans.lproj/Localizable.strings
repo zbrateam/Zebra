@@ -22,7 +22,8 @@
 "Utility source for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
 "Please Wait..." = "请稍候……";
-"Verifying Source(s)" = "验证软件源";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "商店";
 "Purchases" = "购买";
 "Wish List" = "心愿单";
