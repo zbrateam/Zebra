@@ -149,7 +149,7 @@
 "Repo" = "リポジトリ";
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
-"Authenticate to initiate purchase." = "購入するために認証を行います。";
+"Authenticate to initiate purchase." = "購入する前に認証してください。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
 "Installed Version" = "インストール済みのバージョン";
@@ -253,7 +253,7 @@
 "Upgrading" = "アップグレードしています";
 "Upgrading Packages..." = "パッケージをアップグレードします...";
 "Complete" = "完了";
-"Finished!" = "完了！";
+"Finished!" = "完了しました";
 "Return to Queue" = "キューに戻る";
 "Importing local packages." = "パッケージをインポートしています。";
 "Finished importing local packages." = "パッケージをインポートしました。";
@@ -289,9 +289,9 @@
 "Remove from Queue" = "キューから削除";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 意味が理解ができない方、%@ を削除しないでください！";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 内容を理解していない場合は、%@ を削除しないでください！";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、あなたの端末が使えなくなり、初期化する必要性が出てきます。";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除しようとしているキュー内のパッケージは必要とされています。内容を理解していない場合、続行することは推奨されません。もしパッケージを削除すると端末を初期化しなければならなくなる可能性があります。";
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。\n/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
 
