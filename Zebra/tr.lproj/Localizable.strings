@@ -22,7 +22,8 @@
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Kaynakları Transfer Et";
 "Please Wait..." = "Lütfen Bekleyin...";
-"Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Market";
 "Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
