@@ -297,11 +297,11 @@
 
 "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling にアクセスできません。\n/usr/libexec/zebra/supersling が存在することを確認してください。";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "root:wheel が su/sling を所有していません。/usr/libexec/zebra/supersling の権限を確認してください。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "root:wheel が su/sling を所有していません。\n/usr/libexec/zebra/supersling の権限を確認してください。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
 
-"Help translate Zebra!" = "Zebra の翻訳に協力する!";
+"Help translate Zebra!" = "Zebra の翻訳に協力します！";
 
 "Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
