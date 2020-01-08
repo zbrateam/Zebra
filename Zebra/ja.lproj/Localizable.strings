@@ -38,7 +38,7 @@
 "Creators" = "作成者";
 "Contributors" = "貢献者";
 "Translators" = "翻訳者";
-"Libraries" = "ライブラリー";
+"Libraries" = "ライブラリ";
 
 // Settings
 
@@ -58,7 +58,7 @@
 "White" = "白";
 "Black" = "黒";
 
-"Dark Mode Style" = "ダークモードのテーマ";
+"Dark Mode Style" = "ダークモードのスタイル";
 "Dark Mode" = "ダークモード";
 "Default" = "デフォルト";
 "OLED" = "OLED";
@@ -69,7 +69,7 @@
 "Featured Packages" = "注目のパッケージ";
 "Repo Featured" = "注目のリポジトリ";
 "Random" = "ランダム";
-"Feature Type" = "特集内容";
+"Feature Type" = "表示内容";
 "Select Repos to be Featured" = "リポジトリを選択";
 
 "News" = "ニュース";
@@ -331,8 +331,8 @@
 
 "Community News" = "コミュニティニュース";
 "Import Sources" = "リポジトリを追加する";
-"Updating Repositories" = "リポジトリを更新中";
+"Updating Repositories" = "リポジトリを更新中です";
 "Would you like to import the following repositories?" = "以下のリポジトリを追加しますか？";
-"Download Completed" = "ダウンロード完了";
+"Download Completed" = "ダウンロードが完了しました";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
