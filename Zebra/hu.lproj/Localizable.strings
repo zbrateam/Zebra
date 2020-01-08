@@ -22,7 +22,8 @@
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Források átvitele";
 "Please Wait..." = "Kérlek, várj...";
-"Verifying Source(s)" = "Forrás(ok) ellenőrzése";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Áruházak";
 "Purchases" = "Vásárlások";
 "Wish List" = "Kívánságlista";
