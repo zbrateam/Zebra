@@ -22,7 +22,8 @@
 "Utility source for %@" = "Korisni izvori za %@";
 "Transfer Sources" = "Prenesi Izvore";
 "Please Wait..." = "Molimo pričekajte...";
-"Verifying Source(s)" = "Potvrđujemo Izvor(e)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Trgovine";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
