@@ -22,7 +22,8 @@
 "Utility source for %@" = "مصدر الأداة المساعدة لـ %@";
 "Transfer Sources" = "تحويل المصادر";
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
