@@ -22,7 +22,8 @@
 "Utility source for %@" = "Repozitár nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
 "Wish List" = "Zoznam želaní";
