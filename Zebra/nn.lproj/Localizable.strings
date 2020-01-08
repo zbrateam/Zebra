@@ -22,8 +22,8 @@
 "Utility source for %@" = "Verktøykjelde for %@";
 "Transfer Sources" = "Overfør kjelder";
 "Please Wait..." = "Ver vennleg og vent...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verifiserer kjelde";
+"Verifying Sources" = "Verifiserer kjelder";
 "Stores" = "Butikkar";
 "Purchases" = "Kjøp";
 "Wish List" = "Ønskeliste";
@@ -339,4 +339,4 @@
 "Could not find an APT repository located at %@" = "Kunne ikkje finna eit APT-kjelde i %@";
 
 "Import Sources" = "Importer kjelder";
-"Import" = "Import";
+"Import" = "Importer";
