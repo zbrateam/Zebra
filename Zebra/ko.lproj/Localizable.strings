@@ -22,7 +22,8 @@
 "Utility source for %@" = "%@(을)를 위한 유틸리티 소스";
 "Transfer Sources" = "소스 이전";
 "Please Wait..." = "잠시만 기다려주세요...";
-"Verifying Source(s)" = "소스를 검증하는 중";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "스토어";
 "Purchases" = "구매 기록";
 "Wish List" = "위시 리스트";
