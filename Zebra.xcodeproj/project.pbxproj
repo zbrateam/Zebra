@@ -259,7 +259,6 @@
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
 		7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddRepoViewController.m; sourceTree = "<group>"; };
 		7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoViewController.h; sourceTree = "<group>"; };
-		7821AF702275F3B2006C0315 /* ZBAddRepoDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoDelegate.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
 		8905171F2372398F000F0A32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -681,7 +680,6 @@
 				896F11C221B231900017B581 /* ZBSource.m */,
 				896F11BB21B231490017B581 /* ZBSourceManager.h */,
 				896F11BC21B231490017B581 /* ZBSourceManager.m */,
-				7821AF702275F3B2006C0315 /* ZBAddRepoDelegate.h */,
 				8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */,
 				8958F28823C3C2CC00FB64D9 /* ZBSourceVerification.h */,
 			);
@@ -838,6 +836,8 @@
 		89E8633621D5A1420081E485 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3671B52022CB07F9008FD737 /* ZBHomeTableViewController.h */,
+				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
 				36A33CEA22C9C0AC0054A577 /* Community Sources */,
 				36A33CDF22C9ACFB0054A577 /* Changelog */,
 				367D80F622C3D2F400581D60 /* AlternateIcon */,
@@ -846,8 +846,6 @@
 				369F9E9D22BC850000D6CCF3 /* Wish List */,
 				895A808023637C3F00C166AC /* Credits */,
 				3639D19622CC61400012E18F /* Helpers */,
-				3671B52022CB07F9008FD737 /* ZBHomeTableViewController.h */,
-				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -943,14 +941,14 @@
 		89FEBC1B22C293E100B58662 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
-				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
-				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
 				89E8633621D5A1420081E485 /* Home */,
 				896F11B421B230A40017B581 /* Sources */,
 				9E1C85AD22A3900700D93D14 /* Changes */,
 				896F11B321B2309A0017B581 /* Packages */,
 				89E8633721D5A1540081E485 /* Search */,
+				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
+				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
+				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";

@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZBAddRepoDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBAddRepoViewController : UIViewController
 
 @property (nonatomic, copy) NSString *text;
-@property (nonatomic, weak) id <ZBAddRepoDelegate> delegate;
+//@property (nonatomic, weak) id <ZBAddRepoDelegate> delegate;
 
 @end
 

@@ -6,14 +6,17 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+@class ZBSource;
+
+#import "ZBSourceVerificationDelegate.h"
+
 #import <UIKit/UIKit.h>
 #import <Database/ZBDatabaseDelegate.h>
 #import <ZBRefreshableTableViewController.h>
-@class ZBSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceListTableViewController : ZBRefreshableTableViewController {
+@interface ZBSourceListTableViewController : ZBRefreshableTableViewController <ZBSourceVerificationDelegate> {
     NSMutableArray *sources;
     NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
     NSMutableArray *sectionIndexTitles;

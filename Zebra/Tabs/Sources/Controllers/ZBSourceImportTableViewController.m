@@ -237,7 +237,7 @@
             [self->titles setObject:NSLocalizedString(@"Verifying...", @"") forKey:[source baseFilename]];
         }
         
-        [self->sourceManager verifySources:self->baseSources delegate:self];
+        [self->sourceManager verifySources:[NSSet setWithArray:self->baseSources] delegate:self];
     });
 }
 

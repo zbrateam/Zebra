@@ -262,7 +262,7 @@
         case 1:
         case 2: {
             NSString *url = [info objectForKey:@"url"];
-            [self addReposWithText:url];
+//            [self addReposWithText:url];
             break;
         }
         default:
@@ -273,64 +273,6 @@
 - (void)presentConsole {
     ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
     [self presentViewController:refreshController animated:YES completion:nil];
-}
-
-#pragma mark Add Repos
-
-- (void)addReposWithText:(NSString *)text {
-    UIAlertController *wait = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:NSLocalizedString(@"Verifying Source(s)", @"") preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:wait animated:YES completion:nil];
-    
-    __weak typeof(self) weakSelf = self;
-    __weak typeof(ZBSourceManager *) repoManager = self.repoManager;
-    
-    [repoManager addSourcesFromString:text response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-            if (!success) {
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", @"") message:error preferredStyle:UIAlertControllerStyleAlert];
-                
-                if (failedURLs.count) {
-                    UIAlertAction *retryAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [weakSelf addReposWithText:text];
-                    }];
-                    
-                    [errorAlert addAction:retryAction];
-                    
-                    UIAlertAction *editAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        if (multiple) {
-                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                            ZBAddRepoViewController *addRepo = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
-                            addRepo.delegate = weakSelf;
-                            addRepo.text = text;
-                            
-                            UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:addRepo];
-                            
-                            [weakSelf presentViewController:navCon animated:YES completion:nil];
-                        }
-                        /*else {
-                            NSURL *failedURL = [failedURLs[0] URLByDeletingLastPathComponent];
-                            [weakSelf showAddRepoAlert:failedURL];
-                        }*/
-                    }];
-                    
-                    [errorAlert addAction:editAction];
-                }
-                
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-                
-                [errorAlert addAction:cancelAction];
-                
-                [weakSelf presentViewController:errorAlert animated:YES completion:nil];
-            } else {
-                ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithBaseSources:[repoManager verifiedSources]];
-                [weakSelf presentViewController:refreshController animated:YES completion:nil];
-            }
-        }];
-    }];
-}
-
-- (void)didAddReposWithText:(NSString *)text {
-    [self addReposWithText:text];
 }
 
 @end

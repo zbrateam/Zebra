@@ -75,9 +75,9 @@
     [self.addRepoTextView resignFirstResponder];
     
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        if (self.delegate) {
-            [self.delegate didAddReposWithText:self.addRepoTextView.text];
-        }
+//        if (self.delegate) {
+//            [self.delegate didAddReposWithText:self.addRepoTextView.text];
+//        }
     }];
 }
 
