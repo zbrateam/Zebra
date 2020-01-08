@@ -22,7 +22,8 @@
 "Utility source for %@" = "Zdroj nástrojů pro %@";
 "Transfer Sources" = "Přenést Zdroje";
 "Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Stores" = "Obchody";
 "Purchases" = "Nákupy";
 "Wish List" = "Seznam přání";
