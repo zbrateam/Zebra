@@ -335,7 +335,7 @@
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "تعذر العثور على مستودع APT الموجود في %@";
 
 "Import Sources" = "استيراد المصادر";
-"Import" = "Import";
+"Import" = "استيراد";
