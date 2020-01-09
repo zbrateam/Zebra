@@ -104,7 +104,7 @@
 "Error verifying sources" = "Ištiko klaida tikrinant šaltinius";
 "Unknown error" = "Nežinoma klaida";
 "Invalid URL" = "Netinkamas šaltinio adresas";
-"Enter URL" = "Įveskite šaltinio adresą";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Pridėti šaltinius";
 "Add" = "Pridėti";
 "Add Multiple" = "Pridėti kelis";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
 
-"Could not find an APT repository located at %@" = "Nepavyko rasti APT saugyklos, kuri randasi %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Importuojami šaltiniai";
 "Import" = "Importuoti";
