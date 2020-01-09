@@ -29,7 +29,7 @@
 "No items in Wish List" = "Geen voorwerpen in de verlanglijst";
 "Community" = "Gemeenschap";
 "Join our Discord" = "Treed toe tot onze Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Volg ons op Twitter";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Uitgelichte Pakketten";
 "Random" = "Willekeurig";
 "Feature Type" = "Uitgelicht type";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Selecteer bronnen om uitgelicht te worden";
 
 "News" = "Nieuws";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternatieve iconen";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Uitgelichte Bronnen";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Lokale bron";
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 "Unknown" = "Onbekend";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Geen bron URLs gedetecteerd.";
+"You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
+"Error verifying source" = "Fout verifiëren van bron";
+"Error verifying sources" = "Fout verifiëren van bron";
 "Unknown error" = "Onbekende fout";
 "Invalid URL" = "Ongeldige URL";
 "Enter URL" = "Voer een URL in";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Bronnen Toevoegen";
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
 "Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Kan bron niet verifiëren";
 "Refresh" = "Ververs";
 "Log Out" = "Log Uit";
 "Purchased Packages" = "Gekochte pakketten";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
-"Source" = "Source";
+"Source" = "Bron";
 "Installed Files" = "Geïnstalleerde bestanden";
 "Modify" = "Pas aan";
 "Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
@@ -222,9 +222,9 @@
 
 "Downloads" = "Downloads";
 "Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "De bron %@ is niet compatibel met uw jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Verwijder alstublieft deze bron van uw sources.list bestand.";
 "Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
 "Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
 "Could not find a download URL for" = "Kan geen downloadlink vinden voor ";
@@ -323,19 +323,19 @@
 
 "Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\\”Uitgelicht”\\ laat willekeurige pakketten zien van bronnen die de Features Package API ondersteunen.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\\”Willekeurig\\” zal willekeurige pakketten laten zien van alle bronnen die je aan Zebra hebt toegevoegd.";
 
 "Community News" = "Gemeenschapsnieuws";
 "Import Sources" = "Importeer Bronnen";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Bronnen aan het updaten";
+"Would you like to import the following sources?" = "Wilt u de volgende bronnen importeren?";
 "Download Completed" = "Download Compleet";
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Kon geen APT bron vinden bij %@";
 
 "Import Sources" = "Importeer Bronnen";
 "Import" = "Import";
