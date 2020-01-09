@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
 "Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Források átvitele";
-"Please Wait..." = "Kérlek, várj...";
 "Verifying Source(s)" = "Forrás(ok) ellenőrzése";
 "Stores" = "Áruházak";
 "Purchases" = "Vásárlások";
@@ -111,7 +110,7 @@
 "Add" = "Hozzáad";
 "Add Multiple" = "Több hozzáadáasa";
 "Would you like to add the URL from your clipboard?" = "Szeretnéd a vágólapon lévő URL-t hozzáadni?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Kérlek, várj...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Unable to verify Repo";
 "Refresh" = "Frissítés";
