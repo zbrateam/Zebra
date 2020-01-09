@@ -104,7 +104,7 @@
 "Error verifying sources" = "Kaynakları doğrularken hata oluştu";
 "Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
-"Enter URL" = "Link Girin";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Kaynakları Ekle";
 "Add" = "Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Kaynakları İçeri Al";
 "Import" = "Import";
