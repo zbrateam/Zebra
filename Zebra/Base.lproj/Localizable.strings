@@ -336,7 +336,7 @@
 "Installing Zebra..." = "Installing Zebra...";
 
 "Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources"
+"Failed to add sources" = "Failed to add sources";
 "Could not verify an APT repository at:" = "Could not verify an APT repository at:";
 "Could not verify the APT repositories at:" = "Could not verify the APT repositories at:";
 

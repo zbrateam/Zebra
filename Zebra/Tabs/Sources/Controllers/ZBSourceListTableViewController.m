@@ -669,7 +669,12 @@
                 }]];
                 
                 UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSLog(@"Epic");
+                    if (multiple) {
+                        
+                    }
+                    else {
+                        [self showAddSourceAlert:[NSURL URLWithString:urls[0]]];
+                    }
                 }];
                 [errorPopup addAction:editAction];
                 
