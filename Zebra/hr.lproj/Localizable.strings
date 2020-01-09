@@ -104,7 +104,7 @@
 "Error verifying sources" = "Greška pri verifikaciji izvora";
 "Unknown error" = "Nepoznata pogreška";
 "Invalid URL" = "Neispravan URL";
-"Enter URL" = "Unesite URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Dodaj izvore";
 "Add" = "Dodaj";
 "Add Multiple" = "Višestruko dodavanje";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
 
-"Could not find an APT repository located at %@" = "Ne može se pronaći APT skladišta lociranog u %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Uvezite izvore";
 "Import" = "Import";
