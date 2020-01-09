@@ -42,10 +42,10 @@
         recachingNeeded = NO;
         repos = [NSMutableDictionary new];
         NSString *query = @"SELECT * FROM REPOS;";
-        
+
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
-        
+
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -61,29 +61,17 @@
     return repos;
 }
 
-- (NSURL *)normalizedURL:(NSURL *)url {
-    NSString *absoluteString = [url absoluteString];
-    char lastChar = [absoluteString characterAtIndex:absoluteString.length - 1];
-    return lastChar == '/' ? url : [url URLByAppendingPathComponent:@"/"];
-}
-
-- (NSString *)normalizedURLString:(NSURL *)url {
-    NSURL *normalizedURL = [self normalizedURL:url];
-    NSString *urlString = [normalizedURL absoluteString];
-    return [[urlString stringByReplacingOccurrencesOfString:[normalizedURL scheme] withString:@""] substringFromIndex:3]; // Remove http:// or https:// from url
-}
-
 + (NSArray <NSString *> *)knownDistURLs {
     static NSArray *urls = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        urls = @[@"apt.thebigboss.org/",
-            @"apt.thebigboss.org/repofiles/cydia/",
-            @"apt.modmyi.com/",
-            @"apt.saurik.com/",
-            @"apt.bingner.com/",
-            @"cydia.zodttd.com/",
-            @"cydia.zodttd.com/repo/cydia/"];
+        urls = @[
+            @"apt.thebigboss.org",
+            @"apt.modmyi.com",
+            @"apt.saurik.com",
+            @"apt.bingner.com",
+            @"cydia.zodttd.com"
+        ];
     });
     return urls;
 }
@@ -93,7 +81,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         lines = @[
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
             @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
             @"deb http://apt.modmyi.com/ stable main",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
@@ -105,63 +92,14 @@
     return lines;
 }
 
-- (ZBBaseSource *_Nullable)baseSourceFromDistURL:(NSString *)urlString {
-    int index = 0;
-    for (NSString *knownURL in [ZBSourceManager knownDistURLs]) {
-        if ([urlString containsString:knownURL]) {
-            NSString *debLine = [ZBSourceManager knownDebLines][index];
-            return [[ZBBaseSource alloc] initFromSourceLine:debLine];
-        }
-        ++index;
++ (NSString *_Nullable)debLineForURL:(NSURL *)URL {
+    NSUInteger index = [[self knownDistURLs] indexOfObject:[URL host]];
+    if (index != NSNotFound) {
+        return [[self knownDebLines] objectAtIndex:index];
     }
-    return NULL;
-}
-
-- (void)addSourcesFromString:(NSString *)sourcesString delegate:(id <ZBSourceVerificationDelegate>)delegate {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *detectorError;
-        NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
-        
-        if (detectorError) {
-//            completion(@[detectorError], [sourcesString componentsSeparatedByString:@"\n"]); //Return the original string since there was some detector error
-            return;
-        }
-        else {
-            NSMutableArray *detectedURLs = [NSMutableArray new];
-            
-            [detector enumerateMatchesInString:sourcesString options:0 range:NSMakeRange(0, sourcesString.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                if (result.resultType == NSTextCheckingTypeLink) {
-                    NSURL *url = [self normalizedURL:result.URL];
-                    [detectedURLs addObject:url];
-                }
-            }];
-            
-            if (![detectedURLs count]) {
-                NSError *URLDetectedError = [NSError errorWithDomain:NSURLErrorDomain code:-72 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"No URLs were detected", @"")}];
-//                completion(@[URLDetectedError], NULL);
-                return;
-            }
-            
-            NSError *readError;
-            NSSet <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
-            NSMutableSet *sources = [NSMutableSet new];
-            for (NSURL *detectedURL in detectedURLs) {
-                NSString *urlString = [detectedURL absoluteString];
-                ZBBaseSource *distSource = [self baseSourceFromDistURL:urlString];
-                if (distSource && ![baseSources containsObject:distSource]) {
-                    [sources addObject:distSource];
-                }
-                else {
-                    ZBBaseSource *source = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[detectedURL absoluteString] distribution:@"./" components:NULL];
-                    if (source && ![baseSources containsObject:source]) {
-                        [sources addObject:source];
-                    }
-                }
-            }
-            
-            [self verifySources:sources delegate:delegate];
-        }
-    });
+    else {
+        return [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];
+    }
 }
 
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
@@ -186,6 +124,7 @@
     [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
 }
 
+//TODO: This needs error pointers
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
     NSError *error;
     NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
@@ -223,6 +162,7 @@
     recachingNeeded = TRUE;
 }
 
+//TODO: This needs error pointers
 - (void)addDebLine:(NSString *)sourceLine {
     NSString *listsLocation = [ZBAppDelegate sourcesListPath];
     NSError *readError;
@@ -242,12 +182,16 @@
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
     for (ZBBaseSource *source in sources) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [source verify:^(ZBSourceVerification status) {
-                [delegate source:source status:status];
-            }];
-        });
+        [self verifySource:source delegate:delegate];
     }
+}
+
+- (void)verifySource:(ZBBaseSource *)source delegate:(id <ZBSourceVerificationDelegate>)delegate {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [source verify:^(ZBSourceVerification status) {
+            [delegate source:source status:status];
+        }];
+    });
 }
 
 @end

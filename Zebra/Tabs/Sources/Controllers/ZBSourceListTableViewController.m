@@ -50,6 +50,8 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -156,7 +158,7 @@
     if ([baseSource isKindOfClass:[ZBSource class]]) {
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
                 [self refreshTable];
@@ -181,9 +183,9 @@
         }
     }
     else if ([baseSource canDelete]) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[queue displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self->sources removeObject:baseSource];
-            [self->repoManager deleteBaseSource:baseSource];
+            [self->sourceManager deleteSource:(ZBSource *)baseSource];
             [self refreshTable];
         }];
         [actions addObject:deleteAction];
@@ -259,7 +261,7 @@
 #pragma mark - Navigation Buttons
 
 - (void)addSource:(id)sender {
-    [self showAddRepoAlert:NULL];
+    [self showAddSourceAlert:NULL];
 }
 
 - (void)editMode:(id)sender {
@@ -329,32 +331,32 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *sourceURL = repoURL.absoluteString;
-        
-        UIAlertController *wait = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:NSLocalizedString(@"Verifying Source(s)", @"") preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:wait animated:YES completion:nil];
-        
-        __weak typeof(self) weakSelf = self;
-        [self->repoManager addSourcesFromString:sourceURL response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
-            if (!success) {
-                NSLog(@"[Zebra] Could not add source %@ due to error %@", failedURLs[0].absoluteString, error);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [wait dismissViewControllerAnimated:YES completion:^{
-                        [weakSelf presentVerificationFailedAlert:error url:failedURLs[0] present:NO];
-                    }];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [wait dismissViewControllerAnimated:YES completion:^{
-                        NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
-                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[repoURL absoluteString] distribution:@"./" components:NULL];
-                        
-                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:@[baseSource]]];
-                        [weakSelf presentViewController:console animated:YES completion:nil];
-                    }];
-                });
-            }
-        }];
+//        NSString *sourceURL = repoURL.absoluteString;
+//        
+//        UIAlertController *wait = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:NSLocalizedString(@"Verifying Source(s)", @"") preferredStyle:UIAlertControllerStyleAlert];
+//        [self presentViewController:wait animated:YES completion:nil];
+//        
+//        __weak typeof(self) weakSelf = self;
+//        [self->sourceManager addSourcesFromString:sourceURL response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
+//            if (!success) {
+//                NSLog(@"[Zebra] Could not add source %@ due to error %@", failedURLs[0].absoluteString, error);
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [wait dismissViewControllerAnimated:YES completion:^{
+//                        [weakSelf presentVerificationFailedAlert:error url:failedURLs[0] present:NO];
+//                    }];
+//                });
+//            } else {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [wait dismissViewControllerAnimated:YES completion:^{
+//                        NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
+//                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[repoURL absoluteString] distribution:@"./" components:NULL];
+//                        
+//                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:@[baseSource]]];
+//                        [weakSelf presentViewController:console animated:YES completion:nil];
+//                    }];
+//                });
+//            }
+//        }];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -362,13 +364,18 @@
 
 #pragma mark - Adding a Source
 
-- (void)showAddRepoAlert:(NSURL *)url {
+- (void)showAddSourceAlert:(NSURL *)url {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter URL", @"") message:nil preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor tintColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *sourceURL = alertController.textFields[0].text;
+        NSURL *sourceURL = [NSURL URLWithString:alertController.textFields[0].text];
+        
+        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
+        if (baseSource) {
+            [self->sourceManager addBaseSources:[NSSet setWithObject:baseSource]];
+        }
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self performSegueWithIdentifier:@"showAddSources" sender:self];
@@ -389,14 +396,42 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
     
-    if ([ZBDevice darkModeEnabled]) {
-        for (UITextField *textField in alertController.textFields) {
-            textField.textColor = [UIColor cellPrimaryTextColor];
-            textField.backgroundColor = [UIColor cellSeparatorColor];
-            textField.superview.backgroundColor = [UIColor clearColor];
-            textField.superview.layer.borderColor = [UIColor clearColor].CGColor;
-        }
-    }
+//    if ([ZBDevice darkModeEnabled]) {
+//        for (UITextField *textField in alertController.textFields) {
+//            textField.textColor = [UIColor cellPrimaryTextColor];
+//            textField.backgroundColor = [UIColor cellSeparatorColor];
+//            textField.superview.backgroundColor = [UIColor clearColor];
+//            textField.superview.layer.borderColor = [UIColor clearColor].CGColor;
+//        }
+//    }
+}
+
+//- (NSURL *)URLFromText:(NSString *)text {
+//    NSError *detectorError;
+//    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
+//
+//    if (detectorError) {
+//        NSLog(@"[Zebra] Detector error!");
+//        return NULL;
+//    }
+//    else {
+//        __block NSURL *detectedURL;
+//        [detector enumerateMatchesInString:text options:0 range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+//            if (result.resultType == NSTextCheckingTypeLink) {
+//                detectedURL = result.URL;
+//            }
+//        }];
+//
+//        return detectedURL;
+//    }
+//}
+
+- (void)prsentPopup:(UIAlertController *)popup; {
+    [self presentViewController:popup animated:true completion:nil];
+}
+
+- (void)dismissPopup:(UIAlertController *)popup {
+    [popup dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url present:(BOOL)present {
@@ -405,7 +440,7 @@
         alertController.view.tintColor = [UIColor tintColor];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             if (present) {
-                [self showAddRepoAlert:url];
+                [self showAddSourceAlert:url];
             }
         }];
         [alertController addAction:okAction];
@@ -413,13 +448,13 @@
     });
 }
 
+#pragma mark - Table View Helper Methods
+
 - (NSObject *)sourceAtIndexPath:(NSIndexPath *)indexPath {
     if (![self hasDataInSection:indexPath.section])
         return nil;
     return self.tableData[indexPath.section][indexPath.row];
 }
-
-#pragma mark - Table View Helper Methods
 
 - (NSIndexPath *)indexPathForPosition:(NSInteger)pos {
     NSInteger section = pos >> 16;
@@ -551,7 +586,7 @@
     if (![path isEqualToString:@""]) {
         NSArray *components = [path pathComponents];
         if ([components count] == 2) {
-            [self showAddRepoAlert:NULL];
+            [self showAddSourceAlert:NULL];
         } else if ([components count] >= 4) {
             NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
             
@@ -563,9 +598,9 @@
             }
             
             if (url && url.scheme && url.host) {
-                [self showAddRepoAlert:url];
+                [self showAddSourceAlert:url];
             } else {
-                [self showAddRepoAlert:NULL];
+                [self showAddSourceAlert:NULL];
             }
         }
     }

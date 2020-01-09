@@ -10,6 +10,7 @@
 
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 
 @implementation ZBBaseSource
 
@@ -175,6 +176,10 @@
     }
     
     return [super init];
+}
+
+- (id)initFromURL:(NSURL *)url {
+    return [self initFromSourceLine:[ZBSourceManager debLineForURL:url]];
 }
 
 - (void)verify:(nullable void (^)(ZBSourceVerification status))completion {
