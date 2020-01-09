@@ -104,7 +104,7 @@
 "Error verifying sources" = "خطأ في التحقق من المصادر";
 "Unknown error" = "خطأ غير معروف";
 "Invalid URL" = "عنوان URL غير صحيح";
-"Enter URL" = "أدخل عنوان URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "إضافة مصادر";
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
 
-"Could not find an APT repository located at %@" = "تعذر العثور على مستودع APT الموجود في %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "استيراد المصادر";
 "Import" = "استيراد";
