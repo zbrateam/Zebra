@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Transferir fontes de %@ para a Zebra";
 "Utility repo for %@" = "Repo utilitário para %@";
 "Transfer Sources" = "Transferir Fontes";
-"Please Wait..." = "Por favor aguarde...";
 "Verifying Source(s)" = "A Verificar Fonte(s)";
 "Stores" = "Lojas";
 "Purchases" = "Compras";
@@ -111,7 +110,7 @@
 "Add" = "Adicionar";
 "Add Multiple" = "Adicionar Multiplos";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Por favor aguarde...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Não foi possivel verificar o Repo";
 "Refresh" = "Atualidade";
