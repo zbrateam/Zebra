@@ -104,7 +104,7 @@
 "Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
 "Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
-"Enter URL" = "ใส่ URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "เพิ่มซอร์ส";
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
 
-"Could not find an APT repository located at %@" = "ไม่สามารถหาซอร์ส APT จาก %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "นำเข้าซอร์ส";
 "Import" = "Import";
