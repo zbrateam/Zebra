@@ -41,6 +41,20 @@
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
 }
 
++ (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs {
+    NSMutableSet *baseSources = [NSMutableSet new];
+    
+    for (NSURL *URL in URLs) {
+        ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:URL];
+        
+        if (source) {
+            [baseSources addObject:source];
+        }
+    }
+    
+    return baseSources;
+}
+
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error {
     NSError *readError;
     NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];

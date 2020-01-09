@@ -562,7 +562,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2m6-4q-giw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4278" y="-976"/>
+            <point key="canvasLocation" x="4277" y="-977"/>
         </scene>
         <!--Sources-->
         <scene sceneID="t83-Qp-Zoh">
@@ -596,7 +596,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Sources" id="08I-GH-0Ip"/>
                     <connections>
-                        <segue destination="n6O-pv-GKg" kind="presentation" identifier="showAddSources" id="mMn-Mh-gpg"/>
                         <segue destination="bGz-84-RrI" kind="show" identifier="segueReposToRepoSection" id="0GQ-ly-ENG"/>
                     </connections>
                 </tableViewController>
@@ -729,20 +728,20 @@
             </objects>
             <point key="canvasLocation" x="3348" y="-1687"/>
         </scene>
-        <!--Add Repo(s)-->
+        <!--Add Sources-->
         <scene sceneID="jHF-9m-BGG">
             <objects>
-                <viewController storyboardIdentifier="addSourcesController" id="Mqk-oQ-y2I" customClass="ZBAddRepoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addSourcesController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mqk-oQ-y2I" customClass="ZBAddSourceViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bei-qm-3Ke"/>
                         <viewControllerLayoutGuide type="bottom" id="FVe-i1-bxw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZET-rm-6Wq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="https://" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Ww-bu-v6H">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -756,7 +755,7 @@
                             <constraint firstAttribute="trailing" secondItem="0Ww-bu-v6H" secondAttribute="trailing" id="t0p-dF-xgw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Repo(s)" id="mbr-uZ-nXO">
+                    <navigationItem key="navigationItem" title="Add Sources" id="mbr-uZ-nXO">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="X8m-Fw-84j">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="Mqk-oQ-y2I" id="nnQ-h2-AgJ"/>
@@ -768,6 +767,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="addButton" destination="6kO-W0-z9d" id="qKt-EN-a8x"/>
                         <outlet property="addRepoTextView" destination="0Ww-bu-v6H" id="ULM-QN-HA2"/>
@@ -776,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9iZ-1A-1gq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6224.8000000000002" y="-976.46176911544239"/>
+            <point key="canvasLocation" x="6164" y="-977"/>
         </scene>
         <!--Queue-->
         <scene sceneID="WI4-4c-3EM">
@@ -1090,24 +1090,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fT-2U-Yfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4277.6000000000004" y="-287.40629685157421"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="cw0-RB-gPf">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="n6O-pv-GKg" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nnj-H5-Xt4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Mqk-oQ-y2I" kind="relationship" relationship="rootViewController" id="XWc-7J-sDw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OxQ-bF-YbT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5216.8000000000002" y="-976.46176911544239"/>
         </scene>
         <!--Changes-->
         <scene sceneID="jLx-7r-yN0">

@@ -12,7 +12,7 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBSourceImportTableViewController.h"
 #import "ZBSourceListTableViewController.h"
-#import "ZBAddRepoViewController.h"
+#import "ZBAddSourceViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Helpers/ZBSourceManager.h>
@@ -335,7 +335,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:repoURL];
         if (baseSource) {
-            [self->sourceManager verifySources:[NSSet setWithObject:baseSource] delegate:self];
+            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
         }
     }]];
     
@@ -354,11 +354,13 @@
         
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
         if (baseSource) {
-            [self->sourceManager verifySources:[NSSet setWithObject:baseSource] delegate:self];
+            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
         }
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self performSegueWithIdentifier:@"showAddSources" sender:self];
+        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:NULL delegate:self];
+        
+        [self presentViewController:controller animated:true completion:nil];
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -611,6 +613,10 @@
             }
         }];
     });
+}
+
+- (void)verifyAndAdd:(NSSet *)baseSources {
+    [sourceManager verifySources:baseSources delegate:self];
 }
 
 @end

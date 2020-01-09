@@ -59,7 +59,7 @@
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
-		7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */; };
+		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
@@ -257,8 +257,8 @@
 		49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRepoTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
-		7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddRepoViewController.m; sourceTree = "<group>"; };
-		7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddRepoViewController.h; sourceTree = "<group>"; };
+		7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddSourceViewController.m; sourceTree = "<group>"; };
+		7821AF6E2275F3A4006C0315 /* ZBAddSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddSourceViewController.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
 		8905171F2372398F000F0A32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -689,8 +689,8 @@
 		896F11C821B231CF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7821AF6E2275F3A4006C0315 /* ZBAddRepoViewController.h */,
-				7821AF6D2275F3A4006C0315 /* ZBAddRepoViewController.m */,
+				7821AF6E2275F3A4006C0315 /* ZBAddSourceViewController.h */,
+				7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */,
 				8944916D21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.h */,
 				8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */,
 				8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */,
@@ -1241,7 +1241,7 @@
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */,
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
-				7821AF6F2275F3A4006C0315 /* ZBAddRepoViewController.m in Sources */,
+				7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */,
 				896BAC42226D5C440020AC3C /* ZBExternalPackageTableViewController.m in Sources */,
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
 				896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */,

@@ -19,6 +19,10 @@
 - (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status;
 - (void)finishedSourceVerification;
 
+@optional
+
+- (void)verifyAndAdd:(NSSet *)baseSources;
+
 @end
 
 #endif /* ZBSourceVerificationDelegate_h */

@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)sharedInstance;
 + (NSString *_Nullable)debLineForURL:(NSURL *)URL;
 - (NSMutableDictionary <NSNumber *, ZBSource *> *)repos;
-- (NSArray *_Nullable)baseSourcesFromURLs:(NSArray <NSURL *> *)URLs;
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources;
 - (void)deleteSource:(ZBSource *)source;
