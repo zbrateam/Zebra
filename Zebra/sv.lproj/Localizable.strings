@@ -104,7 +104,7 @@
 "Error verifying sources" = "Fel när källorna verifierades";
 "Unknown error" = "Okänt fel";
 "Invalid URL" = "Ogiltig URL";
-"Enter URL" = "Ange URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Lägg till källor";
 "Add" = "Lägg till";
 "Add Multiple" = "Lägg till flera";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
 
-"Could not find an APT repository located at %@" = "Kunde inte hitta ett APT-förråd på %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Importera källor";
 "Import" = "Importera";
