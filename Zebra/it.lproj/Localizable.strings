@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Annulla";
-"Yes" = "Yes";
+"Yes" = "Sì";
 "No" = "No";
 "Ok" = "Ok";
 "Error" = "Errore";
@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo Primo Piano";
 "Select Repos to be Featured" = "Seleziona le Repo da mettere in Evidenza";
 
-"News" = "News";
+"News" = "Notizie";
 
 "Live Search" = "Ricerca in tempo reale";
 
