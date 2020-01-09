@@ -104,7 +104,7 @@
 "Error verifying sources" = "Lỗi khi xác minh nguồn";
 "Unknown error" = "Lỗi không xác định";
 "Invalid URL" = "URL không hợp lệ";
-"Enter URL" = "Nhập URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Thêm nguồn";
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
 
-"Could not find an APT repository located at %@" = "Không tìm thấy kho lưu trữ APT tại %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Nhập nguồn";
 "Import" = "Import";
