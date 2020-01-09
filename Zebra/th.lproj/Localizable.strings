@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility repo for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
-"Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
@@ -111,7 +110,7 @@
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "โปรดรอ...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
