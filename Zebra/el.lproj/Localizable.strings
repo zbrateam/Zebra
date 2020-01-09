@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Ακύρωση";
-"Yes" = "Yes";
+"Yes" = "Ναί";
 "No" = "Όχι";
 "Ok" = "Εντάξει";
 "Error" = "Σφάλμα";
@@ -71,7 +71,7 @@
 "Feature Type" = "Τύπος Προτεινόμενου";
 "Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
 
-"News" = "News";
+"News" = "Νέα";
 
 "Live Search" = "Ζωντανή Αναζήτηση";
 
