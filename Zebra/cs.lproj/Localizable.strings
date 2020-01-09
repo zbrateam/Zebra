@@ -104,7 +104,7 @@
 "Error verifying sources" = "Chyba při ověřování zdrojů";
 "Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
-"Enter URL" = "Zadej URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Přidat zdroje";
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Odstraňuji Zebra...";
 "Installing Zebra..." = "Instalace Zebry...";
 
-"Could not find an APT repository located at %@" = "Nelze najít repozitář APT na %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Importovat zdroje";
 "Import" = "Import";
