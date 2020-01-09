@@ -104,7 +104,7 @@
 "Error verifying sources" = "Problem në verifikimin e burimeve";
 "Unknown error" = "Problem i panjohur";
 "Invalid URL" = "Adrese e gabuar";
-"Enter URL" = "Vendos URL-në";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Shto burimet";
 "Add" = "Shto";
 "Add Multiple" = "Shto disa";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
 
-"Could not find an APT repository located at %@" = "Nuk u gjet dot një depo APT e vendosur në %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Importo Burimet";
 "Import" = "Importo";
