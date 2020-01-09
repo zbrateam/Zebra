@@ -240,7 +240,7 @@
 "Close Zebra" = "Đóng Zebra";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
 "Downloading" = "Đang tải xuống";
-"Parsing" = "Parsing";
+"Parsing" = "Phân tích cú pháp";
 "Downloading Packages..." = "Đang tải xuống gói...";
 "Installing" = "Đang cài đặt";
 "Installing Packages..." = "Đang cài đặt gói...";
@@ -335,7 +335,7 @@
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Không tìm thấy kho lưu trữ APT tại %@";
 
 "Import Sources" = "Nhập nguồn";
 "Import" = "Import";
