@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
 "Utility source for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Quelle wird verifiziert";
+"Verifying Sources" = "Quellen werden verifiziert";
 "Stores" = "Shop";
 "Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
