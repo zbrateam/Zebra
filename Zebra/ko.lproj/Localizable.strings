@@ -104,7 +104,7 @@
 "Error verifying sources" = "소스 검증 오류";
 "Unknown error" = "알 수 없는 오류";
 "Invalid URL" = "잘못된 URL";
-"Enter URL" = "URL 입력";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "소스 추가";
 "Add" = "추가";
 "Add Multiple" = "여러개 추가";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Zebra 제거중...";
 "Installing Zebra..." = "Zebra 설치중...";
 
-"Could not find an APT repository located at %@" = "%@에서 APT 저장소를 찾을 수 없습니다.";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "소스 가져오기";
 "Import" = "가져오기";
