@@ -335,7 +335,7 @@
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "Tidak dapat menemukan repositori APT yang terletak di %@";
 
 "Import Sources" = "Import Sumber";
 "Import" = "Import";
