@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility repo for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
-"Please Wait..." = "נא להמתין...";
 "Verifying Source(s)" = "מאמת מקור(ות)";
 "Stores" = "חנויות";
 "Purchases" = "רכישות";
@@ -111,7 +110,7 @@
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
-"Please Wait..." = "אנא המתן/י...";
+"Please Wait..." = "נא להמתין...";
 "Verifying Source(s)" = "מאמת מקור(ות)";
 "Unable to verify Repo" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
