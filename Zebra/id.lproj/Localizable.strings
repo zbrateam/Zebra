@@ -104,7 +104,7 @@
 "Error verifying sources" = "Galat memverifikasi sumber";
 "Unknown error" = "Kesalahan tidak diketahui";
 "Invalid URL" = "URL tidak valid";
-"Enter URL" = "Masukkan URL";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Tambahkan Sumber";
 "Add" = "Tambah";
 "Add Multiple" = "Tambahkan Beberapa";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
 
-"Could not find an APT repository located at %@" = "Tidak dapat menemukan repositori APT yang terletak di %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Import Sumber";
 "Import" = "Import";
