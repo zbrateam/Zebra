@@ -104,7 +104,7 @@
 "Error verifying sources" = "תקלה באימות מקורות";
 "Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "הזן/י כתובת מקור";
 "Add Sources" = "הוסף מקורות";
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "מסיר את זברה...";
 "Installing Zebra..." = "מתקין את זברה...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "הוספת מקור נכשלה";
+"Failed to add sources" = "הוספת מקורות נכשלה";
+"Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
+"Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
 
 "Import Sources" = "ייבא מקורות";
 "Import" = "ייבוא";
