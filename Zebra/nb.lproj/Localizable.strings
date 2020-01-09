@@ -104,7 +104,7 @@
 "Error verifying sources" = "Feil under verifisering av kilder";
 "Unknown error" = "Ukjent feil";
 "Invalid URL" = "Ugyldig nettadresse";
-"Enter URL" = "Skriv inn nettadresse";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Legg til kilder";
 "Add" = "Legg til";
 "Add Multiple" = "Legg til flere";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
 
-"Could not find an APT repository located at %@" = "Kunne ikke finne et APT-kilde i %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Importer kilder";
 "Import" = "Importer";
