@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "Trasferisci le sorgenti da %@ a Zebra";
 "Utility source for %@" = "Sorgente utility per %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificando Soegente";
+"Verifying Sources" = "Verificando Sorgenti";
 "Stores" = "Store";
 "Purchases" = "Acquisti";
 "Wish List" = "Lista dei Desideri";
@@ -338,4 +338,4 @@
 "Could not find an APT repository located at %@" = "Impossibile trovare una repository APT situata in %@";
 
 "Import Sources" = "Importa Sorgenti";
-"Import" = "Import";
+"Import" = "Importa";
