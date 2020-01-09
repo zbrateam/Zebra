@@ -104,7 +104,7 @@
 "Error verifying sources" = "リポジトリの検証エラー";
 "Unknown error" = "不明なエラー";
 "Invalid URL" = "無効なURL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "リポジトリ URL を入力する";
 "Add Sources" = "リポジトリを追加";
 "Add" = "追加";
 "Add Multiple" = "複数追加";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "リポジトリの追加に失敗しました";
+"Failed to add sources" = "リポジトリの追加に失敗しました";
+"Unable to locate an APT repository at:" = "以下の APT レポジトリを特定できませんでした";
+"Unable to locate APT repositories at:" = "以下の APT レポジトリを特定できませんでした";
 
 "Import Sources" = "リポジトリを追加する";
 "Import" = "インポート";
