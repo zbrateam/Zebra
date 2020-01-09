@@ -71,7 +71,7 @@
 "Feature Type" = "Jenis Fitur";
 "Select Repos to be Featured" = "Pilih Repo untuk Diunggulkan";
 
-"News" = "News";
+"News" = "Berita";
 
 "Live Search" = "Pencarian Live";
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "Tambahkan Beberapa";
 "Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
 "Please Wait..." = "Tunggu Sebentar...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "Memverifikasi Sumber";
 "Unable to verify Repo" = "Repo tidak dapat diverifikasi";
 "Refresh" = "Segarkan";
 "Log Out" = "Keluar";
