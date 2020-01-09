@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Prenesi izvore iz %@ u Zebru";
 "Utility repo for %@" = "Izvori alata za %@";
 "Transfer Sources" = "Prenesi Izvore";
-"Please Wait..." = "Molimo pričekajte...";
 "Verifying Source(s)" = "Potvrđujemo Izvor(e)";
 "Stores" = "Trgovine";
 "Purchases" = "Kupljeno";
@@ -111,7 +110,7 @@
 "Add" = "Dodaj";
 "Add Multiple" = "Višestruko dodavanje";
 "Would you like to add the URL from your clipboard?" = "Dali želite dodati URL iz Vašeg međuspremnika?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Molimo pričekajte...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Ne može se provjeriti Izvor";
 "Refresh" = "Osvježi";
