@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Annuler";
-"Yes" = "Yes";
+"Yes" = "Oui";
 "No" = "Non";
 "Ok" = "Ok";
 "Error" = "Erreur";
@@ -71,7 +71,7 @@
 "Feature Type" = "Type de Mise en Vedette";
 "Select Repos to be Featured" = "Selectionner les Sources à Mettre en Vedette";
 
-"News" = "News";
+"News" = "Nouveautés";
 
 "Live Search" = "Recherche en direct";
 
