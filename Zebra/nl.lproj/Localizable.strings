@@ -104,7 +104,7 @@
 "Error verifying sources" = "Fout verifiëren van bron";
 "Unknown error" = "Onbekende fout";
 "Invalid URL" = "Ongeldige URL";
-"Enter URL" = "Voer een URL in";
+"Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Bronnen Toevoegen";
 "Add" = "Voeg toe";
 "Add Multiple" = "Voeg meerdere toe";
@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
 
-"Could not find an APT repository located at %@" = "Kon geen APT bron vinden bij %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Importeer Bronnen";
 "Import" = "Import";
