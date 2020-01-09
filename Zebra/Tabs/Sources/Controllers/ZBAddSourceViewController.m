@@ -97,11 +97,14 @@
 - (IBAction)addButtonTapped:(UIBarButtonItem *)sender {
     [self.addRepoTextView resignFirstResponder];
     
-    NSError *detectorError = nil;
+    NSError *detectorError;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
-    
     if (detectorError) {
+        UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
         
+        [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
+        
+        [self presentViewController:errorPopup animated:true completion:nil];
     }
     else {
         NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
@@ -121,6 +124,15 @@
             }
         }];
     }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        textView.text = [textView.text stringByAppendingString:@"\nhttps://"];
+        return NO;
+    }
+    
+    return true;
 }
 
 - (void)textViewDidChange:(UITextView *)textView {

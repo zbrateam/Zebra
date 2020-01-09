@@ -598,7 +598,9 @@
                 
                 UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     if (multiple) {
+                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
                         
+                        [self presentViewController:controller animated:true completion:nil];
                     }
                     else {
                         [self showAddSourceAlert:urls[0]];
