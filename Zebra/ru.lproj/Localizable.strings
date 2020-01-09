@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility repo for %@" = "Репозиторий утилит для %@";
 "Transfer Sources" = "Перенести Источники";
-"Please Wait..." = "Пожалуйста Ожидайте...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
 "Stores" = "Магазины";
 "Purchases" = "Покупки";
@@ -111,7 +110,7 @@
 "Add" = "Добавить";
 "Add Multiple" = "Добавить Несколько";
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
-"Please Wait..." = "Пожалуйста, подождите...";
+"Please Wait..." = "Пожалуйста Ожидайте...";
 "Verifying Source(s)" = "Проверка Источника(ов)";
 "Unable to verify Repo" = "Невозможно проверить Репозиторий";
 "Refresh" = "Обновить";
