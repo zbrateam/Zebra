@@ -333,32 +333,10 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        NSString *sourceURL = repoURL.absoluteString;
-//        
-//        UIAlertController *wait = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:NSLocalizedString(@"Verifying Source(s)", @"") preferredStyle:UIAlertControllerStyleAlert];
-//        [self presentViewController:wait animated:YES completion:nil];
-//        
-//        __weak typeof(self) weakSelf = self;
-//        [self->sourceManager addSourcesFromString:sourceURL response:^(BOOL success, BOOL multiple, NSString * _Nonnull error, NSArray<NSURL *> * _Nonnull failedURLs) {
-//            if (!success) {
-//                NSLog(@"[Zebra] Could not add source %@ due to error %@", failedURLs[0].absoluteString, error);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [wait dismissViewControllerAnimated:YES completion:^{
-//                        [weakSelf presentVerificationFailedAlert:error url:failedURLs[0] present:NO];
-//                    }];
-//                });
-//            } else {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [wait dismissViewControllerAnimated:YES completion:^{
-//                        NSLog(@"[Zebra] Added source, new Repo File: %@", [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:nil]);
-//                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:[repoURL absoluteString] distribution:@"./" components:NULL];
-//                        
-//                        ZBRefreshViewController *console = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:@[baseSource]]];
-//                        [weakSelf presentViewController:console animated:YES completion:nil];
-//                    }];
-//                });
-//            }
-//        }];
+        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:repoURL];
+        if (baseSource) {
+            [self->sourceManager verifySources:[NSSet setWithObject:baseSource] delegate:self];
+        }
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -366,7 +344,7 @@
 
 #pragma mark - Adding a Source
 
-- (void)showAddSourceAlert:(NSURL *)url {
+- (void)showAddSourceAlert:(NSString *_Nullable)placeholder {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Source URL", @"") message:nil preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor tintColor];
     
@@ -384,8 +362,8 @@
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        if (url != NULL) {
-            textField.text = [url absoluteString];
+        if (placeholder != NULL) {
+            textField.text = placeholder;
         } else {
             textField.text = @"https://";
         }
@@ -396,20 +374,6 @@
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url present:(BOOL)present {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to verify Repo", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-        alertController.view.tintColor = [UIColor tintColor];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            if (present) {
-                [self showAddSourceAlert:url];
-            }
-        }];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-    });
 }
 
 #pragma mark - Table View Helper Methods
@@ -562,7 +526,7 @@
             }
             
             if (url && url.scheme && url.host) {
-                [self showAddSourceAlert:url];
+                [self showAddSourceAlert:[url absoluteString]]; //This should probably be changed
             } else {
                 [self showAddSourceAlert:NULL];
             }
@@ -611,11 +575,11 @@
                 BOOL multiple = [self->imaginarySources count] > 1;
                 if (multiple) {
                     title = NSLocalizedString(@"Failed to add sources", @"");
-                    [message appendString:NSLocalizedString(@"Could not verify the APT repositories at:", @"")];
+                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
                 }
                 else {
                     title = NSLocalizedString(@"Failed to add source", @"");
-                    [message appendString:NSLocalizedString(@"Could not verify an APT repository at:", @"")];
+                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
                 }
                 [message appendString:@"\n"];
                 
@@ -635,7 +599,7 @@
                         
                     }
                     else {
-                        [self showAddSourceAlert:[NSURL URLWithString:urls[0]]];
+                        [self showAddSourceAlert:urls[0]];
                     }
                 }];
                 [errorPopup addAction:editAction];
