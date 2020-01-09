@@ -24,6 +24,7 @@ typedef enum {
     ZBDatabaseManager *databaseManager;
     BOOL hadAProblem;
     ZBRefreshButtonState buttonState;
+    NSMutableArray *imaginarySources;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeOrCancelButton;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
@@ -31,6 +32,7 @@ typedef enum {
 
 @implementation ZBRefreshViewController
 
+@synthesize delegate;
 @synthesize messages;
 @synthesize completeOrCancelButton;
 @synthesize consoleView;
@@ -70,11 +72,23 @@ typedef enum {
     return self;
 }
 
-- (id)initWithBaseSources:(NSSet<ZBBaseSource *> *)baseSources {
+- (id)initWithBaseSources:(NSSet<ZBBaseSource *> *)baseSources delegate:(id <ZBSourceVerificationDelegate>)delegate {
     self = [self init];
     
     if (self) {
-        self.baseSources = baseSources;
+        NSMutableSet *validSources = [NSMutableSet new];
+        
+        for (ZBBaseSource *source in baseSources) {
+            if (source.verificationStatus == ZBSourceExists) {
+                [validSources addObject:source];
+            }
+            else {
+                [imaginarySources addObject:source];
+            }
+        }
+        
+        self.baseSources = validSources;
+        self.delegate = delegate;
     }
     
     return self;
@@ -215,6 +229,9 @@ typedef enum {
         [self dismissViewControllerAnimated:YES completion:^{
             if ([controller isKindOfClass:[ZBTabBarController class]]) {
                 [controller forwardToPackage];
+            }
+            else if (delegate) {
+                [delegate finishedSourceVerification:NULL imaginarySources:imaginarySources];
             }
         }];
     }

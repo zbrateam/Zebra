@@ -556,65 +556,69 @@
     });
 }
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
-    if (status == ZBSourceImaginary) {
-        if (!imaginarySources) {
-            imaginarySources = [NSMutableArray new];
-        }
+- (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources {
+    if ([existingSources count]) { //If there are any existing sources, go ahead and add them
+        [sourceManager addBaseSources:[NSSet setWithArray:existingSources]];
         
-        [imaginarySources addObject:source];
+        ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:existingSources] delegate:self];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->verifyPopup dismissViewControllerAnimated:true completion:^{
+                [self presentViewController:refreshVC animated:true completion:nil];
+            }];
+        });
     }
-}
-
-- (void)finishedSourceVerification {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self->verifyPopup dismissViewControllerAnimated:true completion:^{
-            if ([self->imaginarySources count]) {
-                NSMutableArray *urls = [NSMutableArray new];
-                
-                NSMutableString *message = [NSMutableString new];
-                NSString *title;
-                BOOL multiple = [self->imaginarySources count] > 1;
-                if (multiple) {
-                    title = NSLocalizedString(@"Failed to add sources", @"");
-                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
-                }
-                else {
-                    title = NSLocalizedString(@"Failed to add source", @"");
-                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
-                }
-                [message appendString:@"\n"];
-                
-                for (ZBBaseSource *source in self->imaginarySources) {
-                    [urls addObject:[source repositoryURI]];
-                }
-                [message appendString:[urls componentsJoinedByString:@"\n"]];
-                
-                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-                
-                [errorPopup addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    NSLog(@"Epic");
-                }]];
-                
-                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (multiple) {
-                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
-                        
-                        [self presentViewController:controller animated:true completion:nil];
-                    }
-                    else {
-                        [self showAddSourceAlert:urls[0]];
-                    }
-                }];
-                [errorPopup addAction:editAction];
-                
-                [errorPopup setPreferredAction:editAction];
-                
-                [self presentViewController:errorPopup animated:true completion:nil];
-                [self->imaginarySources removeAllObjects];
-            }
-        }];
-    });
+    else if ([imaginarySources count]) {
+        
+    }
+    
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self->verifyPopup dismissViewControllerAnimated:true completion:^{
+//            if ([self->imaginarySources count]) {
+//                NSMutableArray *urls = [NSMutableArray new];
+//
+//                NSMutableString *message = [NSMutableString new];
+//                NSString *title;
+//                BOOL multiple = [self->imaginarySources count] > 1;
+//                if (multiple) {
+//                    title = NSLocalizedString(@"Failed to add sources", @"");
+//                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
+//                }
+//                else {
+//                    title = NSLocalizedString(@"Failed to add source", @"");
+//                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
+//                }
+//                [message appendString:@"\n"];
+//
+//                for (ZBBaseSource *source in self->imaginarySources) {
+//                    [urls addObject:[source repositoryURI]];
+//                }
+//                [message appendString:[urls componentsJoinedByString:@"\n"]];
+//
+//                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+//
+//                [errorPopup addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+//
+//                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    if (multiple) {
+//                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
+//
+//                        [self presentViewController:controller animated:true completion:nil];
+//                    }
+//                    else {
+//                        [self showAddSourceAlert:urls[0]];
+//                    }
+//                }];
+//                [errorPopup addAction:editAction];
+//
+//                [errorPopup setPreferredAction:editAction];
+//
+//                [self presentViewController:errorPopup animated:true completion:nil];
+//                [self->imaginarySources removeAllObjects];
+//            }
+//        }];
+//    });
 }
 
 - (void)verifyAndAdd:(NSSet *)baseSources {

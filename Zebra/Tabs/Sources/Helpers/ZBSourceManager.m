@@ -165,15 +165,24 @@
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
     [delegate startedSourceVerification:[sources count] > 1];
     
-    __block NSUInteger sourcesToVerify = [sources count];
+    NSUInteger sourcesToVerify = [sources count];
+    NSMutableArray *existingSources = [NSMutableArray new];
+    NSMutableArray *imaginarySources = [NSMutableArray new];
     
     for (ZBBaseSource *source in sources) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             [source verify:^(ZBSourceVerification status) {
-                [delegate source:source status:status];
+                if ([delegate respondsToSelector:@selector(source:status:)]) [delegate source:source status:status];
                 
-                if ((status == ZBSourceExists || status == ZBSourceImaginary) && (sourcesToVerify == 0 || --sourcesToVerify == 0)) {
-                    [delegate finishedSourceVerification]; 
+                if (status == ZBSourceExists) {
+                    [existingSources addObject:source];
+                }
+                else if (status == ZBSourceImaginary) {
+                    [imaginarySources addObject:source];
+                }
+                
+                if (sourcesToVerify == [existingSources count] + [imaginarySources count]) {
+                    [delegate finishedSourceVerification:existingSources imaginarySources:imaginarySources];
                 }
             }];
         });
