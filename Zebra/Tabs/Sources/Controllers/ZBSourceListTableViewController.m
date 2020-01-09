@@ -32,6 +32,7 @@
     NSString *lastPaste;
     ZBSourceManager *sourceManager;
     UIAlertController *verifyPopup;
+    NSMutableArray <ZBBaseSource *> *imaginarySources;
 }
 @end
 
@@ -617,22 +618,68 @@
 #pragma mark - Source Verification Delegate
 
 - (void)startedSourceVerification:(BOOL)multiple {
-    if (!verifyPopup) {
-        NSString *message = NSLocalizedString(multiple ? @"Verifying Sources" : @"Verifying Source", @"");
-        verifyPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-    }
-    
-    [self presentViewController:verifyPopup animated:true completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self->verifyPopup) {
+            NSString *message = NSLocalizedString(multiple ? @"Verifying Sources" : @"Verifying Source", @"");
+            self->verifyPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        }
+        
+        [self presentViewController:self->verifyPopup animated:true completion:nil];
+    });
 }
 
 - (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
-//    if (status == ZBSourceImaginary || status == ZBSourceExists) {
-//
-//    }
+    if (status == ZBSourceImaginary) {
+        if (!imaginarySources) {
+            imaginarySources = [NSMutableArray new];
+        }
+        
+        [imaginarySources addObject:source];
+    }
 }
 
 - (void)finishedSourceVerification {
-    [verifyPopup dismissViewControllerAnimated:true completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->verifyPopup dismissViewControllerAnimated:true completion:^{
+            if ([self->imaginarySources count]) {
+                NSMutableArray *urls = [NSMutableArray new];
+                
+                NSMutableString *message = [NSMutableString new];
+                NSString *title;
+                BOOL multiple = [self->imaginarySources count] > 1;
+                if (multiple) {
+                    title = NSLocalizedString(@"Failed to add sources", @"");
+                    [message appendString:NSLocalizedString(@"Could not verify the APT repositories at:", @"")];
+                }
+                else {
+                    title = NSLocalizedString(@"Failed to add source", @"");
+                    [message appendString:NSLocalizedString(@"Could not verify an APT repository at:", @"")];
+                }
+                [message appendString:@"\n"];
+                
+                for (ZBBaseSource *source in self->imaginarySources) {
+                    [urls addObject:[source repositoryURI]];
+                }
+                [message appendString:[urls componentsJoinedByString:@"\n"]];
+                
+                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                
+                [errorPopup addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    NSLog(@"Epic");
+                }]];
+                
+                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSLog(@"Epic");
+                }];
+                [errorPopup addAction:editAction];
+                
+                [errorPopup setPreferredAction:editAction];
+                
+                [self presentViewController:errorPopup animated:true completion:nil];
+                [self->imaginarySources removeAllObjects];
+            }
+        }];
+    });
 }
 
 @end

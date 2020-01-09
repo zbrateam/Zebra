@@ -335,7 +335,10 @@
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources"
+"Could not verify an APT repository at:" = "Could not verify an APT repository at:";
+"Could not verify the APT repositories at:" = "Could not verify the APT repositories at:";
 
 "Import Sources" = "Import Sources";
 "Import" = "Import";
