@@ -332,7 +332,7 @@
     alertController.view.tintColor = [UIColor tintColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        NSString *sourceURL = repoURL.absoluteString;
 //        
 //        UIAlertController *wait = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:NSLocalizedString(@"Verifying Source(s)", @"") preferredStyle:UIAlertControllerStyleAlert];
@@ -393,47 +393,9 @@
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.keyboardType = UIKeyboardTypeURL;
         textField.returnKeyType = UIReturnKeyNext;
-        textField.borderStyle = UITextBorderStyleRoundedRect;
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];
-    
-//    if ([ZBDevice darkModeEnabled]) {
-//        for (UITextField *textField in alertController.textFields) {
-//            textField.textColor = [UIColor cellPrimaryTextColor];
-//            textField.backgroundColor = [UIColor cellSeparatorColor];
-//            textField.superview.backgroundColor = [UIColor clearColor];
-//            textField.superview.layer.borderColor = [UIColor clearColor].CGColor;
-//        }
-//    }
-}
-
-//- (NSURL *)URLFromText:(NSString *)text {
-//    NSError *detectorError;
-//    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
-//
-//    if (detectorError) {
-//        NSLog(@"[Zebra] Detector error!");
-//        return NULL;
-//    }
-//    else {
-//        __block NSURL *detectedURL;
-//        [detector enumerateMatchesInString:text options:0 range:NSMakeRange(0, text.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-//            if (result.resultType == NSTextCheckingTypeLink) {
-//                detectedURL = result.URL;
-//            }
-//        }];
-//
-//        return detectedURL;
-//    }
-//}
-
-- (void)prsentPopup:(UIAlertController *)popup; {
-    [self presentViewController:popup animated:true completion:nil];
-}
-
-- (void)dismissPopup:(UIAlertController *)popup {
-    [popup dismissViewControllerAnimated:true completion:nil];
 }
 
 - (void)presentVerificationFailedAlert:(NSString *)message url:(NSURL *)url present:(BOOL)present {
