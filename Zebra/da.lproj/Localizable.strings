@@ -19,7 +19,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Værktøj arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
 "Verifying Source" = "Verifying Source";
 "Verifying Sources" = "Verifying Sources";
@@ -29,7 +29,7 @@
 "No items in Wish List" = "Ingen varer på Ønskelisten";
 "Community" = "Fællesskab";
 "Join our Discord" = "Meld dig ind i vores Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Følg os på Twitter";
 
 //Credits
 
@@ -68,7 +68,7 @@
 "Featured Packages" = "Udvalgte Pakker";
 "Random" = "Tilfældig";
 "Feature Type" = "Udvalgt Type";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Vælg kilder der skal vises";
 
 "News" = "Nyheder";
 
@@ -90,7 +90,7 @@
 
 "Alternate Icons" = "Alternative Ikoner";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Udvalgte Kilder";
 
 // Sources
 
@@ -98,20 +98,20 @@
 "Local Repository" = "Lokalt Arkiv";
 "Locally installed packages" = "Lokalt installeret pakker";
 "Unknown" = "Ukendt";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Ingen kilde URL registreret.";
+"You have already added these sources." = "Du har allerede tilføjet disse kilder.";
+"Error verifying source" = "Fejl med at kontrollere kilde";
+"Error verifying sources" = "Fejl med at kontrollere kilder";
 "Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
 "Enter URL" = "Indtast Webadresse";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Tilføj kilder";
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
 "Please Wait..." = "Vent Venligst...";
 "Verifying Source(s)" = "Verificerer Kilde(r)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Kunne ikke bekræfte kilde";
 "Refresh" = "opdatere";
 "Log Out" = "Log af";
 "Purchased Packages" = "Købte Pakker";
@@ -144,7 +144,7 @@
 "Available Upgrades" = "Tilgængelig Opgraderinger";
 "Ignored Upgrades" = "Ignorer Opgraderinger";
 "Recent" = "Nylig";
-"Source" = "Source";
+"Source" = "Kilde";
 "Installed Files" = "Installeret Filer";
 "Modify" = "Modificer";
 "Authenticate to initiate purchase." = "Autentificere for at igangsætte køb.";
