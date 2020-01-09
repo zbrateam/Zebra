@@ -240,7 +240,7 @@
 "Close Zebra" = "Zebra 닫기";
 "Restart SpringBoard" = "SpringBoard 재시작";
 "Downloading" = "다운로드 중";
-"Parsing" = "Parsing";
+"Parsing" = "파싱";
 "Downloading Packages..." = "패키지 다운로드 중...";
 "Installing" = "설치 중";
 "Installing Packages..." = "패키지 설치 중...";
@@ -335,7 +335,7 @@
 "Removing Zebra..." = "Zebra 제거중...";
 "Installing Zebra..." = "Zebra 설치중...";
 
-"Could not find an APT repository located at %@" = "Could not find an APT repository located at %@";
+"Could not find an APT repository located at %@" = "%@에서 APT 저장소를 찾을 수 없습니다.";
 
 "Import Sources" = "소스 가져오기";
-"Import" = "Import";
+"Import" = "가져오기";
