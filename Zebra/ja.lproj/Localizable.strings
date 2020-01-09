@@ -22,8 +22,8 @@
 "Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
 "Please Wait..." = "お待ちください...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "リポジトリを検証中";
+"Verifying Sources" = "リポジトリを検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしいものリスト";
