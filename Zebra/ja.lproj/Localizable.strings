@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Please Wait..." = "しばらくお待ちください...";
 "Verifying Source(s)" = "リポジトリの検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
