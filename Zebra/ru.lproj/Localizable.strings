@@ -104,7 +104,7 @@
 "Error verifying sources" = "Ошибка проверки источников";
 "Unknown error" = "Неизвестная ошибка";
 "Invalid URL" = "Неверный URL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Введите URL Источника";
 "Add Sources" = "Добавить Источники";
 "Add" = "Добавить";
 "Add Multiple" = "Добавить Несколько";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "Удаление Zebra...";
 "Installing Zebra..." = "Установка Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Не удалось добавить источник";
+"Failed to add sources" = "Не удалось добавить источники";
+"Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
+"Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
 
 "Import Sources" = "Импортировать Источники";
 "Import" = "Импорт";
