@@ -31,6 +31,7 @@
     BOOL isRefreshingTable;
     NSString *lastPaste;
     ZBSourceManager *sourceManager;
+    UIAlertController *verifyPopup;
 }
 @end
 
@@ -374,7 +375,7 @@
         
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
         if (baseSource) {
-            [self->sourceManager addBaseSources:[NSSet setWithObject:baseSource]];
+            [self->sourceManager verifySources:[NSSet setWithObject:baseSource] delegate:self];
         }
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -615,8 +616,23 @@
 
 #pragma mark - Source Verification Delegate
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)verified {
+- (void)startedSourceVerification:(BOOL)multiple {
+    if (!verifyPopup) {
+        NSString *message = NSLocalizedString(multiple ? @"Verifying Sources" : @"Verifying Source", @"");
+        verifyPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+    }
     
+    [self presentViewController:verifyPopup animated:true completion:nil];
+}
+
+- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
+//    if (status == ZBSourceImaginary || status == ZBSourceExists) {
+//
+//    }
+}
+
+- (void)finishedSourceVerification {
+    [verifyPopup dismissViewControllerAnimated:true completion:nil];
 }
 
 @end

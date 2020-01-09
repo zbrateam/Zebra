@@ -15,7 +15,9 @@
 
 @protocol ZBSourceVerificationDelegate <NSObject>
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)verified;
+- (void)startedSourceVerification:(BOOL)multiple;
+- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status;
+- (void)finishedSourceVerification;
 
 @end
 

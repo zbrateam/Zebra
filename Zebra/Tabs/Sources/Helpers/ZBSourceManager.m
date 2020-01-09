@@ -162,36 +162,22 @@
     recachingNeeded = TRUE;
 }
 
-//TODO: This needs error pointers
-- (void)addDebLine:(NSString *)sourceLine {
-    NSString *listsLocation = [ZBAppDelegate sourcesListPath];
-    NSError *readError;
-    NSString *output = [NSString stringWithContentsOfFile:listsLocation encoding:NSUTF8StringEncoding error:&readError];
-    if (readError != NULL) {
-        NSLog(@"[Zebra] Error while writing sources to file: %@", readError);
-    }
-    
-    output = [output stringByAppendingString:sourceLine];
-    
-    NSError *error;
-    [output writeToFile:listsLocation atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error != NULL) {
-        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
-    }
-}
-
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
+    [delegate startedSourceVerification:[sources count] > 1];
+    
+    __block NSUInteger sourcesToVerify = [sources count];
+    
     for (ZBBaseSource *source in sources) {
-        [self verifySource:source delegate:delegate];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [source verify:^(ZBSourceVerification status) {
+                [delegate source:source status:status];
+                
+                if ((status == ZBSourceExists || status == ZBSourceImaginary) && (sourcesToVerify == 0 || --sourcesToVerify == 0)) {
+                    [delegate finishedSourceVerification]; 
+                }
+            }];
+        });
     }
-}
-
-- (void)verifySource:(ZBBaseSource *)source delegate:(id <ZBSourceVerificationDelegate>)delegate {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [source verify:^(ZBSourceVerification status) {
-            [delegate source:source status:status];
-        }];
-    });
 }
 
 @end

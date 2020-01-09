@@ -120,6 +120,8 @@
 }
 
 - (id)initFromSourceLine:(NSString *)debLine {
+    if (!debLine) return NULL;
+    
     if ([debLine characterAtIndex:0] == '#') return NULL;
     debLine = [debLine stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     debLine = [debLine stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -150,6 +152,8 @@
 }
 
 - (id)initFromSourceGroup:(NSString *)sourceGroup {
+    if (!sourceGroup) return NULL;
+    
     if ([sourceGroup characterAtIndex:0] == '#') return NULL;
     
     NSMutableDictionary *source = [NSMutableDictionary new];
