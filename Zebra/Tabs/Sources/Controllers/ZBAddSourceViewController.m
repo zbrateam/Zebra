@@ -54,7 +54,7 @@
     self.addRepoTextView.textColor = [UIColor cellPrimaryTextColor];
     self.addRepoTextView.delegate = self;
     
-    if (self.text) {
+    if (self.text && [self.text hasPrefix:@"http"]) {
         self.addRepoTextView.text = self.text;
         self.addButton.enabled = self.addRepoTextView.text.length;
     }

@@ -358,7 +358,7 @@
         }
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:NULL delegate:self];
+        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
         
         [self presentViewController:controller animated:true completion:nil];
     }]];
