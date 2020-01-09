@@ -22,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
 "Utility repo for %@" = "Repozitára nástrojov pre %@";
 "Transfer Sources" = "Preniesť Zdroje";
-"Please Wait..." = "Prosím čakajťe...";
 "Verifying Source(s)" = "Overovánie Repozitáre(ov)";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
@@ -111,7 +110,7 @@
 "Add" = "Pridať";
 "Add Multiple" = "Pridať viac";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
-"Please Wait..." = "Prosím, čakajte...";
+"Please Wait..." = "Prosím čakajťe...";
 "Verifying Source(s)" = "Overovanie Zdrojov";
 "Unable to verify Repo" = "Nie je možné overiť repozitár";
 "Refresh" = "Refreshút";
