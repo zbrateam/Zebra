@@ -45,9 +45,11 @@ body {
 
 	.input {
 		text-align: left !important;
+    width: 110% !important;
   }
 
   .button-container {
+    display: inline-flex !important;
     flex-direction: row !important;
   }
 
@@ -104,7 +106,7 @@ body {
 }
 
 .button-container {
-  display: inline-flex;
+  display: block`;
   flex-direction: column;
 }
 
@@ -118,7 +120,7 @@ body {
 	background: none;
 	border: none;
   outline: none;
-	width: 110%;
+	width: 100%;
 	text-align: center;
 	color: rgba(255, 255, 255, 0.40);
 }
