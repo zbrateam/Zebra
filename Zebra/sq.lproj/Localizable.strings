@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
 "Utility source for %@" = "Burimet e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Duke verifikuar burimin";
+"Verifying Sources" = "Duke verifikuar burimet";
 "Stores" = "Dyqani";
 "Purchases" = "Pagesat";
 "Wish List" = "Lista e Dëshirave";
@@ -104,7 +104,7 @@
 "Error verifying sources" = "Problem në verifikimin e burimeve";
 "Unknown error" = "Problem i panjohur";
 "Invalid URL" = "Adrese e gabuar";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Shkruaj URL-në e burimit";
 "Add Sources" = "Shto burimet";
 "Add" = "Shto";
 "Add Multiple" = "Shto disa";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Dështoj në shtimin e burimit";
+"Failed to add sources" = "Dështoj në shtimin e burimeve";
+"Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
+"Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
 
 "Import Sources" = "Importo Burimet";
 "Import" = "Importo";
