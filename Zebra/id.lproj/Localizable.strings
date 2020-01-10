@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "Transfer sumber dari %@ ke Zebra";
 "Utility source for %@" = "Sumber utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Memverifikasi Sumber";
+"Verifying Sources" = "Memverifikasi Sumber";
 "Stores" = "Toko";
 "Purchases" = "Pembelian";
 "Wish List" = "Daftar Keinginan";
@@ -104,7 +104,7 @@
 "Error verifying sources" = "Galat memverifikasi sumber";
 "Unknown error" = "Kesalahan tidak diketahui";
 "Invalid URL" = "URL tidak valid";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Masukkan URL Sumber";
 "Add Sources" = "Tambahkan Sumber";
 "Add" = "Tambah";
 "Add Multiple" = "Tambahkan Beberapa";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Gagal untuk menambahkan sumber";
+"Failed to add sources" = "Gagal untuk menambahkan sumber";
+"Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
+"Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
 
 "Import Sources" = "Import Sumber";
-"Import" = "Import";
+"Import" = "Impor";
