@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility source for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "กำลังตรวจสอบซอร์ส";
+"Verifying Sources" = "Verifikacija izvora";
 "Stores" = "ร้านค้า";
 "Purchases" = "ที่ซื้อไว้";
 "Wish List" = "รายการอยากได้";
@@ -104,7 +104,7 @@
 "Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
 "Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Masukkan URL Sumber";
 "Add Sources" = "เพิ่มซอร์ส";
 "Add" = "เพิ่ม";
 "Add Multiple" = "เพิ่มหลายอัน";
@@ -335,7 +335,7 @@
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
 
-"Failed to add source" = "Failed to add source";
+"Failed to add source" = "ไม่สามารถเพิ่มไฟล์";
 "Failed to add sources" = "Failed to add sources";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
