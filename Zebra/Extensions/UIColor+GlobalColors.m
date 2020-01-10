@@ -77,7 +77,7 @@
         return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
     }
     else {
-        return [UIColor secondarySystemBackgroundColor];
+        return [UIColor secondarySystemGroupedBackgroundColor];
     }
 }
 
@@ -89,7 +89,7 @@
         return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
     }
     else {
-        return [UIColor secondarySystemBackgroundColor];
+        return [UIColor secondarySystemGroupedBackgroundColor];
     }
 }
 
@@ -101,7 +101,7 @@
         return [self selectedCellBackgroundColorLight:highlighted];
     }
     else {
-        return [UIColor systemBackgroundColor];
+        return [UIColor secondarySystemGroupedBackgroundColor];
     }
 }
 
