@@ -104,7 +104,7 @@
 "Error verifying sources" = "Σφάλμα επαλήθευσης πηγών";
 "Unknown error" = "Άγνωστο σφάλμα";
 "Invalid URL" = "Λανθασμένο URL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Καταχώρησε URL Πηγής";
 "Add Sources" = "Πρόσθεσε Πηγές";
 "Add" = "Πρόσθεσε";
 "Add Multiple" = "Πρόσθεσε Πολλαπλά";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "Αφαίρεση του Zebra...";
 "Installing Zebra..." = "Εγκατάσταση του Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Αποτυχία προσθήκης πηγής";
+"Failed to add sources" = "Αποτυχία προσθήκης πηγών";
+"Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
+"Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
 
 "Import Sources" = "Εισαγωγή Πηγών";
 "Import" = "Εισαγωγή";
