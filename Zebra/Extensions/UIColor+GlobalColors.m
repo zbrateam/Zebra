@@ -125,7 +125,7 @@
         return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
     }
     else {
-        return [UIColor labelColor];
+        return [UIColor secondaryLabelColor];
     }
 }
 
