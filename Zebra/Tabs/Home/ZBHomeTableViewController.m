@@ -66,6 +66,12 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self setupFeatured];
+    
+    if (@available(iOS 13.0, *)) {
+        UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = settingsButton;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -513,7 +519,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-#pragma mark Settings
+#pragma mark - Settings
 
 - (IBAction)settingsButtonTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -521,7 +527,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }
 
-#pragma mark darkmode
+#pragma mark - Dark Mode
+
 - (IBAction)toggleDarkMode:(id)sender {
     [ZBDevice hapticButton];
     [self darkMode];
@@ -611,6 +618,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 #pragma mark UICollectionView
+
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     if (indexPath.row < selectedFeatured.count) {
@@ -642,6 +650,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 #pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
