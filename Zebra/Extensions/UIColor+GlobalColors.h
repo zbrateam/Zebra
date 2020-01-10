@@ -23,7 +23,6 @@ typedef NS_ENUM(NSInteger)  {
 
 @interface UIColor (GlobalColors)
 + (UIColor *)tintColor;
-+ (UIColor *)navBarTintColor;
 + (UIColor *)badgeColor;
 + (UIColor *)tableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;

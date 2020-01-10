@@ -12,6 +12,9 @@
 
 @implementation UIColor (GlobalColors)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
+
 + (UIColor *)tintColor {
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
@@ -34,44 +37,60 @@
     return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
 
-+ (UIColor *)navBarTintColor {
-    return [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
-}
-
 + (UIColor *)badgeColor {
     return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }
 
 // Table View Colors
 + (UIColor *)tableViewBackgroundColor {
-    if ([ZBDevice darkModeEnabled]) {
-        if (![ZBDevice darkModeOledEnabled] && ![ZBDevice darkModeThirteenEnabled]) {
-            return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            if (![ZBDevice darkModeOledEnabled] && ![ZBDevice darkModeThirteenEnabled]) {
+                return [UIColor colorWithRed:0.09 green:0.09 blue:0.09 alpha:1.0];
+            }
+            return [UIColor blackColor];
         }
-        return [UIColor blackColor];
+        return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     }
-    return [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+    else {
+        return [UIColor systemGroupedBackgroundColor];
+    }
 }
 
 + (UIColor *)cellBackgroundColor {
-    if ([ZBDevice darkModeEnabled]) {
-        if ([ZBDevice darkModeOledEnabled]){
-            return [UIColor blackColor];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            if ([ZBDevice darkModeOledEnabled]){
+                return [UIColor blackColor];
+            }
+            return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
         }
-        return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
+        return [UIColor whiteColor];
     }
-    return [UIColor whiteColor];
+    else {
+        return [UIColor systemBackgroundColor];
+    }
 }
 
 + (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted {
-    return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
+    if ([ZBDevice themingAllowed]) {
+        return highlighted ? [UIColor colorWithRed:0.94 green:0.95 blue:1.00 alpha:1.0] : [UIColor cellBackgroundColor];
+    }
+    else {
+        return [UIColor secondarySystemBackgroundColor];
+    }
 }
 
 + (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled {
-    if (!oled) {
-        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+    if ([ZBDevice themingAllowed]) {
+        if (!oled) {
+            return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor colorWithRed:0.110 green:0.110 blue:0.114 alpha:1.0];
+        }
+        return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
     }
-    return highlighted ? [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] : [UIColor blackColor];
+    else {
+        return [UIColor secondarySystemBackgroundColor];
+    }
 }
 
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
@@ -82,27 +101,42 @@
 }
 
 + (UIColor *)cellPrimaryTextColor {
-    if ([ZBDevice darkModeEnabled]) {
-        return [UIColor whiteColor];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            return [UIColor whiteColor];
+        }
+        return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     }
-    return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+    else {
+        return [UIColor labelColor];
+    }
 }
 
 + (UIColor *)cellSecondaryTextColor {
-    if ([ZBDevice darkModeEnabled]) {
-        return [UIColor lightGrayColor];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            return [UIColor lightGrayColor];
+        }
+        return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
     }
-    return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
+    else {
+        return [UIColor labelColor];
+    }
 }
 
 + (UIColor *)cellSeparatorColor {
-    if ([ZBDevice darkModeEnabled]) {
-        if ([ZBDevice darkModeOledEnabled]){
-            return [UIColor blackColor];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            if ([ZBDevice darkModeOledEnabled]) {
+                return [UIColor blackColor];
+            }
+            return [UIColor colorWithRed:0.22 green:0.22 blue:0.23 alpha:1.0];
         }
-        return [UIColor colorWithRed:0.22 green:0.22 blue:0.23 alpha:1.0];
+        return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
     }
-    return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];
+    else {
+        return [UIColor separatorColor];
+    }
 }
 
 + (NSString *)hexStringFromColor:(UIColor *)color {
@@ -114,5 +148,7 @@
     
     return [NSString stringWithFormat:@"#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255)];
 }
+
+#pragma clang diagnostic pop
 
 @end

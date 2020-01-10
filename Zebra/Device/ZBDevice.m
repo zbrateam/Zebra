@@ -362,7 +362,17 @@
     return @"iPhone/iPod";
 }
 
-// Dark mode
+#pragma mark - Theming
+
++ (BOOL)themingAllowed {
+    if (@available(iOS 13.0, *)) {
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
+
 + (BOOL)darkModeEnabled {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"];
 }
@@ -382,138 +392,147 @@
 }
 
 + (void)configureTabBarColors:(UIColor *)tintColor forDarkMode:(BOOL)darkMode {
-    // Tab
-    [[UITabBar appearance] setTintColor:tintColor];
-    if (@available(iOS 10.0, *)) {
-        [[UITabBar appearance] setUnselectedItemTintColor:[UIColor lightGrayColor]];
-    }
-    [[UITabBar appearance] setBackgroundColor:nil];
-    [[UITabBar appearance] setBarTintColor:nil];
+    if ([self themingAllowed]) {
+        [[UITabBar appearance] setTintColor:tintColor];
+        if (@available(iOS 10.0, *)) {
+            [[UITabBar appearance] setUnselectedItemTintColor:[UIColor lightGrayColor]];
+        }
+        [[UITabBar appearance] setBackgroundColor:nil];
+        [[UITabBar appearance] setBarTintColor:nil];
 
-    if (darkMode) {
-        [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
-    } else {
-        [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
+        if (darkMode) {
+            [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+        } else {
+            [[UITabBar appearance] setBarStyle:UIBarStyleDefault];
+        }
     }
 }
 
 + (void)configureDarkMode {
-    UIColor *tintColor = [UIColor tintColor];
-    // Navigation bar
-    [[UINavigationBar appearance] setTintColor:nil];
-    [[UINavigationBar appearance] setTintColor:tintColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    if ([self themingAllowed]) {
+        UIColor *tintColor = [UIColor tintColor];
+        // Navigation bar
+        [[UINavigationBar appearance] setTintColor:nil];
+        [[UINavigationBar appearance] setTintColor:tintColor];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+        if (@available(iOS 11.0, *)) {
+            [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        }
+        if ([ZBDevice darkModeOledEnabled]) {
+            [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+            [[UINavigationBar appearance] setTranslucent:NO];
+        } else {
+            [[UINavigationBar appearance] setBackgroundColor:nil];
+            [[UINavigationBar appearance] setTranslucent:YES];
+        }
+        
+        // Status bar
+        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+        
+        [self configureTabBarColors:tintColor forDarkMode:true];
+        
+        // Tables
+        [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
+        [[UITableView appearance] setTintColor:tintColor];
+        [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+        
+        UIView *dark = [[UIView alloc] init];
+        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
+        [[UITableViewCell appearance] setSelectedBackgroundView:dark];
+        [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+        
+        // Keyboard
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+        
+        // Web views
+        [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[WKWebView appearance] setOpaque:YES];
+        
+        //PopupBar
+        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        
+        [[UITextField appearance] setTextColor:[UIColor whiteColor]];
+        
+        [[UIRefreshControl appearance] setTintColor:[UIColor whiteColor]];
     }
-    if ([ZBDevice darkModeOledEnabled]) {
-        [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [[UINavigationBar appearance] setTranslucent:NO];
-    } else {
-        [[UINavigationBar appearance] setBackgroundColor:nil];
-        [[UINavigationBar appearance] setTranslucent:YES];
-    }
-    
-    // Status bar
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    
-    [self configureTabBarColors:tintColor forDarkMode:true];
-    
-    // Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
-    [[UITableView appearance] setTintColor:tintColor];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-    
-    UIView *dark = [[UIView alloc] init];
-    dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
-    [[UITableViewCell appearance] setSelectedBackgroundView:dark];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
-    
-    // Keyboard
-    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
-    
-    // Web views
-    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:YES];
-    
-    //PopupBar
-    [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
-    [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
-    [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
-    [[UITextField appearance] setTextColor:[UIColor whiteColor]];
-    
-    [[UIRefreshControl appearance] setTintColor:[UIColor whiteColor]];
 }
 
 + (void)configureLightMode {
-    UIColor *tintColor = [UIColor tintColor];
-    // Navigation bar
-    [[UINavigationBar appearance] setTintColor:nil];
-    [[UINavigationBar appearance] setTintColor:tintColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-    // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    if (@available(iOS 11.0, *)) {
-        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    if ([self themingAllowed]) {
+        UIColor *tintColor = [UIColor tintColor];
+        // Navigation bar
+        [[UINavigationBar appearance] setTintColor:nil];
+        [[UINavigationBar appearance] setTintColor:tintColor];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+        if (@available(iOS 11.0, *)) {
+            [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        }
+        [[UINavigationBar appearance] setBarTintColor:nil];
+        [[UINavigationBar appearance] setBackgroundColor:nil];
+        [[UINavigationBar appearance] setTranslucent:YES];
+        // Status bar
+        [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+        
+        // Tab
+        [self configureTabBarColors:tintColor forDarkMode:false];
+        
+        // Tables
+        [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[UITableView appearance] setTintColor:tintColor];
+        [[UITableView appearance] setTintColor:nil];
+        [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+        [[UITableViewCell appearance] setSelectedBackgroundView:nil];
+        [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+        
+        // Keyboard
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
+        
+        // Web views
+        [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[WKWebView appearance] setOpaque:YES];
+        
+        [[LNPopupBar appearance] setTranslucent:true];
+        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+        
+        [[UITextField appearance] setTextColor:[UIColor blackColor]];
+        
+        [[UIRefreshControl appearance] setTintColor:[UIColor blackColor]];
     }
-    [[UINavigationBar appearance] setBarTintColor:nil];
-    [[UINavigationBar appearance] setBackgroundColor:nil];
-    [[UINavigationBar appearance] setTranslucent:YES];
-    // Status bar
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
-    
-    // Tab
-    [self configureTabBarColors:tintColor forDarkMode:false];
-    
-    // Tables
-    [[UITableView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[UITableView appearance] setTintColor:tintColor];
-    [[UITableView appearance] setTintColor:nil];
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-    [[UITableViewCell appearance] setSelectedBackgroundView:nil];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
-    
-    // Keyboard
-    [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
-    
-    // Web views
-    [[WKWebView appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [[WKWebView appearance] setOpaque:YES];
-    
-    [[LNPopupBar appearance] setTranslucent:true];
-    [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
-    [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
-    [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    
-    [[UITextField appearance] setTextColor:[UIColor blackColor]];
-    
-    [[UIRefreshControl appearance] setTintColor:[UIColor blackColor]];
 }
 
 + (void)applyThemeSettings {
-    if ([self darkModeEnabled]) {
-        [self configureDarkMode];
-    } else {
-        [self configureLightMode];
+    if ([self themingAllowed]) {
+        if ([self darkModeEnabled]) {
+            [self configureDarkMode];
+        } else {
+            [self configureLightMode];
+        }
     }
 }
 
 + (void)refreshViews {
-    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-        for (UIView *view in window.subviews) {
-            [view removeFromSuperview];
-            [window addSubview:view];
-            CATransition *transition = [CATransition animation];
-            transition.type = kCATransitionFade;
-            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-            transition.fillMode = kCAFillModeForwards;
-            transition.duration = 0.35;
-            transition.subtype = kCATransitionFromTop;
-            [view.layer addAnimation:transition forKey:nil];
+    if ([self themingAllowed]) {
+        for (UIWindow *window in [UIApplication sharedApplication].windows) {
+            for (UIView *view in window.subviews) {
+                [view removeFromSuperview];
+                [window addSubview:view];
+                CATransition *transition = [CATransition animation];
+                transition.type = kCATransitionFade;
+                transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                transition.fillMode = kCAFillModeForwards;
+                transition.duration = 0.35;
+                transition.subtype = kCATransitionFromTop;
+                [view.layer addAnimation:transition forKey:nil];
+            }
         }
     }
 }

@@ -41,7 +41,9 @@
 + (BOOL)isUncover;
 + (NSString *_Nullable)packageManagementBinary;
 
-// Dark Mode
+#pragma mark - Theming
+
++ (BOOL)themingAllowed;
 + (BOOL)darkModeEnabled;
 + (BOOL)darkModeOledEnabled;
 + (BOOL)darkModeThirteenEnabled;
