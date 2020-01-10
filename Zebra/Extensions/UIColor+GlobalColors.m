@@ -94,10 +94,15 @@
 }
 
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted {
-    if ([ZBDevice darkModeEnabled]) {
-        return [self selectedCellBackgroundColorDark:highlighted oled:[ZBDevice darkModeOledEnabled]];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            return [self selectedCellBackgroundColorDark:highlighted oled:[ZBDevice darkModeOledEnabled]];
+        }
+        return [self selectedCellBackgroundColorLight:highlighted];
     }
-    return [self selectedCellBackgroundColorLight:highlighted];
+    else {
+        return [UIColor systemBackgroundColor];
+    }
 }
 
 + (UIColor *)cellPrimaryTextColor {

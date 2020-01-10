@@ -84,6 +84,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
+    
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    
     [self updateTheme];
 }
 
@@ -535,45 +538,49 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)darkMode {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
-        if ([ZBDevice darkModeEnabled]) {
-            [ZBDevice configureDarkMode];
-            [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-        } else {
-            [ZBDevice configureLightMode];
-            [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-        }
-        [self setNeedsStatusBarAppearanceUpdate];
-        [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-        [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
-        [self updateTheme];
-        [ZBDevice refreshViews];
-    });
+    if ([ZBDevice themingAllowed]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
+            if ([ZBDevice darkModeEnabled]) {
+                [ZBDevice configureDarkMode];
+                [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+                [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+            } else {
+                [ZBDevice configureLightMode];
+                [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+                [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+            }
+            [self setNeedsStatusBarAppearanceUpdate];
+            [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+            [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
+            [self updateTheme];
+            [ZBDevice refreshViews];
+        });
+    }
 }
 
 - (void)updateTheme {
-    [self.tableView reloadData];
-    [self colorWindow];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
-    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    _darkModeButton.tintColor = [UIColor tintColor];
-    _settingsButton.tintColor = [UIColor tintColor];
-    [self configureFooter];
+    if ([ZBDevice themingAllowed]) {
+        [self.tableView reloadData];
+        [self colorWindow];
+        self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+        self.tableView.separatorColor = [UIColor cellSeparatorColor];
+        self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
+        CATransition *transition = [CATransition animation];
+        transition.type = kCATransitionFade;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.fillMode = kCAFillModeForwards;
+        transition.duration = 0.35;
+        transition.subtype = kCATransitionFromTop;
+        [self.view.layer addAnimation:transition forKey:nil];
+        [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
+        [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
+        _darkModeButton.tintColor = [UIColor tintColor];
+        _settingsButton.tintColor = [UIColor tintColor];
+        [self configureFooter];
+    }
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
@@ -607,14 +614,21 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    if ([ZBDevice themingAllowed]) {
+        return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    }
+    else {
+        return UIStatusBarStyleDefault;
+    }
 }
 
 - (void)colorWindow {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIWindow *window = UIApplication.sharedApplication.delegate.window;
-        [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    });
+    if ([ZBDevice themingAllowed]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIWindow *window = UIApplication.sharedApplication.delegate.window;
+            [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        });
+    }
 }
 
 #pragma mark UICollectionView

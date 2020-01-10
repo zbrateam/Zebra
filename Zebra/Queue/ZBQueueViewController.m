@@ -50,11 +50,13 @@
     }
     
     // Appearance stuff
-    if ([ZBDevice darkModeEnabled]) {
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    }
-    else {
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+    if ([ZBDevice themingAllowed]) {
+        if ([ZBDevice darkModeEnabled]) {
+            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        }
+        else {
+            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+        }
     }
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
