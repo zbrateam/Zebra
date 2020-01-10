@@ -784,6 +784,8 @@
 		89C5FDDF21B1B13700A10E58 /* Zebra */ = {
 			isa = PBXGroup;
 			children = (
+				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
+				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				36F77ADE22A33B6100A4604C /* AltIcons */,
 				893952FC220B5CE400995109 /* Console */,
 				8991FFA321B21D26004FCE23 /* Database */,
@@ -797,8 +799,6 @@
 				89E8633E21D5A9CE0081E485 /* Resources */,
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 				89FEBC1B22C293E100B58662 /* Tabs */,
-				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
-				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
 				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
