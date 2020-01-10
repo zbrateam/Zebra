@@ -25,6 +25,10 @@
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
     
+    if ([ZBDevice darkModeEnabled]) {
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
+    
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
