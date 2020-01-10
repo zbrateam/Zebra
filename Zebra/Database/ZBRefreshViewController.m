@@ -83,6 +83,7 @@ typedef enum {
                 [validSources addObject:source];
             }
             else {
+                if (!imaginarySources) imaginarySources = [NSMutableArray new];
                 [imaginarySources addObject:source];
             }
         }
@@ -227,11 +228,11 @@ typedef enum {
         [self clearProblems];
         ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
         [self dismissViewControllerAnimated:YES completion:^{
-            if ([controller isKindOfClass:[ZBTabBarController class]]) {
-                [controller forwardToPackage];
+            if (self->delegate) {
+                [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
             }
-            else if (delegate) {
-                [delegate finishedSourceVerification:NULL imaginarySources:imaginarySources];
+            else if ([controller isKindOfClass:[ZBTabBarController class]]) {
+                [controller forwardToPackage]; //this is probably broken now but since this is POC ill fix later
             }
         }];
     }

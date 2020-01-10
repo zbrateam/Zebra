@@ -32,7 +32,6 @@
     NSString *lastPaste;
     ZBSourceManager *sourceManager;
     UIAlertController *verifyPopup;
-    NSMutableArray <ZBBaseSource *> *imaginarySources;
 }
 @end
 
@@ -560,7 +559,12 @@
     if ([existingSources count]) { //If there are any existing sources, go ahead and add them
         [sourceManager addBaseSources:[NSSet setWithArray:existingSources]];
         
-        ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:[NSSet setWithArray:existingSources] delegate:self];
+        NSMutableSet *existing = [NSMutableSet setWithArray:existingSources];
+        if ([imaginarySources count]) {
+            [existing unionSet:[NSSet setWithArray:imaginarySources]];
+        }
+        
+        ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:existing delegate:self];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self->verifyPopup dismissViewControllerAnimated:true completion:^{
@@ -569,56 +573,50 @@
         });
     }
     else if ([imaginarySources count]) {
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->verifyPopup dismissViewControllerAnimated:true completion:^{
+                NSMutableArray *urls = [NSMutableArray new];
+
+                NSMutableString *message = [NSMutableString new];
+                NSString *title;
+                BOOL multiple = [imaginarySources count] > 1;
+                if (multiple) {
+                    title = NSLocalizedString(@"Failed to add sources", @"");
+                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
+                }
+                else {
+                    title = NSLocalizedString(@"Failed to add source", @"");
+                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
+                }
+                [message appendString:@"\n"];
+
+                for (ZBBaseSource *source in imaginarySources) {
+                    [urls addObject:[source repositoryURI]];
+                }
+                [message appendString:[urls componentsJoinedByString:@"\n"]];
+
+                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+
+                [errorPopup addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+
+                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    if (multiple) {
+                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
+
+                        [self presentViewController:controller animated:true completion:nil];
+                    }
+                    else {
+                        [self showAddSourceAlert:urls[0]];
+                    }
+                }];
+                [errorPopup addAction:editAction];
+
+                [errorPopup setPreferredAction:editAction];
+
+                [self presentViewController:errorPopup animated:true completion:nil];
+            }];
+        });
     }
-    
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self->verifyPopup dismissViewControllerAnimated:true completion:^{
-//            if ([self->imaginarySources count]) {
-//                NSMutableArray *urls = [NSMutableArray new];
-//
-//                NSMutableString *message = [NSMutableString new];
-//                NSString *title;
-//                BOOL multiple = [self->imaginarySources count] > 1;
-//                if (multiple) {
-//                    title = NSLocalizedString(@"Failed to add sources", @"");
-//                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
-//                }
-//                else {
-//                    title = NSLocalizedString(@"Failed to add source", @"");
-//                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
-//                }
-//                [message appendString:@"\n"];
-//
-//                for (ZBBaseSource *source in self->imaginarySources) {
-//                    [urls addObject:[source repositoryURI]];
-//                }
-//                [message appendString:[urls componentsJoinedByString:@"\n"]];
-//
-//                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-//
-//                [errorPopup addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-//
-//                UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                    if (multiple) {
-//                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
-//
-//                        [self presentViewController:controller animated:true completion:nil];
-//                    }
-//                    else {
-//                        [self showAddSourceAlert:urls[0]];
-//                    }
-//                }];
-//                [errorPopup addAction:editAction];
-//
-//                [errorPopup setPreferredAction:editAction];
-//
-//                [self presentViewController:errorPopup animated:true completion:nil];
-//                [self->imaginarySources removeAllObjects];
-//            }
-//        }];
-//    });
 }
 
 - (void)verifyAndAdd:(NSSet *)baseSources {
