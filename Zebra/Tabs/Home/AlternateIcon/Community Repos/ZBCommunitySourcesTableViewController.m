@@ -28,6 +28,10 @@
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
     
+    if ([ZBDevice darkModeEnabled]) {
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     repoManager = [ZBRepoManager sharedInstance];
 }
