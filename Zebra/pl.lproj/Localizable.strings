@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Anuluj";
+"Yes" = "Tak";
 "No" = "Nie";
 "Ok" = "Ok";
 "Error" = "Błąd";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Przenieś wszystkie źródła z %@ do Zebry";
 "Utility repo for %@" = "Użyteczne repozytorium dla %@";
 "Transfer Sources" = "Przenieś źródła";
-"Please Wait..." = "Proszę czekać...";
 "Verifying Source(s)" = "Weryfikowanie źródeł";
 "Stores" = "Sklepy";
 "Purchases" = "Zakupione";
@@ -71,7 +71,7 @@
 "Feature Type" = "Typ wyróżnienia";
 "Select Repos to be Featured" = "Wybierz repozytoria do wyróżnienia";
 
-"News" = "News";
+"News" = "Nowości";
 
 "Live Search" = "Wyszukiwanie";
 

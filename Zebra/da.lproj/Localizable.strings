@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Annuller";
+"Yes" = "Yes";
 "No" = "Nej";
 "Ok" = "Ok";
 "Error" = "Fejl";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
 "Utility repo for %@" = "Værktøjs arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
-"Please Wait..." = "Vent Venligst...";
 "Verifying Source(s)" = "Verificerer Kilde(r)";
 "Stores" = "Butikker";
 "Purchases" = "Køb";
@@ -110,7 +110,7 @@
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Vent Venligst...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
 "Refresh" = "opdatere";

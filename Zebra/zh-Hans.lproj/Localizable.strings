@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "取消";
+"Yes" = "是";
 "No" = "否";
 "Ok" = "是";
 "Error" = "错误";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
 "Utility repo for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
-"Please Wait..." = "请稍候……";
 "Verifying Source(s)" = "验证软件源";
 "Stores" = "商店";
 "Purchases" = "购买";

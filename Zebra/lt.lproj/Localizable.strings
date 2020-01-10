@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Atšaukti";
+"Yes" = "Taip";
 "No" = "Ne";
 "Ok" = "Gerai";
 "Error" = "Klaida";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
 "Utility repo for %@" = "Naudinga %@ saugykla";
 "Transfer Sources" = "Perkelti šaltinius";
-"Please Wait..." = "Prašome palaukti...";
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
 "Stores" = "Parduotuvės";
 "Purchases" = "Pirkimų sąrašas";
@@ -71,7 +71,7 @@
 "Feature Type" = "Tipas";
 "Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
 
-"News" = "News";
+"News" = "Naujienos";
 
 "Live Search" = "Tiesioginė paieška";
 
@@ -241,7 +241,7 @@
 "Close Zebra" = "Uždaryti Zebra";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
 "Downloading" = "Atsiunčiama";
-"Parsing" = "Parsing";
+"Parsing" = "Analizuojama";
 "Downloading Packages..." = "Paketai atsiunčiami...";
 "Installing" = "Įdiegiama";
 "Installing Packages..." = "Paketai įdiegiami...";

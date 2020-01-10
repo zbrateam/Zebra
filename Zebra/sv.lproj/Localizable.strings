@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Avbryt";
+"Yes" = "Ja";
 "No" = "Nej";
 "Ok" = "Ok";
 "Error" = "Fel";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Överför källor från %@ till Zebra";
 "Utility repo for %@" = "Verktygsförråd för %@";
 "Transfer Sources" = "Överför källor";
-"Please Wait..." = "Vänta...";
 "Verifying Source(s)" = "Verifierar källor";
 "Stores" = "Butiker";
 "Purchases" = "Köp";
@@ -71,7 +71,7 @@
 "Feature Type" = "Metod för utväljning";
 "Select Repos to be Featured" = "Välj förråd att välja ut från";
 
-"News" = "News";
+"News" = "Nyheter";
 
 "Live Search" = "Livesökning";
 
@@ -110,8 +110,8 @@
 "Add" = "Lägg till";
 "Add Multiple" = "Lägg till flera";
 "Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Vänta...";
+"Verifying Source(s)" = "Verifierar källor";
 "Unable to verify Repo" = "Kunde inte verifiera förråd";
 "Refresh" = "Uppdatera";
 "Log Out" = "Logga ut";

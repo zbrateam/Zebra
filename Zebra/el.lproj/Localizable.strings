@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Ακύρωση";
+"Yes" = "Ναί";
 "No" = "Όχι";
 "Ok" = "Εντάξει";
 "Error" = "Σφάλμα";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
 "Utility repo for %@" = "Πρακτικό repo για %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
-"Please Wait..." = "Παρακαλώ Περιμένετε...";
 "Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
 "Stores" = "Καταστήματα";
 "Purchases" = "Αγορές";
@@ -71,7 +71,7 @@
 "Feature Type" = "Τύπος Προτεινόμενου";
 "Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
 
-"News" = "News";
+"News" = "Νέα";
 
 "Live Search" = "Ζωντανή Αναζήτηση";
 

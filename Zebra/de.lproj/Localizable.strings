@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Abbrechen";
+"Yes" = "Ja";
 "No" = "Nein";
 "Ok" = "Ok";
 "Error" = "Fehler";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
 "Utility repo for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
-"Please Wait..." = "Bitte warten...";
 "Verifying Source(s)" = "Verifizieren der Quelle(n)";
 "Stores" = "Shop";
 "Purchases" = "Einkäufe";
@@ -71,7 +71,7 @@
 "Feature Type" = "Vorgestellter Typ";
 "Select Repos to be Featured" = "Wähle Quellen aus, die vorgestellt werden sollen";
 
-"News" = "News";
+"News" = "Neuigkeiten";
 
 "Live Search" = "Live-Suche";
 
@@ -110,7 +110,7 @@
 "Add" = "Hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Bitte warten...";
 "Verifying Source(s)" = "Verifizierung der Quelle(n)";
 "Unable to verify Repo" = "Verifizierung der Quelle nicht möglich";
 "Refresh" = "Neu laden";

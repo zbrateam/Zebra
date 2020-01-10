@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Cancelar";
+"Yes" = "Yes";
 "No" = "No";
 "Ok" = "Aceptar";
 "Error" = "Error";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Transferir fuentes de %@ a Zebra";
 "Utility repo for %@" = "Repositorio de utilidad para %@";
 "Transfer Sources" = "Transferir fuentes";
-"Please Wait..." = "Por favor espere...";
 "Verifying Source(s)" = "Verificando fuente(s)";
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
@@ -110,7 +110,7 @@
 "Add" = "Añadir";
 "Add Multiple" = "Añadir múltiples";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Por favor espere...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "No es posible verificar el repositorio";
 "Refresh" = "Actualizar";

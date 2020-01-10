@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Hủy Bỏ";
+"Yes" = "Yes";
 "No" = "Không";
 "Ok" = "Đồng ý";
 "Error" = "Lỗi";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
 "Utility repo for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
-"Please Wait..." = "Vui lòng chờ...";
 "Verifying Source(s)" = "Xác minh nguồn(s)";
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
@@ -241,7 +241,7 @@
 "Close Zebra" = "Đóng Zebra";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
 "Downloading" = "Đang tải xuống";
-"Parsing" = "Parsing";
+"Parsing" = "Phân tích cú pháp";
 "Downloading Packages..." = "Đang tải xuống gói...";
 "Installing" = "Đang cài đặt";
 "Installing Packages..." = "Đang cài đặt gói...";
