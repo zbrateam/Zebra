@@ -104,7 +104,7 @@
 "Error verifying sources" = "验证软件源时出错";
 "Unknown error" = "未知错误";
 "Invalid URL" = "无效的 URL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "输入软件源地址";
 "Add Sources" = "添加软件源";
 "Add" = "添加";
 "Add Multiple" = "批量添加";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "添加软件源失败";
+"Failed to add sources" = "添加软件源失败";
+"Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
+"Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
 
 "Import Sources" = "导入软件源";
 "Import" = "导入";
