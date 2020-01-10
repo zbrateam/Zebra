@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Kanseller";
+"Yes" = "Ja";
 "No" = "Nei";
 "Ok" = "Ok";
 "Error" = "Feil";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Overfør kjelder frå %@ til Zebra";
 "Utility repo for %@" = "Verktøykjelde for %@";
 "Transfer Sources" = "Overfør kjelder";
-"Please Wait..." = "Ver vennleg og vent...";
 "Verifying Source(s)" = "Verifiserer kjelde(r)";
 "Stores" = "Butikkar";
 "Purchases" = "Kjøp";
@@ -71,7 +71,7 @@
 "Feature Type" = "Utvald type";
 "Select Repos to be Featured" = "Vel utvalde kjelder";
 
-"News" = "News";
+"News" = "Nyheiter";
 
 "Live Search" = "Live søk";
 

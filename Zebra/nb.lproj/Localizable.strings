@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Kanseller";
+"Yes" = "Ja";
 "No" = "Nei";
 "Ok" = "Ok";
 "Error" = "Feil";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Overfør kilder fra %@ til Zebra";
 "Utility repo for %@" = "Verktøyskilde for %@";
 "Transfer Sources" = "Overfør kilder";
-"Please Wait..." = "Vennligst vent...";
 "Verifying Source(s)" = "Verifiserer kilde(r)";
 "Stores" = "Butikker";
 "Purchases" = "Kjøp";
@@ -71,7 +71,7 @@
 "Feature Type" = "Utvalgt type";
 "Select Repos to be Featured" = "Velg utvalgte kilder";
 
-"News" = "News";
+"News" = "Nyheter";
 
 "Live Search" = "Live søk";
 
@@ -329,7 +329,6 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil vise tilfeldige pakker fra alle kildene du har lagt til i Zebra.";
 
 "Community News" = "Fellesskapets nyheter";
-
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Oppdaterer kilder";
 "Would you like to import the following repositories?" = "Vil du importere følgende kilder?";

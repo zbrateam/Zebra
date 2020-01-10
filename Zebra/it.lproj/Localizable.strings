@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Annulla";
+"Yes" = "Sì";
 "No" = "No";
 "Ok" = "Ok";
 "Error" = "Errore";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Trasferisci le sorgenti da %@ a Zebra";
 "Utility repo for %@" = "Repo essenziale for %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
-"Please Wait..." = "Attendere...";
 "Verifying Source(s)" = "Verifica Sorgente/i";
 "Stores" = "Store";
 "Purchases" = "Acquisti";
@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo Primo Piano";
 "Select Repos to be Featured" = "Seleziona le Repo da mettere in Evidenza";
 
-"News" = "News";
+"News" = "Notizie";
 
 "Live Search" = "Ricerca in tempo reale";
 

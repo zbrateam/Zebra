@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Anulo";
+"Yes" = "Po";
 "No" = "Jo";
 "Ok" = "Në rregull";
 "Error" = "Problem";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
 "Utility repo for %@" = "Repot e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
-"Please Wait..." = "Të Lutem Prit...";
 "Verifying Source(s)" = "Duke verifikuar burimin(et)";
 "Stores" = "Dyqani";
 "Purchases" = "Pagesat";
@@ -49,7 +49,7 @@
 "Miscellaneous" = "Të ndryshme";
 "Advanced" = "I avansuar";
 
-"Report a Bug" = "Raporto nje gabim";
+"Report a Bug" = "Raporto një gabim";
 
 "Accent Color" = "Ngjyrat e tekstit";
 "Blue" = "Kaltërt";
@@ -71,7 +71,7 @@
 "Feature Type" = "Lloji i Kryeartikullit";
 "Select Repos to be Featured" = "Zgjidh repot për tu veçuar";
 
-"News" = "News";
+"News" = "Lajmet";
 
 "Live Search" = "Kërkimi i Drejtpërdrejtë";
 
@@ -110,8 +110,8 @@
 "Add" = "Shto";
 "Add Multiple" = "Shto disa";
 "Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "Të Lutem Prit...";
+"Verifying Source(s)" = "Duke verifikuar burimin(et)";
 "Unable to verify Repo" = "Nuk mund të verifikoj Repo";
 "Refresh" = "Rifresko";
 "Log Out" = "Dilni";

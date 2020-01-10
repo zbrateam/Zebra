@@ -8,6 +8,7 @@
 
 #import "ZBChangelogTableViewController.h"
 #import <ZBLog.h>
+#import <ZBDevice.h>
 
 @interface ZBChangelogTableViewController ()
 
@@ -22,6 +23,11 @@
     
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
+    
+    if ([ZBDevice darkModeEnabled]) {
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
+    
     [spinner startAnimating];
     
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];

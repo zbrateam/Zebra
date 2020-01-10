@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "Atcelt";
+"Yes" = "Yes";
 "No" = "Nē";
 "Ok" = "Ok";
 "Error" = "Kļūda";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
-"Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verificējam avotu(s)";
 "Stores" = "Veikali";
 "Purchases" = "Pirkumi";
@@ -110,7 +110,7 @@
 "Add" = "Pievienot";
 "Add Multiple" = "Pievienot vairākus";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "Lūdzu, uzgaidi...";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Nevar verificēt avotu(s)";
 "Refresh" = "Atjaunot";

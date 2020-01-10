@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "لغو";
+"Yes" = "Yes";
 "No" = "خیر";
 "Ok" = "باشه";
 "Error" = "ارور";
@@ -14,14 +15,13 @@
 
 "Home" = "خانه";
 "Info" = "مشخصات";
-"Welcome to Zebra!" = "Welcome to Zebra!";
+"Welcome to Zebra!" = "به سربروس خوش آمدید!";
 "Changelog" = "لیست تغییرات";
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility repo for %@" = "مخرن های نرم افزار های کاربردی برای %@";
 "Transfer Sources" = "جابجایی منابع";
-"Please Wait..." = "...منتظر بمانید";
 "Verifying Source(s)" = "در حال تایید کردن مخازن";
 "Stores" = "فروشگاه ها";
 "Purchases" = "خرید ها";
@@ -110,7 +110,7 @@
 "Add" = "اضافه کردن";
 "Add Multiple" = "اضافه کردن چندتایی";
 "Would you like to add the URL from your clipboard?" = "میخواهید آدرسی که کپی کرده اید را اضافه کنید؟";
-"Please Wait..." = "Please Wait...";
+"Please Wait..." = "...منتظر بمانید";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "تایید کردن مخزن امکانپذیر نیست";
 "Refresh" = "ریفرش کردن";

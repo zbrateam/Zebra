@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "ביטול";
+"Yes" = "כן";
 "No" = "לא";
 "Ok" = "אישור";
 "Error" = "תקלה";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility repo for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
-"Please Wait..." = "נא להמתין...";
 "Verifying Source(s)" = "מאמת מקור(ות)";
 "Stores" = "חנויות";
 "Purchases" = "רכישות";
@@ -71,7 +71,7 @@
 "Feature Type" = "סוג המלצה";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
 
-"News" = "News";
+"News" = "חדשות";
 
 "Live Search" = "חיפוש חי";
 
@@ -110,8 +110,8 @@
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Please Wait..." = "נא להמתין...";
+"Verifying Source(s)" = "מאמת מקור(ות)";
 "Unable to verify Repo" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
 "Log Out" = "התנתק";
@@ -240,7 +240,7 @@
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
-"Downloading" = "מוריד";
+"Downloading" = "מוריד את";
 "Parsing" = "מנתח";
 "Downloading Packages..." = "מוריד חבילות...";
 "Installing" = "מתקין";

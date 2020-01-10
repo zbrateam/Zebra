@@ -59,7 +59,7 @@
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
     
-    NSString *path = [NSString stringWithFormat:@"/Library/dpkg/info/%@.list", packageID];
+    NSString *path = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", packageID];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *readError;
         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];

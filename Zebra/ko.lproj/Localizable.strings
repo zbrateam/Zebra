@@ -1,6 +1,7 @@
 // Common
 
 "Cancel" = "취소";
+"Yes" = "네";
 "No" = "아니요";
 "Ok" = "확인";
 "Error" = "오류";
@@ -21,7 +22,6 @@
 "Transfer sources from %@ to Zebra" = "%@에서 Zebra로 소스 가져오기";
 "Utility repo for %@" = "%@를 위한 유틸리티 레포";
 "Transfer Sources" = "소스 이전";
-"Please Wait..." = "잠시만 기다려주세요...";
 "Verifying Source(s)" = "소스를 검증하는 중";
 "Stores" = "스토어";
 "Purchases" = "구매 기록";
@@ -71,7 +71,7 @@
 "Feature Type" = "선정 방법: ";
 "Select Repos to be Featured" = "선정될 레포 선택";
 
-"News" = "News";
+"News" = "뉴스";
 
 "Live Search" = "실시간 검색";
 
@@ -241,7 +241,7 @@
 "Close Zebra" = "Zebra 닫기";
 "Restart SpringBoard" = "SpringBoard 재시작";
 "Downloading" = "다운로드 중";
-"Parsing" = "Parsing";
+"Parsing" = "파싱";
 "Downloading Packages..." = "패키지 다운로드 중...";
 "Installing" = "설치 중";
 "Installing Packages..." = "패키지 설치 중...";
