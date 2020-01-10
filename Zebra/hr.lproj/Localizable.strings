@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "Prenesi izvore iz %@ u Zebru";
 "Utility source for %@" = "Korisni izvori za %@";
 "Transfer Sources" = "Prenesi Izvore";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verifikacija izvora";
+"Verifying Sources" = "Verifikacija izvora";
 "Stores" = "Trgovine";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
@@ -104,7 +104,7 @@
 "Error verifying sources" = "Greška pri verifikaciji izvora";
 "Unknown error" = "Nepoznata pogreška";
 "Invalid URL" = "Neispravan URL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Unesite URL izvora";
 "Add Sources" = "Dodaj izvore";
 "Add" = "Dodaj";
 "Add Multiple" = "Višestruko dodavanje";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Dodavanja izvora nije uspjelo";
+"Failed to add sources" = "Dodavanja izvora nije uspjelo";
+"Unable to locate an APT repository at:" = "Nije moguće locirati APT skladišta u:";
+"Unable to locate APT repositories at:" = "Nije moguće locirati APT skladišta u:";
 
 "Import Sources" = "Uvezite izvore";
-"Import" = "Import";
+"Import" = "Uvezi";
