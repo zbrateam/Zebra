@@ -231,6 +231,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
     [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
+        [app configureWithDefaultBackground];
+        
+        [[UINavigationBar appearance] setScrollEdgeAppearance:app];
+    }
+    
     return YES;
 }
 
