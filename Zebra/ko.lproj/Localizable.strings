@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "취소";
-"Yes" = "Yes";
+"Yes" = "네";
 "No" = "아니요";
 "Ok" = "확인";
 "Error" = "오류";
@@ -71,7 +71,7 @@
 "Feature Type" = "선정 방법: ";
 "Select Repos to be Featured" = "선정될 레포 선택";
 
-"News" = "News";
+"News" = "뉴스";
 
 "Live Search" = "실시간 검색";
 
