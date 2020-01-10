@@ -21,8 +21,8 @@
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
 "Utility source for %@" = "مصدر الأداة المساعدة لـ %@";
 "Transfer Sources" = "تحويل المصادر";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "جارِ التحقق من المصدر";
+"Verifying Sources" = "جارِ التحقق من المصادر";
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
@@ -104,7 +104,7 @@
 "Error verifying sources" = "خطأ في التحقق من المصادر";
 "Unknown error" = "خطأ غير معروف";
 "Invalid URL" = "عنوان URL غير صحيح";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "أدخل عنوان URL المصدر";
 "Add Sources" = "إضافة مصادر";
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
@@ -335,10 +335,10 @@
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "فشل في إضافة المصدر";
+"Failed to add sources" = "فشل في إضافة المصادر";
+"Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
+"Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
 
 "Import Sources" = "استيراد المصادر";
 "Import" = "استيراد";
