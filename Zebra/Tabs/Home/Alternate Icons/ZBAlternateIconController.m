@@ -61,13 +61,13 @@
     } else {
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
     }
-    CGSize itemSize = CGSizeMake(30, 30);
+    CGSize itemSize = CGSizeMake(60, 60);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
     [cell.imageView.image drawInRect:imageRect];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    cell.imageView.layer.cornerRadius = 5;
+    cell.imageView.layer.cornerRadius = 10.5;
     cell.imageView.clipsToBounds = YES;
     
     NSString *iconSelected;
@@ -114,6 +114,10 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 75.0;
 }
 
 @end
