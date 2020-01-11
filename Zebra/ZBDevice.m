@@ -42,20 +42,13 @@
 //Check to see if su/sling has the proper setuid/setgid bit
 //We shouldn't do a dispatch_once because who knows when the file could be changed
 //Returns YES if su/sling's setuid/setgid permissions need to be reset
-+ (BOOL)isSlingshotBrokenWithError:(NSError *_Nullable*_Nullable)error {
++ (BOOL)isSlingshotBroken:(NSError *_Nullable*_Nullable)error {
     if ([ZBDevice needsSimulation]) {
         return NO; //Since simulated devices don't have su/sling, it isn't broken!
     }
     
     struct stat path_stat;
     stat("/usr/libexec/zebra/supersling", &path_stat);
-    
-//    if (![self _isRegularFile:@"/usr/libexec/zebra/supersling"]) { //this doesn't work?? edit: im a fool??
-//        NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:50 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.", @"")}];
-//        *error = cannotAccessError;
-//
-//        return YES; //If we can't access the file, it is likely broken
-//    }
     
     if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
         NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];

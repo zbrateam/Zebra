@@ -270,6 +270,10 @@
 
 #pragma mark - Verification Delegate
 
+- (void)startedSourceVerification:(BOOL)multiple {
+    NSLog(@"Stub!");
+}
+
 - (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
     if (status == ZBSourceExists) {
         [source getLabel:^(NSString * _Nonnull label) {
@@ -290,6 +294,10 @@
         
         [self increaseProgressBy:individualIncrement];
     }
+}
+
+- (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources {
+    NSLog(@"Stub!");
 }
 
 @end
