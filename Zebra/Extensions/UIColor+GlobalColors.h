@@ -8,29 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum  {
-    ZBDefaultTint = 0,
-    ZBBlue,
-    ZBOrange,
-    ZBWhiteOrBlack
-} ZBTintSelection;
-
-typedef NS_ENUM(NSInteger)  {
-    ZBDefaultMode = 0,
-    ZBOled,
-    ZBThirteen
-} ZBModeSelection;
-
 @interface UIColor (GlobalColors)
 + (UIColor *)tintColor;
 + (UIColor *)badgeColor;
++ (UIColor *)zebraColor;
 + (UIColor *)tableViewBackgroundColor;
++ (UIColor *)groupedTableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;
-+ (UIColor *)cellPrimaryTextColor;
-+ (UIColor *)cellSecondaryTextColor;
-+ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
-+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
-+ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
++ (UIColor *)primaryTextColor;
++ (UIColor *)secondaryTextColor;
 + (UIColor *)cellSeparatorColor;
 + (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;

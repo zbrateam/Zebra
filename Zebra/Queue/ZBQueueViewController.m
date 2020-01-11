@@ -51,18 +51,18 @@
     
     // Appearance stuff
     if ([ZBDevice themingAllowed]) {
-        if ([ZBDevice darkModeEnabled]) {
-            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-        }
-        else {
-            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-        }
+//        if ([ZBDevice darkModeEnabled]) {
+//            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//        }
+//        else {
+//            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+//        }
     }
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
     
     [self refreshTable];
 }
@@ -160,7 +160,7 @@
     // Text Color
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        header.textLabel.textColor = [UIColor primaryTextColor];
         header.tintColor = [UIColor clearColor];
         header.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
     }
@@ -212,8 +212,8 @@
     }
     else {
         [cell setTintColor:[UIColor tintColor]];
-        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.textLabel.textColor = [UIColor primaryTextColor];
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     }
     
     CGSize itemSize = CGSizeMake(35, 35);

@@ -76,7 +76,7 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

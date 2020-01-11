@@ -105,9 +105,9 @@
 }
 
 - (void)setColors {
-    self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-    self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.authorAndRepoAndSize.textColor = [UIColor cellSecondaryTextColor];
+    self.packageLabel.textColor = [UIColor primaryTextColor];
+    self.descriptionLabel.textColor = [UIColor secondaryTextColor];
+    self.authorAndRepoAndSize.textColor = [UIColor secondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
 }
 
@@ -124,7 +124,8 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
+    //FIXME: Fix!
+//    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 @end

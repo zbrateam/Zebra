@@ -112,8 +112,8 @@
         cell.urlLabel.text = [trueSource repositoryURI];
         [cell.iconImageView sd_setImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
         
-        cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.repoLabel.textColor = [UIColor primaryTextColor];
+        cell.urlLabel.textColor = [UIColor secondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
         cell.tintColor = nil;
@@ -220,7 +220,7 @@
     if ([self hasDataInSection:section]) {
         UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
         view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        view.textLabel.textColor = [UIColor cellPrimaryTextColor];
+        view.textLabel.textColor = [UIColor primaryTextColor];
         view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
         
         return view;

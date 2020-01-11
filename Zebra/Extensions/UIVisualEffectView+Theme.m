@@ -39,11 +39,11 @@
 }
 
 - (void)zb_setEffect:(UIVisualEffect *)effect {
-    if ([ZBDevice darkModeEnabled]) {
-        [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-    } else {
-        [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    }
+//    if ([ZBDevice darkModeEnabled]) {
+//        [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+//    } else {
+//        [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+//    }
 }
 
 @end

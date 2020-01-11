@@ -51,7 +51,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.addRepoTextView.backgroundColor = [UIColor cellBackgroundColor];
-    self.addRepoTextView.textColor = [UIColor cellPrimaryTextColor];
+    self.addRepoTextView.textColor = [UIColor primaryTextColor];
     self.addRepoTextView.delegate = self;
     
     if (self.text && [self.text hasPrefix:@"http"]) {

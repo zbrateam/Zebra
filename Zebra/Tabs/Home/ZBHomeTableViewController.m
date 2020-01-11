@@ -76,11 +76,11 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([ZBDevice darkModeEnabled]) {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    } else {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-    }
+//    if ([ZBDevice darkModeEnabled]) {
+//        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+//    } else {
+//        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+//    }
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
@@ -228,12 +228,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)configureFooter {
     [self.footerView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.footerLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [self.footerLabel setTextColor:[UIColor secondaryTextColor]];
     [self.footerLabel setNumberOfLines:1];
     [self.footerLabel setFont:[UIFont systemFontOfSize:13]];
     [self.footerLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION]];
     [self.udidLabel setFont:self.footerLabel.font];
-    [self.udidLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [self.udidLabel setTextColor:[UIColor secondaryTextColor]];
     [self.udidLabel setNumberOfLines:1];
     [self.udidLabel setAdjustsFontSizeToFitWidth:YES];
     [self.udidLabel setText:[ZBDevice UDID]];
@@ -273,7 +273,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                     }
                     cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
-                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.textLabel.textColor = [UIColor primaryTextColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
                 }
@@ -293,7 +293,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     [cell.imageView setImage:image];
                     [self setImageSize:cell.imageView];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.textLabel.textColor = [UIColor primaryTextColor];
                     [cell.textLabel sizeToFit];
                     
                     return cell;
@@ -334,7 +334,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
             return cell;
         }
@@ -365,7 +365,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
             return cell;
             
@@ -382,7 +382,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:[UIImage imageNamed:@"Credits"]];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
             return cell;
         }
@@ -538,27 +538,27 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)darkMode {
-    if ([ZBDevice themingAllowed]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
-            if ([ZBDevice darkModeEnabled]) {
-                [ZBDevice configureDarkMode];
-                [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-                [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-            } else {
-                [ZBDevice configureLightMode];
-                [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-                [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-            }
-            [self setNeedsStatusBarAppearanceUpdate];
-            [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-            [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
-            [self updateTheme];
-            [ZBDevice refreshViews];
-        });
-    }
+//    if ([ZBDevice themingAllowed]) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
+//            if ([ZBDevice darkModeEnabled]) {
+//                [ZBDevice configureDarkMode];
+//                [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
+//                [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//            } else {
+//                [ZBDevice configureLightMode];
+//                [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
+//                [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+//            }
+//            [self setNeedsStatusBarAppearanceUpdate];
+//            [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+//            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
+//            [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
+//            [self updateTheme];
+//            [ZBDevice refreshViews];
+//        });
+//    }
 }
 
 - (void)updateTheme {
@@ -613,14 +613,14 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    if ([ZBDevice themingAllowed]) {
-        return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-    }
-    else {
-        return UIStatusBarStyleDefault;
-    }
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    if ([ZBDevice themingAllowed]) {
+//        return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+//    }
+//    else {
+//        return UIStatusBarStyleDefault;
+//    }
+//}
 
 - (void)colorWindow {
     if ([ZBDevice themingAllowed]) {

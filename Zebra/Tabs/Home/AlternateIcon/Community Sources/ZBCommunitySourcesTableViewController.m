@@ -13,6 +13,7 @@
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
+#import <ZBSettings.h>
 
 @interface ZBCommunitySourcesTableViewController ()
 @end
@@ -29,8 +30,13 @@
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
     
-    if ([ZBDevice darkModeEnabled]) {
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            break;
+        case ZBInterfaceStyleDark:
+        case ZBInterfaceStylePureBlack:
+            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+            break;
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
@@ -202,7 +208,7 @@
         cell.textLabel.text = NSLocalizedString(@"You’ve added all of the community sources", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.textLabel.textColor = [UIColor secondaryTextColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -212,11 +218,11 @@
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     
     [cell.repoLabel setText:[info objectForKey:@"name"]];
-    [cell.repoLabel setTextColor:[UIColor cellPrimaryTextColor]];
+    [cell.repoLabel setTextColor:[UIColor primaryTextColor]];
     
     NSString *subtitle = [info objectForKey:@"label"] ? [info objectForKey:@"label"] : [info objectForKey:@"url"];
     [cell.urlLabel setText:subtitle];
-    [cell.urlLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [cell.urlLabel setTextColor:[UIColor secondaryTextColor]];
     
     NSURL *iconURL = [NSURL URLWithString:[info objectForKey:@"icon"]];
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];

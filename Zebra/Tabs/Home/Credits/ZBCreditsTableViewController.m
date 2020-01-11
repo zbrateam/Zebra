@@ -9,6 +9,7 @@
 #import "ZBCreditsTableViewController.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 
 @interface ZBCreditsTableViewController ()
 
@@ -25,8 +26,13 @@
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
     
-    if ([ZBDevice darkModeEnabled]) {
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            break;
+        case ZBInterfaceStyleDark:
+        case ZBInterfaceStylePureBlack:
+            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+            break;
     }
     
     [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -87,7 +93,7 @@
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        [cell.textLabel setTextColor:[UIColor primaryTextColor]];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
@@ -95,10 +101,10 @@
             [cell.textLabel setTextColor:[UIColor tintColor]];
         }
         else {
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            [cell.textLabel setTextColor:[UIColor primaryTextColor]];
         }
     }
-    [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [cell.detailTextLabel setTextColor:[UIColor secondaryTextColor]];
     
     cell.textLabel.text = [item objectForKey:@"name"];
     cell.detailTextLabel.text = [item objectForKey:@"subtitle"];

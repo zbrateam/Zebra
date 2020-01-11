@@ -41,7 +41,7 @@
     cell.textLabel.text = NSLocalizedString(_settingOptions[indexPath.row], @"");
     cell.accessoryType = _settingSelectedRow == indexPath.row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     cell.tintColor = [UIColor tintColor];
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     return cell;
 }
 

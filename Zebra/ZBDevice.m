@@ -407,10 +407,10 @@
         // Navigation bar
         [[UINavigationBar appearance] setTintColor:nil];
         [[UINavigationBar appearance] setTintColor:tintColor];
-        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
         // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
         if (@available(iOS 11.0, *)) {
-            [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+            [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
         }
         if ([ZBDevice darkModeOledEnabled]) {
             [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
@@ -432,9 +432,11 @@
         [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
         
         UIView *dark = [[UIView alloc] init];
-        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
+        
+        //FIXME: Fix!
+//        dark.backgroundColor = [UIColor selectedCellBackgroundColorDark:YES oled:[ZBDevice darkModeOledEnabled]];
         [[UITableViewCell appearance] setSelectedBackgroundView:dark];
-        [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+        [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor primaryTextColor];
         
         // Keyboard
         [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
@@ -461,10 +463,10 @@
         // Navigation bar
         [[UINavigationBar appearance] setTintColor:nil];
         [[UINavigationBar appearance] setTintColor:tintColor];
-        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
         // [[UINavigationBar appearance] setShadowImage:[UIImage new]];
         if (@available(iOS 11.0, *)) {
-            [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+            [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
         }
         [[UINavigationBar appearance] setBarTintColor:nil];
         [[UINavigationBar appearance] setBackgroundColor:nil];
@@ -481,7 +483,7 @@
         [[UITableView appearance] setTintColor:nil];
         [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
         [[UITableViewCell appearance] setSelectedBackgroundView:nil];
-        [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor cellPrimaryTextColor];
+        [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor primaryTextColor];
         
         // Keyboard
         [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
@@ -528,10 +530,6 @@
             }
         }
     }
-}
-
-+ (NSInteger)selectedColorTint {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:tintSelectionKey];
 }
 
 + (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {

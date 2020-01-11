@@ -10,6 +10,7 @@
 
 #pragma mark - Settings Keys
 
+//Old settings keys
 #define oledModeKey @"oledMode"
 #define tintSelectionKey @"tintSelection"
 #define thirteenModeKey @"thirteenMode"
@@ -19,6 +20,9 @@
 #define liveSearchKey @"liveSearch"
 #define iconActionKey @"packageIconAction"
 #define wishListKey @"wishList"
+
+//New settings keys
+#define accentColorKey @"accentColor"
 
 #pragma mark - Accent Colors
 
@@ -55,8 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBAccentColor)accentColor;
 + (void)setAccentColor:(ZBAccentColor)accentColor;
 
-+ (ZBInterfaceStyle)style;
-+ (void)setStyle:(ZBInterfaceStyle)style;
++ (ZBInterfaceStyle)interfaceStyle;
++ (void)setInterfaceStyle:(ZBInterfaceStyle)style;
 
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;

@@ -40,11 +40,11 @@
 
 #pragma mark - Theming
 
++ (BOOL)themingAllowed;
 + (void)configureDarkMode;
 + (void)configureLightMode;
 + (void)applyThemeSettings;
 + (void)refreshViews;
-+ (NSInteger)selectedColorTint;
 
 + (BOOL)useIcon;
 @end

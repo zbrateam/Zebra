@@ -166,7 +166,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
     view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    view.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    view.textLabel.textColor = [UIColor primaryTextColor];
     view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
         
     return view;

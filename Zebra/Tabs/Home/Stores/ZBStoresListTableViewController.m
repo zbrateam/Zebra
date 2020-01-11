@@ -95,8 +95,8 @@
     ZBSource *source = [self.tableData objectAtIndex:indexPath.row];
     
     cell.repoLabel.text = [source origin];
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.repoLabel.textColor = [UIColor primaryTextColor];
+    cell.urlLabel.textColor = [UIColor secondaryTextColor];
 
     if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source repositoryURI]]]) {
         cell.urlLabel.text = NSLocalizedString(@"Login", @"");

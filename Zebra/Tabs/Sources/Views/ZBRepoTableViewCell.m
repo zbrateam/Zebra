@@ -30,7 +30,8 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
+    //FIXME: Fix pls
+//    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 - (void)clearAccessoryView {

@@ -79,7 +79,7 @@
         cell.textLabel.text = NSLocalizedString(@"No items in Wish List", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.textLabel.textColor = [UIColor secondaryTextColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

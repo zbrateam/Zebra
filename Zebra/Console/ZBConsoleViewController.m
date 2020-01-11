@@ -99,7 +99,7 @@
     self.title = NSLocalizedString(@"Console", @"");
     
     NSError *error;
-    if ([ZBDevice isSlingshotBrokenWithError:&error]) {
+    if ([ZBDevice isSlingshotBroken:&error]) {
         [ZBAppDelegate sendAlertFrom:self message:error.localizedDescription];
     }
     

@@ -46,8 +46,8 @@ enum ZBMiscOrder {
 
 @interface ZBSettingsTableViewController () {
     NSMutableDictionary *_colors;
-    ZBTintSelection tintColorType;
-    ZBModeSelection selectedMode;
+    ZBAccentColor accentColor;
+    ZBInterfaceStyle interfaceStyle;
 }
 
 @end
@@ -57,36 +57,19 @@ enum ZBMiscOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"");
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self configureSelectedTint];
-    [self configureSelectedMode];
+    
+    accentColor = [ZBSettings accentColor];
+    interfaceStyle = [ZBSettings interfaceStyle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
+    
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-}
-
-- (void)configureSelectedTint {
-    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    if (number) {
-        tintColorType = (ZBTintSelection)[number integerValue];
-    } else {
-        tintColorType = ZBDefaultTint;
-    }
-}
-
-- (void)configureSelectedMode {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
-        selectedMode = ZBThirteen;
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
-        selectedMode = ZBOled;
-    } else {
-        selectedMode = ZBDefaultMode;
     }
 }
 
@@ -200,42 +183,44 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBChangeTint: {
-                    if (self->tintColorType == ZBDefaultTint) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
-                    } else if (self->tintColorType == ZBBlue) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
-                    } else if (self->tintColorType == ZBOrange) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
-                    } else if (self->tintColorType == ZBWhiteOrBlack) {
-                        if (ZBDevice.darkModeEnabled) {
-                            cell.detailTextLabel.text = NSLocalizedString(@"White", @"");
-                        } else {
-                            cell.detailTextLabel.text = NSLocalizedString(@"Black", @"");
-                        }
-                    } else {
-                        cell.detailTextLabel.text = @"";
-                    }
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
+                    
+                    switch (accentColor) {
+                        case ZBAccentColorBlue:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
+                            break;
+                        case ZBAccentColorOrange:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
+                            break;
+                        case ZBAccentColorAdaptive:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Adaptive", @"");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 }
                 case ZBChangeMode: {
-                    if (self->selectedMode == ZBDefaultMode) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
-                    } else if (self->selectedMode == ZBOled) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"OLED", @"");
-                    } else if (self->selectedMode == ZBThirteen) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"iOS 13", @"");
-                    } else {
-                        cell.detailTextLabel.text = @"";
-                    }
-                    cell.textLabel.text = NSLocalizedString(@"Dark Mode Style", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.text = NSLocalizedString(@"Dark Mode Style", @"");
+                    
+                    switch (interfaceStyle) {
+                        case ZBInterfaceStyleLight:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Light", @"");
+                            break;
+                        case ZBInterfaceStyleDark:
+                        case ZBInterfaceStylePureBlack:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Dark", @"");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 }
             }
-            cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
             return cell;
         }
         case ZBFeatured: {
@@ -269,7 +254,7 @@ enum ZBMiscOrder {
                     break;
                 }
             }
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
         case ZBNews: {
@@ -280,7 +265,7 @@ enum ZBMiscOrder {
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Community News", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
         case ZBSearch: {
@@ -291,7 +276,7 @@ enum ZBMiscOrder {
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
         case ZBMisc: {
@@ -305,7 +290,7 @@ enum ZBMiscOrder {
                     cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
                 }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                cell.textLabel.textColor = [UIColor primaryTextColor];
             }
             cell.textLabel.text = text;
             return cell;
@@ -465,52 +450,52 @@ enum ZBMiscOrder {
 }
 
 - (void)changeTint {
-    NSString *theme = ZBDevice.darkModeEnabled ? @"White" : @"Black";
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Accent Color";
-    controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
-    controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
-    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    controller.settingSelectedRow = number ? (ZBTintSelection)[number integerValue] : ZBDefaultTint;
-    controller.settingChanged = ^(NSInteger newValue) {
-        self->tintColorType = (ZBTintSelection) newValue;
-        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [ZBDevice hapticButton];
-        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [self.tableView reloadData];
-            [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-            [ZBDevice refreshViews];
-            [self setNeedsStatusBarAppearanceUpdate];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:nil];
-        } completion:nil];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
+//    NSString *theme = ZBDevice.darkModeEnabled ? @"White" : @"Black";
+//    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+//    controller.settingTitle = @"Accent Color";
+//    controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
+//    controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
+//    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
+//    controller.settingSelectedRow = number ? (ZBTintSelection)[number integerValue] : ZBDefaultTint;
+//    controller.settingChanged = ^(NSInteger newValue) {
+//        self->tintColorType = (ZBTintSelection) newValue;
+//        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        [ZBDevice hapticButton];
+//        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//            [self.tableView reloadData];
+//            [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
+//            [ZBDevice refreshViews];
+//            [self setNeedsStatusBarAppearanceUpdate];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:nil];
+//        } completion:nil];
+//    };
+//    [self.navigationController pushViewController: controller animated:YES];
 }
 
 - (void)changeMode {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Dark Mode Style";
-    controller.settingFooter = @[@"Change the style of Zebra's dark mode when it is enabled."];
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
-        controller.settingSelectedRow = ZBThirteen;
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
-        controller.settingSelectedRow = ZBOled;
-    } else {
-        controller.settingSelectedRow = ZBDefaultMode;
-    }
-    controller.settingOptions = @[@"Default", @"OLED", @"iOS 13"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        self->selectedMode = (ZBModeSelection)newValue;
-        [defaults setBool:self->selectedMode == ZBThirteen forKey:thirteenModeKey];
-        [defaults setBool:self->selectedMode == ZBOled forKey:oledModeKey];
-        [defaults synchronize];
-        [ZBDevice hapticButton];
-        [self oledAnimation];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
+//    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+//    controller.settingTitle = @"Dark Mode Style";
+//    controller.settingFooter = @[@"Change the style of Zebra's dark mode when it is enabled."];
+//    
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
+//        controller.settingSelectedRow = ZBThirteen;
+//    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
+//        controller.settingSelectedRow = ZBOled;
+//    } else {
+//        controller.settingSelectedRow = ZBDefaultMode;
+//    }
+//    controller.settingOptions = @[@"Default", @"OLED", @"iOS 13"];
+//    controller.settingChanged = ^(NSInteger newValue) {
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        self->selectedMode = (ZBModeSelection)newValue;
+//        [defaults setBool:self->selectedMode == ZBThirteen forKey:thirteenModeKey];
+//        [defaults setBool:self->selectedMode == ZBOled forKey:oledModeKey];
+//        [defaults synchronize];
+//        [ZBDevice hapticButton];
+//        [self oledAnimation];
+//    };
+//    [self.navigationController pushViewController: controller animated:YES];
 }
 
 - (void)featureOrRandomToggle {
@@ -606,7 +591,7 @@ enum ZBMiscOrder {
     [self.tableView reloadData];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
+//    [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
     [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     

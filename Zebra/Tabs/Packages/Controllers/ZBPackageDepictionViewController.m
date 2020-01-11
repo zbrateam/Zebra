@@ -94,15 +94,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self setPackage];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    if ([ZBDevice darkModeEnabled]) {
-        if ([ZBDevice darkModeOledEnabled]) {
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark Oled ~ %@", PACKAGE_VERSION];
-        } else {
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
-        }
-    } else {
-        configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
-    }
+//    if ([ZBDevice darkModeEnabled]) {
+//        if ([ZBDevice darkModeOledEnabled]) {
+//            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark Oled ~ %@", PACKAGE_VERSION];
+//        } else {
+//            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
+//        }
+//    } else {
+//        configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
+//    }
     
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
@@ -159,17 +159,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *machineIdentifier = [ZBDevice machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-    if ([ZBDevice darkModeEnabled]) {
-        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
-        if ([ZBDevice darkModeOledEnabled]) {
-            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
-            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
-        } else {
-            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
-        }
-    } else {
-        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
-    }
+//    if ([ZBDevice darkModeEnabled]) {
+//        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
+//        if ([ZBDevice darkModeOledEnabled]) {
+//            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
+//            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
+//        } else {
+//            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+//        }
+//    } else {
+//        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
+//    }
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
@@ -245,28 +245,28 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [webView evaluateJavaScript:js completionHandler:nil];
     
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
-        if ([ZBDevice darkModeEnabled]) {
-            NSString *path;
-            if ([ZBDevice darkModeOledEnabled]) {
-                path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-            } else {
-                path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
-            }
-            
-            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
-                                  style.innerHTML = '%@'; \
-                                  document.head.appendChild(style)",
-                                  cssData];
-            [webView evaluateJavaScript:jsString
-                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                          if (error) {
-                              ZBLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-                          }
-                      }];
-        }
+//        if ([ZBDevice darkModeEnabled]) {
+//            NSString *path;
+//            if ([ZBDevice darkModeOledEnabled]) {
+//                path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
+//            } else {
+//                path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
+//            }
+//
+//            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+//            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
+//                                  style.innerHTML = '%@'; \
+//                                  document.head.appendChild(style)",
+//                                  cssData];
+//            [webView evaluateJavaScript:jsString
+//                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+//                          if (error) {
+//                              ZBLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+//                          }
+//                      }];
+//        }
         
         if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
             [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
@@ -667,7 +667,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableFooterView.backgroundColor = tableViewBackgroundColor;
-    self.packageName.textColor = [UIColor cellPrimaryTextColor];
+    self.packageName.textColor = [UIColor primaryTextColor];
 }
 
 //Dummy method to search for pirated tweakcompatible copies. Will be removed in a future version
@@ -710,7 +710,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
-    self.packageName.textColor = [UIColor cellPrimaryTextColor];
+    self.packageName.textColor = [UIColor primaryTextColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
@@ -879,10 +879,10 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
 
     cell.textLabel.text = nil;
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
 
     cell.detailTextLabel.text = nil;
-    cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     
     switch ((ZBPackageInfoOrder)indexPath.row) {
         case ZBPackageInfoID:

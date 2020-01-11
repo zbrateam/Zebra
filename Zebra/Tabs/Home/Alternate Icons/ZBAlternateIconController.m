@@ -118,11 +118,11 @@
     }
     
     cell.textLabel.text = [icon objectForKey:@"readableName"];
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     
     if (author) {
         cell.detailTextLabel.text = [icon objectForKey:@"author"];
-        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     }
     
     cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];

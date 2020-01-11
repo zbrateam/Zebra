@@ -9,6 +9,7 @@
 #import "ZBChangelogTableViewController.h"
 #import <ZBLog.h>
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 
 @interface ZBChangelogTableViewController ()
 
@@ -24,8 +25,13 @@
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
     
-    if ([ZBDevice darkModeEnabled]) {
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            break;
+        case ZBInterfaceStyleDark:
+        case ZBInterfaceStylePureBlack:
+            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+            break;
     }
     
     [spinner startAnimating];
@@ -112,7 +118,7 @@
         [cell.textLabel setText:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -133,7 +139,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
     view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    view.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    view.textLabel.textColor = [UIColor primaryTextColor];
     view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
         
     return view;

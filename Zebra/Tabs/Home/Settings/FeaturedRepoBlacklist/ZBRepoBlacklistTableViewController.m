@@ -63,8 +63,8 @@
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
+    cell.repoLabel.textColor = [UIColor primaryTextColor];
+    cell.urlLabel.textColor = [UIColor secondaryTextColor];
     cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
     return cell;
 }

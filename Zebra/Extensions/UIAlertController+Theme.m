@@ -46,7 +46,7 @@
             bgView.backgroundColor = [UIColor cellBackgroundColor];
             return;
         } else if ([subview isKindOfClass:[UILabel class]]) {
-            ((UILabel *)subview).textColor = [UIColor cellPrimaryTextColor];
+            ((UILabel *)subview).textColor = [UIColor primaryTextColor];
         }
         [self recursiveSetColor:subview];
     }
@@ -82,7 +82,7 @@
         if (self.title) {
             NSString *title = self.title;
             NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-            [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, title.length)];
+            [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]} range:NSMakeRange(0, title.length)];
             
             [self setValue:attributedTitle forKey:@"attributedTitle"];
         }
@@ -91,7 +91,7 @@
         if (self.message) {
             NSString *message = self.message;
             NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:message];
-            [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, message.length)];
+            [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]} range:NSMakeRange(0, message.length)];
             
             [self setValue:attributedMessage forKey:@"attributedMessage"];
         }
@@ -99,20 +99,20 @@
 }
 
 - (void)zb_viewDidLayoutSubviews {
-    if (@available(iOS 13.0, *)) {
-        if ([ZBDevice darkModeEnabled]) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-        }
-    }
-    
-    if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
-        [self setTextColor];
-    }
-    else {
-        self.view.tintColor = [UIColor tintColor];
-    }
-    [self zb_viewDidLayoutSubviews];
-    [self setBackgroundColor];
+//    if (@available(iOS 13.0, *)) {
+//        if ([ZBDevice darkModeEnabled]) {
+//            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+//        }
+//    }
+//    
+//    if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
+//        [self setTextColor];
+//    }
+//    else {
+//        self.view.tintColor = [UIColor tintColor];
+//    }
+//    [self zb_viewDidLayoutSubviews];
+//    [self setBackgroundColor];
 }
 
 @end

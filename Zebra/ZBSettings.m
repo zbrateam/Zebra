@@ -14,7 +14,33 @@
     [super load];
     
     //Here is where we will set up any old settings that transfer over into new settings
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    if ([defaults objectForKey:tintSelectionKey]) {
+        switch ([[defaults objectForKey:tintSelectionKey] integerValue]) {
+            case 0:
+            case 1:
+                [self setAccentColor:ZBAccentColorBlue];
+            case 2:
+                [self setAccentColor:ZBAccentColorOrange];
+            case 3:
+                [self setAccentColor:ZBAccentColorAdaptive];
+                
+        }
+        [defaults removeObjectForKey:tintSelectionKey];
+    }
+    
+    if ([defaults boolForKey:thirteenModeKey]) {
+        [self setInterfaceStyle:ZBInterfaceStyleDark];
+    }
+    
+    if ([defaults boolForKey:oledModeKey]) {
+        [self setInterfaceStyle:ZBInterfaceStylePureBlack];
+    }
+    
+    if ([defaults boolForKey:@"darkMode"]) {
+        [self setInterfaceStyle:ZBInterfaceStyleDark];
+    }
 }
 
 + (ZBAccentColor)accentColor {
@@ -25,11 +51,11 @@
     
 }
 
-+ (ZBInterfaceStyle)style {
++ (ZBInterfaceStyle)interfaceStyle {
     return ZBInterfaceStyleLight;
 }
 
-+ (void)setStyle:(ZBInterfaceStyle)style {
++ (void)setInterfaceStyle:(ZBInterfaceStyle)style {
     
 }
 
