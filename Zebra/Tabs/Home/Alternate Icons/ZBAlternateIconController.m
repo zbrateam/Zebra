@@ -17,10 +17,54 @@
 
 @implementation ZBAlternateIconController
 
++ (NSArray <NSDictionary *> *)icons {
+    return @[
+        @{
+            @"iconName": @"AppIcon60x60",
+            @"readableName": @"White with Black Stripes",
+            @"border": @YES
+        },
+        @{
+            @"iconName": @"originalBlack",
+            @"author": @"Carson Katri",
+            @"readableName": @"Black with White Stripes",
+            @"border": @NO
+        },
+        @{
+            @"iconName": @"lightZebraSkin",
+            @"author": @"xerus",
+            @"readableName": @"Zebra Pattern (Light)",
+            @"border": @NO
+        },
+        @{
+            @"iconName": @"darkZebraSkin",
+            @"author": @"xerus",
+            @"readableName": @"Zebra Pattern (Dark)",
+            @"border": @NO
+        },
+        @{
+            @"iconName": @"zWhite",
+            @"author": @"xerus",
+            @"readableName": @"Embossed Zebra Pattern (Light)",
+            @"border": @NO
+        },
+        @{
+            @"iconName": @"zBlack",
+            @"author": @"xerus",
+            @"readableName": @"Embossed Zebra Pattern (Dark)",
+            @"border": @NO
+        },
+        @{
+            @"iconName": @"AUPM",
+            @"readableName": @"AUPM",
+            @"border": @YES
+        }
+    ];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    icons = @[@"Default", @"originalBlack", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack", @"AUPM"];
-    betterNames = @[@"White with Black Strips", @"Black with White Stripes", @"Zebra Pattern (Light)", @"Zebra Pattern (Dark)", @"Embossed Zebra Pattern (Light)", @"Embossed Zebra Pattern (Dark)", @"AUPM"];
+    
     self.title = NSLocalizedString(@"Alternate Icons", @"");
 }
 
@@ -40,31 +84,31 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return icons.count;
+    return [[ZBAlternateIconController icons] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *icon = [[ZBAlternateIconController icons] objectAtIndex:indexPath.row];
     
-    NSString *cellIdentifier = indexPath.row == 0 ? @"alternateIconCell" : @"alternateIconCellSubtitle";
-    
+    BOOL border = [[icon objectForKey:@"border"] boolValue];
+    BOOL author = [icon objectForKey:@"author"] != NULL;
+    NSString *cellIdentifier = author ? @"alternateIconCellSubtitle" : @"alternateIconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
+    cell.textLabel.text = [icon objectForKey:@"readableName"];
     cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     
-    if (indexPath.row != 0) {
-        cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
-    } else {
-        cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
-        [cell.imageView applyBorder]; //Apply border to the Original icon
+    if (author) {
+        cell.detailTextLabel.text = [icon objectForKey:@"author"];
+        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     }
     
+    cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
     [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:true];
+    if (border) [cell.imageView applyBorder];
 
     NSString *iconSelected;
     if (@available(iOS 10.3, *)) {
@@ -76,33 +120,35 @@
     
     NSString *iconName = nil;
     if ([indexPath row] > 0) {
-        iconName = [icons objectAtIndex:indexPath.row];
+        iconName = [icon objectForKey:@"iconName"];
     }
+    
     if ([iconSelected isEqualToString:iconName] || iconSelected == iconName) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    [cell setTintColor: [UIColor tintColor]];
+    
+    [cell setTintColor:[UIColor tintColor]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [ZBDevice hapticButton];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        [self setIconWithName:nil fromIndex:indexPath];
-    } else {
-        [self setIconWithName:[icons objectAtIndex:indexPath.row] fromIndex:indexPath];
-    }
+    
+    NSString *iconName = [[[ZBAlternateIconController icons] objectAtIndex:indexPath.row] objectForKey:@"iconName"];
+    [self setIconWithName:iconName fromIndex:indexPath];
 }
 
 - (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {
     if (@available(iOS 10.3, *)) {
         if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
+            if ([name isEqualToString:@"AppIcon60x60"]) name = nil;
+            
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
-                    NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, [self->icons objectAtIndex:indexPath.row]);
+                    NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, name);
                 }
                 [self.navigationController popViewControllerAnimated:YES];
             }];
