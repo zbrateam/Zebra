@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImageView (Zebra)
 
 - (void)applyBorder;
+- (void)removeBorder;
 - (void)resize:(CGSize)size applyRadius:(BOOL)radius;
 
 @end

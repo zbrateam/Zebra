@@ -17,6 +17,12 @@
     self.clipsToBounds = YES;
 }
 
+- (void)removeBorder {
+    self.layer.borderColor = [UIColor clearColor].CGColor;
+    self.layer.borderWidth = 0.0;
+    self.clipsToBounds = YES;
+}
+
 - (void)resize:(CGSize)size applyRadius:(BOOL)radius {
     UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
     
