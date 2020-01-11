@@ -9,6 +9,7 @@
 #import "ZBAlternateIconController.h"
 #import "UIColor+GlobalColors.h"
 #import <ZBDevice.h>
+#import "UIImageView+Zebra.h"
 
 @interface ZBAlternateIconController ()
 
@@ -62,15 +63,12 @@
     } else {
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
     }
-    CGSize itemSize = CGSizeMake(60, 60);
-    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-    [cell.imageView.image drawInRect:imageRect];
-    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    cell.imageView.layer.cornerRadius = 10.5;
-    cell.imageView.clipsToBounds = YES;
     
+    [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:true];
+    if (indexPath.row == 0) {
+        [cell.imageView applyBorder]; //Apply border to the Original icon
+    }
+
     NSString *iconSelected;
     if (@available(iOS 10.3, *)) {
         iconSelected = [[UIApplication sharedApplication] alternateIconName];
