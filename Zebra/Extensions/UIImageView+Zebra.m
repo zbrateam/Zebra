@@ -12,7 +12,7 @@
 @implementation UIImageView (Zebra)
 
 - (void)applyBorder {
-    self.layer.borderColor = [UIColor cellSecondaryTextColor].CGColor;
+    self.layer.borderColor = [UIColor imageBorderColor].CGColor;
     self.layer.borderWidth = 0.5;
     self.clipsToBounds = YES;
 }

@@ -144,6 +144,15 @@
     }
 }
 
++ (UIColor *)imageBorderColor {
+    if ([ZBDevice darkModeEnabled]) {
+        return [UIColor colorWithWhite:1.0 alpha:0.2];
+    }
+    else {
+        return [UIColor colorWithWhite:0.0 alpha:0.2];
+    }
+}
+
 + (NSString *)hexStringFromColor:(UIColor *)color {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
     

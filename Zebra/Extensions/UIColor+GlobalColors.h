@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger)  {
 + (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
 + (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
 + (UIColor *)cellSeparatorColor;
++ (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
 @end
 
