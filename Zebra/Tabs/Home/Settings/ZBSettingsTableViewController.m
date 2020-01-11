@@ -10,6 +10,7 @@
 #import "ZBSettingsOptionsTableViewController.h"
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
+#import "UIImageView+Zebra.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -185,25 +186,13 @@ enum ZBMiscOrder {
                         if ([[UIApplication sharedApplication] alternateIconName]) {
                             cell.imageView.image = [UIImage imageNamed:[[UIApplication sharedApplication] alternateIconName]];
                             
-                            CGSize itemSize = CGSizeMake(30, 30);
-                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-                            UIGraphicsEndImageContext();
-                            cell.imageView.layer.cornerRadius = 5;
-                            cell.imageView.clipsToBounds = YES;
+                            [cell.imageView resize:CGSizeMake(30, 30) applyRadius:true];
+                            [cell.imageView removeBorder];
                         } else {
                             cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
                             
-                            CGSize itemSize = CGSizeMake(30, 30);
-                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-                            UIGraphicsEndImageContext();
-                            cell.imageView.layer.cornerRadius = 5;
-                            cell.imageView.clipsToBounds = YES;
+                            [cell.imageView resize:CGSizeMake(30, 30) applyRadius:true];
+                            [cell.imageView applyBorder];
                         }
                     }
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

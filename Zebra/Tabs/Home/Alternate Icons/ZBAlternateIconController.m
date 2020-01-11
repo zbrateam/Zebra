@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     icons = @[@"Default", @"originalBlack", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
-    betterNames = @[@"Original", @"Original (Dark)", @"Zebra Pattern (Light)", @"Zebra Pattern (Dark)", @"Embossed Zebra Pattern (Light)", @"Embossed Zebra Pattern (Dark)"];
+    betterNames = @[@"White with Black Strips", @"Black with White Stripes", @"Zebra Pattern (Light)", @"Zebra Pattern (Dark)", @"Embossed Zebra Pattern (Light)", @"Embossed Zebra Pattern (Dark)"];
     self.title = NSLocalizedString(@"Alternate Icons", @"");
 }
 
@@ -51,7 +51,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:altIcon];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:altIcon];
+        cell = [[UITableViewCell alloc] initWithStyle:indexPath.row == 0 ? UITableViewCellStyleDefault : UITableViewCellStyleSubtitle reuseIdentifier:altIcon];
     }
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
@@ -62,12 +62,10 @@
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
     } else {
         cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
+        [cell.imageView applyBorder]; //Apply border to the Original icon
     }
     
     [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:true];
-    if (indexPath.row == 0) {
-        [cell.imageView applyBorder]; //Apply border to the Original icon
-    }
 
     NSString *iconSelected;
     if (@available(iOS 10.3, *)) {
