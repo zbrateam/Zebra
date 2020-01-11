@@ -55,6 +55,7 @@
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
     
     if (indexPath.row != 0) {
         cell.imageView.image = [UIImage imageNamed:[icons objectAtIndex:indexPath.row]];
