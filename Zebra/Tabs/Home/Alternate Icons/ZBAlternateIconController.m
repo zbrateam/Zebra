@@ -22,44 +22,63 @@
         @{
             @"iconName": @"AppIcon60x60",
             @"readableName": @"White with Black Stripes",
+            @"shortName": @"Black Stripes",
             @"border": @YES
         },
         @{
             @"iconName": @"originalBlack",
             @"author": @"Carson Katri",
             @"readableName": @"Black with White Stripes",
+            @"shortName": @"White Stripes",
             @"border": @NO
         },
         @{
             @"iconName": @"lightZebraSkin",
             @"author": @"xerus",
             @"readableName": @"Zebra Pattern (Light)",
+            @"shortName": @"Pattern (Light)",
             @"border": @NO
         },
         @{
             @"iconName": @"darkZebraSkin",
             @"author": @"xerus",
             @"readableName": @"Zebra Pattern (Dark)",
+            @"shortName": @"Pattern (Dark)",
             @"border": @NO
         },
         @{
             @"iconName": @"zWhite",
             @"author": @"xerus",
             @"readableName": @"Embossed Zebra Pattern (Light)",
+            @"shortName": @"Embossed (Light)",
             @"border": @NO
         },
         @{
             @"iconName": @"zBlack",
             @"author": @"xerus",
             @"readableName": @"Embossed Zebra Pattern (Dark)",
+            @"shortName": @"Embossed (Dark)",
             @"border": @NO
         },
         @{
             @"iconName": @"AUPM",
             @"readableName": @"AUPM",
+            @"shortName": @"AUPM",
             @"border": @YES
         }
     ];
+}
+
++ (NSDictionary *)iconForName:(NSString *)name {
+    if (!name) return [self icons][0];
+    
+    for (NSDictionary *icon in [self icons]) {
+        if ([[icon objectForKey:@"iconName"] isEqualToString:name]) {
+            return icon;
+        }
+    }
+    
+    return NULL;
 }
 
 - (void)viewDidLoad {

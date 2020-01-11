@@ -11,4 +11,6 @@
 
 @interface ZBAlternateIconController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
++ (NSArray <NSDictionary *> *)icons;
++ (NSDictionary *)iconForName:(NSString *)name;
 @end
