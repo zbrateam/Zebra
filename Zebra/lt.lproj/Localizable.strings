@@ -22,8 +22,8 @@
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
 "Utility source for %@" = "Naudingas šaltinis %@";
 "Transfer Sources" = "Perkelti šaltinius";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Tikrinamas šaltinis";
+"Verifying Sources" = "Tikrinami šaltiniai";
 "Stores" = "Parduotuvės";
 "Purchases" = "Pirkimų sąrašas";
 "Wish List" = "Norų sąrašas";
@@ -105,7 +105,7 @@
 "Error verifying sources" = "Ištiko klaida tikrinant šaltinius";
 "Unknown error" = "Nežinoma klaida";
 "Invalid URL" = "Netinkamas šaltinio adresas";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Parašykite šaltinio adresą";
 "Add Sources" = "Pridėti šaltinius";
 "Add" = "Pridėti";
 "Add Multiple" = "Pridėti kelis";
@@ -336,10 +336,10 @@
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Nepavyko pridėti šaltinio";
+"Failed to add sources" = "Nepavyko pridėti šaltinių";
+"Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
+"Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
 
 "Import Sources" = "Importuojami šaltiniai";
 "Import" = "Importuoti";
