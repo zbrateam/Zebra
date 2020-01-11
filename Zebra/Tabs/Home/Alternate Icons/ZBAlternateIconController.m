@@ -15,15 +15,12 @@
 
 @end
 
-@implementation ZBAlternateIconController{
-    NSArray *icons;
-    NSArray *betterNames;
-}
+@implementation ZBAlternateIconController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    icons = @[@"Default", @"originalBlack", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack"];
-    betterNames = @[@"White with Black Strips", @"Black with White Stripes", @"Zebra Pattern (Light)", @"Zebra Pattern (Dark)", @"Embossed Zebra Pattern (Light)", @"Embossed Zebra Pattern (Dark)"];
+    icons = @[@"Default", @"originalBlack", @"lightZebraSkin", @"darkZebraSkin", @"zWhite", @"zBlack", @"AUPM"];
+    betterNames = @[@"White with Black Strips", @"Black with White Stripes", @"Zebra Pattern (Light)", @"Zebra Pattern (Dark)", @"Embossed Zebra Pattern (Light)", @"Embossed Zebra Pattern (Dark)", @"AUPM"];
     self.title = NSLocalizedString(@"Alternate Icons", @"");
 }
 
@@ -47,11 +44,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *altIcon = @"alternateIconCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:altIcon];
+    
+    NSString *cellIdentifier = indexPath.row == 0 ? @"alternateIconCell" : @"alternateIconCellSubtitle";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:indexPath.row == 0 ? UITableViewCellStyleDefault : UITableViewCellStyleSubtitle reuseIdentifier:altIcon];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
     cell.textLabel.text = [betterNames objectAtIndex:indexPath.row];
