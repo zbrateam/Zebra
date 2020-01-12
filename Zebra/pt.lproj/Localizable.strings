@@ -44,7 +44,7 @@
 
 "Settings" = "Definições";
 "Version" = "Versão";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Destaque";
 "News" = "Notícias";
 "Miscellaneous" = "Diversos";
@@ -55,8 +55,7 @@
 "Accent Color" = "Côr acentuada";
 "Blue" = "Azul";
 "Orange" = "Laranja";
-"White" = "Branco";
-"Black" = "Preto";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Estilo Modo Escuro";
 "Dark Mode" = "Modo Escuro";
