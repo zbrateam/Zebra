@@ -44,7 +44,7 @@
 
 "Settings" = "Inställningar";
 "Version" = "Version";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Utvalt";
 "News" = "Nyheter";
 "Miscellaneous" = "Övrigt";
@@ -55,8 +55,7 @@
 "Accent Color" = "Accentfärg";
 "Blue" = "Blå";
 "Orange" = "Orange";
-"White" = "Vit";
-"Black" = "Svart";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Stil för mörkt läge";
 "Dark Mode" = "Mörkt läge";
