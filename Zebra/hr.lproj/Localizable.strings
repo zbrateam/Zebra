@@ -44,7 +44,7 @@
 
 "Settings" = "Postavke";
 "Version" = "Inačica";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Izdvojeno";
 "News" = "Novosti";
 "Miscellaneous" = "Ostalo";
@@ -55,8 +55,7 @@
 "Accent Color" = "Akcentna boja";
 "Blue" = "Plava";
 "Orange" = "Narančasta";
-"White" = "Bijela";
-"Black" = "Crna";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Tamni stil";
 "Dark Mode" = "Tamni način";
