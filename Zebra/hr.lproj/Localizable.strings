@@ -44,7 +44,7 @@
 
 "Settings" = "Postavke";
 "Version" = "Inačica";
-"Interface" = "Sučelje";
+"Appearance" = "Appearance";
 "Featured" = "Izdvojeno";
 "News" = "Novosti";
 "Miscellaneous" = "Ostalo";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Poništavanje lozinki je završeno";
 
 "Drop Tables" = "Očitaj tabele izvora";
-
-"Alternate Icons" = "Alternativna ikona";
 
 "Featured Sources" = "Istaknuti izvori";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "POGREŠKA: neuspješno zaključavanje statusa datoteke. Molimo, pokušajte ponovo.";
 
 "ERROR: Process must be restarted. Please try again." = "POGREŠKA: Proces se mora ponoviti. Molimo, pokušajte ponovo.";
-
-"Configure the appearance of Zebra." = "Postavke izgleda Zebre.";
 
 "Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
 
