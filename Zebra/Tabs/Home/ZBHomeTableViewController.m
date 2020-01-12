@@ -227,7 +227,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)configureFooter {
-    [self.footerView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.footerView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [self.footerLabel setTextColor:[UIColor secondaryTextColor]];
     [self.footerLabel setNumberOfLines:1];
     [self.footerLabel setFont:[UIFont systemFontOfSize:13]];
