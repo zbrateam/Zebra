@@ -44,7 +44,7 @@
 
 "Settings" = "Beállítások";
 "Version" = "Verzió";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Kiemelt";
 "News" = "Hírek";
 "Miscellaneous" = "Egyebek";
@@ -55,8 +55,7 @@
 "Accent Color" = "Kiemelőszín";
 "Blue" = "Kék";
 "Orange" = "Narancssárga";
-"White" = "Fehér";
-"Black" = "Fekete";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Sötét mód stílusa";
 "Dark Mode" = "Sötét mód";
