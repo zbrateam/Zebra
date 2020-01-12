@@ -44,7 +44,7 @@
 
 "Settings" = "Cài đặt";
 "Version" = "Phiên bản";
-"Interface" = "Giao diện";
+"Appearance" = "Appearance";
 "Featured" = "Tính năng";
 "News" = "Tin tức";
 "Miscellaneous" = "Điều khoản khác";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Dọn dẹp keychain hoàn thành";
 
 "Drop Tables" = "Drop Tables";
-
-"Alternate Icons" = "Biểu tượng thay thế";
 
 "Featured Sources" = "Nguồn nổi bật";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "LỖI: Không thể khóa tệp trạng thái. Vui lòng thử lại.";
 
 "ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
-
-"Configure the appearance of Zebra." = "Cấu hình sự xuất hiện của Zebra.";
 
 "Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
 
