@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Annuller";
-"Yes" = "Yes";
+"Yes" = "Ja";
 "No" = "Nej";
 "Ok" = "Ok";
 "Error" = "Fejl";
@@ -17,8 +17,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Velkommen til Zebra!";
 "Changelog" = "Ændringslog";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Fællesskabskilder";
+"You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
 "Utility source for %@" = "Værktøj arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
@@ -238,7 +238,7 @@
 "Close Zebra" = "Luk Zebra";
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Downloading" = "Overfører";
-"Parsing" = "Parsing";
+"Parsing" = "Parser";
 "Downloading Packages..." = "Overfører Pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer Pakker...";
@@ -324,17 +324,17 @@
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
 
 "Community News" = "Fællesskabs Nyheder";
-"Import Sources" = "Import Sources";
+"Import Sources" = "Importer kilder";
 "Updating Sources" = "Updating Sources";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Download Completed" = "Download udført";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
 
 "Failed to add source" = "Failed to add source";
 "Failed to add sources" = "Failed to add sources";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
-"Import Sources" = "Import Sources";
+"Import Sources" = "Importer kilder";
 "Import" = "Import";
