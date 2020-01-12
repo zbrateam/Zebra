@@ -260,10 +260,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、再試行してください";
 
 // Queue Bar
-"%d Packages Queued" = "%d 個のパッケージがキューに追加されています";
-"%d Package Queued" = "%d 個のパッケージがキューに追加されています";
+"%d Packages Queued" = "%d 個のパッケージがキューされています";
+"%d Package Queued" = "%d 個のパッケージがキューされています";
 "Tap to manage" = "タップして管理";
-"No Packages Queued" = "キューに追加されているパッケージはありません";
+"No Packages Queued" = "キューがクリアされました";
 
 // Queue
 
