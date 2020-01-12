@@ -34,28 +34,28 @@
         },
         @{
             @"iconName": @"lightZebraSkin",
-            @"author": @"xerus",
+            @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Zebra Pattern (Light)",
             @"shortName": @"Pattern (Light)",
             @"border": @NO
         },
         @{
             @"iconName": @"darkZebraSkin",
-            @"author": @"xerus",
+            @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Zebra Pattern (Dark)",
             @"shortName": @"Pattern (Dark)",
             @"border": @NO
         },
         @{
             @"iconName": @"zWhite",
-            @"author": @"xerus",
+            @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Embossed Zebra Pattern (Light)",
             @"shortName": @"Embossed (Light)",
             @"border": @NO
         },
         @{
             @"iconName": @"zBlack",
-            @"author": @"xerus",
+            @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Embossed Zebra Pattern (Dark)",
             @"shortName": @"Embossed (Dark)",
             @"border": @NO
