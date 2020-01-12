@@ -44,7 +44,7 @@
 
 "Settings" = "Настройки";
 "Version" = "Версия";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Избранное";
 "News" = "Новости";
 "Miscellaneous" = "Другое";
@@ -55,8 +55,7 @@
 "Accent Color" = "Цвет";
 "Blue" = "Синий";
 "Orange" = "Оранжевый";
-"White" = "Белый";
-"Black" = "Черный";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Стиль Тёмного Режима";
 "Dark Mode" = "Тёмный Режим";
