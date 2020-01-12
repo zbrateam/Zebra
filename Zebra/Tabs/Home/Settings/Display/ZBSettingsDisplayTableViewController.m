@@ -7,14 +7,21 @@
 //
 
 #import "ZBSettingsDisplayTableViewController.h"
+#import <ZBSettings.h>
+#import <UIColor+GlobalColors.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
-    ZBAccentColor,
-    ZBInterfaceStyle,
+    ZBSectionAccentColor,
+    ZBSectionSystemStyle,
+    ZBSectionStyleChooser,
+    ZBSectionPureBlack,
 };
 
-@interface ZBSettingsDisplayTableViewController ()
-
+@interface ZBSettingsDisplayTableViewController () {
+    BOOL useSystemStyle;
+    BOOL pureBlack;
+    ZBAccentColor accentColor;
+}
 @end
 
 @implementation ZBSettingsDisplayTableViewController
@@ -23,76 +30,126 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     [super viewDidLoad];
     
     self.navigationItem.title = NSLocalizedString(@"Display", @"");
+    
+    useSystemStyle = YES;
+    pureBlack = NO;
+    accentColor = [ZBSettings accentColor];
 }
 
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (useSystemStyle) {
+        return 3;
+    }
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    switch (section) {
+        case ZBSectionAccentColor:
+        case ZBSectionSystemStyle:
+            return 1;
+        case ZBSectionStyleChooser:
+            if (!useSystemStyle) return 2;
+        case ZBSectionPureBlack:
+            return 1;
+        default:
+            return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"displayCell"];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"displayCell"];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {
-        case ZBAccentColor:
-            cell.textLabel.text = @"Accent Color";
+        case ZBSectionAccentColor: {
+            switch (accentColor) {
+                case ZBAccentColorBlue:
+                    cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
+                    break;
+                case ZBAccentColorOrange:
+                    cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
+                    break;
+                case ZBAccentColorAdaptive:
+                    cell.detailTextLabel.text = NSLocalizedString(@"Adaptive", @"");
+                    break;
+            }
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
             break;
-        case ZBInterfaceStyle:
-            cell.textLabel.text = @"Interface Style";
+        }
+        case ZBSectionSystemStyle: {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"Use System Style";
+            
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            
+            enableSwitch.on = useSystemStyle;
+            cell.accessoryView = enableSwitch;
             break;
+        }
+        case ZBSectionStyleChooser: {
+            if (!useSystemStyle) {
+                if (indexPath.row == 0) {
+                    cell.textLabel.text = @"Light";
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                }
+                else {
+                    cell.textLabel.text = @"Dark";
+                }
+                break;
+            }
+        }
+        case ZBSectionPureBlack: {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"Pure Black Mode";
+            
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [enableSwitch addTarget:self action:@selector(togglePureBlack:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            
+            enableSwitch.on = pureBlack;
+            cell.accessoryView = enableSwitch;
+            break;
+        }
     }
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case ZBSectionSystemStyle:
+            return @"Appearance";
+        default:
+            return NULL;
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+#pragma mark - Settings
+
+- (void)toggleSystemStyle:(id)sender {
+    useSystemStyle = !useSystemStyle;
+    
+    if (!useSystemStyle) {
+        [self.tableView beginUpdates];
+        [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
+    else {
+        [self.tableView beginUpdates];
+        [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)togglePureBlack:(id)sender {
+    pureBlack = !pureBlack;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

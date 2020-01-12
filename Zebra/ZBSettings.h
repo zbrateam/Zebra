@@ -23,6 +23,7 @@
 
 //New settings keys
 #define accentColorKey @"accentColor"
+#define useSystemStyleKey @"useSystemStyle"
 
 #pragma mark - Accent Colors
 

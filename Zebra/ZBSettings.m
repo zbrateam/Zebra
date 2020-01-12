@@ -44,7 +44,7 @@
 }
 
 + (ZBAccentColor)accentColor {
-    return ZBAccentColorBlue;
+    return ZBAccentColorAdaptive;
 }
 
 + (void)setAccentColor:(ZBAccentColor)accentColor {
