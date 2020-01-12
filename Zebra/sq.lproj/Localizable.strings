@@ -44,7 +44,7 @@
 
 "Settings" = "Konfigurimet";
 "Version" = "Versioni";
-"Interface" = "Ndërfaqe";
+"Appearance" = "Appearance";
 "Featured" = "Të Veçuara";
 "News" = "Lajmet";
 "Miscellaneous" = "Të ndryshme";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Fshirja e \"keychain\" perfundoi";
 
 "Drop Tables" = "Rifresko Burimet";
-
-"Alternate Icons" = "Ikona Alternative";
 
 "Featured Sources" = "Burimet e Veçuara";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: E pamundur që të bllokoj skedarin e statusit. Ju lutemi provoni përsëri.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
-
-"Configure the appearance of Zebra." = "Konfiguroni pamjen e Zebrës.";
 
 "Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
 
