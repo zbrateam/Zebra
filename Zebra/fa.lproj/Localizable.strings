@@ -44,7 +44,7 @@
 
 "Settings" = "تنظیمات";
 "Version" = "نسخه";
-"Interface" = "Interface";
+"Appearance" = "Appearance";
 "Featured" = "ویژه";
 "News" = "اخبار";
 "Miscellaneous" = "متفرقه";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "پاک کردن کیچین ها کامل شد";
 
 "Drop Tables" = "صفحات شناور";
-
-"Alternate Icons" = "آیکون های جایگزین";
 
 "Featured Sources" = "Featured Sources";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
-
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
