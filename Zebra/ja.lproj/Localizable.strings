@@ -324,7 +324,7 @@
 
 "Change the source of the featured packages on the homepage." = "ホームに表示される「注目のパッケージ」のリポジトリを変更します。";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のパッケージ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
