@@ -44,7 +44,7 @@
 
 "Settings" = "设置";
 "Version" = "版本";
-"Interface" = "界面";
+"Appearance" = "Appearance";
 "Featured" = "功能";
 "News" = "新闻";
 "Miscellaneous" = "其它";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Keychain 清除完成";
 
 "Drop Tables" = "删除所有数据";
-
-"Alternate Icons" = "备选图标";
 
 "Featured Sources" = "精选软件源";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
-
-"Configure the appearance of Zebra." = "配置 Zebra 的外观。";
 
 "Display featured packages on the homepage." = "在主页上显示精选软件包。";
 
