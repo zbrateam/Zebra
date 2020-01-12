@@ -44,7 +44,7 @@
 
 "Settings" = "تنظیمات";
 "Version" = "نسخه";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "ویژه";
 "News" = "اخبار";
 "Miscellaneous" = "متفرقه";
@@ -55,8 +55,7 @@
 "Accent Color" = "Accent Color";
 "Blue" = "آبی";
 "Orange" = "نارنجی";
-"White" = "سفید";
-"Black" = "مشکی";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "حالت تیره";
