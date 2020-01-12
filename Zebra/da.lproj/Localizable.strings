@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Annuller";
-"Yes" = "Yes";
+"Yes" = "Ja";
 "No" = "Nej";
 "Ok" = "Ok";
 "Error" = "Fejl";
@@ -17,8 +17,8 @@
 "Info" = "Info";
 "Welcome to Zebra!" = "Velkommen til Zebra!";
 "Changelog" = "Ændringslog";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Fællesskabskilder";
+"You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
 "Utility repo for %@" = "Værktøjs arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
@@ -241,7 +241,7 @@
 "Close Zebra" = "Luk Zebra";
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Downloading" = "Overfører";
-"Parsing" = "Parsing";
+"Parsing" = "Parser";
 "Downloading Packages..." = "Overfører Pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer Pakker...";
@@ -329,9 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfældig\" vil vise tilfældige pakker fra alle arkiver du har tilføjet til Zebra.";
 
 "Community News" = "Fællesskabs Nyheder";
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Import Sources" = "Importer kilder";
+"Updating Repositories" = "Updaterer arkiver";
+"Would you like to import the following repositories?" = "Vil du importere de følgende arkiver?";
+"Download Completed" = "Download udført";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
