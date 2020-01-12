@@ -44,7 +44,7 @@
 
 "Settings" = "Paramètres";
 "Version" = "Version";
-"Interface" = "Interface";
+"Appearance" = "Appearance";
 "Featured" = "À l'affiche";
 "News" = "Nouveautés";
 "Miscellaneous" = "Divers";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Keychain nettoyé";
 
 "Drop Tables" = "Réinstaller les Sources";
-
-"Alternate Icons" = "Icônes alternatives";
 
 "Featured Sources" = "Sources en Vedette";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ERREUR : Impossible de verrouiller le fichier d'état. Veuillez réessayer.";
 
 "ERROR: Process must be restarted. Please try again." = "ERREUR : le processus doit être redémarré. Veuillez réessayer.";
-
-"Configure the appearance of Zebra." = "Configurez l'apparence de Zebra.";
 
 "Display featured packages on the homepage." = "Afficher les paquets mis en avant sur la page d'accueil.";
 
