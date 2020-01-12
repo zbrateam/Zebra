@@ -85,7 +85,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     
     [self updateTheme];
 }
@@ -565,7 +565,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     if ([ZBDevice themingAllowed]) {
         [self.tableView reloadData];
         [self colorWindow];
-        self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+        self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
         self.tableView.separatorColor = [UIColor cellSeparatorColor];
         self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
         CATransition *transition = [CATransition animation];

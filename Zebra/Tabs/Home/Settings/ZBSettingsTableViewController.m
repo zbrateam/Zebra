@@ -11,6 +11,7 @@
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
+#import "ZBAppIconTableViewCell.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -21,10 +22,9 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBAdvanced
 };
 
-typedef NS_ENUM(NSUInteger, ZBUIOrder) {
-    ZBChangeTint,
-    ZBChangeMode,
-    ZBChangeIcon
+typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
+    ZBAppearance,
+    ZBAppIcon
 };
 
 typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
@@ -60,13 +60,15 @@ enum ZBMiscOrder {
     
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBAppIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
     
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -80,8 +82,6 @@ enum ZBMiscOrder {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
-        case ZBInterface:
-            return NSLocalizedString(@"Interface", @"");
         case ZBFeatured:
             return NSLocalizedString(@"Home", @"");
         case ZBNews:
@@ -93,7 +93,7 @@ enum ZBMiscOrder {
         case ZBAdvanced:
             return NSLocalizedString(@"Advanced", @"");
         default:
-            return nil;
+            return NULL;
     }
 }
 
@@ -112,9 +112,9 @@ enum ZBMiscOrder {
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
-                return 3;
+                return 2;
             }
-            return 2;
+            return 1;
         case ZBFeatured: {
             int rows = 1;
             BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
@@ -137,9 +137,16 @@ enum ZBMiscOrder {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-    if ((indexPath.section == ZBInterface) ||
-        (indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) ||
-        indexPath.section == ZBMisc){
+    if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
+        static NSString *cellIdentifier = @"settingsAppIconCell";
+        ZBAppIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        cell.label.text = @"App Icon";
+        cell.iconView.image = [UIImage imageNamed:@"Unknown"];
+        
+        return cell;
+    }
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -160,9 +167,13 @@ enum ZBMiscOrder {
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
-            ZBUIOrder row = indexPath.row;
+            ZBInterfaceOrder row = indexPath.row;
             switch (row) {
-                case ZBChangeIcon: {
+                case ZBAppearance: {
+                    cell.textLabel.text = NSLocalizedString(@"Appearance", @"");
+                    break;
+                }
+                case ZBAppIcon: {
                     cell.textLabel.text = NSLocalizedString(@"App Icon", @"");
                     if (@available(iOS 10.3, *)) {
                         NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
@@ -179,48 +190,14 @@ enum ZBMiscOrder {
                             [cell.imageView removeBorder];
                         }
                     }
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
-                }
-                case ZBChangeTint: {
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
-                    
-                    switch (accentColor) {
-                        case ZBAccentColorBlue:
-                            cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
-                            break;
-                        case ZBAccentColorOrange:
-                            cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
-                            break;
-                        case ZBAccentColorAdaptive:
-                            cell.detailTextLabel.text = NSLocalizedString(@"Adaptive", @"");
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                }
-                case ZBChangeMode: {
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.text = NSLocalizedString(@"Dark Mode Style", @"");
-                    
-                    switch (interfaceStyle) {
-                        case ZBInterfaceStyleLight:
-                            cell.detailTextLabel.text = NSLocalizedString(@"Light", @"");
-                            break;
-                        case ZBInterfaceStyleDark:
-                        case ZBInterfaceStylePureBlack:
-                            cell.detailTextLabel.text = NSLocalizedString(@"Dark", @"");
-                            break;
-                        default:
-                            break;
-                    }
                     break;
                 }
             }
+            
             cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
             return cell;
         }
         case ZBFeatured: {
@@ -318,14 +295,12 @@ enum ZBMiscOrder {
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
-            switch (indexPath.row) {
-                case ZBChangeTint:
-                    [self changeTint];
-                    break;
-                case ZBChangeMode:
+            ZBInterfaceOrder row = indexPath.row;
+            switch (row) {
+                case ZBAppearance:
                     [self changeMode];
                     break;
-                case ZBChangeIcon:
+                case ZBAppIcon:
                     [self changeIcon];
                     break;
             }
@@ -392,8 +367,6 @@ enum ZBMiscOrder {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
-        case ZBInterface:
-            return NSLocalizedString(@"Configure the appearance of Zebra.", @"");
         case ZBFeatured:
             return NSLocalizedString(@"Display featured packages on the homepage.", @"");
         case ZBNews:
@@ -405,7 +378,7 @@ enum ZBMiscOrder {
         case ZBAdvanced:
             return [NSString stringWithFormat:NSLocalizedString(@"Zebra %@", @""), PACKAGE_VERSION];
         default:
-            return @"Science rules!";
+            return NULL;
     }
 }
 
