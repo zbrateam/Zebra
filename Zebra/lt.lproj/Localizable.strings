@@ -44,7 +44,7 @@
 
 "Settings" = "Nustatymai";
 "Version" = "Versija";
-"Interface" = "Sąsaja";
+"Appearance" = "Appearance";
 "Featured" = "Rodomiausi";
 "News" = "Naujienos";
 "Miscellaneous" = "Įvairūs";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
 
 "Drop Tables" = "Pašalinti lenteles";
-
-"Alternate Icons" = "Alternatyvios piktogramos";
 
 "Featured Sources" = "Rodomiausi šaltiniai";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "Klaida: Nepavyko užrakinti failo būsenos. Prašome pabandyti dar kartą.";
 
 "ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
-
-"Configure the appearance of Zebra." = "Konfiguruokit Zebra išvaizdą.";
 
 "Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
 
