@@ -44,7 +44,7 @@
 
 "Settings" = "Nastavení";
 "Version" = "Verze";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Návrhy";
 "News" = "Novinky";
 "Miscellaneous" = "Různé";
@@ -55,8 +55,7 @@
 "Accent Color" = "Barva zvýraznění";
 "Blue" = "Modrá";
 "Orange" = "Oranžová";
-"White" = "Bílá";
-"Black" = "Černá";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Styl tmavého režimu";
 "Dark Mode" = "Tmavý režim";
