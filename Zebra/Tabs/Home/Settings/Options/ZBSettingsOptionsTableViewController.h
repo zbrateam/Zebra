@@ -11,9 +11,8 @@
 #import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBSettingsOptionsTableViewController : UITableViewController
-@property NSString *settingTitle;
-@property NSArray<NSString *> *settingFooter;
-@property NSArray<NSString *> *settingOptions;
-@property NSInteger settingSelectedRow;
+@property NSArray<NSString *> *footerText;
+@property NSArray<NSString *> *options;
+@property NSInteger selectedRow;
 @property void (^settingChanged)(NSInteger newValue);
 @end

@@ -380,8 +380,6 @@ enum ZBMiscOrder {
             return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
         case ZBMisc:
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
-        case ZBAdvanced:
-            return [NSString stringWithFormat:NSLocalizedString(@"Zebra %@", @""), PACKAGE_VERSION];
         default:
             return NULL;
     }
@@ -484,15 +482,15 @@ enum ZBMiscOrder {
 
 - (void)featureOrRandomToggle {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Feature Type";
-    controller.settingFooter = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."];
+    controller.title = @"Feature Type";
+    controller.footerText = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."];
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
-        controller.settingSelectedRow = 1;
+        controller.selectedRow = 1;
     } else {
-        controller.settingSelectedRow = 0;
+        controller.selectedRow = 0;
     }
     
-    controller.settingOptions = @[@"Repo Featured", @"Random"];
+    controller.options = @[@"Repo Featured", @"Random"];
     controller.settingChanged = ^(NSInteger newValue) {
         BOOL selectedMode = [[NSNumber numberWithInteger:newValue] boolValue];
         [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
@@ -593,12 +591,12 @@ enum ZBMiscOrder {
 - (void)misc {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
-        controller.settingSelectedRow = 1;
+        controller.selectedRow = 1;
     } else {
-        controller.settingSelectedRow = 0;
+        controller.selectedRow = 0;
     }
-    controller.settingTitle = @"Swipe Actions Display As";
-    controller.settingOptions = @[@"Text", @"Icon"];
+    controller.title = @"Swipe Actions Display As";
+    controller.options = @[@"Text", @"Icon"];
     controller.settingChanged = ^(NSInteger newValue) {
         BOOL useIcon = newValue == 1;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
