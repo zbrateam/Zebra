@@ -44,7 +44,7 @@
 
 "Settings" = "設定";
 "Version" = "バージョン";
-"Display" = "Display";
+"Display" = "表示設定";
 "Featured" = "パッケージ特集";
 "News" = "ニュース";
 "Miscellaneous" = "その他";
@@ -55,7 +55,7 @@
 "Accent Color" = "アクセントカラー";
 "Blue" = "青";
 "Orange" = "橙";
-"Adaptive" = "Adaptive";
+"Adaptive" = "ビジュアル";
 
 "Dark Mode Style" = "ダークモード";
 "Dark Mode" = "ダークモード";
