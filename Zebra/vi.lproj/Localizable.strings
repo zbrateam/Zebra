@@ -44,7 +44,7 @@
 
 "Settings" = "Cài đặt";
 "Version" = "Phiên bản";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Tính năng";
 "News" = "Tin tức";
 "Miscellaneous" = "Điều khoản khác";
@@ -55,8 +55,7 @@
 "Accent Color" = "Màu đậm";
 "Blue" = "Xanh";
 "Orange" = "Cam";
-"White" = "Trắng";
-"Black" = "Đen";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Giao diện tối";
 "Dark Mode" = "Chế độ tối";
