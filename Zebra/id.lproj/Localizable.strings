@@ -44,7 +44,7 @@
 
 "Settings" = "Setelan";
 "Version" = "Versi";
-"Interface" = "Tampilan";
+"Appearance" = "Appearance";
 "Featured" = "Unggulan";
 "News" = "Berita";
 "Miscellaneous" = "Lain-lain";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Pembersihan keychain berhasil";
 
 "Drop Tables" = "Drop Tabel";
-
-"Alternate Icons" = "Alternatif Ikon";
 
 "Featured Sources" = "Sumber Unggulan";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "GALAT: Tidak dapat mengunci file status. Silakan coba lagi.";
 
 "ERROR: Process must be restarted. Please try again." = "GALAT: Proses harus dimulai ulang. Silakan coba lagi.";
-
-"Configure the appearance of Zebra." = "Konfigurasikan penampilan Zebra.";
 
 "Display featured packages on the homepage." = "Tampilkan paket unggulan di beranda.";
 
