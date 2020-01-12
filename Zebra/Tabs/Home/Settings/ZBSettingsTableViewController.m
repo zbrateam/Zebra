@@ -138,13 +138,17 @@ enum ZBMiscOrder {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
     if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
-        static NSString *cellIdentifier = @"settingsAppIconCell";
-        ZBAppIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        cell.label.text = @"App Icon";
-        cell.iconView.image = [UIImage imageNamed:@"Unknown"];
-        
-        return cell;
+        if (@available(iOS 10.3, *)) {
+            ZBAppIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+            
+            cell.label.text = @"App Icon";
+            
+            NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+            UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+            [cell setIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
+            
+            return cell;
+        }
     }
     else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBAppIconTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *iconView;
 @property (strong, nonatomic) IBOutlet UILabel *label;
-
+- (void)setIcon:(UIImage *)icon border:(BOOL)border;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,6 +7,7 @@
 //
 
 #import "ZBAppIconTableViewCell.h"
+#import "UIImageView+Zebra.h"
 
 @implementation ZBAppIconTableViewCell
 
@@ -19,6 +20,19 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setIcon:(UIImage *)icon border:(BOOL)border {
+    self.iconView.image = icon;
+    
+    [self.iconView resize:CGSizeMake(30, 30) applyRadius:true];
+    
+    if (border) {
+        [self.iconView applyBorder];
+    }
+    else {
+        [self.iconView removeBorder];
+    }
 }
 
 @end
