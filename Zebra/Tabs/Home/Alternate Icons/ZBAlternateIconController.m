@@ -84,7 +84,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"Alternate Icons", @"");
+    self.title = NSLocalizedString(@"App Icon", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -167,7 +167,7 @@
             
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
-                    NSLog(@"[Zebra Icon Error] %@ %@", error.localizedDescription, name);
+                    NSLog(@"[Zebra] Error while setting icon:  %@ %@", error.localizedDescription, name);
                 }
                 [self.navigationController popViewControllerAnimated:YES];
             }];
