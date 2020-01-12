@@ -44,7 +44,7 @@
 
 "Settings" = "Ayarlar";
 "Version" = "Versiyon";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Öne Çıkanlar";
 "News" = "Haberler";
 "Miscellaneous" = "Diğer";
@@ -55,8 +55,7 @@
 "Accent Color" = "Varsayılan Renk";
 "Blue" = "Mavi";
 "Orange" = "Turuncu";
-"White" = "Beyaz";
-"Black" = "Siyah";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Karanlık Mod Stili";
 "Dark Mode" = "Karanlık Mod";
