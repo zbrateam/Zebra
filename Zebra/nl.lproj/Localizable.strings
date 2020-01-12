@@ -44,7 +44,7 @@
 
 "Settings" = "Instellingen";
 "Version" = "Versie";
-"Interface" = "Interface";
+"Appearance" = "Appearance";
 "Featured" = "Uitgelicht";
 "News" = "Nieuws";
 "Miscellaneous" = "Diversen";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Legen van de sleutelhanger is gelukt";
 
 "Drop Tables" = "Tabellen verwijderen";
-
-"Alternate Icons" = "Alternatieve iconen";
 
 "Featured Sources" = "Uitgelichte Bronnen";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "FOUT: kan statusbestand niet vergrendelen. Probeer het opnieuw.";
 
 "ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
-
-"Configure the appearance of Zebra." = "Verander Zebra's uiterlijk.";
 
 "Display featured packages on the homepage." = "Toon aanbevolen pakketten op de startpagina.";
 
