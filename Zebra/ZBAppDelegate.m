@@ -163,23 +163,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [self sendErrorToTabController:error actionLabel:nil block:NULL];
 }
 
-- (void)setDefaultValues {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    if (![settings objectForKey:liveSearchKey]) {
-        [settings setBool:YES forKey:liveSearchKey];
-    }
-    if (![settings objectForKey:wantsFeaturedKey]) {
-        [settings setBool:YES forKey:wantsFeaturedKey];
-    }
-    if (![settings objectForKey:wantsNewsKey]) {
-        [settings setBool:YES forKey:wantsNewsKey];
-    }
-    if (![settings objectForKey:wishListKey]) {
-        [settings setObject:[NSArray new] forKey:wishListKey];
-    }
-    [settings synchronize];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
@@ -205,7 +188,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
     
-    [self setDefaultValues];
 #if DEBUG
     NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
 #else
