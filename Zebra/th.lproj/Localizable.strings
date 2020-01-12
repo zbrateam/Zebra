@@ -44,7 +44,7 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Interface" = "อินเทอร์เฟซ";
+"Appearance" = "Appearance";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "ล้างกุญแจเข้ารหัสเสร็จสิ้น";
 
 "Drop Tables" = "สร้างฐานข้อมูลใหม่";
-
-"Alternate Icons" = "ไอคอนแบบอื่น";
 
 "Featured Sources" = "ซอร์สยอดนิยม";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ข้อผิดพลาด: ไม่สามารถล็อคไฟล์ status ได้ กรุณาลองอีกครั้ง";
 
 "ERROR: Process must be restarted. Please try again." = "ข้อผิดพลาด: โปรแกรมนี้จำเป็นต้องเริ่มใหม่ กรุณาลองอีกครั้ง";
-
-"Configure the appearance of Zebra." = "ปรับหน้าตาของ Zebra";
 
 "Display featured packages on the homepage." = "แสดงโปรแกรมยอดนิยมในหน้าหลัก";
 
