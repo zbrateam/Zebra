@@ -10,6 +10,10 @@
 
 @implementation ZBSettings
 
+NSString *const AccentColorKey = @"AccentColor";
+NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
+NSString *const PureBlackModeKey = @"PureBlackMode";
+
 + (void)load {
     [super load];
     
@@ -38,17 +42,44 @@
         [self setInterfaceStyle:ZBInterfaceStylePureBlack];
     }
     
-    if ([defaults boolForKey:@"darkMode"]) {
+    if ([defaults boolForKey:darkModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStyleDark];
     }
+    
+    //Set other defaults
+    if (![defaults objectForKey:liveSearchKey]) {
+        [defaults setBool:YES forKey:liveSearchKey];
+    }
+    if (![defaults objectForKey:wantsFeaturedKey]) {
+        [defaults setBool:YES forKey:wantsFeaturedKey];
+    }
+    if (![defaults objectForKey:wantsNewsKey]) {
+        [defaults setBool:YES forKey:wantsNewsKey];
+    }
+    if (![defaults objectForKey:wishListKey]) {
+        [defaults setObject:[NSArray new] forKey:wishListKey];
+    }
+    
+    [defaults synchronize];
 }
 
 + (ZBAccentColor)accentColor {
-    return ZBAccentColorAdaptive;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:AccentColorKey]) {
+        [self setAccentColor:ZBAccentColorBlue];
+        return ZBAccentColorBlue;
+    }
+    else {
+        return [defaults integerForKey:AccentColorKey];
+    }
 }
 
 + (void)setAccentColor:(ZBAccentColor)accentColor {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setInteger:accentColor forKey:AccentColorKey];
+    [defaults synchronize];
 }
 
 + (ZBInterfaceStyle)interfaceStyle {
@@ -57,6 +88,44 @@
 
 + (void)setInterfaceStyle:(ZBInterfaceStyle)style {
     
+}
+
++ (BOOL)usesSystemAppearance {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:UseSystemAppearanceKey]) {
+        [self setUsesSystemAppearance:true];
+        return true;
+    }
+    else {
+        return [defaults boolForKey:UseSystemAppearanceKey];
+    }
+}
+
++ (void)setUsesSystemAppearance:(BOOL)usesSystemAppearance {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:usesSystemAppearance forKey:UseSystemAppearanceKey];
+    [defaults synchronize];
+}
+
++ (BOOL)pureBlackMode {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:PureBlackModeKey]) {
+        [self setPureBlackMode:false];
+        return false;
+    }
+    else {
+        return [defaults boolForKey:PureBlackModeKey];
+    }
+}
+
++ (void)setPureBlackMode:(BOOL)pureBlackMode {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:pureBlackMode forKey:PureBlackModeKey];
+    [defaults synchronize];
 }
 
 + (NSString *_Nullable)appIconName {

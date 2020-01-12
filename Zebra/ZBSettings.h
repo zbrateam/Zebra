@@ -20,10 +20,12 @@
 #define liveSearchKey @"liveSearch"
 #define iconActionKey @"packageIconAction"
 #define wishListKey @"wishList"
+#define darkModeKey @"darkMode"
 
 //New settings keys
-#define accentColorKey @"accentColor"
-#define useSystemStyleKey @"useSystemStyle"
+extern NSString * _Nonnull const AccentColorKey;
+extern NSString * _Nonnull const UseSystemAppearanceKey;
+extern NSString * _Nonnull const PureBlackModeKey;
 
 #pragma mark - Accent Colors
 
@@ -62,6 +64,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBInterfaceStyle)interfaceStyle;
 + (void)setInterfaceStyle:(ZBInterfaceStyle)style;
+
++ (BOOL)usesSystemAppearance;
++ (void)setUsesSystemAppearance:(BOOL)usesSystemAppearance;
+
++ (BOOL)pureBlackMode;
++ (void)setPureBlackMode:(BOOL)pureBlackMode;
 
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
