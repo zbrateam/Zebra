@@ -44,7 +44,7 @@
 
 "Settings" = "Ustawienia";
 "Version" = "Wersja";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Wyróżnione";
 "News" = "Nowości";
 "Miscellaneous" = "Różne";
@@ -55,8 +55,7 @@
 "Accent Color" = "Kolor akcentujący";
 "Blue" = "Niebieski";
 "Orange" = "Pomarańczowy";
-"White" = "Biały";
-"Black" = "Czarny";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Styl trybu ciemnego";
 "Dark Mode" = "Tryb ciemny";
