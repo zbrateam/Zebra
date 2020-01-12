@@ -12,6 +12,7 @@
 #import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
 #import "ZBAppIconTableViewCell.h"
+#import "ZBSettingsDisplayTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -302,7 +303,7 @@ enum ZBMiscOrder {
             ZBInterfaceOrder row = indexPath.row;
             switch (row) {
                 case ZBDisplay:
-                    [self changeMode];
+                    [self displaySettings];
                     break;
                 case ZBAppIcon:
                     [self changeIcon];
@@ -424,6 +425,12 @@ enum ZBMiscOrder {
         SecItemDelete((__bridge CFDictionaryRef)spec);
     }
     [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Clearing keychain completed", @"")];
+}
+
+- (void)displaySettings {
+    ZBSettingsDisplayTableViewController *displayController = [[ZBSettingsDisplayTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:displayController animated:true];
 }
 
 - (void)changeTint {
