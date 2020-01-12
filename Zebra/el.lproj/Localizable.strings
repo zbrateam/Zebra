@@ -44,7 +44,7 @@
 
 "Settings" = "Ρυθμίσεις";
 "Version" = "Έκδοση";
-"Interface" = "Περιβάλλον";
+"Appearance" = "Appearance";
 "Featured" = "Προτεινόμενα";
 "News" = "Νέα";
 "Miscellaneous" = "Διάφορα";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Ο καθαρισμός του keychain ολοκληρώθηκε";
 
 "Drop Tables" = "Διαγραφή Πινάκων";
-
-"Alternate Icons" = "Εναλλαγή Εικονιδίων";
 
 "Featured Sources" = "Προτεινόμενες Πηγές";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ΣΦΑΛΜΑ: Αδυναμία κλειδώματος του αρχείου κατάστασης. Παρακαλώ ξαναπροσπάθησε.";
 
 "ERROR: Process must be restarted. Please try again." = "ΣΦΑΛΜΑ: Η διαδικασία πρέπει να επανεκκινηθεί. Παρακαλώ ξαναπροσπάθησε.";
-
-"Configure the appearance of Zebra." = "Ρύθμισε την εμφάνιση του Zebra.";
 
 "Display featured packages on the homepage." = "Εμφάνισε προτεινόμενα πακέτα στην αρχική οθόνη.";
 
