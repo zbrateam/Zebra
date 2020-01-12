@@ -44,7 +44,7 @@
 
 "Settings" = "Iestatījumi";
 "Version" = "Versija";
-"Interface" = "Saskarne";
+"Appearance" = "Appearance";
 "Featured" = "Piedāvājumi";
 "News" = "Jaunumi";
 "Miscellaneous" = "Dažādi";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Pieslēgšanas notīrīšana ir pabeigta";
 
 "Drop Tables" = "Noņem galdus";
-
-"Alternate Icons" = "Citi Iconi";
 
 "Featured Sources" = "Featured Sources";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "KĻŪDA: Nevar bloķēt statusa failu. Lūdzu mēģiniet vēlreiz.";
 
 "ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
-
-"Configure the appearance of Zebra." = "Konfigurējiet Zebra izskatu.";
 
 "Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
 
