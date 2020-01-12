@@ -587,8 +587,8 @@
 		8916AC1823CAAE51008BA02C /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
-				8916AC1923CAAE51008BA02C /* ZBAlternateIconController.m */,
 				8916AC1A23CAAE51008BA02C /* ZBAlternateIconController.h */,
+				8916AC1923CAAE51008BA02C /* ZBAlternateIconController.m */,
 			);
 			path = "App Icon";
 			sourceTree = "<group>";

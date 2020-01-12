@@ -13,7 +13,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.label.font = self.textLabel.font;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

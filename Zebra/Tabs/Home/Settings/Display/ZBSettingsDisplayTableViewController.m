@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         case ZBSectionSystemStyle: {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = @"Use System Style";
+            cell.textLabel.text = @"Use System Appearance";
             
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
