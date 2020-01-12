@@ -44,7 +44,7 @@
 
 "Settings" = "Settings";
 "Version" = "Version";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Featured";
 "News" = "News";
 "Miscellaneous" = "Miscellaneous";
@@ -55,8 +55,7 @@
 "Accent Color" = "Accent Color";
 "Blue" = "Blue";
 "Orange" = "Orange";
-"White" = "White";
-"Black" = "Black";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Dark Mode";
