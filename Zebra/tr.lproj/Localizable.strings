@@ -44,7 +44,7 @@
 
 "Settings" = "Ayarlar";
 "Version" = "Versiyon";
-"Interface" = "Arayüz";
+"Appearance" = "Appearance";
 "Featured" = "Öne Çıkanlar";
 "News" = "Haberler";
 "Miscellaneous" = "Diğer";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Anahtar Zincirini temizleme tamamlandı";
 
 "Drop Tables" = "Tabloları Çıkart";
-
-"Alternate Icons" = "Alternatif İkonlar";
 
 "Featured Sources" = "Öne çıkan kaynaklar";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "HATA: Durum dosyası kilitlenemiyor. Lütfen tekrar deneyin.";
 
 "ERROR: Process must be restarted. Please try again." = "İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
-
-"Configure the appearance of Zebra." = "Zebra'nın görünüşünü düzenle.";
 
 "Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
 
