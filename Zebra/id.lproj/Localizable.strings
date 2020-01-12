@@ -44,7 +44,7 @@
 
 "Settings" = "Setelan";
 "Version" = "Versi";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Unggulan";
 "News" = "Berita";
 "Miscellaneous" = "Lain-lain";
@@ -55,8 +55,7 @@
 "Accent Color" = "Warna Aksen";
 "Blue" = "Biru";
 "Orange" = "Oranye";
-"White" = "Putih";
-"Black" = "Hitam";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Style Mode Gelap";
 "Dark Mode" = "Mode Gelap";
