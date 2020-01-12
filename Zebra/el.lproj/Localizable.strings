@@ -44,7 +44,7 @@
 
 "Settings" = "Ρυθμίσεις";
 "Version" = "Έκδοση";
-"Display" = "Display";
+"Display" = "Προβολή";
 "Featured" = "Προτεινόμενα";
 "News" = "Νέα";
 "Miscellaneous" = "Διάφορα";
@@ -55,7 +55,7 @@
 "Accent Color" = "Απόχρωση";
 "Blue" = "Μπλε";
 "Orange" = "Πορτοκαλί";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Προσαρμοστικό";
 
 "Dark Mode Style" = "Στιλ Σκουρόχρωμης Λειτουργίας";
 "Dark Mode" = "Σκουρόχρωμη Λειτουργία";
