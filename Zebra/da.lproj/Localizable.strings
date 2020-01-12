@@ -44,7 +44,7 @@
 
 "Settings" = "Indstillinger";
 "Version" = "Udgave";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Udvalgte";
 "News" = "Nyheder";
 "Miscellaneous" = "Diverse";
@@ -55,8 +55,7 @@
 "Accent Color" = "Markeringsfarve";
 "Blue" = "Blå";
 "Orange" = "Orange";
-"White" = "Hvid";
-"Black" = "Sort";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Stil for mørkt udseende";
 "Dark Mode" = "Mørke Tilstand";
