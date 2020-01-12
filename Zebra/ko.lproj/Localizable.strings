@@ -44,7 +44,7 @@
 
 "Settings" = "설정";
 "Version" = "버전";
-"Interface" = "인터페이스";
+"Appearance" = "Appearance";
 "Featured" = "선정된 패키지";
 "News" = "뉴스";
 "Miscellaneous" = "기타 여러가지 기능";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "키체인 지우기 완료";
 
 "Drop Tables" = "테이블 버리기";
-
-"Alternate Icons" = "대체 아이콘";
 
 "Featured Sources" = "선정된 소스";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "오류: 상태 파일을 잠글 수 없습니다. 다시 시도해주세요.";
 
 "ERROR: Process must be restarted. Please try again." = "오류: 프로세스가 재시작되어야 합니다. 다시 시도해주세요.";
-
-"Configure the appearance of Zebra." = "Zebra의 테마를 구성합니다.";
 
 "Display featured packages on the homepage." = "선정된 패키지를 홈 화면에서 표시";
 
