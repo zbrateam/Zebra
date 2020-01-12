@@ -44,7 +44,7 @@
 
 "Settings" = "Indstillinger";
 "Version" = "Udgave";
-"Interface" = "Grænseflade";
+"Appearance" = "Appearance";
 "Featured" = "Udvalgte";
 "News" = "Nyheder";
 "Miscellaneous" = "Diverse";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Ryddelse af Keychain færdig";
 
 "Drop Tables" = "Drop Tabeller";
-
-"Alternate Icons" = "Alternative Ikoner";
 
 "Featured Sources" = "Udvalgte Kilder";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "FEJL: Status filen kunne ikke låses. Prøv igen.";
 
 "ERROR: Process must be restarted. Please try again." = "FEJL: Processen skal genstartes. Prøv igen.";
-
-"Configure the appearance of Zebra." = "Ændre udseendet af Zebra.";
 
 "Display featured packages on the homepage." = "Vis udvalgte pakke på hjemmeskærmen.";
 
