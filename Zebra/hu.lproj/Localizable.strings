@@ -44,7 +44,7 @@
 
 "Settings" = "Beállítások";
 "Version" = "Verzió";
-"Interface" = "Felület";
+"Appearance" = "Appearance";
 "Featured" = "Kiemelt";
 "News" = "Hírek";
 "Miscellaneous" = "Egyebek";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Clearing keychain completed";
 
 "Drop Tables" = "Táblák eldobása";
-
-"Alternate Icons" = "Alternatív ikonok";
 
 "Featured Sources" = "Featured Sources";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
-
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
