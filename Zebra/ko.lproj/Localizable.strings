@@ -44,7 +44,7 @@
 
 "Settings" = "설정";
 "Version" = "버전";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "선정된 패키지";
 "News" = "뉴스";
 "Miscellaneous" = "기타 여러가지 기능";
@@ -55,8 +55,7 @@
 "Accent Color" = "강조 컬러";
 "Blue" = "파란색";
 "Orange" = "노란색";
-"White" = "하얀색";
-"Black" = "검은색";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "다크 모드 스타일";
 "Dark Mode" = "다크 모드";
