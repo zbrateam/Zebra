@@ -19,7 +19,7 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(self.navigationItem.title, @"");
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
