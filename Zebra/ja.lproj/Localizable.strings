@@ -44,7 +44,7 @@
 
 "Settings" = "設定";
 "Version" = "バージョン";
-"Interface" = "インタフェース";
+"Appearance" = "Appearance";
 "Featured" = "パッケージ特集";
 "News" = "ニュース";
 "Miscellaneous" = "その他";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "キーチェーンをクリアしました";
 
 "Drop Tables" = "テーブルの削除";
-
-"Alternate Icons" = "アプリのアイコン";
 
 "Featured Sources" = "リポシドリ特集";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
 "ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
-
-"Configure the appearance of Zebra." = "Zebra の外観を構成します。";
 
 "Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
