@@ -44,7 +44,7 @@
 
 "Settings" = "設定";
 "Version" = "版本";
-"Interface" = "介面";
+"Appearance" = "Appearance";
 "Featured" = "精選";
 "News" = "新聞 ";
 "Miscellaneous" = "其他設定";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "已完成清除鑰匙圈";
 
 "Drop Tables" = "清除資料表";
-
-"Alternate Icons" = "替換圖示";
 
 "Featured Sources" = "精選來源";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "錯誤：無法鎖定狀態檔案。請重試一次。";
 
 "ERROR: Process must be restarted. Please try again." = "錯誤：程序必須被重新啟動。請再試一次。";
-
-"Configure the appearance of Zebra." = "設定 Zebra 的外觀";
 
 "Display featured packages on the homepage." = "在首頁顯示精選套件";
 
