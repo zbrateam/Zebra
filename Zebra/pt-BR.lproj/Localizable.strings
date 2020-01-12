@@ -44,7 +44,7 @@
 
 "Settings" = "Configurações";
 "Version" = "Versão";
-"Interface" = "Interface";
+"Appearance" = "Appearance";
 "Featured" = "Em destaque";
 "News" = "Notícias";
 "Miscellaneous" = "Diversos";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Limpando keychain completo";
 
 "Drop Tables" = "Soltar tabelas";
-
-"Alternate Icons" = "Ícones Alternativos";
 
 "Featured Sources" = "Fontes em Destaque";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ERRO: Não foi possível bloquear o arquivo de status. Por favor, tente novamente.";
 
 "ERROR: Process must be restarted. Please try again." = "ERRO: O processo deve ser reiniciado. Por favor, tente novamente.";
-
-"Configure the appearance of Zebra." = "Configure a aparência do Zebra.";
 
 "Display featured packages on the homepage." = "Exibir pacotes em destaque na página inicial.";
 
