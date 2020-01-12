@@ -44,7 +44,7 @@
 
 "Settings" = "الإعدادات";
 "Version" = "الإصدار";
-"Interface" = "الواجهة";
+"Appearance" = "Appearance";
 "Featured" = "مميز";
 "News" = "الأخبار";
 "Miscellaneous" = "متنوع";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
 
 "Drop Tables" = "حذف قاعدة البيانات";
-
-"Alternate Icons" = "أيقونات بديلة";
 
 "Featured Sources" = "المصادر المميزة";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "خطأ: غير قادر على قفل ملف الحالة. يرجى المحاولة مرة أخرى.";
 
 "ERROR: Process must be restarted. Please try again." = "خطأ: يجب إعادة تشغيل العملية. يرجى المحاولة مرة أخرى.";
-
-"Configure the appearance of Zebra." = "تكوين مظهر Zebra.";
 
 "Display featured packages on the homepage." = "عرض الحزم المميزة على الصفحة الرئيسية.";
 
