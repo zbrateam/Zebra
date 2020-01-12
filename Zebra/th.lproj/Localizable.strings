@@ -44,7 +44,7 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
@@ -55,8 +55,7 @@
 "Accent Color" = "สีหลัก";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
-"White" = "ขาว";
-"Black" = "ดำ";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "รูปแบบโหมดมืด";
 "Dark Mode" = "โหมดมืด";
