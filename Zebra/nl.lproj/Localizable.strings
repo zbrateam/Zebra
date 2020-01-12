@@ -44,7 +44,7 @@
 
 "Settings" = "Instellingen";
 "Version" = "Versie";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Uitgelicht";
 "News" = "Nieuws";
 "Miscellaneous" = "Diversen";
@@ -55,8 +55,7 @@
 "Accent Color" = "Accentkleur";
 "Blue" = "Blauw";
 "Orange" = "Oranje";
-"White" = "Wit";
-"Black" = "Zwart";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Donkere Modus Stijl";
 "Dark Mode" = "Donkere modus";
