@@ -16,7 +16,7 @@
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 
 + (UIColor *)tintColor {
-    ZBAccentColor accentColor = [[[NSUserDefaults standardUserDefaults] objectForKey:accentColorKey] integerValue];
+    ZBAccentColor accentColor = [ZBSettings accentColor];
     switch (accentColor) {
         case ZBAccentColorBlue:
             return [self zebraColor];
