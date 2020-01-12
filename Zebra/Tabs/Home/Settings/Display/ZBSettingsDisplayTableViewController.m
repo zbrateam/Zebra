@@ -18,8 +18,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 };
 
 @interface ZBSettingsDisplayTableViewController () {
-    BOOL useSystemStyle;
-    BOOL pureBlack;
+    BOOL usesSystemAppearance;
+    BOOL pureBlackMode;
     ZBAccentColor accentColor;
 }
 @end
@@ -31,15 +31,15 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     
     self.navigationItem.title = NSLocalizedString(@"Display", @"");
     
-    useSystemStyle = YES;
-    pureBlack = NO;
+    usesSystemAppearance = [ZBSettings usesSystemAppearance];
+    pureBlackMode = [ZBSettings pureBlackMode];
     accentColor = [ZBSettings accentColor];
 }
 
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (useSystemStyle) {
+    if (usesSystemAppearance) {
         return 3;
     }
     return 4;
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionSystemStyle:
             return 1;
         case ZBSectionStyleChooser:
-            if (!useSystemStyle) return 2;
+            if (!usesSystemAppearance) return 2;
         case ZBSectionPureBlack:
             return 1;
         default:
@@ -88,12 +88,12 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             
-            enableSwitch.on = useSystemStyle;
+            enableSwitch.on = usesSystemAppearance;
             cell.accessoryView = enableSwitch;
             break;
         }
         case ZBSectionStyleChooser: {
-            if (!useSystemStyle) {
+            if (!usesSystemAppearance) {
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Light";
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             [enableSwitch addTarget:self action:@selector(togglePureBlack:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor tintColor]];
             
-            enableSwitch.on = pureBlack;
+            enableSwitch.on = pureBlackMode;
             cell.accessoryView = enableSwitch;
             break;
         }
@@ -132,23 +132,29 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
 #pragma mark - Settings
 
-- (void)toggleSystemStyle:(id)sender {
-    useSystemStyle = !useSystemStyle;
+- (void)toggleSystemStyle:(UISwitch *)sender {
+    BOOL setting = sender.on;
+    usesSystemAppearance = setting;
     
-    if (!useSystemStyle) {
+    [ZBSettings setUsesSystemAppearance:setting];
+    
+    if (!setting) { //Insert style picker section
         [self.tableView beginUpdates];
         [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
-    else {
+    else { //Delete style picker section
         [self.tableView beginUpdates];
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
 }
 
-- (void)togglePureBlack:(id)sender {
-    pureBlack = !pureBlack;
+- (void)togglePureBlack:(UISwitch *)sender {
+    BOOL setting = sender.on;
+    pureBlackMode = setting;
+    
+    [ZBSettings setPureBlackMode:setting];
 }
 
 
