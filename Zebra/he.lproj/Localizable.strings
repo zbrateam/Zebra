@@ -44,7 +44,7 @@
 
 "Settings" = "הגדרות";
 "Version" = "גירסה";
-"Display" = "Display";
+"Display" = "תצוגה";
 "Featured" = "מומלץ";
 "News" = "חדשות";
 "Miscellaneous" = "שונות";
@@ -55,7 +55,7 @@
 "Accent Color" = "צבע הדגשה";
 "Blue" = "כחול";
 "Orange" = "כתום";
-"Adaptive" = "Adaptive";
+"Adaptive" = "מותאם";
 
 "Dark Mode Style" = "סגנון מצב לילה";
 "Dark Mode" = "מצב לילה";
