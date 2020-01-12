@@ -505,6 +505,7 @@
 		367D80EF22C3D17F00581D60 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				367D80F622C3D2F400581D60 /* App Icon */,
 				36200B6422D2B38400C13F6D /* FeaturedRepoBlacklist */,
 				367D80F422C3D1CF00581D60 /* ZBSettingsTableViewController.h */,
 				367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */,
@@ -517,13 +518,13 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		367D80F622C3D2F400581D60 /* AlternateIcon */ = {
+		367D80F622C3D2F400581D60 /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
 				367D80F722C3D2FD00581D60 /* ZBAlternateIconController.h */,
 				367D80F822C3D2FD00581D60 /* ZBAlternateIconController.m */,
 			);
-			path = AlternateIcon;
+			path = "App Icon";
 			sourceTree = "<group>";
 		};
 		369F9E9D22BC850000D6CCF3 /* Wish List */ = {
@@ -568,7 +569,7 @@
 			path = "AlternateIcon/Community Sources";
 			sourceTree = "<group>";
 		};
-		36F77ADE22A33B6100A4604C /* AltIcons */ = {
+		36F77ADE22A33B6100A4604C /* Alternate Icons */ = {
 			isa = PBXGroup;
 			children = (
 				89AD450B23CA5E350008831F /* AUPM@2x.png */,
@@ -594,7 +595,7 @@
 				36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */,
 				2627B60E2321A64D00B141E5 /* originalBlack@3x.png */,
 			);
-			path = AltIcons;
+			path = "Alternate Icons";
 			sourceTree = "<group>";
 		};
 		8900FA512201EC6800476310 /* Helpers */ = {
@@ -801,7 +802,6 @@
 				9E87F358231A20350043E7F2 /* ZBSettings.h */,
 				89AD450E23CA6D260008831F /* ZBSettings.m */,
 				89C5FDEF21B1B13800A10E58 /* main.m */,
-				36F77ADE22A33B6100A4604C /* AltIcons */,
 				893952FC220B5CE400995109 /* Console */,
 				8991FFA321B21D26004FCE23 /* Database */,
 				89CADA122263FED1000101EE /* Downloads */,
@@ -852,7 +852,6 @@
 				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
 				36A33CEA22C9C0AC0054A577 /* Community Sources */,
 				36A33CDF22C9ACFB0054A577 /* Changelog */,
-				367D80F622C3D2F400581D60 /* AlternateIcon */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
 				369F9E9D22BC850000D6CCF3 /* Wish List */,
@@ -905,6 +904,7 @@
 		89E8633E21D5A9CE0081E485 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				36F77ADE22A33B6100A4604C /* Alternate Icons */,
 				369B7ADF22C56009007521DB /* banner.png */,
 				363FE2432287858200B69929 /* UICKeyChainStore */,
 				89E8637521D5AF920081E485 /* HTML */,

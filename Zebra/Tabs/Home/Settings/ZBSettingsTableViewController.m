@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 };
 
 typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
-    ZBAppearance,
+    ZBDisplay,
     ZBAppIcon
 };
 
@@ -173,8 +173,8 @@ enum ZBMiscOrder {
         case ZBInterface: {
             ZBInterfaceOrder row = indexPath.row;
             switch (row) {
-                case ZBAppearance: {
-                    cell.textLabel.text = NSLocalizedString(@"Appearance", @"");
+                case ZBDisplay: {
+                    cell.textLabel.text = NSLocalizedString(@"Display", @"");
                     break;
                 }
                 case ZBAppIcon: {
@@ -301,7 +301,7 @@ enum ZBMiscOrder {
         case ZBInterface: {
             ZBInterfaceOrder row = indexPath.row;
             switch (row) {
-                case ZBAppearance:
+                case ZBDisplay:
                     [self changeMode];
                     break;
                 case ZBAppIcon:

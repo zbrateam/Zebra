@@ -62,7 +62,7 @@
         },
         @{
             @"iconName": @"AUPM",
-            @"readableName": @"AUPM",
+            @"readableName": @"Useless",
             @"shortName": @"AUPM",
             @"border": @YES
         }
