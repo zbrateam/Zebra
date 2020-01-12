@@ -44,7 +44,7 @@
 
 "Settings" = "设置";
 "Version" = "版本";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "功能";
 "News" = "新闻";
 "Miscellaneous" = "其它";
@@ -55,8 +55,7 @@
 "Accent Color" = "主题颜色";
 "Blue" = "蓝色";
 "Orange" = "橙色";
-"White" = "白色";
-"Black" = "黑色";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "黑暗模式样式";
 "Dark Mode" = "黑暗模式";
