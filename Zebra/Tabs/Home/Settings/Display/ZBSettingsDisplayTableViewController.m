@@ -7,6 +7,7 @@
 //
 
 #import "ZBSettingsDisplayTableViewController.h"
+#import "ZBSettingsOptionsTableViewController.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 
@@ -121,6 +122,17 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSectionOrder section = indexPath.section;
+    switch (section) {
+        case ZBSectionAccentColor:
+            [self changeTint];
+            break;  
+        default:
+            break;
+    }
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBSectionSystemStyle:
@@ -131,6 +143,21 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 #pragma mark - Settings
+
+- (void)changeTint {
+    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+    controller.title = @"Accent Color";
+    controller.footerText = @[@"Change the accent color that displays across Zebra."];
+    controller.options = @[@"Blue", @"Orange", @"Adaptive"];
+    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
+    controller.selectedRow = number ? (ZBAccentColor)[number integerValue] : ZBAccentColorBlue;
+    controller.settingChanged = ^(NSInteger newValue) {
+        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [ZBDevice hapticButton];
+    };
+    [self.navigationController pushViewController: controller animated:YES];
+}
 
 - (void)toggleSystemStyle:(UISwitch *)sender {
     BOOL setting = sender.on;

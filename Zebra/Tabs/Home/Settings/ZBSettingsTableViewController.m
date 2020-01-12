@@ -431,30 +431,6 @@ enum ZBMiscOrder {
     [[self navigationController] pushViewController:displayController animated:true];
 }
 
-- (void)changeTint {
-//    NSString *theme = ZBDevice.darkModeEnabled ? @"White" : @"Black";
-//    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-//    controller.settingTitle = @"Accent Color";
-//    controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
-//    controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
-//    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-//    controller.settingSelectedRow = number ? (ZBTintSelection)[number integerValue] : ZBDefaultTint;
-//    controller.settingChanged = ^(NSInteger newValue) {
-//        self->tintColorType = (ZBTintSelection) newValue;
-//        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        [ZBDevice hapticButton];
-//        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//            [self.tableView reloadData];
-//            [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-//            [ZBDevice refreshViews];
-//            [self setNeedsStatusBarAppearanceUpdate];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:nil];
-//        } completion:nil];
-//    };
-//    [self.navigationController pushViewController: controller animated:YES];
-}
-
 - (void)changeMode {
 //    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
 //    controller.settingTitle = @"Dark Mode Style";
