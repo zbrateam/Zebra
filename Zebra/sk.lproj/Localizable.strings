@@ -44,7 +44,7 @@
 
 "Settings" = "Nastavenie";
 "Version" = "Verzia";
-"Interface" = "Rozhranie";
+"Appearance" = "Appearance";
 "Featured" = "Odporúčané";
 "News" = "Novinky";
 "Miscellaneous" = "Rôzne";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Čišťenie kľúčenky bolo dokončené";
 
 "Drop Tables" = "Znovu načítať dáta a repozitára";
-
-"Alternate Icons" = "Alternatívne ikony";
 
 "Featured Sources" = "Odporúčané Zdroje";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "CHYBA: Nemožno uzamknúť stavový súbor. Prosím skúste to znova.";
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces sa musí reštartovať. Prosím skúste to znova.";
-
-"Configure the appearance of Zebra." = "Konfiguruje vzhľad Zebry.";
 
 "Display featured packages on the homepage." = "Zobrazí odporúčané balíčky na domovskej stránke.";
 
