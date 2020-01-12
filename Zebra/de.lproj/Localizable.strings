@@ -44,7 +44,7 @@
 
 "Settings" = "Einstellungen";
 "Version" = "Version";
-"Interface" = "Benutzeroberfläche";
+"Appearance" = "Appearance";
 "Featured" = "Empfohlen";
 "News" = "Neuigkeiten";
 "Miscellaneous" = "Sonstiges";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Schlüsselbund erfolgreich geleert";
 
 "Drop Tables" = "Datenbanktabellen leeren";
-
-"Alternate Icons" = "Alternative Symbole";
 
 "Featured Sources" = "Empfohlene Quellen";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "FEHLER: Statusdatei konnte nicht gesperrt werden. Bitte versuchen Sie es erneut.";
 
 "ERROR: Process must be restarted. Please try again." = "FEHLER: Prozess muss neu gestartet werden. Bitte versuchen Sie es erneut.";
-
-"Configure the appearance of Zebra." = "Konfigurieren Sie das Aussehen von Zebra.";
 
 "Display featured packages on the homepage." = "Empfohlene Pakete auf der Homepage anzeigen.";
 
