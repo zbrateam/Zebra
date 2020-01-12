@@ -44,7 +44,7 @@
 
 "Settings" = "Настройки";
 "Version" = "Версия";
-"Interface" = "Интерфейс";
+"Appearance" = "Appearance";
 "Featured" = "Избранное";
 "News" = "Новости";
 "Miscellaneous" = "Другое";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "Очистка Keychain завершена";
 
 "Drop Tables" = "Очистить Таблицы";
-
-"Alternate Icons" = "Альтернативные Иконки";
 
 "Featured Sources" = "Избранные Источники";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "ОШИБКА: Невозможно найти файл статуса блокировки. Пожалуйста попробуйте снова.";
 
 "ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста, попробуйте снова.";
-
-"Configure the appearance of Zebra." = "Настройте внешний вид Zebra.";
 
 "Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
 
