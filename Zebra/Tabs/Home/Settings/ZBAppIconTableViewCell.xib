@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,26 +17,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BHA-vz-i7S">
-                        <rect key="frame" x="345" y="7" width="30" height="30"/>
+                        <rect key="frame" x="346" y="7.5" width="29" height="29"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="1nq-2M-mRt"/>
+                            <constraint firstAttribute="width" constant="29" id="1nq-2M-mRt"/>
+                            <constraint firstAttribute="height" constant="29" id="8YQ-lS-5Le"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcO-Xa-uZc">
-                        <rect key="frame" x="20" y="12" width="42" height="21"/>
+                        <rect key="frame" x="20" y="11.5" width="311" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="bcO-Xa-uZc" firstAttribute="leading" secondItem="Ic2-7a-IM8" secondAttribute="leading" constant="20" id="3iz-Dz-Wxi"/>
-                    <constraint firstItem="BHA-vz-i7S" firstAttribute="top" secondItem="Ic2-7a-IM8" secondAttribute="top" constant="7" id="5lK-V5-WdR"/>
-                    <constraint firstItem="bcO-Xa-uZc" firstAttribute="top" secondItem="Ic2-7a-IM8" secondAttribute="top" constant="12" id="HgZ-pD-vUW"/>
-                    <constraint firstAttribute="trailing" secondItem="BHA-vz-i7S" secondAttribute="trailing" constant="8" id="VPw-M0-GDL"/>
-                    <constraint firstAttribute="bottom" secondItem="bcO-Xa-uZc" secondAttribute="bottom" constant="11" id="haX-VA-1D4"/>
-                    <constraint firstAttribute="bottom" secondItem="BHA-vz-i7S" secondAttribute="bottom" constant="7" id="n2I-rf-LY9"/>
-                    <constraint firstItem="BHA-vz-i7S" firstAttribute="leading" secondItem="bcO-Xa-uZc" secondAttribute="trailing" constant="283" id="qdR-NQ-9IX"/>
+                    <constraint firstItem="bcO-Xa-uZc" firstAttribute="centerY" secondItem="Ic2-7a-IM8" secondAttribute="centerY" id="ZAf-zu-zej"/>
+                    <constraint firstItem="BHA-vz-i7S" firstAttribute="centerY" secondItem="Ic2-7a-IM8" secondAttribute="centerY" id="afG-NU-DwA"/>
+                    <constraint firstItem="bcO-Xa-uZc" firstAttribute="leading" secondItem="Ic2-7a-IM8" secondAttribute="leadingMargin" id="amh-06-5Tf"/>
+                    <constraint firstItem="BHA-vz-i7S" firstAttribute="leading" secondItem="bcO-Xa-uZc" secondAttribute="trailing" constant="15" id="cmd-jK-DdT"/>
+                    <constraint firstAttribute="trailing" secondItem="BHA-vz-i7S" secondAttribute="trailing" constant="8" id="ht4-eK-ELE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
