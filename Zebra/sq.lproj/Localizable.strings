@@ -44,7 +44,7 @@
 
 "Settings" = "Konfigurimet";
 "Version" = "Versioni";
-"Appearance" = "Appearance";
+"Display" = "Display";
 "Featured" = "Të Veçuara";
 "News" = "Lajmet";
 "Miscellaneous" = "Të ndryshme";
@@ -55,8 +55,7 @@
 "Accent Color" = "Ngjyrat e tekstit";
 "Blue" = "Kaltërt";
 "Orange" = "Portokalli";
-"White" = "Bardhë";
-"Black" = "E Zezë";
+"Adaptive" = "Adaptive";
 
 "Dark Mode Style" = "Stili i modës së errët";
 "Dark Mode" = "Modeli i Errët";
