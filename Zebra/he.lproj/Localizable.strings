@@ -44,7 +44,7 @@
 
 "Settings" = "הגדרות";
 "Version" = "גירסה";
-"Interface" = "ממשק";
+"Appearance" = "Appearance";
 "Featured" = "מומלץ";
 "News" = "חדשות";
 "Miscellaneous" = "שונות";
@@ -88,8 +88,6 @@
 "Clearing keychain completed" = "ניקוי צרור הושלם";
 
 "Drop Tables" = "הפל טבלאות";
-
-"Alternate Icons" = "אייקוניים חלופיים";
 
 "Featured Sources" = "מקורות מומלצים";
 
@@ -307,8 +305,6 @@
 "ERROR: Unable to lock status file. Please try again." = "תקלה: לא ניתן לנעול קובץ סטטוס. אנא נסה/י שנית.";
 
 "ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
-
-"Configure the appearance of Zebra." = "הגדר את המראה של זברה.";
 
 "Display featured packages on the homepage." = "הצג חבילות מומלצות בדף הבית.";
 
