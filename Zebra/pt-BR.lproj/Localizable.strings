@@ -44,7 +44,7 @@
 
 "Settings" = "Configurações";
 "Version" = "Versão";
-"Display" = "Display";
+"Display" = "Exibir";
 "Featured" = "Em destaque";
 "News" = "Notícias";
 "Miscellaneous" = "Diversos";
@@ -55,7 +55,7 @@
 "Accent Color" = "Cor de destaque";
 "Blue" = "Azul";
 "Orange" = "Laranja";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Adaptável";
 
 "Dark Mode Style" = "Estilo do Modo Escuro";
 "Dark Mode" = "Modo Escuro";
@@ -238,7 +238,7 @@
 "Close Zebra" = "Fechar Zebra";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Downloading" = "Baixando";
-"Parsing" = "Parsing";
+"Parsing" = "Analisando";
 "Downloading Packages..." = "Baixando Pacotes...";
 "Installing" = "Instalando";
 "Installing Packages..." = "Instalando Pacotes...";
