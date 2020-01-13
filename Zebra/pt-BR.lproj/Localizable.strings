@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo de destaque";
 "Select Repos to be Featured" = "Selecionar Repos para estar em destaque";
 
-"News" = "News";
+"News" = "Notícias";
 
 "Live Search" = "Pesquisa ao vivo";
 
@@ -241,7 +241,7 @@
 "Close Zebra" = "Fechar Zebra";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Downloading" = "Baixando";
-"Parsing" = "Parsing";
+"Parsing" = "Analisando";
 "Downloading Packages..." = "Baixando Pacotes...";
 "Installing" = "Instalando";
 "Installing Packages..." = "Instalando Pacotes...";
