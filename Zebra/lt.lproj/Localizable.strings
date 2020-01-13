@@ -44,7 +44,7 @@
 
 "Settings" = "Nustatymai";
 "Version" = "Versija";
-"Display" = "Display";
+"Display" = "Rodyti";
 "Featured" = "Rodomiausi";
 "News" = "Naujienos";
 "Miscellaneous" = "Įvairūs";
@@ -55,7 +55,7 @@
 "Accent Color" = "Atspalvis";
 "Blue" = "Mėlynas";
 "Orange" = "Orandžinis";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Prisitaikantis";
 
 "Dark Mode Style" = "Tamsaus režimo stilius";
 "Dark Mode" = "Tamsus režimas";
