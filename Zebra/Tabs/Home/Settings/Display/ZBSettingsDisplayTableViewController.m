@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     BOOL usesSystemAppearance;
     BOOL pureBlackMode;
     ZBAccentColor accentColor;
+    ZBInterfaceStyle interfaceStyle;
 }
 @end
 
@@ -32,9 +33,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     
     self.navigationItem.title = NSLocalizedString(@"Display", @"");
     
-    usesSystemAppearance = [ZBSettings usesSystemAppearance];
-    pureBlackMode = [ZBSettings pureBlackMode];
     accentColor = [ZBSettings accentColor];
+    usesSystemAppearance = [ZBSettings usesSystemAppearance];
+    interfaceStyle = [ZBSettings interfaceStyle];
+    pureBlackMode = [ZBSettings pureBlackMode];
 }
 
 #pragma mark - Table View Data Source
@@ -97,10 +99,11 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             if (!usesSystemAppearance) {
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Light";
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 }
                 else {
                     cell.textLabel.text = @"Dark";
+                    cell.accessoryType = interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 }
                 break;
             }
@@ -123,11 +126,46 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBSectionAccentColor:
             [self changeTint];
-            break;  
+            break;
+        case ZBSectionStyleChooser: {
+            if (!usesSystemAppearance) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    UITableViewCell *otherCell;
+                    
+                    if (indexPath.row == 0) { //Light
+                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionStyleChooser]];
+                        
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        otherCell.accessoryType = UITableViewCellAccessoryNone;
+                        
+                        interfaceStyle = ZBInterfaceStyleLight;
+                        [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
+                    }
+                    else { //Dark
+                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionStyleChooser]];
+                        
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        otherCell.accessoryType = UITableViewCellAccessoryNone;
+                        
+                        if (pureBlackMode) {
+                            interfaceStyle = ZBInterfaceStylePureBlack;
+                            [ZBSettings setInterfaceStyle:ZBInterfaceStylePureBlack];
+                        }
+                        else {
+                            interfaceStyle = ZBInterfaceStyleDark;
+                            [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
+                        }
+                    }
+                });
+            }
+        }
         default:
             break;
     }
@@ -161,9 +199,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
 - (void)toggleSystemStyle:(UISwitch *)sender {
     BOOL setting = sender.on;
-    usesSystemAppearance = setting;
     
+    usesSystemAppearance = setting;
     [ZBSettings setUsesSystemAppearance:setting];
+    interfaceStyle = [ZBSettings interfaceStyle];
     
     if (!setting) { //Insert style picker section
         [self.tableView beginUpdates];
