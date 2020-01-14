@@ -165,6 +165,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                         [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
                     }
                 }
+                [self updateInterfaceStyle];
             }
         }
         default:
@@ -201,9 +202,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 - (void)toggleSystemStyle:(UISwitch *)sender {
     BOOL setting = sender.on;
     
-    usesSystemAppearance = setting;
     [ZBSettings setUsesSystemAppearance:setting];
-    interfaceStyle = [ZBSettings interfaceStyle];
+    [self updateInterfaceStyle];
     
     if (!setting) { //Insert style picker section
         [self.tableView beginUpdates];
@@ -222,8 +222,32 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     
     pureBlackMode = setting;
     [ZBSettings setPureBlackMode:setting];
-    interfaceStyle = [ZBSettings interfaceStyle];
+    [self updateInterfaceStyle];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
+
+- (void)updateInterfaceStyle {
+    usesSystemAppearance = [ZBSettings usesSystemAppearance];
+    interfaceStyle = [ZBSettings interfaceStyle];
+    
+    if (!usesSystemAppearance) {
+        switch (interfaceStyle) {
+            case ZBInterfaceStyleLight:
+                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+                break;
+            case ZBInterfaceStyleDark:
+            case ZBInterfaceStylePureBlack:
+                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+                break;
+        }
+    }
+    else {
+        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+    }
+}
+
+#pragma clang diagnostic pop
 
 @end
