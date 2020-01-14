@@ -69,8 +69,11 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     switch (section) {
         case ZBSectionAccentColor: {
             switch (accentColor) {
-                case ZBAccentColorBlue:
-                    cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
+                case ZBAccentColorCornflowerBlue:
+                    cell.detailTextLabel.text = NSLocalizedString(@"Cornflower Blue", @"");
+                    break;
+                case ZBAccentColorSystemBlue:
+                    cell.detailTextLabel.text = NSLocalizedString(@"System Blue", @"");
                     break;
                 case ZBAccentColorOrange:
                     cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
@@ -135,35 +138,33 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             break;
         case ZBSectionStyleChooser: {
             if (!usesSystemAppearance) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                    UITableViewCell *otherCell;
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                UITableViewCell *otherCell;
+                
+                if (indexPath.row == 0) { //Light
+                    otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionStyleChooser]];
                     
-                    if (indexPath.row == 0) { //Light
-                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionStyleChooser]];
-                        
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        otherCell.accessoryType = UITableViewCellAccessoryNone;
-                        
-                        interfaceStyle = ZBInterfaceStyleLight;
-                        [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    otherCell.accessoryType = UITableViewCellAccessoryNone;
+                    
+                    interfaceStyle = ZBInterfaceStyleLight;
+                    [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
+                }
+                else { //Dark
+                    otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionStyleChooser]];
+                    
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    otherCell.accessoryType = UITableViewCellAccessoryNone;
+                    
+                    if (pureBlackMode) {
+                        interfaceStyle = ZBInterfaceStylePureBlack;
+                        [ZBSettings setInterfaceStyle:ZBInterfaceStylePureBlack];
                     }
-                    else { //Dark
-                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionStyleChooser]];
-                        
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        otherCell.accessoryType = UITableViewCellAccessoryNone;
-                        
-                        if (pureBlackMode) {
-                            interfaceStyle = ZBInterfaceStylePureBlack;
-                            [ZBSettings setInterfaceStyle:ZBInterfaceStylePureBlack];
-                        }
-                        else {
-                            interfaceStyle = ZBInterfaceStyleDark;
-                            [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
-                        }
+                    else {
+                        interfaceStyle = ZBInterfaceStyleDark;
+                        [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
                     }
-                });
+                }
             }
         }
         default:
@@ -186,9 +187,9 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.title = @"Accent Color";
     controller.footerText = @[@"Change the accent color that displays across Zebra."];
-    controller.options = @[@"Blue", @"Orange", @"Adaptive"];
+    controller.options = @[@"Cornflower Blue", @"System Blue", @"Orange", @"Adaptive"];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    controller.selectedRow = number ? (ZBAccentColor)[number integerValue] : ZBAccentColorBlue;
+    controller.selectedRow = number ? (ZBAccentColor)[number integerValue] : ZBAccentColorCornflowerBlue;
     controller.settingChanged = ^(NSInteger newValue) {
         [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -218,9 +219,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
 - (void)togglePureBlack:(UISwitch *)sender {
     BOOL setting = sender.on;
-    pureBlackMode = setting;
     
+    pureBlackMode = setting;
     [ZBSettings setPureBlackMode:setting];
+    interfaceStyle = [ZBSettings interfaceStyle];
 }
 
 

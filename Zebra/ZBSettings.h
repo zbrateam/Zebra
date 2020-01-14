@@ -31,7 +31,8 @@ extern NSString * _Nonnull const PureBlackModeKey;
 #pragma mark - Accent Colors
 
 typedef enum : NSUInteger {
-    ZBAccentColorBlue,
+    ZBAccentColorCornflowerBlue,
+    ZBAccentColorSystemBlue,
     ZBAccentColorOrange,
     ZBAccentColorAdaptive,
 } ZBAccentColor;

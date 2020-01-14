@@ -18,7 +18,7 @@
 + (UIColor *)tintColor {
     ZBAccentColor accentColor = [ZBSettings accentColor];
     switch (accentColor) {
-        case ZBAccentColorBlue:
+        case ZBAccentColorCornflowerBlue:
             return [self zebraColor];
         case ZBAccentColorOrange:
             return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];

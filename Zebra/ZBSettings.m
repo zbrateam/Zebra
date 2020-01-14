@@ -31,7 +31,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
         switch ([[defaults objectForKey:tintSelectionKey] integerValue]) {
             case 0:
             case 1:
-                [self setAccentColor:ZBAccentColorBlue];
+                [self setAccentColor:ZBAccentColorCornflowerBlue];
             case 2:
                 [self setAccentColor:ZBAccentColorOrange];
             case 3:
@@ -74,8 +74,8 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:AccentColorKey]) {
-        [self setAccentColor:ZBAccentColorBlue];
-        return ZBAccentColorBlue;
+        [self setAccentColor:ZBAccentColorCornflowerBlue];
+        return ZBAccentColorCornflowerBlue;
     }
     else {
         return [defaults integerForKey:AccentColorKey];
