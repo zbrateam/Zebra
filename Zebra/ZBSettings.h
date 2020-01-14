@@ -25,6 +25,7 @@
 //New settings keys
 extern NSString * _Nonnull const AccentColorKey;
 extern NSString * _Nonnull const UseSystemAppearanceKey;
+extern NSString * _Nonnull const InterfaceStyleKey;
 extern NSString * _Nonnull const PureBlackModeKey;
 
 #pragma mark - Accent Colors

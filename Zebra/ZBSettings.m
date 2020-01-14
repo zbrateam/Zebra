@@ -8,11 +8,18 @@
 
 #import "ZBSettings.h"
 
+#import <UIKit/UIApplication.h>
+#import <UIKit/UIScreen.h>
+
 @implementation ZBSettings
 
 NSString *const AccentColorKey = @"AccentColor";
 NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
+NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
 
 + (void)load {
     [super load];
@@ -83,11 +90,34 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 }
 
 + (ZBInterfaceStyle)interfaceStyle {
-    return ZBInterfaceStyleLight;
+    if ([self usesSystemAppearance]) {
+        UIUserInterfaceStyle style = [[[UIScreen mainScreen] traitCollection] userInterfaceStyle];
+        switch (style) {
+            case UIUserInterfaceStyleUnspecified:
+            case UIUserInterfaceStyleLight:
+                return ZBInterfaceStyleLight;
+            case UIUserInterfaceStyleDark:
+                return [self pureBlackMode] ? ZBInterfaceStylePureBlack : ZBInterfaceStyleDark;
+        }
+    }
+    else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        if (![defaults objectForKey:InterfaceStyleKey]) {
+            [self setInterfaceStyle:ZBInterfaceStyleLight];
+            return ZBInterfaceStyleLight;
+        }
+        else {
+            return [defaults integerForKey:InterfaceStyleKey];
+        }
+    }
 }
 
 + (void)setInterfaceStyle:(ZBInterfaceStyle)style {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setInteger:style forKey:InterfaceStyleKey];
+    [defaults synchronize];
 }
 
 + (BOOL)usesSystemAppearance {
@@ -129,7 +159,11 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 }
 
 + (NSString *_Nullable)appIconName {
-    return nil;
+    if (@available(iOS 10.3, *)) {
+        return [[UIApplication sharedApplication] alternateIconName];
+    } else {
+        return NULL;
+    }
 }
 
 + (void)setAppIconName:(NSString *_Nullable)appIconName {
@@ -167,5 +201,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 + (BOOL)liveSearch {
     return true;
 }
+
+#pragma clang diagnostic pop
 
 @end
