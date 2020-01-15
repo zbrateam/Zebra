@@ -198,7 +198,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)createHeader {
     if (allFeatured.count) {
         [self.tableView beginUpdates];
-        self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
+        self.featuredCollection.backgroundColor = [UIColor groupedTableViewBackgroundColor];
         [self.selectedFeatured removeAllObjects];
         self.cellNumber = [self cellCount];
         
