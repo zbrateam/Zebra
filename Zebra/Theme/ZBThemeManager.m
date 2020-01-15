@@ -56,16 +56,18 @@
 }
 
 - (void)updateTheme {
-    if ([ZBThemeManager useCustomTheming]) {
-        interfaceStyle = [ZBSettings interfaceStyle];
-        accentColor = [ZBSettings accentColor];
-        
-        [self configureTabBar];
-        [self configureNavigationBar];
-        [self configureTableView];
-        [self configurePopupBar];
-        [self refreshViews];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([ZBThemeManager useCustomTheming]) {
+            self->interfaceStyle = [ZBSettings interfaceStyle];
+            self->accentColor = [ZBSettings accentColor];
+            
+            [self configureTabBar];
+            [self configureNavigationBar];
+            [self configureTableView];
+            [self configurePopupBar];
+            [self refreshViews];
+        }
+    });
 }
 
 - (BOOL)darkMode {
@@ -134,6 +136,27 @@
                 [view.layer addAnimation:transition forKey:nil];
             }
         }
+    }
+}
+
+- (void)toggleTheme {
+    if ([self darkMode]) {
+        [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
+    }
+    else if ([ZBSettings pureBlackMode]) {
+        [ZBSettings setInterfaceStyle:ZBInterfaceStylePureBlack];
+    }
+    else {
+        [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
+    }
+    [self updateTheme];
+}
+
+- (UIImage *)toggleImage {
+    if ([self darkMode]) {
+        return [UIImage imageNamed:@"Dark"];
+    } else {
+        return [UIImage imageNamed:@"Light"];
     }
 }
 
