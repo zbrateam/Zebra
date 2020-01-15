@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ZBSettings.h>
 
 @interface UIColor (GlobalColors)
 + (UIColor *)tintColor;
@@ -20,6 +21,7 @@
 + (UIColor *)cellSeparatorColor;
 + (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
++ (UIColor *)getTintColor:(ZBAccentColor)accentColor;
 @end
 
 @interface UIColor (Private)

@@ -82,6 +82,12 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                     cell.detailTextLabel.text = NSLocalizedString(@"Adaptive", @"");
                     break;
             }
+            //
+
+            cell.imageView.image = [self getCircularImage:CGSizeMake(16, 16) color:[UIColor getTintColor:accentColor]];
+            cell.imageView.layer.cornerRadius = cell.imageView.image.size.width / 2;
+            cell.imageView.layer.masksToBounds = YES;
+                        
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
             break;
@@ -230,6 +236,15 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [ZBSettings updateInterfaceStyle];
+}
+
+- (UIImage*)getCircularImage:(CGSize)size color:(UIColor*)color {
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    [color setFill];
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end

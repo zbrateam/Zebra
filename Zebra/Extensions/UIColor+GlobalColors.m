@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBSettings.h>
 #import <ZBDevice.h>
 #import "UIColor+GlobalColors.h"
 
@@ -17,6 +16,10 @@
 
 + (UIColor *)tintColor {
     ZBAccentColor accentColor = [ZBSettings accentColor];
+    return [UIColor getTintColor:accentColor];
+}
+
++ (UIColor *)getTintColor:(ZBAccentColor)accentColor {
     switch (accentColor) {
         case ZBAccentColorCornflowerBlue:
             return [self zebraColor];
