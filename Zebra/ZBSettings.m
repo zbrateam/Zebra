@@ -10,6 +10,7 @@
 
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIScreen.h>
+#import <UIKit/UIWindow.h>
 
 @implementation ZBSettings
 
@@ -121,14 +122,19 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 }
 
 + (BOOL)usesSystemAppearance {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:UseSystemAppearanceKey]) {
-        [self setUsesSystemAppearance:true];
-        return true;
+    if (@available(iOS 13.0, *)) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        if (![defaults objectForKey:UseSystemAppearanceKey]) {
+            [self setUsesSystemAppearance:true];
+            return true;
+        }
+        else {
+            return [defaults boolForKey:UseSystemAppearanceKey];
+        }
     }
     else {
-        return [defaults boolForKey:UseSystemAppearanceKey];
+        return false;
     }
 }
 
@@ -156,6 +162,27 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
     
     [defaults setBool:pureBlackMode forKey:PureBlackModeKey];
     [defaults synchronize];
+}
+
++ (void)updateInterfaceStyle {
+    if (@available(iOS 13.0, *)) {
+        [UIView animateWithDuration:5.0 animations:^{
+                if (![self usesSystemAppearance]) {
+                switch ([self interfaceStyle]) {
+                    case ZBInterfaceStyleLight:
+                        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+                        break;
+                    case ZBInterfaceStyleDark:
+                    case ZBInterfaceStylePureBlack:
+                        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+                        break;
+                }
+            }
+            else {
+                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+            }
+        }];
+    }
 }
 
 + (NSString *_Nullable)appIconName {

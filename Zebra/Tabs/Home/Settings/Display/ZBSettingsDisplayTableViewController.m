@@ -225,29 +225,11 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     [self updateInterfaceStyle];
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunguarded-availability"
-
 - (void)updateInterfaceStyle {
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     
-    if (!usesSystemAppearance) {
-        switch (interfaceStyle) {
-            case ZBInterfaceStyleLight:
-                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-                break;
-            case ZBInterfaceStyleDark:
-            case ZBInterfaceStylePureBlack:
-                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-                break;
-        }
-    }
-    else {
-        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-    }
+    [ZBSettings updateInterfaceStyle];
 }
-
-#pragma clang diagnostic pop
 
 @end

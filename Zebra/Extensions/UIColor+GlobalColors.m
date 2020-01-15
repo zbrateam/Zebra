@@ -61,10 +61,10 @@
     if ([ZBDevice themingAllowed]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
-                return [UIColor systemGroupedBackgroundColor];
+                return [UIColor redColor];
             case ZBInterfaceStyleDark:
             case ZBInterfaceStylePureBlack:
-                return [UIColor systemGroupedBackgroundColor];
+                return [UIColor redColor];
         }
     }
     else {
@@ -84,7 +84,7 @@
         }
     }
     else {
-        return [UIColor systemGroupedBackgroundColor];
+        return [UIColor systemBackgroundColor];
     }
 }
 

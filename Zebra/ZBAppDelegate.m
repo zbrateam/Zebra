@@ -220,6 +220,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         [[UINavigationBar appearance] setScrollEdgeAppearance:app];
     }
     
+    [ZBSettings updateInterfaceStyle];
+    
     return YES;
 }
 
