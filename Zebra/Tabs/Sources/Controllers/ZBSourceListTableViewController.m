@@ -47,7 +47,7 @@
     sourceManager = [ZBSourceManager sharedInstance];
     
     self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
@@ -82,10 +82,10 @@
 #pragma mark - Dark Mode
 
 - (void)darkMode:(NSNotification *)notification {
-    [ZBDevice refreshViews];
+//    [ZBDevice refreshViews];
     [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
 }
 
 #pragma mark - Table View Data Source
@@ -173,11 +173,11 @@
         //           [self.databaseManager updateRepo:repo useCaching:YES];
             }];
                 
-            if ([[UIColor tintColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
+            if ([[UIColor accentColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
                 refreshAction.backgroundColor = [UIColor grayColor];
             }
             else {
-                refreshAction.backgroundColor = [UIColor tintColor];
+                refreshAction.backgroundColor = [UIColor accentColor];
             }
                 
             [actions addObject:refreshAction];
@@ -328,7 +328,7 @@
 
 - (void)showAddRepoFromClipboardAlert:(NSURL *)repoURL {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:repoURL.absoluteString preferredStyle:UIAlertControllerStyleAlert];
-    alertController.view.tintColor = [UIColor tintColor];
+    alertController.view.tintColor = [UIColor accentColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -345,7 +345,7 @@
 
 - (void)showAddSourceAlert:(NSString *_Nullable)placeholder {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Source URL", @"") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    alertController.view.tintColor = [UIColor tintColor];
+    alertController.view.tintColor = [UIColor accentColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

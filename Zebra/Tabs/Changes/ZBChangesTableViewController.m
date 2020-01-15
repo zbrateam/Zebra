@@ -359,8 +359,8 @@
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
     [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
@@ -466,9 +466,9 @@
         safariVC.delegate = self;
         if (@available(iOS 10.0, *)) {
             [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
-            [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+            [safariVC setPreferredControlTintColor:[UIColor accentColor]];
         } else {
-            [safariVC.view setTintColor:[UIColor tintColor]];
+            [safariVC.view setTintColor:[UIColor accentColor]];
         }
         [self presentViewController:safariVC animated:YES completion:nil];
     }

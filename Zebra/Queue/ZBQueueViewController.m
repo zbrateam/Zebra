@@ -14,6 +14,7 @@
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBDevice.h>
+#import <Theme/ZBThemeManager.h>
 
 @import SDWebImage;
 @import LNPopupController;
@@ -50,17 +51,17 @@
     }
     
     // Appearance stuff
-    if ([ZBDevice themingAllowed]) {
+//    if ([ZBThemeManager useCustomTheming]) {
 //        if ([ZBDevice darkModeEnabled]) {
 //            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 //        }
 //        else {
 //            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 //        }
-    }
+//    }
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
     
@@ -211,7 +212,7 @@
         cell.detailTextLabel.textColor = [UIColor systemOrangeColor];
     }
     else {
-        [cell setTintColor:[UIColor tintColor]];
+        [cell setTintColor:[UIColor accentColor]];
         cell.textLabel.textColor = [UIColor primaryTextColor];
         cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     }

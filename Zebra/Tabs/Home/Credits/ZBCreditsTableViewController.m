@@ -98,7 +98,7 @@
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
         if ([item objectForKey:@"link"] != NULL) {
-            [cell.textLabel setTextColor:[UIColor tintColor]];
+            [cell.textLabel setTextColor:[UIColor accentColor]];
         }
         else {
             [cell.textLabel setTextColor:[UIColor primaryTextColor]];

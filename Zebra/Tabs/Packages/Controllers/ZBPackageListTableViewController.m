@@ -475,9 +475,9 @@
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
-    [ZBDevice refreshViews];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+//    [ZBDevice refreshViews];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
     [self.navigationController.navigationBar setBarTintColor:nil];
 }
 

@@ -13,6 +13,7 @@
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Community Sources/ZBCommunitySourcesTableViewController.h>
 #import <Changelog/ZBChangelogTableViewController.h>
+#import <Theme/ZBThemeManager.h>
 
 @import FirebaseAnalytics;
 
@@ -76,7 +77,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    if ([ZBDevice darkModeEnabled]) {
+//    if ([[ZBThemeManager sharedInstance] darkMode]) {
 //        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
 //    } else {
 //        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
@@ -538,9 +539,10 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)darkMode {
-//    if ([ZBDevice themingAllowed]) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
+    if ([ZBThemeManager useCustomTheming]) {
+        [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[ZBThemeManager sharedInstance] updateTheme];
 //            if ([ZBDevice darkModeEnabled]) {
 //                [ZBDevice configureDarkMode];
 //                [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
@@ -557,12 +559,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 //            [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
 //            [self updateTheme];
 //            [ZBDevice refreshViews];
-//        });
-//    }
+        });
+    }
 }
 
 - (void)updateTheme {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         [self.tableView reloadData];
         [self colorWindow];
         self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -577,8 +579,8 @@ typedef enum ZBLinksOrder : NSUInteger {
         [self.view.layer addAnimation:transition forKey:nil];
         [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
         [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-        _darkModeButton.tintColor = [UIColor tintColor];
-        _settingsButton.tintColor = [UIColor tintColor];
+        _darkModeButton.tintColor = [UIColor accentColor];
+        _settingsButton.tintColor = [UIColor accentColor];
         [self configureFooter];
     }
 }
@@ -623,7 +625,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 //}
 
 - (void)colorWindow {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIWindow *window = UIApplication.sharedApplication.delegate.window;
             [window setBackgroundColor:[UIColor tableViewBackgroundColor]];

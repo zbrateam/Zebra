@@ -20,7 +20,7 @@
 + (NSString *_Nullable)machineID;
 + (NSString *_Nonnull)deviceType;
 + (NSString *_Nonnull)debianArchitecture;
-
++ (NSString *_Nullable)packageManagementBinary;
 
 + (void)hapticButton;
 
@@ -36,15 +36,6 @@
 + (BOOL)isChimera;
 + (BOOL)isElectra;
 + (BOOL)isUncover;
-+ (NSString *_Nullable)packageManagementBinary;
-
-#pragma mark - Theming
-
-+ (BOOL)themingAllowed;
-+ (void)configureDarkMode;
-+ (void)configureLightMode;
-+ (void)applyThemeSettings;
-+ (void)refreshViews;
 
 + (BOOL)useIcon;
 @end

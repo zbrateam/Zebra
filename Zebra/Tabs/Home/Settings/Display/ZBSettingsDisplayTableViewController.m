@@ -39,6 +39,16 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     pureBlackMode = [ZBSettings pureBlackMode];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+    accentColor = [ZBSettings accentColor];
+    usesSystemAppearance = [ZBSettings usesSystemAppearance];
+    interfaceStyle = [ZBSettings interfaceStyle];
+    pureBlackMode = [ZBSettings pureBlackMode];
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -83,7 +93,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                     break;
             }
 
-            cell.imageView.image = [self getCircularImage:CGSizeMake(16, 16) color:[UIColor getTintColor:accentColor]];
+            cell.imageView.image = [self getCircularImage:CGSizeMake(16, 16) color:[UIColor accentColor]];
             cell.imageView.layer.cornerRadius = cell.imageView.image.size.width / 2;
             cell.imageView.layer.masksToBounds = YES;
                         
@@ -97,7 +107,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
             
             enableSwitch.on = usesSystemAppearance;
             cell.accessoryView = enableSwitch;
@@ -122,7 +132,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             [enableSwitch addTarget:self action:@selector(togglePureBlack:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
             
             enableSwitch.on = pureBlackMode;
             cell.accessoryView = enableSwitch;
@@ -194,8 +204,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     controller.title = @"Accent Color";
     controller.footerText = @[@"Change the accent color that displays across Zebra."];
     controller.options = @[@"Cornflower Blue", @"System Blue", @"Orange", @"Adaptive"];
-    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    controller.selectedRow = number ? (ZBAccentColor)[number integerValue] : ZBAccentColorCornflowerBlue;
+    
+    ZBAccentColor color = [ZBSettings accentColor];
+    
+    controller.selectedRow = color;
     controller.settingChanged = ^(NSInteger newValue) {
         ZBAccentColor color = (ZBAccentColor)newValue;
         [ZBSettings setAccentColor:color];

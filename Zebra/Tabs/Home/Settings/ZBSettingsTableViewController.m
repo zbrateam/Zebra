@@ -212,7 +212,7 @@ enum ZBMiscOrder {
                     UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
                     enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
                     [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
-                    [enableSwitch setOnTintColor:[UIColor tintColor]];
+                    [enableSwitch setOnTintColor:[UIColor accentColor]];
                     cell.accessoryView = enableSwitch;
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
@@ -243,7 +243,7 @@ enum ZBMiscOrder {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsNewsKey];
             [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Community News", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -254,7 +254,7 @@ enum ZBMiscOrder {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:liveSearchKey];
             [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -289,7 +289,7 @@ enum ZBMiscOrder {
                 text = NSLocalizedString(@"Clear Keychain", @"");
             }
             cell.textLabel.text = text;
-            cell.textLabel.textColor = [UIColor tintColor];
+            cell.textLabel.textColor = [UIColor accentColor];
             return cell;
         }
     }
@@ -550,7 +550,7 @@ enum ZBMiscOrder {
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
 //    [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-    [ZBDevice refreshViews];
+//    [ZBDevice refreshViews];
     [self setNeedsStatusBarAppearanceUpdate];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];

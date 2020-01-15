@@ -58,7 +58,7 @@ enum ZBSearchSection {
     
     searchController.delegate = self;
     searchController.searchBar.delegate = self;
-    searchController.searchBar.tintColor = [UIColor tintColor];
+    searchController.searchBar.tintColor = [UIColor accentColor];
     searchController.searchBar.placeholder = NSLocalizedString(@"Packages", @"");
     
     self.definesPresentationContext = YES;
@@ -394,9 +394,9 @@ enum ZBSearchSection {
 
 - (void)darkMode:(NSNotification *)notif {
     [self refreshTable];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    searchController.searchBar.tintColor = [UIColor tintColor];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+    searchController.searchBar.tintColor = [UIColor accentColor];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

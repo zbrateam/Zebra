@@ -43,7 +43,7 @@
     [self applyLocalization];
 
     if (@available(iOS 10.0, *)) {
-        UITabBar.appearance.tintColor = [UIColor tintColor];
+        UITabBar.appearance.tintColor = [UIColor accentColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
     

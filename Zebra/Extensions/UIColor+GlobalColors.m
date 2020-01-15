@@ -7,6 +7,7 @@
 //
 
 #import <ZBDevice.h>
+#import "ZBThemeManager.h"
 #import "UIColor+GlobalColors.h"
 
 @implementation UIColor (GlobalColors)
@@ -14,40 +15,20 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 
-+ (UIColor *)tintColor {
-    ZBAccentColor accentColor = [ZBSettings accentColor];
-    return [UIColor getTintColor:accentColor];
-}
-
-+ (UIColor *)getTintColor:(ZBAccentColor)accentColor {
-    switch (accentColor) {
-        case ZBAccentColorCornflowerBlue:
-            return [self zebraColor];
-        case ZBAccentColorSystemBlue:
-            return [self systemBlueColor];
-        case ZBAccentColorOrange:
-            return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
-        case ZBAccentColorAdaptive: {
-            if ([ZBSettings interfaceStyle] == ZBInterfaceStyleDark || [ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
-                return [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-            }
-            return [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-        }
-        default:
-            return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
-    }
++ (UIColor *)accentColor {
+    return [ZBThemeManager getAccentColor:[ZBSettings accentColor]];
 }
 
 + (UIColor *)badgeColor {
     return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }
 
-+ (UIColor *)zebraColor {
++ (UIColor *)blueCornflowerColor {
     return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
 
 + (UIColor *)tableViewBackgroundColor {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor whiteColor];
@@ -63,7 +44,7 @@
 
 //TODO: Correct colors
 + (UIColor *)groupedTableViewBackgroundColor {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor redColor];
@@ -78,7 +59,7 @@
 }
 
 + (UIColor *)cellBackgroundColor {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor whiteColor];
@@ -94,7 +75,7 @@
 }
 
 + (UIColor *)primaryTextColor {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
@@ -109,7 +90,7 @@
 }
 
 + (UIColor *)secondaryTextColor {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1.0];
@@ -124,7 +105,7 @@
 }
 
 + (UIColor *)cellSeparatorColor {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0];

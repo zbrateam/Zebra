@@ -10,11 +10,12 @@
 
 #import <ZBDevice.h>
 #import <objc/runtime.h>
+#import <Theme/ZBThemeManager.h>
 
 @implementation UIRefreshControl (Theme)
 
 + (void)load {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             Class class = [self class];

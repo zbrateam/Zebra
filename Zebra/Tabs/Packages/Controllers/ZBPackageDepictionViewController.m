@@ -124,7 +124,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
     
-    [progressView setTintColor:[UIColor tintColor]];
+    [progressView setTintColor:[UIColor accentColor]];
     
     webView.navigationDelegate = self;
     webView.opaque = NO;
@@ -174,7 +174,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-    [request setValue:[UIColor hexStringFromColor:[UIColor tintColor]] forHTTPHeaderField:@"Tint-Color"];
+    [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
     [webView loadRequest:request];

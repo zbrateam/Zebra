@@ -168,7 +168,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
     
     [self setupSDWebImageCache];
-    [ZBDevice applyThemeSettings];
+//    [ZBDevice applyThemeSettings];
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -186,7 +186,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         }
     }
     
-    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor tintColor];
+    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
     
 #if DEBUG
     NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");

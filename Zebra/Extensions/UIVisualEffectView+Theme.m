@@ -10,11 +10,12 @@
 #import "UIColor+GlobalColors.h"
 #import <ZBDevice.h>
 #import <objc/runtime.h>
+#import <Theme/ZBThemeManager.h>
 
 @implementation UIVisualEffectView (Theme)
 
 + (void)load {
-    if ([ZBDevice themingAllowed]) {
+    if ([ZBThemeManager useCustomTheming]) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             Class thisClass = self;

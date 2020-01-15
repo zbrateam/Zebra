@@ -148,7 +148,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    [cell setTintColor:[UIColor tintColor]];
+    [cell setTintColor:[UIColor accentColor]];
     return cell;
 }
 

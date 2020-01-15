@@ -10,9 +10,9 @@
 #import <ZBSettings.h>
 
 @interface UIColor (GlobalColors)
-+ (UIColor *)tintColor;
++ (UIColor *)accentColor;
 + (UIColor *)badgeColor;
-+ (UIColor *)zebraColor;
++ (UIColor *)blueCornflowerColor;
 + (UIColor *)tableViewBackgroundColor;
 + (UIColor *)groupedTableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;
@@ -21,7 +21,6 @@
 + (UIColor *)cellSeparatorColor;
 + (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
-+ (UIColor *)getTintColor:(ZBAccentColor)accentColor;
 @end
 
 @interface UIColor (Private)

@@ -40,7 +40,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.textLabel.text = NSLocalizedString(options[indexPath.row], @"");
     cell.accessoryType = selectedRow == indexPath.row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    cell.tintColor = [UIColor tintColor];
+    cell.tintColor = [UIColor accentColor];
     cell.textLabel.textColor = [UIColor primaryTextColor];
     return cell;
 }
