@@ -99,7 +99,7 @@
             [[UINavigationBar appearance] setTranslucent:YES];
         }
         
-        [[UITabBar appearance] setBarStyle:[self darkMode] ? UIBarStyleBlack : UIBarStyleDefault];
+        [[UINavigationBar appearance] setBarStyle:[self darkMode] ? UIBarStyleBlack : UIBarStyleDefault];
         
         if (@available(iOS 11.0, *)) {
             [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
