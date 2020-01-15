@@ -82,7 +82,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                     cell.detailTextLabel.text = NSLocalizedString(@"Adaptive", @"");
                     break;
             }
-            //
 
             cell.imageView.image = [self getCircularImage:CGSizeMake(16, 16) color:[UIColor getTintColor:accentColor]];
             cell.imageView.layer.cornerRadius = cell.imageView.image.size.width / 2;
