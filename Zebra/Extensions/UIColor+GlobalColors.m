@@ -42,15 +42,15 @@
     }
 }
 
-//TODO: Correct colors
 + (UIColor *)groupedTableViewBackgroundColor {
     if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
-                return [UIColor redColor];
+                return [UIColor groupTableViewBackgroundColor];
             case ZBInterfaceStyleDark:
+                return [UIColor colorWithRed:0.109804 green:0.109804 blue:0.117647 alpha:1.0];
             case ZBInterfaceStylePureBlack:
-                return [UIColor redColor];
+                return [UIColor blackColor];
         }
     }
     else {
