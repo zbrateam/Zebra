@@ -197,9 +197,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     controller.selectedRow = number ? (ZBAccentColor)[number integerValue] : ZBAccentColorCornflowerBlue;
     controller.settingChanged = ^(NSInteger newValue) {
-        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [ZBDevice hapticButton];
+        ZBAccentColor color = (ZBAccentColor)newValue;
+        [ZBSettings setAccentColor:color];
     };
     [self.navigationController pushViewController: controller animated:YES];
 }
