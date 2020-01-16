@@ -22,7 +22,7 @@
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Verifying Source(s)" = "リポジトリの検証中";
+"Verifying Source(s)" = "リポジトリを検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしい物リスト";
@@ -281,7 +281,7 @@
 "Required Package" = "変更が必要なパッケージ";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は以下の問題が解決できません";
+"%@ has issues that cannot be resolved:" = "%@ は解決できない以下の問題があります";
 "Are you sure?" = "確認";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。意味が理解ができない方は削除しないでください！";
@@ -302,7 +302,7 @@
 
 "Help translate Zebra!" = "Zebra の翻訳に協力します！";
 
-"Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
+"Could not respring. Please respring manually." = "リスプリングできませんでした。手動でリスプリングしてください。";
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
