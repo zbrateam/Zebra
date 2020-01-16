@@ -23,7 +23,7 @@
 "Utility source for %@" = "Zdroj nástrojů pro %@";
 "Transfer Sources" = "Přenést Zdroje";
 "Verifying Source" = "Ověřování Zdroje";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Sources" = "Ověřování Zdrojů";
 "Stores" = "Obchody";
 "Purchases" = "Nákupy";
 "Wish List" = "Seznam přání";
@@ -44,7 +44,7 @@
 
 "Settings" = "Nastavení";
 "Version" = "Verze";
-"Display" = "Display";
+"Display" = "Zobrazit";
 "Featured" = "Návrhy";
 "News" = "Novinky";
 "Miscellaneous" = "Různé";
@@ -55,7 +55,7 @@
 "Accent Color" = "Barva zvýraznění";
 "Blue" = "Modrá";
 "Orange" = "Oranžová";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Adaptivní";
 
 "Dark Mode Style" = "Styl tmavého režimu";
 "Dark Mode" = "Tmavý režim";
@@ -102,7 +102,7 @@
 "Error verifying sources" = "Chyba při ověřování zdrojů";
 "Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Zadejte URL adresu zdroje";
 "Add Sources" = "Přidat zdroje";
 "Add" = "Přidat";
 "Add Multiple" = "Přidat více najednou";
@@ -331,10 +331,10 @@
 "Removing Zebra..." = "Odstraňuji Zebra...";
 "Installing Zebra..." = "Instalace Zebry...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Přidání zdroje se nezdařilo";
+"Failed to add sources" = "Přidání zdrojů se nezdařilo";
+"Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
+"Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
 
 "Import Sources" = "Importovat zdroje";
-"Import" = "Import";
+"Import" = "Importovat";
