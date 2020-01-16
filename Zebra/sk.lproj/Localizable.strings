@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Zrušiť";
-"Yes" = "Yes";
+"Yes" = "Áno";
 "No" = "Nie";
 "Ok" = "OK";
 "Error" = "Chyba";
@@ -22,8 +22,8 @@
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
 "Utility source for %@" = "Repozitár nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Overovanie Zdroja";
+"Verifying Sources" = "Overovanie Zdrojov";
 "Stores" = "Obchody";
 "Purchases" = "Zakúpené";
 "Wish List" = "Zoznam želaní";
@@ -44,7 +44,7 @@
 
 "Settings" = "Nastavenie";
 "Version" = "Verzia";
-"Display" = "Display";
+"Display" = "Zobraziť";
 "Featured" = "Odporúčané";
 "News" = "Novinky";
 "Miscellaneous" = "Rôzne";
@@ -55,7 +55,7 @@
 "Accent Color" = "Doplnková farba";
 "Blue" = "Modrá";
 "Orange" = "Oranžová";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Adaptívny";
 
 "Dark Mode Style" = "Štýl Tmavého Režimu";
 "Dark Mode" = "Tmavý režim";
@@ -102,7 +102,7 @@
 "Error verifying sources" = "Chyba pri overovaní repozitárov";
 "Unknown error" = "Neznáma chyba";
 "Invalid URL" = "Chybné URL";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Zadajte URL adresu zdroja";
 "Add Sources" = "Pridaj Zdroj";
 "Add" = "Pridať";
 "Add Multiple" = "Pridať viac";
@@ -331,10 +331,10 @@
 "Removing Zebra..." = "Odstraniť Zebru...";
 "Installing Zebra..." = "Inštalácia zebry...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Pridanie zdroja zlyhalo";
+"Failed to add sources" = "Pridanie zdrojov zlyhalo";
+"Unable to locate an APT repository at:" = "Nemožno nájsť úložisko APT na:";
+"Unable to locate APT repositories at:" = "Nemožno nájsť úložiska APT na:";
 
 "Import Sources" = "Importovať Zdroje";
-"Import" = "Import";
+"Import" = "Importovať";
