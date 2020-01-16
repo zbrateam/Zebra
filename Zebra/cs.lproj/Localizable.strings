@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Zrušit";
-"Yes" = "Yes";
+"Yes" = "Ano";
 "No" = "Ne";
 "Ok" = "Ok";
 "Error" = "Chyba";
@@ -22,7 +22,7 @@
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility source for %@" = "Zdroj nástrojů pro %@";
 "Transfer Sources" = "Přenést Zdroje";
-"Verifying Source" = "Verifying Source";
+"Verifying Source" = "Ověřování Zdroje";
 "Verifying Sources" = "Verifying Sources";
 "Stores" = "Obchody";
 "Purchases" = "Nákupy";
