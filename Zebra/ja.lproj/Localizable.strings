@@ -88,7 +88,7 @@
 
 "Drop Tables" = "テーブルの削除";
 
-"Featured Sources" = "リポシドリ特集";
+"Featured Sources" = "注目のリポジトリ";
 
 // Sources
 
@@ -319,7 +319,7 @@
 
 "Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのリポジトリを変更します。";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "「リポジトリ特集」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
@@ -333,8 +333,8 @@
 
 "Failed to add source" = "リポジトリの追加に失敗しました";
 "Failed to add sources" = "リポジトリの追加に失敗しました";
-"Unable to locate an APT repository at:" = "以下の APT レポジトリを特定できませんでした";
-"Unable to locate APT repositories at:" = "以下の APT レポジトリを特定できませんでした";
+"Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
+"Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
 
 "Import Sources" = "リポジトリを追加する";
 "Import" = "インポート";
