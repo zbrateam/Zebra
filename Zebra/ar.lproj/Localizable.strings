@@ -44,7 +44,7 @@
 
 "Settings" = "الإعدادات";
 "Version" = "الإصدار";
-"Display" = "Display";
+"Display" = "عرض";
 "Featured" = "مميز";
 "News" = "الأخبار";
 "Miscellaneous" = "متنوع";
@@ -55,7 +55,7 @@
 "Accent Color" = "اللون الثانوي";
 "Blue" = "أزرق";
 "Orange" = "برتقالي";
-"Adaptive" = "Adaptive";
+"Adaptive" = "التكيف";
 
 "Dark Mode Style" = "نمط الوضع الداكن";
 "Dark Mode" = "الوضع الداكن";
