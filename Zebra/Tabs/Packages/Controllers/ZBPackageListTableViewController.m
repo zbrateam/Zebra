@@ -447,7 +447,8 @@
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    ZBPackage *candidate = [package installableCandidate];
+    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
+    ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
     destination.package = candidate ? candidate : package;
     destination.parent = self;
 }

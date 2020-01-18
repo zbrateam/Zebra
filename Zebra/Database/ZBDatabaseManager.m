@@ -918,7 +918,13 @@
                     
                     ZBPackage *package = [self packageForID:identifier equalVersion:version];
                     if (package != NULL && [upgradePackageIDs containsObject:package.identifier]) {
-                        [packagesWithUpdates addObject:package];
+                        NSString *baseVersion = [self installedVersionForPackage:package];
+                        ZBPackage *basePackage = baseVersion ? [self packageForID:identifier equalVersion:baseVersion] : nil;
+                        if (basePackage) {
+                            [packagesWithUpdates addObject:basePackage];
+                        } else {
+                            [packagesWithUpdates addObject:package];
+                        }
                     }
                 } else if ([upgradePackageIDs containsObject:identifier]) {
                     [upgradePackageIDs removeObject:identifier];
@@ -1100,7 +1106,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' AND VERSION = \'%@\' LIMIT 1;", identifier, version];
         
-        ZBPackage *package;
+        ZBPackage *package = nil;
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1117,7 +1123,7 @@
     } else {
         [self printDatabaseError];
     }
-    return NULL;
+    return nil;
 }
 
 - (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package {
