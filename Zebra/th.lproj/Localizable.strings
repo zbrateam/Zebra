@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "ยกเลิก";
-"Yes" = "Yes";
+"Yes" = "ใช่";
 "No" = "ไม่";
 "Ok" = "ตกลง";
 "Error" = "ข้อผิดพลาด";
@@ -44,7 +44,7 @@
 
 "Settings" = "การตั้งค่า";
 "Version" = "รุ่น";
-"Display" = "Display";
+"Display" = "การแสดงผล";
 "Featured" = "โปรแกรมยอดนิยม";
 "News" = "ข่าวสาร";
 "Miscellaneous" = "อื่นๆ";
@@ -55,7 +55,7 @@
 "Accent Color" = "สีหลัก";
 "Blue" = "น้ำเงิน";
 "Orange" = "ส้ม";
-"Adaptive" = "Adaptive";
+"Adaptive" = "ตามสภาพ";
 
 "Dark Mode Style" = "รูปแบบโหมดมืด";
 "Dark Mode" = "โหมดมืด";
@@ -332,9 +332,9 @@
 "Installing Zebra..." = "ติดตั้ง Zebra...";
 
 "Failed to add source" = "ไม่สามารถเพิ่มไฟล์";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add sources" = "ไม่สามารถเพิ่มซอร์สได้";
+"Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
+"Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 
 "Import Sources" = "นำเข้าซอร์ส";
-"Import" = "Import";
+"Import" = "นําเข้า";
