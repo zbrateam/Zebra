@@ -22,8 +22,8 @@
 "Transfer sources from %@ to Zebra" = "Transferir fuentes de %@ a Zebra";
 "Utility source for %@" = "Fuente de utilidad para %@";
 "Transfer Sources" = "Transferir fuentes";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificando fuente";
+"Verifying Sources" = "Verificando Fuentes";
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
 "Wish List" = "Lista de deseos";
@@ -44,7 +44,7 @@
 
 "Settings" = "Ajustes";
 "Version" = "Versión";
-"Display" = "Display";
+"Display" = "Mostrar";
 "Featured" = "Destacados";
 "News" = "Noticias";
 "Miscellaneous" = "Varios";
@@ -55,7 +55,7 @@
 "Accent Color" = "Color del acentuado";
 "Blue" = "Azul";
 "Orange" = "Anaranjado";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Adaptativo";
 
 "Dark Mode Style" = "Estilo del Modo Oscuro";
 "Dark Mode" = "Modo oscuro";
@@ -102,7 +102,7 @@
 "Error verifying sources" = "Error al verificar las fuentes";
 "Unknown error" = "Error desconocido";
 "Invalid URL" = "Dirección URL Invalida";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Introduce la fuente URL";
 "Add Sources" = "Añadir fuentes";
 "Add" = "Añadir";
 "Add Multiple" = "Añadir múltiples";
@@ -331,10 +331,10 @@
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Error al añadir fuente";
+"Failed to add sources" = "Error al añadir fuentes";
+"Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
+"Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
 
 "Import Sources" = "Importar fuentes";
 "Import" = "Importar";
