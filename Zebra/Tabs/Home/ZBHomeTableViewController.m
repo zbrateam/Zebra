@@ -78,7 +78,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
-    [self updateTheme];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)setupFeatured {
@@ -549,7 +549,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
         [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
-        [self updateTheme];
         [ZBDevice refreshViews];
     });
 }
@@ -611,7 +610,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)colorWindow {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIWindow *window = UIApplication.sharedApplication.delegate.window;
-        [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        window.backgroundColor = [UIColor tableViewBackgroundColor];
     });
 }
 
