@@ -16,7 +16,7 @@
 "Home" = "Hjem";
 "Info" = "Info";
 "Welcome to Zebra!" = "Velkommen til Zebra!";
-"Changelog" = "Ændringer";
+"Changelog" = "Ændringslog";
 "Community Sources" = "Fællesskabskilder";
 "You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
@@ -242,7 +242,7 @@
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Downloading" = "Overfører";
 "Parsing" = "Parser";
-"Downloading Packages..." = "Overfører pakker...";
+"Downloading Packages..." = "Overfører Pakker...";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakker...";
 "Removing" = "Fjerner";
@@ -328,7 +328,7 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfældig\" vil vise tilfældige pakker fra alle arkiver du har tilføjet til Zebra."; // This needs some attention
 
-"Community News" = "Fællesskabsnyheder";
+"Community News" = "Fællesskabs Nyheder";
 "Import Sources" = "Importer kilder";
 "Updating Repositories" = "Updaterer arkiver";
 "Would you like to import the following repositories?" = "Vil du importere de følgende arkiver?";
