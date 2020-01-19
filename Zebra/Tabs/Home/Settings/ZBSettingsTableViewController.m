@@ -21,8 +21,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 };
 
 typedef NS_ENUM(NSUInteger, ZBUIOrder) {
-    ZBChangeTint,
-    ZBChangeMode,
+    ZBChangeAccentColor,
+    ZBChangeDarkMode,
     ZBChangeIcon
 };
 
@@ -45,8 +45,8 @@ enum ZBMiscOrder {
 
 @interface ZBSettingsTableViewController () {
     NSMutableDictionary *_colors;
-    ZBTintSelection tintColorType;
-    ZBModeSelection selectedMode;
+    ZBAccentColorSelection accentColorType;
+    ZBDarkModeSelection selectedDarkMode;
 }
 
 @end
@@ -57,8 +57,8 @@ enum ZBMiscOrder {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"");
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self configureSelectedTint];
-    [self configureSelectedMode];
+    [self configureSelectedAccentColor];
+    [self configureSelectedDarkMode];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,22 +70,22 @@ enum ZBMiscOrder {
     }
 }
 
-- (void)configureSelectedTint {
+- (void)configureSelectedAccentColor {
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
-        tintColorType = (ZBTintSelection)[number integerValue];
+        accentColorType = (ZBAccentColorSelection)[number integerValue];
     } else {
-        tintColorType = ZBDefaultTint;
+        accentColorType = ZBDefaultTint;
     }
 }
 
-- (void)configureSelectedMode {
+- (void)configureSelectedDarkMode {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
-        selectedMode = ZBThirteen;
+        selectedDarkMode = ZBThirteen;
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
-        selectedMode = ZBOled;
+        selectedDarkMode = ZBOled;
     } else {
-        selectedMode = ZBDefaultMode;
+        selectedDarkMode = ZBDefaultMode;
     }
 }
 
@@ -209,14 +209,14 @@ enum ZBMiscOrder {
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
-                case ZBChangeTint: {
-                    if (self->tintColorType == ZBDefaultTint) {
+                case ZBChangeAccentColor: {
+                    if (self->accentColorType == ZBDefaultTint) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
-                    } else if (self->tintColorType == ZBBlue) {
+                    } else if (self->accentColorType == ZBBlue) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
-                    } else if (self->tintColorType == ZBOrange) {
+                    } else if (self->accentColorType == ZBOrange) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
-                    } else if (self->tintColorType == ZBWhiteOrBlack) {
+                    } else if (self->accentColorType == ZBWhiteOrBlack) {
                         if (ZBDevice.darkModeEnabled) {
                             cell.detailTextLabel.text = NSLocalizedString(@"White", @"");
                         } else {
@@ -229,12 +229,12 @@ enum ZBMiscOrder {
                     cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
                     break;
                 }
-                case ZBChangeMode: {
-                    if (self->selectedMode == ZBDefaultMode) {
+                case ZBChangeDarkMode: {
+                    if (self->selectedDarkMode == ZBDefaultMode) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
-                    } else if (self->selectedMode == ZBOled) {
+                    } else if (self->selectedDarkMode == ZBOled) {
                         cell.detailTextLabel.text = NSLocalizedString(@"OLED", @"");
-                    } else if (self->selectedMode == ZBThirteen) {
+                    } else if (self->selectedDarkMode == ZBThirteen) {
                         cell.detailTextLabel.text = NSLocalizedString(@"iOS 13", @"");
                     } else {
                         cell.detailTextLabel.text = @"";
@@ -368,10 +368,10 @@ enum ZBMiscOrder {
     switch (section) {
         case ZBInterface: {
             switch (indexPath.row) {
-                case ZBChangeTint:
-                    [self changeTint];
+                case ZBChangeAccentColor:
+                    [self changeAccentColor];
                     break;
-                case ZBChangeMode:
+                case ZBChangeDarkMode:
                     [self changeMode];
                     break;
                 case ZBChangeIcon:
@@ -510,16 +510,16 @@ enum ZBMiscOrder {
     [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Clearing keychain completed", @"")];
 }
 
-- (void)changeTint {
+- (void)changeAccentColor {
     NSString *theme = ZBDevice.darkModeEnabled ? @"White" : @"Black";
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
     controller.settingTitle = @"Accent Color";
     controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    controller.settingSelectedRow = number ? (ZBTintSelection)[number integerValue] : ZBDefaultTint;
+    controller.settingSelectedRow = number ? (ZBAccentColorSelection)[number integerValue] : ZBDefaultTint;
     controller.settingChanged = ^(NSInteger newValue) {
-        self->tintColorType = (ZBTintSelection) newValue;
+        self->accentColorType = (ZBAccentColorSelection) newValue;
         [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [ZBDevice hapticButton];
@@ -549,9 +549,9 @@ enum ZBMiscOrder {
     controller.settingOptions = @[@"Default", @"OLED", @"iOS 13"];
     controller.settingChanged = ^(NSInteger newValue) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        self->selectedMode = (ZBModeSelection)newValue;
-        [defaults setBool:self->selectedMode == ZBThirteen forKey:thirteenModeKey];
-        [defaults setBool:self->selectedMode == ZBOled forKey:oledModeKey];
+        self->selectedDarkMode = (ZBDarkModeSelection)newValue;
+        [defaults setBool:self->selectedDarkMode == ZBThirteen forKey:thirteenModeKey];
+        [defaults setBool:self->selectedDarkMode == ZBOled forKey:oledModeKey];
         [defaults synchronize];
         [ZBDevice hapticButton];
         [self oledAnimation];

@@ -13,13 +13,13 @@ typedef enum  {
     ZBBlue,
     ZBOrange,
     ZBWhiteOrBlack
-} ZBTintSelection;
+} ZBAccentColorSelection;
 
 typedef NS_ENUM(NSInteger)  {
     ZBDefaultMode = 0,
     ZBOled,
     ZBThirteen
-} ZBModeSelection;
+} ZBDarkModeSelection;
 
 @interface UIColor (GlobalColors)
 + (UIColor *)tintColor;
