@@ -31,7 +31,17 @@
 }
 
 - (void)setColor:(UIColor *)color {
-
+    CGSize size = CGSizeMake(16, 16);
+    
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    [color setFill];
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.iconView.image = image;
+    self.iconView.layer.cornerRadius = self.iconView.image.size.width / 2;
+    self.iconView.layer.masksToBounds = YES;
 }
 
 @end

@@ -11,7 +11,7 @@
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
-#import "ZBAppIconTableViewCell.h"
+#import "ZBRightIconTableViewCell.h"
 #import "ZBSettingsDisplayTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
@@ -62,7 +62,7 @@ enum ZBMiscOrder {
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBAppIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -140,13 +140,13 @@ enum ZBMiscOrder {
     UITableViewCell *cell;
     if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
         if (@available(iOS 10.3, *)) {
-            ZBAppIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+            ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
             
             cell.label.text = @"App Icon";
             
             NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
             UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-            [cell setIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
+            [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
             
             return cell;
         }

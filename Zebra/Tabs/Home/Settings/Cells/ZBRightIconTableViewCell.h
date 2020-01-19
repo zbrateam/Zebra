@@ -1,5 +1,5 @@
 //
-//  ZBAppIconTableViewCell.h
+//  ZBRightIconTableViewCell.h
 //  Zebra
 //
 //  Created by Wilson Styres on 1/11/20.
@@ -10,11 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBAppIconTableViewCell : UITableViewCell
+@interface ZBRightIconTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *iconView;
 @property (strong, nonatomic) IBOutlet UILabel *label;
 - (void)setAppIcon:(UIImage *)icon border:(BOOL)border;
-- (void)setColor:(UIImage *)icon border:(BOOL)border;
+- (void)setColor:(UIColor *)color;
 @end
 
 NS_ASSUME_NONNULL_END

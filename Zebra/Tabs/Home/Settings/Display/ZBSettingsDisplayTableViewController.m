@@ -11,6 +11,7 @@
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
+#import "ZBRightIconTableViewCell.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionAccentColor,
@@ -38,6 +39,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     pureBlackMode = [ZBSettings pureBlackMode];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsColorCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,33 +77,19 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"displayCell"];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"settingsDisplayCell"];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBSectionAccentColor: {
-            switch (accentColor) {
-                case ZBAccentColorCornflowerBlue:
-                    cell.detailTextLabel.text = NSLocalizedString(@"Cornflower Blue", @"");
-                    break;
-                case ZBAccentColorSystemBlue:
-                    cell.detailTextLabel.text = NSLocalizedString(@"System Blue", @"");
-                    break;
-                case ZBAccentColorOrange:
-                    cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
-                    break;
-                case ZBAccentColorAdaptive:
-                    cell.detailTextLabel.text = NSLocalizedString(@"Adaptive", @"");
-                    break;
-            }
-
-            cell.imageView.image = [self getCircularImage:CGSizeMake(16, 16) color:[UIColor accentColor]];
-            cell.imageView.layer.cornerRadius = cell.imageView.image.size.width / 2;
-            cell.imageView.layer.masksToBounds = YES;
+            ZBRightIconTableViewCell *colorCell = [tableView dequeueReusableCellWithIdentifier:@"settingsColorCell"];
+            
+            [colorCell setColor:[UIColor accentColor]];
                         
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
-            break;
+            colorCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            colorCell.label.text = NSLocalizedString(@"Accent Color", @"");
+            
+            return colorCell;
         }
         case ZBSectionSystemStyle: {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -247,15 +236,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-}
-
-- (UIImage*)getCircularImage:(CGSize)size color:(UIColor*)color {
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-    [color setFill];
-    UIRectFill(CGRectMake(0, 0, size.width, size.height));
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
 }
 
 @end
