@@ -16,7 +16,7 @@
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
     if (number) {
         switch ([number integerValue]) {
-            case ZBDefaultTint :
+            case ZBDefaultAccentColor:
                 return ([ZBDevice darkModeEnabled]) ? [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0] : [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
             case ZBBlue :
                 return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
