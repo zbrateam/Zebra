@@ -20,17 +20,17 @@
 "Community Sources" = "Topluluk Kaynakları";
 "You’ve added all of the community sources" = "Bütün topluluk kaynaklarını eklediniz";
 "Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Kaynak Onaylanıyor";
+"Verifying Sources" = "Kaynaklar Onaylanıyor";
 "Stores" = "Market";
 "Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
 "No items in Wish List" = "İstek listesinde öğe yok";
 "Community" = "Topluluk";
 "Join our Discord" = "Discord'umuza katıl!";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Bizi Twitter'da takip edin";
 
 //Credits
 
@@ -44,7 +44,7 @@
 
 "Settings" = "Ayarlar";
 "Version" = "Versiyon";
-"Display" = "Display";
+"Display" = "Görünüm";
 "Featured" = "Öne Çıkanlar";
 "News" = "Haberler";
 "Miscellaneous" = "Diğer";
@@ -55,7 +55,7 @@
 "Accent Color" = "Varsayılan Renk";
 "Blue" = "Mavi";
 "Orange" = "Turuncu";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Uyarlanabilir";
 
 "Dark Mode Style" = "Karanlık Mod Stili";
 "Dark Mode" = "Karanlık Mod";
@@ -102,7 +102,7 @@
 "Error verifying sources" = "Kaynakları doğrularken hata oluştu";
 "Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Kaynak URL'sini Gir";
 "Add Sources" = "Kaynakları Ekle";
 "Add" = "Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
@@ -325,16 +325,16 @@
 
 "Community News" = "Topluluk Haberleri";
 "Import Sources" = "Kaynakları İçeri Al";
-"Updating Sources" = "Updating Sources";
+"Updating Sources" = "Kaynaklar Güncelleniyor";
 "Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
 "Download Completed" = "İndirme Tamamlandı";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Kaynak eklenemedi";
+"Failed to add sources" = "Kaynaklar eklenemedi";
+"Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
+"Unable to locate APT repositories at:" = "APT deposu şu konumda bulunamadı:";
 
 "Import Sources" = "Kaynakları İçeri Al";
-"Import" = "Import";
+"Import" = "İçeri Aktar";
