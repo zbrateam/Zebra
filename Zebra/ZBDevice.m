@@ -517,7 +517,7 @@
     }
 }
 
-+ (NSInteger)selectedColorTint {
++ (NSInteger)selectedAccentColor {
     return [[NSUserDefaults standardUserDefaults] integerForKey:tintSelectionKey];
 }
 
