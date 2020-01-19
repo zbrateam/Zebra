@@ -105,6 +105,10 @@ enum ZBSearchSection {
     }
     else {
         UITextField *textField = [self.searchController.searchBar valueForKey:@"_searchField"];
+        if (@available(iOS 11.0, *)) {} else {
+            textField.backgroundColor = [UIColor cellBackgroundColor];
+            [searchController.searchBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+        }
         textField.textColor = [UIColor cellPrimaryTextColor];
     }
 }
