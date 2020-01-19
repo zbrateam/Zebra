@@ -9,17 +9,17 @@
 #import <UIKit/UIKit.h>
 
 typedef enum  {
-    ZBDefaultTint = 0,
+    ZBDefaultAccentColor = 0,
     ZBBlue,
     ZBOrange,
     ZBWhiteOrBlack
-} ZBTintSelection;
+} ZBAccentColorSelection;
 
 typedef NS_ENUM(NSInteger)  {
     ZBDefaultMode = 0,
     ZBOled,
     ZBThirteen
-} ZBModeSelection;
+} ZBDarkModeSelection;
 
 @interface UIColor (GlobalColors)
 + (UIColor *)tintColor;

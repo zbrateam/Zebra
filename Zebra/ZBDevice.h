@@ -47,7 +47,7 @@
 + (void)configureLightMode;
 + (void)applyThemeSettings;
 + (void)refreshViews;
-+ (NSInteger)selectedColorTint;
++ (NSInteger)selectedAccentColor;
 
 //Settings
 + (BOOL)useIcon;

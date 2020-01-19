@@ -78,7 +78,6 @@
         [self.tableView reloadData];
         
         if ([self->packages count] == 0) {
-//            [[ZBAppDelegate tabBarController] closeQueue];
             [self->queue clear];
         }
     });

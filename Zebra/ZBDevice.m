@@ -164,6 +164,9 @@
                 failed = YES;
             }
         }
+        else {
+            failed = YES; //sbreload hangs on < 10 apparently so we have to mark it as failed in order to continue
+        }
         
         //Try launchctl
         if (failed) {
@@ -514,7 +517,7 @@
     }
 }
 
-+ (NSInteger)selectedColorTint {
++ (NSInteger)selectedAccentColor {
     return [[NSUserDefaults standardUserDefaults] integerForKey:tintSelectionKey];
 }
 

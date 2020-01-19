@@ -105,6 +105,10 @@ enum ZBSearchSection {
     }
     else {
         UITextField *textField = [self.searchController.searchBar valueForKey:@"_searchField"];
+        if (@available(iOS 11.0, *)) {} else {
+            textField.backgroundColor = [UIColor cellBackgroundColor];
+            [searchController.searchBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+        }
         textField.textColor = [UIColor cellPrimaryTextColor];
     }
 }
@@ -327,7 +331,7 @@ enum ZBSearchSection {
     if (indexPath.section == ZBSearchSectionNotFound) {
         return NO;
     }
-    return YES;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {

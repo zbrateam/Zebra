@@ -78,7 +78,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
-    [self updateTheme];
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)setupFeatured {
@@ -549,7 +549,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
         [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
-        [self updateTheme];
         [ZBDevice refreshViews];
     });
 }
@@ -567,10 +566,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     transition.duration = 0.35;
     transition.subtype = kCATransitionFromTop;
     [self.view.layer addAnimation:transition forKey:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    _darkModeButton.tintColor = [UIColor tintColor];
-    _settingsButton.tintColor = [UIColor tintColor];
     [self configureFooter];
 }
 
@@ -611,7 +609,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)colorWindow {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIWindow *window = UIApplication.sharedApplication.delegate.window;
-        [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        window.backgroundColor = [UIColor tableViewBackgroundColor];
     });
 }
 
@@ -654,7 +652,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

@@ -262,6 +262,10 @@
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
 }
 
+- (BOOL)isQueueBarAnimating {
+    return self.popupPresentationState == LNPopupPresentationStateTransitioning;
+}
+
 - (void)closeQueue {
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
