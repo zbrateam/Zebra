@@ -256,7 +256,7 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeAdd</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Add Repo</string>
+			<string>Add Source</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>Add</string>
 		</dict>
