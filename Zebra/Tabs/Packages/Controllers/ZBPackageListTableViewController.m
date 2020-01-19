@@ -302,7 +302,14 @@
 
 - (void)upgradeAll {
     ZBQueue *queue = [ZBQueue sharedQueue];
-    [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
+    
+    for (ZBPackage *package in updates) {
+        ZBPackage *upgradeVersion = [[ZBDatabaseManager sharedInstance] topVersionForPackage:package];
+        if (upgradeVersion) {
+            [queue addPackage:upgradeVersion toQueue:ZBQueueTypeUpgrade];
+        }
+    }
+    
     [self presentQueue];
 }
 
