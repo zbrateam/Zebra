@@ -331,7 +331,7 @@ enum ZBSearchSection {
     if (indexPath.section == ZBSearchSectionNotFound) {
         return NO;
     }
-    return YES;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {

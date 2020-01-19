@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Database/ZBDatabaseDelegate.h>
 
+#ifndef _TABBAR_H_
+#define _TABBAR_H
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate>
@@ -24,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)forwardToPackage;
 - (void)updateQueueBarPackageCount:(int)count;
 - (void)closeQueue;
+- (BOOL)isQueueBarAnimating;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif
