@@ -100,20 +100,18 @@
 }
 
 - (void)zb_viewDidLayoutSubviews {
-//    if (@available(iOS 13.0, *)) {
-//        if ([ZBDevice darkModeEnabled]) {
-//            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-//        }
-//    }
-//    
-//    if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
-//        [self setTextColor];
-//    }
-//    else {
-//        self.view.tintColor = [UIColor tintColor];
-//    }
-//    [self zb_viewDidLayoutSubviews];
-//    [self setBackgroundColor];
+    if (@available(iOS 13.0, *)) {
+        if ([ZBDevice darkModeEnabled]) {
+            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        }
+    }
+    
+    self.view.tintColor = [UIColor tintColor];
+    if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
+        [self setTextColor];
+    }
+    [self zb_viewDidLayoutSubviews];
+    [self setBackgroundColor];
 }
 
 @end

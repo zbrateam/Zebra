@@ -22,7 +22,7 @@
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Verifying Source(s)" = "リポジトリの検証中";
+"Verifying Source(s)" = "リポジトリを検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしい物リスト";
@@ -260,10 +260,10 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、再試行してください";
 
 // Queue Bar
-"%d Packages Queued" = "%d 個のパッケージがキューに追加されています";
-"%d Package Queued" = "%d 個のパッケージがキューに追加されています";
+"%d Packages Queued" = "%d 個のパッケージがキューされています";
+"%d Package Queued" = "%d 個のパッケージがキューされています";
 "Tap to manage" = "タップして管理";
-"No Packages Queued" = "キューに追加されているパッケージはありません";
+"No Packages Queued" = "キューがクリアされました";
 
 // Queue
 
@@ -281,7 +281,7 @@
 "Required Package" = "変更が必要なパッケージ";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は以下の問題が解決できません";
+"%@ has issues that cannot be resolved:" = "%@ は解決できない以下の問題があります";
 "Are you sure?" = "確認";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。意味が理解ができない方は削除しないでください！";
@@ -302,7 +302,7 @@
 
 "Help translate Zebra!" = "Zebra の翻訳に協力します！";
 
-"Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
+"Could not respring. Please respring manually." = "リスプリングできませんでした。手動でリスプリングしてください。";
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
@@ -324,7 +324,7 @@
 
 "Change the source of the featured packages on the homepage." = "ホームに表示される「注目のパッケージ」のリポジトリを変更します。";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のパッケージ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 

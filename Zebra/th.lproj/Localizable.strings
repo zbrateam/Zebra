@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "ยกเลิก";
-"Yes" = "Yes";
+"Yes" = "ใช่";
 "No" = "ไม่";
 "Ok" = "ตกลง";
 "Error" = "ข้อผิดพลาด";
@@ -71,7 +71,7 @@
 "Feature Type" = "วิธีแสดง";
 "Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
 
-"News" = "News";
+"News" = "ข่าวสาร";
 
 "Live Search" = "ค้นหาทันที";
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "เพิ่มหลายอัน";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
 "Please Wait..." = "โปรดรอ...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
 "Unable to verify Repo" = "ไม่สามารถตรวจสอบซอร์สได้";
 "Refresh" = "โหลดใหม่";
 "Log Out" = "ลงชื่อออก";

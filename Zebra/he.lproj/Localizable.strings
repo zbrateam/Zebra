@@ -240,7 +240,7 @@
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
-"Downloading" = "מוריד את";
+"Downloading" = "מוריד";
 "Parsing" = "מנתח";
 "Downloading Packages..." = "מוריד חבילות...";
 "Installing" = "מתקין";

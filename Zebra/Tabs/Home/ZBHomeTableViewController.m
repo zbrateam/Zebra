@@ -630,7 +630,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

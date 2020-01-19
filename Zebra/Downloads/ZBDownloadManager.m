@@ -545,12 +545,11 @@
                 [downloadDelegate finishedPackageDownload:package withError:error];
             }
             else {
-                NSString *debsPath = [ZBAppDelegate debsLocation];
-                NSString *finalPath = [debsPath stringByAppendingPathComponent:suggestedFilename];
+                ZBPackage *package = self->packageTasksMap[@(taskIdentifier)];
                 
-                if (![[finalPath pathExtension] isEqualToString:@"deb"]) { //create deb extension so apt doesnt freak
-                    finalPath = [[finalPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"deb"];
-                }
+                NSString *debsPath = [ZBAppDelegate debsLocation];
+                NSString *filename = [NSString stringWithFormat:@"%@_%@.deb", [package identifier], [package version]];
+                NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(NSError *error) {
                     ZBPackage *package = self->packageTasksMap[@(downloadTask.taskIdentifier)];
