@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "İptal";
-"Yes" = "Yes";
+"Yes" = "Evet";
 "No" = "Hayır";
 "Ok" = "Tamam";
 "Error" = "Hata";
@@ -238,7 +238,7 @@
 "Close Zebra" = "Zebra'yı Kapat";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
 "Downloading" = "İndiriliyor";
-"Parsing" = "Parsing";
+"Parsing" = "Ayrıştırılıyor";
 "Downloading Packages..." = "Paketler İndiriliyor...";
 "Installing" = "Yükleniyor";
 "Installing Packages..." = "Paketler Yükleniyor...";
