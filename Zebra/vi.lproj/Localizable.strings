@@ -22,8 +22,8 @@
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
 "Utility source for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Đang xác minh nguồn";
+"Verifying Sources" = "Đang xác minh nguồn";
 "Stores" = "Cửa hàng";
 "Purchases" = "Mua hàng";
 "Wish List" = "Danh sách mong muốn";
@@ -102,7 +102,7 @@
 "Error verifying sources" = "Lỗi khi xác minh nguồn";
 "Unknown error" = "Lỗi không xác định";
 "Invalid URL" = "URL không hợp lệ";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Nhập liên kết của nguồn";
 "Add Sources" = "Thêm nguồn";
 "Add" = "Thêm";
 "Add Multiple" = "Thêm nhiều";
@@ -331,10 +331,10 @@
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
+"Failed to add source" = "Thêm nguồn thất bại";
+"Failed to add sources" = "Thêm nguồn thất bại";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
 "Import Sources" = "Nhập nguồn";
-"Import" = "Import";
+"Import" = "Nhập";
