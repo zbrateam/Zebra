@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef enum  {
-    ZBDefaultTint = 0,
+    ZBDefaultAccentColor = 0,
     ZBBlue,
     ZBOrange,
     ZBWhiteOrBlack

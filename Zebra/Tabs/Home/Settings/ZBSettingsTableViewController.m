@@ -75,7 +75,7 @@ enum ZBMiscOrder {
     if (number) {
         accentColorType = (ZBAccentColorSelection)[number integerValue];
     } else {
-        accentColorType = ZBDefaultTint;
+        accentColorType = ZBDefaultAccentColor;
     }
 }
 
@@ -210,7 +210,7 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBChangeAccentColor: {
-                    if (self->accentColorType == ZBDefaultTint) {
+                    if (self->accentColorType == ZBDefaultAccentColor) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
                     } else if (self->accentColorType == ZBBlue) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
@@ -517,7 +517,7 @@ enum ZBMiscOrder {
     controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
     controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    controller.settingSelectedRow = number ? (ZBAccentColorSelection)[number integerValue] : ZBDefaultTint;
+    controller.settingSelectedRow = number ? (ZBAccentColorSelection)[number integerValue] : ZBDefaultAccentColor;
     controller.settingChanged = ^(NSInteger newValue) {
         self->accentColorType = (ZBAccentColorSelection) newValue;
         [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
