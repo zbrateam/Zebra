@@ -103,11 +103,9 @@
         }
     }
     
+    self.view.tintColor = [UIColor tintColor];
     if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
         [self setTextColor];
-    }
-    else {
-        self.view.tintColor = [UIColor tintColor];
     }
     [self zb_viewDidLayoutSubviews];
     [self setBackgroundColor];
