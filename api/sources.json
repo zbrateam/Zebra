@@ -38,13 +38,6 @@
         {
             "type": "repo",
             "appVersion": "1.0.1",
-            "name": "rpetrich repo",
-            "url": "https://rpetri.ch/repo/",
-            "icon": "https://rpetri.ch/repo/CydiaIcon.png"
-        },
-        {
-            "type": "repo",
-            "appVersion": "1.0.1",
             "name": "Twickd",
             "url": "https://repo.twickd.com/",
             "icon": "https://repo.twickd.com/CydiaIcon.png"
