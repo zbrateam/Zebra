@@ -566,10 +566,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     transition.duration = 0.35;
     transition.subtype = kCATransitionFromTop;
     [self.view.layer addAnimation:transition forKey:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
     [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    _darkModeButton.tintColor = [UIColor tintColor];
-    _settingsButton.tintColor = [UIColor tintColor];
     [self configureFooter];
 }
 
@@ -653,7 +652,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 
