@@ -20,6 +20,7 @@
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Theme/ZBThemeManager.h>
 
 @import FirebaseCore;
 @import Crashlytics;
@@ -220,7 +221,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         [[UINavigationBar appearance] setScrollEdgeAppearance:app];
     }
     
-    [ZBSettings updateInterfaceStyle];
+    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     return YES;
 }

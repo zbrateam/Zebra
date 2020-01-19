@@ -48,7 +48,6 @@
             case ZBInterfaceStyleLight:
                 return [UIColor groupTableViewBackgroundColor];
             case ZBInterfaceStyleDark:
-                return [UIColor colorWithRed:0.109804 green:0.109804 blue:0.117647 alpha:1.0];
             case ZBInterfaceStylePureBlack:
                 return [UIColor blackColor];
         }
@@ -58,13 +57,28 @@
     }
 }
 
++ (UIColor *)groupedCellBackgroundColor {
+    if ([ZBThemeManager useCustomTheming]) {
+        switch ([ZBSettings interfaceStyle]) {
+            case ZBInterfaceStyleLight:
+                return [UIColor whiteColor];
+            case ZBInterfaceStyleDark:
+                return [UIColor colorWithRed:0.11 green:0.11 blue:0.12 alpha:1.0];
+            case ZBInterfaceStylePureBlack:
+                return [UIColor blackColor];
+        }
+    }
+    else {
+        return [UIColor secondarySystemGroupedBackgroundColor];
+    }
+}
+
 + (UIColor *)cellBackgroundColor {
     if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor whiteColor];
             case ZBInterfaceStyleDark:
-                return [UIColor colorWithRed:0.11 green:0.11 blue:0.114 alpha:1.0];
             case ZBInterfaceStylePureBlack:
                 return [UIColor blackColor];
         }
@@ -116,7 +130,7 @@
         }
     }
     else {
-        return [UIColor separatorColor];
+        return [UIColor opaqueSeparatorColor];
     }
 }
 

@@ -272,6 +272,8 @@ typedef enum ZBLinksOrder : NSUInteger {
                     cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
                     cell.textLabel.textColor = [UIColor primaryTextColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+                    
                     return cell;
                 }
                 case ZBBug: {
@@ -292,6 +294,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.textLabel.textColor = [UIColor primaryTextColor];
                     [cell.textLabel sizeToFit];
+                    cell.backgroundColor = [UIColor groupedCellBackgroundColor];
                     
                     return cell;
                 }
@@ -333,6 +336,8 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
+            cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+            
             return cell;
         }
         case ZBLinks: {
@@ -364,8 +369,9 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
-            return cell;
+            cell.backgroundColor = [UIColor groupedCellBackgroundColor];
             
+            return cell;
         }
         case ZBCredits: {
             static NSString *cellIdentifier = @"creditCell";
@@ -381,6 +387,8 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
+            cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+            
             return cell;
         }
         default:
@@ -580,15 +588,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 //        return UIStatusBarStyleDefault;
 //    }
 //}
-
-- (void)colorWindow {
-    if ([ZBThemeManager useCustomTheming]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIWindow *window = UIApplication.sharedApplication.delegate.window;
-            [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        });
-    }
-}
 
 #pragma mark UICollectionView
 

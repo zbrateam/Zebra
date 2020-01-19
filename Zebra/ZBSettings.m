@@ -164,27 +164,6 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
     [defaults synchronize];
 }
 
-+ (void)updateInterfaceStyle {
-    if (@available(iOS 13.0, *)) {
-        [UIView animateWithDuration:5.0 animations:^{
-                if (![self usesSystemAppearance]) {
-                switch ([self interfaceStyle]) {
-                    case ZBInterfaceStyleLight:
-                        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-                        break;
-                    case ZBInterfaceStyleDark:
-                    case ZBInterfaceStylePureBlack:
-                        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-                        break;
-                }
-            }
-            else {
-                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-            }
-        }];
-    }
-}
-
 + (NSString *_Nullable)appIconName {
     if (@available(iOS 10.3, *)) {
         return [[UIApplication sharedApplication] alternateIconName];

@@ -8,6 +8,7 @@
 
 #import "ZBThemeManager.h"
 #import "UIColor+GlobalColors.h"
+#import <UIKit/UIKit.h>
 
 @import LNPopupController;
 
@@ -55,7 +56,7 @@
     }
 }
 
-- (void)updateTheme {
+- (void)updateInterfaceStyle {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([ZBThemeManager useCustomTheming]) {
             self->interfaceStyle = [ZBSettings interfaceStyle];
@@ -66,6 +67,22 @@
             [self configureTableView];
             [self configurePopupBar];
             [self refreshViews];
+        }
+        else {
+            if (![ZBSettings usesSystemAppearance]) {
+                switch ([self interfaceStyle]) {
+                    case ZBInterfaceStyleLight:
+                        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+                        break;
+                    case ZBInterfaceStyleDark:
+                    case ZBInterfaceStylePureBlack:
+                        [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+                        break;
+                }
+            }
+            else {
+                [[UIApplication sharedApplication] windows][0].overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+            }
         }
     });
 }
@@ -111,7 +128,7 @@
     [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
     [[UITableView appearance] setTintColor:[UIColor accentColor]];
     
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor groupedCellBackgroundColor]];
     [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor primaryTextColor];
 }
 
@@ -149,7 +166,7 @@
     else {
         [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
     }
-    [self updateTheme];
+    [self updateInterfaceStyle];
 }
 
 - (UIImage *)toggleImage {

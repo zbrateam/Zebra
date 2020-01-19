@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor;
 + (BOOL)useCustomTheming;
 - (BOOL)darkMode;
-- (void)updateTheme;
+- (void)updateInterfaceStyle;
 - (void)toggleTheme;
 - (UIImage *)toggleImage;
 @end

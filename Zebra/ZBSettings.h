@@ -73,8 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)pureBlackMode;
 + (void)setPureBlackMode:(BOOL)pureBlackMode;
 
-+ (void)updateInterfaceStyle;
-
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
 

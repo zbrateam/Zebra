@@ -15,6 +15,7 @@
 + (UIColor *)blueCornflowerColor;
 + (UIColor *)tableViewBackgroundColor;
 + (UIColor *)groupedTableViewBackgroundColor;
++ (UIColor *)groupedCellBackgroundColor;
 + (UIColor *)cellBackgroundColor;
 + (UIColor *)primaryTextColor;
 + (UIColor *)secondaryTextColor;

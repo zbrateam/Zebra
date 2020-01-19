@@ -10,6 +10,7 @@
 #import "ZBSettingsOptionsTableViewController.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
+#import <ZBThemeManager.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionAccentColor,
@@ -245,7 +246,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     
-    [ZBSettings updateInterfaceStyle];
+    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
 }
 
 - (UIImage*)getCircularImage:(CGSize)size color:(UIColor*)color {
