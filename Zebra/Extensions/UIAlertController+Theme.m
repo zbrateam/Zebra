@@ -100,13 +100,7 @@
 }
 
 - (void)zb_viewDidLayoutSubviews {
-    if (@available(iOS 13.0, *)) {
-        if ([ZBDevice darkModeEnabled]) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-        }
-    }
-    
-    self.view.tintColor = [UIColor tintColor];
+    self.view.tintColor = [UIColor accentColor];
     if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
         [self setTextColor];
     }

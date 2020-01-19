@@ -109,7 +109,7 @@ enum ZBSearchSection {
             textField.backgroundColor = [UIColor cellBackgroundColor];
             [searchController.searchBar setBarTintColor:[UIColor tableViewBackgroundColor]];
         }
-        textField.textColor = [UIColor cellPrimaryTextColor];
+        textField.textColor = [UIColor primaryTextColor];
     }
 }
 

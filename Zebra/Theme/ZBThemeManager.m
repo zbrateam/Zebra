@@ -68,7 +68,7 @@
             [self configurePopupBar];
             [self refreshViews];
         }
-        else {
+        else if (@available(iOS 13.0, *)) {
             if (![ZBSettings usesSystemAppearance]) {
                 switch ([self interfaceStyle]) {
                     case ZBInterfaceStyleLight:
