@@ -248,27 +248,29 @@
         NSURL *releaseURL = [baseURL URLByAppendingPathComponent:@"Release"];
         NSURL *packagesURL = dist ? [baseURL URLByAppendingPathComponent:@"main/binary-iphoneos-arm/Packages.bz2"] : [baseURL URLByAppendingPathComponent:@"Packages.bz2"];
 
-        NSURLSessionTask *releaseTask = [session downloadTaskWithURL:releaseURL];
-        releaseTasksMap[@(releaseTask.taskIdentifier)] = releaseURL;
-        ++tasks;
-        [releaseTask resume];
-        
-        NSString *schemeless = [[baseURL absoluteString] stringByReplacingOccurrencesOfString:[baseURL scheme] withString:@""];
-        NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        NSString *saveName = [NSString stringWithFormat:[[baseURL absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, @"Release"];
-        NSString *baseFileName = [self baseFileNameFromFullPath:saveName];
-        
-        NSMutableURLRequest *packagesRequest = [[NSMutableURLRequest alloc] initWithURL:packagesURL];
-        if (!ignore) {
-            [packagesRequest setValue:[self baseFilenameLastModified:baseFileName distRepo:dist] forHTTPHeaderField:@"If-Modified-Since"];
+        if (baseURL && releaseURL && packagesURL) {
+            NSURLSessionTask *releaseTask = [session downloadTaskWithURL:releaseURL];
+            releaseTasksMap[@(releaseTask.taskIdentifier)] = releaseURL;
+            ++tasks;
+            [releaseTask resume];
+            
+            NSString *schemeless = [[baseURL absoluteString] stringByReplacingOccurrencesOfString:[baseURL scheme] withString:@""];
+            NSString *safe = [[schemeless substringFromIndex:3] stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            NSString *saveName = [NSString stringWithFormat:[[baseURL absoluteString] rangeOfString:@"dists"].location == NSNotFound ? @"%@._%@" : @"%@%@", safe, @"Release"];
+            NSString *baseFileName = [self baseFileNameFromFullPath:saveName];
+            
+            NSMutableURLRequest *packagesRequest = [[NSMutableURLRequest alloc] initWithURL:packagesURL];
+            if (!ignore) {
+                [packagesRequest setValue:[self baseFilenameLastModified:baseFileName distRepo:dist] forHTTPHeaderField:@"If-Modified-Since"];
+            }
+            
+            NSURLSessionTask *packagesTask = [session downloadTaskWithRequest:packagesRequest];
+            sourcePackagesTasksMap[@(packagesTask.taskIdentifier)] = packagesURL;
+            ++tasks;
+            [packagesTask resume];
+            
+            [downloadDelegate predator:self startedDownloadForFile:baseFileName];
         }
-        
-        NSURLSessionTask *packagesTask = [session downloadTaskWithRequest:packagesRequest];
-        sourcePackagesTasksMap[@(packagesTask.taskIdentifier)] = packagesURL;
-        ++tasks;
-        [packagesTask resume];
-        
-        [downloadDelegate predator:self startedDownloadForFile:baseFileName];
     }
 }
 
