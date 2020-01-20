@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "取消";
-"Yes" = "Yes";
+"Yes" = "是";
 "No" = "否";
 "Ok" = "確認";
 "Error" = "錯誤";
@@ -22,8 +22,8 @@
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility source for %@" = "%@ 的工具軟體來源";
 "Transfer Sources" = "匯入來源";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "正在驗證來源";
+"Verifying Sources" = "正在驗證來源";
 "Stores" = "商店";
 "Purchases" = "購買項目";
 "Wish List" = "願望清單";
@@ -44,7 +44,7 @@
 
 "Settings" = "設定";
 "Version" = "版本";
-"Display" = "Display";
+"Display" = "顯示";
 "Featured" = "精選";
 "News" = "新聞 ";
 "Miscellaneous" = "其他設定";
@@ -102,7 +102,7 @@
 "Error verifying sources" = "驗證來源時發生錯誤";
 "Unknown error" = "未知錯誤";
 "Invalid URL" = "無效的網址";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "輸入來源網址";
 "Add Sources" = "新增來源";
 "Add" = "新增";
 "Add Multiple" = "新增多個";
@@ -331,10 +331,10 @@
 "Removing Zebra..." = "正在移除 Zebra...";
 "Installing Zebra..." = "正在安裝 Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "新增來源失敗";
+"Failed to add sources" = "新增來源失敗";
+"Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
+"Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
 
 "Import Sources" = "匯入來源";
-"Import" = "Import";
+"Import" = "匯入";
