@@ -73,7 +73,7 @@
 
 "News" = "News";
 
-"Live Search" = "Live Søgning";
+"Live Search" = "Live Search";
 
 "Swipe Actions Display As" = "Svirp Handling Vises Som";
 "Text" = "Tekst";
@@ -91,7 +91,7 @@
 
 "Alternate Icons" = "Alternative Ikoner";
 
-"Featured Repos" = "Udvalgte Arkiver";
+"Featured Repos" = "Featured Repos";
 
 // Sources
 
@@ -131,7 +131,7 @@
 "Show Updates" = "Vis Opdateringer";
 "Ignore Updates" = "Ignorer Opdateringer";
 "Select Version" = "Vælg Udgave";
-"Select a version to upgrade to:" = "Vælg version for opgradering:";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Vælg version for nedgradering:";
 "Package" = "Pakker";
 "Information" = "Information";
@@ -155,10 +155,10 @@
 "Installed Size" = "Installeret Størrelse";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Aktuel Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Aktuel Størrelse: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
