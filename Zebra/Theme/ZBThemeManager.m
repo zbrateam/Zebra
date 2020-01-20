@@ -57,11 +57,11 @@
 }
 
 - (void)updateInterfaceStyle {
+    self->interfaceStyle = [ZBSettings interfaceStyle];
+    self->accentColor = [ZBSettings accentColor];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([ZBThemeManager useCustomTheming]) {
-            self->interfaceStyle = [ZBSettings interfaceStyle];
-            self->accentColor = [ZBSettings accentColor];
-            
             [self configureTabBar];
             [self configureNavigationBar];
             [self configureTableView];

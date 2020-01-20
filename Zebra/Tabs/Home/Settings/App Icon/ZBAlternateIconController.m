@@ -167,7 +167,7 @@
             
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
-                    NSLog(@"[Zebra] Error while setting icon:  %@ %@", error.localizedDescription, name);
+                    NSLog(@"[Zebra] Error while setting icon: %@ %@", error.localizedDescription, name);
                 }
                 [self.navigationController popViewControllerAnimated:YES];
             }];

@@ -56,19 +56,28 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (usesSystemAppearance) {
+    if (@available(iOS 13.0, *)) {
+        if (usesSystemAppearance) {
+            return 3;
+        }
+        return 4;
+    }
+    else {
         return 3;
     }
-    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case ZBSectionAccentColor:
-        case ZBSectionSystemStyle:
             return 1;
+        case ZBSectionSystemStyle:
+            if (@available(iOS 13.0, *)) return 1;
         case ZBSectionStyleChooser:
-            if (!usesSystemAppearance) return 2;
+            if (@available(iOS 13.0, *)) {
+                if (!usesSystemAppearance) return 2;
+            }
+            else if (section == 1 && !usesSystemAppearance) return 2;
         case ZBSectionPureBlack:
             return 1;
         default:
@@ -92,19 +101,34 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             return colorCell;
         }
         case ZBSectionSystemStyle: {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = @"Use System Appearance";
-            
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            
-            enableSwitch.on = usesSystemAppearance;
-            cell.accessoryView = enableSwitch;
-            break;
+            if (@available(iOS 13.0, *)) {
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.text = @"Use System Appearance";
+                
+                UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+                [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
+                [enableSwitch setOnTintColor:[UIColor accentColor]];
+                
+                enableSwitch.on = usesSystemAppearance;
+                cell.accessoryView = enableSwitch;
+                break;
+            }
         }
         case ZBSectionStyleChooser: {
-            if (!usesSystemAppearance) {
+            if (@available(iOS 13.0, *)) {
+                if (!usesSystemAppearance) {
+                    if (indexPath.row == 0) {
+                        cell.textLabel.text = @"Light";
+                        cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    }
+                    else {
+                        cell.textLabel.text = @"Dark";
+                        cell.accessoryType = interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    }
+                    break;
+                }
+            }
+            else if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Light";
                     cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -141,13 +165,23 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionAccentColor:
             [self changeTint];
             break;
+        case ZBSectionSystemStyle: {
+            if (@available(iOS 13.0, *)) {
+                break;
+            }
+        }
         case ZBSectionStyleChooser: {
             if (!usesSystemAppearance) {
                 UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                 UITableViewCell *otherCell;
                 
                 if (indexPath.row == 0) { //Light
-                    otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionStyleChooser]];
+                    if (@available(iOS 13.0, *)) {
+                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionStyleChooser]];
+                    }
+                    else {
+                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionSystemStyle]];
+                    }
                     
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     otherCell.accessoryType = UITableViewCellAccessoryNone;
@@ -156,7 +190,12 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                     [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
                 }
                 else { //Dark
-                    otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionStyleChooser]];
+                    if (@available(iOS 13.0, *)) {
+                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionStyleChooser]];
+                    }
+                    else {
+                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionSystemStyle]];
+                    }
                     
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     otherCell.accessoryType = UITableViewCellAccessoryNone;
