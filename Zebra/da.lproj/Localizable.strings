@@ -20,7 +20,7 @@
 "Community Sources" = "Fællesskabskilder";
 "You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
-"Utility repo for %@" = "Værktøjs arkiv til %@";
+"Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Overfør Kilder";
 "Verifying Source(s)" = "Verificerer Kilde(r)";
 "Stores" = "Butikker";
@@ -57,15 +57,15 @@
 "White" = "Hvid";
 "Black" = "Sort";
 
-"Dark Mode Style" = "Stil for mørkt udseende";
+"Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Mørke Tilstand";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Ikon";
+"App Icon" = "App Icon";
 
-"Featured Packages" = "Udvalgte Pakker";
+"Featured Packages" = "Featured Packages";
 "Repo Featured" = "Udvalgt Arkiv";
 "Random" = "Tilfældig";
 "Feature Type" = "Udvalgt Type";
