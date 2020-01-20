@@ -100,12 +100,12 @@
 //        }
 
         if (interfaceStyle == ZBInterfaceStylePureBlack) {
-            [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
-            [[UINavigationBar appearance] setTranslucent:NO];
+            [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+            [[UITabBar appearance] setTranslucent:NO];
         }
         else {
-            [[UINavigationBar appearance] setBackgroundColor:nil];
-            [[UINavigationBar appearance] setTranslucent:YES];
+            [[UITabBar appearance] setBackgroundColor:nil];
+            [[UITabBar appearance] setTranslucent:YES];
         }
     }
 }
@@ -133,20 +133,24 @@
 }
 
 - (void)configureTableView {
-    [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
-    [[UITableView appearance] setTintColor:[UIColor accentColor]];
-    [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
-    
-    [[UITableViewCell appearance] setBackgroundColor:[UIColor groupedCellBackgroundColor]];
-    [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
-    [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
-    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTextColor:[UIColor primaryTextColor]];
+    if ([ZBThemeManager useCustomTheming]) {
+        [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
+        [[UITableView appearance] setTintColor:[UIColor accentColor]];
+        [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+        
+        [[UITableViewCell appearance] setBackgroundColor:[UIColor groupedCellBackgroundColor]];
+        [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
+        [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
+        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTextColor:[UIColor primaryTextColor]];
+    }
 }
 
 - (void)configurePopupBar {
-    [[LNPopupBar appearance] setBackgroundStyle:[self darkMode] ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
-    [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
-    [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor secondaryTextColor]}];
+    if ([ZBThemeManager useCustomTheming]) {
+        [[LNPopupBar appearance] setBackgroundStyle:[self darkMode] ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
+        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
+        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor secondaryTextColor]}];
+    }
 }
 
 - (void)refreshViews {

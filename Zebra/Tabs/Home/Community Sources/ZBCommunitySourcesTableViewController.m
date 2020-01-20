@@ -45,7 +45,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     [self populateSources];
@@ -216,6 +216,7 @@
     }
     
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor groupedCellBackgroundColor];
     
     [cell.repoLabel setText:[info objectForKey:@"name"]];
     [cell.repoLabel setTextColor:[UIColor primaryTextColor]];

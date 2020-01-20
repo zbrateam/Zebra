@@ -53,7 +53,7 @@
         }
     }
     else {
-        return [UIColor systemGroupedBackgroundColor];
+        return [UIColor secondarySystemGroupedBackgroundColor];
     }
 }
 
@@ -69,7 +69,7 @@
         }
     }
     else {
-        return [UIColor secondarySystemGroupedBackgroundColor];
+        return [UIColor tertiarySystemGroupedBackgroundColor];
     }
 }
 
