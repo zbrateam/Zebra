@@ -99,6 +99,14 @@
 //            [[UITabBar appearance] setUnselectedItemTintColor:[UIColor lightGrayColor]];
 //        }
 
+        if (interfaceStyle == ZBInterfaceStylePureBlack) {
+            [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+            [[UINavigationBar appearance] setTranslucent:NO];
+        }
+        else {
+            [[UINavigationBar appearance] setBackgroundColor:nil];
+            [[UINavigationBar appearance] setTranslucent:YES];
+        }
     }
 }
 
@@ -127,9 +135,12 @@
 - (void)configureTableView {
     [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
     [[UITableView appearance] setTintColor:[UIColor accentColor]];
+    [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor groupedCellBackgroundColor]];
-    [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].textColor = [UIColor primaryTextColor];
+    [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
+    [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
+    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTextColor:[UIColor primaryTextColor]];
 }
 
 - (void)configurePopupBar {

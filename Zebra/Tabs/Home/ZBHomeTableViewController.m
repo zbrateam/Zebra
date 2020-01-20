@@ -362,6 +362,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBTranslate:
                     text = NSLocalizedString(@"Help translate Zebra!", @"");
                     image = [UIImage imageNamed:@"Translations"];
+                    break;
             }
             [cell.textLabel setText:text];
             [cell.imageView setImage:image];

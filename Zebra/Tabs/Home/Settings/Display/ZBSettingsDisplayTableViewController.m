@@ -87,6 +87,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"settingsDisplayCell"];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {
@@ -154,6 +155,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
     }
     
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     return cell;
 }
 
