@@ -670,40 +670,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.packageName.textColor = [UIColor primaryTextColor];
 }
 
-//Dummy method to search for pirated tweakcompatible copies. Will be removed in a future version
 - (NSArray *)packageInfoOrder {
-    NSString *message = [NSString stringWithFormat:@"A tweak is calling -packageInfoOrder for ZBPackageDepictionViewController. Please report this issue and remove or update the incompatible tweak (most likely a tweak that hooks into Zebra). Last Call: %@ %@ %@", [NSThread callStackSymbols][0], [NSThread callStackSymbols][1], [NSThread callStackSymbols][2]];
-    UIAlertController *deprecationAlert = [UIAlertController alertControllerWithTitle:@"Incompatible Tweak" message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok :(" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [deprecationAlert dismissViewControllerAnimated:true completion:nil];
-    }];
-    
-    [deprecationAlert addAction:action];
-    [self presentViewController:deprecationAlert animated:true completion:nil];
-    
     return NULL;
-}
-
-- (void)receivedData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
-
-    if (data.length) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        CLS_LOG(@"TweakCompat %@", str);
-    }
-}
-
-- (void)receivedErrorData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
-
-    if (data.length) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        CLS_LOG(@"TweakCompat %@", str);
-    }
 }
 
 #pragma mark TableView
