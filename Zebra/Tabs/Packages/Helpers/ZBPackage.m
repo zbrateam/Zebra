@@ -16,6 +16,8 @@
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
+#import "ZBPurchaseInfo.h"
+#import "UICKeyChainStore.h"
 
 @import Crashlytics;
 
@@ -365,6 +367,48 @@
 
 - (BOOL)isPaid {
     return [tags containsObject:@"cydia::commercial"];
+}
+
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
+    //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
+    if (![self isPaid] || [[self repo] repoID] <= 0) {
+        completion(NULL);
+        return;
+    }
+    
+    NSString *baseURL = [[self repo] repositoryURI];
+    if (baseURL) {
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+        
+        NSURL *packageInfoURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://chariz.com/api/sileo/package/%@/info", self.identifier]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:[ZBDevice UDID] forHTTPHeaderField:@"udid"];
+        [request setValue:@"iPhone7,2" forHTTPHeaderField:@"device"];
+        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+        
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+            NSInteger statusCode = [httpReponse statusCode];
+            
+            if (statusCode == 200) {
+                NSError *error;
+                ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
+                
+                if (!error) {
+                    completion(info); //Block is only called if we get a valid response
+                    return;
+                }
+                
+                completion(NULL);
+                return;
+            }
+        }];
+        
+        [task resume];
+    }
+    
+    completion(NULL);
 }
 
 - (NSString *)getField:(NSString *)field {

@@ -356,48 +356,82 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)configureNavButton {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(configureNavButton) withObject:NULL waitUntilDone:NO];
-    } else {
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (self->navButtonsBeingConfigured)
             return;
         self->navButtonsBeingConfigured = YES;
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-        NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
-        if ([package isInstalled:NO]) {
-            if ([package isReinstallable]) {
-                if ([package isPaid] && [keychain[baseURL] length] != 0) {
-                    [self determinePaidPackage];
-                } else {
-                    [self addModifyButton];
-                }
-            } else {
-                UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
-                removeButton.enabled = package.repo.repoID != -1;
-                self.navigationItem.rightBarButtonItem = removeButton;
-            }
-        } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
-            [self determinePaidPackage];
-        } else {
-            if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFIRM
-                UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
-                self.navigationItem.rightBarButtonItem = modifyButton;
-            }
-            else {
-                UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
-                self.navigationItem.rightBarButtonItem = installButton;
-            }
+        
+        if ([self->package isInstalled:NO]) { //Show "Modify" button
+            
+            self->navButtonsBeingConfigured = NO;
         }
-        self->navButtonsBeingConfigured = NO;
-    }
+        else if ([self->package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
+            UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            uiBusy.hidesWhenStopped = YES;
+            [uiBusy startAnimating];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
+            
+            [self->package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
+                if (info) {
+                    UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    
+                    installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                    self.navigationItem.rightBarButtonItem = installButton;
+                }
+                else {
+                    //We didn't receive a payment response and the package isn't installed. We should just display an "Install" button
+                    UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    
+                    installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                    self.navigationItem.rightBarButtonItem = installButton;
+                }
+                
+                self->navButtonsBeingConfigured = NO;
+            }];
+        }
+        else {
+            UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+            
+            installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+            self.navigationItem.rightBarButtonItem = installButton;
+            
+            self->navButtonsBeingConfigured = NO;
+        }
+    });
+        
+        
+        
+        
+//        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+//        NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
+//        if ([package isInstalled:NO]) {
+//            if ([package isReinstallable]) {
+//                if ([package isPaid] && [keychain[baseURL] length] != 0) {
+//                    [self determinePaidPackage];
+//                } else {
+//                    [self addModifyButton];
+//                }
+//            } else {
+//                UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+//                removeButton.enabled = package.repo.repoID != -1;
+//                self.navigationItem.rightBarButtonItem = removeButton;
+//            }
+//        } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
+//            [self determinePaidPackage];
+//        } else {
+//            if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFORM
+//                UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
+//                self.navigationItem.rightBarButtonItem = modifyButton;
+//            }
+//            else {
+//                UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+//                installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
+//                self.navigationItem.rightBarButtonItem = installButton;
+//            }
+//        }
 }
 
 - (void)determinePaidPackage {
-    UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    uiBusy.hidesWhenStopped = YES;
-    [uiBusy startAnimating];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
     if ([keychain[baseURL] length] != 0) {
@@ -410,12 +444,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:kNilOptions error:nil];
             
             NSMutableURLRequest *request = [NSMutableURLRequest new];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info", baseURL, package.identifier]];
+            NSLog(@"URL: %@", url);
             [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info", baseURL, package.identifier]]];
             [request setHTTPMethod:@"POST"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-            [request setValue:[NSString stringWithFormat:@"Zebra/%@ iOS/%@ (%@)", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion], [ZBDevice deviceType]] forHTTPHeaderField:@"User-Agent"];
+            [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 NSString *title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:true];
