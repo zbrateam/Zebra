@@ -449,12 +449,12 @@
     NSString *requestedMIMEType = [self guessMIMETypeForFile:[[response URL] lastPathComponent]];
     NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-xz", @"application/x-bzip2", @"application/x-gzip", @"application/x-lzma", @"application/x-deb", @"application/x-debian-package"];
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
-    if (index == NSNotFound) {
+    if (index == NSNotFound || ![requestedMIMEType isEqualToString:MIMEType]) {
         MIMEType = [self guessMIMETypeForFile:[[response URL] absoluteString]];
         index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
     
-    BOOL downloadFailed = (responseCode != 200 && responseCode != 304) || !([MIMEType isEqualToString:requestedMIMEType]);
+    BOOL downloadFailed = (responseCode != 200 && responseCode != 304);
     switch (index) {
         case 0: { //Uncompressed Packages file or a Release file
             ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
