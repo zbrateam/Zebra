@@ -249,7 +249,7 @@
                     source.packagesTaskCompleted = YES;
                     source.packagesFilePath = NULL;
                     
-                    [self postStatusUpdate:description atLevel:ZBLogLevelError];
+                    [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
                     [self cancelTasksForSource:source];
                     
                     [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
@@ -515,15 +515,9 @@
                         }
                         else {
                             NSError *error;
-                            NSString *decompressedFilePath;
-                            @try {
-                                decompressedFilePath = [self decompressFile:finalPath compressionType:MIMEType];
-                            } @catch (NSException *exception) {
-                                NSString *description = [NSString stringWithFormat:@"%@: %@", exception.name, exception.reason];
-                                error = [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: description}];
-                            } @finally {
-                                [self task:downloadTask completedDownloadedForFile:decompressedFilePath fromSource:source withError:error];
-                            }
+                            NSString *decompressedFilePath = [self decompressFile:finalPath error:&error];
+                            
+                            [self task:downloadTask completedDownloadedForFile:decompressedFilePath fromSource:source withError:error];
                         }
                     }];
                 }
@@ -619,15 +613,53 @@
     }
 }
 
-- (NSString *)decompressFile:(NSString *)path compressionType:(NSString *_Nullable)compressionType {
+#pragma mark - Decompression
+
+- (NSString *_Nullable)decompressFile:(NSString *)path error:(NSError **)error {
+    //Since some servers and their MIME types are unreliable, we have to detemine the type of compression on our own...
+    
+    NSMutableArray *availableTypes = [@[@"xz", @"bz2", @"gz", @"lzma"] mutableCopy];
+    
+    //Move the path extension of our file to the start
+    if ([availableTypes indexOfObject:[path pathExtension]] != NSNotFound) {
+        [availableTypes removeObject:[path pathExtension]];
+        
+        [availableTypes insertObject:[path pathExtension] atIndex:0];
+    }
+    
+    NSError *decompressionError;
+    for (NSString *compressionType in availableTypes) {
+        NSString *decompressedPath = [self decompressFile:path compressionType:compressionType error:&decompressionError];
+        
+        if (decompressedPath) {
+            *error = nil;
+            
+            return decompressedPath;
+        }
+    }
+    
+    if (decompressionError) {
+        *error = decompressionError;
+    }
+    
+    return NULL;
+}
+
+- (NSString *_Nullable)decompressFile:(NSString *_Nonnull)path compressionType:(NSString *_Nonnull)compressionType error:(NSError **)error {
     if (!compressionType) {
         compressionType = [self guessMIMETypeForFile:path];
     }
     
-    NSArray *availableTypes = @[@"application/x-gzip", @"application/x-bzip2", @"application/x-xz", @"application/x-lzma"];
+    NSArray *availableTypes = @[@"gz", @"bz2", @"xz", @"lzma"];
     switch ([availableTypes indexOfObject:compressionType]) {
         case 0: {
             NSData *data = [NSData dataWithContentsOfFile:path];
+            if (![self validGZFile:data]) {
+                NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .gz archive"}];
+                *error = invalidFileError;
+                
+                return NULL;
+            }
             
             z_stream stream;
             stream.zalloc = Z_NULL;
@@ -659,66 +691,74 @@
             NSError *removeError;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
-                @throw [NSException exceptionWithName:removeError.localizedDescription reason:removeError.localizedRecoverySuggestion userInfo:nil];
+                *error = removeError;
             }
             
             return [path stringByDeletingPathExtension];
         }
         case 1: {
-            FILE *f = fopen([path UTF8String], "r");
-            FILE *output = fopen([[path stringByDeletingPathExtension] UTF8String], "w");
-            
-            int bzError = BZ_OK;
-            char buf[4096];
-            
-            BZFILE *bzf = BZ2_bzReadOpen(&bzError, f, 0, 0, NULL, 0);
-            if (bzError != BZ_OK) {
-                BZ2_bzReadClose(&bzError, bzf);
-                fclose(f);
-                fclose(output);
+            NSData *data = [NSData dataWithContentsOfFile:path];
+            if (![self validBZ2File:data]) {
+                NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .bz2 archive"}];
+                *error = invalidFileError;
                 
-                @throw [self bz2ExceptionForCode:bzError file:path];
+                return NULL;
             }
             
-            while (bzError == BZ_OK) {
-                int nread = BZ2_bzRead(&bzError, bzf, buf, sizeof buf);
-                if (bzError == BZ_OK || bzError == BZ_STREAM_END) {
-                    size_t nwritten = fwrite(buf, 1, nread, output);
-                    if (nwritten != (size_t)nread) {
-                        BZ2_bzReadClose(&bzError, bzf);
-                        fclose(f);
-                        fclose(output);
-                        
-                        @throw [NSException exceptionWithName:@"Short Write" reason:@"Did not write enough information to output" userInfo:nil];
-                    }
-                }
-                else {
-                    BZ2_bzReadClose(&bzError, bzf);
-                    fclose(f);
-                    fclose(output);
+            bz_stream stream;
+            bzero(&stream, sizeof(stream));
+            stream.next_in = (char *)[data bytes];
+            stream.avail_in = (unsigned int)[data length];
+
+            NSMutableData *buffer = [NSMutableData dataWithLength:1024];
+            stream.next_out = [buffer mutableBytes];
+            stream.avail_out = 1024;
+
+            int status = BZ2_bzDecompressInit(&stream, 0, NO);
+            if (status != BZ_OK) {
+                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:status userInfo:@{NSLocalizedDescriptionKey: @"Failed to initialize decompression stream"}];
+                
+                return nil;
+            }
+
+            NSMutableData *decompressedData = [NSMutableData data];
+            
+            //Have to do a do-while loop here in case the filesize is < 1024 bits
+            do {
+                status = BZ2_bzDecompress(&stream);
+                if (status < BZ_OK) {
+                    *error = [self errorForBZ2Code:status file:[path lastPathComponent]];
                     
-                    @throw [self bz2ExceptionForCode:bzError file:path];
+                    return nil;
                 }
-            }
+
+                [decompressedData appendBytes:[buffer bytes] length:(1024 - stream.avail_out)];
+                stream.next_out = [buffer mutableBytes];
+                stream.avail_out = 1024;
+            } while (status != BZ_STREAM_END);
+
+            BZ2_bzDecompressEnd(&stream);
             
-            BZ2_bzReadClose(&bzError, bzf);
-            fclose(f);
-            fclose(output);
+            NSString *finalPath = [path stringByDeletingPathExtension];
+            [decompressedData writeToFile:finalPath atomically:NO];
             
             NSError *removeError;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
-                @throw [NSException exceptionWithName:removeError.localizedDescription reason:removeError.localizedRecoverySuggestion userInfo:nil];
+                *error = removeError;
             }
             
-            return [path stringByDeletingPathExtension]; //Should be our unzipped file
+            return finalPath;
         }
         case 2:
         case 3: {
             compression_stream stream;
             compression_status status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_LZMA);
             if (status == COMPRESSION_STATUS_ERROR) {
-                @throw [NSException exceptionWithName:@"Compression Status Error" reason:@"Not a proper .XZ or .LZMA archive" userInfo:nil];
+                NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                *error = invalidFileError;
+                
+                return NULL;
             }
 
             NSData *compressedData = [NSData dataWithContentsOfFile:path];
@@ -752,8 +792,8 @@
                         break;
                         
                     case COMPRESSION_STATUS_ERROR:
-                        @throw [NSException exceptionWithName:@"Compression Status Error" reason:@"Not a proper .XZ or .LZMA archive" userInfo:nil];
-                        break;
+                        *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                        return NULL;
                         
                     default:
                         break;
@@ -766,7 +806,7 @@
             NSError *removeError;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
-                @throw [NSException exceptionWithName:removeError.localizedDescription reason:removeError.localizedRecoverySuggestion userInfo:nil];
+                *error = removeError;
             }
             
             return [path stringByDeletingPathExtension];
@@ -777,25 +817,29 @@
     }
 }
 
-- (NSException *)bz2ExceptionForCode:(int)bzError file:(NSString *)file {
-    NSDictionary *userInfo = @{@"Failing-File": file};
+- (BOOL)validBZ2File:(NSData *)data {
+    const UInt8 *bytes = (const UInt8 *)data.bytes;
+    return (data.length >= 3 && bytes[0] == 'B' && bytes[1] == 'Z' && bytes[2] == 'h');
+}
+
+- (BOOL)validGZFile:(NSData *)data {
+    const UInt8 *bytes = (const UInt8 *)data.bytes;
+    return (data.length >= 2 && bytes[0] == 0x1f && bytes[1] == 0x8b);
+}
+
+
+- (NSError *)errorForBZ2Code:(int)bzError file:(NSString *)file {
     switch (bzError) {
-        case BZ_CONFIG_ERROR:
-            return [NSException exceptionWithName:@"Configuration Error" reason:@"The bzip2 library has been mis-compiled." userInfo:userInfo];
         case BZ_PARAM_ERROR:
-            return [NSException exceptionWithName:@"Parameter Error" reason:@"One of the configured parameters is incorrect." userInfo:userInfo];
-        case BZ_IO_ERROR:
-            return [NSException exceptionWithName:@"IO Error" reason:@"Error reading from compressed file." userInfo:userInfo];
-        case BZ_MEM_ERROR:
-            return [NSException exceptionWithName:@"Memory Error" reason:@"Insufficient memory is available." userInfo:userInfo];
-        case BZ_UNEXPECTED_EOF:
-            return [NSException exceptionWithName:@"Unexpected EOF" reason:@"The compressed file ended before the logical end-of-stream was detected" userInfo:userInfo];
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"One of the configured parameters is incorrect", @"Failing-File": file}];
         case BZ_DATA_ERROR:
-            return [NSException exceptionWithName:@"Data Error" reason:@"A Data Integrity Error was detected in the compressed stream" userInfo:userInfo];
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"A data integrity error was detected in the compressed stream", @"Failing-File": file}];
         case BZ_DATA_ERROR_MAGIC:
-            return [NSException exceptionWithName:@"Data Error" reason:@"Compressed stream is not a bzip2 data file." userInfo:userInfo];
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"The compressed stream does not begin with the correct magic bytes", @"Failing-File": file}];
+        case BZ_MEM_ERROR:
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Insufficient memory is available", @"Failing-File": file}];
         default:
-            return [NSException exceptionWithName:@"Unknown BZ2 error" reason:[NSString stringWithFormat:@"bzError: %d", bzError] userInfo:userInfo];
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown BZ2 Error (%d)", bzError], @"Failing-File": file}];;
     }
 }
 
