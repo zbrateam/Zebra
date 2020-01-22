@@ -293,14 +293,14 @@
                         
                         dispatch_group_enter(endpointGroup);
                         NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
-                        NSLog(@"URL: %@", url);
                         
                         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                             NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                             if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-                                NSLog(@"Good feedback: %@", endpoint);
-                                endpointURL = endpoint;
+                                if ([endpoint hasPrefix:@"https"]) {
+                                    endpointURL = endpoint;
+                                }
                             }
                             dispatch_group_leave(endpointGroup);
                         }];
