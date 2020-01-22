@@ -372,21 +372,23 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
             
             [self->package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
-                if (info) {
-                    UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (info) {
+                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                        
+                        installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                        self.navigationItem.rightBarButtonItem = installButton;
+                    }
+                    else {
+                        //We didn't receive a payment response and the package isn't installed. We should just display an "Install" button
+                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                        
+                        installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                        self.navigationItem.rightBarButtonItem = installButton;
+                    }
                     
-                    installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                    self.navigationItem.rightBarButtonItem = installButton;
-                }
-                else {
-                    //We didn't receive a payment response and the package isn't installed. We should just display an "Install" button
-                    UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                    
-                    installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                    self.navigationItem.rightBarButtonItem = installButton;
-                }
-                
-                self->navButtonsBeingConfigured = NO;
+                    self->navButtonsBeingConfigured = NO;
+                });
             }];
         }
         else {
