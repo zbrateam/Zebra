@@ -404,8 +404,6 @@
     }];
     
     [task resume];
-    
-    completion(NULL);
 }
 
 - (NSString *)getField:(NSString *)field {
