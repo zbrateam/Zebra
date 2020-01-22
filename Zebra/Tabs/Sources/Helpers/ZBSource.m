@@ -75,7 +75,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *suiteChars         = textColumn(statement, ZBSourceColumnSuite);
         const char *codenameChars      = textColumn(statement, ZBSourceColumnCodename);
         const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
-        const char *endpointChars      = textColumn(statement, ZBSourceColumnPaymentVendor);
+        const char *vendorChars        = textColumn(statement, ZBSourceColumnPaymentVendor);
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
 
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
@@ -85,9 +85,9 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NSLocalizedString(@"Unknown", @"")];
         [self setCodename:codenameChars != 0 ? [[NSString alloc] initWithUTF8String:codenameChars] : NSLocalizedString(@"Unknown", @"")];
         
-        if (endpointChars != 0) {
-            NSString *endpoint = [[NSString alloc] initWithUTF8String:endpointChars];
-            [self setPaymentVendorURL:[[NSURL alloc] initWithString:endpoint]];
+        if (vendorChars != 0) {
+            NSString *vendor = [[[NSString alloc] initWithUTF8String:vendorChars] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            [self setPaymentVendorURL:[[NSURL alloc] initWithString:vendor]];
         }
         
         if (architectureChars != 0) {
