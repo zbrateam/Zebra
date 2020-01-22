@@ -47,6 +47,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     BOOL presented;
     BOOL navButtonsBeingConfigured;
     CGFloat webViewSize;
+    
+    UIBarButtonItem *busyButton;
+    UIBarButtonItem *previousButton;
 }
 @end
 
@@ -366,26 +369,12 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             self->navButtonsBeingConfigured = NO;
         }
         else if ([self->package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
-            UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            uiBusy.hidesWhenStopped = YES;
-            [uiBusy startAnimating];
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
-            
+            [self setNavigationButtonBusy:true];
             [self->package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (info) {
-                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                        
-                        installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                        self.navigationItem.rightBarButtonItem = installButton;
-                    }
-                    else {
-                        //We didn't receive a payment response and the package isn't installed. We should just display an "Install" button
-                        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                        
-                        installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                        self.navigationItem.rightBarButtonItem = installButton;
-                    }
+                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info ? info.price : NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    self->previousButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                    [self setNavigationButtonBusy:false];
                     
                     self->navButtonsBeingConfigured = NO;
                 });
@@ -431,6 +420,37 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 //                self.navigationItem.rightBarButtonItem = installButton;
 //            }
 //        }
+}
+
+- (void)setNavigationButtonBusy:(BOOL)busy {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (busy && self.navigationItem.rightBarButtonItem != nil && self.navigationItem.rightBarButtonItem == self->busyButton) return;
+        
+        if (!self->busyButton) {
+            UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [uiBusy startAnimating];
+            
+            self->busyButton = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
+        }
+        
+        if (busy) {
+            //Save the current button into self.previousButton and set busyButton to rightBarButtonItem
+            UIActivityIndicatorView *uiBusy = self->busyButton.customView;
+            if ([ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
+                uiBusy.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+            }
+            else {
+                uiBusy.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            }
+            
+            self->previousButton = self.navigationItem.rightBarButtonItem;
+            self.navigationItem.rightBarButtonItem = self->busyButton;
+        }
+        else {
+            //Otherwise we can set the previousbutton back to where it was.
+            self.navigationItem.rightBarButtonItem = self->previousButton;
+        }
+    });
 }
 
 - (void)determinePaidPackage {
