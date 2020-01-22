@@ -396,7 +396,7 @@
                 ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
                 
                 if (!error) {
-                    completion(info); //Block is only called if we get a valid response
+                    completion(info);
                     return;
                 }
                 

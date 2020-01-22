@@ -496,7 +496,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 button.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.navigationItem setRightBarButtonItem:button animated:YES];
-                    [uiBusy stopAnimating];
+//                    [uiBusy stopAnimating];
                 });
                 
             }] resume];
@@ -511,66 +511,66 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)purchasePackage {
-    UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    uiBusy.hidesWhenStopped = YES;
-    [uiBusy startAnimating];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([keychain[[keychain stringForKey:[package repo].repositoryURI]] length] != 0) {
-        if ([package isPaid] && [package repo].supportSileoPay) {
-            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].repositoryURI]];
-#if ZB_DEBUG
-            NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
-            ZBLog(@"[Zebra] Package purchase token: %@", token);
-#endif
-            __block NSString *secret;
-            // Wait on getting key
-            dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                NSError *error = nil;
-                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
-                secret = keychain[idThing];
-                dispatch_semaphore_signal(sema);
-                if (error) {
-                    ZBLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
-                }
-            });
-            dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-            // Continue
-            if ([secret length] != 0) {
-                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].repositoryURI]],
-                                               @"payment_secret": secret,
-                                               @"udid": [ZBDevice UDID],
-                                               @"device": [ZBDevice deviceModelID] };
-                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-                
-                NSMutableURLRequest *request = [NSMutableURLRequest new];
-                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].repositoryURI], package.identifier]]];
-                [request setHTTPMethod:@"POST"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-                [request setHTTPBody: requestData];
-                [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    if (data) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        ZBLog(@"[Zebra] Package purchase response: %@", json);
-                        if ([json[@"status"] boolValue]) {
-                            [uiBusy stopAnimating];
-                            [self initPurchaseLink:json[@"url"]];
-                        } else {
-                            [self configureNavButton];
-                        }
-                    }
-                }] resume];
-            } else {
-                [self configureNavButton];
-            }
-        }
-    }
+//    UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    uiBusy.hidesWhenStopped = YES;
+//    [uiBusy startAnimating];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
+//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+//    if ([keychain[[keychain stringForKey:[package repo].repositoryURI]] length] != 0) {
+//        if ([package isPaid] && [package repo].supportSileoPay) {
+//            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+//            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].repositoryURI]];
+//#if ZB_DEBUG
+//            NSString *token = keychain[[keychain stringForKey:[package repo].baseURL]];
+//            ZBLog(@"[Zebra] Package purchase token: %@", token);
+//#endif
+//            __block NSString *secret;
+//            // Wait on getting key
+//            dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//                NSError *error = nil;
+//                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+//                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+//                keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
+//                secret = keychain[idThing];
+//                dispatch_semaphore_signal(sema);
+//                if (error) {
+//                    ZBLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
+//                }
+//            });
+//            dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+//            // Continue
+//            if ([secret length] != 0) {
+//                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].repositoryURI]],
+//                                               @"payment_secret": secret,
+//                                               @"udid": [ZBDevice UDID],
+//                                               @"device": [ZBDevice deviceModelID] };
+//                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+//                
+//                NSMutableURLRequest *request = [NSMutableURLRequest new];
+//                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].repositoryURI], package.identifier]]];
+//                [request setHTTPMethod:@"POST"];
+//                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+//                [request setHTTPBody: requestData];
+//                [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                    if (data) {
+//                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//                        ZBLog(@"[Zebra] Package purchase response: %@", json);
+//                        if ([json[@"status"] boolValue]) {
+//                            [uiBusy stopAnimating];
+//                            [self initPurchaseLink:json[@"url"]];
+//                        } else {
+//                            [self configureNavButton];
+//                        }
+//                    }
+//                }] resume];
+//            } else {
+//                [self configureNavButton];
+//            }
+//        }
+//    }
 }
 
 - (void)initPurchaseLink:(NSString *)link {

@@ -79,12 +79,12 @@ int isRepoSecure(const char *sourcePath, char *repoURL) {
 }
 
 char *reposSchema() {
-    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, DESCRIPTION STRING, ORIGIN STRING, LABEL STRING, VERSION VARCHAR(16), SUITE STRING, CODENAME STRING, ARCHITECTURES STRING, ENDPOINT STRING, BASEFILENAME STRING, REPOID INTEGER)";
+    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, DESCRIPTION STRING, ORIGIN STRING, LABEL STRING, VERSION VARCHAR(16), SUITE STRING, CODENAME STRING, ARCHITECTURES STRING, VENDOR STRING, BASEFILENAME STRING, REPOID INTEGER)";
 }
 
-const char *repoInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, ENDPOINT, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *repoInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-const char *repoUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, PAYMENTENDPOINT, ENDPOINT, ARCHITECTURES, BASEFILENAME) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
+const char *repoUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, VENDOR, ARCHITECTURES, BASEFILENAME) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
 char *packagesSchema() {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING)";
@@ -203,7 +203,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, dict_get(repo, "Architectures"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnPaymentEndpoint, endpointURL, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnPaymentVendor, endpointURL, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnRepoID, repoID);
         sqlite3_step(insertStatement);

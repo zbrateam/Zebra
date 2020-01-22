@@ -22,8 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSArray <NSString *> *architectures;
 @property (nonatomic) int repoID;
 
-@property (nonatomic) BOOL supportSileoPay;
-@property (nonatomic, strong) NSString *shortURL;
+@property (nonatomic) NSURL *paymentVendorURL;
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 @property (nonatomic) NSURL *iconURL;

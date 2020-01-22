@@ -22,7 +22,7 @@
 @synthesize codename;
 @synthesize architectures;
 @synthesize repoID;
-@synthesize supportSileoPay;
+@synthesize paymentVendorURL;
 
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
@@ -75,6 +75,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *suiteChars         = textColumn(statement, ZBSourceColumnSuite);
         const char *codenameChars      = textColumn(statement, ZBSourceColumnCodename);
         const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
+        const char *endpointChars      = textColumn(statement, ZBSourceColumnPaymentVendor);
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
 
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
@@ -83,6 +84,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setVersion:versionChars != 0 ? [[NSString alloc] initWithUTF8String:versionChars] : NSLocalizedString(@"Unknown", @"")];
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NSLocalizedString(@"Unknown", @"")];
         [self setCodename:codenameChars != 0 ? [[NSString alloc] initWithUTF8String:codenameChars] : NSLocalizedString(@"Unknown", @"")];
+        
+        if (endpointChars != 0) {
+            NSString *endpoint = [[NSString alloc] initWithUTF8String:endpointChars];
+            [self setPaymentVendorURL:[[NSURL alloc] initWithString:endpoint]];
+        }
         
         if (architectureChars != 0) {
             NSArray *architectures = [[NSString stringWithUTF8String:architectureChars] componentsSeparatedByString:@" "];
@@ -94,42 +100,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setRepoID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
-        
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
-
-        //rewrite eventually
-        if ([self.repositoryURI containsString:@"https"]) {
-            NSString *requestURL;
-            if ([self.repositoryURI hasSuffix:@"/"]) {
-                requestURL = [NSString stringWithFormat:@"%@payment_endpoint", self.repositoryURI];
-            } else {
-                requestURL = [NSString stringWithFormat:@"/%@/payment_endpoint", self.repositoryURI];
-            }
-            NSURL *url = [NSURL URLWithString:requestURL];
-            NSURLSession *session = [NSURLSession sharedSession];
-            [[session dataTaskWithURL:url
-                    completionHandler:^(NSData *data,
-                                        NSURLResponse *response,
-                                        NSError *error) {
-                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                            keychain[self.repositoryURI] = endpoint;
-                            [self setSupportSileoPay:YES];
-                        }
-                    }] resume];
-        }
+        
         // prevent constant network spam
         if (!self.checkedSupportFeaturedPackages) {
             // Check for featured string
-            NSString *requestURL;
-            if ([self.repositoryURI hasSuffix:@"/"]) {
-                requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", self.repositoryURI];
-            } else {
-                requestURL = [NSString stringWithFormat:@"/%@/sileo-featured.json", self.repositoryURI];
-            }
-            NSURL *checkingURL = [NSURL URLWithString:requestURL];
+            NSURL *checkingURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
             NSURLSession *session = [NSURLSession sharedSession];
             [[session dataTaskWithURL:checkingURL
                     completionHandler:^(NSData *data,
