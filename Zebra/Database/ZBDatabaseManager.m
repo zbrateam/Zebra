@@ -267,45 +267,70 @@
     self.downloadManager = nil;
     
     if ([self openDatabase] == SQLITE_OK) {
-        createTable(database, 1);
+        createTable(database, 0);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
         sqlite3_int64 currentDate = (int)time(NULL);
         
+//        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
         for (ZBBaseSource *source in sources) {
-            [self bulkSetRepo:[source baseFilename] busy:YES];
-            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
-            
-            //Deal with the repo first
-            int repoID = [self repoIDFromBaseFileName:[source baseFilename]];
-            if (source.releaseFilePath == NULL) { //We need to create a dummy repo (for repos with no Release file)
-                if (repoID == -1) {
-                    repoID = [self nextRepoID];
-                    createDummyRepo([source.packagesFilePath UTF8String], database, repoID);
-                }
-            }
-            else {
-                if (repoID == -1) { // Repo does not exist in database, create it.
-                    repoID = [self nextRepoID];
-                    if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
-                        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
-                    }
-                } else {
-                    if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], database, repoID) != PARSEL_OK) {
-                        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+//            dispatch_async(queue, ^{
+                [self bulkSetRepo:[source baseFilename] busy:YES];
+                [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
+                
+                //Deal with the repo first
+                int repoID = [self repoIDFromBaseFileName:[source baseFilename]];
+                if (source.releaseFilePath == NULL) { //We need to create a dummy repo (for repos with no Release file)
+                    if (repoID == -1) {
+                        repoID = [self nextRepoID];
+                        createDummyRepo([source.packagesFilePath UTF8String], self->database, repoID);
                     }
                 }
-            }
-            
-            //Deal with the packages
-            if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], database, repoID, currentDate) != PARSEL_OK) {
-                [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.packagesFilePath] atLevel:ZBLogLevelError];
-            }
-            else if (!source.packagesFilePath) {
-                [self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
-            }
-            
-            [self bulkSetRepo:[source baseFilename] busy:NO];
+                else {
+                    __block NSString *endpointURL;
+                    if ([source.repositoryURI hasPrefix:@"https"]) {
+                        dispatch_group_t endpointGroup = dispatch_group_create();
+                        
+                        dispatch_group_enter(endpointGroup);
+                        NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
+                        NSLog(@"URL: %@", url);
+                        
+                        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                            NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                            if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
+                                NSLog(@"Good feedback: %@", endpoint);
+                                endpointURL = endpoint;
+                            }
+                            dispatch_group_leave(endpointGroup);
+                        }];
+                        
+                        [task resume];
+                        dispatch_group_wait(endpointGroup, DISPATCH_TIME_FOREVER);
+                    }
+                    
+                    if (repoID == -1) { // Repo does not exist in database, create it.
+                        repoID = [self nextRepoID];
+                        if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [endpointURL UTF8String], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
+                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                        }
+                    } else {
+                        if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [endpointURL UTF8String], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
+                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                        }
+                    }
+                }
+                
+                //Deal with the packages
+                if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, repoID, currentDate) != PARSEL_OK) {
+                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.packagesFilePath] atLevel:ZBLogLevelError];
+                }
+                else if (!source.packagesFilePath) {
+                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
+                }
+                
+                [self bulkSetRepo:[source baseFilename] busy:NO];
+//            });
         }
         
         sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
