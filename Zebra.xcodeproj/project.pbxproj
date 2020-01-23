@@ -489,13 +489,13 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		363FE2432287858200B69929 /* UICKeyChainStore */ = {
+		363FE2432287858200B69929 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
 				363FE244228785AD00B69929 /* UICKeyChainStore.h */,
 				363FE245228785AE00B69929 /* UICKeyChainStore.m */,
 			);
-			path = UICKeyChainStore;
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		365CAE2922D3A1210052ED6E /* RedditCell */ = {
@@ -847,6 +847,7 @@
 				89BDCB6F2289FEA800FC1345 /* Extensions */,
 				8958F28E23C3C56800FB64D9 /* Headers */,
 				36A1D8F8230A15FC002694BE /* JSONParsing */,
+				363FE2432287858200B69929 /* Keychain */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				89DD2683220156F800CD31A0 /* Queue */,
 				89E8633E21D5A9CE0081E485 /* Resources */,
@@ -946,7 +947,6 @@
 			children = (
 				36F77ADE22A33B6100A4604C /* Alternate Icons */,
 				369B7ADF22C56009007521DB /* banner.png */,
-				363FE2432287858200B69929 /* UICKeyChainStore */,
 				89E8637521D5AF920081E485 /* HTML */,
 				89D230172242B27500837C3B /* default.list */,
 				8931E4D2226D6E9300F35DFD /* utiicon.png */,

@@ -379,7 +379,7 @@ static NSString *_defaultService;
     if (data) {
         NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if (string) {
-            return [[string componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+            return string;
         }
         NSError *e = [self.class conversionError:NSLocalizedString(@"failed to convert data to string", nil)];
         if (error) {
@@ -959,7 +959,7 @@ static NSString *_defaultService;
 - (void)sharedPasswordWithCompletion:(void (^)(NSString *account, NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
-    if (domain.length) {
+    if (domain.length > 0) {
         [self.class requestSharedWebCredentialForDomain:domain account:nil completion:^(NSArray *credentials, NSError *error) {
             NSDictionary *credential = credentials.firstObject;
             if (credential) {
@@ -985,7 +985,7 @@ static NSString *_defaultService;
 - (void)sharedPasswordForAccount:(NSString *)account completion:(void (^)(NSString *password, NSError *error))completion
 {
     NSString *domain = self.server.host;
-    if (domain.length) {
+    if (domain.length > 0) {
         [self.class requestSharedWebCredentialForDomain:domain account:account completion:^(NSArray *credentials, NSError *error) {
             NSDictionary *credential = credentials.firstObject;
             if (credential) {
@@ -1010,7 +1010,7 @@ static NSString *_defaultService;
 - (void)setSharedPassword:(NSString *)password forAccount:(NSString *)account completion:(void (^)(NSError *error))completion
 {
     NSString *domain = self.server.host;
-    if (domain.length) {
+    if (domain.length > 0) {
         SecAddSharedWebCredential((__bridge CFStringRef)domain, (__bridge CFStringRef)account, (__bridge CFStringRef)password, ^(CFErrorRef error) {
             if (completion) {
                 completion((__bridge NSError *)error);
@@ -1119,7 +1119,7 @@ static NSString *_defaultService;
         if (_server.host) {
             query[(__bridge __strong id)kSecAttrServer] = _server.host;
         }
-        if (_server.port) {
+        if (_server.port != nil) {
             query[(__bridge __strong id)kSecAttrPort] = _server.port;
         }
         CFTypeRef protocolTypeObject = [self protocolTypeObject];
@@ -1401,7 +1401,7 @@ static NSString *_defaultService;
 - (BOOL)synchronizeWithError:(NSError *__autoreleasing *)error
 {
     // Deprecated, calling this method is no longer required
-    return YES;
+    return true;
 }
 
 @end
