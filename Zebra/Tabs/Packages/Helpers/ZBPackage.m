@@ -382,7 +382,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
     [request setHTTPMethod:@"POST"];
     [request setValue:[ZBDevice UDID] forHTTPHeaderField:@"udid"];
-    [request setValue:@"iPhone7,2" forHTTPHeaderField:@"device"];
+    [request setValue:[ZBDevice deviceModelID] forHTTPHeaderField:@"device"];
     [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
