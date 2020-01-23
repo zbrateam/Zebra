@@ -197,19 +197,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteRepo:(ZBSource *)repo;
 
 /*!
- @brief The CydiaIcon for a corresponding repo (if there is one).
- @param repo The corresponding repo.
- */
-- (UIImage *)iconForRepo:(ZBSource *)repo;
-
-/*!
- @brief Save a UIImage into the database for a corresponding repo's Cydia Icon.
- @param icon The UIImage needing to be saved.
- @param repo The corresponding repo.
- */
-- (void)saveIcon:(UIImage *)icon forRepo:(ZBSource *)repo;
-
-/*!
  @brief A list of section names and number of packages in each section.
  @param repo The corresponding repo.
  @return A dictionary of section names and number of packages in a corresponding repo in the format <SectionName: NumberOfPackages>.

@@ -717,57 +717,12 @@
     }
 }
 
-- (UIImage *)iconForRepo:(ZBSource *)repo {
-    if ([self openDatabase] == SQLITE_OK) {
-        UIImage* icon = NULL;
-        NSString* sqliteQuery = [NSString stringWithFormat:@"SELECT ICON FROM REPOS WHERE REPOID = %d;", [repo repoID]];
-        sqlite3_stmt* statement;
-        
-        if (sqlite3_prepare_v2(database, [sqliteQuery UTF8String], -1, &statement, NULL) == SQLITE_OK) {
-            if (sqlite3_step(statement) == SQLITE_ROW) {
-                int length = sqlite3_column_bytes(statement, 0);
-                NSData *data = [NSData dataWithBytes:sqlite3_column_blob(statement, 0) length:length];
-                icon = [UIImage imageWithData:data];
-            }
-        }
-        
-        sqlite3_finalize(statement);
-        [self closeDatabase];
-        
-        return icon;
-    } else {
-        [self printDatabaseError];
-    }
-    return NULL;
-}
-
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate {
     [self setDatabaseBeingUpdated:NO];
     [self setHaltDatabaseOperations:true];
 //    [self.downloadManager stopAllDownloads];
     [self bulkDatabaseCompletedUpdate:-1];
     [self removeDatabaseDelegate:delegate];
-}
-
-- (void)saveIcon:(UIImage *)icon forRepo:(ZBSource *)repo {
-    if ([self openDatabase] == SQLITE_OK) {
-        const char* sqliteQuery = "UPDATE REPOS SET (ICON) = (?) WHERE REPOID = ?";
-        sqlite3_stmt* statement;
-        
-        NSData *imgData = UIImagePNGRepresentation(icon);
-        if (sqlite3_prepare_v2(database, sqliteQuery, -1, &statement, NULL) == SQLITE_OK) {
-            sqlite3_bind_blob(statement, 1, [imgData bytes], (int)[imgData length], SQLITE_TRANSIENT);
-            sqlite3_bind_int(statement, 2, [repo repoID]);
-            sqlite3_step(statement);
-        } else {
-            NSLog(@"[Zebra] Failed to save icon in database: %s", sqlite3_errmsg(database));
-        }
-        
-        sqlite3_finalize(statement);
-        [self closeDatabase];
-    } else {
-        [self printDatabaseError];
-    }
 }
 
 - (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo {

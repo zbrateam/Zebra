@@ -52,22 +52,26 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil]; // For iOS 9 and 10 Sileo Purchases
     
-    UIImage *image = [databaseManager iconForRepo:repo];
-    if (image != NULL) {
-        UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        imageView.center = self.navigationItem.titleView.center;
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.image = image;
-        imageView.layer.cornerRadius = 5;
-        imageView.layer.masksToBounds = YES;
-        [container addSubview:imageView];
-        
-        self.navigationItem.titleView = container;
-    }
-    else {
-        self.title = [repo label];
-    }
+    UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    imageView.center = self.navigationItem.titleView.center;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.layer.cornerRadius = 5;
+    imageView.layer.masksToBounds = YES;
+    
+    [imageView sd_setImageWithURL:[repo iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+            if (image && !error) {
+                imageView.image = image;
+            }
+            else {
+                self.navigationItem.titleView = NULL;
+                self.navigationItem.title = [self->repo label];
+            }
+        });
+    }];
+    [container addSubview:imageView];
+    self.navigationItem.titleView = container;
     
     if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
