@@ -379,7 +379,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             break;
         }
-        case 3: { // sileo
+        case 3: { // sileo (I really wish we could get rid of this)
             NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
             if ([sourceApplication isEqualToString:@"com.apple.SafariViewService"]) {
                 NSArray *components = [[url host] componentsSeparatedByString:@"/"];
@@ -398,7 +398,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 }
                 
             }
-            break;
+            else {
+                return NO;
+            }
             
         }
         default: { // WHO ARE YOU????
