@@ -694,7 +694,32 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
 
-        return [sources setByAddingObjectsFromSet:baseSources];;
+        return [sources setByAddingObjectsFromSet:baseSources];
+    }
+    
+    [self printDatabaseError];
+    return NULL;
+}
+
+- (NSSet <ZBSource *> *)sourcesWithPaymentEndpoint {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableSet *sources = [NSMutableSet new];
+
+        NSString *query = @"SELECT * FROM REPOS WHERE VENDOR NOT NULL;";
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+                
+                [sources addObject:source];
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+
+        return sources;
     }
     
     [self printDatabaseError];

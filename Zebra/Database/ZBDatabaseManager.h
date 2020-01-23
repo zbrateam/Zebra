@@ -189,6 +189,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
  */
 - (NSSet <ZBSource *> *)sources;
+- (NSSet <ZBSource *> *)sourcesWithPaymentEndpoint;
 
 /*!
  @brief Deletes the repo and all the packages that have a matching repoID.
