@@ -1,5 +1,5 @@
 //
-//  ZBRepoPurchasedPackagesTableViewController.m
+//  ZBSourceAccountTableViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 5/11/19.
@@ -8,93 +8,123 @@
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
-#import "ZBRepoPurchasedPackagesTableViewController.h"
+#import "ZBSourceAccountTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import "ZBUserInfo.h"
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 
-@implementation ZBRepoPurchasedPackagesTableViewController
+@interface ZBSourceAccountTableViewController () {
+    ZBDatabaseManager *databaseManager;
+    UICKeyChainStore *keychain;
+    NSDictionary *accountInfo;
+    NSArray <ZBPackage *> *purchases;
+    NSString *userName;
+    NSString *userEmail;
+}
+@end
+
+@implementation ZBSourceAccountTableViewController
+
+@synthesize source;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self->databaseManager = [ZBDatabaseManager sharedInstance];
+    self->keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    self.databaseManager = [ZBDatabaseManager sharedInstance];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    self.packages = [NSMutableArray new];
-    if (self.repoImage != NULL) {
-        UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        imageView.center = self.navigationItem.titleView.center;
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.image = self.repoImage;
-        imageView.layer.cornerRadius = 5;
-        imageView.layer.masksToBounds = YES;
-        [container addSubview:imageView];
-        
-        self.navigationItem.titleView = container;
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.titleView = spinner;
+    
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            break;
+        case ZBInterfaceStyleDark:
+        case ZBInterfaceStylePureBlack:
+            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+            break;
     }
-    self.title = self.repoName;
-    self.logOut = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Log Out", @"") style:UIBarButtonItemStylePlain actionHandler:^{
-        [self logoutRepo];
-    }];
-    [self.navigationItem setRightBarButtonItem:self.logOut];
+    
+    [spinner startAnimating];
+    
+    UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign Out", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signOut:)];
+    self.navigationItem.rightBarButtonItem = signOutButton;
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    [self listPurchasedSileoPackages];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (purchases == NULL) {
+        purchases = [NSMutableArray new];
+        [self getPurchases];
+    }
+    
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
-- (void)listPurchasedSileoPackages {
+- (void)getPurchases {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    
-    NSDictionary *test = @{ @"token": _keychain[self.repoEndpoint],
-                            @"udid": [ZBDevice UDID],
-                            @"device": [ZBDevice deviceModelID] };
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:(NSJSONWritingOptions)0 error:nil];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@user_info", self.repoEndpoint]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody: requestData];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        //NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSError *parseErr;
-        ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseErr];
-        // Make package ids lowercase so we dont miss any
-        NSMutableArray *loweredPackages = [NSMutableArray new];
-        for (NSString *name in userInfo.items) {
-            [loweredPackages addObject:[name lowercaseString]];
-        }
-        self.packages = (NSMutableArray<ZBPackage *> *) [self.databaseManager purchasedPackages:loweredPackages];
-        if (userInfo.user.name) {
-            self.userName = userInfo.user.name;
-        }
-        if (userInfo.user.email) {
-            self.userEmail = userInfo.user.email;
-        }
-            
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
+    [request setValue:[keychain stringForKey:[source repositoryURI]] forHTTPHeaderField:@"token"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    
+    NSLog(@"URL: %@", request.URL);
+    NSLog(@"Token: %@", [keychain stringForKey:[source repositoryURI]]);
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = [httpReponse statusCode];
         
-    }] resume];
+        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"Data: %@", result);
+        
+        if (statusCode == 200 && !error) {
+            NSError *parseError;
+            ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
+            
+            if (parseError) {
+                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+            }
+            else {
+                NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
+                for (NSString *packageIdentifier in userInfo.items) {
+                    [purchasedPackageIdentifiers addObject:[packageIdentifier lowercaseString]];
+                }
+                
+                self->purchases = [self->databaseManager packagesFromIdentifiers:purchasedPackageIdentifiers];
+                if (userInfo.user.name) {
+                    self->userName = userInfo.user.name;
+                }
+                if (userInfo.user.email) {
+                    self->userEmail = userInfo.user.email;
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+        else if (error) {
+            NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+        }
+    }];
+    
+    [task resume];
 }
 
-- (void)logoutRepo {
-    [_keychain removeItemForKey:self.repoEndpoint];
-    UINavigationController *navigationController = self.navigationController;
-    [navigationController popViewControllerAnimated:YES];
+- (void)signOut:(id)sender {
+    [keychain removeItemForKey:[source repositoryURI]];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -131,16 +161,16 @@
     if (section == 0) {
         return 1;
     } else {
-        return [self.packages count];
+        return [purchases count];
     }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) { // Account Cell
-        cell.textLabel.text = self.userName;
-        cell.detailTextLabel.text = self.userEmail;
+        cell.textLabel.text = userName;
+        cell.detailTextLabel.text = userEmail;
     } else { // Package Cell
-        ZBPackage *package = (ZBPackage *)[_packages objectAtIndex:indexPath.row];
+        ZBPackage *package = [purchases objectAtIndex:indexPath.row];
         [(ZBPackageTableViewCell *)cell updateData:package];
     }
 }
@@ -188,7 +218,7 @@
     if (indexPath.section == 0) {
         return nil;
     }
-    ZBPackage *package = _packages[indexPath.row];
+    ZBPackage *package = purchases[indexPath.row];
     return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
         [tableView reloadData];
     }];
@@ -199,7 +229,7 @@
     if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        destination.package = [_packages objectAtIndex:indexPath.row];
+        destination.package = [purchases objectAtIndex:indexPath.row];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }

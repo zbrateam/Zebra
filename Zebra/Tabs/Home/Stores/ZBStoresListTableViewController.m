@@ -14,7 +14,7 @@
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
+#import <Sources/Controllers/ZBSourceAccountTableViewController.h>
 
 @import SDWebImage;
 
@@ -154,10 +154,8 @@
         }
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
-        ivc.repoName = source.origin;
-        ivc.repoEndpoint = currentRepoEndpoint;
-        ivc.repoImage = [[ZBDatabaseManager sharedInstance] iconForRepo:source];
+        ZBSourceAccountTableViewController *ivc = (ZBSourceAccountTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
+        ivc.source = source;
         [self.navigationController pushViewController:ivc animated:YES];
     }
 }
