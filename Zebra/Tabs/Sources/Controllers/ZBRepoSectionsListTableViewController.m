@@ -14,45 +14,43 @@
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import "UIBarButtonItem+blocks.h"
-#import "ZBRepoPurchasedPackagesTableViewController.h"
+#import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 
 @import SDWebImage;
 
-@interface ZBRepoSectionsListTableViewController ()
+@interface ZBRepoSectionsListTableViewController () {
+    CGFloat bannerHeight;
+    UICKeyChainStore *keychain;
+    ZBDatabaseManager *databaseManager;
+}
+@property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
+@property (nonatomic, strong) NSArray *featuredPackages;
+@property (nonatomic, strong) NSArray *sectionNames;
+@property (nonatomic, strong) NSDictionary *sectionReadout;
 @end
 
 @implementation ZBRepoSectionsListTableViewController
 
 @synthesize repo;
-@synthesize sectionReadout;
 @synthesize sectionNames;
-@synthesize databaseManager;
+@synthesize sectionReadout;
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    // For iOS 9 and 10 Sileo Purchases
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-
-    // Purchased Buttons
-    self.login = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain actionHandler:^{
-        [self setupRepoLogin];
-    }];
+    keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    self.purchased = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain actionHandler:^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
-        ivc.repoName = self.repo.origin;
-        ivc.repoEndpoint = self.repoEndpoint;
-        ivc.repoImage = [self->databaseManager iconForRepo:self->repo];
-        [self.navigationController pushViewController:ivc animated:YES];
-    }];
+    UIBarButtonItem *accountButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain target:self action:@selector(accountButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = accountButton;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil]; // For iOS 9 and 10 Sileo Purchases
     
     UIImage *image = [databaseManager iconForRepo:repo];
     if (image != NULL) {
@@ -67,19 +65,17 @@
         
         self.navigationItem.titleView = container;
     }
-    self.title = [repo label];
+    else {
+        self.title = [repo label];
+    }
     
     if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    // This has to be registered anyway due to repo payment support late check
+    
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     [self checkFeaturedPackages];
-    if (!self.repoEndpoint && [[_keychain stringForKey:repo.repositoryURI] length] != 0) {
-        self.repoEndpoint = [_keychain stringForKey:repo.repositoryURI];
-    }
-    [self setupEndpointButtons];
 }
 
 
@@ -91,25 +87,23 @@
     
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self setupEndpointButtons];
 }
 
-- (void)setupEndpointButtons {
-    if (self.repoEndpoint) {
-        if (![self checkAuthenticated]) {
-            [self.navigationItem setRightBarButtonItem:self.login];
-        } else {
-            [self.navigationItem setRightBarButtonItem:self.purchased];
-        }
+- (void)accountButtonPressed:(id)sender {
+    if ([keychain stringForKey:[repo repositoryURI]]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZBSourceAccountTableViewController *accountController = (ZBSourceAccountTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
+        accountController.source = repo;
+        
+        [self.navigationController pushViewController:accountController animated:YES];
+    }
+    else {
+        [self setupRepoLogin];
     }
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AuthenticationCallBack" object:nil];
-}
-
-- (BOOL)checkAuthenticated {
-    return [[_keychain stringForKey:self.repoEndpoint] length];
 }
 
 - (void)checkFeaturedPackages {
@@ -133,7 +127,7 @@
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        self.fullJSON = json;
+                        self->bannerHeight = CGSizeFromString(json[@"itemSize"]).height + 10;
                         self.featuredPackages = json[@"banners"];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self setupFeaturedPackages];
@@ -152,68 +146,64 @@
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     self.featuredCollection.backgroundColor = [UIColor clearColor];
-    CGFloat height = CGSizeFromString(_fullJSON[@"itemSize"]).height + 10;
     // self.featuredCollection.collectionViewLayout.collectionViewContentSize.height = height;
     /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ // objective c
     // [self.featuredCollection setNeedsLayout];
     // [self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, height);
+        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerHeight);
     }];
     [self.tableView endUpdates];
     // [self.tableView reloadData];
 }
 
 - (void)setupRepoLogin {
-    if (self.repoEndpoint) {
-        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", self.repoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]];
-        if (!urlString) return;
-        NSURL *destinationUrl = [NSURL URLWithString:urlString];
-        if (!destinationUrl) return;
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[[repo paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+    if (![components.scheme isEqualToString:@"https"]) {
+        return;
+    }
+    NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
+    NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
+    NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
+    [queryItems addObject:udid];
+    [queryItems addObject:model];
+    
+    [components setQueryItems:queryItems];
+    
+    NSURL *url = [components URL];
+    
+    if (@available(iOS 11.0, *)) {
+        static SFAuthenticationSession *session;
+        session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+            if (callbackURL) {
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+                NSArray *queryItems = urlComponents.queryItems;
+                NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+                for (NSURLQueryItem *q in queryItems) {
+                    [queryByKeys setValue:[q value] forKey:[q name]];
+                }
+                NSString *token = queryByKeys[@"token"];
+                NSString *payment = queryByKeys[@"payment_secret"];
+                
+                [self->keychain setString:token forKey:[self->repo repositoryURI]];
+                
+                UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+                securedKeychain[[[self->repo repositoryURI] stringByAppendingString:@"payment"]] = nil;
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                                 authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+                    
+                    securedKeychain[[[self->repo repositoryURI] stringByAppendingString:@"payment"]] = payment;
+                });
+            }
+            else {
+                return;
+            }
+        }];
         
-        NSURLComponents *components = [NSURLComponents componentsWithURL:destinationUrl resolvingAgainstBaseURL:YES];
-        if (![components.scheme isEqualToString:@"http"] && ![components.scheme isEqualToString:@"https"]) {
-            return;
-        }
-        
-        if (@available(iOS 11.0, *)) {
-            static SFAuthenticationSession *session;
-            session = [[SFAuthenticationSession alloc]
-                            initWithURL:destinationUrl
-                            callbackURLScheme:@"sileo"
-                            completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                                // TODO: Nothing to do here?
-                                if (callbackURL) {
-                                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                                    NSArray *queryItems = urlComponents.queryItems;
-                                    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                                    for (NSURLQueryItem *q in queryItems) {
-                                        [queryByKeys setValue:[q value] forKey:[q name]];
-                                    }
-                                    NSString *token = queryByKeys[@"token"];
-                                    NSString *payment = queryByKeys[@"payment_secret"];
-                                    self->_keychain[self.repoEndpoint] = token;
-                                    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                                    securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
-                                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                                              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                                        
-                                        securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
-                                    });
-                                    // [self.repo setLoggedIn:YES];
-                                    [self.navigationItem setRightBarButtonItem:self.purchased];
-                                } else {
-                                    return;
-                                }
-                                
-                                
-                            }];
-            [session start];
-        } else {
-            [ZBDevice openURL:destinationUrl delegate:self];
-        }
-        
+        [session start];
+    } else {
+        [ZBDevice openURL:url delegate:self];
     }
 }
 
@@ -229,18 +219,17 @@
     }
     NSString *token = queryByKeys[@"token"];
     NSString *payment = queryByKeys[@"payment_secret"];
-    self->_keychain[self.repoEndpoint] = token;
+    keychain[[repo repositoryURI]] = token;
     // self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
     UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = nil;
+    securedKeychain[[[repo repositoryURI] stringByAppendingString:@"payment"]] = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
         
-        securedKeychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+        securedKeychain[[[self->repo repositoryURI] stringByAppendingString:@"payment"]] = payment;
         
     });
-    [self.navigationItem setRightBarButtonItem:self.purchased];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
@@ -339,9 +328,9 @@
     [cell.titleLabel setText:currentBanner[@"title"]];
     
     // dispatch_async(dispatch_get_main_queue(), ^{
-        if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
-            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
-        }
+//        if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
+//            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
+//        }
     // });
     
     return cell;
@@ -352,7 +341,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeFromString(_fullJSON[@"itemSize"]);
+    return CGSizeMake(100, 100);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

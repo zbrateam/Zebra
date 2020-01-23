@@ -15,17 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoSectionsListTableViewController : UITableViewController <SFSafariViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
-@property (strong, nonatomic) IBOutlet UICollectionView *featuredCollection;
-@property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 @property (nonatomic, strong) ZBSource *repo;
-@property (nonatomic, strong) NSDictionary *sectionReadout;
-@property (nonatomic, strong) NSArray *sectionNames;
-@property (nonatomic, strong) NSString *repoEndpoint;
-@property (nonatomic, strong) NSArray *featuredPackages;
-@property (nonatomic, strong) NSDictionary *fullJSON;
-@property UICKeyChainStore *keychain;
-@property UIBarButtonItem *purchased;
-@property UIBarButtonItem *login;
 @end
 
 NS_ASSUME_NONNULL_END
