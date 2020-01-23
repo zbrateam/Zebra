@@ -65,10 +65,12 @@
     
     [spinner startAnimating];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
-        [self dismissViewControllerAnimated:true completion:nil];
-    }];
-    self.navigationItem.rightBarButtonItem = doneButton;
+    if (self.presentingViewController) {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
+            [self dismissViewControllerAnimated:true completion:nil];
+        }];
+        self.navigationItem.rightBarButtonItem = doneButton;
+    }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
@@ -114,7 +116,12 @@
                     UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:parseError ? parseError.localizedDescription : userInfo.error preferredStyle:UIAlertControllerStyleAlert];
                     
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [self.navigationController popViewControllerAnimated:true];
+                        if (self.presentingViewController) {
+                            [self dismissViewControllerAnimated:true completion:nil];
+                        }
+                        else {
+                            [self.navigationController popViewControllerAnimated:true];
+                        }
                     }];
                     [errorAlert addAction:okAction];
                     
