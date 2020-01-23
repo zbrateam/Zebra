@@ -29,42 +29,36 @@
             @"iconName": @"originalBlack",
             @"author": @"Carson Katri",
             @"readableName": @"Black with White Stripes",
-            @"shortName": @"White Stripes",
             @"border": @NO
+        },
+        @{
+            @"iconName": @"AUPM",
+            @"readableName": @"Retro",
+            @"border": @YES
         },
         @{
             @"iconName": @"lightZebraSkin",
             @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Zebra Pattern (Light)",
-            @"shortName": @"Pattern (Light)",
             @"border": @NO
         },
         @{
             @"iconName": @"darkZebraSkin",
             @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Zebra Pattern (Dark)",
-            @"shortName": @"Pattern (Dark)",
             @"border": @NO
         },
         @{
             @"iconName": @"zWhite",
             @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Embossed Zebra Pattern (Light)",
-            @"shortName": @"Embossed (Light)",
             @"border": @NO
         },
         @{
             @"iconName": @"zBlack",
             @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Embossed Zebra Pattern (Dark)",
-            @"shortName": @"Embossed (Dark)",
             @"border": @NO
-        },
-        @{
-            @"iconName": @"AUPM",
-            @"readableName": @"Useless",
-            @"shortName": @"AUPM",
-            @"border": @YES
         }
     ];
 }
