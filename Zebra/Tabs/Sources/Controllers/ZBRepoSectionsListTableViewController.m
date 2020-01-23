@@ -20,7 +20,7 @@
 @import SDWebImage;
 
 @interface ZBRepoSectionsListTableViewController () {
-    CGFloat bannerHeight;
+    CGSize bannerSize;
     UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
 }
@@ -127,7 +127,7 @@
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        self->bannerHeight = CGSizeFromString(json[@"itemSize"]).height + 10;
+                        self->bannerSize = CGSizeFromString(json[@"itemSize"]);
                         self.featuredPackages = json[@"banners"];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self setupFeaturedPackages];
@@ -151,7 +151,7 @@
     // [self.featuredCollection setNeedsLayout];
     // [self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerHeight);
+        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 10);
     }];
     [self.tableView endUpdates];
     // [self.tableView reloadData];
@@ -341,7 +341,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(100, 100);
+    return bannerSize;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
