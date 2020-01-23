@@ -353,73 +353,82 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
 }
 
-- (void)addModifyButton {
-    UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(modifyPackage)];
-    self.navigationItem.rightBarButtonItem = modifyButton;
-}
-
 - (void)configureNavButton {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->navButtonsBeingConfigured)
-            return;
-        self->navButtonsBeingConfigured = YES;
-        
-        if ([self->package isInstalled:NO]) { //Show "Modify" button
-            
-            self->navButtonsBeingConfigured = NO;
+    if (navButtonsBeingConfigured) return;
+    
+    navButtonsBeingConfigured = YES;
+    if ([package isInstalled:NO]) { //Show "Modify" button
+        if ([package isReinstallable]) {
+            if ([package isPaid]) {
+                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+                    if (info && info.purchased && info.available) {
+                        self.purchased = YES;
+                        self->package.sileoDownload = YES;
+                        [self showModifyButton:true];
+                    }
+                    else {
+                        [self showRemoveButton];
+                    }
+                }];
+            }
+            else {
+                navButtonsBeingConfigured = NO;
+                [self showModifyButton:true];
+            }
         }
-        else if ([self->package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
-            [self setNavigationButtonBusy:true];
-            [self->package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
+        else {
+            navButtonsBeingConfigured = NO;
+            [self showRemoveButton];
+        }
+    }
+    else if ([package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
+        [self setNavigationButtonBusy:YES];
+        [package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
+            if (info) {
+                self.package.sileoDownload = YES;
+                self.purchased = info.purchased;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info ? info.price : NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                    self->previousButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                    [self setNavigationButtonBusy:false];
+                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                    [self setNavigationButtonBusy:NO];
                     
                     self->navButtonsBeingConfigured = NO;
                 });
-            }];
-        }
-        else {
-            UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-            
-            installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-            self.navigationItem.rightBarButtonItem = installButton;
-            
-            self->navButtonsBeingConfigured = NO;
-        }
+            }
+            else {
+                [self showInstallButton];
+            }
+        }];
+    }
+    else {
+        //Show the install button as a last resort
+        [self showInstallButton];
+    }
+}
+
+- (void)showInstallButton {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+        
+        installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+        self.navigationItem.rightBarButtonItem = installButton;
     });
+}
+
+- (void)showModifyButton:(BOOL)installed {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modiy", @"") style:UIBarButtonItemStylePlain target:self action:installed ? @selector(modifyPackage) : @selector(ignoredModify)];
+        self.navigationItem.rightBarButtonItem = modifyButton;
+    });
+}
+
+- (void)showRemoveButton {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Remove", @"") style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
+        removeButton.enabled = self->package.repo.repoID != -1;
         
-        
-        
-        
-//        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-//        NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
-//        if ([package isInstalled:NO]) {
-//            if ([package isReinstallable]) {
-//                if ([package isPaid] && [keychain[baseURL] length] != 0) {
-//                    [self determinePaidPackage];
-//                } else {
-//                    [self addModifyButton];
-//                }
-//            } else {
-//                UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
-//                removeButton.enabled = package.repo.repoID != -1;
-//                self.navigationItem.rightBarButtonItem = removeButton;
-//            }
-//        } else if ([package isPaid] && [keychain[baseURL] length] != 0) {
-//            [self determinePaidPackage];
-//        } else {
-//            if ([package essential]) { //The package is marked as essential, display "Modify" so they can ignore updates if they don't wish to CONFORM
-//                UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(ignoredModify)];
-//                self.navigationItem.rightBarButtonItem = modifyButton;
-//            }
-//            else {
-//                UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:false] style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-//                installButton.enabled = ![[ZBQueue sharedQueue] contains:package inQueue:ZBQueueTypeInstall];
-//                self.navigationItem.rightBarButtonItem = installButton;
-//            }
-//        }
+        self.navigationItem.rightBarButtonItem = removeButton;
+    });
 }
 
 - (void)setNavigationButtonBusy:(BOOL)busy {
@@ -453,83 +462,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     });
 }
 
-- (void)determinePaidPackage {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSString *baseURL = [keychain stringForKey:package.repo.repositoryURI];
-    if ([keychain[baseURL] length] != 0) {
-        if ([package isPaid]) {
-            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-            
-            NSDictionary *test = @{ @"token": keychain[baseURL],
-                                    @"udid": [ZBDevice UDID],
-                                    @"device": [ZBDevice deviceModelID] };
-            NSData *requestData = [NSJSONSerialization dataWithJSONObject:test options:kNilOptions error:nil];
-            
-            NSMutableURLRequest *request = [NSMutableURLRequest new];
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info", baseURL, package.identifier]];
-            NSLog(@"URL: %@", url);
-            [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/info", baseURL, package.identifier]]];
-            [request setHTTPMethod:@"POST"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-            [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-            [request setHTTPBody: requestData];
-            [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSString *title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:true];
-                SEL selector = @selector(installPackage);
-                ZBPurchaseInfo *purchaseInfo = nil;
-                if (data) {
-                    /*json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                    ZBLog(@"[Zebra] Package purchase status response: %@", json);
-                    purchased = [json[@"purchased"] boolValue];
-                    available = [json[@"available"] boolValue];*/
-                    NSError *err;
-                    purchaseInfo = [ZBPurchaseInfo fromData:data error:&err];
-                    /*purchased = [purchaseInfo.purchased boolValue];
-                    available = [purchaseInfo.available boolValue];*/
-                }
-                BOOL installed = [self->package isInstalled:NO];
-                if (installed) {
-                    BOOL set = NO;
-                    if (purchaseInfo.purchased != nil && [purchaseInfo.purchased boolValue]) {
-                        self->package.sileoDownload = YES;
-                        self.purchased = YES;
-                        if ([purchaseInfo.available boolValue] && ![self->package isReinstallable]) {
-                            title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:true];
-                            selector = @selector(removePackage);
-                            set = YES;
-                        }
-                    }
-                    if (!set) {
-                        title = NSLocalizedString(@"Modify", @"");
-                        selector = @selector(modifyPackage);
-                    }
-                } else if ([purchaseInfo.available boolValue]) {
-                    if ([purchaseInfo.purchased boolValue]) {
-                        self->package.sileoDownload = YES;
-                        self.purchased = YES;
-                    } else if (purchaseInfo) {
-                        title = purchaseInfo.price;
-                        selector = @selector(purchasePackage);
-                    }
-                }
-                UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:selector];
-                button.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.navigationItem setRightBarButtonItem:button animated:YES];
-//                    [uiBusy stopAnimating];
-                });
-                
-            }] resume];
-        }
-    }
-}
-
 - (void)installPackage {
-    [ZBPackageActionsManager installPackage:package purchased:self.purchased];
-    [self presentQueue];
-    [self configureNavButton];
+    if (package.sileoDownload && !self.purchased) {
+        [self purchasePackage];
+    }
+    else {
+        [ZBPackageActionsManager installPackage:package purchased:self.purchased];
+        [self presentQueue];
+        [self configureNavButton];
+    }
 }
 
 - (void)purchasePackage {
