@@ -97,10 +97,7 @@
 
 - (void)accountButtonPressed:(id)sender {
     if ([keychain stringForKey:[repo repositoryURI]]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBSourceAccountTableViewController *accountController = (ZBSourceAccountTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
-        accountController.source = repo;
-        
+        ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:repo];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
         
         [self presentViewController:navController animated:true completion:nil];
@@ -222,13 +219,16 @@
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
     NSArray *queryItems = urlComponents.queryItems;
     NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+    
     for (NSURLQueryItem *q in queryItems) {
         [queryByKeys setValue:[q value] forKey:[q name]];
     }
+    
     NSString *token = queryByKeys[@"token"];
     NSString *payment = queryByKeys[@"payment_secret"];
-    keychain[[repo repositoryURI]] = token;
-    // self->_keychain[[self.repoEndpoint stringByAppendingString:@"payment"]] = payment;
+    
+    [keychain setString:token forKey:[repo repositoryURI]];
+    
     UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     securedKeychain[[[repo repositoryURI] stringByAppendingString:@"payment"]] = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
