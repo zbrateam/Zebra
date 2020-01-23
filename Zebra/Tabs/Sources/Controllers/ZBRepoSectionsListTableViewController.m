@@ -95,7 +95,9 @@
         ZBSourceAccountTableViewController *accountController = (ZBSourceAccountTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
         accountController.source = repo;
         
-        [self.navigationController pushViewController:accountController animated:YES];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
+        
+        [self presentViewController:navController animated:true completion:nil];
     }
     else {
         [self setupRepoLogin];

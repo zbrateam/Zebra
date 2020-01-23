@@ -32,6 +32,17 @@
 
 @synthesize source;
 
+- (id)initWithSource:(ZBSource *)source {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
+    
+    if (self) {
+        self.source = source;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -54,8 +65,10 @@
     
     [spinner startAnimating];
     
-    UIBarButtonItem *signOutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign Out", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signOut:)];
-    self.navigationItem.rightBarButtonItem = signOutButton;
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
+        [self dismissViewControllerAnimated:true completion:nil];
+    }];
+    self.navigationItem.rightBarButtonItem = doneButton;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
@@ -124,6 +137,9 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
+                    
+                    self.navigationItem.titleView = NULL;
+                    self.navigationItem.title = NSLocalizedString(@"Account", @"");
                 });
             }
         }

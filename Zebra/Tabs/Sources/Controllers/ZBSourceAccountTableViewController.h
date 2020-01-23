@@ -11,6 +11,9 @@
 #import <Database/ZBDatabaseManager.h>
 #import "ZBPackage.h"
 
+@class ZBSource;
+
 @interface ZBSourceAccountTableViewController : UITableViewController
-@property ZBSource *source;
+@property (nonatomic, strong) ZBSource *source;
+- (id)initWithSource:(ZBSource *)source;
 @end
