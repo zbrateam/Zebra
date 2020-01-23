@@ -75,7 +75,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
     
-    NSDictionary *token = @{@"token": [keychain stringForKey:[source repositoryURI]], @"udid": [ZBDevice UDID]};
+    NSDictionary *token = @{@"token": [keychain stringForKey:[source repositoryURI]]};
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:token options:(NSJSONWritingOptions)0 error:nil];
     
     [request setHTTPMethod:@"POST"];
@@ -99,8 +99,17 @@
             NSError *parseError;
             ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
             
-            if (parseError) {
-                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+            if (parseError || userInfo.error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:parseError ? parseError.localizedDescription : userInfo.error preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [self.navigationController popViewControllerAnimated:true];
+                    }];
+                    [errorAlert addAction:okAction];
+                    
+                    [self presentViewController:errorAlert animated:true completion:nil];
+                });
             }
             else {
                 NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
@@ -115,11 +124,11 @@
                 if (userInfo.user.email) {
                     self->userEmail = userInfo.user.email;
                 }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
             }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
         }
         else if (error) {
             NSLog(@"[Zebra] Error: %@", error.localizedDescription);
