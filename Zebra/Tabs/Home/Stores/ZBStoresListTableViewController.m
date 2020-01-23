@@ -142,9 +142,7 @@
     }
 }
 
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    
-}
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {}
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     [self.tableView reloadData];
@@ -175,6 +173,10 @@
     });
     
     [self.tableView reloadData];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return sources.count ? NSLocalizedString(@"Signing in to sources allows for the purchase of paid packages.", @"") : NULL;
 }
 
 @end
