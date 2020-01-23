@@ -74,9 +74,16 @@
 - (void)getPurchases {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
+    
+    NSDictionary *token = @{@"token": [keychain stringForKey:[source repositoryURI]], @"udid": [ZBDevice UDID]};
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:token options:(NSJSONWritingOptions)0 error:nil];
+    
     [request setHTTPMethod:@"POST"];
-    [request setValue:[keychain stringForKey:[source repositoryURI]] forHTTPHeaderField:@"token"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
     
     NSLog(@"URL: %@", request.URL);
     NSLog(@"Token: %@", [keychain stringForKey:[source repositoryURI]]);
