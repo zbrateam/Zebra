@@ -53,7 +53,7 @@
         }
     }
     else {
-        return [UIColor secondarySystemGroupedBackgroundColor];
+        return [UIColor systemGroupedBackgroundColor];
     }
 }
 
