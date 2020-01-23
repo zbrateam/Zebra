@@ -269,7 +269,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param requestedPackages (Nullable) An array with package identifiers.
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
-- (NSArray <ZBPackage *> *)purchasedPackages:(NSArray<NSString *> *)requestedPackages;
+- (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
 #pragma mark - Package status
 
 /*!
