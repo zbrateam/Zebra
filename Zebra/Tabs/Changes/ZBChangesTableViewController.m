@@ -18,6 +18,8 @@
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import "ZBRedditPosts.h"
+#import <ZBDevice.h>
+
 @import SDWebImage;
 @import FirebaseAnalytics;
 
