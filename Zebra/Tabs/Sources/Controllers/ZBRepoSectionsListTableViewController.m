@@ -97,15 +97,24 @@
 }
 
 - (void)accountButtonPressed:(id)sender {
-    if ([keychain stringForKey:[repo repositoryURI]]) {
-        ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:repo];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
-        
-        [self presentViewController:navController animated:true completion:nil];
-    }
-    else {
-        [repo authenticate];
-    }
+    [repo authenticate:^(BOOL success, NSError * _Nullable error) {
+        if (!success || error) {
+            if (error) {
+                if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
+            }
+            else {
+                [ZBAppDelegate sendAlertFrom:self message:@"Could not authenticate"];
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
+                
+                [self presentViewController:navController animated:true completion:nil];
+            });
+        }
+    }];
 }
 
 - (void)dealloc {

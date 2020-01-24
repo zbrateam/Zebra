@@ -83,15 +83,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBSource *source = [sources objectAtIndex:indexPath.row];
-
-    if ([keychain stringForKey:[source repositoryURI]]) { //User has signed in
-        ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
-        
-        [self.navigationController pushViewController:accountController animated:true];
-    }
-    else { //User is not signed in, show auth prompt
-        [source authenticate];
-    }
+    
+    [source authenticate:^(BOOL success, NSError * _Nullable error) {
+        if (!success || error) {
+            if (error) {
+                [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
+            }
+            else {
+                [ZBAppDelegate sendAlertFrom:self message:@"Could not authenticate"];
+            }
+        }
+        else {
+            ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
+            
+            [self.navigationController pushViewController:accountController animated:true];
+        }
+    }];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {}

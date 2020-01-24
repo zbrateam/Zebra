@@ -142,7 +142,13 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.repoID];
 }
 
-- (void)authenticate {
+- (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion {
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if ([keychain stringForKey:self.repositoryURI]) {
+        completion(true, nil);
+        return;
+    }
+    
     if (paymentVendorURL) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:[paymentVendorURL URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
         if (![components.scheme isEqualToString:@"https"]) {
@@ -180,10 +186,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
                         
                         [keychain setString:payment forKey:key];
+                        
+                        completion(true, NULL);
                     });
                 }
                 else {
-                    return;
+                    completion(false, error);
                 }
             }];
             
