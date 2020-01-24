@@ -74,6 +74,7 @@
     }];
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
+    self.title = [repo label];
     
     if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
