@@ -120,12 +120,20 @@
                     [self->keychain setString:token forKey:[source repositoryURI]];
                     
                     UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                    securedKeychain[[[source repositoryURI] stringByAppendingString:@"payment"]] = nil;
+                    
+                    NSString *key = [[source repositoryURI] stringByAppendingString:@"payment"];
+                    
+                    [securedKeychain setString:nil forKey:key];
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                         [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
                         
-                        securedKeychain[[[source repositoryURI] stringByAppendingString:@"payment"]] = payment;
+                        NSError *error;
+                        [securedKeychain setString:payment forKey:key error:&error];
+                        
+                        if (error) {
+                            NSLog(@"Error: %@", error);
+                        }
                     });
                 }
                 else {

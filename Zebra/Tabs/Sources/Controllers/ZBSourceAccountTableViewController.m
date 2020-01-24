@@ -86,8 +86,8 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
     
-    NSDictionary *token = @{@"token": [keychain stringForKey:[source repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:token options:(NSJSONWritingOptions)0 error:nil];
+    NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
     
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -99,9 +99,6 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
         NSInteger statusCode = [httpReponse statusCode];
-        
-        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"Data: %@", result);
         
         if (statusCode == 200 && !error) {
             NSError *parseError;

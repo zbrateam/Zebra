@@ -24,6 +24,7 @@
 
 @import FirebaseCore;
 @import Crashlytics;
+@import LocalAuthentication;
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;

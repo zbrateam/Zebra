@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
 + (BOOL)exists:(NSString *)urlString;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
+- (NSString *)paymentSecret;
 @end
 
 NS_ASSUME_NONNULL_END

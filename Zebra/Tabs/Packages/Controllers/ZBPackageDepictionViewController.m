@@ -482,56 +482,55 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)purchasePackage {
     [self setNavigationButtonBusy:true];
     
-    NSString *repositoryURL = [[package repo] repositoryURI];
+    ZBSource *source = [package repo];
+    NSString *repositoryURL = [source repositoryURI];
+    
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([keychain stringForKey:repositoryURL]) { //Check if we have an access token
-        if ([[package repo] paymentVendorURL] && [package isPaid] /* Just a small check to see if the package is actually paid and the repo supports payment */) {
-            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-            NSString *idThing = [NSString stringWithFormat:@"%@payment", [keychain stringForKey:[package repo].repositoryURI]];
-            __block NSString *secret;
-            // Wait on getting key
-            dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                NSError *error = nil;
-                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
-                secret = keychain[idThing];
-                dispatch_semaphore_signal(sema);
-                if (error) {
-                    ZBLog(@"[Zebra] Package purchase error: %@", error.localizedDescription);
-                }
-            });
-            dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-            // Continue
-            if ([secret length] != 0) {
-                NSDictionary *requestJSON = @{ @"token": keychain[[keychain stringForKey:[package repo].repositoryURI]],
-                                               @"payment_secret": secret,
-                                               @"udid": [ZBDevice UDID],
-                                               @"device": [ZBDevice deviceModelID] };
+        if ([source paymentVendorURL] && [package isPaid]) { //Just a small double check to make sure the package is paid and the repo supports payment
+            NSString *secret = [source paymentSecret];
+            
+            if (secret) {
+                NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [package identifier]]];
+                
+                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
+                
+                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[[package repo] repositoryURI]], @"payment_secret": secret, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
                 
-                NSMutableURLRequest *request = [NSMutableURLRequest new];
-                [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@package/%@/purchase",[keychain stringForKey:[package repo].repositoryURI], package.identifier]]];
                 [request setHTTPMethod:@"POST"];
                 [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
                 [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
                 [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-                [request setHTTPBody: requestData];
-                [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    if (data) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        ZBLog(@"[Zebra] Package purchase response: %@", json);
-                        if ([json[@"status"] boolValue]) {
-//                            [uiBusy stopAnimating];
-                            [self initPurchaseLink:json[@"url"]];
-                        } else {
-                            [self configureNavButton];
+                [request setHTTPBody:requestData];
+                
+                NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    [self setNavigationButtonBusy:false];
+                    
+                    NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+                    NSInteger statusCode = [httpReponse statusCode];
+                    
+                    if (statusCode == 200 && !error) {
+                        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        NSInteger status = [result[@"status"] integerValue];
+                        switch (status) {
+                            case -1: { //Failure
+                                [ZBAppDelegate sendAlertFrom:self message:@"Could not complete purchase"];
+                            }
+                            case 0: { //Immediate Success
+                                [self configureNavButton];
+                            }
+                            case 1: { //Interaction required
+                                [self initPurchaseLink:[NSURL URLWithString:result[@"url"]]];
+                            }
                         }
                     }
-                }] resume];
+                }];
+                
+                [task resume];
             } else {
-                [self configureNavButton];
+                [ZBAppDelegate sendAlertFrom:self message:@"Could not complete purchase, no payment secret was found"];
             }
         }
     }
@@ -540,16 +539,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
 }
 
-- (void)initPurchaseLink:(NSString *)link {
-    if (link == nil) {
-        [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Please relogin your account that is used to purchase this package (Possibly %@)", @""), package.repo.origin]];
-        return;
-    }
-    NSURL *destinationUrl = [NSURL URLWithString:link];
+- (void)initPurchaseLink:(NSURL *)url {
     if (@available(iOS 11.0, *)) {
         static SFAuthenticationSession *session;
         session = [[SFAuthenticationSession alloc]
-                   initWithURL:destinationUrl
+                   initWithURL:url
                    callbackURLScheme:@"sileo"
                    completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                        // TODO: Nothing to do here?
@@ -579,7 +573,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                    }];
         [session start];
     } else {
-        [ZBDevice openURL:destinationUrl delegate:self];
+        [ZBDevice openURL:url delegate:self];
     }
 }
 
