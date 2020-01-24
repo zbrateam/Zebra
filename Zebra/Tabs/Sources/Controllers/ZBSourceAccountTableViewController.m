@@ -11,12 +11,15 @@
 #import "ZBSourceAccountTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
+#import "ZBRepoTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import "ZBUserInfo.h"
 #import <Tabs/Sources/Helpers/ZBSource.h>
 
 #import <Packages/Helpers/ZBPackageActionsManager.h>
+
+@import SDWebImage;
 
 @interface ZBSourceAccountTableViewController () {
     ZBDatabaseManager *databaseManager;
@@ -25,6 +28,7 @@
     NSArray <ZBPackage *> *purchases;
     NSString *userName;
     NSString *userEmail;
+    BOOL loading;
 }
 @end
 
@@ -51,19 +55,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            break;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            break;
-    }
-    
-    [spinner startAnimating];
+    self.navigationItem.title = NSLocalizedString(@"Account", @"");
     
     if (self.presentingViewController) {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
@@ -73,6 +65,7 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,10 +76,13 @@
         [self getPurchases];
     }
     
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)getPurchases {
+    loading = TRUE;
+    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
     
@@ -143,15 +139,30 @@
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
+                    self->loading = FALSE;
                     
-                    self.navigationItem.titleView = NULL;
-                    self.navigationItem.title = NSLocalizedString(@"Account", @"");
+                    [self.tableView beginUpdates];
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView endUpdates];
                 });
             }
         }
         else if (error) {
-            NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    if (self.presentingViewController) {
+                        [self dismissViewControllerAnimated:true completion:nil];
+                    }
+                    else {
+                        [self.navigationController popViewControllerAnimated:true];
+                    }
+                }];
+                [errorAlert addAction:okAction];
+                
+                [self presentViewController:errorAlert animated:true completion:nil];
+            });
         }
     }];
     
@@ -169,77 +180,122 @@
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 0;
-    } else {
-        return 25;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
-    view.tintColor = [UIColor clearColor];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 1 || (indexPath.section == 0 && indexPath.row == 0)) {
         return 65;
-    } else {
+    }
+    else {
         return 44;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else {
-        return [purchases count];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) { // Account Cell
-        cell.textLabel.text = userName;
-        cell.detailTextLabel.text = userEmail;
-    } else { // Package Cell
-        ZBPackage *package = [purchases objectAtIndex:indexPath.row];
-        [(ZBPackageTableViewCell *)cell updateData:package];
+    switch (section) {
+        case 0:
+            return 3;
+        case 1:
+            return (![purchases count] || loading) ? 1 : [purchases count];
+        default:
+            return 0;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"accountCell"];
-        return cell;
-    } else {
-        ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-        [cell setColors];
-        return cell;
+    if (indexPath.section == 0) { // Account Cell
+        switch (indexPath.row) {
+            case 0: {
+                ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+                
+                cell.repoLabel.textColor = [UIColor primaryTextColor];
+                cell.repoLabel.text = [source label];
+                
+                cell.urlLabel.text = [source sourceDescription];
+                cell.urlLabel.textColor = [UIColor secondaryTextColor];
+                
+                [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+                
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                return cell;
+            }
+            case 1: {
+                
+                
+                if (!loading) {
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"accountCell"];
+                    
+                    cell.textLabel.text = userName;
+                    cell.detailTextLabel.text = userEmail;
+                    
+                    return cell;
+                }
+                else {
+                    UITableViewCell *spinnerCell = [tableView dequeueReusableCellWithIdentifier:@"spinnerCell"];
+                    
+                    return spinnerCell;
+                }
+            }
+            case 2: {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonCell"];
+                
+                cell.textLabel.text = NSLocalizedString(@"Sign Out", @"");
+                cell.textLabel.textColor = [UIColor accentColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                
+                return cell;
+            }
+            default:
+                return NULL;
+        }
     }
-    
+    else {
+        if (loading) {
+            UITableViewCell *spinnerCell = [tableView dequeueReusableCellWithIdentifier:@"spinnerCell"];
+            
+            return spinnerCell;
+        }
+        else if (![purchases count]) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonCell"];
+            
+            cell.textLabel.text = @"No packages purchased";
+            
+            return cell;
+        }
+        else {
+            ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+            [cell setColors];
+            
+            ZBPackage *package = [purchases objectAtIndex:indexPath.row];
+            [(ZBPackageTableViewCell *)cell updateData:package];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            
+            return cell;
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0 && indexPath.row == 2) {
+        [tableView deselectRowAtIndexPath:indexPath animated:true];
+        
+        [keychain removeItemForKey:[source repositoryURI]];
+        
+        if (self.presentingViewController) {
+            [self dismissViewControllerAnimated:true completion:nil];
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:true];
+        }
+    }
+    else if (indexPath.section == 1 && [purchases count] && !loading) {
         [self performSegueWithIdentifier:@"seguePurchasesToPackageDepiction" sender:indexPath];
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
-    view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    view.textLabel.textColor = [UIColor primaryTextColor];
-    view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-        
-    return view;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedString(@"Purchased Packages", @"");
+    return section == 1 ? NSLocalizedString(@"Your Purchases", @"") : NULL;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -261,6 +317,7 @@
 }
 
 #pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
@@ -272,7 +329,6 @@
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor accentColor];
     [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
 }
 
