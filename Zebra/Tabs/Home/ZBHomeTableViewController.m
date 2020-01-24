@@ -272,7 +272,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
                     cell.textLabel.textColor = [UIColor primaryTextColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+                    cell.backgroundColor = [UIColor cellBackgroundColor];
                     
                     return cell;
                 }
@@ -294,7 +294,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.textLabel.textColor = [UIColor primaryTextColor];
                     [cell.textLabel sizeToFit];
-                    cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+                    cell.backgroundColor = [UIColor cellBackgroundColor];
                     
                     return cell;
                 }
@@ -336,7 +336,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
-            cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
             
             return cell;
         }
@@ -370,7 +370,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
-            cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
             
             return cell;
         }
@@ -388,7 +388,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
-            cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
             
             return cell;
         }

@@ -138,7 +138,7 @@
         [[UITableView appearance] setTintColor:[UIColor accentColor]];
         [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
         
-        [[UITableViewCell appearance] setBackgroundColor:[UIColor groupedCellBackgroundColor]];
+        [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
         [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
         [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
         [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTextColor:[UIColor primaryTextColor]];

@@ -216,7 +216,7 @@
     }
     
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor groupedCellBackgroundColor];
+    cell.backgroundColor = [UIColor cellBackgroundColor];
     
     [cell.repoLabel setText:[info objectForKey:@"name"]];
     [cell.repoLabel setTextColor:[UIColor primaryTextColor]];

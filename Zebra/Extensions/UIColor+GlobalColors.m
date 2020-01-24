@@ -57,34 +57,19 @@
     }
 }
 
-+ (UIColor *)groupedCellBackgroundColor {
-    if ([ZBThemeManager useCustomTheming]) {
-        switch ([ZBSettings interfaceStyle]) {
-            case ZBInterfaceStyleLight:
-                return [UIColor whiteColor];
-            case ZBInterfaceStyleDark:
-                return [UIColor colorWithRed:0.11 green:0.11 blue:0.12 alpha:1.0];
-            case ZBInterfaceStylePureBlack:
-                return [UIColor blackColor];
-        }
-    }
-    else {
-        return [UIColor tertiarySystemGroupedBackgroundColor];
-    }
-}
-
 + (UIColor *)cellBackgroundColor {
     if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
             case ZBInterfaceStyleLight:
                 return [UIColor whiteColor];
             case ZBInterfaceStyleDark:
+                return [UIColor grayColor];
             case ZBInterfaceStylePureBlack:
                 return [UIColor blackColor];
         }
     }
     else {
-        return [UIColor systemBackgroundColor];
+        return [UIColor secondarySystemGroupedBackgroundColor];
     }
 }
 
