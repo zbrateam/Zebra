@@ -97,6 +97,16 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self setPackage];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
+        case ZBInterfaceStyleDark:
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
+        case ZBInterfaceStylePureBlack:
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Pure-Black ~ %@", PACKAGE_VERSION];
+    }
+    
 //    if ([ZBDevice darkModeEnabled]) {
 //        if ([ZBDevice darkModeOledEnabled]) {
 //            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark Oled ~ %@", PACKAGE_VERSION];
@@ -162,17 +172,23 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *machineIdentifier = [ZBDevice machineID];
     
     [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-//    if ([ZBDevice darkModeEnabled]) {
-//        [request setValue:@"YES" forHTTPHeaderField:@"Dark"];
-//        if ([ZBDevice darkModeOledEnabled]) {
-//            [request setValue:@"YES" forHTTPHeaderField:@"Oled"];
-//            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Oled" forHTTPHeaderField:@"User-Agent"];
-//        } else {
-//            [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
-//        }
-//    } else {
-//        [request setValue:@"Telesphoreo APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
-//    }
+
+    //Set theme settings and user agent
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight: {
+            [request setValue:@"Light" forHTTPHeaderField:@"Theme"];
+            [request setValue:@"Cydia Telesphoreo (Zebra) APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
+        }
+        case ZBInterfaceStyleDark: {
+            [request setValue:@"Dark" forHTTPHeaderField:@"Theme"];
+            [request setValue:@"Cydia Telesphoreo (Zebra) APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+        }
+        case ZBInterfaceStylePureBlack: {
+            [request setValue:@"Pure-Black" forHTTPHeaderField:@"Theme"];
+            [request setValue:@"Cydia Telesphoreo (Zebra) APT-HTTP/1.0.592 Pure-Black" forHTTPHeaderField:@"User-Agent"];
+        }
+    }
+    
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
