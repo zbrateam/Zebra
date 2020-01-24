@@ -42,7 +42,7 @@
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
     
-    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
 
 

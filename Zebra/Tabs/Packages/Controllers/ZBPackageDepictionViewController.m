@@ -100,22 +100,12 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia)/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
         case ZBInterfaceStyleDark:
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia)/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
         case ZBInterfaceStylePureBlack:
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Pure-Black ~ %@", PACKAGE_VERSION];
+            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia)/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
     }
-    
-//    if ([ZBDevice darkModeEnabled]) {
-//        if ([ZBDevice darkModeOledEnabled]) {
-//            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark Oled ~ %@", PACKAGE_VERSION];
-//        } else {
-//            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Dark ~ %@", PACKAGE_VERSION];
-//        }
-//    } else {
-//        configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Zebra (Cydia) Light ~ %@", PACKAGE_VERSION];
-//    }
     
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     [controller addScriptMessageHandler:self name:@"observe"];
@@ -177,15 +167,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight: {
             [request setValue:@"Light" forHTTPHeaderField:@"Theme"];
-            [request setValue:@"Cydia Telesphoreo (Zebra) APT-HTTP/1.0.592 Light" forHTTPHeaderField:@"User-Agent"];
+            [request setValue:[NSString stringWithFormat:@"Zebra (Cydia)/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
         }
         case ZBInterfaceStyleDark: {
             [request setValue:@"Dark" forHTTPHeaderField:@"Theme"];
-            [request setValue:@"Cydia Telesphoreo (Zebra) APT-HTTP/1.0.592 Dark" forHTTPHeaderField:@"User-Agent"];
+            [request setValue:[NSString stringWithFormat:@"Zebra (Cydia)/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
         }
         case ZBInterfaceStylePureBlack: {
             [request setValue:@"Pure-Black" forHTTPHeaderField:@"Theme"];
-            [request setValue:@"Cydia Telesphoreo (Zebra) APT-HTTP/1.0.592 Pure-Black" forHTTPHeaderField:@"User-Agent"];
+            [request setValue:[NSString stringWithFormat:@"Zebra (Cydia)/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
         }
     }
     
