@@ -234,6 +234,10 @@
         {
           "name": "Twemoji",
           "link": "https://github.com/twitter/twemoji"
+        },
+        {
+          "name": "UICKeyChainStore",
+          "link": "https://github.com/kishikawakatsumi/UICKeyChainStore"
         }
       ]
     }
