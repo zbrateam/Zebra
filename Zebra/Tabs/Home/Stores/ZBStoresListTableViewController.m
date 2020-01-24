@@ -90,63 +90,7 @@
         [self.navigationController pushViewController:accountController animated:true];
     }
     else { //User is not signed in, show auth prompt
-        NSURLComponents *components = [NSURLComponents componentsWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
-        if (![components.scheme isEqualToString:@"https"]) {
-            return;
-        }
-        NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
-        NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
-        NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
-        [queryItems addObject:udid];
-        [queryItems addObject:model];
-        
-        [components setQueryItems:queryItems];
-        
-        NSURL *url = [components URL];
-        
-        if (@available(iOS 11.0, *)) {
-            static SFAuthenticationSession *session;
-            session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                if (callbackURL) {
-                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                    NSArray *queryItems = urlComponents.queryItems;
-                    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                    for (NSURLQueryItem *q in queryItems) {
-                        [queryByKeys setValue:[q value] forKey:[q name]];
-                    }
-                    NSString *token = queryByKeys[@"token"];
-                    NSString *payment = queryByKeys[@"payment_secret"];
-                    
-                    [self->keychain setString:token forKey:[source repositoryURI]];
-                    
-                    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                    
-                    NSString *key = [[source repositoryURI] stringByAppendingString:@"payment"];
-                    
-                    [securedKeychain setString:nil forKey:key];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                        
-                        NSError *error;
-                        [securedKeychain setString:payment forKey:key error:&error];
-                        
-                        if (error) {
-                            NSLog(@"Error: %@", error);
-                        }
-                    });
-                }
-                else {
-                    return;
-                }
-            }];
-            
-            [session start];
-        }
-        else {
-            callbackURI = [source repositoryURI];
-            [ZBDevice openURL:url delegate:self];
-        }
+        [source authenticate];
     }
 }
 

@@ -104,7 +104,7 @@
         [self presentViewController:navController animated:true completion:nil];
     }
     else {
-        [self setupRepoLogin];
+        [repo authenticate];
     }
 }
 

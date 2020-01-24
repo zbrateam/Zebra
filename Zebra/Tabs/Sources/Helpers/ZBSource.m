@@ -12,6 +12,7 @@
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
+#import <ZBDevice.h>
 
 @implementation ZBSource
 
@@ -142,7 +143,56 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (void)authenticate {
-    
+    if (paymentVendorURL) {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:[paymentVendorURL URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+        if (![components.scheme isEqualToString:@"https"]) {
+            return;
+        }
+        
+        NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
+        NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
+        NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
+        [queryItems addObject:udid];
+        [queryItems addObject:model];
+        [components setQueryItems:queryItems];
+        
+        NSURL *url = [components URL];
+        if (@available(iOS 11.0, *)) {
+            static SFAuthenticationSession *session;
+            session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                if (callbackURL) {
+                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+                    NSArray *queryItems = urlComponents.queryItems;
+                    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+                    for (NSURLQueryItem *q in queryItems) {
+                        [queryByKeys setValue:[q value] forKey:[q name]];
+                    }
+                    NSString *token = queryByKeys[@"token"];
+                    NSString *payment = queryByKeys[@"payment_secret"];
+                    
+                    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+                    [keychain setString:token forKey:self.repositoryURI];
+                    
+                    NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
+                    [keychain setString:nil forKey:key];
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+                        
+                        [keychain setString:payment forKey:key];
+                    });
+                }
+                else {
+                    return;
+                }
+            }];
+            
+            [session start];
+        }
+        else {
+//            [ZBDevice openURL:url delegate:nil];
+        }
+    }
 }
 
 - (NSString *)paymentSecret {

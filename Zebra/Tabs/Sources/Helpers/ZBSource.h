@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)exists:(NSString *)urlString;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSString *)paymentSecret;
+- (void)authenticate;
 @end
 
 NS_ASSUME_NONNULL_END
