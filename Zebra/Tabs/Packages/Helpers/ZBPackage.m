@@ -380,10 +380,17 @@
     
     NSURL *packageInfoURL = [[[self repo] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    NSDictionary *token = @{@"token": [keychain stringForKey:[[self repo] repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:token options:(NSJSONWritingOptions)0 error:nil];
+    
     [request setHTTPMethod:@"POST"];
-    [request setValue:[ZBDevice UDID] forHTTPHeaderField:@"udid"];
-    [request setValue:[ZBDevice deviceModelID] forHTTPHeaderField:@"device"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
