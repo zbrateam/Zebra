@@ -388,7 +388,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 self.package.sileoDownload = YES;
                 self.purchased = info.purchased;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info.purchased ? NSLocalizedString(@"Install", @"") : info.price style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
                     self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
                     [self setNavigationButtonBusy:NO];
                     
