@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Odustani";
-"Yes" = "Yes";
+"Yes" = "Da";
 "No" = "Ne";
 "Ok" = "Ok";
 "Error" = "Greška";
@@ -238,7 +238,7 @@
 "Close Zebra" = "Zatvori Zebru";
 "Restart SpringBoard" = "Restartuj SpringBoard";
 "Downloading" = "Preuzimanje";
-"Parsing" = "Parsing";
+"Parsing" = "Parsiram";
 "Downloading Packages..." = "Preuzimanje Paketa...";
 "Installing" = "Instaliranje";
 "Installing Packages..." = "Instaliranje Paketa...";
