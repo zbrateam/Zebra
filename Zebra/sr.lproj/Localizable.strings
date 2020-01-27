@@ -20,17 +20,17 @@
 "Community Sources" = "Izvori Udruženja";
 "You’ve added all of the community sources" = "Dodali ste sve izvore udruženja";
 "Transfer sources from %@ to Zebra" = "Prebaci sve izvore %@ u Zebru";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verifikacija izvora";
+"Verifying Sources" = "Verifikacija izvora";
 "Stores" = "Prodavnice";
 "Purchases" = "Kupljeno";
 "Wish List" = "Lista želja";
 "No items in Wish List" = "Nema stavki u listi Želja";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridruži nam se na Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Pratite nas na Twitter-u";
 
 //Credits
 
@@ -44,7 +44,7 @@
 
 "Settings" = "Podešavanja";
 "Version" = "Verzija";
-"Display" = "Display";
+"Display" = "Prikaz";
 "Featured" = "Istaknuto";
 "News" = "Novosti";
 "Miscellaneous" = "Detalji";
@@ -55,7 +55,7 @@
 "Accent Color" = "Naglašena boja";
 "Blue" = "Plava";
 "Orange" = "Narandžasta";
-"Adaptive" = "Adaptive";
+"Adaptive" = "Prilagodljiv";
 
 "Dark Mode Style" = "Tamna verzija";
 "Dark Mode" = "Dark Mod";
@@ -68,7 +68,7 @@
 "Featured Packages" = "Istaknuti Paketi";
 "Random" = "Nasumično";
 "Feature Type" = "Istaknuti tip";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Select Sources to be Featured" = "Izaberi Repo da bude istaknut";
 
 "News" = "Novosti";
 
@@ -88,7 +88,7 @@
 
 "Drop Tables" = "Obnovi tabele";
 
-"Featured Sources" = "Featured Sources";
+"Featured Sources" = "Istaknuti izvori";
 
 // Sources
 
@@ -96,20 +96,20 @@
 "Local Repository" = "Lokalni Repo";
 "Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Ne postoji URL za repo.";
+"You have already added these sources." = "Već ste dodali ove repoe.";
+"Error verifying source" = "Greška pri verifikaciji izvora repoa";
+"Error verifying sources" = "Greška pri verifikaciji izvora";
 "Unknown error" = "Nepoznata greška";
 "Invalid URL" = "Nepravilan URL";
-"Enter Source URL" = "Enter Source URL";
-"Add Sources" = "Add Sources";
+"Enter Source URL" = "Unesite URL Repoa";
+"Add Sources" = "Dodaj Repo";
 "Add" = "Dodaj";
 "Add Multiple" = "Dodaj više";
 "Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
 "Please Wait..." = "Molimo vas sačekajte...";
 "Verifying Source(s)" = "Verifikacija izvora";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Nismo u mogućnosti da verifikujemo izvore";
 "Refresh" = "Osveži";
 "Log Out" = "Odjavi se";
 "Purchased Packages" = "Kupljeni paketi";
@@ -142,7 +142,7 @@
 "Available Upgrades" = "Dostupne nadogradnje";
 "Ignored Upgrades" = "Ignorisanje nadogradnje";
 "Recent" = "Skorašnji";
-"Source" = "Source";
+"Source" = "Izvor";
 "Installed Files" = "Instalirani fajlovi";
 "Modify" = "Izmeni";
 "Authenticate to initiate purchase." = "Priavute se za početak kupovine.";
@@ -220,9 +220,9 @@
 
 "Downloads" = "Preuzimanja";
 "Error while opening sources.list" = "Greška prilikom preuzimanja sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Izvor repoa %@ nije kompatibilan sa vasim jailbreakom.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ovim možete izazvati probleme ako ga dodate u Zebri.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
 "Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
 "Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
 "Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
@@ -319,22 +319,22 @@
 
 "Change the source of the featured packages on the homepage." = "Promeni izvor naglašenih paketa na početnoj stranici.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Istaknuti\" će prikazivati nasumične pakete iz repoa koji podržava Featured Package API.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Nasumično\" će prikazati nasumične pakete iz svih repoa dodati u Zebri.";
 
 "Community News" = "Vesti iz Udruženja";
 "Import Sources" = "Uvezi Izvore";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Nadograđivanje izvora";
+"Would you like to import the following sources?" = "Da li želite uvesti sledeće ozvore?";
 "Download Completed" = "Preuzimanje je završeno";
 "Removing Zebra..." = "Uklanjam Zerbu...";
 "Installing Zebra..." = "Instaliram Zebru...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Neuspelo dodavanje repoa";
+"Failed to add sources" = "Neuspelo dodavnje repoa";
+"Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
+"Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
 
 "Import Sources" = "Uvezi Izvore";
-"Import" = "Import";
+"Import" = "Uvеzi";
