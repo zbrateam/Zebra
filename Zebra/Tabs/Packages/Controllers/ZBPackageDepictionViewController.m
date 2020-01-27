@@ -530,6 +530,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 
                 [task resume];
             } else {
+                [self setNavigationButtonBusy:false];
                 [ZBAppDelegate sendAlertFrom:self message:@"Could not complete purchase, no payment secret was found"];
             }
         }
