@@ -657,7 +657,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)reloadDepiction {
-    UIColor *tableViewBackgroundColor = [UIColor tableViewBackgroundColor];
+    UIColor *tableViewBackgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
     webView.backgroundColor = tableViewBackgroundColor;
     [self.tableView reloadData];

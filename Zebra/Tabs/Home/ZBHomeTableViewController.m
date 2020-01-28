@@ -82,6 +82,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self configureFooter];
     [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];

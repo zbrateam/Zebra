@@ -48,6 +48,7 @@
             case ZBInterfaceStyleLight:
                 return [UIColor groupTableViewBackgroundColor];
             case ZBInterfaceStyleDark:
+                return [UIColor colorWithRed:0.110 green:0.110 blue:0.118 alpha:1.0];
             case ZBInterfaceStylePureBlack:
                 return [UIColor blackColor];
         }
@@ -63,7 +64,7 @@
             case ZBInterfaceStyleLight:
                 return [UIColor whiteColor];
             case ZBInterfaceStyleDark:
-                return [UIColor grayColor];
+                return [UIColor colorWithRed:0.173 green:0.173 blue:0.180 alpha:1.0];
             case ZBInterfaceStylePureBlack:
                 return [UIColor blackColor];
         }
