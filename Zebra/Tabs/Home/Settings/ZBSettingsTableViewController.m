@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBNews,
     ZBSearch,
     ZBMisc,
+    ZBConsole,
     ZBAdvanced
 };
 
@@ -91,6 +92,8 @@ enum ZBMiscOrder {
             return NSLocalizedString(@"Search", @"");
         case ZBMisc:
             return NSLocalizedString(@"Miscellaneous", @"");
+        case ZBConsole:
+            return NSLocalizedString(@"Console", @"");
         case ZBAdvanced:
             return NSLocalizedString(@"Advanced", @"");
         default:
@@ -101,7 +104,7 @@ enum ZBMiscOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
@@ -110,6 +113,7 @@ enum ZBMiscOrder {
         case ZBNews:
         case ZBMisc:
         case ZBSearch:
+        case ZBConsole:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
@@ -277,6 +281,17 @@ enum ZBMiscOrder {
             cell.textLabel.text = text;
             return cell;
         }
+        case ZBConsole: {
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:finishAutomaticallyKey];
+            [enableSwitch addTarget:self action:@selector(toggleFinishAutomatically:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
+            cell.accessoryView = enableSwitch;
+            cell.textLabel.text = NSLocalizedString(@"Finish Automatically", @"");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            return cell;
+        }
         case ZBAdvanced: {
             NSString *text = nil;
             if (indexPath.row == ZBDropTables) {
@@ -346,6 +361,13 @@ enum ZBMiscOrder {
             [self toggleLiveSearch:switcher];
             break;
         }
+        case ZBConsole: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleFinishAutomatically:switcher];
+            break;
+        }
         case ZBAdvanced: {
             ZBAdvancedOrder row = indexPath.row;
             switch (row) {
@@ -380,6 +402,8 @@ enum ZBMiscOrder {
             return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
         case ZBMisc:
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
+        case ZBConsole:
+            return NSLocalizedString(@"Automatically finish installing, updating and removing.", @"");
         default:
             return NULL;
     }
@@ -526,6 +550,10 @@ enum ZBMiscOrder {
 
 - (void)toggleLiveSearch:(id)sender {
     [self toggle:sender preference:liveSearchKey notification:nil];
+}
+
+- (void)toggleFinishAutomatically:(id)sender {
+    [self toggle:sender preference:finishAutomaticallyKey notification:nil];
 }
 
 - (void)openBlackList {

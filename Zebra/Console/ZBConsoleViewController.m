@@ -17,6 +17,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <ZBLog.h>
+#import <ZBSettings.h>
 
 #include <sysexits.h>
 
@@ -642,26 +643,63 @@
 
 - (void)updateCompleteButton {
     ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), respringRequired(%d), zebraRestartRequired(%d)", downloadFailed, respringRequired, zebraRestartRequired);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self->completeButton.hidden = NO;
-        [self updateProgressText:nil];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:finishAutomaticallyKey]) { // automatically finish after 3 secs
+        dispatch_block_t finishBlock = nil;
+
         if (self->downloadFailed) {
-            [self->completeButton setTitle:NSLocalizedString(@"Return to Queue", @"") forState:UIControlStateNormal];
-            [self->completeButton addTarget:self action:@selector(returnToQueue) forControlEvents:UIControlEventTouchUpInside];
+            [self updateProgressText:NSLocalizedString(@"Returning to queue...", @"")];
+            finishBlock = ^{
+                [self updateProgressText:nil];
+                [self returnToQueue];
+            };
         }
         else if (self->respringRequired) {
-            [self->completeButton setTitle:NSLocalizedString(@"Restart SpringBoard", @"") forState:UIControlStateNormal];
-            [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
+            [self updateProgressText:NSLocalizedString(@"Restarting SpringBoard...", @"")];
+            finishBlock = ^{
+                [self updateProgressText:nil];
+                [self restartSpringBoard];
+            };
         }
         else if (self->zebraRestartRequired) {
-            [self->completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
-            [self->completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
+            [self updateProgressText:NSLocalizedString(@"Closing Zebra...", @"")];
+            finishBlock = ^{
+                [self updateProgressText:nil];
+                [self closeZebra];
+            };
         }
         else {
-            [self->completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
-            [self->completeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+            [self updateProgressText:NSLocalizedString(@"Done...", @"")];
+            finishBlock = ^{
+                [self updateProgressText:nil];
+                [self close];
+            };
         }
-    });
+
+        int delay = 3;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), finishBlock);
+    } else { // manual finish
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->completeButton.hidden = NO;
+            [self updateProgressText:nil];
+            if (self->downloadFailed) {
+                [self->completeButton setTitle:NSLocalizedString(@"Return to Queue", @"") forState:UIControlStateNormal];
+                [self->completeButton addTarget:self action:@selector(returnToQueue) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else if (self->respringRequired) {
+                [self->completeButton setTitle:NSLocalizedString(@"Restart SpringBoard", @"") forState:UIControlStateNormal];
+                [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else if (self->zebraRestartRequired) {
+                [self->completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
+                [self->completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else {
+                [self->completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
+                [self->completeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+            }
+        });
+    }
 }
 
 #pragma mark - Command Delegate
