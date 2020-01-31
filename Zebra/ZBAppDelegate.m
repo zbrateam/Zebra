@@ -228,7 +228,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    NSArray *choices = @[@"file", @"zbra", @"cydia", @"sileo"];
+    NSArray *choices = @[@"file", @"zbra"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
     switch (index) {
@@ -329,82 +329,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
             }
             break;
         }
-        case 2: { // cydia
-            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-            choices = @[@"home", @"sources", @"changes", @"installed", @"package", @"search", @"url"];
-            index = (int)[choices indexOfObject:components[0]];
-            
-            switch (index) {
-                case 0 ... 3: {
-                    [tabController setSelectedIndex:index];
-                    break;
-                }
-                case 4: {
-                    NSString *path = [url path];
-                    if (path.length > 1) {
-                        NSString *packageID = [path substringFromIndex:1];
-                        ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
-                        if (packageController) {
-                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                            [tabController presentViewController:navController animated:YES completion:nil];
-                        }
-                    }
-                    break;
-                }
-                case 5: {
-                    [tabController setSelectedIndex:ZBTabSearch];
-                    
-                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    [searchController handleURL:url];
-                    break;
-                }
-                case 6: {
-                    NSArray *components = [[url absoluteString] componentsSeparatedByString:@"share#?source="];
-                    if ([components count] == 2) {
-                        NSArray *urlComponents = [components[1] componentsSeparatedByString:@"&package="];
-                        NSString *sourceURL = urlComponents[0];
-                        NSURL *url;
-                        if ([urlComponents count] > 1) {
-                            NSString *packageID = urlComponents[1];
-                            url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://packages/%@?source=%@", packageID, sourceURL]];
-                        }
-                        else {
-                            url = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
-                        }
-                        
-                        [self application:application openURL:url options:options];
-                    }
-                    break;
-                }
-            }
-            break;
-        }
-        case 3: { // sileo (I really wish we could get rid of this)
-            NSString *sourceApplication = [options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"];
-            if ([sourceApplication isEqualToString:@"com.apple.SafariViewService"]) {
-                NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-                choices = @[@"authentication_success", @"payment_completed"];
-                index = (int)[choices indexOfObject:components[0]];
-                switch (index) {
-                    case 0: { // Authenticated
-                        NSDictionary *data = [NSDictionary dictionaryWithObject:url forKey:@"callBack"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"AuthenticationCallBack" object:self userInfo:data];
-                        break;
-                    }
-                    case 1: { // Purchase
-                        // Reading their documentation, a callback may not be required here. I will leave this case switch for future use however, in case I am proven wrong.
-                        break;
-                    }
-                }
-                
-            }
-            else {
-                return NO;
-            }
-            
-        }
-        default: { // WHO ARE YOU????
+        default: {
             return NO;
         }
     }
