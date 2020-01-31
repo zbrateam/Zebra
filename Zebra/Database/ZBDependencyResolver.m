@@ -357,6 +357,7 @@
     NSLog(@"[Zebra] Adding %@ as a conflict for %@", conflict, package);
     [package addDependency:conflict];
     [conflict addDependencyOf:package];
+    [conflict setRemovedBy:package];
     [queue addConflict:conflict removeDependencies:![self isPackage:conflict providedBy:package]];
 }
 
