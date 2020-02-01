@@ -90,6 +90,8 @@
 
 "Featured Sources" = "精選來源";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "來源";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "正在非同步更新圖示快取...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
 "Close Zebra" = "關閉 Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "重新啟動主畫面";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "正在下載";
 "Parsing" = "正在解析";
 "Downloading Packages..." = "正在下載套件...";
@@ -251,10 +255,12 @@
 "Complete" = "完成";
 "Finished!" = "已完成！";
 "Return to Queue" = "返回至佇列";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "正在匯入本地套件。";
 "Finished importing local packages." = "匯入本地套件已完成。";
 "One or more packages failed to download." = "一個或多個套件下載失敗。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點選「返回佇列」以回到佇列並重新嘗試下載。";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d 個套件在佇列中";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "「精選」將會從在支援「精選套件 API」的來源中，選擇隨機套件來顯示。";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有來源中，選擇隨機套件來顯示。";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "社群新聞";
 "Import Sources" = "匯入來源";
