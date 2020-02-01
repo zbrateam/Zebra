@@ -119,7 +119,7 @@
             [self retrieveNewsJson];
         }
         if (error) {
-            ZBLog(@"[Zebra] Error getting reddit token: %@", error);
+            NSLog(@"[Zebra] Error getting reddit token: %@", error);
         }
     }] resume];
 }
@@ -147,7 +147,7 @@
             }
         }
         if (error) {
-            ZBLog(@"[Zebra] Error retrieving news JSON %@", error);
+            NSLog(@"[Zebra] Error retrieving news JSON %@", error);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createHeader];
@@ -225,8 +225,7 @@
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
-    return package;
+    return [self objectAtSection:indexPath.section][indexPath.row];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
