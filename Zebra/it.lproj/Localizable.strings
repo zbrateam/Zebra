@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Casuale\" mostrerà pacchetti casuali di tutte le sorgenti che hai aggiunto a Zebra.";
 
-"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 "Community News" = "Notizie Community";
 "Import Sources" = "Importa Sorgenti";
