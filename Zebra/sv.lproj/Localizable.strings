@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla källor som du har lagt till i Zebra.";
 
-"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 "Community News" = "Gemenskapsnyheter";
 "Import Sources" = "Importera källor";
