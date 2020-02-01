@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Öne çıkan kaynaklar";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Kaynaklar";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "İndiriliyor";
 "Parsing" = "Ayrıştırılıyor";
 "Downloading Packages..." = "Paketler İndiriliyor...";
@@ -251,10 +255,12 @@
 "Complete" = "Tamamlandı";
 "Finished!" = "Bitti!";
 "Return to Queue" = "Sıraya Geri Dön";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Lokal paketler içeri alınıyor.";
 "Finished importing local packages." = "Lokal paketleri içeri alma bitti.";
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paket Sıralandı";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Kaynağın Öne Çıkanları\" Öne Çıkan Paket API’sini destekleyen kaynaklardan rastgele paketler gösterecek.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Topluluk Haberleri";
 "Import Sources" = "Kaynakları İçeri Al";
