@@ -102,6 +102,8 @@
         
         if (statusCode == 200 && !error) {
             NSError *parseError;
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"%@", str);
             ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
             
             if (parseError || userInfo.error) {
