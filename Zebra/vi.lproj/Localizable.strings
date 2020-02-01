@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Nguồn nổi bật";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Nguồn";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Đang tải xuống";
 "Parsing" = "Phân tích cú pháp";
 "Downloading Packages..." = "Đang tải xuống gói...";
@@ -251,10 +255,12 @@
 "Complete" = "Hoàn thành";
 "Finished!" = "Kết thúc!";
 "Return to Queue" = "Trở lại hàng đợi";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Nhập gói nội địa.";
 "Finished importing local packages." = "Hoàn tất nhập các gói nội địa.";
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Gói đang chờ";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Nổi bật\" sẽ hiển thị các gói ngẫu nhiên từ các nguồn hỗ trợ API gói nổi bật.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các nguồn mà bạn đã thêm vào Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Tin tức cộng đồng";
 "Import Sources" = "Nhập nguồn";
