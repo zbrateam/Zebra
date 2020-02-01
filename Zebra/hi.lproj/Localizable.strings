@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Featured Sources";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Sources";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Close Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restart SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Downloading";
 "Parsing" = "Parsing";
 "Downloading Packages..." = "Downloading Packages...";
@@ -251,10 +255,12 @@
 "Complete" = "Complete";
 "Finished!" = "Finished!";
 "Return to Queue" = "Return to Queue";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Importing local packages.";
 "Finished importing local packages." = "Finished importing local packages.";
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Packages Queued";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Community News";
 "Import Sources" = "Import Sources";
