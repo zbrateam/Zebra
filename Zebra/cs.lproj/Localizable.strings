@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Doporučené zdroje";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Zdroje";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Probíhá asynchonní update icon cache...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Toto může trvat delší dobu a Zebra může spadnout. Nevadí pokud se tak stane.";
 "Close Zebra" = "Zavřít Zebru";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restartovat SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Stahování";
 "Parsing" = "Analýza";
 "Downloading Packages..." = "Stahování balíčků...";
@@ -251,10 +255,12 @@
 "Complete" = "Hotovo";
 "Finished!" = "Dokončeno!";
 "Return to Queue" = "Návrat do Fronty";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Importování místních balíčků.";
 "Finished importing local packages." = "Importování místních balíčků bylo dokončeno.";
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d balíčků ve frontě";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Doporučený\" bude zobrazovat náhodné balíčky ze zdrojů, které podporují API balíčku.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Náhodný\" bude zobrazovat náhodné balíčky ze všech zdrojů, které jste přidali do Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Komunitní Novinky";
 "Import Sources" = "Importovat zdroje";
