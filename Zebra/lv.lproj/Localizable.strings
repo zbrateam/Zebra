@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Featured Sources";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Avoti";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Ikona kešatmiņa tiek atjaunota asinhroni...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tas var aizņemt laiku, un Zebra var crashot. Nav slikti, ja tā notiek.";
 "Close Zebra" = "Aizvert Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restartēt SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Lejupielādē";
 "Parsing" = "Parsing";
 "Downloading Packages..." = "Lejupielādē paketes...";
@@ -251,10 +255,12 @@
 "Complete" = "Pabeigts";
 "Finished!" = "Gatavs!";
 "Return to Queue" = "Atgriezties rindā";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Importē vietējās paketes.";
 "Finished importing local packages." = "Pabeidza importēt vietējās paketes.";
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakas Rindā";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Kopienas Ziņas";
 "Import Sources" = "Import Sources";
