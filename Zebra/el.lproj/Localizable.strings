@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Προτεινόμενες Πηγές";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Πηγές";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
 "Close Zebra" = "Κλείσε το Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Γίνεται λήψη";
 "Parsing" = "Γίνεται ανάλυση";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
@@ -251,10 +255,12 @@
 "Complete" = "Ολοκλήρωση";
 "Finished!" = "Ολοκληρώθηκε!";
 "Return to Queue" = "Επιστροφή στην Ουρά";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Γίνεται εισαγωγή τοπικών πακέτων.";
 "Finished importing local packages." = "Ολοκληρώθηκε η εισαγωγή τοπικών πακέτων.";
 "One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Πακέτα στην Ουρά";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Προτεινόμενα\" θα εμφανίζει τυχαία πακέτα από πηγές που υποστηρίζουν το Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλες τις πηγές που έχεις προσθέσει στο Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Νέα Κοινότητας";
 "Import Sources" = "Εισαγωγή Πηγών";
