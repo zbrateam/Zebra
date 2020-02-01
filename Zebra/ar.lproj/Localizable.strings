@@ -90,6 +90,8 @@
 
 "Featured Sources" = "المصادر المميزة";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "المصادر";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "جارِ التنزيل";
 "Parsing" = "جارِ التحليل";
 "Downloading Packages..." = "تنزيل الحزم...";
@@ -251,10 +255,12 @@
 "Complete" = "إكتمل";
 "Finished!" = "انتهى!";
 "Return to Queue" = "العودة إلى قائمة الإنتظار";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "استيراد الحزم المحلية.";
 "Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d حزم في قائمة الإنتظار";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"مميز\" سيعرض حزم عشوائية من المصادر التي تدعم API الحزمة المميزة.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المصادر التي أضفتها إلى Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "أخبار المجتمع";
 "Import Sources" = "استيراد المصادر";
