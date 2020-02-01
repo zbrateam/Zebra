@@ -238,9 +238,9 @@
 "Updating icon cache asynchronously..." = "Symbol-Zwischenspeicher wird asynchron aktualisiert...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Weile dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
 "Close Zebra" = "Zebra schließen";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra schließen...";
 "Restart SpringBoard" = "SpringBoard neu starten";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "SpringBoard wird neu gestartet...";
 "Downloading" = "Herunterladen";
 "Parsing" = "Wird analysiert";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
@@ -255,12 +255,12 @@
 "Complete" = "Fertig";
 "Finished!" = "Fertig!";
 "Return to Queue" = "Zurück zur Warteschlange";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Zurück zur Warteschlange...";
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \"Zurück zur Warteschlange\", um zur Warteschlange zurückzukehren und versuche es erneut.";
-"Done..." = "Done...";
+"Done..." = "Fertigstellen...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakete in der Warteschlange";
