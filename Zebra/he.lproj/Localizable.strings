@@ -90,6 +90,8 @@
 
 "Featured Sources" = "מקורות מומלצים";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "מקורות";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "מוריד";
 "Parsing" = "מנתח";
 "Downloading Packages..." = "מוריד חבילות...";
@@ -251,10 +255,12 @@
 "Complete" = "הושלם";
 "Finished!" = "הושלם!";
 "Return to Queue" = "חזרה לתור";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "מייבא חבילות מקומיות.";
 "Finished importing local packages." = "ייבוא חבילות מקומיות הושלם.";
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d חבילות בתור";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"המלצת מקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "חדשות הקהילה";
 "Import Sources" = "ייבא מקורות";
