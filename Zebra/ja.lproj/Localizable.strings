@@ -90,7 +90,7 @@
 
 "Featured Sources" = "注目のリポジトリ";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "自動的に終了";
 
 // Sources
 
@@ -238,9 +238,9 @@
 "Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "SpringBoard を再起動しています...";
 "Downloading" = "ダウンロードしています";
 "Parsing" = "処理中";
 "Downloading Packages..." = "パッケージをダウンロードします...";
@@ -255,12 +255,12 @@
 "Complete" = "完了";
 "Finished!" = "完了！";
 "Return to Queue" = "キューに戻る";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "キューに戻ります...";
 "Importing local packages." = "ローカルパッケージをインポートしています。";
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
-"Done..." = "Done...";
+"Done..." = "完了...";
 
 // Queue Bar
 "%d Packages Queued" = "%d 個のパッケージがキューされてます";
@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
 
 "Community News" = "コミュニティニュース";
 "Import Sources" = "リポジトリを追加する";
