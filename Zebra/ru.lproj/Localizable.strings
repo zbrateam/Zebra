@@ -90,7 +90,7 @@
 
 "Featured Sources" = "Избранные Источники";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Завершать Автоматически";
 
 // Sources
 
@@ -238,9 +238,9 @@
 "Updating icon cache asynchronously..." = "Асинхронное обновление кэша иконок...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Это может занять несколько минут, и Zebra может крашнуться. Это нормально.";
 "Close Zebra" = "Закрыть Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Закрытие Zebra...";
 "Restart SpringBoard" = "Перезапустить SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Перезапуск SpringBoard...";
 "Downloading" = "Загрузка";
 "Parsing" = "Анализ";
 "Downloading Packages..." = "Загрузка Пакетов...";
@@ -255,12 +255,12 @@
 "Complete" = "Закончено";
 "Finished!" = "Готово!";
 "Return to Queue" = "Вернуться к Очереди";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Возвращение в Очередь...";
 "Importing local packages." = "Импортирование Локальных Пакетов.";
 "Finished importing local packages." = "Импортирование локальных пакетов завершено.";
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
-"Done..." = "Done...";
+"Done..." = "Готово...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Пакетов в Очереди";
@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех источников, которые вы добавили в Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
 
 "Community News" = "Новости Сообщества";
 "Import Sources" = "Импортировать Источники";
