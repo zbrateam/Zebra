@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Udvalgte Kilder";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Kilder";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
 "Close Zebra" = "Luk Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Genstart SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Overfører";
 "Parsing" = "Parser";
 "Downloading Packages..." = "Overfører Pakker...";
@@ -251,10 +255,12 @@
 "Complete" = "Færdig";
 "Finished!" = "Færdiggjort!";
 "Return to Queue" = "Gå tilbage til Køen";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Importere lokale pakker.";
 "Finished importing local packages." = "Færdiggjorde importen af lokale pakker.";
 "One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakker i kø";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Fællesskabs Nyheder";
 "Import Sources" = "Importer kilder";
