@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Utvalde kjelder";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Kjelder";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta ei stund og det kan hende at Zebra krasjar. Dette vil ikkje føra til skade.";
 "Close Zebra" = "Lukk Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Lastar ned";
 "Parsing" = "Parsar";
 "Downloading Packages..." = "Lastar ned pakkar...";
@@ -251,10 +255,12 @@
 "Complete" = "Ferdig";
 "Finished!" = "Ferdig!";
 "Return to Queue" = "Tilbake til kø";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Importerer lokale pakkar.";
 "Finished importing local packages." = "Ferdig med å importere lokale pakkar.";
 "One or more packages failed to download." = "Nedlasting av ein eller fleire pakkar feila.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnera til køen og prøva nedlastinga på nytt.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakkar lagt til i kø";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Utvalt\" vil visa tilfeldige pakkar frå kjelder som støttar Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Nyheitene frå fellesskapet";
 "Import Sources" = "Importer kjelder";
