@@ -21,6 +21,7 @@
 #define iconActionKey @"packageIconAction"
 #define wishListKey @"wishList"
 #define darkModeKey @"darkMode"
+#define finishAutomaticallyKey @"finishAutomatically"
 
 //New settings keys
 extern NSString * _Nonnull const AccentColorKey;
