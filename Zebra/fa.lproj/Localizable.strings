@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Featured Sources";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "منابع";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "بروزرسانی کش آیکون ها بطور همزمان";
 "This may take awhile and Zebra may crash. It is okay if it does." = "ممکن است مقداری طول بکشه و زبرا بسته بشه اگر اینگونه شد مشکلی نیست";
 "Close Zebra" = "بستن زبرا";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "ری استارت جزءی";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "در حال دانلود";
 "Parsing" = "Parsing";
 "Downloading Packages..." = "در حال دانلود پکیج ها";
@@ -251,10 +255,12 @@
 "Complete" = "کامل شد";
 "Finished!" = "تمام شد";
 "Return to Queue" = "برگشت به صف";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "وارد کردن پکیج های موجود";
 "Finished importing local packages." = "وارد کردن پکیج ها تمام شد";
 "One or more packages failed to download." = "یک یا چند پکیج دانلود نشد";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "روی این گزینه بزنید \"Return to Queue\" تا به صف برگردید و دوباره دانلود کنید";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d پگیج ها وارد صف شد";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Community News";
 "Import Sources" = "Import Sources";
