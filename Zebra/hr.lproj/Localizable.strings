@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Istaknuti izvori";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Izvori";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Ažuriranje predmemorije ikona asinkrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može srušiti. To je normalno ukoliko se desi.";
 "Close Zebra" = "Zatvori Zebru";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Ponovo pokrenite SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Preuzimanje";
 "Parsing" = "Rasčlanjivanje";
 "Downloading Packages..." = "Preuzimanje paketa...";
@@ -251,10 +255,12 @@
 "Complete" = "Završeno";
 "Finished!" = "Gotovo!";
 "Return to Queue" = "Povratak u red";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Uvoz lokalnih paketa.";
 "Finished importing local packages." = "Dovršen uvoz lokalnih paketa.";
 "One or more packages failed to download." = "Pogreška pri preuzimanju jednog ili više paketa.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Povratak u red\" da biste se vratili u red i pokušali ponovo preuzeti.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketa na listi";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "“Istaknuti Izvor” će prikazivati nasumične pakete s izvora koji podržavaju API istaknutih paketa.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“Nasumično” će prikazivati nasumične pakete sa svih izvora koje ste dodali u Zebru.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Novosti iz zajednice";
 "Import Sources" = "Uvezite izvore";
