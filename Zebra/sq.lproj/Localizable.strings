@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Burimet e Veçuara";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Burimet";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Përditësimi i 'cache' ikonave në mënyrë asinkronike...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Kjo mund të zgjati pak dhe Zebra mund të hiqet. Është në rregull në qoftëse ndodh.";
 "Close Zebra" = "Mbyll Zebran";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Duke u shkarkuar";
 "Parsing" = "Duke analizuar";
 "Downloading Packages..." = "Shkarkimi i Paketave...";
@@ -251,10 +255,12 @@
 "Complete" = "U kompletua";
 "Finished!" = "Perfundoj!";
 "Return to Queue" = "Kthehu tek rradha";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Duke importuat paketat lokale.";
 "Finished importing local packages." = "Përfundoj importimi i paketave lokale.";
 "One or more packages failed to download." = "Një ose më shumë paketa dështuan në shkarkim.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Ktheu tek Rradha\" për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketa në rradhë";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"E veçuar\" do të shfaq paketat e rastësishme nga burimet që mbështesin API-në e Paketave të Veçuara.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“I Rastësishëm” do të shfaq paketa të rastësishme nga të gjitha burimet që ju keni shtuat në Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Lajmet e komunitetit";
 "Import Sources" = "Importo Burimet";
