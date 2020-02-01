@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Rodomiausi šaltiniai";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Šaltiniai";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Asinchroniškai atnaujinami piktogramų podeliai...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tai gali užtrukti ir Zebra gali užstrigti/išsijungti. Jei taip atsitiks, tai normalu.";
 "Close Zebra" = "Uždaryti Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Atsiunčiama";
 "Parsing" = "Analizuojama";
 "Downloading Packages..." = "Paketai atsiunčiami...";
@@ -251,10 +255,12 @@
 "Complete" = "Baigta";
 "Finished!" = "Užbaigta!";
 "Return to Queue" = "Grįžti į eilę";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Importuojami vietiniai paketai.";
 "Finished importing local packages." = "Pabaigta importuoti vietinius paketus.";
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketai eilėje";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Rodomiausi\" rodys atsitiktinius paketus iš šaltinių, kurie palaiko Rodomiausi Paketai API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Atsitiktiniai\" rodys atsitiktinius paketus iš visų šaltinių, kuriuos pridėjote į Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Bendruomenės naujienos";
 "Import Sources" = "Importuojami šaltiniai";
