@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Featured Sources";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Források";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Zebra bezárása";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "SpringBoard újraindítása";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Letöltés";
 "Parsing" = "Parsing";
 "Downloading Packages..." = "Csomagok letöltése...";
@@ -251,10 +255,12 @@
 "Complete" = "Kész";
 "Finished!" = "Kész!";
 "Return to Queue" = "Vissza a várólistához";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Helyi csomagok beolvasása.";
 "Finished importing local packages." = "Helyi csomagok beolvasása kész.";
 "One or more packages failed to download." = "Egy vagy több csomag letöltése sikertelen.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Packages Queued";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Közösségi hírek";
 "Import Sources" = "Import Sources";
