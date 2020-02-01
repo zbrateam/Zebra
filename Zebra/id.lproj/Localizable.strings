@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Sumber Unggulan";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Sumber";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Mengupdate icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ini mungkin membutuhkan waktu dan Zebra mungkin macet. Tidak apa-apa jika itu terjadi.";
 "Close Zebra" = "Tutup Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Mulai ulang SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Mengunduh";
 "Parsing" = "Parsing";
 "Downloading Packages..." = "Mengunduh paket...";
@@ -251,10 +255,12 @@
 "Complete" = "Selesai";
 "Finished!" = "Selesai!";
 "Return to Queue" = "Kembali ke Antrian";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Mengimpor paket lokal.";
 "Finished importing local packages." = "Selesai mengimpor paket lokal.";
 "One or more packages failed to download." = "Satu atau lebih paket gagal untuk diunduh.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Kembali ke Antrian\" untuk kembali ke antrian dan coba download ulang.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Antrian Paket";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Repo Unggulan\" akan menampilkan paket acak dari sumber yang mendukung API Paket Unggulan.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Acak\" akan menampilkan paket acak dari semua sumber yang telah Anda tambahkan ke Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Berita Komunitas";
 "Import Sources" = "Import Sumber";
