@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Uitgelichte Bronnen";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Bronnen";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Herstart SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Aan het downloaden";
 "Parsing" = "Parseren";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
@@ -251,10 +255,12 @@
 "Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Lokale pakketten aan het importeren";
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d pakketten in de wachtrij";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\\”Uitgelicht”\\ laat willekeurige pakketten zien van bronnen die de Features Package API ondersteunen.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\\”Willekeurig\\” zal willekeurige pakketten laten zien van alle bronnen die je aan Zebra hebt toegevoegd.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Gemeenschapsnieuws";
 "Import Sources" = "Importeer Bronnen";
