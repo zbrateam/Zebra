@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有來源中，選擇隨機套件來顯示。";
 
-"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 "Community News" = "社群新聞";
 "Import Sources" = "匯入來源";
