@@ -90,6 +90,8 @@
 
 "Featured Sources" = "ซอร์สยอดนิยม";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "ซอร์ส";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "อัพเดตแคชไอคอนใหม่...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
 "Close Zebra" = "ปิด Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "กำลังดาวน์โหลด";
 "Parsing" = "อ่าน";
 "Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
@@ -251,10 +255,12 @@
 "Complete" = "เสร็จสิ้น";
 "Finished!" = "เสร็จสิ้น!";
 "Return to Queue" = "กลับไปยังคิว";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "นำเข้าโปรแกรมจากในเครื่อง";
 "Finished importing local packages." = "เสร็จสิ้นการนำเข้าโปรแกรมจากในเครื่อง";
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d โปรแกรมในคิว";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"ซอร์สยอดนิยม\" จะแสดงผลโปรแกรมแบบสุ่มจากซอร์สที่รองรับ API แสดงผลโปรแกรมยอดนิยม";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "ข่าวสารชุมชน";
 "Import Sources" = "นำเข้าซอร์ส";
