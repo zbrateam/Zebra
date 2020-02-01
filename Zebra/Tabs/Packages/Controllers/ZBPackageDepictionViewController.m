@@ -418,7 +418,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             [request setValue:[NSString stringWithFormat:@"Zebra/%@ iOS/%@ (%@)", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion], [ZBDevice deviceType]] forHTTPHeaderField:@"User-Agent"];
             [request setHTTPBody: requestData];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSString *title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:true];
+                NSString *title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeInstall useIcon:NO];
                 SEL selector = @selector(installPackage);
                 ZBPurchaseInfo *purchaseInfo = nil;
                 if (data) {
@@ -438,7 +438,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                         self->package.sileoDownload = YES;
                         self.purchased = YES;
                         if ([purchaseInfo.available boolValue] && ![self->package isReinstallable]) {
-                            title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:true];
+                            title = [[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:NO];
                             selector = @selector(removePackage);
                             set = YES;
                         }
