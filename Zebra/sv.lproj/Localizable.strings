@@ -90,7 +90,7 @@
 
 "Featured Sources" = "Utvalda källor";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Slutför automatiskt";
 
 // Sources
 
@@ -238,9 +238,9 @@
 "Updating icon cache asynchronously..." = "Uppdaterar ikoncachen asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Det kan ta en stund och Zebra kan krascha. Det är okej om det gör det.";
 "Close Zebra" = "Stäng Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Stänger Zebra...";
 "Restart SpringBoard" = "Starta om SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Startar om SpringBoard...";
 "Downloading" = "Laddar ner";
 "Parsing" = "Tolkar";
 "Downloading Packages..." = "Laddar ner paket...";
@@ -255,12 +255,12 @@
 "Complete" = "Färdig";
 "Finished!" = "Klart!";
 "Return to Queue" = "Återgå till kön";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Återgår till kön...";
 "Importing local packages." = "Importerar lokala paket.";
 "Finished importing local packages." = "Importerade lokala paket.";
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
-"Done..." = "Done...";
+"Done..." = "Klar...";
 
 // Queue Bar
 "%d Packages Queued" = "%d paket köade";
@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla källor som du har lagt till i Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Avfärda konsolen automatiskt när alla uppgifter har slutförts.";
 
 "Community News" = "Gemenskapsnyheter";
 "Import Sources" = "Importera källor";
