@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Empfohlene Quellen";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Quellen";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Symbol-Zwischenspeicher wird asynchron aktualisiert...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Das könnte eine Weile dauern und Zebra könnte abstürzen. Dieses Verhalten ist normal.";
 "Close Zebra" = "Zebra schließen";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "SpringBoard neu starten";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Herunterladen";
 "Parsing" = "Wird analysiert";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
@@ -251,10 +255,12 @@
 "Complete" = "Fertig";
 "Finished!" = "Fertig!";
 "Return to Queue" = "Zurück zur Warteschlange";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Lokale Pakete werden importiert.";
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \"Zurück zur Warteschlange\", um zur Warteschlange zurückzukehren und versuche es erneut.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakete in der Warteschlange";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "„Empfohlen” zeigt zufällige Pakete aus Quellen, die die API „Empfohlenes Paket” unterstützen.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "„Zufällig” zeigt zufällige Pakete aus allen Quellen an, die du zu Zebra hinzugefügt hast.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Nachrichten der Gemeinschaft";
 "Import Sources" = "Quellen importieren";
