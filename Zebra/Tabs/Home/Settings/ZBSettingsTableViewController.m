@@ -403,7 +403,7 @@ enum ZBMiscOrder {
         case ZBMisc:
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
         case ZBConsole:
-            return NSLocalizedString(@"Automatically finish installing, updating and removing.", @"");
+            return NSLocalizedString(@"Automatically dismiss the Console when all of its tasks have been completed.", @"");
         default:
             return NULL;
     }
