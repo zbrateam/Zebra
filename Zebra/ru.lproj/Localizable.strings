@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Избранные Источники";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Источники";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "Асинхронное обновление кэша иконок...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Это может занять несколько минут, и Zebra может крашнуться. Это нормально.";
 "Close Zebra" = "Закрыть Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Перезапустить SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Загрузка";
 "Parsing" = "Анализ";
 "Downloading Packages..." = "Загрузка Пакетов...";
@@ -251,10 +255,12 @@
 "Complete" = "Закончено";
 "Finished!" = "Готово!";
 "Return to Queue" = "Вернуться к Очереди";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Импортирование Локальных Пакетов.";
 "Finished importing local packages." = "Импортирование локальных пакетов завершено.";
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Пакетов в Очереди";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Избранное\" будут показывать случайные пакеты из источников, поддерживающих API Рекомендуемых Пакетов.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех источников, которые вы добавили в Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Новости Сообщества";
 "Import Sources" = "Импортировать Источники";
