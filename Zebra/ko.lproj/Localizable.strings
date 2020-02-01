@@ -90,6 +90,8 @@
 
 "Featured Sources" = "선정된 소스";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "소스";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
 "Close Zebra" = "Zebra 닫기";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "SpringBoard 재시작";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "다운로드 중";
 "Parsing" = "파싱";
 "Downloading Packages..." = "패키지 다운로드 중...";
@@ -251,10 +255,12 @@
 "Complete" = "완료";
 "Finished!" = "완료!";
 "Return to Queue" = "대기열로 돌아가기";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "로컬 패키지 가져오는 중.";
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d개의 패키지 대기 중";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"선정된 패키지\"는 선정된 패키지 API를 지원하는 소스의 패키지를 랜덤으로 표시합니다.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 소스에서 랜덤으로 패키지를 표시합니다.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "커뮤니티 뉴스";
 "Import Sources" = "소스 가져오기";
