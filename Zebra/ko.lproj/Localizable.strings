@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 소스에서 랜덤으로 패키지를 표시합니다.";
 
-"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 "Community News" = "커뮤니티 뉴스";
 "Import Sources" = "소스 가져오기";
