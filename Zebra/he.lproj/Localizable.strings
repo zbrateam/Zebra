@@ -90,7 +90,7 @@
 
 "Featured Sources" = "מקורות מומלצים";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "סיים אוטומטית";
 
 // Sources
 
@@ -238,7 +238,7 @@
 "Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "סוגר את זברה...";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "מוריד";
