@@ -90,6 +90,8 @@
 
 "Featured Sources" = "Featured Sources";
 
+"Finish Automatically" = "Finish Automatically";
+
 // Sources
 
 "Sources" = "Fontes";
@@ -236,7 +238,9 @@
 "Updating icon cache asynchronously..." = "A atualizar o cache do ícon de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isto pode demorar e o Zebra pode crashar. Não ha problema se isso acontecer.";
 "Close Zebra" = "Fechar o Zebra";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Reiniciar o SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "A fazer o download";
 "Parsing" = "Parsing";
 "Downloading Packages..." = "A fazer o download de pacotes...";
@@ -251,10 +255,12 @@
 "Complete" = "Completo";
 "Finished!" = "Feito!";
 "Return to Queue" = "Voltar à Fila";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "A importar pacotes locais.";
 "Finished importing local packages." = "Importação de pacotes locais terminado.";
 "One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
+"Done..." = "Done...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pacotes em fila";
@@ -322,6 +328,8 @@
 "\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+
+"Automatically finish installing, updating and removing." = "Automatically finish installing, updating and removing.";
 
 "Community News" = "Community News";
 "Import Sources" = "Import Sources";
