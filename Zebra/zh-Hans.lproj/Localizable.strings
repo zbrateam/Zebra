@@ -90,7 +90,7 @@
 
 "Featured Sources" = "精选软件源";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "自动完成";
 
 // Sources
 
@@ -238,9 +238,9 @@
 "Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
 "Close Zebra" = "关闭 Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "正在关闭 Zebra ……";
 "Restart SpringBoard" = "重启 SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "正在重启 SpringBoard ……";
 "Downloading" = "正在下载";
 "Parsing" = "正在解析";
 "Downloading Packages..." = "正在下载软件包……";
@@ -255,12 +255,12 @@
 "Complete" = "完成";
 "Finished!" = "完成！";
 "Return to Queue" = "返回队列";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "正在返回队列……";
 "Importing local packages." = "正在导入本地软件包。";
 "Finished importing local packages." = "导入本地软件包完成。";
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
-"Done..." = "Done...";
+"Done..." = "完成……";
 
 // Queue Bar
 "%d Packages Queued" = "队列中有%d个软件包";
