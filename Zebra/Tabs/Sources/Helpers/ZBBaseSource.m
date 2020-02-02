@@ -351,7 +351,7 @@
 }
 
 - (BOOL)canDelete {
-    return true;
+    return YES;
 }
 
 - (BOOL)isEqual:(ZBBaseSource *)object {

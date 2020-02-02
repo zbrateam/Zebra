@@ -32,7 +32,7 @@
     
     keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"label" ascending:true];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES];
     sources = [[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];
     
     self.title = NSLocalizedString(@"Stores", @"");
@@ -96,7 +96,7 @@
         else {
             ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
             
-            [self.navigationController pushViewController:accountController animated:true];
+            [self.navigationController pushViewController:accountController animated:YES];
         }
     }];
 }

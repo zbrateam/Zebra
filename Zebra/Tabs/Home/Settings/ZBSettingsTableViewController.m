@@ -190,7 +190,7 @@ enum ZBMiscOrder {
                         cell.detailTextLabel.text = [icon objectForKey:@"shortName"];
                         
                         cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-                        [cell.imageView resize:CGSizeMake(30, 30) applyRadius:true];
+                        [cell.imageView resize:CGSizeMake(30, 30) applyRadius:YES];
                         
                         if ([[icon objectForKey:@"border"] boolValue]) {
                             [cell.imageView applyBorder];
@@ -452,7 +452,7 @@ enum ZBMiscOrder {
 - (void)displaySettings {
     ZBSettingsDisplayTableViewController *displayController = [[ZBSettingsDisplayTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    [[self navigationController] pushViewController:displayController animated:true];
+    [[self navigationController] pushViewController:displayController animated:YES];
 }
 
 - (void)changeMode {

@@ -59,7 +59,7 @@
     
     if (self.presentingViewController) {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
-            [self dismissViewControllerAnimated:true completion:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }];
         self.navigationItem.rightBarButtonItem = doneButton;
     }
@@ -81,7 +81,7 @@
 }
 
 - (void)getPurchases {
-    loading = TRUE;
+    loading = YES;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
@@ -112,15 +112,15 @@
                     
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         if (self.presentingViewController) {
-                            [self dismissViewControllerAnimated:true completion:nil];
+                            [self dismissViewControllerAnimated:YES completion:nil];
                         }
                         else {
-                            [self.navigationController popViewControllerAnimated:true];
+                            [self.navigationController popViewControllerAnimated:YES];
                         }
                     }];
                     [errorAlert addAction:okAction];
                     
-                    [self presentViewController:errorAlert animated:true completion:nil];
+                    [self presentViewController:errorAlert animated:YES completion:nil];
                 });
             }
             else {
@@ -138,7 +138,7 @@
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self->loading = FALSE;
+                    self->loading = NO;
                     
                     [self.tableView beginUpdates];
                     [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationFade];
@@ -152,15 +152,15 @@
                 
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     if (self.presentingViewController) {
-                        [self dismissViewControllerAnimated:true completion:nil];
+                        [self dismissViewControllerAnimated:YES completion:nil];
                     }
                     else {
-                        [self.navigationController popViewControllerAnimated:true];
+                        [self.navigationController popViewControllerAnimated:YES];
                     }
                 }];
                 [errorAlert addAction:okAction];
                 
-                [self presentViewController:errorAlert animated:true completion:nil];
+                [self presentViewController:errorAlert animated:YES completion:nil];
             });
         }
     }];
@@ -170,7 +170,7 @@
 
 - (void)signOut:(id)sender {
     [keychain removeItemForKey:[source repositoryURI]];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -277,15 +277,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 2) {
-        [tableView deselectRowAtIndexPath:indexPath animated:true];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         [keychain removeItemForKey:[source repositoryURI]];
         
         if (self.presentingViewController) {
-            [self dismissViewControllerAnimated:true completion:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
-            [self.navigationController popViewControllerAnimated:true];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
     else if (indexPath.section == 1 && [purchases count] && !loading) {

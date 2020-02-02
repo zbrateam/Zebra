@@ -120,7 +120,7 @@
     }
     
     cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-    [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:true];
+    [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:YES];
     if (border) [cell.imageView applyBorder];
 
     NSString *iconSelected;

@@ -111,7 +111,7 @@
                 ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
                 
-                [self presentViewController:navController animated:true completion:nil];
+                [self presentViewController:navController animated:YES completion:nil];
             });
         }
     }];

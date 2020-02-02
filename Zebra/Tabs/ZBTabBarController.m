@@ -82,7 +82,7 @@
     if ([databaseManager needsToPresentRefresh]) {
         [databaseManager setNeedsToPresentRefresh:NO];
         
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
         [self presentViewController:refreshController animated:YES completion:nil];
     }
     
@@ -200,7 +200,7 @@
 - (void)checkQueueNav {
     if (!queueNav) {
         queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
-        [[LNPopupBar appearance] setTranslucent:true];
+        [[LNPopupBar appearance] setTranslucent:YES];
     }
 }
 

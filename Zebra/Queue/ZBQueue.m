@@ -73,7 +73,7 @@
     
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear) { //Remove package from queue, this probably needs to be rewritten to support the same package with a different version being added to the same queue
-        [self removePackage:package inQueue:type versionStrict:false];
+        [self removePackage:package inQueue:type versionStrict:NO];
         type = ZBQueueTypeClear;
     }
     if (type != queue) {
@@ -119,7 +119,7 @@
 }
 
 - (void)addConflict:(ZBPackage *)package {
-    [self addConflict:package removeDependencies:true];
+    [self addConflict:package removeDependencies:YES];
 }
 
 - (void)addConflict:(ZBPackage *)package removeDependencies:(BOOL)remove {
@@ -252,7 +252,7 @@
             
             for (ZBPackage *package in [self removeQueue]) {
                 if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
-                    removingZebra = true;
+                    removingZebra = YES;
                     continue;
                 }
                 [removeCommand addObject:package.identifier];
@@ -260,7 +260,7 @@
             
             for (ZBPackage *package in [self conflictQueue]) {
                 if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
-                    removingZebra = true;
+                    removingZebra = YES;
                     continue;
                 }
                 [removeCommand addObject:package.identifier];
@@ -287,7 +287,7 @@
             
             for (ZBPackage *package in [self removeQueue]) {
                 if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
-                    removingZebra = true;
+                    removingZebra = YES;
                     continue;
                 }
                 [removeCommand addObject:package.identifier];
@@ -295,7 +295,7 @@
             
             for (ZBPackage *package in [self conflictQueue]) {
                 if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
-                    removingZebra = true;
+                    removingZebra = YES;
                     continue;
                 }
                 [removeCommand addObject:package.identifier];
@@ -430,7 +430,7 @@
         default:
             break;
     }
-    return @"This shouldn't be here...";
+    return @"Undefined";
 }
 
 - (NSArray <NSNumber *> *)actionsToPerform {

@@ -132,7 +132,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages:false];
+            self->packages = [self.databaseManager installedPackages:NO];
             self->updates = [self.databaseManager packagesWithUpdates];
             self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
@@ -256,7 +256,7 @@
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages:false] copy];
+    NSArray *packages = [[self.databaseManager installedPackages:NO] copy];
     NSMutableArray *packageIds = [NSMutableArray new];
     for (ZBPackage *package in packages) {
         if (package.identifier) {

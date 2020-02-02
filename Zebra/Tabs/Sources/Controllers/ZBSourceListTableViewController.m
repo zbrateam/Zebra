@@ -359,7 +359,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
         
-        [self presentViewController:controller animated:true completion:nil];
+        [self presentViewController:controller animated:YES completion:nil];
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -539,7 +539,7 @@
     ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[url]];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
-    [self presentViewController:navController animated:true completion:nil];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - Source Verification Delegate
@@ -551,7 +551,7 @@
             self->verifyPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         }
         
-        [self presentViewController:self->verifyPopup animated:true completion:nil];
+        [self presentViewController:self->verifyPopup animated:YES completion:nil];
     });
 }
 
@@ -567,14 +567,14 @@
         ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:existing delegate:self];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self->verifyPopup dismissViewControllerAnimated:true completion:^{
-                [self presentViewController:refreshVC animated:true completion:nil];
+            [self->verifyPopup dismissViewControllerAnimated:YES completion:^{
+                [self presentViewController:refreshVC animated:YES completion:nil];
             }];
         });
     }
     else if ([imaginarySources count]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self->verifyPopup dismissViewControllerAnimated:true completion:^{
+            [self->verifyPopup dismissViewControllerAnimated:YES completion:^{
                 NSMutableArray *urls = [NSMutableArray new];
 
                 NSMutableString *message = [NSMutableString new];
@@ -603,7 +603,7 @@
                     if (multiple) {
                         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
 
-                        [self presentViewController:controller animated:true completion:nil];
+                        [self presentViewController:controller animated:YES completion:nil];
                     }
                     else {
                         [self showAddSourceAlert:urls[0]];
@@ -613,7 +613,7 @@
 
                 [errorPopup setPreferredAction:editAction];
 
-                [self presentViewController:errorPopup animated:true completion:nil];
+                [self presentViewController:errorPopup animated:YES completion:nil];
             }];
         });
     }

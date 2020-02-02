@@ -104,7 +104,7 @@
     [alert addAction:cancel];
     
     alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
-    [self presentViewController:alert animated:true completion:nil];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)confirm:(id)sender {
@@ -113,7 +113,7 @@
         
         UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
-            [self.navigationController pushViewController:console animated:true];
+            [self.navigationController pushViewController:console animated:YES];
         }];
         [alert addAction:confirm];
         
@@ -121,11 +121,11 @@
         [alert addAction:cancel];
         
         alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else {
         ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
-        [self.navigationController pushViewController:console animated:true];
+        [self.navigationController pushViewController:console animated:YES];
     }
 }
 
@@ -150,9 +150,9 @@
     else {
         ZBQueueType action = actions[section].intValue;
         if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action useIcon:NO], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
         }
-        return [queue displayableNameForQueueType:action useIcon:false];
+        return [queue displayableNameForQueueType:action useIcon:NO];
     }
 }
 
@@ -236,12 +236,12 @@
                 [self refreshTable];
             }];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                [alert dismissViewControllerAnimated:true completion:nil];
+                [alert dismissViewControllerAnimated:YES completion:nil];
             }];
             
             [alert addAction:deleteAction];
             [alert addAction:okAction];
-            [self presentViewController:alert animated:true completion:nil];
+            [self presentViewController:alert animated:YES completion:nil];
         }
         else {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:[NSString stringWithFormat:NSLocalizedString(@"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!", @""), [package name]] preferredStyle:UIAlertControllerStyleAlert];
@@ -250,12 +250,12 @@
                 [self refreshTable];
             }];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                [alert dismissViewControllerAnimated:true completion:nil];
+                [alert dismissViewControllerAnimated:YES completion:nil];
             }];
             
             [alert addAction:deleteAction];
             [alert addAction:okAction];
-            [self presentViewController:alert animated:true completion:nil];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }
     else if ([package hasIssues]) {
@@ -269,20 +269,20 @@
             [self refreshTable];
         }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
+            [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
         [alert addAction:deleteAction];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else if ([package removedBy] != NULL) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ must be removed because it depends on %@", @""), [package name], [[package removedBy] name]];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
+            [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else if ([[package dependencyOf] count] > 0) {
         NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ is required by:", @""), [package name]] mutableCopy];
@@ -291,10 +291,10 @@
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
+            [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

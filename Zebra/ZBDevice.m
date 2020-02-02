@@ -153,7 +153,7 @@
             //Try sbreload
             NSLog(@"[Zebra] Trying sbreload");
             @try {
-                [self runCommandInPath:@"sbreload" asRoot:false observer:nil];
+                [self runCommandInPath:@"sbreload" asRoot:NO observer:nil];
             }
             @catch (NSException *e) {
                 CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
@@ -171,7 +171,7 @@
             failed = NO;
             
             @try {
-                [self runCommandInPath:@"launchctl stop com.apple.backboardd" asRoot:true observer:nil];
+                [self runCommandInPath:@"launchctl stop com.apple.backboardd" asRoot:YES observer:nil];
             }
             @catch (NSException *e) {
                 CLS_LOG(@"Could not spawn launchctl. %@: %@", e.name, e.reason);
@@ -186,7 +186,7 @@
             failed = NO;
             
             @try {
-                [self runCommandInPath:@"killall -9 backboardd" asRoot:true observer:nil];
+                [self runCommandInPath:@"killall -9 backboardd" asRoot:YES observer:nil];
             }
             @catch (NSException *e) {
                 CLS_LOG(@"Could not spawn killall. %@: %@", e.name, e.reason);
@@ -209,7 +209,7 @@
     }
     
     @try {
-        [self runCommandInPath:command asRoot:false observer:observer];
+        [self runCommandInPath:command asRoot:NO observer:observer];
     }
     @catch (NSException *e) {
         CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);

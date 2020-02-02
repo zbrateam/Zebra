@@ -87,7 +87,7 @@
         updateIconCache = NO;
         
         // Resume database operations
-        [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
+        [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:NO];
     }
     
     return self;
@@ -144,19 +144,19 @@
     progressText.layer.cornerRadius = 3.0;
     progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
-    [self setProgressViewHidden:true];
-    [self setProgressTextHidden:true];
+    [self setProgressViewHidden:YES];
+    [self setProgressTextHidden:YES];
     [self updateCancelOrCloseButton];
     
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    [self.navigationItem setHidesBackButton:true];
+    [self.navigationItem setHidesBackButton:YES];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     [[[[ZBAppDelegate tabBarController] popupContentView] popupInteractionGestureRecognizer] setDelegate:self];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return false;
+    return NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -208,7 +208,7 @@
             [self writeToConsole:NSLocalizedString(@"There are no actions to perform", @"") atLevel:ZBLogLevelDescript];
         }
         else {
-            [self setProgressTextHidden:false];
+            [self setProgressTextHidden:NO];
             [self updateProgressText:NSLocalizedString(@"Performing Actions...", @"")];
             //TODO: Update to fix uicaches/respring IDs
 //            [installedPackageIdentifiers addObjectsFromArray:downloadedFiles];
@@ -407,16 +407,16 @@
 //    [downloadManager stopAllDownloads];
     [downloadMap removeAllObjects];
     [self updateProgress:1.0];
-    [self setProgressViewHidden:true];
+    [self setProgressViewHidden:YES];
     [self updateProgressText:nil];
-    [self setProgressTextHidden:true];
+    [self setProgressTextHidden:YES];
     [self removeAllDebs];
     [self updateStage:ZBStageFinished];
 }
 
 - (void)close {
     [queue clear];
-    [[self navigationController] popToRootViewControllerAnimated:true];
+    [[self navigationController] popToRootViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
 }
 
@@ -429,7 +429,7 @@
 }
 
 - (void)returnToQueue {
-    [self.navigationController popViewControllerAnimated:true];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)closeZebra {
@@ -474,8 +474,8 @@
             [self updateTitle:NSLocalizedString(@"Downloading", @"")];
             [self writeToConsole:NSLocalizedString(@"Downloading Packages...", @"") atLevel:ZBLogLevelInfo];
             
-            [self setProgressTextHidden:false];
-            [self setProgressViewHidden:false];
+            [self setProgressTextHidden:NO];
+            [self setProgressViewHidden:NO];
             break;
         case ZBStageInstall:
             [self updateTitle:NSLocalizedString(@"Installing", @"")];
@@ -547,7 +547,7 @@
 
 - (void)updateProgress:(CGFloat)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self->progressView setProgress:progress animated:true];
+        [self->progressView setProgress:progress animated:YES];
     });
 }
 

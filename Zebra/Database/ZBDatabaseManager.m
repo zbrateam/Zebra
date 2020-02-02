@@ -201,7 +201,7 @@
     
     BOOL needsUpdate = NO;
     if (requested && haltDatabaseOperations) { //Halt database operations may need to be rethought
-        [self setHaltDatabaseOperations:false];
+        [self setHaltDatabaseOperations:NO];
     }
     
 //    if (!requested) {
@@ -744,7 +744,7 @@
 
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate {
     [self setDatabaseBeingUpdated:NO];
-    [self setHaltDatabaseOperations:true];
+    [self setHaltDatabaseOperations:YES];
 //    [self.downloadManager stopAllDownloads];
     [self bulkDatabaseCompletedUpdate:-1];
     [self removeDatabaseDelegate:delegate];
@@ -857,7 +857,7 @@
     NSMutableArray *installedPackages = [NSMutableArray new];
     NSMutableArray *virtualPackages = [NSMutableArray new];
     
-    for (ZBPackage *package in [self installedPackages:true]) {
+    for (ZBPackage *package in [self installedPackages:YES]) {
         NSDictionary *installedPackage = @{@"identifier": [package identifier], @"version": [package version]};
         [installedPackages addObject:installedPackage];
         
@@ -1335,7 +1335,7 @@
 }
 
 - (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
-    return [self packageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true];
+    return [self packageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:YES];
 }
 
 - (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
@@ -1390,7 +1390,7 @@
 }
 
 - (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
-    return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:true thatIsNot:NULL];
+    return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:YES thatIsNot:NULL];
 }
 
 - (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
@@ -1741,10 +1741,9 @@
         NSArray *components = [dependency componentsSeparatedByString:@"|"];
         for (NSString *dependency in components) {
             if ([self willDependencyBeSatisfiedAfterQueueOperations:[dependency stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]]) {
-                return true;
+                return YES;
             }
         }
-        return false;
     }
     else if ([self openDatabase] == SQLITE_OK) {
         ZBQueue *queue = [ZBQueue sharedQueue];
@@ -1767,7 +1766,7 @@
         
         NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE NOT IN %@ AND REPOID = 0 AND (PACKAGE = ? OR (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?)) LIMIT 1;", excludeString];
         
-        BOOL found = false;
+        BOOL found = NO;
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1786,13 +1785,13 @@
                     
                     if (foundVersion != 0) {
                         if ([ZBDependencyResolver doesVersion:[NSString stringWithUTF8String:foundVersion] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
-                            found = true;
+                            found = YES;
                             break;
                         }
                     }
                 }
                 else {
-                    found = true;
+                    found = YES;
                     break;
                 }
             }
@@ -1800,13 +1799,14 @@
             if (!found) { //Search the array of packages that are queued for installation to see if one of them satisfies the dependency
                 for (NSDictionary *package in addedPackages) {
                     if ([[package objectForKey:@"identifier"] isEqualToString:packageIdentifier]) {
-                        if (needsVersionComparison && [ZBDependencyResolver doesVersion:[package objectForKey:@"version"] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
-                            return true;
-                        }
-                        return true;
+                        // TODO: Condition check here is useless
+//                        if (needsVersionComparison && [ZBDependencyResolver doesVersion:[package objectForKey:@"version"] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
+//                            return YES;
+//                        }
+                        return YES;
                     }
                 }
-                return false;
+                return NO;
             }
             
             sqlite3_finalize(statement);
@@ -1816,12 +1816,11 @@
             [self printDatabaseError];
         }
         [self closeDatabase];
-        return FALSE;
     }
     else {
         [self printDatabaseError];
-        return FALSE;
     }
+    return NO;
 }
 
 #pragma mark - Download Delegate

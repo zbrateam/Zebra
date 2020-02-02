@@ -352,7 +352,7 @@
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     
     if ([viewControllerToCommit isKindOfClass:[SFSafariViewController class]]) {
-        [self.navigationController presentViewController:viewControllerToCommit animated:true completion:nil];
+        [self.navigationController presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
     else {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];

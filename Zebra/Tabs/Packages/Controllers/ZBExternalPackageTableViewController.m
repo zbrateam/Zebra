@@ -60,7 +60,7 @@
 }
 
 - (IBAction)goodbye:(id)sender {
-    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
+    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

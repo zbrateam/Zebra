@@ -75,7 +75,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
     
     if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = true;
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
 }
 

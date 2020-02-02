@@ -370,7 +370,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                     if (info && info.purchased && info.available) {
                         self.purchased = YES;
                         self->package.sileoDownload = YES;
-                        [self showModifyButton:true];
+                        [self showModifyButton:YES];
                     }
                     else {
                         [self showRemoveButton];
@@ -379,7 +379,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             }
             else {
                 navButtonsBeingConfigured = NO;
-                [self showModifyButton:true];
+                [self showModifyButton:YES];
             }
         }
         else {
@@ -480,7 +480,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)purchasePackage {
-    [self setNavigationButtonBusy:true];
+    [self setNavigationButtonBusy:YES];
     
     ZBSource *source = [package repo];
     NSString *repositoryURL = [source repositoryURI];
@@ -506,7 +506,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 [request setHTTPBody:requestData];
                 
                 NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    [self setNavigationButtonBusy:false];
+                    [self setNavigationButtonBusy:NO];
                     
                     NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
                     NSInteger statusCode = [httpReponse statusCode];
@@ -530,7 +530,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 
                 [task resume];
             } else {
-                [self setNavigationButtonBusy:false];
+                [self setNavigationButtonBusy:NO];
                 [ZBAppDelegate sendAlertFrom:self message:@"Could not complete purchase, no payment secret was found"];
             }
         }
@@ -619,7 +619,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [alert dismissViewControllerAnimated:true completion:nil];
+        [alert dismissViewControllerAnimated:YES completion:nil];
     }];
     [alert addAction:cancelAction];
     
@@ -634,7 +634,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)presentQueue {
     if ([self presentingViewController]) {
-        [self dismissViewControllerAnimated:true completion:^{
+        [self dismissViewControllerAnimated:YES completion:^{
             [[ZBAppDelegate tabBarController] openQueue:YES];
         }];
     } else {

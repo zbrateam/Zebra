@@ -78,9 +78,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
         [self setAccentColor:ZBAccentColorCornflowerBlue];
         return ZBAccentColorCornflowerBlue;
     }
-    else {
-        return [defaults integerForKey:AccentColorKey];
-    }
+    return [defaults integerForKey:AccentColorKey];
 }
 
 + (void)setAccentColor:(ZBAccentColor)accentColor {
@@ -108,9 +106,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
             [self setInterfaceStyle:ZBInterfaceStyleLight];
             return ZBInterfaceStyleLight;
         }
-        else {
-            return [defaults integerForKey:InterfaceStyleKey];
-        }
+        return [defaults integerForKey:InterfaceStyleKey];
     }
 }
 
@@ -126,16 +122,12 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
         if (![defaults objectForKey:UseSystemAppearanceKey]) {
-            [self setUsesSystemAppearance:true];
-            return true;
+            [self setUsesSystemAppearance:YES];
+            return YES;
         }
-        else {
-            return [defaults boolForKey:UseSystemAppearanceKey];
-        }
+        return [defaults boolForKey:UseSystemAppearanceKey];
     }
-    else {
-        return false;
-    }
+    return NO;
 }
 
 + (void)setUsesSystemAppearance:(BOOL)usesSystemAppearance {
@@ -149,12 +141,10 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:PureBlackModeKey]) {
-        [self setPureBlackMode:false];
-        return false;
+        [self setPureBlackMode:NO];
+        return NO;
     }
-    else {
-        return [defaults boolForKey:PureBlackModeKey];
-    }
+    return [defaults boolForKey:PureBlackModeKey];
 }
 
 + (void)setPureBlackMode:(BOOL)pureBlackMode {
@@ -167,9 +157,8 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 + (NSString *_Nullable)appIconName {
     if (@available(iOS 10.3, *)) {
         return [[UIApplication sharedApplication] alternateIconName];
-    } else {
-        return NULL;
     }
+    return NULL;
 }
 
 + (void)setAppIconName:(NSString *_Nullable)appIconName {
@@ -177,7 +166,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 }
 
 + (BOOL)wantsFeaturedPackages {
-    return false;
+    return NO;
 }
 
 + (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages {
@@ -197,7 +186,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 }
 
 + (BOOL)wantsCommunityNews {
-    return false;
+    return YES;
 }
 
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews {
@@ -205,7 +194,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 }
 
 + (BOOL)liveSearch {
-    return true;
+    return YES;
 }
 
 #pragma clang diagnostic pop

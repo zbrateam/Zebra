@@ -104,7 +104,7 @@
         
         [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
         
-        [self presentViewController:errorPopup animated:true completion:nil];
+        [self presentViewController:errorPopup animated:YES completion:nil];
     }
     else {
         NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
@@ -132,7 +132,7 @@
         return NO;
     }
     
-    return true;
+    return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView {

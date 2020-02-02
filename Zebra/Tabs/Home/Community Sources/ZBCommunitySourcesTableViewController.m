@@ -266,7 +266,7 @@
                 ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[info objectForKey:@"url"]]];
                 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
-                [self presentViewController:navController animated:true completion:nil];
+                [self presentViewController:navController animated:YES completion:nil];
             });
             break;
         }

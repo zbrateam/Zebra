@@ -286,10 +286,10 @@
         
         NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
         if (es && [es isEqualToString:@"yes"]) {
-            [self setEssential:true];
+            [self setEssential:YES];
         }
         else if (es && [es isEqualToString:@"no"]) {
-            [self setEssential:false];
+            [self setEssential:NO];
         }
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];

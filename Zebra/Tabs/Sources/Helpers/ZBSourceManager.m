@@ -159,7 +159,7 @@
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
     }
     
-    recachingNeeded = TRUE;
+    recachingNeeded = YES;
 }
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {

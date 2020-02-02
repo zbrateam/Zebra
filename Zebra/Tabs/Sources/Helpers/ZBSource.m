@@ -52,7 +52,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     NSUInteger divide = NSMaxRange(dividerRange);
     NSString *baseURL = divide > [urlString length] ? urlString : [urlString substringFromIndex:divide];
     
-    return [databaseManager repoIDFromBaseURL:baseURL strict:false] > 0;
+    return [databaseManager repoIDFromBaseURL:baseURL strict:NO] > 0;
 }
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
@@ -145,7 +145,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 - (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([keychain stringForKey:self.repositoryURI]) {
-        completion(true, nil);
+        completion(YES, nil);
         return;
     }
     
@@ -187,11 +187,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                         
                         [keychain setString:payment forKey:key];
                         
-                        completion(true, NULL);
+                        completion(YES, NULL);
                     });
                 }
                 else {
-                    completion(false, error);
+                    completion(NO, error);
                 }
             }];
             

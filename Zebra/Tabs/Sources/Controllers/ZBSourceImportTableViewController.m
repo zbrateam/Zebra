@@ -42,7 +42,7 @@
     
     if (self) {
         if (@available(iOS 13.0, *)) {
-            self.modalInPresentation = true;
+            self.modalInPresentation = YES;
         }
         self.sourceFilesToImport = filePaths;
     }
@@ -85,27 +85,27 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         double trueProgress = self.navigationController.navigationBar.navProgressView.progress + progress;
         if (trueProgress >= 1.0) {
-            [self.navigationController.navigationBar.navProgressView setProgress:1.0f animated:true];
+            [self.navigationController.navigationBar.navProgressView setProgress:1.0f animated:YES];
             [UIView animateWithDuration:0.5f animations:^{
                 [self.navigationController.navigationBar.navProgressView setAlpha:0.0f];
             } completion:^(BOOL finished) {
-                [self setImportEnabled:true];
+                [self setImportEnabled:YES];
             }];
         }
         else {
-            [self.navigationController.navigationBar.navProgressView setProgress:trueProgress animated:true];
+            [self.navigationController.navigationBar.navProgressView setProgress:trueProgress animated:YES];
         }
     });
 }
 
 - (void)setImportEnabled:(BOOL)enabled {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.rightBarButtonItem.enabled = true;
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     });
 }
 
 - (void)cancel {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table View Data Source
@@ -131,7 +131,7 @@
         cell.repoLabel.alpha = 1.0;
         cell.urlLabel.alpha = 1.0;
         cell.repoLabel.textColor = [UIColor primaryTextColor];
-        [cell setSpinning:false];
+        [cell setSpinning:NO];
         switch (status) {
             case ZBSourceExists: {
                 BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
@@ -144,7 +144,7 @@
                 break;
             }
             case ZBSourceUnverified: {
-                [cell setSpinning:true];
+                [cell setSpinning:YES];
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
                 cell.repoLabel.alpha = 0.7;
@@ -158,7 +158,7 @@
                 break;
             }
             case ZBSourceVerifying: {
-                [cell setSpinning:true];
+                [cell setSpinning:YES];
                 
                 cell.repoLabel.alpha = 0.7;
                 cell.urlLabel.alpha = 0.7;

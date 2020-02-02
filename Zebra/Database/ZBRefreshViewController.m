@@ -210,7 +210,7 @@ typedef enum {
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
         
         buttonState = ZBStateDone;
-        [self setCompleteOrCancelButtonHidden:false];
+        [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
 }
