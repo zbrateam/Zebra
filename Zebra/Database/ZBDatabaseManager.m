@@ -754,6 +754,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
         
+        // FIXME: ZBBaseSource may be passed here, causing unrecognized selector exception
         NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE repoID = %d GROUP BY SECTION ORDER BY SECTION", [repo repoID]];
         
         sqlite3_stmt *statement;
