@@ -661,10 +661,10 @@
         <scene sceneID="fzZ-7T-RWl">
             <objects>
                 <tableViewController id="Ty6-FV-h0G" customClass="ZBSourceListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pbU-HD-2Rk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pbU-HD-2Rk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <connections>
                             <outlet property="dataSource" destination="Ty6-FV-h0G" id="UJ2-5v-2QN"/>
                             <outlet property="delegate" destination="Ty6-FV-h0G" id="jxa-T0-NvU"/>
@@ -1218,7 +1218,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="63g-98-fnw"/>
-        <segue reference="l9h-er-JrZ"/>
+        <segue reference="wqW-Kk-qIz"/>
         <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

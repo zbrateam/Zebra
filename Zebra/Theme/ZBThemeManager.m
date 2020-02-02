@@ -139,9 +139,11 @@
         [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
         
         [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-        [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
-        [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
-        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTextColor:[UIColor primaryTextColor]];
+//        [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
+//        [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
+        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setFont:[UIFont fontWithName:@"Times" size:17.00]];
+//        [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setFont:[UIFont fontWithName:@"Times" size:17.00]];
+//        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[NSClassFromString(@"UITableViewCellContentView")]] setTextColor:[UIColor primaryTextColor]];
     }
 }
 

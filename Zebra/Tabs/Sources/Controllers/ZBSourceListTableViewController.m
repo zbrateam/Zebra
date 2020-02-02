@@ -51,6 +51,10 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
+    if (@available(iOS 13.0, *)) {} else {
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    }
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
@@ -67,6 +71,8 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -212,22 +218,20 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [self hasDataInSection:section] ? 30 : 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([self hasDataInSection:section]) {
-        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
-        view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        view.textLabel.textColor = [UIColor primaryTextColor];
-        view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-        
-        return view;
-    }
-    
-    return NULL;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return [self hasDataInSection:section] ? 30 : 0;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    if ([self hasDataInSection:section]) {
+//        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
+//        view.textLabel.textColor = [UIColor primaryTextColor];
+//
+//        return view;
+//    }
+//
+//    return NULL;
+//}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (![self hasDataInSection:section])
