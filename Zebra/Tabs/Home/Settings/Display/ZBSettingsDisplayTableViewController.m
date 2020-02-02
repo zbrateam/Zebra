@@ -86,8 +86,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"settingsDisplayCell"];
-    cell.textLabel.textColor = [UIColor primaryTextColor];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsDisplayCell"];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {
@@ -154,8 +153,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             break;
         }
     }
-    
     cell.textLabel.textColor = [UIColor primaryTextColor];
+    
     return cell;
 }
 
@@ -277,6 +276,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
+    [self.tableView reloadData];
 }
 
 @end
