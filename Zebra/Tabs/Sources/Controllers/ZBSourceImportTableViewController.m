@@ -135,12 +135,7 @@
         switch (status) {
             case ZBSourceExists: {
                 BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
-                if (selected) {
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                }
-                else {
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
+                cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             }
             case ZBSourceUnverified: {

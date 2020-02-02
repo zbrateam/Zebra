@@ -8,6 +8,7 @@
 
 #import "ZBAppDelegate.h"
 #import "ZBTabBarController.h"
+#import <ZBLog.h>
 #import <ZBTab.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
@@ -51,7 +52,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     BOOL dirExists = NO;
     [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
     if (!dirExists) {
-        NSLog(@"[Zebra] Creating documents directory.");
+        ZBLog(@"[Zebra] Creating documents directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         
@@ -69,7 +70,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     BOOL dirExists = NO;
     [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
     if (!dirExists) {
-        NSLog(@"[Zebra] Creating lists directory.");
+        ZBLog(@"[Zebra] Creating lists directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
@@ -88,7 +89,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 + (NSString *)sourcesListPath {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
-        NSLog(@"[Zebra] Creating sources.list.");
+        ZBLog(@"[Zebra] Creating sources.list.");
         NSError *error;
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
         
@@ -109,7 +110,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     BOOL dirExists = NO;
     [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
     if (!dirExists) {
-        NSLog(@"[Zebra] Creating debs directory.");
+        ZBLog(@"[Zebra] Creating debs directory.");
         NSError *error;
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         

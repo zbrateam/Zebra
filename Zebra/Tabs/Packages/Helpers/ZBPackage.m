@@ -558,6 +558,10 @@
     return possibleActions;
 }
 
+- (void)_setPossibleActions:(NSUInteger)actions {
+    possibleActions = actions;
+}
+
 - (NSString *)longDescription {
     return longDescription == NULL ? shortDescription : longDescription;
 }

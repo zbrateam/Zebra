@@ -321,8 +321,7 @@
         return [ignoredUpdates objectAtIndex:indexPath.row];
     }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
-        return package;
+        return [self objectAtSection:indexPath.section][indexPath.row];
     }
     return sortedPackages[indexPath.row];
 }
