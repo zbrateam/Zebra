@@ -54,7 +54,7 @@
         }
     }
     else {
-        return [UIColor systemGroupedBackgroundColor];
+        return [ZBSettings pureBlackMode] ? [UIColor blackColor] : [UIColor systemGroupedBackgroundColor];
     }
 }
 
@@ -70,7 +70,7 @@
         }
     }
     else {
-        return [UIColor secondarySystemGroupedBackgroundColor];
+        return [ZBSettings pureBlackMode] ? [UIColor blackColor] : [UIColor systemGroupedBackgroundColor];
     }
 }
 

@@ -106,7 +106,8 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
             [self setInterfaceStyle:ZBInterfaceStyleLight];
             return ZBInterfaceStyleLight;
         }
-        return [defaults integerForKey:InterfaceStyleKey];
+        ZBInterfaceStyle style = [defaults integerForKey:InterfaceStyleKey];
+        return (style == ZBInterfaceStyleDark && [self pureBlackMode]) ? ZBInterfaceStylePureBlack : style;
     }
 }
 
