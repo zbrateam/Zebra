@@ -246,21 +246,31 @@
 
 - (void)importSelected {
     NSMutableSet *sources = [NSMutableSet new];
-    
     NSMutableArray *baseFilenames = [NSMutableArray new];
-    for (NSString *baseFilename in [selectedSources allKeys]) {
-        if ([[selectedSources objectForKey:baseFilename] boolValue]) {
+    for (NSString *baseFilename in [self->selectedSources allKeys]) {
+        if ([[self->selectedSources objectForKey:baseFilename] boolValue]) {
             [baseFilenames addObject:baseFilename];
         }
     }
     
-    for (ZBBaseSource *source in baseSources) {
+    for (ZBBaseSource *source in self->baseSources) {
         if ([baseFilenames containsObject:[source baseFilename]]) {
             [sources addObject:source];
         }
     }
     
-    [sourceManager addBaseSources:sources];
+    NSString *message = sources.count > 1 ? [NSString stringWithFormat:@"Are you sure that you want to import %lu sources into Zebra?", sources.count] : [NSString stringWithFormat:@"Are you sure that you want to import %lu source into Zebra?", sources.count];
+    UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:@"Confirm Import" message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+    }];
+    [areYouSure addAction:yesAction];
+    
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+    [areYouSure addAction:noAction];
+    
+    [self presentViewController:areYouSure animated:true completion:nil];
 }
 
 #pragma mark - Verification Delegate
