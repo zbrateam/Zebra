@@ -235,7 +235,7 @@
 
 "Console" = "主控台";
 "Performing Actions..." = "執行動作…";
-"Updating icon cache asynchronously..." = "正在非同步更新圖示快取...";
+"Updating icon cache asynchronously..." = "正在異步更新圖示快取...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
 "Close Zebra" = "關閉 Zebra";
 "Closing Zebra..." = "Closing Zebra...";
