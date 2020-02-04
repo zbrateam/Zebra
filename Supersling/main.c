@@ -4,9 +4,10 @@
 #include <sysexits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <launch.h>
 #include <limits.h>
 #include <string.h>
+
+#include "launch.h"
 
 /* Set platform binary flag */
 #define FLAG_PLATFORMIZE (1 << 1)
