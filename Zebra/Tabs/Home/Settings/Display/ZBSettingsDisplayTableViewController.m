@@ -248,8 +248,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 - (void)toggleSystemStyle:(UISwitch *)sender {
     BOOL setting = sender.on;
     
+    usesSystemAppearance = setting;
     [ZBSettings setUsesSystemAppearance:setting];
-    [self updateInterfaceStyle];
     
     if (!setting) { //Insert style picker section
         [self.tableView beginUpdates];
@@ -261,6 +261,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+    
+    [self updateInterfaceStyle];
 }
 
 - (void)togglePureBlack:(UISwitch *)sender {
@@ -276,7 +278,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-    [self.tableView reloadData];
 }
 
 @end
