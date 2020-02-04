@@ -31,7 +31,7 @@ void patch_setuidandplatformize() {
 
   const char *dlsym_error = dlerror();
   if (dlsym_error) {
-    printf(dlsym_error);
+    printf("dlsym_error: %s\n", dlsym_error);
     return;
   }
 
