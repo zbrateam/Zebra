@@ -90,7 +90,7 @@
 
 "Featured Sources" = "Empfohlene Quellen";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Automatisch abschliessen";
 
 // Sources
 
@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "„Zufällig” zeigt zufällige Pakete aus allen Quellen an, die du zu Zebra hinzugefügt hast.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Konsole automatisch schliessen, wenn alle Aufgaben abgeschlossen sind.";
 
 "Community News" = "Nachrichten der Gemeinschaft";
 "Import Sources" = "Quellen importieren";
