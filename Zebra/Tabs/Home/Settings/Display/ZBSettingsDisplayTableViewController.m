@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     pureBlackMode = [ZBSettings pureBlackMode];
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 #pragma mark - Table View Data Source
@@ -92,6 +94,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     switch (section) {
         case ZBSectionAccentColor: {
             ZBRightIconTableViewCell *colorCell = [tableView dequeueReusableCellWithIdentifier:@"settingsColorCell"];
+            colorCell.backgroundColor = [UIColor cellBackgroundColor];
             
             [colorCell setColor:[UIColor accentColor]];
                         
@@ -154,6 +157,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
     }
     cell.textLabel.textColor = [UIColor primaryTextColor];
+    cell.backgroundColor = [UIColor cellBackgroundColor];
     
     return cell;
 }
@@ -278,6 +282,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    }];
 }
 
 @end
