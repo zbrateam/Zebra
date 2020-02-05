@@ -145,6 +145,7 @@ enum ZBMiscOrder {
     if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
         if (@available(iOS 10.3, *)) {
             ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
             
             cell.label.text = @"App Icon";
             
@@ -173,6 +174,8 @@ enum ZBMiscOrder {
     cell.accessoryView = nil;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.backgroundColor = [UIColor cellBackgroundColor];
+    
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
