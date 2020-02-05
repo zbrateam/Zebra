@@ -90,7 +90,7 @@
 
 "Featured Sources" = "精選來源";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "已自動完成";
 
 // Sources
 
@@ -238,9 +238,9 @@
 "Updating icon cache asynchronously..." = "正在異步更新圖示快取...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
 "Close Zebra" = "關閉 Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "正在關閉 Zebra...";
 "Restart SpringBoard" = "重新啟動主畫面";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "正在重新啟動主畫面...";
 "Downloading" = "正在下載";
 "Parsing" = "正在解析";
 "Downloading Packages..." = "正在下載套件...";
@@ -255,12 +255,12 @@
 "Complete" = "完成";
 "Finished!" = "已完成！";
 "Return to Queue" = "返回至佇列";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "正在回到佇列...";
 "Importing local packages." = "正在匯入本地套件。";
 "Finished importing local packages." = "匯入本地套件已完成。";
 "One or more packages failed to download." = "一個或多個套件下載失敗。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點選「返回佇列」以回到佇列並重新嘗試下載。";
-"Done..." = "Done...";
+"Done..." = "完成...";
 
 // Queue Bar
 "%d Packages Queued" = "%d 個套件在佇列中";
@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有來源中，選擇隨機套件來顯示。";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
 "Community News" = "社群新聞";
 "Import Sources" = "匯入來源";
