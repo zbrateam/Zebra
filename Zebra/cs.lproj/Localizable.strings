@@ -240,7 +240,7 @@
 "Close Zebra" = "Zavřít Zebru";
 "Closing Zebra..." = "Zavírám Zebru...";
 "Restart SpringBoard" = "Restartovat SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Restartuji SpringBoard...";
 "Downloading" = "Stahování";
 "Parsing" = "Analýza";
 "Downloading Packages..." = "Stahování balíčků...";
@@ -255,12 +255,12 @@
 "Complete" = "Hotovo";
 "Finished!" = "Dokončeno!";
 "Return to Queue" = "Návrat do Fronty";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Vracím do Fronty...";
 "Importing local packages." = "Importování místních balíčků.";
 "Finished importing local packages." = "Importování místních balíčků bylo dokončeno.";
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
-"Done..." = "Done...";
+"Done..." = "Hotovo...";
 
 // Queue Bar
 "%d Packages Queued" = "%d balíčků ve frontě";
@@ -329,7 +329,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Náhodný\" bude zobrazovat náhodné balíčky ze všech zdrojů, které jste přidali do Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automaticky zavře Konzoli po dokončení všech jejích úkolů.";
 
 "Community News" = "Komunitní Novinky";
 "Import Sources" = "Importovat zdroje";
