@@ -1,11 +1,11 @@
 // Common
 
 "Cancel" = "Cancelar";
-"Yes" = "Yes";
+"Yes" = "Sim";
 "No" = "Não";
 "Ok" = "Ok";
 "Error" = "Erro";
-"Retry" = "Repetir";
+"Retry" = "Tentar de Novo";
 "Edit" = "Editar";
 "Login" = "Entrar";
 "Close" = "Fechar";
@@ -15,7 +15,7 @@
 
 "Home" = "Início";
 "Info" = "Informações";
-"Welcome to Zebra!" = "Bemvindos à Zebra!";
+"Welcome to Zebra!" = "Bem-vindo ao Zebra!";
 "Changelog" = "Alterações";
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
@@ -35,7 +35,7 @@
 
 "Credits" = "Créditos";
 "Creators" = "Criadores";
-"Contributors" = "Contribuintes";
+"Contributors" = "Colaboradores";
 "Translators" = "Tradutores";
 "Libraries" = "Livrarias";
 

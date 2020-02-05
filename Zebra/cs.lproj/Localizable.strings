@@ -225,7 +225,7 @@
 "Error while opening sources.list" = "Chyba během otevírání sources.list";
 "The repo %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this repo from your sources.list file." = "Prosím odstrańte tento repozitář ze souboru sources.list.";
+"Please remove this repo from your sources.list file." = "Prosím, odstraňte tento repozitář ze souboru sources.list.";
 "Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
 "Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";

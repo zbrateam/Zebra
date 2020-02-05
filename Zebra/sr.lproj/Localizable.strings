@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Odustani";
-"Yes" = "Yes";
+"Yes" = "Da";
 "No" = "Ne";
 "Ok" = "Ok";
 "Error" = "Greška";
@@ -71,7 +71,7 @@
 "Feature Type" = "Istaknuti tip";
 "Select Repos to be Featured" = "Izaberi Repo da bude istaknut";
 
-"News" = "News";
+"News" = "Novosti";
 
 "Live Search" = "Pretraga uživo";
 
@@ -241,7 +241,7 @@
 "Close Zebra" = "Zatvori Zebru";
 "Restart SpringBoard" = "Restartuj SpringBoard";
 "Downloading" = "Preuzimanje";
-"Parsing" = "Parsing";
+"Parsing" = "Parsiram";
 "Downloading Packages..." = "Preuzimanje Paketa...";
 "Installing" = "Instaliranje";
 "Installing Packages..." = "Instaliranje Paketa...";
@@ -330,8 +330,8 @@
 
 "Community News" = "Vesti iz Udruženja";
 "Import Sources" = "Uvezi Izvore";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Updating Repositories" = "Ažuriranje Repoa";
+"Would you like to import the following repositories?" = "Da li želite da učitate ovaj repo?";
+"Download Completed" = "Preuzimanje je završeno";
+"Removing Zebra..." = "Uklanjam Zerba...";
+"Installing Zebra..." = "Instaliram Zebra...";
