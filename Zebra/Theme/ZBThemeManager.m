@@ -33,7 +33,7 @@
         case ZBAccentColorCornflowerBlue:
             return [UIColor blueCornflowerColor];
         case ZBAccentColorSystemBlue:
-            return [UIColor systemBlueColor];
+            return nil;
         case ZBAccentColorOrange:
             return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
         case ZBAccentColorAdaptive: {
