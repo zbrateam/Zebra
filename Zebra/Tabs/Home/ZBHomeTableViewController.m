@@ -86,6 +86,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)setupFeatured {
