@@ -90,7 +90,7 @@
 
 "Featured Sources" = "Doporučené zdroje";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Automaticky Dokončit";
 
 // Sources
 
@@ -222,7 +222,7 @@
 
 "Downloads" = "Stažené";
 "Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The source %@ is incompatible with your jailbreak." = "Zdroj %@ je nekompatibilní s vaším vězeňským žalářem.";
+"The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
 "Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
 "Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
@@ -238,7 +238,7 @@
 "Updating icon cache asynchronously..." = "Probíhá asynchonní update icon cache...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Toto může trvat delší dobu a Zebra může spadnout. Nevadí pokud se tak stane.";
 "Close Zebra" = "Zavřít Zebru";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zavírám Zebru...";
 "Restart SpringBoard" = "Restartovat SpringBoard";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Downloading" = "Stahování";
