@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UIImageView *iconView;
 @property (strong, nonatomic) IBOutlet UILabel *label;
 - (void)setAppIcon:(UIImage *)icon border:(BOOL)border;
-- (void)setColor:(UIColor *)color;
 @end
 
 NS_ASSUME_NONNULL_END

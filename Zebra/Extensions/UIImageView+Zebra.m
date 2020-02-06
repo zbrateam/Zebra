@@ -23,6 +23,49 @@
     self.clipsToBounds = YES;
 }
 
+- (void)setColor:(UIColor *)color {
+    CGSize size = CGSizeMake(30, 30);
+
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    [color setFill];
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    self.image = colorImage;
+    [self resize:size applyRadius:YES];
+}
+
+- (void)setLeftColor:(UIColor *)leftColor rightColor:(UIColor *)rightColor {
+    CGSize size = CGSizeMake(30, 30);
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), NO, 0.0);
+    
+    UIBezierPath *leftTriangle = [[UIBezierPath alloc] init];
+    [leftTriangle moveToPoint:CGPointMake(0, 0)];
+    [leftTriangle addLineToPoint:CGPointMake(0, size.height)];
+    [leftTriangle addLineToPoint:CGPointMake(size.width, 0)];
+    [leftTriangle closePath];
+    
+    [leftColor setFill];
+    [leftTriangle fill];
+    
+    UIBezierPath *rightTriangle = [[UIBezierPath alloc] init];
+    [rightTriangle moveToPoint:CGPointMake(size.width, size.height)];
+    [rightTriangle addLineToPoint:CGPointMake(0, size.height)];
+    [rightTriangle addLineToPoint:CGPointMake(size.width, 0)];
+    [rightTriangle closePath];
+    
+    [rightColor setFill];
+    [rightTriangle fill];
+
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.image = colorImage;
+    [self resize:size applyRadius:YES];
+}
+
 - (void)resize:(CGSize)size applyRadius:(BOOL)radius {
     UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
     
