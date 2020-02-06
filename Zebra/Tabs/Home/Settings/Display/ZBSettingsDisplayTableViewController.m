@@ -11,6 +11,7 @@
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
+#import "Accent Color/ZBAccentColorTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionAccentColor,
@@ -229,19 +230,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 #pragma mark - Settings
 
 - (void)changeTint {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
+    ZBAccentColorTableViewController *controller = [[ZBAccentColorTableViewController alloc] init];
     controller.title = @"Accent Color";
-    controller.footerText = @[@"Change the accent color that displays across Zebra."];
-    controller.options = @[@"Cornflower Blue", @"System Blue", @"Orange", @"Adaptive"];
-    
-    ZBAccentColor color = [ZBSettings accentColor];
-    
-    controller.selectedRow = color;
-    controller.settingChanged = ^(NSInteger newValue) {
-        ZBAccentColor color = (ZBAccentColor)newValue;
-        [ZBSettings setAccentColor:color];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
+
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)toggleSystemStyle:(UISwitch *)sender {
