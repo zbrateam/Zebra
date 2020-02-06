@@ -53,9 +53,21 @@
 "Report a Bug" = "Nahlásiť Bug";
 
 "Accent Color" = "Doplnková farba";
-"Blue" = "Modrá";
-"Orange" = "Oranžová";
-"Adaptive" = "Adaptívny";
+
+// Accent Colors
+
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
 
 "Dark Mode Style" = "Štýl Tmavého Režimu";
 "Dark Mode" = "Tmavý režim";
