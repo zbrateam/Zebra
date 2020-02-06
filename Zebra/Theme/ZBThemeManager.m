@@ -99,7 +99,7 @@
 
 + (NSArray *)colors {
     NSMutableArray *colors = [NSMutableArray new];
-    for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorRoyalBlue; color++) {
+    for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorStorm; color++) {
         [colors addObject:@(color)];
     }
     return colors;
