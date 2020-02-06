@@ -27,7 +27,6 @@
         },
         @{
             @"iconName": @"originalBlack",
-            @"author": @"Carson Katri",
             @"readableName": @"Black with White Stripes",
             @"border": @NO
         },
