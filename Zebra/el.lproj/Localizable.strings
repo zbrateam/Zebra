@@ -61,13 +61,13 @@
 "Golden Tainoi" = "Golden Tainoi";
 "Iris Blue" = "Iris Blue";
 "Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Monochrome" = "Μονόχρωμο";
 "Mountain Meadow" = "Mountain Meadow";
 "Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Purple Heart" = "Μωβ Καρδιά";
+"Royal Blue" = "Βασιλικό Μπλε";
+"Shark" = "Καρχαρίας";
+"Storm" = "Καταιγίδα";
 
 "Dark Mode Style" = "Στιλ Σκουρόχρωμης Λειτουργίας";
 "Dark Mode" = "Σκουρόχρωμη Λειτουργία";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Προτεινόμενες Πηγές";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Αυτόματη Ολοκλήρωση";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
 "Close Zebra" = "Κλείσε το Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Κλείσιμο του Zebra...";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Γίνεται επανεκκίνηση του SpringBoard...";
 "Downloading" = "Γίνεται λήψη";
 "Parsing" = "Γίνεται ανάλυση";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
@@ -267,12 +267,12 @@
 "Complete" = "Ολοκλήρωση";
 "Finished!" = "Ολοκληρώθηκε!";
 "Return to Queue" = "Επιστροφή στην Ουρά";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Γίνεται επιστροφή στην Ουρά...";
 "Importing local packages." = "Γίνεται εισαγωγή τοπικών πακέτων.";
 "Finished importing local packages." = "Ολοκληρώθηκε η εισαγωγή τοπικών πακέτων.";
 "One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
-"Done..." = "Done...";
+"Done..." = "Τέλος...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Πακέτα στην Ουρά";
