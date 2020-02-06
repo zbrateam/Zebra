@@ -53,9 +53,21 @@
 "Report a Bug" = "报告 Bug";
 
 "Accent Color" = "主题颜色";
-"Blue" = "蓝色";
-"Orange" = "橙色";
-"Adaptive" = "自适应";
+
+// Accent Colors
+
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
 
 "Dark Mode Style" = "黑暗模式样式";
 "Dark Mode" = "黑暗模式";
