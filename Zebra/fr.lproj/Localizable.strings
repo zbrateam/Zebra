@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Sources en Vedette";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Terminer automatiquement";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Mise à jour asynchrone du cache des icônes...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Cela peut prendre un moment et peut conduire Zebra à se fermer. Tout va bien si tel est le cas.";
 "Close Zebra" = "Fermer Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Fermeture de Zebra...";
 "Restart SpringBoard" = "Redémarrer le SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Redémarrage du SpringBoard...";
 "Downloading" = "Téléchargement en cours";
 "Parsing" = "Analyse en cours";
 "Downloading Packages..." = "Téléchargement en cours des Paquets...";
@@ -267,12 +267,12 @@
 "Complete" = "Terminé";
 "Finished!" = "Terminé!";
 "Return to Queue" = "Retourner à la File d'attente";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Retour à la File d'attente...";
 "Importing local packages." = "Importation des paquets locaux.";
 "Finished importing local packages." = "Importation des paquets locaux terminée.";
 "One or more packages failed to download." = "Un ou plusieurs paquets n'ont pas pu être téléchargés.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Cliquez sur \"Retour à la File d'Attente\" pour retourner à la File d'Attente et retenter le téléchargement.";
-"Done..." = "Done...";
+"Done..." = "Terminé...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paquets en file d'attente";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Aléatoire\" affichera les paquets aléatoirement de toutes les sources que vous avez ajoutés à Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Fermer automatiquement la console une fois toutes ses tâches terminées.";
 
 "Community News" = "Actualités de la Communauté";
 "Import Sources" = "Importer des Sources";
