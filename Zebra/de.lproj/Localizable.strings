@@ -62,12 +62,12 @@
 "Iris Blue" = "Schwertlilien-Blau";
 "Lotus Pink" = "Rosa Lotus";
 "Monochrome" = "Schwarzweiß";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Mountain Meadow" = "Bergwiese";
+"Pastel Red" = "Pastellrot";
+"Purple Heart" = "Purpurherz";
+"Royal Blue" = "Königsblau";
+"Shark" = "Hai";
+"Storm" = "Sturm";
 
 "Dark Mode Style" = "Dunkelmodus-Stil";
 "Dark Mode" = "Dunkelmodus";
@@ -358,3 +358,5 @@
 
 "Import Sources" = "Quellen importieren";
 "Import" = "Importieren";
+
+"No Storefronts Available" = "No Storefronts Available";
