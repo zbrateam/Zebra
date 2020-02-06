@@ -61,7 +61,7 @@
 "Golden Tainoi" = "כתוב מוזהב";
 "Iris Blue" = "כחול איריס";
 "Lotus Pink" = "ורוד לוטוס";
-"Monochrome" = "מונוכרום";
+"Monochrome" = "שחור-לבן";
 "Mountain Meadow" = "ירוק הרים";
 "Pastel Red" = "אדום פסטל";
 "Purple Heart" = "סגול לב";
@@ -358,3 +358,5 @@
 
 "Import Sources" = "ייבא מקורות";
 "Import" = "ייבוא";
+
+"No Storefronts Available" = "No Storefronts Available";
