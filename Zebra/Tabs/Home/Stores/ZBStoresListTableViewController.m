@@ -54,7 +54,7 @@
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
+    return sources.count ? 65 : 44;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -65,20 +65,33 @@
     return MAX(sources.count, 1);
 }
 
-- (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
-    
-    ZBSource *source = [sources objectAtIndex:indexPath.row];
-    
-    cell.repoLabel.text = [source label];
-    cell.repoLabel.textColor = [UIColor primaryTextColor];
-    
-    cell.urlLabel.text = [source repositoryURI];
-    cell.urlLabel.textColor = [UIColor secondaryTextColor];
-    
-    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
- 
-    return cell;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (sources.count) {
+           ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+           
+           ZBSource *source = [sources objectAtIndex:indexPath.row];
+           
+           cell.repoLabel.text = [source label];
+           cell.repoLabel.textColor = [UIColor primaryTextColor];
+           
+           cell.urlLabel.text = [source repositoryURI];
+           cell.urlLabel.textColor = [UIColor secondaryTextColor];
+           
+           [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        
+           return cell;
+    }
+    else {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noStoresCell"];
+        cell.textLabel.text = NSLocalizedString(@"No Storefronts Available", @"");
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor secondaryTextColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
