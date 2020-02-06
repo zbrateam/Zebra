@@ -53,9 +53,21 @@
 "Report a Bug" = "버그 신고";
 
 "Accent Color" = "강조 컬러";
-"Blue" = "파란색";
-"Orange" = "노란색";
-"Adaptive" = "적응형";
+
+// Accent Colors
+
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
 
 "Dark Mode Style" = "다크 모드 스타일";
 "Dark Mode" = "다크 모드";
