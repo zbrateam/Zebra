@@ -56,18 +56,18 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Aqua Velvet" = "水蓝色";
+"Cornflower Blue" = "蓝色";
+"Golden Tainoi" = "金色";
+"Iris Blue" = "紫蓝色";
+"Lotus Pink" = "粉色";
+"Monochrome" = "单色";
+"Mountain Meadow" = "绿色";
+"Pastel Red" = "红色";
+"Purple Heart" = "紫色";
+"Royal Blue" = "深蓝色";
+"Shark" = "鲨鱼";
+"Storm" = "风暴";
 
 "Dark Mode Style" = "黑暗模式样式";
 "Dark Mode" = "黑暗模式";
@@ -359,4 +359,4 @@
 "Import Sources" = "导入软件源";
 "Import" = "导入";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "无可用的店铺";
