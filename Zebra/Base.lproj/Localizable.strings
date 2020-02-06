@@ -53,9 +53,21 @@
 "Report a Bug" = "Report a Bug";
 
 "Accent Color" = "Accent Color";
-"Blue" = "Blue";
-"Orange" = "Orange";
-"Adaptive" = "Adaptive";
+
+// Accent Colors
+
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue"
+"Shark" = "Shark";
+"Storm" = "Storm";
 
 "Dark Mode Style" = "Dark Mode Style";
 "Dark Mode" = "Dark Mode";

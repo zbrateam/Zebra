@@ -68,28 +68,28 @@
 
 + (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor {
     switch (accentColor) {
-        case ZBAccentColorCornflowerBlue:
-            return NSLocalizedString(@"Cornflower Blue", @"");
-        case ZBAccentColorMonochrome:
-            return NSLocalizedString(@"Monochrome", @"");
-        case ZBAccentColorShark:
-            return NSLocalizedString(@"Shark", @"");
-        case ZBAccentColorGoldenTainoi:
-            return NSLocalizedString(@"Golden Tainoi", @"");
-        case ZBAccentColorPastelRed:
-            return NSLocalizedString(@"Pastel Red", @"");
-        case ZBAccentColorLotusPink:
-            return NSLocalizedString(@"Lotus Pink", @"");
-        case ZBAccentColorIrisBlue:
-            return NSLocalizedString(@"Iris Blue", @"");
-        case ZBAccentColorMountainMeadow:
-            return NSLocalizedString(@"Mountain Meadow", @"");
         case ZBAccentColorAquaVelvet:
             return NSLocalizedString(@"Aqua Velvet", @"");
-        case ZBAccentColorRoyalBlue:
-            return NSLocalizedString(@"Royal Blue", @"");
+        case ZBAccentColorCornflowerBlue:
+            return NSLocalizedString(@"Cornflower Blue", @"");
+        case ZBAccentColorGoldenTainoi:
+            return NSLocalizedString(@"Golden Tainoi", @"");
+        case ZBAccentColorIrisBlue:
+            return NSLocalizedString(@"Iris Blue", @"");
+        case ZBAccentColorLotusPink:
+            return NSLocalizedString(@"Lotus Pink", @"");
+        case ZBAccentColorMonochrome:
+            return NSLocalizedString(@"Monochrome", @"");
+        case ZBAccentColorMountainMeadow:
+            return NSLocalizedString(@"Mountain Meadow", @"");
+        case ZBAccentColorPastelRed:
+            return NSLocalizedString(@"Pastel Red", @"");
         case ZBAccentColorPurpleHeart:
             return NSLocalizedString(@"Purple Heart", @"");
+        case ZBAccentColorRoyalBlue:
+            return NSLocalizedString(@"Royal Blue", @"");
+        case ZBAccentColorShark:
+            return NSLocalizedString(@"Shark", @"");
         case ZBAccentColorStorm:
             return NSLocalizedString(@"Storm", @"");
         default:
