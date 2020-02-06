@@ -38,19 +38,19 @@
     BOOL darkMode = style >= ZBInterfaceStyleDark;
     switch (accentColor) {
         case ZBAccentColorCornflowerBlue:
-            return [UIColor blueCornflowerColor];
+            return darkMode ? [UIColor colorWithRed:0.52 green:0.60 blue:1.00 alpha:1.0] : [UIColor blueCornflowerColor];
         case ZBAccentColorMonochrome:
             return darkMode ? [UIColor whiteColor] : [UIColor blackColor];
         case ZBAccentColorShark:
             return darkMode ? [UIColor colorWithRed:0.78 green:0.84 blue:0.90 alpha:1.0] : [UIColor colorWithRed:0.13 green:0.18 blue:0.24 alpha:1.0];
         case ZBAccentColorGoldenTainoi:
-            return darkMode ? [UIColor colorWithRed:1.00 green:0.62 blue:0.26 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.79 blue:0.34 alpha:1.0];
+            return darkMode ? [UIColor colorWithRed:1.00 green:0.79 blue:0.34 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.62 blue:0.26 alpha:1.0];
         case ZBAccentColorPastelRed:
             return darkMode ? [UIColor colorWithRed:0.93 green:0.32 blue:0.33 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.42 blue:0.42 alpha:1.0];
         case ZBAccentColorLotusPink:
             return darkMode ? [UIColor colorWithRed:0.95 green:0.41 blue:0.88 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.62 blue:0.95 alpha:1.0];
         case ZBAccentColorIrisBlue:
-            return darkMode ? [UIColor colorWithRed:0.04 green:0.74 blue:0.89 alpha:1.0] : [UIColor colorWithRed:0.28 green:0.86 blue:0.98 alpha:1.0];
+            return darkMode ? [UIColor colorWithRed:0.28 green:0.86 blue:0.98 alpha:1.0] : [UIColor colorWithRed:0.04 green:0.74 blue:0.89 alpha:1.0];
         case ZBAccentColorMountainMeadow:
             return darkMode ? [UIColor colorWithRed:0.06 green:0.67 blue:0.52 alpha:1.0] : [UIColor colorWithRed:0.11 green:0.82 blue:0.63 alpha:1.0];
         case ZBAccentColorAquaVelvet:
