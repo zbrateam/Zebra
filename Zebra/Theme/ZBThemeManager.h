@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)darkMode;
 - (void)updateInterfaceStyle;
 - (void)toggleTheme;
+- (void)configureNavigationBar;
 - (UIImage *)toggleImage;
 @end
 

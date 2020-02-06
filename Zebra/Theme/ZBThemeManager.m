@@ -166,8 +166,8 @@
         [[UITabBar appearance] setTranslucent:YES];
     }
     
+    [[UITabBar appearance] setTintColor:[UIColor accentColor]];
     if ([ZBThemeManager useCustomTheming]) {
-        [[UITabBar appearance] setTintColor:[UIColor accentColor]];
         [[UITabBar appearance] setBarStyle:[self darkMode] ? UIBarStyleBlack : UIBarStyleDefault];
     }
 }
@@ -196,10 +196,9 @@
         [[UINavigationBar appearance] setTranslucent:YES];
     }
     
+    [[UINavigationBar appearance] setTintColor:[UIColor accentColor]];
     if ([ZBThemeManager useCustomTheming]) {
-        [[UINavigationBar appearance] setTintColor:[UIColor accentColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]}];
-        
         [[UINavigationBar appearance] setBarStyle:[self darkMode] ? UIBarStyleBlack : UIBarStyleDefault];
         
         if (@available(iOS 11.0, *)) {

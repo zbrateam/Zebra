@@ -87,6 +87,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
 }
 
 - (void)setupFeatured {

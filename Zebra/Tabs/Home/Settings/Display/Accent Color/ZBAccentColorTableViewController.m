@@ -11,6 +11,7 @@
 #import "UIColor+GlobalColors.h"
 #import <ZBThemeManager.h>
 #import <ZBSettings.h>
+#import <ZBAppDelegate.h>
 
 @interface ZBAccentColorTableViewController () {
     NSArray *colors;
@@ -85,6 +86,10 @@
     selectedColor = newColor;
     
     [ZBSettings setAccentColor:newColor];
+    [[ZBThemeManager sharedInstance] configureNavigationBar];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+    [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor];
     
     UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
     [newCell setTintColor:[UIColor accentColor]];
