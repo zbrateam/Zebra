@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Öne çıkan kaynaklar";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Otomatik Sonlandır";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra Kapatılıyor...";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "SpringBoard Yeniden Başlatılıyor...";
 "Downloading" = "İndiriliyor";
 "Parsing" = "Ayrıştırılıyor";
 "Downloading Packages..." = "Paketler İndiriliyor...";
@@ -267,12 +267,12 @@
 "Complete" = "Tamamlandı";
 "Finished!" = "Bitti!";
 "Return to Queue" = "Sıraya Geri Dön";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Sıraya Dönülüyor...";
 "Importing local packages." = "Lokal paketler içeri alınıyor.";
 "Finished importing local packages." = "Lokal paketleri içeri alma bitti.";
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
-"Done..." = "Done...";
+"Done..." = "Tamamlandı...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paket Sıralandı";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
 
 "Community News" = "Topluluk Haberleri";
 "Import Sources" = "Kaynakları İçeri Al";
