@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
 
 "Community News" = "社区新闻";
 "Import Sources" = "导入软件源";
