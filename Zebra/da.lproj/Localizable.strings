@@ -53,9 +53,21 @@
 "Report a Bug" = "Rapporter en Fejl";
 
 "Accent Color" = "Markeringsfarve";
-"Blue" = "Blå";
-"Orange" = "Orange";
-"Adaptive" = "Adaptive";
+
+// Accent Colors
+
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
 
 "Dark Mode Style" = "Stil for mørkt udseende";
 "Dark Mode" = "Mørke Tilstand";
