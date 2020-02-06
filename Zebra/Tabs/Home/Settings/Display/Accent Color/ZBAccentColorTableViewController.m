@@ -65,6 +65,8 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    cell.tintColor = [UIColor accentColor];
+    
     UIColor *leftColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleLight];
     UIColor *rightColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleDark];
     [[cell imageView] setLeftColor:leftColor rightColor:rightColor];
