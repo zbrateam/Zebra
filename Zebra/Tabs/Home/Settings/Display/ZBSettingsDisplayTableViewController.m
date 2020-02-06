@@ -11,7 +11,6 @@
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
-#import "ZBRightIconTableViewCell.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionAccentColor,
@@ -93,15 +92,11 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBSectionAccentColor: {
-            ZBRightIconTableViewCell *colorCell = [tableView dequeueReusableCellWithIdentifier:@"settingsColorCell"];
-            colorCell.backgroundColor = [UIColor cellBackgroundColor];
-            
-            [colorCell setColor:[UIColor accentColor]];
-                        
-            colorCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            colorCell.label.text = NSLocalizedString(@"Accent Color", @"");
-            
-            return colorCell;
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"colorCell"];
+            cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
+            cell.detailTextLabel.text = [ZBThemeManager localizedNameForAccentColor:[ZBSettings accentColor]];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
         }
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {

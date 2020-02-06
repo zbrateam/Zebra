@@ -47,6 +47,30 @@
     }
 }
 
++ (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor {
+    switch (accentColor) {
+        case ZBAccentColorCornflowerBlue:
+            return NSLocalizedString(@"Cornflower Blue", @"");
+        case ZBAccentColorSystemBlue:
+            return NSLocalizedString(@"None", @"");;
+        case ZBAccentColorOrange:
+            return NSLocalizedString(@"Orange", @"");
+        case ZBAccentColorAdaptive: {
+            return NSLocalizedString(@"Monochromatic", @"");
+        }
+        default:
+            return @"I have no idea";
+    }
+}
+
++ (NSArray *)colors {
+    return @[@(ZBAccentColorCornflowerBlue),
+             @(ZBAccentColorOrange),
+             @(ZBAccentColorAdaptive),
+             @(ZBAccentColorSystemBlue)
+    ];
+}
+
 + (BOOL)useCustomTheming {
     if (@available(iOS 13.0, *)) {
         return NO;
