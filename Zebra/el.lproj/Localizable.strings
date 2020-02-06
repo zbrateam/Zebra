@@ -56,14 +56,14 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
+"Aqua Velvet" = "Υγρό Βελούδο";
+"Cornflower Blue" = "Κενταύριο Μπλε";
+"Golden Tainoi" = "Χρυσό Tainoi";
+"Iris Blue" = "Μπλε της Ίριδας";
+"Lotus Pink" = "Ροζ Νούφαρο";
 "Monochrome" = "Μονόχρωμο";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
+"Mountain Meadow" = "Ορεινό Λιβάδι";
+"Pastel Red" = "Παστέλ Κόκκινο";
 "Purple Heart" = "Μωβ Καρδιά";
 "Royal Blue" = "Βασιλικό Μπλε";
 "Shark" = "Καρχαρίας";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλες τις πηγές που έχεις προσθέσει στο Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Αυτόματη αγνόηση της Κονσόλας όταν όλες οι εργασίες έχουν ολοκληρωθεί.";
 
 "Community News" = "Νέα Κοινότητας";
 "Import Sources" = "Εισαγωγή Πηγών";
