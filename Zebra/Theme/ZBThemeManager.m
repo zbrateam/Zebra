@@ -58,7 +58,7 @@
         case ZBAccentColorRoyalBlue:
             return darkMode ? [UIColor colorWithRed:0.18 green:0.53 blue:0.87 alpha:1.0] : [UIColor colorWithRed:0.33 green:0.63 blue:1.00 alpha:1.0];
         case ZBAccentColorPurpleHeart:
-            return darkMode ? [UIColor colorWithRed:0.20 green:0.12 blue:0.59 alpha:1.0] : [UIColor colorWithRed:0.37 green:0.15 blue:0.80 alpha:1.0];
+            return darkMode ? [UIColor colorWithRed:0.33 green:0.32 blue:0.93 alpha:1.0] : [UIColor colorWithRed:0.42 green:0.36 blue:0.91 alpha:1.0];
         case ZBAccentColorStorm:
             return darkMode ? [UIColor colorWithRed:0.34 green:0.40 blue:0.45 alpha:1.0] : [UIColor colorWithRed:0.51 green:0.58 blue:0.65 alpha:1.0];
         default:
@@ -99,7 +99,7 @@
 
 + (NSArray *)colors {
     NSMutableArray *colors = [NSMutableArray new];
-    for (ZBAccentColor color = ZBAccentColorCornflowerBlue; color <= ZBAccentColorGoldenTainoi; color++) {
+    for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorRoyalBlue; color++) {
         [colors addObject:@(color)];
     }
     return colors;
