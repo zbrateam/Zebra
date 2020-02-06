@@ -537,6 +537,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
+    
+    settingsController.presentationController.delegate = self;
 }
 
 #pragma mark - Dark Mode
@@ -584,14 +586,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    if ([ZBDevice themingAllowed]) {
-//        return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-//    }
-//    else {
-//        return UIStatusBarStyleDefault;
-//    }
-//}
+- (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController {
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+}
 
 #pragma mark UICollectionView
 
