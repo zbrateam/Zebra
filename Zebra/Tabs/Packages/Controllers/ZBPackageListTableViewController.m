@@ -83,6 +83,9 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+
 }
 
 - (void)dealloc {
